@@ -1,0 +1,38 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: pensjonskalkulator-frontend
+  namespace: pensjonskalkulator
+  labels:
+    team: pensjonskalkulator
+  annotations:
+    nais.io/run-as-user: "101" # nginx
+spec:
+  image: {{ image }}
+  ingresses:
+    - https://www-gcp.dev.nav.no/pensjon/kalkulator
+  port: 8080
+  replicas:
+    min: 2
+    max: 2
+  liveness:
+    path: /internal/health/liveness
+    initialDelay: 20
+    periodSeconds: 20
+    failureThreshold: 5
+    timeout: 1
+  readiness:
+    path: /internal/health/readiness
+    initialDelay: 20
+    periodSeconds: 20
+    failureThreshold: 5
+    timeout: 1
+  accessPolicy:
+    outbound:
+      rules:
+        - application: pensjonskalkulator-backend
+  env:
+    - name: "PENSJONSKALKULATOR_BACKEND"
+      value: "https://pensjonskalkulator-backend.dev.nav.no"
+
+
