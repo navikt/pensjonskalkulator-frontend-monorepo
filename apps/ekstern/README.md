@@ -6,7 +6,8 @@ Dette er brukere som berøres av ny AFP-ordning i offentlig sektor, og som omfat
 
 ## Teknologi
 
-* Node > v19.6.0
+Prosjektet kjører med Node > v19.6.0 og Npm > v9.4.0
+
 * NGINX
 * Vite
 * React
