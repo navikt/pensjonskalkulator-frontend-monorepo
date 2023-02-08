@@ -1,4 +1,4 @@
-# pensjonskalkulator-backend
+# pensjonskalkulator-frontend
 
 Frontend-applikasjon for pensjonskalkulator for brukere født 1963 eller senere.
 
@@ -6,8 +6,11 @@ Dette er brukere som berøres av ny AFP-ordning i offentlig sektor, og som omfat
 
 ## Teknologi
 
-* React
+* Node > v19.6.0
 * NGINX
+* Vite
+* React
+* Typescript
 
 ## Henvendelser
 
