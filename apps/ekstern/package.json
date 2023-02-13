@@ -11,7 +11,9 @@
     "eslint:check": "eslint ./src",
     "eslint:fix": "eslint ./src --fix",
     "stylelint:check": "stylelint 'src/**/*.{css,scss}'",
-    "stylelint:fix": "stylelint 'src/**/*.{css,scss}' --fix"
+    "stylelint:fix": "stylelint 'src/**/*.{css,scss}' --fix",
+    "prettier:check": "prettier --check '**/*.{cjs,js,jsx,ts,tsx,.css,.scss,.json}'",
+    "prettier:fix": "prettier --write '**/*.{cjs,js,jsx,ts,tsx,.css,.scss,.json}'"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -26,12 +28,13 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-config-react-typescript": "^1.0.10",
     "eslint-plugin-import": "^2.27.5",
+    "prettier": "^2.8.4",
     "sass": "^1.58.0",
-    "stylelint": "^14.16.1",
-    "stylelint-config-standard": "^29.0.0",
+    "stylelint": "^15.1.0",
+    "stylelint-config-standard-scss": "^7.0.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
     "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-stylelint": "^4.1.8"
+    "vite-plugin-stylelint": "^4.2.0"
   }
 }
