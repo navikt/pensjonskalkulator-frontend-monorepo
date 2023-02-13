@@ -1,9 +1,12 @@
+
 import { useState } from 'react'
+
 import reactLogo from './assets/react.svg'
+
 import styles from './App.module.scss'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -17,7 +20,7 @@ function App() {
       </div>
       <h1 className={styles.title}>Pensjonskalkulator</h1>
       <div className={styles.card}>
-        <button className={styles.button} onClick={() => setCount((count) => count + 1)}>
+        <button className={styles.button} onClick={() => setCount((c) => c + 1)}>
           count is {count}
         </button>
         <p>
