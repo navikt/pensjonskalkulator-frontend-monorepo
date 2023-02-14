@@ -5,5 +5,6 @@ import stylelint from 'vite-plugin-stylelint'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/pensjon/kalkulator/',
   plugins: [react(), eslint(), stylelint({ fix: true })],
 })
