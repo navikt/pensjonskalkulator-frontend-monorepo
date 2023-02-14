@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "prebuild": "npm run stylelint:check && npm run eslint:check",
+    "prebuild": "npm run stylelint:check && npm run eslint:check && npm run prettier:check",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "eslint:check": "eslint ./src",
