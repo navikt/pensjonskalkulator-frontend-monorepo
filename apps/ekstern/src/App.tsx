@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { Button } from '@navikt/ds-react'
+
 import reactLogo from './assets/react.svg'
 
 import styles from './App.module.scss'
@@ -27,12 +29,12 @@ function App() {
       </div>
       <h1 className={styles.title}>Pensjonskalkulator</h1>
       <div className={styles.card}>
-        <button
+        <Button
           className={styles.button}
           onClick={() => setCount((c) => c + 1)}
         >
           count is {count}
-        </button>
+        </Button>
         <p>Lorem ipsum dolor sit amet</p>
       </div>
     </div>

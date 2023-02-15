@@ -2,72 +2,51 @@
   #root {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: var(--a-spacing-8);
     text-align: center;
   }
 }
 
 .logo {
   height: 6em;
-  padding: 1.5em;
+  padding: var(--a-spacing-6);
   will-change: filter;
   transition: filter 300ms;
   font-weight: 500;
-  color: #646cff;
+  color: var(--a-surface-warning-subtle-hover);
   text-decoration: inherit;
 
   &:hover {
-    color: #535bf2;
-    filter: drop-shadow(0 0 2em yellow);
+    filter: drop-shadow(0 0 2em var(--a-surface-action-hover));
   }
 
-  &--react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
+  &--react {
+    &:hover {
+      filter: drop-shadow(0 0 2em var(--a-surface-action-hover));
+    }
   }
 }
 
 .card {
-  padding: 2em;
+  padding: var(--a-spacing-8);
 }
 
 .title {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: var(--a-font-line-height-heading-2xlarge);
 }
 
 .button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-
-  &:hover {
-    border-color: #646cff;
-  }
-
-  &:focus,
-  &:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  }
+  margin-bottom: var(--a-spacing-12);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #fff;
+    color: var(--a-grayalpha-800);
+    background-color: var(--a-white);
   }
 
   a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
+    color: var(--a-green-300);
   }
 }
 
