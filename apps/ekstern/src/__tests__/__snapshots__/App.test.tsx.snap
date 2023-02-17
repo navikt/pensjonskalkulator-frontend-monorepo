@@ -1,0 +1,59 @@
+// Vitest Snapshot v1
+
+exports[`Når App importeres, Så rendres den slik den skal 1`] = `
+<div
+  className="App"
+>
+  <div>
+    <a
+      href="https://vitejs.dev"
+      target="_blank"
+    >
+      <img
+        alt="Vite logo"
+        className="_logo_ce1e69"
+        src="/pensjon/kalkulator/vite.svg"
+      />
+    </a>
+    <a
+      href="https://reactjs.org"
+      target="_blank"
+    >
+      <img
+        alt="React logo"
+        className="_logo_ce1e69 _logo--react_ce1e69"
+        src="/pensjon/kalkulator/src/assets/react.svg"
+      />
+    </a>
+  </div>
+  <h1
+    className="_title_ce1e69"
+  >
+    Pensjonskalkulator
+  </h1>
+  <div
+    className="_card_ce1e69"
+  >
+    <button
+      className="_button_ce1e69 navds-button navds-button--primary navds-button--medium"
+      onClick={[Function]}
+      style={
+        {
+          "width": undefined,
+        }
+      }
+    >
+      <span
+        aria-live="polite"
+        className="navds-label"
+      >
+        count is 
+        0
+      </span>
+    </button>
+    <p>
+      Du bør muligens spare bittelitt mer altså...
+    </p>
+  </div>
+</div>
+`;

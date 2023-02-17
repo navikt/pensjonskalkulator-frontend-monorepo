@@ -8,6 +8,9 @@
     "prebuild": "npm run stylelint:check && npm run eslint:check && npm run prettier:check",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
     "eslint:check": "eslint ./src",
     "eslint:fix": "eslint ./src --fix",
     "stylelint:check": "stylelint 'src/**/*.{css,scss}'",
@@ -22,21 +25,30 @@
     "react-dom": "~18.2.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "~18.0.27",
     "@types/react-dom": "~18.0.10",
+    "@types/react-test-renderer": "18.0.0",
     "@typescript-eslint/parser": "^5.51.0",
     "@vitejs/plugin-react": "^3.1.0",
+    "@vitest/coverage-c8": "^0.28.5",
+    "@vitest/ui": "^0.28.5",
     "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-config-react-typescript": "^1.0.10",
     "eslint-plugin-import": "^2.27.5",
+    "jsdom": "^21.1.0",
     "prettier": "^2.8.4",
+    "react-test-renderer": "18.2.0",
     "sass": "^1.58.0",
     "stylelint": "^15.1.0",
     "stylelint-config-standard-scss": "^7.0.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
     "vite-plugin-eslint": "^1.8.1",
-    "vite-plugin-stylelint": "^4.2.0"
+    "vite-plugin-stylelint": "^4.2.0",
+    "vitest": "^0.28.5"
   }
 }
