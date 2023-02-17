@@ -1,6 +1,8 @@
 dist/*
+coverage
 vite.config.ts
 .eslintrc.cjs
 .stylelintrc.cjs
 tsconfig.json
 tsconfig.node.json
+
