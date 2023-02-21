@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Button } from '@navikt/ds-react'
 
@@ -8,7 +8,28 @@ import reactLogo from './assets/react.svg'
 import styles from './App.module.scss'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState<number>(0)
+  const [livenessStatus, setLivenessStatus] = useState<string>('')
+
+  useEffect(() => {
+    const apiPath = '/internal/health/liveness'
+    fetch(apiPath, {
+      method: 'GET',
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Something went wrong')
+      })
+      .then((data) => {
+        setLivenessStatus(data.status)
+      })
+      .catch((error) => {
+        // TODO add error loggingto a server?
+        console.warn(error)
+      })
+  }, [])
 
   return (
     <div className="App">
@@ -28,7 +49,8 @@ function App() {
           />
         </a>
       </div>
-      <h1 className={styles.title}>Pensjonskalkulator</h1>
+      <h1 className={styles.title}>Pensjonskalkulator is "{livenessStatus}"</h1>
+
       <div className={styles.card}>
         <Button
           className={styles.button}

@@ -1,4 +1,5 @@
 dist/*
+api
 coverage
 vite.config.ts
 .eslintrc.cjs

@@ -28,5 +28,16 @@ const testConfig: UserConfig = {
 export default defineConfig({
   base: '/pensjon/kalkulator/',
   plugins: [react(), eslint(), stylelint({ fix: true })],
+  server: {
+    proxy: {
+      '/internal/health/liveness': {
+        target: process.env.VITE_MOCKAPI
+          ? 'http://localhost:8088'
+          : 'https://pensjonskalkulator-backend.dev.nav.no',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   ...testConfig,
 })
