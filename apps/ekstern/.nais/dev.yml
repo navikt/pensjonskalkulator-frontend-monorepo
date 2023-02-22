@@ -1,14 +1,14 @@
-apiVersion: 'nais.io/v1alpha1'
-kind: 'Application'
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
 metadata:
   name: pensjonskalkulator-frontend
   namespace: pensjonskalkulator
   labels:
     team: pensjonskalkulator
   annotations:
-    nais.io/run-as-user: '101' # nginx
+    nais.io/run-as-user: "101" # nginx
 spec:
-  image: { { image } }
+  image: {{ image }}
   ingresses:
     - https://www-gcp.dev.nav.no/pensjon/kalkulator
   port: 8080
@@ -40,5 +40,5 @@ spec:
       rules:
         - application: pensjonskalkulator-backend
   env:
-    - name: 'PENSJONSKALKULATOR_BACKEND'
-      value: 'https://pensjonskalkulator-backend.dev.nav.no'
+    - name: "PENSJONSKALKULATOR_BACKEND"
+      value: "https://pensjonskalkulator-backend.dev.nav.no"
