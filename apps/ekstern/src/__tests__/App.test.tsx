@@ -36,7 +36,7 @@ describe('Gitt at appen importeres,', () => {
     await act(async () => {
       renderer.create(<App />)
     })
-    expect(fetch).toHaveBeenCalledWith('/api/status', {
+    expect(fetch).toHaveBeenCalledWith('/pensjon/kalkulator/api/status', {
       method: 'GET',
     })
   })

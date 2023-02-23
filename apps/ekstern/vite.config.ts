@@ -30,12 +30,13 @@ export default defineConfig({
   plugins: [react(), eslint(), stylelint({ fix: true })],
   server: {
     proxy: {
-      '/api': {
+      '/pensjon/kalkulator/api': {
         target: process.env.VITE_MOCKAPI
           ? 'http://localhost:8088'
           : 'https://pensjonskalkulator-backend.dev.nav.no',
         changeOrigin: true,
         secure: false,
+        rewrite: (path) => path.replace(/^\/pensjon\/kalkulator/, ''),
       },
     },
   },

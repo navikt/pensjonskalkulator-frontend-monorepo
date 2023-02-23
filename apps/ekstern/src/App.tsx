@@ -12,7 +12,7 @@ function App() {
   const [livenessStatus, setLivenessStatus] = useState<string>('')
 
   useEffect(() => {
-    const apiPath = '/api/status'
+    const apiPath = '/pensjon/kalkulator/api/status'
     fetch(apiPath, {
       method: 'GET',
     })
