@@ -12,7 +12,7 @@ function App() {
   const [livenessStatus, setLivenessStatus] = useState<string>('')
 
   useEffect(() => {
-    const apiPath = '/internal/health/liveness'
+    const apiPath = '/api/status'
     fetch(apiPath, {
       method: 'GET',
     })

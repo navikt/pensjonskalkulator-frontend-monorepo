@@ -1,11 +1,11 @@
 const express = require('express')
-const data = require('./src/api/__mocks__/data.json')
+const data = require('../src/__mocks__/liveness.json')
 
 const app = express()
 const port = 8088
 
-//Endepunkt http://localhost:8088/internal/health/liveness
-app.get('/internal/health/liveness', (request, response) => {
+//Endepunkt http://localhost:8088/api/status
+app.get('/api/status', (request, response) => {
   response.send(data)
 })
 

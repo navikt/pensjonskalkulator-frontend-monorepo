@@ -30,7 +30,7 @@ export default defineConfig({
   plugins: [react(), eslint(), stylelint({ fix: true })],
   server: {
     proxy: {
-      '/internal/health/liveness': {
+      '/api': {
         target: process.env.VITE_MOCKAPI
           ? 'http://localhost:8088'
           : 'https://pensjonskalkulator-backend.dev.nav.no',

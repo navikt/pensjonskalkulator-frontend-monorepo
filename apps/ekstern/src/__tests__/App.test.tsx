@@ -36,7 +36,7 @@ describe('Gitt at appen importeres,', () => {
     await act(async () => {
       renderer.create(<App />)
     })
-    expect(fetch).toHaveBeenCalledWith('/internal/health/liveness', {
+    expect(fetch).toHaveBeenCalledWith('/api/status', {
       method: 'GET',
     })
   })

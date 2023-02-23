@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="155" lines-covered="155" line-rate="1" branches-valid="21" branches-covered="21" branch-rate="1" timestamp="1676973912259" complexity="0" version="0.1">
+<coverage lines-valid="155" lines-covered="155" line-rate="1" branches-valid="21" branches-covered="21" branch-rate="1" timestamp="1677136402195" complexity="0" version="0.1">
   <sources>
     <source>/Users/marionhauff/dev/pensjonskalkulator-frontend</source>
   </sources>
