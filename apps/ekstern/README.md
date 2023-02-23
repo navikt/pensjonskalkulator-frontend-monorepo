@@ -8,10 +8,40 @@ Dette er brukere som berøres av ny AFP-ordning i offentlig sektor, og som omfat
 
 Prosjektet kjører med Node > v19.6.0 og Npm > v9.4.0
 
-* NGINX
-* Vite
-* React
-* Typescript
+- NGINX
+- Vite
+- React
+- Typescript
+
+## Komme i gang
+
+```
+// Bygger applikasjonen og starter vite devserver på port :5173
+npm run start
+```
+
+```
+// Samme som npm run start, men starter også en express devserver som serverer mocks på port :8088
+// Env variablen VITE_MOCKAPI=true gjør at api kallene er proxiet mot express serveren
+npm run start:mock
+```
+
+```
+// Bygger applikasjonen og outputer de kompilerte filene under /dist
+// Kjører også eslint, prettier og stylelint som prebuild steg
+npm run build
+```
+
+```
+// Serveren de statiske filene som er bygd under /dist
+// Forutsetter at man har kjørt npm run build før
+npm run preview
+```
+
+```
+// Kjører testene og genererer coverage
+npm run test
+```
 
 ## Henvendelser
 

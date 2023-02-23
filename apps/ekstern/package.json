@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "start:mock": "node api/server.cjs & VITE_MOCKAPI=true vite",
-    "prebuild": "npm run stylelint:check && npm run eslint:check && npm run prettier:check",
+    "prebuild": "npm run eslint:check && npm run prettier:check && npm run stylelint:check",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run --coverage",

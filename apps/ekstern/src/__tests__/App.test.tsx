@@ -13,7 +13,7 @@ import {
   createFailureFetchResponse,
 } from '../test-utils'
 
-const data = require('../__mocks__/data.json')
+const data = require('../__mocks__/liveness.json')
 
 function mockLivenessSuccess() {
   const fetchMock = vi.fn().mockResolvedValue(createSuccessFetchResponse(data))
