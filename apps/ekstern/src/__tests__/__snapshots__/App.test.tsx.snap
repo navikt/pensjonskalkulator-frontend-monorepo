@@ -2,7 +2,7 @@
 
 exports[`Gitt at appen importeres, > Når Appen starter og at requesten er vellykket, Så rendres den slik den skal 1`] = `
 <div
-  className="App"
+  className="_app_ce1e69"
 >
   <div>
     <a
@@ -61,7 +61,7 @@ exports[`Gitt at appen importeres, > Når Appen starter og at requesten er velly
 
 exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, Så logges feilmeldingen og appen vises uten liveness status 1`] = `
 <div
-  className="App"
+  className="_app_ce1e69"
 >
   <div>
     <a

@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
 import stylelint from 'vite-plugin-stylelint'
@@ -13,7 +13,12 @@ const testConfig: UserConfig = {
       provider: 'c8',
       all: true,
       extension: ['.ts', '.tsx'],
-      exclude: ['vite.config.ts', 'src/**/*.d.ts', 'src/test-utils.ts'],
+      exclude: [
+        'vite.config.ts',
+        'src/test-utils.ts',
+        'src/**/*.d.ts',
+        'src/**/__tests__',
+      ],
       perFile: true,
       lines: 95,
       functions: 95,
@@ -25,9 +30,14 @@ const testConfig: UserConfig = {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: '/pensjon/kalkulator/',
-  plugins: [react(), eslint(), stylelint({ fix: true })],
+  plugins: [
+    react(),
+    eslint(),
+    stylelint({ fix: true }),
+    htmlPlugin(loadEnv(mode, '.')),
+  ],
   server: {
     proxy: {
       '/pensjon/kalkulator/api': {
@@ -41,4 +51,20 @@ export default defineConfig({
     },
   },
   ...testConfig,
-})
+}))
+
+/**
+ * Replace env variables in index.html
+ * @see https://github.com/vitejs/vite/issues/3105#issuecomment-939703781
+ * @see https://vitejs.dev/guide/api-plugin.html#transformindexhtml
+ */
+function htmlPlugin(env: ReturnType<typeof loadEnv>) {
+  return {
+    name: 'html-transform',
+    transformIndexHtml: {
+      enforce: 'pre' as const,
+      transform: (html: string): string =>
+        html.replace(/%(.*?)%/g, (match, p1) => env[p1] ?? match),
+    },
+  }
+}

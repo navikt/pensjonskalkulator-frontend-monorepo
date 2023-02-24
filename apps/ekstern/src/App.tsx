@@ -32,7 +32,7 @@ function App() {
   }, [])
 
   return (
-    <div className="App">
+    <div className={styles.app}>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img

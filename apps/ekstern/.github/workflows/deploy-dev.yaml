@@ -31,8 +31,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
       - name: Build application
         env:
-          REACT_APP_PENSJONSKALKULATOR_ENDPOINT: '/api/kalkulator'
-          REACT_APP_DEKORATOREN_URL: 'https://dekoratoren.dev.nav.no'
+          VITE_DEKORATOREN_URL: 'https://dekoratoren.dev.nav.no'
         run: npm run build
       - name: Test application
         run: npm run test

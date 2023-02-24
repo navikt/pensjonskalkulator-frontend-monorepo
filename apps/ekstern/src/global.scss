@@ -1,13 +1,17 @@
 :root {
+  margin: 0;
   color-scheme: light dark;
   color: var(--a-text-default);
   background-color: var(--a-bg-default);
 }
 
-body {
-  margin: 0;
+#root {
   display: flex;
   place-items: center;
+  text-align: center;
+  margin: 0 auto;
+  padding: var(--a-spacing-8);
   min-width: 320px;
-  min-height: 100vh;
+  max-width: 1280px;
+  min-height: 50vh;
 }
