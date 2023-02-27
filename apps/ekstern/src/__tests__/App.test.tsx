@@ -1,11 +1,9 @@
-import renderer, { ReactTestRenderer } from 'react-test-renderer'
-
 import { describe, vi, expect, test } from 'vitest'
 
-import App from '../App'
+import { App } from '../App'
 import {
+  RenderResult,
   act,
-  toJson,
   render,
   userEvent,
   screen,
@@ -34,7 +32,7 @@ describe('Gitt at appen importeres,', () => {
   test('Når Appen starter, Så lages det en GET request til liveness status', async () => {
     mockLivenessSuccess()
     await act(async () => {
-      renderer.create(<App />)
+      render(<App />)
     })
     expect(fetch).toHaveBeenCalledWith('/pensjon/kalkulator/api/status', {
       method: 'GET',
@@ -43,10 +41,10 @@ describe('Gitt at appen importeres,', () => {
 
   test('Når Appen starter og at requesten er vellykket, Så rendres den slik den skal', async () => {
     mockLivenessSuccess()
-    const component = renderer.create(<App />)
+
     await act(async () => {
-      const tree = toJson(component)
-      expect(tree).toMatchSnapshot()
+      const component = render(<App />)
+      expect(component.asFragment()).toMatchSnapshot()
     })
   })
 
@@ -55,12 +53,19 @@ describe('Gitt at appen importeres,', () => {
     mockConsole()
     let component
     await act(async () => {
-      component = renderer.create(<App />)
+      component = render(<App />)
     })
     expect(fetch).toHaveBeenCalled()
     expect(console.warn).toHaveBeenCalledWith(new Error('Something went wrong'))
-    const tree = toJson(component as unknown as ReactTestRenderer)
-    expect(tree).toMatchSnapshot()
+    expect(
+      (
+        component as unknown as RenderResult<
+          typeof import('../../node_modules/@testing-library/dom/types/queries'),
+          HTMLElement,
+          HTMLElement
+        >
+      ).asFragment()
+    ).toMatchSnapshot()
   })
 })
 

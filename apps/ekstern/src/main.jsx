@@ -2,13 +2,16 @@ import React from 'react'
 
 import ReactDOM from 'react-dom/client'
 
+import { App } from './App'
+import { ErrorBoundary } from './ErrorBoundary/ErrorBoundary'
 import '@navikt/ds-css'
 
-import App from './App'
 import './global.scss'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>
 )

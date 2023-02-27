@@ -7,7 +7,7 @@ import reactLogo from './assets/react.svg'
 
 import styles from './App.module.scss'
 
-function App() {
+export function App() {
   const [count, setCount] = useState<number>(0)
   const [livenessStatus, setLivenessStatus] = useState<string>('')
 
@@ -63,5 +63,3 @@ function App() {
     </div>
   )
 }
-
-export default App

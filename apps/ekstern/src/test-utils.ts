@@ -1,23 +1,21 @@
-import renderer from 'react-test-renderer'
-
 import { render } from '@testing-library/react'
 
-export function createSuccessFetchResponse(data: Record<string, unknown>) {
+export const createSuccessFetchResponse = (data: Record<string, unknown>) => {
   return { ok: true, json: () => new Promise((resolve) => resolve(data)) }
 }
 
-export function createFailureFetchResponse(statuscode?: number) {
+export const createFailureFetchResponse = (statuscode?: number) => {
   return {
     status: statuscode ?? 404,
     json: () => new Promise((resolve) => resolve({})),
   }
 }
 
-export function toJson(component: renderer.ReactTestRenderer) {
-  const result = component.toJSON()
-  expect(result).toBeDefined()
-  expect(result).not.toBeInstanceOf(Array)
-  return result as renderer.ReactTestRendererJSON
+export const swallowErrors = (testFn: () => void) => {
+  const error = console.error
+  console.error = () => {}
+  testFn()
+  console.error = error
 }
 
 const customRender = (ui: React.ReactElement, options = {}) =>

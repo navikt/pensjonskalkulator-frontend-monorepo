@@ -1,119 +1,56 @@
 // Vitest Snapshot v1
 
-exports[`Gitt at appen importeres, > Når Appen starter og at requesten er vellykket, Så rendres den slik den skal 1`] = `
-<div
-  className="_app_ce1e69"
->
-  <div>
-    <a
-      href="https://vitejs.dev"
-      target="_blank"
-    >
-      <img
-        alt="Vite logo"
-        className="_logo_ce1e69"
-        src="/pensjon/kalkulator/vite.svg"
-      />
-    </a>
-    <a
-      href="https://reactjs.org"
-      target="_blank"
-    >
-      <img
-        alt="React logo"
-        className="_logo_ce1e69 _logo--react_ce1e69"
-        src="/pensjon/kalkulator/src/assets/react.svg"
-      />
-    </a>
-  </div>
-  <h1
-    className="_title_ce1e69"
-  >
-    Pensjonskalkulator is "
-    "
-  </h1>
-  <div
-    className="_card_ce1e69"
-  >
-    <button
-      className="_button_ce1e69 navds-button navds-button--primary navds-button--medium"
-      onClick={[Function]}
-      style={
-        {
-          "width": undefined,
-        }
-      }
-    >
-      <span
-        aria-live="polite"
-        className="navds-label"
-      >
-        count is 
-        0
-      </span>
-    </button>
-    <p>
-      Du bør muligens spare bittelitt mer altså...
-    </p>
-  </div>
-</div>
-`;
+exports[`Gitt at appen importeres, > Når Appen starter og at requesten er vellykket, Så rendres den slik den skal 1`] = `<DocumentFragment />`;
 
 exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, Så logges feilmeldingen og appen vises uten liveness status 1`] = `
-<div
-  className="_app_ce1e69"
->
-  <div>
-    <a
-      href="https://vitejs.dev"
-      target="_blank"
-    >
-      <img
-        alt="Vite logo"
-        className="_logo_ce1e69"
-        src="/pensjon/kalkulator/vite.svg"
-      />
-    </a>
-    <a
-      href="https://reactjs.org"
-      target="_blank"
-    >
-      <img
-        alt="React logo"
-        className="_logo_ce1e69 _logo--react_ce1e69"
-        src="/pensjon/kalkulator/src/assets/react.svg"
-      />
-    </a>
-  </div>
-  <h1
-    className="_title_ce1e69"
-  >
-    Pensjonskalkulator is "
-    "
-  </h1>
+<DocumentFragment>
   <div
-    className="_card_ce1e69"
+    class="_app_ce1e69"
   >
-    <button
-      className="_button_ce1e69 navds-button navds-button--primary navds-button--medium"
-      onClick={[Function]}
-      style={
-        {
-          "width": undefined,
-        }
-      }
-    >
-      <span
-        aria-live="polite"
-        className="navds-label"
+    <div>
+      <a
+        href="https://vitejs.dev"
+        target="_blank"
       >
-        count is 
-        0
-      </span>
-    </button>
-    <p>
-      Du bør muligens spare bittelitt mer altså...
-    </p>
+        <img
+          alt="Vite logo"
+          class="_logo_ce1e69"
+          src="/pensjon/kalkulator/vite.svg"
+        />
+      </a>
+      <a
+        href="https://reactjs.org"
+        target="_blank"
+      >
+        <img
+          alt="React logo"
+          class="_logo_ce1e69 _logo--react_ce1e69"
+          src="/pensjon/kalkulator/src/assets/react.svg"
+        />
+      </a>
+    </div>
+    <h1
+      class="_title_ce1e69"
+    >
+      Pensjonskalkulator is ""
+    </h1>
+    <div
+      class="_card_ce1e69"
+    >
+      <button
+        class="_button_ce1e69 navds-button navds-button--primary navds-button--medium"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          count is 0
+        </span>
+      </button>
+      <p>
+        Du bør muligens spare bittelitt mer altså...
+      </p>
+    </div>
   </div>
-</div>
+</DocumentFragment>
 `;

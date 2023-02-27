@@ -9,6 +9,7 @@ const testConfig: UserConfig = {
   test: {
     environment: 'jsdom',
     globals: true,
+    setupFiles: 'src/test-setup.ts',
     coverage: {
       provider: 'c8',
       all: true,
