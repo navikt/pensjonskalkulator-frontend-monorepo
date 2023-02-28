@@ -14,9 +14,6 @@ export function App() {
   const [livenessStatus, setLivenessStatus] = useState<string>('')
 
   useEffect(() => {
-    // setLivenessStatus('down')
-    // throw new Error('my expected error')
-
     const apiPath = '/pensjon/kalkulator/api/status'
     fetch(apiPath, {
       method: 'GET',
