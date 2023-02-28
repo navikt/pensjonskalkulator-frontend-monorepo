@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/App.tsx</title>
+    <title>Code coverage report for App/App.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> App.tsx</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">App</a> App.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>65/65</span>
+                <span class='fraction'>74/74</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/65</span>
+                <span class='fraction'>74/74</span>
             </div>
         
             
@@ -128,7 +128,18 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -148,6 +159,9 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -159,6 +173,10 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -195,10 +213,12 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState, useEffect } from 'react'
 &nbsp;
-import { Button } from '@navikt/ds-react'
+import { Button, Heading } from '@navikt/ds-react'
+&nbsp;
+import reactLogo from '../assets/react.svg'
+import frameStyles from '../Frame/Frame.module.scss'
 &nbsp;
 import { onButtonClick } from './App-utils'
-import reactLogo from './assets/react.svg'
 &nbsp;
 import styles from './App.module.scss'
 &nbsp;
@@ -207,6 +227,9 @@ export function App() {
   const [livenessStatus, setLivenessStatus] = useState&lt;string&gt;('')
 &nbsp;
   useEffect(() =&gt; {
+    // setLivenessStatus('down')
+    // throw new Error('my expected error')
+&nbsp;
     const apiPath = '/pensjon/kalkulator/api/status'
     fetch(apiPath, {
       method: 'GET',
@@ -227,7 +250,9 @@ export function App() {
   }, [])
 &nbsp;
   return (
-    &lt;div className={styles.app}&gt;
+    &lt;div
+      className={`${frameStyles.frame} ${frameStyles.frame_isFlex} ${frameStyles.frame_hasPadding}`}
+    &gt;
       &lt;div&gt;
         &lt;a href="https://vitejs.dev" target="_blank"&gt;
           &lt;img
@@ -239,12 +264,14 @@ export function App() {
         &lt;a href="https://reactjs.org" target="_blank"&gt;
           &lt;img
             src={reactLogo}
-            className={`${styles.logo} ${styles['logo--react']}`}
+            className={`${styles.logo} ${styles.logo_react}`}
             alt="React logo"
           /&gt;
         &lt;/a&gt;
       &lt;/div&gt;
-      &lt;h1 className={styles.title}&gt;Pensjonskalkulator is "{livenessStatus}"&lt;/h1&gt;
+      &lt;Heading spacing size="large" level="1"&gt;
+        Pensjonskalkulator is "{livenessStatus}"
+      &lt;/Heading&gt;
 &nbsp;
       &lt;div className={styles.card}&gt;
         &lt;Button
@@ -253,7 +280,7 @@ export function App() {
         &gt;
           count is {count}
         &lt;/Button&gt;
-        &lt;p&gt;Du bør muligens spare bittelitt mer altså...&lt;/p&gt;
+        &lt;p&gt;{'Du bør muligens spare bittelitt mer altså...'}&lt;/p&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   )
@@ -265,7 +292,7 @@ export function App() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-27T10:49:19.077Z
+                at 2023-02-28T10:11:20.709Z
             </div>
         <script src="../prettify.js"></script>
         <script>

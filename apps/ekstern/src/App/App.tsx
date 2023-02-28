@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 
-import { Button } from '@navikt/ds-react'
+import { Button, Heading } from '@navikt/ds-react'
+
+import reactLogo from '../assets/react.svg'
+import frameStyles from '../Frame/Frame.module.scss'
 
 import { onButtonClick } from './App-utils'
-import reactLogo from './assets/react.svg'
 
 import styles from './App.module.scss'
 
@@ -12,6 +14,9 @@ export function App() {
   const [livenessStatus, setLivenessStatus] = useState<string>('')
 
   useEffect(() => {
+    // setLivenessStatus('down')
+    // throw new Error('my expected error')
+
     const apiPath = '/pensjon/kalkulator/api/status'
     fetch(apiPath, {
       method: 'GET',
@@ -32,7 +37,9 @@ export function App() {
   }, [])
 
   return (
-    <div className={styles.app}>
+    <div
+      className={`${frameStyles.frame} ${frameStyles.frame_isFlex} ${frameStyles.frame_hasPadding}`}
+    >
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img
@@ -44,12 +51,14 @@ export function App() {
         <a href="https://reactjs.org" target="_blank">
           <img
             src={reactLogo}
-            className={`${styles.logo} ${styles['logo--react']}`}
+            className={`${styles.logo} ${styles.logo_react}`}
             alt="React logo"
           />
         </a>
       </div>
-      <h1 className={styles.title}>Pensjonskalkulator is "{livenessStatus}"</h1>
+      <Heading spacing size="large" level="1">
+        Pensjonskalkulator is "{livenessStatus}"
+      </Heading>
 
       <div className={styles.card}>
         <Button
@@ -58,7 +67,7 @@ export function App() {
         >
           count is {count}
         </Button>
-        <p>Du bør muligens spare bittelitt mer altså...</p>
+        <p>{'Du bør muligens spare bittelitt mer altså...'}</p>
       </div>
     </div>
   )

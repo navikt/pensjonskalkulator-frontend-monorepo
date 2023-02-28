@@ -1,6 +1,5 @@
 import { describe, vi, expect, test } from 'vitest'
 
-import { App } from '../App'
 import {
   RenderResult,
   act,
@@ -9,9 +8,10 @@ import {
   screen,
   createSuccessFetchResponse,
   createFailureFetchResponse,
-} from '../test-utils'
+} from '../../test-utils'
+import { App } from '../App'
 
-const data = require('../__mocks__/liveness.json')
+const data = require('../../__mocks__/liveness.json')
 
 function mockLivenessSuccess() {
   const fetchMock = vi.fn().mockResolvedValue(createSuccessFetchResponse(data))
@@ -60,7 +60,7 @@ describe('Gitt at appen importeres,', () => {
     expect(
       (
         component as unknown as RenderResult<
-          typeof import('../../node_modules/@testing-library/dom/types/queries'),
+          typeof import('@testing-library/dom/types/queries'),
           HTMLElement,
           HTMLElement
         >

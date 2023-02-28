@@ -1,14 +1,3 @@
-.app {
-  display: flex;
-  flex-flow: column;
-  place-items: center;
-  text-align: center;
-  min-width: 320px;
-  max-width: 1280px;
-  min-height: 50vh;
-  margin: 0 auto;
-}
-
 .logo {
   height: 6em;
   padding: var(--a-spacing-6);
@@ -22,7 +11,7 @@
     filter: drop-shadow(0 0 2em var(--a-surface-action-hover));
   }
 
-  &--react {
+  &_react {
     &:hover {
       filter: drop-shadow(0 0 2em var(--a-surface-action-hover));
     }
@@ -31,10 +20,6 @@
 
 .card {
   padding: var(--a-spacing-8);
-}
-
-.title {
-  font-size: var(--a-font-line-height-heading-2xlarge);
 }
 
 .button {

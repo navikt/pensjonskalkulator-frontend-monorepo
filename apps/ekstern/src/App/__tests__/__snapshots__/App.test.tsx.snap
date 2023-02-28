@@ -5,7 +5,7 @@ exports[`Gitt at appen importeres, > Når Appen starter og at requesten er velly
 exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, Så logges feilmeldingen og appen vises uten liveness status 1`] = `
 <DocumentFragment>
   <div
-    class="_app_ce1e69"
+    class="_frame_f5d647 _frame_isFlex_f5d647 _frame_hasPadding_f5d647"
   >
     <div>
       <a
@@ -14,7 +14,7 @@ exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, 
       >
         <img
           alt="Vite logo"
-          class="_logo_ce1e69"
+          class="_logo_728e4a"
           src="/pensjon/kalkulator/vite.svg"
         />
       </a>
@@ -24,21 +24,21 @@ exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, 
       >
         <img
           alt="React logo"
-          class="_logo_ce1e69 _logo--react_ce1e69"
+          class="_logo_728e4a _logo_react_728e4a"
           src="/pensjon/kalkulator/src/assets/react.svg"
         />
       </a>
     </div>
     <h1
-      class="_title_ce1e69"
+      class="navds-heading navds-heading--large navds-typo--spacing"
     >
       Pensjonskalkulator is ""
     </h1>
     <div
-      class="_card_ce1e69"
+      class="_card_728e4a"
     >
       <button
-        class="_button_ce1e69 navds-button navds-button--primary navds-button--medium"
+        class="_button_728e4a navds-button navds-button--primary navds-button--medium"
       >
         <span
           aria-live="polite"

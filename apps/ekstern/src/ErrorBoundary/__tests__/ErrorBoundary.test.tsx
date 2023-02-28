@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 
-import { render, screen, swallowErrors } from '../../test-utils'
+import { RenderResult, render, screen, swallowErrors } from '../../test-utils'
 import { ErrorBoundary } from '../ErrorBoundary'
 
 describe('Gitt at ErrorBoundary wrapper en komponent,', () => {
@@ -24,18 +24,26 @@ describe('Gitt at ErrorBoundary wrapper en komponent,', () => {
     const ComponentThatThrows = () => {
       throw new Error('my expected error')
     }
-
+    let component
     swallowErrors(() => {
-      render(
+      component = render(
         <ErrorBoundary>
           <ComponentThatThrows />
         </ErrorBoundary>
       )
 
-      expect(screen.getByRole('heading')).toBeInTheDocument()
       expect(screen.getByRole('heading')).toHaveTextContent(
-        'Sorry.. there was an error'
+        'Beklager, det har oppstått en feil'
       )
+      expect(
+        (
+          component as unknown as RenderResult<
+            typeof import('@testing-library/dom/types/queries'),
+            HTMLElement,
+            HTMLElement
+          >
+        ).asFragment()
+      ).toMatchSnapshot()
     })
   })
 })
