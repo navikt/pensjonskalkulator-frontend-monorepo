@@ -8,4 +8,6 @@ vite.config.ts
 .stylelintrc.cjs
 tsconfig.json
 tsconfig.node.json
+*.scss.d.ts
+src/style.d.ts
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
-<coverage lines-valid="123" lines-covered="123" line-rate="1" branches-valid="16" branches-covered="16" branch-rate="1" timestamp="1677579080728" complexity="0" version="0.1">
+<coverage lines-valid="120" lines-covered="120" line-rate="1" branches-valid="16" branches-covered="16" branch-rate="1" timestamp="1677661130861" complexity="0" version="0.1">
   <sources>
     <source>/Users/marionhauff/dev/pensjonskalkulator-frontend</source>
   </sources>
@@ -38,12 +38,12 @@
             </method>
             <method name="onClick" hits="1" signature="()V">
               <lines>
-                <line number="66" hits="1"/>
+                <line number="63" hits="1"/>
               </lines>
             </method>
             <method name="get" hits="4" signature="()V">
               <lines>
-                <line number="74" hits="4"/>
+                <line number="71" hits="4"/>
               </lines>
             </method>
           </methods>
@@ -68,22 +68,22 @@
             <line number="18" hits="4" branch="false"/>
             <line number="19" hits="4" branch="false"/>
             <line number="20" hits="4" branch="false"/>
-            <line number="21" hits="4" branch="false"/>
-            <line number="22" hits="4" branch="false"/>
-            <line number="23" hits="4" branch="false"/>
-            <line number="24" hits="4" branch="true" condition-coverage="100% (1/1)"/>
-            <line number="25" hits="4" branch="true" condition-coverage="100% (1/1)"/>
-            <line number="26" hits="2" branch="false"/>
-            <line number="27" hits="2" branch="false"/>
+            <line number="21" hits="4" branch="true" condition-coverage="100% (1/1)"/>
+            <line number="22" hits="4" branch="true" condition-coverage="100% (1/1)"/>
+            <line number="23" hits="2" branch="false"/>
+            <line number="24" hits="2" branch="false"/>
+            <line number="25" hits="2" branch="false"/>
+            <line number="26" hits="4" branch="false"/>
+            <line number="27" hits="4" branch="true" condition-coverage="100% (1/1)"/>
             <line number="28" hits="2" branch="false"/>
             <line number="29" hits="4" branch="false"/>
             <line number="30" hits="4" branch="true" condition-coverage="100% (1/1)"/>
             <line number="31" hits="2" branch="false"/>
-            <line number="32" hits="4" branch="false"/>
-            <line number="33" hits="4" branch="true" condition-coverage="100% (1/1)"/>
-            <line number="34" hits="2" branch="false"/>
-            <line number="35" hits="2" branch="false"/>
-            <line number="36" hits="4" branch="false"/>
+            <line number="32" hits="2" branch="false"/>
+            <line number="33" hits="4" branch="false"/>
+            <line number="34" hits="7" branch="false"/>
+            <line number="35" hits="7" branch="false"/>
+            <line number="36" hits="7" branch="false"/>
             <line number="37" hits="7" branch="false"/>
             <line number="38" hits="7" branch="false"/>
             <line number="39" hits="7" branch="false"/>
@@ -110,18 +110,15 @@
             <line number="60" hits="7" branch="false"/>
             <line number="61" hits="7" branch="false"/>
             <line number="62" hits="7" branch="false"/>
-            <line number="63" hits="7" branch="false"/>
+            <line number="63" hits="7" branch="true" condition-coverage="100% (1/1)"/>
             <line number="64" hits="7" branch="false"/>
             <line number="65" hits="7" branch="false"/>
-            <line number="66" hits="7" branch="true" condition-coverage="100% (1/1)"/>
+            <line number="66" hits="7" branch="false"/>
             <line number="67" hits="7" branch="false"/>
             <line number="68" hits="7" branch="false"/>
             <line number="69" hits="7" branch="false"/>
             <line number="70" hits="7" branch="false"/>
-            <line number="71" hits="7" branch="false"/>
-            <line number="72" hits="7" branch="false"/>
-            <line number="73" hits="7" branch="false"/>
-            <line number="74" hits="4" branch="true" condition-coverage="100% (1/1)"/>
+            <line number="71" hits="4" branch="true" condition-coverage="100% (1/1)"/>
           </lines>
         </class>
       </classes>
