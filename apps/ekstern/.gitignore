@@ -7,10 +7,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Generated
 node_modules
 dist
 dist-ssr
-coverage/tmp
+coverage
 *.local
 .stylelintcache
 
@@ -24,4 +25,3 @@ coverage/tmp
 *.njsproj
 *.sln
 *.sw?
-
