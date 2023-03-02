@@ -21,6 +21,8 @@ const testConfig: UserConfig = {
         'src/test-utils.ts',
         'src/**/*.d.ts',
         'src/**/__tests__',
+        'cypress',
+        'cypress.config.ts',
       ],
       perFile: true,
       lines: 95,
