@@ -49,6 +49,9 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
+      - name: Install cypress
+        run: npx cypress install
+
       - name: Run integration tests
         run: npm run cy:test
 
