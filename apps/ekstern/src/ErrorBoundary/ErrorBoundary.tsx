@@ -18,6 +18,7 @@ export class ErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // console.error('Successfully caught error by boundary:', error.name)
     // TODO legge til error logging
