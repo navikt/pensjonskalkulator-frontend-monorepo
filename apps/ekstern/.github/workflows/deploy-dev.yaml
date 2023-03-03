@@ -49,7 +49,20 @@ jobs:
         run: npm run test
 
       - name: Run integration tests
-        run: npm run cy:test
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm run preview
+          wait-on: 'http://localhost:4173/pensjon/kalkulator'
+          wait-on-timeout: 120
+          browser: chrome
+          config-file: cypress.config.ts
+
+      - name: Archive Cypress artifacts
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: videos
+          path: cypress/videos
 
       - name: Build Docker image dev-gcp
         run: |
