@@ -1,4 +1,4 @@
-name: Build, test, push, deploy to dev-gcp
+name: Build and deploy
 
 on:
   push:

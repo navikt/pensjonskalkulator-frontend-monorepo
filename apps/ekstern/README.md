@@ -1,5 +1,9 @@
 # pensjonskalkulator-frontend
 
+---
+
+![Build and deploy](https://github.com/navikt/pensjonskalkulator-frontend/actions/workflows/deploy-dev.yaml/badge.svg)
+
 Frontend-applikasjon for pensjonskalkulator for brukere født 1963 eller senere.
 
 Dette er brukere som berøres av ny AFP-ordning i offentlig sektor, og som omfattes av kapittel 20 i
