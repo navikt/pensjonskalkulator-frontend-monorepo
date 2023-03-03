@@ -50,7 +50,7 @@ jobs:
         run: npm run test
 
       - name: Run integration tests
-        run: npm run test:cy
+        run: npm run cy:test
 
       - name: Archive Cypress artifacts
         uses: actions/upload-artifact@v3
