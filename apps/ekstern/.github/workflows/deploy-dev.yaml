@@ -49,6 +49,12 @@ jobs:
       - name: Run unit tests
         run: npm run test
 
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage
+
       - name: Install cypress
         run: npx cypress install
 
