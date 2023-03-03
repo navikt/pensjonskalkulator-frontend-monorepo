@@ -1,8 +1,8 @@
 # pensjonskalkulator-frontend
 
----
-
+[
 ![Build and deploy](https://github.com/navikt/pensjonskalkulator-frontend/actions/workflows/deploy-dev.yaml/badge.svg)
+](https://github.com/navikt/pensjonskalkulator-frontend/actions/workflows/deploy-dev.yaml)
 
 Frontend-applikasjon for pensjonskalkulator for brukere født 1963 eller senere.
 
