@@ -2,7 +2,8 @@
 
 Frontend-applikasjon for pensjonskalkulator for brukere født 1963 eller senere.
 
-Dette er brukere som berøres av ny AFP-ordning i offentlig sektor, og som omfattes av kapittel 20 i pensjonsregelverket (ikke kapittel 19).
+Dette er brukere som berøres av ny AFP-ordning i offentlig sektor, og som omfattes av kapittel 20 i
+pensjonsregelverket (ikke kapittel 19).
 
 ## Teknologi
 
@@ -39,10 +40,17 @@ npm run preview
 ```
 
 ```
-// Kjører testene og genererer coverage
+// Kjører enhetstester og genererer coverage
 npm run test
+```
+
+```
+// Kjører integrasjonstester.
+// Tester opp mot den bundlede applikasjonen i /dist, så husk å bygge appen før kjøring.
+npm run cy:test
 ```
 
 ## Henvendelser
 
-NAV-interne henvendelser kan sendes via Slack i kanalen [#pensjonskalkulator](https://nav-it.slack.com/archives/C04M46SPSRL).
+NAV-interne henvendelser kan sendes via Slack i
+kanalen [#pensjonskalkulator](https://nav-it.slack.com/archives/C04M46SPSRL).
