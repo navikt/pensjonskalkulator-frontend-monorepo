@@ -47,7 +47,7 @@ jobs:
         with:
           start: npm run preview
           wait-on: 'http://localhost:4173/pensjon/kalkulator'
-          wait-on-timeout: 120
+          wait-on-timeout: 20
           browser: chrome
           config-file: cypress.config.ts
 
