@@ -58,6 +58,9 @@ jobs:
     strategy:
       fail-fast: true
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -82,6 +85,9 @@ jobs:
     strategy:
       fail-fast: true
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -123,6 +129,9 @@ jobs:
     env:
       IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend:${{ github.sha }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
       - name: Download the build folders
         uses: actions/download-artifact@v3
         with:
