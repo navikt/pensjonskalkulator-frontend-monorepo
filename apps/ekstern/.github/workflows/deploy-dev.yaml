@@ -17,33 +17,47 @@ jobs:
         with:
           node-version: '19.6.0'
           registry-url: 'https://npm.pkg.github.com'
+
       - name: Checkout
         uses: actions/checkout@v2
-      - uses: actions/cache@v1
+
+      - name: Cache node modules
+        uses: actions/cache@v1
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
       - name: Build application
         env:
           VITE_DEKORATOREN_URL: 'https://dekoratoren.dev.nav.no'
         run: npm run build
-      - name: Test application
+
+      - name: Run unit tests
         run: npm run test
+
+      - name: Run integration tests
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm run preview
+
       - name: Build Docker image dev-gcp
         run: |
           docker build -f .docker/Dockerfile -t ${IMAGE} .
+
       - name: Log in to the container registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Push Docker image
         uses: docker/build-push-action@v2
         with:
@@ -51,6 +65,7 @@ jobs:
           file: .docker/Dockerfile
           push: true
           tags: ${{ env.IMAGE }}
+
       - name: Deploy to dev-gcp
         uses: nais/deploy/actions/deploy@v1
         env:
