@@ -1,27 +1,12 @@
+@import '../assets/variables';
+
 .frame {
   width: 100%;
   margin: 0 auto;
-  min-height: 50vh;
+  min-height: 40vh;
 
-  // TODO introduce breakpoints
-  //   @media (min-width: 576px) {
-  //   }
-
-  //   /* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
-  //   @media (min-width: 768px) {
-  //   }
-
-  //   /* Large devices (desktops, 992px and up) */
-  //   @media (min-width: 992px) {
-  //   }
-
-  //   /* Extra large devices (large desktops, 1200px and up) */
-  //   @media (min-width: 1200px) {
-  //   }
-
-  /* Extra extra large devices (extra large desktops, 1400px and up) */
-  @media (min-width: 1400px) {
-    max-width: 1280px;
+  @media (min-width: $breakpoint-xl) {
+    max-width: $content-area-desktop;
   }
 
   &_isFlex {
