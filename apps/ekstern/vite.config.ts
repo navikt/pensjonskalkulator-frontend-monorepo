@@ -21,6 +21,7 @@ const testConfig: UserConfig = {
         'src/test-utils.ts',
         'src/**/*.d.ts',
         'src/**/__tests__',
+        'src/main.tsx',
         'cypress',
         'cypress.config.ts',
       ],
