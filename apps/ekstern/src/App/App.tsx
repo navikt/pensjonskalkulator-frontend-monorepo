@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button, Heading } from '@navikt/ds-react'
 
@@ -34,7 +34,7 @@ export function App() {
   }, [])
 
   return (
-    <div
+    <main
       className={`${frameStyles.frame} ${frameStyles.frame_isFlex} ${frameStyles.frame_hasPadding}`}
     >
       <div>
@@ -66,6 +66,6 @@ export function App() {
         </Button>
         <p>{'Du bør muligens spare bittelitt mer altså...'}</p>
       </div>
-    </div>
+    </main>
   )
 }
