@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Button, Heading } from '@navikt/ds-react'
 
 import reactLogo from '../assets/react.svg'
+import viteLogo from '../assets/vite.svg'
 import frameStyles from '../Frame/Frame.module.scss'
 
 import { onButtonClick } from './App-utils'
@@ -39,11 +40,7 @@ export function App() {
     >
       <div>
         <a href="https://vitejs.dev" target="_blank">
-          <img
-            src="/pensjon/kalkulator/vite.svg"
-            className={styles.logo}
-            alt="Vite logo"
-          />
+          <img src={viteLogo} className={styles.logo} alt="Vite logo" />
         </a>
         <a href="https://reactjs.org" target="_blank">
           <img

@@ -15,7 +15,7 @@ exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, 
         <img
           alt="Vite logo"
           class="_logo_728e4a"
-          src="/pensjon/kalkulator/vite.svg"
+          src="/pensjon/kalkulator/src/assets/vite.svg"
         />
       </a>
       <a
