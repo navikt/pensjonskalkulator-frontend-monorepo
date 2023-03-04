@@ -4,7 +4,7 @@ exports[`Gitt at appen importeres, > Når Appen starter og at requesten er velly
 
 exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, Så logges feilmeldingen og appen vises uten liveness status 1`] = `
 <DocumentFragment>
-  <div
+  <main
     class="_frame_f5d647 _frame_isFlex_f5d647 _frame_hasPadding_f5d647"
   >
     <div>
@@ -51,6 +51,6 @@ exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, 
         Du bør muligens spare bittelitt mer altså...
       </p>
     </div>
-  </div>
+  </main>
 </DocumentFragment>
 `;

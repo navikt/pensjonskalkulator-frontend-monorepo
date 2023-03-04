@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "preview:mock": "npm run server:mock & VITE_MOCKAPI=true vite preview",
     "test": "vitest run --coverage",
+    "test:update": "vitest -u",
     "server:mock": "node api/server.cjs",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
