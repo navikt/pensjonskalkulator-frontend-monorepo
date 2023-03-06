@@ -28,16 +28,9 @@ jobs:
             ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Cache Cypress binary
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-          restore-keys: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-
       - name: Install dependencies
         if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
@@ -50,8 +43,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist
-          if-no-files-found: error
           path: dist
+          if-no-files-found: error
+          retention-days: 1
 
   run-unit-tests:
     name: Run unit tests
@@ -74,7 +68,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
@@ -107,6 +101,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Cache Cypress binary
+        id: cache-cypress
         uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
@@ -120,12 +115,12 @@ jobs:
 
       - name: Install dependencies
         if: steps.cache-node.outputs.cache-hit != 'true'
-        run: npm install
+        run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Install cypress
-        if: steps.cache-node.outputs.cache-hit != 'true'
+        if: steps.cache-cypress.outputs.cache-hit != 'true'
         run: npx cypress install
 
       - name: Run integration tests
