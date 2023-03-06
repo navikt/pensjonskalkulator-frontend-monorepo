@@ -52,6 +52,9 @@ npm run test
 // Kjører integrasjonstester.
 // Tester opp mot den bundlede applikasjonen i /dist, så husk å bygge appen før kjøring.
 npm run cy:test
+
+// Kjører tester i nettleseren
+npm run cy:open
 ```
 
 ## Henvendelser
