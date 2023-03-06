@@ -18,7 +18,15 @@ jobs:
         with:
           node-version: '19.6.0'
           registry-url: 'https://npm.pkg.github.com'
-          cache: 'npm'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Cache Cypress binary
         uses: actions/cache@v3
@@ -28,6 +36,7 @@ jobs:
           restore-keys: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
 
       - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
         run: npm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
@@ -54,14 +63,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Use Node.js v19.6.0
-        uses: actions/setup-node@v3
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v3
         with:
-          node-version: '19.6.0'
-          registry-url: 'https://npm.pkg.github.com'
-          cache: 'npm'
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
         run: npm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
@@ -85,19 +97,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Use Node.js v19.6.0
-        uses: actions/setup-node@v3
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v3
         with:
-          node-version: '19.6.0'
-          registry-url: 'https://npm.pkg.github.com'
-          cache: 'npm'
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Cache Cypress binary
         uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
-          restore-keys: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
 
       - name: Download the build folders
         uses: actions/download-artifact@v3
@@ -106,6 +119,7 @@ jobs:
           path: dist
 
       - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
         run: npm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
