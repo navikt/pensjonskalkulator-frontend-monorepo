@@ -3,14 +3,11 @@
 
 version: 2
 updates:
-
-  # Update GitHub action
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
       interval: 'weekly'
-
-  # Update npm dependencies
+      
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
