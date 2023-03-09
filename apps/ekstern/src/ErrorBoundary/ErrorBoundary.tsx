@@ -1,6 +1,7 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import frameStyles from '../Frame/Frame.module.scss'
 
@@ -28,7 +29,7 @@ export class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className={`${frameStyles.frame} ${frameStyles.frame_hasPadding}`}>
+        <div className={clsx(frameStyles.frame, frameStyles.frame_hasPadding)}>
           <Alert variant="error">
             <Heading spacing size="small" level="1">
               Beklager, det har oppstått en feil

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { Button, Heading } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import reactLogo from '../assets/react.svg'
 import viteLogo from '../assets/vite.svg'
@@ -36,7 +37,11 @@ export function App() {
 
   return (
     <main
-      className={`${frameStyles.frame} ${frameStyles.frame_isFlex} ${frameStyles.frame_hasPadding}`}
+      className={clsx(
+        frameStyles.frame,
+        frameStyles.frame_isFlex,
+        frameStyles.frame_hasPadding
+      )}
     >
       <div>
         <a href="https://vitejs.dev" target="_blank">
@@ -45,7 +50,7 @@ export function App() {
         <a href="https://reactjs.org" target="_blank">
           <img
             src={reactLogo}
-            className={`${styles.logo} ${styles.logo_react}`}
+            className={clsx(styles.logo, styles.logo_react)}
             alt="React logo"
           />
         </a>
