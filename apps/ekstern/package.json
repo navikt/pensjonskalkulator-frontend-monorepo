@@ -58,7 +58,7 @@
     "sass": "^1.58.0",
     "start-server-and-test": "^2.0.0",
     "stylelint": "^15.1.0",
-    "stylelint-config-standard-scss": "^7.0.0",
+    "stylelint-config-standard-scss": "^7.0.1",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
     "vite-plugin-eslint": "^1.8.1",
