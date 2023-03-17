@@ -1,5 +1,5 @@
 describe('Pensjonskalkulator', () => {
-  it('viser status', () => {
+  it('rendrer som den skal uten åpenbare a11y-feil', () => {
     cy.intercept(
       { method: 'GET', url: '/pensjon/kalkulator/api/pensjonsberegning' },
       {
