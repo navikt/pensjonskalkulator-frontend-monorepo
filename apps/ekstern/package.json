@@ -26,8 +26,9 @@
     "prettier:fix": "prettier --write '**/*.{cjs,js,jsx,ts,tsx,.css,.scss,.json}'"
   },
   "dependencies": {
-    "@navikt/ds-css": "~2.1.7",
-    "@navikt/ds-react": "~2.1.7",
+    "@navikt/ds-css": "^2.8.0",
+    "@navikt/ds-react": "^2.8.0",
+    "@navikt/ds-tokens": "^2.8.0",
     "clsx": "^1.2.1",
     "react": "~18.2.0",
     "react-dom": "~18.2.0"

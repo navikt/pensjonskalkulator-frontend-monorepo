@@ -1,56 +1,45 @@
 // Vitest Snapshot v1
 
-exports[`Gitt at appen importeres, > Når Appen starter og at requesten er vellykket, Så rendres den slik den skal 1`] = `<DocumentFragment />`;
-
-exports[`Gitt at appen importeres, > Når Appen starter og at requesten feiler, Så logges feilmeldingen og appen vises uten liveness status 1`] = `
+exports[`App > rendrer slik den skal 1`] = `
 <DocumentFragment>
   <main
-    class="_frame_f5d647 _frame_isFlex_f5d647 _frame_hasPadding_f5d647"
+    class="_frame_f5d647 _frame_isFlex_f5d647 _frame_hasPadding_f5d647 _main_728e4a"
   >
-    <div>
-      <a
-        href="https://vitejs.dev"
-        target="_blank"
-      >
-        <img
-          alt="Vite logo"
-          class="_logo_728e4a"
-          src="/pensjon/kalkulator/src/assets/vite.svg"
-        />
-      </a>
-      <a
-        href="https://reactjs.org"
-        target="_blank"
-      >
-        <img
-          alt="React logo"
-          class="_logo_728e4a _logo_react_728e4a"
-          src="/pensjon/kalkulator/src/assets/react.svg"
-        />
-      </a>
-    </div>
     <h1
-      class="navds-heading navds-heading--large navds-typo--spacing"
+      class="_heading_728e4a navds-heading navds-heading--large"
     >
-      Pensjonskalkulator is ""
+      Din pensjon
     </h1>
-    <div
-      class="_card_728e4a"
+    <svg
+      aria-labelledby="loader-r0"
+      class="navds-loader navds-loader--medium navds-loader--neutral"
+      data-testid="loader"
+      focusable="false"
+      preserveAspectRatio="xMidYMid"
+      viewBox="0 0 50 50"
     >
-      <button
-        class="_button_728e4a navds-button navds-button--primary navds-button--medium"
+      <title
+        id="loader-r0"
       >
-        <span
-          aria-live="polite"
-          class="navds-label"
-        >
-          count is 0
-        </span>
-      </button>
-      <p>
-        Du bør muligens spare bittelitt mer altså...
-      </p>
-    </div>
+        venter...
+      </title>
+      <circle
+        class="navds-loader__background"
+        cx="25"
+        cy="25"
+        fill="none"
+        r="20"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      <circle
+        class="navds-loader__foreground"
+        cx="25"
+        cy="25"
+        fill="none"
+        r="20"
+        stroke-dasharray="50 155"
+      />
+    </svg>
   </main>
 </DocumentFragment>
 `;

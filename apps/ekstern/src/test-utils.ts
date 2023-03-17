@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-export const createSuccessFetchResponse = (data: Record<string, unknown>) => {
+export const createSuccessFetchResponse = (data: unknown) => {
   return { ok: true, json: () => new Promise((resolve) => resolve(data)) }
 }
 
@@ -9,13 +9,6 @@ export const createFailureFetchResponse = (statuscode?: number) => {
     status: statuscode ?? 404,
     json: () => new Promise((resolve) => resolve({})),
   }
-}
-
-export const swallowErrors = (testFn: () => void) => {
-  const error = console.error
-  console.error = () => {}
-  testFn()
-  console.error = error
 }
 
 const customRender = (ui: React.ReactElement, options = {}) =>

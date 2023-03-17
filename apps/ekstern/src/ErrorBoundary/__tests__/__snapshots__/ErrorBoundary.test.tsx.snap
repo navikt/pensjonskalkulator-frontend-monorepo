@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Gitt at ErrorBoundary wrapper en komponent, > Når den nested komponent kaster feil, Så vises det riktig feilmelding fra ErrorBoundary 1`] = `
+exports[`ErrorBoundary > rendrer feilmelding når det kastes en feil i children 1`] = `
 <DocumentFragment>
   <div
     class="_frame_f5d647 _frame_hasPadding_f5d647"
@@ -37,9 +37,9 @@ exports[`Gitt at ErrorBoundary wrapper en komponent, > Når den nested komponent
         <h1
           class="navds-heading navds-heading--small navds-typo--spacing"
         >
-          Beklager, det har oppstått en feil
+          Oisann!
         </h1>
-        Lorem ipsum dolor sit amet
+        Det har oppstått en feil. Prøv igjen senere.
       </div>
     </div>
   </div>

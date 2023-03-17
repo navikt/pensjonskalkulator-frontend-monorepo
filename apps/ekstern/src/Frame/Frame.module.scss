@@ -4,6 +4,7 @@
   width: 100%;
   margin: 0 auto;
   min-height: 40vh;
+  max-width: $breakpoint-xl;
 
   @media (min-width: $breakpoint-xl) {
     max-width: $content-area-desktop;
@@ -12,11 +13,9 @@
   &_isFlex {
     display: flex;
     flex-flow: column;
-    place-items: center;
-    text-align: center;
   }
 
   &_hasPadding {
-    padding: var(--a-spacing-8);
+    padding: var(--a-spacing-6);
   }
 }

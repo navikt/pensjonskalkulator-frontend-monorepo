@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom/client'
 import { App } from './App/App'
 import { ErrorBoundary } from './ErrorBoundary/ErrorBoundary'
 import '@navikt/ds-css'
+import '@navikt/ds-tokens'
 
 const rootId = 'root'
 const root = document.getElementById(rootId)

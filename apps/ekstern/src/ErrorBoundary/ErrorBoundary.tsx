@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react'
+import React, { Component, ReactNode } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -19,9 +19,7 @@ export class ErrorBoundary extends Component<Props, State> {
     this.state = { hasError: false }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // console.error('Successfully caught error by boundary:', error.name)
+  componentDidCatch() {
     // TODO legge til error logging
     this.setState({ hasError: true })
   }
@@ -32,9 +30,9 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className={clsx(frameStyles.frame, frameStyles.frame_hasPadding)}>
           <Alert variant="error">
             <Heading spacing size="small" level="1">
-              Beklager, det har oppstått en feil
+              Oisann!
             </Heading>
-            Lorem ipsum dolor sit amet
+            Det har oppstått en feil. Prøv igjen senere.
           </Alert>
         </div>
       )

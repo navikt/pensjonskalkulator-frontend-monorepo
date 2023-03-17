@@ -1,12 +1,16 @@
 const express = require('express')
-const data = require('../src/__mocks__/liveness.json')
+const liveness = require('../src/__mocks__/liveness.json')
+const pensjonsberegning = require('../src/__mocks__/pensjonsberegning.json')
 
 const app = express()
 const port = 8088
 
-//Endepunkt http://localhost:8088/api/status
 app.get('/api/status', (request, response) => {
-  response.send(data)
+  response.send(liveness)
+})
+
+app.get('/api/pensjonsberegning', async (request, response) => {
+  response.send(pensjonsberegning)
 })
 
 app.listen(process.env.PORT || port, () => {

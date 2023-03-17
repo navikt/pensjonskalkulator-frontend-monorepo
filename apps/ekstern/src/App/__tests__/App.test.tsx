@@ -1,78 +1,35 @@
-import { describe, vi, expect, test } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import { afterAll, describe, it, vi } from 'vitest'
 
-import {
-  RenderResult,
-  act,
-  render,
-  userEvent,
-  screen,
-  createSuccessFetchResponse,
-  createFailureFetchResponse,
-} from '../../test-utils'
+import { createSuccessFetchResponse } from '../../test-utils'
 import { App } from '../App'
 
-const data = require('../../__mocks__/liveness.json')
+// TODO:
+//  Trenger vi egentlig å teste denne? Cypress håndterer allerede
+//  smoketesting av appen og det er ingen kompleks logikk å teste
+//  i App-komponenten
 
-function mockLivenessSuccess() {
-  const fetchMock = vi.fn().mockResolvedValue(createSuccessFetchResponse(data))
-  global.fetch = fetchMock
+const cachedFetch = global.fetch
+
+const beregning: Pensjonsberegning = {
+  pensjonsaar: 2020,
+  pensjonsbeloep: 1234,
+  alder: 67,
 }
 
-function mockLivenessFailure() {
-  const fetchMock = vi.fn().mockResolvedValue(createFailureFetchResponse())
-  global.fetch = fetchMock
-}
+global.fetch = vi
+  .fn()
+  .mockResolvedValue(createSuccessFetchResponse([beregning]))
 
-function mockConsole() {
-  const consoleMock = vi.fn()
-  global.console.warn = consoleMock
-}
-
-describe('Gitt at appen importeres,', () => {
-  test('Når Appen starter, Så lages det en GET request til liveness status', async () => {
-    mockLivenessSuccess()
-    await act(async () => {
-      render(<App />)
-    })
-    expect(fetch).toHaveBeenCalledWith('/pensjon/kalkulator/api/status', {
-      method: 'GET',
-    })
+describe('App', () => {
+  afterAll(() => {
+    global.fetch = cachedFetch
   })
 
-  test('Når Appen starter og at requesten er vellykket, Så rendres den slik den skal', async () => {
-    mockLivenessSuccess()
+  it('rendrer slik den skal', async () => {
+    const result = render(<App />)
 
-    await act(async () => {
-      const component = render(<App />)
-      expect(component.asFragment()).toMatchSnapshot()
-    })
+    expect(screen.getByText('Din pensjon')).toBeVisible()
+    expect(result.asFragment()).toMatchSnapshot()
   })
-
-  test('Når Appen starter og at requesten feiler, Så logges feilmeldingen og appen vises uten liveness status', async () => {
-    mockLivenessFailure()
-    mockConsole()
-    let component
-    await act(async () => {
-      component = render(<App />)
-    })
-    expect(fetch).toHaveBeenCalled()
-    expect(console.warn).toHaveBeenCalledWith(new Error('Something went wrong'))
-    expect(
-      (
-        component as unknown as RenderResult<
-          typeof import('@testing-library/dom/types/queries'),
-          HTMLElement,
-          HTMLElement
-        >
-      ).asFragment()
-    ).toMatchSnapshot()
-  })
-})
-
-test('Når brukeren klikker på count knappen, Så øker count', async () => {
-  render(<App />)
-  const btn = screen.getByRole('button')
-  expect(btn.textContent).toBe('count is 0')
-  await userEvent.click(btn)
-  expect(btn.textContent).toBe('count is 1')
 })
