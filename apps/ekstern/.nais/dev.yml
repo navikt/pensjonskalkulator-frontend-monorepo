@@ -41,4 +41,4 @@ spec:
         - application: pensjonskalkulator-backend
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
-      value: "https://pensjonskalkulator-backend.ekstern.dev.nav.no"
+      value: "http://pensjonskalkulator-backend.pensjonskalkulator"
