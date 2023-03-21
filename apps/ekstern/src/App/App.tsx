@@ -1,6 +1,4 @@
 import React from 'react'
-
-import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import frameStyles from '../Frame/Frame.module.scss'
@@ -18,10 +16,7 @@ export function App() {
         styles.main
       )}
     >
-      <Heading size="large" level="1" className={styles.heading}>
-        Din pensjon
-      </Heading>
-      <Pensjonsberegning />
+      <Pensjonsberegning/>
     </main>
   )
 }

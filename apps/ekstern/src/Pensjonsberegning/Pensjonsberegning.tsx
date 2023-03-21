@@ -1,14 +1,34 @@
-import React from 'react'
-
-import { Alert, BodyLong, Heading, Loader } from '@navikt/ds-react'
+import React, { useState } from 'react'
+import {
+  Alert,
+  BodyLong,
+  Button,
+  Heading,
+  Link,
+  Loader,
+  ToggleGroup,
+} from '@navikt/ds-react'
 
 import { useGetPensjonsberegningQuery } from '../state/api/apiSlice'
 import { isPensjonsberegning } from '../state/api/typeguards'
+import { formatAsDecimal } from '../utils/currency'
 
 import styles from './Pensjonsberegning.module.scss'
+import { BarChartIcon, TableIcon } from '@navikt/aksel-icons'
+import { PensjonsberegningChart } from './PensjonsberegningChart'
+
+const useInntekt = () => {
+  return 678_000
+}
 
 export function Pensjonsberegning() {
   const { data, isLoading, isError } = useGetPensjonsberegningQuery()
+  const inntekt = useInntekt()
+  const [viewMode, setViewMode] = useState<'chart' | 'table'>('chart')
+
+  const toggleViewMode = () => {
+    setViewMode((prevState) => (prevState === 'chart' ? 'table' : 'chart'))
+  }
 
   if (isLoading && !data) {
     return (
@@ -34,23 +54,37 @@ export function Pensjonsberegning() {
 
   return (
     <section className={styles.sammenligning}>
+      <Heading size="large" level="1">
+        Hei Ola!
+      </Heading>
       <BodyLong>
-        Hvis du fortsetter å ha samme inntekt som du har i dag kan du tidligst
-        gå av med pensjon ved <b>{data[0].alder} år</b> hvor du vil få utbetalt{' '}
-        <b>{data[0].pensjonsbeloep} kroner</b> i året
+        Hvis du fortsetter å ha en inntekt på{' '}
+        <strong>{formatAsDecimal(inntekt)} kr</strong> kan du tidligst gå av med
+        alderspensjon når du blir <strong>{data[0].alder} år</strong>. Hvis du
+        går av senere, får du høyere pensjon.
       </BodyLong>
-      {data[1] && (
-        <BodyLong>
-          Dersom du jobber frem til du er <b>{data[1].alder} år</b>, vil du få{' '}
-          <b>{data[1].pensjonsbeloep} kroner</b> utbetalt
-        </BodyLong>
-      )}
-      {data[2] && (
-        <BodyLong>
-          Dersom du jobber frem til du er <b>{data[2].alder} år</b>, vil du få{' '}
-          <b>{data[2].pensjonsbeloep} kroner</b> utbetalt
-        </BodyLong>
-      )}
+      <section aria-label="Pensjonsberegning" className={styles.chart}>
+        <PensjonsberegningChart
+          lønn={inntekt}
+          beregning={data}
+          asTable={viewMode === 'table'}
+        />
+      </section>
+      <Button variant="secondary">Sjekk hele pensjonen din</Button>
+      <Link href="#">Om hvordan vi beregner din pensjon</Link>
+      <ToggleGroup
+        className={styles.toggleGroup}
+        onChange={toggleViewMode}
+        size="small"
+        defaultValue={viewMode}
+      >
+        <ToggleGroup.Item value="chart">
+          <BarChartIcon title="Diagram" />
+        </ToggleGroup.Item>
+        <ToggleGroup.Item value="table">
+          <TableIcon title="Tabell" />
+        </ToggleGroup.Item>
+      </ToggleGroup>
     </section>
   )
 }
