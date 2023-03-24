@@ -25,18 +25,12 @@ const findMaxValue = (data: ChartData[]): number => {
 
 interface Props {
   data: ChartData[]
-  asTable?: boolean
 }
 
-export function BarChart({ data, asTable = false }: Props) {
+export function BarChart({ data }: Props) {
   const maxValue = findMaxValue(data)
   return (
-    <table
-      className={clsx(
-        asTable ? styles.table : styles.chart,
-        asTable && 'navds-table'
-      )}
-    >
+    <table className={clsx(styles.chart)}>
       <thead>
         <tr>
           {data.map(({ label }) => (
@@ -55,7 +49,7 @@ export function BarChart({ data, asTable = false }: Props) {
               key={i}
             >
               <BodyShort>{formatAsDecimal(value)}</BodyShort>
-              {!asTable && <figure className={styles.bar} />}
+              <figure className={styles.bar} />
             </td>
           ))}
         </tr>

@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { BarChartIcon, TableIcon } from '@navikt/aksel-icons'
 import {
   Alert,
   BodyLong,
@@ -8,7 +7,6 @@ import {
   Heading,
   Link,
   Loader,
-  ToggleGroup,
 } from '@navikt/ds-react'
 
 import { useGetPensjonsberegningQuery } from '../state/api/apiSlice'
@@ -26,11 +24,6 @@ const useInntekt = () => {
 export function Pensjonsberegning() {
   const { data, isLoading, isError } = useGetPensjonsberegningQuery()
   const inntekt = useInntekt()
-  const [viewMode, setViewMode] = useState<'chart' | 'table'>('chart')
-
-  const toggleViewMode = () => {
-    setViewMode((prevState) => (prevState === 'chart' ? 'table' : 'chart'))
-  }
 
   if (isLoading && !data) {
     return (
@@ -66,27 +59,10 @@ export function Pensjonsberegning() {
         går av senere, får du høyere pensjon.
       </BodyLong>
       <section aria-label="Pensjonsberegning" className={styles.chart}>
-        <PensjonsberegningChart
-          lønn={inntekt}
-          beregning={data}
-          asTable={viewMode === 'table'}
-        />
+        <PensjonsberegningChart lønn={inntekt} beregning={data} />
       </section>
       <Button variant="secondary">Sjekk hele pensjonen din</Button>
       <Link href="#">Om hvordan vi beregner din pensjon</Link>
-      <ToggleGroup
-        className={styles.toggleGroup}
-        onChange={toggleViewMode}
-        size="small"
-        defaultValue={viewMode}
-      >
-        <ToggleGroup.Item value="chart">
-          <BarChartIcon title="Diagram" />
-        </ToggleGroup.Item>
-        <ToggleGroup.Item value="table">
-          <TableIcon title="Tabell" />
-        </ToggleGroup.Item>
-      </ToggleGroup>
     </section>
   )
 }

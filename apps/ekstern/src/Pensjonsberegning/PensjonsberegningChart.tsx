@@ -19,15 +19,10 @@ const mapToChartData = (
 interface Props {
   lønn: number
   beregning: Pensjonsberegning[]
-  asTable?: boolean
 }
 
-export function PensjonsberegningChart({
-  lønn,
-  beregning,
-  asTable = false,
-}: Props) {
+export function PensjonsberegningChart({ lønn, beregning }: Props) {
   const data = mapToChartData(lønn, beregning)
 
-  return <BarChart data={data} asTable={asTable} />
+  return <BarChart data={data} />
 }
