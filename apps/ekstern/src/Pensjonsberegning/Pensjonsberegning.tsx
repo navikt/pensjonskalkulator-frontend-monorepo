@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+
+import { BarChartIcon, TableIcon } from '@navikt/aksel-icons'
 import {
   Alert,
   BodyLong,
@@ -13,9 +15,9 @@ import { useGetPensjonsberegningQuery } from '../state/api/apiSlice'
 import { isPensjonsberegning } from '../state/api/typeguards'
 import { formatAsDecimal } from '../utils/currency'
 
-import styles from './Pensjonsberegning.module.scss'
-import { BarChartIcon, TableIcon } from '@navikt/aksel-icons'
 import { PensjonsberegningChart } from './PensjonsberegningChart'
+
+import styles from './Pensjonsberegning.module.scss'
 
 const useInntekt = () => {
   return 678_000

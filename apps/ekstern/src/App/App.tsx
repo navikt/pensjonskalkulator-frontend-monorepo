@@ -1,4 +1,5 @@
 import React from 'react'
+
 import clsx from 'clsx'
 
 import frameStyles from '../Frame/Frame.module.scss'
@@ -16,7 +17,7 @@ export function App() {
         styles.main
       )}
     >
-      <Pensjonsberegning/>
+      <Pensjonsberegning />
     </main>
   )
 }

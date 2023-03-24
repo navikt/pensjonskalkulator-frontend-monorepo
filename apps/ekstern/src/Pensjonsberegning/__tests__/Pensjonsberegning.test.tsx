@@ -4,18 +4,21 @@ import { mockErrorResponse, mockResponse } from '../../api/server'
 import { render, screen, swallowErrorsAsync, waitFor } from '../../test-utils'
 import { Pensjonsberegning } from '../Pensjonsberegning'
 
-const pensjonsberegningData = require('../../api/__mocks__/pensjonsberegning.json')
-
 describe('Pensjonsberegning', () => {
   it('viser loading og deretter pensjonsberegning hentet fra backend', async () => {
     const result = render(<Pensjonsberegning />)
     expect(screen.getByTestId('loader')).toBeVisible()
 
     await waitFor(() => {
-      for (const { alder, pensjonsbeloep } of pensjonsberegningData) {
-        expect(screen.getByText(`${alder} år`)).toBeVisible()
-        expect(screen.getByText(`${pensjonsbeloep} kroner`)).toBeVisible()
-      }
+      expect(screen.getByText('Hei Ola!')).toBeVisible()
+      expect(
+        screen.getByText('Hvis du fortsetter å ha en inntekt på', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(screen.getByRole('link')).toHaveTextContent(
+        'Om hvordan vi beregner din pensjon'
+      )
       expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
       expect(result.asFragment()).toMatchSnapshot()
     })

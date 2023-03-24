@@ -5,41 +5,217 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
   <main
     class="_frame_f5d647 _frame_isFlex_f5d647 _frame_hasPadding_f5d647 _main_728e4a"
   >
-    <h1
-      class="_heading_728e4a navds-heading navds-heading--large"
+    <section
+      class="_sammenligning_e128d6"
     >
-      Din pensjon
-    </h1>
-    <svg
-      aria-labelledby="loader-r0"
-      class="navds-loader navds-loader--3xlarge navds-loader--neutral"
-      data-testid="loader"
-      focusable="false"
-      preserveAspectRatio="xMidYMid"
-      viewBox="0 0 50 50"
-    >
-      <title
-        id="loader-r0"
+      <h1
+        class="navds-heading navds-heading--large"
       >
-        Henter pensjonsberegning
-      </title>
-      <circle
-        class="navds-loader__background"
-        cx="25"
-        cy="25"
-        fill="none"
-        r="20"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-      <circle
-        class="navds-loader__foreground"
-        cx="25"
-        cy="25"
-        fill="none"
-        r="20"
-        stroke-dasharray="50 155"
-      />
-    </svg>
+        Hei Ola!
+      </h1>
+      <p
+        class="navds-body-long"
+      >
+        Hvis du fortsetter å ha en inntekt på 
+        <strong>
+          678 000 kr
+        </strong>
+         kan du tidligst gå av med alderspensjon når du blir 
+        <strong>
+          67 år
+        </strong>
+        . Hvis du går av senere, får du høyere pensjon.
+      </p>
+      <section
+        aria-label="Pensjonsberegning"
+        class="_chart_e128d6"
+      >
+        <table
+          class="_chart_99557b"
+        >
+          <thead>
+            <tr>
+              <th
+                class="_header_99557b"
+              >
+                Lønn
+              </th>
+              <th
+                class="_header_99557b"
+              >
+                67 år
+              </th>
+              <th
+                class="_header_99557b"
+              >
+                68 år
+              </th>
+              <th
+                class="_header_99557b"
+              >
+                69 år
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                class="_cell_99557b"
+                style="--height: 128px;"
+              >
+                <p
+                  class="navds-body-short"
+                >
+                  678 000
+                </p>
+                <figure
+                  class="_bar_99557b"
+                />
+              </td>
+              <td
+                class="_cell_99557b"
+                style="--height: 56.63716814159292px;"
+              >
+                <p
+                  class="navds-body-short"
+                >
+                  300 000
+                </p>
+                <figure
+                  class="_bar_99557b"
+                />
+              </td>
+              <td
+                class="_cell_99557b"
+                style="--height: 66.07669616519173px;"
+              >
+                <p
+                  class="navds-body-short"
+                >
+                  350 000
+                </p>
+                <figure
+                  class="_bar_99557b"
+                />
+              </td>
+              <td
+                class="_cell_99557b"
+                style="--height: 75.51622418879056px;"
+              >
+                <p
+                  class="navds-body-short"
+                >
+                  400 000
+                </p>
+                <figure
+                  class="_bar_99557b"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <button
+        class="navds-button navds-button--secondary navds-button--medium"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          Sjekk hele pensjonen din
+        </span>
+      </button>
+      <a
+        class="navds-link"
+        href="#"
+      >
+        Om hvordan vi beregner din pensjon
+      </a>
+      <div
+        class="navds-toggle-group__wrapper _toggleGroup_e128d6"
+      >
+        <div
+          class="navds-toggle-group navds-toggle-group--small navds-toggle-group--action"
+          dir="ltr"
+          role="radiogroup"
+          style="outline: none;"
+          tabindex="0"
+        >
+          <button
+            aria-checked="true"
+            class="navds-toggle-group__button"
+            data-radix-collection-item=""
+            data-state="on"
+            role="radio"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="navds-toggle-group__button-inner navds-label navds-label--small"
+            >
+              <svg
+                aria-labelledby="title-r3"
+                fill="none"
+                focusable="false"
+                height="1em"
+                role="img"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title
+                  id="title-r3"
+                >
+                  Diagram
+                </title>
+                <path
+                  clip-rule="evenodd"
+                  d="M14.75 20.25V3.75h2.5v16.5h-2.5Zm-1.5 0h-2.5V10.5c0-.69-.56-1.25-1.25-1.25h-3c-.69 0-1.25.56-1.25 1.25v9.75H4a.75.75 0 0 0 0 1.5h16a.75.75 0 0 0 0-1.5h-1.25V3.5c0-.69-.56-1.25-1.25-1.25h-3c-.69 0-1.25.56-1.25 1.25v16.75Zm-6.5-9.5v9.5h2.5v-9.5h-2.5Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+          <button
+            aria-checked="false"
+            class="navds-toggle-group__button"
+            data-radix-collection-item=""
+            data-state="off"
+            role="radio"
+            tabindex="-1"
+            type="button"
+          >
+            <span
+              class="navds-toggle-group__button-inner navds-label navds-label--small"
+            >
+              <svg
+                aria-labelledby="title-r5"
+                fill="none"
+                focusable="false"
+                height="1em"
+                role="img"
+                viewBox="0 0 24 24"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title
+                  id="title-r5"
+                >
+                  Tabell
+                </title>
+                <path
+                  clip-rule="evenodd"
+                  d="M6 3.25A2.75 2.75 0 0 0 3.25 6v12A2.75 2.75 0 0 0 6 20.75h12A2.75 2.75 0 0 0 20.75 18V6A2.75 2.75 0 0 0 18 3.25H6Zm9.75 16H18c.69 0 1.25-.56 1.25-1.25V9.75h-3.5v9.5Zm-1.5-9.5v9.5h-4.5v-9.5h4.5Zm.75-1.5h4.25V6c0-.69-.56-1.25-1.25-1.25H6c-.69 0-1.25.56-1.25 1.25v2.25H15Zm-6.75 11v-9.5h-3.5V18c0 .69.56 1.25 1.25 1.25h2.25Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
   </main>
 </DocumentFragment>
 `;
