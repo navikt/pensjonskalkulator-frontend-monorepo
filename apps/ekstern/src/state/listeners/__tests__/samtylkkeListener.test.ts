@@ -1,7 +1,11 @@
-import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
+import {
+  configureStore,
+  createListenerMiddleware,
+  Unsubscribe,
+} from '@reduxjs/toolkit'
 import { vi } from 'vitest'
 
-import { rootReducer, AppStartListening } from '../../store'
+import { AppStartListening, rootReducer } from '../../store'
 import { selectSomething } from '../../userInput/selectors'
 import { userInputActions } from '../../userInput/userInputReducer'
 import { createSamtykkeListener } from '../samtykkeListener'
@@ -21,15 +25,20 @@ describe('samtykkeListener', () => {
   }
 
   let store = setupTestStore()
+  let unsubscribe: Unsubscribe
 
   beforeEach(() => {
     listenerMiddlewareInstance.clearListeners()
     onMiddlewareError.mockClear()
     store = setupTestStore()
 
-    createSamtykkeListener(
+    unsubscribe = createSamtykkeListener(
       listenerMiddlewareInstance.startListening as AppStartListening
     )
+  })
+
+  afterEach(() => {
+    unsubscribe?.()
   })
 
   it('lytter på endringer i samtykke og oppdaterer something-strengen', async () => {
