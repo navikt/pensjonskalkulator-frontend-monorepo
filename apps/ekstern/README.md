@@ -22,13 +22,8 @@ Prosjektet kjører med Node > v19.6.0 og Npm > v9.4.0
 
 ```
 // Bygger applikasjonen og starter vite devserver på port :5173
+// Starter msw på port :8088
 npm run start
-```
-
-```
-// Samme som npm run start, men starter også en express devserver som serverer mocks på port :8088
-// Env variablen VITE_MOCKAPI=true gjør at api kallene er proxiet mot express serveren
-npm run start:mock
 ```
 
 ```
@@ -45,6 +40,7 @@ npm run preview
 
 ```
 // Kjører enhetstester og genererer coverage
+// Kjører msw på port :8088
 npm run test
 ```
 

@@ -1,0 +1,30 @@
+// Vitest Snapshot v1
+
+exports[`store > returnerer store med riktig slices og default state 1`] = `
+{
+  "api": {
+    "config": {
+      "focused": true,
+      "keepUnusedDataFor": 60,
+      "middlewareRegistered": false,
+      "online": true,
+      "reducerPath": "api",
+      "refetchOnFocus": false,
+      "refetchOnMountOrArgChange": false,
+      "refetchOnReconnect": false,
+    },
+    "mutations": {},
+    "provided": {},
+    "queries": {},
+    "subscriptions": {},
+  },
+  "userInput": {
+    "currentSimulation": {
+      "inntekt": null,
+      "uttaksalder": null,
+      "uttaksgrad": null,
+    },
+    "samtykke": null,
+  },
+}
+`;

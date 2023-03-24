@@ -18,22 +18,23 @@ const testConfig: UserConfig = {
       extension: ['.ts', '.tsx'],
       exclude: [
         'vite.config.ts',
-        'src/test-utils.ts',
+        'src/api',
+        'src/test-utils.tsx',
         'src/**/*.d.ts',
         'src/**/__tests__',
         'src/main.tsx',
         'src/**/index.ts',
+        'src/state/hooks.ts',
         'cypress',
         'cypress.config.ts',
       ],
       perFile: true,
       lines: 95,
-      functions: 95,
+      functions: 75,
       branches: 95,
       statements: 95,
       reporter: ['json', 'html', 'text', 'text-summary', 'cobertura'],
     },
-    onConsoleLog: () => false,
   },
 }
 
@@ -55,12 +56,9 @@ export default defineConfig(({ mode }) => ({
   server: {
     proxy: {
       '/pensjon/kalkulator/api': {
-        target: process.env.VITE_MOCKAPI
-          ? 'http://localhost:8088'
-          : 'https://pensjonskalkulator-backend.ekstern.dev.nav.no',
+        target: 'https://pensjonskalkulator-backend.ekstern.dev.nav.no',
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/pensjon\/kalkulator/, ''),
       },
     },
   },

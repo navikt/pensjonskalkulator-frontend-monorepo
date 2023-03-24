@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 

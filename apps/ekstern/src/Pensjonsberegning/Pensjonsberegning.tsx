@@ -1,50 +1,33 @@
-import { useEffect, useState } from 'react'
+import React from 'react'
 
-import { Alert, BodyLong, Loader } from '@navikt/ds-react'
+import { Alert, BodyLong, Heading, Loader } from '@navikt/ds-react'
 
-import { fetchPensjonsberegning } from '../api/pensjonsberegning'
+import { useGetPensjonsberegningQuery } from '../state/api/apiSlice'
+import { isPensjonsberegning } from '../state/api/typeguards'
 
 import styles from './Pensjonsberegning.module.scss'
 
-const usePensjonsberegning = (): FetchedData<Pensjonsberegning[]> => {
-  const [beregning, setBeregning] = useState<FetchedData<Pensjonsberegning[]>>({
-    data: null,
-    isLoading: true,
-    hasError: false,
-  })
-
-  useEffect(() => {
-    fetchPensjonsberegning()
-      .then((data: Pensjonsberegning[]) => {
-        setBeregning({
-          data: data.sort((a, b) => a.pensjonsaar - b.pensjonsaar),
-          isLoading: false,
-          hasError: false,
-        })
-      })
-      .catch((error) => {
-        // TODO add error loggingto a server?
-        console.warn(error)
-        setBeregning({
-          data: null,
-          isLoading: false,
-          hasError: true,
-        })
-      })
-  }, [])
-
-  return beregning
-}
-
 export function Pensjonsberegning() {
-  const beregning = usePensjonsberegning()
+  const { data, isLoading, isError } = useGetPensjonsberegningQuery()
 
-  if (beregning.isLoading) {
-    return <Loader data-testid="loader" />
-  } else if (beregning.hasError || beregning.data.length === 0) {
+  if (isLoading && !data) {
+    return (
+      <Loader
+        data-testid="loader"
+        size="3xlarge"
+        title="Henter pensjonsberegning"
+      />
+    )
+  }
+
+  // TODO: Her bør det være unødvendig å sjekke om data er pensjonsberegning siden det burde være fanget opp av isError.
+  //  Hvordan kan man få RTK Query / Typescript til så skjønne det? Har ikke redux-teamet fått til type narrowing automatisk?
+  if (isError || !isPensjonsberegning(data)) {
     return (
       <Alert variant="error">
-        Vi klarte ikke å kalkulere pensjonen din. Prøv igjen senere.
+        <Heading spacing size="small" level="1">
+          Vi klarte ikke å kalkulere pensjonen din. Prøv igjen senere.
+        </Heading>
       </Alert>
     )
   }
@@ -53,19 +36,19 @@ export function Pensjonsberegning() {
     <section className={styles.sammenligning}>
       <BodyLong>
         Hvis du fortsetter å ha samme inntekt som du har i dag kan du tidligst
-        gå av med pensjon ved <b>{beregning.data[0].alder} år</b> hvor du vil få
-        utbetalt <b>{beregning.data[0].pensjonsbeloep} kroner</b> i året
+        gå av med pensjon ved <b>{data[0].alder} år</b> hvor du vil få utbetalt{' '}
+        <b>{data[0].pensjonsbeloep} kroner</b> i året
       </BodyLong>
-      {beregning.data[1] && (
+      {data[1] && (
         <BodyLong>
-          Dersom du jobber frem til du er <b>{beregning.data[1].alder} år</b>,
-          vil du få <b>{beregning.data[1].pensjonsbeloep} kroner</b> utbetalt
+          Dersom du jobber frem til du er <b>{data[1].alder} år</b>, vil du få{' '}
+          <b>{data[1].pensjonsbeloep} kroner</b> utbetalt
         </BodyLong>
       )}
-      {beregning.data[2] && (
+      {data[2] && (
         <BodyLong>
-          Dersom du jobber frem til du er <b>{beregning.data[2].alder} år</b>,
-          vil du få <b>{beregning.data[2].pensjonsbeloep} kroner</b> utbetalt
+          Dersom du jobber frem til du er <b>{data[2].alder} år</b>, vil du få{' '}
+          <b>{data[2].pensjonsbeloep} kroner</b> utbetalt
         </BodyLong>
       )}
     </section>

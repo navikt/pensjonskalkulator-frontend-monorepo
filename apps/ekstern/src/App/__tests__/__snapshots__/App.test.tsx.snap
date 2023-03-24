@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`App > rendrer slik den skal 1`] = `
+exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1`] = `
 <DocumentFragment>
   <main
     class="_frame_f5d647 _frame_isFlex_f5d647 _frame_hasPadding_f5d647 _main_728e4a"
@@ -12,7 +12,7 @@ exports[`App > rendrer slik den skal 1`] = `
     </h1>
     <svg
       aria-labelledby="loader-r0"
-      class="navds-loader navds-loader--medium navds-loader--neutral"
+      class="navds-loader navds-loader--3xlarge navds-loader--neutral"
       data-testid="loader"
       focusable="false"
       preserveAspectRatio="xMidYMid"
@@ -21,7 +21,7 @@ exports[`App > rendrer slik den skal 1`] = `
       <title
         id="loader-r0"
       >
-        venter...
+        Henter pensjonsberegning
       </title>
       <circle
         class="navds-loader__background"

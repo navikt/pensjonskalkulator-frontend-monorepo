@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- TODO follow up https://github.com/vitejs/vite/issues/3105 implementation of VITE variables -->
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link
+  <head>
+    <!-- TODO follow up https://github.com/vitejs/vite/issues/3105 implementation of VITE variables -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
       rel="preload"
       href="https://cdn.nav.no/aksel/fonts/SourceSans3-normal.woff2"
       as="font"
       type="font/woff2"
       crossorigin
-  />
-  <link href="%VITE_DECORATOR_URL%/css/client.css" rel="stylesheet"/>
-  <title>Pensjonskalkulator - Frontend DEV</title>
-  <style>
+    />
+    <link href="%VITE_DECORATOR_URL%/css/client.css" rel="stylesheet" />
+    <title>Pensjonskalkulator - Frontend DEV</title>
+    <style>
       html,
       body {
-          min-height: 100vh;
+        min-height: 100vh;
       }
 
       body {
-          display: flex;
-          flex-direction: column;
+        display: flex;
+        flex-direction: column;
       }
 
       #root {
-          flex: 1;
+        flex: 1;
       }
-  </style>
-</head>
-<body>
-<div id="decorator-header"></div>
-<div id="root"></div>
-<div id="decorator-footer"></div>
-<div
-    id="decorator-env"
-    data-src="%VITE_DECORATOR_URL%/env?chatbot=false"
-></div>
-<script
-    type="text/javascript"
-    async="true"
-    src="%VITE_DECORATOR_URL%/client.js"
-></script>
-<script type="module" src="/src/main.tsx"></script>
-</body>
+    </style>
+  </head>
+  <body>
+    <div id="decorator-header"></div>
+    <div id="root"></div>
+    <div id="decorator-footer"></div>
+    <div
+      id="decorator-env"
+      data-src="%VITE_DECORATOR_URL%/env?chatbot=false"
+    ></div>
+    <script
+      type="text/javascript"
+      async="true"
+      src="%VITE_DECORATOR_URL%/client.js"
+    ></script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

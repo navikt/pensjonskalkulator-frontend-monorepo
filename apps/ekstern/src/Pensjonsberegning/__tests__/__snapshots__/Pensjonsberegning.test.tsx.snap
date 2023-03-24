@@ -1,0 +1,90 @@
+// Vitest Snapshot v1
+
+exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning feiler 1`] = `
+<DocumentFragment>
+  <div
+    class="navds-alert navds-alert--error navds-alert--medium"
+  >
+    <svg
+      aria-labelledby="title-r2"
+      class="navds-alert__icon"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="title-r2"
+      >
+        Feil
+      </title>
+      <path
+        clip-rule="evenodd"
+        d="M0 11.976C.013 5.372 5.395 0 11.999 0 18.639.013 24.012 5.406 24 12.022 23.986 18.627 18.603 24 12 24h-.023a11.924 11.924 0 0 1-8.48-3.531A11.923 11.923 0 0 1 0 11.976Zm17-3.547L15.571 7 12 10.572 8.429 7 7 8.429 10.572 12 7 15.571 8.429 17 12 13.428 15.571 17 17 15.571 13.428 12 17 8.429Z"
+        fill="#C30000"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="navds-alert__wrapper navds-body-long"
+    >
+      <h1
+        class="navds-heading navds-heading--small navds-typo--spacing"
+      >
+        Vi klarte ikke å kalkulere pensjonen din. Prøv igjen senere.
+      </h1>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet fra backend 1`] = `
+<DocumentFragment>
+  <section
+    class="_sammenligning_e128d6"
+  >
+    <p
+      class="navds-body-long"
+    >
+      Hvis du fortsetter å ha samme inntekt som du har i dag kan du tidligst gå av med pensjon ved 
+      <b>
+        67 år
+      </b>
+       hvor du vil få utbetalt 
+      <b>
+        300001 kroner
+      </b>
+       i året
+    </p>
+    <p
+      class="navds-body-long"
+    >
+      Dersom du jobber frem til du er 
+      <b>
+        68 år
+      </b>
+      , vil du få 
+      <b>
+        300002 kroner
+      </b>
+       utbetalt
+    </p>
+    <p
+      class="navds-body-long"
+    >
+      Dersom du jobber frem til du er 
+      <b>
+        69 år
+      </b>
+      , vil du få 
+      <b>
+        300003 kroner
+      </b>
+       utbetalt
+    </p>
+  </section>
+</DocumentFragment>
+`;

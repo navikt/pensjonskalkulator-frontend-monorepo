@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { render, screen } from '../../test-utils'
+import { render, screen, swallowErrors } from '../../test-utils'
 import { ErrorBoundary } from '../ErrorBoundary'
 
 describe('ErrorBoundary', () => {
@@ -24,13 +24,16 @@ describe('ErrorBoundary', () => {
     const ComponentThatThrows = () => {
       throw new Error('my expected error')
     }
-    const component = render(
-      <ErrorBoundary>
-        <ComponentThatThrows />
-      </ErrorBoundary>
-    )
 
-    expect(screen.getByRole('heading')).toHaveTextContent('Oisann!')
-    expect(component.asFragment()).toMatchSnapshot()
+    swallowErrors(() => {
+      const component = render(
+        <ErrorBoundary>
+          <ComponentThatThrows />
+        </ErrorBoundary>
+      )
+
+      expect(screen.getByRole('heading')).toHaveTextContent('Oisann!')
+      expect(component.asFragment()).toMatchSnapshot()
+    })
   })
 })
