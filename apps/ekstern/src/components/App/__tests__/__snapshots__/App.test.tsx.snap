@@ -1,0 +1,137 @@
+// Vitest Snapshot v1
+
+exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1`] = `
+<DocumentFragment>
+  <main
+    class="_frame_4c435f _frame_isFlex_4c435f _frame_hasPadding_4c435f _main_bbbd1d"
+  >
+    <section
+      class="_sammenligning_01a375"
+    >
+      <h1
+        class="navds-heading navds-heading--large"
+      >
+        Hei Ola!
+      </h1>
+      <p
+        class="navds-body-long"
+      >
+        Hvis du fortsetter å ha en inntekt på 
+        <strong>
+          678 000 kr
+        </strong>
+         kan du tidligst gå av med alderspensjon når du blir 
+        <strong>
+          67 år
+        </strong>
+        . Hvis du går av senere, får du høyere pensjon.
+      </p>
+      <section
+        aria-label="Pensjonsberegning"
+        class="_chart_01a375"
+      >
+        <table
+          class="_chart_95eb26"
+        >
+          <thead>
+            <tr>
+              <th
+                class="_header_95eb26"
+              >
+                Lønn
+              </th>
+              <th
+                class="_header_95eb26"
+              >
+                67 år
+              </th>
+              <th
+                class="_header_95eb26"
+              >
+                68 år
+              </th>
+              <th
+                class="_header_95eb26"
+              >
+                69 år
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td
+                class="_cell_95eb26"
+                style="--height: 128px;"
+              >
+                <p
+                  class="navds-body-short"
+                >
+                  678 000
+                </p>
+                <figure
+                  class="_bar_95eb26"
+                />
+              </td>
+              <td
+                class="_cell_95eb26"
+                style="--height: 56.63716814159292px;"
+              >
+                <p
+                  class="navds-body-short"
+                >
+                  300 000
+                </p>
+                <figure
+                  class="_bar_95eb26"
+                />
+              </td>
+              <td
+                class="_cell_95eb26"
+                style="--height: 66.07669616519173px;"
+              >
+                <p
+                  class="navds-body-short"
+                >
+                  350 000
+                </p>
+                <figure
+                  class="_bar_95eb26"
+                />
+              </td>
+              <td
+                class="_cell_95eb26"
+                style="--height: 75.51622418879056px;"
+              >
+                <p
+                  class="navds-body-short"
+                >
+                  400 000
+                </p>
+                <figure
+                  class="_bar_95eb26"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <button
+        class="navds-button navds-button--secondary navds-button--medium"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          Sjekk hele pensjonen din
+        </span>
+      </button>
+      <a
+        class="navds-link"
+        href="#"
+      >
+        Om hvordan vi beregner din pensjon
+      </a>
+    </section>
+  </main>
+</DocumentFragment>
+`;

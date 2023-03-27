@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { render, screen, swallowErrors } from '../../test-utils'
+import { render, screen, swallowErrors } from '../../../test-utils'
 import { ErrorBoundary } from '../ErrorBoundary'
 
 describe('ErrorBoundary', () => {

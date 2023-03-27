@@ -9,9 +9,9 @@ import {
   Loader,
 } from '@navikt/ds-react'
 
-import { useGetPensjonsberegningQuery } from '../state/api/apiSlice'
-import { isPensjonsberegning } from '../state/api/typeguards'
-import { formatAsDecimal } from '../utils/currency'
+import { useGetPensjonsberegningQuery } from '../../state/api/apiSlice'
+import { isPensjonsberegning } from '../../state/api/typeguards'
+import { formatAsDecimal } from '../../utils/currency'
 
 import { PensjonsberegningChart } from './PensjonsberegningChart'
 

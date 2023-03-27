@@ -44,7 +44,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
 exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet fra backend 1`] = `
 <DocumentFragment>
   <section
-    class="_sammenligning_e128d6"
+    class="_sammenligning_01a375"
   >
     <h1
       class="navds-heading navds-heading--large"
@@ -66,30 +66,30 @@ exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet 
     </p>
     <section
       aria-label="Pensjonsberegning"
-      class="_chart_e128d6"
+      class="_chart_01a375"
     >
       <table
-        class="_chart_99557b"
+        class="_chart_95eb26"
       >
         <thead>
           <tr>
             <th
-              class="_header_99557b"
+              class="_header_95eb26"
             >
               Lønn
             </th>
             <th
-              class="_header_99557b"
+              class="_header_95eb26"
             >
               67 år
             </th>
             <th
-              class="_header_99557b"
+              class="_header_95eb26"
             >
               68 år
             </th>
             <th
-              class="_header_99557b"
+              class="_header_95eb26"
             >
               69 år
             </th>
@@ -98,7 +98,7 @@ exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet 
         <tbody>
           <tr>
             <td
-              class="_cell_99557b"
+              class="_cell_95eb26"
               style="--height: 128px;"
             >
               <p
@@ -107,11 +107,11 @@ exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet 
                 678 000
               </p>
               <figure
-                class="_bar_99557b"
+                class="_bar_95eb26"
               />
             </td>
             <td
-              class="_cell_99557b"
+              class="_cell_95eb26"
               style="--height: 56.63716814159292px;"
             >
               <p
@@ -120,11 +120,11 @@ exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet 
                 300 000
               </p>
               <figure
-                class="_bar_99557b"
+                class="_bar_95eb26"
               />
             </td>
             <td
-              class="_cell_99557b"
+              class="_cell_95eb26"
               style="--height: 66.07669616519173px;"
             >
               <p
@@ -133,11 +133,11 @@ exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet 
                 350 000
               </p>
               <figure
-                class="_bar_99557b"
+                class="_bar_95eb26"
               />
             </td>
             <td
-              class="_cell_99557b"
+              class="_cell_95eb26"
               style="--height: 75.51622418879056px;"
             >
               <p
@@ -146,7 +146,7 @@ exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet 
                 400 000
               </p>
               <figure
-                class="_bar_99557b"
+                class="_bar_95eb26"
               />
             </td>
           </tr>

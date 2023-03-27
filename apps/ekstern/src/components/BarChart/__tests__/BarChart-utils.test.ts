@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getBarChartHeight, findMaxValue } from './../utils'
+import { getBarChartHeight, findMaxValue } from '../utils'
 
 describe('BarChart-utils', () => {
   describe('getBarChartHeight', () => {

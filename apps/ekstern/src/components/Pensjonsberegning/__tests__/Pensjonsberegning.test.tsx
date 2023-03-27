@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { mockErrorResponse, mockResponse } from '../../api/server'
-import { render, screen, swallowErrorsAsync, waitFor } from '../../test-utils'
+import { mockErrorResponse, mockResponse } from '../../../api/server'
+import {
+  render,
+  screen,
+  swallowErrorsAsync,
+  waitFor,
+} from '../../../test-utils'
 import { Pensjonsberegning } from '../Pensjonsberegning'
 
 describe('Pensjonsberegning', () => {

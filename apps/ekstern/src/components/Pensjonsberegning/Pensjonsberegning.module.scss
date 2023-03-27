@@ -13,10 +13,10 @@
   text-align: start;
   margin-bottom: var(--a-spacing-10);
 
-  // TODO:
-  //  Breakpoints fra designsystemet fungerer ikke med mindre
-  //  man importerer scss-variablene direkte:
-  //  https://aksel.nav.no/grunnleggende/styling/brekkpunkter
+  /* TODO:
+  Breakpoints fra designsystemet fungerer ikke med mindre man importerer scss-variablene direkte:
+  https://aksel.nav.no/grunnleggende/styling/brekkpunkter
+  */
   @media screen and (max-width: 479px) {
     padding: var(--a-spacing-8) 0;
   }
