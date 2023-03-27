@@ -4,23 +4,13 @@ import clsx from 'clsx'
 
 import { formatAsDecimal } from '../utils/currency'
 
+import { getBarChartHeight, findMaxValue } from './utils'
+
 import styles from './BarChart.module.scss'
 
 export type ChartData = {
   label: string
   value: number
-}
-
-const getHeight = (
-  value: number,
-  maxValue: number,
-  maxHeight: number = 128
-) => {
-  return (value / maxValue) * maxHeight
-}
-
-const findMaxValue = (data: ChartData[]): number => {
-  return data.reduce((max, { value }) => (max > value ? max : value), 0)
 }
 
 interface Props {
@@ -45,7 +35,7 @@ export function BarChart({ data }: Props) {
           {data.map(({ value }, i) => (
             <td
               className={styles.cell}
-              style={{ '--height': `${getHeight(value, maxValue)}px` }}
+              style={{ '--height': `${getBarChartHeight(value, maxValue)}px` }}
               key={i}
             >
               <BodyShort>{formatAsDecimal(value)}</BodyShort>
