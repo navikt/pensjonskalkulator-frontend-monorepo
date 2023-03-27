@@ -18,5 +18,10 @@ describe('currency-utils', () => {
       expect(formatAsDecimal(1.25)).toBe('1,25')
       expect(formatAsDecimal(-15.2)).toBe('−15,2')
     })
+
+    it('returnerer string med mellomrom mellom hvert tredje siffer', () => {
+      expect(formatAsDecimal(100_000)).toBe('100 000')
+      expect(formatAsDecimal(9_999_999)).toBe('9 999 999')
+    })
   })
 })
