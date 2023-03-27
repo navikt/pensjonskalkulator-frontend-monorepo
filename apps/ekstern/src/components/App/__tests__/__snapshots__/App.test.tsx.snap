@@ -14,7 +14,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
         Hei Ola!
       </h1>
       <p
-        class="navds-body-long"
+        class="_sammenligningParagraph_01a375 navds-body-long"
       >
         Hvis du fortsetter å ha en inntekt på 
         <strong>
@@ -28,40 +28,44 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
       </p>
       <section
         aria-label="Pensjonsberegning"
-        class="_chart_01a375"
+        class="_pensjonsberegningChart_01a375"
       >
         <table
-          class="_chart_95eb26"
+          class="_barchart_95eb26"
         >
           <thead>
-            <tr>
+            <tr
+              class="_flexContainer_95eb26"
+            >
               <th
-                class="_header_95eb26"
+                class="_barchartCaption_95eb26"
               >
                 Lønn
               </th>
               <th
-                class="_header_95eb26"
+                class="_barchartCaption_95eb26"
               >
                 67 år
               </th>
               <th
-                class="_header_95eb26"
+                class="_barchartCaption_95eb26"
               >
                 68 år
               </th>
               <th
-                class="_header_95eb26"
+                class="_barchartCaption_95eb26"
               >
                 69 år
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr
+              class="_flexContainer_95eb26"
+            >
               <td
-                class="_cell_95eb26"
-                style="--height: 128px;"
+                class="_barchartBar_95eb26"
+                style="--barheight: 128px;"
               >
                 <p
                   class="navds-body-short"
@@ -69,12 +73,12 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                   678 000
                 </p>
                 <figure
-                  class="_bar_95eb26"
+                  class="_barchartFigure_95eb26 _barchartFigure_isFirst_95eb26"
                 />
               </td>
               <td
-                class="_cell_95eb26"
-                style="--height: 56.63716814159292px;"
+                class="_barchartBar_95eb26"
+                style="--barheight: 56.63716814159292px;"
               >
                 <p
                   class="navds-body-short"
@@ -82,12 +86,12 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                   300 000
                 </p>
                 <figure
-                  class="_bar_95eb26"
+                  class="_barchartFigure_95eb26"
                 />
               </td>
               <td
-                class="_cell_95eb26"
-                style="--height: 66.07669616519173px;"
+                class="_barchartBar_95eb26"
+                style="--barheight: 66.07669616519173px;"
               >
                 <p
                   class="navds-body-short"
@@ -95,12 +99,12 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                   350 000
                 </p>
                 <figure
-                  class="_bar_95eb26"
+                  class="_barchartFigure_95eb26"
                 />
               </td>
               <td
-                class="_cell_95eb26"
-                style="--height: 75.51622418879056px;"
+                class="_barchartBar_95eb26"
+                style="--barheight: 75.51622418879056px;"
               >
                 <p
                   class="navds-body-short"
@@ -108,23 +112,23 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                   400 000
                 </p>
                 <figure
-                  class="_bar_95eb26"
+                  class="_barchartFigure_95eb26"
                 />
               </td>
             </tr>
           </tbody>
         </table>
-      </section>
-      <button
-        class="navds-button navds-button--secondary navds-button--medium"
-      >
-        <span
-          aria-live="polite"
-          class="navds-label"
+        <button
+          class="navds-button navds-button--secondary navds-button--medium"
         >
-          Sjekk hele pensjonen din
-        </span>
-      </button>
+          <span
+            aria-live="polite"
+            class="navds-label"
+          >
+            Sjekk hele pensjonen din
+          </span>
+        </button>
+      </section>
       <a
         class="navds-link"
         href="#"

@@ -20,26 +20,33 @@ interface Props {
 export function BarChart({ data }: Props) {
   const maxValue = findMaxValue(data)
   return (
-    <table className={clsx(styles.chart)}>
+    <table className={styles.barchart}>
       <thead>
-        <tr>
+        <tr className={styles.flexContainer}>
           {data.map(({ label }) => (
-            <th className={styles.header} key={label}>
+            <th className={styles.barchartCaption} key={label}>
               {label}
             </th>
           ))}
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr className={styles.flexContainer}>
           {data.map(({ value }, i) => (
             <td
-              className={styles.cell}
-              style={{ '--height': `${getBarChartHeight(value, maxValue)}px` }}
+              className={styles.barchartBar}
+              style={{
+                '--barheight': `${getBarChartHeight(value, maxValue)}px`,
+              }}
               key={i}
             >
               <BodyShort>{formatAsDecimal(value)}</BodyShort>
-              <figure className={styles.bar} />
+              <figure
+                className={clsx({
+                  [styles.barchartFigure]: true,
+                  [styles.barchartFigure_isFirst]: i === 0,
+                })}
+              />
             </td>
           ))}
         </tr>

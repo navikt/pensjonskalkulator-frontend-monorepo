@@ -52,16 +52,19 @@ export function Pensjonsberegning() {
       <Heading size="large" level="1">
         Hei Ola!
       </Heading>
-      <BodyLong>
+      <BodyLong className={styles.sammenligningParagraph}>
         Hvis du fortsetter å ha en inntekt på{' '}
         <strong>{formatAsDecimal(inntekt)} kr</strong> kan du tidligst gå av med
         alderspensjon når du blir <strong>{data[0].alder} år</strong>. Hvis du
         går av senere, får du høyere pensjon.
       </BodyLong>
-      <section aria-label="Pensjonsberegning" className={styles.chart}>
+      <section
+        aria-label="Pensjonsberegning"
+        className={styles.pensjonsberegningChart}
+      >
         <PensjonsberegningChart lønn={inntekt} beregning={data} />
+        <Button variant="secondary">Sjekk hele pensjonen din</Button>
       </section>
-      <Button variant="secondary">Sjekk hele pensjonen din</Button>
       <Link href="#">Om hvordan vi beregner din pensjon</Link>
     </section>
   )

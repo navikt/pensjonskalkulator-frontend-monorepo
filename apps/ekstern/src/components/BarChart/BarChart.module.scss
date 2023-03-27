@@ -1,38 +1,54 @@
-.chart {
-  --height: 50px;
+@import '../../scss/variables';
+
+.barchart {
+  --barmaxheight: 12rem;
+  --barheight: 3rem;
 
   display: flex;
+  flex-basis: 100%;
   flex-direction: column-reverse;
+  margin-bottom: var(--a-spacing-6);
 
-  .header,
-  .cell {
-    width: 80px;
+  tbody {
+    display: block;
   }
 
-  .header {
+  &Caption {
+    flex: 1;
     font-weight: var(--a-font-weight-regular);
   }
 
-  .cell {
-    vertical-align: bottom;
+  &Bar {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-end;
+    padding: 0;
+    height: var(--barmaxheight);
+
+    p {
+      font-weight: var(--a-font-weight-bold);
+      text-align: center;
+    }
   }
 
-  .cell p {
-    font-weight: var(--a-font-weight-bold);
-    text-align: center;
-    margin-bottom: 4px;
-  }
-
-  .bar {
-    position: relative;
-    width: 56px;
-    height: var(--height);
-    background-color: var(--a-green-400);
+  &Figure {
+    display: inline-block;
     margin: 0 auto;
-    border-radius: 3px 3px 0 0;
-  }
+    width: 70%;
+    height: var(--barheight);
+    background-color: var(--a-green-400);
+    border-radius: var(--a-border-radius-medium) var(--a-border-radius-medium) 0
+      0;
 
-  .cell:first-of-type .bar {
-    background-color: var(--a-blue-400);
+    &_isFirst {
+      background-color: var(--a-blue-400);
+    }
   }
+}
+
+.flexContainer {
+  display: flex;
+  flex-basis: 100%;
+  flex-flow: row wrap;
 }

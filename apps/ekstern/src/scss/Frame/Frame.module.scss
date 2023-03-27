@@ -4,9 +4,9 @@
   width: 100%;
   margin: 0 auto;
   min-height: 40vh;
-  max-width: $breakpoint-xl;
+  max-width: $a-breakpoint-xl;
 
-  @media (min-width: $breakpoint-xl) {
+  @media (min-width: $a-breakpoint-xl) {
     max-width: $content-area-desktop;
   }
 
@@ -16,6 +16,10 @@
   }
 
   &_hasPadding {
-    padding: var(--a-spacing-6);
+    padding: var(--a-spacing-3);
+
+    @media (min-width: $a-breakpoint-sm) {
+      padding: var(--a-spacing-6);
+    }
   }
 }

@@ -1,8 +1,7 @@
-import globalClassNames from '../../style'
+import globalClassNames from '../../style.d'
 declare const classNames: typeof globalClassNames & {
-  readonly container: 'container'
   readonly sammenligning: 'sammenligning'
-  readonly chart: 'chart'
-  readonly toggleGroup: 'toggleGroup'
+  readonly sammenligningParagraph: 'sammenligningParagraph'
+  readonly pensjonsberegningChart: 'pensjonsberegningChart'
 }
 export = classNames
