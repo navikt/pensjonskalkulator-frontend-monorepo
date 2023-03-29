@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
 import stylelint from 'vite-plugin-stylelint'
 import sassDts from 'vite-plugin-sass-dts'
+import { visualizer } from 'rollup-plugin-visualizer'
 import path from 'path'
 
 import type { UserConfig } from 'vitest/config'
@@ -51,6 +52,13 @@ export default defineConfig(({ mode }) => ({
         generate: true,
         outFile: path.resolve(__dirname, './src/style.d.ts'),
       },
+    }),
+    visualizer({
+      template: 'treemap',
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
+      filename: 'analice.html',
     }),
   ],
   server: {
