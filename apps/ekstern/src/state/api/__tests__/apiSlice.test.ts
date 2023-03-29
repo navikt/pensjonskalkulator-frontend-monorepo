@@ -1,10 +1,11 @@
 import { mockErrorResponse, mockResponse } from '../../../api/server'
 import { setupStore } from '../../store'
 import { apiSlice } from './../apiSlice'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 
 const pensjonsberegningData = require('../../../api/__mocks__/pensjonsberegning.json')
 
-// TODO: fikse bedre typing ved dispatch og Promise result
+// TODO: fikse bedre typing ved dispatch
 describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
     expect(apiSlice.endpoints).toHaveProperty('getPensjonsberegning')
@@ -14,7 +15,7 @@ describe('apiSlice', () => {
     const storeRef = await setupStore()
     return storeRef
       .dispatch<any>(apiSlice.endpoints.getPensjonsberegning.initiate())
-      .then((result: any) => {
+      .then((result: FetchBaseQueryError) => {
         expect(result.status).toBe('fulfilled')
         expect(result.data).toMatchObject(pensjonsberegningData)
       })
@@ -25,7 +26,7 @@ describe('apiSlice', () => {
     mockErrorResponse('/pensjonsberegning')
     return storeRef
       .dispatch<any>(apiSlice.endpoints.getPensjonsberegning.initiate())
-      .then((result: any) => {
+      .then((result: FetchBaseQueryError) => {
         expect(result.status).toBe('rejected')
         expect(result.data).toBe(undefined)
       })
@@ -41,7 +42,7 @@ describe('apiSlice', () => {
     })
     return storeRef
       .dispatch<any>(apiSlice.endpoints.getPensjonsberegning.initiate())
-      .then((result: any) => {
+      .then((result: FetchBaseQueryError) => {
         expect(result).toThrow(Error)
         expect(result.status).toBe('rejected')
         expect(result.data).toBe(undefined)
