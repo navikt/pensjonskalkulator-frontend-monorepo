@@ -5,3 +5,11 @@
   padding: var(--a-spacing-6);
   width: 100%;
 }
+
+.chipsWrapper {
+  /* double-specificity nødvendig pga Aksel overskrivning */
+  &.chipsWrapper__hasGap {
+    padding: var(--a-spacing-2) 0;
+    gap: var(--a-spacing-6);
+  }
+}

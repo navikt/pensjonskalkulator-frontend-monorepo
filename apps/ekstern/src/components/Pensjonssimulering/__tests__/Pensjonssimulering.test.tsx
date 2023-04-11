@@ -13,7 +13,11 @@ describe('Pensjonssimulering', () => {
       'Når vil du ta ut alderspensjon?'
     )
     const buttons = screen.getAllByRole('button')
-    expect(buttons).toHaveLength(14)
+    expect(buttons).toHaveLength(7)
+
+    fireEvent.click(screen.getByText('Vis flere aldere'))
+    expect(screen.getAllByRole('button')).toHaveLength(15)
+
     expect(result.asFragment()).toMatchSnapshot()
   })
 
@@ -22,8 +26,15 @@ describe('Pensjonssimulering', () => {
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
       '62'
     )
-    const button = screen.getByText('72')
-    fireEvent.click(button)
+
+    fireEvent.click(screen.getByText('65'))
+    expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
+      '65'
+    )
+
+    fireEvent.click(screen.getByText('Vis flere aldere'))
+
+    fireEvent.click(screen.getByText('72'))
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
       '72'
     )
