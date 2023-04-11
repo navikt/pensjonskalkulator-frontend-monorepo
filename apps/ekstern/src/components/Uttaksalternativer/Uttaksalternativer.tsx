@@ -28,6 +28,7 @@ export function Uttaksalternativer() {
   if (isLoading && !data) {
     return (
       <Loader
+        className={styles.loader}
         data-testid="loader"
         size="3xlarge"
         title="Henter pensjonsberegning"
@@ -49,7 +50,7 @@ export function Uttaksalternativer() {
 
   return (
     <section className={styles.uttaksalternativer}>
-      <Heading size="medium" level="3">
+      <Heading size="small" level="3">
         Alternativer for når du kan ta ut
       </Heading>
       <BodyLong className={styles.uttaksalternativerParagraph}>

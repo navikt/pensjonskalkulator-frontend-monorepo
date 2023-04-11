@@ -47,7 +47,7 @@ exports[`Uttaksalternativer > viser loading og deretter pensjonsberegning hentet
     class="_uttaksalternativer_2bdd5e"
   >
     <h3
-      class="navds-heading navds-heading--medium"
+      class="navds-heading navds-heading--small"
     >
       Alternativer for når du kan ta ut
     </h3>
