@@ -8,7 +8,7 @@ describe('Pensjonskalkulator', () => {
     )
     cy.visit('/pensjon/kalkulator')
 
-    cy.contains('Hei Ola')
+    cy.contains('Alternativer for når du kan ta ut')
     cy.contains('678 000')
     cy.contains('300 000')
     cy.contains('350 000')

@@ -21,7 +21,7 @@ interface Props {
   beregning: Pensjonsberegning[]
 }
 
-export function PensjonsberegningChart({ lønn, beregning }: Props) {
+export function UttaksalternativerChart({ lønn, beregning }: Props) {
   const data = mapToChartData(lønn, beregning)
 
   return <BarChart data={data} />

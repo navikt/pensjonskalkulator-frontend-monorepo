@@ -1,0 +1,15 @@
+// Vitest Snapshot v1
+
+exports[`Pensjonssimulering > rendrer slik den skal, med Heading på riktig nivå 1`] = `
+<DocumentFragment>
+  <section
+    class="_pensjonssimulering_2cd409"
+  >
+    <h3
+      class="navds-heading navds-heading--medium"
+    >
+      Når vil du ta ut alderspensjon?
+    </h3>
+  </section>
+</DocumentFragment>
+`;

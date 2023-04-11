@@ -4,7 +4,8 @@ import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import frameStyles from '../../scss/Frame/Frame.module.scss'
-import { Pensjonsberegning } from '../Pensjonsberegning'
+import { Pensjonssimulering } from '../Pensjonssimulering'
+import { Uttaksalternativer } from '../Uttaksalternativer'
 
 import styles from './App.module.scss'
 
@@ -24,7 +25,8 @@ export function App() {
       <Heading size="medium" level="2" spacing>
         Din beregning
       </Heading>
-      <Pensjonsberegning />
+      <Uttaksalternativer />
+      <Pensjonssimulering />
     </main>
   )
 }

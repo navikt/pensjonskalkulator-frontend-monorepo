@@ -7,17 +7,17 @@ import {
   swallowErrorsAsync,
   waitFor,
 } from '../../../test-utils'
-import { Pensjonsberegning } from '../Pensjonsberegning'
+import { Uttaksalternativer } from '../Uttaksalternativer'
 
-describe('Pensjonsberegning', () => {
+describe('Uttaksalternativer', () => {
   it('viser loading og deretter pensjonsberegning hentet fra backend', async () => {
-    const result = render(<Pensjonsberegning />)
+    const result = render(<Uttaksalternativer />)
     expect(screen.getByTestId('loader')).toBeVisible()
 
     await waitFor(() => {
-      expect(
-        screen.getByText('Alternativer for når du kan ta ut')
-      ).toBeVisible()
+      expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+        'Alternativer for når du kan ta ut'
+      )
       expect(
         screen.getByText('Hvis du fortsetter å ha en inntekt på', {
           exact: false,
@@ -34,7 +34,7 @@ describe('Pensjonsberegning', () => {
   it('viser feilmelding om henting av pensjonberegning feiler', async () => {
     mockErrorResponse('/pensjonsberegning')
 
-    const result = render(<Pensjonsberegning />)
+    const result = render(<Uttaksalternativer />)
 
     await waitFor(() => {
       expect(
@@ -53,7 +53,7 @@ describe('Pensjonsberegning', () => {
     } as unknown as Pensjonsberegning
     mockResponse('/pensjonsberegning', { json: [invalidData] })
 
-    render(<Pensjonsberegning />)
+    render(<Uttaksalternativer />)
 
     await swallowErrorsAsync(async () => {
       await waitFor(() => {

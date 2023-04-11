@@ -13,15 +13,15 @@ import { useGetPensjonsberegningQuery } from '../../state/api/apiSlice'
 import { isPensjonsberegning } from '../../state/api/typeguards'
 import { formatAsDecimal } from '../../utils/currency'
 
-import { PensjonsberegningChart } from './PensjonsberegningChart'
+import { UttaksalternativerChart } from './UttaksalternativerChart'
 
-import styles from './Pensjonsberegning.module.scss'
+import styles from './Uttaksalternativer.module.scss'
 
 const useInntekt = () => {
   return 678_000
 }
 
-export function Pensjonsberegning() {
+export function Uttaksalternativer() {
   const { data, isLoading, isError } = useGetPensjonsberegningQuery()
   const inntekt = useInntekt()
 
@@ -40,7 +40,7 @@ export function Pensjonsberegning() {
   if (isError || !isPensjonsberegning(data)) {
     return (
       <Alert variant="error">
-        <Heading spacing size="small" level="1">
+        <Heading spacing size="small" level="3">
           Vi klarte ikke å kalkulere pensjonen din. Prøv igjen senere.
         </Heading>
       </Alert>
@@ -48,11 +48,11 @@ export function Pensjonsberegning() {
   }
 
   return (
-    <section className={styles.sammenligning}>
-      <Heading size="medium" level="2">
+    <section className={styles.uttaksalternativer}>
+      <Heading size="medium" level="3">
         Alternativer for når du kan ta ut
       </Heading>
-      <BodyLong className={styles.sammenligningParagraph}>
+      <BodyLong className={styles.uttaksalternativerParagraph}>
         Hvis du fortsetter å ha en inntekt på{' '}
         <strong>{formatAsDecimal(inntekt)} kr</strong> kan du tidligst gå av med
         alderspensjon når du blir <strong>{data[0].alder} år</strong>. Hvis du
@@ -60,9 +60,9 @@ export function Pensjonsberegning() {
       </BodyLong>
       <section
         aria-label="Pensjonsberegning"
-        className={styles.pensjonsberegningChart}
+        className={styles.uttaksalternativerChart}
       >
-        <PensjonsberegningChart lønn={inntekt} beregning={data} />
+        <UttaksalternativerChart lønn={inntekt} beregning={data} />
         <Button variant="secondary">Sjekk hele pensjonen din</Button>
       </section>
       <Link href="#">Om hvordan vi beregner din pensjon</Link>
