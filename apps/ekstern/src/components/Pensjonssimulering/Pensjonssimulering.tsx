@@ -1,6 +1,9 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 
 import { Heading, Chips } from '@navikt/ds-react'
+import clsx from 'clsx'
+
+import whiteSectionStyles from '../../scss/WhiteSection/WhiteSection.module.scss'
 
 import { generateAlderArray } from './utils'
 
@@ -13,9 +16,22 @@ export function Pensjonssimulering() {
     [startAlder]
   )
   const [uttaksalder, setUttaksalder] = useState<number>(startAlder)
+  const [isReady, setIsReady] = useState<boolean>(false)
+
+  useEffect(() => {
+    setTimeout(function () {
+      setIsReady(true)
+    }, 250)
+  })
 
   return (
-    <section className={styles.pensjonssimulering}>
+    <section
+      className={clsx(
+        whiteSectionStyles.whiteSection,
+        styles.pensjonssimulering,
+        { [whiteSectionStyles.whiteSection__isVisible]: isReady }
+      )}
+    >
       <Heading size="small" level="3" spacing>
         Når vil du ta ut alderspensjon?
       </Heading>

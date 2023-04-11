@@ -46,7 +46,10 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
       />
     </svg>
     <section
-      class="_pensjonssimulering_2cd409"
+      class="_whiteSection_0c72f2 _uttaksalternativer_2bdd5e"
+    />
+    <section
+      class="_whiteSection_0c72f2 _pensjonssimulering_2cd409"
     >
       <h3
         class="navds-heading navds-heading--small navds-typo--spacing"

@@ -1,0 +1,12 @@
+@import '../variables';
+
+.whiteSection {
+  background-color: var(--a-white);
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.25s;
+
+  &__isVisible {
+    opacity: 1;
+  }
+}

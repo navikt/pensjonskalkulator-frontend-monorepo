@@ -3,7 +3,7 @@
 exports[`Pensjonssimulering > rendrer slik den skal, med Heading på riktig nivå og knapper for alder 1`] = `
 <DocumentFragment>
   <section
-    class="_pensjonssimulering_2cd409"
+    class="_whiteSection_0c72f2 _pensjonssimulering_2cd409"
   >
     <h3
       class="navds-heading navds-heading--small navds-typo--spacing"
