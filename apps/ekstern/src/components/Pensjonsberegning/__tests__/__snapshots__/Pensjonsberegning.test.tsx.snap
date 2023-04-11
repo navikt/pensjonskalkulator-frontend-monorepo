@@ -46,11 +46,11 @@ exports[`Pensjonsberegning > viser loading og deretter pensjonsberegning hentet 
   <section
     class="_sammenligning_01a375"
   >
-    <h1
-      class="navds-heading navds-heading--large"
+    <h2
+      class="navds-heading navds-heading--medium"
     >
-      Hei Ola!
-    </h1>
+      Alternativer for når du kan ta ut
+    </h2>
     <p
       class="_sammenligningParagraph_01a375 navds-body-long"
     >

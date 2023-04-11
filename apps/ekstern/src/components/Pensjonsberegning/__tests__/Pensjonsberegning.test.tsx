@@ -15,7 +15,9 @@ describe('Pensjonsberegning', () => {
     expect(screen.getByTestId('loader')).toBeVisible()
 
     await waitFor(() => {
-      expect(screen.getByText('Hei Ola!')).toBeVisible()
+      expect(
+        screen.getByText('Alternativer for når du kan ta ut')
+      ).toBeVisible()
       expect(
         screen.getByText('Hvis du fortsetter å ha en inntekt på', {
           exact: false,

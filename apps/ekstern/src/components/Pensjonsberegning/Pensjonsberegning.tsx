@@ -49,8 +49,8 @@ export function Pensjonsberegning() {
 
   return (
     <section className={styles.sammenligning}>
-      <Heading size="large" level="1">
-        Hei Ola!
+      <Heading size="medium" level="2">
+        Alternativer for når du kan ta ut
       </Heading>
       <BodyLong className={styles.sammenligningParagraph}>
         Hvis du fortsetter å ha en inntekt på{' '}

@@ -5,137 +5,46 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
   <main
     class="_frame_4c435f _frame_isFlex_4c435f _frame_hasPadding_4c435f _main_bbbd1d"
   >
-    <section
-      class="_sammenligning_01a375"
+    <h1
+      class="navds-heading navds-heading--large navds-typo--spacing"
     >
-      <h1
-        class="navds-heading navds-heading--large"
+      Pensjonskalkulator
+    </h1>
+    <h2
+      class="navds-heading navds-heading--medium navds-typo--spacing"
+    >
+      Din beregning
+    </h2>
+    <svg
+      aria-labelledby="loader-r0"
+      class="navds-loader navds-loader--3xlarge navds-loader--neutral"
+      data-testid="loader"
+      focusable="false"
+      preserveAspectRatio="xMidYMid"
+      viewBox="0 0 50 50"
+    >
+      <title
+        id="loader-r0"
       >
-        Hei Ola!
-      </h1>
-      <p
-        class="_sammenligningParagraph_01a375 navds-body-long"
-      >
-        Hvis du fortsetter å ha en inntekt på 
-        <strong>
-          678 000 kr
-        </strong>
-         kan du tidligst gå av med alderspensjon når du blir 
-        <strong>
-          67 år
-        </strong>
-        . Hvis du går av senere, får du høyere pensjon.
-      </p>
-      <section
-        aria-label="Pensjonsberegning"
-        class="_pensjonsberegningChart_01a375"
-      >
-        <table
-          class="_barchart_95eb26"
-        >
-          <thead>
-            <tr
-              class="_flexContainer_95eb26"
-            >
-              <th
-                class="_barchartCaption_95eb26"
-              >
-                Lønn
-              </th>
-              <th
-                class="_barchartCaption_95eb26"
-              >
-                67 år
-              </th>
-              <th
-                class="_barchartCaption_95eb26"
-              >
-                68 år
-              </th>
-              <th
-                class="_barchartCaption_95eb26"
-              >
-                69 år
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class="_flexContainer_95eb26"
-            >
-              <td
-                class="_barchartBar_95eb26"
-                style="--barheight: 128px;"
-              >
-                <p
-                  class="navds-body-short"
-                >
-                  678 000
-                </p>
-                <figure
-                  class="_barchartFigure_95eb26 _barchartFigure_isFirst_95eb26"
-                />
-              </td>
-              <td
-                class="_barchartBar_95eb26"
-                style="--barheight: 56.63716814159292px;"
-              >
-                <p
-                  class="navds-body-short"
-                >
-                  300 000
-                </p>
-                <figure
-                  class="_barchartFigure_95eb26"
-                />
-              </td>
-              <td
-                class="_barchartBar_95eb26"
-                style="--barheight: 66.07669616519173px;"
-              >
-                <p
-                  class="navds-body-short"
-                >
-                  350 000
-                </p>
-                <figure
-                  class="_barchartFigure_95eb26"
-                />
-              </td>
-              <td
-                class="_barchartBar_95eb26"
-                style="--barheight: 75.51622418879056px;"
-              >
-                <p
-                  class="navds-body-short"
-                >
-                  400 000
-                </p>
-                <figure
-                  class="_barchartFigure_95eb26"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <button
-          class="navds-button navds-button--secondary navds-button--medium"
-        >
-          <span
-            aria-live="polite"
-            class="navds-label"
-          >
-            Sjekk hele pensjonen din
-          </span>
-        </button>
-      </section>
-      <a
-        class="navds-link"
-        href="#"
-      >
-        Om hvordan vi beregner din pensjon
-      </a>
-    </section>
+        Henter pensjonsberegning
+      </title>
+      <circle
+        class="navds-loader__background"
+        cx="25"
+        cy="25"
+        fill="none"
+        r="20"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      <circle
+        class="navds-loader__foreground"
+        cx="25"
+        cy="25"
+        fill="none"
+        r="20"
+        stroke-dasharray="50 155"
+      />
+    </svg>
   </main>
 </DocumentFragment>
 `;
