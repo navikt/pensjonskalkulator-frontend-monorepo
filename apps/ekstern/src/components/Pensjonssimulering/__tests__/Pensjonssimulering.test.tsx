@@ -21,16 +21,20 @@ describe('Pensjonssimulering', () => {
     expect(result.asFragment()).toMatchSnapshot()
   })
 
-  it('har riktig alder valgt per default og oppdateres når brukeren klikker på en annen knapp', () => {
+  it('har ingen alder valgt per default og oppdateres når brukeren klikker på en annen knapp', () => {
     render(<Pensjonssimulering />)
-    expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '62'
-    )
+    expect(
+      screen.queryByRole('button', { pressed: true })
+    ).not.toBeInTheDocument()
 
     fireEvent.click(screen.getByText('65'))
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
       '65'
     )
+
+    expect(
+      screen.getByText('Årlig pensjon hvis du starter uttak ved 65 år')
+    ).toBeInTheDocument()
 
     fireEvent.click(screen.getByText('Vis flere aldere'))
 
@@ -38,5 +42,9 @@ describe('Pensjonssimulering', () => {
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
       '72'
     )
+
+    expect(
+      screen.getByText('Årlig pensjon hvis du starter uttak ved 72 år')
+    ).toBeInTheDocument()
   })
 })

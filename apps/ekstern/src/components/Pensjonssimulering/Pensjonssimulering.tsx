@@ -10,12 +10,13 @@ import { generateAlderArray } from './utils'
 import styles from './Pensjonssimulering.module.scss'
 
 export function Pensjonssimulering() {
-  const startAlder = 62
+  // TODO tidligst uttak vil leveres av backend. isReady flag kan erstattes med isSuccess fra RTK-query
+  const tidligstUttak = 62
   const alderChips = useMemo(
-    () => generateAlderArray(startAlder, 75),
-    [startAlder]
+    () => generateAlderArray(tidligstUttak, 75),
+    [tidligstUttak]
   )
-  const [uttaksalder, setUttaksalder] = useState<number>(startAlder)
+  const [uttaksalder, setUttaksalder] = useState<number | undefined>(undefined)
   const [isReady, setIsReady] = useState<boolean>(false)
 
   useEffect(() => {
@@ -52,7 +53,10 @@ export function Pensjonssimulering() {
           </Chips.Toggle>
         ))}
       </Chips>
-      <ReadMore header="Vis flere aldere">
+      <ReadMore
+        header="Vis flere aldere"
+        className={clsx({ [styles.readMore__hasPadding]: uttaksalder })}
+      >
         <Chips
           className={`${styles.chipsWrapper} ${styles.chipsWrapper__hasGap}`}
         >
@@ -67,6 +71,11 @@ export function Pensjonssimulering() {
           ))}
         </Chips>
       </ReadMore>
+      {uttaksalder && (
+        <Heading size="small" level="3" spacing>
+          Årlig pensjon hvis du starter uttak ved {uttaksalder} år
+        </Heading>
+      )}
     </section>
   )
 }
