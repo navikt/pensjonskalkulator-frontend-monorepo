@@ -12,4 +12,14 @@
     padding: var(--a-spacing-2) 0;
     gap: var(--a-spacing-6);
   }
+
+  :global {
+    .navds-chips--icon-left {
+      padding-left: var(--a-spacing-3);
+    }
+
+    .navds-chips__toggle-icon {
+      display: none;
+    }
+  }
 }
