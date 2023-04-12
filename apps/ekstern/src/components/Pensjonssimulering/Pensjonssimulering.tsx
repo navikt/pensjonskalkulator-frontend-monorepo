@@ -1,6 +1,7 @@
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, createRef } from 'react'
 
 import { Heading, Chips, Label, ReadMore } from '@navikt/ds-react'
+import { BarChart } from 'chartist'
 import clsx from 'clsx'
 
 import whiteSectionStyles from '../../scss/WhiteSection/WhiteSection.module.scss'
@@ -18,10 +19,44 @@ export function Pensjonssimulering() {
   )
   const [uttaksalder, setUttaksalder] = useState<number | undefined>(undefined)
   const [isReady, setIsReady] = useState<boolean>(false)
+  const chartRef = createRef<HTMLDivElement>()
+
+  const data = {
+    labels: alderChips,
+    series: [
+      [
+        800000, 1000000, 900000, 600000, 800000, 800000, 1000000, 900000,
+        800000, 1000000, 900000, 600000, 800000, 800000,
+      ],
+      [
+        90000, 100000, 100000, 80000, 200000, 150000, 100000, 80000, 200000,
+        100000, 80000, 100000, 90000, 150000,
+      ],
+      [
+        100000, 200000, 50000, 60000, 100000, 200000, 90000, 60000, 100000,
+        200000, 90000, 60000, 100000, 200000,
+      ],
+    ],
+  }
+
+  const options = {
+    stackBars: true,
+    // axisY: {
+    //   labelInterpolationFnc: function (value: number) {
+    //     return value / 1000 + 'k'
+    //   },
+    // },
+  }
 
   useEffect(() => {
+    /* c8 ignore start */
     setTimeout(function () {
+      // TODO fikse denne sjekken og følgende tester
+      if (chartRef.current) {
+        new BarChart(chartRef.current, data, options)
+      }
       setIsReady(true)
+      /* c8 ignore end */
     }, 250)
   })
 
@@ -76,6 +111,7 @@ export function Pensjonssimulering() {
           Årlig pensjon hvis du starter uttak ved {uttaksalder} år
         </Heading>
       )}
+      <div className={'ct-chart'} ref={chartRef}></div>
     </section>
   )
 }

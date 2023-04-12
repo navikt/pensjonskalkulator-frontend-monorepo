@@ -9,6 +9,16 @@ global.Request = Request
 global.Response = Response
 global.Headers = Headers
 
+window.matchMedia =
+  window.matchMedia ||
+  function () {
+    return {
+      matches: false,
+      addListener: function () {},
+      removeListener: function () {},
+    }
+  }
+
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' })
 })

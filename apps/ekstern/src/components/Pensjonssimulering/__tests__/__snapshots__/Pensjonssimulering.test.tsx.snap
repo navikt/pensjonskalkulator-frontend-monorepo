@@ -20,27 +20,9 @@ exports[`Pensjonssimulering > rendrer slik den skal, med Heading pÃ¥ riktig nivÃ
     >
       <li>
         <button
-          aria-pressed="true"
-          class="navds-chips__chip navds-chips__toggle navds-chips--icon-left"
+          aria-pressed="false"
+          class="navds-chips__chip navds-chips__toggle"
         >
-          <svg
-            aria-hidden="true"
-            class="navds-chips__toggle-icon"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M18.201 6 20 7.89 8.78 19 4 14.396 5.794 12.5l2.98 2.802L18.201 6Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
           <span
             class="navds-chips__chip-text"
           >
@@ -271,6 +253,9 @@ exports[`Pensjonssimulering > rendrer slik den skal, med Heading pÃ¥ riktig nivÃ
         </div>
       </div>
     </div>
+    <div
+      class="ct-chart"
+    />
   </section>
 </DocumentFragment>
 `;

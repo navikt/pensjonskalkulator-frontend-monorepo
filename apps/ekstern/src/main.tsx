@@ -9,6 +9,7 @@ import { store } from './state/store'
 
 import '@navikt/ds-css'
 import '@navikt/ds-tokens'
+import './scss/chartist.scss'
 
 const startRendering = () => {
   const rootId = 'root'
