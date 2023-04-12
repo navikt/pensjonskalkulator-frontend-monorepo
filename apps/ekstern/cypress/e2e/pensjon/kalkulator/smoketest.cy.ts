@@ -7,6 +7,8 @@ describe('Pensjonskalkulator', () => {
       }
     )
     cy.visit('/pensjon/kalkulator')
+    // Venter på at fade-in animasjonen er ferdig
+    cy.wait(250)
 
     cy.contains('Alternativer for når du kan ta ut')
     cy.contains('678 000')
