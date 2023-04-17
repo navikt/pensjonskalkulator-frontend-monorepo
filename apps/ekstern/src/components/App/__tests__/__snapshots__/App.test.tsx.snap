@@ -299,9 +299,6 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
           </div>
         </div>
       </div>
-      <div
-        class="ct-chart"
-      />
     </section>
   </main>
 </DocumentFragment>

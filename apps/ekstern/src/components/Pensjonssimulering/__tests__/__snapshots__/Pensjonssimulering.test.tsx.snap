@@ -253,9 +253,986 @@ exports[`Pensjonssimulering > rendrer slik den skal, med Heading på riktig niv�
         </div>
       </div>
     </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`] = `
+<DocumentFragment>
+  <section
+    class="_whiteSection_0c72f2 _pensjonssimulering_2cd409"
+  >
+    <h3
+      class="navds-heading navds-heading--small navds-typo--spacing"
+    >
+      Når vil du ta ut alderspensjon?
+    </h3>
+    <label
+      class="navds-label navds-label--small"
+    >
+      Velg alder
+    </label>
+    <ul
+      class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
+    >
+      <li>
+        <button
+          aria-pressed="false"
+          class="navds-chips__chip navds-chips__toggle"
+        >
+          <span
+            class="navds-chips__chip-text"
+          >
+            62
+          </span>
+        </button>
+      </li>
+      <li>
+        <button
+          aria-pressed="false"
+          class="navds-chips__chip navds-chips__toggle"
+        >
+          <span
+            class="navds-chips__chip-text"
+          >
+            63
+          </span>
+        </button>
+      </li>
+      <li>
+        <button
+          aria-pressed="false"
+          class="navds-chips__chip navds-chips__toggle"
+        >
+          <span
+            class="navds-chips__chip-text"
+          >
+            64
+          </span>
+        </button>
+      </li>
+      <li>
+        <button
+          aria-pressed="true"
+          class="navds-chips__chip navds-chips__toggle navds-chips--icon-left"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-chips__toggle-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M18.201 6 20 7.89 8.78 19 4 14.396 5.794 12.5l2.98 2.802L18.201 6Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="navds-chips__chip-text"
+          >
+            65
+          </span>
+        </button>
+      </li>
+      <li>
+        <button
+          aria-pressed="false"
+          class="navds-chips__chip navds-chips__toggle"
+        >
+          <span
+            class="navds-chips__chip-text"
+          >
+            66
+          </span>
+        </button>
+      </li>
+      <li>
+        <button
+          aria-pressed="false"
+          class="navds-chips__chip navds-chips__toggle"
+        >
+          <span
+            class="navds-chips__chip-text"
+          >
+            67
+          </span>
+        </button>
+      </li>
+    </ul>
+    <div
+      class="navds-read-more navds-read-more--medium _readMore__hasPadding_2cd409"
+    >
+      <button
+        aria-expanded="false"
+        class="navds-read-more__button navds-body-short"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="navds-read-more__expand-icon"
+          fill="none"
+          focusable="false"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M12 17.414 4.293 9.707l1.414-1.414L12 14.586l6.293-6.293 1.414 1.414L12 17.414Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <svg
+          aria-hidden="true"
+          class="navds-read-more__expand-icon navds-read-more__expand-icon--filled"
+          fill="none"
+          focusable="false"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="m12 18.121-8.06-8.06 2.12-2.122L12 13.88l5.94-5.94 2.12 2.122L12 18.12Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <span>
+          Vis flere aldere
+        </span>
+      </button>
+      <div
+        style="height: 0px; overflow: hidden;"
+      >
+        <div
+          aria-hidden="true"
+          style="display: none;"
+        >
+          <div
+            class="navds-read-more__content navds-body-long"
+          >
+            <ul
+              class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
+            >
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    68
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    69
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    70
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    71
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    72
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    73
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    74
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    75
+                  </span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h3
+      class="navds-heading navds-heading--small navds-typo--spacing"
+    >
+      Årlig pensjon hvis du starter uttak ved 65 år
+    </h3>
     <div
       class="ct-chart"
-    />
+    >
+      <svg
+        class="ct-chart-bar"
+        height="100%"
+        style="width: 100%; height: 100%;"
+        width="100%"
+        xmlns:ct="http://gionkunz.github.com/chartist-js/ct"
+      >
+        <g
+          class="ct-grids"
+        >
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50"
+            x2="50"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.07142857142857"
+            x2="50.07142857142857"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.142857142857146"
+            x2="50.142857142857146"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.214285714285715"
+            x2="50.214285714285715"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.285714285714285"
+            x2="50.285714285714285"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.357142857142854"
+            x2="50.357142857142854"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.42857142857143"
+            x2="50.42857142857143"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.5"
+            x2="50.5"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.57142857142857"
+            x2="50.57142857142857"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.642857142857146"
+            x2="50.642857142857146"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.714285714285715"
+            x2="50.714285714285715"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.785714285714285"
+            x2="50.785714285714285"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.857142857142854"
+            x2="50.857142857142854"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="50.92857142857143"
+            x2="50.92857142857143"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-vertical"
+            x1="50"
+            x2="51"
+            y1="16"
+            y2="16"
+          />
+        </g>
+        <g>
+          <g
+            class="ct-series ct-series-a"
+          >
+            <line
+              class="ct-bar"
+              ct:value="800000"
+              x1="50.035714285714285"
+              x2="50.035714285714285"
+              y1="16"
+              y2="15.6"
+            />
+            <line
+              class="ct-bar"
+              ct:value="1000000"
+              x1="50.107142857142854"
+              x2="50.107142857142854"
+              y1="16"
+              y2="15.5"
+            />
+            <line
+              class="ct-bar"
+              ct:value="900000"
+              x1="50.17857142857143"
+              x2="50.17857142857143"
+              y1="16"
+              y2="15.55"
+            />
+            <line
+              class="ct-bar"
+              ct:value="600000"
+              x1="50.25"
+              x2="50.25"
+              y1="16"
+              y2="15.7"
+            />
+            <line
+              class="ct-bar"
+              ct:value="800000"
+              x1="50.32142857142857"
+              x2="50.32142857142857"
+              y1="16"
+              y2="15.6"
+            />
+            <line
+              class="ct-bar"
+              ct:value="800000"
+              x1="50.39285714285714"
+              x2="50.39285714285714"
+              y1="16"
+              y2="15.6"
+            />
+            <line
+              class="ct-bar"
+              ct:value="1000000"
+              x1="50.464285714285715"
+              x2="50.464285714285715"
+              y1="16"
+              y2="15.5"
+            />
+            <line
+              class="ct-bar"
+              ct:value="900000"
+              x1="50.535714285714285"
+              x2="50.535714285714285"
+              y1="16"
+              y2="15.55"
+            />
+            <line
+              class="ct-bar"
+              ct:value="800000"
+              x1="50.607142857142854"
+              x2="50.607142857142854"
+              y1="16"
+              y2="15.6"
+            />
+            <line
+              class="ct-bar"
+              ct:value="1000000"
+              x1="50.67857142857143"
+              x2="50.67857142857143"
+              y1="16"
+              y2="15.5"
+            />
+            <line
+              class="ct-bar"
+              ct:value="900000"
+              x1="50.75"
+              x2="50.75"
+              y1="16"
+              y2="15.55"
+            />
+            <line
+              class="ct-bar"
+              ct:value="600000"
+              x1="50.82142857142857"
+              x2="50.82142857142857"
+              y1="16"
+              y2="15.7"
+            />
+            <line
+              class="ct-bar"
+              ct:value="800000"
+              x1="50.89285714285714"
+              x2="50.89285714285714"
+              y1="16"
+              y2="15.6"
+            />
+            <line
+              class="ct-bar"
+              ct:value="800000"
+              x1="50.964285714285715"
+              x2="50.964285714285715"
+              y1="16"
+              y2="15.6"
+            />
+          </g>
+          <g
+            class="ct-series ct-series-b"
+          >
+            <line
+              class="ct-bar"
+              ct:value="90000"
+              x1="50.035714285714285"
+              x2="50.035714285714285"
+              y1="15.6"
+              y2="15.555"
+            />
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.107142857142854"
+              x2="50.107142857142854"
+              y1="15.5"
+              y2="15.45"
+            />
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.17857142857143"
+              x2="50.17857142857143"
+              y1="15.55"
+              y2="15.5"
+            />
+            <line
+              class="ct-bar"
+              ct:value="80000"
+              x1="50.25"
+              x2="50.25"
+              y1="15.7"
+              y2="15.66"
+            />
+            <line
+              class="ct-bar"
+              ct:value="200000"
+              x1="50.32142857142857"
+              x2="50.32142857142857"
+              y1="15.6"
+              y2="15.5"
+            />
+            <line
+              class="ct-bar"
+              ct:value="150000"
+              x1="50.39285714285714"
+              x2="50.39285714285714"
+              y1="15.6"
+              y2="15.525"
+            />
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.464285714285715"
+              x2="50.464285714285715"
+              y1="15.5"
+              y2="15.45"
+            />
+            <line
+              class="ct-bar"
+              ct:value="80000"
+              x1="50.535714285714285"
+              x2="50.535714285714285"
+              y1="15.55"
+              y2="15.510000000000002"
+            />
+            <line
+              class="ct-bar"
+              ct:value="200000"
+              x1="50.607142857142854"
+              x2="50.607142857142854"
+              y1="15.6"
+              y2="15.5"
+            />
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.67857142857143"
+              x2="50.67857142857143"
+              y1="15.5"
+              y2="15.45"
+            />
+            <line
+              class="ct-bar"
+              ct:value="80000"
+              x1="50.75"
+              x2="50.75"
+              y1="15.55"
+              y2="15.510000000000002"
+            />
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.82142857142857"
+              x2="50.82142857142857"
+              y1="15.7"
+              y2="15.649999999999999"
+            />
+            <line
+              class="ct-bar"
+              ct:value="90000"
+              x1="50.89285714285714"
+              x2="50.89285714285714"
+              y1="15.6"
+              y2="15.555"
+            />
+            <line
+              class="ct-bar"
+              ct:value="150000"
+              x1="50.964285714285715"
+              x2="50.964285714285715"
+              y1="15.6"
+              y2="15.525"
+            />
+          </g>
+          <g
+            class="ct-series ct-series-c"
+          >
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.035714285714285"
+              x2="50.035714285714285"
+              y1="15.555"
+              y2="15.504999999999999"
+            />
+            <line
+              class="ct-bar"
+              ct:value="200000"
+              x1="50.107142857142854"
+              x2="50.107142857142854"
+              y1="15.45"
+              y2="15.35"
+            />
+            <line
+              class="ct-bar"
+              ct:value="50000"
+              x1="50.17857142857143"
+              x2="50.17857142857143"
+              y1="15.5"
+              y2="15.475"
+            />
+            <line
+              class="ct-bar"
+              ct:value="60000"
+              x1="50.25"
+              x2="50.25"
+              y1="15.66"
+              y2="15.63"
+            />
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.32142857142857"
+              x2="50.32142857142857"
+              y1="15.5"
+              y2="15.45"
+            />
+            <line
+              class="ct-bar"
+              ct:value="200000"
+              x1="50.39285714285714"
+              x2="50.39285714285714"
+              y1="15.525"
+              y2="15.425"
+            />
+            <line
+              class="ct-bar"
+              ct:value="90000"
+              x1="50.464285714285715"
+              x2="50.464285714285715"
+              y1="15.45"
+              y2="15.405"
+            />
+            <line
+              class="ct-bar"
+              ct:value="60000"
+              x1="50.535714285714285"
+              x2="50.535714285714285"
+              y1="15.510000000000002"
+              y2="15.480000000000002"
+            />
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.607142857142854"
+              x2="50.607142857142854"
+              y1="15.5"
+              y2="15.45"
+            />
+            <line
+              class="ct-bar"
+              ct:value="200000"
+              x1="50.67857142857143"
+              x2="50.67857142857143"
+              y1="15.45"
+              y2="15.35"
+            />
+            <line
+              class="ct-bar"
+              ct:value="90000"
+              x1="50.75"
+              x2="50.75"
+              y1="15.510000000000002"
+              y2="15.465000000000002"
+            />
+            <line
+              class="ct-bar"
+              ct:value="60000"
+              x1="50.82142857142857"
+              x2="50.82142857142857"
+              y1="15.649999999999999"
+              y2="15.62"
+            />
+            <line
+              class="ct-bar"
+              ct:value="100000"
+              x1="50.89285714285714"
+              x2="50.89285714285714"
+              y1="15.555"
+              y2="15.504999999999999"
+            />
+            <line
+              class="ct-bar"
+              ct:value="200000"
+              x1="50.964285714285715"
+              x2="50.964285714285715"
+              y1="15.525"
+              y2="15.425"
+            />
+          </g>
+        </g>
+        <g
+          class="ct-labels"
+        >
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.07142857142857142"
+            x="50"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              62
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.07142857142857142"
+            x="50.07142857142857"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              63
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.07142857142857142"
+            x="50.142857142857146"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              64
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.07142857142857142"
+            x="50.214285714285715"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              65
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.0714285714285714"
+            x="50.285714285714285"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              66
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.07142857142857145"
+            x="50.357142857142854"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              67
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.07142857142857145"
+            x="50.42857142857143"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              68
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.0714285714285714"
+            x="50.5"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              69
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.0714285714285714"
+            x="50.57142857142857"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              70
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.0714285714285714"
+            x="50.642857142857146"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              71
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.07142857142857151"
+            x="50.714285714285715"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              72
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.0714285714285714"
+            x="50.785714285714285"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              73
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.0714285714285714"
+            x="50.857142857142854"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              74
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.07142857142857151"
+            x="50.92857142857143"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              75
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="1"
+            style="overflow: visible;"
+            width="30"
+            x="10"
+            y="15"
+          >
+            <span
+              class="ct-label ct-vertical ct-start"
+              style="height: 1px; width: 30px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              0
+            </span>
+          </foreignobject>
+        </g>
+      </svg>
+    </div>
   </section>
 </DocumentFragment>
 `;

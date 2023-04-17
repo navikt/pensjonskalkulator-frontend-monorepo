@@ -50,15 +50,15 @@ export function Pensjonssimulering() {
 
   useEffect(() => {
     /* c8 ignore start */
+    // TODO Dette er kun midlertidig for å simulere at blokken fades inn på en smooth måte med css transition
     setTimeout(function () {
-      // TODO fikse denne sjekken og følgende tester
-      if (chartRef.current) {
-        new BarChart(chartRef.current, data, options)
-      }
       setIsReady(true)
-      /* c8 ignore end */
     }, 250)
-  })
+    /* c8 ignore end */
+    if (chartRef.current) {
+      new BarChart(chartRef.current, data, options)
+    }
+  }, [uttaksalder])
 
   return (
     <section
@@ -107,11 +107,13 @@ export function Pensjonssimulering() {
         </Chips>
       </ReadMore>
       {uttaksalder && (
-        <Heading size="small" level="3" spacing>
-          Årlig pensjon hvis du starter uttak ved {uttaksalder} år
-        </Heading>
+        <>
+          <Heading size="small" level="3" spacing>
+            Årlig pensjon hvis du starter uttak ved {uttaksalder} år
+          </Heading>
+          <div className={'ct-chart'} ref={chartRef}></div>
+        </>
       )}
-      <div className={'ct-chart'} ref={chartRef}></div>
     </section>
   )
 }
