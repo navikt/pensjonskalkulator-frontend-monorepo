@@ -17,24 +17,25 @@ export function Pensjonssimulering() {
     () => generateAlderArray(tidligstUttak, 75),
     [tidligstUttak]
   )
-  const [uttaksalder, setUttaksalder] = useState<number | undefined>(undefined)
+
+  const [uttaksalder, setUttaksalder] = useState<string | undefined>(undefined)
   const [isReady, setIsReady] = useState<boolean>(false)
   const chartRef = createRef<HTMLDivElement>()
 
   const data = {
-    labels: alderChips,
+    labels: [(tidligstUttak - 1).toString(), ...alderChips],
     series: [
       [
-        250000, 300000, 450000, 500000, 600000, 600000, 600000, 600000, 600000,
-        600000, 600000, 600000, 600000, 600000,
+        0, 250000, 300000, 450000, 500000, 600000, 600000, 600000, 600000,
+        600000, 600000, 600000, 600000, 600000, 600000,
       ],
       [
-        90000, 70000, 100000, 80000, 70000, 70000, 70000, 70000, 70000, 70000,
-        70000, 70000, 70000, 70000,
+        0, 90000, 70000, 100000, 80000, 70000, 70000, 70000, 70000, 70000,
+        70000, 70000, 70000, 70000, 70000,
       ],
       [
-        50000, 40000, 50000, 60000, 50000, 50000, 50000, 50000, 50000, 50000,
-        50000, 50000, 50000, 50000,
+        1000000, 50000, 40000, 50000, 60000, 50000, 50000, 50000, 50000, 50000,
+        50000, 50000, 50000, 50000, 50000,
       ],
     ],
   }

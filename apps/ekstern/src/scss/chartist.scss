@@ -261,6 +261,10 @@ $ct-series-colors: (
   .#{$ct-class-bar},
   .#{$ct-class-slice-donut} {
     stroke: $color;
+
+    &:first-child {
+      stroke: var(--a-green-200);
+    }
   }
 
   .#{$ct-class-slice-pie},
