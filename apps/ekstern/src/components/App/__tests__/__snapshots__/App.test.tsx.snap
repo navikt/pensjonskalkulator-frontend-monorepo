@@ -298,6 +298,30 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     </span>
                   </button>
                 </li>
+                <li>
+                  <button
+                    aria-pressed="false"
+                    class="navds-chips__chip navds-chips__toggle"
+                  >
+                    <span
+                      class="navds-chips__chip-text"
+                    >
+                      76 år
+                    </span>
+                  </button>
+                </li>
+                <li>
+                  <button
+                    aria-pressed="false"
+                    class="navds-chips__chip navds-chips__toggle"
+                  >
+                    <span
+                      class="navds-chips__chip-text"
+                    >
+                      77 år
+                    </span>
+                  </button>
+                </li>
               </ul>
             </div>
           </div>

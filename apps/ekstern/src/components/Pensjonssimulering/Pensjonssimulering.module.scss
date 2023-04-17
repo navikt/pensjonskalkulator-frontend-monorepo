@@ -24,6 +24,18 @@
   }
 }
 
+.chartWrapper {
+  @media (max-width: $a-breakpoint-sm-down) {
+    overflow-y: scroll;
+
+    :global {
+      .ct-chart-bar {
+        width: 700px !important;
+      }
+    }
+  }
+}
+
 .readMore__hasPadding {
   margin-bottom: var(--a-spacing-6);
 }

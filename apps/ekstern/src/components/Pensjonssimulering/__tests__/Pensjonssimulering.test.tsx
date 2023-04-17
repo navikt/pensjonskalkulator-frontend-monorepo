@@ -15,7 +15,7 @@ describe('Pensjonssimulering', () => {
     const buttons = screen.getAllByRole('button')
     expect(buttons).toHaveLength(7)
     fireEvent.click(screen.getByText('Vis flere aldere'))
-    expect(screen.getAllByRole('button')).toHaveLength(15)
+    expect(screen.getAllByRole('button')).toHaveLength(17)
     await waitFor(() => {
       expect(asFragment()).toMatchSnapshot()
     })

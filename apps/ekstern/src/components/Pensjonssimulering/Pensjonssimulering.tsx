@@ -14,7 +14,7 @@ export function Pensjonssimulering() {
   // TODO tidligst uttak vil leveres av backend. isReady flag kan erstattes med isSuccess fra RTK-query
   const tidligstUttak = 62
   const alderChips = useMemo(
-    () => generateAlderArray(tidligstUttak, 75),
+    () => generateAlderArray(tidligstUttak, 77),
     [tidligstUttak]
   )
 
@@ -27,24 +27,29 @@ export function Pensjonssimulering() {
     series: [
       [
         0, 250000, 300000, 450000, 500000, 600000, 600000, 600000, 600000,
-        600000, 600000, 600000, 600000, 600000, 600000,
+        600000, 600000, 600000, 600000, 600000, 600000, 600000, 600000,
       ],
       [
         0, 90000, 70000, 100000, 80000, 70000, 70000, 70000, 70000, 70000,
-        70000, 70000, 70000, 70000, 70000,
+        70000, 70000, 70000, 70000, 70000, 70000, 70000,
       ],
       [
         1000000, 50000, 40000, 50000, 60000, 50000, 50000, 50000, 50000, 50000,
-        50000, 50000, 50000, 50000, 50000,
+        50000, 50000, 50000, 50000, 50000, 50000, 50000,
       ],
     ],
   }
 
   const options = {
     stackBars: true,
+    axisX: {
+      labelInterpolationFnc: (value: string, index: number) =>
+        index === alderChips.length ? `${value}+` : value,
+    },
     axisY: {
-      labelInterpolationFnc: (value: number) => value / 1000 + 'k',
       offset: 25,
+      scaleMinSpace: 15,
+      labelInterpolationFnc: (value: number) => `  ${value / 1000}`,
     },
   }
 
@@ -57,6 +62,17 @@ export function Pensjonssimulering() {
     /* c8 ignore end */
     if (chartRef.current) {
       new BarChart(chartRef.current, data, options)
+      const chartWrapper = chartRef.current
+      chartWrapper.addEventListener('scroll', function (evt) {
+        document
+          .querySelectorAll('.ct-label.ct-vertical.ct-start')
+          .forEach((el) => {
+            el.style.position = 'absolute'
+            el.style.left = `${chartWrapper.scrollLeft - 15}px`
+            el.style.minWidth = '30px'
+            el.style.backgroundColor = 'white'
+          })
+      })
     }
   }, [uttaksalder])
 
@@ -111,7 +127,10 @@ export function Pensjonssimulering() {
           <Heading size="small" level="3" spacing>
             Årlig pensjon hvis du starter uttak ved {uttaksalder} år
           </Heading>
-          <div className={'ct-chart'} ref={chartRef}></div>
+          <div
+            className={`ct-chart ${styles.chartWrapper}`}
+            ref={chartRef}
+          ></div>
         </>
       )}
     </section>

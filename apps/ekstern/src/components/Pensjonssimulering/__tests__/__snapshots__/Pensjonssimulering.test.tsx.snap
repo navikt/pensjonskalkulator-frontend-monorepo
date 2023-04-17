@@ -248,6 +248,30 @@ exports[`Pensjonssimulering > rendrer slik den skal, med Heading på riktig niv�
                   </span>
                 </button>
               </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    76 år
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    77 år
+                  </span>
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -523,6 +547,30 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
                   </span>
                 </button>
               </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    76 år
+                  </span>
+                </button>
+              </li>
+              <li>
+                <button
+                  aria-pressed="false"
+                  class="navds-chips__chip navds-chips__toggle"
+                >
+                  <span
+                    class="navds-chips__chip-text"
+                  >
+                    77 år
+                  </span>
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -534,7 +582,7 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
       Årlig pensjon hvis du starter uttak ved 62 år
     </h3>
     <div
-      class="ct-chart"
+      class="ct-chart _chartWrapper_2cd409"
     >
       <svg
         class="ct-chart-bar"
@@ -555,99 +603,113 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.06666666666667"
-            x2="35.06666666666667"
+            x1="35.05882352941177"
+            x2="35.05882352941177"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.13333333333333"
-            x2="35.13333333333333"
+            x1="35.11764705882353"
+            x2="35.11764705882353"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.2"
-            x2="35.2"
+            x1="35.1764705882353"
+            x2="35.1764705882353"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.266666666666666"
-            x2="35.266666666666666"
+            x1="35.23529411764706"
+            x2="35.23529411764706"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.333333333333336"
-            x2="35.333333333333336"
+            x1="35.294117647058826"
+            x2="35.294117647058826"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.4"
-            x2="35.4"
+            x1="35.35294117647059"
+            x2="35.35294117647059"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.46666666666667"
-            x2="35.46666666666667"
+            x1="35.411764705882355"
+            x2="35.411764705882355"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.53333333333333"
-            x2="35.53333333333333"
+            x1="35.470588235294116"
+            x2="35.470588235294116"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.6"
-            x2="35.6"
+            x1="35.529411764705884"
+            x2="35.529411764705884"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.666666666666664"
-            x2="35.666666666666664"
+            x1="35.588235294117645"
+            x2="35.588235294117645"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.733333333333334"
-            x2="35.733333333333334"
+            x1="35.64705882352941"
+            x2="35.64705882352941"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.8"
-            x2="35.8"
+            x1="35.705882352941174"
+            x2="35.705882352941174"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.86666666666667"
-            x2="35.86666666666667"
+            x1="35.76470588235294"
+            x2="35.76470588235294"
             y1="15"
             y2="16"
           />
           <line
             class="ct-grid ct-horizontal"
-            x1="35.93333333333333"
-            x2="35.93333333333333"
+            x1="35.8235294117647"
+            x2="35.8235294117647"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="35.88235294117647"
+            x2="35.88235294117647"
+            y1="15"
+            y2="16"
+          />
+          <line
+            class="ct-grid ct-horizontal"
+            x1="35.94117647058823"
+            x2="35.94117647058823"
             y1="15"
             y2="16"
           />
@@ -666,56 +728,64 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
             <line
               class="ct-bar"
               ct:value="0"
-              x1="35.03333333333333"
-              x2="35.03333333333333"
+              x1="35.029411764705884"
+              x2="35.029411764705884"
               y1="16"
               y2="16"
             />
             <line
               class="ct-bar"
               ct:value="250000"
-              x1="35.1"
-              x2="35.1"
+              x1="35.08823529411765"
+              x2="35.08823529411765"
               y1="16"
               y2="15.75"
             />
             <line
               class="ct-bar"
               ct:value="300000"
-              x1="35.166666666666664"
-              x2="35.166666666666664"
+              x1="35.14705882352941"
+              x2="35.14705882352941"
               y1="16"
               y2="15.7"
             />
             <line
               class="ct-bar"
               ct:value="450000"
-              x1="35.233333333333334"
-              x2="35.233333333333334"
+              x1="35.20588235294118"
+              x2="35.20588235294118"
               y1="16"
               y2="15.55"
             />
             <line
               class="ct-bar"
               ct:value="500000"
-              x1="35.3"
-              x2="35.3"
+              x1="35.26470588235294"
+              x2="35.26470588235294"
               y1="16"
               y2="15.5"
             />
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.36666666666667"
-              x2="35.36666666666667"
+              x1="35.32352941176471"
+              x2="35.32352941176471"
               y1="16"
               y2="15.4"
             />
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.43333333333333"
-              x2="35.43333333333333"
+              x1="35.38235294117647"
+              x2="35.38235294117647"
+              y1="16"
+              y2="15.4"
+            />
+            <line
+              class="ct-bar"
+              ct:value="600000"
+              x1="35.44117647058824"
+              x2="35.44117647058824"
               y1="16"
               y2="15.4"
             />
@@ -730,56 +800,64 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.56666666666666"
-              x2="35.56666666666666"
+              x1="35.55882352941177"
+              x2="35.55882352941177"
               y1="16"
               y2="15.4"
             />
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.63333333333333"
-              x2="35.63333333333333"
+              x1="35.61764705882353"
+              x2="35.61764705882353"
               y1="16"
               y2="15.4"
             />
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.699999999999996"
-              x2="35.699999999999996"
+              x1="35.6764705882353"
+              x2="35.6764705882353"
               y1="16"
               y2="15.4"
             />
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.766666666666666"
-              x2="35.766666666666666"
+              x1="35.73529411764706"
+              x2="35.73529411764706"
               y1="16"
               y2="15.4"
             />
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.83333333333333"
-              x2="35.83333333333333"
+              x1="35.794117647058826"
+              x2="35.794117647058826"
               y1="16"
               y2="15.4"
             />
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.9"
-              x2="35.9"
+              x1="35.85294117647059"
+              x2="35.85294117647059"
               y1="16"
               y2="15.4"
             />
             <line
               class="ct-bar"
               ct:value="600000"
-              x1="35.96666666666666"
-              x2="35.96666666666666"
+              x1="35.911764705882355"
+              x2="35.911764705882355"
+              y1="16"
+              y2="15.4"
+            />
+            <line
+              class="ct-bar"
+              ct:value="600000"
+              x1="35.970588235294116"
+              x2="35.970588235294116"
               y1="16"
               y2="15.4"
             />
@@ -790,56 +868,64 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
             <line
               class="ct-bar"
               ct:value="0"
-              x1="35.03333333333333"
-              x2="35.03333333333333"
+              x1="35.029411764705884"
+              x2="35.029411764705884"
               y1="16"
               y2="16"
             />
             <line
               class="ct-bar"
               ct:value="90000"
-              x1="35.1"
-              x2="35.1"
+              x1="35.08823529411765"
+              x2="35.08823529411765"
               y1="15.75"
               y2="15.66"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.166666666666664"
-              x2="35.166666666666664"
+              x1="35.14705882352941"
+              x2="35.14705882352941"
               y1="15.7"
               y2="15.629999999999999"
             />
             <line
               class="ct-bar"
               ct:value="100000"
-              x1="35.233333333333334"
-              x2="35.233333333333334"
+              x1="35.20588235294118"
+              x2="35.20588235294118"
               y1="15.55"
               y2="15.450000000000001"
             />
             <line
               class="ct-bar"
               ct:value="80000"
-              x1="35.3"
-              x2="35.3"
+              x1="35.26470588235294"
+              x2="35.26470588235294"
               y1="15.5"
               y2="15.42"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.36666666666667"
-              x2="35.36666666666667"
+              x1="35.32352941176471"
+              x2="35.32352941176471"
               y1="15.4"
               y2="15.33"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.43333333333333"
-              x2="35.43333333333333"
+              x1="35.38235294117647"
+              x2="35.38235294117647"
+              y1="15.4"
+              y2="15.33"
+            />
+            <line
+              class="ct-bar"
+              ct:value="70000"
+              x1="35.44117647058824"
+              x2="35.44117647058824"
               y1="15.4"
               y2="15.33"
             />
@@ -854,56 +940,64 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.56666666666666"
-              x2="35.56666666666666"
+              x1="35.55882352941177"
+              x2="35.55882352941177"
               y1="15.4"
               y2="15.33"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.63333333333333"
-              x2="35.63333333333333"
+              x1="35.61764705882353"
+              x2="35.61764705882353"
               y1="15.4"
               y2="15.33"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.699999999999996"
-              x2="35.699999999999996"
+              x1="35.6764705882353"
+              x2="35.6764705882353"
               y1="15.4"
               y2="15.33"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.766666666666666"
-              x2="35.766666666666666"
+              x1="35.73529411764706"
+              x2="35.73529411764706"
               y1="15.4"
               y2="15.33"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.83333333333333"
-              x2="35.83333333333333"
+              x1="35.794117647058826"
+              x2="35.794117647058826"
               y1="15.4"
               y2="15.33"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.9"
-              x2="35.9"
+              x1="35.85294117647059"
+              x2="35.85294117647059"
               y1="15.4"
               y2="15.33"
             />
             <line
               class="ct-bar"
               ct:value="70000"
-              x1="35.96666666666666"
-              x2="35.96666666666666"
+              x1="35.911764705882355"
+              x2="35.911764705882355"
+              y1="15.4"
+              y2="15.33"
+            />
+            <line
+              class="ct-bar"
+              ct:value="70000"
+              x1="35.970588235294116"
+              x2="35.970588235294116"
               y1="15.4"
               y2="15.33"
             />
@@ -914,56 +1008,64 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
             <line
               class="ct-bar"
               ct:value="1000000"
-              x1="35.03333333333333"
-              x2="35.03333333333333"
+              x1="35.029411764705884"
+              x2="35.029411764705884"
               y1="16"
               y2="15"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.1"
-              x2="35.1"
+              x1="35.08823529411765"
+              x2="35.08823529411765"
               y1="15.66"
               y2="15.61"
             />
             <line
               class="ct-bar"
               ct:value="40000"
-              x1="35.166666666666664"
-              x2="35.166666666666664"
+              x1="35.14705882352941"
+              x2="35.14705882352941"
               y1="15.629999999999999"
               y2="15.59"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.233333333333334"
-              x2="35.233333333333334"
+              x1="35.20588235294118"
+              x2="35.20588235294118"
               y1="15.450000000000001"
               y2="15.4"
             />
             <line
               class="ct-bar"
               ct:value="60000"
-              x1="35.3"
-              x2="35.3"
+              x1="35.26470588235294"
+              x2="35.26470588235294"
               y1="15.42"
               y2="15.36"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.36666666666667"
-              x2="35.36666666666667"
+              x1="35.32352941176471"
+              x2="35.32352941176471"
               y1="15.33"
               y2="15.28"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.43333333333333"
-              x2="35.43333333333333"
+              x1="35.38235294117647"
+              x2="35.38235294117647"
+              y1="15.33"
+              y2="15.28"
+            />
+            <line
+              class="ct-bar"
+              ct:value="50000"
+              x1="35.44117647058824"
+              x2="35.44117647058824"
               y1="15.33"
               y2="15.28"
             />
@@ -978,56 +1080,64 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.56666666666666"
-              x2="35.56666666666666"
+              x1="35.55882352941177"
+              x2="35.55882352941177"
               y1="15.33"
               y2="15.28"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.63333333333333"
-              x2="35.63333333333333"
+              x1="35.61764705882353"
+              x2="35.61764705882353"
               y1="15.33"
               y2="15.28"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.699999999999996"
-              x2="35.699999999999996"
+              x1="35.6764705882353"
+              x2="35.6764705882353"
               y1="15.33"
               y2="15.28"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.766666666666666"
-              x2="35.766666666666666"
+              x1="35.73529411764706"
+              x2="35.73529411764706"
               y1="15.33"
               y2="15.28"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.83333333333333"
-              x2="35.83333333333333"
+              x1="35.794117647058826"
+              x2="35.794117647058826"
               y1="15.33"
               y2="15.28"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.9"
-              x2="35.9"
+              x1="35.85294117647059"
+              x2="35.85294117647059"
               y1="15.33"
               y2="15.28"
             />
             <line
               class="ct-bar"
               ct:value="50000"
-              x1="35.96666666666666"
-              x2="35.96666666666666"
+              x1="35.911764705882355"
+              x2="35.911764705882355"
+              y1="15.33"
+              y2="15.28"
+            />
+            <line
+              class="ct-bar"
+              ct:value="50000"
+              x1="35.970588235294116"
+              x2="35.970588235294116"
               y1="15.33"
               y2="15.28"
             />
@@ -1039,7 +1149,7 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666667"
+            width="0.058823529411764705"
             x="35"
             y="21"
           >
@@ -1054,8 +1164,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666667"
-            x="35.06666666666667"
+            width="0.058823529411764705"
+            x="35.05882352941177"
             y="21"
           >
             <span
@@ -1069,8 +1179,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666668"
-            x="35.13333333333333"
+            width="0.05882352941176469"
+            x="35.11764705882353"
             y="21"
           >
             <span
@@ -1084,8 +1194,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.2"
+            width="0.05882352941176472"
+            x="35.1764705882353"
             y="21"
           >
             <span
@@ -1099,8 +1209,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.266666666666666"
+            width="0.05882352941176472"
+            x="35.23529411764706"
             y="21"
           >
             <span
@@ -1114,8 +1224,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666671"
-            x="35.333333333333336"
+            width="0.05882352941176466"
+            x="35.294117647058826"
             y="21"
           >
             <span
@@ -1129,8 +1239,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.4"
+            width="0.05882352941176472"
+            x="35.35294117647059"
             y="21"
           >
             <span
@@ -1144,8 +1254,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.46666666666667"
+            width="0.05882352941176472"
+            x="35.411764705882355"
             y="21"
           >
             <span
@@ -1159,8 +1269,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.53333333333333"
+            width="0.05882352941176472"
+            x="35.470588235294116"
             y="21"
           >
             <span
@@ -1174,8 +1284,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.6"
+            width="0.05882352941176472"
+            x="35.529411764705884"
             y="21"
           >
             <span
@@ -1189,8 +1299,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.666666666666664"
+            width="0.05882352941176472"
+            x="35.588235294117645"
             y="21"
           >
             <span
@@ -1204,8 +1314,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666676"
-            x="35.733333333333334"
+            width="0.05882352941176461"
+            x="35.64705882352941"
             y="21"
           >
             <span
@@ -1219,8 +1329,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.8"
+            width="0.05882352941176472"
+            x="35.705882352941174"
             y="21"
           >
             <span
@@ -1234,8 +1344,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666665"
-            x="35.86666666666667"
+            width="0.05882352941176472"
+            x="35.76470588235294"
             y="21"
           >
             <span
@@ -1249,8 +1359,8 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
           <foreignobject
             height="20"
             style="overflow: visible;"
-            width="0.06666666666666667"
-            x="35.93333333333333"
+            width="0.05882352941176472"
+            x="35.8235294117647"
             y="21"
           >
             <span
@@ -1259,6 +1369,36 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
               xmlns="http://www.w3.org/2000/xmlns/"
             >
               75
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.05882352941176472"
+            x="35.88235294117647"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              76
+            </span>
+          </foreignobject>
+          <foreignobject
+            height="20"
+            style="overflow: visible;"
+            width="0.05882352941176472"
+            x="35.94117647058823"
+            y="21"
+          >
+            <span
+              class="ct-label ct-horizontal ct-end"
+              style="width: 0px; height: 20px;"
+              xmlns="http://www.w3.org/2000/xmlns/"
+            >
+              77+
             </span>
           </foreignobject>
           <foreignobject
@@ -1273,7 +1413,7 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
               style="height: 1px; width: 15px;"
               xmlns="http://www.w3.org/2000/xmlns/"
             >
-              0k
+                0
             </span>
           </foreignobject>
         </g>

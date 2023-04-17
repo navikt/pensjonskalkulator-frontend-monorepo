@@ -92,7 +92,7 @@ $ct-point-shape: round !default;
 $ct-area-opacity: 0.1 !default;
 
 // Bar chart bar width
-$ct-bar-width: 10px !default;
+$ct-bar-width: 15px !default;
 
 // Donut width (If donut width is to big it can cause issues where the shape gets distorted)
 $ct-donut-width: 60px !default;
@@ -242,7 +242,7 @@ $ct-series-colors: (
   filter: drop-shadow(0 2px 0 white);
 
   @media (min-width: $a-breakpoint-sm) {
-    stroke-width: calc($ct-bar-width * 1.5);
+    stroke-width: calc($ct-bar-width * 1.15);
   }
 
   @media (min-width: $a-breakpoint-lg) {
