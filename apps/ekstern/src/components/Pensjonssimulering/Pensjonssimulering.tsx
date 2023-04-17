@@ -43,6 +43,7 @@ export function Pensjonssimulering() {
     stackBars: true,
     axisY: {
       labelInterpolationFnc: (value: number) => value / 1000 + 'k',
+      offset: 25,
     },
   }
 

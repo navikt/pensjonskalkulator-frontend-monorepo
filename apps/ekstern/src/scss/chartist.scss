@@ -1,4 +1,5 @@
 @use 'sass:list';
+@import 'variables';
 
 // Scales for responsive SVG containers
 $ct-scales: (
@@ -75,7 +76,7 @@ $ct-text-line-height: 1;
 
 // Grid styles
 $ct-grid-color: rgb(0 0 0 / 20%) !default;
-$ct-grid-dasharray: 2px !default;
+$ct-grid-dasharray: 0 !default;
 $ct-grid-width: 1px !default;
 $ct-grid-background-fill: none !default;
 
@@ -239,6 +240,14 @@ $ct-series-colors: (
   fill: none;
   stroke-width: $ct-bar-width;
   filter: drop-shadow(0 2px 0 white);
+
+  @media (min-width: $a-breakpoint-sm) {
+    stroke-width: calc($ct-bar-width * 1.5);
+  }
+
+  @media (min-width: $a-breakpoint-lg) {
+    stroke-width: calc($ct-bar-width * 2.5);
+  }
 }
 
 @mixin ct-chart-donut($ct-donut-width: $ct-donut-width) {
@@ -368,7 +377,13 @@ $ct-series-colors: (
   }
 
   .#{$ct-class-grid} {
-    @include ct-chart-grid($ct-grid-color, $ct-grid-width, $ct-grid-dasharray);
+    &.#{$ct-class-vertical} {
+      @include ct-chart-grid(
+        $ct-grid-color,
+        $ct-grid-width,
+        $ct-grid-dasharray
+      );
+    }
   }
 
   .#{$ct-class-grid-background} {
