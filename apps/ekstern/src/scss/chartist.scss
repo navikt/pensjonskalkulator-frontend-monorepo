@@ -110,9 +110,9 @@ $ct-include-alternative-responsive-containers: $ct-include-classes !default;
 // Series names and colors. This can be extended or customized as desired. Just add more series and colors.
 $ct-series-names: (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o) !default;
 $ct-series-colors: (
-  #d70206,
-  #f05b4f,
-  #f4c63d,
+  var(--a-orange-300),
+  var(--a-lightblue-500),
+  var(--a-deepblue-500),
   #d17905,
   #453d3f,
   #59922b,
@@ -238,6 +238,7 @@ $ct-series-colors: (
 @mixin ct-chart-bar($ct-bar-width: $ct-bar-width) {
   fill: none;
   stroke-width: $ct-bar-width;
+  filter: drop-shadow(0 2px 0 white);
 }
 
 @mixin ct-chart-donut($ct-donut-width: $ct-donut-width) {
