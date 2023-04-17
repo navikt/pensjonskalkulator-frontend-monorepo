@@ -2,7 +2,7 @@ import React from 'react'
 
 import { describe, it, vi } from 'vitest'
 
-import { render, screen, fireEvent, waitFor, act } from '../../../test-utils'
+import { render, screen, fireEvent, waitFor } from '../../../test-utils'
 import { Pensjonssimulering } from '../Pensjonssimulering'
 
 describe('Pensjonssimulering', () => {
@@ -32,9 +32,9 @@ describe('Pensjonssimulering', () => {
 
   it('oppdaterer valgt knapp og tittel - både synlige knapper, og de under vis flere - når brukeren klikker på en knapp', () => {
     render(<Pensjonssimulering />)
-    fireEvent.click(screen.getByText('65'))
+    fireEvent.click(screen.getByText('65 år'))
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '65'
+      '65 år'
     )
     expect(
       screen.getByText('Årlig pensjon hvis du starter uttak ved 65 år')
@@ -43,9 +43,9 @@ describe('Pensjonssimulering', () => {
 
     fireEvent.click(screen.getByText('Vis flere aldere'))
 
-    fireEvent.click(screen.getByText('72'))
+    fireEvent.click(screen.getByText('72 år'))
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '72'
+      '72 år'
     )
     expect(
       screen.getByText('Årlig pensjon hvis du starter uttak ved 72 år')
@@ -55,14 +55,14 @@ describe('Pensjonssimulering', () => {
   it('tegner graph når brukeren klikker på en knapp', async () => {
     vi.useFakeTimers()
     const { container, asFragment } = render(<Pensjonssimulering />)
-    await act(async () => {
-      waitFor(() => {
-        fireEvent.click(screen.getByText('65'))
-        expect(container.getElementsByClassName('ct-chart').length).toBe(1)
-        vi.advanceTimersByTime(250)
-        expect(asFragment()).toMatchSnapshot()
-      })
+
+    await waitFor(async () => {
+      await fireEvent.click(screen.getByText('62 år'))
+      vi.advanceTimersByTime(250)
+      expect(container.getElementsByClassName('ct-chart').length).toBe(1)
+      expect(asFragment()).toMatchSnapshot()
     })
+
     vi.useRealTimers()
   })
 })

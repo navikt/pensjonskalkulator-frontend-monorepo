@@ -84,7 +84,7 @@ export function Pensjonssimulering() {
             key={alderChip}
             onClick={() => setUttaksalder(alderChip)}
           >
-            {alderChip.toString()}
+            {`${alderChip.toString()} år`}
           </Chips.Toggle>
         ))}
       </Chips>
@@ -101,7 +101,7 @@ export function Pensjonssimulering() {
               key={alderChip}
               onClick={() => setUttaksalder(alderChip)}
             >
-              {alderChip.toString()}
+              {`${alderChip.toString()} år`}
             </Chips.Toggle>
           ))}
         </Chips>

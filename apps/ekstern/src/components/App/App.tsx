@@ -12,19 +12,16 @@ import styles from './App.module.scss'
 export function App() {
   return (
     <main
-      className={clsx(
-        frameStyles.frame,
-        frameStyles.frame_isFlex,
-        frameStyles.frame_hasPadding,
-        styles.main
-      )}
+      className={clsx(frameStyles.frame, frameStyles.frame_isFlex, styles.main)}
     >
-      <Heading size="large" level="1" spacing>
-        Pensjonskalkulator
-      </Heading>
-      <Heading size="medium" level="2" spacing>
-        Din beregning
-      </Heading>
+      <div className={styles.headerGroup}>
+        <Heading size="large" level="1" spacing>
+          Pensjonskalkulator
+        </Heading>
+        <Heading size="medium" level="2" spacing>
+          Din beregning
+        </Heading>
+      </div>
       <Uttaksalternativer />
       <Pensjonssimulering />
     </main>

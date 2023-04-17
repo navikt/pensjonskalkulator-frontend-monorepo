@@ -3,18 +3,22 @@
 exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1`] = `
 <DocumentFragment>
   <main
-    class="_frame_4c435f _frame_isFlex_4c435f _frame_hasPadding_4c435f _main_bbbd1d"
+    class="_frame_4c435f _frame_isFlex_4c435f _main_bbbd1d"
   >
-    <h1
-      class="navds-heading navds-heading--large navds-typo--spacing"
+    <div
+      class="_headerGroup_bbbd1d"
     >
-      Pensjonskalkulator
-    </h1>
-    <h2
-      class="navds-heading navds-heading--medium navds-typo--spacing"
-    >
-      Din beregning
-    </h2>
+      <h1
+        class="navds-heading navds-heading--large navds-typo--spacing"
+      >
+        Pensjonskalkulator
+      </h1>
+      <h2
+        class="navds-heading navds-heading--medium navds-typo--spacing"
+      >
+        Din beregning
+      </h2>
+    </div>
     <svg
       aria-labelledby="loader-r0"
       class="navds-loader _loader_2bdd5e navds-loader--3xlarge navds-loader--neutral"
@@ -72,7 +76,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
             <span
               class="navds-chips__chip-text"
             >
-              62
+              62 år
             </span>
           </button>
         </li>
@@ -84,7 +88,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
             <span
               class="navds-chips__chip-text"
             >
-              63
+              63 år
             </span>
           </button>
         </li>
@@ -96,7 +100,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
             <span
               class="navds-chips__chip-text"
             >
-              64
+              64 år
             </span>
           </button>
         </li>
@@ -108,7 +112,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
             <span
               class="navds-chips__chip-text"
             >
-              65
+              65 år
             </span>
           </button>
         </li>
@@ -120,7 +124,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
             <span
               class="navds-chips__chip-text"
             >
-              66
+              66 år
             </span>
           </button>
         </li>
@@ -132,7 +136,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
             <span
               class="navds-chips__chip-text"
             >
-              67
+              67 år
             </span>
           </button>
         </li>
@@ -206,7 +210,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     <span
                       class="navds-chips__chip-text"
                     >
-                      68
+                      68 år
                     </span>
                   </button>
                 </li>
@@ -218,7 +222,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     <span
                       class="navds-chips__chip-text"
                     >
-                      69
+                      69 år
                     </span>
                   </button>
                 </li>
@@ -230,7 +234,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     <span
                       class="navds-chips__chip-text"
                     >
-                      70
+                      70 år
                     </span>
                   </button>
                 </li>
@@ -242,7 +246,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     <span
                       class="navds-chips__chip-text"
                     >
-                      71
+                      71 år
                     </span>
                   </button>
                 </li>
@@ -254,7 +258,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     <span
                       class="navds-chips__chip-text"
                     >
-                      72
+                      72 år
                     </span>
                   </button>
                 </li>
@@ -266,7 +270,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     <span
                       class="navds-chips__chip-text"
                     >
-                      73
+                      73 år
                     </span>
                   </button>
                 </li>
@@ -278,7 +282,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     <span
                       class="navds-chips__chip-text"
                     >
-                      74
+                      74 år
                     </span>
                   </button>
                 </li>
@@ -290,7 +294,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
                     <span
                       class="navds-chips__chip-text"
                     >
-                      75
+                      75 år
                     </span>
                   </button>
                 </li>
