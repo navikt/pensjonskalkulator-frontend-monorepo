@@ -67,10 +67,12 @@ export function Pensjonssimulering() {
         document
           .querySelectorAll('.ct-label.ct-vertical.ct-start')
           .forEach((el) => {
-            el.style.position = 'absolute'
-            el.style.left = `${chartWrapper.scrollLeft - 15}px`
-            el.style.minWidth = '30px'
-            el.style.backgroundColor = 'white'
+            ;(el as HTMLElement).style.position = 'absolute'
+            ;(el as HTMLElement).style.left = `${
+              chartWrapper.scrollLeft - 15
+            }px`
+            ;(el as HTMLElement).style.minWidth = '30px'
+            ;(el as HTMLElement).style.backgroundColor = 'white'
           })
       })
     }
