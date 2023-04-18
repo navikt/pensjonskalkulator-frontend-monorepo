@@ -10,7 +10,7 @@ metadata:
 spec:
   image: {{ image }}
   ingresses:
-    - https://www-gcp.dev.nav.no/pensjon/kalkulator
+    - https://www.ekstern.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
@@ -41,4 +41,4 @@ spec:
         - application: pensjonskalkulator-backend
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
-      value: "http://pensjonskalkulator-backend.pensjonskalkulator"
+      value: "http://pensjonskalkulator-backend"
