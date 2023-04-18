@@ -1,6 +1,6 @@
-import { useState, useMemo, useEffect, createRef } from 'react'
+import { createRef, useEffect, useMemo, useState } from 'react'
 
-import { Heading, Chips, ReadMore } from '@navikt/ds-react'
+import { Chips, Heading, ReadMore } from '@navikt/ds-react'
 import { BarChart } from 'chartist'
 import clsx from 'clsx'
 
@@ -19,7 +19,6 @@ export function Pensjonssimulering() {
   )
 
   const [uttaksalder, setUttaksalder] = useState<string | undefined>(undefined)
-  const [isReady, setIsReady] = useState<boolean>(false)
   const chartRef = createRef<HTMLDivElement>()
 
   const data = {
@@ -54,16 +53,10 @@ export function Pensjonssimulering() {
   }
 
   useEffect(() => {
-    /* c8 ignore start */
-    // TODO Dette er kun midlertidig for å simulere at blokken fades inn på en smooth måte med css transition
-    setTimeout(function () {
-      setIsReady(true)
-    }, 250)
-    /* c8 ignore end */
     if (chartRef.current) {
       new BarChart(chartRef.current, data, options)
       const chartWrapper = chartRef.current
-      chartWrapper.addEventListener('scroll', function (evt) {
+      chartWrapper.addEventListener('scroll', function () {
         document
           .querySelectorAll('.ct-label.ct-vertical.ct-start')
           .forEach((el) => {
@@ -82,16 +75,13 @@ export function Pensjonssimulering() {
     <section
       className={clsx(
         whiteSectionStyles.whiteSection,
-        styles.pensjonssimulering,
-        { [whiteSectionStyles.whiteSection__isVisible]: isReady }
+        styles.pensjonssimulering
       )}
     >
       <Heading size="xsmall" level="2" spacing>
         Når vil du ta ut alderspensjon?
       </Heading>
-      <Chips
-        className={`${styles.chipsWrapper} ${styles.chipsWrapper__hasGap}`}
-      >
+      <Chips className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}>
         {alderChips.slice(0, 6).map((alderChip) => (
           <Chips.Toggle
             selected={uttaksalder === alderChip}
@@ -107,7 +97,7 @@ export function Pensjonssimulering() {
         className={clsx({ [styles.readMore__hasPadding]: uttaksalder })}
       >
         <Chips
-          className={`${styles.chipsWrapper} ${styles.chipsWrapper__hasGap}`}
+          className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >
           {alderChips.slice(6, alderChips.length).map((alderChip) => (
             <Chips.Toggle
@@ -126,9 +116,9 @@ export function Pensjonssimulering() {
             Årlig pensjon hvis du starter uttak ved {uttaksalder} år
           </Heading>
           <div
-            className={`ct-chart ${styles.chartWrapper}`}
+            className={clsx('ct-chart', styles.chartWrapper)}
             ref={chartRef}
-          ></div>
+          />
         </>
       )}
     </section>

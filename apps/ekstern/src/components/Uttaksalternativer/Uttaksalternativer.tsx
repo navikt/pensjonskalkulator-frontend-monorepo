@@ -26,57 +26,51 @@ export function Uttaksalternativer() {
   const { data, isLoading, isError, isSuccess } = useGetPensjonsberegningQuery()
   const inntekt = useInntekt()
 
+  if (isLoading) {
+    return (
+      <Loader
+        className={styles.loader}
+        data-testid="loader"
+        size="3xlarge"
+        title="Henter pensjonsberegning"
+      />
+    )
+  }
+
+  if (isError || !isSuccess) {
+    return (
+      <Alert variant="error">
+        <Heading spacing size="small" level="2">
+          Vi klarte ikke å kalkulere pensjonen din. Prøv igjen senere.
+        </Heading>
+      </Alert>
+    )
+  }
+
   return (
-    <>
-      {isLoading && (
-        <Loader
-          className={styles.loader}
-          data-testid="loader"
-          size="3xlarge"
-          title="Henter pensjonsberegning"
-        />
+    <section
+      className={clsx(
+        whiteSectionStyles.whiteSection,
+        styles.uttaksalternativer
       )}
-
-      {isError && (
-        <Alert variant="error">
-          <Heading spacing size="small" level="2">
-            Vi klarte ikke å kalkulere pensjonen din. Prøv igjen senere.
-          </Heading>
-        </Alert>
-      )}
-
+    >
+      <Heading size="medium" level="2">
+        Når kan du ta ut alderspensjon?
+      </Heading>
+      <BodyLong className={styles.uttaksalternativerParagraph}>
+        Hvis du fortsetter å ha en inntekt på{' '}
+        <strong>{formatAsDecimal(inntekt)} kr</strong> kan du tidligst gå av med
+        alderspensjon når du blir <strong>{data[0].alder} år</strong>. Hvis du
+        går av senere, får du høyere pensjon.
+      </BodyLong>
       <section
-        className={clsx(
-          whiteSectionStyles.whiteSection,
-          styles.uttaksalternativer,
-          {
-            [whiteSectionStyles.whiteSection__isVisible]: isSuccess,
-          }
-        )}
+        aria-label="Pensjonsberegning"
+        className={styles.uttaksalternativerChart}
       >
-        {isSuccess && (
-          <>
-            <Heading size="medium" level="2">
-              Når kan du ta ut alderspensjon?
-            </Heading>
-            <BodyLong className={styles.uttaksalternativerParagraph}>
-              Hvis du fortsetter å ha en inntekt på{' '}
-              <strong>{formatAsDecimal(inntekt)} kr</strong> kan du tidligst gå
-              av med alderspensjon når du blir{' '}
-              <strong>{data[0].alder} år</strong>. Hvis du går av senere, får du
-              høyere pensjon.
-            </BodyLong>
-            <section
-              aria-label="Pensjonsberegning"
-              className={styles.uttaksalternativerChart}
-            >
-              <UttaksalternativerChart lønn={inntekt} beregning={data} />
-              <Button variant="secondary">Sjekk hele pensjonen din</Button>
-            </section>
-            <Link href="#">Om hvordan vi beregner din pensjon</Link>
-          </>
-        )}
+        <UttaksalternativerChart lønn={inntekt} beregning={data} />
+        <Button variant="secondary">Sjekk hele pensjonen din</Button>
       </section>
-    </>
+      <Link href="#">Om hvordan vi beregner din pensjon</Link>
+    </section>
   )
 }

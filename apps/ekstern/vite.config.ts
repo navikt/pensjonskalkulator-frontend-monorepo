@@ -5,88 +5,96 @@ import stylelint from 'vite-plugin-stylelint'
 import sassDts from 'vite-plugin-sass-dts'
 import { visualizer } from 'rollup-plugin-visualizer'
 import path from 'path'
-
-import type { UserConfig } from 'vitest/config'
-
-const testConfig: UserConfig = {
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: 'src/test-setup.ts',
-    coverage: {
-      provider: 'c8',
-      all: true,
-      extension: ['.ts', '.tsx'],
-      exclude: [
-        'vite.config.ts',
-        'src/api',
-        'src/test-utils.tsx',
-        'src/**/*.d.ts',
-        'src/**/__tests__',
-        'src/main.tsx',
-        'src/**/index.ts',
-        'src/state/hooks.ts',
-        'cypress',
-        'cypress.config.ts',
-      ],
-      perFile: true,
-      lines: 95,
-      functions: 75,
-      branches: 95,
-      statements: 95,
-      reporter: ['json', 'html', 'text', 'text-summary', 'cobertura'],
-    },
-  },
-}
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  base: '/pensjon/kalkulator/',
-  plugins: [
-    react(),
-    eslint(),
-    stylelint({ fix: true }),
-    htmlPlugin(loadEnv(mode, '.')),
-    sassDts({
-      global: {
-        generate: true,
-        outFile: path.resolve(__dirname, './src/style.d.ts'),
-      },
-    }),
-    visualizer({
-      template: 'treemap',
-      open: true,
-      gzipSize: true,
-      brotliSize: true,
-      filename: 'analice.html',
-    }),
-  ],
-  server: {
-    proxy: {
-      '/pensjon/kalkulator/api': {
-        target: 'https://pensjonskalkulator-backend.ekstern.dev.nav.no',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/styles" as common;`,
-        importer(...args) {
-          if (args[0] !== '@/styles') {
-            return
-          }
-          return {
-            file: `${path.resolve(__dirname, './public')}`,
-          }
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  return {
+    base: '/pensjon/kalkulator/',
+    plugins: [
+      react(),
+      eslint(),
+      stylelint({ fix: true }),
+      htmlPlugin(env),
+      sassDts({
+        global: {
+          generate: true,
+          outFile: path.resolve(__dirname, './src/style.d.ts'),
+        },
+      }),
+      visualizer({
+        template: 'treemap',
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+        filename: 'analice.html',
+      }),
+      sentryVitePlugin({
+        org: 'nav',
+        url: env.SENTRY_URL,
+        project: 'pensjonskalkulator-frontend',
+        authToken: env.SENTRY_AUTH_TOKEN,
+        sourcemaps: {
+          assets: './dist/**',
+        },
+        dryRun: !env.SENTRY_AUTH_TOKEN,
+      }),
+    ],
+    server: {
+      proxy: {
+        '/pensjon/kalkulator/api': {
+          target: 'https://pensjonskalkulator-backend.ekstern.dev.nav.no',
+          changeOrigin: true,
+          secure: false,
         },
       },
     },
-  },
-  ...testConfig,
-}))
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/styles" as common;`,
+          importer(...args) {
+            if (args[0] !== '@/styles') {
+              return
+            }
+            return {
+              file: `${path.resolve(__dirname, './public')}`,
+            }
+          },
+        },
+      },
+    },
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      setupFiles: 'src/test-setup.ts',
+      coverage: {
+        provider: 'c8',
+        all: true,
+        extension: ['.ts', '.tsx'],
+        exclude: [
+          'vite.config.ts',
+          'src/api',
+          'src/test-utils.tsx',
+          'src/**/*.d.ts',
+          'src/**/__tests__',
+          'src/main.tsx',
+          'src/**/index.ts',
+          'src/state/hooks.ts',
+          'cypress',
+          'cypress.config.ts',
+        ],
+        perFile: true,
+        lines: 95,
+        functions: 75,
+        branches: 95,
+        statements: 95,
+        reporter: ['json', 'html', 'text', 'text-summary', 'cobertura'],
+      },
+    },
+  }
+})
 
 /**
  * Replace env variables in index.html
