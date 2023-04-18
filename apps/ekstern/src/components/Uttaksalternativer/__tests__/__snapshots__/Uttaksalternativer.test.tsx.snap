@@ -31,11 +31,11 @@ exports[`Uttaksalternativer > viser feilmelding om henting av pensjonberegning f
     <div
       class="navds-alert__wrapper navds-body-long"
     >
-      <h3
+      <h2
         class="navds-heading navds-heading--small navds-typo--spacing"
       >
         Vi klarte ikke å kalkulere pensjonen din. Prøv igjen senere.
-      </h3>
+      </h2>
     </div>
   </div>
   <section
@@ -49,11 +49,11 @@ exports[`Uttaksalternativer > viser loading og deretter pensjonsberegning hentet
   <section
     class="_whiteSection_0c72f2 _uttaksalternativer_2bdd5e _whiteSection__isVisible_0c72f2"
   >
-    <h3
-      class="navds-heading navds-heading--small"
+    <h2
+      class="navds-heading navds-heading--medium"
     >
-      Alternativer for når du kan ta ut
-    </h3>
+      Når kan du ta ut alderspensjon?
+    </h2>
     <p
       class="_uttaksalternativerParagraph_2bdd5e navds-body-long"
     >

@@ -39,7 +39,7 @@ export function Uttaksalternativer() {
 
       {isError && (
         <Alert variant="error">
-          <Heading spacing size="small" level="3">
+          <Heading spacing size="small" level="2">
             Vi klarte ikke å kalkulere pensjonen din. Prøv igjen senere.
           </Heading>
         </Alert>
@@ -56,8 +56,8 @@ export function Uttaksalternativer() {
       >
         {isSuccess && (
           <>
-            <Heading size="small" level="3">
-              Alternativer for når du kan ta ut
+            <Heading size="medium" level="2">
+              Når kan du ta ut alderspensjon?
             </Heading>
             <BodyLong className={styles.uttaksalternativerParagraph}>
               Hvis du fortsetter å ha en inntekt på{' '}

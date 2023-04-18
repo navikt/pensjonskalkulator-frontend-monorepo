@@ -18,9 +18,6 @@ export function App() {
         <Heading size="large" level="1" spacing>
           Pensjonskalkulator
         </Heading>
-        <Heading size="medium" level="2" spacing>
-          Din beregning
-        </Heading>
       </div>
       <Uttaksalternativer />
       <Pensjonssimulering />

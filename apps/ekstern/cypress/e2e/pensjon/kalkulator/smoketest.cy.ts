@@ -10,7 +10,7 @@ describe('Pensjonskalkulator', () => {
     // Venter på at fade-in animasjonen er ferdig
     cy.wait(250)
 
-    cy.contains('Alternativer for når du kan ta ut')
+    cy.contains('Når kan du ta ut alderspensjon?')
     cy.contains('678 000')
     cy.contains('300 000')
     cy.contains('350 000')

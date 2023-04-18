@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, createRef } from 'react'
 
-import { Heading, Chips, Label, ReadMore } from '@navikt/ds-react'
+import { Heading, Chips, ReadMore } from '@navikt/ds-react'
 import { BarChart } from 'chartist'
 import clsx from 'clsx'
 
@@ -86,13 +86,9 @@ export function Pensjonssimulering() {
         { [whiteSectionStyles.whiteSection__isVisible]: isReady }
       )}
     >
-      <Heading size="small" level="3" spacing>
+      <Heading size="xsmall" level="2" spacing>
         Når vil du ta ut alderspensjon?
       </Heading>
-      {
-        // TODO Er det semantisk korrekt å ha denne som label? Under avklaring
-      }
-      <Label size={'small'}>Velg alder</Label>
       <Chips
         className={`${styles.chipsWrapper} ${styles.chipsWrapper__hasGap}`}
       >
@@ -126,7 +122,7 @@ export function Pensjonssimulering() {
       </ReadMore>
       {uttaksalder && (
         <>
-          <Heading size="small" level="3" spacing>
+          <Heading size="xsmall" level="3" spacing>
             Årlig pensjon hvis du starter uttak ved {uttaksalder} år
           </Heading>
           <div

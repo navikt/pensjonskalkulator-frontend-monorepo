@@ -15,8 +15,8 @@ describe('Uttaksalternativer', () => {
     expect(screen.getByTestId('loader')).toBeVisible()
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
-        'Alternativer for når du kan ta ut'
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'Når kan du ta ut alderspensjon?'
       )
       expect(
         screen.getByText('Hvis du fortsetter å ha en inntekt på', {

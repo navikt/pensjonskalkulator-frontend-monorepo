@@ -9,7 +9,7 @@ describe('Pensjonssimulering', () => {
   it('rendrer slik den skal, med Heading på riktig nivå og knapper for alder', async () => {
     const { asFragment } = render(<Pensjonssimulering />)
 
-    expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent(
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       'Når vil du ta ut alderspensjon?'
     )
     const buttons = screen.getAllByRole('button')
@@ -26,7 +26,7 @@ describe('Pensjonssimulering', () => {
     expect(
       screen.queryByRole('button', { pressed: true })
     ).not.toBeInTheDocument()
-    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(1)
+    expect(screen.queryAllByRole('heading', { level: 3 })).toHaveLength(0)
     expect(container.getElementsByClassName('ct-chart').length).toBe(0)
   })
 
@@ -39,7 +39,7 @@ describe('Pensjonssimulering', () => {
     expect(
       screen.getByText('Årlig pensjon hvis du starter uttak ved 65 år')
     ).toBeInTheDocument()
-    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(2)
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(1)
 
     fireEvent.click(screen.getByText('Vis flere aldere'))
 

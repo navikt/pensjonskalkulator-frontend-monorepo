@@ -14,9 +14,6 @@ describe('App', () => {
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
         'Pensjonskalkulator'
       )
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'Din beregning'
-      )
       expect(result.asFragment()).toMatchSnapshot()
     })
   })

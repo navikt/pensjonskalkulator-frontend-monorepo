@@ -5,16 +5,11 @@ exports[`Pensjonssimulering > rendrer slik den skal, med Heading på riktig niv�
   <section
     class="_whiteSection_0c72f2 _pensjonssimulering_2cd409"
   >
-    <h3
-      class="navds-heading navds-heading--small navds-typo--spacing"
+    <h2
+      class="navds-heading navds-heading--xsmall navds-typo--spacing"
     >
       Når vil du ta ut alderspensjon?
-    </h3>
-    <label
-      class="navds-label navds-label--small"
-    >
-      Velg alder
-    </label>
+    </h2>
     <ul
       class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
     >
@@ -286,16 +281,11 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
   <section
     class="_whiteSection_0c72f2 _pensjonssimulering_2cd409"
   >
-    <h3
-      class="navds-heading navds-heading--small navds-typo--spacing"
+    <h2
+      class="navds-heading navds-heading--xsmall navds-typo--spacing"
     >
       Når vil du ta ut alderspensjon?
-    </h3>
-    <label
-      class="navds-label navds-label--small"
-    >
-      Velg alder
-    </label>
+    </h2>
     <ul
       class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
     >
@@ -577,7 +567,7 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
       </div>
     </div>
     <h3
-      class="navds-heading navds-heading--small navds-typo--spacing"
+      class="navds-heading navds-heading--xsmall navds-typo--spacing"
     >
       Årlig pensjon hvis du starter uttak ved 62 år
     </h3>
