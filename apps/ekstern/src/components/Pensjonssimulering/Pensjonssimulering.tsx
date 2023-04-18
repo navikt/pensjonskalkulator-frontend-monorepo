@@ -63,7 +63,7 @@ export function Pensjonssimulering() {
     if (chartRef.current) {
       new BarChart(chartRef.current, data, options)
       const chartWrapper = chartRef.current
-      chartWrapper.addEventListener('scroll', function (evt) {
+      chartWrapper.addEventListener('scroll', function () {
         document
           .querySelectorAll('.ct-label.ct-vertical.ct-start')
           .forEach((el) => {

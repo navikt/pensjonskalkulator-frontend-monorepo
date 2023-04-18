@@ -7,8 +7,7 @@ import { App } from './components/App/App'
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary'
 import { store } from './state/store'
 
-import '@navikt/ds-css'
-import '@navikt/ds-tokens'
+import './scss/designsystem.scss'
 import './scss/chartist.scss'
 
 const startRendering = () => {
