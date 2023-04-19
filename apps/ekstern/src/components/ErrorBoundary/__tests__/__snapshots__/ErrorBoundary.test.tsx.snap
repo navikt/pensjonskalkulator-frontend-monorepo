@@ -9,7 +9,7 @@ exports[`ErrorBoundary > rendrer feilmelding når det kastes en feil i children 
       class="navds-alert navds-alert--error navds-alert--medium"
     >
       <svg
-        aria-labelledby="title-r0"
+        aria-labelledby="title-r1"
         class="navds-alert__icon"
         fill="none"
         focusable="false"
@@ -20,7 +20,7 @@ exports[`ErrorBoundary > rendrer feilmelding når det kastes en feil i children 
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="title-r0"
+          id="title-r1"
         >
           Feil
         </title>

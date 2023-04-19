@@ -13,8 +13,8 @@ export const isPensjonsberegning = (
 }
 
 export const isTidligsteMuligeUttaksalder = (
-  data?: TidligsteMuligeUttaksalder | Required<TidligsteMuligeUttaksalder>
-): data is Required<TidligsteMuligeUttaksalder> => {
+  data?: any
+): data is TidligsteMuligeUttaksalder => {
   return (
     typeof data === 'object' &&
     data !== null &&

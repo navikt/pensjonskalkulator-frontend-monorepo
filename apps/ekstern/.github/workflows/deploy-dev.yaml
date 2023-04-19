@@ -37,7 +37,6 @@ jobs:
       - name: Build application
         env:
           VITE_DEKORATOREN_URL: 'https://dekoratoren.dev.nav.no'
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: npm run build
 
       - name: Save build folder

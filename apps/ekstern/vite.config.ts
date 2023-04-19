@@ -5,8 +5,6 @@ import stylelint from 'vite-plugin-stylelint'
 import sassDts from 'vite-plugin-sass-dts'
 import { visualizer } from 'rollup-plugin-visualizer'
 import path from 'path'
-import { sentryVitePlugin } from '@sentry/vite-plugin'
-import replace from '@rollup/plugin-replace'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
@@ -15,11 +13,6 @@ export default defineConfig(({ mode }) => {
   return {
     base: '/pensjon/kalkulator/',
     plugins: [
-      replace({
-        __SENTRY_DEBUG__: false,
-        __SENTRY_TRACING__: false,
-        preventAssignment: false,
-      }),
       tsconfigPaths(),
       react(),
       eslint(),
@@ -32,21 +25,10 @@ export default defineConfig(({ mode }) => {
         },
       }),
       visualizer({
-        template: 'treemap',
         open: true,
         gzipSize: true,
         brotliSize: true,
         filename: 'analice.html',
-      }),
-      sentryVitePlugin({
-        org: 'nav',
-        url: env.SENTRY_URL,
-        project: 'pensjonskalkulator-frontend',
-        authToken: env.SENTRY_AUTH_TOKEN,
-        sourcemaps: {
-          assets: './dist/**',
-        },
-        dryRun: !env.SENTRY_AUTH_TOKEN,
       }),
     ],
     server: {

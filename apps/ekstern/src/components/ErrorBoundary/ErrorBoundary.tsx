@@ -1,30 +1,52 @@
-import React, { ReactNode } from 'react'
+import React, { ErrorInfo, ReactNode } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
-import { ErrorBoundary as SentryErrorBoundary } from '@sentry/react'
 import clsx from 'clsx'
 
-import frameStyles from '../../scss/Frame/Frame.module.scss'
+import frameStyles from '@/scss/Frame/Frame.module.scss'
+
+function GlobalFeilmelding() {
+  return (
+    <div className={clsx(frameStyles.frame, frameStyles.frame_hasPadding)}>
+      <Alert variant="error">
+        <Heading spacing size="small" level="1">
+          Oisann!
+        </Heading>
+        Det har oppstått en feil. Prøv igjen senere.
+      </Alert>
+    </div>
+  )
+}
 
 interface Props {
+  fallback?: ReactNode
   children: ReactNode
 }
 
-export const ErrorBoundary: React.FC<Props> = ({ children }) => {
-  return (
-    <SentryErrorBoundary
-      fallback={
-        <div className={clsx(frameStyles.frame, frameStyles.frame_hasPadding)}>
-          <Alert variant="error">
-            <Heading spacing size="small" level="1">
-              Oisann!
-            </Heading>
-            Det har oppstått en feil. Prøv igjen senere.
-          </Alert>
-        </div>
-      }
-    >
-      {children}
-    </SentryErrorBoundary>
-  )
+interface State {
+  hasError: boolean
+}
+
+export class ErrorBoundary extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    // logErrorToMyService(error, info.componentStack)
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback ?? <GlobalFeilmelding />
+    }
+
+    return this.props.children
+  }
 }
