@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { isPensjonsberegning } from './typeguards'
+import { isPensjonsberegning, isTidligsteMuligeUttaksalder } from './typeguards'
 import { API_BASEURL } from '../../api/paths'
 
 export const apiSlice = createApi({
@@ -9,6 +9,18 @@ export const apiSlice = createApi({
   }),
   endpoints: (builder) => ({
     // Full request url med baseQuery: '${env.VITE_MSW_BASEURL}/pensjon/kalkulator/api/pensjonsberegning'
+    getTidligsteMuligeUttaksalder: builder.query<
+      TidligsteMuligeUttaksalder,
+      void
+    >({
+      query: () => '/tidligste-uttaksalder',
+      transformResponse: (response: TidligsteMuligeUttaksalder) => {
+        if (!isTidligsteMuligeUttaksalder(response)) {
+          throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
+        }
+        return response
+      },
+    }),
     getPensjonsberegning: builder.query<Pensjonsberegning[], void>({
       query: () => '/pensjonsberegning',
       transformResponse: (response: Pensjonsberegning[]) => {
@@ -21,4 +33,7 @@ export const apiSlice = createApi({
   }),
 })
 
-export const { useGetPensjonsberegningQuery } = apiSlice
+export const {
+  useGetTidligsteMuligeUttaksalderQuery,
+  useGetPensjonsberegningQuery,
+} = apiSlice

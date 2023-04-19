@@ -1,3 +1,8 @@
+declare type TidligsteMuligeUttaksalder = {
+  aar: number
+  maaned: number
+}
+
 declare type Pensjonsberegning = {
   pensjonsaar: number
   pensjonsbeloep: number

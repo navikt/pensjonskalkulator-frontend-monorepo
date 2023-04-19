@@ -1,5 +1,5 @@
 export const isPensjonsberegning = (
-  data?: any
+  data?: unknown[]
 ): data is Pensjonsberegning[] => {
   return (
     Array.isArray(data) &&
@@ -9,5 +9,17 @@ export const isPensjonsberegning = (
         typeof beregning.pensjonsaar === 'number' &&
         typeof beregning.pensjonsbeloep === 'number'
     )
+  )
+}
+
+export const isTidligsteMuligeUttaksalder = (
+  data?: TidligsteMuligeUttaksalder | Required<TidligsteMuligeUttaksalder>
+): data is Required<TidligsteMuligeUttaksalder> => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    !Array.isArray(data) &&
+    typeof data.aar === 'number' &&
+    typeof data.maaned === 'number'
   )
 }
