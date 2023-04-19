@@ -1,6 +1,7 @@
-import React, { Component, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
+import { ErrorBoundary as SentryErrorBoundary } from '@sentry/react'
 import clsx from 'clsx'
 
 import frameStyles from '../../scss/Frame/Frame.module.scss'
@@ -9,24 +10,10 @@ interface Props {
   children: ReactNode
 }
 
-interface State {
-  hasError: boolean
-}
-
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = { hasError: false }
-  }
-
-  componentDidCatch() {
-    // TODO legge til error logging
-    this.setState({ hasError: true })
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return (
+export const ErrorBoundary: React.FC<Props> = ({ children }) => {
+  return (
+    <SentryErrorBoundary
+      fallback={
         <div className={clsx(frameStyles.frame, frameStyles.frame_hasPadding)}>
           <Alert variant="error">
             <Heading spacing size="small" level="1">
@@ -35,9 +22,9 @@ export class ErrorBoundary extends Component<Props, State> {
             Det har oppstått en feil. Prøv igjen senere.
           </Alert>
         </div>
-      )
-    }
-
-    return this.props.children
-  }
+      }
+    >
+      {children}
+    </SentryErrorBoundary>
+  )
 }

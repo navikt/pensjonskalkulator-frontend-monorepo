@@ -3,10 +3,20 @@
 .whiteSection {
   background-color: var(--a-white);
   width: 100%;
-  opacity: 0;
-  transition: opacity 0.25s;
+  animation: 0.2s fade-in;
 
-  &__isVisible {
-    opacity: 1;
+  @media (prefers-reduced-motion) {
+    animation: none;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0
+    }
+
+    100% {
+      opacity: 1
+    }
   }
 }
+

@@ -38,16 +38,13 @@ exports[`Uttaksalternativer > viser feilmelding om henting av pensjonberegning f
       </h2>
     </div>
   </div>
-  <section
-    class="_whiteSection_0c72f2 _uttaksalternativer_2bdd5e"
-  />
 </DocumentFragment>
 `;
 
 exports[`Uttaksalternativer > viser loading og deretter pensjonsberegning hentet fra backend 1`] = `
 <DocumentFragment>
   <section
-    class="_whiteSection_0c72f2 _uttaksalternativer_2bdd5e _whiteSection__isVisible_0c72f2"
+    class="_whiteSection_0c72f2 _uttaksalternativer_2bdd5e"
   >
     <h2
       class="navds-heading navds-heading--medium"
