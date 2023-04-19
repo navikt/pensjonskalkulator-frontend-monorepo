@@ -14,41 +14,41 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
         Pensjonskalkulator
       </h1>
     </div>
-    <svg
-      aria-labelledby="loader-r0"
-      class="navds-loader _loader_2bdd5e navds-loader--3xlarge navds-loader--neutral"
-      data-testid="loader"
-      focusable="false"
-      preserveAspectRatio="xMidYMid"
-      viewBox="0 0 50 50"
-    >
-      <title
-        id="loader-r0"
-      >
-        Henter pensjonsberegning
-      </title>
-      <circle
-        class="navds-loader__background"
-        cx="25"
-        cy="25"
-        fill="none"
-        r="20"
-        xmlns="http://www.w3.org/2000/svg"
-      />
-      <circle
-        class="navds-loader__foreground"
-        cx="25"
-        cy="25"
-        fill="none"
-        r="20"
-        stroke-dasharray="50 155"
-      />
-    </svg>
     <section
-      class="_whiteSection_0c72f2 _pensjonssimulering_2cd409"
+      class="_whiteSection_0c72f2 _section_bbbd1d"
     >
+      <svg
+        aria-labelledby="loader-r0"
+        class="navds-loader _loader_d3b588 navds-loader--3xlarge navds-loader--neutral"
+        data-testid="loader"
+        focusable="false"
+        preserveAspectRatio="xMidYMid"
+        viewBox="0 0 50 50"
+      >
+        <title
+          id="loader-r0"
+        >
+          Henter tidligste mulige uttaksalder
+        </title>
+        <circle
+          class="navds-loader__background"
+          cx="25"
+          cy="25"
+          fill="none"
+          r="20"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <circle
+          class="navds-loader__foreground"
+          cx="25"
+          cy="25"
+          fill="none"
+          r="20"
+          stroke-dasharray="50 155"
+        />
+      </svg>
       <h2
-        class="navds-heading navds-heading--xsmall navds-typo--spacing"
+        class="navds-heading navds-heading--xsmall"
       >
         Når vil du ta ut alderspensjon?
       </h2>

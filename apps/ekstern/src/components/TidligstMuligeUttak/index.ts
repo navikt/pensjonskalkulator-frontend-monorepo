@@ -1,0 +1,1 @@
+export { TidligstMuligeUttak } from './TidligstMuligeUttak'

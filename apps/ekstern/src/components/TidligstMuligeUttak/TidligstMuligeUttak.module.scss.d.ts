@@ -1,7 +1,6 @@
 import globalClassNames from '../../style.d'
 declare const classNames: typeof globalClassNames & {
-  readonly main: 'main'
-  readonly headerGroup: 'headerGroup'
-  readonly section: 'section'
+  readonly loader: 'loader'
+  readonly paragraph: 'paragraph'
 }
 export = classNames

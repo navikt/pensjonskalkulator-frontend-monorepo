@@ -2,395 +2,294 @@
 
 exports[`Pensjonssimulering > rendrer slik den skal, med Heading på riktig nivå og knapper for alder 1`] = `
 <DocumentFragment>
-  <section
-    class="_whiteSection_0c72f2 _pensjonssimulering_2cd409"
+  <h2
+    class="navds-heading navds-heading--xsmall"
   >
-    <h2
-      class="navds-heading navds-heading--xsmall navds-typo--spacing"
-    >
-      Når vil du ta ut alderspensjon?
-    </h2>
-    <ul
-      class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
-    >
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            62 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            63 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            64 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            65 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            66 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            67 år
-          </span>
-        </button>
-      </li>
-    </ul>
-    <div
-      class="navds-read-more navds-read-more--medium navds-read-more--open"
-    >
+    Når vil du ta ut alderspensjon?
+  </h2>
+  <ul
+    class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
+  >
+    <li>
       <button
-        aria-expanded="true"
-        class="navds-read-more__button navds-body-short"
-        type="button"
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
       >
-        <svg
-          aria-hidden="true"
-          class="navds-read-more__expand-icon"
-          fill="none"
-          focusable="false"
-          height="1em"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="navds-chips__chip-text"
         >
-          <path
-            clip-rule="evenodd"
-            d="M12 17.414 4.293 9.707l1.414-1.414L12 14.586l6.293-6.293 1.414 1.414L12 17.414Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
-        <svg
-          aria-hidden="true"
-          class="navds-read-more__expand-icon navds-read-more__expand-icon--filled"
-          fill="none"
-          focusable="false"
-          height="1em"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clip-rule="evenodd"
-            d="m12 18.121-8.06-8.06 2.12-2.122L12 13.88l5.94-5.94 2.12 2.122L12 18.12Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
-        <span>
-          Vis flere aldere
+          62 år
         </span>
       </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          63 år
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          64 år
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          65 år
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          66 år
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          67 år
+        </span>
+      </button>
+    </li>
+  </ul>
+  <div
+    class="navds-read-more navds-read-more--medium navds-read-more--open"
+  >
+    <button
+      aria-expanded="true"
+      class="navds-read-more__button navds-body-short"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="navds-read-more__expand-icon"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M12 17.414 4.293 9.707l1.414-1.414L12 14.586l6.293-6.293 1.414 1.414L12 17.414Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <svg
+        aria-hidden="true"
+        class="navds-read-more__expand-icon navds-read-more__expand-icon--filled"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="m12 18.121-8.06-8.06 2.12-2.122L12 13.88l5.94-5.94 2.12 2.122L12 18.12Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <span>
+        Vis flere aldere
+      </span>
+    </button>
+    <div
+      style="height: 0px; overflow: hidden; transition: height 250ms ease 0ms;"
+    >
       <div
-        style="height: 0px; overflow: hidden; transition: height 250ms ease 0ms;"
+        aria-hidden="false"
+        style=""
       >
         <div
-          aria-hidden="false"
-          style=""
+          class="navds-read-more__content navds-body-long"
         >
-          <div
-            class="navds-read-more__content navds-body-long"
+          <ul
+            class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
           >
-            <ul
-              class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
-            >
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    68 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  68 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    69 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  69 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    70 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  70 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    71 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  71 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    72 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  72 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    73 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  73 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    74 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  74 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    75 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  75 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    76 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  76 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    77 år
-                  </span>
-                </button>
-              </li>
-            </ul>
-          </div>
+                  77 år
+                </span>
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`] = `
 <DocumentFragment>
-  <section
-    class="_whiteSection_0c72f2 _pensjonssimulering_2cd409"
+  <h2
+    class="navds-heading navds-heading--xsmall"
   >
-    <h2
-      class="navds-heading navds-heading--xsmall navds-typo--spacing"
-    >
-      Når vil du ta ut alderspensjon?
-    </h2>
-    <ul
-      class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
-    >
-      <li>
-        <button
-          aria-pressed="true"
-          class="navds-chips__chip navds-chips__toggle navds-chips--icon-left"
-        >
-          <svg
-            aria-hidden="true"
-            class="navds-chips__toggle-icon"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M18.201 6 20 7.89 8.78 19 4 14.396 5.794 12.5l2.98 2.802L18.201 6Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <span
-            class="navds-chips__chip-text"
-          >
-            62 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            63 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            64 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            65 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            66 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            67 år
-          </span>
-        </button>
-      </li>
-    </ul>
-    <div
-      class="navds-read-more navds-read-more--medium _readMore__hasPadding_2cd409"
-    >
+    Når vil du ta ut alderspensjon?
+  </h2>
+  <ul
+    class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
+  >
+    <li>
       <button
-        aria-expanded="false"
-        class="navds-read-more__button navds-body-short"
-        type="button"
+        aria-pressed="true"
+        class="navds-chips__chip navds-chips__toggle navds-chips--icon-left"
       >
         <svg
           aria-hidden="true"
-          class="navds-read-more__expand-icon"
+          class="navds-chips__toggle-icon"
           fill="none"
           focusable="false"
           height="1em"
@@ -401,1014 +300,1107 @@ exports[`Pensjonssimulering > tegner graph når brukeren klikker på en knapp 1`
         >
           <path
             clip-rule="evenodd"
-            d="M12 17.414 4.293 9.707l1.414-1.414L12 14.586l6.293-6.293 1.414 1.414L12 17.414Z"
+            d="M18.201 6 20 7.89 8.78 19 4 14.396 5.794 12.5l2.98 2.802L18.201 6Z"
             fill="currentColor"
             fill-rule="evenodd"
           />
         </svg>
-        <svg
-          aria-hidden="true"
-          class="navds-read-more__expand-icon navds-read-more__expand-icon--filled"
-          fill="none"
-          focusable="false"
-          height="1em"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          class="navds-chips__chip-text"
         >
-          <path
-            clip-rule="evenodd"
-            d="m12 18.121-8.06-8.06 2.12-2.122L12 13.88l5.94-5.94 2.12 2.122L12 18.12Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
-        <span>
-          Vis flere aldere
+          62 år
         </span>
       </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          63 år
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          64 år
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          65 år
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          66 år
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
+      >
+        <span
+          class="navds-chips__chip-text"
+        >
+          67 år
+        </span>
+      </button>
+    </li>
+  </ul>
+  <div
+    class="navds-read-more navds-read-more--medium _readMore__hasPadding_2cd409"
+  >
+    <button
+      aria-expanded="false"
+      class="navds-read-more__button navds-body-short"
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        class="navds-read-more__expand-icon"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M12 17.414 4.293 9.707l1.414-1.414L12 14.586l6.293-6.293 1.414 1.414L12 17.414Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <svg
+        aria-hidden="true"
+        class="navds-read-more__expand-icon navds-read-more__expand-icon--filled"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="m12 18.121-8.06-8.06 2.12-2.122L12 13.88l5.94-5.94 2.12 2.122L12 18.12Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <span>
+        Vis flere aldere
+      </span>
+    </button>
+    <div
+      style="height: 0px; overflow: hidden;"
+    >
       <div
-        style="height: 0px; overflow: hidden;"
+        aria-hidden="true"
+        style="display: none;"
       >
         <div
-          aria-hidden="true"
-          style="display: none;"
+          class="navds-read-more__content navds-body-long"
         >
-          <div
-            class="navds-read-more__content navds-body-long"
+          <ul
+            class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
           >
-            <ul
-              class="navds-chips _chipsWrapper_2cd409 _chipsWrapper__hasGap_2cd409 navds-chips--medium navds-body-short navds-body-short--small"
-            >
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    68 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  68 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    69 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  69 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    70 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  70 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    71 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  71 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    72 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  72 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    73 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  73 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    74 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  74 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    75 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  75 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    76 år
-                  </span>
-                </button>
-              </li>
-              <li>
-                <button
-                  aria-pressed="false"
-                  class="navds-chips__chip navds-chips__toggle"
+                  76 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
                 >
-                  <span
-                    class="navds-chips__chip-text"
-                  >
-                    77 år
-                  </span>
-                </button>
-              </li>
-            </ul>
-          </div>
+                  77 år
+                </span>
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-    <h3
-      class="navds-heading navds-heading--xsmall navds-typo--spacing"
+  </div>
+  <h3
+    class="navds-heading navds-heading--xsmall navds-typo--spacing"
+  >
+    Årlig pensjon hvis du starter uttak ved 62 år
+  </h3>
+  <div
+    class="ct-chart _chartWrapper_2cd409"
+  >
+    <svg
+      class="ct-chart-bar"
+      height="100%"
+      style="width: 100%; height: 100%;"
+      width="100%"
+      xmlns:ct="http://gionkunz.github.com/chartist-js/ct"
     >
-      Årlig pensjon hvis du starter uttak ved 62 år
-    </h3>
-    <div
-      class="ct-chart _chartWrapper_2cd409"
-    >
-      <svg
-        class="ct-chart-bar"
-        height="100%"
-        style="width: 100%; height: 100%;"
-        width="100%"
-        xmlns:ct="http://gionkunz.github.com/chartist-js/ct"
+      <g
+        class="ct-grids"
       >
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35"
+          x2="35"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.05882352941177"
+          x2="35.05882352941177"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.11764705882353"
+          x2="35.11764705882353"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.1764705882353"
+          x2="35.1764705882353"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.23529411764706"
+          x2="35.23529411764706"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.294117647058826"
+          x2="35.294117647058826"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.35294117647059"
+          x2="35.35294117647059"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.411764705882355"
+          x2="35.411764705882355"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.470588235294116"
+          x2="35.470588235294116"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.529411764705884"
+          x2="35.529411764705884"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.588235294117645"
+          x2="35.588235294117645"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.64705882352941"
+          x2="35.64705882352941"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.705882352941174"
+          x2="35.705882352941174"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.76470588235294"
+          x2="35.76470588235294"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.8235294117647"
+          x2="35.8235294117647"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.88235294117647"
+          x2="35.88235294117647"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-horizontal"
+          x1="35.94117647058823"
+          x2="35.94117647058823"
+          y1="15"
+          y2="16"
+        />
+        <line
+          class="ct-grid ct-vertical"
+          x1="35"
+          x2="36"
+          y1="16"
+          y2="16"
+        />
+      </g>
+      <g>
         <g
-          class="ct-grids"
+          class="ct-series ct-series-a"
         >
           <line
-            class="ct-grid ct-horizontal"
-            x1="35"
-            x2="35"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.05882352941177"
-            x2="35.05882352941177"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.11764705882353"
-            x2="35.11764705882353"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.1764705882353"
-            x2="35.1764705882353"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.23529411764706"
-            x2="35.23529411764706"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.294117647058826"
-            x2="35.294117647058826"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.35294117647059"
-            x2="35.35294117647059"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.411764705882355"
-            x2="35.411764705882355"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.470588235294116"
-            x2="35.470588235294116"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.529411764705884"
-            x2="35.529411764705884"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.588235294117645"
-            x2="35.588235294117645"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.64705882352941"
-            x2="35.64705882352941"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.705882352941174"
-            x2="35.705882352941174"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.76470588235294"
-            x2="35.76470588235294"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.8235294117647"
-            x2="35.8235294117647"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.88235294117647"
-            x2="35.88235294117647"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-horizontal"
-            x1="35.94117647058823"
-            x2="35.94117647058823"
-            y1="15"
-            y2="16"
-          />
-          <line
-            class="ct-grid ct-vertical"
-            x1="35"
-            x2="36"
+            class="ct-bar"
+            ct:value="0"
+            x1="35.029411764705884"
+            x2="35.029411764705884"
             y1="16"
             y2="16"
           />
-        </g>
-        <g>
-          <g
-            class="ct-series ct-series-a"
-          >
-            <line
-              class="ct-bar"
-              ct:value="0"
-              x1="35.029411764705884"
-              x2="35.029411764705884"
-              y1="16"
-              y2="16"
-            />
-            <line
-              class="ct-bar"
-              ct:value="250000"
-              x1="35.08823529411765"
-              x2="35.08823529411765"
-              y1="16"
-              y2="15.75"
-            />
-            <line
-              class="ct-bar"
-              ct:value="300000"
-              x1="35.14705882352941"
-              x2="35.14705882352941"
-              y1="16"
-              y2="15.7"
-            />
-            <line
-              class="ct-bar"
-              ct:value="450000"
-              x1="35.20588235294118"
-              x2="35.20588235294118"
-              y1="16"
-              y2="15.55"
-            />
-            <line
-              class="ct-bar"
-              ct:value="500000"
-              x1="35.26470588235294"
-              x2="35.26470588235294"
-              y1="16"
-              y2="15.5"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.32352941176471"
-              x2="35.32352941176471"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.38235294117647"
-              x2="35.38235294117647"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.44117647058824"
-              x2="35.44117647058824"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.5"
-              x2="35.5"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.55882352941177"
-              x2="35.55882352941177"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.61764705882353"
-              x2="35.61764705882353"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.6764705882353"
-              x2="35.6764705882353"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.73529411764706"
-              x2="35.73529411764706"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.794117647058826"
-              x2="35.794117647058826"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.85294117647059"
-              x2="35.85294117647059"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.911764705882355"
-              x2="35.911764705882355"
-              y1="16"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="600000"
-              x1="35.970588235294116"
-              x2="35.970588235294116"
-              y1="16"
-              y2="15.4"
-            />
-          </g>
-          <g
-            class="ct-series ct-series-b"
-          >
-            <line
-              class="ct-bar"
-              ct:value="0"
-              x1="35.029411764705884"
-              x2="35.029411764705884"
-              y1="16"
-              y2="16"
-            />
-            <line
-              class="ct-bar"
-              ct:value="90000"
-              x1="35.08823529411765"
-              x2="35.08823529411765"
-              y1="15.75"
-              y2="15.66"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.14705882352941"
-              x2="35.14705882352941"
-              y1="15.7"
-              y2="15.629999999999999"
-            />
-            <line
-              class="ct-bar"
-              ct:value="100000"
-              x1="35.20588235294118"
-              x2="35.20588235294118"
-              y1="15.55"
-              y2="15.450000000000001"
-            />
-            <line
-              class="ct-bar"
-              ct:value="80000"
-              x1="35.26470588235294"
-              x2="35.26470588235294"
-              y1="15.5"
-              y2="15.42"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.32352941176471"
-              x2="35.32352941176471"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.38235294117647"
-              x2="35.38235294117647"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.44117647058824"
-              x2="35.44117647058824"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.5"
-              x2="35.5"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.55882352941177"
-              x2="35.55882352941177"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.61764705882353"
-              x2="35.61764705882353"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.6764705882353"
-              x2="35.6764705882353"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.73529411764706"
-              x2="35.73529411764706"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.794117647058826"
-              x2="35.794117647058826"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.85294117647059"
-              x2="35.85294117647059"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.911764705882355"
-              x2="35.911764705882355"
-              y1="15.4"
-              y2="15.33"
-            />
-            <line
-              class="ct-bar"
-              ct:value="70000"
-              x1="35.970588235294116"
-              x2="35.970588235294116"
-              y1="15.4"
-              y2="15.33"
-            />
-          </g>
-          <g
-            class="ct-series ct-series-c"
-          >
-            <line
-              class="ct-bar"
-              ct:value="1000000"
-              x1="35.029411764705884"
-              x2="35.029411764705884"
-              y1="16"
-              y2="15"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.08823529411765"
-              x2="35.08823529411765"
-              y1="15.66"
-              y2="15.61"
-            />
-            <line
-              class="ct-bar"
-              ct:value="40000"
-              x1="35.14705882352941"
-              x2="35.14705882352941"
-              y1="15.629999999999999"
-              y2="15.59"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.20588235294118"
-              x2="35.20588235294118"
-              y1="15.450000000000001"
-              y2="15.4"
-            />
-            <line
-              class="ct-bar"
-              ct:value="60000"
-              x1="35.26470588235294"
-              x2="35.26470588235294"
-              y1="15.42"
-              y2="15.36"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.32352941176471"
-              x2="35.32352941176471"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.38235294117647"
-              x2="35.38235294117647"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.44117647058824"
-              x2="35.44117647058824"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.5"
-              x2="35.5"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.55882352941177"
-              x2="35.55882352941177"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.61764705882353"
-              x2="35.61764705882353"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.6764705882353"
-              x2="35.6764705882353"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.73529411764706"
-              x2="35.73529411764706"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.794117647058826"
-              x2="35.794117647058826"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.85294117647059"
-              x2="35.85294117647059"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.911764705882355"
-              x2="35.911764705882355"
-              y1="15.33"
-              y2="15.28"
-            />
-            <line
-              class="ct-bar"
-              ct:value="50000"
-              x1="35.970588235294116"
-              x2="35.970588235294116"
-              y1="15.33"
-              y2="15.28"
-            />
-          </g>
+          <line
+            class="ct-bar"
+            ct:value="250000"
+            x1="35.08823529411765"
+            x2="35.08823529411765"
+            y1="16"
+            y2="15.75"
+          />
+          <line
+            class="ct-bar"
+            ct:value="300000"
+            x1="35.14705882352941"
+            x2="35.14705882352941"
+            y1="16"
+            y2="15.7"
+          />
+          <line
+            class="ct-bar"
+            ct:value="450000"
+            x1="35.20588235294118"
+            x2="35.20588235294118"
+            y1="16"
+            y2="15.55"
+          />
+          <line
+            class="ct-bar"
+            ct:value="500000"
+            x1="35.26470588235294"
+            x2="35.26470588235294"
+            y1="16"
+            y2="15.5"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.32352941176471"
+            x2="35.32352941176471"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.38235294117647"
+            x2="35.38235294117647"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.44117647058824"
+            x2="35.44117647058824"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.5"
+            x2="35.5"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.55882352941177"
+            x2="35.55882352941177"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.61764705882353"
+            x2="35.61764705882353"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.6764705882353"
+            x2="35.6764705882353"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.73529411764706"
+            x2="35.73529411764706"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.794117647058826"
+            x2="35.794117647058826"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.85294117647059"
+            x2="35.85294117647059"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.911764705882355"
+            x2="35.911764705882355"
+            y1="16"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="600000"
+            x1="35.970588235294116"
+            x2="35.970588235294116"
+            y1="16"
+            y2="15.4"
+          />
         </g>
         <g
-          class="ct-labels"
+          class="ct-series ct-series-b"
         >
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.058823529411764705"
-            x="35"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              61
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.058823529411764705"
-            x="35.05882352941177"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              62
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176469"
-            x="35.11764705882353"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              63
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.1764705882353"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              64
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.23529411764706"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              65
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176466"
-            x="35.294117647058826"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              66
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.35294117647059"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              67
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.411764705882355"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              68
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.470588235294116"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              69
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.529411764705884"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              70
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.588235294117645"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              71
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176461"
-            x="35.64705882352941"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              72
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.705882352941174"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              73
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.76470588235294"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              74
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.8235294117647"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              75
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.88235294117647"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              76
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="20"
-            style="overflow: visible;"
-            width="0.05882352941176472"
-            x="35.94117647058823"
-            y="21"
-          >
-            <span
-              class="ct-label ct-horizontal ct-end"
-              style="width: 0px; height: 20px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-              77+
-            </span>
-          </foreignobject>
-          <foreignobject
-            height="1"
-            style="overflow: visible;"
-            width="15"
-            x="10"
-            y="15"
-          >
-            <span
-              class="ct-label ct-vertical ct-start"
-              style="height: 1px; width: 15px;"
-              xmlns="http://www.w3.org/2000/xmlns/"
-            >
-                0
-            </span>
-          </foreignobject>
+          <line
+            class="ct-bar"
+            ct:value="0"
+            x1="35.029411764705884"
+            x2="35.029411764705884"
+            y1="16"
+            y2="16"
+          />
+          <line
+            class="ct-bar"
+            ct:value="90000"
+            x1="35.08823529411765"
+            x2="35.08823529411765"
+            y1="15.75"
+            y2="15.66"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.14705882352941"
+            x2="35.14705882352941"
+            y1="15.7"
+            y2="15.629999999999999"
+          />
+          <line
+            class="ct-bar"
+            ct:value="100000"
+            x1="35.20588235294118"
+            x2="35.20588235294118"
+            y1="15.55"
+            y2="15.450000000000001"
+          />
+          <line
+            class="ct-bar"
+            ct:value="80000"
+            x1="35.26470588235294"
+            x2="35.26470588235294"
+            y1="15.5"
+            y2="15.42"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.32352941176471"
+            x2="35.32352941176471"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.38235294117647"
+            x2="35.38235294117647"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.44117647058824"
+            x2="35.44117647058824"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.5"
+            x2="35.5"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.55882352941177"
+            x2="35.55882352941177"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.61764705882353"
+            x2="35.61764705882353"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.6764705882353"
+            x2="35.6764705882353"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.73529411764706"
+            x2="35.73529411764706"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.794117647058826"
+            x2="35.794117647058826"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.85294117647059"
+            x2="35.85294117647059"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.911764705882355"
+            x2="35.911764705882355"
+            y1="15.4"
+            y2="15.33"
+          />
+          <line
+            class="ct-bar"
+            ct:value="70000"
+            x1="35.970588235294116"
+            x2="35.970588235294116"
+            y1="15.4"
+            y2="15.33"
+          />
         </g>
-      </svg>
-    </div>
-  </section>
+        <g
+          class="ct-series ct-series-c"
+        >
+          <line
+            class="ct-bar"
+            ct:value="1000000"
+            x1="35.029411764705884"
+            x2="35.029411764705884"
+            y1="16"
+            y2="15"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.08823529411765"
+            x2="35.08823529411765"
+            y1="15.66"
+            y2="15.61"
+          />
+          <line
+            class="ct-bar"
+            ct:value="40000"
+            x1="35.14705882352941"
+            x2="35.14705882352941"
+            y1="15.629999999999999"
+            y2="15.59"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.20588235294118"
+            x2="35.20588235294118"
+            y1="15.450000000000001"
+            y2="15.4"
+          />
+          <line
+            class="ct-bar"
+            ct:value="60000"
+            x1="35.26470588235294"
+            x2="35.26470588235294"
+            y1="15.42"
+            y2="15.36"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.32352941176471"
+            x2="35.32352941176471"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.38235294117647"
+            x2="35.38235294117647"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.44117647058824"
+            x2="35.44117647058824"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.5"
+            x2="35.5"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.55882352941177"
+            x2="35.55882352941177"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.61764705882353"
+            x2="35.61764705882353"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.6764705882353"
+            x2="35.6764705882353"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.73529411764706"
+            x2="35.73529411764706"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.794117647058826"
+            x2="35.794117647058826"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.85294117647059"
+            x2="35.85294117647059"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.911764705882355"
+            x2="35.911764705882355"
+            y1="15.33"
+            y2="15.28"
+          />
+          <line
+            class="ct-bar"
+            ct:value="50000"
+            x1="35.970588235294116"
+            x2="35.970588235294116"
+            y1="15.33"
+            y2="15.28"
+          />
+        </g>
+      </g>
+      <g
+        class="ct-labels"
+      >
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.058823529411764705"
+          x="35"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            61
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.058823529411764705"
+          x="35.05882352941177"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            62
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176469"
+          x="35.11764705882353"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            63
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.1764705882353"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            64
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.23529411764706"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            65
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176466"
+          x="35.294117647058826"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            66
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.35294117647059"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            67
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.411764705882355"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            68
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.470588235294116"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            69
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.529411764705884"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            70
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.588235294117645"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            71
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176461"
+          x="35.64705882352941"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            72
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.705882352941174"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            73
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.76470588235294"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            74
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.8235294117647"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            75
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.88235294117647"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            76
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="20"
+          style="overflow: visible;"
+          width="0.05882352941176472"
+          x="35.94117647058823"
+          y="21"
+        >
+          <span
+            class="ct-label ct-horizontal ct-end"
+            style="width: 0px; height: 20px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+            77+
+          </span>
+        </foreignobject>
+        <foreignobject
+          height="1"
+          style="overflow: visible;"
+          width="15"
+          x="10"
+          y="15"
+        >
+          <span
+            class="ct-label ct-vertical ct-start"
+            style="height: 1px; width: 15px;"
+            xmlns="http://www.w3.org/2000/xmlns/"
+          >
+              0
+          </span>
+        </foreignobject>
+      </g>
+    </svg>
+  </div>
 </DocumentFragment>
 `;

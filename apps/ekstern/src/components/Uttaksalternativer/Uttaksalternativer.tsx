@@ -22,6 +22,7 @@ const useInntekt = () => {
   return 678_000
 }
 
+// TODO oppfølging - skal dene komponenten være med eller fases ut
 export function Uttaksalternativer() {
   const { data, isLoading, isError, isSuccess } = useGetPensjonsberegningQuery()
   const inntekt = useInntekt()

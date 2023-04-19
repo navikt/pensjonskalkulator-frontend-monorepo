@@ -4,8 +4,9 @@ import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import frameStyles from '../../scss/Frame/Frame.module.scss'
+import whiteSectionStyles from '../../scss/WhiteSection/WhiteSection.module.scss'
 import { Pensjonssimulering } from '../Pensjonssimulering'
-import { Uttaksalternativer } from '../Uttaksalternativer'
+import { TidligstMuligeUttak } from '../TidligstMuligeUttak'
 
 import styles from './App.module.scss'
 
@@ -19,8 +20,12 @@ export function App() {
           Pensjonskalkulator
         </Heading>
       </div>
-      <Uttaksalternativer />
-      <Pensjonssimulering />
+      <section
+        className={clsx(whiteSectionStyles.whiteSection, styles.section)}
+      >
+        <TidligstMuligeUttak />
+        <Pensjonssimulering />
+      </section>
     </main>
   )
 }

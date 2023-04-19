@@ -4,14 +4,12 @@ import { Chips, Heading, ReadMore } from '@navikt/ds-react'
 import { BarChart } from 'chartist'
 import clsx from 'clsx'
 
-import whiteSectionStyles from '../../scss/WhiteSection/WhiteSection.module.scss'
-
 import { generateAlderArray } from './utils'
 
 import styles from './Pensjonssimulering.module.scss'
 
 export function Pensjonssimulering() {
-  // TODO tidligst uttak vil leveres av backend. isReady flag kan erstattes med isSuccess fra RTK-query
+  // TODO hente tidligst uttak fra Redux Store
   const tidligstUttak = 62
   const alderChips = useMemo(
     () => generateAlderArray(tidligstUttak, 77),
@@ -72,13 +70,8 @@ export function Pensjonssimulering() {
   }, [uttaksalder])
 
   return (
-    <section
-      className={clsx(
-        whiteSectionStyles.whiteSection,
-        styles.pensjonssimulering
-      )}
-    >
-      <Heading size="xsmall" level="2" spacing>
+    <>
+      <Heading size="xsmall" level="2">
         Når vil du ta ut alderspensjon?
       </Heading>
       <Chips className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}>
@@ -121,6 +114,6 @@ export function Pensjonssimulering() {
           />
         </>
       )}
-    </section>
+    </>
   )
 }
