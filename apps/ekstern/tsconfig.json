@@ -15,7 +15,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["cypress", "cypress-axe"]
+    "types": ["cypress", "cypress-axe"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src", "api/server.cjs", "cypress", "cypress.config.ts"],
   "references": [

@@ -5,10 +5,10 @@ import {
 } from '@reduxjs/toolkit'
 import { vi } from 'vitest'
 
-import { AppStartListening, rootReducer } from '../../store'
-import { selectSomething } from '../../userInput/selectors'
-import { userInputActions } from '../../userInput/userInputReducer'
 import { createSamtykkeListener } from '../samtykkeListener'
+import { AppStartListening, rootReducer } from '@/state/store'
+import { selectSomething } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 
 describe('samtykkeListener', () => {
   const onMiddlewareError = vi.fn((): void => {})

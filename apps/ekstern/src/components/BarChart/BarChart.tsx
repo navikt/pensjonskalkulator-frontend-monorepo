@@ -2,9 +2,9 @@ import { BodyShort } from '@navikt/ds-react'
 import '@navikt/ds-css'
 import clsx from 'clsx'
 
-import { formatAsDecimal } from '../../utils/currency'
+import { formatAsDecimal } from '@/utils/currency'
 
-import { getBarChartHeight, findMaxValue } from './utils'
+import { findMaxValue, getBarChartHeight } from './utils'
 
 import styles from './BarChart.module.scss'
 

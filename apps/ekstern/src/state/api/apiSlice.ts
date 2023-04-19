@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { isPensjonsberegning, isTidligsteMuligeUttaksalder } from './typeguards'
-import { API_BASEURL } from '../../api/paths'
+import { API_BASEURL } from '@/api/paths'
 
 export const apiSlice = createApi({
   reducerPath: 'api',

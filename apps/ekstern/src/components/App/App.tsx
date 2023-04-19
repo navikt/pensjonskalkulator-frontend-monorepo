@@ -3,10 +3,10 @@ import React from 'react'
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import frameStyles from '../../scss/Frame/Frame.module.scss'
-import whiteSectionStyles from '../../scss/WhiteSection/WhiteSection.module.scss'
-import { Pensjonssimulering } from '../Pensjonssimulering'
-import { TidligstMuligeUttak } from '../TidligstMuligeUttak'
+import { Pensjonssimulering } from '@/components/Pensjonssimulering'
+import { TidligstMuligeUttak } from '@/components/TidligstMuligeUttak'
+import frameStyles from '@/scss/Frame/Frame.module.scss'
+import whiteSectionStyles from '@/scss/WhiteSection/WhiteSection.module.scss'
 
 import styles from './App.module.scss'
 

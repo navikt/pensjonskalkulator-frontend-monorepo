@@ -42,6 +42,10 @@ module.exports = {
             group: 'external',
           },
           {
+            pattern: '@/**',
+            group: 'parent',
+          },
+          {
             pattern: './*.scss',
             group: 'sibling',
             position: 'after',

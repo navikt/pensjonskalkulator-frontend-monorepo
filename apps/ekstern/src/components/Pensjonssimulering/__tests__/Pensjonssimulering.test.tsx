@@ -2,8 +2,8 @@ import React from 'react'
 
 import { describe, it, vi } from 'vitest'
 
-import { render, screen, fireEvent, waitFor } from '../../../test-utils'
 import { Pensjonssimulering } from '../Pensjonssimulering'
+import { fireEvent, render, screen, waitFor } from '@/test-utils'
 
 describe('Pensjonssimulering', () => {
   it('rendrer slik den skal, med Heading på riktig nivå og knapper for alder', async () => {

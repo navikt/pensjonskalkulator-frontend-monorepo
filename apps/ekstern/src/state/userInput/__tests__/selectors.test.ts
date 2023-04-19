@@ -1,5 +1,5 @@
-import { store, RootState } from '../../store'
 import { selectSamtykke, selectSomething } from '../selectors'
+import { store, RootState } from '@/state/store'
 
 describe('userInput selectors', () => {
   const initialState = store.getState()

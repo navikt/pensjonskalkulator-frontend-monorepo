@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@navikt/nav-dekoratoren-moduler": "^1.9.0",
+    "@rollup/plugin-replace": "^5.0.2",
     "@sentry/vite-plugin": "^0.7.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -77,7 +78,8 @@
     "vite": "^4.1.0",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-sass-dts": "^1.2.16",
-    "vite-plugin-stylelint": "^4.2.0"
+    "vite-plugin-stylelint": "^4.2.0",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "msw": {
     "workerDirectory": "public"

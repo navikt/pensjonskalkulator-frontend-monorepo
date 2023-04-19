@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { API_BASEURL } from '../../../api/paths'
+import { API_BASEURL } from '@/api/paths'
 
 vi.mock('@reduxjs/toolkit/query/react')
 vi.mock('../apiSlice')

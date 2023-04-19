@@ -3,8 +3,8 @@ import React from 'react'
 import { waitFor } from '@testing-library/react'
 import { describe, it } from 'vitest'
 
-import { render, screen } from '../../../test-utils'
 import { App } from '../App'
+import { render, screen } from '@/test-utils'
 
 describe('App', () => {
   it('rendrer slik den skal, med main tag og Heading på riktig nivå', async () => {

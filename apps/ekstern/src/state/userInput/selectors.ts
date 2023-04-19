@@ -1,4 +1,4 @@
-import { RootState } from '../store'
+import { RootState } from '@/state/store'
 
 export const selectSamtykke = (state: RootState): boolean | null =>
   state.userInput.samtykke

@@ -1,13 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { mockErrorResponse, mockResponse } from '../../../api/server'
-import {
-  render,
-  screen,
-  swallowErrorsAsync,
-  waitFor,
-} from '../../../test-utils'
 import { TidligstMuligeUttak } from '../TidligstMuligeUttak'
+import { mockErrorResponse, mockResponse } from '@/api/server'
+import { render, screen, swallowErrorsAsync, waitFor } from '@/test-utils'
 
 describe('TidligstMuligeUttak', () => {
   it('viser loading og deretter pensjonsberegning hentet fra backend', async () => {

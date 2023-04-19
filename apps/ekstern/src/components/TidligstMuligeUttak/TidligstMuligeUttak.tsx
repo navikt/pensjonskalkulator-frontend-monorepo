@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Alert, BodyLong, Heading, Loader, ReadMore } from '@navikt/ds-react'
 
-import { useGetTidligsteMuligeUttaksalderQuery } from '../../state/api/apiSlice'
+import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
 import styles from './TidligstMuligeUttak.module.scss'
 

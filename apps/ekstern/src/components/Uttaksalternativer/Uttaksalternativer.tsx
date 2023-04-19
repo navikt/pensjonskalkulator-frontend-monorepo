@@ -10,9 +10,9 @@ import {
 } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import whiteSectionStyles from '../../scss/WhiteSection/WhiteSection.module.scss'
-import { useGetPensjonsberegningQuery } from '../../state/api/apiSlice'
-import { formatAsDecimal } from '../../utils/currency'
+import whiteSectionStyles from '@/scss/WhiteSection/WhiteSection.module.scss'
+import { useGetPensjonsberegningQuery } from '@/state/api/apiSlice'
+import { formatAsDecimal } from '@/utils/currency'
 
 import { UttaksalternativerChart } from './UttaksalternativerChart'
 

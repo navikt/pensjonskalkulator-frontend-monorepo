@@ -1,7 +1,7 @@
 import { Unsubscribe } from '@reduxjs/toolkit'
 
-import { AppListenerEffectAPI, AppStartListening } from '../store'
-import { userInputActions } from '../userInput/userInputReducer'
+import { AppListenerEffectAPI, AppStartListening } from '@/state/store'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 
 async function onSamtykkeUpdate(
   { payload }: ReturnType<typeof userInputActions.setSamtykke>,
