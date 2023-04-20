@@ -1,26 +1,28 @@
-import { createRef, useEffect, useMemo, useState } from 'react'
+import { createRef, useEffect, useMemo } from 'react'
 
-import { Chips, Heading, ReadMore } from '@navikt/ds-react'
+import { Heading } from '@navikt/ds-react'
 import { BarChart } from 'chartist'
 import clsx from 'clsx'
 
-import { generateAlderArray } from './utils'
+import { generateAlderArray } from '../TidligstMuligeUttak/utils'
 
 import styles from './Pensjonssimulering.module.scss'
 
-export function Pensjonssimulering() {
-  // TODO hente tidligst uttak fra Redux Store
-  const tidligstUttak = 62
-  const alderChips = useMemo(
-    () => generateAlderArray(tidligstUttak, 77),
-    [tidligstUttak]
+type PensjonssimuleringProps = {
+  uttaksalder: number
+}
+
+export function Pensjonssimulering(props: PensjonssimuleringProps) {
+  const { uttaksalder } = props
+
+  const chartRef = createRef<HTMLDivElement>()
+  const aarPeriode = useMemo(
+    () => generateAlderArray(uttaksalder, 77),
+    [uttaksalder]
   )
 
-  const [uttaksalder, setUttaksalder] = useState<string | undefined>(undefined)
-  const chartRef = createRef<HTMLDivElement>()
-
   const data = {
-    labels: [(tidligstUttak - 1).toString(), ...alderChips],
+    labels: [(uttaksalder - 1).toString(), ...aarPeriode],
     series: [
       [
         0, 250000, 300000, 450000, 500000, 600000, 600000, 600000, 600000,
@@ -41,7 +43,7 @@ export function Pensjonssimulering() {
     stackBars: true,
     axisX: {
       labelInterpolationFnc: (value: string, index: number) =>
-        index === alderChips.length ? `${value}+` : value,
+        index === aarPeriode.length ? `${value}+` : value,
     },
     axisY: {
       offset: 25,
@@ -73,38 +75,6 @@ export function Pensjonssimulering() {
 
   return (
     <>
-      <Heading size="xsmall" level="2">
-        Når vil du ta ut alderspensjon?
-      </Heading>
-      <Chips className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}>
-        {alderChips.slice(0, 6).map((alderChip) => (
-          <Chips.Toggle
-            selected={uttaksalder === alderChip}
-            key={alderChip}
-            onClick={() => setUttaksalder(alderChip)}
-          >
-            {`${alderChip.toString()} år`}
-          </Chips.Toggle>
-        ))}
-      </Chips>
-      <ReadMore
-        header="Vis flere aldere"
-        className={clsx({ [styles.readMore__hasPadding]: uttaksalder })}
-      >
-        <Chips
-          className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
-        >
-          {alderChips.slice(6, alderChips.length).map((alderChip) => (
-            <Chips.Toggle
-              selected={uttaksalder === alderChip}
-              key={alderChip}
-              onClick={() => setUttaksalder(alderChip)}
-            >
-              {`${alderChip.toString()} år`}
-            </Chips.Toggle>
-          ))}
-        </Chips>
-      </ReadMore>
       {uttaksalder && (
         <>
           <Heading size="xsmall" level="3" spacing>

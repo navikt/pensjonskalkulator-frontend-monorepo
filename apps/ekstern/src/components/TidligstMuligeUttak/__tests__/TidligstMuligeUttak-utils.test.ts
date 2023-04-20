@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { generateAlderArray } from '../utils'
 
-describe('Pensjonssimulering-utils', () => {
+describe('TidligstMuligeUttak-utils', () => {
   describe('generateAlderArray', () => {
     it('returnerer array med én verdi når start og slutt er like', () => {
       const alderArray = generateAlderArray(0, 0)

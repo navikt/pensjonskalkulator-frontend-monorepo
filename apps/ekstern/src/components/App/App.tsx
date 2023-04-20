@@ -24,7 +24,6 @@ export function App() {
         className={clsx(whiteSectionStyles.whiteSection, styles.section)}
       >
         <TidligstMuligeUttak />
-        <Pensjonssimulering />
       </section>
     </main>
   )

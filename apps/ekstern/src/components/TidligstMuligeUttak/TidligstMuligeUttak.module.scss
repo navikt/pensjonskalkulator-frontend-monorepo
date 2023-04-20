@@ -2,6 +2,28 @@
   margin: var(--a-spacing-6) auto;
 }
 
+.chipsWrapper {
+  /* double-specificity nødvendig pga Aksel overskrivning */
+  &.chipsWrapper__hasGap {
+    padding: var(--a-spacing-2) 0;
+    gap: var(--a-spacing-6);
+  }
+
+  :global {
+    .navds-chips--icon-left {
+      padding-left: var(--a-spacing-3);
+    }
+
+    .navds-chips__toggle-icon {
+      display: none;
+    }
+  }
+}
+
+.readMore__hasPadding {
+  margin-bottom: var(--a-spacing-6);
+}
+
 .paragraph {
   max-width: 75ch;
 }
