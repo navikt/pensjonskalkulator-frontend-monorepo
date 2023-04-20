@@ -1,1 +1,0 @@
-export { Uttaksalternativer } from './Uttaksalternativer'

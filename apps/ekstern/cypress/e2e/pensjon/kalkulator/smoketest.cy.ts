@@ -7,7 +7,7 @@ describe('Pensjonskalkulator', () => {
       }
     )
     cy.visit('/pensjon/kalkulator')
-    cy.contains('Når kan du ta ut alderspensjon?')
+    cy.contains('Når vil du ta ut alderspensjon?')
     cy.injectAxe()
     cy.checkA11y()
   })
