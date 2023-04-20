@@ -11,7 +11,7 @@ import './scss/designsystem.scss'
 import './scss/chartist.scss'
 
 if (process.env.NODE_ENV === 'development') {
-  const msw = await import('./api/browser')
+  const msw = await import('./mocks/browser')
   await msw.worker.start({ onUnhandledRequest: 'bypass' })
   msw.worker.printHandlers()
 }

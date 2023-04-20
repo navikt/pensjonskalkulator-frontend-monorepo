@@ -1,14 +1,16 @@
-import { setupServer } from 'msw/node'
-import { getHandlers } from './handlers.js'
 import { rest } from 'msw'
-import { API_BASEURL } from './paths'
+import { setupServer } from 'msw/node'
+
+import { API_BASEURL } from '@/api/paths'
+
+import { getHandlers } from './handlers.js'
 
 const handlers = getHandlers(API_BASEURL)
 export const server = setupServer(...handlers)
 
 type MockResponseOptions = {
   status?: number
-  json?: any
+  json?: ReturnType<typeof JSON.parse>
 }
 
 export const mockResponse = (
