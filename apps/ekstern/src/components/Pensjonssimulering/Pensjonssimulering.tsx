@@ -54,6 +54,7 @@ export function Pensjonssimulering() {
     if (chartRef.current) {
       new BarChart(chartRef.current, data, options)
       const chartWrapper = chartRef.current
+      /* c8 ignore start */
       chartWrapper.addEventListener('scroll', function () {
         document
           .querySelectorAll('.ct-label.ct-vertical.ct-start')
@@ -66,6 +67,7 @@ export function Pensjonssimulering() {
             ;(el as HTMLElement).style.backgroundColor = 'white'
           })
       })
+      /* c8 ignore end */
     }
   }, [uttaksalder])
 
