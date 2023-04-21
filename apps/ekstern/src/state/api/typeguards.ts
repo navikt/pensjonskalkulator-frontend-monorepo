@@ -14,7 +14,7 @@ export const isPensjonsberegning = (
 
 export const isTidligsteMuligeUttaksalder = (
   data?: any
-): data is TidligsteMuligeUttaksalder => {
+): data is Uttaksalder => {
   return (
     typeof data === 'object' &&
     data !== null &&

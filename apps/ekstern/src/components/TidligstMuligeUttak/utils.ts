@@ -25,10 +25,11 @@ export const generateXAxis = (startAlder: number, endAlder: number) => {
   return alderArray
 }
 
-export const formatTidligsteMuligeUttaksalder = (
-  tidligsteMuligeUttaksalder: TidligsteMuligeUttaksalder
+export const formatUttaksalder = (
+  { aar, maaned }: Uttaksalder,
+  options: { compact: boolean } = { compact: false }
 ): string => {
-  return tidligsteMuligeUttaksalder.maaned !== 0
-    ? `${tidligsteMuligeUttaksalder.aar} år og ${tidligsteMuligeUttaksalder.maaned} måneder`
-    : `${tidligsteMuligeUttaksalder.aar} år`
+  return maaned !== 0
+    ? `${aar} år og ${maaned} ${options.compact ? 'md.' : 'måneder'}`
+    : `${aar} år`
 }

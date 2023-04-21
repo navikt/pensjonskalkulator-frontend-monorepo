@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import {
   Alert,
@@ -12,38 +12,32 @@ import clsx from 'clsx'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
 import {
+  formatUttaksalder,
   generateAlderArray,
-  formatTidligsteMuligeUttaksalder,
 } from '../TidligstMuligeUttak/utils'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
 import styles from './TidligstMuligeUttak.module.scss'
 
+const useAlderChips = (data?: Uttaksalder, maksalder = 77): string[] =>
+  useMemo(
+    () =>
+      data?.aar
+        ? generateAlderArray(
+            data.aar,
+            maksalder,
+            formatUttaksalder(data, { compact: true })
+          )
+        : [],
+    [data]
+  )
+
 export function TidligstMuligeUttak() {
   const { data, isLoading, isError, isSuccess } =
     useGetTidligsteMuligeUttaksalderQuery()
-  const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>(
-    undefined
-  )
-  const [
-    formatertTidligstMuligeUttaksalder,
-    setFormatertTidligstMuligeUttaksalder,
-  ] = useState<string>('')
-  const [alderChips, setAlderChips] = useState<string[]>([])
+  const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
-  useEffect(() => {
-    if (data && data?.aar) {
-      const formatertAlder = formatTidligsteMuligeUttaksalder(data)
-      setFormatertTidligstMuligeUttaksalder(formatertAlder)
-      setAlderChips(
-        generateAlderArray(
-          data.aar,
-          77,
-          formatertAlder.replace('måneder', 'md.')
-        )
-      )
-    }
-  }, [data])
+  const alderChips = useAlderChips(data)
 
   if (isLoading) {
     return (
@@ -60,7 +54,7 @@ export function TidligstMuligeUttak() {
     return (
       <Alert variant="error">
         <Heading spacing size="small" level="2">
-          Vi klarte ikke å hente tidligste mulige uttaksladeren din. Prøv igjen
+          Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen
           senere.
         </Heading>
       </Alert>
@@ -70,9 +64,8 @@ export function TidligstMuligeUttak() {
   return (
     <>
       <BodyLong className={styles.paragraph}>
-        Du kan tidligst ta ut alderspensjon når du er{' '}
-        {formatertTidligstMuligeUttaksalder}. Hvis du går av senere, får du
-        høyere pensjon i året.
+        Du kan tidligst ta ut alderspensjon når du er {formatUttaksalder(data)}.
+        Hvis du går av senere, får du høyere pensjon i året.
       </BodyLong>
       <ReadMore header="Hva avgjør tidligste uttakstidspunkt?">
         {'//TODO'}

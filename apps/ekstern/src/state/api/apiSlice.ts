@@ -9,12 +9,9 @@ export const apiSlice = createApi({
   }),
   endpoints: (builder) => ({
     // Full request url med baseQuery: '${env.VITE_MSW_BASEURL}/pensjon/kalkulator/api/pensjonsberegning'
-    getTidligsteMuligeUttaksalder: builder.query<
-      TidligsteMuligeUttaksalder,
-      void
-    >({
+    getTidligsteMuligeUttaksalder: builder.query<Uttaksalder, void>({
       query: () => '/tidligste-uttaksalder',
-      transformResponse: (response: TidligsteMuligeUttaksalder) => {
+      transformResponse: (response: Uttaksalder) => {
         if (!isTidligsteMuligeUttaksalder(response)) {
           throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
         }

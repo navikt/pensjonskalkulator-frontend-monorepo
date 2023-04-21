@@ -48,7 +48,7 @@ describe('TidligstMuligeUttak', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Vi klarte ikke å hente tidligste mulige uttaksladeren din. Prøv igjen senere.'
+          'Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.'
         )
       ).toBeVisible()
       expect(result.asFragment()).toMatchSnapshot()
@@ -59,7 +59,7 @@ describe('TidligstMuligeUttak', () => {
     const invalidData = {
       aar: 67,
       maaned: null,
-    } as unknown as TidligsteMuligeUttaksalder
+    } as unknown as Uttaksalder
     mockResponse('/tidligste-uttaksalder', { json: [invalidData] })
 
     render(<TidligstMuligeUttak />)
@@ -68,7 +68,7 @@ describe('TidligstMuligeUttak', () => {
       await waitFor(() => {
         expect(
           screen.getByText(
-            'Vi klarte ikke å hente tidligste mulige uttaksladeren din. Prøv igjen senere.'
+            'Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.'
           )
         ).toBeVisible()
       })

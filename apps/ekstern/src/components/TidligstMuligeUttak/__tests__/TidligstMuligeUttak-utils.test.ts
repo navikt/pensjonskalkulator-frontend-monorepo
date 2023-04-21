@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-  generateAlderArray,
-  generateXAxis,
-  formatTidligsteMuligeUttaksalder,
-} from '../utils'
+import { generateAlderArray, generateXAxis, formatUttaksalder } from '../utils'
 
 describe('TidligstMuligeUttak-utils', () => {
   describe('generateAlderArray', () => {
@@ -105,14 +101,21 @@ describe('TidligstMuligeUttak-utils', () => {
       })
     })
 
-    describe('formatTidligsteMuligeUttaksalder', () => {
+    describe('formatUttaksalder', () => {
       it('returnerer riktig streng med år og måned', () => {
-        const streng = formatTidligsteMuligeUttaksalder({ aar: 62, maaned: 3 })
+        const streng = formatUttaksalder({ aar: 62, maaned: 3 })
         expect(streng).toBe('62 år og 3 måneder')
       })
       it('returnerer riktig streng med år og uten  måned', () => {
-        const streng = formatTidligsteMuligeUttaksalder({ aar: 62, maaned: 0 })
+        const streng = formatUttaksalder({ aar: 62, maaned: 0 })
         expect(streng).toBe('62 år')
+      })
+      it('returnerer riktig streng med år og kompakt måned', () => {
+        const streng = formatUttaksalder(
+          { aar: 62, maaned: 3 },
+          { compact: true }
+        )
+        expect(streng).toBe('62 år og 3 md.')
       })
     })
   })

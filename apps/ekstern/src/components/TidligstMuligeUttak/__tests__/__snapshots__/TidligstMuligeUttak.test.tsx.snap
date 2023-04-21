@@ -362,7 +362,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
     <div
       class="highcharts-container "
       dir="ltr"
-      id="highcharts-5tuzppr-0"
+      id="highcharts-du1dgep-0"
       style="position: relative; overflow: hidden; width: 600px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
     >
       <svg
@@ -381,7 +381,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
         </desc>
         <defs>
           <clippath
-            id="highcharts-5tuzppr-1-"
+            id="highcharts-du1dgep-1-"
           >
             <rect
               fill="none"
@@ -392,7 +392,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
             />
           </clippath>
           <clippath
-            id="highcharts-5tuzppr-8-"
+            id="highcharts-du1dgep-8-"
           >
             <rect
               fill="none"
@@ -635,7 +635,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
         >
           <g
             class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
-            clip-path="url(#highcharts-5tuzppr-8-)"
+            clip-path="url(#highcharts-du1dgep-8-)"
             data-z-index="0.1"
             opacity="1"
             transform="translate(NaN,10) scale(1 0.001)"
@@ -716,7 +716,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
           />
           <g
             class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
-            clip-path="url(#highcharts-5tuzppr-8-)"
+            clip-path="url(#highcharts-du1dgep-8-)"
             data-z-index="0.1"
             opacity="1"
             transform="translate(NaN,10) scale(1 0.001)"
@@ -797,7 +797,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
           />
           <g
             class="highcharts-series highcharts-series-2 highcharts-column-series highcharts-tracker"
-            clip-path="url(#highcharts-5tuzppr-8-)"
+            clip-path="url(#highcharts-du1dgep-8-)"
             data-z-index="0.1"
             opacity="1"
             transform="translate(NaN,10) scale(1 0.001)"
@@ -878,7 +878,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
           />
           <g
             class="highcharts-series highcharts-series-3 highcharts-column-series highcharts-tracker"
-            clip-path="url(#highcharts-5tuzppr-8-)"
+            clip-path="url(#highcharts-du1dgep-8-)"
             data-z-index="0.1"
             opacity="1"
             transform="translate(NaN,10) scale(1 0.001)"
@@ -1284,7 +1284,7 @@ exports[`TidligstMuligeUttak > viser feilmelding om henting av pensjonberegning 
       <h2
         class="navds-heading navds-heading--small navds-typo--spacing"
       >
-        Vi klarte ikke å hente tidligste mulige uttaksladeren din. Prøv igjen senere.
+        Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.
       </h2>
     </div>
   </div>

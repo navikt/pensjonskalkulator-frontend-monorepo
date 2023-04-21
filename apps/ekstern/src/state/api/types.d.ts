@@ -1,4 +1,4 @@
-declare type TidligsteMuligeUttaksalder = {
+declare type Uttaksalder = {
   aar: number
   maaned: number
 }
