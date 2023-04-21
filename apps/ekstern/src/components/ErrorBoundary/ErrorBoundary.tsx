@@ -3,6 +3,7 @@ import React, { ErrorInfo, ReactNode } from 'react'
 import { Alert, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
+import { logError } from '@/api/logError'
 import frameStyles from '@/scss/Frame/Frame.module.scss'
 
 function GlobalFeilmelding() {
@@ -37,9 +38,8 @@ export class ErrorBoundary extends React.Component<Props, State> {
     return { hasError: true }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   componentDidCatch(error: Error, info: ErrorInfo) {
-    // logErrorToMyService(error, info.componentStack)
+    logError(error.message, info.componentStack)
   }
 
   render() {
