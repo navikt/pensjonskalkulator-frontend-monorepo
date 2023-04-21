@@ -10,11 +10,12 @@ describe('Pensjonssimulering', () => {
     const { container, asFragment } = render(
       <Pensjonssimulering uttaksalder={65} />
     )
-    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(1)
     expect(
       screen.getByText('Årlig pensjon hvis du starter uttak ved 65 år')
     ).toBeInTheDocument()
-    expect(container.getElementsByClassName('ct-chart').length).toBe(1)
+    expect(
+      container.getElementsByClassName('highcharts-container').length
+    ).toBe(1)
     expect(asFragment()).toMatchSnapshot()
   })
 })

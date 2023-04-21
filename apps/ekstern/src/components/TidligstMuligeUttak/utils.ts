@@ -15,9 +15,12 @@ export const generateAlderArray = (
 }
 
 export const generateXAxis = (startAlder: number, endAlder: number) => {
-  const alderArray: number[] = []
+  const alderArray: string[] = []
   for (let i = startAlder; i <= endAlder; i++) {
-    alderArray.push(i)
+    if (i === startAlder) {
+      alderArray.push((i - 1).toString())
+    }
+    alderArray.push(i.toString())
   }
   return alderArray
 }

@@ -79,19 +79,17 @@ describe('TidligstMuligeUttak', () => {
     const { container, asFragment } = render(<TidligstMuligeUttak />)
 
     await waitFor(async () => {
-      await fireEvent.click(screen.getByText('65 år'))
-      expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-        '65 år'
-      )
-      fireEvent.click(screen.getByText('Vis flere aldere'))
+      await fireEvent.click(screen.getByText('Vis flere aldere'))
 
-      fireEvent.click(screen.getByText('72 år'))
+      await fireEvent.click(screen.getByText('72 år'))
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
         '72 år'
       )
       vi.useFakeTimers()
       vi.advanceTimersByTime(250)
-      expect(container.getElementsByClassName('ct-chart').length).toBe(1)
+      expect(
+        container.getElementsByClassName('highcharts-container').length
+      ).toBe(1)
       expect(asFragment()).toMatchSnapshot()
       vi.useRealTimers()
     })

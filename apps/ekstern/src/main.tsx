@@ -8,7 +8,6 @@ import { ErrorBoundary } from './components/ErrorBoundary'
 import { store } from './state/store'
 
 import './scss/designsystem.scss'
-import './scss/chartist.scss'
 
 if (process.env.NODE_ENV === 'development') {
   const msw = await import('./mocks/browser')
