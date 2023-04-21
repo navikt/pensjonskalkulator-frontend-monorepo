@@ -3,7 +3,6 @@ import React from 'react'
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { Pensjonssimulering } from '@/components/Pensjonssimulering'
 import { TidligstMuligeUttak } from '@/components/TidligstMuligeUttak'
 import frameStyles from '@/scss/Frame/Frame.module.scss'
 import whiteSectionStyles from '@/scss/WhiteSection/WhiteSection.module.scss'

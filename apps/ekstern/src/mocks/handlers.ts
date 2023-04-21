@@ -1,8 +1,9 @@
 import { rest } from 'msw'
-import { PATH } from './paths'
 
-import tidligstemuligeuttaksalderData from './__mocks__/tidligstemuligeuttaksalder.json' assert { type: 'json' }
-import pensjonsberegningData from './__mocks__/pensjonsberegning.json' assert { type: 'json' }
+import { PATH } from '@/api/paths'
+
+import pensjonsberegningData from './data/pensjonsberegning.json' assert { type: 'json' }
+import tidligstemuligeuttaksalderData from './data/tidligstemuligeuttaksalder.json' assert { type: 'json' }
 
 export const getHandlers = (baseUrl: string = PATH) => [
   rest.get(`${baseUrl}/tidligste-uttaksalder`, (req, res, ctx) => {

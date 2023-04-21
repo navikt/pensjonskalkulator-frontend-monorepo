@@ -2,7 +2,7 @@ import '@testing-library/jest-dom'
 
 import { fetch, Headers, Request, Response } from 'cross-fetch'
 
-import { server } from './api/server'
+import { server } from '@/mocks/server'
 
 global.fetch = fetch
 global.Request = Request

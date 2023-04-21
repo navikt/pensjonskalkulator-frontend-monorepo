@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import { TidligstMuligeUttak } from '../TidligstMuligeUttak'
-import { mockErrorResponse, mockResponse } from '@/api/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import {
   fireEvent,
   render,

@@ -65,7 +65,7 @@ export default defineConfig(({ mode }) => {
         extension: ['.ts', '.tsx'],
         exclude: [
           'vite.config.ts',
-          'src/api',
+          'src/mocks',
           'src/test-utils.tsx',
           'src/**/*.d.ts',
           'src/**/__tests__',

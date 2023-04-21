@@ -1,10 +1,10 @@
-import { mockErrorResponse, mockResponse } from '@/api/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { setupStore } from '@/state/store'
 import { apiSlice } from '@/state/api/apiSlice'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 
-const tidligstemuligeuttaksalderData = require('../../../api/__mocks__/tidligstemuligeuttaksalder.json')
-const pensjonsberegningData = require('../../../api/__mocks__/pensjonsberegning.json')
+const tidligstemuligeuttaksalderData = require('../../../mocks/data/tidligstemuligeuttaksalder.json')
+const pensjonsberegningData = require('../../../mocks/data/pensjonsberegning.json')
 
 // TODO: fikse bedre typing ved dispatch
 describe('apiSlice', () => {
