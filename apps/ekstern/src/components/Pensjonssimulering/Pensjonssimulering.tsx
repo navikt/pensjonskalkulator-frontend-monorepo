@@ -19,9 +19,7 @@ type PensjonssimuleringProps = {
   uttaksalder: number
 }
 
-export function Pensjonssimulering(props: PensjonssimuleringProps) {
-  const { uttaksalder } = props
-
+export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   const chartRef = useRef<HighchartsReact.RefObject>(null)
 
   const [aarXAxis, setAarXAxis] = useState<string[]>([])
@@ -98,14 +96,6 @@ export function Pensjonssimulering(props: PensjonssimuleringProps) {
   }, [uttaksalder])
 
   return (
-    <>
-      {uttaksalder && (
-        <HighchartsReact
-          highcharts={Highcharts}
-          options={options}
-          ref={chartRef}
-        />
-      )}
-    </>
+    <HighchartsReact highcharts={Highcharts} options={options} ref={chartRef} />
   )
 }
