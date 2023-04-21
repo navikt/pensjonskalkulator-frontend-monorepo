@@ -5,7 +5,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
   <p
     class="_paragraph_d3b588 navds-body-long"
   >
-    Du kan tidligst ta ut alderspensjon når du er 67 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
+    Du kan tidligst ta ut alderspensjon når du er 62 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
   </p>
   <div
     class="navds-read-more navds-read-more--medium"
@@ -86,7 +86,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
         <span
           class="navds-chips__chip-text"
         >
-          67 år og 10 måneder
+          62 år og 10 md.
         </span>
       </button>
     </li>
@@ -98,7 +98,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
         <span
           class="navds-chips__chip-text"
         >
-          68 år
+          63 år
         </span>
       </button>
     </li>
@@ -110,7 +110,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
         <span
           class="navds-chips__chip-text"
         >
-          69 år
+          64 år
         </span>
       </button>
     </li>
@@ -122,7 +122,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
         <span
           class="navds-chips__chip-text"
         >
-          70 år
+          65 år
         </span>
       </button>
     </li>
@@ -134,37 +134,19 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
         <span
           class="navds-chips__chip-text"
         >
-          71 år
+          66 år
         </span>
       </button>
     </li>
     <li>
       <button
-        aria-pressed="true"
-        class="navds-chips__chip navds-chips__toggle navds-chips--icon-left"
+        aria-pressed="false"
+        class="navds-chips__chip navds-chips__toggle"
       >
-        <svg
-          aria-hidden="true"
-          class="navds-chips__toggle-icon"
-          fill="none"
-          focusable="false"
-          height="1em"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clip-rule="evenodd"
-            d="M18.201 6 20 7.89 8.78 19 4 14.396 5.794 12.5l2.98 2.802L18.201 6Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
         <span
           class="navds-chips__chip-text"
         >
-          72 år
+          67 år
         </span>
       </button>
     </li>
@@ -230,6 +212,84 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
           <ul
             class="navds-chips _chipsWrapper_d3b588 _chipsWrapper__hasGap_d3b588 navds-chips--medium navds-body-short navds-body-short--small"
           >
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  68 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  69 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  70 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  71 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="true"
+                class="navds-chips__chip navds-chips__toggle navds-chips--icon-left"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="navds-chips__toggle-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M18.201 6 20 7.89 8.78 19 4 14.396 5.794 12.5l2.98 2.802L18.201 6Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  72 år
+                </span>
+              </button>
+            </li>
             <li>
               <button
                 aria-pressed="false"
@@ -352,7 +412,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
   <p
     class="_paragraph_d3b588 navds-body-long"
   >
-    Du kan tidligst ta ut alderspensjon når du er 67 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
+    Du kan tidligst ta ut alderspensjon når du er 62 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
   </p>
   <div
     class="navds-read-more navds-read-more--medium"
@@ -433,7 +493,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
         <span
           class="navds-chips__chip-text"
         >
-          67 år og 10 måneder
+          62 år og 10 md.
         </span>
       </button>
     </li>
@@ -445,7 +505,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
         <span
           class="navds-chips__chip-text"
         >
-          68 år
+          63 år
         </span>
       </button>
     </li>
@@ -457,7 +517,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
         <span
           class="navds-chips__chip-text"
         >
-          69 år
+          64 år
         </span>
       </button>
     </li>
@@ -469,7 +529,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
         <span
           class="navds-chips__chip-text"
         >
-          70 år
+          65 år
         </span>
       </button>
     </li>
@@ -481,7 +541,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
         <span
           class="navds-chips__chip-text"
         >
-          71 år
+          66 år
         </span>
       </button>
     </li>
@@ -493,7 +553,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
         <span
           class="navds-chips__chip-text"
         >
-          72 år
+          67 år
         </span>
       </button>
     </li>
@@ -559,6 +619,66 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
           <ul
             class="navds-chips _chipsWrapper_d3b588 _chipsWrapper__hasGap_d3b588 navds-chips--medium navds-body-short navds-body-short--small"
           >
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  68 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  69 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  70 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  71 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  72 år
+                </span>
+              </button>
+            </li>
             <li>
               <button
                 aria-pressed="false"

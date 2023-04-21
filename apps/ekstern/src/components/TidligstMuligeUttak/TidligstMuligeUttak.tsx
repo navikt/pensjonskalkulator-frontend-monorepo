@@ -35,7 +35,13 @@ export function TidligstMuligeUttak() {
     if (data && data?.aar) {
       const formatertAlder = formatTidligsteMuligeUttaksalder(data)
       setFormatertTidligstMuligeUttaksalder(formatertAlder)
-      setAlderChips(generateAlderArray(data.aar, 77, formatertAlder))
+      setAlderChips(
+        generateAlderArray(
+          data.aar,
+          77,
+          formatertAlder.replace('måneder', 'md.')
+        )
+      )
     }
   }, [data])
 

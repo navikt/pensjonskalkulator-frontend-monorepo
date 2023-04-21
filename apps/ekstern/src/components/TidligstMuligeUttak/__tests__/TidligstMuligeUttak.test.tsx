@@ -34,7 +34,7 @@ describe('TidligstMuligeUttak', () => {
       ).not.toBeInTheDocument()
       fireEvent.click(screen.getByText('Vis flere aldere'))
       const flereButtons = screen.getAllByRole('button')
-      expect(flereButtons).toHaveLength(13)
+      expect(flereButtons).toHaveLength(18)
       expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
       expect(result.asFragment()).toMatchSnapshot()
     })
@@ -79,9 +79,9 @@ describe('TidligstMuligeUttak', () => {
     const { container, asFragment } = render(<TidligstMuligeUttak />)
 
     await waitFor(async () => {
-      await fireEvent.click(screen.getByText('68 år'))
+      await fireEvent.click(screen.getByText('65 år'))
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-        '68 år'
+        '65 år'
       )
       fireEvent.click(screen.getByText('Vis flere aldere'))
 
