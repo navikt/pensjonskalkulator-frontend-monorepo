@@ -11,7 +11,10 @@ import {
 import clsx from 'clsx'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
-import { generateAlderArray } from '../TidligstMuligeUttak/utils'
+import {
+  generateAlderArray,
+  formatTidligsteMuligeUttaksalder,
+} from '../TidligstMuligeUttak/utils'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
 import styles from './TidligstMuligeUttak.module.scss'
@@ -22,12 +25,17 @@ export function TidligstMuligeUttak() {
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>(
     undefined
   )
+  const [
+    formatertTidligstMuligeUttaksalder,
+    setFormatertTidligstMuligeUttaksalder,
+  ] = useState<string>('')
   const [alderChips, setAlderChips] = useState<string[]>([])
 
   useEffect(() => {
     if (data && data?.aar) {
-      const a = generateAlderArray(data.aar, 77)
-      setAlderChips(a)
+      const formatertAlder = formatTidligsteMuligeUttaksalder(data)
+      setFormatertTidligstMuligeUttaksalder(formatertAlder)
+      setAlderChips(generateAlderArray(data.aar, 77, formatertAlder))
     }
   }, [data])
 
@@ -55,12 +63,10 @@ export function TidligstMuligeUttak() {
 
   return (
     <>
-      {
-        // TODO logikk for setningen dersom det er 0 måned
-      }
       <BodyLong className={styles.paragraph}>
-        Du kan tidligst ta ut alderspensjon når du er {data.aar} år og{' '}
-        {data.maaned}. Hvis du går av senere, får du høyere pensjon i året.
+        Du kan tidligst ta ut alderspensjon når du er{' '}
+        {formatertTidligstMuligeUttaksalder}. Hvis du går av senere, får du
+        høyere pensjon i året.
       </BodyLong>
       <ReadMore header="Hva avgjør tidligste uttakstidspunkt?">
         {'//TODO'}
@@ -76,7 +82,7 @@ export function TidligstMuligeUttak() {
               key={alderChip}
               onClick={() => setValgtUttaksalder(alderChip)}
             >
-              {`${alderChip.toString()} år`}
+              {alderChip}
             </Chips.Toggle>
           ))}
       </Chips>
@@ -94,7 +100,7 @@ export function TidligstMuligeUttak() {
                 key={alderChip}
                 onClick={() => setValgtUttaksalder(alderChip)}
               >
-                {`${alderChip.toString()} år`}
+                {alderChip}
               </Chips.Toggle>
             ))}
         </Chips>

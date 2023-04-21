@@ -4,7 +4,7 @@ import { Heading } from '@navikt/ds-react'
 import { BarChart } from 'chartist'
 import clsx from 'clsx'
 
-import { generateAlderArray } from '../TidligstMuligeUttak/utils'
+import { generateXAxis } from '../TidligstMuligeUttak/utils'
 
 import styles from './Pensjonssimulering.module.scss'
 
@@ -16,13 +16,10 @@ export function Pensjonssimulering(props: PensjonssimuleringProps) {
   const { uttaksalder } = props
 
   const chartRef = createRef<HTMLDivElement>()
-  const aarPeriode = useMemo(
-    () => generateAlderArray(uttaksalder, 77),
-    [uttaksalder]
-  )
+  const aarXAxis = useMemo(() => generateXAxis(uttaksalder, 77), [uttaksalder])
 
   const data = {
-    labels: [(uttaksalder - 1).toString(), ...aarPeriode],
+    labels: [(uttaksalder - 1).toString(), ...aarXAxis],
     series: [
       [
         0, 250000, 300000, 450000, 500000, 600000, 600000, 600000, 600000,
@@ -43,7 +40,7 @@ export function Pensjonssimulering(props: PensjonssimuleringProps) {
     stackBars: true,
     axisX: {
       labelInterpolationFnc: (value: string, index: number) =>
-        index === aarPeriode.length ? `${value}+` : value,
+        index === aarXAxis.length ? `${value}+` : value,
     },
     axisY: {
       offset: 25,

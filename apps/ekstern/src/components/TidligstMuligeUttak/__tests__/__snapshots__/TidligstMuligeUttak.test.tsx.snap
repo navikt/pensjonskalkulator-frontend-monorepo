@@ -5,7 +5,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
   <p
     class="_paragraph_d3b588 navds-body-long"
   >
-    Du kan tidligst ta ut alderspensjon når du er 67 år og 10. Hvis du går av senere, får du høyere pensjon i året.
+    Du kan tidligst ta ut alderspensjon når du er 67 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
   </p>
   <div
     class="navds-read-more navds-read-more--medium"
@@ -86,7 +86,7 @@ exports[`TidligstMuligeUttak > oppdaterer valgt knapp og tegner graph når bruke
         <span
           class="navds-chips__chip-text"
         >
-          67 år
+          67 år og 10 måneder
         </span>
       </button>
     </li>
@@ -352,7 +352,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
   <p
     class="_paragraph_d3b588 navds-body-long"
   >
-    Du kan tidligst ta ut alderspensjon når du er 67 år og 10. Hvis du går av senere, får du høyere pensjon i året.
+    Du kan tidligst ta ut alderspensjon når du er 67 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
   </p>
   <div
     class="navds-read-more navds-read-more--medium"
@@ -433,7 +433,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
         <span
           class="navds-chips__chip-text"
         >
-          67 år
+          67 år og 10 måneder
         </span>
       </button>
     </li>
