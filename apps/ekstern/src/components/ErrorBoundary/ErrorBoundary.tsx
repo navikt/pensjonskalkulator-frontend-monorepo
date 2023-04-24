@@ -1,14 +1,14 @@
 import React, { ErrorInfo, ReactNode } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
-import clsx from 'clsx'
 
 import { logError } from '@/api/logError'
-import frameStyles from '@/scss/Frame/Frame.module.scss'
+
+import styles from './ErrorBoundary.module.scss'
 
 function GlobalFeilmelding() {
   return (
-    <div className={clsx(frameStyles.frame, frameStyles.frame_hasPadding)}>
+    <div className={styles.ErrorBoundary}>
       <Alert variant="error">
         <Heading spacing size="small" level="1">
           Oisann!

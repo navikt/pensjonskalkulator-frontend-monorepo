@@ -63,37 +63,25 @@ export function TidligstMuligeUttak() {
 
   return (
     <>
-      <BodyLong className={styles.paragraph}>
-        Du kan tidligst ta ut alderspensjon når du er {formatUttaksalder(data)}.
-        Hvis du går av senere, får du høyere pensjon i året.
-      </BodyLong>
-      <ReadMore header="Hva avgjør tidligste uttakstidspunkt?">
-        {'//TODO'}
-      </ReadMore>
-      <Heading size="xsmall" level="2">
-        Når vil du ta ut alderspensjon?
-      </Heading>
-      <Chips className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}>
-        {alderChips.length > 0 &&
-          alderChips.slice(0, 6).map((alderChip) => (
-            <Chips.Toggle
-              selected={valgtUttaksalder === alderChip}
-              key={alderChip}
-              onClick={() => setValgtUttaksalder(alderChip)}
-            >
-              {alderChip}
-            </Chips.Toggle>
-          ))}
-      </Chips>
-      <ReadMore
-        header="Vis flere aldere"
-        className={clsx({ [styles.readMore__hasPadding]: valgtUttaksalder })}
-      >
+      <section className={styles.section}>
+        <BodyLong className={styles.paragraph}>
+          Du kan tidligst ta ut alderspensjon når du er{' '}
+          {formatUttaksalder(data)}. Hvis du går av senere, får du høyere
+          pensjon i året.
+        </BodyLong>
+        <ReadMore header="Hva avgjør tidligste uttakstidspunkt?">
+          {'//TODO'}
+        </ReadMore>
+      </section>
+      <section className={styles.section}>
+        <Heading size="xsmall" level="2">
+          Når vil du ta ut alderspensjon?
+        </Heading>
         <Chips
           className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >
           {alderChips.length > 0 &&
-            alderChips.slice(6, alderChips.length).map((alderChip) => (
+            alderChips.slice(0, 6).map((alderChip) => (
               <Chips.Toggle
                 selected={valgtUttaksalder === alderChip}
                 key={alderChip}
@@ -103,10 +91,29 @@ export function TidligstMuligeUttak() {
               </Chips.Toggle>
             ))}
         </Chips>
-      </ReadMore>
-      {valgtUttaksalder && (
-        <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
-      )}
+        <ReadMore
+          header="Vis flere aldere"
+          className={clsx({ [styles.readMore__hasPadding]: valgtUttaksalder })}
+        >
+          <Chips
+            className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
+          >
+            {alderChips.length > 0 &&
+              alderChips.slice(6, alderChips.length).map((alderChip) => (
+                <Chips.Toggle
+                  selected={valgtUttaksalder === alderChip}
+                  key={alderChip}
+                  onClick={() => setValgtUttaksalder(alderChip)}
+                >
+                  {alderChip}
+                </Chips.Toggle>
+              ))}
+          </Chips>
+        </ReadMore>
+        {valgtUttaksalder && (
+          <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
+        )}
+      </section>
     </>
   )
 }

@@ -1,6 +1,6 @@
 @import '../variables';
 
-.whiteSection {
+.whitesection {
   background-color: var(--a-white);
   width: 100%;
   animation: 0.2s fade-in;
@@ -11,12 +11,11 @@
 
   @keyframes fade-in {
     0% {
-      opacity: 0
+      opacity: 0;
     }
 
     100% {
-      opacity: 1
+      opacity: 1;
     }
   }
 }
-

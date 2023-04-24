@@ -1,0 +1,4 @@
+.ErrorBoundary {
+  composes: frame from '../../scss/modules/frame.module.scss';
+  composes: frame_hasPadding from '../../scss/modules/frame.module.scss';
+}

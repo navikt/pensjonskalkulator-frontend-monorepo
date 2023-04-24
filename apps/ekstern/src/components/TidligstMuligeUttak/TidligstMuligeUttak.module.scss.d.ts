@@ -1,5 +1,6 @@
 import globalClassNames from '../../style.d'
 declare const classNames: typeof globalClassNames & {
+  readonly section: 'section'
   readonly loader: 'loader'
   readonly chipsWrapper: 'chipsWrapper'
   readonly chipsWrapper__hasGap: 'chipsWrapper__hasGap'

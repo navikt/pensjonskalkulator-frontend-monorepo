@@ -3,7 +3,7 @@
 exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1`] = `
 <DocumentFragment>
   <main
-    class="_frame_4c435f _frame_isFlex_4c435f _main_bbbd1d"
+    class="_main_bbbd1d"
   >
     <div
       class="_headerGroup_bbbd1d"
@@ -14,40 +14,36 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
         Pensjonskalkulator
       </h1>
     </div>
-    <section
-      class="_whiteSection_0c72f2 _section_bbbd1d"
+    <svg
+      aria-labelledby="loader-r0"
+      class="navds-loader _loader_d3b588 navds-loader--3xlarge navds-loader--neutral"
+      data-testid="loader"
+      focusable="false"
+      preserveAspectRatio="xMidYMid"
+      viewBox="0 0 50 50"
     >
-      <svg
-        aria-labelledby="loader-r0"
-        class="navds-loader _loader_d3b588 navds-loader--3xlarge navds-loader--neutral"
-        data-testid="loader"
-        focusable="false"
-        preserveAspectRatio="xMidYMid"
-        viewBox="0 0 50 50"
+      <title
+        id="loader-r0"
       >
-        <title
-          id="loader-r0"
-        >
-          Henter tidligste mulige uttaksalder
-        </title>
-        <circle
-          class="navds-loader__background"
-          cx="25"
-          cy="25"
-          fill="none"
-          r="20"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-        <circle
-          class="navds-loader__foreground"
-          cx="25"
-          cy="25"
-          fill="none"
-          r="20"
-          stroke-dasharray="50 155"
-        />
-      </svg>
-    </section>
+        Henter tidligste mulige uttaksalder
+      </title>
+      <circle
+        class="navds-loader__background"
+        cx="25"
+        cy="25"
+        fill="none"
+        r="20"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+      <circle
+        class="navds-loader__foreground"
+        cx="25"
+        cy="25"
+        fill="none"
+        r="20"
+        stroke-dasharray="50 155"
+      />
+    </svg>
   </main>
 </DocumentFragment>
 `;

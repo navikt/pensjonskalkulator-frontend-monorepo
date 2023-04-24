@@ -3,7 +3,7 @@
 exports[`ErrorBoundary > rendrer feilmelding når det kastes en feil i children 1`] = `
 <DocumentFragment>
   <div
-    class="_frame_4c435f _frame_hasPadding_4c435f"
+    class="_ErrorBoundary_d8d1dc"
   >
     <div
       class="navds-alert navds-alert--error navds-alert--medium"

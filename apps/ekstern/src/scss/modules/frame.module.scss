@@ -9,17 +9,12 @@
   @media (min-width: $a-breakpoint-xl) {
     max-width: $content-area-desktop;
   }
+}
 
-  &_isFlex {
-    display: flex;
-    flex-flow: column;
-  }
+.frame_hasPadding {
+  padding: var(--a-spacing-3);
 
-  &_hasPadding {
-    padding: var(--a-spacing-3);
-
-    @media (min-width: $a-breakpoint-sm) {
-      padding: var(--a-spacing-6);
-    }
+  @media (min-width: $a-breakpoint-sm) {
+    padding: var(--a-spacing-6);
   }
 }
