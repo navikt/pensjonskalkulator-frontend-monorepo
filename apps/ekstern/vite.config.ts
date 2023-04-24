@@ -12,6 +12,16 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     base: '/pensjon/kalkulator/',
+    build: {
+      sourcemap: true,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            highcharts: ['highcharts'],
+          },
+        },
+      },
+    },
     plugins: [
       tsconfigPaths(),
       react(),
