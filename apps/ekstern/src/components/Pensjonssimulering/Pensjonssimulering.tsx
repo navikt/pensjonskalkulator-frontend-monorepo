@@ -3,6 +3,12 @@ import { useEffect, useRef, useState } from 'react'
 import * as Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
+/* eslint-disable @typescript-eslint/ban-ts-comment, import/order */
+/* @ts-ignore */
+import HC_rounded from '../../utils/highcharts-rounded-corners'
+
+HC_rounded(Highcharts)
+
 import { generateXAxis } from '../TidligstMuligeUttak/utils'
 
 import {
@@ -35,13 +41,19 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       // spacingRight: 0,
       scrollablePlotArea: {
         minWidth: 600,
-        scrollPositionX: 600,
+        scrollPositionX: 0,
       },
     },
     title: {
       text: `Årlig pensjon det første året (${uttaksalder} år)`,
       align: 'left',
       margin: 40,
+      y: 20,
+      style: {
+        fontFamily: 'var(--a-font-family)',
+        fontWeight: 'bold',
+        fontSize: '20px',
+      },
     },
     xAxis: {
       categories: aarXAxis,
@@ -56,7 +68,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         align: 'high',
         offset: -55,
         rotation: 0,
-        x: -15,
+        x: -12,
         y: -20,
       },
       labels: {
@@ -99,8 +111,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         pointWidth: 25,
         name: 'Pensjonsgivende inntekt',
         color: '#868F9C',
+        // TODO sørge for at border-radius alltid settes på den øverste kolonnen
+        borderRadiusTopLeft: '15%',
+        borderRadiusTopRight: '15%',
         data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length - 1),
-      },
+      } as unknown as Highcharts.SeriesOptionsType,
       {
         type: 'column',
         pointWidth: 25,

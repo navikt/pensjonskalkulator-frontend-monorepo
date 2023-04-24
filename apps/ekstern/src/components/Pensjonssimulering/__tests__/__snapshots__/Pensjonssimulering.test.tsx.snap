@@ -986,10 +986,10 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
         <text
           class="highcharts-title"
           data-z-index="4"
-          style="color: rgb(51, 51, 51); font-size: 18px; fill: #333333;"
+          style="color: rgb(51, 51, 51); font-size: 20px; font-family: var(--a-font-family); font-weight: bold; fill: #333333;"
           text-anchor="start"
           x="0"
-          y="14"
+          y="20"
         >
           Årlig pensjon det første året (65 år)
         </text>
