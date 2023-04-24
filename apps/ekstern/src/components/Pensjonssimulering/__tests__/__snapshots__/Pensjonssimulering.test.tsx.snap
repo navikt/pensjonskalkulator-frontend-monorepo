@@ -13,7 +13,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
       style="position: relative; overflow: hidden; width: 600px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
     >
       <svg
-        aria-label="Årlig pensjon hvis du starter uttak ved 65 år"
+        aria-label="Årlig pensjon det første året (65 år)"
         class="highcharts-root"
         height="400"
         role="img"
@@ -66,18 +66,18 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
           height="NaN"
           width="NaN"
           x="NaN"
-          y="10"
+          y="0"
         />
         <rect
           class="highcharts-plot-border"
           data-z-index="1"
           fill="none"
-          height="375"
+          height="385"
           stroke="#cccccc"
           stroke-width="0"
-          width="580"
-          x="10"
-          y="10"
+          width="590"
+          x="0"
+          y="0"
         />
         <g
           class="highcharts-grid highcharts-xaxis-grid"
@@ -333,7 +333,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             text-anchor="end"
             transform="translate(0,0)"
             x="NaN"
-            y="-10"
+            y="22"
           >
             Tusen kroner
           </text>
@@ -355,7 +355,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             clip-path="url(#highcharts-15-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,10) scale(1 0.001)"
+            transform="translate(NaN,42) scale(1 0.001)"
           >
             <rect
               class="highcharts-point"
@@ -506,14 +506,14 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             clip-path="none"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,10) scale(1 1)"
+            transform="translate(NaN,42) scale(1 1)"
           />
           <g
             class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
             clip-path="url(#highcharts-15-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,10) scale(1 0.001)"
+            transform="translate(NaN,42) scale(1 0.001)"
           >
             <rect
               class="highcharts-point"
@@ -664,14 +664,14 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             clip-path="none"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,10) scale(1 1)"
+            transform="translate(NaN,42) scale(1 1)"
           />
           <g
             class="highcharts-series highcharts-series-2 highcharts-column-series highcharts-tracker"
             clip-path="url(#highcharts-15-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,10) scale(1 0.001)"
+            transform="translate(NaN,42) scale(1 0.001)"
           >
             <rect
               class="highcharts-point"
@@ -822,14 +822,14 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             clip-path="none"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,10) scale(1 1)"
+            transform="translate(NaN,42) scale(1 1)"
           />
           <g
             class="highcharts-series highcharts-series-3 highcharts-column-series highcharts-tracker"
             clip-path="url(#highcharts-15-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,10) scale(1 0.001)"
+            transform="translate(NaN,42) scale(1 0.001)"
           >
             <rect
               class="highcharts-point"
@@ -980,7 +980,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             clip-path="none"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,10) scale(1 1)"
+            transform="translate(NaN,42) scale(1 1)"
           />
         </g>
         <text
@@ -988,43 +988,39 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
           data-z-index="4"
           style="color: rgb(51, 51, 51); font-size: 18px; fill: #333333;"
           text-anchor="start"
-          x="10"
-          y="24"
+          x="0"
+          y="14"
         >
-          Årlig pensjon hvis du starter uttak ved 65 år
+          Årlig pensjon det første året (65 år)
         </text>
         <text
           class="highcharts-subtitle"
           data-z-index="4"
           style="color: rgb(102, 102, 102); fill: #666666;"
           text-anchor="middle"
-          x="300"
-          y="10"
+          x="295"
+          y="0"
         />
         <text
           class="highcharts-caption"
           data-z-index="4"
           style="color: rgb(102, 102, 102); fill: #666666;"
           text-anchor="start"
-          x="10"
+          x="0"
           y="397"
         />
         <g
           class="highcharts-legend highcharts-no-tooltip"
           data-z-index="7"
-          transform="translate(300,359)"
+          transform="translate(0,-25)"
         >
           <rect
             class="highcharts-legend-box"
             fill="none"
-            height="8"
             rx="0"
             ry="0"
             stroke="#999999"
             stroke-width="0"
-            width="8"
-            x="0"
-            y="0"
           />
           <g
             data-z-index="1"
@@ -1033,14 +1029,14 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
               <g
                 class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-0"
                 data-z-index="1"
-                transform="translate(8,3)"
+                transform="translate(0,-5)"
               >
                 <text
                   data-z-index="2"
-                  style="color: rgb(51, 51, 51); cursor: pointer; font-size: 12px; font-weight: bold; fill: #333333;"
+                  style="color: rgb(51, 51, 51); cursor: pointer; font-size: 14px; font-weight: regular; font-family: var(--a-font-family); fill: #333333;"
                   text-anchor="start"
                   x="21"
-                  y="15"
+                  y="17"
                 >
                   Pensjonsgivende inntekt
                 </text>
@@ -1048,25 +1044,25 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   class="highcharts-point"
                   data-z-index="3"
                   fill="#868F9C"
-                  height="12"
-                  rx="6"
-                  ry="6"
-                  width="12"
-                  x="2"
+                  height="14"
+                  rx="7"
+                  ry="7"
+                  width="14"
+                  x="1"
                   y="4"
                 />
               </g>
               <g
                 class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-1"
                 data-z-index="1"
-                transform="translate(NaN,3)"
+                transform="translate(NaN,-5)"
               >
                 <text
                   data-z-index="2"
-                  style="color: rgb(51, 51, 51); cursor: pointer; font-size: 12px; font-weight: bold; fill: #333333;"
+                  style="color: rgb(51, 51, 51); cursor: pointer; font-size: 14px; font-weight: regular; font-family: var(--a-font-family); fill: #333333;"
                   text-anchor="start"
                   x="21"
-                  y="15"
+                  y="17"
                 >
                   Avtalefestet pensjon (AFP)
                 </text>
@@ -1074,25 +1070,25 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   class="highcharts-point"
                   data-z-index="3"
                   fill="var(--a-purple-400)"
-                  height="12"
-                  rx="6"
-                  ry="6"
-                  width="12"
-                  x="2"
+                  height="14"
+                  rx="7"
+                  ry="7"
+                  width="14"
+                  x="1"
                   y="4"
                 />
               </g>
               <g
                 class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-2"
                 data-z-index="1"
-                transform="translate(NaN,3)"
+                transform="translate(NaN,-5)"
               >
                 <text
                   data-z-index="2"
-                  style="color: rgb(51, 51, 51); cursor: pointer; font-size: 12px; font-weight: bold; fill: #333333;"
+                  style="color: rgb(51, 51, 51); cursor: pointer; font-size: 14px; font-weight: regular; font-family: var(--a-font-family); fill: #333333;"
                   text-anchor="start"
                   x="21"
-                  y="15"
+                  y="17"
                 >
                   Tjenestepensjon
                 </text>
@@ -1100,25 +1096,25 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   class="highcharts-point"
                   data-z-index="3"
                   fill="var(--a-green-400)"
-                  height="12"
-                  rx="6"
-                  ry="6"
-                  width="12"
-                  x="2"
+                  height="14"
+                  rx="7"
+                  ry="7"
+                  width="14"
+                  x="1"
                   y="4"
                 />
               </g>
               <g
                 class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-3"
                 data-z-index="1"
-                transform="translate(NaN,3)"
+                transform="translate(NaN,-5)"
               >
                 <text
                   data-z-index="2"
-                  style="color: rgb(51, 51, 51); cursor: pointer; font-size: 12px; font-weight: bold; fill: #333333;"
+                  style="color: rgb(51, 51, 51); cursor: pointer; font-size: 14px; font-weight: regular; font-family: var(--a-font-family); fill: #333333;"
                   text-anchor="start"
                   x="21"
-                  y="15"
+                  y="17"
                 >
                   Folketrygden (NAV)
                 </text>
@@ -1126,11 +1122,11 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   class="highcharts-point"
                   data-z-index="3"
                   fill="var(--a-deepblue-500)"
-                  height="12"
-                  rx="6"
-                  ry="6"
-                  width="12"
-                  x="2"
+                  height="14"
+                  rx="7"
+                  ry="7"
+                  width="14"
+                  x="1"
                   y="4"
                 />
               </g>

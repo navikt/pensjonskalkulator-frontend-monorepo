@@ -28,8 +28,18 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   >([])
 
   const options: Highcharts.Options = {
+    chart: {
+      type: 'column',
+      spacingTop: 0,
+      spacingLeft: 0,
+      // spacingRight: 0,
+      scrollablePlotArea: {
+        minWidth: 600,
+        scrollPositionX: 600,
+      },
+    },
     title: {
-      text: `Årlig pensjon hvis du starter uttak ved ${uttaksalder} år`,
+      text: `Årlig pensjon det første året (${uttaksalder} år)`,
       align: 'left',
       margin: 40,
     },
@@ -56,6 +66,22 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
     tooltip: {
       formatter: tooltipFormatter,
     },
+    legend: {
+      x: 0,
+      y: -25,
+      padding: 0,
+      margin: 50,
+      layout: 'horizontal',
+      align: 'left',
+      verticalAlign: 'top',
+      itemDistance: 0,
+      itemStyle: {
+        fontFamily: 'var(--a-font-family)',
+        fontWeight: 'regular',
+        fontSize: '14px',
+      },
+      itemMarginBottom: 5,
+    },
     plotOptions: {
       column: {
         stacking: 'normal',
@@ -70,24 +96,28 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
     setSeriesYAxis([
       {
         type: 'column',
+        pointWidth: 25,
         name: 'Pensjonsgivende inntekt',
         color: '#868F9C',
         data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length - 1),
       },
       {
         type: 'column',
+        pointWidth: 25,
         name: 'Avtalefestet pensjon (AFP)',
         color: 'var(--a-purple-400)',
         data: simulateDataArray(AFP_DATA, aarArray.length - 1),
       },
       {
         type: 'column',
+        pointWidth: 25,
         name: 'Tjenestepensjon',
         color: 'var(--a-green-400)',
         data: simulateDataArray(TJENESTEPENSJON_DATA, aarArray.length - 1),
       },
       {
         type: 'column',
+        pointWidth: 25,
         name: 'Folketrygden (NAV)',
         color: 'var(--a-deepblue-500)',
         data: simulateDataArray(FOLKETRYGDEN_DATA, aarArray.length - 1),
