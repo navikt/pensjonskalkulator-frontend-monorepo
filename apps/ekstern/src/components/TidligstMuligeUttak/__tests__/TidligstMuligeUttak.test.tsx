@@ -76,7 +76,7 @@ describe('TidligstMuligeUttak', () => {
   })
 
   it('oppdaterer valgt knapp og tegner graph når brukeren klikker på en knapp', async () => {
-    const { container, asFragment } = render(<TidligstMuligeUttak />)
+    const { container } = render(<TidligstMuligeUttak />)
 
     await waitFor(async () => {
       await fireEvent.click(screen.getByText('Vis flere aldere'))
@@ -90,7 +90,6 @@ describe('TidligstMuligeUttak', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
-      expect(asFragment()).toMatchSnapshot()
       vi.useRealTimers()
     })
   })

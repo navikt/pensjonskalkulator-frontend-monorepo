@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
-
 import { fetch, Headers, Request, Response } from 'cross-fetch'
+import * as Highcharts from 'highcharts'
 
 import { server } from '@/mocks/server'
 
@@ -21,6 +21,9 @@ window.matchMedia =
 
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' })
+  if (process.env.NODE_ENV === 'test') {
+    Highcharts.useSerialIds(true)
+  }
 })
 afterAll(() => server.close())
 afterEach(() => server.resetHandlers())
