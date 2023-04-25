@@ -37,3 +37,10 @@ export function tooltipFormatter(
 ) {
   return `<b>${this.x}</b><br/>${this.series.name}: ${this.y}<br/>Total: x`
 }
+
+export const onVisFlereAarClick = () => {
+  const el = document.querySelector('.highcharts-scrolling')
+  if (el) {
+    ;(el as HTMLElement).scrollLeft += 50
+  }
+}

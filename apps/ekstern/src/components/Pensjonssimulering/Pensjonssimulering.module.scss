@@ -1,0 +1,11 @@
+@import '../../scss/variables';
+
+.visFlereAar {
+  margin-left: auto;
+}
+
+:global {
+  .highcharts-scrollable-mask {
+    filter: drop-shadow(-5px 0 3px rgb(255 255 255 / 25%));
+  }
+}

@@ -11,7 +11,7 @@ describe('Pensjonssimulering', () => {
       <Pensjonssimulering uttaksalder={65} />
     )
     expect(
-      screen.getByText('Årlig pensjon det første året (65 år)')
+      screen.getByText('Årlig pensjon det første året')
     ).toBeInTheDocument()
     expect(
       container.getElementsByClassName('highcharts-container').length

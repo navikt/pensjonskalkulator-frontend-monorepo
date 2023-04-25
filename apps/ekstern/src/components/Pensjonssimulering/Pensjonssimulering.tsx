@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { ChevronRightCircle } from '@navikt/ds-icons'
+import { Button } from '@navikt/ds-react'
 import * as Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
@@ -7,9 +9,8 @@ import HighchartsReact from 'highcharts-react-official'
 /* @ts-ignore */
 import HC_rounded from '../../utils/highcharts-rounded-corners'
 
-HC_rounded(Highcharts)
-
 import { generateXAxis } from '../TidligstMuligeUttak/utils'
+import styles from './Pensjonssimulering.module.scss'
 
 import {
   PENSJONSGIVENDE_DATA,
@@ -19,8 +20,10 @@ import {
   simulateDataArray,
   labelFormatter,
   tooltipFormatter,
+  onVisFlereAarClick,
 } from './utils'
 
+HC_rounded(Highcharts)
 type PensjonssimuleringProps = {
   uttaksalder: number
 }
@@ -38,14 +41,14 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       type: 'column',
       spacingTop: 0,
       spacingLeft: 0,
-      // spacingRight: 0,
+      spacingRight: 25,
       scrollablePlotArea: {
-        minWidth: 600,
+        minWidth: 700,
         scrollPositionX: 0,
       },
     },
     title: {
-      text: `Årlig pensjon det første året (${uttaksalder} år)`,
+      text: `Årlig pensjon det første året`,
       align: 'left',
       margin: 40,
       y: 20,
@@ -74,6 +77,9 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       labels: {
         formatter: labelFormatter,
       },
+    },
+    credits: {
+      enabled: false,
     },
     tooltip: {
       formatter: tooltipFormatter,
@@ -141,6 +147,22 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   }, [uttaksalder])
 
   return (
-    <HighchartsReact highcharts={Highcharts} options={options} ref={chartRef} />
+    <>
+      <HighchartsReact
+        highcharts={Highcharts}
+        options={options}
+        ref={chartRef}
+      />
+      <Button
+        className={styles.visFlereAar}
+        icon={<ChevronRightCircle aria-hidden />}
+        iconPosition="right"
+        size={'xsmall'}
+        variant="tertiary"
+        onClick={onVisFlereAarClick}
+      >
+        Vis flere år
+      </Button>
+    </>
   )
 }

@@ -111,7 +111,15 @@ export function TidligstMuligeUttak() {
           </Chips>
         </ReadMore>
         {valgtUttaksalder && (
-          <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
+          <>
+            <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
+            <ReadMore
+              header="Vis tabell"
+              className={styles.readMore__isCentered}
+            >
+              {'// TODO'}
+            </ReadMore>
+          </>
         )}
       </section>
     </>

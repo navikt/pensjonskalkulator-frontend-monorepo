@@ -1,7 +1,13 @@
 import * as Highcharts from 'highcharts'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
-import { simulateDataArray, labelFormatter, tooltipFormatter } from '../utils'
+import {
+  simulateDataArray,
+  labelFormatter,
+  tooltipFormatter,
+  onVisFlereAarClick,
+} from '../utils'
+import { waitFor } from '@/test-utils'
 
 describe('Pensjonssimulering-utils', () => {
   describe('simulateDataArray', () => {
@@ -46,6 +52,26 @@ describe('Pensjonssimulering-utils', () => {
       } as Highcharts.TooltipFormatterContextObject
       const a = tooltipFormatter.bind(thisIsThat)
       expect(a()).toBe('<b>63</b><br/>lorem ipsum: 300000<br/>Total: x')
+    })
+  })
+
+  describe('onVisFlereAarClick', () => {
+    it('finner riktig element og øker scrollLeft', () => {
+      const div = document.createElement('div')
+      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
+      document.body.appendChild(div)
+      expect(div.scrollLeft).toBe(0)
+      onVisFlereAarClick()
+      expect(
+        (document.querySelector('.highcharts-scrolling') as HTMLElement)
+          .scrollLeft
+      ).toBe(50)
+      onVisFlereAarClick()
+      expect(
+        (document.querySelector('.highcharts-scrolling') as HTMLElement)
+          .scrollLeft
+      ).toBe(100)
+      div.remove()
     })
   })
 })
