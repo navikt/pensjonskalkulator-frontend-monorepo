@@ -5,7 +5,7 @@
   width: 100%;
   margin: 0 auto;
   min-height: 40vh;
-  max-width: $a-breakpoint-xl;
+  max-width: var(--a-breakpoint-xl);
 }
 
 .frame_hasPadding {
@@ -20,6 +20,6 @@
 
 @media (min-width: $a-breakpoint-xl) {
   .frame {
-    max-width: $content-area-desktop;
+    max-width: var(--max-content-width-desktop);
   }
 }

@@ -1,12 +1,12 @@
 // Vitest Snapshot v1
 
-exports[`TidligstMuligeUttak > viser feilmelding om henting av pensjonberegning feiler 1`] = `
+exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning feiler 1`] = `
 <DocumentFragment>
   <div
     class="navds-alert navds-alert--error navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r6"
+      aria-labelledby="title-r4"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -17,7 +17,7 @@ exports[`TidligstMuligeUttak > viser feilmelding om henting av pensjonberegning 
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r6"
+        id="title-r4"
       >
         Feil
       </title>
@@ -41,82 +41,61 @@ exports[`TidligstMuligeUttak > viser feilmelding om henting av pensjonberegning 
 </DocumentFragment>
 `;
 
-exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og knapper 1`] = `
+exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning feiler 2`] = `
+<DocumentFragment>
+  <div
+    class="navds-alert navds-alert--error navds-alert--medium"
+  >
+    <svg
+      aria-labelledby="title-r2"
+      class="navds-alert__icon"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="title-r2"
+      >
+        Feil
+      </title>
+      <path
+        clip-rule="evenodd"
+        d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0Zm3.571 7L17 8.429 13.428 12 17 15.571 15.571 17 12 13.428 8.429 17 7 15.571 10.572 12 7 8.429 8.429 7 12 10.572 15.571 7Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="navds-alert__wrapper navds-body-long"
+    >
+      <h2
+        class="navds-heading navds-heading--small navds-typo--spacing"
+      >
+        Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.
+      </h2>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_section_d3b588"
+    class="_card_1aa5c0"
+    data-testid="tidligst-mulig-uttak"
   >
     <p
-      class="_paragraph_d3b588 navds-body-long"
+      class="navds-body-long"
     >
       Du kan tidligst ta ut alderspensjon når du er 62 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
     </p>
-    <div
-      class="navds-read-more navds-read-more--medium"
-    >
-      <button
-        aria-expanded="false"
-        class="navds-read-more__button navds-body-short"
-        type="button"
-      >
-        <svg
-          aria-hidden="true"
-          class="navds-read-more__expand-icon"
-          fill="none"
-          focusable="false"
-          height="1em"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clip-rule="evenodd"
-            d="M12 17.414 4.293 9.707l1.414-1.414L12 14.586l6.293-6.293 1.414 1.414L12 17.414Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
-        <svg
-          aria-hidden="true"
-          class="navds-read-more__expand-icon navds-read-more__expand-icon--filled"
-          fill="none"
-          focusable="false"
-          height="1em"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clip-rule="evenodd"
-            d="m12 18.121-8.06-8.06 2.12-2.122L12 13.88l5.94-5.94 2.12 2.122L12 18.12Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
-        <span>
-          Hva avgjør tidligste uttakstidspunkt?
-        </span>
-      </button>
-      <div
-        style="height: 0px; overflow: hidden;"
-      >
-        <div
-          aria-hidden="true"
-          style="display: none;"
-        >
-          <div
-            class="navds-read-more__content navds-body-long"
-          >
-            //TODO
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
   <section
-    class="_section_d3b588"
+    class="_card_1aa5c0 _section_01a375"
   >
     <h2
       class="navds-heading navds-heading--xsmall"
@@ -124,7 +103,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
       Når vil du ta ut alderspensjon?
     </h2>
     <ul
-      class="navds-chips _chipsWrapper_d3b588 _chipsWrapper__hasGap_d3b588 navds-chips--medium navds-body-short navds-body-short--small"
+      class="navds-chips _chipsWrapper_01a375 _chipsWrapper__hasGap_01a375 navds-chips--medium navds-body-short navds-body-short--small"
     >
       <li>
         <button
@@ -258,7 +237,7 @@ exports[`TidligstMuligeUttak > viser loading og deretter riktig header, tekst og
             class="navds-read-more__content navds-body-long"
           >
             <ul
-              class="navds-chips _chipsWrapper_d3b588 _chipsWrapper__hasGap_d3b588 navds-chips--medium navds-body-short navds-body-short--small"
+              class="navds-chips _chipsWrapper_01a375 _chipsWrapper__hasGap_01a375 navds-chips--medium navds-body-short navds-body-short--small"
             >
               <li>
                 <button

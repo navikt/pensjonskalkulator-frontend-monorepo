@@ -176,7 +176,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             x="0"
             y="20"
           >
-            Årlig pensjon det første året
+            Årlig pensjon
           </text>
           <g
             class="highcharts-axis highcharts-yaxis"
@@ -289,7 +289,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             style="position: relative; overflow: hidden; width: 700px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
           >
             <svg
-              aria-label="Årlig pensjon det første året"
+              aria-label="Årlig pensjon"
               class="highcharts-root"
               height="400"
               role="img"

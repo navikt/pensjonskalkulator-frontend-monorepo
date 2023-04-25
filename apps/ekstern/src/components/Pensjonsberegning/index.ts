@@ -1,0 +1,1 @@
+export { Pensjonsberegning } from './Pensjonsberegning'

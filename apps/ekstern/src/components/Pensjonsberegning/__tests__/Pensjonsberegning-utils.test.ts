@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { generateAlderArray, generateXAxis, formatUttaksalder } from '../utils'
+import { formatUttaksalder, generateAlderArray } from '../utils'
 
-describe('TidligstMuligeUttak-utils', () => {
+describe('Pensjonsberegning-utils', () => {
   describe('generateAlderArray', () => {
     const firstString = 'x år og x måneder'
     it('returnerer array med én verdi når start og slutt er like', () => {
@@ -42,63 +42,6 @@ describe('TidligstMuligeUttak-utils', () => {
         '74 år',
         '75 år',
       ])
-    })
-
-    describe('generateXAxis', () => {
-      it('returnerer array med to verdier når start og slutt er like', () => {
-        const alderArray = generateXAxis(0, 0)
-        expect(alderArray).toHaveLength(2)
-
-        const alderArray2 = generateXAxis(62, 62)
-        expect(alderArray2).toHaveLength(2)
-        expect(alderArray2[0]).toBe('61')
-        expect(alderArray2[1]).toBe('62')
-      })
-
-      it('returnerer tomt array når alderSlutt er før alderStart', () => {
-        const alderArray = generateXAxis(67, 62)
-        expect(alderArray).toHaveLength(0)
-
-        const alderArray2 = generateXAxis(0, -2)
-        expect(alderArray2).toHaveLength(0)
-      })
-
-      it('returnerer array med alle årene fra og med ett år før alderStart til og med alderSlutt når alderStart er før alderSlutt', () => {
-        const alderArray = generateXAxis(62, 75)
-        expect(alderArray).toHaveLength(15)
-        expect(alderArray).toEqual([
-          '61',
-          '62',
-          '63',
-          '64',
-          '65',
-          '66',
-          '67',
-          '68',
-          '69',
-          '70',
-          '71',
-          '72',
-          '73',
-          '74',
-          '75',
-        ])
-      })
-
-      it('returnerer array med alle årene fra og med ett år før alderStart til og med alderSlutt når tallene er negative', () => {
-        const alderArray = generateXAxis(-4, 2)
-        expect(alderArray).toHaveLength(8)
-        expect(alderArray).toEqual([
-          '-5',
-          '-4',
-          '-3',
-          '-2',
-          '-1',
-          '0',
-          '1',
-          '2',
-        ])
-      })
     })
 
     describe('formatUttaksalder', () => {

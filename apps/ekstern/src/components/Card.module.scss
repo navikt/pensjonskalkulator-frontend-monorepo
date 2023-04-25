@@ -1,0 +1,7 @@
+.card {
+  composes: whitesection from '../scss/modules/whitesection.module.scss';
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-6);
+  padding: var(--a-spacing-6);
+}

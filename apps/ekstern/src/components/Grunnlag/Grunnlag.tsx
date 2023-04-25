@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Accordion, BodyLong, Heading, Link } from '@navikt/ds-react'
 
+import { Card } from '@/components/Card'
 import { AFP } from '@/components/Grunnlag/sections/AFP'
 import { Alderspensjon } from '@/components/Grunnlag/sections/Alderspensjon'
 import { Inntekt } from '@/components/Grunnlag/sections/Inntekt'
@@ -75,7 +76,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
   const sivilstand = useSivilstand()
 
   return (
-    <section className={styles.section}>
+    <Card className={styles.section}>
       <section>
         <Heading level="2" size="medium">
           Grunnlaget for prognosen
@@ -110,6 +111,6 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
           <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
         </Accordion>
       </section>
-    </section>
+    </Card>
   )
 }

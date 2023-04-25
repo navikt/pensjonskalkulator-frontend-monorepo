@@ -2,10 +2,11 @@
 
 .main {
   composes: frame from '../../scss/modules/frame.module.scss';
-  padding-top: var(--a-spacing-6);
+  padding: var(--a-spacing-6) 0;
   display: flex;
   flex-flow: column;
   align-items: start;
+  gap: var(--a-spacing-4);
 }
 
 .headerGroup {

@@ -10,9 +10,7 @@ describe('Pensjonssimulering', () => {
     const { container, asFragment } = render(
       <Pensjonssimulering uttaksalder={65} />
     )
-    expect(
-      screen.getByText('Årlig pensjon det første året')
-    ).toBeInTheDocument()
+    expect(screen.getByText('Årlig pensjon')).toBeInTheDocument()
     expect(
       container.getElementsByClassName('highcharts-container').length
     ).toBe(1)

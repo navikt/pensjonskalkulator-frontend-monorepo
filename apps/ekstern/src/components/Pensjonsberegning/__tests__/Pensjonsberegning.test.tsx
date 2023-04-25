@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { TidligstMuligeUttak } from '../TidligstMuligeUttak'
+import { Pensjonsberegning } from '../Pensjonsberegning'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import {
   fireEvent,
@@ -10,40 +10,33 @@ import {
   waitFor,
 } from '@/test-utils'
 
-describe('TidligstMuligeUttak', () => {
+describe('Pensjonsberegning', () => {
   it('viser loading og deretter riktig header, tekst og knapper', async () => {
-    const result = render(<TidligstMuligeUttak />)
+    const result = render(<Pensjonsberegning />)
+
     expect(screen.getByTestId('loader')).toBeVisible()
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'Når vil du ta ut alderspensjon?'
-      )
-      expect(
-        screen.getByText('Du kan tidligst ta ut alderspensjon', {
-          exact: false,
-        })
-      ).toBeVisible()
-      expect(
-        screen.getByText('Hva avgjør tidligste uttakstidspunkt?')
-      ).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-      expect(buttons).toHaveLength(8)
-      expect(
-        screen.queryByRole('button', { pressed: true })
-      ).not.toBeInTheDocument()
-      fireEvent.click(screen.getByText('Vis flere aldere'))
-      const flereButtons = screen.getAllByRole('button')
-      expect(flereButtons).toHaveLength(18)
       expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
-      expect(result.asFragment()).toMatchSnapshot()
     })
+
+    expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
+    expect(screen.getByRole('heading', { level: 2 })).toBeVisible()
+    expect(screen.getAllByRole('button')).toHaveLength(7)
+
+    fireEvent.click(screen.getByText('Vis flere aldere'))
+
+    await waitFor(() => {
+      expect(screen.getAllByRole('button')).toHaveLength(17)
+    })
+
+    expect(result.asFragment()).toMatchSnapshot()
   })
 
   it('viser feilmelding om henting av pensjonberegning feiler', async () => {
     mockErrorResponse('/tidligste-uttaksalder')
 
-    const result = render(<TidligstMuligeUttak />)
+    const result = render(<Pensjonsberegning />)
 
     await waitFor(() => {
       expect(
@@ -62,7 +55,7 @@ describe('TidligstMuligeUttak', () => {
     } as unknown as Uttaksalder
     mockResponse('/tidligste-uttaksalder', { json: [invalidData] })
 
-    render(<TidligstMuligeUttak />)
+    render(<Pensjonsberegning />)
 
     await swallowErrorsAsync(async () => {
       await waitFor(() => {
@@ -76,12 +69,12 @@ describe('TidligstMuligeUttak', () => {
   })
 
   it('oppdaterer valgt knapp og tegner graph når brukeren klikker på en knapp', async () => {
-    const { container } = render(<TidligstMuligeUttak />)
+    const { container } = render(<Pensjonsberegning />)
 
     await waitFor(async () => {
-      await fireEvent.click(screen.getByText('Vis flere aldere'))
+      fireEvent.click(screen.getByText('Vis flere aldere'))
+      fireEvent.click(screen.getByText('72 år'))
 
-      await fireEvent.click(screen.getByText('72 år'))
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
         '72 år'
       )

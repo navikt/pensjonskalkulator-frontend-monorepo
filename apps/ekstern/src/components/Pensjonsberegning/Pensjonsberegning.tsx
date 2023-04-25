@@ -1,24 +1,17 @@
 import React, { useMemo, useState } from 'react'
 
-import {
-  Alert,
-  BodyLong,
-  Chips,
-  Heading,
-  Loader,
-  ReadMore,
-} from '@navikt/ds-react'
+import { Alert, Chips, Heading, Loader, ReadMore } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
-import {
-  formatUttaksalder,
-  generateAlderArray,
-} from '../TidligstMuligeUttak/utils'
+import { Card } from '@/components/Card'
 import { Grunnlag } from '@/components/Grunnlag'
+import { TidligstMuligUttak } from '@/components/TidligstMuligUttak'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
-import styles from './TidligstMuligeUttak.module.scss'
+import { formatUttaksalder, generateAlderArray } from './utils'
+
+import styles from './Pensjonsberegning.module.scss'
 
 const useAlderChips = (data?: Uttaksalder, maksalder = 77): string[] =>
   useMemo(
@@ -33,7 +26,7 @@ const useAlderChips = (data?: Uttaksalder, maksalder = 77): string[] =>
     [data]
   )
 
-export function TidligstMuligeUttak() {
+export function Pensjonsberegning() {
   const {
     data: tidligstMuligUttak,
     isLoading,
@@ -68,18 +61,9 @@ export function TidligstMuligeUttak() {
 
   return (
     <>
-      <section className={styles.section}>
-        <BodyLong className={styles.paragraph}>
-          Du kan tidligst ta ut alderspensjon når du er{' '}
-          {formatUttaksalder(tidligstMuligUttak)}. Hvis du går av senere, får du
-          høyere pensjon i året.
-        </BodyLong>
-        <ReadMore header="Hva avgjør tidligste uttakstidspunkt?">
-          {'//TODO'}
-        </ReadMore>
-      </section>
+      <TidligstMuligUttak uttak={tidligstMuligUttak} />
 
-      <section className={styles.section}>
+      <Card className={styles.section}>
         <Heading size="xsmall" level="2">
           Når vil du ta ut alderspensjon?
         </Heading>
@@ -127,13 +111,9 @@ export function TidligstMuligeUttak() {
             </ReadMore>
           </>
         )}
-      </section>
+      </Card>
 
-      {valgtUttaksalder && (
-        <section className={styles.section}>
-          <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
-        </section>
-      )}
+      {valgtUttaksalder && <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />}
     </>
   )
 }

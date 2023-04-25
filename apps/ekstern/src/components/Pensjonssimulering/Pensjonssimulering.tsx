@@ -9,19 +9,18 @@ import HighchartsReact from 'highcharts-react-official'
 /* @ts-ignore */
 import HC_rounded from '../../utils/highcharts-rounded-corners'
 
-import { generateXAxis } from '../TidligstMuligeUttak/utils'
-import styles from './Pensjonssimulering.module.scss'
-
 import {
-  PENSJONSGIVENDE_DATA,
   AFP_DATA,
   FOLKETRYGDEN_DATA,
-  TJENESTEPENSJON_DATA,
-  simulateDataArray,
+  generateXAxis,
   labelFormatter,
-  tooltipFormatter,
   onVisFlereAarClick,
+  PENSJONSGIVENDE_DATA,
+  simulateDataArray,
+  TJENESTEPENSJON_DATA,
+  tooltipFormatter,
 } from './utils'
+import styles from './Pensjonssimulering.module.scss'
 
 HC_rounded(Highcharts)
 type PensjonssimuleringProps = {
@@ -48,7 +47,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       },
     },
     title: {
-      text: `Årlig pensjon det første året`,
+      text: `Årlig pensjon`,
       align: 'left',
       margin: 40,
       y: 20,

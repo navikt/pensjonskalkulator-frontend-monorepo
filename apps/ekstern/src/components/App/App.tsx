@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Heading } from '@navikt/ds-react'
 
-import { TidligstMuligeUttak } from '@/components/TidligstMuligeUttak'
+import { Pensjonsberegning } from '@/components/Pensjonsberegning'
 
 import styles from './App.module.scss'
 
@@ -14,7 +14,7 @@ export function App() {
           Pensjonskalkulator
         </Heading>
       </div>
-      <TidligstMuligeUttak />
+      <Pensjonsberegning />
     </main>
   )
 }
