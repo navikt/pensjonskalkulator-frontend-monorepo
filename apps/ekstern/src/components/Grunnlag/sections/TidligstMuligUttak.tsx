@@ -16,7 +16,7 @@ export function TidligstMuligUttak({ uttak }: Props) {
         value={
           uttak.maaned === 0
             ? `${uttak.aar} år`
-            : `${uttak.aar} år, ${uttak.maaned} mnd.`
+            : `${uttak.aar} år, ${uttak.maaned} md.`
         }
       />
       <Accordion.Content>
