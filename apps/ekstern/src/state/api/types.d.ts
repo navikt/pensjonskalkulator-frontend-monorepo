@@ -9,25 +9,15 @@ declare type Pensjonsberegning = {
   alder: number
 }
 
-declare type FetchedDataSuccess<T> = {
-  data: T
-  isLoading: false
-  hasError: false
+declare type Pensjonsavtale = {
+  type: 'tjenestepensjon' | 'fripolise' | 'offentlig tjenestepensjon'
+  fra: string
+  utbetalesFraAlder: number
+  utbetalesTilAlder?: number
+  aarligUtbetaling: number
 }
 
-declare type FetchedDataError<T> = {
-  data: T | null
-  isLoading: false
-  hasError: true
+declare type Sivilstand = {
+  gift: boolean
+  samboer: boolean
 }
-
-declare type FetchedDataLoading<T> = {
-  data: null
-  isLoading: true
-  hasError: false
-}
-
-declare type FetchedData<T> =
-  | FetchedDataSuccess<T>
-  | FetchedDataError<T>
-  | FetchedDataLoading<T>

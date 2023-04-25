@@ -1,0 +1,30 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.section > section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: var(--pensjonskalkulator-max-text-width);
+}
+
+.pensjonsavtaler {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 1rem;
+}
+
+.pensjonsavtaler > *:nth-child(-n + 2) {
+  font-weight: var(--a-font-weight-bold);
+}
+
+.pensjonsavtaler > *:nth-child(2n) {
+  text-align: end;
+}
+
+.pensjonsavtale > p {
+  line-height: 1.5rem;
+}

@@ -15,6 +15,7 @@ import {
   formatUttaksalder,
   generateAlderArray,
 } from '../TidligstMuligeUttak/utils'
+import { Grunnlag } from '@/components/Grunnlag'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
 import styles from './TidligstMuligeUttak.module.scss'
@@ -33,11 +34,15 @@ const useAlderChips = (data?: Uttaksalder, maksalder = 77): string[] =>
   )
 
 export function TidligstMuligeUttak() {
-  const { data, isLoading, isError, isSuccess } =
-    useGetTidligsteMuligeUttaksalderQuery()
+  const {
+    data: tidligstMuligUttak,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useGetTidligsteMuligeUttaksalderQuery()
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
-  const alderChips = useAlderChips(data)
+  const alderChips = useAlderChips(tidligstMuligUttak)
 
   if (isLoading) {
     return (
@@ -66,13 +71,14 @@ export function TidligstMuligeUttak() {
       <section className={styles.section}>
         <BodyLong className={styles.paragraph}>
           Du kan tidligst ta ut alderspensjon når du er{' '}
-          {formatUttaksalder(data)}. Hvis du går av senere, får du høyere
-          pensjon i året.
+          {formatUttaksalder(tidligstMuligUttak)}. Hvis du går av senere, får du
+          høyere pensjon i året.
         </BodyLong>
         <ReadMore header="Hva avgjør tidligste uttakstidspunkt?">
           {'//TODO'}
         </ReadMore>
       </section>
+
       <section className={styles.section}>
         <Heading size="xsmall" level="2">
           Når vil du ta ut alderspensjon?
@@ -122,6 +128,12 @@ export function TidligstMuligeUttak() {
           </>
         )}
       </section>
+
+      {valgtUttaksalder && (
+        <section className={styles.section}>
+          <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+        </section>
+      )}
     </>
   )
 }
