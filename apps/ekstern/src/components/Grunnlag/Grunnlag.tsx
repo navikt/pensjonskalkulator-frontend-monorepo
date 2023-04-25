@@ -101,13 +101,13 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
 
       <section>
         <Accordion>
-          <Inntekt inntekt={inntekt} />
-          <Alderspensjon alderspensjon={alderspensjon} />
-          <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
-          <Uttaksgrad uttaksgrad={uttaksgrad} />
-          <Sivilstand sivilstand={sivilstand} />
-          <AFP />
           <TidligstMuligUttak uttak={tidligstMuligUttak} />
+          <Uttaksgrad uttaksgrad={uttaksgrad} />
+          <Inntekt inntekt={inntekt} />
+          <Sivilstand sivilstand={sivilstand} />
+          <Alderspensjon alderspensjon={alderspensjon} />
+          <AFP />
+          <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
         </Accordion>
       </section>
     </section>
