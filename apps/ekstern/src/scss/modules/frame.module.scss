@@ -1,20 +1,25 @@
 @import '../variables';
 
+/* TODO fikse problem med sass + composes (css-loader issue) */
 .frame {
   width: 100%;
   margin: 0 auto;
   min-height: 40vh;
   max-width: $a-breakpoint-xl;
-
-  @media (min-width: $a-breakpoint-xl) {
-    max-width: $content-area-desktop;
-  }
 }
 
 .frame_hasPadding {
   padding: var(--a-spacing-3);
+}
 
-  @media (min-width: $a-breakpoint-sm) {
+@media (min-width: $a-breakpoint-sm) {
+  .frame_hasPadding {
     padding: var(--a-spacing-6);
+  }
+}
+
+@media (min-width: $a-breakpoint-xl) {
+  .frame {
+    max-width: $content-area-desktop;
   }
 }

@@ -1,5 +1,5 @@
 import * as Highcharts from 'highcharts'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import {
   simulateDataArray,
@@ -7,7 +7,6 @@ import {
   tooltipFormatter,
   onVisFlereAarClick,
 } from '../utils'
-import { waitFor } from '@/test-utils'
 
 describe('Pensjonssimulering-utils', () => {
   describe('simulateDataArray', () => {
