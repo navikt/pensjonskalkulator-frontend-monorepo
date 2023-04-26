@@ -133,7 +133,9 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         pointWidth: 25,
         name: 'Tjenestepensjon',
         color: 'var(--a-green-400)',
-        data: simulateDataArray(TJENESTEPENSJON_DATA, aarArray.length),
+        data: simulateDataArray(TJENESTEPENSJON_DATA, aarArray.length).map(
+          (value, i, array) => (i === array.length - 1 ? 0 : value)
+        ),
       },
       {
         type: 'column',
