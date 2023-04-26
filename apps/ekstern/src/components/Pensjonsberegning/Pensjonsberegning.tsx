@@ -1,7 +1,9 @@
 import React, { useMemo, useState } from 'react'
 
+import { ChevronDownIcon } from '@navikt/aksel-icons'
 import {
   Alert,
+  Button,
   Chips,
   Heading,
   Ingress,
@@ -116,12 +118,15 @@ export function Pensjonsberegning() {
         {valgtUttaksalder && (
           <>
             <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
-            <ReadMore
-              header="Vis tabell"
-              className={styles.readMore__isCentered}
+            <Button
+              icon={<ChevronDownIcon aria-hidden />}
+              iconPosition="left"
+              size={'medium'}
+              variant="tertiary"
+              // onClick={onVisFlereAarClick}
             >
-              {'// TODO'}
-            </ReadMore>
+              Vis tabell
+            </Button>
           </>
         )}
       </Card>
