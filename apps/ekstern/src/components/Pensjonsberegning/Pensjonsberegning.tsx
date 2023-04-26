@@ -1,12 +1,18 @@
 import React, { useMemo, useState } from 'react'
 
-import { Alert, Chips, Heading, Loader, ReadMore } from '@navikt/ds-react'
+import {
+  Alert,
+  Chips,
+  Heading,
+  Ingress,
+  Loader,
+  ReadMore,
+} from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
 import { Card } from '@/components/Card'
 import { Grunnlag } from '@/components/Grunnlag'
-import { TidligstMuligUttak } from '@/components/TidligstMuligUttak'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
 import { formatUttaksalder, generateAlderArray } from './utils'
@@ -61,7 +67,13 @@ export function Pensjonsberegning() {
 
   return (
     <>
-      <TidligstMuligUttak uttak={tidligstMuligUttak} />
+      <Card data-testid="tidligst-mulig-uttak">
+        <Ingress>
+          Du kan tidligst ta ut alderspensjon når du er{' '}
+          {formatUttaksalder(tidligstMuligUttak)}. Hvis du går av senere, får du
+          høyere pensjon i året.
+        </Ingress>
+      </Card>
 
       <Card className={styles.section}>
         <Heading size="xsmall" level="2">

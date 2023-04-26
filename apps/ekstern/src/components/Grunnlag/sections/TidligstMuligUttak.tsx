@@ -5,18 +5,18 @@ import { Accordion, Link } from '@navikt/ds-react'
 import { SectionHeader } from './components/SectionHeader'
 
 interface Props {
-  uttak: Uttaksalder
+  uttaksalder: Uttaksalder
 }
 
-export function TidligstMuligUttak({ uttak }: Props) {
+export function TidligstMuligUttak({ uttaksalder }: Props) {
   return (
     <Accordion.Item>
       <SectionHeader
         label="Tidligst mulig uttak"
         value={
-          uttak.maaned === 0
-            ? `${uttak.aar} år`
-            : `${uttak.aar} år, ${uttak.maaned} md.`
+          uttaksalder.maaned === 0
+            ? `${uttaksalder.aar} år`
+            : `${uttaksalder.aar} år, ${uttaksalder.maaned} md.`
         }
       />
       <Accordion.Content>

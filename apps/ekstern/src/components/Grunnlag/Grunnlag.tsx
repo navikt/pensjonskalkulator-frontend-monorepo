@@ -102,7 +102,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
 
       <section>
         <Accordion>
-          <TidligstMuligUttak uttak={tidligstMuligUttak} />
+          <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
           <Uttaksgrad uttaksgrad={uttaksgrad} />
           <Inntekt inntekt={inntekt} />
           <Sivilstand sivilstand={sivilstand} />
