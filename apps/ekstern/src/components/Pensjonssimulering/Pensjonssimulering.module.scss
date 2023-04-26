@@ -6,6 +6,7 @@
 
 :global {
   .highcharts-scrollable-mask {
+    margin-top: -1rem;
     filter: drop-shadow(-5px 0 3px rgb(255 255 255 / 25%));
   }
 }
