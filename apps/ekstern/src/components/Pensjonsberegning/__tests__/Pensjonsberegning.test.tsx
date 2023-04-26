@@ -22,7 +22,7 @@ describe('Pensjonsberegning', () => {
 
     expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
     expect(screen.getByRole('heading', { level: 2 })).toBeVisible()
-    expect(screen.getAllByRole('button')).toHaveLength(7)
+    expect(screen.getAllByRole('button')).toHaveLength(10)
 
     fireEvent.click(screen.getByText('Vis flere aldere'))
 

@@ -83,7 +83,7 @@ export function Pensjonsberegning() {
           className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >
           {alderChips.length > 0 &&
-            alderChips.slice(0, 6).map((alderChip) => (
+            alderChips.slice(0, 9).map((alderChip) => (
               <Chips.Toggle
                 selected={valgtUttaksalder === alderChip}
                 key={alderChip}
@@ -101,7 +101,7 @@ export function Pensjonsberegning() {
             className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
           >
             {alderChips.length > 0 &&
-              alderChips.slice(6, alderChips.length).map((alderChip) => (
+              alderChips.slice(9, alderChips.length).map((alderChip) => (
                 <Chips.Toggle
                   selected={valgtUttaksalder === alderChip}
                   key={alderChip}
