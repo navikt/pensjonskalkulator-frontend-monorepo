@@ -83,7 +83,7 @@ describe('Pensjonssimulering-utils', () => {
       const alderArray2 = generateXAxis(62, 62)
       expect(alderArray2).toHaveLength(2)
       expect(alderArray2[0]).toBe('61')
-      expect(alderArray2[1]).toBe('62+')
+      expect(alderArray2[1]).toBe('61+')
     })
 
     it('returnerer tomt array når alderSlutt er før alderStart', () => {
@@ -112,14 +112,14 @@ describe('Pensjonssimulering-utils', () => {
         '72',
         '73',
         '74',
-        '75+',
+        '74+',
       ])
     })
 
     it('returnerer array med alle årene fra og med ett år før alderStart til og med alderSlutt når tallene er negative', () => {
       const alderArray = generateXAxis(-4, 2)
       expect(alderArray).toHaveLength(8)
-      expect(alderArray).toEqual(['-5', '-4', '-3', '-2', '-1', '0', '1', '2+'])
+      expect(alderArray).toEqual(['-5', '-4', '-3', '-2', '-1', '0', '1', '1+'])
     })
   })
 })

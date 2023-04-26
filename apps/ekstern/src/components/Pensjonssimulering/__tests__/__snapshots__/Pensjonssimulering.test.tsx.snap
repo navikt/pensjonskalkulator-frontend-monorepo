@@ -315,7 +315,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   />
                 </clippath>
                 <clippath
-                  id="highcharts-16-"
+                  id="highcharts-17-"
                 >
                   <rect
                     fill="none"
@@ -359,6 +359,16 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                 class="highcharts-grid highcharts-xaxis-grid"
                 data-z-index="1"
               >
+                <path
+                  class="highcharts-grid-line"
+                  d="M 0 0"
+                  data-z-index="1"
+                  fill="none"
+                  opacity="1"
+                  stroke="#e6e6e6"
+                  stroke-dasharray="none"
+                  stroke-width="0"
+                />
                 <path
                   class="highcharts-grid-line"
                   d="M 0 0"
@@ -614,11 +624,22 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
               >
                 <g
                   class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
-                  clip-path="url(#highcharts-16-)"
+                  clip-path="url(#highcharts-17-)"
                   data-z-index="0.1"
                   opacity="1"
                   transform="translate(NaN,42) scale(1 0.001)"
                 >
+                  <rect
+                    class="highcharts-point"
+                    fill="#868F9C"
+                    height="NaN"
+                    opacity="1"
+                    stroke="#ffffff"
+                    stroke-width="1"
+                    width="NaN"
+                    x="NaN"
+                    y="NaN"
+                  />
                   <rect
                     class="highcharts-point"
                     fill="#868F9C"
@@ -783,11 +804,22 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                 />
                 <g
                   class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
-                  clip-path="url(#highcharts-16-)"
+                  clip-path="url(#highcharts-17-)"
                   data-z-index="0.1"
                   opacity="1"
                   transform="translate(NaN,42) scale(1 0.001)"
                 >
+                  <rect
+                    class="highcharts-point"
+                    fill="var(--a-purple-400)"
+                    height="NaN"
+                    opacity="1"
+                    stroke="#ffffff"
+                    stroke-width="1"
+                    width="NaN"
+                    x="NaN"
+                    y="NaN"
+                  />
                   <rect
                     class="highcharts-point"
                     fill="var(--a-purple-400)"
@@ -952,11 +984,22 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                 />
                 <g
                   class="highcharts-series highcharts-series-2 highcharts-column-series highcharts-tracker"
-                  clip-path="url(#highcharts-16-)"
+                  clip-path="url(#highcharts-17-)"
                   data-z-index="0.1"
                   opacity="1"
                   transform="translate(NaN,42) scale(1 0.001)"
                 >
+                  <rect
+                    class="highcharts-point"
+                    fill="var(--a-green-400)"
+                    height="NaN"
+                    opacity="1"
+                    stroke="#ffffff"
+                    stroke-width="1"
+                    width="NaN"
+                    x="NaN"
+                    y="NaN"
+                  />
                   <rect
                     class="highcharts-point"
                     fill="var(--a-green-400)"
@@ -1121,11 +1164,22 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                 />
                 <g
                   class="highcharts-series highcharts-series-3 highcharts-column-series highcharts-tracker"
-                  clip-path="url(#highcharts-16-)"
+                  clip-path="url(#highcharts-17-)"
                   data-z-index="0.1"
                   opacity="1"
                   transform="translate(NaN,42) scale(1 0.001)"
                 >
+                  <rect
+                    class="highcharts-point"
+                    fill="var(--a-deepblue-500)"
+                    height="NaN"
+                    opacity="1"
+                    stroke="#ffffff"
+                    stroke-width="1"
+                    width="NaN"
+                    x="NaN"
+                    y="NaN"
+                  />
                   <rect
                     class="highcharts-point"
                     fill="var(--a-deepblue-500)"
@@ -1404,6 +1458,14 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   x="0"
                 >
                   76
+                </text>
+                <text
+                  style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+                  text-anchor="middle"
+                  transform="translate(0,0)"
+                  x="0"
+                >
+                  77
                 </text>
                 <text
                   style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"

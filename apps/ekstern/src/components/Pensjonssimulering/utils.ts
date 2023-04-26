@@ -2,22 +2,22 @@ import * as Highcharts from 'highcharts'
 
 export const PENSJONSGIVENDE_DATA = [
   650000, 260000, 60000, 70000, 70000, 70000, 70000, 70000, 70000, 70000, 70000,
-  70000, 70000, 70000, 70000, 70000, 70000,
+  70000, 70000, 70000, 70000, 70000, 70000, 70000,
 ]
 
 export const AFP_DATA = [
   0, 20000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000,
-  80000, 80000, 80000, 80000, 80000, 80000,
+  80000, 80000, 80000, 80000, 80000, 80000, 80000,
 ]
 
 export const TJENESTEPENSJON_DATA = [
   0, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000,
-  80000, 80000, 80000, 80000, 80000, 80000,
+  80000, 80000, 80000, 80000, 80000, 80000, 0,
 ]
 
 export const FOLKETRYGDEN_DATA = [
   0, 35000, 175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
-  175000, 175000, 175000, 175000, 175000, 175000, 175000,
+  175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
 ]
 
 export const simulateDataArray = (array: number[], length: number) => {
@@ -53,7 +53,7 @@ export const generateXAxis = (startAlder: number, endAlder: number) => {
     }
 
     if (i === endAlder) {
-      alderArray.push(`${i}+`.toString())
+      alderArray.push(`${i - 1}+`.toString())
     } else {
       alderArray.push(i.toString())
     }

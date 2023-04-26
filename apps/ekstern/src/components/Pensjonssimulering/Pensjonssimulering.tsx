@@ -108,7 +108,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   }
 
   useEffect(() => {
-    const aarArray = generateXAxis(uttaksalder, 77)
+    const aarArray = generateXAxis(uttaksalder, 78)
     setAarXAxis(aarArray)
     setSeriesYAxis([
       {
