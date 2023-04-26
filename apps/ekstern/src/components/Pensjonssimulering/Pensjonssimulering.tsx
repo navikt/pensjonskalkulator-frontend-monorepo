@@ -25,6 +25,7 @@ import styles from './Pensjonssimulering.module.scss'
 HC_rounded(Highcharts)
 
 const MAX_UTTAKSALDER = 78
+const COLUMN_WIDTH = 25
 
 type PensjonssimuleringProps = {
   uttaksalder: number
@@ -45,7 +46,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       spacingLeft: 0,
       spacingRight: 25,
       scrollablePlotArea: {
-        minWidth: 700,
+        minWidth: aarXAxis.length * COLUMN_WIDTH * 1.6,
         scrollPositionX: 0,
       },
     },
@@ -66,6 +67,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
     yAxis: {
       gridLineDashStyle: 'Dash',
       minorTickInterval: 200000,
+      tickInterval: 200000,
       allowDecimals: false,
       min: 0,
       title: {
@@ -116,7 +118,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
     setSeriesYAxis([
       {
         type: 'column',
-        pointWidth: 25,
+        pointWidth: COLUMN_WIDTH,
         name: 'Pensjonsgivende inntekt',
         color: '#868F9C',
         // TODO sørge for at border-radius alltid settes på den øverste kolonnen
@@ -126,21 +128,21 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       } as unknown as Highcharts.SeriesOptionsType,
       {
         type: 'column',
-        pointWidth: 25,
+        pointWidth: COLUMN_WIDTH,
         name: 'Avtalefestet pensjon (AFP)',
         color: 'var(--a-purple-400)',
         data: simulateDataArray(AFP_DATA, aarArray.length),
       },
       {
         type: 'column',
-        pointWidth: 25,
+        pointWidth: COLUMN_WIDTH,
         name: 'Tjenestepensjon',
         color: 'var(--a-green-400)',
         data: simulateTjenestepensjon(uttaksalder, MAX_UTTAKSALDER),
       },
       {
         type: 'column',
-        pointWidth: 25,
+        pointWidth: COLUMN_WIDTH,
         name: 'Folketrygden (NAV)',
         color: 'var(--a-deepblue-500)',
         data: simulateDataArray(FOLKETRYGDEN_DATA, aarArray.length),
