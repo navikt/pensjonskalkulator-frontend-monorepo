@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Accordion, BodyLong, Heading, Link } from '@navikt/ds-react'
+import { Accordion, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
 import { AFP } from '@/components/Grunnlag/sections/AFP'
@@ -77,40 +77,18 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
 
   return (
     <Card className={styles.section}>
-      <section>
-        <Heading level="2" size="medium">
-          Grunnlaget for prognosen
-        </Heading>
-        <BodyLong>
-          Alle summer er oppgitt i dagens kroneverdi før skatt
-        </BodyLong>
-      </section>
-
-      <section>
-        <Heading level="3" size="medium">
-          Forbehold
-        </Heading>
-        <BodyLong>
-          Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg
-          til de opplysningene du har oppgitt selv, på tidspunktet for
-          beregningen. Dette er derfor en foreløpig beregning av hva du kan
-          forvente deg i pensjon. Pensjonsberegningen er vist i dagens
-          kroneverdi før skatt. Beregningen er ikke juridisk bindende.
-        </BodyLong>
-        <Link>Alle forbehold</Link>
-      </section>
-
-      <section>
-        <Accordion>
-          <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
-          <Uttaksgrad uttaksgrad={uttaksgrad} />
-          <Inntekt inntekt={inntekt} />
-          <Sivilstand sivilstand={sivilstand} />
-          <Alderspensjon alderspensjon={alderspensjon} />
-          <AFP />
-          <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
-        </Accordion>
-      </section>
+      <Heading level="2" size="medium">
+        Grunnlaget for prognosen
+      </Heading>
+      <Accordion>
+        <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
+        <Uttaksgrad uttaksgrad={uttaksgrad} />
+        <Inntekt inntekt={inntekt} />
+        <Sivilstand sivilstand={sivilstand} />
+        <Alderspensjon alderspensjon={alderspensjon} />
+        <AFP />
+        <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
+      </Accordion>
     </Card>
   )
 }

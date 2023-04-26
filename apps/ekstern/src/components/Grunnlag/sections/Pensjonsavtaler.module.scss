@@ -1,0 +1,17 @@
+.pensjonsavtaler {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 1rem;
+}
+
+.pensjonsavtaler > *:nth-child(-n + 2) {
+  font-weight: var(--a-font-weight-bold);
+}
+
+.pensjonsavtaler > *:nth-child(2n) {
+  text-align: end;
+}
+
+.pensjonsavtale > p {
+  line-height: 1.5rem;
+}

@@ -2,11 +2,12 @@ import React from 'react'
 
 import { Accordion, BodyShort, Link } from '@navikt/ds-react'
 
-import styles from '@/components/Grunnlag/Grunnlag.module.scss'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 
 import { SectionHeader } from './components/SectionHeader'
+
+import styles from './Pensjonsavtaler.module.scss'
 
 interface Props {
   pensjonsavtaler: Pensjonsavtale[]

@@ -12,6 +12,7 @@ import clsx from 'clsx'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
 import { Card } from '@/components/Card'
+import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
@@ -125,7 +126,12 @@ export function Pensjonsberegning() {
         )}
       </Card>
 
-      {valgtUttaksalder && <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />}
+      {valgtUttaksalder && (
+        <>
+          <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+          <Forbehold />
+        </>
+      )}
     </>
   )
 }
