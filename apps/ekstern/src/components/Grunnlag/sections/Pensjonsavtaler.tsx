@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Accordion, BodyShort, Link } from '@navikt/ds-react'
+import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
 
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
@@ -46,10 +46,12 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
           ))}
         </div>
         <br />
-        Alle private avtaler er hentet fra{' '}
-        <Link href="https://norskpensjon.no/">Norsk Pensjon</Link>. Du kan ha
-        andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell
-        pensjonsordning.
+        <BodyLong>
+          Alle private avtaler er hentet fra{' '}
+          <Link href="https://norskpensjon.no/">Norsk Pensjon</Link>. Du kan ha
+          andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell
+          pensjonsordning.
+        </BodyLong>
       </Accordion.Content>
     </Accordion.Item>
   )

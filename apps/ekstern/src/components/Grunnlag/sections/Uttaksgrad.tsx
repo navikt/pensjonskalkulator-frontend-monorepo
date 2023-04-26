@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Accordion } from '@navikt/ds-react'
+import { Accordion, BodyLong } from '@navikt/ds-react'
 
 import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
 
@@ -23,11 +23,13 @@ export function Uttaksgrad({ uttaksgrad }: Props) {
     <Accordion.Item>
       <SectionHeader label="Uttaksgrad" value={`${uttaksgrad} %`} />
       <Accordion.Content>
-        Denne beregningen viser {uttaksgrad} % uttak av alderspensjon. I
-        avansert kalkulator kan du beregne alderspensjon med andre uttaksgrader
-        ({formatUttaksgrader(uttaksgrad)}
-        ). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt
-        ut {uttaksgrad} %.
+        <BodyLong>
+          Denne beregningen viser {uttaksgrad} % uttak av alderspensjon. I
+          avansert kalkulator kan du beregne alderspensjon med andre
+          uttaksgrader ({formatUttaksgrader(uttaksgrad)}
+          ). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt
+          ut {uttaksgrad} %.
+        </BodyLong>
       </Accordion.Content>
     </Accordion.Item>
   )

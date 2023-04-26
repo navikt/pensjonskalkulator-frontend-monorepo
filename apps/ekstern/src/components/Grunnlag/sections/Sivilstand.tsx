@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Accordion, Link } from '@navikt/ds-react'
+import { Accordion, BodyLong, Link } from '@navikt/ds-react'
 
 import { SectionHeader } from './components/SectionHeader'
 
@@ -18,11 +18,13 @@ export function Sivilstand({ sivilstand }: Props) {
         }`}
       />
       <Accordion.Content>
-        Garantipensjon skal sikre et minste garantipensjonsnivå ved 67 år for de
-        som har lav eller ingen opptjening til inntektspensjon. Størrelsen på
-        garantipensjonen avhenger av din sivilstatus, og om ektefelle, partner
-        eller samboer har egen inntekt eller mottar egen pensjon.{' '}
-        <Link>Mer om garantipensjon og satser</Link>.
+        <BodyLong>
+          Garantipensjon skal sikre et minste garantipensjonsnivå ved 67 år for
+          de som har lav eller ingen opptjening til inntektspensjon. Størrelsen
+          på garantipensjonen avhenger av din sivilstatus, og om ektefelle,
+          partner eller samboer har egen inntekt eller mottar egen pensjon.{' '}
+          <Link>Mer om garantipensjon og satser</Link>.
+        </BodyLong>
       </Accordion.Content>
     </Accordion.Item>
   )
