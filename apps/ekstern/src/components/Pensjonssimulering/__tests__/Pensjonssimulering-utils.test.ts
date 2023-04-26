@@ -6,6 +6,7 @@ import {
   labelFormatter,
   onVisFlereAarClick,
   simulateDataArray,
+  simulateTjenestepensjon,
   tooltipFormatter,
 } from '../utils'
 
@@ -16,6 +17,22 @@ describe('Pensjonssimulering-utils', () => {
       expect(simulateDataArray([1, 2, 3], 0)).toHaveLength(0)
       expect(simulateDataArray([1, 2, 3], 10)).toHaveLength(3)
       expect(simulateDataArray([1, 2, 3, 4, 5, 6], 2)).toHaveLength(2)
+    })
+  })
+
+  describe('simulateTjenestepensjon', () => {
+    it('returnerer en liste med 0 t.o.m. alder 66 og 0 på siste plass i lista', () => {
+      expect(simulateTjenestepensjon(65, 70, 123)).toEqual([
+        0, 0, 0, 123, 123, 123, 0,
+      ])
+      expect(simulateTjenestepensjon(62, 78, 246)).toEqual([
+        0, 0, 0, 0, 0, 0, 246, 246, 246, 246, 246, 246, 246, 246, 246, 246, 246,
+        0,
+      ])
+    })
+
+    it('thrower dersom endAge < startAge', () => {
+      expect(() => simulateTjenestepensjon(2, 1)).toThrow()
     })
   })
 

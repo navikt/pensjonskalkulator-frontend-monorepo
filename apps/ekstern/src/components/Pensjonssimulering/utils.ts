@@ -10,15 +10,28 @@ export const AFP_DATA = [
   80000, 80000, 80000, 80000, 80000, 80000, 80000,
 ]
 
-export const TJENESTEPENSJON_DATA = [
-  0, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000,
-  80000, 80000, 80000, 80000, 80000, 80000, 0,
-]
-
 export const FOLKETRYGDEN_DATA = [
   0, 35000, 175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
   175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
 ]
+
+export const simulateTjenestepensjon = (
+  startAge: number,
+  endAge: number,
+  value = 80_000
+) => {
+  if (endAge < startAge) {
+    throw Error(
+      "Can't simulate tjenestepensjon when endAge is larger than startAge"
+    )
+  }
+
+  return new Array(endAge + 2 - startAge)
+    .fill(startAge - 1)
+    .map((age, i, array) =>
+      age + i < 67 ? 0 : i === array.length - 1 ? 0 : value
+    )
+}
 
 export const simulateDataArray = (array: number[], length: number) => {
   return [...array].splice(0, length)

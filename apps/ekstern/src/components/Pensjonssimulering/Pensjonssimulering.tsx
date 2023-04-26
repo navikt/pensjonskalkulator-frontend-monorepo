@@ -17,12 +17,15 @@ import {
   onVisFlereAarClick,
   PENSJONSGIVENDE_DATA,
   simulateDataArray,
-  TJENESTEPENSJON_DATA,
+  simulateTjenestepensjon,
   tooltipFormatter,
 } from './utils'
 import styles from './Pensjonssimulering.module.scss'
 
 HC_rounded(Highcharts)
+
+const MAX_UTTAKSALDER = 78
+
 type PensjonssimuleringProps = {
   uttaksalder: number
 }
@@ -108,7 +111,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   }
 
   useEffect(() => {
-    const aarArray = generateXAxis(uttaksalder, 78)
+    const aarArray = generateXAxis(uttaksalder, MAX_UTTAKSALDER)
     setAarXAxis(aarArray)
     setSeriesYAxis([
       {
@@ -133,9 +136,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         pointWidth: 25,
         name: 'Tjenestepensjon',
         color: 'var(--a-green-400)',
-        data: simulateDataArray(TJENESTEPENSJON_DATA, aarArray.length).map(
-          (value, i, array) => (i === array.length - 1 ? 0 : value)
-        ),
+        data: simulateTjenestepensjon(uttaksalder, MAX_UTTAKSALDER),
       },
       {
         type: 'column',
