@@ -51,7 +51,12 @@ export const generateXAxis = (startAlder: number, endAlder: number) => {
     if (i === startAlder) {
       alderArray.push((i - 1).toString())
     }
-    alderArray.push(i.toString())
+
+    if (i === endAlder) {
+      alderArray.push(`${i}+`.toString())
+    } else {
+      alderArray.push(i.toString())
+    }
   }
   return alderArray
 }

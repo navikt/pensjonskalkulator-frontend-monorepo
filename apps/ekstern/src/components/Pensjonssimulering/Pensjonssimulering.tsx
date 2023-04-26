@@ -119,28 +119,28 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         // TODO sørge for at border-radius alltid settes på den øverste kolonnen
         borderRadiusTopLeft: '15%',
         borderRadiusTopRight: '15%',
-        data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length - 1),
+        data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length),
       } as unknown as Highcharts.SeriesOptionsType,
       {
         type: 'column',
         pointWidth: 25,
         name: 'Avtalefestet pensjon (AFP)',
         color: 'var(--a-purple-400)',
-        data: simulateDataArray(AFP_DATA, aarArray.length - 1),
+        data: simulateDataArray(AFP_DATA, aarArray.length),
       },
       {
         type: 'column',
         pointWidth: 25,
         name: 'Tjenestepensjon',
         color: 'var(--a-green-400)',
-        data: simulateDataArray(TJENESTEPENSJON_DATA, aarArray.length - 1),
+        data: simulateDataArray(TJENESTEPENSJON_DATA, aarArray.length),
       },
       {
         type: 'column',
         pointWidth: 25,
         name: 'Folketrygden (NAV)',
         color: 'var(--a-deepblue-500)',
-        data: simulateDataArray(FOLKETRYGDEN_DATA, aarArray.length - 1),
+        data: simulateDataArray(FOLKETRYGDEN_DATA, aarArray.length),
       },
     ])
   }, [uttaksalder])
