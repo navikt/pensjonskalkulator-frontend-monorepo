@@ -18,22 +18,10 @@ import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
-import { formatUttaksalder, generateAlderArray } from './utils'
+import { useAlderChips } from './hooks'
+import { formatUttaksalder } from './utils'
 
 import styles from './Pensjonsberegning.module.scss'
-
-const useAlderChips = (data?: Uttaksalder, maksalder = 77): string[] =>
-  useMemo(
-    () =>
-      data?.aar
-        ? generateAlderArray(
-            data.aar,
-            maksalder,
-            formatUttaksalder(data, { compact: true })
-          )
-        : [],
-    [data]
-  )
 
 export function Pensjonsberegning() {
   const {
@@ -45,6 +33,9 @@ export function Pensjonsberegning() {
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
   const alderChips = useAlderChips(tidligstMuligUttak)
+  const formatertUttaksalder = useMemo(() => {
+    return isSuccess ? formatUttaksalder(tidligstMuligUttak) : null
+  }, [isSuccess, tidligstMuligUttak])
 
   if (isLoading) {
     return (
@@ -72,9 +63,8 @@ export function Pensjonsberegning() {
     <>
       <Card data-testid="tidligst-mulig-uttak">
         <Ingress>
-          Du kan tidligst ta ut alderspensjon når du er{' '}
-          {formatUttaksalder(tidligstMuligUttak)}. Hvis du går av senere, får du
-          høyere pensjon i året.
+          Du kan tidligst ta ut alderspensjon når du er {formatertUttaksalder}.
+          Hvis du går av senere, får du høyere pensjon i året.
         </Ingress>
       </Card>
 
