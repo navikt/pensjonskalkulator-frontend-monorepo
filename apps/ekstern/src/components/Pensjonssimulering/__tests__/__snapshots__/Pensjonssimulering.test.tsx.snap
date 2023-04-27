@@ -345,7 +345,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             clip-path="url(#highcharts-17-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 0.0010024649316718226)"
+            transform="translate(NaN,42) scale(1 0.001)"
           >
             <rect
               class="highcharts-point"

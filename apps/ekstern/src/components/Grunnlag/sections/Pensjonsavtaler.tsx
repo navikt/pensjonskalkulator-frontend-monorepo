@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
@@ -25,28 +26,44 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
         value={`${pensjonsavtaler.length}`}
       />
       <Accordion.Content>
-        <div className={styles.pensjonsavtaler}>
-          <BodyShort>Pensjonsavtale</BodyShort>
-          <BodyShort>Årlig utbetaling</BodyShort>
-          {pensjonsavtaler.map((avtale, i) => (
-            <React.Fragment key={i}>
-              <div className={styles.pensjonsavtale}>
-                <BodyShort>{capitalize(avtale.type)}</BodyShort>
-                <BodyShort size="small">Fra {avtale.fra}</BodyShort>
-                <BodyShort size="small">
-                  {avtale.utbetalesTilAlder
-                    ? `Utbetales fra ${avtale.utbetalesFraAlder} til ${avtale.utbetalesTilAlder} år`
-                    : `Livsvarig utbetaling fra ${avtale.utbetalesFraAlder} år`}
-                </BodyShort>
-              </div>
-              <BodyShort>
-                {formatAsDecimal(avtale.aarligUtbetaling)} kr
-              </BodyShort>
-            </React.Fragment>
-          ))}
-        </div>
-        <br />
-        <BodyLong>
+        <table className={styles.tabell}>
+          <thead>
+            <tr>
+              <th className={styles.tabellHeader}>Pensjonsavtale</th>
+              <th
+                className={clsx(
+                  styles.tabellHeader,
+                  styles.tabellHeader__Right
+                )}
+              >
+                Årlig utbetaling
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {pensjonsavtaler.map((avtale, i) => (
+              <tr key={i}>
+                <td className={styles.tabellCell}>
+                  <BodyShort>{capitalize(avtale.type)}</BodyShort>
+                  <BodyShort size="small">Fra {avtale.fra}</BodyShort>
+                  <BodyShort size="small">
+                    {avtale.utbetalesTilAlder
+                      ? `Utbetales fra ${avtale.utbetalesFraAlder} til ${avtale.utbetalesTilAlder} år`
+                      : `Livsvarig utbetaling fra ${avtale.utbetalesFraAlder} år`}
+                  </BodyShort>
+                </td>
+                <td
+                  className={clsx(styles.tabellCell, styles.tabellCell__Right)}
+                >
+                  <BodyShort>
+                    {formatAsDecimal(avtale.aarligUtbetaling)} kr
+                  </BodyShort>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <BodyLong className={styles.paragraph}>
           Alle private avtaler er hentet fra{' '}
           <Link href="https://norskpensjon.no/">Norsk Pensjon</Link>. Du kan ha
           andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell

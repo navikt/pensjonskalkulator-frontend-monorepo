@@ -1,12 +1,5 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-.section > section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-width: var(--pensjonskalkulator-max-text-width);
+  gap: var(--a-spacing-6);
 }

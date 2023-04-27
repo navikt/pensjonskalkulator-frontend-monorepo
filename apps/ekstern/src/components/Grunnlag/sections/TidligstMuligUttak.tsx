@@ -36,9 +36,9 @@ export function TidligstMuligUttak({ uttaksalder }: Props) {
           Hvorfor kan du ikke starte uttak tidligere: For å ta ut alderspensjon
           før du har fylt 67 år, må du ha tilstrekkelig høy opptjening. Ved helt
           eller delvis uttak før 67 år, må opptjeningen være så høy at pensjonen
-          ved fylte 67 år minst tilsvarer
-          <Link>garantipensjonsnivået</Link>. Fra fylte 67 år har alle med
-          opptjente pensjonsrettigheter rett til å starte alderspensjon.
+          ved fylte 67 år minst tilsvarer <Link>garantipensjonsnivået</Link>.
+          Fra fylte 67 år har alle med opptjente pensjonsrettigheter rett til å
+          starte alderspensjon.
           <br />
           <br />
           Tidspunktet er et estimat og du bør sjekke igjen når tidspunktet

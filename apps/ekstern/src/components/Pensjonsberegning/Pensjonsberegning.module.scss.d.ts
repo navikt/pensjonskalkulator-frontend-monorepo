@@ -7,6 +7,5 @@ declare const classNames: typeof globalClassNames & {
   readonly 'navds-chips--icon-left': 'navds-chips--icon-left'
   readonly 'navds-chips__toggle-icon': 'navds-chips__toggle-icon'
   readonly readMore__hasPadding: 'readMore__hasPadding'
-  readonly paragraph: 'paragraph'
 }
 export = classNames

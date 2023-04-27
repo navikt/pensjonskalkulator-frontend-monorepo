@@ -51,6 +51,14 @@ export default defineConfig(({ mode }) => {
       },
     },
     css: {
+      modules: {
+        generateScopedName: (name, fileName, css) => {
+          const pathArray = fileName.split('/')
+          const fileNameWithExtension = pathArray[pathArray.length - 1]
+          const fileNameArray = fileNameWithExtension.split('.')
+          return `${fileNameArray[0]}--${name}`
+        },
+      },
       preprocessorOptions: {
         scss: {
           additionalData: `@use "@/styles" as common;`,

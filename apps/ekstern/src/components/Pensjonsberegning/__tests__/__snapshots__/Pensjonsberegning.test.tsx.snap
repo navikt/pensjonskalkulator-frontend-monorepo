@@ -44,7 +44,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
 exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_card_1aa5c0"
+    class="_section_1aa5c0"
     data-testid="tidligst-mulig-uttak"
   >
     <p
@@ -54,7 +54,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
     </p>
   </section>
   <section
-    class="_card_1aa5c0 _section_01a375"
+    class="_section_1aa5c0 _section_01a375"
   >
     <h2
       class="navds-heading navds-heading--xsmall"

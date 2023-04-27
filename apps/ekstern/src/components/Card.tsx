@@ -8,7 +8,7 @@ type Props = React.HTMLAttributes<HTMLElement>
 
 export function Card({ className, children, ...elementProps }: Props) {
   return (
-    <section className={clsx(styles.card, className)} {...elementProps}>
+    <section className={clsx(styles.section, className)} {...elementProps}>
       {children}
     </section>
   )

@@ -8,7 +8,7 @@ import styles from './ErrorBoundary.module.scss'
 
 function GlobalFeilmelding() {
   return (
-    <div className={styles.ErrorBoundary}>
+    <div className={styles.wrapper}>
       <Alert variant="error">
         <Heading spacing size="small" level="1">
           Oisann!
