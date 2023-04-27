@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Accordion, BodyLong } from '@navikt/ds-react'
-import AccordionContent from '@navikt/ds-react/esm/accordion/AccordionContent'
 
 import { formatAsDecimal } from '@/utils/currency'
 
@@ -15,12 +14,12 @@ export function Inntekt({ inntekt }: Props) {
   return (
     <Accordion.Item>
       <SectionHeader label="Inntekt" value={`${formatAsDecimal(inntekt)} kr`} />
-      <AccordionContent>
+      <Accordion.Content>
         <BodyLong>
           Beløpet gjelder brutto årsinntekt frem til uttak av pensjon og er
           siste pensjonsgivende inntekt mottatt fra Skatteetaten.
         </BodyLong>
-      </AccordionContent>
+      </Accordion.Content>
     </Accordion.Item>
   )
 }
