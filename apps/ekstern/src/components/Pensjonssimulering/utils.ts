@@ -45,6 +45,7 @@ export function labelFormatter(
     : this.value.toString()
 }
 
+// TODO - følge opp - evt fase ut
 export function tooltipFormatter(
   this: Highcharts.TooltipFormatterContextObject
 ) {

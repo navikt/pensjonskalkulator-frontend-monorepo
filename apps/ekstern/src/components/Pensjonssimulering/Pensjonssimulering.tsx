@@ -18,7 +18,6 @@ import {
   PENSJONSGIVENDE_DATA,
   simulateDataArray,
   simulateTjenestepensjon,
-  tooltipFormatter,
 } from './utils'
 import styles from './Pensjonssimulering.module.scss'
 
@@ -86,7 +85,27 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       enabled: false,
     },
     tooltip: {
-      formatter: tooltipFormatter,
+      useHTML: true,
+      className: styles.tooltip,
+      // split: true,
+      // formatter: tooltipFormatter,
+      // headerFormat: '<table><tr><th colspan="2">{point.key}</th></tr>',
+      // pointFormat:
+      //   '<tr><td style="color: {series.color}">{series.name} </td>' +
+      //   '<td style="text-align: right"><b>{point.y} EUR</b></td></tr>',
+      // footerFormat: '</table>',
+      // outside: true,
+      shadow: false,
+      shared: true,
+      padding: 0,
+
+      /* c8 ignore next 3 */
+      positioner: function (labelWidth, labelHeight, point) {
+        return { x: 0, y: 35 }
+      },
+
+      borderWidth: 0,
+      backgroundColor: 'white',
     },
     legend: {
       x: 0,
@@ -105,8 +124,13 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       itemMarginBottom: 5,
     },
     plotOptions: {
-      column: {
+      series: {
         stacking: 'normal',
+        states: {
+          inactive: {
+            enabled: false,
+          },
+        },
       },
     },
     series: seriesYAxis,
@@ -115,6 +139,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   useEffect(() => {
     const aarArray = generateXAxis(uttaksalder, MAX_UTTAKSALDER)
     setAarXAxis(aarArray)
+
     setSeriesYAxis([
       {
         type: 'column',
@@ -131,6 +156,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         pointWidth: COLUMN_WIDTH,
         name: 'Avtalefestet pensjon (AFP)',
         color: 'var(--a-purple-400)',
+        states: {
+          hover: {
+            color: 'var(--a-purple-200)',
+          },
+        },
         data: simulateDataArray(AFP_DATA, aarArray.length),
       },
       {
@@ -138,6 +168,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         pointWidth: COLUMN_WIDTH,
         name: 'Tjenestepensjon',
         color: 'var(--a-green-400)',
+        states: {
+          hover: {
+            color: 'var(--a-green-200)',
+          },
+        },
         data: simulateTjenestepensjon(uttaksalder, MAX_UTTAKSALDER),
       },
       {
@@ -145,6 +180,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         pointWidth: COLUMN_WIDTH,
         name: 'Folketrygden (NAV)',
         color: 'var(--a-deepblue-500)',
+        states: {
+          hover: {
+            color: 'var(--a-deepblue-200)',
+          },
+        },
         data: simulateDataArray(FOLKETRYGDEN_DATA, aarArray.length),
       },
     ])

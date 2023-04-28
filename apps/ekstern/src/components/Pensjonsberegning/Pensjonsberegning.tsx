@@ -113,7 +113,6 @@ export function Pensjonsberegning() {
               iconPosition="left"
               size={'medium'}
               variant="tertiary"
-              // onClick={onVisFlereAarClick}
             >
               Vis tabell
             </Button>

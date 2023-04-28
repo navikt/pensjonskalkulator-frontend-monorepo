@@ -5,6 +5,18 @@
   margin-left: auto;
 }
 
+.tooltip {
+  width: 100%;
+  border: 0;
+  right: 0;
+
+  & > span {
+    width: 100% !important;
+    background-color: var(--a-white);
+    border-bottom: 3px solid var(--a-gray-700);
+  }
+}
+
 :global {
   .highcharts-scrollable-mask {
     filter: drop-shadow(-5px 0 3px rgb(255 255 255 / 25%));
