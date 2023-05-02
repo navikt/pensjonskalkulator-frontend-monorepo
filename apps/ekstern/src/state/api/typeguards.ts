@@ -23,3 +23,18 @@ export const isTidligsteMuligeUttaksalder = (
     typeof data.maaned === 'number'
   )
 }
+
+export const isPerson = (data?: any): data is Person => {
+  return [
+    'UOPPGITT',
+    'UGIFT',
+    'GIFT',
+    'ENKE_ELLER_ENKEMANN',
+    'SKILT',
+    'SEPARERT',
+    'REGISTRERT_PARTNER',
+    'SEPARERT_PARTNER',
+    'SKILT_PARTNER',
+    'GJENLEVENDE_PARTNER',
+  ].includes(data.sivilstand)
+}

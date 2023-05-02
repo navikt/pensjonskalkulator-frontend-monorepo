@@ -57,13 +57,6 @@ const useUttaksgrad = (): number => {
   return 100
 }
 
-const useSivilstand = (): Sivilstand => {
-  return {
-    gift: false,
-    samboer: false,
-  }
-}
-
 interface Props {
   tidligstMuligUttak: Uttaksalder
 }
@@ -73,7 +66,6 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
   const alderspensjon = useAlderspensjon()
   const pensjonsavtaler = usePensjonsavtaler()
   const uttaksgrad = useUttaksgrad()
-  const sivilstand = useSivilstand()
 
   return (
     <Card className={styles.section}>
@@ -84,7 +76,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
         <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
         <Uttaksgrad uttaksgrad={uttaksgrad} />
         <Inntekt inntekt={inntekt} />
-        <Sivilstand sivilstand={sivilstand} />
+        <Sivilstand />
         <Alderspensjon alderspensjon={alderspensjon} />
         <AFP />
         <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />

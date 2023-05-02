@@ -17,7 +17,18 @@ declare type Pensjonsavtale = {
   aarligUtbetaling: number
 }
 
-declare type Sivilstand = {
-  gift: boolean
-  samboer: boolean
+declare type Sivilstand =
+  | 'UOPPGITT'
+  | 'UGIFT'
+  | 'GIFT'
+  | 'ENKE_ELLER_ENKEMANN'
+  | 'SKILT'
+  | 'SEPARERT'
+  | 'REGISTRERT_PARTNER'
+  | 'SEPARERT_PARTNER'
+  | 'SKILT_PARTNER'
+  | 'GJENLEVENDE_PARTNER'
+
+declare type Person = {
+  sivilstand: Sivilstand
 }

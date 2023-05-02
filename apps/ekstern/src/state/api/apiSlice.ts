@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { isPensjonsberegning, isTidligsteMuligeUttaksalder } from './typeguards'
+import {
+  isPensjonsberegning,
+  isPerson,
+  isTidligsteMuligeUttaksalder,
+} from './typeguards'
 import { API_BASEURL } from '@/api/paths'
 
 export const apiSlice = createApi({
@@ -27,10 +31,20 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getPerson: builder.query<Person, void>({
+      query: () => '/person',
+      transformResponse: (response) => {
+        if (!isPerson(response)) {
+          throw new Error(`Mottok ugyldig person: ${response}`)
+        }
+        return response
+      },
+    }),
   }),
 })
 
 export const {
   useGetTidligsteMuligeUttaksalderQuery,
   useGetPensjonsberegningQuery,
+  useGetPersonQuery,
 } = apiSlice
