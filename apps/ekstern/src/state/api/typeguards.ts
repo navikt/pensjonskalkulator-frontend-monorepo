@@ -1,5 +1,5 @@
 export const isPensjonsberegning = (
-  data?: unknown[]
+  data?: any
 ): data is Pensjonsberegning[] => {
   return (
     Array.isArray(data) &&
@@ -36,5 +36,5 @@ export const isPerson = (data?: any): data is Person => {
     'SEPARERT_PARTNER',
     'SKILT_PARTNER',
     'GJENLEVENDE_PARTNER',
-  ].includes(data.sivilstand)
+  ].includes(data?.sivilstand)
 }
