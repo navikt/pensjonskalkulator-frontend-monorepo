@@ -6,18 +6,74 @@
 }
 
 .tooltip {
-  width: 100%;
-  border: 0;
   right: 0;
+  background-color: var(--a-white);
+  border-bottom: 3px solid var(--a-gray-600);
+  z-index: 3;
 
   & > span {
+    position: relative !important;
     width: 100% !important;
-    background-color: var(--a-white);
-    border-bottom: 3px solid var(--a-gray-700);
+  }
+
+  &Table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 var(--a-spacing-1);
+
+    &HeaderCell {
+      border-bottom: 1px solid var(--a-gray-600);
+      font-size: var(--a-font-size-heading-xsmall);
+
+      &__left {
+        font-weight: var(--a-font-weight-regular);
+        text-align: left;
+        padding-right: var(--a-spacing-12);
+      }
+
+      &__right {
+        font-weight: var(--a-font-weight-bold);
+        text-align: right;
+      }
+    }
+
+    &Cell {
+      font-family: var(--a-font-family);
+      font-size: var(--a-font-size-small);
+      vertical-align: middle;
+
+      &__right {
+        font-weight: var(--a-font-weight-bold);
+        text-align: right;
+      }
+
+      &Dot {
+        height: var(--a-spacing-3);
+        width: var(--a-spacing-3);
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: var(--a-spacing-1);
+      }
+    }
   }
 }
 
 :global {
+  .highcharts-tooltip-container {
+    right: 18px;
+
+    @media (min-width: $a-breakpoint-xl) {
+      right: auto;
+      width: 100% !important;
+      max-width: calc($a-breakpoint-xl-down - 3rem);
+    }
+
+    & > svg {
+      display: none;
+    }
+  }
+
   .highcharts-scrollable-mask {
     filter: drop-shadow(-5px 0 3px rgb(255 255 255 / 25%));
   }

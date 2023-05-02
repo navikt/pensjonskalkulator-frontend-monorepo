@@ -87,14 +87,17 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
     tooltip: {
       useHTML: true,
       className: styles.tooltip,
-      // split: true,
-      // formatter: tooltipFormatter,
-      // headerFormat: '<table><tr><th colspan="2">{point.key}</th></tr>',
-      // pointFormat:
-      //   '<tr><td style="color: {series.color}">{series.name} </td>' +
-      //   '<td style="text-align: right"><b>{point.y} EUR</b></td></tr>',
-      // footerFormat: '</table>',
-      // outside: true,
+      headerFormat:
+        `<table class="${styles.tooltipTable}">` +
+        `<thead><tr>` +
+        `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__left}">Utbetaling det året du er {point.key} år</th>` +
+        `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__right}">{point.total} kr</th>` +
+        `</tr></thead>`,
+      pointFormat:
+        `<tbody><tr><td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor: {series.color}"></span>{series.name} </td>` +
+        `<td  class="${styles.tooltipTableCell} ${styles.tooltipTableCell__right}">{point.y} kr</td></tr></tbody>`,
+      footerFormat: '</table>',
+      outside: true,
       shadow: false,
       shared: true,
       padding: 0,
@@ -103,11 +106,9 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       positioner: function (labelWidth, labelHeight, point) {
         return { x: 0, y: 35 }
       },
-
-      borderWidth: 0,
-      backgroundColor: 'white',
     },
     legend: {
+      useHTML: true,
       x: 0,
       y: -25,
       padding: 0,
@@ -118,9 +119,13 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       itemDistance: 0,
       itemStyle: {
         fontFamily: 'var(--a-font-family)',
+        color: '#000000',
         fontWeight: 'regular',
         fontSize: '14px',
+        cursor: 'default',
+        zIndex: 0,
       },
+      itemHoverStyle: { color: '#000000' },
       itemMarginBottom: 5,
     },
     plotOptions: {
@@ -129,6 +134,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         states: {
           inactive: {
             enabled: false,
+          },
+        },
+        events: {
+          legendItemClick: function (e) {
+            e.preventDefault()
           },
         },
       },
