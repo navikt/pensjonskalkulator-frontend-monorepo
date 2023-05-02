@@ -61,12 +61,14 @@
 
 :global {
   .highcharts-tooltip-container {
+    left: 18px !important;
     right: 18px;
 
     @media (min-width: $a-breakpoint-xl) {
-      right: auto;
+      margin-left: auto;
+      margin-right: auto;
       width: 100% !important;
-      max-width: calc($a-breakpoint-xl-down - 3rem);
+      max-width: calc($a-breakpoint-xl-down - 2rem);
     }
 
     & > svg {
