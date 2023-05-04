@@ -114,7 +114,7 @@ export const onVisFlereAarClick = () => {
 }
 
 export const getChartOptions = (
-  styles: typeof globalClassNames
+  styles: Partial<typeof globalClassNames>
 ): Highcharts.Options => {
   return {
     chart: {
