@@ -2,38 +2,10 @@ import React from 'react'
 
 import { Accordion, Alert, BodyLong, Link } from '@navikt/ds-react'
 
+import { formatSivilstand } from '@/components/Grunnlag/sections/Sivilstand-utils'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 
 import { SectionHeader } from './components/SectionHeader'
-
-const formatSivilstand = (sivilstand: Sivilstand): string => {
-  switch (sivilstand) {
-    case 'GIFT': {
-      return 'Gift'
-    }
-    case 'SKILT': {
-      return 'Skilt'
-    }
-    case 'SEPARERT': {
-      return 'Separert'
-    }
-    case 'REGISTRERT_PARTNER': {
-      return 'Registrert partner'
-    }
-    case 'SEPARERT_PARTNER': {
-      return 'Separert partner'
-    }
-    case 'SKILT_PARTNER': {
-      return 'Skilt partner'
-    }
-    case 'GJENLEVENDE_PARTNER': {
-      return 'Gjenlevende partner'
-    }
-    default: {
-      return 'Ugift'
-    }
-  }
-}
 
 export function Sivilstand() {
   const { data: person, isError, isLoading, isSuccess } = useGetPersonQuery()
