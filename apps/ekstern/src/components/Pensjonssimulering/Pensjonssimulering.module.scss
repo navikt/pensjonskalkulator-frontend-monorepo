@@ -6,9 +6,11 @@
 }
 
 .tooltip {
+  --border-color: var(--a-gray-500);
+
   right: 0;
   background-color: var(--a-white);
-  border-bottom: 3px solid var(--a-gray-600);
+  border-bottom: 2px solid var(--border-color);
   z-index: 3;
 
   & > span {
@@ -20,13 +22,21 @@
     position: relative;
     width: 100%;
     background-color: var(--a-white);
-    border-collapse: separate;
+    border-collapse: collapse;
     border-spacing: 0 var(--a-spacing-1);
     z-index: 1;
 
+    > tbody tr:first-of-type td {
+      padding-top: var(--a-spacing-1);
+    }
+
+    > tbody tr:last-of-type td {
+      padding-bottom: var(--a-spacing-1);
+    }
+
     &HeaderCell {
-      border-bottom: 1px solid var(--a-gray-600);
-      font-size: var(--a-font-size-heading-xsmall);
+      border-bottom: 1px solid var(--border-color);
+      font-size: var(--a-font-size-medium);
 
       &__left {
         font-weight: var(--a-font-weight-regular);
@@ -37,6 +47,7 @@
       &__right {
         font-weight: var(--a-font-weight-bold);
         text-align: right;
+        white-space: nowrap;
       }
     }
 
@@ -64,7 +75,7 @@
   &Line {
     position: absolute;
     width: 2px;
-    background-color: var(--a-gray-600);
+    background-color: var(--border-color);
   }
 }
 
