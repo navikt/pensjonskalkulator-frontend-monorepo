@@ -11,7 +11,13 @@
 .chipsWrapper {
   /* double-specificity nødvendig pga Aksel overskrivning */
   &.chipsWrapper__hasGap {
-    gap: var(--a-spacing-4);
+    gap: var(--a-spacing-3);
+    justify-content: space-between;
+
+    &::after {
+      content: '';
+      flex: auto;
+    }
   }
 
   :global {
@@ -25,6 +31,7 @@
   }
 }
 
-.readMore__hasPadding {
+.visFlereAldere {
+  margin-right: auto;
   margin-bottom: var(--a-spacing-3);
 }

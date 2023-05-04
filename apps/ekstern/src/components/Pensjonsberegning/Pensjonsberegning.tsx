@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 
-import { ChevronDownIcon } from '@navikt/aksel-icons'
+import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import {
   Alert,
   Button,
@@ -8,7 +8,6 @@ import {
   Heading,
   Ingress,
   Loader,
-  ReadMore,
 } from '@navikt/ds-react'
 import clsx from 'clsx'
 
@@ -30,6 +29,12 @@ export function Pensjonsberegning() {
     isError,
     isSuccess,
   } = useGetTidligsteMuligeUttaksalderQuery()
+  const DEFAULT_ANTALL_VISIBLE_ALDERCHIPS = 9
+  const VIS_FLERE__ALDERE_LABEL_CLOSE = 'Vis flere aldere'
+  const VIS_FLERE__ALDERE_LABEL_OPEN = 'Vis færre aldere'
+
+  const [isFlereAldereOpen, setIsFlereAldereOpen] = useState<boolean>(false)
+
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
   const alderChips = useAlderChips(tidligstMuligUttak)
@@ -76,25 +81,14 @@ export function Pensjonsberegning() {
           className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >
           {alderChips.length > 0 &&
-            alderChips.slice(0, 9).map((alderChip) => (
-              <Chips.Toggle
-                selected={valgtUttaksalder === alderChip}
-                key={alderChip}
-                onClick={() => setValgtUttaksalder(alderChip)}
-              >
-                {alderChip}
-              </Chips.Toggle>
-            ))}
-        </Chips>
-        <ReadMore
-          header="Vis flere aldere"
-          className={clsx({ [styles.readMore__hasPadding]: valgtUttaksalder })}
-        >
-          <Chips
-            className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
-          >
-            {alderChips.length > 0 &&
-              alderChips.slice(9, alderChips.length).map((alderChip) => (
+            alderChips
+              .slice(
+                0,
+                isFlereAldereOpen
+                  ? alderChips.length
+                  : DEFAULT_ANTALL_VISIBLE_ALDERCHIPS
+              )
+              .map((alderChip) => (
                 <Chips.Toggle
                   selected={valgtUttaksalder === alderChip}
                   key={alderChip}
@@ -103,8 +97,28 @@ export function Pensjonsberegning() {
                   {alderChip}
                 </Chips.Toggle>
               ))}
-          </Chips>
-        </ReadMore>
+        </Chips>
+        <Button
+          className={styles.visFlereAldere}
+          icon={
+            isFlereAldereOpen ? (
+              <ChevronUpIcon aria-hidden />
+            ) : (
+              <ChevronDownIcon aria-hidden />
+            )
+          }
+          iconPosition="left"
+          size={'xsmall'}
+          variant="tertiary"
+          onClick={() => {
+            setIsFlereAldereOpen(!isFlereAldereOpen)
+          }}
+        >
+          {isFlereAldereOpen
+            ? VIS_FLERE__ALDERE_LABEL_OPEN
+            : VIS_FLERE__ALDERE_LABEL_CLOSE}
+        </Button>
+
         {valgtUttaksalder && (
           <>
             <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />

@@ -24,10 +24,19 @@ describe('Pensjonsberegning', () => {
     expect(screen.getByRole('heading', { level: 2 })).toBeVisible()
     expect(screen.getAllByRole('button')).toHaveLength(10)
 
+    expect(result.asFragment()).toMatchSnapshot()
+  })
+
+  it('viser riktig label og antall knapper når brukeren ønsker å se flere aldere', async () => {
+    const result = render(<Pensjonsberegning />)
+    await waitFor(() => {
+      expect(screen.getAllByRole('button')).toHaveLength(10)
+    })
     fireEvent.click(screen.getByText('Vis flere aldere'))
 
     await waitFor(() => {
       expect(screen.getAllByRole('button')).toHaveLength(17)
+      expect(screen.getByText('Vis færre aldere')).toBeInTheDocument()
     })
 
     expect(result.asFragment()).toMatchSnapshot()
