@@ -7,7 +7,7 @@ import type globalClassNames from './Pensjonssimulering.module.scss'
 
 export const MAX_UTTAKSALDER = 78
 export const COLUMN_WIDTH = 25
-export const TOOLTIP_YPOS = 35
+export const TOOLTIP_YPOS = 30
 
 export const PENSJONSGIVENDE_DATA = [
   650000, 260000, 60000, 70000, 70000, 70000, 70000, 70000, 70000, 70000, 70000,
@@ -87,9 +87,9 @@ export function tooltipFormatter(
   const leftPosition = context.points?.[0].point?.plotX ?? 0
   const tooltipConnectingLine = `<div class="${
     styles.tooltipLine
-  }" style="top: ${lineYpos}px; left: ${
+  }" style="top: ${lineYpos - 10}px; left: ${
     leftPosition + 21 + COLUMN_WIDTH / 2
-  }px; height: ${yAxisHeight - columnHeight}px"></div>`
+  }px; height: ${yAxisHeight - columnHeight + 10}px"></div>`
 
   const headerFormat =
     `<table class="${styles.tooltipTable}"><thead><tr>` +

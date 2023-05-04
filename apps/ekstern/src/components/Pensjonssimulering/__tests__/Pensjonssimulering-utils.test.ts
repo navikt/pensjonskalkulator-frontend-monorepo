@@ -135,7 +135,7 @@ describe('Pensjonssimulering-utils', () => {
       const colorSerie2 = 'salmon'
       const pointSumSerie1 = 200
       const pointSumSerie2 = 350
-      const beregnetLinePosition = 'top: 265px; left: 162.5px; height: 100px'
+      const beregnetLinePosition = 'top: 260px; left: 162.5px; height: 110px'
 
       const point = {
         y: pointSumSerie1,
