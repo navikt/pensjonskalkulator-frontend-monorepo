@@ -2,13 +2,18 @@ import * as Highcharts from 'highcharts'
 import { describe, expect, it } from 'vitest'
 
 import {
-  generateXAxis,
-  labelFormatter,
-  onVisFlereAarClick,
   simulateDataArray,
   simulateTjenestepensjon,
+  generateXAxis,
+  labelFormatter,
   tooltipFormatter,
+  getChartOptions,
+  onVisFlereAarClick,
+  ExtendedYAxis,
+  ExtendedPoint,
 } from '../utils'
+
+import globalClassNames from './Pensjonssimulering.module.scss'
 
 describe('Pensjonssimulering-utils', () => {
   describe('simulateDataArray', () => {
@@ -33,62 +38,6 @@ describe('Pensjonssimulering-utils', () => {
 
     it('thrower dersom endAge < startAge', () => {
       expect(() => simulateTjenestepensjon(2, 1)).toThrow()
-    })
-  })
-
-  describe('labelFormatter', () => {
-    it('returnerer riktig streng når verdien er under 1000', () => {
-      const thisIsThat = {
-        value: 300,
-      } as Highcharts.AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('300')
-    })
-    it('returnerer riktig streng når verdien er lik 1000', () => {
-      const thisIsThat = {
-        value: 1000,
-      } as Highcharts.AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('1000')
-    })
-    it('returnerer riktig streng når verdien er over 1000', () => {
-      const thisIsThat = {
-        value: 1000000,
-      } as Highcharts.AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('1000')
-    })
-  })
-
-  describe('tooltipFormatter', () => {
-    it('returnerer riktig streng når verdien er under 1000', () => {
-      const thisIsThat = {
-        x: 63,
-        y: 300000,
-        series: { name: 'lorem ipsum' },
-      } as Highcharts.TooltipFormatterContextObject
-      const a = tooltipFormatter.bind(thisIsThat)
-      expect(a()).toBe('<b>63</b><br/>lorem ipsum: 300000<br/>Total: x')
-    })
-  })
-
-  describe('onVisFlereAarClick', () => {
-    it('finner riktig element og øker scrollLeft', () => {
-      const div = document.createElement('div')
-      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
-      document.body.appendChild(div)
-      expect(div.scrollLeft).toBe(0)
-      onVisFlereAarClick()
-      expect(
-        (document.querySelector('.highcharts-scrolling') as HTMLElement)
-          .scrollLeft
-      ).toBe(50)
-      onVisFlereAarClick()
-      expect(
-        (document.querySelector('.highcharts-scrolling') as HTMLElement)
-          .scrollLeft
-      ).toBe(100)
-      div.remove()
     })
   })
 
@@ -137,6 +86,125 @@ describe('Pensjonssimulering-utils', () => {
       const alderArray = generateXAxis(-4, 2)
       expect(alderArray).toHaveLength(8)
       expect(alderArray).toEqual(['-5', '-4', '-3', '-2', '-1', '0', '1', '1+'])
+    })
+  })
+
+  describe('labelFormatter', () => {
+    it('returnerer riktig streng når verdien er under 1000', () => {
+      const thisIsThat = {
+        value: 300,
+      } as Highcharts.AxisLabelsFormatterContextObject
+      const a = labelFormatter.bind(thisIsThat)
+      expect(a()).toBe('300')
+    })
+    it('returnerer riktig streng når verdien er lik 1000', () => {
+      const thisIsThat = {
+        value: 1000,
+      } as Highcharts.AxisLabelsFormatterContextObject
+      const a = labelFormatter.bind(thisIsThat)
+      expect(a()).toBe('1000')
+    })
+    it('returnerer riktig streng når verdien er over 1000', () => {
+      const thisIsThat = {
+        value: 1000000,
+      } as Highcharts.AxisLabelsFormatterContextObject
+      const a = labelFormatter.bind(thisIsThat)
+      expect(a()).toBe('1000')
+    })
+  })
+
+  describe('tooltipFormatter', () => {
+    it('returnerer formatert tooltip med riktig data og stiler for begge serier', () => {
+      const stylesMock = {
+        tooltipLine: 'tooltipLine',
+        tooltipTable: 'tooltipTable',
+        tooltipTableHeaderCell: 'tooltipTableHeaderCell',
+        tooltipTableHeaderCell__left: 'tooltipTableHeaderCell__left',
+        tooltipTableHeaderCell__right: 'tooltipTableHeaderCell__right',
+        tooltipTableCell: 'tooltipTableCell',
+        tooltipTableCell__right: 'tooltipTableCell__right',
+        tooltipTableCellDot: 'tooltipTableCellDot',
+      } as Partial<typeof globalClassNames>
+
+      const alder = 65
+      const total = 800000
+      const nameSerie1 = 'name of my serie 1'
+      const nameSerie2 = 'name of my serie 2'
+      const colorSerie1 = 'lime'
+      const colorSerie2 = 'salmon'
+      const pointSumSerie1 = 200
+      const pointSumSerie2 = 350
+      const beregnetLinePosition = 'top: 265px; left: 162.5px; height: 100px'
+
+      const point = {
+        y: pointSumSerie1,
+        total,
+        series: {
+          name: nameSerie1,
+          color: colorSerie1,
+          chart: { yAxis: [{ pos: 300 } as ExtendedYAxis] },
+          yAxis: { height: 400 } as ExtendedYAxis,
+        },
+        point: { plotX: 129, tooltipPos: [50, 100, 120] } as ExtendedPoint,
+      }
+
+      const context = {
+        x: alder,
+        points: [
+          {
+            ...point,
+          },
+          {
+            ...point,
+            y: pointSumSerie2,
+            series: {
+              ...point.series,
+              name: nameSerie2,
+              color: colorSerie2,
+            },
+          },
+        ],
+      }
+      const tooltipMarkup = tooltipFormatter(
+        context as unknown as Highcharts.TooltipFormatterContextObject,
+        stylesMock
+      )
+      expect(tooltipMarkup).toContain(`${total} kr`)
+      expect(tooltipMarkup).toContain(`Utbetaling det året du er ${alder} år`)
+      expect(tooltipMarkup).toContain(nameSerie1)
+      expect(tooltipMarkup).toContain(nameSerie2)
+      expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie1}`)
+      expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie2}`)
+      expect(tooltipMarkup).toContain(`${pointSumSerie1} kr`)
+      expect(tooltipMarkup).toContain(`${pointSumSerie2} kr`)
+      expect(tooltipMarkup).toContain(beregnetLinePosition)
+      expect(tooltipMarkup).toMatchSnapshot()
+    })
+  })
+  describe('getChartOptions', () => {
+    it('returnerer riktig default options', () => {
+      const options = getChartOptions({} as Partial<typeof globalClassNames>)
+      expect(options).toMatchSnapshot()
+    })
+  })
+
+  describe('onVisFlereAarClick', () => {
+    it('finner riktig element og øker scrollLeft', () => {
+      const div = document.createElement('div')
+      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
+      document.body.appendChild(div)
+      expect(div.scrollLeft).toBe(0)
+      onVisFlereAarClick()
+      expect(
+        (document.querySelector('.highcharts-scrolling') as HTMLElement)
+          .scrollLeft
+      ).toBe(50)
+      onVisFlereAarClick()
+      expect(
+        (document.querySelector('.highcharts-scrolling') as HTMLElement)
+          .scrollLeft
+      ).toBe(100)
+      div.remove()
     })
   })
 })

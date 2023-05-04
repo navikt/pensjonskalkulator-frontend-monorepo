@@ -1,0 +1,96 @@
+// Vitest Snapshot v1
+
+exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default options 1`] = `
+{
+  "chart": {
+    "spacingLeft": 0,
+    "spacingRight": 25,
+    "spacingTop": 0,
+    "type": "column",
+  },
+  "credits": {
+    "enabled": false,
+  },
+  "legend": {
+    "align": "left",
+    "itemDistance": 0,
+    "itemHoverStyle": {
+      "color": "#000000",
+    },
+    "itemMarginBottom": 5,
+    "itemStyle": {
+      "color": "#000000",
+      "cursor": "default",
+      "fontFamily": "var(--a-font-family)",
+      "fontSize": "14px",
+      "fontWeight": "regular",
+      "zIndex": 0,
+    },
+    "layout": "horizontal",
+    "margin": 50,
+    "padding": 0,
+    "useHTML": true,
+    "verticalAlign": "top",
+    "x": 0,
+    "y": -25,
+  },
+  "plotOptions": {
+    "series": {
+      "events": {
+        "legendItemClick": [Function],
+      },
+      "stacking": "normal",
+      "states": {
+        "inactive": {
+          "enabled": false,
+        },
+      },
+    },
+  },
+  "series": [],
+  "title": {
+    "align": "left",
+    "margin": 40,
+    "style": {
+      "fontFamily": "var(--a-font-family)",
+      "fontSize": "20px",
+      "fontWeight": "bold",
+    },
+    "text": "Årlig pensjon",
+    "y": 20,
+  },
+  "tooltip": {
+    "className": undefined,
+    "formatter": [Function],
+    "outside": true,
+    "padding": 0,
+    "positioner": [Function],
+    "shadow": false,
+    "shared": true,
+    "useHTML": true,
+  },
+  "xAxis": {
+    "categories": [],
+  },
+  "yAxis": {
+    "allowDecimals": false,
+    "gridLineDashStyle": "Dash",
+    "labels": {
+      "formatter": [Function],
+    },
+    "min": 0,
+    "minorTickInterval": 200000,
+    "tickInterval": 200000,
+    "title": {
+      "align": "high",
+      "offset": -55,
+      "rotation": 0,
+      "text": "Tusen kroner",
+      "x": -12,
+      "y": -20,
+    },
+  },
+}
+`;
+
+exports[`Pensjonssimulering-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 1`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Utbetaling det året du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>name of my serie 1</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>name of my serie 2</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 265px; left: 162.5px; height: 100px\\"></div>"`;
