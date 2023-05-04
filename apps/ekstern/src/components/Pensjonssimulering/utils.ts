@@ -1,13 +1,9 @@
-import clsx from 'clsx'
 import * as Highcharts from 'highcharts'
 
-import { formatAsDecimal } from '@/utils/currency'
-
-import type globalClassNames from './Pensjonssimulering.module.scss'
-
+import globalClassNames from './Pensjonssimulering.module.scss'
 export const MAX_UTTAKSALDER = 78
 export const COLUMN_WIDTH = 25
-export const TOOLTIP_YPOS = 30
+export const TOOLTIP_YPOS = 35
 
 export const PENSJONSGIVENDE_DATA = [
   650000, 260000, 60000, 70000, 70000, 70000, 70000, 70000, 70000, 70000, 70000,
@@ -87,33 +83,22 @@ export function tooltipFormatter(
   const leftPosition = context.points?.[0].point?.plotX ?? 0
   const tooltipConnectingLine = `<div class="${
     styles.tooltipLine
-  }" style="top: ${lineYpos - 10}px; left: ${
+  }" style="top: ${lineYpos}px; left: ${
     leftPosition + 21 + COLUMN_WIDTH / 2
-  }px; height: ${yAxisHeight - columnHeight + 10}px"></div>`
+  }px; height: ${yAxisHeight - columnHeight}px"></div>`
 
   const headerFormat =
     `<table class="${styles.tooltipTable}"><thead><tr>` +
-    `<th class="${clsx(
-      styles.tooltipTableHeaderCell,
-      styles.tooltipTableHeaderCell__left
-    )}">Utbetaling det året du er ${context.x} år</th>` +
-    `<th class="${clsx(
-      styles.tooltipTableHeaderCell,
-      styles.tooltipTableHeaderCell__right
-    )}">${
-      context.points?.[0].total && formatAsDecimal(context.points[0].total)
-    } kr</th>` +
+    `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__left}">Utbetaling det året du er ${context.x} år</th>` +
+    `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__right}">${context.points?.[0].total} kr</th>` +
     `</tr></thead><tbody>`
 
   let pointsFormat = ''
   context?.points?.forEach(function (point) {
     pointsFormat +=
       `<tr>` +
-      `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="background-color:${point.series.color}"></span>${point.series.name}</td>` +
-      `<td class="${clsx(
-        styles.tooltipTableCell,
-        styles.tooltipTableCell__right
-      )}">${point.y && formatAsDecimal(point.y)} kr</td>` +
+      `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${point.series.color}"></span>${point.series.name}</td>` +
+      `<td class="${styles.tooltipTableCell} ${styles.tooltipTableCell__right}">${point.y} kr</td>` +
       `</tr>`
   })
 

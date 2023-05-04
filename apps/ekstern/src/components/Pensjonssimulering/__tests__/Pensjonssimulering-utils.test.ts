@@ -12,7 +12,6 @@ import {
   ExtendedYAxis,
   ExtendedPoint,
 } from '../utils'
-import { formatAsDecimal } from '@/utils/currency'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
 
@@ -135,7 +134,7 @@ describe('Pensjonssimulering-utils', () => {
       const colorSerie2 = 'salmon'
       const pointSumSerie1 = 200
       const pointSumSerie2 = 350
-      const beregnetLinePosition = 'top: 260px; left: 162.5px; height: 110px'
+      const beregnetLinePosition = 'top: 265px; left: 162.5px; height: 100px'
 
       const point = {
         y: pointSumSerie1,
@@ -170,13 +169,12 @@ describe('Pensjonssimulering-utils', () => {
         context as unknown as Highcharts.TooltipFormatterContextObject,
         stylesMock
       )
-
-      expect(tooltipMarkup).toContain(`${formatAsDecimal(total)} kr`)
+      expect(tooltipMarkup).toContain(`${total} kr`)
       expect(tooltipMarkup).toContain(`Utbetaling det året du er ${alder} år`)
       expect(tooltipMarkup).toContain(nameSerie1)
       expect(tooltipMarkup).toContain(nameSerie2)
-      expect(tooltipMarkup).toContain(`background-color:${colorSerie1}`)
-      expect(tooltipMarkup).toContain(`background-color:${colorSerie2}`)
+      expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie1}`)
+      expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie2}`)
       expect(tooltipMarkup).toContain(`${pointSumSerie1} kr`)
       expect(tooltipMarkup).toContain(`${pointSumSerie2} kr`)
       expect(tooltipMarkup).toContain(beregnetLinePosition)

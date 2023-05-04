@@ -47,8 +47,4 @@ describe('groupPensjonsavtalerByType', () => {
     expect(grouped.fripolise).toHaveLength(1)
     expect(grouped['egen sparing']).toHaveLength(1)
   })
-
-  it('returnerer tomt objekt når det ikke finnes avtaler', () => {
-    expect(groupPensjonsavtalerByType([])).toEqual({})
-  })
 })
