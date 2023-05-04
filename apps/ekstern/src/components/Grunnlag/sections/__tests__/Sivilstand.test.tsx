@@ -1,8 +1,6 @@
-import { waitFor } from '@testing-library/react'
-
 import { Sivilstand } from '../Sivilstand'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { render, screen } from '@/test-utils'
+import { render, screen, waitFor } from '@/test-utils'
 
 describe('Sivilstand', () => {
   it('rendrer sivilstand: GIFT', async () => {
