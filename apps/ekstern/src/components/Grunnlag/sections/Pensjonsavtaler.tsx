@@ -44,8 +44,8 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
           <tbody>
             {Object.entries(groupPensjonsavtalerByType(pensjonsavtaler)).map(
               ([avtaleType, avtaler]) => (
-                <>
-                  <tr key={avtaleType}>
+                <React.Fragment key={avtaleType}>
+                  <tr>
                     <td colSpan={2} className={styles.tabellCell}>
                       <BodyShort className={styles.mellomtittel}>
                         {capitalize(avtaleType)}
@@ -74,7 +74,7 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
                       </td>
                     </tr>
                   ))}
-                </>
+                </React.Fragment>
               )
             )}
           </tbody>
