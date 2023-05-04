@@ -9,7 +9,7 @@ describe('Pensjonsavtaler', () => {
       <Pensjonsavtaler
         pensjonsavtaler={[
           {
-            type: 'tjenestepensjon',
+            type: 'privat tjenestepensjon',
             fra: 'DNB',
             utbetalesFraAlder: 67,
             utbetalesTilAlder: 77,

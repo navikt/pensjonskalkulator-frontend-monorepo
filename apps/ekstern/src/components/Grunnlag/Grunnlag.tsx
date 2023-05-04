@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Accordion, Heading } from '@navikt/ds-react'
+import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
 import { AFP } from '@/components/Grunnlag/sections/AFP'
@@ -24,14 +24,14 @@ const useAlderspensjon = (): number => {
 const usePensjonsavtaler = (): Pensjonsavtale[] => {
   return [
     {
-      type: 'tjenestepensjon',
+      type: 'privat tjenestepensjon',
       fra: 'Nordea Liv',
       utbetalesFraAlder: 67,
       utbetalesTilAlder: 77,
       aarligUtbetaling: 231298,
     },
     {
-      type: 'tjenestepensjon',
+      type: 'privat tjenestepensjon',
       fra: 'Storebrand',
       utbetalesFraAlder: 67,
       utbetalesTilAlder: 77,
@@ -49,6 +49,13 @@ const usePensjonsavtaler = (): Pensjonsavtale[] => {
       fra: 'Oslo Pensjonsforsikring',
       utbetalesFraAlder: 67,
       aarligUtbetaling: 103264,
+    },
+    {
+      type: 'egen sparing',
+      fra: 'IPS',
+      utbetalesFraAlder: 67,
+      utbetalesTilAlder: 77,
+      aarligUtbetaling: 241802,
     },
   ]
 }
@@ -72,6 +79,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
       <Heading level="2" size="medium">
         Grunnlaget for prognosen
       </Heading>
+      <BodyLong>Alle summer er oppgitt i dagens kroneverdi før skatt.</BodyLong>
       <Accordion>
         <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
         <Uttaksgrad uttaksgrad={uttaksgrad} />

@@ -1,7 +1,7 @@
 @import '../../../scss/variables.scss';
 
 .tabell {
-  margin-bottom: var(--a-spacing-2);
+  margin-bottom: var(--a-spacing-4);
   width: 100%;
   border-spacing: 0;
   padding: 0;
@@ -11,9 +11,11 @@
   }
 
   &Header {
+    font-size: var(--a-font-size-heading-small);
+    line-height: var(--a-font-line-height-heading-small);
     font-weight: var(--a-font-weight-bold);
     text-align: left;
-    padding: var(--a-spacing-4) 0 var(--a-spacing-2) 0;
+    padding: var(--a-spacing-2) 0 var(--a-spacing-2) 0;
 
     &__Right {
       text-align: right;
@@ -22,7 +24,7 @@
   }
 
   &Cell {
-    padding: var(--a-spacing-2) 0;
+    padding: 0 0 var(--a-spacing-2);
 
     &__Right {
       text-align: right;
@@ -30,6 +32,15 @@
       padding-left: var(--a-spacing-2);
     }
   }
+}
+
+.mellomtittel {
+  padding-top: var(--a-spacing-4);
+  font-weight: var(--a-font-weight-bold);
+}
+
+.utbetaling {
+  font-size: var(--a-font-size-medium);
 }
 
 .paragraph {
