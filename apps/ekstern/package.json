@@ -38,7 +38,7 @@
     "react-redux": "^8.0.5"
   },
   "devDependencies": {
-    "@navikt/nav-dekoratoren-moduler": "^1.9.0",
+    "@navikt/nav-dekoratoren-moduler": "^2.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
