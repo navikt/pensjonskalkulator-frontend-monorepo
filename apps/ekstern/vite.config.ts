@@ -16,16 +16,17 @@ export default defineConfig(({ mode }) => {
       sourcemap: true,
       rollupOptions: {
         output: {
-          manualChunks: (id) => {
-            if (id.includes('node_modules/highcharts')) {
-              return 'highcharts'
-            } else if (
-              id.includes('node_modules/react') ||
-              id.includes('node_modules/redux') ||
-              id.includes('node_modules/@reduxjs')
-            ) {
-              return 'react-redux'
-            }
+          manualChunks: {
+            highcharts: ['highcharts'],
+            ['react-redux']: [
+              'react',
+              'react-dom',
+              'react-redux',
+              'redux',
+              'redux-thunk',
+              '@reduxjs/toolkit',
+              '@reduxjs/toolkit/dist/query',
+            ],
           },
         },
       },
