@@ -1,4 +1,7 @@
-import * as Highcharts from 'highcharts'
+import {
+  AxisLabelsFormatterContextObject,
+  TooltipFormatterContextObject,
+} from 'highcharts'
 import { describe, expect, it } from 'vitest'
 
 import {
@@ -93,21 +96,21 @@ describe('Pensjonssimulering-utils', () => {
     it('returnerer riktig streng når verdien er under 1000', () => {
       const thisIsThat = {
         value: 300,
-      } as Highcharts.AxisLabelsFormatterContextObject
+      } as AxisLabelsFormatterContextObject
       const a = labelFormatter.bind(thisIsThat)
       expect(a()).toBe('300')
     })
     it('returnerer riktig streng når verdien er lik 1000', () => {
       const thisIsThat = {
         value: 1000,
-      } as Highcharts.AxisLabelsFormatterContextObject
+      } as AxisLabelsFormatterContextObject
       const a = labelFormatter.bind(thisIsThat)
       expect(a()).toBe('1000')
     })
     it('returnerer riktig streng når verdien er over 1000', () => {
       const thisIsThat = {
         value: 1000000,
-      } as Highcharts.AxisLabelsFormatterContextObject
+      } as AxisLabelsFormatterContextObject
       const a = labelFormatter.bind(thisIsThat)
       expect(a()).toBe('1000')
     })
@@ -166,7 +169,7 @@ describe('Pensjonssimulering-utils', () => {
         ],
       }
       const tooltipMarkup = tooltipFormatter(
-        context as unknown as Highcharts.TooltipFormatterContextObject,
+        context as unknown as TooltipFormatterContextObject,
         stylesMock
       )
       expect(tooltipMarkup).toContain(`${total} kr`)

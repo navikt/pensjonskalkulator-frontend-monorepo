@@ -1,4 +1,10 @@
-import * as Highcharts from 'highcharts'
+import {
+  AxisLabelsFormatterContextObject,
+  Axis,
+  Point,
+  TooltipFormatterContextObject,
+  Options,
+} from 'highcharts'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
 export const MAX_UTTAKSALDER = 78
@@ -58,19 +64,17 @@ export const generateXAxis = (startAlder: number, endAlder: number) => {
   return alderArray
 }
 
-export function labelFormatter(
-  this: Highcharts.AxisLabelsFormatterContextObject
-) {
+export function labelFormatter(this: AxisLabelsFormatterContextObject) {
   return this.value > 1000
     ? ((this.value as number) / 1000).toString()
     : this.value.toString()
 }
 
-export type ExtendedYAxis = Highcharts.Axis & { height: number; pos: number }
-export type ExtendedPoint = Highcharts.Point & { tooltipPos: number[] }
+export type ExtendedYAxis = Axis & { height: number; pos: number }
+export type ExtendedPoint = Point & { tooltipPos: number[] }
 
 export function tooltipFormatter(
-  context: Highcharts.TooltipFormatterContextObject,
+  context: TooltipFormatterContextObject,
   styles: Partial<typeof globalClassNames>
 ): string {
   const yAxisHeight = (context.points?.[0].series.yAxis as ExtendedYAxis).height
@@ -115,7 +119,7 @@ export const onVisFlereAarClick = () => {
 
 export const getChartOptions = (
   styles: Partial<typeof globalClassNames>
-): Highcharts.Options => {
+): Options => {
   return {
     chart: {
       type: 'column',
@@ -162,7 +166,7 @@ export const getChartOptions = (
       useHTML: true,
       className: styles.tooltip,
       /* c8 ignore next 3 */
-      formatter: function (this: Highcharts.TooltipFormatterContextObject) {
+      formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
       },
       outside: true,

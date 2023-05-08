@@ -17,16 +17,27 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
         class="highcharts-root"
         height="400"
         role="img"
-        style="font-family: \\"Lucida Grande\\", \\"Lucida Sans Unicode\\", Arial, Helvetica, sans-serif; font-size: 12px;"
+        style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
         version="1.1"
         viewBox="0 0 600 400"
         width="600"
         xmlns="http://www.w3.org/2000/svg"
       >
         <desc>
-          Created with Highcharts 10.3.3
+          Created with Highcharts 11.0.0
         </desc>
         <defs>
+          <filter
+            id="drop-shadow"
+          >
+            <fedropshadow
+              dx="1"
+              dy="1"
+              flood-color="#000000"
+              flood-opacity="0.75"
+              stdDeviation="2.5"
+            />
+          </filter>
           <clippath
             id="highcharts-1-"
           >
@@ -53,6 +64,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
         <rect
           class="highcharts-background"
           fill="#ffffff"
+          filter="none"
           height="400"
           rx="0"
           ry="0"
@@ -63,6 +75,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
         <rect
           class="highcharts-plot-background"
           fill="none"
+          filter="none"
           height="NaN"
           width="NaN"
           x="NaN"
@@ -308,7 +321,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             d="M 0 0"
             data-z-index="7"
             fill="none"
-            stroke="#ccd6eb"
+            stroke="#333333"
             stroke-width="1"
           />
         </g>
@@ -319,11 +332,11 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
           <text
             class="highcharts-axis-title"
             data-z-index="7"
-            style="color: rgb(102, 102, 102); fill: #666666;"
+            style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
             text-anchor="end"
             transform="translate(0,0)"
             x="NaN"
-            y="22"
+            y="24"
           >
             Tusen kroner
           </text>
@@ -332,739 +345,76 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             d="M 0 0"
             data-z-index="7"
             fill="none"
-            stroke="#ccd6eb"
+            stroke="#333333"
             stroke-width="0"
           />
         </g>
         <g
           class="highcharts-series-group"
           data-z-index="3"
+          filter="none"
         >
           <g
             class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
             clip-path="url(#highcharts-17-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 0.001)"
-          >
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="#868F9C"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-          </g>
+            transform="translate(NaN,44) scale(1 0.001)"
+          />
           <g
             class="highcharts-markers highcharts-series-0 highcharts-column-series"
             clip-path="none"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 1)"
+            transform="translate(NaN,44) scale(1 1)"
           />
           <g
             class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
             clip-path="url(#highcharts-17-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 0.001)"
-          >
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-purple-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-          </g>
+            transform="translate(NaN,44) scale(1 0.001)"
+          />
           <g
             class="highcharts-markers highcharts-series-1 highcharts-column-series"
             clip-path="none"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 1)"
+            transform="translate(NaN,44) scale(1 1)"
           />
           <g
             class="highcharts-series highcharts-series-2 highcharts-column-series highcharts-tracker"
             clip-path="url(#highcharts-17-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 0.001)"
-          >
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-green-400)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-          </g>
+            transform="translate(NaN,44) scale(1 0.001)"
+          />
           <g
             class="highcharts-markers highcharts-series-2 highcharts-column-series"
             clip-path="none"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 1)"
+            transform="translate(NaN,44) scale(1 1)"
           />
           <g
             class="highcharts-series highcharts-series-3 highcharts-column-series highcharts-tracker"
             clip-path="url(#highcharts-17-)"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 0.001)"
-          >
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-            <rect
-              class="highcharts-point"
-              fill="var(--a-deepblue-500)"
-              height="NaN"
-              opacity="1"
-              stroke="#ffffff"
-              stroke-width="1"
-              width="NaN"
-              x="NaN"
-              y="NaN"
-            />
-          </g>
+            transform="translate(NaN,44) scale(1 0.001)"
+          />
           <g
             class="highcharts-markers highcharts-series-3 highcharts-column-series"
             clip-path="none"
             data-z-index="0.1"
             opacity="1"
-            transform="translate(NaN,42) scale(1 1)"
+            transform="translate(NaN,44) scale(1 1)"
           />
         </g>
         <text
           class="highcharts-title"
           data-z-index="4"
-          style="color: rgb(51, 51, 51); font-size: 20px; font-family: var(--a-font-family); font-weight: bold; fill: #333333;"
+          style="color: rgb(51, 51, 51); font-size: 20px; font-weight: bold; font-family: var(--a-font-family); fill: #333333;"
           text-anchor="start"
           x="0"
           y="20"
@@ -1074,7 +424,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
         <text
           class="highcharts-subtitle"
           data-z-index="4"
-          style="color: rgb(102, 102, 102); fill: #666666;"
+          style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
           text-anchor="middle"
           x="288"
           y="0"
@@ -1082,10 +432,10 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
         <text
           class="highcharts-caption"
           data-z-index="4"
-          style="color: rgb(102, 102, 102); fill: #666666;"
+          style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
           text-anchor="start"
           x="0"
-          y="397"
+          y="387"
         />
         <g
           class="highcharts-legend highcharts-no-tooltip"
@@ -1095,7 +445,8 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
           <rect
             class="highcharts-legend-box"
             fill="none"
-            height="17"
+            filter="none"
+            height="19"
             rx="0"
             ry="0"
             stroke="#999999"
@@ -1122,7 +473,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   ry="7"
                   width="14"
                   x="1"
-                  y="4"
+                  y="6"
                 />
               </g>
               <g
@@ -1139,7 +490,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   ry="7"
                   width="14"
                   x="1"
-                  y="4"
+                  y="6"
                 />
               </g>
               <g
@@ -1156,7 +507,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   ry="7"
                   width="14"
                   x="1"
-                  y="4"
+                  y="6"
                 />
               </g>
               <g
@@ -1173,7 +524,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                   ry="7"
                   width="14"
                   x="1"
-                  y="4"
+                  y="6"
                 />
               </g>
             </g>
@@ -1184,7 +535,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
           data-z-index="7"
         >
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1192,7 +543,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             64
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1200,7 +551,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             65
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1208,7 +559,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             66
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1216,7 +567,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             67
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1224,7 +575,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             68
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1232,7 +583,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             69
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1240,7 +591,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             70
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1248,7 +599,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             71
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1256,7 +607,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             72
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1264,7 +615,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             73
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1272,7 +623,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             74
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1280,7 +631,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             75
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1288,7 +639,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             76
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1296,7 +647,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             77
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="middle"
             transform="translate(0,0)"
             x="0"
@@ -1309,7 +660,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
           data-z-index="7"
         >
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="end"
             transform="translate(0,0)"
             x="0"
@@ -1317,7 +668,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             0
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="end"
             transform="translate(0,0)"
             x="0"
@@ -1325,7 +676,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             200
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="end"
             transform="translate(0,0)"
             x="0"
@@ -1333,7 +684,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             400
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="end"
             transform="translate(0,0)"
             x="0"
@@ -1341,7 +692,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             600
           </text>
           <text
-            style="color: rgb(102, 102, 102); cursor: default; font-size: 11px; fill: #666666;"
+            style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
             text-anchor="end"
             transform="translate(0,0)"
             x="0"
@@ -1366,7 +717,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             >
               <span
                 data-z-index="2"
-                style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; font-weight: regular; text-overflow: ellipsis; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 3px; fill: #000000;"
+                style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; fill: #000000;"
               >
                 Pensjonsgivende inntekt
               </span>
@@ -1377,7 +728,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             >
               <span
                 data-z-index="2"
-                style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; font-weight: regular; text-overflow: ellipsis; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 3px; fill: #000000;"
+                style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; fill: #000000;"
               >
                 Avtalefestet pensjon (AFP)
               </span>
@@ -1388,7 +739,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             >
               <span
                 data-z-index="2"
-                style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; font-weight: regular; text-overflow: ellipsis; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 3px; fill: #000000;"
+                style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; fill: #000000;"
               >
                 Tjenestepensjon
               </span>
@@ -1399,7 +750,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             >
               <span
                 data-z-index="2"
-                style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; font-weight: regular; text-overflow: ellipsis; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 3px; fill: #000000;"
+                style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; fill: #000000;"
               >
                 Folketrygden (NAV)
               </span>

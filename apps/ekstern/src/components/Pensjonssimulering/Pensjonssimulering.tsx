@@ -2,12 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { ChevronRightCircle } from '@navikt/ds-icons'
 import { Button } from '@navikt/ds-react'
-import * as Highcharts from 'highcharts'
+import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-
-/* eslint-disable @typescript-eslint/ban-ts-comment, import/order */
-/* @ts-ignore */
-import HC_rounded from '../../utils/highcharts-rounded-corners'
 
 import {
   COLUMN_WIDTH,
@@ -21,9 +17,8 @@ import {
   simulateDataArray,
   simulateTjenestepensjon,
 } from './utils'
-import styles from './Pensjonssimulering.module.scss'
 
-HC_rounded(Highcharts)
+import styles from './Pensjonssimulering.module.scss'
 
 type PensjonssimuleringProps = {
   uttaksalder: number
@@ -53,11 +48,8 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
           pointWidth: COLUMN_WIDTH,
           name: 'Pensjonsgivende inntekt',
           color: '#868F9C',
-          // TODO sørge for at border-radius alltid settes på den øverste kolonnen
-          borderRadiusTopLeft: '15%',
-          borderRadiusTopRight: '15%',
           data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length),
-        } as unknown as Highcharts.SeriesOptionsType,
+        },
         {
           type: 'column',
           pointWidth: COLUMN_WIDTH,
