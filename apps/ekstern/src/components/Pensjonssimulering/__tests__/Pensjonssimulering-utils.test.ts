@@ -139,8 +139,8 @@ describe('Pensjonssimulering-utils', () => {
       const nameSerie2 = 'name of my serie 2'
       const colorSerie1 = 'lime'
       const colorSerie2 = 'salmon'
-      const pointSumSerie1 = 200
-      const pointSumSerie2 = 350
+      const pointSumSerie1 = 200000
+      const pointSumSerie2 = 350000
       const beregnetLinePosition = 'top: 265px; left: 162.5px; height: 100px'
       const beregnetLinePositionAfterScroll =
         'top: 265px; left: 112.5px; height: 100px'
@@ -178,14 +178,14 @@ describe('Pensjonssimulering-utils', () => {
         context as unknown as TooltipFormatterContextObject,
         stylesMock
       )
-      expect(tooltipMarkup).toContain(`${total} kr`)
+      expect(tooltipMarkup).toContain(`800 000 kr`)
       expect(tooltipMarkup).toContain(`Utbetaling det året du er ${alder} år`)
       expect(tooltipMarkup).toContain(nameSerie1)
       expect(tooltipMarkup).toContain(nameSerie2)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie1}`)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie2}`)
-      expect(tooltipMarkup).toContain(`${pointSumSerie1} kr`)
-      expect(tooltipMarkup).toContain(`${pointSumSerie2} kr`)
+      expect(tooltipMarkup).toContain(`200 000 kr`)
+      expect(tooltipMarkup).toContain(`350 000 kr`)
       expect(tooltipMarkup).toContain(beregnetLinePosition)
       expect(tooltipMarkup).toMatchSnapshot()
 

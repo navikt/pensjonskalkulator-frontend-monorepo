@@ -4,6 +4,11 @@ import { formatAsDecimal } from '../currency'
 
 describe('currency-utils', () => {
   describe('formatAsDecimal', () => {
+    it('returnerer tom string når amount er null eller undefined', () => {
+      expect(formatAsDecimal(null)).toBe('')
+      expect(formatAsDecimal(undefined)).toBe('')
+    })
+
     it('returnerer string uten komma når amount er 0', () => {
       expect(formatAsDecimal(0)).toBe('0')
     })

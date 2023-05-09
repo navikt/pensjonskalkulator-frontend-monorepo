@@ -19,6 +19,7 @@
   &Table {
     position: relative;
     width: 100%;
+    table-layout: fixed;
     background-color: var(--a-white);
     border-collapse: separate;
     border-spacing: 0 var(--a-spacing-1);
@@ -57,6 +58,7 @@
         display: inline-block;
         vertical-align: middle;
         margin-right: var(--a-spacing-1);
+        margin-top: -2px;
       }
     }
   }

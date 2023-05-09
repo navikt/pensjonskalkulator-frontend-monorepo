@@ -6,6 +6,8 @@ import {
   Options,
 } from 'highcharts'
 
+import { formatAsDecimal } from '@/utils/currency'
+
 import globalClassNames from './Pensjonssimulering.module.scss'
 export const MAX_UTTAKSALDER = 78
 export const COLUMN_WIDTH = 25
@@ -96,7 +98,9 @@ export function tooltipFormatter(
   const headerFormat =
     `<table class="${styles.tooltipTable}"><thead><tr>` +
     `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__left}">Utbetaling det året du er ${context.x} år</th>` +
-    `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__right}">${context.points?.[0].total} kr</th>` +
+    `<th class="${styles.tooltipTableHeaderCell} ${
+      styles.tooltipTableHeaderCell__right
+    }">${formatAsDecimal(context.points?.[0].total)} kr</th>` +
     `</tr></thead><tbody>`
 
   let pointsFormat = ''
@@ -104,7 +108,9 @@ export function tooltipFormatter(
     pointsFormat +=
       `<tr>` +
       `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${point.series.color}"></span>${point.series.name}</td>` +
-      `<td class="${styles.tooltipTableCell} ${styles.tooltipTableCell__right}">${point.y} kr</td>` +
+      `<td class="${styles.tooltipTableCell} ${
+        styles.tooltipTableCell__right
+      }">${formatAsDecimal(point.y)} kr</td>` +
       `</tr>`
   })
 

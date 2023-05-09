@@ -28,6 +28,7 @@ module.exports = {
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'no-irregular-whitespace': 'warn',
     'import/order': [
       'warn',
       {
