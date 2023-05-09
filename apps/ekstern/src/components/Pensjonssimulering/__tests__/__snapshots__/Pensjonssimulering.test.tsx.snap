@@ -88,7 +88,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
           height="385"
           stroke="#cccccc"
           stroke-width="0"
-          width="574.9943249961394"
+          width="575"
           x="0"
           y="0"
         />
