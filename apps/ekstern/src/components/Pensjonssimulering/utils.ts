@@ -83,12 +83,14 @@ export function tooltipFormatter(
     TOOLTIP_YPOS
   const columnHeight =
     yAxisHeight - (context.points?.[0].point as ExtendedPoint).tooltipPos[1]
+  const scrollPosition =
+    document.querySelector('.highcharts-scrolling')?.scrollLeft ?? 0
 
   const leftPosition = context.points?.[0].point?.plotX ?? 0
   const tooltipConnectingLine = `<div class="${
     styles.tooltipLine
   }" style="top: ${lineYpos}px; left: ${
-    leftPosition + 21 + COLUMN_WIDTH / 2
+    leftPosition + 21 - scrollPosition + COLUMN_WIDTH / 2
   }px; height: ${yAxisHeight - columnHeight}px"></div>`
 
   const headerFormat =

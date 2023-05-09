@@ -19,6 +19,10 @@ import {
 import globalClassNames from './Pensjonssimulering.module.scss'
 
 describe('Pensjonssimulering-utils', () => {
+  afterEach(() => {
+    document.getElementsByTagName('html')[0].innerHTML = ''
+  })
+
   describe('simulateDataArray', () => {
     it('returnerer riktig array ', () => {
       expect(simulateDataArray([], 10)).toHaveLength(0)
@@ -138,6 +142,8 @@ describe('Pensjonssimulering-utils', () => {
       const pointSumSerie1 = 200
       const pointSumSerie2 = 350
       const beregnetLinePosition = 'top: 265px; left: 162.5px; height: 100px'
+      const beregnetLinePositionAfterScroll =
+        'top: 265px; left: 112.5px; height: 100px'
 
       const point = {
         y: pointSumSerie1,
@@ -182,6 +188,20 @@ describe('Pensjonssimulering-utils', () => {
       expect(tooltipMarkup).toContain(`${pointSumSerie2} kr`)
       expect(tooltipMarkup).toContain(beregnetLinePosition)
       expect(tooltipMarkup).toMatchSnapshot()
+
+      const div = document.createElement('div')
+      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
+      document.body.appendChild(div)
+
+      onVisFlereAarClick()
+
+      const tooltipMarkupAfterScroll = tooltipFormatter(
+        context as unknown as TooltipFormatterContextObject,
+        stylesMock
+      )
+      expect(tooltipMarkupAfterScroll).toContain(
+        beregnetLinePositionAfterScroll
+      )
     })
   })
   describe('getChartOptions', () => {
@@ -207,7 +227,6 @@ describe('Pensjonssimulering-utils', () => {
         (document.querySelector('.highcharts-scrolling') as HTMLElement)
           .scrollLeft
       ).toBe(100)
-      div.remove()
     })
   })
 })
