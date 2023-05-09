@@ -27,7 +27,7 @@
 
     &HeaderCell {
       border-bottom: 1px solid var(--a-gray-600);
-      font-size: var(--a-font-size-heading-xsmall);
+      font-size: var(var(--a-font-size-medium));
 
       &__left {
         font-weight: var(--a-font-weight-regular);

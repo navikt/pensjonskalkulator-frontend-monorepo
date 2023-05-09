@@ -24,11 +24,11 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
         xmlns="http://www.w3.org/2000/svg"
       >
         <desc>
-          Created with Highcharts 11.0.0
+          Created with Highcharts 11.0.1
         </desc>
         <defs>
           <filter
-            id="drop-shadow"
+            id="highcharts-drop-shadow-0"
           >
             <fedropshadow
               dx="1"
@@ -88,7 +88,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
           height="385"
           stroke="#cccccc"
           stroke-width="0"
-          width="575"
+          width="574.9943249961394"
           x="0"
           y="0"
         />
