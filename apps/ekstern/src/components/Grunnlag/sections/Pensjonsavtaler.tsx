@@ -79,7 +79,7 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
             )}
           </tbody>
         </table>
-        <BodyLong className={styles.paragraph}>
+        <BodyLong className={styles.paragraph} size="small">
           Alle avtaler i privat sektor er hentet fra{' '}
           <Link href="https://norskpensjon.no/">Norsk Pensjon</Link>. Du kan ha
           andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell
