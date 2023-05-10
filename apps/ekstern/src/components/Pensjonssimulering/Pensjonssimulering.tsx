@@ -93,6 +93,9 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   return (
     <>
       <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+      {
+        // TODO logikk for å skjule Vis flere år
+      }
       <Button
         className={styles.visFlereAar}
         icon={<ChevronRightCircle aria-hidden />}

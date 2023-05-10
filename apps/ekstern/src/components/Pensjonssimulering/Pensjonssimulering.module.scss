@@ -6,7 +6,7 @@
 }
 
 .tooltip {
-  right: 0;
+  right: 0.375rem;
   background-color: var(--a-white);
   border-bottom: 3px solid var(--a-gray-600);
   z-index: 3;
@@ -80,8 +80,8 @@
 
 :global {
   .highcharts-tooltip-container {
-    left: 18px !important;
-    right: 18px;
+    left: 1.125rem !important;
+    right: 1.125rem;
 
     @media (min-width: $a-breakpoint-xl) {
       margin-left: auto;
