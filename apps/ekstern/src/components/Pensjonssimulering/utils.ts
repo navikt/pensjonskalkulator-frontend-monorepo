@@ -97,7 +97,7 @@ export function tooltipFormatter(
 
   const headerFormat =
     `<table class="${styles.tooltipTable}"><thead><tr>` +
-    `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__left}">Utbetaling det året du er ${context.x} år</th>` +
+    `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__left}">Pensjon og inntekt det året du er ${context.x} år</th>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__right
     }">${formatAsDecimal(context.points?.[0].total)} kr</th>` +
@@ -136,7 +136,7 @@ export const getChartOptions = (
       spacingRight: 25,
     },
     title: {
-      text: `Årlig pensjon`,
+      text: `Beregning`,
       align: 'left',
       margin: 40,
       y: 20,

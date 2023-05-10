@@ -179,7 +179,9 @@ describe('Pensjonssimulering-utils', () => {
         stylesMock
       )
       expect(tooltipMarkup).toContain(`800 000 kr`)
-      expect(tooltipMarkup).toContain(`Utbetaling det året du er ${alder} år`)
+      expect(tooltipMarkup).toContain(
+        `Pensjon og inntekt det året du er ${alder} år`
+      )
       expect(tooltipMarkup).toContain(nameSerie1)
       expect(tooltipMarkup).toContain(nameSerie2)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie1}`)

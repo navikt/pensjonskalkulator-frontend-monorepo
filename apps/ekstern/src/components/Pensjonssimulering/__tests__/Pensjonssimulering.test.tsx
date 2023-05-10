@@ -11,7 +11,7 @@ describe('Pensjonssimulering', () => {
       <Pensjonssimulering uttaksalder={65} />
     )
     await waitFor(() => {
-      expect(screen.getByText('Årlig pensjon')).toBeInTheDocument()
+      expect(screen.getByText('Beregning')).toBeInTheDocument()
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)

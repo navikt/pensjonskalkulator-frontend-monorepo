@@ -31,9 +31,16 @@
       font-size: var(var(--a-font-size-medium));
 
       &__left {
+        width: 70%;
+        white-space: break-spaces;
         font-weight: var(--a-font-weight-regular);
         text-align: left;
-        padding-right: var(--a-spacing-12);
+        padding-right: var(--a-spacing-3);
+
+        @media (min-width: 370px) {
+          width: auto;
+          white-space: unset;
+        }
       }
 
       &__right {
