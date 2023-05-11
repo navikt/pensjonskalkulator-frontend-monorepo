@@ -4,6 +4,10 @@
   gap: var(--a-spacing-4);
 }
 
+.ingress {
+  max-width: $paragraph-max-width;
+}
+
 .loader {
   margin: var(--a-spacing-6) auto;
 }

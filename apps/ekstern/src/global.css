@@ -1,8 +1,0 @@
-:root {
-  --pensjonskalkulator-max-text-width: 75ch;
-  --max-content-width-desktop: 60rem;
-}
-
-p {
-  max-width: var(--pensjonskalkulator-max-text-width);
-}

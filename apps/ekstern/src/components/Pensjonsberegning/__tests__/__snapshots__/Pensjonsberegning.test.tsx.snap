@@ -48,7 +48,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
     data-testid="tidligst-mulig-uttak"
   >
     <p
-      class="navds-ingress"
+      class="_ingress_01a375 navds-ingress"
     >
       Du kan tidligst ta ut alderspensjon når du er 62 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
     </p>
@@ -215,7 +215,7 @@ exports[`Pensjonsberegning > viser riktig label og antall knapper når brukeren 
     data-testid="tidligst-mulig-uttak"
   >
     <p
-      class="navds-ingress"
+      class="_ingress_01a375 navds-ingress"
     >
       Du kan tidligst ta ut alderspensjon når du er 62 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
     </p>

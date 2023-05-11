@@ -1,14 +1,11 @@
 @import '../variables';
 
-/* TODO fikse problem med sass + composes (css-loader issue) */
 .whitesection {
   background-color: var(--a-white);
   width: 100%;
   animation: 0.2s fade-in;
-}
 
-@media (prefers-reduced-motion) {
-  .whitesection {
+  @media (prefers-reduced-motion) {
     animation: none;
   }
 }

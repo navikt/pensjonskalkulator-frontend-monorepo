@@ -4,13 +4,15 @@ import { BodyLong, Heading, Link } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
 
+import styles from './Forbehold.module.scss'
+
 export function Forbehold() {
   return (
     <Card>
       <Heading level="3" size="medium">
         Forbehold
       </Heading>
-      <BodyLong>
+      <BodyLong className={styles.forbehold}>
         Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til
         de opplysningene du har oppgitt selv, på tidspunktet for beregningen.
         Dette er derfor en foreløpig beregning av hva du kan forvente deg i

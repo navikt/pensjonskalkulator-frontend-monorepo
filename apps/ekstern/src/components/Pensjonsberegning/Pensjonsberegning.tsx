@@ -68,7 +68,7 @@ export function Pensjonsberegning() {
   return (
     <>
       <Card data-testid="tidligst-mulig-uttak">
-        <Ingress>
+        <Ingress className={styles.ingress}>
           Du kan tidligst ta ut alderspensjon når du er {formatertUttaksalder}.
           Hvis du går av senere, får du høyere pensjon i året.
         </Ingress>

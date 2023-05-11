@@ -7,7 +7,6 @@ import { App } from './components/App'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { store } from './state/store'
 
-import './global.css'
 import './scss/designsystem.scss'
 
 if (process.env.NODE_ENV === 'development') {

@@ -4,6 +4,7 @@ import eslint from 'vite-plugin-eslint'
 import stylelint from 'vite-plugin-stylelint'
 import sassDts from 'vite-plugin-sass-dts'
 import { visualizer } from 'rollup-plugin-visualizer'
+import CustomPostCSSLoader from './src/utils/CustomPostCSSLoader'
 import path from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
@@ -61,6 +62,7 @@ export default defineConfig(({ mode }) => {
     },
     css: {
       modules: {
+        Loader: CustomPostCSSLoader,
         generateScopedName: (name, fileName, css) => {
           const pathArray = fileName.split('/')
           const fileNameWithExtension = pathArray[pathArray.length - 1]
