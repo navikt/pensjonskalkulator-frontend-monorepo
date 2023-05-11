@@ -63,6 +63,7 @@
     "lint-staged": "^13.2.0",
     "msw": "^1.2.0",
     "node-sass": "^8.0.0",
+    "postcss": "^8.4.23",
     "postcss-modules-extract-imports": "^3.0.0",
     "postcss-modules-local-by-default": "^4.0.0",
     "postcss-modules-scope": "^3.0.0",
