@@ -399,30 +399,6 @@ exports[`Pensjonsberegning > viser riktig label og antall knapper når brukeren 
           </span>
         </button>
       </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            76 år
-          </span>
-        </button>
-      </li>
-      <li>
-        <button
-          aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
-        >
-          <span
-            class="navds-chips__chip-text"
-          >
-            77 år
-          </span>
-        </button>
-      </li>
     </ul>
     <button
       class="_visFlereAldere_01a375 navds-button navds-button--tertiary navds-button--xsmall"

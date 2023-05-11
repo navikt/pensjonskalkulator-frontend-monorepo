@@ -35,7 +35,7 @@ describe('Pensjonsberegning', () => {
     fireEvent.click(screen.getByText('Vis flere aldere'))
 
     await waitFor(() => {
-      expect(screen.getAllByRole('button')).toHaveLength(17)
+      expect(screen.getAllByRole('button')).toHaveLength(15)
       expect(screen.getByText('Vis færre aldere')).toBeInTheDocument()
     })
 

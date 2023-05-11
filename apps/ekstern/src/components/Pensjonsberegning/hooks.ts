@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { generateAlderArray, formatUttaksalder } from './utils'
 
-export const useAlderChips = (data?: Uttaksalder, maksalder = 77): string[] =>
+export const useAlderChips = (data?: Uttaksalder, maksalder = 75): string[] =>
   useMemo(
     () =>
       data?.aar
