@@ -63,7 +63,7 @@ export default defineConfig(({ mode }) => {
     css: {
       modules: {
         Loader: CustomPostCSSLoader,
-        generateScopedName: (name, fileName, css) => {
+        generateScopedName: (name, fileName) => {
           const pathArray = fileName.split('/')
           const fileNameWithExtension = pathArray[pathArray.length - 1]
           const fileNameArray = fileNameWithExtension.split('.')

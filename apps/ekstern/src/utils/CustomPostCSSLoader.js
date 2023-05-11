@@ -1,4 +1,3 @@
-import fs from 'fs'
 import path from 'path'
 
 import sass from 'node-sass'
@@ -25,8 +24,8 @@ class Parser {
     this.trace = trace
   }
 
-  plugin(css, result) {
-    return Promise.all(this.fetchAllImports(css)).then((_) =>
+  plugin(css) {
+    return Promise.all(this.fetchAllImports(css)).then(() =>
       this.extractExports(css)
     )
   }
