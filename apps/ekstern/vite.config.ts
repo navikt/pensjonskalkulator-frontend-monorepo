@@ -4,7 +4,7 @@ import eslint from 'vite-plugin-eslint'
 import stylelint from 'vite-plugin-stylelint'
 import sassDts from 'vite-plugin-sass-dts'
 import { visualizer } from 'rollup-plugin-visualizer'
-import CustomPostCSSLoader from './src/utils/CustomPostCSSLoader'
+import CustomPostCSSLoader from './scripts/CustomPostCSSLoader'
 import path from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
