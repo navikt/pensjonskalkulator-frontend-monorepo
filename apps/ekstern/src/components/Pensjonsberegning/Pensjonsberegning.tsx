@@ -80,23 +80,22 @@ export function Pensjonsberegning() {
         <Chips
           className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >
-          {alderChips.length > 0 &&
-            alderChips
-              .slice(
-                0,
-                isFlereAldereOpen
-                  ? alderChips.length
-                  : DEFAULT_ANTALL_VISIBLE_ALDERCHIPS
-              )
-              .map((alderChip) => (
-                <Chips.Toggle
-                  selected={valgtUttaksalder === alderChip}
-                  key={alderChip}
-                  onClick={() => setValgtUttaksalder(alderChip)}
-                >
-                  {alderChip}
-                </Chips.Toggle>
-              ))}
+          {alderChips
+            .slice(
+              0,
+              isFlereAldereOpen
+                ? alderChips.length
+                : DEFAULT_ANTALL_VISIBLE_ALDERCHIPS
+            )
+            .map((alderChip) => (
+              <Chips.Toggle
+                selected={valgtUttaksalder === alderChip}
+                key={alderChip}
+                onClick={() => setValgtUttaksalder(alderChip)}
+              >
+                {alderChip}
+              </Chips.Toggle>
+            ))}
         </Chips>
         <Button
           className={styles.visFlereAldere}
