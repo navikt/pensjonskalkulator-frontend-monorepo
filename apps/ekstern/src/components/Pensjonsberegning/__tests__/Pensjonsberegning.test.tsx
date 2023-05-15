@@ -92,7 +92,7 @@ describe('Pensjonsberegning', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
-      expect(screen.getByText('Vis tabell')).toBeVisible()
+
       vi.useRealTimers()
     })
   })

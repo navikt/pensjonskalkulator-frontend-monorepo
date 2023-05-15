@@ -8,6 +8,5 @@ declare const classNames: typeof globalClassNames & {
   readonly 'navds-chips--icon-left': 'navds-chips--icon-left'
   readonly 'navds-chips__toggle-icon': 'navds-chips__toggle-icon'
   readonly visFlereAldere: 'visFlereAldere'
-  readonly visTabell: 'visTabell'
 }
 export = classNames

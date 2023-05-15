@@ -8,7 +8,6 @@ import {
   Heading,
   Ingress,
   Loader,
-  ReadMore,
 } from '@navikt/ds-react'
 import clsx from 'clsx'
 
@@ -121,19 +120,7 @@ export function Pensjonsberegning() {
         </Button>
 
         {valgtUttaksalder && (
-          <>
-            <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
-            <ReadMore
-              header={'Vis tabell'}
-              className={styles.visTabell}
-              // icon={<ChevronDownIcon aria-hidden />}
-              // iconPosition="left"
-              // size={'medium'}
-              // variant="tertiary"
-            >
-              <p>{'//TODO'}</p>
-            </ReadMore>
-          </>
+          <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
         )}
       </Card>
 

@@ -1,8 +1,16 @@
 @import '../../scss/variables';
 
 .visFlereAar {
-  margin-top: -1rem;
+  margin-top: -var(--a-spacing-3);
   margin-left: auto;
+}
+
+.visTabell {
+  width: 100%;
+
+  button {
+    margin: 0 auto;
+  }
 }
 
 .tooltip {

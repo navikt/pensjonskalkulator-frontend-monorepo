@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import { ChevronRightCircle } from '@navikt/ds-icons'
-import { Button } from '@navikt/ds-react'
+import { Button, ReadMore } from '@navikt/ds-react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
+
+import { TabellVisning } from '@/components/TabellVisning'
 
 import {
   COLUMN_WIDTH,
@@ -28,7 +30,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   const [chartOptions, setChartOptions] = useState<Highcharts.Options>(
     getChartOptions(styles)
   )
-
+  const [isVisTabellOpen, setVisTabellOpen] = useState<boolean>(false)
   useEffect(() => {
     const aarArray = generateXAxis(uttaksalder, MAX_UTTAKSALDER)
 
@@ -106,6 +108,16 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       >
         Vis flere år
       </Button>
+      <ReadMore
+        header={isVisTabellOpen ? 'Lukk tabell' : 'Vis tabell'}
+        className={styles.visTabell}
+        open={isVisTabellOpen}
+        onClick={() => {
+          setVisTabellOpen(!isVisTabellOpen)
+        }}
+      >
+        <TabellVisning data={[]} />
+      </ReadMore>
     </>
   )
 }
