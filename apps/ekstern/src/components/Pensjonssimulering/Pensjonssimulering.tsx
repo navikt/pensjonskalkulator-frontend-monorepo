@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { ChevronRightCircle } from '@navikt/ds-icons'
 import { Button, ReadMore } from '@navikt/ds-react'
-import Highcharts from 'highcharts'
+import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 import { TabellVisning } from '@/components/TabellVisning'
@@ -36,6 +36,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
 
     setChartOptions({
       chart: {
+        type: 'column',
         scrollablePlotArea: {
           minWidth: aarArray.length * COLUMN_WIDTH * 1.6,
           scrollPositionX: 0,
@@ -116,7 +117,10 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
           setVisTabellOpen(!isVisTabellOpen)
         }}
       >
-        <TabellVisning data={[]} />
+        <TabellVisning
+          series={chartOptions.series as SeriesColumnOptions[]}
+          aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
+        />
       </ReadMore>
     </>
   )

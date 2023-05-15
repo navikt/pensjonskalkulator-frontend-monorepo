@@ -1,0 +1,254 @@
+// Vitest Snapshot v1
+
+exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med riktig struktur og detaljer når begge arrayeme haer data 1`] = `
+[
+  {
+    "alder": "62 år",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 100000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 150000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 180000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 200000,
+      },
+    ],
+    "sum": 630000,
+  },
+  {
+    "alder": "63 år",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 175000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 200000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 250000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 350000,
+      },
+    ],
+    "sum": 975000,
+  },
+  {
+    "alder": "64 år",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 220000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 350000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 380000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 400000,
+      },
+    ],
+    "sum": 1350000,
+  },
+  {
+    "alder": "65 år",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 220000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 350000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 380000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 400000,
+      },
+    ],
+    "sum": 1350000,
+  },
+  {
+    "alder": "66 år",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 220000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 350000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 380000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 400000,
+      },
+    ],
+    "sum": 1350000,
+  },
+  {
+    "alder": "67 år",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 220000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 350000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 380000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 400000,
+      },
+    ],
+    "sum": 1350000,
+  },
+  {
+    "alder": "68 år",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 220000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 350000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 380000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 400000,
+      },
+    ],
+    "sum": 1350000,
+  },
+  {
+    "alder": "68 år",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 220000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 350000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 380000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 400000,
+      },
+    ],
+    "sum": 1350000,
+  },
+  {
+    "alder": "70+ (livsvarig)",
+    "detaljer": [
+      {
+        "name": "Pensjonsgivende inntekt",
+        "subSum": 220000,
+      },
+      {
+        "name": "Avtalefestet pensjon (AFP)",
+        "subSum": 350000,
+      },
+      {
+        "name": "Tjenestepensjon",
+        "subSum": 380000,
+      },
+      {
+        "name": "Folketrygden (NAV)",
+        "subSum": 400000,
+      },
+    ],
+    "sum": 1350000,
+  },
+]
+`;
+
+exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med riktig struktur og headere når alder array ikke er tomt 1`] = `
+[
+  {
+    "alder": "62 år",
+    "detaljer": [],
+    "sum": 0,
+  },
+  {
+    "alder": "63 år",
+    "detaljer": [],
+    "sum": 0,
+  },
+  {
+    "alder": "64 år",
+    "detaljer": [],
+    "sum": 0,
+  },
+  {
+    "alder": "65 år",
+    "detaljer": [],
+    "sum": 0,
+  },
+  {
+    "alder": "66 år",
+    "detaljer": [],
+    "sum": 0,
+  },
+  {
+    "alder": "67 år",
+    "detaljer": [],
+    "sum": 0,
+  },
+  {
+    "alder": "68 år",
+    "detaljer": [],
+    "sum": 0,
+  },
+  {
+    "alder": "68 år",
+    "detaljer": [],
+    "sum": 0,
+  },
+  {
+    "alder": "70+ (livsvarig)",
+    "detaljer": [],
+    "sum": 0,
+  },
+]
+`;

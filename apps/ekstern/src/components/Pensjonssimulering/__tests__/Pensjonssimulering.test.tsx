@@ -25,6 +25,6 @@ describe('Pensjonssimulering', () => {
     expect(screen.getByText('Vis tabell')).toBeVisible()
     fireEvent.click(screen.getByText('Vis tabell'))
     expect(screen.getByText('Lukk tabell')).toBeVisible()
-    expect(screen.getAllByRole('row').length).toBe(1)
+    expect(screen.getAllByRole('row').length).toBe(16)
   })
 })
