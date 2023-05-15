@@ -22,6 +22,10 @@ import { formatUttaksalder } from './utils'
 
 import styles from './Pensjonsberegning.module.scss'
 
+const DEFAULT_ANTALL_VISIBLE_ALDERCHIPS = 9
+const VIS_FLERE__ALDERE_LABEL_CLOSE = 'Vis flere aldere'
+const VIS_FLERE__ALDERE_LABEL_OPEN = 'Vis færre aldere'
+
 export function Pensjonsberegning() {
   const {
     data: tidligstMuligUttak,
@@ -29,9 +33,6 @@ export function Pensjonsberegning() {
     isError,
     isSuccess,
   } = useGetTidligsteMuligeUttaksalderQuery()
-  const DEFAULT_ANTALL_VISIBLE_ALDERCHIPS = 9
-  const VIS_FLERE__ALDERE_LABEL_CLOSE = 'Vis flere aldere'
-  const VIS_FLERE__ALDERE_LABEL_OPEN = 'Vis færre aldere'
 
   const [isFlereAldereOpen, setIsFlereAldereOpen] = useState<boolean>(false)
 
