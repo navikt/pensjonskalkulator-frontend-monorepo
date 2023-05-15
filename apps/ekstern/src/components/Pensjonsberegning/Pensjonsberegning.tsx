@@ -1,14 +1,7 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
-import {
-  Alert,
-  Button,
-  Chips,
-  Heading,
-  Ingress,
-  Loader,
-} from '@navikt/ds-react'
+import { Alert, Button, Chips, Heading, Loader } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
@@ -18,9 +11,9 @@ import { Grunnlag } from '@/components/Grunnlag'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
 import { useAlderChips } from './hooks'
-import { formatUttaksalder } from './utils'
 
 import styles from './Pensjonsberegning.module.scss'
+import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 
 const DEFAULT_ANTALL_VISIBLE_ALDERCHIPS = 9
 const VIS_FLERE__ALDERE_LABEL_CLOSE = 'Vis flere aldere'
@@ -39,9 +32,6 @@ export function Pensjonsberegning() {
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
   const alderChips = useAlderChips(tidligstMuligUttak)
-  const formatertUttaksalder = useMemo(() => {
-    return isSuccess ? formatUttaksalder(tidligstMuligUttak) : null
-  }, [isSuccess, tidligstMuligUttak])
 
   if (isLoading) {
     return (
@@ -67,12 +57,7 @@ export function Pensjonsberegning() {
 
   return (
     <>
-      <Card data-testid="tidligst-mulig-uttak">
-        <Ingress className={styles.ingress}>
-          Du kan tidligst ta ut alderspensjon når du er {formatertUttaksalder}.
-          Hvis du går av senere, får du høyere pensjon i året.
-        </Ingress>
-      </Card>
+      <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
 
       <Card className={styles.section}>
         <Heading size="xsmall" level="2">
