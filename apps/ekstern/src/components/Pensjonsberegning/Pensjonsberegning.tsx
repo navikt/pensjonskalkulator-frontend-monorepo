@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Alert, Button, Chips, Heading, Loader } from '@navikt/ds-react'
@@ -8,12 +8,11 @@ import { Pensjonssimulering } from '../Pensjonssimulering'
 import { Card } from '@/components/Card'
 import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
+import { getFormaterteAldere } from '@/components/Pensjonsberegning/utils'
+import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
-import { useAlderChips } from './hooks'
-
 import styles from './Pensjonsberegning.module.scss'
-import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 
 const DEFAULT_ANTALL_VISIBLE_ALDERCHIPS = 9
 const VIS_FLERE__ALDERE_LABEL_CLOSE = 'Vis flere aldere'
@@ -31,7 +30,10 @@ export function Pensjonsberegning() {
 
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
-  const alderChips = useAlderChips(tidligstMuligUttak)
+  const formaterteAldere = useMemo(
+    () => (tidligstMuligUttak ? getFormaterteAldere(tidligstMuligUttak) : []),
+    [tidligstMuligUttak]
+  )
 
   if (isLoading) {
     return (
@@ -66,11 +68,11 @@ export function Pensjonsberegning() {
         <Chips
           className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >
-          {alderChips
+          {formaterteAldere
             .slice(
               0,
               isFlereAldereOpen
-                ? alderChips.length
+                ? formaterteAldere.length
                 : DEFAULT_ANTALL_VISIBLE_ALDERCHIPS
             )
             .map((alderChip) => (

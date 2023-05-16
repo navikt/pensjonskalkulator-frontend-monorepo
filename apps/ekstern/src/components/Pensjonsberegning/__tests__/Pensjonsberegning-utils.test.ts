@@ -1,33 +1,45 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatUttaksalder, generateAlderArray } from '../utils'
+import { formatUttaksalder, getFormaterteAldere } from '../utils'
 
 describe('Pensjonsberegning-utils', () => {
-  describe('generateAlderArray', () => {
-    const firstString = 'x år og x måneder'
+  describe('getFormaterteAldere', () => {
     it('returnerer array med én verdi når start og slutt er like', () => {
-      const alderArray = generateAlderArray(0, 0, firstString)
-      expect(alderArray).toHaveLength(1)
-      expect(alderArray[0]).toBe(firstString)
+      const start = { aar: 64, maaned: 3 }
+      const end = { ...start }
 
-      const alderArray2 = generateAlderArray(62, 62, firstString)
-      expect(alderArray2).toHaveLength(1)
-      expect(alderArray2[0]).toBe(firstString)
+      const aldere = getFormaterteAldere(start, end)
+      expect(aldere).toHaveLength(1)
+      expect(aldere[0]).toEqual(formatUttaksalder(start, { compact: true }))
     })
 
-    it('returnerer tomt array når alderSlutt er før alderStart', () => {
-      const alderArray = generateAlderArray(67, 62, firstString)
-      expect(alderArray).toHaveLength(0)
+    it('tar kun hensyn til måned når det er snakk om start-alder', () => {
+      const start = { aar: 64, maaned: 3 }
+      const end = { aar: 66, maaned: 5 }
 
-      const alderArray2 = generateAlderArray(0, -2, firstString)
-      expect(alderArray2).toHaveLength(0)
+      const aldere = getFormaterteAldere(start, end)
+      expect(aldere).toHaveLength(3)
+      expect(aldere[0]).toEqual(formatUttaksalder(start, { compact: true }))
+      expect(aldere[2]).not.toEqual(formatUttaksalder(end))
+      expect(aldere[2]).toEqual('66 år')
     })
 
-    it('returnerer array med alle årene fra og med alderStart til og med alderSlutt når alderStart er før alderSlutt', () => {
-      const alderArray = generateAlderArray(62, 75, firstString)
-      expect(alderArray).toHaveLength(14)
-      expect(alderArray).toEqual([
-        firstString,
+    it('returnerer tomt array når sluttalder er lavere enn startalder', () => {
+      const aldere = getFormaterteAldere(
+        { aar: 67, maaned: 0 },
+        { aar: 66, maaned: 0 }
+      )
+      expect(aldere).toHaveLength(0)
+    })
+
+    it('returnerer array med alle årene fra og med startalder til og med sluttalder', () => {
+      const aldere = getFormaterteAldere(
+        { aar: 62, maaned: 2 },
+        { aar: 75, maaned: 0 }
+      )
+      expect(aldere).toHaveLength(14)
+      expect(aldere).toEqual([
+        '62 år og 2 md.',
         '63 år',
         '64 år',
         '65 år',
@@ -43,23 +55,23 @@ describe('Pensjonsberegning-utils', () => {
         '75 år',
       ])
     })
+  })
 
-    describe('formatUttaksalder', () => {
-      it('returnerer riktig streng med år og måned', () => {
-        const streng = formatUttaksalder({ aar: 62, maaned: 3 })
-        expect(streng).toBe('62 år og 3 måneder')
-      })
-      it('returnerer riktig streng med år og uten  måned', () => {
-        const streng = formatUttaksalder({ aar: 62, maaned: 0 })
-        expect(streng).toBe('62 år')
-      })
-      it('returnerer riktig streng med år og kompakt måned', () => {
-        const streng = formatUttaksalder(
-          { aar: 62, maaned: 3 },
-          { compact: true }
-        )
-        expect(streng).toBe('62 år og 3 md.')
-      })
+  describe('formatUttaksalder', () => {
+    it('returnerer riktig streng med år og måned', () => {
+      const streng = formatUttaksalder({ aar: 62, maaned: 3 })
+      expect(streng).toBe('62 år og 3 måneder')
+    })
+    it('returnerer riktig streng med år og uten  måned', () => {
+      const streng = formatUttaksalder({ aar: 62, maaned: 0 })
+      expect(streng).toBe('62 år')
+    })
+    it('returnerer riktig streng med år og kompakt måned', () => {
+      const streng = formatUttaksalder(
+        { aar: 62, maaned: 3 },
+        { compact: true }
+      )
+      expect(streng).toBe('62 år og 3 md.')
     })
   })
 })
