@@ -13,11 +13,6 @@ pensjonsregelverket (ikke kapittel 19).
 
 Prosjektet kjører med Node > v19.6.0 og Npm > v9.4.0
 
-- NGINX
-- Vite
-- React
-- Typescript
-
 ## Komme i gang
 
 ```
@@ -27,8 +22,12 @@ npm run start
 ```
 
 ```
+// Sørger for riktig formatering med eslint, prettier og stylelint
+npm run prebuild
+```
+
+```
 // Bygger applikasjonen og outputer de kompilerte filene under /dist
-// Kjører også eslint, prettier og stylelint som prebuild steg
 npm run build
 ```
 
@@ -49,9 +48,19 @@ npm run test
 // Tester opp mot den bundlede applikasjonen i /dist, så husk å bygge appen før kjøring.
 npm run cy:test
 
-// Kjører tester i nettleseren
+// Kjører tester i nettleseren mot port :5173 - krever at man kjører f.eks npm run preview
 npm run cy:open
 ```
+
+## environment variables
+
+//TODO
+
+## oversikt over portene
+
+- localhost:4173 brukes av vite ved npm run start
+- localhost:8080 brukes av msw ved npm run start og test
+- localhost:5173 brukes av vite ved npm run preview (static serve)
 
 ## Henvendelser
 
