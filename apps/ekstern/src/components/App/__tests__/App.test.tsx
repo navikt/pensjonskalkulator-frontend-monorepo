@@ -11,7 +11,7 @@ describe('App', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-        'Pensjonskalkulator'
+        'forside.title'
       )
       expect(result.asFragment()).toMatchSnapshot()
     })

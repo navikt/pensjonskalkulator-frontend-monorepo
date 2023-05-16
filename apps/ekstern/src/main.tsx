@@ -3,8 +3,10 @@ import { Provider } from 'react-redux'
 
 import ReactDOM from 'react-dom/client'
 
-import { App } from './components/App'
-import { ErrorBoundary } from './components/ErrorBoundary'
+import { App } from '@/components/App'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
+import { LanguageProvider } from '@/components/LanguageProvider'
+
 import { store } from './state/store'
 
 import './scss/designsystem.scss'
@@ -23,10 +25,12 @@ if (!root) {
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <ErrorBoundary>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </ErrorBoundary>
+    <LanguageProvider>
+      <ErrorBoundary>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </ErrorBoundary>
+    </LanguageProvider>
   </React.StrictMode>
 )

@@ -11,7 +11,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
       <h1
         class="navds-heading navds-heading--large navds-typo--spacing"
       >
-        Pensjonskalkulator
+        forside.title
       </h1>
     </div>
     <svg

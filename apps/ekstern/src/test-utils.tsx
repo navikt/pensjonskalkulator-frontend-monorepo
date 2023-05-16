@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react'
+import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
 
 import { PreloadedState, createListenerMiddleware } from '@reduxjs/toolkit'
@@ -11,6 +12,7 @@ import {
   AppStore,
   AppStartListening,
 } from './state/store'
+import { getTranslation_nb } from './translations/nb'
 export interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
   store?: AppStore
@@ -30,8 +32,17 @@ export const swallowErrorsAsync = async (testFn: () => Promise<void>) => {
   console.error = cache
 }
 
+function generateMockedTranslations() {
+  const nbTranslations = getTranslation_nb()
+  const translations: Record<string, string> = {}
+  for (const key in nbTranslations) {
+    translations[key] = key
+  }
+  return translations
+}
+
 // Return an object with the store and all of RTL's query functions
-export function renderWithStore(
+export function renderWithProviders(
   ui: React.ReactElement,
   {
     preloadedState = {},
@@ -40,7 +51,11 @@ export function renderWithStore(
   }: ExtendedRenderOptions = {}
 ) {
   function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
-    return <Provider store={store}>{children}</Provider>
+    return (
+      <IntlProvider locale={'nb'} messages={generateMockedTranslations()}>
+        <Provider store={store}>{children}</Provider>
+      </IntlProvider>
+    )
   }
   const listenerMiddleware = createListenerMiddleware()
   createSamtykkeListener(listenerMiddleware.startListening as AppStartListening)
@@ -51,4 +66,4 @@ export function renderWithStore(
 export * from '@testing-library/react'
 export { default as userEvent } from '@testing-library/user-event'
 
-export { renderWithStore as render }
+export { renderWithProviders as render }

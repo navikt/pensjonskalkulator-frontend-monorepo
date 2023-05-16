@@ -24,6 +24,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@formatjs/intl-datetimeformat": "^6.8.0",
+    "@formatjs/intl-numberformat": "^8.5.0",
     "@navikt/aksel-icons": "^2.8.14",
     "@navikt/ds-css": "^2.9.8",
     "@navikt/ds-icons": "^2.9.8",
@@ -69,6 +71,7 @@
     "postcss-modules-scope": "^3.0.0",
     "postcss-modules-values": "^4.0.0",
     "prettier": "^2.8.4",
+    "react-intl": "^6.4.2",
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.58.0",
     "start-server-and-test": "^2.0.0",

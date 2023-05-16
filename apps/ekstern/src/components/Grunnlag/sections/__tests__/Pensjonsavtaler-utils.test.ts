@@ -37,14 +37,16 @@ const pensjonsavtaler: Pensjonsavtale[] = [
   },
 ]
 
-describe('groupPensjonsavtalerByType', () => {
-  it('grupperer pensjonsavtaler på avtaletype', () => {
-    const grouped = groupPensjonsavtalerByType(pensjonsavtaler)
+describe('groupPensjonsavtaler-utils', () => {
+  describe('groupPensjonsavtalerByType', () => {
+    it('grupperer pensjonsavtaler på avtaletype', () => {
+      const grouped = groupPensjonsavtalerByType(pensjonsavtaler)
 
-    expect(Object.keys(grouped)).toHaveLength(4)
-    expect(grouped['privat tjenestepensjon']).toHaveLength(2)
-    expect(grouped['offentlig tjenestepensjon']).toHaveLength(1)
-    expect(grouped.fripolise).toHaveLength(1)
-    expect(grouped['egen sparing']).toHaveLength(1)
+      expect(Object.keys(grouped)).toHaveLength(4)
+      expect(grouped['privat tjenestepensjon']).toHaveLength(2)
+      expect(grouped['offentlig tjenestepensjon']).toHaveLength(1)
+      expect(grouped.fripolise).toHaveLength(1)
+      expect(grouped['egen sparing']).toHaveLength(1)
+    })
   })
 })
