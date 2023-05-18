@@ -17,7 +17,6 @@ Prosjektet kjører med Node > v19.6.0 og Npm > v9.4.0
 
 ```
 // Bygger applikasjonen og starter vite devserver på port :5173
-// Starter msw på port :8088
 npm run start
 ```
 
@@ -39,7 +38,6 @@ npm run preview
 
 ```
 // Kjører enhetstester og genererer coverage
-// Kjører msw på port :8088
 npm run test
 ```
 
@@ -48,7 +46,7 @@ npm run test
 // Tester opp mot den bundlede applikasjonen i /dist, så husk å bygge appen før kjøring.
 npm run cy:test
 
-// Kjører tester i nettleseren mot port :5173 - krever at man kjører f.eks npm run preview
+// Kjører tester i nettleseren mot port :4173 - krever at man kjører f.eks npm run preview
 npm run cy:open
 ```
 
@@ -58,9 +56,8 @@ npm run cy:open
 
 ## oversikt over portene
 
-- localhost:4173 brukes av vite ved npm run start
-- localhost:8080 brukes av msw ved npm run start og test
-- localhost:5173 brukes av vite ved npm run preview (static serve)
+- localhost:5173 brukes av vite ved npm run start
+- localhost:4173 brukes av vite ved npm run preview (static serve)
 
 ## Henvendelser
 
