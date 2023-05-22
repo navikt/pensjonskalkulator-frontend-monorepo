@@ -52,12 +52,17 @@ npm run cy:open
 
 ## environment variables
 
-//TODO
+VITE_DECORATOR_URL: url'en hvor dekoratøren hostes statisk. brukes i index.html
 
 ## oversikt over portene
 
 - localhost:5173 brukes av vite ved npm run start
 - localhost:4173 brukes av vite ved npm run preview (static serve)
+
+## Systemdokumentasjon og beslutninger
+
+- [Frontend](https://confluence.adeo.no/display/PEN/Pensjonskalkulator+frontend)
+- [Overordnet](#TODO)
 
 ## Henvendelser
 
