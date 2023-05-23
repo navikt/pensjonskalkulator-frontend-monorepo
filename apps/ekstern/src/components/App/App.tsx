@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 
 import { Heading } from '@navikt/ds-react'
 
-import { Pensjonsberegning } from '@/components/Pensjonsberegning'
+import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
 
 import styles from './App.module.scss'
 

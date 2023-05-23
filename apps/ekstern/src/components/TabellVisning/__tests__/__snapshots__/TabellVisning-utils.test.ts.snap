@@ -6,7 +6,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "62 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 100000,
       },
       {
@@ -14,11 +14,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 150000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 180000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 200000,
       },
     ],
@@ -28,7 +28,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "63 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 175000,
       },
       {
@@ -36,11 +36,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 200000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 250000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 350000,
       },
     ],
@@ -50,7 +50,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "64 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 220000,
       },
       {
@@ -58,11 +58,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 380000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 400000,
       },
     ],
@@ -72,7 +72,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "65 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 220000,
       },
       {
@@ -80,11 +80,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 380000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 400000,
       },
     ],
@@ -94,7 +94,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "66 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 220000,
       },
       {
@@ -102,11 +102,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 380000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 400000,
       },
     ],
@@ -116,7 +116,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "67 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 220000,
       },
       {
@@ -124,11 +124,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 380000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 400000,
       },
     ],
@@ -138,7 +138,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "68 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 220000,
       },
       {
@@ -146,11 +146,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 380000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 400000,
       },
     ],
@@ -160,7 +160,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "68 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 220000,
       },
       {
@@ -168,11 +168,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 380000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 400000,
       },
     ],
@@ -182,7 +182,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "70+ (livsvarig)",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "Inntekt (lønn m.m.)",
         "subSum": 220000,
       },
       {
@@ -190,11 +190,11 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Tjenestepensjon",
+        "name": "Pensjonsavtaler (arbeidsgiver)",
         "subSum": 380000,
       },
       {
-        "name": "Folketrygden (NAV)",
+        "name": "Alderspensjon (NAV)",
         "subSum": 400000,
       },
     ],

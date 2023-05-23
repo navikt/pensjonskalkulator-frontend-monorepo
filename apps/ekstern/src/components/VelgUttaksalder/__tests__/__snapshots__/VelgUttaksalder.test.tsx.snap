@@ -1,60 +1,9 @@
 // Vitest Snapshot v1
 
-exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning feiler 1`] = `
+exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere 1`] = `
 <DocumentFragment>
   <div
-    class="navds-alert navds-alert--error navds-alert--medium"
-  >
-    <svg
-      aria-labelledby="title-r6"
-      class="navds-alert__icon"
-      fill="none"
-      focusable="false"
-      height="1em"
-      role="img"
-      viewBox="0 0 24 24"
-      width="1em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <title
-        id="title-r6"
-      >
-        Feil
-      </title>
-      <path
-        clip-rule="evenodd"
-        d="M7.742 2.47a.75.75 0 0 1 .53-.22h7.456a.75.75 0 0 1 .53.22l5.272 5.272c.141.14.22.331.22.53v7.456a.75.75 0 0 1-.22.53l-5.272 5.272a.75.75 0 0 1-.53.22H8.272a.75.75 0 0 1-.53-.22L2.47 16.258a.75.75 0 0 1-.22-.53V8.272a.75.75 0 0 1 .22-.53L7.742 2.47Zm1.288 5.5a.75.75 0 0 0-1.06 1.06L10.94 12l-2.97 2.97a.75.75 0 1 0 1.06 1.06L12 13.06l2.97 2.97a.75.75 0 1 0 1.06-1.06L13.06 12l2.97-2.97a.75.75 0 0 0-1.06-1.06L12 10.94 9.03 7.97Z"
-        fill="currentColor"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="navds-alert__wrapper navds-body-long"
-    >
-      <h2
-        class="navds-heading navds-heading--small navds-typo--spacing"
-      >
-        Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.
-      </h2>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og knapper 1`] = `
-<DocumentFragment>
-  <section
-    class="_section_1aa5c0"
-    data-testid="tidligst-mulig-uttak"
-  >
-    <p
-      class="_ingress_2de285 navds-ingress"
-    >
-      Du kan tidligst ta ut alderspensjon når du er 62 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
-    </p>
-  </section>
-  <section
-    class="_section_1aa5c0 _section_01a375"
+    class="_wrapper_4ca3e3"
   >
     <h2
       class="navds-heading navds-heading--xsmall"
@@ -62,7 +11,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
       Når vil du ta ut alderspensjon?
     </h2>
     <ul
-      class="navds-chips _chipsWrapper_01a375 _chipsWrapper__hasGap_01a375 navds-chips--medium navds-body-short navds-body-short--small"
+      class="navds-chips _chipsWrapper_4ca3e3 _chipsWrapper__hasGap_4ca3e3 navds-chips--medium navds-body-short navds-body-short--small"
     >
       <li>
         <button
@@ -174,7 +123,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
       </li>
     </ul>
     <button
-      class="_visFlereAldere_01a375 navds-button navds-button--tertiary navds-button--xsmall"
+      class="_visFlereAldere_4ca3e3 navds-button navds-button--tertiary navds-button--xsmall"
     >
       <span
         class="navds-button__icon"
@@ -204,24 +153,14 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         Vis flere aldere
       </span>
     </button>
-  </section>
+  </div>
 </DocumentFragment>
 `;
 
-exports[`Pensjonsberegning > viser riktig label og antall knapper når brukeren ønsker å se flere aldere 1`] = `
+exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere 2`] = `
 <DocumentFragment>
-  <section
-    class="_section_1aa5c0"
-    data-testid="tidligst-mulig-uttak"
-  >
-    <p
-      class="_ingress_2de285 navds-ingress"
-    >
-      Du kan tidligst ta ut alderspensjon når du er 62 år og 10 måneder. Hvis du går av senere, får du høyere pensjon i året.
-    </p>
-  </section>
-  <section
-    class="_section_1aa5c0 _section_01a375"
+  <div
+    class="_wrapper_4ca3e3"
   >
     <h2
       class="navds-heading navds-heading--xsmall"
@@ -229,7 +168,7 @@ exports[`Pensjonsberegning > viser riktig label og antall knapper når brukeren 
       Når vil du ta ut alderspensjon?
     </h2>
     <ul
-      class="navds-chips _chipsWrapper_01a375 _chipsWrapper__hasGap_01a375 navds-chips--medium navds-body-short navds-body-short--small"
+      class="navds-chips _chipsWrapper_4ca3e3 _chipsWrapper__hasGap_4ca3e3 navds-chips--medium navds-body-short navds-body-short--small"
     >
       <li>
         <button
@@ -401,7 +340,7 @@ exports[`Pensjonsberegning > viser riktig label og antall knapper når brukeren 
       </li>
     </ul>
     <button
-      class="_visFlereAldere_01a375 navds-button navds-button--tertiary navds-button--xsmall"
+      class="_visFlereAldere_4ca3e3 navds-button navds-button--tertiary navds-button--xsmall"
     >
       <span
         class="navds-button__icon"
@@ -431,6 +370,6 @@ exports[`Pensjonsberegning > viser riktig label og antall knapper når brukeren 
         Vis færre aldere
       </span>
     </button>
-  </section>
+  </div>
 </DocumentFragment>
 `;

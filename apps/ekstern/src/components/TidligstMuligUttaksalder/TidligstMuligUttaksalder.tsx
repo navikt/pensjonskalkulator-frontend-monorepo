@@ -3,7 +3,7 @@ import React from 'react'
 import { Ingress } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
-import { formatUttaksalder } from '@/components/Pensjonsberegning/utils'
+import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 
 import styles from './TidligsMuligUttaksalder.module.scss'
 

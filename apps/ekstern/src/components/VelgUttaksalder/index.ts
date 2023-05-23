@@ -1,0 +1,1 @@
+export { VelgUttaksalder } from './VelgUttaksalder'

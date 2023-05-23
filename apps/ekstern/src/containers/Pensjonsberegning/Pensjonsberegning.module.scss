@@ -1,0 +1,6 @@
+@import '../../scss/variables';
+
+// TODO lage loader som egen omponent med inner-styling
+.loader {
+  margin: var(--a-spacing-6) auto;
+}

@@ -14,8 +14,7 @@ export const COLUMN_WIDTH = 25
 export const TOOLTIP_YPOS = 35
 
 export const PENSJONSGIVENDE_DATA = [
-  650000, 260000, 60000, 70000, 70000, 70000, 70000, 70000, 70000, 70000, 70000,
-  70000, 70000, 70000, 70000, 70000, 70000, 70000,
+  650000, 260000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
 export const AFP_DATA = [
@@ -28,8 +27,22 @@ export const FOLKETRYGDEN_DATA = [
   175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
 ]
 
-export const simulateDataArray = (array: number[], length: number) => {
-  return [...array].splice(0, length)
+// TODO skrive ny test + bør ikke AFP bruke coefficient og?
+export const simulateDataArray = (
+  array: number[],
+  length: number,
+  startAge?: number,
+  coefficient = 0
+) => {
+  if (startAge && startAge < 60) {
+    throw Error("Can't simulate dataArray when startAge is smaller than 60")
+  }
+  const faktor = startAge ? startAge - 60 : 0
+  const dataArray = [...array].map((value, i) => {
+    return i > 1 ? value + faktor * coefficient : value
+  })
+
+  return [...dataArray].splice(0, length)
 }
 
 export const simulateTjenestepensjon = (

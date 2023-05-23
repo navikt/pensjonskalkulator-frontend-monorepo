@@ -30,6 +30,25 @@ describe('Pensjonssimulering-utils', () => {
       expect(simulateDataArray([1, 2, 3], 10)).toHaveLength(3)
       expect(simulateDataArray([1, 2, 3, 4, 5, 6], 2)).toHaveLength(2)
     })
+
+    it('thrower dersom startAge < 60', () => {
+      expect(() => simulateDataArray([], 1, 59)).toThrow()
+    })
+
+    it('returnerer riktig array når man angir en startAge uten coefficient', () => {
+      expect(simulateDataArray([], 10, 62)).toHaveLength(0)
+      expect(simulateDataArray([1, 2, 3], 0, 62)).toHaveLength(0)
+      expect(simulateDataArray([1, 2, 3], 10, 62)).toHaveLength(3)
+    })
+
+    it('returnerer riktig array når man angir en startAge med coefficient', () => {
+      expect(simulateDataArray([], 10, 62, 20_000)).toHaveLength(0)
+      expect(simulateDataArray([1, 2, 3], 0, 62, 20_000)).toMatchSnapshot()
+      expect(simulateDataArray([1, 2, 3], 10, 62, 20_000)).toMatchSnapshot()
+      expect(
+        simulateDataArray([1, 2, 3, 4, 5, 6], 2, 62, 20_000)
+      ).toMatchSnapshot()
+    })
   })
 
   describe('simulateTjenestepensjon', () => {

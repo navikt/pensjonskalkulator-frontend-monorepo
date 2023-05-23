@@ -719,7 +719,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                 data-z-index="2"
                 style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; fill: #000000;"
               >
-                Pensjonsgivende inntekt
+                Inntekt (lønn m.m.)
               </span>
             </div>
             <div
@@ -741,7 +741,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                 data-z-index="2"
                 style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; fill: #000000;"
               >
-                Tjenestepensjon
+                Pensjonsavtaler (arbeidsgiver)
               </span>
             </div>
             <div
@@ -752,7 +752,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                 data-z-index="2"
                 style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; fill: #000000;"
               >
-                Folketrygden (NAV)
+                Alderspensjon (NAV)
               </span>
             </div>
           </div>
@@ -931,7 +931,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -947,7 +947,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       0
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -955,7 +955,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       0
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1038,7 +1038,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1054,7 +1054,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       20 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1062,7 +1062,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       0
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1120,7 +1120,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              315 000
+              345 000
             </td>
           </tr>
           <tr
@@ -1145,12 +1145,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      60 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -1161,7 +1161,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1169,12 +1169,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       0
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -1227,7 +1227,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -1252,12 +1252,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -1268,7 +1268,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1276,12 +1276,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -1334,7 +1334,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -1359,12 +1359,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -1375,7 +1375,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1383,12 +1383,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -1441,7 +1441,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -1466,12 +1466,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -1482,7 +1482,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1490,12 +1490,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -1548,7 +1548,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -1573,12 +1573,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -1589,7 +1589,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1597,12 +1597,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -1655,7 +1655,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -1680,12 +1680,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -1696,7 +1696,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1704,12 +1704,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -1762,7 +1762,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -1787,12 +1787,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -1803,7 +1803,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1811,12 +1811,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -1869,7 +1869,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -1894,12 +1894,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -1910,7 +1910,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1918,12 +1918,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -1976,7 +1976,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -2001,12 +2001,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -2017,7 +2017,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2025,12 +2025,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -2083,7 +2083,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -2108,12 +2108,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -2124,7 +2124,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2132,12 +2132,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -2190,7 +2190,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -2215,12 +2215,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -2231,7 +2231,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2239,12 +2239,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -2297,7 +2297,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              405 000
+              425 000
             </td>
           </tr>
           <tr
@@ -2322,12 +2322,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -2338,7 +2338,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2346,12 +2346,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>
@@ -2404,7 +2404,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
             >
-              325 000
+              345 000
             </td>
           </tr>
           <tr
@@ -2429,12 +2429,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      Inntekt (lønn m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      70 000
+                      0
                     </dd>
                     <dt>
                       Avtalefestet pensjon (AFP)
@@ -2445,7 +2445,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       80 000
                     </dd>
                     <dt>
-                      Tjenestepensjon
+                      Pensjonsavtaler (arbeidsgiver)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2453,12 +2453,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart 1`] = `
                       0
                     </dd>
                     <dt>
-                      Folketrygden (NAV)
+                      Alderspensjon (NAV)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
                     >
-                      175 000
+                      265 000
                     </dd>
                   </dl>
                 </div>

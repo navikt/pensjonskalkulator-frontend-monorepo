@@ -110,7 +110,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   100 000
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -118,7 +118,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   180 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -209,7 +209,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   175 000
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -217,7 +217,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   250 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -308,7 +308,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -316,7 +316,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -407,7 +407,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -415,7 +415,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -506,7 +506,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -514,7 +514,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -605,7 +605,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -613,7 +613,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -704,7 +704,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -712,7 +712,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -803,7 +803,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -811,7 +811,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -938,7 +938,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   100 000
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -946,7 +946,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   180 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1037,7 +1037,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   175 000
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1045,7 +1045,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   250 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1136,7 +1136,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1144,7 +1144,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1235,7 +1235,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1243,7 +1243,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1334,7 +1334,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1342,7 +1342,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1433,7 +1433,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1441,7 +1441,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1532,7 +1532,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1540,7 +1540,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1631,7 +1631,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   0
                 </dd>
                 <dt>
-                  Tjenestepensjon
+                  Pensjonsavtaler (arbeidsgiver)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"
@@ -1639,7 +1639,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
                   380 000
                 </dd>
                 <dt>
-                  Folketrygden (NAV)
+                  Alderspensjon (NAV)
                 </dt>
                 <dd
                   class="_detailsItemRight_15ff36"

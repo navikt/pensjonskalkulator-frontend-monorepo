@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { formatUttaksalder, getFormaterteAldere } from '../utils'
 
-describe('Pensjonsberegning-utils', () => {
+describe('VelgUttaksalder-utils', () => {
   describe('getFormaterteAldere', () => {
     it('returnerer array med én verdi når start og slutt er like', () => {
       const start = { aar: 64, maaned: 3 }

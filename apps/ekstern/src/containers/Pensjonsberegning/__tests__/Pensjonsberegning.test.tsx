@@ -27,21 +27,6 @@ describe('Pensjonsberegning', () => {
     expect(result.asFragment()).toMatchSnapshot()
   })
 
-  it('viser riktig label og antall knapper når brukeren ønsker å se flere aldere', async () => {
-    const result = render(<Pensjonsberegning />)
-    await waitFor(() => {
-      expect(screen.getAllByRole('button')).toHaveLength(10)
-    })
-    fireEvent.click(screen.getByText('Vis flere aldere'))
-
-    await waitFor(() => {
-      expect(screen.getAllByRole('button')).toHaveLength(15)
-      expect(screen.getByText('Vis færre aldere')).toBeInTheDocument()
-    })
-
-    expect(result.asFragment()).toMatchSnapshot()
-  })
-
   it('viser feilmelding om henting av pensjonberegning feiler', async () => {
     mockErrorResponse('/tidligste-uttaksalder')
 
@@ -77,15 +62,14 @@ describe('Pensjonsberegning', () => {
     })
   })
 
-  it('oppdaterer valgt knapp og tegner graph når brukeren klikker på en knapp', async () => {
+  it('oppdaterer valgt knapp og tegner graph når uttaksalder er valgt', async () => {
     const { container } = render(<Pensjonsberegning />)
 
     await waitFor(async () => {
-      fireEvent.click(screen.getByText('Vis flere aldere'))
-      fireEvent.click(screen.getByText('72 år'))
+      fireEvent.click(screen.getByText('65 år'))
 
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-        '72 år'
+        '65 år'
       )
       vi.useFakeTimers()
       vi.advanceTimersByTime(250)

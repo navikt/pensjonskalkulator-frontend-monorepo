@@ -16,7 +16,7 @@ exports[`App > rendrer slik den skal, med main tag og Heading på riktig nivå 1
     </div>
     <svg
       aria-labelledby="loader-r0"
-      class="navds-loader _loader_01a375 navds-loader--3xlarge navds-loader--neutral"
+      class="navds-loader _loader_46cd75 navds-loader--3xlarge navds-loader--neutral"
       data-testid="loader"
       focusable="false"
       preserveAspectRatio="xMidYMid"

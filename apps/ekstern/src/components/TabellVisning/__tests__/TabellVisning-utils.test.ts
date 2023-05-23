@@ -9,7 +9,7 @@ describe('TabellVisning-utils', () => {
     const series: SeriesColumnOptions[] = [
       {
         type: 'column',
-        name: 'Pensjonsgivende inntekt',
+        name: 'Inntekt (lønn m.m.)',
         data: [
           100000, 175000, 220000, 220000, 220000, 220000, 220000, 220000,
           220000,
@@ -25,7 +25,7 @@ describe('TabellVisning-utils', () => {
       },
       {
         type: 'column',
-        name: 'Tjenestepensjon',
+        name: 'Pensjonsavtaler (arbeidsgiver)',
         data: [
           180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000,
           380000,
@@ -33,7 +33,7 @@ describe('TabellVisning-utils', () => {
       },
       {
         type: 'column',
-        name: 'Folketrygden (NAV)',
+        name: 'Alderspensjon (NAV)',
         data: [
           200000, 350000, 400000, 400000, 400000, 400000, 400000, 400000,
           400000,

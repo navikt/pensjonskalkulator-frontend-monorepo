@@ -1,3 +1,7 @@
+export const DEFAULT_ANTALL_VISIBLE_ALDERCHIPS = 9
+export const VIS_FLERE__ALDERE_LABEL_CLOSE = 'Vis flere aldere'
+export const VIS_FLERE__ALDERE_LABEL_OPEN = 'Vis færre aldere'
+
 export const formatUttaksalder = (
   { aar, maaned }: Uttaksalder,
   options: { compact: boolean } = { compact: false }

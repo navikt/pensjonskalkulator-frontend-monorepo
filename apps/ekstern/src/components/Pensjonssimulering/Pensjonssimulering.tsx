@@ -49,7 +49,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         {
           type: 'column',
           pointWidth: COLUMN_WIDTH,
-          name: 'Pensjonsgivende inntekt',
+          name: 'Inntekt (lønn m.m.)',
           color: '#868F9C',
           data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length),
         },
@@ -68,7 +68,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         {
           type: 'column',
           pointWidth: COLUMN_WIDTH,
-          name: 'Tjenestepensjon',
+          name: 'Pensjonsavtaler (arbeidsgiver)',
           color: 'var(--a-green-400)',
           states: {
             hover: {
@@ -80,14 +80,19 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         {
           type: 'column',
           pointWidth: COLUMN_WIDTH,
-          name: 'Folketrygden (NAV)',
+          name: 'Alderspensjon (NAV)',
           color: 'var(--a-deepblue-500)',
           states: {
             hover: {
               color: 'var(--a-deepblue-200)',
             },
           },
-          data: simulateDataArray(FOLKETRYGDEN_DATA, aarArray.length),
+          data: simulateDataArray(
+            FOLKETRYGDEN_DATA,
+            aarArray.length,
+            uttaksalder,
+            18_000
+          ),
         },
       ],
     })

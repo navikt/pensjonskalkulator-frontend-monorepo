@@ -15,14 +15,14 @@ describe('TabellVisning', () => {
     },
     {
       type: 'column',
-      name: 'Tjenestepensjon',
+      name: 'Pensjonsavtaler (arbeidsgiver)',
       data: [
         180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000, 380000,
       ],
     },
     {
       type: 'column',
-      name: 'Folketrygden (NAV)',
+      name: 'Alderspensjon (NAV)',
       data: [
         200000, 350000, 400000, 400000, 400000, 400000, 400000, 400000, 400000,
       ],
