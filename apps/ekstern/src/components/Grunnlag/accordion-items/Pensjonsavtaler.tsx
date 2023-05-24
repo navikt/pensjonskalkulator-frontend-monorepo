@@ -3,7 +3,7 @@ import React from 'react'
 import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { groupPensjonsavtalerByType } from '@/components/Grunnlag/sections/Pensjonsavtaler-utils'
+import { groupPensjonsavtalerByType } from '@/components/Grunnlag/accordion-items/Pensjonsavtaler-utils'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 

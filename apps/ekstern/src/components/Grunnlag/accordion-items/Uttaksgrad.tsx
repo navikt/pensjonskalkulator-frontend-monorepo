@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Accordion, BodyLong } from '@navikt/ds-react'
 
-import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
+import { SectionHeader } from '@/components/Grunnlag/accordion-items/components/SectionHeader'
 
 const gyldigeUttaksgrader = [20, 40, 50, 60, 80, 100]
 

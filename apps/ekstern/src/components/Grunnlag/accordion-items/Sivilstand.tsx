@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Accordion, Alert, BodyLong, Link } from '@navikt/ds-react'
 
-import { formatSivilstand } from '@/components/Grunnlag/sections/Sivilstand-utils'
+import { formatSivilstand } from '@/components/Grunnlag/accordion-items/Sivilstand-utils'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 
 import { SectionHeader } from './components/SectionHeader'
@@ -19,7 +19,7 @@ export function Sivilstand() {
   }
 
   return (
-    <Accordion.Item>
+    <Accordion.Item data-testid={'accordion-sivilstand'}>
       <SectionHeader
         label="Sivilstand"
         value={formatSivilstand(person.sivilstand)}

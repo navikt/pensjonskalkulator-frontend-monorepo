@@ -1,4 +1,4 @@
-import { groupPensjonsavtalerByType } from '@/components/Grunnlag/sections/Pensjonsavtaler-utils'
+import { groupPensjonsavtalerByType } from '@/components/Grunnlag/accordion-items/Pensjonsavtaler-utils'
 
 const pensjonsavtaler: Pensjonsavtale[] = [
   {
