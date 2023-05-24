@@ -1,5 +1,9 @@
-@import '../../scss/variables';
-
 .ingress {
-  max-width: $paragraph-max-width;
+  line-height: var(--a-font-line-height-heading-medium);
+
+  &Highlighted {
+    font-size: var(--a-font-size-heading-large);
+    font-weight: var(--a-font-weight-bold);
+    line-height: var(--a-font-line-height-heading-large);
+  }
 }

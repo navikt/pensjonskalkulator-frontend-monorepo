@@ -17,10 +17,15 @@ export const TidligstMuligUttaksalder: React.FC<Props> = React.memo(
       <Card data-testid="tidligst-mulig-uttak">
         <Ingress className={styles.ingress}>
           <>
-            Du kan tidligst ta ut alderspensjon når du er{' '}
-            {formatUttaksalder(uttaksalder)}. Hvis du går av senere, får du
-            høyere pensjon i året.
+            Ditt tidligste mulige tidspunkt for uttak:
+            <br />
+            <span className={styles.ingressHighlighted}>
+              {formatUttaksalder(uttaksalder)}
+            </span>
           </>
+        </Ingress>
+        <Ingress className={styles.ingress}>
+          <>Hvis du går av senere, får du høyere pensjon i året.</>
         </Ingress>
       </Card>
     )
