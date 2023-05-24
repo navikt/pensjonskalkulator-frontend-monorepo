@@ -53,17 +53,25 @@ describe('Pensjonssimulering-utils', () => {
 
   describe('simulateTjenestepensjon', () => {
     it('returnerer en liste med 0 t.o.m. alder 66 og 0 på siste plass i lista', () => {
-      expect(simulateTjenestepensjon(65, 70, 123)).toEqual([
-        0, 0, 0, 123, 123, 123, 0,
+      expect(simulateTjenestepensjon(65, 70, 100)).toEqual([
+        0, 0, 0, 2300, 2300, 2300, 0,
       ])
-      expect(simulateTjenestepensjon(62, 78, 246)).toEqual([
-        0, 0, 0, 0, 0, 0, 246, 246, 246, 246, 246, 246, 246, 246, 246, 246, 246,
-        0,
+      expect(simulateTjenestepensjon(62, 78, 200)).toEqual([
+        0, 0, 0, 0, 0, 0, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000,
+        4000, 4000, 0,
       ])
     })
 
-    it('thrower dersom endAge < startAge', () => {
-      expect(() => simulateTjenestepensjon(2, 1)).toThrow()
+    it('øker beløpet på tjenestepensjon basert på startAge', () => {
+      expect(simulateTjenestepensjon(62, 72, 100)[6]).toEqual(2000)
+      expect(simulateTjenestepensjon(65, 72, 100)[6]).toEqual(2300)
+      expect(simulateTjenestepensjon(67, 72, 100)[1]).toEqual(2500)
+      expect(simulateTjenestepensjon(70, 72, 100)[1]).toEqual(2800)
+    })
+
+    it('thrower dersom endAge < startAge eller at startAge er mindre enn 60', () => {
+      expect(() => simulateTjenestepensjon(65, 64)).toThrow()
+      expect(() => simulateTjenestepensjon(60, 65)).toThrow()
     })
   })
 

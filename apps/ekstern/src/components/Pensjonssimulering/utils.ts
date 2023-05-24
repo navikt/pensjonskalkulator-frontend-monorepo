@@ -27,7 +27,6 @@ export const FOLKETRYGDEN_DATA = [
   175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
 ]
 
-// TODO skrive ny test + bør ikke AFP bruke coefficient og?
 export const simulateDataArray = (
   array: number[],
   length: number,
@@ -48,18 +47,21 @@ export const simulateDataArray = (
 export const simulateTjenestepensjon = (
   startAge: number,
   endAge: number,
-  value = 80_000
+  coefficient = 4_000
 ) => {
-  if (endAge < startAge) {
+  if (endAge < startAge || startAge < 62) {
     throw Error(
-      "Can't simulate tjenestepensjon when endAge is larger than startAge"
+      "Can't simulate tjenestepensjon when endAge is larger than startAge or smaller than 62"
     )
   }
+
+  const faktor = startAge - 62
+  const value = coefficient * 20 + faktor * coefficient
 
   return new Array(endAge + 2 - startAge)
     .fill(startAge - 1)
     .map((age, i, array) =>
-      age + i < 67 ? 0 : i === array.length - 1 ? 0 : value
+      age + i < 67 || i === array.length - 1 ? 0 : value
     )
 }
 
