@@ -22,7 +22,7 @@ describe('Sivilstand', () => {
     ['SKILT_PARTNER', 'Skilt partner'],
     ['GJENLEVENDE_PARTNER', 'Gjenlevende partner'],
     ['UGIFT', 'Ugift'],
-  ])('viser riktig tekst når sivilstand er: %i', async (a, expected) => {
+  ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
     mockResponse('/person', { status: 200, json: { sivilstand: a } })
     render(<Sivilstand />)
     await waitFor(() => {

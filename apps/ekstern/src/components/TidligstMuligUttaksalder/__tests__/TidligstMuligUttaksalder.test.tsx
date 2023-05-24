@@ -11,11 +11,15 @@ describe('TidligstMuligUttaksalder', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('Ditt tidligste mulige tidspunkt for uttak:')
+        screen.getByText(
+          'Din opptjening i folketrygden gjør at du tidligst kan ta ut alderspensjon når du er:'
+        )
       ).toBeInTheDocument()
       expect(screen.getByText('62 år og 9 måneder')).toBeInTheDocument()
       expect(
-        screen.getByText('Hvis du går av senere, får du høyere pensjon i året.')
+        screen.getByText(
+          'Du får høyere pensjon per år, hvis du tar den ut senere.'
+        )
       ).toBeInTheDocument()
     })
   })

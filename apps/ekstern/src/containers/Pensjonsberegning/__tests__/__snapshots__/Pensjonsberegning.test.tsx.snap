@@ -50,7 +50,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
     <p
       class="_ingress_f5a642 navds-ingress"
     >
-      Ditt tidligste mulige tidspunkt for uttak:
+      Din opptjening i folketrygden gjør at du tidligst kan ta ut alderspensjon når du er:
       <br />
       <span
         class="_ingressHighlighted_f5a642"
@@ -61,7 +61,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
     <p
       class="_ingress_f5a642 navds-ingress"
     >
-      Hvis du går av senere, får du høyere pensjon i året.
+      Du får høyere pensjon per år, hvis du tar den ut senere.
     </p>
   </section>
   <section
