@@ -1,8 +1,16 @@
 @import '../../scss/variables';
 
-.visFlereAar {
-  margin-top: -var(--a-spacing-3);
-  margin-left: auto;
+.buttonRow {
+  margin-top: -0.125rem;
+  display: flex;
+
+  &Element {
+    flex-grow: 1;
+
+    &__Right {
+      text-align: right;
+    }
+  }
 }
 
 .visTabell {

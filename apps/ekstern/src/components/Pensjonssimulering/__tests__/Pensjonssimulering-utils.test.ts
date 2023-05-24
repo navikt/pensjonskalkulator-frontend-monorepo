@@ -2,9 +2,10 @@ import {
   AxisLabelsFormatterContextObject,
   TooltipFormatterContextObject,
 } from 'highcharts'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import {
+  highchartsScrollingSelector,
   simulateDataArray,
   simulateTjenestepensjon,
   generateXAxis,
@@ -12,8 +13,11 @@ import {
   tooltipFormatter,
   getChartOptions,
   onVisFlereAarClick,
+  onVisFaerreAarClick,
   ExtendedYAxis,
   ExtendedPoint,
+  handleChartScroll,
+  removeHandleChartScrollEventListener,
 } from '../utils'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
@@ -235,12 +239,16 @@ describe('Pensjonssimulering-utils', () => {
   })
   describe('getChartOptions', () => {
     it('returnerer riktig default options', () => {
-      const options = getChartOptions({} as Partial<typeof globalClassNames>)
+      const options = getChartOptions(
+        {} as Partial<typeof globalClassNames>,
+        vi.fn(),
+        vi.fn()
+      )
       expect(options).toMatchSnapshot()
     })
   })
 
-  describe('onVisFlereAarClick', () => {
+  describe('onVisFlereAarClick og onVisFaerreAarClick', () => {
     it('finner riktig element og øker scrollLeft', () => {
       const div = document.createElement('div')
       div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
@@ -248,14 +256,97 @@ describe('Pensjonssimulering-utils', () => {
       expect(div.scrollLeft).toBe(0)
       onVisFlereAarClick()
       expect(
-        (document.querySelector('.highcharts-scrolling') as HTMLElement)
+        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
           .scrollLeft
       ).toBe(50)
       onVisFlereAarClick()
       expect(
-        (document.querySelector('.highcharts-scrolling') as HTMLElement)
+        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
           .scrollLeft
       ).toBe(100)
+      onVisFaerreAarClick()
+      expect(
+        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+          .scrollLeft
+      ).toBe(50)
+      onVisFaerreAarClick()
+      expect(
+        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+          .scrollLeft
+      ).toBe(0)
+    })
+  })
+
+  describe('handleChartScroll', () => {
+    it('Viser Vis flere år knapp og skjuler Vis færre år knapp når graffens scroll posisjon er på 0', () => {
+      const showRightButtonMock = vi.fn()
+      const showLeftButtonMock = vi.fn()
+
+      const mockedEvent = {
+        currentTarget: {
+          scrollLeft: 0,
+          handleButtonVisibility: {
+            showRightButton: showRightButtonMock,
+            showLeftButton: showLeftButtonMock,
+          },
+        },
+      }
+      handleChartScroll(mockedEvent as unknown as Event)
+      expect(showRightButtonMock).toHaveBeenCalledWith(true)
+      expect(showLeftButtonMock).toHaveBeenCalledWith(false)
+    })
+
+    it('Skjuler Vis flere år knapp og viser Vis færre år knapp når graffens scroll posisjon er på maks', () => {
+      const showRightButtonMock = vi.fn()
+      const showLeftButtonMock = vi.fn()
+
+      const mockedEvent = {
+        currentTarget: {
+          scrollLeft: 50,
+          offsetWidth: 450,
+          scrollWidth: 500,
+          handleButtonVisibility: {
+            showRightButton: showRightButtonMock,
+            showLeftButton: showLeftButtonMock,
+          },
+        },
+      }
+      handleChartScroll(mockedEvent as unknown as Event)
+      expect(showRightButtonMock).toHaveBeenCalledWith(false)
+      expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+    })
+
+    it('Viser både  Vis flere år knapp og Vis færre år knapp når graffens scroll posisjon er et sted i midten', () => {
+      const showRightButtonMock = vi.fn()
+      const showLeftButtonMock = vi.fn()
+
+      const mockedEvent = {
+        currentTarget: {
+          scrollLeft: 50,
+          offsetWidth: 100,
+          scrollWidth: 500,
+          handleButtonVisibility: {
+            showRightButton: showRightButtonMock,
+            showLeftButton: showLeftButtonMock,
+          },
+        },
+      }
+      handleChartScroll(mockedEvent as unknown as Event)
+      expect(showRightButtonMock).toHaveBeenCalledWith(true)
+      expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+    })
+  })
+
+  describe('removeHandleChartScrollEventListener', () => {
+    it('Fjerner listener når elementet finnes i dom1en', () => {
+      const fnMock = vi.fn()
+      const div = document.createElement('div')
+      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
+      document.body.appendChild(div)
+      const el = document.querySelector('.highcharts-scrolling')
+      ;(el as Element).removeEventListener = fnMock
+      removeHandleChartScrollEventListener()
+      expect(fnMock).toHaveBeenCalled()
     })
   })
 })

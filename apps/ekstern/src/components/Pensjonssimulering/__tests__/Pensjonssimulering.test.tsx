@@ -1,12 +1,10 @@
-import React from 'react'
-
-import { describe, it } from 'vitest'
+import { describe, it, vi } from 'vitest'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
 import { render, screen, waitFor, fireEvent } from '@/test-utils'
 
 describe('Pensjonssimulering', () => {
-  it('rendrer med riktig tittel og chart', async () => {
+  it('rendrer med riktig tittel og chart og uten scroll-knapper', async () => {
     const { container, asFragment } = render(
       <Pensjonssimulering uttaksalder={65} />
     )

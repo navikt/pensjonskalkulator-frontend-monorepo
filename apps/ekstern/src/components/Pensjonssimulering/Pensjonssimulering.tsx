@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { ChevronRightCircle } from '@navikt/ds-icons'
+import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
 import { Button, ReadMore } from '@navikt/ds-react'
 import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -14,10 +14,12 @@ import {
   FOLKETRYGDEN_DATA,
   getChartOptions,
   generateXAxis,
+  onVisFaerreAarClick,
   onVisFlereAarClick,
   PENSJONSGIVENDE_DATA,
   simulateDataArray,
   simulateTjenestepensjon,
+  removeHandleChartScrollEventListener,
 } from './utils'
 
 import styles from './Pensjonssimulering.module.scss'
@@ -27,13 +29,22 @@ type PensjonssimuleringProps = {
 }
 
 export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
+  const [showVisFlereAarButton, setShowVisFlereAarButton] =
+    useState<boolean>(false)
+  const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
+    useState<boolean>(false)
+
   const [chartOptions, setChartOptions] = useState<Highcharts.Options>(
-    getChartOptions(styles)
+    getChartOptions(styles, setShowVisFlereAarButton, setShowVisFaerreAarButton)
   )
   const [isVisTabellOpen, setVisTabellOpen] = useState<boolean>(false)
+
+  useEffect(() => {
+    return removeHandleChartScrollEventListener
+  }, [])
+
   useEffect(() => {
     const aarArray = generateXAxis(uttaksalder, MAX_UTTAKSALDER)
-
     setChartOptions({
       chart: {
         type: 'column',
@@ -101,19 +112,38 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   return (
     <>
       <HighchartsReact highcharts={Highcharts} options={chartOptions} />
-      {
-        // TODO logikk for å skjule Vis flere år
-      }
-      <Button
-        className={styles.visFlereAar}
-        icon={<ChevronRightCircle aria-hidden />}
-        iconPosition="right"
-        size={'xsmall'}
-        variant="tertiary"
-        onClick={onVisFlereAarClick}
-      >
-        Vis flere år
-      </Button>
+      <div className={styles.buttonRow}>
+        <div className={styles.buttonRowElement}>
+          {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
+          {showVisFaerreAarButton && (
+            <Button
+              icon={<ChevronLeftCircle aria-hidden />}
+              iconPosition="left"
+              size={'xsmall'}
+              variant="tertiary"
+              onClick={onVisFaerreAarClick}
+            >
+              Vis færre år
+            </Button>
+          )}
+        </div>
+        <div
+          className={`${styles.buttonRowElement} ${styles.buttonRowElement__Right}`}
+        >
+          {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
+          {showVisFlereAarButton && (
+            <Button
+              icon={<ChevronRightCircle aria-hidden />}
+              iconPosition="right"
+              size={'xsmall'}
+              variant="tertiary"
+              onClick={onVisFlereAarClick}
+            >
+              Vis flere år
+            </Button>
+          )}
+        </div>
+      </div>
       <ReadMore
         header={isVisTabellOpen ? 'Lukk tabell' : 'Vis tabell'}
         className={styles.visTabell}

@@ -13,6 +13,8 @@ export const MAX_UTTAKSALDER = 78
 export const COLUMN_WIDTH = 25
 export const TOOLTIP_YPOS = 35
 
+export const highchartsScrollingSelector = '.highcharts-scrolling'
+
 export const PENSJONSGIVENDE_DATA = [
   650000, 260000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
@@ -101,7 +103,7 @@ export function tooltipFormatter(
   const columnHeight =
     yAxisHeight - (context.points?.[0].point as ExtendedPoint).tooltipPos[1]
   const scrollPosition =
-    document.querySelector('.highcharts-scrolling')?.scrollLeft ?? 0
+    document.querySelector(highchartsScrollingSelector)?.scrollLeft ?? 0
 
   const leftPosition = context.points?.[0].point?.plotX ?? 0
   const tooltipConnectingLine = `<div class="${
@@ -133,15 +135,49 @@ export function tooltipFormatter(
   return `${headerFormat}${pointsFormat}${footerFormat}${tooltipConnectingLine}`
 }
 
+export const onVisFaerreAarClick = () => {
+  const el = document.querySelector(highchartsScrollingSelector)
+  if (el) {
+    ;(el as HTMLElement).scrollLeft -= 50
+  }
+}
+
 export const onVisFlereAarClick = () => {
-  const el = document.querySelector('.highcharts-scrolling')
+  const el = document.querySelector(highchartsScrollingSelector)
   if (el) {
     ;(el as HTMLElement).scrollLeft += 50
   }
 }
 
+type HighchartsScrollingHTMLDivElement = HTMLDivElement & {
+  handleButtonVisibility: {
+    showRightButton: React.Dispatch<React.SetStateAction<boolean>>
+    showLeftButton: React.Dispatch<React.SetStateAction<boolean>>
+  }
+}
+
+export function handleChartScroll(event: Event) {
+  if (event.currentTarget) {
+    const el = event.currentTarget as HighchartsScrollingHTMLDivElement
+    const elementScrollPosition = el.scrollLeft
+
+    if (elementScrollPosition === 0) {
+      el.handleButtonVisibility.showRightButton(true)
+      el.handleButtonVisibility.showLeftButton(false)
+    } else if (elementScrollPosition + el.offsetWidth === el.scrollWidth) {
+      el.handleButtonVisibility.showRightButton(false)
+      el.handleButtonVisibility.showLeftButton(true)
+    } else {
+      el.handleButtonVisibility.showRightButton(true)
+      el.handleButtonVisibility.showLeftButton(true)
+    }
+  }
+}
+
 export const getChartOptions = (
-  styles: Partial<typeof globalClassNames>
+  styles: Partial<typeof globalClassNames>,
+  showRightButton: React.Dispatch<React.SetStateAction<boolean>>,
+  showLeftButton: React.Dispatch<React.SetStateAction<boolean>>
 ): Options => {
   return {
     chart: {
@@ -149,6 +185,37 @@ export const getChartOptions = (
       spacingTop: 0,
       spacingLeft: 0,
       spacingRight: 25,
+      scrollablePlotArea: {
+        minWidth: 750,
+        scrollPositionX: 0,
+      },
+      events: {
+        render() {
+          const highchartsScrollingElement = document.querySelector(
+            highchartsScrollingSelector
+          )
+
+          if (highchartsScrollingElement) {
+            const el =
+              highchartsScrollingElement as HighchartsScrollingHTMLDivElement
+            // Denne setTimeout er nødvendig fordi highcharts tegner scroll container litt etter render callback og har ikke noe eget flag for den
+            setTimeout(() => {
+              const elementScrollWidth = el.scrollWidth
+              const elementWidth = el.offsetWidth
+              showRightButton(elementScrollWidth > elementWidth)
+
+              el.addEventListener('scroll', handleChartScroll, false)
+              el.handleButtonVisibility = {
+                showRightButton,
+                showLeftButton,
+              }
+            }, 50)
+          } else {
+            showRightButton(false)
+            showLeftButton(false)
+          }
+        },
+      },
     },
     title: {
       text: `Beregning`,
@@ -240,4 +307,9 @@ export const getChartOptions = (
     },
     series: [],
   }
+}
+
+export const removeHandleChartScrollEventListener = () => {
+  const el = document.querySelector(highchartsScrollingSelector)
+  el?.removeEventListener('scroll', handleChartScroll)
 }

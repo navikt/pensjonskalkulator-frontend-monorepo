@@ -1,6 +1,8 @@
 import globalClassNames from '../../style.d'
 declare const classNames: typeof globalClassNames & {
-  readonly visFlereAar: 'visFlereAar'
+  readonly buttonRow: 'buttonRow'
+  readonly buttonRowElement: 'buttonRowElement'
+  readonly buttonRowElement__Right: 'buttonRowElement__Right'
   readonly visTabell: 'visTabell'
   readonly 'navds-read-more__content': 'navds-read-more__content'
   readonly tooltip: 'tooltip'

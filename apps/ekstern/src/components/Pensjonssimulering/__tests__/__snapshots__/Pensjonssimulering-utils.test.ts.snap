@@ -3,6 +3,13 @@
 exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default options 1`] = `
 {
   "chart": {
+    "events": {
+      "render": [Function],
+    },
+    "scrollablePlotArea": {
+      "minWidth": 750,
+      "scrollPositionX": 0,
+    },
     "spacingLeft": 0,
     "spacingRight": 25,
     "spacingTop": 0,

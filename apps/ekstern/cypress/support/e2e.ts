@@ -1,9 +1,9 @@
 import 'cypress-axe'
 
-before(() => {
+beforeEach(() => {
   cy.intercept(
     { method: 'GET', url: '/pensjon/kalkulator/api/tidligste-uttaksalder' },
-    { fixture: 'tidligstemuligeuttaksalder.json' }
+    { fixture: 'tidligste-uttaksalder.json' }
   )
   cy.intercept(
     { method: 'GET', url: '/pensjon/kalkulator/api/person' },
