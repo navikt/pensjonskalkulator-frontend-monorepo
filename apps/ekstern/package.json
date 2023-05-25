@@ -30,7 +30,7 @@
     "@navikt/ds-css": "^3.2.2",
     "@navikt/ds-icons": "^3.2.4",
     "@navikt/ds-react": "^3.2.4",
-    "@navikt/ds-tokens": "^3.2.2",
+    "@navikt/ds-tokens": "^3.2.4",
     "@reduxjs/toolkit": "^1.9.3",
     "clsx": "^1.2.1",
     "highcharts": "^11.0.1",
