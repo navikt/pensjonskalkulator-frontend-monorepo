@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import { VelgUttaksalder } from '../VelgUttaksalder'
-import { fireEvent, render, screen, waitFor } from '@/test-utils'
+import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('VelgUttaksalder', () => {
   const uttaksalder: Uttaksalder = {
@@ -31,30 +31,33 @@ describe('VelgUttaksalder', () => {
   })
 
   it('oppdaterer valgt knapp og kaller setValgtUttaksalder når brukeren velger en alder', async () => {
-    const setValgtUttaksalderMock = vi.fn()
-    render(
-      <VelgUttaksalder
-        tidligstMuligUttak={uttaksalder}
-        valgtUttaksalder={'63 år'}
-        setValgtUttaksalder={setValgtUttaksalderMock}
-      />
+    let valgtUttaksalder = '63 år'
+    const setValgtUttaksalder = (alder: string) => {
+      valgtUttaksalder = alder
+    }
+
+    const getProps = () => ({
+      tidligstMuligUttak: uttaksalder,
+      valgtUttaksalder,
+      setValgtUttaksalder,
+    })
+
+    const { rerender } = render(<VelgUttaksalder {...getProps()} />)
+
+    await userEvent.click(screen.getByText('65 år', { exact: false }))
+    rerender(<VelgUttaksalder {...getProps()} />)
+    expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
+      '65 år'
     )
 
-    fireEvent.click(screen.getByText('65 år'))
-    expect(setValgtUttaksalderMock).toHaveBeenCalled()
+    await userEvent.click(screen.getByText('Vis flere aldere'))
+    rerender(<VelgUttaksalder {...getProps()} />)
+    expect(screen.getByText('72 år', { exact: false })).toBeVisible()
 
-    // await waitFor(async () => {
-    //   fireEvent.click(screen.getByText('Vis flere aldere'))
-    //   fireEvent.click(screen.getByText('72 år'))
-
-    //   expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-    //     '72 år'
-    //   )
-    //   vi.useFakeTimers()
-    //   vi.advanceTimersByTime(250)
-    //   expect(setValgtUttaksalderMock).toHaveBeenCalled()
-
-    //   vi.useRealTimers()
-    // })
+    await userEvent.click(screen.getByText('72 år', { exact: false }))
+    rerender(<VelgUttaksalder {...getProps()} />)
+    expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
+      '72 år'
+    )
   })
 })

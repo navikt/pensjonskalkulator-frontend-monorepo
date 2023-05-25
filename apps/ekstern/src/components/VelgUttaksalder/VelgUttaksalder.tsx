@@ -6,9 +6,9 @@ import clsx from 'clsx'
 
 import {
   DEFAULT_ANTALL_VISIBLE_ALDERCHIPS,
+  getFormaterteAldere,
   VIS_FLERE__ALDERE_LABEL_CLOSE,
   VIS_FLERE__ALDERE_LABEL_OPEN,
-  getFormaterteAldere,
 } from './utils'
 
 import styles from './VelgUttaksalder.module.scss'
@@ -16,7 +16,7 @@ import styles from './VelgUttaksalder.module.scss'
 interface Props {
   tidligstMuligUttak: Uttaksalder
   valgtUttaksalder?: string
-  setValgtUttaksalder: (s: string) => void
+  setValgtUttaksalder: (alder: string) => void
 }
 
 export const VelgUttaksalder: React.FC<Props> = ({
