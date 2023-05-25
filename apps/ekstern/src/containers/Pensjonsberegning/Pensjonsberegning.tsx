@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 
-import { Alert, Heading, Loader } from '@navikt/ds-react'
+import { Alert, Heading } from '@navikt/ds-react'
 
 import { Pensjonssimulering } from '../../components/Pensjonssimulering'
 import { Card } from '@/components/Card'
 import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
+import { Loader } from '@/components/Loader'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
-
-import styles from './Pensjonsberegning.module.scss'
 
 export function Pensjonsberegning() {
   const {
@@ -26,7 +25,6 @@ export function Pensjonsberegning() {
   if (isLoading) {
     return (
       <Loader
-        className={styles.loader}
         data-testid="loader"
         size="3xlarge"
         title="Henter tidligste mulige uttaksalder"
