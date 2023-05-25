@@ -9,6 +9,7 @@ import path from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
+// TODO manualChunks fungerer ikke som forventet - prøve alternativer for code splitting
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
@@ -27,6 +28,17 @@ export default defineConfig(({ mode }) => {
               'redux-thunk',
               '@reduxjs/toolkit',
               '@reduxjs/toolkit/dist/query',
+            ],
+            ['intl']: [
+              'react-intl',
+              'intl-messageformat',
+              '@formatjs/ecma402-abstract',
+              '@formatjs/intl',
+              '@formatjs/intl-datetimeformat',
+              '@formatjs/intl-displaynames',
+              '@formatjs/intl-listformat',
+              '@formatjs/intl-localematcher',
+              '@formatjs/intl-numberformat',
             ],
           },
         },

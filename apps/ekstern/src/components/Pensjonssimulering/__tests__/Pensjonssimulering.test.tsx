@@ -1,4 +1,4 @@
-import { describe, it, vi } from 'vitest'
+import { describe, it } from 'vitest'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
 import { render, screen, waitFor, fireEvent } from '@/test-utils'
