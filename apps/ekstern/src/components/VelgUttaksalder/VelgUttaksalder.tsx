@@ -4,12 +4,7 @@ import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Button, Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import {
-  DEFAULT_ANTALL_VISIBLE_ALDERCHIPS,
-  getFormaterteAldere,
-  VIS_FLERE__ALDERE_LABEL_CLOSE,
-  VIS_FLERE__ALDERE_LABEL_OPEN,
-} from './utils'
+import { getFormaterteAldere } from './utils'
 
 import styles from './VelgUttaksalder.module.scss'
 
@@ -17,12 +12,18 @@ interface Props {
   tidligstMuligUttak: Uttaksalder
   valgtUttaksalder?: string
   setValgtUttaksalder: (alder: string) => void
+  defaultAntallSynligeAldere?: number
+  visFlereAldereLabelClose?: string
+  visFlereAldereLabelOpen?: string
 }
 
 export const VelgUttaksalder: React.FC<Props> = ({
   tidligstMuligUttak,
   valgtUttaksalder,
   setValgtUttaksalder,
+  defaultAntallSynligeAldere = 9,
+  visFlereAldereLabelClose = 'Vis flere aldere',
+  visFlereAldereLabelOpen = 'Vis færre aldere',
 }) => {
   const formaterteAldere = useMemo(
     () => getFormaterteAldere(tidligstMuligUttak),
@@ -41,7 +42,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
             0,
             isFlereAldereOpen
               ? formaterteAldere.length
-              : DEFAULT_ANTALL_VISIBLE_ALDERCHIPS
+              : defaultAntallSynligeAldere
           )
           .map((alderChip) => (
             <Chips.Toggle
@@ -69,9 +70,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
           setIsFlereAldereOpen(!isFlereAldereOpen)
         }}
       >
-        {isFlereAldereOpen
-          ? VIS_FLERE__ALDERE_LABEL_OPEN
-          : VIS_FLERE__ALDERE_LABEL_CLOSE}
+        {isFlereAldereOpen ? visFlereAldereLabelOpen : visFlereAldereLabelClose}
       </Button>
     </div>
   )
