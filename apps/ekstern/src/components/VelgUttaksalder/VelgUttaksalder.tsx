@@ -67,7 +67,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
         size={'xsmall'}
         variant="tertiary"
         onClick={() => {
-          setIsFlereAldereOpen(!isFlereAldereOpen)
+          setIsFlereAldereOpen((prevState) => !prevState)
         }}
       >
         {isFlereAldereOpen ? visFlereAldereLabelOpen : visFlereAldereLabelClose}
