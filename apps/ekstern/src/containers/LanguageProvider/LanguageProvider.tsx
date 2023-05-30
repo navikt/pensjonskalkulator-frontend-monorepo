@@ -7,6 +7,8 @@ import {
   onLanguageSelect,
 } from '@navikt/nav-dekoratoren-moduler'
 
+import { useGetFeatureToggleQuery } from '@/state/api/apiSlice'
+
 import '@formatjs/intl-numberformat/polyfill-force'
 import '@formatjs/intl-numberformat/locale-data/en'
 import '@formatjs/intl-numberformat/locale-data/nb'
@@ -25,6 +27,9 @@ interface Props {
 export function LanguageProvider({ children }: Props) {
   const [languageCookie, setLanguageCookie] = useState<DecoratorLocale>('nb')
 
+  const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
+    useGetFeatureToggleQuery({ toggleName: 'disable-spraakvelger' })
+
   // TODO dekke kobling mellom intl-provider'en og dekoratøren i E2E test
   /* c8 ignore next 3 */
   onLanguageSelect((language) => {
@@ -33,26 +38,29 @@ export function LanguageProvider({ children }: Props) {
   })
 
   useEffect(() => {
-    setAvailableLanguages([
-      {
-        locale: 'nb',
-        handleInApp: true,
-      },
-      {
-        locale: 'nn',
-        handleInApp: true,
-      },
-      {
-        locale: 'en',
-        handleInApp: true,
-      },
-    ])
-    const previousLanguage = getCookie('decorator-language')
+    if (isSuccess && !disableSpraakvelgerFeatureToggle.active) {
+      setAvailableLanguages([
+        {
+          locale: 'nb',
+          handleInApp: true,
+        },
+        {
+          locale: 'nn',
+          handleInApp: true,
+        },
+        {
+          locale: 'en',
+          handleInApp: true,
+        },
+      ])
 
-    if (previousLanguage) {
-      setLanguageCookie(previousLanguage as DecoratorLocale)
+      const previousLanguage = getCookie('decorator-language')
+
+      if (previousLanguage) {
+        setLanguageCookie(previousLanguage as DecoratorLocale)
+      }
     }
-  }, [])
+  }, [isSuccess])
 
   return (
     <IntlProvider

@@ -52,9 +52,11 @@ export function renderWithProviders(
 ) {
   function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
     return (
-      <IntlProvider locale={'nb'} messages={generateMockedTranslations()}>
-        <Provider store={store}>{children}</Provider>
-      </IntlProvider>
+      <Provider store={store}>
+        <IntlProvider locale={'nb'} messages={generateMockedTranslations()}>
+          {children}
+        </IntlProvider>
+      </Provider>
     )
   }
   const listenerMiddleware = createListenerMiddleware()

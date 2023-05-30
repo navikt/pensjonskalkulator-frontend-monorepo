@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client'
 
 import { App } from '@/components/App'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
-import { LanguageProvider } from '@/components/LanguageProvider'
+import { LanguageProvider } from '@/containers/LanguageProvider'
 
 import { store } from './state/store'
 
@@ -25,12 +25,12 @@ if (!root) {
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <LanguageProvider>
-      <ErrorBoundary>
-        <Provider store={store}>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <LanguageProvider>
           <App />
-        </Provider>
-      </ErrorBoundary>
-    </LanguageProvider>
+        </LanguageProvider>
+      </Provider>
+    </ErrorBoundary>
   </React.StrictMode>
 )

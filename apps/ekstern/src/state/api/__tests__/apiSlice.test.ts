@@ -7,6 +7,7 @@ import { swallowErrorsAsync } from '@/test-utils'
 const tidligstemuligeuttaksalderData = require('../../../mocks/data/tidligstemuligeuttaksalder.json')
 const pensjonsberegningData = require('../../../mocks/data/pensjonsberegning.json')
 const personData = require('../../../mocks/data/person.json')
+const unleashData = require('../../../mocks/data/unleash-disable-spraakvelger.json')
 
 // TODO: fikse bedre typing ved dispatch
 describe('apiSlice', () => {
@@ -14,6 +15,7 @@ describe('apiSlice', () => {
     expect(apiSlice.endpoints).toHaveProperty('getTidligsteMuligeUttaksalder')
     expect(apiSlice.endpoints).toHaveProperty('getPensjonsberegning')
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
+    expect(apiSlice.endpoints).toHaveProperty('getFeatureToggle')
   })
 
   describe('getTidligsteUttaksalder', () => {
@@ -65,7 +67,7 @@ describe('apiSlice', () => {
   })
 
   describe('getPensjonsberegning', () => {
-    it('returnerer data ved successfull query', async () => {
+    it('returnerer data ved vellykket query', async () => {
       const storeRef = await setupStore()
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getPensjonsberegning.initiate())
@@ -107,7 +109,7 @@ describe('apiSlice', () => {
   })
 
   describe('getPerson', () => {
-    it('returnerer data ved suksessfull query', async () => {
+    it('returnerer data ved vellykket query', async () => {
       const storeRef = await setupStore()
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
@@ -139,6 +141,55 @@ describe('apiSlice', () => {
       await swallowErrorsAsync(async () => {
         await storeRef
           .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+  describe('getFeatureToggle', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = await setupStore()
+      return storeRef
+        .dispatch<any>(
+          apiSlice.endpoints.getFeatureToggle.initiate({ toggleName: 'lorem' })
+        )
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(unleashData)
+        })
+    })
+
+    it('returnerer undefined ved feilende query', async () => {
+      const storeRef = await setupStore()
+      mockErrorResponse('/unleash')
+      return storeRef
+        .dispatch<any>(
+          apiSlice.endpoints.getFeatureToggle.initiate({ toggleName: 'lorem' })
+        )
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
+    })
+
+    it('kaster feil ved uforventet format på responsen', async () => {
+      const storeRef = await setupStore()
+
+      mockResponse('/unleash', {
+        status: 200,
+        json: { lorem: 'ipsum' },
+      })
+
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(
+            apiSlice.endpoints.getFeatureToggle.initiate({
+              toggleName: 'lorem',
+            })
+          )
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)
             expect(result.status).toBe('rejected')

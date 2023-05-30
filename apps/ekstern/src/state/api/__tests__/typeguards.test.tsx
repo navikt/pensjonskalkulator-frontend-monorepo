@@ -2,8 +2,9 @@ import { describe, expect, it } from 'vitest'
 
 import {
   isPensjonsberegning,
-  isPerson,
   isTidligsteMuligeUttaksalder,
+  isPerson,
+  isUnleashToggle,
 } from '../typeguards'
 
 describe('Typeguards', () => {
@@ -45,6 +46,7 @@ describe('Typeguards', () => {
     })
     it('returnerer false når typen er undefined eller at TidligsteMuligeUttaksalder inneholder noe annet enn number', () => {
       expect(isTidligsteMuligeUttaksalder(undefined)).toBeFalsy()
+      expect(isTidligsteMuligeUttaksalder([])).toBeFalsy()
       expect(isTidligsteMuligeUttaksalder({})).toBeFalsy()
       expect(
         isTidligsteMuligeUttaksalder({
@@ -65,6 +67,28 @@ describe('Typeguards', () => {
       expect(isPerson(null)).toEqual(false)
       expect(isPerson({})).toEqual(false)
       expect(isPerson({ sivilstand: 'SINNATAGG' }))
+    })
+  })
+
+  describe('isUnleashToggle', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(
+        isUnleashToggle({
+          name: 'lorem',
+          active: true,
+        })
+      ).toBeTruthy()
+    })
+    it('returnerer false når typen er undefined eller at UnleashToggle inneholder noe annet', () => {
+      expect(isUnleashToggle(undefined)).toBeFalsy()
+      expect(isUnleashToggle([])).toBeFalsy()
+      expect(isUnleashToggle({})).toBeFalsy()
+      expect(
+        isUnleashToggle({
+          name: 2,
+          active: 'string',
+        })
+      ).toBeFalsy()
     })
   })
 })

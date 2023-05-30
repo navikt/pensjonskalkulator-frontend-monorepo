@@ -3,6 +3,7 @@ import {
   isPensjonsberegning,
   isPerson,
   isTidligsteMuligeUttaksalder,
+  isUnleashToggle,
 } from './typeguards'
 import { API_BASEURL } from '@/api/paths'
 
@@ -11,6 +12,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
   }),
+
   endpoints: (builder) => ({
     // Full request url med baseQuery: '${env.VITE_MSW_BASEURL}/pensjon/kalkulator/api/pensjonsberegning'
     getTidligsteMuligeUttaksalder: builder.query<Uttaksalder, void>({
@@ -40,6 +42,18 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getFeatureToggle: builder.query<UnleashToggle, { toggleName: string }>({
+      query: ({ toggleName }) => ({
+        url: '/unleash',
+        params: { toggle: toggleName },
+      }),
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
+        }
+        return response
+      },
+    }),
   }),
 })
 
@@ -47,4 +61,5 @@ export const {
   useGetTidligsteMuligeUttaksalderQuery,
   useGetPensjonsberegningQuery,
   useGetPersonQuery,
+  useGetFeatureToggleQuery,
 } = apiSlice

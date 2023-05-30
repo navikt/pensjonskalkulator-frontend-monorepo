@@ -38,3 +38,13 @@ export const isPerson = (data?: any): data is Person => {
     'GJENLEVENDE_PARTNER',
   ].includes(data?.sivilstand)
 }
+
+export const isUnleashToggle = (data?: any): data is UnleashToggle => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    !Array.isArray(data) &&
+    typeof data.name === 'string' &&
+    typeof data.active === 'boolean'
+  )
+}

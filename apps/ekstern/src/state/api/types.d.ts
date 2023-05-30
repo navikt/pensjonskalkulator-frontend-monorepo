@@ -36,3 +36,8 @@ declare type Sivilstand =
 declare type Person = {
   sivilstand: Sivilstand
 }
+
+declare type UnleashToggle = {
+  type: string
+  active: boolean
+}
