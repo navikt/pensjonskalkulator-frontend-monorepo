@@ -44,7 +44,6 @@ export const isUnleashToggle = (data?: any): data is UnleashToggle => {
     typeof data === 'object' &&
     data !== null &&
     !Array.isArray(data) &&
-    typeof data.name === 'string' &&
-    typeof data.active === 'boolean'
+    typeof data.enabled === 'boolean'
   )
 }

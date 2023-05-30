@@ -38,6 +38,5 @@ declare type Person = {
 }
 
 declare type UnleashToggle = {
-  type: string
-  active: boolean
+  enabled: boolean
 }

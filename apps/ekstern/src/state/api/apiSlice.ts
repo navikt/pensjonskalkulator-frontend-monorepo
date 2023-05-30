@@ -42,14 +42,11 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getFeatureToggle: builder.query<UnleashToggle, { toggleName: string }>({
-      query: ({ toggleName }) => ({
-        url: '/unleash',
-        params: { toggle: toggleName },
-      }),
+    getSpraakvelgerFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.disable-spraakvelger',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
+          throw new Error(`Mottok ugyldig unleash response: ${response}`)
         }
         return response
       },
@@ -61,5 +58,5 @@ export const {
   useGetTidligsteMuligeUttaksalderQuery,
   useGetPensjonsberegningQuery,
   useGetPersonQuery,
-  useGetFeatureToggleQuery,
+  useGetSpraakvelgerFeatureToggleQuery,
 } = apiSlice

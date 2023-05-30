@@ -74,8 +74,7 @@ describe('Typeguards', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
         isUnleashToggle({
-          name: 'lorem',
-          active: true,
+          enabled: true,
         })
       ).toBeTruthy()
     })
@@ -85,8 +84,7 @@ describe('Typeguards', () => {
       expect(isUnleashToggle({})).toBeFalsy()
       expect(
         isUnleashToggle({
-          name: 2,
-          active: 'string',
+          enabled: 'string',
         })
       ).toBeFalsy()
     })

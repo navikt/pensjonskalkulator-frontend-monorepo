@@ -61,7 +61,7 @@ describe('LanguageProvider', () => {
   it('bruker norsk bokmål uansett når kall til feature toggle feiler', async () => {
     const storeRef = await setupStore()
     document.cookie = 'decorator-language=en'
-    await mockErrorResponse('/unleash')
+    await mockErrorResponse('/feature/pensjonskalkulator.disable-spraakvelger')
 
     render(
       <Provider store={storeRef}>

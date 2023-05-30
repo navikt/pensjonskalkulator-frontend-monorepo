@@ -15,7 +15,7 @@ describe('apiSlice', () => {
     expect(apiSlice.endpoints).toHaveProperty('getTidligsteMuligeUttaksalder')
     expect(apiSlice.endpoints).toHaveProperty('getPensjonsberegning')
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
-    expect(apiSlice.endpoints).toHaveProperty('getFeatureToggle')
+    expect(apiSlice.endpoints).toHaveProperty('getSpraakvelgerFeatureToggle')
   })
 
   describe('getTidligsteUttaksalder', () => {
@@ -149,12 +149,12 @@ describe('apiSlice', () => {
       })
     })
   })
-  describe('getFeatureToggle', () => {
+  describe('getSpraakvelgerFeatureToggle', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = await setupStore()
       return storeRef
         .dispatch<any>(
-          apiSlice.endpoints.getFeatureToggle.initiate({ toggleName: 'lorem' })
+          apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate()
         )
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
@@ -164,10 +164,10 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore()
-      mockErrorResponse('/unleash')
+      mockErrorResponse('/feature/pensjonskalkulator.disable-spraakvelger')
       return storeRef
         .dispatch<any>(
-          apiSlice.endpoints.getFeatureToggle.initiate({ toggleName: 'lorem' })
+          apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate()
         )
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('rejected')
@@ -178,7 +178,7 @@ describe('apiSlice', () => {
     it('kaster feil ved uforventet format på responsen', async () => {
       const storeRef = await setupStore()
 
-      mockResponse('/unleash', {
+      mockResponse('/feature/pensjonskalkulator.disable-spraakvelger', {
         status: 200,
         json: { lorem: 'ipsum' },
       })
@@ -186,9 +186,7 @@ describe('apiSlice', () => {
       await swallowErrorsAsync(async () => {
         await storeRef
           .dispatch<any>(
-            apiSlice.endpoints.getFeatureToggle.initiate({
-              toggleName: 'lorem',
-            })
+            apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate()
           )
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)

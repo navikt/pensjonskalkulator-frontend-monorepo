@@ -7,7 +7,7 @@ import {
   onLanguageSelect,
 } from '@navikt/nav-dekoratoren-moduler'
 
-import { useGetFeatureToggleQuery } from '@/state/api/apiSlice'
+import { useGetSpraakvelgerFeatureToggleQuery } from '@/state/api/apiSlice'
 
 import '@formatjs/intl-numberformat/polyfill-force'
 import '@formatjs/intl-numberformat/locale-data/en'
@@ -28,7 +28,7 @@ export function LanguageProvider({ children }: Props) {
   const [languageCookie, setLanguageCookie] = useState<DecoratorLocale>('nb')
 
   const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
-    useGetFeatureToggleQuery({ toggleName: 'disable-spraakvelger' })
+    useGetSpraakvelgerFeatureToggleQuery()
 
   // TODO dekke kobling mellom intl-provider'en og dekoratøren i E2E test
   /* c8 ignore next 3 */
@@ -38,7 +38,7 @@ export function LanguageProvider({ children }: Props) {
   })
 
   useEffect(() => {
-    if (isSuccess && !disableSpraakvelgerFeatureToggle.active) {
+    if (isSuccess && !disableSpraakvelgerFeatureToggle.enabled) {
       setAvailableLanguages([
         {
           locale: 'nb',
