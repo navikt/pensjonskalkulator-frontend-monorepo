@@ -16,10 +16,12 @@
   grid-template-columns: 1fr auto;
   grid-gap: var(--a-spacing-3);
   margin: 0;
+  font-size: var(--a-font-size-medium);
 
   &Item {
     &Right {
       text-align: right;
+      margin-inline-start: var(--a-spacing-4);
     }
   }
 }
