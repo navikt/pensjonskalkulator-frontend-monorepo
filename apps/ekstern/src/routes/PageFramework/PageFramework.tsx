@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import { useIntl } from 'react-intl'
 
 import { Heading } from '@navikt/ds-react'
 
-import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
+import styles from './PageFramework.module.scss'
 
-import styles from './App.module.scss'
-
-export function App() {
+export function PageFramework({ children }: PropsWithChildren<unknown>) {
   const intl = useIntl()
 
   return (
@@ -17,7 +15,7 @@ export function App() {
           {intl.formatMessage({ id: 'forside.title' })}
         </Heading>
       </div>
-      <Pensjonsberegning />
+      {children}
     </main>
   )
 }

@@ -19,12 +19,18 @@ export const rootReducer = combineReducers({
   userInput: userInputReducer,
 })
 
-export function setupStore(preloadedState?: PreloadedState<RootState>) {
+export function setupStore(
+  preloadedState?: PreloadedState<RootState>,
+  isDev = false
+) {
   return configureStore({
     reducer: rootReducer,
     preloadedState,
+
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware()
+      getDefaultMiddleware(
+        isDev ? { immutableCheck: false, serializableCheck: false } : {}
+      )
         .concat(apiSlice.middleware)
         .prepend(listenerMiddleware.middleware),
   })

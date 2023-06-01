@@ -1,4 +1,4 @@
-import React from 'react'
+import { memo } from 'react'
 
 import { Ingress } from '@navikt/ds-react'
 
@@ -11,7 +11,7 @@ interface Props {
   uttaksalder: Uttaksalder
 }
 
-export const TidligstMuligUttaksalder: React.FC<Props> = React.memo(
+export const TidligstMuligUttaksalder: React.FC<Props> = memo(
   ({ uttaksalder }) => {
     return (
       <Card data-testid="tidligst-mulig-uttak">

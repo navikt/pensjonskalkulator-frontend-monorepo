@@ -1,4 +1,4 @@
-import React from 'react'
+import { useMemo } from 'react'
 
 import { Accordion, Alert, BodyLong, Link } from '@navikt/ds-react'
 
@@ -10,6 +10,11 @@ import { SectionHeader } from './components/SectionHeader'
 export function Sivilstand() {
   const { data: person, isError, isLoading, isSuccess } = useGetPersonQuery()
 
+  const formatertSivilstand = useMemo(
+    () => (person ? formatSivilstand(person.sivilstand) : ''),
+    [person]
+  )
+
   if (isLoading) {
     return null
   }
@@ -20,10 +25,7 @@ export function Sivilstand() {
 
   return (
     <Accordion.Item data-testid={'accordion-sivilstand'}>
-      <SectionHeader
-        label="Sivilstand"
-        value={formatSivilstand(person.sivilstand)}
-      />
+      <SectionHeader label="Sivilstand" value={formatertSivilstand} />
       <Accordion.Content>
         <BodyLong>
           Garantipensjon skal sikre et minste garantipensjonsnivå ved 67 år for

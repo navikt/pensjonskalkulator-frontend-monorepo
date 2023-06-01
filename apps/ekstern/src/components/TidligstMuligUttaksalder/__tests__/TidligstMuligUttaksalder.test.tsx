@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'

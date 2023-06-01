@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { SeriesColumnOptions } from 'highcharts'
 import { describe, it } from 'vitest'
 

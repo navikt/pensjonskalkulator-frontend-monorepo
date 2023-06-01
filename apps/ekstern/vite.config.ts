@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => {
               'redux-thunk',
               '@reduxjs/toolkit',
               '@reduxjs/toolkit/dist/query',
+              'react-router-dom',
             ],
             ['intl']: [
               'react-intl',

@@ -46,7 +46,7 @@ export function renderWithProviders(
   ui: React.ReactElement,
   {
     preloadedState = {},
-    store = setupStore(preloadedState),
+    store = setupStore(preloadedState, true),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {

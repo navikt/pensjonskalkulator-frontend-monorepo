@@ -1,0 +1,13 @@
+// Vitest Snapshot v1
+
+exports[`Stegvisning > rendrer slik den skal, med riktig heading 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_d75732"
+  >
+    <h2>
+      Midlertidig stegvisning
+    </h2>
+  </section>
+</DocumentFragment>
+`;

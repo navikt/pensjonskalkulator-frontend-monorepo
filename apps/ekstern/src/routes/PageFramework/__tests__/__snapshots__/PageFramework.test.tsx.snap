@@ -1,0 +1,19 @@
+// Vitest Snapshot v1
+
+exports[`PageFramework > rendrer slik den skal, med main tag og Heading på riktig nivå 1`] = `
+<DocumentFragment>
+  <main
+    class="_main_facbaf"
+  >
+    <div
+      class="_headerGroup_facbaf"
+    >
+      <h1
+        class="navds-heading navds-heading--large navds-typo--spacing"
+      >
+        forside.title
+      </h1>
+    </div>
+  </main>
+</DocumentFragment>
+`;
