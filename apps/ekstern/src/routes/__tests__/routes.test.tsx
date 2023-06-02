@@ -11,7 +11,7 @@ describe('routes', () => {
       basename: ROUTER_BASE_URL,
       initialEntries: ['/pensjon/kalkulator'],
     })
-    await render(<RouterProvider router={router} />)
+    await render(<RouterProvider router={router} />, {}, { hasRouter: false })
 
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       'Midlertidig landingsside'
@@ -28,7 +28,7 @@ describe('routes', () => {
       basename: ROUTER_BASE_URL,
       initialEntries: ['/pensjon/kalkulator/stegvisning/0'],
     })
-    await render(<RouterProvider router={router} />)
+    await render(<RouterProvider router={router} />, {}, { hasRouter: false })
 
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       'Midlertidig stegvisning'
@@ -48,7 +48,7 @@ describe('routes', () => {
       basename: ROUTER_BASE_URL,
       initialEntries: ['/pensjon/kalkulator/beregning'],
     })
-    await render(<RouterProvider router={router} />)
+    await render(<RouterProvider router={router} />, {}, { hasRouter: false })
 
     expect(
       screen.getByText('Henter tidligste mulige uttaksalder')
@@ -61,7 +61,7 @@ describe('routes', () => {
       initialEntries: ['/pensjon/kalkulator/abc'],
     })
     swallowErrors(async () => {
-      await render(<RouterProvider router={router} />)
+      await render(<RouterProvider router={router} />, {}, { hasRouter: false })
 
       expect(screen.getByText('Denne siden finnes ikke')).toBeInTheDocument()
     })

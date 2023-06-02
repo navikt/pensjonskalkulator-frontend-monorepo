@@ -1,0 +1,11 @@
+@import '../../scss/variables';
+
+.section {
+  composes: whitesection from '../../scss/modules/whitesection.module.scss';
+  padding: var(--a-spacing-8);
+  text-align: center;
+}
+
+.button {
+  margin-top: var(--a-spacing-6);
+}

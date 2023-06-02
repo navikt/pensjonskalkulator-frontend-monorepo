@@ -4,7 +4,6 @@ import { LandingPage } from '@/routes/LandingPage'
 import { PageFramework } from '@/routes/PageFramework'
 import { Stegvisning } from '@/routes/Stegvisning'
 import { Step } from '@/routes/Stegvisning/Step'
-
 export const ROUTER_BASE_URL = '/pensjon/kalkulator'
 export const routes = [
   {
@@ -39,9 +38,5 @@ export const routes = [
     ),
     // action: rootAction,// TODO vudere å ta i bruk action og loader for henting av tidligst mulig uttak
     // loader: rootLoader,
-  },
-  {
-    path: '/*',
-    element: <ErrorPage404 />,
   },
 ]

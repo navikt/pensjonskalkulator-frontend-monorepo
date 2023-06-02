@@ -8,6 +8,7 @@ import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Loader } from '@/components/Loader'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
+import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
 
@@ -65,6 +66,8 @@ export function Pensjonsberegning() {
           <Forbehold />
         </>
       )}
+
+      <TilbakeEllerAvslutt />
     </>
   )
 }

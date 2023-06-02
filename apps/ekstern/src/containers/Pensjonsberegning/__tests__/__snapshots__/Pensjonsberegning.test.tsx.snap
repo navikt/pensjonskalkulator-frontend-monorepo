@@ -220,5 +220,39 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
       </button>
     </div>
   </section>
+  <section
+    class="_section_095025"
+  >
+    <h2
+      class="navds-heading navds-heading--medium navds-typo--spacing"
+    >
+      Vil du starte en ny beregning?
+    </h2>
+    <p
+      class="navds-body-short"
+    >
+      Hvis du starter en ny beregning eller går ut av siden vil beregningen over slettes.
+    </p>
+    <button
+      class="_button_095025 navds-button navds-button--primary navds-button--medium"
+    >
+      <span
+        aria-live="polite"
+        class="navds-label"
+      >
+        Start ny beregning
+      </span>
+    </button>
+    <button
+      class="_button_095025 navds-button navds-button--tertiary navds-button--medium"
+    >
+      <span
+        aria-live="polite"
+        class="navds-label"
+      >
+        Avslutt og gå til Din Pensjon
+      </span>
+    </button>
+  </section>
 </DocumentFragment>
 `;

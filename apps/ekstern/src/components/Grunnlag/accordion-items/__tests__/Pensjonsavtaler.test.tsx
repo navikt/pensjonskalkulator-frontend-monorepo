@@ -1,7 +1,5 @@
-import { screen } from '@testing-library/react'
-
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
-import { render } from '@/test-utils'
+import { render, screen } from '@/test-utils'
 
 describe('Pensjonsavtaler', () => {
   it('rendrer', () => {

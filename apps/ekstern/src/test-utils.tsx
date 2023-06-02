@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
+import { MemoryRouter } from 'react-router-dom'
 
 import { PreloadedState, createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
@@ -47,14 +48,16 @@ export function renderWithProviders(
   {
     preloadedState = {},
     store = setupStore(preloadedState, true),
+
     ...renderOptions
-  }: ExtendedRenderOptions = {}
+  }: ExtendedRenderOptions = {},
+  { hasRouter = true } = {}
 ) {
   function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
     return (
       <Provider store={store}>
         <IntlProvider locale={'nb'} messages={generateMockedTranslations()}>
-          {children}
+          {hasRouter ? <MemoryRouter>{children}</MemoryRouter> : children}
         </IntlProvider>
       </Provider>
     )

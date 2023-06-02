@@ -1,9 +1,10 @@
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 
+import { render } from '@testing-library/react'
 import { describe, it } from 'vitest'
 
 import { Step } from '..'
-import { render, screen, waitFor } from '@/test-utils'
+import { screen, waitFor } from '@/test-utils'
 
 describe('Step', () => {
   it('rendrer slik den skal, med riktig heading basert på url parameter', async () => {

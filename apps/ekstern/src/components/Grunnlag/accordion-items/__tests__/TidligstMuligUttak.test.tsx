@@ -1,7 +1,5 @@
-import { screen } from '@testing-library/react'
-
 import { TidligstMuligUttak } from '../TidligstMuligUttak'
-import { render } from '@/test-utils'
+import { render, screen } from '@/test-utils'
 
 describe('TidligstMuligUttak', () => {
   it('rendrer med år og måned', () => {
