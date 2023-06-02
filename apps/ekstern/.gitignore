@@ -17,6 +17,7 @@ coverage
 cypress/videos
 cypress/screenshots
 analice.html
+vite.config.ts.*
 
 # Editor directories and files
 .vscode/*
