@@ -1,6 +1,6 @@
-describe('Graff Horizontal scroll', () => {
+describe('Graf Horizontal scroll', () => {
   context(
-    'Gitt at graffen rendres på desktop og har nok søyler for å kunne scrolles',
+    'Gitt at grafen rendres på desktop og har nok søyler for å kunne scrolles',
     () => {
       it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {
         cy.visit('/pensjon/kalkulator/beregning')
