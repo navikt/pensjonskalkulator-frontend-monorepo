@@ -6,9 +6,9 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { setupStore } from '../../../state/store'
 import { LanguageProvider } from '../LanguageProvider'
 import { mockErrorResponse } from '@/mocks/server'
-export function TestComponent() {
-  const intl = useIntl()
 
+function TestComponent() {
+  const intl = useIntl()
   return (
     <div data-testid={'test-component'}>
       {intl.formatMessage({ id: 'forside.title' })}
