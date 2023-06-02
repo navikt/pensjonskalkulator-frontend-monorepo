@@ -1,12 +1,12 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { Pensjonsberegning } from '../Pensjonsberegning'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import {
-  fireEvent,
   render,
   screen,
   swallowErrorsAsync,
+  userEvent,
   waitFor,
 } from '@/test-utils'
 
@@ -72,19 +72,15 @@ describe('Pensjonsberegning', () => {
   it('oppdaterer valgt knapp og tegner graph når uttaksalder er valgt', async () => {
     const { container } = render(<Pensjonsberegning />)
 
-    await waitFor(async () => {
-      fireEvent.click(screen.getByText('65 år'))
+    const button = await screen.findByText('65 år')
 
-      expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-        '65 år'
-      )
-      vi.useFakeTimers()
-      vi.advanceTimersByTime(250)
-      expect(
-        container.getElementsByClassName('highcharts-container').length
-      ).toBe(1)
+    await userEvent.click(button)
 
-      vi.useRealTimers()
-    })
+    expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
+      '65 år'
+    )
+    expect(
+      container.getElementsByClassName('highcharts-container').length
+    ).toBe(1)
   })
 })
