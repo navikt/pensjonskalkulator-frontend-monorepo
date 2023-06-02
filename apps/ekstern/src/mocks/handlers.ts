@@ -8,7 +8,7 @@ import tidligstemuligeuttaksalderData from './data/tidligstemuligeuttaksalder.js
 import unleashDisableSpraakvelgerData from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
 
 export const getHandlers = (baseUrl: string = PATH) => [
-  rest.get(`${baseUrl}/tidligste-uttaksalder`, (req, res, ctx) => {
+  rest.post(`${baseUrl}/tidligste-uttaksalder`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json(tidligstemuligeuttaksalderData),

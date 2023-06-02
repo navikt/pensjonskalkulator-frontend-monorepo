@@ -11,6 +11,7 @@ export const server = setupServer(...handlers)
 type MockResponseOptions = {
   status?: number
   json?: ReturnType<typeof JSON.parse>
+  method?: 'post' | 'get'
 }
 
 export const mockResponse = (
@@ -18,10 +19,11 @@ export const mockResponse = (
   options: MockResponseOptions = {
     status: 200,
     json: 'OK',
+    method: 'get',
   }
 ) => {
   server.use(
-    rest.get(`${API_BASEURL}${path}`, (req, res, ctx) => {
+    rest[options?.method ?? 'get'](`${API_BASEURL}${path}`, (req, res, ctx) => {
       return res(ctx.status(options.status ?? 200), ctx.json(options.json))
     })
   )
@@ -32,6 +34,7 @@ export const mockErrorResponse = (
   options: MockResponseOptions = {
     status: 500,
     json: "Beep boop I'm an error!",
+    method: 'get',
   }
 ) => {
   mockResponse(path, {

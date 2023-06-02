@@ -28,7 +28,11 @@ describe('Pensjonsberegning', () => {
   })
 
   it('viser feilmelding om henting av pensjonberegning feiler', async () => {
-    mockErrorResponse('/tidligste-uttaksalder')
+    mockErrorResponse('/tidligste-uttaksalder', {
+      status: 500,
+      json: "Beep boop I'm an error!",
+      method: 'post',
+    })
 
     const result = render(<Pensjonsberegning />)
 
@@ -47,7 +51,10 @@ describe('Pensjonsberegning', () => {
       aar: 67,
       maaned: null,
     } as unknown as Uttaksalder
-    mockResponse('/tidligste-uttaksalder', { json: [invalidData] })
+    mockResponse('/tidligste-uttaksalder', {
+      json: [invalidData],
+      method: 'post',
+    })
 
     render(<Pensjonsberegning />)
 

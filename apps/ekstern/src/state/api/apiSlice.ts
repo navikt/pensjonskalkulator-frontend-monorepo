@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   isPensjonsberegning,
   isPerson,
-  isTidligsteMuligeUttaksalder,
   isUnleashToggle,
+  isUttaksalder,
 } from './typeguards'
 import { API_BASEURL } from '@/api/paths'
 
@@ -15,10 +15,14 @@ export const apiSlice = createApi({
 
   endpoints: (builder) => ({
     // Full request url med baseQuery: '${env.VITE_MSW_BASEURL}/pensjon/kalkulator/api/pensjonsberegning'
-    getTidligsteMuligeUttaksalder: builder.query<Uttaksalder, void>({
-      query: () => '/tidligste-uttaksalder',
+    tidligsteUttaksalder: builder.query<Uttaksalder, void>({
+      query: (body) => ({
+        url: '/tidligste-uttaksalder',
+        method: 'POST',
+        body,
+      }),
       transformResponse: (response: Uttaksalder) => {
-        if (!isTidligsteMuligeUttaksalder(response)) {
+        if (!isUttaksalder(response)) {
           throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
         }
         return response
@@ -55,7 +59,7 @@ export const apiSlice = createApi({
 })
 
 export const {
-  useGetTidligsteMuligeUttaksalderQuery,
+  useTidligsteUttaksalderQuery,
   useGetPensjonsberegningQuery,
   useGetPersonQuery,
   useGetSpraakvelgerFeatureToggleQuery,

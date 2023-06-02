@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
 
-import { Pensjonssimulering } from '../../components/Pensjonssimulering'
 import { Card } from '@/components/Card'
 import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Loader } from '@/components/Loader'
+import { Pensjonssimulering } from '@/components/Pensjonssimulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
-import { useGetTidligsteMuligeUttaksalderQuery } from '@/state/api/apiSlice'
+import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
 
 export function Pensjonsberegning() {
   const {
@@ -18,7 +18,7 @@ export function Pensjonsberegning() {
     isLoading,
     isError,
     isSuccess,
-  } = useGetTidligsteMuligeUttaksalderQuery()
+  } = useTidligsteUttaksalderQuery()
 
   // TODO vurdere om denne skal lagres i Redux store for å minske prop drilling
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()

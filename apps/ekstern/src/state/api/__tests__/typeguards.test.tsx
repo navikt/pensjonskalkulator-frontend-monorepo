@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   isPensjonsberegning,
-  isTidligsteMuligeUttaksalder,
+  isUttaksalder,
   isPerson,
   isUnleashToggle,
 } from '../typeguards'
@@ -38,18 +38,18 @@ describe('Typeguards', () => {
   describe('isTidligsteUttaksalder', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
-        isTidligsteMuligeUttaksalder({
+        isUttaksalder({
           aar: 12,
           maaned: 2,
         })
       ).toBeTruthy()
     })
     it('returnerer false når typen er undefined eller at TidligsteMuligeUttaksalder inneholder noe annet enn number', () => {
-      expect(isTidligsteMuligeUttaksalder(undefined)).toBeFalsy()
-      expect(isTidligsteMuligeUttaksalder([])).toBeFalsy()
-      expect(isTidligsteMuligeUttaksalder({})).toBeFalsy()
+      expect(isUttaksalder(undefined)).toBeFalsy()
+      expect(isUttaksalder([])).toBeFalsy()
+      expect(isUttaksalder({})).toBeFalsy()
       expect(
-        isTidligsteMuligeUttaksalder({
+        isUttaksalder({
           aar: 'string',
           maaned: 2,
         })

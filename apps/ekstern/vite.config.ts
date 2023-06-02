@@ -106,7 +106,7 @@ export default defineConfig(({ mode }) => {
         all: true,
         extension: ['.ts', '.tsx'],
         exclude: [
-          'vite.config.ts',
+          '*.config.ts',
           'src/mocks',
           'src/test-utils.tsx',
           'src/**/*.d.ts',
@@ -115,7 +115,7 @@ export default defineConfig(({ mode }) => {
           'src/**/index.ts',
           'src/state/hooks.ts',
           'cypress',
-          'cypress.config.ts',
+          'src/types',
         ],
         perFile: true,
         lines: 95,
