@@ -16,7 +16,7 @@ exports[`Step > rendrer slik den skal, med riktig heading, bilde, tekst og knapp
       stegvisning.steg0.title
     </h2>
     <p
-      class="navds-body-short"
+      class="_ingress_b0eca1 navds-body-short"
     >
       stegvisning.steg0.ingress
     </p>
