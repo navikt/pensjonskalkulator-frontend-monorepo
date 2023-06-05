@@ -1,3 +1,5 @@
+@import '../../scss/variables';
+
 .table {
   :global {
     .navds-table__expanded-row-content {
@@ -23,5 +25,9 @@
       text-align: right;
       margin-inline-start: var(--a-spacing-4);
     }
+  }
+
+  @media (min-width: $a-breakpoint-sm) {
+    font-size: var(--a-font-size-large);
   }
 }
