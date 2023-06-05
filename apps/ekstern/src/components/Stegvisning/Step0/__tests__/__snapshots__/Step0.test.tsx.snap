@@ -1,0 +1,45 @@
+// Vitest Snapshot v1
+
+exports[`Step > rendrer slik den skal, med riktig heading, bilde, tekst og knapper 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_b0eca1"
+  >
+    <img
+      alt="stegvisning.steg0.bildetekst"
+      class="_image_b0eca1"
+      src="/pensjon/kalkulator/src/assets/frida.svg"
+    />
+    <h2
+      class="navds-heading navds-heading--large navds-typo--spacing"
+    >
+      stegvisning.steg0.title
+    </h2>
+    <p
+      class="navds-body-short"
+    >
+      stegvisning.steg0.ingress
+    </p>
+    <button
+      class="_button_b0eca1 navds-button navds-button--primary navds-button--medium"
+    >
+      <span
+        aria-live="polite"
+        class="navds-label"
+      >
+        stegvisning.steg0.neste_button
+      </span>
+    </button>
+    <button
+      class="navds-button navds-button--tertiary navds-button--medium"
+    >
+      <span
+        aria-live="polite"
+        class="navds-label"
+      >
+        stegvisning.steg0.avbryt_button
+      </span>
+    </button>
+  </section>
+</DocumentFragment>
+`;

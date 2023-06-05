@@ -18,7 +18,7 @@ describe('PageFramework', () => {
     const result = render(<PageFramework />)
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'forside.title'
+      'application.title'
     )
     expect(result.asFragment()).toMatchSnapshot()
   })

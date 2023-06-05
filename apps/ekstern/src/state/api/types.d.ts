@@ -33,6 +33,8 @@ declare type Sivilstand =
   | 'SKILT_PARTNER'
   | 'GJENLEVENDE_PARTNER'
 
+declare type Step = '0' | '1' | '2' | '3'
+
 declare type Person = {
   sivilstand: Sivilstand
 }

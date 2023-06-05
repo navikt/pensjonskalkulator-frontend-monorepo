@@ -35,20 +35,30 @@ describe('LanguageProvider-utils', () => {
   })
 
   describe('getTranslations', () => {
-    it('returnerer alle keys og tekst i riktig språk når locale=nb', () => {
-      const nbTranslations = getTranslations('nb')
-      expect(nbTranslations['forside.title']).toBe('Pensjonskalkulator')
-      const nbTranslationsKeys = Object.keys(nbTranslations)
-      expect(nbTranslationsKeys).toHaveLength(1)
-    })
+    it('returnerer alle keys og tekst i riktig språk for alle lokalene', () => {
+      // Foreløpig er norsk bokmål vår referanse
+      const forventetLength = Object.keys(
+        nbMessagesModule.getTranslation_nb()
+      ).length
 
-    it('returnerer alle keys og tekst i riktig språk når locale=en', () => {
+      const nbTranslations = getTranslations('nb')
+      expect(nbTranslations['application.title']).toBe('Pensjonskalkulator')
+      const nbTranslationsKeys = Object.keys(nbTranslations)
+      expect(nbTranslationsKeys).toHaveLength(forventetLength)
+
       const enTranslations = getTranslations('en')
-      expect(enTranslations['forside.title']).toBe(
+      expect(enTranslations['application.title']).toBe(
         'Retirement income calculator'
       )
       const enTranslationsKeys = Object.keys(enTranslations)
-      expect(enTranslationsKeys).toHaveLength(1)
+      expect(enTranslationsKeys).toHaveLength(forventetLength)
+
+      const nnTranslations = getTranslations('nn')
+      expect(nnTranslations['application.title']).toBe(
+        'Pensjonskalkulator (nynorsk)'
+      )
+      const nnTranslationsKeys = Object.keys(nnTranslations)
+      expect(nnTranslationsKeys).toHaveLength(forventetLength)
     })
 
     it('returnerer sammensatte tekster med fallback på bokmål for key som ikke finnes, når locale=en', () => {
@@ -69,15 +79,6 @@ describe('LanguageProvider-utils', () => {
       expect(enTranslations.commonKey).toBe('english title')
       expect(enTranslations.uniqueNOKey).toBe('unik norsk key')
       expect(enTranslations.uniqueENKey).toBe('unique english key')
-    })
-
-    it('returnerer alle keys og tekst i riktig språk når locale=nn', () => {
-      const nnTranslations = getTranslations('nn')
-      expect(nnTranslations['forside.title']).toBe(
-        'Pensjonskalkulator (nynorsk)'
-      )
-      const nnTranslationsKeys = Object.keys(nnTranslations)
-      expect(nnTranslationsKeys).toHaveLength(1)
     })
 
     it('returnerer sammensatte tekster med fallback på bokmål for key som ikke finnes, når locale=nn', () => {
@@ -102,9 +103,13 @@ describe('LanguageProvider-utils', () => {
 
     it('returnerer nb som default når locale er ukjent', () => {
       const defaultTranslations = getTranslations('')
-      expect(defaultTranslations['forside.title']).toBe('Pensjonskalkulator')
+      expect(defaultTranslations['application.title']).toBe(
+        'Pensjonskalkulator'
+      )
       const unknownTranslations = getTranslations('abc')
-      expect(unknownTranslations['forside.title']).toBe('Pensjonskalkulator')
+      expect(unknownTranslations['application.title']).toBe(
+        'Pensjonskalkulator'
+      )
     })
   })
 })

@@ -1,0 +1,38 @@
+// Vitest Snapshot v1
+
+exports[`Step > rendrer slik den skal 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_d75732"
+  >
+    <h2
+      class="navds-heading navds-heading--large navds-typo--spacing"
+    >
+      STEP 1
+    </h2>
+    <button
+      class="navds-button navds-button--primary navds-button--medium"
+    >
+      <span
+        aria-live="polite"
+        class="navds-label"
+      >
+        Gå til Beregningen
+      </span>
+    </button>
+    <button
+      class="navds-button navds-button--tertiary navds-button--medium"
+    >
+      <span
+        aria-live="polite"
+        class="navds-label"
+      >
+        Tilbake
+      </span>
+    </button>
+    <a
+      href="/beregning"
+    />
+  </section>
+</DocumentFragment>
+`;
