@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { TilbakeEllerAvslutt } from '..'
+import { RootState } from '@/state/store'
 import { render, screen, fireEvent } from '@/test-utils'
 const realLocation = window.location
 
@@ -20,14 +21,18 @@ describe('TilbakeEllerAvslutt', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('redirigerer til første steg av stegvisning når brukeren klikker på Start ny beregning', () => {
+  it('nullstiller input fra brukeren og redirigerer til første steg av stegvisning når brukeren klikker på Start ny beregning', () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<TilbakeEllerAvslutt />)
+    const { store } = render(<TilbakeEllerAvslutt />, {
+      preloadedState: { userInput: { samtykke: true } } as RootState,
+    })
+
     fireEvent.click(screen.getByText('Start ny beregning'))
     expect(navigateMock).toHaveBeenCalledWith('/stegvisning/0')
+    expect(store.getState().userInput.samtykke).toBe(null)
   })
 
   it('redirigerer til Din Pensjon når brukeren klikker på Avslutt', () => {

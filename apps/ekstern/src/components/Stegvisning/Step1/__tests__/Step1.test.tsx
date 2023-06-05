@@ -31,7 +31,7 @@ describe('Step 1', () => {
     expect(navigateMock).toHaveBeenCalledWith('/beregning')
   })
 
-  it('nullstiller input fra brukeren og  sender tilbake til steg 0 når brukeren klikker på Tilbake', () => {
+  it('nullstiller input fra brukeren og sender tilbake til steg 0 når brukeren klikker på Tilbake', () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock

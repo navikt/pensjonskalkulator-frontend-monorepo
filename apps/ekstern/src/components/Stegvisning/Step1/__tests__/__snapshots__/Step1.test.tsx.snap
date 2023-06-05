@@ -86,7 +86,6 @@ exports[`Step 1 > rendrer slik den skal 1`] = `
             class="navds-radio__input"
             id="radio-r3"
             name="radioGroupName-r1"
-            required=""
             type="radio"
             value="ja"
           />
@@ -113,7 +112,6 @@ exports[`Step 1 > rendrer slik den skal 1`] = `
             class="navds-radio__input"
             id="radio-r4"
             name="radioGroupName-r1"
-            required=""
             type="radio"
             value="nei"
           />

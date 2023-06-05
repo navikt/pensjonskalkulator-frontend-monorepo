@@ -2,12 +2,17 @@ import { useNavigate } from 'react-router-dom'
 
 import { BodyShort, Button, Heading } from '@navikt/ds-react'
 
+import { useAppDispatch } from '@/state/hooks'
+import { userInputActions } from '@/state/userInput/userInputReducer'
+
 import styles from './TilbakeEllerAvslutt.module.scss'
 
 export function TilbakeEllerAvslutt() {
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
   const onResetClick = (): void => {
+    dispatch(userInputActions.flush())
     navigate('/stegvisning/0')
   }
 
