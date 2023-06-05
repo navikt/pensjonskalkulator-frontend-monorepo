@@ -29,7 +29,7 @@ export function Step0() {
       <Heading size="large" level="2" spacing>
         {intl.formatMessage({ id: 'stegvisning.steg0.title' })}
       </Heading>
-      <BodyShort>
+      <BodyShort className={styles.ingress}>
         {intl.formatMessage({ id: 'stegvisning.steg0.ingress' })}
       </BodyShort>
 
