@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Step0 } from '..'
 import { render, screen, waitFor, fireEvent } from '@/test-utils'
 
-describe('Step', () => {
+describe('Step 0', () => {
   it('rendrer slik den skal, med riktig heading, bilde, tekst og knapper', async () => {
     const result = render(<Step0 />)
 
@@ -23,7 +23,7 @@ describe('Step', () => {
       () => navigateMock
     )
     render(<Step0 />)
-    fireEvent.click(screen.getByText('stegvisning.steg0.neste_button'))
+    fireEvent.click(screen.getByText('stegvisning.steg0.start'))
     expect(navigateMock).toHaveBeenCalledWith('/stegvisning/1')
   })
 
@@ -33,7 +33,7 @@ describe('Step', () => {
       () => navigateMock
     )
     render(<Step0 />)
-    fireEvent.click(screen.getByText('stegvisning.steg0.avbryt_button'))
+    fireEvent.click(screen.getByText('stegvisning.avbryt'))
     expect(navigateMock).toHaveBeenCalledWith('/')
   })
 })

@@ -1,4 +1,4 @@
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { BodyShort, Button, Heading } from '@navikt/ds-react'
@@ -27,17 +27,16 @@ export function Step0() {
         alt={intl.formatMessage({ id: 'stegvisning.steg0.bildetekst' })}
       />
       <Heading size="large" level="2" spacing>
-        {intl.formatMessage({ id: 'stegvisning.steg0.title' })}
+        <FormattedMessage id="stegvisning.steg0.title" />
       </Heading>
       <BodyShort className={styles.ingress}>
-        {intl.formatMessage({ id: 'stegvisning.steg0.ingress' })}
+        <FormattedMessage id="stegvisning.steg0.ingress" />
       </BodyShort>
-
       <Button className={styles.button} onClick={onNextClick}>
-        {intl.formatMessage({ id: 'stegvisning.steg0.neste_button' })}
+        <FormattedMessage id="stegvisning.steg0.start" />
       </Button>
       <Button variant="tertiary" onClick={onCancelClick}>
-        {intl.formatMessage({ id: 'stegvisning.steg0.avbryt_button' })}
+        <FormattedMessage id="stegvisning.avbryt" />
       </Button>
     </section>
   )

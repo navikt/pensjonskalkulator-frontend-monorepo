@@ -37,7 +37,7 @@ describe('Stegvisning', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'STEP 1'
+        'stegvisning.steg1.title'
       )
     })
   })

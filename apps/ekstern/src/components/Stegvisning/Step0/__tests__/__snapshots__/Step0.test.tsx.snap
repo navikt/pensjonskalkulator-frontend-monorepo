@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Step > rendrer slik den skal, med riktig heading, bilde, tekst og knapper 1`] = `
+exports[`Step 0 > rendrer slik den skal, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
     class="_section_b0eca1"
@@ -27,7 +27,7 @@ exports[`Step > rendrer slik den skal, med riktig heading, bilde, tekst og knapp
         aria-live="polite"
         class="navds-label"
       >
-        stegvisning.steg0.neste_button
+        stegvisning.steg0.start
       </span>
     </button>
     <button
@@ -37,7 +37,7 @@ exports[`Step > rendrer slik den skal, med riktig heading, bilde, tekst og knapp
         aria-live="polite"
         class="navds-label"
       >
-        stegvisning.steg0.avbryt_button
+        stegvisning.avbryt
       </span>
     </button>
   </section>

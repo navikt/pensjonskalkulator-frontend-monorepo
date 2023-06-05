@@ -30,6 +30,9 @@ export const userInputSlice = createSlice({
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
     },
+    flush: (state) => {
+      state.samtykke = null
+    },
     setSomething: (state, action: PayloadAction<string>) => {
       state.currentSimulation.something = action.payload
     },

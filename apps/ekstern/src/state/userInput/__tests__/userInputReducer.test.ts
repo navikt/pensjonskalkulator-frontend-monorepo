@@ -16,5 +16,19 @@ describe('userInputSlice', () => {
         samtykke: true,
       })
     })
+
+    it('flush', () => {
+      const updatedState = userInputSlice(
+        {
+          ...userInputInitialState,
+          samtykke: true,
+        },
+        userInputActions.flush()
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+      })
+    })
   })
 })
