@@ -33,7 +33,7 @@ export function Step1() {
 
   const onNextClick = (): void => {
     // TODO legge til kall for å sjekke TPO
-    navigate('/beregning')
+    navigate('/stegvisning/2')
   }
 
   const handleRadioChange = (val: string): void => {

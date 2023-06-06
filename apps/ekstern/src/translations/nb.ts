@@ -24,5 +24,10 @@ const translations = {
   'stegvisning.steg1.radio_label': 'Skal vi hente dine pensjonsavtaler?',
   'stegvisning.steg1.radio_ja': 'Ja, hent mine avtaler',
   'stegvisning.steg1.radio_nei': 'Nei, fortsett kun med alderspensjon',
+  'stegvisning.steg2.title': 'Du kan ha rett til offentlig tjenestepensjon',
+  'stegvisning.steg2.ingress_1':
+    'Du er eller har vært medlem i en offentlig tjenestepensjonsordning og kan ha rett til tjenestepensjon. Men vi kan dessverre ikke hente inn dine avtaler. Sjekk hva som gjelder deg hos din tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.)',
+  'stegvisning.steg2.ingress_2':
+    'Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
 }
 export const getTranslation_nb = () => translations

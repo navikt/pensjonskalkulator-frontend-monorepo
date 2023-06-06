@@ -28,7 +28,7 @@ describe('Step 1', () => {
     )
     render(<Step1 />)
     fireEvent.click(screen.getByText('stegvisning.neste'))
-    expect(navigateMock).toHaveBeenCalledWith('/beregning')
+    expect(navigateMock).toHaveBeenCalledWith('/stegvisning/2')
   })
 
   it('nullstiller input fra brukeren og sender tilbake til steg 0 når brukeren klikker på Tilbake', () => {
