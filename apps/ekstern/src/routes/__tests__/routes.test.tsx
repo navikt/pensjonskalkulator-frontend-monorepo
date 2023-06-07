@@ -19,19 +19,19 @@ describe('routes', () => {
 
     await fireEvent.click(screen.getByText('Test kalkulatoren'))
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.steg0.title'
+      'stegvisning.steg1.title'
     )
   })
 
-  it('/pensjon/kalkulator/stegvisning/123456789 viser steg 0 som default i stegvisningen', async () => {
+  it('/pensjon/kalkulator/stegvisning/123456789 viser steg 1 som default i stegvisningen', async () => {
     const router = createMemoryRouter(routes, {
       basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/stegvisning/0'],
+      initialEntries: ['/pensjon/kalkulator/stegvisning/123456789'],
     })
     await render(<RouterProvider router={router} />, {}, { hasRouter: false })
 
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.steg0.title'
+      'stegvisning.steg1.title'
     )
   })
 

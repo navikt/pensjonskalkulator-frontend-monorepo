@@ -8,24 +8,6 @@ import { RootState } from '@/state/store'
 import { render, screen, waitFor } from '@/test-utils'
 
 describe('Stegvisning', () => {
-  it('rendrer Step 0 slik den skal, med riktig steg basert på url parameter', async () => {
-    render(
-      <MemoryRouter initialEntries={['/whateverroute/0']}>
-        <Routes>
-          <Route path="/whateverroute/:stepId" element={<Stegvisning />} />
-        </Routes>
-      </MemoryRouter>,
-      {},
-      { hasRouter: false }
-    )
-
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.steg0.title'
-      )
-    })
-  })
-
   it('rendrer Step 1 slik den skal, med riktig steg basert på url parameter', async () => {
     render(
       <MemoryRouter initialEntries={['/whateverroute/1']}>
@@ -44,9 +26,27 @@ describe('Stegvisning', () => {
     })
   })
 
-  it('Når brukeren har samtykket, rendrer Step 2 slik den skal, med riktig steg basert på url parameter', async () => {
+  it('rendrer Step 2 slik den skal, med riktig steg basert på url parameter', async () => {
     render(
       <MemoryRouter initialEntries={['/whateverroute/2']}>
+        <Routes>
+          <Route path="/whateverroute/:stepId" element={<Stegvisning />} />
+        </Routes>
+      </MemoryRouter>,
+      {},
+      { hasRouter: false }
+    )
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'stegvisning.steg2.title'
+      )
+    })
+  })
+
+  it('Når brukeren har samtykket, rendrer Step 3 slik den skal, med riktig steg basert på url parameter', async () => {
+    render(
+      <MemoryRouter initialEntries={['/whateverroute/3']}>
         <Routes>
           <Route path="/whateverroute/:stepId" element={<Stegvisning />} />
         </Routes>
@@ -59,19 +59,19 @@ describe('Stegvisning', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.steg2.title'
+        'stegvisning.steg3.title'
       )
     })
   })
 
-  it('Når brukeren ikke har samtykket og prøver å aksessere steg 2 direkte, redirigerer til steg 3', async () => {
+  it('Når brukeren ikke har samtykket og prøver å aksessere steg 3 direkte, redirigerer til steg 4', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
 
     render(
-      <MemoryRouter initialEntries={['/whateverroute/2']}>
+      <MemoryRouter initialEntries={['/whateverroute/3']}>
         <Routes>
           <Route path="/whateverroute/:stepId" element={<Stegvisning />} />
         </Routes>
@@ -81,11 +81,11 @@ describe('Stegvisning', () => {
     )
 
     await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith('/stegvisning/3')
+      expect(navigateMock).toHaveBeenCalledWith('/stegvisning/4')
     })
   })
 
-  it('rendrer steg0 som default når steget er ukjent', async () => {
+  it('rendrer Step 1 som default når steget er ukjent', async () => {
     render(
       <MemoryRouter initialEntries={['/whateverroute/7654']}>
         <Routes>
@@ -98,7 +98,7 @@ describe('Stegvisning', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.steg0.title'
+        'stegvisning.steg1.title'
       )
     })
   })

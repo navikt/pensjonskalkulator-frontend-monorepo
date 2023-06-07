@@ -6,7 +6,7 @@ export function LandingPage() {
   return (
     <Card>
       <h2>Midlertidig landingsside</h2>
-      <Link to="/stegvisning/0">Test kalkulatoren</Link>
+      <Link to="/stegvisning/1">Test kalkulatoren</Link>
     </Card>
   )
 }

@@ -13,12 +13,12 @@ exports[`Step 0 > rendrer slik den skal, med riktig heading, bilde, tekst og kna
     <h2
       class="navds-heading navds-heading--large navds-typo--spacing"
     >
-      stegvisning.steg0.title
+      stegvisning.steg1.title
     </h2>
     <p
       class="_ingress_b0eca1 navds-body-short"
     >
-      stegvisning.steg0.ingress
+      stegvisning.steg1.ingress
     </p>
     <button
       class="_button_b0eca1 navds-button navds-button--primary navds-button--medium"
@@ -27,7 +27,7 @@ exports[`Step 0 > rendrer slik den skal, med riktig heading, bilde, tekst og kna
         aria-live="polite"
         class="navds-label"
       >
-        stegvisning.steg0.start
+        stegvisning.steg1.start
       </span>
     </button>
     <button

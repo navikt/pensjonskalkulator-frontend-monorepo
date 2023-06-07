@@ -1,9 +1,17 @@
 import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
+import {
+  BodyLong,
+  Button,
+  Heading,
+  Radio,
+  RadioGroup,
+  ReadMore,
+} from '@navikt/ds-react'
 
-import { useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { selectSamtykke } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 import styles from './Step2.module.scss'
@@ -11,6 +19,7 @@ import styles from './Step2.module.scss'
 export function Step2() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const harSamtykket = useAppSelector(selectSamtykke)
 
   const onCancelClick = (): void => {
     dispatch(userInputActions.flush())
@@ -18,11 +27,17 @@ export function Step2() {
   }
 
   const onPreviousClick = (): void => {
+    dispatch(userInputActions.flush())
     navigate('/stegvisning/1')
   }
 
   const onNextClick = (): void => {
-    navigate('/beregning')
+    // TODO legge til kall for å sjekke TPO
+    navigate('/stegvisning/3')
+  }
+
+  const handleRadioChange = (val: string): void => {
+    dispatch(userInputActions.setSamtykke(val === 'ja'))
   }
 
   return (
@@ -30,12 +45,46 @@ export function Step2() {
       <Heading size="large" level="2" spacing>
         <FormattedMessage id="stegvisning.steg2.title" />
       </Heading>
-      <BodyLong spacing>
-        <FormattedMessage id="stegvisning.steg2.ingress_1" />
-      </BodyLong>
       <BodyLong>
-        <FormattedMessage id="stegvisning.steg2.ingress_2" />
+        <FormattedMessage id="stegvisning.steg2.ingress" />
       </BodyLong>
+      <ReadMore
+        className={styles.readmore}
+        header={<FormattedMessage id="stegvisning.steg2.readmore_title" />}
+      >
+        <FormattedMessage id="stegvisning.steg2.readmore_ingress" />
+        <br />
+        <br />
+        <FormattedMessage id="stegvisning.steg2.readmore_list_title" />
+        <ul>
+          <li>
+            <FormattedMessage id="stegvisning.steg2.readmore_list_item1" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.steg2.readmore_list_item2" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.steg2.readmore_list_item3" />
+          </li>
+        </ul>
+      </ReadMore>
+
+      {
+        // TODO Validering. Bør brukeren bli hindret til å gå videre uten å ha valgt noe?
+      }
+      <RadioGroup
+        legend={<FormattedMessage id="stegvisning.steg2.radio_label" />}
+        value={harSamtykket ? 'ja' : harSamtykket === false ? 'nei' : null}
+        onChange={(val) => handleRadioChange(val)}
+        // required
+      >
+        <Radio value="ja">
+          <FormattedMessage id="stegvisning.steg2.radio_ja" />
+        </Radio>
+        <Radio value="nei">
+          <FormattedMessage id="stegvisning.steg2.radio_nei" />
+        </Radio>
+      </RadioGroup>
 
       <Button className={styles.button} onClick={onNextClick}>
         <FormattedMessage id="stegvisning.neste" />
