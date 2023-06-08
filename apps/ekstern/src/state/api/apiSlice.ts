@@ -1,11 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
-  isPensjonsberegning,
+  isPensjonsberegningArray,
   isPerson,
   isUnleashToggle,
   isUttaksalder,
 } from './typeguards'
 import { API_BASEURL } from '@/api/paths'
+import {
+  AlderspensjonRequestBody,
+  AlderspensjonResponseBody,
+  UttaksalderRequestBody,
+} from '@/state/api/apiSlice.types'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -14,8 +19,10 @@ export const apiSlice = createApi({
   }),
 
   endpoints: (builder) => ({
-    // Full request url med baseQuery: '${env.VITE_MSW_BASEURL}/pensjon/kalkulator/api/pensjonsberegning'
-    tidligsteUttaksalder: builder.query<Uttaksalder, void>({
+    tidligsteUttaksalder: builder.query<
+      Uttaksalder,
+      UttaksalderRequestBody | void
+    >({
       query: (body) => ({
         url: '/tidligste-uttaksalder',
         method: 'POST',
@@ -28,15 +35,23 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getPensjonsberegning: builder.query<Pensjonsberegning[], void>({
-      query: () => '/pensjonsberegning',
-      transformResponse: (response: Pensjonsberegning[]) => {
-        if (!isPensjonsberegning(response)) {
-          throw new Error(`Mottok ugyldig pensjonsberegning: ${response}`)
-        }
-        return response
-      },
-    }),
+    alderspensjon: builder.query<Pensjonsberegning[], AlderspensjonRequestBody>(
+      {
+        query: (body) => ({
+          url: '/alderspensjon/simulering',
+          method: 'POST',
+          body,
+        }),
+        transformResponse: (response: AlderspensjonResponseBody) => {
+          if (!isPensjonsberegningArray(response?.pensjon)) {
+            throw new Error(
+              `Mottok ugyldig alderspensjon: ${response?.pensjon}`
+            )
+          }
+          return response.pensjon
+        },
+      }
+    ),
     getPerson: builder.query<Person, void>({
       query: () => '/person',
       transformResponse: (response) => {
@@ -60,7 +75,7 @@ export const apiSlice = createApi({
 
 export const {
   useTidligsteUttaksalderQuery,
-  useGetPensjonsberegningQuery,
+  useAlderspensjonQuery,
   useGetPersonQuery,
   useGetSpraakvelgerFeatureToggleQuery,
 } = apiSlice

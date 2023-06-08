@@ -1,4 +1,4 @@
-export const isPensjonsberegning = (
+export const isPensjonsberegningArray = (
   data?: any
 ): data is Pensjonsberegning[] => {
   return (
@@ -6,8 +6,7 @@ export const isPensjonsberegning = (
     data.every(
       (beregning) =>
         typeof beregning.alder === 'number' &&
-        typeof beregning.pensjonsaar === 'number' &&
-        typeof beregning.pensjonsbeloep === 'number'
+        typeof beregning.belop === 'number'
     )
   )
 }

@@ -1,33 +1,31 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  isPensjonsberegning,
-  isUttaksalder,
+  isPensjonsberegningArray,
   isPerson,
   isUnleashToggle,
+  isUttaksalder,
 } from '../typeguards'
 
 describe('Typeguards', () => {
-  describe('isPensjonsberegning', () => {
+  describe('isPensjonsberegningArray', () => {
     it('returnerer true når typen er riktig', () => {
-      expect(isPensjonsberegning([])).toBeTruthy()
+      expect(isPensjonsberegningArray([])).toBeTruthy()
       expect(
-        isPensjonsberegning([
+        isPensjonsberegningArray([
           {
-            pensjonsaar: 1,
-            pensjonsbeloep: 2,
+            belop: 2,
             alder: 3,
           },
         ])
       ).toBeTruthy()
     })
     it('returnerer false når typen er undefined eller at Pensjonsberegning inneholder noe annet enn number', () => {
-      expect(isPensjonsberegning(undefined)).toBeFalsy()
+      expect(isPensjonsberegningArray(undefined)).toBeFalsy()
       expect(
-        isPensjonsberegning([
+        isPensjonsberegningArray([
           {
-            pensjonsaar: 'string',
-            pensjonsbeloep: 1,
+            beloep: 1,
             alder: 2,
           },
         ])

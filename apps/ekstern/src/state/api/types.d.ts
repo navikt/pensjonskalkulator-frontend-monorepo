@@ -1,11 +1,11 @@
 declare type Uttaksalder = {
   aar: number
   maaned: number
+  uttaksdato: string
 }
 
 declare type Pensjonsberegning = {
-  pensjonsaar: number
-  pensjonsbeloep: number
+  belop: number
   alder: number
 }
 
