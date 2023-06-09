@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   isPensjonsberegningArray,
   isPerson,
+  isPensjonsavtale,
   isUnleashToggle,
   isUttaksalder,
 } from './typeguards'
@@ -52,6 +53,15 @@ export const apiSlice = createApi({
         },
       }
     ),
+    getPensjonsavtaler: builder.query<Pensjonsavtale[], void>({
+      query: () => '/pensjonsavtaler',
+      transformResponse: (response: Pensjonsavtale[]) => {
+        if (!isPensjonsavtale(response)) {
+          throw new Error(`Mottok ugyldig pensjonsavtale:`, response)
+        }
+        return response
+      },
+    }),
     getPerson: builder.query<Person, void>({
       query: () => '/person',
       transformResponse: (response) => {
@@ -65,7 +75,7 @@ export const apiSlice = createApi({
       query: () => '/feature/pensjonskalkulator.disable-spraakvelger',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response: ${response}`)
+          throw new Error(`Mottok ugyldig unleash response:`, response)
         }
         return response
       },
@@ -77,5 +87,6 @@ export const {
   useTidligsteUttaksalderQuery,
   useAlderspensjonQuery,
   useGetPersonQuery,
+  useGetPensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
 } = apiSlice

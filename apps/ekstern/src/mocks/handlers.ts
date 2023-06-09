@@ -2,6 +2,7 @@ import { rest } from 'msw'
 
 import { getHost, PATH } from '@/api/paths'
 
+import pensjonsavtalerData from './data/pensjonsavtaler.json' assert { type: 'json' }
 import personData from './data/person.json' assert { type: 'json' }
 import tidligstemuligeuttaksalderData from './data/tidligsteUttaksalder.json' assert { type: 'json' }
 import unleashDisableSpraakvelgerData from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
@@ -20,6 +21,9 @@ export const getHandlers = (baseUrl: string = PATH) => [
     const data = await import(`./data/alderspensjon/${year}.json`)
 
     return res(ctx.status(200), ctx.json(data), ctx.delay(30))
+  }),
+  rest.get(`${baseUrl}/pensjonsavtaler`, (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(pensjonsavtalerData), ctx.delay(30))
   }),
   rest.get(`${baseUrl}/person`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(personData), ctx.delay(30))

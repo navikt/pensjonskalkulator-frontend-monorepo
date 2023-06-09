@@ -5,7 +5,11 @@ import { render, screen, waitFor } from '@/test-utils'
 
 describe('TidligstMuligUttaksalder', () => {
   it('rendrer slik den skal med riktig tekst basert på uttaksalder', async () => {
-    render(<TidligstMuligUttaksalder uttaksalder={{ aar: 62, maaned: 9 }} />)
+    render(
+      <TidligstMuligUttaksalder
+        uttaksalder={{ aar: 62, maaned: 9, uttaksdato: '2031-11-01' }}
+      />
+    )
 
     await waitFor(() => {
       expect(

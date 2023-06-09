@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest'
+import { PensjonsavtaleType } from '@/types/enums'
 
 import {
   isPensjonsberegningArray,
   isPerson,
   isUnleashToggle,
   isUttaksalder,
+  isPensjonsavtale,
+  isSomeEnumKey,
 } from '../typeguards'
 
 describe('Typeguards', () => {
@@ -27,6 +30,57 @@ describe('Typeguards', () => {
           {
             beloep: 1,
             alder: 2,
+          },
+        ])
+      ).toBeFalsy()
+    })
+  })
+
+  describe('isPensjonsavtale', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(isPensjonsavtale([])).toBeTruthy()
+      expect(
+        isPensjonsavtale([
+          {
+            navn: 'Storebrand',
+            type: 'PRIVAT_TP',
+            startAar: 67,
+            startMaaned: 1,
+            sluttAar: 77,
+            sluttMaaned: 1,
+            grad: 100,
+            beholdning: 39582,
+          },
+        ])
+      ).toBeTruthy()
+    })
+    it('returnerer false når typen er undefined eller at Pensjonsavtale ikke inneholder alle forventet keys', () => {
+      expect(isPensjonsavtale(undefined)).toBeFalsy()
+      expect(
+        isPensjonsavtale([
+          {
+            navn: 'Storebrand',
+            type: 'PRIVAT_TP',
+            startAar: 67,
+            startMaaned: 1,
+
+            grad: 100,
+          },
+        ])
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når typen er undefined eller at Pensjonsavtale ikke inneholder riktig type', () => {
+      expect(isPensjonsavtale(undefined)).toBeFalsy()
+      expect(
+        isPensjonsavtale([
+          {
+            navn: 'Storebrand',
+            type: 'RANDOM_TYPE',
+            startAar: 67,
+            startMaaned: 1,
+            grad: 100,
+            beholdning: 39582,
           },
         ])
       ).toBeFalsy()
@@ -85,6 +139,15 @@ describe('Typeguards', () => {
           enabled: 'string',
         })
       ).toBeFalsy()
+    })
+  })
+
+  describe('isSomeEnumKey', () => {
+    it('returnerer false når typen ikke er riktig', () => {
+      expect(isSomeEnumKey(PensjonsavtaleType)('RANDOM')).toBeFalsy()
+    })
+    it('returnerer true når typen er riktig', () => {
+      expect(isSomeEnumKey(PensjonsavtaleType)('INNSKUDD')).toBeTruthy()
     })
   })
 })

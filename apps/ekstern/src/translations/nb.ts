@@ -5,7 +5,7 @@ const translations = {
   'stegvisning.avbryt': 'Avbryt',
   'stegvisning.steg1.title': 'Hei Ola!',
   'stegvisning.steg1.ingress':
-    'For å kunne beregne din pensjon trenger vi at du svarer på noen korte spørsmål om deg.',
+    'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
   'stegvisning.steg1.bildetekst': 'Bilde av veilederen Frida',
   'stegvisning.steg1.start': 'Kom i gang',
   'stegvisning.steg2.title': 'Hva kalkulatoren viser',
@@ -24,6 +24,8 @@ const translations = {
   'stegvisning.steg2.radio_label': 'Skal vi hente dine pensjonsavtaler?',
   'stegvisning.steg2.radio_ja': 'Ja, hent mine avtaler',
   'stegvisning.steg2.radio_nei': 'Nei, fortsett kun med alderspensjon',
+  'stegvisning.steg2.validation_error':
+    'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
   'stegvisning.steg3.title': 'Du kan ha rett til offentlig tjenestepensjon',
   'stegvisning.steg3.ingress_1':
     'Du er eller har vært medlem i en offentlig tjenestepensjonsordning og kan ha rett til tjenestepensjon. Men vi kan dessverre ikke hente inn dine avtaler. Sjekk hva som gjelder deg hos din tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.)',

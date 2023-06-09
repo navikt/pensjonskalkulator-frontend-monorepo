@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Step2 } from '..'
 import { RootState } from '@/state/store'
-import { screen, render, waitFor, fireEvent } from '@/test-utils'
+import { act, screen, render, waitFor, fireEvent } from '@/test-utils'
 
 describe('Step 2', () => {
   it('rendrer slik den skal', async () => {
@@ -13,22 +13,43 @@ describe('Step 2', () => {
       'stegvisning.steg2.title'
     )
     const radioButtons = screen.getAllByRole('radio')
-    expect(screen.getAllByRole('radio')).toHaveLength(2)
-    expect(radioButtons[0]).not.toBeChecked()
-    expect(radioButtons[1]).not.toBeChecked()
+
     await waitFor(() => {
+      expect(screen.getAllByRole('radio')).toHaveLength(2)
+      expect(radioButtons[0]).not.toBeChecked()
+      expect(radioButtons[1]).not.toBeChecked()
       expect(result.asFragment()).toMatchSnapshot()
     })
   })
 
-  it('sender videre til steg 3 når brukeren klikker på Neste', () => {
+  it('validerer, viser feilmelding, fjerner feilmelding og navigerer videre når brukeren klikker på Neste', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
+
     render(<Step2 />)
-    fireEvent.click(screen.getByText('stegvisning.neste'))
-    expect(navigateMock).toHaveBeenCalledWith('/stegvisning/3')
+    const radioButtons = screen.getAllByRole('radio')
+    act(() => {
+      fireEvent.click(screen.getByText('stegvisning.neste'))
+    })
+    waitFor(() => {
+      expect(
+        screen.getByText('stegvisning.steg2.validation_error')
+      ).toBeInTheDocument()
+    })
+    act(() => {
+      fireEvent.click(radioButtons[0])
+    })
+    expect(
+      screen.queryByText('stegvisning.steg2.validation_error')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(screen.getByText('stegvisning.neste'))
+    })
+    waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith('/stegvisning/3')
+    })
   })
 
   it('nullstiller input fra brukeren og sender tilbake til steg 1 når brukeren klikker på Tilbake', () => {

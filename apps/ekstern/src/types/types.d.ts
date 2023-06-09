@@ -10,15 +10,14 @@ declare type Pensjonsberegning = {
 }
 
 declare type Pensjonsavtale = {
-  type:
-    | 'privat tjenestepensjon'
-    | 'offentlig tjenestepensjon'
-    | 'fripolise'
-    | 'egen sparing'
-  fra: string
-  utbetalesFraAlder: number
-  utbetalesTilAlder?: number
-  aarligUtbetaling: number
+  navn: string
+  type: PensjonsavtaleType
+  startAar: number
+  startMaaned: number
+  sluttAar?: number
+  sluttMaaned?: number
+  grad: number
+  beholdning: number
 }
 
 declare type Sivilstand =

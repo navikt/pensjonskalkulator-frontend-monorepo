@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface Simulation {
-  inntekt: number | null
-  uttaksalder: number | null
-  uttaksgrad: number | null
+  inntekt?: number | null
+  uttaksalder?: number | null
+  uttaksgrad?: number | null
   something?: string
   somethingElse?: string
   hasSomething?: boolean
@@ -11,7 +11,7 @@ export interface Simulation {
 
 export interface UserInputState {
   samtykke: boolean | null
-  currentSimulation: Simulation
+  currentSimulation?: Simulation
 }
 
 export const userInputInitialState: UserInputState = {
@@ -34,7 +34,10 @@ export const userInputSlice = createSlice({
       state.samtykke = null
     },
     setSomething: (state, action: PayloadAction<string>) => {
-      state.currentSimulation.something = action.payload
+      state.currentSimulation = {
+        ...state.currentSimulation,
+        something: action.payload,
+      }
     },
   },
 })
