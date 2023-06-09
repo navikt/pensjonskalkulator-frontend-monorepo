@@ -31,7 +31,7 @@ describe('TilbakeEllerAvslutt', () => {
     })
 
     fireEvent.click(screen.getByText('Start ny beregning'))
-    expect(navigateMock).toHaveBeenCalledWith('/stegvisning/1')
+    expect(navigateMock).toHaveBeenCalledWith('/start')
     expect(store.getState().userInput.samtykke).toBe(null)
   })
 

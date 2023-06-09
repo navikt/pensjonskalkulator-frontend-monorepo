@@ -19,21 +19,63 @@ describe('routes', () => {
 
     await fireEvent.click(screen.getByText('Test kalkulatoren'))
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.steg1.title'
+      'stegvisning.stegvisning.start.title'
     )
   })
 
-  it('/pensjon/kalkulator/stegvisning/123456789 viser steg 1 som default i stegvisningen', async () => {
+  it('/pensjon/kalkulator/start viser Steg 1', async () => {
     const router = createMemoryRouter(routes, {
       basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/stegvisning/123456789'],
+      initialEntries: ['/pensjon/kalkulator/start'],
     })
     await render(<RouterProvider router={router} />, {}, { hasRouter: false })
 
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.steg1.title'
-    )
+    expect(
+      screen.getByText('stegvisning.stegvisning.start.title')
+    ).toBeInTheDocument()
   })
+
+  it('/pensjon/kalkulator/samtykke viser Steg 2', async () => {
+    const router = createMemoryRouter(routes, {
+      basename: ROUTER_BASE_URL,
+      initialEntries: ['/pensjon/kalkulator/samtykke'],
+    })
+    await render(<RouterProvider router={router} />, {}, { hasRouter: false })
+
+    expect(
+      screen.getByText('stegvisning.stegvisning.samtykke.title')
+    ).toBeInTheDocument()
+  })
+
+  it('/pensjon/kalkulator/offentlig-tp viser Steg 3 (gitt at brukeren har samtykket)', async () => {
+    const router = createMemoryRouter(routes, {
+      basename: ROUTER_BASE_URL,
+      initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
+    })
+    await render(
+      <RouterProvider router={router} />,
+      {
+        preloadedState: { userInput: { samtykke: true } },
+      },
+      { hasRouter: false }
+    )
+
+    expect(
+      screen.getByText('stegvisning.stegvisning.offentligtp.title')
+    ).toBeInTheDocument()
+  })
+
+  // it('/pensjon/kalkulator/afp viser Steg 4', async () => {
+  //   const router = createMemoryRouter(routes, {
+  //     basename: ROUTER_BASE_URL,
+  //     initialEntries: ['/pensjon/kalkulator/afp'],
+  //   })
+  //   await render(<RouterProvider router={router} />, {}, { hasRouter: false })
+
+  //   expect(
+  //     screen.getByText('stegvisning.stegvisning.afp.title')
+  //   ).toBeInTheDocument()
+  // })
 
   it('/pensjon/kalkulator/beregning viser beregningen', async () => {
     const router = createMemoryRouter(routes, {

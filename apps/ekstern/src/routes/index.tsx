@@ -1,8 +1,10 @@
-import { Stegvisning } from '@/components/Stegvisning'
 import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
 import { ErrorPage404 } from '@/routes/ErrorPage404'
 import { LandingPage } from '@/routes/LandingPage'
 import { PageFramework } from '@/routes/PageFramework'
+import { Step1 } from '@/routes/stegvisning/Step1'
+import { Step2 } from '@/routes/stegvisning/Step2'
+import { Step3 } from '@/routes/stegvisning/Step3'
 
 export const ROUTER_BASE_URL = '/pensjon/kalkulator'
 export const routes = [
@@ -16,10 +18,26 @@ export const routes = [
     errorElement: <ErrorPage404 />,
   },
   {
-    path: '/stegvisning/:stepId',
+    path: '/start',
     element: (
       <PageFramework>
-        <Stegvisning />
+        <Step1 />
+      </PageFramework>
+    ),
+  },
+  {
+    path: '/samtykke',
+    element: (
+      <PageFramework>
+        <Step2 />
+      </PageFramework>
+    ),
+  },
+  {
+    path: '/offentlig-tp',
+    element: (
+      <PageFramework>
+        <Step3 />
       </PageFramework>
     ),
   },

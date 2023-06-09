@@ -1,33 +1,33 @@
 // Vitest Snapshot v1
 
-exports[`Step 0 > rendrer slik den skal, med riktig heading, bilde, tekst og knapper 1`] = `
+exports[`stegvisning - Start > rendrer slik den skal, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_section_b0eca1"
+    class="_section_09901f"
   >
     <img
-      alt="stegvisning.steg0.bildetekst"
-      class="_image_b0eca1"
+      alt="stegvisning.stegvisning.start.bildetekst"
+      class="_image_09901f"
       src="/pensjon/kalkulator/src/assets/frida.svg"
     />
     <h2
       class="navds-heading navds-heading--large navds-typo--spacing"
     >
-      stegvisning.steg1.title
+      stegvisning.stegvisning.start.title
     </h2>
     <p
-      class="_ingress_b0eca1 navds-body-short"
+      class="_ingress_09901f navds-body-short"
     >
-      stegvisning.steg1.ingress
+      stegvisning.stegvisning.start.ingress
     </p>
     <button
-      class="_button_b0eca1 navds-button navds-button--primary navds-button--medium"
+      class="_button_09901f navds-button navds-button--primary navds-button--medium"
     >
       <span
         aria-live="polite"
         class="navds-label"
       >
-        stegvisning.steg1.start
+        stegvisning.stegvisning.start.start
       </span>
     </button>
     <button

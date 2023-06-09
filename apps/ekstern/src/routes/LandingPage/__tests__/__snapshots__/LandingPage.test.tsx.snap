@@ -9,7 +9,7 @@ exports[`LandingPage > rendrer slik den skal, med riktig heading 1`] = `
       Midlertidig landingsside
     </h2>
     <a
-      href="/stegvisning/1"
+      href="/start"
     >
       Test kalkulatoren
     </a>

@@ -1,23 +1,23 @@
 // Vitest Snapshot v1
 
-exports[`Step 2 > rendrer slik den skal 1`] = `
+exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er oppgitt 1`] = `
 <DocumentFragment>
   <form>
     <section
-      class="_section_6c2224"
+      class="_section_5b4738"
     >
       <h2
         class="navds-heading navds-heading--large navds-typo--spacing"
       >
-        stegvisning.steg2.title
+        stegvisning.stegvisning.samtykke.title
       </h2>
       <p
         class="navds-body-long"
       >
-        stegvisning.steg2.ingress
+        stegvisning.stegvisning.samtykke.ingress
       </p>
       <div
-        class="navds-read-more navds-read-more--medium _readmore_6c2224"
+        class="navds-read-more navds-read-more--medium _readmore_5b4738"
       >
         <button
           aria-expanded="false"
@@ -43,26 +43,26 @@ exports[`Step 2 > rendrer slik den skal 1`] = `
             />
           </svg>
           <span>
-            stegvisning.steg2.readmore_title
+            stegvisning.stegvisning.samtykke.readmore_title
           </span>
         </button>
         <div
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long"
         >
-          stegvisning.steg2.readmore_ingress
+          stegvisning.stegvisning.samtykke.readmore_ingress
           <br />
           <br />
-          stegvisning.steg2.readmore_list_title
+          stegvisning.stegvisning.samtykke.readmore_list_title
           <ul>
             <li>
-              stegvisning.steg2.readmore_list_item1
+              stegvisning.stegvisning.samtykke.readmore_list_item1
             </li>
             <li>
-              stegvisning.steg2.readmore_list_item2
+              stegvisning.stegvisning.samtykke.readmore_list_item2
             </li>
             <li>
-              stegvisning.steg2.readmore_list_item3
+              stegvisning.stegvisning.samtykke.readmore_list_item3
             </li>
           </ul>
         </div>
@@ -75,7 +75,7 @@ exports[`Step 2 > rendrer slik den skal 1`] = `
         <legend
           class="navds-fieldset__legend navds-label"
         >
-          stegvisning.steg2.radio_label
+          stegvisning.stegvisning.samtykke.radio_label
         </legend>
         <div
           class="navds-radio-buttons"
@@ -101,7 +101,7 @@ exports[`Step 2 > rendrer slik den skal 1`] = `
                 <span
                   class="navds-body-short"
                 >
-                  stegvisning.steg2.radio_ja
+                  stegvisning.stegvisning.samtykke.radio_ja
                 </span>
               </span>
             </label>
@@ -127,7 +127,7 @@ exports[`Step 2 > rendrer slik den skal 1`] = `
                 <span
                   class="navds-body-short"
                 >
-                  stegvisning.steg2.radio_nei
+                  stegvisning.stegvisning.samtykke.radio_nei
                 </span>
               </span>
             </label>
@@ -141,7 +141,7 @@ exports[`Step 2 > rendrer slik den skal 1`] = `
         />
       </fieldset>
       <button
-        class="_button_6c2224 navds-button navds-button--primary navds-button--medium"
+        class="_button_5b4738 navds-button navds-button--primary navds-button--medium"
         type="submit"
       >
         <span
@@ -152,7 +152,8 @@ exports[`Step 2 > rendrer slik den skal 1`] = `
         </span>
       </button>
       <button
-        class="_button_6c2224 navds-button navds-button--secondary navds-button--medium"
+        class="_button_5b4738 navds-button navds-button--secondary navds-button--medium"
+        type="button"
       >
         <span
           aria-live="polite"
@@ -163,6 +164,7 @@ exports[`Step 2 > rendrer slik den skal 1`] = `
       </button>
       <button
         class="navds-button navds-button--tertiary navds-button--medium"
+        type="button"
       >
         <span
           aria-live="polite"

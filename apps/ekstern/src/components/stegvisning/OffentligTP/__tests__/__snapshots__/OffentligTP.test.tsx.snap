@@ -1,27 +1,27 @@
 // Vitest Snapshot v1
 
-exports[`Step 3 > rendrer slik den skal 1`] = `
+exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
 <DocumentFragment>
   <section
-    class="_section_874c97"
+    class="_section_f5c4aa"
   >
     <h2
       class="navds-heading navds-heading--large navds-typo--spacing"
     >
-      stegvisning.steg3.title
+      stegvisning.stegvisning.offentligtp.title
     </h2>
     <p
       class="navds-body-long navds-typo--spacing"
     >
-      stegvisning.steg3.ingress_1
+      stegvisning.stegvisning.offentligtp.ingress_1
     </p>
     <p
       class="navds-body-long"
     >
-      stegvisning.steg3.ingress_2
+      stegvisning.stegvisning.offentligtp.ingress_2
     </p>
     <button
-      class="_button_874c97 navds-button navds-button--primary navds-button--medium"
+      class="_button_f5c4aa navds-button navds-button--primary navds-button--medium"
     >
       <span
         aria-live="polite"
@@ -31,7 +31,7 @@ exports[`Step 3 > rendrer slik den skal 1`] = `
       </span>
     </button>
     <button
-      class="_button_874c97 navds-button navds-button--secondary navds-button--medium"
+      class="_button_f5c4aa navds-button navds-button--secondary navds-button--medium"
     >
       <span
         aria-live="polite"
