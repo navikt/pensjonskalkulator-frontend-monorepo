@@ -69,6 +69,7 @@ exports[`Step 2 > rendrer slik den skal 1`] = `
       </div>
       <fieldset
         aria-invalid="false"
+        aria-required="true"
         class="navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
         <legend
