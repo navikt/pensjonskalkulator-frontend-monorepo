@@ -5,7 +5,7 @@ import { formatUttaksalder, getFormaterteAldere } from '../utils'
 describe('VelgUttaksalder-utils', () => {
   describe('getFormaterteAldere', () => {
     it('returnerer array med én verdi når start og slutt er like', () => {
-      const start = { aar: 64, maaned: 3, uttaksdato: '0000-00-00' }
+      const start = { aar: 64, maaned: 3, uttaksdato: '2031-11-01' }
       const end = { ...start }
 
       const aldere = getFormaterteAldere(start, end)
@@ -14,8 +14,8 @@ describe('VelgUttaksalder-utils', () => {
     })
 
     it('tar kun hensyn til måned når det er snakk om start-alder', () => {
-      const start = { aar: 64, maaned: 3, uttaksdato: '0000-00-00' }
-      const end = { aar: 66, maaned: 5, uttaksdato: '0000-00-00' }
+      const start = { aar: 64, maaned: 3, uttaksdato: '2031-11-01' }
+      const end = { aar: 66, maaned: 5, uttaksdato: '2031-11-01' }
 
       const aldere = getFormaterteAldere(start, end)
       expect(aldere).toHaveLength(3)
@@ -26,16 +26,16 @@ describe('VelgUttaksalder-utils', () => {
 
     it('returnerer tomt array når sluttalder er lavere enn startalder', () => {
       const aldere = getFormaterteAldere(
-        { aar: 67, maaned: 0, uttaksdato: '0000-00-00' },
-        { aar: 66, maaned: 0, uttaksdato: '0000-00-00' }
+        { aar: 67, maaned: 0, uttaksdato: '2031-11-01' },
+        { aar: 66, maaned: 0, uttaksdato: '2031-11-01' }
       )
       expect(aldere).toHaveLength(0)
     })
 
     it('returnerer array med alle årene fra og med startalder til og med sluttalder', () => {
       const aldere = getFormaterteAldere(
-        { aar: 62, maaned: 2, uttaksdato: '0000-00-00' },
-        { aar: 75, maaned: 0, uttaksdato: '0000-00-00' }
+        { aar: 62, maaned: 2, uttaksdato: '2031-11-01' },
+        { aar: 75, maaned: 0, uttaksdato: '2031-11-01' }
       )
       expect(aldere).toHaveLength(14)
       expect(aldere).toEqual([
@@ -62,7 +62,7 @@ describe('VelgUttaksalder-utils', () => {
       const streng = formatUttaksalder({
         aar: 62,
         maaned: 3,
-        uttaksdato: '0000-00-00',
+        uttaksdato: '2031-11-01',
       })
       expect(streng).toBe('62 år og 3 måneder')
     })
@@ -70,13 +70,13 @@ describe('VelgUttaksalder-utils', () => {
       const streng = formatUttaksalder({
         aar: 62,
         maaned: 0,
-        uttaksdato: '0000-00-00',
+        uttaksdato: '2031-11-01',
       })
       expect(streng).toBe('62 år')
     })
     it('returnerer riktig streng med år og kompakt måned', () => {
       const streng = formatUttaksalder(
-        { aar: 62, maaned: 3, uttaksdato: '0000-00-00' },
+        { aar: 62, maaned: 3, uttaksdato: '2031-11-01' },
         { compact: true }
       )
       expect(streng).toBe('62 år og 3 md.')

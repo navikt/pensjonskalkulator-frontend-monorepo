@@ -9,7 +9,7 @@ export const formatUttaksalder = (
 
 export const getFormaterteAldere = (
   start: Uttaksalder,
-  end: Uttaksalder = { aar: 75, maaned: 0, uttaksdato: '0000-00-00' }
+  end: Uttaksalder = { aar: 75, maaned: 0, uttaksdato: start.uttaksdato }
 ): string[] => {
   if (end.aar < start.aar) {
     return []
@@ -19,7 +19,7 @@ export const getFormaterteAldere = (
 
   for (let i = start.aar + 1; i <= end.aar; i++) {
     aldere.push(
-      formatUttaksalder({ aar: i, maaned: 0, uttaksdato: '0000-00-00' })
+      formatUttaksalder({ aar: i, maaned: 0, uttaksdato: start.uttaksdato })
     )
   }
 
