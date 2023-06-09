@@ -95,6 +95,7 @@ export function Step2() {
           value={harSamtykket ? 'ja' : harSamtykket === false ? 'nei' : null}
           onChange={(val) => handleRadioChange(val)}
           error={validationError}
+          aria-required="true"
         >
           <Radio value="ja">
             <FormattedMessage id="stegvisning.steg2.radio_ja" />
