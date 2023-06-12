@@ -9,7 +9,7 @@ exports[`PageFramework > rendrer slik den skal, med main tag og Heading på rikt
       class="_headerGroup_facbaf"
     >
       <h1
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="navds-heading navds-heading--xlarge"
       >
         application.title
       </h1>

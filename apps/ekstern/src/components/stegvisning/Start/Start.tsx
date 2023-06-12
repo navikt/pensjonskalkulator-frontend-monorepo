@@ -1,6 +1,6 @@
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { BodyShort, Button, Heading } from '@navikt/ds-react'
+import { Ingress, Button, Heading } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
 
@@ -29,9 +29,9 @@ export function Start({ fornavn = '', onCancel, onNext }: Props) {
           id: 'stegvisning.stegvisning.start.title',
         })}${fornavn && ' '}${fornavn}!`}
       </Heading>
-      <BodyShort className={styles.ingress}>
+      <Ingress className={styles.ingress}>
         <FormattedMessage id="stegvisning.stegvisning.start.ingress" />
-      </BodyShort>
+      </Ingress>
       <Button className={styles.button} onClick={onNext}>
         <FormattedMessage id="stegvisning.stegvisning.start.start" />
       </Button>

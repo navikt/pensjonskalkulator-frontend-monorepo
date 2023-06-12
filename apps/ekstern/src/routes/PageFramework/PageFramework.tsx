@@ -18,7 +18,7 @@ export function PageFramework({ children }: PropsWithChildren<unknown>) {
   return (
     <main className={styles.main}>
       <div className={styles.headerGroup}>
-        <Heading size="large" level="1" spacing>
+        <Heading size="xlarge" level="1">
           {intl.formatMessage({ id: 'application.title' })}
         </Heading>
       </div>
