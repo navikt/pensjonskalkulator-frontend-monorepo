@@ -29,7 +29,7 @@ describe('Step 2', () => {
     expect(navigateMock).toHaveBeenCalledWith('/offentlig-tp')
   })
 
-  it('registrerer samtykke og navigerer videre til riktig side når brukeren ikke samtykker og klikker på Neste', async () => {
+  it('registrerer samtykke, tømmer storen og navigerer videre til riktig side når brukeren ikke samtykker og klikker på Neste', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -45,6 +45,7 @@ describe('Step 2', () => {
     })
 
     expect(store.getState().userInput.samtykke).toBe(false)
+    expect(Object.keys(store.getState().api.queries).length).toEqual(0)
     expect(navigateMock).toHaveBeenCalledWith('/afp')
   })
 

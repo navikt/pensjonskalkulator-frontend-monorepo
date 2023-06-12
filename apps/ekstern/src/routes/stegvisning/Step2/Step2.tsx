@@ -19,6 +19,7 @@ export function Step2() {
       navigate('/offentlig-tp')
     } else {
       navigate('/afp')
+      dispatch(apiSlice.util.resetApiState())
     }
   }
 
