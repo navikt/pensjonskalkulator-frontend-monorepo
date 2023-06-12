@@ -4,7 +4,10 @@ import { render, screen, waitFor } from '@/test-utils'
 
 describe('Sivilstand', () => {
   it('viser riktig tekst og lenke når henting av sivilstand er vellykket', async () => {
-    mockResponse('/person', { status: 200, json: { sivilstand: 'GIFT' } })
+    mockResponse('/person', {
+      status: 200,
+      json: { fornavn: 'Ola', sivilstand: 'GIFT' },
+    })
     render(<Sivilstand />)
 
     await waitFor(() => {
@@ -23,7 +26,10 @@ describe('Sivilstand', () => {
     ['GJENLEVENDE_PARTNER', 'Gjenlevende partner'],
     ['UGIFT', 'Ugift'],
   ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
-    mockResponse('/person', { status: 200, json: { sivilstand: a } })
+    mockResponse('/person', {
+      status: 200,
+      json: { fornavn: 'Ola', sivilstand: a },
+    })
     render(<Sivilstand />)
     await waitFor(() => {
       expect(screen.getByText(expected)).toBeVisible()

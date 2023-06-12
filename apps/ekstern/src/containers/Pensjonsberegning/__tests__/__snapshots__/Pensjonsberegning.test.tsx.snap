@@ -81,7 +81,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"
@@ -93,7 +93,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"
@@ -105,7 +105,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"
@@ -117,7 +117,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"
@@ -129,7 +129,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"
@@ -141,7 +141,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"
@@ -153,7 +153,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"
@@ -165,7 +165,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"
@@ -177,7 +177,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <li>
           <button
             aria-pressed="false"
-            class="navds-chips__chip navds-chips__toggle"
+            class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
           >
             <span
               class="navds-chips__chip-text"

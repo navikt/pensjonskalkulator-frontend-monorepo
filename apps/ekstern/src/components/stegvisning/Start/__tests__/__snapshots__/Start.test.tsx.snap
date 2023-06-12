@@ -13,7 +13,7 @@ exports[`stegvisning - Start > rendrer slik den skal, med riktig heading, bilde,
     <h2
       class="navds-heading navds-heading--large navds-typo--spacing"
     >
-      stegvisning.stegvisning.start.title
+      stegvisning.stegvisning.start.title Ola!
     </h2>
     <p
       class="_ingress_09901f navds-body-short"

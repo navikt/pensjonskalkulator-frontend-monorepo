@@ -7,11 +7,12 @@ import FridaPortrett from '../../../assets/frida.svg'
 import styles from './Start.module.scss'
 
 interface Props {
+  fornavn?: string
   onCancel: () => void
   onNext: () => void
 }
 
-export function Start({ onCancel, onNext }: Props) {
+export function Start({ fornavn = '', onCancel, onNext }: Props) {
   const intl = useIntl()
 
   return (
@@ -24,7 +25,9 @@ export function Start({ onCancel, onNext }: Props) {
         })}
       />
       <Heading size="large" level="2" spacing>
-        <FormattedMessage id="stegvisning.stegvisning.start.title" />
+        {`${intl.formatMessage({
+          id: 'stegvisning.stegvisning.start.title',
+        })}${fornavn && ' '}${fornavn}!`}
       </Heading>
       <BodyShort className={styles.ingress}>
         <FormattedMessage id="stegvisning.stegvisning.start.ingress" />

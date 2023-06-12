@@ -16,7 +16,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -28,7 +28,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -40,7 +40,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -52,7 +52,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -64,7 +64,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -76,7 +76,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -88,7 +88,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -100,7 +100,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -112,7 +112,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -173,7 +173,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -185,7 +185,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -197,7 +197,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -209,7 +209,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -221,7 +221,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -233,7 +233,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -245,7 +245,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -257,7 +257,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -269,7 +269,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -281,7 +281,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -293,7 +293,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -305,7 +305,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -317,7 +317,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"
@@ -329,7 +329,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
       <li>
         <button
           aria-pressed="false"
-          class="navds-chips__chip navds-chips__toggle"
+          class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
         >
           <span
             class="navds-chips__chip-text"

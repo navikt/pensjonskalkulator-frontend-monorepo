@@ -35,6 +35,7 @@ declare type Sivilstand =
 declare type Step = '0' | '1' | '2' | '3'
 
 declare type Person = {
+  fornavn: string
   sivilstand: Sivilstand
 }
 

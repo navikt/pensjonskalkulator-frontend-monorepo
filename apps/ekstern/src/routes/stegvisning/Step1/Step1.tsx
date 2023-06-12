@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 
 import { Start } from '@/components/stegvisning/Start'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
 
 export function Step1() {
   const navigate = useNavigate()
+  const { data: person } = useGetPersonQuery()
 
   const onCancel = (): void => {
     navigate('/')
@@ -13,5 +15,5 @@ export function Step1() {
     navigate('/samtykke')
   }
 
-  return <Start onCancel={onCancel} onNext={onNext} />
+  return <Start fornavn={person?.fornavn} onCancel={onCancel} onNext={onNext} />
 }

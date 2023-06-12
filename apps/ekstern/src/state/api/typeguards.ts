@@ -39,18 +39,20 @@ export const isUttaksalder = (data?: any): data is Uttaksalder => {
 }
 
 export const isPerson = (data?: any): data is Person => {
-  return [
-    'UOPPGITT',
-    'UGIFT',
-    'GIFT',
-    'ENKE_ELLER_ENKEMANN',
-    'SKILT',
-    'SEPARERT',
-    'REGISTRERT_PARTNER',
-    'SEPARERT_PARTNER',
-    'SKILT_PARTNER',
-    'GJENLEVENDE_PARTNER',
-  ].includes(data?.sivilstand)
+  return (
+    [
+      'UOPPGITT',
+      'UGIFT',
+      'GIFT',
+      'ENKE_ELLER_ENKEMANN',
+      'SKILT',
+      'SEPARERT',
+      'REGISTRERT_PARTNER',
+      'SEPARERT_PARTNER',
+      'SKILT_PARTNER',
+      'GJENLEVENDE_PARTNER',
+    ].includes(data?.sivilstand) && typeof data.fornavn === 'string'
+  )
 }
 
 export const isUnleashToggle = (data?: any): data is UnleashToggle => {

@@ -8,13 +8,25 @@ describe('stegvisning - Start', () => {
   const onNextMock = vi.fn()
 
   it('rendrer slik den skal, med riktig heading, bilde, tekst og knapper', async () => {
-    const result = render(<Start onCancel={onCancelMock} onNext={onNextMock} />)
+    const result = render(
+      <Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />
+    )
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.stegvisning.start.title'
+        'stegvisning.stegvisning.start.title Ola!'
       )
       expect(result.asFragment()).toMatchSnapshot()
+    })
+  })
+
+  it('rendrer riktig uten fornavn', async () => {
+    render(<Start onCancel={onCancelMock} onNext={onNextMock} />)
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'stegvisning.stegvisning.start.title!'
+      )
     })
   })
 

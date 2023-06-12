@@ -3,7 +3,7 @@ const translations = {
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
-  'stegvisning.stegvisning.start.title': 'Hei Ola!',
+  'stegvisning.stegvisning.start.title': 'Hei',
   'stegvisning.stegvisning.start.ingress':
     'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
   'stegvisning.stegvisning.start.bildetekst': 'Bilde av veilederen Frida',
