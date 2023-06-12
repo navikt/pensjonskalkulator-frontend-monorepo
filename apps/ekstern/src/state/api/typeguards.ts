@@ -28,16 +28,6 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale[] => {
   )
 }
 
-export const isUttaksalder = (data?: any): data is Uttaksalder => {
-  return (
-    typeof data === 'object' &&
-    data !== null &&
-    !Array.isArray(data) &&
-    typeof data.aar === 'number' &&
-    typeof data.maaned === 'number'
-  )
-}
-
 export const isPerson = (data?: any): data is Person => {
   return (
     [
@@ -55,12 +45,31 @@ export const isPerson = (data?: any): data is Person => {
   )
 }
 
+export const isTpoMedlemskap = (data?: any): data is TpoMedlemskap => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    !Array.isArray(data) &&
+    typeof data.harAktivMedlemskap === 'boolean'
+  )
+}
+
 export const isUnleashToggle = (data?: any): data is UnleashToggle => {
   return (
     typeof data === 'object' &&
     data !== null &&
     !Array.isArray(data) &&
     typeof data.enabled === 'boolean'
+  )
+}
+
+export const isUttaksalder = (data?: any): data is Uttaksalder => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    !Array.isArray(data) &&
+    typeof data.aar === 'number' &&
+    typeof data.maaned === 'number'
   )
 }
 

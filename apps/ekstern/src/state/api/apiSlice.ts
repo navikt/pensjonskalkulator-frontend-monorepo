@@ -3,6 +3,7 @@ import {
   isPensjonsberegningArray,
   isPerson,
   isPensjonsavtale,
+  isTpoMedlemskap,
   isUnleashToggle,
   isUttaksalder,
 } from './typeguards'
@@ -53,20 +54,29 @@ export const apiSlice = createApi({
         },
       }
     ),
-    getPensjonsavtaler: builder.query<Pensjonsavtale[], void>({
-      query: () => '/pensjonsavtaler',
-      transformResponse: (response: Pensjonsavtale[]) => {
-        if (!isPensjonsavtale(response)) {
-          throw new Error(`Mottok ugyldig pensjonsavtale:`, response)
-        }
-        return response
-      },
-    }),
     getPerson: builder.query<Person, void>({
       query: () => '/person',
       transformResponse: (response) => {
         if (!isPerson(response)) {
           throw new Error(`Mottok ugyldig person: ${response}`)
+        }
+        return response
+      },
+    }),
+    getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
+      query: () => '/tpo-medlemskap',
+      transformResponse: (response: TpoMedlemskap) => {
+        if (!isTpoMedlemskap(response)) {
+          throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
+        }
+        return response
+      },
+    }),
+    getPensjonsavtaler: builder.query<Pensjonsavtale[], void>({
+      query: () => '/pensjonsavtaler',
+      transformResponse: (response: Pensjonsavtale[]) => {
+        if (!isPensjonsavtale(response)) {
+          throw new Error(`Mottok ugyldig pensjonsavtale:`, response)
         }
         return response
       },
@@ -88,5 +98,6 @@ export const {
   useAlderspensjonQuery,
   useGetPersonQuery,
   useGetPensjonsavtalerQuery,
+  useGetTpoMedlemskapQuery,
   useGetSpraakvelgerFeatureToggleQuery,
 } = apiSlice

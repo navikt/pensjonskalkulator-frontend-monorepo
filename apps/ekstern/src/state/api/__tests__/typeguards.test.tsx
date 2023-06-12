@@ -2,40 +2,16 @@ import { describe, expect, it } from 'vitest'
 import { PensjonsavtaleType } from '@/types/enums'
 
 import {
+  isPensjonsavtale,
   isPensjonsberegningArray,
   isPerson,
+  isTpoMedlemskap,
   isUnleashToggle,
   isUttaksalder,
-  isPensjonsavtale,
   isSomeEnumKey,
 } from '../typeguards'
 
 describe('Typeguards', () => {
-  describe('isPensjonsberegningArray', () => {
-    it('returnerer true når typen er riktig', () => {
-      expect(isPensjonsberegningArray([])).toBeTruthy()
-      expect(
-        isPensjonsberegningArray([
-          {
-            belop: 2,
-            alder: 3,
-          },
-        ])
-      ).toBeTruthy()
-    })
-    it('returnerer false når typen er undefined eller at Pensjonsberegning inneholder noe annet enn number', () => {
-      expect(isPensjonsberegningArray(undefined)).toBeFalsy()
-      expect(
-        isPensjonsberegningArray([
-          {
-            beloep: 1,
-            alder: 2,
-          },
-        ])
-      ).toBeFalsy()
-    })
-  })
-
   describe('isPensjonsavtale', () => {
     it('returnerer true når typen er riktig', () => {
       expect(isPensjonsavtale([])).toBeTruthy()
@@ -70,6 +46,31 @@ describe('Typeguards', () => {
       ).toBeFalsy()
     })
 
+    describe('isPensjonsberegningArray', () => {
+      it('returnerer true når typen er riktig', () => {
+        expect(isPensjonsberegningArray([])).toBeTruthy()
+        expect(
+          isPensjonsberegningArray([
+            {
+              belop: 2,
+              alder: 3,
+            },
+          ])
+        ).toBeTruthy()
+      })
+      it('returnerer false når typen er undefined eller at Pensjonsberegning inneholder noe annet enn number', () => {
+        expect(isPensjonsberegningArray(undefined)).toBeFalsy()
+        expect(
+          isPensjonsberegningArray([
+            {
+              beloep: 1,
+              alder: 2,
+            },
+          ])
+        ).toBeFalsy()
+      })
+    })
+
     it('returnerer false når typen er undefined eller at Pensjonsavtale ikke inneholder riktig type', () => {
       expect(isPensjonsavtale(undefined)).toBeFalsy()
       expect(
@@ -84,6 +85,22 @@ describe('Typeguards', () => {
           },
         ])
       ).toBeFalsy()
+    })
+  })
+
+  describe('isPerson', () => {
+    it('returnerer true når input er et Person-objekt', () => {
+      expect(isPerson({ fornavn: 'Ola', sivilstand: 'GIFT' })).toEqual(true)
+    })
+
+    it('returnerer false når input ikke er et Person-objekt', () => {
+      expect(isPerson(undefined)).toEqual(false)
+      expect(isPerson(null)).toEqual(false)
+      expect(isPerson({})).toEqual(false)
+      expect(isPerson({ fornavn: 'Ola', sivilstand: 'SINNATAGG' })).toEqual(
+        false
+      )
+      expect(isPerson({ sivilstand: 'GIFT' })).toEqual(false)
     })
   })
 
@@ -109,19 +126,23 @@ describe('Typeguards', () => {
     })
   })
 
-  describe('isPerson', () => {
-    it('returnerer true når input er et Person-objekt', () => {
-      expect(isPerson({ fornavn: 'Ola', sivilstand: 'GIFT' })).toEqual(true)
+  describe('isTpoMedlemskap', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(
+        isTpoMedlemskap({
+          harAktivMedlemskap: false,
+        })
+      ).toBeTruthy()
     })
-
-    it('returnerer false når input ikke er et Person-objekt', () => {
-      expect(isPerson(undefined)).toEqual(false)
-      expect(isPerson(null)).toEqual(false)
-      expect(isPerson({})).toEqual(false)
-      expect(isPerson({ fornavn: 'Ola', sivilstand: 'SINNATAGG' })).toEqual(
-        false
-      )
-      expect(isPerson({ sivilstand: 'GIFT' })).toEqual(false)
+    it('returnerer false når typen er undefined eller at UnleashToggle inneholder noe annet', () => {
+      expect(isTpoMedlemskap(undefined)).toBeFalsy()
+      expect(isTpoMedlemskap([])).toBeFalsy()
+      expect(isTpoMedlemskap({})).toBeFalsy()
+      expect(
+        isTpoMedlemskap({
+          harAktivMedlemskap: 'string',
+        })
+      ).toBeFalsy()
     })
   })
 

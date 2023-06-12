@@ -3,23 +3,12 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step3 } from '..'
+import { mockResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, fireEvent } from '@/test-utils'
 
 describe('Step 3', () => {
-  it('rendrer Step 3 slik den skal når brukeren har samtykket, ', async () => {
-    render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
-    })
-
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.stegvisning.offentligtp.title'
-      )
-    })
-  })
-
-  it('redirigerer til Step 4 når brukeren har samtykket, ', async () => {
+  it('redirigerer til Step 4 når brukeren ikke har samtykket, ', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -32,7 +21,38 @@ describe('Step 3', () => {
     expect(navigateMock).toHaveBeenCalledWith('/afp')
   })
 
-  it('sender videre til steg 4 når brukeren klikker på Neste', () => {
+  it('redirigerer til Step 4 når brukeren har samtykket og har ikke noe tpo medlemskap, ', async () => {
+    mockResponse('/tpo-medlemskap', {
+      status: 200,
+      json: { harAktivMedlemskap: false },
+    })
+
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+
+    render(<Step3 />, {
+      preloadedState: { userInput: { samtykke: true } } as RootState,
+    })
+    await waitFor(() => {
+      expect(navigateMock).toHaveBeenCalledWith('/afp')
+    })
+  })
+
+  it('rendrer Step 3 slik den skal når brukeren har samtykket og har tpo medlemskap, ', async () => {
+    render(<Step3 />, {
+      preloadedState: { userInput: { samtykke: true } } as RootState,
+    })
+
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'stegvisning.stegvisning.offentligtp.title'
+      )
+    })
+  })
+
+  it('sender videre til steg 4 når brukeren klikker på Neste', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -40,11 +60,14 @@ describe('Step 3', () => {
     render(<Step3 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-    fireEvent.click(screen.getByText('stegvisning.neste'))
-    expect(navigateMock).toHaveBeenCalledWith('/beregning')
+
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('stegvisning.neste'))
+      expect(navigateMock).toHaveBeenCalledWith('/beregning')
+    })
   })
 
-  it('sender tilbake til steg 2 når brukeren klikker på Tilbake', () => {
+  it('sender tilbake til steg 2 når brukeren klikker på Tilbake', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -52,12 +75,13 @@ describe('Step 3', () => {
     render(<Step3 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-
-    fireEvent.click(screen.getByText('stegvisning.tilbake'))
-    expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('stegvisning.tilbake'))
+      expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+    })
   })
 
-  it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', () => {
+  it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -65,9 +89,10 @@ describe('Step 3', () => {
     const { store } = render(<Step3 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-
-    fireEvent.click(screen.getByText('stegvisning.avbryt'))
-    expect(navigateMock).toHaveBeenCalledWith('/')
-    expect(store.getState().userInput.samtykke).toBe(null)
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('stegvisning.avbryt'))
+      expect(navigateMock).toHaveBeenCalledWith('/')
+      expect(store.getState().userInput.samtykke).toBe(null)
+    })
   })
 })

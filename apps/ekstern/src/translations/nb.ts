@@ -31,6 +31,8 @@ const translations = {
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
   'stegvisning.stegvisning.offentligtp.title':
     'Du kan ha rett til offentlig tjenestepensjon',
+  'stegvisning.stegvisning.offentligtp.loading':
+    'Henter informasjon om medlemskap til offentlig tjenestepensjon',
   'stegvisning.stegvisning.offentligtp.ingress_1':
     'Du er eller har vært medlem i en offentlig tjenestepensjonsordning og kan ha rett til tjenestepensjon. Men vi kan dessverre ikke hente inn dine avtaler. Sjekk hva som gjelder deg hos din tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.)',
   'stegvisning.stegvisning.offentligtp.ingress_2':

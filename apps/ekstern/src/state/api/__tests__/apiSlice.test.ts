@@ -8,6 +8,7 @@ import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
 const tidligsteUttaksalderResponse = require('../../../mocks/data/tidligsteUttaksalder.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/2031.json')
 const personResponse = require('../../../mocks/data/person.json')
+const tpoMedlemskapResponse = require('../../../mocks/data/tpo-medlemskap.json')
 const unleashResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
 const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler.json')
 
@@ -17,6 +18,7 @@ describe('apiSlice', () => {
     expect(apiSlice.endpoints).toHaveProperty('tidligsteUttaksalder')
     expect(apiSlice.endpoints).toHaveProperty('alderspensjon')
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
+    expect(apiSlice.endpoints).toHaveProperty('getTpoMedlemskap')
     expect(apiSlice.endpoints).toHaveProperty('getPensjonsavtaler')
     expect(apiSlice.endpoints).toHaveProperty('getSpraakvelgerFeatureToggle')
   })
@@ -48,13 +50,11 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uforventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
-
       mockResponse('/tidligste-uttaksalder', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
       })
-
       await swallowErrorsAsync(async () => {
         await storeRef
           .dispatch<any>(apiSlice.endpoints.tidligsteUttaksalder.initiate())
@@ -103,58 +103,14 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uforventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
-
       mockResponse('/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
       })
-
       await swallowErrorsAsync(async () => {
         await storeRef
           .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
-          .then((result: FetchBaseQueryError) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
-  })
-
-  describe('getPensjonsavtaler', () => {
-    it('returnerer data ved vellykket query', async () => {
-      const storeRef = await setupStore({}, true)
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(pensjonsavtalerResponse)
-        })
-    })
-
-    it('returnerer undefined ved feilende query', async () => {
-      const storeRef = await setupStore({}, true)
-      mockErrorResponse('/pensjonsavtaler')
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('rejected')
-          expect(result.data).toBe(undefined)
-        })
-    })
-
-    it('kaster feil ved uforventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
-
-      mockResponse('/pensjonsavtaler', {
-        status: 200,
-        json: [{ 'tullete svar': 'lorem' }],
-      })
-
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)
             expect(result.status).toBe('rejected')
@@ -188,12 +144,10 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uforventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
-
       mockResponse('/person', {
         status: 200,
         json: { sivilstand: 'SIRKUSKLOVN' },
       })
-
       await swallowErrorsAsync(async () => {
         await storeRef
           .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
@@ -205,6 +159,87 @@ describe('apiSlice', () => {
       })
     })
   })
+
+  describe('getTpoMedlemskap', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = await setupStore({}, true)
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getTpoMedlemskap.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(tpoMedlemskapResponse)
+        })
+    })
+
+    it('returnerer undefined ved feilende query', async () => {
+      const storeRef = await setupStore({}, true)
+      mockErrorResponse('/tpo-medlemskap')
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getTpoMedlemskap.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
+    })
+
+    it('kaster feil ved uforventet format på responsen', async () => {
+      const storeRef = await setupStore({}, true)
+      mockResponse('/tpo-medlemskap', {
+        status: 200,
+        json: { lorem: 'ipsum' },
+      })
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(apiSlice.endpoints.getTpoMedlemskap.initiate())
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
+  describe('getPensjonsavtaler', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = await setupStore({}, true)
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(pensjonsavtalerResponse)
+        })
+    })
+
+    it('returnerer undefined ved feilende query', async () => {
+      const storeRef = await setupStore({}, true)
+      mockErrorResponse('/pensjonsavtaler')
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
+    })
+
+    it('kaster feil ved uforventet format på responsen', async () => {
+      const storeRef = await setupStore({}, true)
+      mockResponse('/pensjonsavtaler', {
+        status: 200,
+        json: [{ 'tullete svar': 'lorem' }],
+      })
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
   describe('getSpraakvelgerFeatureToggle', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = await setupStore({}, true)

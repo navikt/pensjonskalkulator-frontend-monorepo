@@ -39,6 +39,10 @@ declare type Person = {
   sivilstand: Sivilstand
 }
 
+declare type TpoMedlemskap = {
+  harAktivMedlemskap: boolean
+}
+
 declare type UnleashToggle = {
   enabled: boolean
 }
