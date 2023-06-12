@@ -72,12 +72,12 @@ describe('Pensjonsberegning', () => {
   it('oppdaterer valgt knapp og tegner graph når uttaksalder er valgt', async () => {
     const { container } = render(<Pensjonsberegning />)
 
-    const button = await screen.findByText('65 år')
+    const button = await screen.findByText('68 år')
 
     await userEvent.click(button)
 
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '65 år'
+      '68 år'
     )
     expect(
       container.getElementsByClassName('highcharts-container').length

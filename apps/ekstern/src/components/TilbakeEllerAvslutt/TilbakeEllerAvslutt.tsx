@@ -13,7 +13,7 @@ export function TilbakeEllerAvslutt() {
 
   const onResetClick = (): void => {
     dispatch(userInputActions.flush())
-    navigate('/stegvisning/0')
+    navigate('/start')
   }
 
   const onCancelClick = (): void => {

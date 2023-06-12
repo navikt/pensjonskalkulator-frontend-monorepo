@@ -1,0 +1,253 @@
+// Vitest Snapshot v1
+
+exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`] = `
+<DocumentFragment>
+  <div
+    class="navds-accordion__item"
+  >
+    <button
+      aria-expanded="false"
+      class="navds-accordion__header"
+      type="button"
+    >
+      <div
+        class="navds-accordion__icon-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          aria-labelledby="title-r0"
+          class="navds-accordion__header-chevron"
+          fill="none"
+          focusable="false"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title
+            id="title-r0"
+          >
+            Vis mer
+          </title>
+          <path
+            clip-rule="evenodd"
+            d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <span
+        class="navds-accordion__header-content navds-heading navds-heading--small"
+      >
+        Pensjonsavtaler: 
+        <span
+          class="_details_8a9925"
+        >
+          1
+        </span>
+      </span>
+    </button>
+    <div
+      class="navds-accordion__content navds-accordion__content--closed navds-body-long"
+    >
+      <table
+        class="_tabell_1652ed"
+      >
+        <thead>
+          <tr>
+            <th
+              class="_tabellHeader_1652ed"
+            >
+              Pensjonsavtale
+            </th>
+            <th
+              class="_tabellHeader_1652ed _tabellHeader__Right_1652ed"
+            >
+              Årlig utbetaling
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              class="_tabellCell_1652ed"
+              colspan="2"
+            >
+              <p
+                class="_mellomtittel_1652ed navds-body-short"
+              >
+                Undefined
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="_tabellCell_1652ed"
+            >
+              <p
+                class="navds-body-short"
+              >
+                Fra DNB
+              </p>
+              <p
+                class="_utbetaling_1652ed navds-body-short"
+              >
+                Livsvarig utbetaling fra 67 år og 1
+              </p>
+            </td>
+            <td
+              class="_tabellCell_1652ed _tabellCell__Right_1652ed"
+            >
+              <p
+                class="navds-body-short"
+              >
+                1 028,75 kr
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p
+        class="_paragraph_1652ed navds-body-long navds-body-long--small"
+      >
+        Alle avtaler i privat sektor er hentet fra 
+        <a
+          class="navds-link"
+          href="https://norskpensjon.no/"
+        >
+          Norsk Pensjon
+        </a>
+        . Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sluttdato 1`] = `
+<DocumentFragment>
+  <div
+    class="navds-accordion__item"
+  >
+    <button
+      aria-expanded="false"
+      class="navds-accordion__header"
+      type="button"
+    >
+      <div
+        class="navds-accordion__icon-wrapper"
+      >
+        <svg
+          aria-hidden="true"
+          aria-labelledby="title-r1"
+          class="navds-accordion__header-chevron"
+          fill="none"
+          focusable="false"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title
+            id="title-r1"
+          >
+            Vis mer
+          </title>
+          <path
+            clip-rule="evenodd"
+            d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <span
+        class="navds-accordion__header-content navds-heading navds-heading--small"
+      >
+        Pensjonsavtaler: 
+        <span
+          class="_details_8a9925"
+        >
+          1
+        </span>
+      </span>
+    </button>
+    <div
+      class="navds-accordion__content navds-accordion__content--closed navds-body-long"
+    >
+      <table
+        class="_tabell_1652ed"
+      >
+        <thead>
+          <tr>
+            <th
+              class="_tabellHeader_1652ed"
+            >
+              Pensjonsavtale
+            </th>
+            <th
+              class="_tabellHeader_1652ed _tabellHeader__Right_1652ed"
+            >
+              Årlig utbetaling
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              class="_tabellCell_1652ed"
+              colspan="2"
+            >
+              <p
+                class="_mellomtittel_1652ed navds-body-short"
+              >
+                Undefined
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="_tabellCell_1652ed"
+            >
+              <p
+                class="navds-body-short"
+              >
+                Fra DNB
+              </p>
+              <p
+                class="_utbetaling_1652ed navds-body-short"
+              >
+                Utbetales fra 67 og 1 til 77 år og 8
+              </p>
+            </td>
+            <td
+              class="_tabellCell_1652ed _tabellCell__Right_1652ed"
+            >
+              <p
+                class="navds-body-short"
+              >
+                1 028,75 kr
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p
+        class="_paragraph_1652ed navds-body-long navds-body-long--small"
+      >
+        Alle avtaler i privat sektor er hentet fra 
+        <a
+          class="navds-link"
+          href="https://norskpensjon.no/"
+        >
+          Norsk Pensjon
+        </a>
+        . Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

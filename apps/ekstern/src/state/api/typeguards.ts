@@ -1,4 +1,6 @@
-export const isPensjonsberegning = (
+import { PensjonsavtaleType } from '@/types/enums'
+
+export const isPensjonsberegningArray = (
   data?: any
 ): data is Pensjonsberegning[] => {
   return (
@@ -6,8 +8,22 @@ export const isPensjonsberegning = (
     data.every(
       (beregning) =>
         typeof beregning.alder === 'number' &&
-        typeof beregning.pensjonsaar === 'number' &&
-        typeof beregning.pensjonsbeloep === 'number'
+        typeof beregning.belop === 'number'
+    )
+  )
+}
+
+export const isPensjonsavtale = (data?: any): data is Pensjonsavtale[] => {
+  return (
+    Array.isArray(data) &&
+    data.every(
+      (pensjonsavtale) =>
+        typeof pensjonsavtale.navn === 'string' &&
+        isSomeEnumKey(PensjonsavtaleType)(pensjonsavtale.type) &&
+        typeof pensjonsavtale.startAar === 'number' &&
+        typeof pensjonsavtale.startMaaned === 'number' &&
+        typeof pensjonsavtale.grad === 'number' &&
+        typeof pensjonsavtale.beholdning === 'number'
     )
   )
 }
@@ -45,3 +61,9 @@ export const isUnleashToggle = (data?: any): data is UnleashToggle => {
     typeof data.enabled === 'boolean'
   )
 }
+
+export const isSomeEnumKey =
+  <T extends { [s: string]: unknown }>(e: T) =>
+  (token: unknown): token is T[keyof T] => {
+    return Object.keys(e).includes(token as string)
+  }

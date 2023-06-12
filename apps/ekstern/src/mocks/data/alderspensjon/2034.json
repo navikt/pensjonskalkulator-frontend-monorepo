@@ -1,0 +1,36 @@
+{
+  "pensjon": [
+    {
+      "alder": 70,
+      "belop": 275790
+    },
+    {
+      "alder": 71,
+      "belop": 276032
+    },
+    {
+      "alder": 72,
+      "belop": 276072
+    },
+    {
+      "alder": 73,
+      "belop": 276072
+    },
+    {
+      "alder": 74,
+      "belop": 276072
+    },
+    {
+      "alder": 75,
+      "belop": 276072
+    },
+    {
+      "alder": 76,
+      "belop": 276072
+    },
+    {
+      "alder": 77,
+      "belop": 276072
+    }
+  ]
+}

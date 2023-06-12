@@ -7,6 +7,7 @@ describe('VelgUttaksalder', () => {
   const uttaksalder: Uttaksalder = {
     aar: 62,
     maaned: 10,
+    uttaksdato: '2031-11-01',
   }
 
   it('viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere', async () => {

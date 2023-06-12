@@ -1,0 +1,70 @@
+[
+  {
+    "navn": "Innskuddpensjon",
+    "type": "INNSKUDD",
+    "startAar": 67,
+    "startMaaned": 1,
+    "sluttAar": 77,
+    "sluttMaaned": 1,
+    "grad": 100,
+    "beholdning": 250000
+  },
+  {
+    "navn": "Innskuddpensjon",
+    "type": "INNSKUDD_KOLL",
+    "startAar": 67,
+    "startMaaned": 1,
+    "sluttAar": 77,
+    "sluttMaaned": 1,
+    "grad": 100,
+    "beholdning": 150000
+  },
+  {
+    "navn": "Nordea Liv",
+    "type": "PRIVAT_TP",
+    "startAar": 67,
+    "startMaaned": 1,
+    "sluttAar": 77,
+    "sluttMaaned": 1,
+    "grad": 100,
+    "beholdning": 231298
+  },
+  {
+    "navn": "Storebrand",
+    "type": "PRIVAT_TP",
+    "startAar": 67,
+    "startMaaned": 1,
+    "sluttAar": 77,
+    "sluttMaaned": 1,
+    "grad": 100,
+    "beholdning": 39582
+  },
+  {
+    "navn": "Oslo Pensjonsforsikring",
+    "type": "OFFENTLIG_TP",
+    "startAar": 67,
+    "startMaaned": 1,
+    "grad": 100,
+    "beholdning": 103264
+  },
+  {
+    "navn": "DNB",
+    "type": "FRIPOLISE",
+    "startAar": 67,
+    "startMaaned": 1,
+    "sluttAar": 77,
+    "sluttMaaned": 1,
+    "grad": 100,
+    "beholdning": 37264
+  },
+  {
+    "navn": "IPS",
+    "type": "EGEN_SPARING",
+    "startAar": 67,
+    "startMaaned": 1,
+    "sluttAar": 77,
+    "sluttMaaned": 1,
+    "grad": 100,
+    "beholdning": 241802
+  }
+]

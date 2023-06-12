@@ -3,18 +3,21 @@ import { setupStore } from '@/state/store'
 import { apiSlice } from '@/state/api/apiSlice'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { swallowErrorsAsync } from '@/test-utils'
+import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
 
-const tidligstemuligeuttaksalderData = require('../../../mocks/data/tidligstemuligeuttaksalder.json')
-const pensjonsberegningData = require('../../../mocks/data/pensjonsberegning.json')
-const personData = require('../../../mocks/data/person.json')
-const unleashData = require('../../../mocks/data/unleash-disable-spraakvelger.json')
+const tidligsteUttaksalderResponse = require('../../../mocks/data/tidligsteUttaksalder.json')
+const alderspensjonResponse = require('../../../mocks/data/alderspensjon/2031.json')
+const personResponse = require('../../../mocks/data/person.json')
+const unleashResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
+const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler.json')
 
 // TODO: fikse bedre typing ved dispatch
 describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
     expect(apiSlice.endpoints).toHaveProperty('tidligsteUttaksalder')
-    expect(apiSlice.endpoints).toHaveProperty('getPensjonsberegning')
+    expect(apiSlice.endpoints).toHaveProperty('alderspensjon')
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
+    expect(apiSlice.endpoints).toHaveProperty('getPensjonsavtaler')
     expect(apiSlice.endpoints).toHaveProperty('getSpraakvelgerFeatureToggle')
   })
 
@@ -25,7 +28,7 @@ describe('apiSlice', () => {
         .dispatch<any>(apiSlice.endpoints.tidligsteUttaksalder.initiate())
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(tidligstemuligeuttaksalderData)
+          expect(result.data).toMatchObject(tidligsteUttaksalderResponse)
         })
     })
 
@@ -64,22 +67,34 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('getPensjonsberegning', () => {
+  describe('alderspensjon', () => {
+    const body: AlderspensjonRequestBody = {
+      simuleringstype: 'ALDER',
+      uttaksgrad: 100,
+      foersteUttaksdato: '2031-11-01',
+      epsHarInntektOver2G: false,
+      forventetInntekt: 500_000,
+      sivilstand: 'UGIFT',
+    }
     it('returnerer data ved vellykket query', async () => {
       const storeRef = await setupStore({}, true)
       return storeRef
-        .dispatch<any>(apiSlice.endpoints.getPensjonsberegning.initiate())
+        .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(pensjonsberegningData)
+          expect(result.data).toMatchObject(alderspensjonResponse.pensjon)
         })
     })
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
-      mockErrorResponse('/pensjonsberegning')
+      mockErrorResponse('/alderspensjon/simulering', {
+        status: 500,
+        json: "Beep boop I'm an error!",
+        method: 'post',
+      })
       return storeRef
-        .dispatch<any>(apiSlice.endpoints.getPensjonsberegning.initiate())
+        .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('rejected')
           expect(result.data).toBe(undefined)
@@ -89,14 +104,57 @@ describe('apiSlice', () => {
     it('kaster feil ved uforventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
 
-      mockResponse('/pensjonsberegning', {
+      mockResponse('/alderspensjon/simulering', {
+        status: 200,
+        json: [{ 'tullete svar': 'lorem' }],
+        method: 'post',
+      })
+
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
+  describe('getPensjonsavtaler', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = await setupStore({}, true)
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(pensjonsavtalerResponse)
+        })
+    })
+
+    it('returnerer undefined ved feilende query', async () => {
+      const storeRef = await setupStore({}, true)
+      mockErrorResponse('/pensjonsavtaler')
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
+    })
+
+    it('kaster feil ved uforventet format på responsen', async () => {
+      const storeRef = await setupStore({}, true)
+
+      mockResponse('/pensjonsavtaler', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
       })
 
       await swallowErrorsAsync(async () => {
         await storeRef
-          .dispatch<any>(apiSlice.endpoints.getPensjonsberegning.initiate())
+          .dispatch<any>(apiSlice.endpoints.getPensjonsavtaler.initiate())
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)
             expect(result.status).toBe('rejected')
@@ -113,7 +171,7 @@ describe('apiSlice', () => {
         .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(personData)
+          expect(result.data).toMatchObject(personResponse)
         })
     })
 
@@ -156,7 +214,7 @@ describe('apiSlice', () => {
         )
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(unleashData)
+          expect(result.data).toMatchObject(unleashResponse)
         })
     })
 

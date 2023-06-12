@@ -29,6 +29,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-vars': 'warn',
     'no-irregular-whitespace': 'warn',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
     'import/order': [
       'warn',
       {
