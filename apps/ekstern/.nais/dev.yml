@@ -45,5 +45,5 @@ spec:
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"
-    - name: "FARO_TELEMETRY_URL"
+    - name: "VITE_FARO_TELEMETRY_URL"
       value: "https://telemetry.ekstern.dev.nav.no/collect"
