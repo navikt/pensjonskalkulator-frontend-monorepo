@@ -33,7 +33,7 @@ jobs:
 
       - name: Build application
         env:
-          VITE_DEKORATOREN_URL: 'https://dekoratoren.dev.nav.no'
+          FARO_TELEMETRY_URL: 'https://telemetry.ekstern.dev.nav.no/collect'
         run: npm run build
 
       - name: Save build folder
