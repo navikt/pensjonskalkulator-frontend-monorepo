@@ -2,7 +2,7 @@ import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk'
 
 export const initializeLogs = () =>
   initializeFaro({
-    url: process.env.FARO_TELEMETRY_URL,
+    url: import.meta.env.FARO_TELEMETRY_URL ?? 'http://localhost:12347/collect',
     app: {
       name: 'pensjonskalkulator-frontend',
       version: 'dev',
