@@ -25,9 +25,9 @@ describe('Step 4', () => {
     })
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.stegvisning.afp.title'
+        'stegvisning.afp.title'
       )
-      expect(screen.getByText('Show 4 radio buttons')).toBeVisible()
+      expect(screen.getAllByRole('radio')).toHaveLength(4)
     })
   })
 
@@ -37,22 +37,27 @@ describe('Step 4', () => {
     })
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.stegvisning.afp.title'
+        'stegvisning.afp.title'
       )
-      expect(screen.getByText('Show 4 radio buttons')).toBeVisible()
+      expect(screen.getAllByRole('radio')).toHaveLength(4)
     })
   })
 
-  it('sender videre til steg 5 når brukeren klikker på Neste', async () => {
+  it('registrerer afp og navigerer videre til steg 5 når brukeren velger afp og klikker på Neste', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Step4 />, {
+    const { store } = render(<Step4 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
     await waitFor(() => {
+      const radioButtons = screen.getAllByRole('radio')
+      // act(() => {
+      fireEvent.click(radioButtons[0])
       fireEvent.click(screen.getByText('stegvisning.neste'))
+      // })
+      expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(navigateMock).toHaveBeenCalledWith('/beregning')
     })
   })
@@ -93,12 +98,15 @@ describe('Step 4', () => {
       () => navigateMock
     )
     const { store } = render(<Step4 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { samtykke: true, afp: 'nei' },
+      } as RootState,
     })
     await waitFor(() => {
       fireEvent.click(screen.getByText('stegvisning.avbryt'))
       expect(navigateMock).toHaveBeenCalledWith('/')
       expect(store.getState().userInput.samtykke).toBe(null)
+      expect(store.getState().userInput.afp).toBe(null)
     })
   })
 })

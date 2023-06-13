@@ -10,9 +10,7 @@ describe('Step 1', () => {
   it('henter personopplysninger og viser hilsen med fornavnet til brukeren', async () => {
     render(<Step1 />)
     await waitFor(() => {
-      expect(
-        screen.getByText('stegvisning.stegvisning.start.title Aprikos!')
-      ).toBeVisible()
+      expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
     })
   })
 
@@ -32,7 +30,7 @@ describe('Step 1', () => {
     )
     render(<Step1 />)
     await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.stegvisning.start.start'))
+      fireEvent.click(screen.getByText('stegvisning.start.start'))
       expect(navigateMock).toHaveBeenCalledWith('/samtykke')
     })
   })

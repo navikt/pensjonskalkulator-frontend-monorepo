@@ -13,6 +13,7 @@ describe('store', () => {
   it('returnerer store med riktig state når setupStore kalles med parameter', () => {
     const state: UserInputState = {
       samtykke: true,
+      afp: null,
       currentSimulation: {
         inntekt: 500000,
         uttaksalder: null,

@@ -48,9 +48,7 @@ export function Step3() {
     <Loader
       data-testid="loader"
       size="3xlarge"
-      title={
-        <FormattedMessage id="stegvisning.stegvisning.offentligtp.title" />
-      }
+      title={<FormattedMessage id="stegvisning.offentligtp.title" />}
     />
   ) : (
     <OffentligTP onCancel={onCancel} onPrevious={onPrevious} onNext={onNext} />

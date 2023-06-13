@@ -8,20 +8,21 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
     <h2
       class="navds-heading navds-heading--large navds-typo--spacing"
     >
-      stegvisning.stegvisning.offentligtp.title
+      stegvisning.offentligtp.title
     </h2>
     <p
       class="navds-body-long navds-typo--spacing"
     >
-      stegvisning.stegvisning.offentligtp.ingress_1
+      stegvisning.offentligtp.ingress_1
     </p>
     <p
       class="navds-body-long"
     >
-      stegvisning.stegvisning.offentligtp.ingress_2
+      stegvisning.offentligtp.ingress_2
     </p>
     <button
       class="_button_f5c4aa navds-button navds-button--primary navds-button--medium"
+      type="submit"
     >
       <span
         aria-live="polite"
@@ -32,6 +33,7 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
     </button>
     <button
       class="_button_f5c4aa navds-button navds-button--secondary navds-button--medium"
+      type="button"
     >
       <span
         aria-live="polite"
@@ -42,6 +44,7 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
     </button>
     <button
       class="navds-button navds-button--tertiary navds-button--medium"
+      type="button"
     >
       <span
         aria-live="polite"

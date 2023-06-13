@@ -18,7 +18,7 @@ describe('stegvisning - Samtykke', () => {
       />
     )
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.stegvisning.samtykke.title'
+      'stegvisning.samtykke.title'
     )
     const radioButtons = screen.getAllByRole('radio')
 
@@ -80,7 +80,7 @@ describe('stegvisning - Samtykke', () => {
     })
     waitFor(() => {
       expect(
-        screen.getByText('stegvisning.stegvisning.samtykke.validation_error')
+        screen.getByText('stegvisning.samtykke.validation_error')
       ).toBeInTheDocument()
       expect(onNextMock).not.toHaveBeenCalled()
     })
@@ -88,7 +88,7 @@ describe('stegvisning - Samtykke', () => {
       fireEvent.click(radioButtons[0])
     })
     expect(
-      screen.queryByText('stegvisning.stegvisning.samtykke.validation_error')
+      screen.queryByText('stegvisning.samtykke.validation_error')
     ).not.toBeInTheDocument()
     act(() => {
       fireEvent.click(screen.getByText('stegvisning.neste'))
@@ -98,7 +98,7 @@ describe('stegvisning - Samtykke', () => {
     })
   })
 
-  it('kaller onPreviousMock når brukeren klikker på Tilbake', () => {
+  it('kaller onPrevious når brukeren klikker på Tilbake', () => {
     render(
       <Samtykke
         harSamtykket

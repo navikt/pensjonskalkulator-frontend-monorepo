@@ -17,7 +17,7 @@ describe('stegvisning - OffentligTP', () => {
       />
     )
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.stegvisning.offentligtp.title'
+      'stegvisning.offentligtp.title'
     )
     await waitFor(() => {
       expect(result.asFragment()).toMatchSnapshot()

@@ -14,7 +14,7 @@ describe('stegvisning - Start', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.stegvisning.start.title Ola!'
+        'stegvisning.start.title Ola!'
       )
       expect(result.asFragment()).toMatchSnapshot()
     })
@@ -22,7 +22,7 @@ describe('stegvisning - Start', () => {
 
   it('kaller onNext når brukeren klikker på Neste', () => {
     render(<Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
-    fireEvent.click(screen.getByText('stegvisning.stegvisning.start.start'))
+    fireEvent.click(screen.getByText('stegvisning.start.start'))
     expect(onNextMock).toHaveBeenCalled()
   })
 

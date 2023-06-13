@@ -12,16 +12,12 @@ describe('Step 2', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-
     const { store } = render(<Step2 />, {})
-
     const radioButtons = screen.getAllByRole('radio')
-
     act(() => {
       fireEvent.click(radioButtons[0])
       fireEvent.click(screen.getByText('stegvisning.neste'))
     })
-
     expect(store.getState().api.queries).toHaveProperty(
       'getPensjonsavtaler(undefined)'
     )
@@ -34,16 +30,12 @@ describe('Step 2', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-
     const { store } = render(<Step2 />, {})
-
     const radioButtons = screen.getAllByRole('radio')
-
     act(() => {
       fireEvent.click(radioButtons[1])
       fireEvent.click(screen.getByText('stegvisning.neste'))
     })
-
     expect(store.getState().userInput.samtykke).toBe(false)
     expect(Object.keys(store.getState().api.queries).length).toEqual(0)
     expect(navigateMock).toHaveBeenCalledWith('/afp')
@@ -62,7 +54,6 @@ describe('Step 2', () => {
     act(() => {
       fireEvent.click(screen.getByText('stegvisning.tilbake'))
     })
-
     expect(navigateMock).toHaveBeenCalledWith('/start')
     expect(store.getState().userInput.samtykke).toBe(null)
   })
@@ -80,7 +71,6 @@ describe('Step 2', () => {
     act(() => {
       fireEvent.click(screen.getByText('stegvisning.avbryt'))
     })
-
     expect(store.getState().userInput.samtykke).toBe(null)
     expect(navigateMock).toHaveBeenCalledWith('/')
   })

@@ -21,21 +21,21 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
         className={styles.image}
         src={FridaPortrett}
         alt={intl.formatMessage({
-          id: 'stegvisning.stegvisning.start.bildetekst',
+          id: 'stegvisning.start.bildetekst',
         })}
       />
       <Heading className={styles.title} size="large" level="2" spacing>
         {`${intl.formatMessage({
-          id: 'stegvisning.stegvisning.start.title',
+          id: 'stegvisning.start.title',
         })} ${fornavn}!`}
       </Heading>
       <Ingress>
-        <FormattedMessage id="stegvisning.stegvisning.start.ingress" />
+        <FormattedMessage id="stegvisning.start.ingress" />
       </Ingress>
-      <Button className={styles.button} onClick={onNext}>
-        <FormattedMessage id="stegvisning.stegvisning.start.start" />
+      <Button type={'submit'} className={styles.button} onClick={onNext}>
+        <FormattedMessage id="stegvisning.start.start" />
       </Button>
-      <Button variant="tertiary" onClick={onCancel}>
+      <Button type={'button'} variant="tertiary" onClick={onCancel}>
         <FormattedMessage id="stegvisning.avbryt" />
       </Button>
     </section>

@@ -40,7 +40,7 @@ export function Samtykke({
     if (!samtykkeData) {
       setValidationError(
         intl.formatMessage({
-          id: 'stegvisning.stegvisning.samtykke.validation_error',
+          id: 'stegvisning.samtykke.validation_error',
         })
       )
     } else {
@@ -56,38 +56,34 @@ export function Samtykke({
     <form onSubmit={onSubmit}>
       <section className={styles.section}>
         <Heading size="large" level="2" spacing>
-          <FormattedMessage id="stegvisning.stegvisning.samtykke.title" />
+          <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
         <BodyLong>
-          <FormattedMessage id="stegvisning.stegvisning.samtykke.ingress" />
+          <FormattedMessage id="stegvisning.samtykke.ingress" />
         </BodyLong>
         <ReadMore
           className={styles.readmore}
-          header={
-            <FormattedMessage id="stegvisning.stegvisning.samtykke.readmore_title" />
-          }
+          header={<FormattedMessage id="stegvisning.samtykke.readmore_title" />}
         >
-          <FormattedMessage id="stegvisning.stegvisning.samtykke.readmore_ingress" />
+          <FormattedMessage id="stegvisning.samtykke.readmore_ingress" />
           <br />
           <br />
-          <FormattedMessage id="stegvisning.stegvisning.samtykke.readmore_list_title" />
+          <FormattedMessage id="stegvisning.samtykke.readmore_list_title" />
           <ul>
             <li>
-              <FormattedMessage id="stegvisning.stegvisning.samtykke.readmore_list_item1" />
+              <FormattedMessage id="stegvisning.samtykke.readmore_list_item1" />
             </li>
             <li>
-              <FormattedMessage id="stegvisning.stegvisning.samtykke.readmore_list_item2" />
+              <FormattedMessage id="stegvisning.samtykke.readmore_list_item2" />
             </li>
             <li>
-              <FormattedMessage id="stegvisning.stegvisning.samtykke.readmore_list_item3" />
+              <FormattedMessage id="stegvisning.samtykke.readmore_list_item3" />
             </li>
           </ul>
         </ReadMore>
 
         <RadioGroup
-          legend={
-            <FormattedMessage id="stegvisning.stegvisning.samtykke.radio_label" />
-          }
+          legend={<FormattedMessage id="stegvisning.samtykke.radio_label" />}
           name={'samtykke'}
           defaultValue={
             harSamtykket ? 'ja' : harSamtykket === false ? 'nei' : null
@@ -97,10 +93,10 @@ export function Samtykke({
           aria-required="true"
         >
           <Radio value="ja">
-            <FormattedMessage id="stegvisning.stegvisning.samtykke.radio_ja" />
+            <FormattedMessage id="stegvisning.samtykke.radio_ja" />
           </Radio>
           <Radio value="nei">
-            <FormattedMessage id="stegvisning.stegvisning.samtykke.radio_nei" />
+            <FormattedMessage id="stegvisning.samtykke.radio_nei" />
           </Radio>
         </RadioGroup>
 

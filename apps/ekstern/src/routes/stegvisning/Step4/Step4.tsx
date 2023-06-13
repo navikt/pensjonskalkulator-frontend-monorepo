@@ -3,16 +3,17 @@ import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { Loader } from '@/components/Loader'
-import { AFP } from '@/components/stegvisning/AFP'
+import { AFP, AfpRadio } from '@/components/stegvisning/AFP'
 import { useGetTpoMedlemskapQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamtykke } from '@/state/userInput/selectors'
+import { selectSamtykke, selectAfp } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step4() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
+  const previousAfp = useAppSelector(selectAfp)
   const {
     data: TpoMedlemskap,
     isLoading,
@@ -40,7 +41,8 @@ export function Step4() {
     }
   }
 
-  const onNext = (): void => {
+  const onNext = (afpData: AfpRadio): void => {
+    dispatch(userInputActions.setAfp(afpData))
     navigate('/beregning')
   }
 
@@ -48,13 +50,12 @@ export function Step4() {
     <Loader
       data-testid="loader"
       size="3xlarge"
-      title={
-        <FormattedMessage id="stegvisning.stegvisning.offentligtp.title" />
-      }
+      title={<FormattedMessage id="stegvisning.offentligtp.title" />}
     />
   ) : (
     <AFP
-      showJaOffentligChoice={
+      afp={previousAfp}
+      showJaOffentlig={
         !harSamtykket || (isSuccess && TpoMedlemskap.harAktivMedlemskap)
       }
       onCancel={onCancel}

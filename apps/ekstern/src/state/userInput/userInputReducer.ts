@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { AfpRadio } from '@/components/stegvisning/AFP'
+
 export interface Simulation {
   inntekt?: number | null
   uttaksalder?: number | null
@@ -11,11 +13,13 @@ export interface Simulation {
 
 export interface UserInputState {
   samtykke: boolean | null
+  afp: AfpRadio | null
   currentSimulation?: Simulation
 }
 
 export const userInputInitialState: UserInputState = {
   samtykke: null,
+  afp: null,
   currentSimulation: {
     inntekt: null,
     uttaksalder: null,
@@ -30,8 +34,12 @@ export const userInputSlice = createSlice({
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
     },
+    setAfp: (state, action: PayloadAction<AfpRadio>) => {
+      state.afp = action.payload
+    },
     flush: (state) => {
       state.samtykke = null
+      state.afp = null
     },
     setSomething: (state, action: PayloadAction<string>) => {
       state.currentSimulation = {

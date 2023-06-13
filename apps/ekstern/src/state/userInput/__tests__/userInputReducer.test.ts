@@ -17,11 +17,24 @@ describe('userInputSlice', () => {
       })
     })
 
+    it('setAfp', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setAfp('ja_offentlig')
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        afp: 'ja_offentlig',
+      })
+    })
+
     it('flush', () => {
       const updatedState = userInputSlice(
         {
           ...userInputInitialState,
           samtykke: true,
+          afp: 'ja_offentlig',
         },
         userInputActions.flush()
       )

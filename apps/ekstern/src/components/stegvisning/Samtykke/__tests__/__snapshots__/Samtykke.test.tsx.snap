@@ -9,12 +9,12 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
       <h2
         class="navds-heading navds-heading--large navds-typo--spacing"
       >
-        stegvisning.stegvisning.samtykke.title
+        stegvisning.samtykke.title
       </h2>
       <p
         class="navds-body-long"
       >
-        stegvisning.stegvisning.samtykke.ingress
+        stegvisning.samtykke.ingress
       </p>
       <div
         class="navds-read-more navds-read-more--medium _readmore_5b4738"
@@ -43,26 +43,26 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             />
           </svg>
           <span>
-            stegvisning.stegvisning.samtykke.readmore_title
+            stegvisning.samtykke.readmore_title
           </span>
         </button>
         <div
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long"
         >
-          stegvisning.stegvisning.samtykke.readmore_ingress
+          stegvisning.samtykke.readmore_ingress
           <br />
           <br />
-          stegvisning.stegvisning.samtykke.readmore_list_title
+          stegvisning.samtykke.readmore_list_title
           <ul>
             <li>
-              stegvisning.stegvisning.samtykke.readmore_list_item1
+              stegvisning.samtykke.readmore_list_item1
             </li>
             <li>
-              stegvisning.stegvisning.samtykke.readmore_list_item2
+              stegvisning.samtykke.readmore_list_item2
             </li>
             <li>
-              stegvisning.stegvisning.samtykke.readmore_list_item3
+              stegvisning.samtykke.readmore_list_item3
             </li>
           </ul>
         </div>
@@ -75,7 +75,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         <legend
           class="navds-fieldset__legend navds-label"
         >
-          stegvisning.stegvisning.samtykke.radio_label
+          stegvisning.samtykke.radio_label
         </legend>
         <div
           class="navds-radio-buttons"
@@ -101,7 +101,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 <span
                   class="navds-body-short"
                 >
-                  stegvisning.stegvisning.samtykke.radio_ja
+                  stegvisning.samtykke.radio_ja
                 </span>
               </span>
             </label>
@@ -127,7 +127,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 <span
                   class="navds-body-short"
                 >
-                  stegvisning.stegvisning.samtykke.radio_nei
+                  stegvisning.samtykke.radio_nei
                 </span>
               </span>
             </label>
