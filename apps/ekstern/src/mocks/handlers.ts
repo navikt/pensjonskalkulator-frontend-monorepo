@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-import { getHost, PATH } from '@/api/paths'
+import { PATH } from '@/api/paths'
 
 import pensjonsavtalerResponse from './data/pensjonsavtaler.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
@@ -46,7 +46,4 @@ export const getHandlers = (baseUrl: string = PATH) => [
       )
     }
   ),
-  rest.post(`${getHost('test')}/client_error_trace`, async (req, res, ctx) => {
-    return res(ctx.status(204), ctx.delay(30))
-  }),
 ]

@@ -1,5 +1,7 @@
+import { RouteObject } from 'react-router-dom'
+
+import { RouteErrorBoundary } from '@/components/RouteErrorBoundary'
 import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
-import { ErrorPage404 } from '@/routes/ErrorPage404'
 import { LandingPage } from '@/routes/LandingPage'
 import { PageFramework } from '@/routes/PageFramework'
 import { Step1 } from '@/routes/stegvisning/Step1'
@@ -8,7 +10,8 @@ import { Step3 } from '@/routes/stegvisning/Step3'
 import { Step4 } from '@/routes/stegvisning/Step4'
 
 export const ROUTER_BASE_URL = '/pensjon/kalkulator'
-export const routes = [
+
+export const routes: RouteObject[] = [
   {
     path: '/',
     element: (
@@ -16,7 +19,7 @@ export const routes = [
         <LandingPage />
       </PageFramework>
     ),
-    errorElement: <ErrorPage404 />,
+    ErrorBoundary: RouteErrorBoundary,
   },
   {
     path: '/start',
@@ -25,6 +28,7 @@ export const routes = [
         <Step1 />
       </PageFramework>
     ),
+    ErrorBoundary: RouteErrorBoundary,
   },
   {
     path: '/samtykke',
@@ -33,6 +37,7 @@ export const routes = [
         <Step2 />
       </PageFramework>
     ),
+    ErrorBoundary: RouteErrorBoundary,
   },
   {
     path: '/offentlig-tp',
@@ -50,6 +55,7 @@ export const routes = [
         <Step4 />
       </PageFramework>
     ),
+    ErrorBoundary: RouteErrorBoundary,
   },
   {
     path: '/beregning',
@@ -58,6 +64,7 @@ export const routes = [
         <Pensjonsberegning />
       </PageFramework>
     ),
+    ErrorBoundary: RouteErrorBoundary,
     // action: rootAction,// TODO vudere å ta i bruk action og loader for henting av tidligst mulig uttak
     // loader: rootLoader,
   },

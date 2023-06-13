@@ -14,9 +14,11 @@ import {
   AppStartListening,
 } from './state/store'
 import { getTranslation_nb } from './translations/nb'
-export interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
   store?: AppStore
+  hasRouter?: boolean
 }
 
 export const swallowErrors = (testFn: () => void) => {
@@ -48,10 +50,9 @@ export function renderWithProviders(
   {
     preloadedState = {},
     store = setupStore(preloadedState, true),
-
+    hasRouter = true,
     ...renderOptions
-  }: ExtendedRenderOptions = {},
-  { hasRouter = true } = {}
+  }: ExtendedRenderOptions = {}
 ) {
   function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
     return (
@@ -62,6 +63,7 @@ export function renderWithProviders(
       </Provider>
     )
   }
+
   const listenerMiddleware = createListenerMiddleware()
   createSamtykkeListener(listenerMiddleware.startListening as AppStartListening)
 

@@ -9,7 +9,6 @@ import path from 'path'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
-// TODO manualChunks fungerer ikke som forventet - prøve alternativer for code splitting
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
@@ -17,6 +16,7 @@ export default defineConfig(({ mode }) => {
     build: {
       sourcemap: true,
       rollupOptions: {
+        external: ['./nais.js'],
         output: {
           manualChunks: {
             highcharts: ['highcharts'],
@@ -117,6 +117,7 @@ export default defineConfig(({ mode }) => {
           'src/state/hooks.ts',
           'cypress',
           'src/types',
+          '**/*/faro.ts',
         ],
         perFile: true,
         lines: 95,
