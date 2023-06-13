@@ -8,7 +8,7 @@ metadata:
   annotations:
     nais.io/run-as-user: "101" # nginx
 spec:
-  image: { { image } }
+  image: "{{ image }}"
   ingresses:
     - https://www.ekstern.dev.nav.no/pensjon/kalkulator
   port: 8080
