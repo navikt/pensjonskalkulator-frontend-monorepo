@@ -7,12 +7,12 @@ import FridaPortrett from '../../../assets/frida.svg'
 import styles from './Start.module.scss'
 
 interface Props {
-  fornavn?: string
+  fornavn: string
   onCancel: () => void
   onNext: () => void
 }
 
-export function Start({ fornavn = '', onCancel, onNext }: Props) {
+export function Start({ fornavn, onCancel, onNext }: Props) {
   const intl = useIntl()
 
   return (
@@ -24,12 +24,12 @@ export function Start({ fornavn = '', onCancel, onNext }: Props) {
           id: 'stegvisning.stegvisning.start.bildetekst',
         })}
       />
-      <Heading size="large" level="2" spacing>
+      <Heading className={styles.title} size="large" level="2" spacing>
         {`${intl.formatMessage({
           id: 'stegvisning.stegvisning.start.title',
-        })}${fornavn && ' '}${fornavn}!`}
+        })} ${fornavn}!`}
       </Heading>
-      <Ingress className={styles.ingress}>
+      <Ingress>
         <FormattedMessage id="stegvisning.stegvisning.start.ingress" />
       </Ingress>
       <Button className={styles.button} onClick={onNext}>

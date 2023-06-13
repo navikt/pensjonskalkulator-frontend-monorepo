@@ -11,15 +11,17 @@ describe('routes', () => {
       basename: ROUTER_BASE_URL,
       initialEntries: ['/pensjon/kalkulator'],
     })
-    await render(<RouterProvider router={router} />, {}, { hasRouter: false })
+    render(<RouterProvider router={router} />, {}, { hasRouter: false })
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       'Midlertidig landingsside'
     )
 
-    await fireEvent.click(screen.getByText('Test kalkulatoren'))
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.stegvisning.start.title!'
-    )
+    fireEvent.click(screen.getByText('Test kalkulatoren'))
+    await waitFor(() => {
+      expect(
+        screen.getByText('stegvisning.stegvisning.start.title Aprikos!')
+      ).toBeVisible()
+    })
   })
 
   it('/pensjon/kalkulator/start viser Steg 1', async () => {
@@ -27,11 +29,13 @@ describe('routes', () => {
       basename: ROUTER_BASE_URL,
       initialEntries: ['/pensjon/kalkulator/start'],
     })
-    await render(<RouterProvider router={router} />, {}, { hasRouter: false })
+    render(<RouterProvider router={router} />, {}, { hasRouter: false })
 
-    expect(
-      screen.getByText('stegvisning.stegvisning.start.title!')
-    ).toBeVisible()
+    await waitFor(() => {
+      expect(
+        screen.getByText('stegvisning.stegvisning.start.title Aprikos!')
+      ).toBeVisible()
+    })
   })
 
   it('/pensjon/kalkulator/samtykke viser Steg 2', async () => {

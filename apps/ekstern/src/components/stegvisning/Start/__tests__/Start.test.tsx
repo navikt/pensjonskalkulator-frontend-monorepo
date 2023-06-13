@@ -20,24 +20,14 @@ describe('stegvisning - Start', () => {
     })
   })
 
-  it('rendrer riktig uten fornavn', async () => {
-    render(<Start onCancel={onCancelMock} onNext={onNextMock} />)
-
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.stegvisning.start.title!'
-      )
-    })
-  })
-
   it('kaller onNext når brukeren klikker på Neste', () => {
-    render(<Start onCancel={onCancelMock} onNext={onNextMock} />)
+    render(<Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
     fireEvent.click(screen.getByText('stegvisning.stegvisning.start.start'))
     expect(onNextMock).toHaveBeenCalled()
   })
 
   it('kaller onCancel når brukeren klikker på Avbryt', () => {
-    render(<Start onCancel={onCancelMock} onNext={onNextMock} />)
+    render(<Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
     fireEvent.click(screen.getByText('stegvisning.avbryt'))
     expect(onCancelMock).toHaveBeenCalled()
   })

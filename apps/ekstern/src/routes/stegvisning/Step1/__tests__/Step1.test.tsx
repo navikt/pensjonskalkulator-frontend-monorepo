@@ -16,34 +16,36 @@ describe('Step 1', () => {
     })
   })
 
-  it('render uten og feile og viser tittel uten fornavn når henting av personopplysninger feiler', async () => {
+  it('render ingenting når henting av personopplysninger feiler', async () => {
     mockErrorResponse('/person')
-    render(<Step1 />)
+    const { asFragment } = render(<Step1 />)
 
     await waitFor(() => {
-      expect(
-        screen.getByText('stegvisning.stegvisning.start.title!')
-      ).toBeVisible()
+      expect(asFragment()).toMatchSnapshot()
     })
   })
 
-  it('sender videre til steg 2 når brukeren klikker på Neste', () => {
+  it('sender videre til steg 2 når brukeren klikker på Neste', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
     render(<Step1 />)
-    fireEvent.click(screen.getByText('stegvisning.stegvisning.start.start'))
-    expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('stegvisning.stegvisning.start.start'))
+      expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+    })
   })
 
-  it('redirigerer til landingssiden når brukeren klikker på Avbryt', () => {
+  it('redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
     render(<Step1 />)
-    fireEvent.click(screen.getByText('stegvisning.avbryt'))
-    expect(navigateMock).toHaveBeenCalledWith('/')
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('stegvisning.avbryt'))
+      expect(navigateMock).toHaveBeenCalledWith('/')
+    })
   })
 })

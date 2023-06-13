@@ -11,12 +11,12 @@ exports[`stegvisning - Start > rendrer slik den skal, med riktig heading, bilde,
       src="/pensjon/kalkulator/src/assets/frida.svg"
     />
     <h2
-      class="navds-heading navds-heading--large navds-typo--spacing"
+      class="_title_09901f navds-heading navds-heading--large navds-typo--spacing"
     >
       stegvisning.stegvisning.start.title Ola!
     </h2>
     <p
-      class="_ingress_09901f navds-ingress"
+      class="navds-ingress"
     >
       stegvisning.stegvisning.start.ingress
     </p>

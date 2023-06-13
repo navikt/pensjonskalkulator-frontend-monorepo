@@ -14,6 +14,10 @@ export function Step1() {
   const onNext = (): void => {
     navigate('/samtykke')
   }
-
-  return <Start fornavn={person?.fornavn} onCancel={onCancel} onNext={onNext} />
+  // TODO hva gjør vi dersom person feiler, eller fornavn ikke kommer?
+  return person?.fornavn ? (
+    <Start fornavn={person?.fornavn} onCancel={onCancel} onNext={onNext} />
+  ) : (
+    <></>
+  )
 }
