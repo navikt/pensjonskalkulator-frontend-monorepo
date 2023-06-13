@@ -37,5 +37,8 @@ const translations = {
     'Du er eller har vært medlem i en offentlig tjenestepensjonsordning og kan ha rett til tjenestepensjon. Men vi kan dessverre ikke hente inn dine avtaler. Sjekk hva som gjelder deg hos din tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.)',
   'stegvisning.stegvisning.offentligtp.ingress_2':
     'Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
+  'stegvisning.stegvisning.afp.title': 'Du kan ha rett til AFP',
+  'stegvisning.stegvisning.afp.ingress':
+    'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale.',
 }
 export const getTranslation_nb = () => translations

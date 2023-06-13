@@ -3,7 +3,7 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom'
 import { describe } from 'vitest'
 
 import { ROUTER_BASE_URL, routes } from '..'
-import { render, screen, fireEvent, swallowErrors } from '@/test-utils'
+import { render, screen, fireEvent, swallowErrors, waitFor } from '@/test-utils'
 
 describe('routes', () => {
   it('/pensjon/kalkulator viser landingssiden med lenke til stegvisning', async () => {
@@ -64,17 +64,25 @@ describe('routes', () => {
     ).toBeInTheDocument()
   })
 
-  // it('/pensjon/kalkulator/afp viser Steg 4', async () => {
-  //   const router = createMemoryRouter(routes, {
-  //     basename: ROUTER_BASE_URL,
-  //     initialEntries: ['/pensjon/kalkulator/afp'],
-  //   })
-  //   await render(<RouterProvider router={router} />, {}, { hasRouter: false })
+  it('/pensjon/kalkulator/afp viser Steg 4 (gitt at brukeren har samtykket og har tpo medlemskap)', async () => {
+    const router = createMemoryRouter(routes, {
+      basename: ROUTER_BASE_URL,
+      initialEntries: ['/pensjon/kalkulator/afp'],
+    })
+    await render(
+      <RouterProvider router={router} />,
+      {
+        preloadedState: { userInput: { samtykke: true } },
+      },
+      { hasRouter: false }
+    )
 
-  //   expect(
-  //     screen.getByText('stegvisning.stegvisning.afp.title')
-  //   ).toBeInTheDocument()
-  // })
+    waitFor(() => {
+      expect(
+        screen.getByText('stegvisning.stegvisning.afp.title')
+      ).toBeInTheDocument()
+    })
+  })
 
   it('/pensjon/kalkulator/beregning viser beregningen', async () => {
     const router = createMemoryRouter(routes, {
