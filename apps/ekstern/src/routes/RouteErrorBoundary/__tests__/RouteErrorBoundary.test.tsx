@@ -2,7 +2,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, expect, it } from 'vitest'
 
-import { RouteErrorBoundary } from '@/components/RouteErrorBoundary'
+import { RouteErrorBoundary } from '@/routes/RouteErrorBoundary'
 import { act, render, screen, swallowErrors } from '@/test-utils'
 
 describe('RouteErrorBoundary', () => {

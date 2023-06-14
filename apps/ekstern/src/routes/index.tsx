@@ -1,9 +1,9 @@
 import { RouteObject } from 'react-router-dom'
 
-import { RouteErrorBoundary } from '@/components/RouteErrorBoundary'
 import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
 import { LandingPage } from '@/routes/LandingPage'
 import { PageFramework } from '@/routes/PageFramework'
+import { RouteErrorBoundary } from '@/routes/RouteErrorBoundary'
 import { Step1 } from '@/routes/stegvisning/Step1'
 import { Step2 } from '@/routes/stegvisning/Step2'
 import { Step3 } from '@/routes/stegvisning/Step3'
