@@ -14,12 +14,12 @@ describe('Step 1', () => {
     })
   })
 
-  it('render ingenting når henting av personopplysninger feiler', async () => {
+  it('render hilsen uten fornavn når henting av personopplysninger feiler', async () => {
     mockErrorResponse('/person')
-    const { asFragment } = render(<Step1 />)
+    render(<Step1 />)
 
     await waitFor(() => {
-      expect(asFragment()).toMatchSnapshot()
+      expect(screen.getByText('stegvisning.start.title!')).toBeVisible()
     })
   })
 

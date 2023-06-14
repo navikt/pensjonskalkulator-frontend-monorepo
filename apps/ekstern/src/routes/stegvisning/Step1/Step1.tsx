@@ -5,7 +5,7 @@ import { useGetPersonQuery } from '@/state/api/apiSlice'
 
 export function Step1() {
   const navigate = useNavigate()
-  const { data: person } = useGetPersonQuery()
+  const { data: person, isError } = useGetPersonQuery()
 
   const onCancel = (): void => {
     navigate('/')
@@ -14,9 +14,13 @@ export function Step1() {
   const onNext = (): void => {
     navigate('/samtykke')
   }
-  // TODO hva gjør vi dersom person feiler, eller fornavn ikke kommer?
-  return person?.fornavn ? (
-    <Start fornavn={person?.fornavn} onCancel={onCancel} onNext={onNext} />
+
+  return isError || person?.fornavn ? (
+    <Start
+      fornavn={!isError ? person?.fornavn : ''}
+      onCancel={onCancel}
+      onNext={onNext}
+    />
   ) : (
     <></>
   )

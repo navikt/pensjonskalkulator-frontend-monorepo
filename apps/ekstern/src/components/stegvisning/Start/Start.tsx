@@ -14,6 +14,7 @@ interface Props {
 
 export function Start({ fornavn, onCancel, onNext }: Props) {
   const intl = useIntl()
+  const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
 
   return (
     <section className={styles.section}>
@@ -27,7 +28,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
       <Heading className={styles.title} size="large" level="2" spacing>
         {`${intl.formatMessage({
           id: 'stegvisning.start.title',
-        })} ${fornavn}!`}
+        })}${fornavnString}`}
       </Heading>
       <Ingress>
         <FormattedMessage id="stegvisning.start.ingress" />

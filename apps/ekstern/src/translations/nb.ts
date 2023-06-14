@@ -42,6 +42,8 @@ const translations = {
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
   'stegvisning.afp.radio_nei': 'Nei',
   'stegvisning.afp.radio_vet_ikke': 'Vet ikke',
-  'stegvisning.afp.validation_error': 'TODO - xxx',
+  'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
+  'stegvisning.sivilstand.validation_error':
+    'Du må svare på om du har samboer.',
 }
 export const getTranslation_nb = () => translations
