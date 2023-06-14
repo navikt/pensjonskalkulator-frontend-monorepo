@@ -130,7 +130,7 @@ describe('Typeguards', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
         isTpoMedlemskap({
-          harAktivMedlemskap: false,
+          harTjenestepensjonsforhold: false,
         })
       ).toBeTruthy()
     })
@@ -140,7 +140,7 @@ describe('Typeguards', () => {
       expect(isTpoMedlemskap({})).toBeFalsy()
       expect(
         isTpoMedlemskap({
-          harAktivMedlemskap: 'string',
+          harTjenestepensjonsforhold: 'string',
         })
       ).toBeFalsy()
     })

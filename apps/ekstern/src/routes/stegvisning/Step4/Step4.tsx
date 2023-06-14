@@ -34,7 +34,7 @@ export function Step4() {
 
   const onPrevious = (): void => {
     // TODO: hva skjer dersom tpo medlemskap feiler? Sender vi da tilbake til samtykke?
-    if (isSuccess && TpoMedlemskap.harAktivMedlemskap) {
+    if (isSuccess && TpoMedlemskap.harTjenestepensjonsforhold) {
       return navigate('/offentlig-tp')
     } else {
       return navigate('/samtykke')
@@ -56,7 +56,7 @@ export function Step4() {
     <AFP
       afp={previousAfp}
       showJaOffentlig={
-        !harSamtykket || (isSuccess && TpoMedlemskap.harAktivMedlemskap)
+        !harSamtykket || (isSuccess && TpoMedlemskap.harTjenestepensjonsforhold)
       }
       onCancel={onCancel}
       onPrevious={onPrevious}

@@ -40,7 +40,7 @@ declare type Person = {
 }
 
 declare type TpoMedlemskap = {
-  harAktivMedlemskap: boolean
+  harTjenestepensjonsforhold: boolean
 }
 
 declare type UnleashToggle = {

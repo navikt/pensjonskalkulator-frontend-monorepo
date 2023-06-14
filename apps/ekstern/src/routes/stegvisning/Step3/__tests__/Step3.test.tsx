@@ -33,7 +33,7 @@ describe('Step 3', () => {
   it('redirigerer til Step 4 når brukeren har samtykket og har ikke noe tpo medlemskap, ', async () => {
     mockResponse('/tpo-medlemskap', {
       status: 200,
-      json: { harAktivMedlemskap: false },
+      json: { harTjenestepensjonsforhold: false },
     })
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(

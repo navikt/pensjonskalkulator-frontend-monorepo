@@ -50,7 +50,7 @@ export const isTpoMedlemskap = (data?: any): data is TpoMedlemskap => {
     typeof data === 'object' &&
     data !== null &&
     !Array.isArray(data) &&
-    typeof data.harAktivMedlemskap === 'boolean'
+    typeof data.harTjenestepensjonsforhold === 'boolean'
   )
 }
 

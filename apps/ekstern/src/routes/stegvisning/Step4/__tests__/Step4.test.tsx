@@ -65,7 +65,7 @@ describe('Step 4', () => {
   it('sender tilbake til steg 2 når brukeren ikke har tpo-medlemskap og klikker på Tilbake', async () => {
     mockResponse('/tpo-medlemskap', {
       status: 200,
-      json: { harAktivMedlemskap: false },
+      json: { harTjenestepensjonsforhold: false },
     })
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(

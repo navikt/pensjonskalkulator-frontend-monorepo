@@ -26,7 +26,10 @@ export function Step3() {
       return navigate('/samtykke')
     }
     // Dersom brukeren ikke samtykker til henting av tpo, eller at den samtykker og at den ikke har noe aktiv tpo-medlemskap behøver ikke dette steget å vises
-    if (!harSamtykket || (isSuccess && !TpoMedlemskap.harAktivMedlemskap)) {
+    if (
+      !harSamtykket ||
+      (isSuccess && !TpoMedlemskap.harTjenestepensjonsforhold)
+    ) {
       return navigate('/afp')
     }
   }, [isSuccess])
