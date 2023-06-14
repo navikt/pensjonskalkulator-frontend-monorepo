@@ -3,7 +3,7 @@
 exports[`RouteErrorBoundary > rendrer feilmelding når det kastes en feil i children 1`] = `
 <DocumentFragment>
   <div
-    class="_wrapper_bd7d1e"
+    class="_wrapper_fca177"
     data-testid="error-boundary"
   >
     <div
