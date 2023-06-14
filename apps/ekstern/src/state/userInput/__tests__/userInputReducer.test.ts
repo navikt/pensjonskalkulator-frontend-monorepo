@@ -29,12 +29,25 @@ describe('userInputSlice', () => {
       })
     })
 
+    it('setSamboer', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setSamboer(true)
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        samboer: true,
+      })
+    })
+
     it('flush', () => {
       const updatedState = userInputSlice(
         {
           ...userInputInitialState,
           samtykke: true,
           afp: 'ja_offentlig',
+          samboer: false,
         },
         userInputActions.flush()
       )

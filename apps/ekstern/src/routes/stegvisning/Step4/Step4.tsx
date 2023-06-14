@@ -4,20 +4,26 @@ import { useNavigate } from 'react-router-dom'
 
 import { Loader } from '@/components/Loader'
 import { AFP, AfpRadio } from '@/components/stegvisning/AFP'
-import { useGetTpoMedlemskapQuery } from '@/state/api/apiSlice'
+import {
+  useGetPersonQuery,
+  useGetTpoMedlemskapQuery,
+} from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSamtykke, selectAfp } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+
+import { checkHarSamboer, getNesteSide } from './utils'
 
 export function Step4() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
   const previousAfp = useAppSelector(selectAfp)
+  const { data: person, isSuccess: isPersonQuerySuccess } = useGetPersonQuery()
   const {
     data: TpoMedlemskap,
     isLoading,
-    isSuccess,
+    isSuccess: isTpoMedlemskapQuerySuccess,
   } = useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
 
   useEffect(() => {
@@ -34,7 +40,10 @@ export function Step4() {
 
   const onPrevious = (): void => {
     // TODO: hva skjer dersom tpo medlemskap feiler? Sender vi da tilbake til samtykke?
-    if (isSuccess && TpoMedlemskap.harTjenestepensjonsforhold) {
+    if (
+      isTpoMedlemskapQuerySuccess &&
+      TpoMedlemskap.harTjenestepensjonsforhold
+    ) {
       return navigate('/offentlig-tp')
     } else {
       return navigate('/samtykke')
@@ -43,7 +52,13 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    navigate('/beregning')
+    const harSamboer = isPersonQuerySuccess
+      ? checkHarSamboer(person?.sivilstand)
+      : null
+    if (harSamboer) {
+      dispatch(userInputActions.setSamboer(true))
+    }
+    navigate(getNesteSide(harSamboer))
   }
 
   return isLoading ? (
@@ -56,7 +71,9 @@ export function Step4() {
     <AFP
       afp={previousAfp}
       showJaOffentlig={
-        !harSamtykket || (isSuccess && TpoMedlemskap.harTjenestepensjonsforhold)
+        !harSamtykket ||
+        (isTpoMedlemskapQuerySuccess &&
+          TpoMedlemskap.harTjenestepensjonsforhold)
       }
       onCancel={onCancel}
       onPrevious={onPrevious}

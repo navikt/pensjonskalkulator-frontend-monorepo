@@ -8,6 +8,7 @@ import { Step1 } from '@/routes/stegvisning/Step1'
 import { Step2 } from '@/routes/stegvisning/Step2'
 import { Step3 } from '@/routes/stegvisning/Step3'
 import { Step4 } from '@/routes/stegvisning/Step4'
+import { Step5 } from '@/routes/stegvisning/Step5'
 
 export const ROUTER_BASE_URL = '/pensjon/kalkulator'
 
@@ -47,12 +48,20 @@ export const routes: RouteObject[] = [
       </PageFramework>
     ),
   },
-
   {
     path: '/afp',
     element: (
       <PageFramework>
         <Step4 />
+      </PageFramework>
+    ),
+    ErrorBoundary: RouteErrorBoundary,
+  },
+  {
+    path: '/sivilstand',
+    element: (
+      <PageFramework>
+        <Step5 />
       </PageFramework>
     ),
     ErrorBoundary: RouteErrorBoundary,

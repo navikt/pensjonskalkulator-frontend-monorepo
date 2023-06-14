@@ -1,23 +1,21 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Button, Heading, Ingress, Radio, RadioGroup } from '@navikt/ds-react'
+import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
-import styles from './AFP.module.scss'
+import styles from './Sivilstand.module.scss'
 
 interface Props {
-  afp: AfpRadio | null
-  showJaOffentlig: boolean
+  harSamboer: boolean | null
   onCancel: () => void
   onPrevious: () => void
-  onNext: (afpData: AfpRadio) => void
+  onNext: (sivilstandData: SivilstandRadio) => void
 }
 
-export type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
+export type SivilstandRadio = 'ja' | 'nei'
 
-export function AFP({
-  afp,
-  showJaOffentlig,
+export function Sivilstand({
+  harSamboer,
   onCancel,
   onPrevious,
   onNext,
@@ -30,16 +28,16 @@ export function AFP({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const afpData = data.get('afp')
+    const sivilstandData = data.get('sivilstand')
 
-    if (!afpData) {
+    if (!sivilstandData) {
       setValidationError(
         intl.formatMessage({
-          id: 'stegvisning.afp.validation_error',
+          id: 'stegvisning.sivilstand.validation_error',
         })
       )
     } else {
-      onNext(afpData as AfpRadio)
+      onNext(sivilstandData as SivilstandRadio)
     }
   }
 
@@ -51,39 +49,30 @@ export function AFP({
     <form onSubmit={onSubmit}>
       <section className={styles.section}>
         <Heading size="large" level="2" spacing>
-          <FormattedMessage id="stegvisning.afp.title" />
+          <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <Ingress className={styles.ingress}>
-          <FormattedMessage id="stegvisning.afp.ingress" />
+          <FormattedMessage id="stegvisning.sivilstand.ingress" />
         </Ingress>
 
         <RadioGroup
-          legend={<FormattedMessage id="stegvisning.afp.radio_label" />}
-          name={'afp'}
-          defaultValue={afp}
+          legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
+          name={'sivilstand'}
+          defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
           onChange={handleRadioChange}
           error={validationError}
           aria-required="true"
         >
-          {showJaOffentlig && (
-            <Radio value="ja_offentlig">
-              <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
-            </Radio>
-          )}
-
-          <Radio value="ja_privat">
-            <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
+          <Radio value="ja">
+            <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
           </Radio>
           <Radio value="nei">
-            <FormattedMessage id="stegvisning.afp.radio_nei" />
-          </Radio>
-          <Radio value="nei">
-            <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
+            <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
           </Radio>
         </RadioGroup>
 
         <Button type={'submit'} className={styles.button}>
-          <FormattedMessage id="stegvisning.neste" />
+          <FormattedMessage id="stegvisning.beregn" />
         </Button>
         <Button
           type={'button'}

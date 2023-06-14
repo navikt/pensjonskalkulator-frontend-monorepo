@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe } from 'vitest'
 
 import { ROUTER_BASE_URL, routes } from '..'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, swallowErrors, userEvent } from '@/test-utils'
 
 describe('routes', () => {
@@ -21,7 +22,7 @@ describe('routes', () => {
     await userEvent.click(screen.getByText('Test kalkulatoren'))
 
     expect(
-      await screen.findByText('stegvisning.start.title Aprikos!')
+      await screen.findByText('stegvisning.start.title APRIKOS!')
     ).toBeVisible()
   })
 
@@ -34,7 +35,7 @@ describe('routes', () => {
     render(<RouterProvider router={router} />, { hasRouter: false })
 
     expect(
-      await screen.findByText('stegvisning.start.title Aprikos!')
+      await screen.findByText('stegvisning.start.title APRIKOS!')
     ).toBeVisible()
   })
 
@@ -56,7 +57,9 @@ describe('routes', () => {
     })
 
     render(<RouterProvider router={router} />, {
-      preloadedState: { userInput: { samtykke: true, afp: null } },
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
       hasRouter: false,
     })
 
@@ -72,11 +75,31 @@ describe('routes', () => {
     })
 
     render(<RouterProvider router={router} />, {
-      preloadedState: { userInput: { samtykke: true, afp: null } },
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
       hasRouter: false,
     })
 
     expect(await screen.findByText('stegvisning.afp.title')).toBeInTheDocument()
+  })
+
+  it('/pensjon/kalkulator/sivilstand viser Steg 5 (gitt at brukeren har samtykket)', async () => {
+    const router = createMemoryRouter(routes, {
+      basename: ROUTER_BASE_URL,
+      initialEntries: ['/pensjon/kalkulator/sivilstand'],
+    })
+
+    render(<RouterProvider router={router} />, {
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
+      hasRouter: false,
+    })
+
+    expect(
+      await screen.findByText('stegvisning.sivilstand.title')
+    ).toBeInTheDocument()
   })
 
   it('/pensjon/kalkulator/beregning viser beregningen', () => {

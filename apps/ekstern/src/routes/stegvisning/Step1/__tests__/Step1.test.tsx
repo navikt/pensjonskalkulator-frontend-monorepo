@@ -10,7 +10,7 @@ describe('Step 1', () => {
   it('henter personopplysninger og viser hilsen med fornavnet til brukeren', async () => {
     render(<Step1 />)
     await waitFor(() => {
-      expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
+      expect(screen.getByText('stegvisning.start.title APRIKOS!')).toBeVisible()
     })
   })
 

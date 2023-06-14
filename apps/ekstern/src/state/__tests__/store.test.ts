@@ -14,6 +14,7 @@ describe('store', () => {
     const state: UserInputState = {
       samtykke: true,
       afp: null,
+      samboer: null,
       currentSimulation: {
         inntekt: 500000,
         uttaksalder: null,

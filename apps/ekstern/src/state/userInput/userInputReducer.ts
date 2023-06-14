@@ -14,12 +14,14 @@ export interface Simulation {
 export interface UserInputState {
   samtykke: boolean | null
   afp: AfpRadio | null
+  samboer: boolean | null
   currentSimulation?: Simulation
 }
 
 export const userInputInitialState: UserInputState = {
   samtykke: null,
   afp: null,
+  samboer: null,
   currentSimulation: {
     inntekt: null,
     uttaksalder: null,
@@ -37,9 +39,13 @@ export const userInputSlice = createSlice({
     setAfp: (state, action: PayloadAction<AfpRadio>) => {
       state.afp = action.payload
     },
+    setSamboer: (state, action: PayloadAction<boolean>) => {
+      state.samboer = action.payload
+    },
     flush: (state) => {
       state.samtykke = null
       state.afp = null
+      state.samboer = null
     },
     setSomething: (state, action: PayloadAction<string>) => {
       state.currentSimulation = {

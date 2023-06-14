@@ -25,6 +25,7 @@ exports[`store > returnerer store med riktig slices og default state 1`] = `
       "uttaksalder": null,
       "uttaksgrad": null,
     },
+    "samboer": null,
     "samtykke": null,
   },
 }

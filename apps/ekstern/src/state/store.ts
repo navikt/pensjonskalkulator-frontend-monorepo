@@ -26,7 +26,6 @@ export function setupStore(
   return configureStore({
     reducer: rootReducer,
     preloadedState,
-
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware(
         isDev ? { immutableCheck: false, serializableCheck: false } : {}

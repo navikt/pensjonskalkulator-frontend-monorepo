@@ -12,7 +12,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         stegvisning.afp.title
       </h2>
       <p
-        class="navds-ingress navds-typo--spacing"
+        class="_ingress_10a2c6 navds-ingress"
       >
         stegvisning.afp.ingress
       </p>
@@ -167,7 +167,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er false
         stegvisning.afp.title
       </h2>
       <p
-        class="navds-ingress navds-typo--spacing"
+        class="_ingress_10a2c6 navds-ingress"
       >
         stegvisning.afp.ingress
       </p>
@@ -320,7 +320,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er true 
         stegvisning.afp.title
       </h2>
       <p
-        class="navds-ingress navds-typo--spacing"
+        class="_ingress_10a2c6 navds-ingress"
       >
         stegvisning.afp.ingress
       </p>

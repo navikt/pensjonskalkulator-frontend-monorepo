@@ -3,7 +3,8 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step4 } from '..'
-import { mockResponse } from '@/mocks/server'
+import * as Step4Utils from '../utils'
+import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, fireEvent } from '@/test-utils'
 
@@ -43,7 +44,13 @@ describe('Step 4', () => {
     })
   })
 
-  it('registrerer afp og navigerer videre til steg 5 når brukeren velger afp og klikker på Neste', async () => {
+  it('registrerer afp og samboerskap og navigerer videre til beregning når brukeren velger afp og klikker på Neste (gitt at brukeren har samboer)', async () => {
+    mockResponse('/person', {
+      status: 200,
+      json: { fornavn: 'Ola', sivilstand: 'GIFT' },
+    })
+    const checkHarSamboerMock = vi.spyOn(Step4Utils, 'checkHarSamboer')
+    const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -53,12 +60,54 @@ describe('Step 4', () => {
     })
     await waitFor(() => {
       const radioButtons = screen.getAllByRole('radio')
-      // act(() => {
       fireEvent.click(radioButtons[0])
       fireEvent.click(screen.getByText('stegvisning.neste'))
-      // })
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
+      expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
+      expect(nesteSideMock).toHaveBeenCalledWith(true)
       expect(navigateMock).toHaveBeenCalledWith('/beregning')
+      expect(store.getState().userInput.samboer).toBe(true)
+    })
+  })
+
+  it('registrerer afp og navigerer videre til steg 5 når brukeren velger afp og klikker på Neste (gitt at brukeren ikke har samboer)', async () => {
+    const checkHarSamboerMock = vi.spyOn(Step4Utils, 'checkHarSamboer')
+    const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const { store } = render(<Step4 />, {
+      preloadedState: { userInput: { samtykke: true } } as RootState,
+    })
+    await waitFor(() => {
+      const radioButtons = screen.getAllByRole('radio')
+      fireEvent.click(radioButtons[0])
+      fireEvent.click(screen.getByText('stegvisning.neste'))
+      expect(store.getState().userInput.afp).toBe('ja_offentlig')
+      expect(checkHarSamboerMock).toHaveBeenCalledWith('UGIFT')
+      expect(nesteSideMock).toHaveBeenCalledWith(false)
+      expect(navigateMock).toHaveBeenCalledWith('/sivilstand')
+    })
+  })
+
+  it('registrerer afp og navigerer videre til steg 5 når brukeren velger afp og klikker på Neste (gitt at kall til /person feiler)', async () => {
+    mockErrorResponse('/person')
+    const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const { store } = render(<Step4 />, {
+      preloadedState: { userInput: { samtykke: true } } as RootState,
+    })
+    await waitFor(() => {
+      const radioButtons = screen.getAllByRole('radio')
+      fireEvent.click(radioButtons[0])
+      fireEvent.click(screen.getByText('stegvisning.neste'))
+      expect(store.getState().userInput.afp).toBe('ja_offentlig')
+      expect(nesteSideMock).toHaveBeenCalledWith(null)
+      expect(navigateMock).toHaveBeenCalledWith('/sivilstand')
     })
   })
 

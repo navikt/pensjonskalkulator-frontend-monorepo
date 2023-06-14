@@ -3,6 +3,7 @@ const translations = {
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
+  'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
@@ -43,6 +44,12 @@ const translations = {
   'stegvisning.afp.radio_nei': 'Nei',
   'stegvisning.afp.radio_vet_ikke': 'Vet ikke',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
+  'stegvisning.sivilstand.title': 'Din sivilstand',
+  'stegvisning.sivilstand.ingress':
+    'Du er registrert som ugift i folkeregisteret. Hvis du har samboer, kan det påvirke beregningen.',
+  'stegvisning.sivilstand.radio_label': 'Har du samboer?',
+  'stegvisning.sivilstand.radio_ja': 'Ja',
+  'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
 }

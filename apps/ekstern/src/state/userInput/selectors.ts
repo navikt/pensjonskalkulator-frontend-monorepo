@@ -7,5 +7,8 @@ export const selectSamtykke = (state: RootState): boolean | null =>
 export const selectAfp = (state: RootState): AfpRadio | null =>
   state.userInput.afp
 
+export const selectSamboer = (state: RootState): boolean | null =>
+  state.userInput.samboer
+
 export const selectSomething = (state: RootState): string | undefined =>
   state.userInput.currentSimulation?.something

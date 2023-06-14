@@ -1,72 +1,21 @@
 // Vitest Snapshot v1
 
-exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er oppgitt 1`] = `
+exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke er oppgitt 1`] = `
 <DocumentFragment>
   <form>
     <section
-      class="_section_5b4738"
+      class="_section_885e37"
     >
       <h2
         class="navds-heading navds-heading--large navds-typo--spacing"
       >
-        stegvisning.samtykke.title
+        stegvisning.sivilstand.title
       </h2>
       <p
-        class="navds-ingress"
+        class="_ingress_885e37 navds-ingress"
       >
-        stegvisning.samtykke.ingress
+        stegvisning.sivilstand.ingress
       </p>
-      <div
-        class="navds-read-more navds-read-more--medium _readmore_5b4738"
-      >
-        <button
-          aria-expanded="false"
-          class="navds-read-more__button navds-body-short"
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            class="navds-read-more__expand-icon"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <span>
-            stegvisning.samtykke.readmore_title
-          </span>
-        </button>
-        <div
-          aria-hidden="true"
-          class="navds-read-more__content navds-read-more__content--closed navds-body-long"
-        >
-          stegvisning.samtykke.readmore_ingress
-          <br />
-          <br />
-          stegvisning.samtykke.readmore_list_title
-          <ul>
-            <li>
-              stegvisning.samtykke.readmore_list_item1
-            </li>
-            <li>
-              stegvisning.samtykke.readmore_list_item2
-            </li>
-            <li>
-              stegvisning.samtykke.readmore_list_item3
-            </li>
-          </ul>
-        </div>
-      </div>
       <fieldset
         aria-invalid="false"
         aria-required="true"
@@ -75,7 +24,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         <legend
           class="navds-fieldset__legend navds-label"
         >
-          stegvisning.samtykke.radio_label
+          stegvisning.sivilstand.radio_label
         </legend>
         <div
           class="navds-radio-buttons"
@@ -86,10 +35,36 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-r3"
-              name="samtykke"
+              id="radio-r2"
+              name="sivilstand"
               type="radio"
               value="ja"
+            />
+            <label
+              class="navds-radio__label"
+              for="radio-r2"
+            >
+              <span
+                class="navds-radio__content"
+              >
+                <span
+                  class="navds-body-short"
+                >
+                  stegvisning.sivilstand.radio_ja
+                </span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="navds-radio navds-radio--medium"
+          >
+            <input
+              aria-invalid="false"
+              class="navds-radio__input"
+              id="radio-r3"
+              name="sivilstand"
+              type="radio"
+              value="nei"
             />
             <label
               class="navds-radio__label"
@@ -101,33 +76,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 <span
                   class="navds-body-short"
                 >
-                  stegvisning.samtykke.radio_ja
-                </span>
-              </span>
-            </label>
-          </div>
-          <div
-            class="navds-radio navds-radio--medium"
-          >
-            <input
-              aria-invalid="false"
-              class="navds-radio__input"
-              id="radio-r4"
-              name="samtykke"
-              type="radio"
-              value="nei"
-            />
-            <label
-              class="navds-radio__label"
-              for="radio-r4"
-            >
-              <span
-                class="navds-radio__content"
-              >
-                <span
-                  class="navds-body-short"
-                >
-                  stegvisning.samtykke.radio_nei
+                  stegvisning.sivilstand.radio_nei
                 </span>
               </span>
             </label>
@@ -137,22 +86,22 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r2"
+          id="fieldset-error-r1"
         />
       </fieldset>
       <button
-        class="_button_5b4738 navds-button navds-button--primary navds-button--medium"
+        class="_button_885e37 navds-button navds-button--primary navds-button--medium"
         type="submit"
       >
         <span
           aria-live="polite"
           class="navds-label"
         >
-          stegvisning.neste
+          stegvisning.beregn
         </span>
       </button>
       <button
-        class="_button_5b4738 navds-button navds-button--secondary navds-button--medium"
+        class="_button_885e37 navds-button navds-button--secondary navds-button--medium"
         type="button"
       >
         <span

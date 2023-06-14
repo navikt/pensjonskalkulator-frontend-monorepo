@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
+  Ingress,
   BodyLong,
   Button,
   Heading,
@@ -58,9 +59,9 @@ export function Samtykke({
         <Heading size="large" level="2" spacing>
           <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
-        <BodyLong>
+        <Ingress>
           <FormattedMessage id="stegvisning.samtykke.ingress" />
-        </BodyLong>
+        </Ingress>
         <ReadMore
           className={styles.readmore}
           header={<FormattedMessage id="stegvisning.samtykke.readmore_title" />}
