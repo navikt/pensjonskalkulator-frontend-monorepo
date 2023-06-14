@@ -1,13 +1,9 @@
 import React from 'react'
-import { useRouteError } from 'react-router-dom'
+import { useRouteError, isRouteErrorResponse } from 'react-router-dom'
 
 import { Alert, Heading } from '@navikt/ds-react'
 
 import styles from './RouteErrorBoundary.module.scss'
-
-const hasStatus = (error?: any): error is { status: number } => {
-  return typeof error?.status === 'number'
-}
 
 const GlobalFeilmelding: React.FC = () => (
   <div className={styles.wrapper} data-testid="error-boundary">
@@ -32,7 +28,7 @@ const PageNotFound = () => (
 export const RouteErrorBoundary = () => {
   const error = useRouteError()
 
-  if (hasStatus(error) && error.status === 404) {
+  if (isRouteErrorResponse(error) && error.status === 404) {
     return <PageNotFound />
   }
 
