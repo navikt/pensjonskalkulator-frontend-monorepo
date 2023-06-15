@@ -11,7 +11,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
       src="/pensjon/kalkulator/src/assets/frida.svg"
     />
     <h2
-      class="_title_09901f navds-heading navds-heading--large navds-typo--spacing"
+      class="navds-heading navds-heading--large navds-typo--spacing"
     >
       stegvisning.start.title Ola!
     </h2>
@@ -57,7 +57,7 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
       src="/pensjon/kalkulator/src/assets/frida.svg"
     />
     <h2
-      class="_title_09901f navds-heading navds-heading--large navds-typo--spacing"
+      class="navds-heading navds-heading--large navds-typo--spacing"
     >
       stegvisning.start.title!
     </h2>
