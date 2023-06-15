@@ -35,14 +35,40 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-rd"
+              id="radio-r8"
+              name="afp"
+              type="radio"
+              value="ja_offentlig"
+            />
+            <label
+              class="navds-radio__label"
+              for="radio-r8"
+            >
+              <span
+                class="navds-radio__content"
+              >
+                <span
+                  class="navds-body-short"
+                >
+                  stegvisning.afp.radio_ja_offentlig
+                </span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="navds-radio navds-radio--medium"
+          >
+            <input
+              aria-invalid="false"
+              class="navds-radio__input"
+              id="radio-r9"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-rd"
+              for="radio-r9"
             >
               <span
                 class="navds-radio__content"
@@ -62,14 +88,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
               aria-invalid="false"
               checked=""
               class="navds-radio__input"
-              id="radio-re"
+              id="radio-ra"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-re"
+              for="radio-ra"
             >
               <span
                 class="navds-radio__content"
@@ -89,14 +115,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
               aria-invalid="false"
               checked=""
               class="navds-radio__input"
-              id="radio-rf"
+              id="radio-rb"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-rf"
+              for="radio-rb"
             >
               <span
                 class="navds-radio__content"
@@ -114,7 +140,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-rc"
+          id="fieldset-error-r7"
         />
       </fieldset>
       <button
@@ -155,7 +181,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
 </DocumentFragment>
 `;
 
-exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er false  og afp ikke er oppgitt 1`] = `
+exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] = `
 <DocumentFragment>
   <form>
     <section
@@ -193,7 +219,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er false
               id="radio-r2"
               name="afp"
               type="radio"
-              value="ja_privat"
+              value="ja_offentlig"
             />
             <label
               class="navds-radio__label"
@@ -205,7 +231,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er false
                 <span
                   class="navds-body-short"
                 >
-                  stegvisning.afp.radio_ja_privat
+                  stegvisning.afp.radio_ja_offentlig
                 </span>
               </span>
             </label>
@@ -219,7 +245,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er false
               id="radio-r3"
               name="afp"
               type="radio"
-              value="nei"
+              value="ja_privat"
             />
             <label
               class="navds-radio__label"
@@ -231,7 +257,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er false
                 <span
                   class="navds-body-short"
                 >
-                  stegvisning.afp.radio_nei
+                  stegvisning.afp.radio_ja_privat
                 </span>
               </span>
             </label>
@@ -257,159 +283,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er false
                 <span
                   class="navds-body-short"
                 >
-                  stegvisning.afp.radio_vet_ikke
-                </span>
-              </span>
-            </label>
-          </div>
-        </div>
-        <div
-          aria-live="polite"
-          aria-relevant="additions removals"
-          class="navds-fieldset__error"
-          id="fieldset-error-r1"
-        />
-      </fieldset>
-      <button
-        class="_button_10a2c6 navds-button navds-button--primary navds-button--medium"
-        type="submit"
-      >
-        <span
-          aria-live="polite"
-          class="navds-label"
-        >
-          stegvisning.neste
-        </span>
-      </button>
-      <button
-        class="_button_10a2c6 navds-button navds-button--secondary navds-button--medium"
-        type="button"
-      >
-        <span
-          aria-live="polite"
-          class="navds-label"
-        >
-          stegvisning.tilbake
-        </span>
-      </button>
-      <button
-        class="navds-button navds-button--tertiary navds-button--medium"
-        type="button"
-      >
-        <span
-          aria-live="polite"
-          class="navds-label"
-        >
-          stegvisning.avbryt
-        </span>
-      </button>
-    </section>
-  </form>
-</DocumentFragment>
-`;
-
-exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er true og afp ikke er oppgitt 1`] = `
-<DocumentFragment>
-  <form>
-    <section
-      class="_section_10a2c6"
-    >
-      <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
-      >
-        stegvisning.afp.title
-      </h2>
-      <p
-        class="_ingress_10a2c6 navds-ingress"
-      >
-        stegvisning.afp.ingress
-      </p>
-      <fieldset
-        aria-invalid="false"
-        aria-required="true"
-        class="navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
-      >
-        <legend
-          class="navds-fieldset__legend navds-label"
-        >
-          stegvisning.afp.radio_label
-        </legend>
-        <div
-          class="navds-radio-buttons"
-        >
-          <div
-            class="navds-radio navds-radio--medium"
-          >
-            <input
-              aria-invalid="false"
-              class="navds-radio__input"
-              id="radio-r7"
-              name="afp"
-              type="radio"
-              value="ja_offentlig"
-            />
-            <label
-              class="navds-radio__label"
-              for="radio-r7"
-            >
-              <span
-                class="navds-radio__content"
-              >
-                <span
-                  class="navds-body-short"
-                >
-                  stegvisning.afp.radio_ja_offentlig
-                </span>
-              </span>
-            </label>
-          </div>
-          <div
-            class="navds-radio navds-radio--medium"
-          >
-            <input
-              aria-invalid="false"
-              class="navds-radio__input"
-              id="radio-r8"
-              name="afp"
-              type="radio"
-              value="ja_privat"
-            />
-            <label
-              class="navds-radio__label"
-              for="radio-r8"
-            >
-              <span
-                class="navds-radio__content"
-              >
-                <span
-                  class="navds-body-short"
-                >
-                  stegvisning.afp.radio_ja_privat
-                </span>
-              </span>
-            </label>
-          </div>
-          <div
-            class="navds-radio navds-radio--medium"
-          >
-            <input
-              aria-invalid="false"
-              class="navds-radio__input"
-              id="radio-r9"
-              name="afp"
-              type="radio"
-              value="nei"
-            />
-            <label
-              class="navds-radio__label"
-              for="radio-r9"
-            >
-              <span
-                class="navds-radio__content"
-              >
-                <span
-                  class="navds-body-short"
-                >
                   stegvisning.afp.radio_nei
                 </span>
               </span>
@@ -421,14 +294,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er true 
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-ra"
+              id="radio-r5"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-ra"
+              for="radio-r5"
             >
               <span
                 class="navds-radio__content"
@@ -446,7 +319,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når showJaOffentlig er true 
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r6"
+          id="fieldset-error-r1"
         />
       </fieldset>
       <button

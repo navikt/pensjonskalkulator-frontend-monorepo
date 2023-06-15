@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
-import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Loader } from '@/components/Loader'
 import { AFP, AfpRadio } from '@/components/stegvisning/AFP'
 import {
   useGetPersonQuery,
@@ -20,11 +18,8 @@ export function Step4() {
   const harSamtykket = useAppSelector(selectSamtykke)
   const previousAfp = useAppSelector(selectAfp)
   const { data: person, isSuccess: isPersonQuerySuccess } = useGetPersonQuery()
-  const {
-    data: TpoMedlemskap,
-    isLoading,
-    isSuccess: isTpoMedlemskapQuerySuccess,
-  } = useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
+  const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
+    useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
 
   useEffect(() => {
     // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til samtykke steget
@@ -61,20 +56,9 @@ export function Step4() {
     navigate(getNesteSide(harSamboer))
   }
 
-  return isLoading ? (
-    <Loader
-      data-testid="loader"
-      size="3xlarge"
-      title={<FormattedMessage id="stegvisning.offentligtp.title" />}
-    />
-  ) : (
+  return (
     <AFP
       afp={previousAfp}
-      showJaOffentlig={
-        !harSamtykket ||
-        (isTpoMedlemskapQuerySuccess &&
-          TpoMedlemskap.harTjenestepensjonsforhold)
-      }
       onCancel={onCancel}
       onPrevious={onPrevious}
       onNext={onNext}

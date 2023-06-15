@@ -32,7 +32,7 @@ describe('Step 4', () => {
     })
   })
 
-  it('rendrer Step 4 slik den skal når brukeren har samtykket og har tpo medlemskap, ', async () => {
+  it('rendrer Step 4 slik den skal når brukeren har samtykket, ', async () => {
     render(<Step4 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })

@@ -7,7 +7,6 @@ import styles from './AFP.module.scss'
 
 interface Props {
   afp: AfpRadio | null
-  showJaOffentlig: boolean
   onCancel: () => void
   onPrevious: () => void
   onNext: (afpData: AfpRadio) => void
@@ -15,13 +14,7 @@ interface Props {
 
 export type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
 
-export function AFP({
-  afp,
-  showJaOffentlig,
-  onCancel,
-  onPrevious,
-  onNext,
-}: Props) {
+export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
 
   const [validationError, setValidationError] = useState<string>('')
@@ -65,12 +58,9 @@ export function AFP({
           error={validationError}
           aria-required="true"
         >
-          {showJaOffentlig && (
-            <Radio value="ja_offentlig">
-              <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
-            </Radio>
-          )}
-
+          <Radio value="ja_offentlig">
+            <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
+          </Radio>
           <Radio value="ja_privat">
             <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
           </Radio>
