@@ -55,6 +55,63 @@ describe('stegvisning - AFP', () => {
     })
   })
 
+  it('viser riktig infomeldinger når brukeren klikker på de ulike valgene', async () => {
+    render(
+      <AFP
+        afp={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+      'stegvisning.afp.title'
+    )
+    const radioButtons = screen.getAllByRole('radio')
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(radioButtons[0])
+    })
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(radioButtons[1])
+    })
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(radioButtons[2])
+    })
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(radioButtons[3])
+    })
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).toBeInTheDocument()
+  })
+
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
     render(
       <AFP

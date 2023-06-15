@@ -113,12 +113,11 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           >
             <input
               aria-invalid="false"
-              checked=""
               class="navds-radio__input"
               id="radio-rb"
               name="afp"
               type="radio"
-              value="nei"
+              value="vet_ikke"
             />
             <label
               class="navds-radio__label"
@@ -297,7 +296,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
               id="radio-r5"
               name="afp"
               type="radio"
-              value="nei"
+              value="vet_ikke"
             />
             <label
               class="navds-radio__label"
