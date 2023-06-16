@@ -286,7 +286,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 height="NaN"
                 width="NaN"
                 x="NaN"
-                y="0.0004342611649834627"
+                y="0"
               />
               <rect
                 class="highcharts-plot-border"
