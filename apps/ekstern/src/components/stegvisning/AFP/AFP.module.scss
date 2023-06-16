@@ -7,6 +7,11 @@
   margin-bottom: var(--a-spacing-6);
 }
 
+.alert {
+  composes: fadein from '../../../scss/modules/fadein.module.scss';
+  margin-left: var(--a-spacing-8);
+}
+
 .button {
   margin: var(--a-spacing-8) var(--a-spacing-4) 0 0;
 }

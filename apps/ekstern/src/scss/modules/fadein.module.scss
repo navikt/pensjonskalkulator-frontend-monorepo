@@ -1,8 +1,6 @@
 @import '../variables';
 
-.whitesection {
-  background-color: var(--a-white);
-  width: 100%;
+.fadein {
   animation: 0.25s fade-in;
 
   @media (prefers-reduced-motion) {

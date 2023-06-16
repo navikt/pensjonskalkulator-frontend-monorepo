@@ -1,13 +1,19 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Button, Heading, Ingress, Radio, RadioGroup } from '@navikt/ds-react'
+import {
+  Alert,
+  Button,
+  Heading,
+  Ingress,
+  Radio,
+  RadioGroup,
+} from '@navikt/ds-react'
 
 import styles from './AFP.module.scss'
 
 interface Props {
   afp: AfpRadio | null
-  showJaOffentlig: boolean
   onCancel: () => void
   onPrevious: () => void
   onNext: (afpData: AfpRadio) => void
@@ -15,16 +21,11 @@ interface Props {
 
 export type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
 
-export function AFP({
-  afp,
-  showJaOffentlig,
-  onCancel,
-  onPrevious,
-  onNext,
-}: Props) {
+export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
 
   const [validationError, setValidationError] = useState<string>('')
+  const [showAlert, setShowAlert] = useState<AfpRadio | ''>('')
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -43,7 +44,8 @@ export function AFP({
     }
   }
 
-  const handleRadioChange = (): void => {
+  const handleRadioChange = (value: AfpRadio): void => {
+    setShowAlert(value)
     setValidationError('')
   }
 
@@ -65,21 +67,28 @@ export function AFP({
           error={validationError}
           aria-required="true"
         >
-          {showJaOffentlig && (
-            <Radio value="ja_offentlig">
-              <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
-            </Radio>
+          <Radio value="ja_offentlig">
+            <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
+          </Radio>
+          {showAlert === 'ja_offentlig' && (
+            <Alert className={styles.alert} variant="info">
+              <FormattedMessage id="stegvisning.afp.alert_ja_offentlig" />
+            </Alert>
           )}
-
           <Radio value="ja_privat">
             <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
           </Radio>
           <Radio value="nei">
             <FormattedMessage id="stegvisning.afp.radio_nei" />
           </Radio>
-          <Radio value="nei">
+          <Radio value="vet_ikke">
             <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
           </Radio>
+          {showAlert === 'vet_ikke' && (
+            <Alert className={styles.alert} variant="info">
+              <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
+            </Alert>
+          )}
         </RadioGroup>
 
         <Button type={'submit'} className={styles.button}>

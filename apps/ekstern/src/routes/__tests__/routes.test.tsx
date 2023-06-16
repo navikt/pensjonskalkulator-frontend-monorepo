@@ -22,7 +22,7 @@ describe('routes', () => {
     await userEvent.click(screen.getByText('Test kalkulatoren'))
 
     expect(
-      await screen.findByText('stegvisning.start.title APRIKOS!')
+      await screen.findByText('stegvisning.start.title Aprikos!')
     ).toBeVisible()
   })
 
@@ -35,7 +35,7 @@ describe('routes', () => {
     render(<RouterProvider router={router} />, { hasRouter: false })
 
     expect(
-      await screen.findByText('stegvisning.start.title APRIKOS!')
+      await screen.findByText('stegvisning.start.title Aprikos!')
     ).toBeVisible()
   })
 
