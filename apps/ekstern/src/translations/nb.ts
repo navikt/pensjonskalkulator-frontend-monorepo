@@ -11,7 +11,7 @@ const translations = {
   'stegvisning.start.start': 'Kom i gang',
   'stegvisning.samtykke.title': 'Hva kalkulatoren viser',
   'stegvisning.samtykke.ingress':
-    'Du ser alderspensjon (NAV). For å se pensjon fra arbeidsgivere må vi ha ditt samtykke for å hente pensjonsavtalene dine.',
+    'Kalkulatoren viser alderspensjonen din fra folketrygden (NAV) og eventuelt avtalefestet pensjon (AFP). For å vise tjenestepensjon fra arbeidsgivere må vi ha ditt samtykke til å hente pensjonsavtalene dine.',
   'stegvisning.samtykke.readmore_title': 'Disse opplysningene henter vi',
   'stegvisning.samtykke.readmore_ingress':
     'Dersom du ønsker at NAV henter inn opplysninger om hva du vil få i pensjon fra private pensjonsordninger, og om du kan ha rettigheter i offentlige pensjonsordninger må du samtykke til det. Det vil gi deg en bedre oversikt over dine totale pensjonsrettigheter. Det er ett frivillig samtykke, og du kan velge nei for å kun beregne alderspensjon (NAV).',
@@ -23,8 +23,8 @@ const translations = {
   'stegvisning.samtykke.readmore_list_item3':
     'gjelder kun for denne ene beregningen, og resultatet lagres ikke hos oss. Resultatet er ikke juridisk bindende for noen part.',
   'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtaler?',
-  'stegvisning.samtykke.radio_ja': 'Ja, hent mine avtaler',
-  'stegvisning.samtykke.radio_nei': 'Nei, fortsett kun med alderspensjon',
+  'stegvisning.samtykke.radio_ja': 'Ja',
+  'stegvisning.samtykke.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
   'stegvisning.offentligtp.title':

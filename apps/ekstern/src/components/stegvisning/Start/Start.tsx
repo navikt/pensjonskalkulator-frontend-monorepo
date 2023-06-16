@@ -25,7 +25,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           id: 'stegvisning.start.bildetekst',
         })}
       />
-      <Heading className={styles.title} size="large" level="2" spacing>
+      <Heading size="large" level="2" spacing>
         {`${intl.formatMessage({
           id: 'stegvisning.start.title',
         })}${fornavnString}`}
