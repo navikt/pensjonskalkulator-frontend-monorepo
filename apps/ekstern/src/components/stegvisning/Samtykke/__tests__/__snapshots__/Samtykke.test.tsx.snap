@@ -70,7 +70,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
       <fieldset
         aria-invalid="false"
         aria-required="true"
-        class="navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        class="_radiogroup_5b4738 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
         <legend
           class="navds-fieldset__legend navds-label"
@@ -163,7 +163,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         </span>
       </button>
       <button
-        class="navds-button navds-button--tertiary navds-button--medium"
+        class="_button_5b4738 navds-button navds-button--tertiary navds-button--medium"
         type="button"
       >
         <span

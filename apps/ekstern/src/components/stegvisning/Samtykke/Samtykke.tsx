@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
   Ingress,
-  BodyLong,
   Button,
   Heading,
   Radio,
@@ -84,6 +83,7 @@ export function Samtykke({
         </ReadMore>
 
         <RadioGroup
+          className={styles.radiogroup}
           legend={<FormattedMessage id="stegvisning.samtykke.radio_label" />}
           name={'samtykke'}
           defaultValue={
@@ -112,7 +112,12 @@ export function Samtykke({
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button type={'button'} variant="tertiary" onClick={onCancel}>
+        <Button
+          type={'button'}
+          className={styles.button}
+          variant="tertiary"
+          onClick={onCancel}
+        >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
       </section>

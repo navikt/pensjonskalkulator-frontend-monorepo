@@ -19,7 +19,7 @@ export function OffentligTP({ onCancel, onPrevious, onNext }: Props) {
       <BodyLong spacing>
         <FormattedMessage id="stegvisning.offentligtp.ingress_1" />
       </BodyLong>
-      <BodyLong>
+      <BodyLong className={styles.lastIngress}>
         <FormattedMessage id="stegvisning.offentligtp.ingress_2" />
       </BodyLong>
 
@@ -34,7 +34,12 @@ export function OffentligTP({ onCancel, onPrevious, onNext }: Props) {
       >
         <FormattedMessage id="stegvisning.tilbake" />
       </Button>
-      <Button type={'button'} variant="tertiary" onClick={onCancel}>
+      <Button
+        type={'button'}
+        className={styles.button}
+        variant="tertiary"
+        onClick={onCancel}
+      >
         <FormattedMessage id="stegvisning.avbryt" />
       </Button>
     </section>

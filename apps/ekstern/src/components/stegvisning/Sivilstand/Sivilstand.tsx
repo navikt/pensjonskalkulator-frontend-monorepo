@@ -58,6 +58,7 @@ export function Sivilstand({
         <RadioGroup
           legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
           name={'sivilstand'}
+          className={styles.radiogroup}
           defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
           onChange={handleRadioChange}
           error={validationError}
@@ -82,7 +83,12 @@ export function Sivilstand({
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button type={'button'} variant="tertiary" onClick={onCancel}>
+        <Button
+          type={'button'}
+          className={styles.button}
+          variant="tertiary"
+          onClick={onCancel}
+        >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
       </section>
