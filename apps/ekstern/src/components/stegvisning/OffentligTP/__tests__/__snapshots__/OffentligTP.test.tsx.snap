@@ -16,7 +16,7 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       stegvisning.offentligtp.ingress_1
     </p>
     <p
-      class="navds-body-long"
+      class="_lastIngress_f5c4aa navds-body-long"
     >
       stegvisning.offentligtp.ingress_2
     </p>
@@ -43,7 +43,7 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       </span>
     </button>
     <button
-      class="navds-button navds-button--tertiary navds-button--medium"
+      class="_button_f5c4aa navds-button navds-button--tertiary navds-button--medium"
       type="button"
     >
       <span

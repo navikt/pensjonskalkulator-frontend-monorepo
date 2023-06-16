@@ -12,14 +12,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         stegvisning.afp.title
       </h2>
       <p
-        class="_ingress_10a2c6 navds-ingress"
+        class="navds-ingress"
       >
         stegvisning.afp.ingress
       </p>
       <fieldset
         aria-invalid="false"
         aria-required="true"
-        class="navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        class="_radiogroup_10a2c6 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
         <legend
           class="navds-fieldset__legend navds-label"
@@ -165,7 +165,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         </span>
       </button>
       <button
-        class="navds-button navds-button--tertiary navds-button--medium"
+        class="_button_10a2c6 navds-button navds-button--tertiary navds-button--medium"
         type="button"
       >
         <span
@@ -192,14 +192,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         stegvisning.afp.title
       </h2>
       <p
-        class="_ingress_10a2c6 navds-ingress"
+        class="navds-ingress"
       >
         stegvisning.afp.ingress
       </p>
       <fieldset
         aria-invalid="false"
         aria-required="true"
-        class="navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        class="_radiogroup_10a2c6 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
         <legend
           class="navds-fieldset__legend navds-label"
@@ -344,7 +344,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         </span>
       </button>
       <button
-        class="navds-button navds-button--tertiary navds-button--medium"
+        class="_button_10a2c6 navds-button navds-button--tertiary navds-button--medium"
         type="button"
       >
         <span

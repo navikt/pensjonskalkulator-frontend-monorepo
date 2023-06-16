@@ -19,7 +19,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
       <fieldset
         aria-invalid="false"
         aria-required="true"
-        class="navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        class="_radiogroup_885e37 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
         <legend
           class="navds-fieldset__legend navds-label"
@@ -112,7 +112,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         </span>
       </button>
       <button
-        class="navds-button navds-button--tertiary navds-button--medium"
+        class="_button_885e37 navds-button navds-button--tertiary navds-button--medium"
         type="button"
       >
         <span

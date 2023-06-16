@@ -55,11 +55,12 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
         <Heading size="large" level="2" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
-        <Ingress className={styles.ingress}>
+        <Ingress>
           <FormattedMessage id="stegvisning.afp.ingress" />
         </Ingress>
 
         <RadioGroup
+          className={styles.radiogroup}
           legend={<FormattedMessage id="stegvisning.afp.radio_label" />}
           name={'afp'}
           defaultValue={afp}
@@ -102,7 +103,12 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button type={'button'} variant="tertiary" onClick={onCancel}>
+        <Button
+          type={'button'}
+          className={styles.button}
+          variant="tertiary"
+          onClick={onCancel}
+        >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
       </section>
