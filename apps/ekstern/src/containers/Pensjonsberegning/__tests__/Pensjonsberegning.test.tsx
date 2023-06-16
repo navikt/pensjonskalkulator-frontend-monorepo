@@ -22,7 +22,7 @@ describe('Pensjonsberegning', () => {
 
     expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(2)
-    expect(screen.getAllByRole('button')).toHaveLength(12)
+    expect(screen.getAllByRole('button')).toHaveLength(13)
 
     expect(result.asFragment()).toMatchSnapshot()
   })

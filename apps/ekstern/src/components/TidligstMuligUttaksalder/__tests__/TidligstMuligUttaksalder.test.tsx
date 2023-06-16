@@ -1,10 +1,10 @@
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
-import { render, screen, waitFor } from '@/test-utils'
+import { act, render, screen, waitFor, fireEvent } from '@/test-utils'
 
 describe('TidligstMuligUttaksalder', () => {
-  it('rendrer slik den skal med riktig tekst basert på uttaksalder', async () => {
+  it('rendrer slik den skal med riktig tekst og hjelpeknapp basert på uttaksalder', async () => {
     render(
       <TidligstMuligUttaksalder
         uttaksalder={{ aar: 62, maaned: 9, uttaksdato: '2031-11-01' }}
@@ -19,10 +19,17 @@ describe('TidligstMuligUttaksalder', () => {
       ).toBeInTheDocument()
       expect(screen.getByText('62 år og 9 måneder')).toBeInTheDocument()
       expect(
-        screen.getByText(
-          'Du får høyere pensjon per år, hvis du tar den ut senere.'
-        )
+        screen.getByText('Jo lenger du venter, desto mer får du i året.')
       ).toBeInTheDocument()
     })
+
+    act(() => {
+      fireEvent.click(screen.getByRole('button'))
+    })
+    expect(
+      screen.getByText(
+        'For å starte uttak mellom 62 og 67 år må opptjeningen være høy nok. Tidspunktet er et estimat.'
+      )
+    ).toBeInTheDocument()
   })
 })
