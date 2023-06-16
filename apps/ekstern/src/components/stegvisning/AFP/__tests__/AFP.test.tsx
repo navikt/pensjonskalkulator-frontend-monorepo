@@ -9,34 +9,10 @@ describe('stegvisning - AFP', () => {
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
 
-  it('rendrer slik den skal når showJaOffentlig er false  og afp ikke er oppgitt', async () => {
+  it('rendrer slik den skal når afp ikke er oppgitt', async () => {
     const result = render(
       <AFP
         afp={null}
-        showJaOffentlig={false}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.afp.title'
-    )
-    const radioButtons = screen.getAllByRole('radio')
-    await waitFor(() => {
-      expect(radioButtons).toHaveLength(3)
-      expect(radioButtons[0]).not.toBeChecked()
-      expect(radioButtons[1]).not.toBeChecked()
-      expect(radioButtons[2]).not.toBeChecked()
-      expect(result.asFragment()).toMatchSnapshot()
-    })
-  })
-
-  it('rendrer slik den skal når showJaOffentlig er true og afp ikke er oppgitt', async () => {
-    const result = render(
-      <AFP
-        afp={null}
-        showJaOffentlig={true}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -60,7 +36,6 @@ describe('stegvisning - AFP', () => {
     const result = render(
       <AFP
         afp={'nei'}
-        showJaOffentlig={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -71,19 +46,76 @@ describe('stegvisning - AFP', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
     await waitFor(() => {
-      expect(radioButtons).toHaveLength(3)
+      expect(radioButtons).toHaveLength(4)
       expect(radioButtons[0]).not.toBeChecked()
-      expect(radioButtons[1]).toBeChecked()
-      expect(radioButtons[2]).not.toBeChecked()
+      expect(radioButtons[1]).not.toBeChecked()
+      expect(radioButtons[2]).toBeChecked()
+      expect(radioButtons[3]).not.toBeChecked()
       expect(result.asFragment()).toMatchSnapshot()
     })
+  })
+
+  it('viser riktig infomeldinger når brukeren klikker på de ulike valgene', async () => {
+    render(
+      <AFP
+        afp={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+      'stegvisning.afp.title'
+    )
+    const radioButtons = screen.getAllByRole('radio')
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(radioButtons[0])
+    })
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(radioButtons[1])
+    })
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(radioButtons[2])
+    })
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).not.toBeInTheDocument()
+    act(() => {
+      fireEvent.click(radioButtons[3])
+    })
+    expect(
+      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.afp.alert_vet_ikke')
+    ).toBeInTheDocument()
   })
 
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
     render(
       <AFP
         afp={null}
-        showJaOffentlig={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -117,7 +149,6 @@ describe('stegvisning - AFP', () => {
     render(
       <AFP
         afp={'ja_privat'}
-        showJaOffentlig={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -135,7 +166,6 @@ describe('stegvisning - AFP', () => {
     render(
       <AFP
         afp={'ja_privat'}
-        showJaOffentlig={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
