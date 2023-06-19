@@ -1,9 +1,12 @@
 import {
   AxisLabelsFormatterContextObject,
   Axis,
-  Point,
-  TooltipFormatterContextObject,
+  Chart,
   Options,
+  Point,
+  PointClickEventObject,
+  Series,
+  TooltipFormatterContextObject,
 } from 'highcharts'
 
 import { formatAsDecimal } from '@/utils/currency'
@@ -174,6 +177,76 @@ export function handleChartScroll(event: Event) {
   }
 }
 
+export const getHoverColor = (previousColor: string): string => {
+  switch (previousColor) {
+    case 'var(--a-deepblue-500)': {
+      return 'var(--a-deepblue-200)'
+    }
+    case 'var(--a-green-400)': {
+      return 'var(--a-green-200)'
+    }
+    case 'var(--a-purple-400)': {
+      return 'var(--a-purple-200)'
+    }
+    case '#868F9C': {
+      return '#AfAfAf'
+    }
+    default: {
+      return ''
+    }
+  }
+}
+
+export const getNormalColor = (previousColor: string): string => {
+  switch (previousColor) {
+    case 'var(--a-deepblue-200)': {
+      return 'var(--a-deepblue-500)'
+    }
+    case 'var(--a-green-200)': {
+      return 'var(--a-green-400)'
+    }
+    case 'var(--a-purple-200)': {
+      return 'var(--a-purple-400)'
+    }
+    case '#AfAfAf': {
+      return '#868F9C'
+    }
+    default: {
+      return previousColor
+    }
+  }
+}
+
+export function onPointClick(this: Point, event: PointClickEventObject): void {
+  const pointIndex = event.point.index
+  this.series.chart.series.forEach(function (serie: Series) {
+    serie.data.forEach(function (point: Point) {
+      const color =
+        point.index !== pointIndex
+          ? getHoverColor(point.color as string)
+          : getNormalColor(point.color as string)
+
+      if (color && color !== point.color) {
+        point.update({ color }, false)
+      }
+    })
+  })
+  this.series.chart.redraw()
+}
+
+export function onChartClick(this: Chart): void {
+  this.series.forEach(function (serie: Series) {
+    serie.data.forEach(function (point: Point) {
+      const color = getNormalColor(point.color as string)
+      if (point.color !== color) {
+        point.update({ color: getNormalColor(point.color as string) }, false)
+      }
+    })
+  })
+  this.redraw()
+  this.tooltip.hide()
+}
+
 export const getChartOptions = (
   styles: Partial<typeof globalClassNames>,
   showRightButton: React.Dispatch<React.SetStateAction<boolean>>,
@@ -190,11 +263,11 @@ export const getChartOptions = (
         scrollPositionX: 0,
       },
       events: {
+        click: onChartClick,
         render() {
           const highchartsScrollingElement = document.querySelector(
             highchartsScrollingSelector
           )
-
           if (highchartsScrollingElement) {
             const el =
               highchartsScrollingElement as HighchartsScrollingHTMLDivElement
@@ -301,6 +374,13 @@ export const getChartOptions = (
           /* c8 ignore next 3 */
           legendItemClick: function (e) {
             e.preventDefault()
+          },
+        },
+      },
+      column: {
+        point: {
+          events: {
+            click: onPointClick,
           },
         },
       },

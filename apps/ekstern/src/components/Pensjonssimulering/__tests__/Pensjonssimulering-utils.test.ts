@@ -1,6 +1,9 @@
 import {
   AxisLabelsFormatterContextObject,
   TooltipFormatterContextObject,
+  Chart,
+  Point,
+  PointClickEventObject,
 } from 'highcharts'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -11,6 +14,10 @@ import {
   generateXAxis,
   labelFormatter,
   tooltipFormatter,
+  getHoverColor,
+  getNormalColor,
+  onPointClick,
+  onChartClick,
   getChartOptions,
   onVisFlereAarClick,
   onVisFaerreAarClick,
@@ -237,6 +244,148 @@ describe('Pensjonssimulering-utils', () => {
       )
     })
   })
+
+  describe('getHoverColor og getNormalColor', () => {
+    test.each([
+      ['var(--a-deepblue-500)', 'var(--a-deepblue-200)'],
+      ['var(--a-green-400)', 'var(--a-green-200)'],
+      ['var(--a-purple-400)', 'var(--a-purple-200)'],
+      ['#868F9C', '#AfAfAf'],
+      ['#FF0000', ''],
+    ])('returnerer riktig hover farge for: %s', async (a, expected) => {
+      const color = getHoverColor(a)
+      expect(color).toEqual(expected)
+    })
+
+    test.each([
+      ['var(--a-deepblue-200)', 'var(--a-deepblue-500)'],
+      ['var(--a-green-200)', 'var(--a-green-400)'],
+      ['var(--a-purple-200)', 'var(--a-purple-400)'],
+      ['#AfAfAf', '#868F9C'],
+      ['var(--a-deepblue-500)', 'var(--a-deepblue-500)'],
+      ['var(--a-green-400)', 'var(--a-green-400)'],
+      ['var(--a-purple-400)', 'var(--a-purple-400)'],
+      ['#868F9C', '#868F9C'],
+    ])('returnerer riktig normal farge for: %s', async (a, expected) => {
+      const color = getNormalColor(a)
+      expect(color).toEqual(expected)
+    })
+  })
+
+  describe('onPointClick og onChartClick', () => {
+    const pointUpdateMock = vi.fn()
+    const data1 = [
+      {
+        index: 0,
+        color: 'var(--a-deepblue-500)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 1,
+        color: 'var(--a-deepblue-500)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 2,
+        color: 'var(--a-deepblue-200)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+    ]
+    const data2 = [
+      {
+        index: 0,
+        color: 'var(--a-green-400)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 1,
+        color: 'var(--a-green-400)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 2,
+        color: 'var(--a-green-200)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+    ]
+    const data3 = [
+      {
+        index: 0,
+        color: 'var(--a-purple-400)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 1,
+        color: 'var(--a-purple-400)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 2,
+        color: 'var(--a-purple-200)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+    ]
+
+    const chart = {
+      series: [
+        {
+          data: [...data1],
+        },
+        {
+          data: [...data2],
+        },
+        {
+          data: [...data3],
+        },
+      ],
+    }
+
+    describe('onPointClick', () => {
+      it('oppdaterer fargen riktig på kolonnen som er valgt og de som ikke er det, når brukeren velger en kolonne', () => {
+        const redrawMock = vi.fn()
+
+        const point = {
+          series: {
+            chart: {
+              ...chart,
+              redraw: redrawMock,
+            } as unknown as Chart,
+          },
+        } as Point
+
+        const event = { point: { index: 0 } } as PointClickEventObject
+        onPointClick.call(point, event)
+        expect(pointUpdateMock).toHaveBeenCalledTimes(3)
+        expect(pointUpdateMock.mock.calls).toEqual([
+          [{ color: 'var(--a-deepblue-200)' }, false],
+          [{ color: 'var(--a-green-200)' }, false],
+          [{ color: 'var(--a-purple-200)' }, false],
+        ])
+        expect(redrawMock).toHaveBeenCalledOnce()
+      })
+    })
+
+    describe('onChartClick', () => {
+      it('nullstiller fargene riktig', () => {
+        const redrawMock = vi.fn()
+        const tooltipHideMock = vi.fn()
+        onChartClick.call({
+          ...chart,
+          redraw: redrawMock,
+          tooltip: { hide: tooltipHideMock },
+        } as unknown as Chart)
+        expect(pointUpdateMock).toHaveBeenCalledTimes(6)
+        expect(pointUpdateMock.mock.calls.slice(3, 6)).toEqual([
+          [{ color: 'var(--a-deepblue-500)' }, false],
+          [{ color: 'var(--a-green-400)' }, false],
+          [{ color: 'var(--a-purple-400)' }, false],
+        ])
+        expect(redrawMock).toHaveBeenCalledOnce()
+        expect(tooltipHideMock).toHaveBeenCalledOnce()
+      })
+    })
+  })
+
   describe('getChartOptions', () => {
     it('returnerer riktig default options', () => {
       const options = getChartOptions(

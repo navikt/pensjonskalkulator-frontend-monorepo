@@ -69,11 +69,6 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
           pointWidth: COLUMN_WIDTH,
           name: 'Avtalefestet pensjon (AFP)',
           color: 'var(--a-purple-400)',
-          states: {
-            hover: {
-              color: 'var(--a-purple-200)',
-            },
-          },
           data: simulateDataArray(AFP_DATA, aarArray.length),
         },
         {
@@ -81,11 +76,6 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
           pointWidth: COLUMN_WIDTH,
           name: 'Pensjonsavtaler (arbeidsgiver)',
           color: 'var(--a-green-400)',
-          states: {
-            hover: {
-              color: 'var(--a-green-200)',
-            },
-          },
           data: simulateTjenestepensjon(uttaksalder, MAX_UTTAKSALDER),
         },
         {
@@ -93,11 +83,6 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
           pointWidth: COLUMN_WIDTH,
           name: 'Alderspensjon (NAV)',
           color: 'var(--a-deepblue-500)',
-          states: {
-            hover: {
-              color: 'var(--a-deepblue-200)',
-            },
-          },
           data: simulateDataArray(
             FOLKETRYGDEN_DATA,
             aarArray.length,

@@ -4,6 +4,7 @@ exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default 
 {
   "chart": {
     "events": {
+      "click": [Function],
       "render": [Function],
     },
     "scrollablePlotArea": {
@@ -42,6 +43,13 @@ exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default 
     "y": -25,
   },
   "plotOptions": {
+    "column": {
+      "point": {
+        "events": {
+          "click": [Function],
+        },
+      },
+    },
     "series": {
       "events": {
         "legendItemClick": [Function],
