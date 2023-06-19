@@ -92,16 +92,20 @@ export function labelFormatter(this: AxisLabelsFormatterContextObject) {
     : this.value.toString()
 }
 
-export type ExtendedYAxis = Axis & { height: number; pos: number }
+export type ExtendedAxis = Axis & {
+  height: number
+  pos: number
+  labelGroup: { element: { childNodes: Array<HTMLElement> } }
+}
 export type ExtendedPoint = Point & { tooltipPos: number[] }
 
 export function tooltipFormatter(
   context: TooltipFormatterContextObject,
   styles: Partial<typeof globalClassNames>
 ): string {
-  const yAxisHeight = (context.points?.[0].series.yAxis as ExtendedYAxis).height
+  const yAxisHeight = (context.points?.[0].series.yAxis as ExtendedAxis).height
   const lineYpos =
-    (context.points?.[0].series.chart.yAxis[0] as ExtendedYAxis).pos -
+    (context.points?.[0].series.chart.yAxis[0] as ExtendedAxis).pos -
     TOOLTIP_YPOS
   const columnHeight =
     yAxisHeight - (context.points?.[0].point as ExtendedPoint).tooltipPos[1]
@@ -231,6 +235,18 @@ export function onPointClick(this: Point, event: PointClickEventObject): void {
       }
     })
   })
+  ;(
+    this.series.chart.xAxis[0] as ExtendedAxis
+  ).labelGroup.element.childNodes.forEach(function (
+    label: HTMLElement,
+    index: number
+  ) {
+    if (index === pointIndex) {
+      label.style.fontWeight = 'bold'
+    } else {
+      label.style.fontWeight = 'normal'
+    }
+  })
   this.series.chart.redraw()
 }
 
@@ -243,6 +259,11 @@ export function onChartClick(this: Chart): void {
       }
     })
   })
+  ;(this.xAxis[0] as ExtendedAxis).labelGroup.element.childNodes.forEach(
+    function (label: HTMLElement) {
+      label.style.fontWeight = 'normal'
+    }
+  )
   this.redraw()
   this.tooltip.hide()
 }
@@ -303,9 +324,17 @@ export const getChartOptions = (
     },
     xAxis: {
       categories: [],
+      labels: {
+        formatter: function (this: AxisLabelsFormatterContextObject) {
+          return this.value.toString()
+        },
+        style: {
+          color: 'var(--a-grayalpha-700)',
+        },
+      },
+      lineColor: 'var(--a-grayalpha-700)',
     },
     yAxis: {
-      gridLineDashStyle: 'Dash',
       minorTickInterval: 200000,
       tickInterval: 200000,
       allowDecimals: false,
@@ -320,7 +349,11 @@ export const getChartOptions = (
       },
       labels: {
         formatter: labelFormatter,
+        style: {
+          color: 'var(--a-grayalpha-700)',
+        },
       },
+      gridLineColor: 'var(--a-grayalpha-200)',
     },
     credits: {
       enabled: false,

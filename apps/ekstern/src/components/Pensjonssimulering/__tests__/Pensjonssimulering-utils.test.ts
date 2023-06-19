@@ -21,7 +21,7 @@ import {
   getChartOptions,
   onVisFlereAarClick,
   onVisFaerreAarClick,
-  ExtendedYAxis,
+  ExtendedAxis,
   ExtendedPoint,
   handleChartScroll,
   removeHandleChartScrollEventListener,
@@ -189,8 +189,8 @@ describe('Pensjonssimulering-utils', () => {
         series: {
           name: nameSerie1,
           color: colorSerie1,
-          chart: { yAxis: [{ pos: 300 } as ExtendedYAxis] },
-          yAxis: { height: 400 } as ExtendedYAxis,
+          chart: { yAxis: [{ pos: 300 } as ExtendedAxis] },
+          yAxis: { height: 400 } as ExtendedAxis,
         },
         point: { plotX: 129, tooltipPos: [50, 100, 120] } as ExtendedPoint,
       }
@@ -338,12 +338,24 @@ describe('Pensjonssimulering-utils', () => {
           data: [...data3],
         },
       ],
+      xAxis: [
+        {
+          labelGroup: {
+            element: {
+              childNodes: [
+                <HTMLDivElement>document.createElement('text'),
+                <HTMLDivElement>document.createElement('text'),
+                <HTMLDivElement>document.createElement('text'),
+              ],
+            },
+          },
+        },
+      ],
     }
 
     describe('onPointClick', () => {
-      it('oppdaterer fargen riktig på kolonnen som er valgt og de som ikke er det, når brukeren velger en kolonne', () => {
+      it('oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis', () => {
         const redrawMock = vi.fn()
-
         const point = {
           series: {
             chart: {
@@ -352,7 +364,6 @@ describe('Pensjonssimulering-utils', () => {
             } as unknown as Chart,
           },
         } as Point
-
         const event = { point: { index: 0 } } as PointClickEventObject
         onPointClick.call(point, event)
         expect(pointUpdateMock).toHaveBeenCalledTimes(3)
@@ -361,25 +372,34 @@ describe('Pensjonssimulering-utils', () => {
           [{ color: 'var(--a-green-200)' }, false],
           [{ color: 'var(--a-purple-200)' }, false],
         ])
+        expect(
+          (point.series.chart.xAxis[0] as ExtendedAxis).labelGroup.element
+            .childNodes
+        ).toMatchSnapshot()
         expect(redrawMock).toHaveBeenCalledOnce()
       })
     })
 
     describe('onChartClick', () => {
-      it('nullstiller fargene riktig', () => {
+      it('nullstiller fargene og label på xAxis', () => {
         const redrawMock = vi.fn()
         const tooltipHideMock = vi.fn()
-        onChartClick.call({
+        const chartWithSelection = {
           ...chart,
           redraw: redrawMock,
           tooltip: { hide: tooltipHideMock },
-        } as unknown as Chart)
+        } as unknown as Chart
+        onChartClick.call(chartWithSelection)
         expect(pointUpdateMock).toHaveBeenCalledTimes(6)
         expect(pointUpdateMock.mock.calls.slice(3, 6)).toEqual([
           [{ color: 'var(--a-deepblue-500)' }, false],
           [{ color: 'var(--a-green-400)' }, false],
           [{ color: 'var(--a-purple-400)' }, false],
         ])
+        expect(
+          (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
+            .childNodes
+        ).toMatchSnapshot()
         expect(redrawMock).toHaveBeenCalledOnce()
         expect(tooltipHideMock).toHaveBeenCalledOnce()
       })
