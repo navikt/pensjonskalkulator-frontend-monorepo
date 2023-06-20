@@ -113,7 +113,10 @@ export type ExtendedAxis = Axis & {
   pos: number
   labelGroup: { element: { childNodes: Array<HTMLElement> } }
 }
-export type ExtendedPoint = Point & { tooltipPos: number[] }
+export type ExtendedPoint = Point & {
+  tooltipPos: number[]
+  series: { data: string[] }
+}
 
 export function getTooltipTitle(
   hasInntekt: boolean,
@@ -142,10 +145,12 @@ export function tooltipFormatter(
     document.querySelector(highchartsScrollingSelector)?.scrollLeft ?? 0
 
   const leftPosition = context.points?.[0].point?.plotX ?? 0
+  const numberOfBars = context.points?.[0].point.series.data.length ?? 0
+
   const tooltipConnectingLine = `<div class="${
     styles.tooltipLine
   }" style="top: ${lineYpos}px; left: ${
-    leftPosition + 21 - scrollPosition + COLUMN_WIDTH / 2
+    leftPosition + 21 - scrollPosition - numberOfBars + COLUMN_WIDTH
   }px; height: ${yAxisHeight - columnHeight}px"></div>`
 
   let hasInntekt = false

@@ -197,9 +197,10 @@ describe('Pensjonssimulering-utils', () => {
       const colorSerie2 = 'salmon'
       const pointSumSerie1 = 200000
       const pointSumSerie2 = 350000
-      const beregnetLinePosition = 'top: 265px; left: 162.5px; height: 100px'
+
+      const beregnetLinePosition = 'top: 265px; left: 167px; height: 100px'
       const beregnetLinePositionAfterScroll =
-        'top: 265px; left: 112.5px; height: 100px'
+        'top: 265px; left: 117px; height: 100px'
 
       const point = {
         y: pointSumSerie1,
@@ -210,7 +211,11 @@ describe('Pensjonssimulering-utils', () => {
           chart: { yAxis: [{ pos: 300 } as ExtendedAxis] },
           yAxis: { height: 400 } as ExtendedAxis,
         },
-        point: { plotX: 129, tooltipPos: [50, 100, 120] } as ExtendedPoint,
+        point: {
+          plotX: 129,
+          tooltipPos: [50, 100, 120],
+          series: { data: ['70', '71', '72', '73', '74', '75', '76', '77+'] },
+        } as ExtendedPoint,
       }
 
       const context = {
@@ -257,6 +262,7 @@ describe('Pensjonssimulering-utils', () => {
         context as unknown as TooltipFormatterContextObject,
         stylesMock
       )
+      expect(tooltipMarkupAfterScroll).toMatchSnapshot()
       expect(tooltipMarkupAfterScroll).toContain(
         beregnetLinePositionAfterScroll
       )
