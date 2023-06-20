@@ -12,9 +12,25 @@ import {
 import { formatAsDecimal } from '@/utils/currency'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
+
 export const MAX_UTTAKSALDER = 78
 export const COLUMN_WIDTH = 25
 export const TOOLTIP_YPOS = 35
+
+export const SERIE_NAME_INNTEKT = 'Inntekt (lønn m.m.)'
+export const SERIE_NAME_AFP = 'Avtalefestet pensjon (AFP)'
+export const SERIE_NAME_TP = 'Pensjonsavtaler (arbeidsgiver)'
+export const SERIE_NAME_ALDERSPENSJON = 'Alderspensjon (NAV)'
+
+export const SERIE_COLOR_INNTEKT = '#868F9C'
+export const SERIE_COLOR_AFP = 'var(--a-purple-400)'
+export const SERIE_COLOR_TP = 'var(--a-green-400)'
+export const SERIE_COLOR_ALDERSPENSJON = 'var(--a-deepblue-500)'
+
+export const SERIE_COLOR_FADED_INNTEKT = '#AfAfAf'
+export const SERIE_COLOR_FADED_AFP = 'var(--a-purple-200)'
+export const SERIE_COLOR_FADED_TP = 'var(--a-green-200)'
+export const SERIE_COLOR_FADED_ALDERSPENSJON = 'var(--a-deepblue-200)'
 
 export const highchartsScrollingSelector = '.highcharts-scrolling'
 
@@ -99,6 +115,19 @@ export type ExtendedAxis = Axis & {
 }
 export type ExtendedPoint = Point & { tooltipPos: number[] }
 
+export function getTooltipTitle(
+  hasInntekt: boolean,
+  hasPensjon: boolean
+): string {
+  if (hasInntekt && hasPensjon) {
+    return 'Inntekt og pensjon når du er'
+  } else if (hasInntekt && !hasPensjon) {
+    return 'Inntekt når du er'
+  } else {
+    return 'Pensjon når du er'
+  }
+}
+
 export function tooltipFormatter(
   context: TooltipFormatterContextObject,
   styles: Partial<typeof globalClassNames>
@@ -119,24 +148,36 @@ export function tooltipFormatter(
     leftPosition + 21 - scrollPosition + COLUMN_WIDTH / 2
   }px; height: ${yAxisHeight - columnHeight}px"></div>`
 
+  let hasInntekt = false
+  let hasPensjon = false
+  let pointsFormat = ''
+
+  context?.points?.forEach(function (point) {
+    if (point.y && point.y > 0) {
+      if (point.series.name === SERIE_NAME_INNTEKT) {
+        hasInntekt = true
+      } else {
+        hasPensjon = true
+      }
+      pointsFormat +=
+        `<tr>` +
+        `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${point.series.color}"></span>${point.series.name}</td>` +
+        `<td class="${styles.tooltipTableCell} ${
+          styles.tooltipTableCell__right
+        }">${formatAsDecimal(point.y)} kr</td>` +
+        `</tr>`
+    }
+  })
+
   const headerFormat =
     `<table class="${styles.tooltipTable}"><thead><tr>` +
-    `<th class="${styles.tooltipTableHeaderCell} ${styles.tooltipTableHeaderCell__left}">Pensjon og inntekt det året du er ${context.x} år</th>` +
+    `<th class="${styles.tooltipTableHeaderCell} ${
+      styles.tooltipTableHeaderCell__left
+    }">${getTooltipTitle(hasInntekt, hasPensjon)} ${context.x} år</th>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__right
     }">${formatAsDecimal(context.points?.[0].total)} kr</th>` +
     `</tr></thead><tbody>`
-
-  let pointsFormat = ''
-  context?.points?.forEach(function (point) {
-    pointsFormat +=
-      `<tr>` +
-      `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${point.series.color}"></span>${point.series.name}</td>` +
-      `<td class="${styles.tooltipTableCell} ${
-        styles.tooltipTableCell__right
-      }">${formatAsDecimal(point.y)} kr</td>` +
-      `</tr>`
-  })
 
   const footerFormat = '</tbody></table>'
   return `${headerFormat}${pointsFormat}${footerFormat}${tooltipConnectingLine}`
@@ -183,17 +224,17 @@ export function handleChartScroll(event: Event) {
 
 export const getHoverColor = (previousColor: string): string => {
   switch (previousColor) {
-    case 'var(--a-deepblue-500)': {
-      return 'var(--a-deepblue-200)'
+    case SERIE_COLOR_INNTEKT: {
+      return SERIE_COLOR_FADED_INNTEKT
     }
-    case 'var(--a-green-400)': {
-      return 'var(--a-green-200)'
+    case SERIE_COLOR_AFP: {
+      return SERIE_COLOR_FADED_AFP
     }
-    case 'var(--a-purple-400)': {
-      return 'var(--a-purple-200)'
+    case SERIE_COLOR_TP: {
+      return SERIE_COLOR_FADED_TP
     }
-    case '#868F9C': {
-      return '#AfAfAf'
+    case SERIE_COLOR_ALDERSPENSJON: {
+      return SERIE_COLOR_FADED_ALDERSPENSJON
     }
     default: {
       return ''
@@ -203,17 +244,17 @@ export const getHoverColor = (previousColor: string): string => {
 
 export const getNormalColor = (previousColor: string): string => {
   switch (previousColor) {
-    case 'var(--a-deepblue-200)': {
-      return 'var(--a-deepblue-500)'
+    case SERIE_COLOR_FADED_INNTEKT: {
+      return SERIE_COLOR_INNTEKT
     }
-    case 'var(--a-green-200)': {
-      return 'var(--a-green-400)'
+    case SERIE_COLOR_FADED_AFP: {
+      return SERIE_COLOR_AFP
     }
-    case 'var(--a-purple-200)': {
-      return 'var(--a-purple-400)'
+    case SERIE_COLOR_FADED_TP: {
+      return SERIE_COLOR_TP
     }
-    case '#AfAfAf': {
-      return '#868F9C'
+    case SERIE_COLOR_FADED_ALDERSPENSJON: {
+      return SERIE_COLOR_ALDERSPENSJON
     }
     default: {
       return previousColor

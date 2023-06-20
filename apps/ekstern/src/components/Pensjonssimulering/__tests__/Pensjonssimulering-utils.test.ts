@@ -8,11 +8,14 @@ import {
 import { describe, expect, it, vi } from 'vitest'
 
 import {
+  SERIE_NAME_INNTEKT,
+  SERIE_NAME_ALDERSPENSJON,
   highchartsScrollingSelector,
   simulateDataArray,
   simulateTjenestepensjon,
   generateXAxis,
   labelFormatter,
+  getTooltipTitle,
   tooltipFormatter,
   getHoverColor,
   getNormalColor,
@@ -158,6 +161,23 @@ describe('Pensjonssimulering-utils', () => {
     })
   })
 
+  describe('getTooltipTitle', () => {
+    it('returnerer riktig streng for inntekt uten pensjon', () => {
+      expect(getTooltipTitle(true, false)).toEqual('Inntekt når du er')
+    })
+    it('returnerer riktig streng for pensjon uten inntekt', () => {
+      expect(getTooltipTitle(false, true)).toEqual('Pensjon når du er')
+    })
+    it('returnerer riktig streng for pensjon og inntekt', () => {
+      expect(getTooltipTitle(true, true)).toEqual(
+        'Inntekt og pensjon når du er'
+      )
+    })
+    it('returnerer streng for pensjon som fallback', () => {
+      expect(getTooltipTitle(false, false)).toEqual('Pensjon når du er')
+    })
+  })
+
   describe('tooltipFormatter', () => {
     it('returnerer formatert tooltip med riktig data og stiler for begge serier', () => {
       const stylesMock = {
@@ -173,8 +193,6 @@ describe('Pensjonssimulering-utils', () => {
 
       const alder = 65
       const total = 800000
-      const nameSerie1 = 'name of my serie 1'
-      const nameSerie2 = 'name of my serie 2'
       const colorSerie1 = 'lime'
       const colorSerie2 = 'salmon'
       const pointSumSerie1 = 200000
@@ -187,7 +205,7 @@ describe('Pensjonssimulering-utils', () => {
         y: pointSumSerie1,
         total,
         series: {
-          name: nameSerie1,
+          name: SERIE_NAME_INNTEKT,
           color: colorSerie1,
           chart: { yAxis: [{ pos: 300 } as ExtendedAxis] },
           yAxis: { height: 400 } as ExtendedAxis,
@@ -206,7 +224,7 @@ describe('Pensjonssimulering-utils', () => {
             y: pointSumSerie2,
             series: {
               ...point.series,
-              name: nameSerie2,
+              name: SERIE_NAME_ALDERSPENSJON,
               color: colorSerie2,
             },
           },
@@ -218,10 +236,10 @@ describe('Pensjonssimulering-utils', () => {
       )
       expect(tooltipMarkup).toContain(`800 000 kr`)
       expect(tooltipMarkup).toContain(
-        `Pensjon og inntekt det året du er ${alder} år`
+        `Inntekt og pensjon når du er ${alder} år`
       )
-      expect(tooltipMarkup).toContain(nameSerie1)
-      expect(tooltipMarkup).toContain(nameSerie2)
+      expect(tooltipMarkup).toContain(SERIE_NAME_INNTEKT)
+      expect(tooltipMarkup).toContain(SERIE_NAME_ALDERSPENSJON)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie1}`)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie2}`)
       expect(tooltipMarkup).toContain(`200 000 kr`)
