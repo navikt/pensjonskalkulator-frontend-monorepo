@@ -22,9 +22,9 @@ export function Step4() {
     useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
 
   useEffect(() => {
-    // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til samtykke steget
+    // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til start steget
     if (harSamtykket === null) {
-      return navigate('/samtykke')
+      return navigate('/start')
     }
   }, [])
 

@@ -102,13 +102,18 @@ describe('routes', () => {
     ).toBeInTheDocument()
   })
 
-  it('/pensjon/kalkulator/beregning viser beregningen', () => {
+  it('/pensjon/kalkulator/beregning viser beregningen (gitt at brukeren har samtykket)', () => {
     const router = createMemoryRouter(routes, {
       basename: ROUTER_BASE_URL,
       initialEntries: ['/pensjon/kalkulator/beregning'],
     })
 
-    render(<RouterProvider router={router} />, { hasRouter: false })
+    render(<RouterProvider router={router} />, {
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
+      hasRouter: false,
+    })
 
     expect(
       screen.getByText('Henter tidligste mulige uttaksalder')

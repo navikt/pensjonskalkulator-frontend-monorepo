@@ -21,9 +21,9 @@ export function Step3() {
 
   // TODO: hva skjer dersom tpo medlemskap feiler? Sender vi da direkte til AFP?
   useEffect(() => {
-    // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til samtykke steget
+    // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til start steget
     if (harSamtykket === null) {
-      return navigate('/samtykke')
+      return navigate('/start')
     }
     // Dersom brukeren ikke samtykker til henting av tpo, eller at den samtykker og at den ikke har noe aktiv tpo-medlemskap behøver ikke dette steget å vises
     if (

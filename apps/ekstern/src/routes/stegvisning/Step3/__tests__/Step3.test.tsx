@@ -4,33 +4,37 @@ import { describe, it, vi } from 'vitest'
 
 import { Step3 } from '..'
 import { mockResponse } from '@/mocks/server'
-import { RootState } from '@/state/store'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, waitFor, fireEvent } from '@/test-utils'
 
 describe('Step 3', () => {
-  it('redirigerer til Step 2 når brukeren ikke har svart på spørsmålet om samtykke, ', async () => {
+  it('redirigerer til Step 1 når brukeren prøver å aksessere steget direkte uten å ha svart på spørsmålet om samtykke,', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
     render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: null } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: null },
+      },
     })
-    expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+    expect(navigateMock).toHaveBeenCalledWith('/start')
   })
 
-  it('redirigerer til Step 4 når brukeren ikke har samtykket, ', async () => {
+  it('redirigerer til Step 4 når brukeren har svart nei på spørsmålet om samtykke,', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
     render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: false } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: false },
+      },
     })
     expect(navigateMock).toHaveBeenCalledWith('/afp')
   })
 
-  it('redirigerer til Step 4 når brukeren har samtykket og har ikke noe tpo medlemskap, ', async () => {
+  it('redirigerer til Step 4 når brukeren har samtykket og har ikke noe tpo medlemskap,', async () => {
     mockResponse('/tpo-medlemskap', {
       status: 200,
       json: { harTjenestepensjonsforhold: false },
@@ -40,16 +44,20 @@ describe('Step 3', () => {
       () => navigateMock
     )
     render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     await waitFor(() => {
       expect(navigateMock).toHaveBeenCalledWith('/afp')
     })
   })
 
-  it('rendrer Step 3 slik den skal når brukeren har samtykket og har tpo medlemskap, ', async () => {
+  it('rendrer Step 3 slik den skal når brukeren har samtykket og har tpo medlemskap,', async () => {
     render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
@@ -64,7 +72,9 @@ describe('Step 3', () => {
       () => navigateMock
     )
     render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     await waitFor(() => {
       fireEvent.click(screen.getByText('stegvisning.neste'))
@@ -78,7 +88,9 @@ describe('Step 3', () => {
       () => navigateMock
     )
     render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     await waitFor(() => {
       fireEvent.click(screen.getByText('stegvisning.tilbake'))
@@ -92,7 +104,9 @@ describe('Step 3', () => {
       () => navigateMock
     )
     const { store } = render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     await waitFor(() => {
       fireEvent.click(screen.getByText('stegvisning.avbryt'))

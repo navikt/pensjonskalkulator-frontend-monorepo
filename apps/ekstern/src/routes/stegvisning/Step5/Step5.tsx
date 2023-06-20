@@ -6,7 +6,7 @@ import {
   SivilstandRadio,
 } from '@/components/stegvisning/Sivilstand'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamtykke, selectSamboer } from '@/state/userInput/selectors'
+import { selectSamboer, selectSamtykke } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step5() {
@@ -16,9 +16,9 @@ export function Step5() {
   const harSamboer = useAppSelector(selectSamboer)
 
   useEffect(() => {
-    // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til samtykke steget
+    // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til start steget
     if (harSamtykket === null) {
-      return navigate('/samtykke')
+      return navigate('/start')
     }
   }, [])
 

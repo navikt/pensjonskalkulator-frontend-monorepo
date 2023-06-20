@@ -3,12 +3,11 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step5 } from '..'
-import { RootState } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, waitFor, fireEvent } from '@/test-utils'
 
-describe('Step 4', () => {
-  it('redirigerer til Step 2 når brukeren ikke har svart på spørsmålet om samtykke, ', async () => {
+describe('Step 5', () => {
+  it('redirigerer til Step 1 når brukeren prøver å aksessere steget direkte uten å ha svart på spørsmålet om samtykke,', async () => {
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -16,16 +15,16 @@ describe('Step 4', () => {
     render(<Step5 />, {
       preloadedState: {
         userInput: { ...userInputInitialState, samtykke: null },
-      } as RootState,
+      },
     })
-    expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+    expect(navigateMock).toHaveBeenCalledWith('/start')
   })
 
-  it('rendrer Step 5 slik den skal når brukeren har samtykket,', async () => {
+  it('rendrer Step 5 slik den skal når brukeren har svart på spørsmålet om samtykke,', async () => {
     render(<Step5 />, {
       preloadedState: {
         userInput: { ...userInputInitialState, samtykke: true },
-      } as RootState,
+      },
     })
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
@@ -43,7 +42,7 @@ describe('Step 4', () => {
     const { store } = render(<Step5 />, {
       preloadedState: {
         userInput: { ...userInputInitialState, samtykke: true },
-      } as RootState,
+      },
     })
     await waitFor(() => {
       const radioButtons = screen.getAllByRole('radio')
@@ -74,7 +73,7 @@ describe('Step 4', () => {
     const { store } = render(<Step5 />, {
       preloadedState: {
         userInput: { samtykke: true, afp: 'nei', samboer: true },
-      } as RootState,
+      },
     })
     await waitFor(() => {
       fireEvent.click(screen.getByText('stegvisning.avbryt'))

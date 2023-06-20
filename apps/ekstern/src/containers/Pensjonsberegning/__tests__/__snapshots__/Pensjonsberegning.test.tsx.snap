@@ -6,7 +6,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
     class="navds-alert navds-alert--error navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r6"
+      aria-labelledby="title-r7"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -17,7 +17,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r6"
+        id="title-r7"
       >
         Feil
       </title>
@@ -65,7 +65,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
           type="button"
         >
           <svg
-            aria-labelledby="title-r1"
+            aria-labelledby="title-r2"
             class="navds-help-text__icon"
             fill="none"
             focusable="false"
@@ -76,7 +76,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r1"
+              id="title-r2"
             >
               hjelp
             </title>
@@ -96,7 +96,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
             />
           </svg>
           <svg
-            aria-labelledby="title-r2"
+            aria-labelledby="title-r3"
             class="navds-help-text__icon navds-help-text__icon--filled"
             fill="none"
             focusable="false"
@@ -107,7 +107,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r2"
+              id="title-r3"
             >
               hjelp
             </title>
