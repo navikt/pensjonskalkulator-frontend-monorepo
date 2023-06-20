@@ -108,7 +108,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
               variant="tertiary"
               onClick={onVisFaerreAarClick}
             >
-              Vis færre år
+              Færre år
             </Button>
           )}
         </div>
@@ -124,7 +124,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
               variant="tertiary"
               onClick={onVisFlereAarClick}
             >
-              Vis flere år
+              Flere år
             </Button>
           )}
         </div>

@@ -447,7 +447,7 @@ describe('Pensjonssimulering-utils', () => {
   })
 
   describe('handleChartScroll', () => {
-    it('Viser Vis flere år knapp og skjuler Vis færre år knapp når graffens scroll posisjon er på 0', () => {
+    it('Viser Flere år knapp og skjuler Færre år knapp når graffens scroll posisjon er på 0', () => {
       const showRightButtonMock = vi.fn()
       const showLeftButtonMock = vi.fn()
 
@@ -465,7 +465,7 @@ describe('Pensjonssimulering-utils', () => {
       expect(showLeftButtonMock).toHaveBeenCalledWith(false)
     })
 
-    it('Skjuler Vis flere år knapp og viser Vis færre år knapp når graffens scroll posisjon er på maks', () => {
+    it('Skjuler Flere år knapp og viser Færre år knapp når graffens scroll posisjon er på maks', () => {
       const showRightButtonMock = vi.fn()
       const showLeftButtonMock = vi.fn()
 
@@ -485,7 +485,7 @@ describe('Pensjonssimulering-utils', () => {
       expect(showLeftButtonMock).toHaveBeenCalledWith(true)
     })
 
-    it('Viser både  Vis flere år knapp og Vis færre år knapp når graffens scroll posisjon er et sted i midten', () => {
+    it('Viser både Flere år knapp og Færre år knapp når graffens scroll posisjon er et sted i midten', () => {
       const showRightButtonMock = vi.fn()
       const showLeftButtonMock = vi.fn()
 

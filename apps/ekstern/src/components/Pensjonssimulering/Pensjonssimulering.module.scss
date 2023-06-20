@@ -98,7 +98,8 @@
   &Line {
     position: absolute;
     width: 2px;
-    background-color: var(--a-gray-600);
+    border-right: 2px dashed white;
+    background-color: var(--a-grayalpha-500);
   }
 }
 
