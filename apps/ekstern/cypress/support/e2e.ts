@@ -1,5 +1,7 @@
 import 'cypress-axe'
 
+import { userInputActions } from '../../src/state/userInput/userInputReducer'
+
 beforeEach(() => {
   cy.intercept(
     { method: 'POST', url: '/pensjon/kalkulator/api/tidligste-uttaksalder' },
@@ -14,3 +16,16 @@ beforeEach(() => {
     { fixture: 'alderspensjon.json' }
   )
 })
+
+Cypress.Commands.add(
+  'fillOutStegvisning',
+  (samtykke, afp = 'vet_ikke', samboer = true) => {
+    cy.window()
+      .its('store')
+      .invoke('dispatch', userInputActions.setSamtykke(samtykke))
+    cy.window().its('store').invoke('dispatch', userInputActions.setAfp(afp))
+    cy.window()
+      .its('store')
+      .invoke('dispatch', userInputActions.setSamboer(samboer))
+  }
+)

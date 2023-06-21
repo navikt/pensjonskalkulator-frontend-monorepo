@@ -3,3 +3,15 @@ declare module 'csstype' {
     [index: `--${string}`]: number | string
   }
 }
+
+declare global {
+  interface Window {
+    Cypress: unknown
+    router: Router
+    store: AppStore
+  }
+}
+
+window.Cypress = window.Cypress || {}
+
+export {}

@@ -39,3 +39,8 @@ ReactDOM.createRoot(root).render(
     </Provider>
   </React.StrictMode>
 )
+
+if (window.Cypress) {
+  window.store = store
+  window.router = router
+}
