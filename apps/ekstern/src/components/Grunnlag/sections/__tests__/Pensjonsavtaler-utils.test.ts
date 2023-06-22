@@ -1,5 +1,5 @@
 import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
-import { groupPensjonsavtalerByType } from '@/components/Grunnlag/accordion-items/Pensjonsavtaler-utils'
+import { groupPensjonsavtalerByType } from '../Pensjonsavtaler-utils'
 import { PensjonsavtaleType } from '@/types/enums'
 
 describe('groupPensjonsavtaler-utils', () => {

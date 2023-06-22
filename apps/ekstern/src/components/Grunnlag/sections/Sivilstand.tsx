@@ -2,10 +2,11 @@ import { useMemo } from 'react'
 
 import { Accordion, Alert, BodyLong, Link } from '@navikt/ds-react'
 
-import { formatSivilstand } from '@/components/Grunnlag/accordion-items/Sivilstand-utils'
+import { formatSivilstand } from './Sivilstand-utils'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 
 import { SectionHeader } from './components/SectionHeader'
+import { SectionContent } from './components/SectionContent'
 
 export function Sivilstand() {
   const { data: person, isError, isLoading, isSuccess } = useGetPersonQuery()
@@ -26,7 +27,7 @@ export function Sivilstand() {
   return (
     <Accordion.Item data-testid={'accordion-sivilstand'}>
       <SectionHeader label="Sivilstand" value={formatertSivilstand} />
-      <Accordion.Content>
+      <SectionContent>
         <BodyLong>
           Garantipensjon skal sikre et minste garantipensjonsnivå ved 67 år for
           de som har lav eller ingen opptjening til inntektspensjon. Størrelsen
@@ -34,7 +35,7 @@ export function Sivilstand() {
           partner eller samboer har egen inntekt eller mottar egen pensjon.{' '}
           <Link>Mer om garantipensjon og satser</Link>.
         </BodyLong>
-      </Accordion.Content>
+      </SectionContent>
     </Accordion.Item>
   )
 }

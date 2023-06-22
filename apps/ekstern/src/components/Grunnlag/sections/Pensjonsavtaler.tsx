@@ -3,13 +3,14 @@ import React from 'react'
 import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { groupPensjonsavtalerByType } from '@/components/Grunnlag/accordion-items/Pensjonsavtaler-utils'
+import { groupPensjonsavtalerByType } from './Pensjonsavtaler-utils'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 
 import { SectionHeader } from './components/SectionHeader'
 
 import styles from './Pensjonsavtaler.module.scss'
+import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
 
 interface Props {
   pensjonsavtaler: Pensjonsavtale[]
@@ -21,12 +22,12 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
   }
 
   return (
-    <Accordion.Item>
+    <Accordion.Item data-testid="pensjonsavtaler">
       <SectionHeader
         label="Pensjonsavtaler"
         value={`${pensjonsavtaler.length}`}
       />
-      <Accordion.Content>
+      <SectionContent>
         <table className={styles.tabell}>
           <thead>
             <tr>
@@ -88,7 +89,7 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
           andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell
           pensjonsordning.
         </BodyLong>
-      </Accordion.Content>
+      </SectionContent>
     </Accordion.Item>
   )
 }

@@ -3,6 +3,7 @@ import React from 'react'
 import { Accordion, BodyLong, Link } from '@navikt/ds-react'
 
 import { SectionHeader } from './components/SectionHeader'
+import { SectionContent } from './components/SectionContent'
 
 interface Props {
   uttaksalder: Uttaksalder
@@ -19,7 +20,7 @@ export function TidligstMuligUttak({ uttaksalder }: Props) {
             : `${uttaksalder.aar} år, ${uttaksalder.maaned} md.`
         }
       />
-      <Accordion.Content>
+      <SectionContent>
         <BodyLong>
           Viser første mulige tidspunkt for uttak av 100 % alderspensjon.
           Tidspunktet kan bli endret dersom din inntekt endrer seg. Selv om du
@@ -44,7 +45,7 @@ export function TidligstMuligUttak({ uttaksalder }: Props) {
           Tidspunktet er et estimat og du bør sjekke igjen når tidspunktet
           nærmer seg.
         </BodyLong>
-      </Accordion.Content>
+      </SectionContent>
     </Accordion.Item>
   )
 }

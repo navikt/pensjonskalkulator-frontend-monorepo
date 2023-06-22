@@ -2,7 +2,8 @@ import React from 'react'
 
 import { Accordion, BodyLong } from '@navikt/ds-react'
 
-import { SectionHeader } from '@/components/Grunnlag/accordion-items/components/SectionHeader'
+import { SectionHeader } from './components/SectionHeader'
+import { SectionContent } from './components/SectionContent'
 
 const gyldigeUttaksgrader = [20, 40, 50, 60, 80, 100]
 
@@ -22,7 +23,7 @@ export function Uttaksgrad({ uttaksgrad }: Props) {
   return (
     <Accordion.Item>
       <SectionHeader label="Uttaksgrad" value={`${uttaksgrad} %`} />
-      <Accordion.Content>
+      <SectionContent>
         <BodyLong>
           Denne beregningen viser {uttaksgrad} % uttak av alderspensjon. I
           avansert kalkulator kan du beregne alderspensjon med andre
@@ -30,7 +31,7 @@ export function Uttaksgrad({ uttaksgrad }: Props) {
           ). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt
           ut {uttaksgrad} %.
         </BodyLong>
-      </Accordion.Content>
+      </SectionContent>
     </Accordion.Item>
   )
 }
