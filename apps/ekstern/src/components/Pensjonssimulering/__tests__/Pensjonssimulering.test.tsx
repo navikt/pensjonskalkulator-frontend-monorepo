@@ -8,13 +8,12 @@ describe('Pensjonssimulering', () => {
     const { container, asFragment } = render(
       <Pensjonssimulering uttaksalder={65} />
     )
-    await waitFor(() => {
-      expect(screen.getByText('Beregning')).toBeInTheDocument()
-      expect(
-        container.getElementsByClassName('highcharts-container').length
-      ).toBe(1)
-      expect(asFragment()).toMatchSnapshot()
-    })
+
+    expect(await screen.findByText('Beregning')).toBeVisible()
+    expect(
+      container.getElementsByClassName('highcharts-container')
+    ).toHaveLength(1)
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('viser tabell og oppdaterer label når brukeren klikker på Vis tabell knapp', async () => {
