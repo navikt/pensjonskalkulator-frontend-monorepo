@@ -1,16 +1,17 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
+import { useGetPensjonsavtalerQuery } from '@/state/api/apiSlice'
+
 import { AFP } from './sections/AFP'
 import { Alderspensjon } from './sections/Alderspensjon'
+import { SectionSkeleton } from './sections/components/SectionSkeleton'
 import { Inntekt } from './sections/Inntekt'
 import { Pensjonsavtaler } from './sections/Pensjonsavtaler'
 import { Sivilstand } from './sections/Sivilstand'
 import { TidligstMuligUttak } from './sections/TidligstMuligUttak'
-import { Uttaksgrad } from './sections/Uttaksgrad'
 import { Utenlandsopphold } from './sections/Utenlandsopphold'
-import { SectionSkeleton } from './sections/components/SectionSkeleton'
-import { useGetPensjonsavtalerQuery } from '@/state/api/apiSlice'
+import { Uttaksgrad } from './sections/Uttaksgrad'
 
 import styles from './Grunnlag.module.scss'
 

@@ -3,14 +3,14 @@ import React from 'react'
 import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { groupPensjonsavtalerByType } from './Pensjonsavtaler-utils'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 
+import { SectionContent } from './components/SectionContent'
 import { SectionHeader } from './components/SectionHeader'
+import { groupPensjonsavtalerByType } from './Pensjonsavtaler-utils'
 
 import styles from './Pensjonsavtaler.module.scss'
-import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
 
 interface Props {
   pensjonsavtaler: Pensjonsavtale[]

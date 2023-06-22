@@ -93,8 +93,9 @@
     "**/*.{css,scss}": [
       "npm run stylelint:check"
     ],
-    "**/*.{cjs,js,jsx,ts,tsx,json}": [
-      "npm run prettier:check"
+    "**/*.{cjs,js,jsx,ts,tsx}": [
+      "npm run prettier:check",
+      "npm run eslint:check"
     ]
   }
 }

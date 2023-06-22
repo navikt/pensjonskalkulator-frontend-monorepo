@@ -1,7 +1,8 @@
-import { Grunnlag } from '@/components/Grunnlag'
-import { render, screen } from '@/test-utils'
-import { mockErrorResponse } from '@/mocks/server'
 import { waitFor } from '@testing-library/react'
+
+import { Grunnlag } from '@/components/Grunnlag'
+import { mockErrorResponse } from '@/mocks/server'
+import { render, screen } from '@/test-utils'
 
 describe('Grunnlag', () => {
   it('viser tidligst mulig uttak', async () => {

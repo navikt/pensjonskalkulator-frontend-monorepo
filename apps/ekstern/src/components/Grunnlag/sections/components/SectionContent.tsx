@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react'
+
 import { Accordion } from '@navikt/ds-react'
 
 import styles from './SectionContent.module.scss'

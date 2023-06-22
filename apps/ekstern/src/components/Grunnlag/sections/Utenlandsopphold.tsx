@@ -1,6 +1,7 @@
 import { Accordion, BodyLong, Link } from '@navikt/ds-react'
-import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
+
 import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
+import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
 
 export const Utenlandsopphold = () => {
   return (

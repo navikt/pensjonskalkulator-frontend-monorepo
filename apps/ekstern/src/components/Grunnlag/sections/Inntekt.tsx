@@ -4,8 +4,8 @@ import { Accordion, BodyLong } from '@navikt/ds-react'
 
 import { formatAsDecimal } from '@/utils/currency'
 
-import { SectionHeader } from './components/SectionHeader'
 import { SectionContent } from './components/SectionContent'
+import { SectionHeader } from './components/SectionHeader'
 
 interface Props {
   inntekt: number
