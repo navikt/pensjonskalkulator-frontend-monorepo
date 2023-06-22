@@ -6,7 +6,7 @@ import { Step4 } from '..'
 import * as Step4Utils from '../utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
-import { screen, render, waitFor, fireEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('Step 4', () => {
   it('redirigerer til Step 2 når brukeren ikke har svart på spørsmålet om samtykke, ', async () => {
@@ -45,6 +45,7 @@ describe('Step 4', () => {
   })
 
   it('registrerer afp og samboerskap og navigerer videre til beregning når brukeren velger afp og klikker på Neste (gitt at brukeren har samboer)', async () => {
+    const user = userEvent.setup()
     mockResponse('/person', {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: 'GIFT' },
@@ -58,10 +59,10 @@ describe('Step 4', () => {
     const { store } = render(<Step4 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-    await waitFor(() => {
+    await waitFor(async () => {
       const radioButtons = screen.getAllByRole('radio')
-      fireEvent.click(radioButtons[0])
-      fireEvent.click(screen.getByText('stegvisning.neste'))
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
       expect(nesteSideMock).toHaveBeenCalledWith(true)
@@ -71,6 +72,7 @@ describe('Step 4', () => {
   })
 
   it('registrerer afp og navigerer videre til steg 5 når brukeren velger afp og klikker på Neste (gitt at brukeren ikke har samboer)', async () => {
+    const user = userEvent.setup()
     const checkHarSamboerMock = vi.spyOn(Step4Utils, 'checkHarSamboer')
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()
@@ -80,10 +82,10 @@ describe('Step 4', () => {
     const { store } = render(<Step4 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-    await waitFor(() => {
+    await waitFor(async () => {
       const radioButtons = screen.getAllByRole('radio')
-      fireEvent.click(radioButtons[0])
-      fireEvent.click(screen.getByText('stegvisning.neste'))
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(checkHarSamboerMock).toHaveBeenCalledWith('UGIFT')
       expect(nesteSideMock).toHaveBeenCalledWith(false)
@@ -92,6 +94,7 @@ describe('Step 4', () => {
   })
 
   it('registrerer afp og navigerer videre til steg 5 når brukeren velger afp og klikker på Neste (gitt at kall til /person feiler)', async () => {
+    const user = userEvent.setup()
     mockErrorResponse('/person')
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()
@@ -101,10 +104,10 @@ describe('Step 4', () => {
     const { store } = render(<Step4 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-    await waitFor(() => {
+    await waitFor(async () => {
       const radioButtons = screen.getAllByRole('radio')
-      fireEvent.click(radioButtons[0])
-      fireEvent.click(screen.getByText('stegvisning.neste'))
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(nesteSideMock).toHaveBeenCalledWith(null)
       expect(navigateMock).toHaveBeenCalledWith('/sivilstand')
@@ -112,6 +115,7 @@ describe('Step 4', () => {
   })
 
   it('sender tilbake til steg 2 når brukeren ikke har tpo-medlemskap og klikker på Tilbake', async () => {
+    const user = userEvent.setup()
     mockResponse('/tpo-medlemskap', {
       status: 200,
       json: { harTjenestepensjonsforhold: false },
@@ -121,13 +125,14 @@ describe('Step 4', () => {
       () => navigateMock
     )
     render(<Step4 />)
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.tilbake'))
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.tilbake'))
       expect(navigateMock).toHaveBeenCalledWith('/samtykke')
     })
   })
 
   it('sender tilbake til steg 3 når brukeren har tpo medlemskap og klikker på Tilbake', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -135,13 +140,14 @@ describe('Step 4', () => {
     render(<Step4 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.tilbake'))
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.tilbake'))
       expect(navigateMock).toHaveBeenCalledWith('/offentlig-tp')
     })
   })
 
   it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -151,8 +157,8 @@ describe('Step 4', () => {
         userInput: { samtykke: true, afp: 'nei' },
       } as RootState,
     })
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.avbryt'))
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.avbryt'))
       expect(navigateMock).toHaveBeenCalledWith('/')
       expect(store.getState().userInput.samtykke).toBe(null)
       expect(store.getState().userInput.afp).toBe(null)

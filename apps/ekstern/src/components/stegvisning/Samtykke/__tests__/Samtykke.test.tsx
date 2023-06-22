@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Samtykke } from '..'
 import { RootState } from '@/state/store'
-import { act, screen, render, waitFor, fireEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - Samtykke', () => {
   const onCancelMock = vi.fn()
@@ -66,6 +66,7 @@ describe('stegvisning - Samtykke', () => {
   })
 
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
+    const user = userEvent.setup()
     render(
       <Samtykke
         harSamtykket={null}
@@ -75,30 +76,31 @@ describe('stegvisning - Samtykke', () => {
       />
     )
     const radioButtons = screen.getAllByRole('radio')
-    act(() => {
-      fireEvent.click(screen.getByText('stegvisning.neste'))
-    })
+
+    await user.click(screen.getByText('stegvisning.neste'))
+
     waitFor(() => {
       expect(
         screen.getByText('stegvisning.samtykke.validation_error')
       ).toBeInTheDocument()
       expect(onNextMock).not.toHaveBeenCalled()
     })
-    act(() => {
-      fireEvent.click(radioButtons[0])
-    })
+
+    await user.click(radioButtons[0])
+
     expect(
       screen.queryByText('stegvisning.samtykke.validation_error')
     ).not.toBeInTheDocument()
-    act(() => {
-      fireEvent.click(screen.getByText('stegvisning.neste'))
-    })
+
+    await user.click(screen.getByText('stegvisning.neste'))
+
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
     })
   })
 
-  it('kaller onPrevious når brukeren klikker på Tilbake', () => {
+  it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
+    const user = userEvent.setup()
     render(
       <Samtykke
         harSamtykket
@@ -112,15 +114,16 @@ describe('stegvisning - Samtykke', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[0]).toBeChecked()
-    act(() => {
-      fireEvent.click(screen.getByText('stegvisning.tilbake'))
-    })
+
+    await user.click(screen.getByText('stegvisning.tilbake'))
+
     waitFor(() => {
       expect(onPreviousMock).toHaveBeenCalled()
     })
   })
 
-  it('kaller onCancelMock når brukeren klikker på Avbryt', () => {
+  it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
+    const user = userEvent.setup()
     render(
       <Samtykke
         harSamtykket
@@ -129,9 +132,9 @@ describe('stegvisning - Samtykke', () => {
         onNext={onNextMock}
       />
     )
-    act(() => {
-      fireEvent.click(screen.getByText('stegvisning.avbryt'))
-    })
+
+    await user.click(screen.getByText('stegvisning.avbryt'))
+
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })

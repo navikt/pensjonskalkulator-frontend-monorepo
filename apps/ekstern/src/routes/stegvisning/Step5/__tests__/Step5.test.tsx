@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Step5 } from '..'
 import { RootState } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { screen, render, waitFor, fireEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('Step 4', () => {
   it('redirigerer til Step 2 når brukeren ikke har svart på spørsmålet om samtykke, ', async () => {
@@ -36,6 +36,7 @@ describe('Step 4', () => {
   })
 
   it('registrerer sivilstand og navigerer videre til beregning når brukeren svarer og klikker på Neste', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -45,28 +46,30 @@ describe('Step 4', () => {
         userInput: { ...userInputInitialState, samtykke: true },
       } as RootState,
     })
-    await waitFor(() => {
+    await waitFor(async () => {
       const radioButtons = screen.getAllByRole('radio')
-      fireEvent.click(radioButtons[0])
-      fireEvent.click(screen.getByText('stegvisning.beregn'))
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.beregn'))
       expect(store.getState().userInput.samboer).toBe(true)
       expect(navigateMock).toHaveBeenCalledWith('/beregning')
     })
   })
 
   it('sender tilbake til steg 4 når brukeren klikker på Tilbake', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
     render(<Step5 />)
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.tilbake'))
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.tilbake'))
       expect(navigateMock).toHaveBeenCalledWith('/afp')
     })
   })
 
   it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -76,8 +79,8 @@ describe('Step 4', () => {
         userInput: { samtykke: true, afp: 'nei', samboer: true },
       } as RootState,
     })
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.avbryt'))
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.avbryt'))
       expect(navigateMock).toHaveBeenCalledWith('/')
       expect(store.getState().userInput.samtykke).toBe(null)
       expect(store.getState().userInput.afp).toBe(null)
