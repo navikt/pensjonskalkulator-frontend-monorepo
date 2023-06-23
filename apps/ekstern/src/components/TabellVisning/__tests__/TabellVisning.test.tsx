@@ -2,7 +2,7 @@ import { SeriesColumnOptions } from 'highcharts'
 import { describe, it } from 'vitest'
 
 import { TabellVisning } from '../TabellVisning'
-import { render, screen, fireEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('TabellVisning', () => {
   const series: SeriesColumnOptions[] = [
@@ -28,6 +28,7 @@ describe('TabellVisning', () => {
   ]
 
   it('rendrer riktig formatert tabell med detaljer', async () => {
+    const user = userEvent.setup()
     const { asFragment } = render(
       <TabellVisning
         series={[...series]}
@@ -42,7 +43,7 @@ describe('TabellVisning', () => {
     expect(screen.getAllByRole('button')).toHaveLength(8)
     const buttons = screen.getAllByRole('button')
     expect(screen.getByText('480 000')).toBeInTheDocument()
-    fireEvent.click(buttons[0])
+    await user.click(buttons[0])
     await waitFor(() => {
       expect(screen.getAllByRole('term')).toHaveLength(3)
       expect(screen.getByText('100 000')).toBeInTheDocument()

@@ -44,14 +44,14 @@ exports[`Sivilstand > viser riktig tekst og lenke når henting av sivilstand er 
       Sivilstand
       : 
       <span
-        class="_details_8a9925"
+        class="_details_c03039"
       >
         Gift
       </span>
     </span>
   </button>
   <div
-    class="navds-accordion__content navds-accordion__content--closed navds-body-long"
+    class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long"
   >
     <p
       class="navds-body-long"

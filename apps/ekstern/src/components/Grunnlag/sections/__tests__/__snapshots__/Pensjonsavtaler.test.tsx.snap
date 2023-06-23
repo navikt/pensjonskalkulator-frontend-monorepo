@@ -4,6 +4,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
 <DocumentFragment>
   <div
     class="navds-accordion__item"
+    data-testid="pensjonsavtaler"
   >
     <button
       aria-expanded="false"
@@ -43,27 +44,27 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
       >
         Pensjonsavtaler: 
         <span
-          class="_details_8a9925"
+          class="_details_c03039"
         >
           1
         </span>
       </span>
     </button>
     <div
-      class="navds-accordion__content navds-accordion__content--closed navds-body-long"
+      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long"
     >
       <table
-        class="_tabell_1652ed"
+        class="_tabell_ac6b69"
       >
         <thead>
           <tr>
             <th
-              class="_tabellHeader_1652ed"
+              class="_tabellHeader_ac6b69"
             >
               Pensjonsavtale
             </th>
             <th
-              class="_tabellHeader_1652ed _tabellHeader__Right_1652ed"
+              class="_tabellHeader_ac6b69 _tabellHeader__Right_ac6b69"
             >
               Årlig utbetaling
             </th>
@@ -72,11 +73,11 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
         <tbody>
           <tr>
             <td
-              class="_tabellCell_1652ed"
+              class="_tabellCell_ac6b69"
               colspan="2"
             >
               <p
-                class="_mellomtittel_1652ed navds-body-short"
+                class="_mellomtittel_ac6b69 navds-body-short"
               >
                 Undefined
               </p>
@@ -84,7 +85,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
           </tr>
           <tr>
             <td
-              class="_tabellCell_1652ed"
+              class="_tabellCell_ac6b69"
             >
               <p
                 class="navds-body-short"
@@ -92,13 +93,13 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
                 Fra DNB
               </p>
               <p
-                class="_utbetaling_1652ed navds-body-short"
+                class="_utbetaling_ac6b69 navds-body-short"
               >
                 Livsvarig utbetaling fra 67 år og 1
               </p>
             </td>
             <td
-              class="_tabellCell_1652ed _tabellCell__Right_1652ed"
+              class="_tabellCell_ac6b69 _tabellCell__Right_ac6b69"
             >
               <p
                 class="navds-body-short"
@@ -110,7 +111,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
         </tbody>
       </table>
       <p
-        class="_paragraph_1652ed navds-body-long navds-body-long--small"
+        class="_paragraph_ac6b69 navds-body-long navds-body-long--small"
       >
         Alle avtaler i privat sektor er hentet fra 
         <a
@@ -130,6 +131,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
 <DocumentFragment>
   <div
     class="navds-accordion__item"
+    data-testid="pensjonsavtaler"
   >
     <button
       aria-expanded="false"
@@ -169,27 +171,27 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
       >
         Pensjonsavtaler: 
         <span
-          class="_details_8a9925"
+          class="_details_c03039"
         >
           1
         </span>
       </span>
     </button>
     <div
-      class="navds-accordion__content navds-accordion__content--closed navds-body-long"
+      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long"
     >
       <table
-        class="_tabell_1652ed"
+        class="_tabell_ac6b69"
       >
         <thead>
           <tr>
             <th
-              class="_tabellHeader_1652ed"
+              class="_tabellHeader_ac6b69"
             >
               Pensjonsavtale
             </th>
             <th
-              class="_tabellHeader_1652ed _tabellHeader__Right_1652ed"
+              class="_tabellHeader_ac6b69 _tabellHeader__Right_ac6b69"
             >
               Årlig utbetaling
             </th>
@@ -198,11 +200,11 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
         <tbody>
           <tr>
             <td
-              class="_tabellCell_1652ed"
+              class="_tabellCell_ac6b69"
               colspan="2"
             >
               <p
-                class="_mellomtittel_1652ed navds-body-short"
+                class="_mellomtittel_ac6b69 navds-body-short"
               >
                 Undefined
               </p>
@@ -210,7 +212,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
           </tr>
           <tr>
             <td
-              class="_tabellCell_1652ed"
+              class="_tabellCell_ac6b69"
             >
               <p
                 class="navds-body-short"
@@ -218,13 +220,13 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
                 Fra DNB
               </p>
               <p
-                class="_utbetaling_1652ed navds-body-short"
+                class="_utbetaling_ac6b69 navds-body-short"
               >
                 Utbetales fra 67 og 1 til 77 år og 8
               </p>
             </td>
             <td
-              class="_tabellCell_1652ed _tabellCell__Right_1652ed"
+              class="_tabellCell_ac6b69 _tabellCell__Right_ac6b69"
             >
               <p
                 class="navds-body-short"
@@ -236,7 +238,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
         </tbody>
       </table>
       <p
-        class="_paragraph_1652ed navds-body-long navds-body-long--small"
+        class="_paragraph_ac6b69 navds-body-long navds-body-long--small"
       >
         Alle avtaler i privat sektor er hentet fra 
         <a

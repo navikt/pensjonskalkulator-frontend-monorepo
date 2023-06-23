@@ -1,7 +1,7 @@
 import { describe, it, vi } from 'vitest'
 
 import { Start } from '..'
-import { render, screen, waitFor, fireEvent } from '@/test-utils'
+import { render, screen, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - Start', () => {
   const onCancelMock = vi.fn()
@@ -33,15 +33,17 @@ describe('stegvisning - Start', () => {
     })
   })
 
-  it('kaller onNext når brukeren klikker på Neste', () => {
+  it('kaller onNext når brukeren klikker på Neste', async () => {
+    const user = userEvent.setup()
     render(<Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
-    fireEvent.click(screen.getByText('stegvisning.start.start'))
+    await user.click(screen.getByText('stegvisning.start.start'))
     expect(onNextMock).toHaveBeenCalled()
   })
 
-  it('kaller onCancel når brukeren klikker på Avbryt', () => {
+  it('kaller onCancel når brukeren klikker på Avbryt', async () => {
+    const user = userEvent.setup()
     render(<Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
-    fireEvent.click(screen.getByText('stegvisning.avbryt'))
+    await user.click(screen.getByText('stegvisning.avbryt'))
     expect(onCancelMock).toHaveBeenCalled()
   })
 })

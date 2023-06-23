@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Step3 } from '..'
 import { mockResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
-import { screen, render, waitFor, fireEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('Step 3', () => {
   it('redirigerer til Step 2 når brukeren ikke har svart på spørsmålet om samtykke, ', async () => {
@@ -59,6 +59,7 @@ describe('Step 3', () => {
   })
 
   it('sender videre til steg 4 når brukeren klikker på Neste', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -66,13 +67,14 @@ describe('Step 3', () => {
     render(<Step3 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.neste'))
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.neste'))
       expect(navigateMock).toHaveBeenCalledWith('/afp')
     })
   })
 
   it('sender tilbake til steg 2 når brukeren klikker på Tilbake', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -80,13 +82,14 @@ describe('Step 3', () => {
     render(<Step3 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.tilbake'))
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.tilbake'))
       expect(navigateMock).toHaveBeenCalledWith('/samtykke')
     })
   })
 
   it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -94,8 +97,8 @@ describe('Step 3', () => {
     const { store } = render(<Step3 />, {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('stegvisning.avbryt'))
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.avbryt'))
       expect(navigateMock).toHaveBeenCalledWith('/')
       expect(store.getState().userInput.samtykke).toBe(null)
     })
