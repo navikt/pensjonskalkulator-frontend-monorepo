@@ -6,40 +6,18 @@
 }
 
 .ingress {
-  line-height: var(--a-font-line-height-heading-medium);
+  line-height: var(--a-font-line-height-xlarge);
 }
 
 .highlighted {
-  font-size: var(--a-font-size-heading-large);
+  font-size: var(--a-font-size-heading-medium);
+  line-height: var(--a-font-line-height-heading-medium);
   font-weight: var(--a-font-weight-bold);
   padding-bottom: var(--a-spacing-2);
 }
 
-:global {
-  .navds-help-text {
-    display: inline-block;
-  }
-
-  .navds-help-text__popover {
-    left: var(--a-spacing-6) !important;
-    right: var(--a-spacing-6) !important;
-  }
-
-  @media (min-width: $a-breakpoint-lg) {
-    .navds-help-text__popover {
-      right: unset !important;
-    }
-  }
-
-  @media (max-width: $a-breakpoint-md) {
-    .navds-popover__arrow {
-      margin-left: var(--a-spacing-6) !important;
-    }
-  }
-}
-
 .helptext {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
   margin-left: var(--a-spacing-2);
 }

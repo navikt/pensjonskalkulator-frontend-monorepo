@@ -1,7 +1,7 @@
 import { describe, it, vi } from 'vitest'
 
 import { OffentligTP } from '..'
-import { screen, render, waitFor, fireEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - OffentligTP', () => {
   const onCancelMock = vi.fn()
@@ -24,7 +24,8 @@ describe('stegvisning - OffentligTP', () => {
     })
   })
 
-  it('kaller onNext når brukeren klikker på Neste', () => {
+  it('kaller onNext når brukeren klikker på Neste', async () => {
+    const user = userEvent.setup()
     render(
       <OffentligTP
         onCancel={onCancelMock}
@@ -32,11 +33,12 @@ describe('stegvisning - OffentligTP', () => {
         onNext={onNextMock}
       />
     )
-    fireEvent.click(screen.getByText('stegvisning.neste'))
+    await user.click(screen.getByText('stegvisning.neste'))
     expect(onNextMock).toHaveBeenCalled()
   })
 
-  it('kaller onPrevious når brukeren klikker på Tilbake', () => {
+  it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
+    const user = userEvent.setup()
     render(
       <OffentligTP
         onCancel={onCancelMock}
@@ -45,11 +47,12 @@ describe('stegvisning - OffentligTP', () => {
       />
     )
 
-    fireEvent.click(screen.getByText('stegvisning.tilbake'))
+    await user.click(screen.getByText('stegvisning.tilbake'))
     expect(onPreviousMock).toHaveBeenCalled()
   })
 
-  it('kaller onCancel når brukeren klikker på Avbryt', () => {
+  it('kaller onCancel når brukeren klikker på Avbryt', async () => {
+    const user = userEvent.setup()
     render(
       <OffentligTP
         onCancel={onCancelMock}
@@ -58,7 +61,7 @@ describe('stegvisning - OffentligTP', () => {
       />
     )
 
-    fireEvent.click(screen.getByText('stegvisning.avbryt'))
+    await user.click(screen.getByText('stegvisning.avbryt'))
     expect(onCancelMock).toHaveBeenCalled()
   })
 })

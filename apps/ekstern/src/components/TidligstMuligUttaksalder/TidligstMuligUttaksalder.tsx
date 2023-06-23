@@ -20,7 +20,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
         </Ingress>
         <div className={styles.highlighted}>
           {formatUttaksalder(uttaksalder)}
-          <HelpText className={styles.helptext}>
+          <HelpText wrapperClassName={styles.helptext}>
             For å starte uttak mellom 62 og 67 år må opptjeningen være høy nok.
             Tidspunktet er et estimat.
           </HelpText>

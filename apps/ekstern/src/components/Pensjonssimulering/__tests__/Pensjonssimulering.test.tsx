@@ -1,27 +1,27 @@
 import { describe, it } from 'vitest'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
-import { render, screen, waitFor, fireEvent } from '@/test-utils'
+import { render, screen, waitFor, userEvent } from '@/test-utils'
 
 describe('Pensjonssimulering', () => {
   it('rendrer med riktig tittel og chart og uten scroll-knapper', async () => {
     const { container, asFragment } = render(
       <Pensjonssimulering uttaksalder={65} />
     )
-    await waitFor(() => {
-      expect(screen.getByText('Beregning')).toBeInTheDocument()
-      expect(
-        container.getElementsByClassName('highcharts-container').length
-      ).toBe(1)
-      expect(asFragment()).toMatchSnapshot()
-    })
+
+    expect(await screen.findByText('Beregning')).toBeVisible()
+    expect(
+      container.getElementsByClassName('highcharts-container')
+    ).toHaveLength(1)
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('viser tabell og oppdaterer label når brukeren klikker på Vis tabell knapp', async () => {
+    const user = userEvent.setup()
     render(<Pensjonssimulering uttaksalder={65} />)
 
     expect(screen.getByText('Vis tabell')).toBeVisible()
-    fireEvent.click(screen.getByText('Vis tabell'))
+    await user.click(screen.getByText('Vis tabell'))
     expect(screen.getByText('Lukk tabell')).toBeVisible()
     expect(screen.getAllByRole('row').length).toBe(16)
   })

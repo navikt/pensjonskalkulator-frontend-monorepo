@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { AFP } from '..'
 import { RootState } from '@/state/store'
-import { act, screen, render, waitFor, fireEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - AFP', () => {
   const onCancelMock = vi.fn()
@@ -56,6 +56,7 @@ describe('stegvisning - AFP', () => {
   })
 
   it('viser riktig infomeldinger når brukeren klikker på de ulike valgene', async () => {
+    const user = userEvent.setup()
     render(
       <AFP
         afp={null}
@@ -74,36 +75,36 @@ describe('stegvisning - AFP', () => {
     expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
-    act(() => {
-      fireEvent.click(radioButtons[0])
-    })
+
+    await user.click(radioButtons[0])
+
     expect(
       screen.queryByText('stegvisning.afp.alert_ja_offentlig')
     ).toBeInTheDocument()
     expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
-    act(() => {
-      fireEvent.click(radioButtons[1])
-    })
+
+    await user.click(radioButtons[1])
+
     expect(
       screen.queryByText('stegvisning.afp.alert_ja_offentlig')
     ).not.toBeInTheDocument()
     expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
-    act(() => {
-      fireEvent.click(radioButtons[2])
-    })
+
+    await user.click(radioButtons[2])
+
     expect(
       screen.queryByText('stegvisning.afp.alert_ja_offentlig')
     ).not.toBeInTheDocument()
     expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
-    act(() => {
-      fireEvent.click(radioButtons[3])
-    })
+
+    await user.click(radioButtons[3])
+
     expect(
       screen.queryByText('stegvisning.afp.alert_ja_offentlig')
     ).not.toBeInTheDocument()
@@ -113,6 +114,7 @@ describe('stegvisning - AFP', () => {
   })
 
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
+    const user = userEvent.setup()
     render(
       <AFP
         afp={null}
@@ -122,30 +124,31 @@ describe('stegvisning - AFP', () => {
       />
     )
     const radioButtons = screen.getAllByRole('radio')
-    act(() => {
-      fireEvent.click(screen.getByText('stegvisning.neste'))
-    })
+
+    await user.click(screen.getByText('stegvisning.neste'))
+
     waitFor(() => {
       expect(
         screen.getByText('stegvisning.afp.validation_error')
       ).toBeInTheDocument()
       expect(onNextMock).not.toHaveBeenCalled()
     })
-    act(() => {
-      fireEvent.click(radioButtons[0])
-    })
+
+    await user.click(radioButtons[0])
+
     expect(
       screen.queryByText('stegvisning.afp.validation_error')
     ).not.toBeInTheDocument()
-    act(() => {
-      fireEvent.click(screen.getByText('stegvisning.neste'))
-    })
+
+    await user.click(screen.getByText('stegvisning.neste'))
+
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
     })
   })
 
-  it('kaller onPrevious når brukeren klikker på Tilbake', () => {
+  it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
+    const user = userEvent.setup()
     render(
       <AFP
         afp={'ja_privat'}
@@ -158,11 +161,12 @@ describe('stegvisning - AFP', () => {
       }
     )
 
-    fireEvent.click(screen.getByText('stegvisning.tilbake'))
+    await user.click(screen.getByText('stegvisning.tilbake'))
     expect(onPreviousMock).toHaveBeenCalled()
   })
 
-  it('kaller onCancel når brukeren klikker på Avbryt', () => {
+  it('kaller onCancel når brukeren klikker på Avbryt', async () => {
+    const user = userEvent.setup()
     render(
       <AFP
         afp={'ja_privat'}
@@ -172,7 +176,7 @@ describe('stegvisning - AFP', () => {
       />
     )
 
-    fireEvent.click(screen.getByText('stegvisning.avbryt'))
+    await user.click(screen.getByText('stegvisning.avbryt'))
     expect(onCancelMock).toHaveBeenCalled()
   })
 })

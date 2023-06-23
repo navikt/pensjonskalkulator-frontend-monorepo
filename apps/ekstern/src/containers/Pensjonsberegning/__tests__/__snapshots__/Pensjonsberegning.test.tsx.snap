@@ -57,11 +57,11 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
     >
       67 år og 1 måneder
       <div
-        class="navds-help-text"
+        class="navds-help-text _helptext_f5a642"
       >
         <button
           aria-expanded="false"
-          class="_helptext_f5a642 navds-help-text__button"
+          class="navds-help-text__button"
           type="button"
         >
           <svg

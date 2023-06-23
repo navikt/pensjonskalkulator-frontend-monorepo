@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { describe, it, vi } from 'vitest'
 
 import { PageFramework } from '..'
-import { render, screen, fireEvent } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 function TestComponent() {
   return <Link to="/something-else">Klikk</Link>
@@ -24,6 +24,7 @@ describe('PageFramework', () => {
   })
 
   it('scroller på toppen av siden når en route endrer seg', async () => {
+    const user = userEvent.setup()
     const scrollToMock = vi.fn()
     Object.defineProperty(global.window, 'scrollTo', {
       value: scrollToMock,
@@ -36,7 +37,7 @@ describe('PageFramework', () => {
       </PageFramework>
     )
 
-    await fireEvent.click(screen.getByText('Klikk'))
+    await await user.click(screen.getByText('Klikk'))
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
   })
 })

@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { TilbakeEllerAvslutt } from '..'
 import { RootState } from '@/state/store'
-import { render, screen, fireEvent } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 const realLocation = window.location
 
 describe('TilbakeEllerAvslutt', () => {
@@ -21,7 +21,8 @@ describe('TilbakeEllerAvslutt', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('nullstiller input fra brukeren og redirigerer til første steg av stegvisning når brukeren klikker på Start ny beregning', () => {
+  it('nullstiller input fra brukeren og redirigerer til første steg av stegvisning når brukeren klikker på Start ny beregning', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -30,12 +31,13 @@ describe('TilbakeEllerAvslutt', () => {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
 
-    fireEvent.click(screen.getByText('Start ny beregning'))
+    await user.click(screen.getByText('Start ny beregning'))
     expect(navigateMock).toHaveBeenCalledWith('/start')
     expect(store.getState().userInput.samtykke).toBe(null)
   })
 
-  it('redirigerer til Din Pensjon når brukeren klikker på Avslutt', () => {
+  it('redirigerer til Din Pensjon når brukeren klikker på Avslutt', async () => {
+    const user = userEvent.setup()
     global.window = Object.create(window)
     const url = 'http://dummy.com'
     Object.defineProperty(window, 'location', {
@@ -47,7 +49,7 @@ describe('TilbakeEllerAvslutt', () => {
 
     render(<TilbakeEllerAvslutt />)
 
-    fireEvent.click(screen.getByText('Avslutt og gå til Din Pensjon'))
+    await user.click(screen.getByText('Avslutt og gå til Din Pensjon'))
     expect(window.location.href).toBe('http://www.nav.no/pensjon')
   })
 })

@@ -1,14 +1,17 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
-import { AFP } from '@/components/Grunnlag/accordion-items/AFP'
-import { Alderspensjon } from '@/components/Grunnlag/accordion-items/Alderspensjon'
-import { Inntekt } from '@/components/Grunnlag/accordion-items/Inntekt'
-import { Pensjonsavtaler } from '@/components/Grunnlag/accordion-items/Pensjonsavtaler'
-import { Sivilstand } from '@/components/Grunnlag/accordion-items/Sivilstand'
-import { TidligstMuligUttak } from '@/components/Grunnlag/accordion-items/TidligstMuligUttak'
-import { Uttaksgrad } from '@/components/Grunnlag/accordion-items/Uttaksgrad'
 import { useGetPensjonsavtalerQuery } from '@/state/api/apiSlice'
+
+import { AFP } from './sections/AFP'
+import { Alderspensjon } from './sections/Alderspensjon'
+import { SectionSkeleton } from './sections/components/SectionSkeleton'
+import { Inntekt } from './sections/Inntekt'
+import { Pensjonsavtaler } from './sections/Pensjonsavtaler'
+import { Sivilstand } from './sections/Sivilstand'
+import { TidligstMuligUttak } from './sections/TidligstMuligUttak'
+import { Utenlandsopphold } from './sections/Utenlandsopphold'
+import { Uttaksgrad } from './sections/Uttaksgrad'
 
 import styles from './Grunnlag.module.scss'
 
@@ -31,26 +34,32 @@ interface Props {
 export function Grunnlag({ tidligstMuligUttak }: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()
-  const { data: pensjonsavtaler, isSuccess } = useGetPensjonsavtalerQuery()
   const uttaksgrad = useUttaksgrad()
-  {
-    // TODO skrive tester
-    // TODO bør vi vise en feilmelding her dersom pensjonsvtalene ikke kunne hentes?
-  }
+  const {
+    data: pensjonsavtaler,
+    isSuccess,
+    isLoading,
+  } = useGetPensjonsavtalerQuery()
+
   return (
     <Card className={styles.section}>
-      <Heading level="2" size="medium">
-        Grunnlaget for prognosen
-      </Heading>
-      <BodyLong>Alle summer er oppgitt i dagens kroneverdi før skatt.</BodyLong>
+      <div className={styles.description}>
+        <Heading level="2" size="medium">
+          Grunnlaget for prognosen
+        </Heading>
+        <BodyLong>
+          Alle summer er oppgitt i dagens kroneverdi før skatt.
+        </BodyLong>
+      </div>
       <Accordion>
         <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
         <Uttaksgrad uttaksgrad={uttaksgrad} />
         <Inntekt inntekt={inntekt} />
         <Sivilstand />
+        <Utenlandsopphold />
         <Alderspensjon alderspensjon={alderspensjon} />
         <AFP />
-        {/* c8 ignore next 3 */}
+        {isLoading && <SectionSkeleton />}
         {isSuccess && <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />}
       </Accordion>
     </Card>

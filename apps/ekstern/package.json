@@ -27,11 +27,11 @@
     "@formatjs/intl-datetimeformat": "^6.10.0",
     "@formatjs/intl-numberformat": "^8.7.0",
     "@grafana/faro-web-sdk": "^1.1.0",
-    "@navikt/aksel-icons": "^4.1.5",
-    "@navikt/ds-css": "^4.1.5",
+    "@navikt/aksel-icons": "^4.3.0",
+    "@navikt/ds-css": "^4.3.0",
     "@navikt/ds-icons": "^3.4.3",
-    "@navikt/ds-react": "^4.1.5",
-    "@navikt/ds-tokens": "^4.1.5",
+    "@navikt/ds-react": "^4.3.0",
+    "@navikt/ds-tokens": "^4.3.0",
     "@reduxjs/toolkit": "^1.9.3",
     "clsx": "^1.2.1",
     "highcharts": "^11.1.0",
@@ -93,8 +93,9 @@
     "**/*.{css,scss}": [
       "npm run stylelint:check"
     ],
-    "**/*.{cjs,js,jsx,ts,tsx,json}": [
-      "npm run prettier:check"
+    "**/*.{cjs,js,jsx,ts,tsx}": [
+      "npm run prettier:check",
+      "npm run eslint:check"
     ]
   }
 }

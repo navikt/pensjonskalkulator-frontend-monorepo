@@ -32,13 +32,16 @@
 .tooltip {
   right: 0.375rem;
   background-color: var(--a-white);
-  border-bottom: 3px solid var(--a-gray-600);
+  min-height: 115px;
   z-index: 3;
 
   & > span {
     position: relative !important;
     width: 100% !important;
     display: block;
+    box-shadow: 0 0 var(--a-spacing-1) var(--a-grayalpha-400);
+    border-radius: var(--a-spacing-1);
+    padding: var(--a-spacing-3) var(--a-spacing-4);
   }
 
   &Table {
@@ -98,7 +101,8 @@
   &Line {
     position: absolute;
     width: 2px;
-    background-color: var(--a-gray-600);
+    border-right: 2px dashed white;
+    background-color: var(--a-grayalpha-500);
   }
 }
 

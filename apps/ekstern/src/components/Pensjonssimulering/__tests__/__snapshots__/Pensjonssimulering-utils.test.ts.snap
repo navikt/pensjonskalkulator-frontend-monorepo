@@ -4,6 +4,7 @@ exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default 
 {
   "chart": {
     "events": {
+      "click": [Function],
       "render": [Function],
     },
     "scrollablePlotArea": {
@@ -42,6 +43,13 @@ exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default 
     "y": -25,
   },
   "plotOptions": {
+    "column": {
+      "point": {
+        "events": {
+          "click": [Function],
+        },
+      },
+    },
     "series": {
       "events": {
         "legendItemClick": [Function],
@@ -78,12 +86,22 @@ exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default 
   },
   "xAxis": {
     "categories": [],
+    "labels": {
+      "formatter": [Function],
+      "style": {
+        "color": "var(--a-grayalpha-700)",
+      },
+    },
+    "lineColor": "var(--a-grayalpha-700)",
   },
   "yAxis": {
     "allowDecimals": false,
-    "gridLineDashStyle": "Dash",
+    "gridLineColor": "var(--a-grayalpha-200)",
     "labels": {
       "formatter": [Function],
+      "style": {
+        "color": "var(--a-grayalpha-700)",
+      },
     },
     "min": 0,
     "minorTickInterval": 200000,
@@ -98,6 +116,34 @@ exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default 
     },
   },
 }
+`;
+
+exports[`Pensjonssimulering-utils > onPointClick og onChartClick > onChartClick > nullstiller fargene og label på xAxis 1`] = `
+[
+  <text
+    style="font-weight: normal;"
+  />,
+  <text
+    style="font-weight: normal;"
+  />,
+  <text
+    style="font-weight: normal;"
+  />,
+]
+`;
+
+exports[`Pensjonssimulering-utils > onPointClick og onChartClick > onPointClick > oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis 1`] = `
+[
+  <text
+    style="font-weight: bold;"
+  />,
+  <text
+    style="font-weight: normal;"
+  />,
+  <text
+    style="font-weight: normal;"
+  />,
+]
 `;
 
 exports[`Pensjonssimulering-utils > simulateDataArray > returnerer riktig array når man angir en startAge med coefficient 1`] = `[]`;
@@ -117,4 +163,6 @@ exports[`Pensjonssimulering-utils > simulateDataArray > returnerer riktig array 
 ]
 `;
 
-exports[`Pensjonssimulering-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 1`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Pensjon og inntekt det året du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>name of my serie 1</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>name of my serie 2</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 265px; left: 162.5px; height: 100px\\"></div>"`;
+exports[`Pensjonssimulering-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 1`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Inntekt og pensjon når du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Inntekt (lønn m.m.)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 265px; left: 167px; height: 100px\\"></div>"`;
+
+exports[`Pensjonssimulering-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 2`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Inntekt og pensjon når du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Inntekt (lønn m.m.)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 265px; left: 117px; height: 100px\\"></div>"`;

@@ -4,6 +4,7 @@ import { Accordion, BodyLong, Link } from '@navikt/ds-react'
 
 import { formatAsDecimal } from '@/utils/currency'
 
+import { SectionContent } from './components/SectionContent'
 import { SectionHeader } from './components/SectionHeader'
 
 interface Props {
@@ -14,10 +15,10 @@ export function Alderspensjon({ alderspensjon }: Props) {
   return (
     <Accordion.Item>
       <SectionHeader
-        label="Alderspensjon"
+        label="Alderspensjon (NAV)"
         value={`${formatAsDecimal(alderspensjon)} kr`}
       />
-      <Accordion.Content>
+      <SectionContent>
         <BodyLong>
           Beløpet er alderspensjon som du får første hele året du får full
           alderspensjon. Alderspensjon beregnes ut ifra{' '}
@@ -33,7 +34,7 @@ export function Alderspensjon({ alderspensjon }: Props) {
           <Link>avansert kalkulator</Link>. Der vil du også finne mer detaljer
           om hvordan din pensjon er beregnet.
         </BodyLong>
-      </Accordion.Content>
+      </SectionContent>
     </Accordion.Item>
   )
 }
