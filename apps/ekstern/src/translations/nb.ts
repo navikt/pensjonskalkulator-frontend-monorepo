@@ -9,7 +9,7 @@ const translations = {
     'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
   'stegvisning.start.bildetekst': 'Bilde av veilederen Frida',
   'stegvisning.start.start': 'Kom i gang',
-  'stegvisning.samtykke.title': 'Hva kalkulatoren viser',
+  'stegvisning.samtykke.title': 'Pensjonen din',
   'stegvisning.samtykke.ingress':
     'Kalkulatoren viser alderspensjonen din fra folketrygden (NAV) og eventuelt avtalefestet pensjon (AFP). For å vise tjenestepensjon fra arbeidsgivere må vi ha ditt samtykke til å hente pensjonsavtalene dine.',
   'stegvisning.samtykke.readmore_title': 'Disse opplysningene henter vi',
@@ -37,7 +37,27 @@ const translations = {
     'Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.afp.title': 'Du kan ha rett til AFP',
   'stegvisning.afp.ingress':
-    'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale.',
+    'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
+  'stegvisning.afp.readmore_privat_title':
+    'Om avtalefestet pensjon i privat sektor',
+  'stegvisning.afp.readmore_list_title': 'AFP:',
+  'stegvisning.afp.readmore_privat_list_item1': 'er en livsvarig pensjon',
+  'stegvisning.afp.readmore_privat_list_item2': 'kan taes ut sammen med arbeid',
+  'stegvisning.afp.readmore_privat_list_item3':
+    'må taes ut sammen med alderspensjon fra folketrygden (NAV) og tjenestepensjon',
+  'stegvisning.afp.readmore_privat_link':
+    'Les om vilkårene til <link>AFP i privat sektor på afp.no</link>',
+  'stegvisning.afp.readmore_privat_url': 'https://www.afp.no',
+  'stegvisning.afp.readmore_offentlig_title':
+    'Om avtalefestet pensjon i offentlig sektor',
+  'stegvisning.afp.readmore_offentlig_list_item1': 'er en livsvarig pensjon',
+  'stegvisning.afp.readmore_offentlig_list_item2':
+    'kan taes ut sammen med arbeid',
+  'stegvisning.afp.readmore_offentlig_list_item3':
+    'må taes ut sammen med alderspensjon fra folketrygden (NAV) og tjenestepensjon',
+  'stegvisning.afp.readmore_offentlig_ingress':
+    'Vi kan ikke innhente opplysninger om dette og ta det med i beregningen. Sjekk hva som gjelder deg hos din tjenestepensjonsordning',
+
   'stegvisning.afp.radio_label': 'Har du rett til AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Ja, i offentlig sektor',
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',

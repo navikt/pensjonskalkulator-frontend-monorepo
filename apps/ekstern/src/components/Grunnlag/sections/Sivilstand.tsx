@@ -25,7 +25,7 @@ export function Sivilstand() {
   }
 
   return (
-    <Accordion.Item data-testid={'accordion-sivilstand'}>
+    <Accordion.Item data-testid="accordion-sivilstand">
       <SectionHeader label="Sivilstand" value={formatertSivilstand} />
       <SectionContent>
         <BodyLong>

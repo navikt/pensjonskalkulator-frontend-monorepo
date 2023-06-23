@@ -33,10 +33,10 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
       <Ingress>
         <FormattedMessage id="stegvisning.start.ingress" />
       </Ingress>
-      <Button type={'submit'} className={styles.button} onClick={onNext}>
+      <Button type="submit" className={styles.button} onClick={onNext}>
         <FormattedMessage id="stegvisning.start.start" />
       </Button>
-      <Button type={'button'} variant="tertiary" onClick={onCancel}>
+      <Button type="button" variant="tertiary" onClick={onCancel}>
         <FormattedMessage id="stegvisning.avbryt" />
       </Button>
     </section>

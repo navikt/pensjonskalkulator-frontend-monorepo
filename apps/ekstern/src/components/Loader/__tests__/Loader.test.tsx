@@ -6,7 +6,7 @@ import { render, screen } from '@/test-utils'
 describe('Loader', () => {
   it('rendrer med riktig className og props by default', () => {
     const { asFragment } = render(
-      <Loader title={'fake title'} data-testid={'loader'} />
+      <Loader title="fake title" data-testid="loader" />
     )
 
     expect(screen.getByTestId('loader')).toBeVisible()
@@ -15,7 +15,7 @@ describe('Loader', () => {
 
   it('rendrer med riktig className når isCentered er false', () => {
     const { asFragment } = render(
-      <Loader title={'fake title'} data-testid={'loader'} isCentered={false} />
+      <Loader title="fake title" data-testid="loader" isCentered={false} />
     )
 
     expect(screen.getByTestId('loader')).toBeVisible()

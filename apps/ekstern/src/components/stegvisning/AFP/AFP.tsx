@@ -1,13 +1,16 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
   Alert,
   Button,
   Heading,
   Ingress,
+  Link,
   Radio,
   RadioGroup,
+  ReadMore,
 } from '@navikt/ds-react'
 
 import styles from './AFP.module.scss'
@@ -58,11 +61,65 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
         <Ingress>
           <FormattedMessage id="stegvisning.afp.ingress" />
         </Ingress>
-
+        <ReadMore
+          className={styles.readmorePrivat}
+          header={
+            <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
+          }
+        >
+          <FormattedMessage id="stegvisning.afp.readmore_list_title" />
+          <ul>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item2" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item3" />
+            </li>
+          </ul>
+          <FormattedMessage
+            id="stegvisning.afp.readmore_privat_link"
+            values={{
+              link: (chunks) => (
+                <Link
+                  href={intl.formatMessage({
+                    id: 'stegvisning.afp.readmore_privat_url',
+                  })}
+                  target="_blank"
+                >
+                  {chunks}
+                  <ExternalLinkIcon width="1.25rem" height="1.25rem" />
+                </Link>
+              ),
+            }}
+          />
+        </ReadMore>
+        <ReadMore
+          className={styles.readmoreOffentlig}
+          header={
+            <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
+          }
+        >
+          <FormattedMessage id="stegvisning.afp.readmore_list_title" />
+          <ul>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
+            </li>
+          </ul>
+          <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
+        </ReadMore>
         <RadioGroup
           className={styles.radiogroup}
           legend={<FormattedMessage id="stegvisning.afp.radio_label" />}
-          name={'afp'}
+          name="afp"
           defaultValue={afp}
           onChange={handleRadioChange}
           error={validationError}
@@ -92,11 +149,11 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           )}
         </RadioGroup>
 
-        <Button type={'submit'} className={styles.button}>
+        <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.neste" />
         </Button>
         <Button
-          type={'button'}
+          type="button"
           className={styles.button}
           variant="secondary"
           onClick={onPrevious}
@@ -104,7 +161,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
         <Button
-          type={'button'}
+          type="button"
           className={styles.button}
           variant="tertiary"
           onClick={onCancel}

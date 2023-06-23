@@ -57,7 +57,7 @@ export function Sivilstand({
 
         <RadioGroup
           legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
-          name={'sivilstand'}
+          name="sivilstand"
           className={styles.radiogroup}
           defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
           onChange={handleRadioChange}
@@ -72,11 +72,11 @@ export function Sivilstand({
           </Radio>
         </RadioGroup>
 
-        <Button type={'submit'} className={styles.button}>
+        <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.beregn" />
         </Button>
         <Button
-          type={'button'}
+          type="button"
           className={styles.button}
           variant="secondary"
           onClick={onPrevious}
@@ -84,7 +84,7 @@ export function Sivilstand({
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
         <Button
-          type={'button'}
+          type="button"
           className={styles.button}
           variant="tertiary"
           onClick={onCancel}

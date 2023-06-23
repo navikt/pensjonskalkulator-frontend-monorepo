@@ -36,10 +36,20 @@ export const swallowErrorsAsync = async (testFn: () => Promise<void>) => {
 }
 
 function generateMockedTranslations() {
-  const nbTranslations = getTranslation_nb()
+  const nbTranslations: Record<string, string> = getTranslation_nb()
   const translations: Record<string, string> = {}
   for (const key in nbTranslations) {
-    translations[key] = key
+    if (
+      /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(
+        nbTranslations[key]
+      )
+    ) {
+      // for html keys: results in 'my_key' : 'my_key with some <html>'
+      translations[key] = nbTranslations[key]
+    } else {
+      // results in 'my_key' : 'my_key'
+      translations[key] = key
+    }
   }
   return translations
 }
@@ -57,7 +67,7 @@ export function renderWithProviders(
   function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
     return (
       <Provider store={store}>
-        <IntlProvider locale={'nb'} messages={generateMockedTranslations()}>
+        <IntlProvider locale="nb" messages={generateMockedTranslations()}>
           {hasRouter ? <MemoryRouter>{children}</MemoryRouter> : children}
         </IntlProvider>
       </Provider>

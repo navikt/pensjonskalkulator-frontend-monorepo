@@ -64,7 +64,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
           )
         }
         iconPosition="left"
-        size={'xsmall'}
+        size="xsmall"
         variant="tertiary"
         onClick={() => {
           setIsFlereAldereOpen((prevState) => !prevState)

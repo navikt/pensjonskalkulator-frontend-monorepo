@@ -112,7 +112,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
             <Button
               icon={<ChevronLeftCircle aria-hidden />}
               iconPosition="left"
-              size={'xsmall'}
+              size="xsmall"
               variant="tertiary"
               onClick={onVisFaerreAarClick}
             >
@@ -128,7 +128,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
             <Button
               icon={<ChevronRightCircle aria-hidden />}
               iconPosition="right"
-              size={'xsmall'}
+              size="xsmall"
               variant="tertiary"
               onClick={onVisFlereAarClick}
             >

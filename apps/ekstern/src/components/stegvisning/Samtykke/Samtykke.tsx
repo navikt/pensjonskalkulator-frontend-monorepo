@@ -85,7 +85,7 @@ export function Samtykke({
         <RadioGroup
           className={styles.radiogroup}
           legend={<FormattedMessage id="stegvisning.samtykke.radio_label" />}
-          name={'samtykke'}
+          name="samtykke"
           defaultValue={
             harSamtykket ? 'ja' : harSamtykket === false ? 'nei' : null
           }
@@ -101,11 +101,11 @@ export function Samtykke({
           </Radio>
         </RadioGroup>
 
-        <Button type={'submit'} className={styles.button}>
+        <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.neste" />
         </Button>
         <Button
-          type={'button'}
+          type="button"
           className={styles.button}
           variant="secondary"
           onClick={onPrevious}
@@ -113,7 +113,7 @@ export function Samtykke({
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
         <Button
-          type={'button'}
+          type="button"
           className={styles.button}
           variant="tertiary"
           onClick={onCancel}
