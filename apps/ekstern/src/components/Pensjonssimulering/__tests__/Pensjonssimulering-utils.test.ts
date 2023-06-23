@@ -1,20 +1,30 @@
 import {
   AxisLabelsFormatterContextObject,
   TooltipFormatterContextObject,
+  Chart,
+  Point,
+  PointClickEventObject,
 } from 'highcharts'
 import { describe, expect, it, vi } from 'vitest'
 
 import {
+  SERIE_NAME_INNTEKT,
+  SERIE_NAME_ALDERSPENSJON,
   highchartsScrollingSelector,
   simulateDataArray,
   simulateTjenestepensjon,
   generateXAxis,
   labelFormatter,
+  getTooltipTitle,
   tooltipFormatter,
+  getHoverColor,
+  getNormalColor,
+  onPointClick,
+  onChartClick,
   getChartOptions,
   onVisFlereAarClick,
   onVisFaerreAarClick,
-  ExtendedYAxis,
+  ExtendedAxis,
   ExtendedPoint,
   handleChartScroll,
   removeHandleChartScrollEventListener,
@@ -151,6 +161,23 @@ describe('Pensjonssimulering-utils', () => {
     })
   })
 
+  describe('getTooltipTitle', () => {
+    it('returnerer riktig streng for inntekt uten pensjon', () => {
+      expect(getTooltipTitle(true, false)).toEqual('Inntekt når du er')
+    })
+    it('returnerer riktig streng for pensjon uten inntekt', () => {
+      expect(getTooltipTitle(false, true)).toEqual('Pensjon når du er')
+    })
+    it('returnerer riktig streng for pensjon og inntekt', () => {
+      expect(getTooltipTitle(true, true)).toEqual(
+        'Inntekt og pensjon når du er'
+      )
+    })
+    it('returnerer streng for pensjon som fallback', () => {
+      expect(getTooltipTitle(false, false)).toEqual('Pensjon når du er')
+    })
+  })
+
   describe('tooltipFormatter', () => {
     it('returnerer formatert tooltip med riktig data og stiler for begge serier', () => {
       const stylesMock = {
@@ -166,26 +193,29 @@ describe('Pensjonssimulering-utils', () => {
 
       const alder = 65
       const total = 800000
-      const nameSerie1 = 'name of my serie 1'
-      const nameSerie2 = 'name of my serie 2'
       const colorSerie1 = 'lime'
       const colorSerie2 = 'salmon'
       const pointSumSerie1 = 200000
       const pointSumSerie2 = 350000
-      const beregnetLinePosition = 'top: 265px; left: 162.5px; height: 100px'
+
+      const beregnetLinePosition = 'top: 265px; left: 167px; height: 100px'
       const beregnetLinePositionAfterScroll =
-        'top: 265px; left: 112.5px; height: 100px'
+        'top: 265px; left: 117px; height: 100px'
 
       const point = {
         y: pointSumSerie1,
         total,
         series: {
-          name: nameSerie1,
+          name: SERIE_NAME_INNTEKT,
           color: colorSerie1,
-          chart: { yAxis: [{ pos: 300 } as ExtendedYAxis] },
-          yAxis: { height: 400 } as ExtendedYAxis,
+          chart: { yAxis: [{ pos: 300 } as ExtendedAxis] },
+          yAxis: { height: 400 } as ExtendedAxis,
         },
-        point: { plotX: 129, tooltipPos: [50, 100, 120] } as ExtendedPoint,
+        point: {
+          plotX: 129,
+          tooltipPos: [50, 100, 120],
+          series: { data: ['70', '71', '72', '73', '74', '75', '76', '77+'] },
+        } as ExtendedPoint,
       }
 
       const context = {
@@ -199,7 +229,7 @@ describe('Pensjonssimulering-utils', () => {
             y: pointSumSerie2,
             series: {
               ...point.series,
-              name: nameSerie2,
+              name: SERIE_NAME_ALDERSPENSJON,
               color: colorSerie2,
             },
           },
@@ -211,10 +241,10 @@ describe('Pensjonssimulering-utils', () => {
       )
       expect(tooltipMarkup).toContain(`800 000 kr`)
       expect(tooltipMarkup).toContain(
-        `Pensjon og inntekt det året du er ${alder} år`
+        `Inntekt og pensjon når du er ${alder} år`
       )
-      expect(tooltipMarkup).toContain(nameSerie1)
-      expect(tooltipMarkup).toContain(nameSerie2)
+      expect(tooltipMarkup).toContain(SERIE_NAME_INNTEKT)
+      expect(tooltipMarkup).toContain(SERIE_NAME_ALDERSPENSJON)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie1}`)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie2}`)
       expect(tooltipMarkup).toContain(`200 000 kr`)
@@ -232,11 +262,174 @@ describe('Pensjonssimulering-utils', () => {
         context as unknown as TooltipFormatterContextObject,
         stylesMock
       )
+      expect(tooltipMarkupAfterScroll).toMatchSnapshot()
       expect(tooltipMarkupAfterScroll).toContain(
         beregnetLinePositionAfterScroll
       )
     })
   })
+
+  describe('getHoverColor og getNormalColor', () => {
+    test.each([
+      ['var(--a-deepblue-500)', 'var(--a-deepblue-200)'],
+      ['var(--a-green-400)', 'var(--a-green-200)'],
+      ['var(--a-purple-400)', 'var(--a-purple-200)'],
+      ['#868F9C', '#AfAfAf'],
+      ['#FF0000', ''],
+    ])('returnerer riktig hover farge for: %s', async (a, expected) => {
+      const color = getHoverColor(a)
+      expect(color).toEqual(expected)
+    })
+
+    test.each([
+      ['var(--a-deepblue-200)', 'var(--a-deepblue-500)'],
+      ['var(--a-green-200)', 'var(--a-green-400)'],
+      ['var(--a-purple-200)', 'var(--a-purple-400)'],
+      ['#AfAfAf', '#868F9C'],
+      ['var(--a-deepblue-500)', 'var(--a-deepblue-500)'],
+      ['var(--a-green-400)', 'var(--a-green-400)'],
+      ['var(--a-purple-400)', 'var(--a-purple-400)'],
+      ['#868F9C', '#868F9C'],
+    ])('returnerer riktig normal farge for: %s', async (a, expected) => {
+      const color = getNormalColor(a)
+      expect(color).toEqual(expected)
+    })
+  })
+
+  describe('onPointClick og onChartClick', () => {
+    const pointUpdateMock = vi.fn()
+    const data1 = [
+      {
+        index: 0,
+        color: 'var(--a-deepblue-500)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 1,
+        color: 'var(--a-deepblue-500)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 2,
+        color: 'var(--a-deepblue-200)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+    ]
+    const data2 = [
+      {
+        index: 0,
+        color: 'var(--a-green-400)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 1,
+        color: 'var(--a-green-400)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 2,
+        color: 'var(--a-green-200)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+    ]
+    const data3 = [
+      {
+        index: 0,
+        color: 'var(--a-purple-400)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 1,
+        color: 'var(--a-purple-400)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+      {
+        index: 2,
+        color: 'var(--a-purple-200)',
+        update: pointUpdateMock,
+      } as unknown as Point,
+    ]
+
+    const chart = {
+      series: [
+        {
+          data: [...data1],
+        },
+        {
+          data: [...data2],
+        },
+        {
+          data: [...data3],
+        },
+      ],
+      xAxis: [
+        {
+          labelGroup: {
+            element: {
+              childNodes: [
+                <HTMLDivElement>document.createElement('text'),
+                <HTMLDivElement>document.createElement('text'),
+                <HTMLDivElement>document.createElement('text'),
+              ],
+            },
+          },
+        },
+      ],
+    }
+
+    describe('onPointClick', () => {
+      it('oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis', () => {
+        const redrawMock = vi.fn()
+        const point = {
+          series: {
+            chart: {
+              ...chart,
+              redraw: redrawMock,
+            } as unknown as Chart,
+          },
+        } as Point
+        const event = { point: { index: 0 } } as PointClickEventObject
+        onPointClick.call(point, event)
+        expect(pointUpdateMock).toHaveBeenCalledTimes(3)
+        expect(pointUpdateMock.mock.calls).toEqual([
+          [{ color: 'var(--a-deepblue-200)' }, false],
+          [{ color: 'var(--a-green-200)' }, false],
+          [{ color: 'var(--a-purple-200)' }, false],
+        ])
+        expect(
+          (point.series.chart.xAxis[0] as ExtendedAxis).labelGroup.element
+            .childNodes
+        ).toMatchSnapshot()
+        expect(redrawMock).toHaveBeenCalledOnce()
+      })
+    })
+
+    describe('onChartClick', () => {
+      it('nullstiller fargene og label på xAxis', () => {
+        const redrawMock = vi.fn()
+        const tooltipHideMock = vi.fn()
+        const chartWithSelection = {
+          ...chart,
+          redraw: redrawMock,
+          tooltip: { hide: tooltipHideMock },
+        } as unknown as Chart
+        onChartClick.call(chartWithSelection)
+        expect(pointUpdateMock).toHaveBeenCalledTimes(6)
+        expect(pointUpdateMock.mock.calls.slice(3, 6)).toEqual([
+          [{ color: 'var(--a-deepblue-500)' }, false],
+          [{ color: 'var(--a-green-400)' }, false],
+          [{ color: 'var(--a-purple-400)' }, false],
+        ])
+        expect(
+          (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
+            .childNodes
+        ).toMatchSnapshot()
+        expect(redrawMock).toHaveBeenCalledOnce()
+        expect(tooltipHideMock).toHaveBeenCalledOnce()
+      })
+    })
+  })
+
   describe('getChartOptions', () => {
     it('returnerer riktig default options', () => {
       const options = getChartOptions(
@@ -278,7 +471,7 @@ describe('Pensjonssimulering-utils', () => {
   })
 
   describe('handleChartScroll', () => {
-    it('Viser Vis flere år knapp og skjuler Vis færre år knapp når graffens scroll posisjon er på 0', () => {
+    it('Viser Flere år knapp og skjuler Færre år knapp når graffens scroll posisjon er på 0', () => {
       const showRightButtonMock = vi.fn()
       const showLeftButtonMock = vi.fn()
 
@@ -296,7 +489,7 @@ describe('Pensjonssimulering-utils', () => {
       expect(showLeftButtonMock).toHaveBeenCalledWith(false)
     })
 
-    it('Skjuler Vis flere år knapp og viser Vis færre år knapp når graffens scroll posisjon er på maks', () => {
+    it('Skjuler Flere år knapp og viser Færre år knapp når graffens scroll posisjon er på maks', () => {
       const showRightButtonMock = vi.fn()
       const showLeftButtonMock = vi.fn()
 
@@ -316,7 +509,7 @@ describe('Pensjonssimulering-utils', () => {
       expect(showLeftButtonMock).toHaveBeenCalledWith(true)
     })
 
-    it('Viser både  Vis flere år knapp og Vis færre år knapp når graffens scroll posisjon er et sted i midten', () => {
+    it('Viser både Flere år knapp og Færre år knapp når graffens scroll posisjon er et sted i midten', () => {
       const showRightButtonMock = vi.fn()
       const showLeftButtonMock = vi.fn()
 

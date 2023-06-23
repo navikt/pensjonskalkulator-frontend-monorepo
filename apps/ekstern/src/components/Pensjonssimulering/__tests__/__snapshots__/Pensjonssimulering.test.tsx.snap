@@ -474,8 +474,8 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   data-z-index="1"
                   fill="none"
                   opacity="1"
-                  stroke="#e6e6e6"
-                  stroke-dasharray="4,3"
+                  stroke="var(--a-grayalpha-200)"
+                  stroke-dasharray="none"
                   stroke-width="1"
                 />
                 <path
@@ -484,8 +484,8 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   data-z-index="1"
                   fill="none"
                   opacity="1"
-                  stroke="#e6e6e6"
-                  stroke-dasharray="4,3"
+                  stroke="var(--a-grayalpha-200)"
+                  stroke-dasharray="none"
                   stroke-width="1"
                 />
                 <path
@@ -494,8 +494,8 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   data-z-index="1"
                   fill="none"
                   opacity="1"
-                  stroke="#e6e6e6"
-                  stroke-dasharray="4,3"
+                  stroke="var(--a-grayalpha-200)"
+                  stroke-dasharray="none"
                   stroke-width="1"
                 />
                 <path
@@ -504,8 +504,8 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   data-z-index="1"
                   fill="none"
                   opacity="1"
-                  stroke="#e6e6e6"
-                  stroke-dasharray="4,3"
+                  stroke="var(--a-grayalpha-200)"
+                  stroke-dasharray="none"
                   stroke-width="1"
                 />
                 <path
@@ -514,8 +514,8 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   data-z-index="1"
                   fill="none"
                   opacity="1"
-                  stroke="#e6e6e6"
-                  stroke-dasharray="4,3"
+                  stroke="var(--a-grayalpha-200)"
+                  stroke-dasharray="none"
                   stroke-width="1"
                 />
               </g>
@@ -528,7 +528,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   d="M 0 0"
                   data-z-index="7"
                   fill="none"
-                  stroke="#333333"
+                  stroke="var(--a-grayalpha-700)"
                   stroke-width="1"
                 />
               </g>
@@ -631,7 +631,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 data-z-index="7"
               >
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -639,7 +639,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   64
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -647,7 +647,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   65
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -655,7 +655,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   66
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -663,7 +663,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   67
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -671,7 +671,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   68
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -679,7 +679,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   69
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -687,7 +687,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   70
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -695,7 +695,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   71
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -703,7 +703,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   72
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -711,7 +711,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   73
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -719,7 +719,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   74
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -727,7 +727,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   75
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -735,7 +735,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   76
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -743,7 +743,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   77
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="middle"
                   transform="translate(0,0)"
                   x="0"
@@ -756,7 +756,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 data-z-index="7"
               >
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="end"
                   transform="translate(0,0)"
                   x="0"
@@ -764,7 +764,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   0
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="end"
                   transform="translate(0,0)"
                   x="0"
@@ -772,7 +772,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   200
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="end"
                   transform="translate(0,0)"
                   x="0"
@@ -780,7 +780,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   400
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="end"
                   transform="translate(0,0)"
                   x="0"
@@ -788,7 +788,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   600
                 </text>
                 <text
-                  style="color: rgb(51, 51, 51); cursor: default; font-size: 0.8em; fill: #333333;"
+                  style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
                   text-anchor="end"
                   transform="translate(0,0)"
                   x="0"

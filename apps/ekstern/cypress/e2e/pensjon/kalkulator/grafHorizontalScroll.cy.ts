@@ -6,8 +6,8 @@ describe('Graf Horizontal scroll', () => {
         cy.visit('/pensjon/kalkulator/beregning')
 
         cy.contains('button', '70 år').click()
-        cy.contains('button', 'Vis færre år').should('not.exist')
-        cy.contains('button', 'Vis flere år').should('not.exist')
+        cy.contains('button', 'Færre år').should('not.exist')
+        cy.contains('button', 'Flere år').should('not.exist')
       })
 
       it('Brukeren kan se og bruke navigasjonsknappene når det er flere søyler enn skjermens bredde', () => {
@@ -15,28 +15,28 @@ describe('Graf Horizontal scroll', () => {
 
         cy.viewport('iphone-xr')
         cy.contains('button', '67 år').click()
-        cy.contains('button', 'Vis færre år').should('not.exist')
-        cy.contains('button', 'Vis flere år').should('exist')
+        cy.contains('button', 'Færre år').should('not.exist')
+        cy.contains('button', 'Flere år').should('exist')
 
         // Scroller til høyre slik at begge knappene blir synlige
-        cy.contains('button', 'Vis flere år').click()
-        cy.contains('button', 'Vis færre år').should('exist')
-        cy.contains('button', 'Vis flere år').should('exist')
-        // Scroller maksimalt til høyre slik at Vis flere år skjules
-        cy.contains('button', 'Vis flere år').click()
-        cy.contains('button', 'Vis flere år').click()
-        cy.contains('button', 'Vis flere år').click()
-        cy.contains('button', 'Vis flere år').should('not.exist')
+        cy.contains('button', 'Flere år').click()
+        cy.contains('button', 'Færre år').should('exist')
+        cy.contains('button', 'Flere år').should('exist')
+        // Scroller maksimalt til høyre slik at Flere år skjules
+        cy.contains('button', 'Flere år').click()
+        cy.contains('button', 'Flere år').click()
+        cy.contains('button', 'Flere år').click()
+        cy.contains('button', 'Flere år').should('not.exist')
         // Scroller til venstre slik at begge knappene blir synlige igjen
-        cy.contains('button', 'Vis færre år').click()
-        cy.contains('button', 'Vis færre år').should('exist')
-        cy.contains('button', 'Vis flere år').should('exist')
-        // Scroller maksimalt til venstre slik at Vis færre år skjules
-        cy.contains('button', 'Vis færre år').click()
-        cy.contains('button', 'Vis færre år').click()
-        cy.contains('button', 'Vis færre år').click()
-        cy.contains('button', 'Vis færre år').should('not.exist')
-        cy.contains('button', 'Vis flere år').should('exist')
+        cy.contains('button', 'Færre år').click()
+        cy.contains('button', 'Færre år').should('exist')
+        cy.contains('button', 'Flere år').should('exist')
+        // Scroller maksimalt til venstre slik at Færre år skjules
+        cy.contains('button', 'Færre år').click()
+        cy.contains('button', 'Færre år').click()
+        cy.contains('button', 'Færre år').click()
+        cy.contains('button', 'Færre år').should('not.exist')
+        cy.contains('button', 'Flere år').should('exist')
       })
     }
   )

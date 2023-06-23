@@ -8,6 +8,14 @@ import HighchartsReact from 'highcharts-react-official'
 import { TabellVisning } from '@/components/TabellVisning'
 
 import {
+  SERIE_NAME_INNTEKT,
+  SERIE_NAME_AFP,
+  SERIE_NAME_TP,
+  SERIE_NAME_ALDERSPENSJON,
+  SERIE_COLOR_INNTEKT,
+  SERIE_COLOR_AFP,
+  SERIE_COLOR_TP,
+  SERIE_COLOR_ALDERSPENSJON,
   COLUMN_WIDTH,
   MAX_UTTAKSALDER,
   AFP_DATA,
@@ -60,44 +68,29 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         {
           type: 'column',
           pointWidth: COLUMN_WIDTH,
-          name: 'Inntekt (lønn m.m.)',
-          color: '#868F9C',
+          name: SERIE_NAME_INNTEKT,
+          color: SERIE_COLOR_INNTEKT,
           data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length),
         },
         {
           type: 'column',
           pointWidth: COLUMN_WIDTH,
-          name: 'Avtalefestet pensjon (AFP)',
-          color: 'var(--a-purple-400)',
-          states: {
-            hover: {
-              color: 'var(--a-purple-200)',
-            },
-          },
+          name: SERIE_NAME_AFP,
+          color: SERIE_COLOR_AFP,
           data: simulateDataArray(AFP_DATA, aarArray.length),
         },
         {
           type: 'column',
           pointWidth: COLUMN_WIDTH,
-          name: 'Pensjonsavtaler (arbeidsgiver)',
-          color: 'var(--a-green-400)',
-          states: {
-            hover: {
-              color: 'var(--a-green-200)',
-            },
-          },
+          name: SERIE_NAME_TP,
+          color: SERIE_COLOR_TP,
           data: simulateTjenestepensjon(uttaksalder, MAX_UTTAKSALDER),
         },
         {
           type: 'column',
           pointWidth: COLUMN_WIDTH,
-          name: 'Alderspensjon (NAV)',
-          color: 'var(--a-deepblue-500)',
-          states: {
-            hover: {
-              color: 'var(--a-deepblue-200)',
-            },
-          },
+          name: SERIE_NAME_ALDERSPENSJON,
+          color: SERIE_COLOR_ALDERSPENSJON,
           data: simulateDataArray(
             FOLKETRYGDEN_DATA,
             aarArray.length,
@@ -123,7 +116,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
               variant="tertiary"
               onClick={onVisFaerreAarClick}
             >
-              Vis færre år
+              Færre år
             </Button>
           )}
         </div>
@@ -139,7 +132,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
               variant="tertiary"
               onClick={onVisFlereAarClick}
             >
-              Vis flere år
+              Flere år
             </Button>
           )}
         </div>
