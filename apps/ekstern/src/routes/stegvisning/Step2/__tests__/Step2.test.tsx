@@ -40,7 +40,7 @@ describe('Step 2', () => {
 
     expect(store.getState().userInput.samtykke).toBe(false)
     expect(Object.keys(store.getState().api.queries).length).toEqual(0)
-    expect(navigateMock).toHaveBeenCalledWith('/afp')
+    expect(navigateMock).toHaveBeenCalledWith('/offentlig-tp')
   })
 
   it('nullstiller input fra brukeren og sender tilbake til steg 1 når brukeren klikker på Tilbake', async () => {

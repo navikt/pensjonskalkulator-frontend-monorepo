@@ -1,123 +1,195 @@
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
-import { describe } from 'vitest'
+import { describe, vi } from 'vitest'
 
 import { ROUTER_BASE_URL, routes } from '..'
+import { mockResponse } from '@/mocks/server'
+import { apiSlice } from '@/state/api/apiSlice'
+import { store, RootState } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, swallowErrors, userEvent } from '@/test-utils'
+import { render, screen, swallowErrors, userEvent, waitFor } from '@/test-utils'
 
 describe('routes', () => {
-  it('/pensjon/kalkulator viser landingssiden med lenke til stegvisning', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator'],
-    })
-
-    render(<RouterProvider router={router} />, { hasRouter: false })
-
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'Midlertidig landingsside'
-    )
-
-    await userEvent.click(screen.getByText('Test kalkulatoren'))
-
-    expect(
-      await screen.findByText('stegvisning.start.title Aprikos!')
-    ).toBeVisible()
+  afterEach(() => {
+    store.dispatch(apiSlice.util.resetApiState())
+    vi.clearAllMocks()
+    vi.resetAllMocks()
+    vi.resetModules()
   })
 
-  it('/pensjon/kalkulator/start viser Steg 1', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/start'],
+  describe('/pensjon/kalkulator/', () => {
+    it('viser landingssiden med lenke til stegvisning', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator'],
+      })
+      render(<RouterProvider router={router} />, { hasRouter: false })
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'Midlertidig landingsside'
+      )
+      await userEvent.click(screen.getByText('Test kalkulatoren'))
+      expect(
+        await screen.findByText('stegvisning.start.title Aprikos!')
+      ).toBeVisible()
     })
-
-    render(<RouterProvider router={router} />, { hasRouter: false })
-
-    expect(
-      await screen.findByText('stegvisning.start.title Aprikos!')
-    ).toBeVisible()
   })
 
-  it('/pensjon/kalkulator/samtykke viser Steg 2', () => {
-    const router = createMemoryRouter(routes, {
-      basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/samtykke'],
+  describe('/pensjon/kalkulator/start', () => {
+    it('viser Steg 1', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/start'],
+      })
+      render(<RouterProvider router={router} />, { hasRouter: false })
+      expect(
+        await screen.findByText('stegvisning.start.title Aprikos!')
+      ).toBeVisible()
     })
-
-    render(<RouterProvider router={router} />, { hasRouter: false })
-
-    expect(screen.getByText('stegvisning.samtykke.title')).toBeInTheDocument()
   })
 
-  it('/pensjon/kalkulator/offentlig-tp viser Steg 3 (gitt at brukeren har samtykket)', () => {
-    const router = createMemoryRouter(routes, {
-      basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
+  describe('/pensjon/kalkulator/samtykke', () => {
+    it('viser Steg 2', () => {
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/samtykke'],
+      })
+      render(<RouterProvider router={router} />, { hasRouter: false })
+      expect(screen.getByText('stegvisning.samtykke.title')).toBeInTheDocument()
+    })
+  })
+
+  describe('/pensjon/kalkulator/offentlig-tp', () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget direkte uten å ha svart på spørsmålet om samtykke', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.start.start')
+      ).toBeInTheDocument()
     })
 
-    render(<RouterProvider router={router} />, {
-      preloadedState: {
+    it('viser Steg 3 når brukeren har samtykket og har tpo-medlemskap', async () => {
+      const mockedState = {
+        api: { queries: {} },
         userInput: { ...userInputInitialState, samtykke: true },
-      },
-      hasRouter: false,
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
+      })
+      render(<RouterProvider router={router} />, {
+        preloadedState: mockedState as RootState,
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.offentligtp.title')
+      ).toBeVisible()
+      // store.dispatch(apiSlice.util.resetApiState())
     })
 
-    expect(
-      screen.getByText('stegvisning.offentligtp.title')
-    ).toBeInTheDocument()
+    it('redirigerer til Step 4 når brukeren har svart nei på spørsmålet om samtykke', async () => {
+      const mockedState = {
+        userInput: { ...userInputInitialState, samtykke: false },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
+      })
+      render(<RouterProvider router={router} />, {
+        preloadedState: mockedState,
+        hasRouter: false,
+      })
+      expect(await screen.findByText('stegvisning.afp.title')).toBeVisible()
+    })
+
+    it('redirigerer til Step 4 når brukeren har samtykket og ikke har noe offentlig tjenestepensjonsforhold', async () => {
+      mockResponse('/tpo-medlemskap', {
+        status: 200,
+        json: { harTjenestepensjonsforhold: false },
+      })
+      const mockedState = {
+        userInput: { ...userInputInitialState, samtykke: true },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
+      })
+      render(<RouterProvider router={router} />, {
+        preloadedState: mockedState as unknown as RootState,
+        hasRouter: false,
+      })
+      await waitFor(async () => {
+        expect(await screen.findByText('stegvisning.afp.title')).toBeVisible()
+      })
+      // store.dispatch(apiSlice.util.resetApiState())
+    })
   })
 
-  it('/pensjon/kalkulator/afp viser Steg 4 (gitt at brukeren har samtykket og har tpo medlemskap)', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/afp'],
+  describe('/pensjon/kalkulator/afp', () => {
+    it('viser Steg 4 (gitt at brukeren har samtykket og har tpo medlemskap)', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/afp'],
+      })
+      render(<RouterProvider router={router} />, {
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: true },
+        },
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.afp.title')
+      ).toBeInTheDocument()
     })
-
-    render(<RouterProvider router={router} />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: true },
-      },
-      hasRouter: false,
-    })
-
-    expect(await screen.findByText('stegvisning.afp.title')).toBeInTheDocument()
   })
 
-  it('/pensjon/kalkulator/sivilstand viser Steg 5 (gitt at brukeren har samtykket)', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/sivilstand'],
+  describe('/pensjon/kalkulator/sivilstand', () => {
+    it('viser Steg 5 (gitt at brukeren har samtykket)', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/sivilstand'],
+      })
+      render(<RouterProvider router={router} />, {
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: true },
+        },
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.sivilstand.title')
+      ).toBeInTheDocument()
     })
-
-    render(<RouterProvider router={router} />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: true },
-      },
-      hasRouter: false,
-    })
-
-    expect(
-      await screen.findByText('stegvisning.sivilstand.title')
-    ).toBeInTheDocument()
   })
 
-  it('/pensjon/kalkulator/beregning viser beregningen (gitt at brukeren har samtykket)', () => {
-    const router = createMemoryRouter(routes, {
-      basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/beregning'],
+  describe('/pensjon/kalkulator/beregning', () => {
+    it('viser beregningen (gitt at brukeren har samtykket)', () => {
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/beregning'],
+      })
+      render(<RouterProvider router={router} />, {
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: true },
+        },
+        hasRouter: false,
+      })
+      expect(
+        screen.getByText('Henter tidligste mulige uttaksalder')
+      ).toBeInTheDocument()
     })
-
-    render(<RouterProvider router={router} />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: true },
-      },
-      hasRouter: false,
-    })
-
-    expect(
-      screen.getByText('Henter tidligste mulige uttaksalder')
-    ).toBeInTheDocument()
   })
 
   it('Uregistrerte url med path /pensjon/kalkulator sender til 404 siden', () => {
@@ -125,10 +197,8 @@ describe('routes', () => {
       basename: ROUTER_BASE_URL,
       initialEntries: ['/pensjon/kalkulator/abc'],
     })
-
     swallowErrors(() => {
       render(<RouterProvider router={router} />, { hasRouter: false })
-
       expect(screen.getByText('Denne siden finnes ikke')).toBeInTheDocument()
     })
   })

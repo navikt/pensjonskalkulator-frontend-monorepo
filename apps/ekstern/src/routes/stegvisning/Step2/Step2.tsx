@@ -16,11 +16,10 @@ export function Step2() {
     dispatch(userInputActions.setSamtykke(samtykke))
     if (samtykke) {
       dispatch(apiSlice.endpoints.getPensjonsavtaler.initiate())
-      navigate('/offentlig-tp')
     } else {
-      navigate('/afp')
       dispatch(apiSlice.util.resetApiState())
     }
+    navigate('/offentlig-tp')
   }
 
   const onCancel = (): void => {

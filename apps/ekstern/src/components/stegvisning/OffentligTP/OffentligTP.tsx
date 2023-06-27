@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
@@ -8,9 +9,21 @@ interface Props {
   onCancel: () => void
   onPrevious: () => void
   onNext: () => void
+  shouldJumpOverStep?: boolean
 }
 
-export function OffentligTP({ onCancel, onPrevious, onNext }: Props) {
+export function OffentligTP({
+  onCancel,
+  onPrevious,
+  onNext,
+  shouldJumpOverStep,
+}: Props) {
+  useEffect(() => {
+    if (shouldJumpOverStep) {
+      onNext()
+    }
+  }, [shouldJumpOverStep])
+
   return (
     <section className={styles.section}>
       <Heading size="large" level="2" spacing>

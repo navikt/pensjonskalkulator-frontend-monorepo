@@ -7,6 +7,7 @@ import { RouteErrorBoundary } from '@/routes/RouteErrorBoundary'
 import { Step1 } from '@/routes/stegvisning/Step1'
 import { Step2 } from '@/routes/stegvisning/Step2'
 import { Step3 } from '@/routes/stegvisning/Step3'
+import { step3loader } from '@/routes/stegvisning/Step3/utils'
 import { Step4 } from '@/routes/stegvisning/Step4'
 import { Step5 } from '@/routes/stegvisning/Step5'
 
@@ -42,6 +43,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/offentlig-tp',
+    loader: step3loader,
     element: (
       <PageFramework>
         <Step3 />
@@ -74,7 +76,5 @@ export const routes: RouteObject[] = [
       </PageFramework>
     ),
     ErrorBoundary: RouteErrorBoundary,
-    // action: rootAction,// TODO vudere å ta i bruk action og loader for henting av tidligst mulig uttak
-    // loader: rootLoader,
   },
 ]
