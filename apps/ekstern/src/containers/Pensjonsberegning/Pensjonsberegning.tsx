@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
 
@@ -12,8 +11,6 @@ import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
-import { useAppSelector } from '@/state/hooks'
-import { selectSamtykke } from '@/state/userInput/selectors'
 
 export function Pensjonsberegning() {
   const {
@@ -22,15 +19,6 @@ export function Pensjonsberegning() {
     isError,
     isSuccess,
   } = useTidligsteUttaksalderQuery()
-  const navigate = useNavigate()
-  const harSamtykket = useAppSelector(selectSamtykke)
-
-  useEffect(() => {
-    // Dersom brukeren prøver å aksessere beregningen direkte uten å ha svart på samtykke spørsmålet sendes den til start steget
-    if (harSamtykket === null) {
-      return navigate('/start')
-    }
-  }, [])
 
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 

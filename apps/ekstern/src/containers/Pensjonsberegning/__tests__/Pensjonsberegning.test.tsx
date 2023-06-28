@@ -1,10 +1,7 @@
-import * as ReactRouterUtils from 'react-router'
-
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { Pensjonsberegning } from '../Pensjonsberegning'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import {
   render,
   screen,
@@ -14,19 +11,6 @@ import {
 } from '@/test-utils'
 
 describe('Pensjonsberegning', () => {
-  it('redirigerer til Step 1 når brukeren prøver å aksessere beregningen direkte uten å ha svart på spørsmålet om samtykke,', async () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<Pensjonsberegning />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: null },
-      },
-    })
-    expect(navigateMock).toHaveBeenCalledWith('/start')
-  })
-
   it('viser loading og deretter riktig header, tekst og knapper', async () => {
     const result = render(<Pensjonsberegning />)
     expect(screen.getByTestId('loader')).toBeVisible()

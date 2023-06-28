@@ -9,19 +9,6 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
 describe('Step 4', () => {
-  it('redirigerer til Step 1 når brukeren prøver å aksessere steget direkte uten å ha svart på spørsmålet om samtykke,', async () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<Step4 />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: null },
-      },
-    })
-    expect(navigateMock).toHaveBeenCalledWith('/start')
-  })
-
   it('rendrer Step 4 slik den skal når brukeren har svart nei på spørsmålet om samtykke,', async () => {
     render(<Step4 />, {
       preloadedState: {

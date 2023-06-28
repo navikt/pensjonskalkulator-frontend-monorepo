@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AFP, AfpRadio } from '@/components/stegvisning/AFP'
@@ -20,13 +19,6 @@ export function Step4() {
   const { data: person, isSuccess: isPersonQuerySuccess } = useGetPersonQuery()
   const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
     useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
-
-  useEffect(() => {
-    // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til start steget
-    if (harSamtykket === null) {
-      return navigate('/start')
-    }
-  }, [])
 
   const onCancel = (): void => {
     dispatch(userInputActions.flush())

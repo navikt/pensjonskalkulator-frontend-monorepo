@@ -2,7 +2,7 @@ describe('Velg uttaksalder', () => {
   context('når bruker velger 68 år', () => {
     it('vises grafen med start året før, fra 67 år', () => {
       cy.visit('/pensjon/kalkulator/')
-      cy.fillOutStegvisning(true)
+      cy.fillOutStegvisning({ samtykke: true })
       cy.window().its('router').invoke('navigate', '/beregning')
 
       cy.contains('button', '68 år').click()
