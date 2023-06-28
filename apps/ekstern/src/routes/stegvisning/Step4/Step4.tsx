@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AFP, AfpRadio } from '@/components/stegvisning/AFP'
@@ -21,20 +20,13 @@ export function Step4() {
   const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
     useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
 
-  useEffect(() => {
-    // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til samtykke steget
-    if (harSamtykket === null) {
-      return navigate('/samtykke')
-    }
-  }, [])
-
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
     navigate('/')
   }
 
   const onPrevious = (): void => {
-    // TODO: hva skjer dersom tpo medlemskap feiler? Sender vi da tilbake til samtykke?
+    // TODO: hva skjer dersom tpo medlemskap har feilet før? sender vi tilbake til samtykke?
     if (
       isTpoMedlemskapQuerySuccess &&
       TpoMedlemskap.harTjenestepensjonsforhold

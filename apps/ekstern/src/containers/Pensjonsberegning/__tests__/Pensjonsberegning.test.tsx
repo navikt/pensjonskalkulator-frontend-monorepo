@@ -13,17 +13,13 @@ import {
 describe('Pensjonsberegning', () => {
   it('viser loading og deretter riktig header, tekst og knapper', async () => {
     const result = render(<Pensjonsberegning />)
-
     expect(screen.getByTestId('loader')).toBeVisible()
-
     await waitFor(() => {
       expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
     })
-
     expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(2)
     expect(screen.getAllByRole('button')).toHaveLength(13)
-
     expect(result.asFragment()).toMatchSnapshot()
   })
 

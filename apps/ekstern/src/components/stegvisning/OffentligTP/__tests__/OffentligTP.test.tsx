@@ -24,6 +24,18 @@ describe('stegvisning - OffentligTP', () => {
     })
   })
 
+  it('kaller onNext når shouldJumpOverStep er true', async () => {
+    render(
+      <OffentligTP
+        shouldJumpOverStep={true}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(onNextMock).toHaveBeenCalled()
+  })
+
   it('kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(

@@ -1,62 +1,44 @@
 import * as ReactRouterUtils from 'react-router'
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
 import { Step3 } from '..'
-import { mockResponse } from '@/mocks/server'
-import { RootState } from '@/state/store'
+import { step3loader } from '../utils'
+import { ROUTER_BASE_URL } from '@/routes'
+import { apiSlice } from '@/state/api/apiSlice'
+import { store, RootState } from '@/state/store'
+import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('Step 3', () => {
-  it('redirigerer til Step 2 når brukeren ikke har svart på spørsmålet om samtykke, ', async () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: null } } as RootState,
-    })
-    expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+  afterEach(() => {
+    store.dispatch(apiSlice.util.resetApiState())
   })
 
-  it('redirigerer til Step 4 når brukeren ikke har samtykket, ', async () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: false } } as RootState,
-    })
-    expect(navigateMock).toHaveBeenCalledWith('/afp')
+  const mockedState = {
+    api: { queries: {} },
+    userInput: {
+      ...userInputReducerUtils.userInputInitialState,
+      samtykke: true,
+    },
+  }
+  store.getState = vi.fn().mockImplementation(() => {
+    return mockedState
   })
-
-  it('redirigerer til Step 4 når brukeren har samtykket og har ikke noe tpo medlemskap, ', async () => {
-    mockResponse('/tpo-medlemskap', {
-      status: 200,
-      json: { harTjenestepensjonsforhold: false },
-    })
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
-    })
-    await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith('/afp')
-    })
-  })
-
-  it('rendrer Step 3 slik den skal når brukeren har samtykket og har tpo medlemskap, ', async () => {
-    render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
-    })
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.offentligtp.title'
-      )
-    })
-  })
+  const router = createMemoryRouter(
+    [
+      {
+        path: '/offentlig-tp',
+        loader: step3loader,
+        element: <Step3 />,
+      },
+    ],
+    {
+      basename: ROUTER_BASE_URL,
+      initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
+    }
+  )
 
   it('sender videre til steg 4 når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
@@ -64,9 +46,13 @@ describe('Step 3', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+    render(<RouterProvider router={router} />, {
+      preloadedState: mockedState as RootState,
+      hasRouter: false,
     })
+    expect(
+      await screen.findByText('stegvisning.offentligtp.title')
+    ).toBeVisible()
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.neste'))
       expect(navigateMock).toHaveBeenCalledWith('/afp')
@@ -79,9 +65,13 @@ describe('Step 3', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+    render(<RouterProvider router={router} />, {
+      preloadedState: mockedState as RootState,
+      hasRouter: false,
     })
+    expect(
+      await screen.findByText('stegvisning.offentligtp.title')
+    ).toBeVisible()
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
       expect(navigateMock).toHaveBeenCalledWith('/samtykke')
@@ -89,18 +79,23 @@ describe('Step 3', () => {
   })
 
   it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
+    const flushMock = vi.spyOn(userInputReducerUtils.userInputActions, 'flush')
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    const { store } = render(<Step3 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+    render(<RouterProvider router={router} />, {
+      preloadedState: mockedState as RootState,
+      hasRouter: false,
     })
+    expect(
+      await screen.findByText('stegvisning.offentligtp.title')
+    ).toBeVisible()
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.avbryt'))
       expect(navigateMock).toHaveBeenCalledWith('/')
-      expect(store.getState().userInput.samtykke).toBe(null)
+      expect(flushMock).toHaveBeenCalled()
     })
   })
 })

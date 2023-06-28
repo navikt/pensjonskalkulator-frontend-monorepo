@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
-import { render, screen, waitFor, userEvent } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 describe('Pensjonssimulering', () => {
   it('rendrer med riktig tittel og chart og uten scroll-knapper', async () => {

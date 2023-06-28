@@ -1,3 +1,4 @@
+import { redirect } from 'react-router'
 import { RouteObject } from 'react-router-dom'
 
 import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
@@ -7,10 +8,19 @@ import { RouteErrorBoundary } from '@/routes/RouteErrorBoundary'
 import { Step1 } from '@/routes/stegvisning/Step1'
 import { Step2 } from '@/routes/stegvisning/Step2'
 import { Step3 } from '@/routes/stegvisning/Step3'
+import { step3loader } from '@/routes/stegvisning/Step3/utils'
 import { Step4 } from '@/routes/stegvisning/Step4'
 import { Step5 } from '@/routes/stegvisning/Step5'
+import { store } from '@/state/store'
 
 export const ROUTER_BASE_URL = '/pensjon/kalkulator'
+
+export const samtykkeGuard = async () => {
+  if (store.getState().userInput.samtykke === null) {
+    return redirect('/start')
+  }
+  return null
+}
 
 export const routes: RouteObject[] = [
   {
@@ -42,6 +52,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/offentlig-tp',
+    loader: step3loader,
     element: (
       <PageFramework>
         <Step3 />
@@ -50,6 +61,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/afp',
+    loader: samtykkeGuard,
     element: (
       <PageFramework>
         <Step4 />
@@ -59,6 +71,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/sivilstand',
+    loader: samtykkeGuard,
     element: (
       <PageFramework>
         <Step5 />
@@ -68,13 +81,12 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/beregning',
+    loader: samtykkeGuard,
     element: (
       <PageFramework>
         <Pensjonsberegning />
       </PageFramework>
     ),
     ErrorBoundary: RouteErrorBoundary,
-    // action: rootAction,// TODO vudere å ta i bruk action og loader for henting av tidligst mulig uttak
-    // loader: rootLoader,
   },
 ]

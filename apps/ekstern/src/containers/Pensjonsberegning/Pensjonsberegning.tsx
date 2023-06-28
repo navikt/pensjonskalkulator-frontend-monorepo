@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
 
@@ -20,7 +20,6 @@ export function Pensjonsberegning() {
     isSuccess,
   } = useTidligsteUttaksalderQuery()
 
-  // TODO vurdere om denne skal lagres i Redux store for å minske prop drilling
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
   if (isLoading) {

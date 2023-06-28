@@ -3,7 +3,9 @@ describe('Graf Horizontal scroll', () => {
     'Gitt at grafen rendres på desktop og har nok søyler for å kunne scrolles',
     () => {
       it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {
-        cy.visit('/pensjon/kalkulator/beregning')
+        cy.visit('/pensjon/kalkulator/')
+        cy.fillOutStegvisning({ samtykke: true })
+        cy.window().its('router').invoke('navigate', '/beregning')
 
         cy.contains('button', '70 år').click()
         cy.contains('button', 'Færre år').should('not.exist')
@@ -11,7 +13,9 @@ describe('Graf Horizontal scroll', () => {
       })
 
       it('Brukeren kan se og bruke navigasjonsknappene når det er flere søyler enn skjermens bredde', () => {
-        cy.visit('/pensjon/kalkulator/beregning')
+        cy.visit('/pensjon/kalkulator/')
+        cy.fillOutStegvisning({ samtykke: true })
+        cy.window().its('router').invoke('navigate', '/beregning')
 
         cy.viewport('iphone-xr')
         cy.contains('button', '67 år').click()

@@ -5,24 +5,15 @@ import { describe, it, vi } from 'vitest'
 import { Step4 } from '..'
 import * as Step4Utils from '../utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
-import { RootState } from '@/state/store'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
 describe('Step 4', () => {
-  it('redirigerer til Step 2 når brukeren ikke har svart på spørsmålet om samtykke, ', async () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+  it('rendrer Step 4 slik den skal når brukeren har svart nei på spørsmålet om samtykke,', async () => {
     render(<Step4 />, {
-      preloadedState: { userInput: { samtykke: null } } as RootState,
-    })
-    expect(navigateMock).toHaveBeenCalledWith('/samtykke')
-  })
-
-  it('rendrer Step 4 slik den skal når brukeren ikke har samtykket,', async () => {
-    render(<Step4 />, {
-      preloadedState: { userInput: { samtykke: false } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: false },
+      },
     })
 
     expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent(
@@ -31,9 +22,11 @@ describe('Step 4', () => {
     expect(screen.getAllByRole('radio')).toHaveLength(4)
   })
 
-  it('rendrer Step 4 slik den skal når brukeren har samtykket, ', async () => {
+  it('rendrer Step 4 slik den skal når brukeren har svart ja på spørsmålet om samtykke,', async () => {
     render(<Step4 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
 
     expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent(
@@ -55,7 +48,9 @@ describe('Step 4', () => {
       () => navigateMock
     )
     const { store } = render(<Step4 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
 
     const radioButtons = await screen.findAllByRole('radio')
@@ -77,7 +72,9 @@ describe('Step 4', () => {
       () => navigateMock
     )
     const { store } = render(<Step4 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     await waitFor(async () => {
       const radioButtons = screen.getAllByRole('radio')
@@ -99,7 +96,9 @@ describe('Step 4', () => {
       () => navigateMock
     )
     const { store } = render(<Step4 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
 
     const radioButtons = await screen.findAllByRole('radio')
@@ -133,7 +132,9 @@ describe('Step 4', () => {
       () => navigateMock
     )
     render(<Step4 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
@@ -149,8 +150,8 @@ describe('Step 4', () => {
     )
     const { store } = render(<Step4 />, {
       preloadedState: {
-        userInput: { samtykke: true, afp: 'nei' },
-      } as RootState,
+        userInput: { ...userInputInitialState, samtykke: true, afp: 'nei' },
+      },
     })
 
     await user.click(await screen.findByText('stegvisning.avbryt'))
