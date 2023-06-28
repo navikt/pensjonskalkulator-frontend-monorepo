@@ -63,10 +63,9 @@ export function Pensjonsberegning() {
         <>
           <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
           <Forbehold />
+          <TilbakeEllerAvslutt />
         </>
       )}
-
-      <TilbakeEllerAvslutt />
     </>
   )
 }
