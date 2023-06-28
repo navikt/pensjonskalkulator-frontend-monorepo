@@ -10,6 +10,7 @@ describe('stegvisning - AFP', () => {
   const onNextMock = vi.fn()
 
   it('rendrer slik den skal når afp ikke er oppgitt', async () => {
+    const user = userEvent.setup()
     const result = render(
       <AFP
         afp={null}
@@ -21,6 +22,17 @@ describe('stegvisning - AFP', () => {
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       'stegvisning.afp.title'
     )
+
+    await user.click(screen.getByText('stegvisning.afp.readmore_privat_title'))
+    await user.click(
+      screen.getByText('stegvisning.afp.readmore_offentlig_title')
+    )
+
+    expect(result.asFragment()).toMatchSnapshot()
+    expect(
+      screen.getByRole('link', { name: 'AFP i privat sektor på afp.no' })
+    ).toHaveAttribute('href', 'stegvisning.afp.readmore_privat_url')
+
     const radioButtons = screen.getAllByRole('radio')
     await waitFor(() => {
       expect(radioButtons).toHaveLength(4)
@@ -35,7 +47,7 @@ describe('stegvisning - AFP', () => {
   it('rendrer slik den skal når afp er oppgitt', async () => {
     const result = render(
       <AFP
-        afp={'nei'}
+        afp="nei"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -151,7 +163,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     render(
       <AFP
-        afp={'ja_privat'}
+        afp="ja_privat"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -169,7 +181,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     render(
       <AFP
-        afp={'ja_privat'}
+        afp="ja_privat"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}

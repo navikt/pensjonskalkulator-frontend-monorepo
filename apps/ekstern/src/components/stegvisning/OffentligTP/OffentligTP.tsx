@@ -36,11 +36,11 @@ export function OffentligTP({
         <FormattedMessage id="stegvisning.offentligtp.ingress_2" />
       </BodyLong>
 
-      <Button type={'submit'} className={styles.button} onClick={onNext}>
+      <Button type="submit" className={styles.button} onClick={onNext}>
         <FormattedMessage id="stegvisning.neste" />
       </Button>
       <Button
-        type={'button'}
+        type="button"
         className={styles.button}
         variant="secondary"
         onClick={onPrevious}
@@ -48,7 +48,7 @@ export function OffentligTP({
         <FormattedMessage id="stegvisning.tilbake" />
       </Button>
       <Button
-        type={'button'}
+        type="button"
         className={styles.button}
         variant="tertiary"
         onClick={onCancel}

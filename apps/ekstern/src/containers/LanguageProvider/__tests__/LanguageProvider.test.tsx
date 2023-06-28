@@ -10,7 +10,7 @@ import { mockErrorResponse } from '@/mocks/server'
 function TestComponent() {
   const intl = useIntl()
   return (
-    <div data-testid={'test-component'}>
+    <div data-testid="test-component">
       {intl.formatMessage({ id: 'application.title' })}
     </div>
   )

@@ -16,6 +16,127 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
       >
         stegvisning.afp.ingress
       </p>
+      <div
+        class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6"
+      >
+        <button
+          aria-expanded="false"
+          class="navds-read-more__button navds-body-short"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_privat_title
+          </span>
+        </button>
+        <div
+          aria-hidden="true"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+        >
+          stegvisning.afp.readmore_list_title
+          <ul>
+            <li>
+              stegvisning.afp.readmore_privat_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item3
+            </li>
+          </ul>
+          Les om vilkårene til 
+          <a
+            class="navds-link"
+            href="stegvisning.afp.readmore_privat_url"
+            target="_blank"
+          >
+            AFP i privat sektor på afp.no
+            <svg
+              fill="none"
+              focusable="false"
+              height="1.25rem"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1.25rem"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M11.75 4a.75.75 0 0 1 .75-.75H20a.748.748 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1-.75-.75ZM5 8.75a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25h10a.25.25 0 0 0 .25-.25v-7a.75.75 0 0 1 1.5 0v7A1.75 1.75 0 0 1 15 20.75H5A1.75 1.75 0 0 1 3.25 19V9c0-.966.784-1.75 1.75-1.75h7a.75.75 0 0 1 0 1.5H5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6"
+      >
+        <button
+          aria-expanded="false"
+          class="navds-read-more__button navds-body-short"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_offentlig_title
+          </span>
+        </button>
+        <div
+          aria-hidden="true"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+        >
+          stegvisning.afp.readmore_list_title
+          <ul>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item3
+            </li>
+          </ul>
+          stegvisning.afp.readmore_offentlig_ingress
+        </div>
+      </div>
       <fieldset
         aria-invalid="false"
         aria-required="true"
@@ -35,14 +156,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-r8"
+              id="radio-re"
               name="afp"
               type="radio"
               value="ja_offentlig"
             />
             <label
               class="navds-radio__label"
-              for="radio-r8"
+              for="radio-re"
             >
               <span
                 class="navds-radio__content"
@@ -61,14 +182,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-r9"
+              id="radio-rf"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-r9"
+              for="radio-rf"
             >
               <span
                 class="navds-radio__content"
@@ -88,14 +209,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
               aria-invalid="false"
               checked=""
               class="navds-radio__input"
-              id="radio-ra"
+              id="radio-rg"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-ra"
+              for="radio-rg"
             >
               <span
                 class="navds-radio__content"
@@ -114,14 +235,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-rb"
+              id="radio-rh"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-rb"
+              for="radio-rh"
             >
               <span
                 class="navds-radio__content"
@@ -139,7 +260,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r7"
+          id="fieldset-error-rd"
         />
       </fieldset>
       <button
@@ -196,6 +317,127 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
       >
         stegvisning.afp.ingress
       </p>
+      <div
+        class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6 navds-read-more--open"
+      >
+        <button
+          aria-expanded="true"
+          class="navds-read-more__button navds-body-short"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_privat_title
+          </span>
+        </button>
+        <div
+          aria-hidden="false"
+          class="navds-read-more__content navds-body-long"
+        >
+          stegvisning.afp.readmore_list_title
+          <ul>
+            <li>
+              stegvisning.afp.readmore_privat_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item3
+            </li>
+          </ul>
+          Les om vilkårene til 
+          <a
+            class="navds-link"
+            href="stegvisning.afp.readmore_privat_url"
+            target="_blank"
+          >
+            AFP i privat sektor på afp.no
+            <svg
+              fill="none"
+              focusable="false"
+              height="1.25rem"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1.25rem"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M11.75 4a.75.75 0 0 1 .75-.75H20a.748.748 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1-.75-.75ZM5 8.75a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25h10a.25.25 0 0 0 .25-.25v-7a.75.75 0 0 1 1.5 0v7A1.75 1.75 0 0 1 15 20.75H5A1.75 1.75 0 0 1 3.25 19V9c0-.966.784-1.75 1.75-1.75h7a.75.75 0 0 1 0 1.5H5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6 navds-read-more--open"
+      >
+        <button
+          aria-expanded="true"
+          class="navds-read-more__button navds-body-short"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_offentlig_title
+          </span>
+        </button>
+        <div
+          aria-hidden="false"
+          class="navds-read-more__content navds-body-long"
+        >
+          stegvisning.afp.readmore_list_title
+          <ul>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item3
+            </li>
+          </ul>
+          stegvisning.afp.readmore_offentlig_ingress
+        </div>
+      </div>
       <fieldset
         aria-invalid="false"
         aria-required="true"
@@ -215,14 +457,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-r2"
+              id="radio-r5"
               name="afp"
               type="radio"
               value="ja_offentlig"
             />
             <label
               class="navds-radio__label"
-              for="radio-r2"
+              for="radio-r5"
             >
               <span
                 class="navds-radio__content"
@@ -241,14 +483,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-r3"
+              id="radio-r6"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-r3"
+              for="radio-r6"
             >
               <span
                 class="navds-radio__content"
@@ -267,14 +509,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-r4"
+              id="radio-r7"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r4"
+              for="radio-r7"
             >
               <span
                 class="navds-radio__content"
@@ -293,14 +535,14 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             <input
               aria-invalid="false"
               class="navds-radio__input"
-              id="radio-r5"
+              id="radio-r8"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-r5"
+              for="radio-r8"
             >
               <span
                 class="navds-radio__content"
@@ -318,7 +560,307 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r1"
+          id="fieldset-error-r4"
+        />
+      </fieldset>
+      <button
+        class="_button_10a2c6 navds-button navds-button--primary navds-button--medium"
+        type="submit"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          stegvisning.neste
+        </span>
+      </button>
+      <button
+        class="_button_10a2c6 navds-button navds-button--secondary navds-button--medium"
+        type="button"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          stegvisning.tilbake
+        </span>
+      </button>
+      <button
+        class="_button_10a2c6 navds-button navds-button--tertiary navds-button--medium"
+        type="button"
+      >
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          stegvisning.avbryt
+        </span>
+      </button>
+    </section>
+  </form>
+</DocumentFragment>
+`;
+
+exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] = `
+<DocumentFragment>
+  <form>
+    <section
+      class="_section_10a2c6"
+    >
+      <h2
+        class="navds-heading navds-heading--large navds-typo--spacing"
+      >
+        stegvisning.afp.title
+      </h2>
+      <p
+        class="navds-ingress"
+      >
+        stegvisning.afp.ingress
+      </p>
+      <div
+        class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6 navds-read-more--open"
+      >
+        <button
+          aria-expanded="true"
+          class="navds-read-more__button navds-body-short"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_privat_title
+          </span>
+        </button>
+        <div
+          aria-hidden="false"
+          class="navds-read-more__content navds-body-long"
+        >
+          stegvisning.afp.readmore_list_title
+          <ul>
+            <li>
+              stegvisning.afp.readmore_privat_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item3
+            </li>
+          </ul>
+          Les om vilkårene til 
+          <a
+            class="navds-link"
+            href="stegvisning.afp.readmore_privat_url"
+            target="_blank"
+          >
+            AFP i privat sektor på afp.no
+            <svg
+              fill="none"
+              focusable="false"
+              height="1.25rem"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1.25rem"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M11.75 4a.75.75 0 0 1 .75-.75H20a.748.748 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1-.75-.75ZM5 8.75a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25h10a.25.25 0 0 0 .25-.25v-7a.75.75 0 0 1 1.5 0v7A1.75 1.75 0 0 1 15 20.75H5A1.75 1.75 0 0 1 3.25 19V9c0-.966.784-1.75 1.75-1.75h7a.75.75 0 0 1 0 1.5H5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6 navds-read-more--open"
+      >
+        <button
+          aria-expanded="true"
+          class="navds-read-more__button navds-body-short"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_offentlig_title
+          </span>
+        </button>
+        <div
+          aria-hidden="false"
+          class="navds-read-more__content navds-body-long"
+        >
+          stegvisning.afp.readmore_list_title
+          <ul>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item3
+            </li>
+          </ul>
+          stegvisning.afp.readmore_offentlig_ingress
+        </div>
+      </div>
+      <fieldset
+        aria-invalid="false"
+        aria-required="true"
+        class="_radiogroup_10a2c6 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+      >
+        <legend
+          class="navds-fieldset__legend navds-label"
+        >
+          stegvisning.afp.radio_label
+        </legend>
+        <div
+          class="navds-radio-buttons"
+        >
+          <div
+            class="navds-radio navds-radio--medium"
+          >
+            <input
+              aria-invalid="false"
+              class="navds-radio__input"
+              id="radio-r5"
+              name="afp"
+              type="radio"
+              value="ja_offentlig"
+            />
+            <label
+              class="navds-radio__label"
+              for="radio-r5"
+            >
+              <span
+                class="navds-radio__content"
+              >
+                <span
+                  class="navds-body-short"
+                >
+                  stegvisning.afp.radio_ja_offentlig
+                </span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="navds-radio navds-radio--medium"
+          >
+            <input
+              aria-invalid="false"
+              class="navds-radio__input"
+              id="radio-r6"
+              name="afp"
+              type="radio"
+              value="ja_privat"
+            />
+            <label
+              class="navds-radio__label"
+              for="radio-r6"
+            >
+              <span
+                class="navds-radio__content"
+              >
+                <span
+                  class="navds-body-short"
+                >
+                  stegvisning.afp.radio_ja_privat
+                </span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="navds-radio navds-radio--medium"
+          >
+            <input
+              aria-invalid="false"
+              class="navds-radio__input"
+              id="radio-r7"
+              name="afp"
+              type="radio"
+              value="nei"
+            />
+            <label
+              class="navds-radio__label"
+              for="radio-r7"
+            >
+              <span
+                class="navds-radio__content"
+              >
+                <span
+                  class="navds-body-short"
+                >
+                  stegvisning.afp.radio_nei
+                </span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="navds-radio navds-radio--medium"
+          >
+            <input
+              aria-invalid="false"
+              class="navds-radio__input"
+              id="radio-r8"
+              name="afp"
+              type="radio"
+              value="vet_ikke"
+            />
+            <label
+              class="navds-radio__label"
+              for="radio-r8"
+            >
+              <span
+                class="navds-radio__content"
+              >
+                <span
+                  class="navds-body-short"
+                >
+                  stegvisning.afp.radio_vet_ikke
+                </span>
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          aria-live="polite"
+          aria-relevant="additions removals"
+          class="navds-fieldset__error"
+          id="fieldset-error-r4"
         />
       </fieldset>
       <button

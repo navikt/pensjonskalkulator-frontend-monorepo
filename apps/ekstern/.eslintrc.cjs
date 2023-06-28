@@ -28,9 +28,14 @@ module.exports = {
     '@typescript-eslint/naming-convention': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     '@typescript-eslint/no-unused-vars': 'warn',
+    '@typescript-eslint/no-shadow': ['error'],
+    'react/jsx-curly-brace-presence': [
+      'warn',
+      { props: 'never', children: 'never' },
+    ],
     'no-irregular-whitespace': 'warn',
     'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
+
     'import/order': [
       'warn',
       {
