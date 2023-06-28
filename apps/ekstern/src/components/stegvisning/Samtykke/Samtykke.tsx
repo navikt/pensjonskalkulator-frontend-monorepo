@@ -69,7 +69,7 @@ export function Samtykke({
           <br />
           <br />
           <FormattedMessage id="stegvisning.samtykke.readmore_list_title" />
-          <ul>
+          <ul className={styles.list}>
             <li>
               <FormattedMessage id="stegvisning.samtykke.readmore_list_item1" />
             </li>

@@ -7,6 +7,11 @@
   margin: var(--a-spacing-1) 0 var(--a-spacing-6) 0;
 }
 
+.list {
+  margin-block-start: var(--a-spacing-3);
+  margin-block-end: var(--a-spacing-3);
+}
+
 .radiogroup {
   margin-bottom: var(--a-spacing-4);
 }
