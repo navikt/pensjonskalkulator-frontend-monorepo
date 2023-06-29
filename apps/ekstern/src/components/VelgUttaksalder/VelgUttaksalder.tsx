@@ -30,11 +30,6 @@ export const VelgUttaksalder: React.FC<Props> = ({
     [tidligstMuligUttak]
   )
   const [isFlereAldereOpen, setIsFlereAldereOpen] = useState<boolean>(false)
-  console.log(
-    'formaterteAldere.length',
-    formaterteAldere.length,
-    defaultAntallSynligeAldere
-  )
 
   return (
     <div className={styles.wrapper}>
