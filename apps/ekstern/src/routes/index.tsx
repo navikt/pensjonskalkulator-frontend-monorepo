@@ -1,5 +1,5 @@
 import { redirect } from 'react-router'
-import { RouteObject } from 'react-router-dom'
+import { RouteObject, Navigate } from 'react-router-dom'
 
 import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
 import { LandingPage } from '@/routes/LandingPage'
@@ -25,6 +25,11 @@ export const samtykkeGuard = async () => {
 export const routes: RouteObject[] = [
   {
     path: '/',
+    element: <Navigate to="/start" replace />,
+    ErrorBoundary: RouteErrorBoundary,
+  },
+  {
+    path: '/login',
     element: (
       <PageFramework>
         <LandingPage />

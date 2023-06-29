@@ -37,7 +37,10 @@ spec:
       autoLogin: true
       autoLoginIgnorePaths:
         - /internal/ping
+        - /pensjon/kalkulator/login
+        - /pensjon/kalkulator/assets/*
         - /pensjon/kalkulator/api/status
+        - /pensjon/kalkulator/api/feature/*
   accessPolicy:
     outbound:
       rules:
