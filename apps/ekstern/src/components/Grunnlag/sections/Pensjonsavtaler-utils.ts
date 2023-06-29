@@ -1,7 +1,7 @@
-import { PensjonsavtaleType } from '@/types/enums'
+import { PensjonsavtaleKategori } from '@/types/enums'
 
 type PensjonsavtaleRecord = {
-  [key in PensjonsavtaleType]?: Pensjonsavtale[]
+  [key in PensjonsavtaleKategori]?: Pensjonsavtale[]
 }
 
 export const groupPensjonsavtalerByType = (
@@ -10,13 +10,15 @@ export const groupPensjonsavtalerByType = (
   const record: PensjonsavtaleRecord = {}
 
   for (const avtale of pensjonsavtaler) {
-    const avtaletype =
-      PensjonsavtaleType[avtale.type as keyof typeof PensjonsavtaleType]
+    const avtalekategori =
+      PensjonsavtaleKategori[
+        avtale.kategori as keyof typeof PensjonsavtaleKategori
+      ]
 
-    if (!Array.isArray(record[avtaletype])) {
-      record[avtaletype] = [avtale]
+    if (!Array.isArray(record[avtalekategori])) {
+      record[avtalekategori] = [avtale]
     } else {
-      record[avtaletype]?.push(avtale)
+      record[avtalekategori]?.push(avtale)
     }
   }
   return record

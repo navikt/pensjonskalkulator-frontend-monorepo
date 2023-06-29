@@ -56,14 +56,14 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
                   {avtaler.map((avtale, i) => (
                     <tr key={i}>
                       <td className={styles.tabellCell}>
-                        <BodyShort>Fra {avtale.navn}</BodyShort>
+                        <BodyShort>Fra {avtale.produktbetegnelse}</BodyShort>
                         {
                           // TODO håndtere bedre aar + måned visning, og evt grad
                         }
                         <BodyShort className={styles.utbetaling}>
-                          {avtale.sluttAar
-                            ? `Utbetales fra ${avtale.startAar} og ${avtale.startMaaned} til ${avtale.sluttAar} år og ${avtale.sluttMaaned}`
-                            : `Livsvarig utbetaling fra ${avtale.startAar} år og ${avtale.startMaaned}`}
+                          {avtale.utbetalingsperiode.sluttAlder
+                            ? `Utbetales fra ${avtale.utbetalingsperiode.startAlder} og ${avtale.utbetalingsperiode.startMaaned} til ${avtale.utbetalingsperiode.sluttAlder} år og ${avtale.utbetalingsperiode.sluttMaaned}`
+                            : `Livsvarig utbetaling fra ${avtale.utbetalingsperiode.startAlder} år og ${avtale.utbetalingsperiode.startMaaned}`}
                         </BodyShort>
                       </td>
                       <td
@@ -73,7 +73,10 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
                         )}
                       >
                         <BodyShort>
-                          {formatAsDecimal(avtale.beholdning / 12)} kr
+                          {formatAsDecimal(
+                            avtale.utbetalingsperiode.aarligUtbetaling
+                          )}
+                          kr
                         </BodyShort>
                       </td>
                     </tr>

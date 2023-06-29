@@ -1,6 +1,6 @@
 import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
 import { groupPensjonsavtalerByType } from '../Pensjonsavtaler-utils'
-import { PensjonsavtaleType } from '@/types/enums'
+import { PensjonsavtaleKategori } from '@/types/enums'
 
 describe('groupPensjonsavtaler-utils', () => {
   describe('groupPensjonsavtalerByType', () => {
@@ -9,21 +9,21 @@ describe('groupPensjonsavtaler-utils', () => {
     })
 
     it('returnerer riktig navn på grupper', () => {
-      const grouped = groupPensjonsavtalerByType(pensjonsavtalerData)
+      const grouped = groupPensjonsavtalerByType(pensjonsavtalerData.avtaler)
       const keys = Object.keys(grouped)
       expect(keys).toHaveLength(6)
-      expect(keys).toEqual(Object.values(PensjonsavtaleType))
+      expect(keys).toEqual(Object.values(PensjonsavtaleKategori))
     })
 
     it('grupperer pensjonsavtaler på avtaletype', () => {
-      const grouped = groupPensjonsavtalerByType(pensjonsavtalerData)
+      const grouped = groupPensjonsavtalerByType(pensjonsavtalerData.avtaler)
 
-      expect(grouped[PensjonsavtaleType.INNSKUDD]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleType.INNSKUDD_KOLL]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleType.PRIVAT_TP]).toHaveLength(2)
-      expect(grouped[PensjonsavtaleType.OFFENTLIG_TP]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleType.FRIPOLISE]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleType.EGEN_SPARING]).toHaveLength(1)
+      expect(grouped[PensjonsavtaleKategori.INNSKUDD]).toHaveLength(1)
+      expect(grouped[PensjonsavtaleKategori.INNSKUDD_KOLL]).toHaveLength(1)
+      expect(grouped[PensjonsavtaleKategori.PRIVAT_TP]).toHaveLength(2)
+      expect(grouped[PensjonsavtaleKategori.OFFENTLIG_TP]).toHaveLength(1)
+      expect(grouped[PensjonsavtaleKategori.FRIPOLISE]).toHaveLength(1)
+      expect(grouped[PensjonsavtaleKategori.EGEN_SPARING]).toHaveLength(1)
     })
   })
 })

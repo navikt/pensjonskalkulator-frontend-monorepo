@@ -1,7 +1,7 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
-import { useGetPensjonsavtalerQuery } from '@/state/api/apiSlice'
+import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 
 import { AFP } from './sections/AFP'
 import { Alderspensjon } from './sections/Alderspensjon'
@@ -35,11 +35,21 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()
   const uttaksgrad = useUttaksgrad()
+  // TODO fylle ut riktig informasjon for henting av pensjonsavtaler
   const {
     data: pensjonsavtaler,
     isSuccess,
     isLoading,
-  } = useGetPensjonsavtalerQuery()
+  } = usePensjonsavtalerQuery({
+    aarligInntektFoerUttak: 0,
+    uttaksperiode: {
+      startAlder: 0,
+      startMaaned: 0,
+      grad: 100,
+      aarligInntekt: 500000,
+    },
+    antallInntektsaarEtterUttak: 0,
+  })
 
   return (
     <Card className={styles.section}>

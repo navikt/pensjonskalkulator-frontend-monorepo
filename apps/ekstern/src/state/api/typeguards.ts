@@ -1,4 +1,4 @@
-import { PensjonsavtaleType } from '@/types/enums'
+import { PensjonsavtaleKategori } from '@/types/enums'
 
 export const isPensjonsberegningArray = (
   data?: any
@@ -13,18 +13,28 @@ export const isPensjonsberegningArray = (
   )
 }
 
-export const isPensjonsavtale = (data?: any): data is Pensjonsavtale[] => {
+export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
   return (
-    Array.isArray(data) &&
-    data.every(
-      (pensjonsavtale) =>
-        typeof pensjonsavtale.navn === 'string' &&
-        isSomeEnumKey(PensjonsavtaleType)(pensjonsavtale.type) &&
-        typeof pensjonsavtale.startAar === 'number' &&
-        typeof pensjonsavtale.startMaaned === 'number' &&
-        typeof pensjonsavtale.grad === 'number' &&
-        typeof pensjonsavtale.beholdning === 'number'
-    )
+    data !== null &&
+    data !== undefined &&
+    !Array.isArray(data) &&
+    data.produktbetegnelse &&
+    typeof data.produktbetegnelse === 'string' &&
+    data.kategori &&
+    isSomeEnumKey(PensjonsavtaleKategori)(data.kategori) &&
+    data.startAlder &&
+    typeof data.startAlder === 'number' &&
+    data.startMaaned &&
+    typeof data.startMaaned === 'number' &&
+    data.utbetalingsperiode &&
+    data.utbetalingsperiode.startAlder &&
+    typeof data.utbetalingsperiode.startAlder === 'number' &&
+    data.utbetalingsperiode.startMaaned &&
+    typeof data.utbetalingsperiode.startMaaned === 'number' &&
+    data.utbetalingsperiode.grad &&
+    typeof data.utbetalingsperiode.grad === 'number' &&
+    data.utbetalingsperiode.aarligUtbetaling &&
+    typeof data.utbetalingsperiode.aarligUtbetaling === 'number'
   )
 }
 

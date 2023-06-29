@@ -9,6 +9,13 @@ import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'j
 import unleashDisableSpraakvelgerResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
 
 export const getHandlers = (baseUrl: string = PATH) => [
+  rest.post(`${baseUrl}/pensjonsavtaler`, async (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json(pensjonsavtalerResponse),
+      ctx.delay(30)
+    )
+  }),
   rest.post(`${baseUrl}/tidligste-uttaksalder`, (req, res, ctx) => {
     return res(
       ctx.status(200),
@@ -23,13 +30,7 @@ export const getHandlers = (baseUrl: string = PATH) => [
 
     return res(ctx.status(200), ctx.json(data), ctx.delay(30))
   }),
-  rest.get(`${baseUrl}/pensjonsavtaler`, (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json(pensjonsavtalerResponse),
-      ctx.delay(30)
-    )
-  }),
+
   rest.get(`${baseUrl}/tpo-medlemskap`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(tpoMedlemskapResponse), ctx.delay(30))
   }),

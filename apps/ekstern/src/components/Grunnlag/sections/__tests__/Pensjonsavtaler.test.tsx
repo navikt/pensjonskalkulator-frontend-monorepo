@@ -15,12 +15,16 @@ describe('Pensjonsavtaler', () => {
       <Pensjonsavtaler
         pensjonsavtaler={[
           {
-            navn: 'DNB',
-            type: 'privat tjenestepensjon',
-            startAar: 67,
+            produktbetegnelse: 'DNB',
+            kategori: 'privat tjenestepensjon',
+            startAlder: 67,
             startMaaned: 1,
-            grad: 100,
-            beholdning: 12345,
+            utbetalingsperiode: {
+              startAlder: 67,
+              startMaaned: 1,
+              aarligUtbetaling: 12345,
+              grad: 100,
+            },
           },
         ]}
       />
@@ -36,14 +40,18 @@ describe('Pensjonsavtaler', () => {
       <Pensjonsavtaler
         pensjonsavtaler={[
           {
-            navn: 'DNB',
-            type: 'privat tjenestepensjon',
-            startAar: 67,
+            produktbetegnelse: 'DNB',
+            kategori: 'privat tjenestepensjon',
+            startAlder: 67,
             startMaaned: 1,
-            sluttAar: 77,
-            sluttMaaned: 8,
-            grad: 100,
-            beholdning: 12345,
+            utbetalingsperiode: {
+              startAlder: 67,
+              startMaaned: 1,
+              sluttAlder: 77,
+              sluttMaaned: 8,
+              aarligUtbetaling: 12345,
+              grad: 100,
+            },
           },
         ]}
       />

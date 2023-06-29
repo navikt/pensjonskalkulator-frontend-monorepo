@@ -9,6 +9,8 @@ import {
 } from './typeguards'
 import { API_BASEURL } from '@/api/paths'
 import {
+  PensjonsavtalerResponseBody,
+  PensjonsavtalerRequestBody,
   AlderspensjonRequestBody,
   AlderspensjonResponseBody,
   UttaksalderRequestBody,
@@ -19,8 +21,30 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
   }),
-
   endpoints: (builder) => ({
+    pensjonsavtaler: builder.query<
+      Pensjonsavtale[],
+      PensjonsavtalerRequestBody
+    >({
+      query: (body) => ({
+        url: '/pensjonsavtaler',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: PensjonsavtalerResponseBody) => {
+        if (response.avtaler && Array.isArray(response.avtaler)) {
+          response.avtaler.forEach((avtale) => {
+            if (!isPensjonsavtale(avtale)) {
+              throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
+              // return undefined;
+            }
+          })
+        } else {
+          throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
+        }
+        return response.avtaler
+      },
+    }),
     tidligsteUttaksalder: builder.query<
       Uttaksalder,
       UttaksalderRequestBody | void
@@ -72,15 +96,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getPensjonsavtaler: builder.query<Pensjonsavtale[], void>({
-      query: () => '/pensjonsavtaler',
-      transformResponse: (response: Pensjonsavtale[]) => {
-        if (!isPensjonsavtale(response)) {
-          throw new Error(`Mottok ugyldig pensjonsavtale:`, response)
-        }
-        return response
-      },
-    }),
     getSpraakvelgerFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.disable-spraakvelger',
       transformResponse: (response: UnleashToggle) => {
@@ -97,7 +112,7 @@ export const {
   useTidligsteUttaksalderQuery,
   useAlderspensjonQuery,
   useGetPersonQuery,
-  useGetPensjonsavtalerQuery,
+  usePensjonsavtalerQuery,
   useGetTpoMedlemskapQuery,
   useGetSpraakvelgerFeatureToggleQuery,
 } = apiSlice

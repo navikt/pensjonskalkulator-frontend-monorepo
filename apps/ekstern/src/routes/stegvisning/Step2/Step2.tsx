@@ -15,7 +15,19 @@ export function Step2() {
     const samtykke = samtykkeData === 'ja'
     dispatch(userInputActions.setSamtykke(samtykke))
     if (samtykke) {
-      dispatch(apiSlice.endpoints.getPensjonsavtaler.initiate())
+      // TODO fylle ut riktig informasjon for henting av pensjonsavtaler
+      dispatch(
+        apiSlice.endpoints.pensjonsavtaler.initiate({
+          aarligInntektFoerUttak: 0,
+          uttaksperiode: {
+            startAlder: 0,
+            startMaaned: 0,
+            grad: 100,
+            aarligInntekt: 500000,
+          },
+          antallInntektsaarEtterUttak: 0,
+        })
+      )
     } else {
       dispatch(apiSlice.util.resetApiState())
     }

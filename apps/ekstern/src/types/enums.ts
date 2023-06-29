@@ -1,4 +1,4 @@
-export enum PensjonsavtaleType {
+export enum PensjonsavtaleKategori {
   INNSKUDD = 'innskudd',
   INNSKUDD_KOLL = 'innskudd kollektiv',
   PRIVAT_TP = 'privat tjenestepensjon',

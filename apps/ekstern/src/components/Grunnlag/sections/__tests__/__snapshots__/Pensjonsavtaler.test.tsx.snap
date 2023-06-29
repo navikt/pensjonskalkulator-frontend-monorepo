@@ -104,7 +104,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
               <p
                 class="navds-body-short"
               >
-                1 028,75 kr
+                12 345kr
               </p>
             </td>
           </tr>
@@ -231,7 +231,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
               <p
                 class="navds-body-short"
               >
-                1 028,75 kr
+                12 345kr
               </p>
             </td>
           </tr>
