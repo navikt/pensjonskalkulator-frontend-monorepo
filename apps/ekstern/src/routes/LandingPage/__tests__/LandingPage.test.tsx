@@ -9,7 +9,7 @@ describe('LandingPage', () => {
 
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'Midlertidig landingsside'
+        'Utlogget landingsside'
       )
       expect(result.asFragment()).toMatchSnapshot()
     })
