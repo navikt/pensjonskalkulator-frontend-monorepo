@@ -51,7 +51,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           class="navds-read-more__content navds-read-more__content--closed navds-body-long"
         >
           stegvisning.afp.readmore_list_title
-          <ul>
+          <ul
+            class="_list_10a2c6"
+          >
             <li>
               stegvisning.afp.readmore_privat_list_item1
             </li>
@@ -123,7 +125,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           class="navds-read-more__content navds-read-more__content--closed navds-body-long"
         >
           stegvisning.afp.readmore_list_title
-          <ul>
+          <ul
+            class="_list_10a2c6"
+          >
             <li>
               stegvisning.afp.readmore_offentlig_list_item1
             </li>
@@ -352,7 +356,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           class="navds-read-more__content navds-body-long"
         >
           stegvisning.afp.readmore_list_title
-          <ul>
+          <ul
+            class="_list_10a2c6"
+          >
             <li>
               stegvisning.afp.readmore_privat_list_item1
             </li>
@@ -424,7 +430,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           class="navds-read-more__content navds-body-long"
         >
           stegvisning.afp.readmore_list_title
-          <ul>
+          <ul
+            class="_list_10a2c6"
+          >
             <li>
               stegvisning.afp.readmore_offentlig_list_item1
             </li>
@@ -652,7 +660,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           class="navds-read-more__content navds-body-long"
         >
           stegvisning.afp.readmore_list_title
-          <ul>
+          <ul
+            class="_list_10a2c6"
+          >
             <li>
               stegvisning.afp.readmore_privat_list_item1
             </li>
@@ -724,7 +734,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           class="navds-read-more__content navds-body-long"
         >
           stegvisning.afp.readmore_list_title
-          <ul>
+          <ul
+            class="_list_10a2c6"
+          >
             <li>
               stegvisning.afp.readmore_offentlig_list_item1
             </li>

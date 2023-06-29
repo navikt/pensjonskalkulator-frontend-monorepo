@@ -54,7 +54,9 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
           <br />
           <br />
           stegvisning.samtykke.readmore_list_title
-          <ul>
+          <ul
+            class="_list_5b4738"
+          >
             <li>
               stegvisning.samtykke.readmore_list_item1
             </li>
