@@ -10,7 +10,6 @@
   /* double-specificity nødvendig pga Aksel overskrivning */
   &.chipsWrapper__hasGap {
     gap: var(--a-spacing-3);
-    justify-content: space-between;
 
     &::after {
       content: '';

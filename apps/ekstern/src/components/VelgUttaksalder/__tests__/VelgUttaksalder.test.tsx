@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 
 import { VelgUttaksalder } from '../VelgUttaksalder'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 describe('VelgUttaksalder', () => {
   const uttaksalder: Uttaksalder = {
@@ -9,6 +9,22 @@ describe('VelgUttaksalder', () => {
     maaned: 10,
     uttaksdato: '2031-11-01',
   }
+
+  it('viser ikke Vis flere aldere knapp når alle mulige aldere allerede vises', async () => {
+    render(
+      <VelgUttaksalder
+        tidligstMuligUttak={{
+          aar: 67,
+          maaned: 1,
+          uttaksdato: '2031-11-01',
+        }}
+        setValgtUttaksalder={vi.fn()}
+      />
+    )
+
+    expect(await screen.findAllByRole('button')).toHaveLength(9)
+    expect(screen.queryByText('Vis flere aldere')).not.toBeInTheDocument()
+  })
 
   it('viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere', async () => {
     const user = userEvent.setup()
@@ -18,16 +34,14 @@ describe('VelgUttaksalder', () => {
         setValgtUttaksalder={vi.fn()}
       />
     )
-    await waitFor(() => {
-      expect(screen.getAllByRole('button')).toHaveLength(10)
-      expect(result.asFragment()).toMatchSnapshot()
-    })
+
+    expect(await screen.findAllByRole('button')).toHaveLength(10)
+    expect(result.asFragment()).toMatchSnapshot()
+
     await user.click(screen.getByText('Vis flere aldere'))
 
-    await waitFor(() => {
-      expect(screen.getAllByRole('button')).toHaveLength(15)
-      expect(screen.getByText('Vis færre aldere')).toBeInTheDocument()
-    })
+    expect(await screen.findAllByRole('button')).toHaveLength(15)
+    expect(await screen.findByText('Vis færre aldere')).toBeVisible()
 
     expect(result.asFragment()).toMatchSnapshot()
   })

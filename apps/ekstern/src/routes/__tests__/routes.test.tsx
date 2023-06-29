@@ -7,7 +7,7 @@ import { mockResponse } from '@/mocks/server'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store, RootState } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, swallowErrors, userEvent, waitFor } from '@/test-utils'
+import { render, screen, swallowErrors, waitFor } from '@/test-utils'
 
 describe('routes', () => {
   afterEach(() => {
@@ -17,17 +17,29 @@ describe('routes', () => {
     vi.resetModules()
   })
 
+  describe('/pensjon/kalkulator/login', () => {
+    it('viser landingssiden med lenke til pålogging (stegvisning start)', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/login'],
+      })
+      render(<RouterProvider router={router} />, { hasRouter: false })
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'Utlogget landingsside'
+      )
+      const links: HTMLAnchorElement[] = await screen.findAllByRole('link')
+      expect(links[0].textContent).toEqual('Logg inn og test kalkulatoren')
+      expect(links[0].href).toContain('/start')
+    })
+  })
+
   describe('/pensjon/kalkulator/', () => {
-    it('viser landingssiden med lenke til stegvisning', async () => {
+    it('redirigerer til /start', async () => {
       const router = createMemoryRouter(routes, {
         basename: ROUTER_BASE_URL,
         initialEntries: ['/pensjon/kalkulator'],
       })
       render(<RouterProvider router={router} />, { hasRouter: false })
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'Midlertidig landingsside'
-      )
-      await userEvent.click(screen.getByText('Test kalkulatoren'))
       expect(
         await screen.findByText('stegvisning.start.title Aprikos!')
       ).toBeVisible()

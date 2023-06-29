@@ -30,6 +30,11 @@ export const VelgUttaksalder: React.FC<Props> = ({
     [tidligstMuligUttak]
   )
   const [isFlereAldereOpen, setIsFlereAldereOpen] = useState<boolean>(false)
+  console.log(
+    'formaterteAldere.length',
+    formaterteAldere.length,
+    defaultAntallSynligeAldere
+  )
 
   return (
     <div className={styles.wrapper}>
@@ -54,24 +59,28 @@ export const VelgUttaksalder: React.FC<Props> = ({
             </Chips.Toggle>
           ))}
       </Chips>
-      <Button
-        className={styles.visFlereAldere}
-        icon={
-          isFlereAldereOpen ? (
-            <ChevronUpIcon aria-hidden />
-          ) : (
-            <ChevronDownIcon aria-hidden />
-          )
-        }
-        iconPosition="left"
-        size="xsmall"
-        variant="tertiary"
-        onClick={() => {
-          setIsFlereAldereOpen((prevState) => !prevState)
-        }}
-      >
-        {isFlereAldereOpen ? visFlereAldereLabelOpen : visFlereAldereLabelClose}
-      </Button>
+      {formaterteAldere.length > defaultAntallSynligeAldere && (
+        <Button
+          className={styles.visFlereAldere}
+          icon={
+            isFlereAldereOpen ? (
+              <ChevronUpIcon aria-hidden />
+            ) : (
+              <ChevronDownIcon aria-hidden />
+            )
+          }
+          iconPosition="left"
+          size="xsmall"
+          variant="tertiary"
+          onClick={() => {
+            setIsFlereAldereOpen((prevState) => !prevState)
+          }}
+        >
+          {isFlereAldereOpen
+            ? visFlereAldereLabelOpen
+            : visFlereAldereLabelClose}
+        </Button>
+      )}
     </div>
   )
 }

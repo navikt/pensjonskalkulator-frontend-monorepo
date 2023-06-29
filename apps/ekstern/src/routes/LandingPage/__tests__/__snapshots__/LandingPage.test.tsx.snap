@@ -6,12 +6,12 @@ exports[`LandingPage > rendrer slik den skal, med riktig heading 1`] = `
     class="_section_d75732"
   >
     <h2>
-      Midlertidig landingsside
+      Utlogget landingsside
     </h2>
     <a
       href="/start"
     >
-      Test kalkulatoren
+      Logg inn og test kalkulatoren
     </a>
   </section>
 </DocumentFragment>

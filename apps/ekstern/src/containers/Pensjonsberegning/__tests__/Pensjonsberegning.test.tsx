@@ -18,8 +18,8 @@ describe('Pensjonsberegning', () => {
       expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
     })
     expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(2)
-    expect(screen.getAllByRole('button')).toHaveLength(13)
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+    expect(screen.getAllByRole('button')).toHaveLength(10)
     expect(result.asFragment()).toMatchSnapshot()
   })
 
