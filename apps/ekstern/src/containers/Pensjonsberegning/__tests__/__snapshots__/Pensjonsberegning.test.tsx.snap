@@ -6,7 +6,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
     class="navds-alert navds-alert--error navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r6"
+      aria-labelledby="title-r5"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -17,7 +17,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r6"
+        id="title-r5"
       >
         Feil
       </title>
@@ -275,37 +275,6 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
           </button>
         </li>
       </ul>
-      <button
-        class="_visFlereAldere_4ca3e3 navds-button navds-button--tertiary navds-button--xsmall"
-      >
-        <span
-          class="navds-button__icon"
-        >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-        <span
-          aria-live="polite"
-          class="navds-label navds-label--small"
-        >
-          Vis flere aldere
-        </span>
-      </button>
     </div>
   </section>
 </DocumentFragment>
