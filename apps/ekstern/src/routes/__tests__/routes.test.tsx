@@ -9,6 +9,8 @@ import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, swallowErrors, waitFor } from '@/test-utils'
 
+const initialGetState = store.getState
+
 const fakeApiCalls = {
   queries: {
     ['tulleQuery(undefined)']: {
@@ -30,6 +32,7 @@ describe('routes', () => {
     vi.clearAllMocks()
     vi.resetAllMocks()
     vi.resetModules()
+    store.getState = initialGetState
   })
 
   describe('/pensjon/kalkulator/login', () => {
