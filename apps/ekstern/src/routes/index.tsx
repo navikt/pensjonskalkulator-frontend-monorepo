@@ -15,8 +15,12 @@ import { store } from '@/state/store'
 
 export const ROUTER_BASE_URL = '/pensjon/kalkulator'
 
-export const samtykkeGuard = async () => {
-  if (store.getState().userInput.samtykke === null) {
+export const directAccessGuard = async () => {
+  // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
+  if (
+    store.getState().api.queries === undefined ||
+    Object.keys(store.getState().api.queries).length === 0
+  ) {
     return redirect('/start')
   }
   return null
@@ -48,6 +52,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/samtykke',
+    loader: directAccessGuard,
     element: (
       <PageFramework>
         <Step2 />
@@ -66,7 +71,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/afp',
-    loader: samtykkeGuard,
+    loader: directAccessGuard,
     element: (
       <PageFramework>
         <Step4 />
@@ -76,7 +81,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/sivilstand',
-    loader: samtykkeGuard,
+    loader: directAccessGuard,
     element: (
       <PageFramework>
         <Step5 />
@@ -86,7 +91,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/beregning',
-    loader: samtykkeGuard,
+    loader: directAccessGuard,
     element: (
       <PageFramework>
         <Pensjonsberegning />
