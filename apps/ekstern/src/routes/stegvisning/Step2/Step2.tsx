@@ -19,7 +19,7 @@ export function Step2() {
         apiSlice.endpoints.pensjonsavtaler.initiate({
           uttaksperioder: [
             {
-              startAlder: 0, // TODO PEK-94 - må resultere i en dato tidligst inneværende måned kallet blir gjort
+              startAlder: 67, // TODO PEK-94 - må resultere i en dato tidligst inneværende måned kallet blir gjort
               startMaaned: 1, // Hardkodet til 1 for nå - brukeren kan ikke velge spesifikk måned
               grad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
               aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon

@@ -42,7 +42,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
   } = usePensjonsavtalerQuery({
     uttaksperioder: [
       {
-        startAlder: 0, // TODO PEK-94
+        startAlder: 67, // TODO PEK-94
         startMaaned: 1,
         grad: 100,
         aarligInntekt: 0,
