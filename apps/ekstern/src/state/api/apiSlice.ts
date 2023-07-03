@@ -35,11 +35,12 @@ export const apiSlice = createApi({
         if (response.avtaler && Array.isArray(response.avtaler)) {
           response.avtaler.forEach((avtale) => {
             if (!isPensjonsavtale(avtale)) {
+              console.log('transformResponse (0)', avtale)
               throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
-              // return undefined;
             }
           })
         } else {
+          console.log('transformResponse (1)', response)
           throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
         }
         return response.avtaler
