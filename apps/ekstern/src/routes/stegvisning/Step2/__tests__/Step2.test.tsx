@@ -20,7 +20,7 @@ describe('Step 2', () => {
     await user.click(screen.getByText('stegvisning.neste'))
 
     expect(store.getState().api.queries).toHaveProperty(
-      'pensjonsavtaler({"aarligInntektFoerUttak":0,"antallInntektsaarEtterUttak":0,"uttaksperiode":{"aarligInntekt":500000,"grad":100,"startAlder":0,"startMaaned":0}})'
+      'pensjonsavtaler({"antallInntektsaarEtterUttak":0,"uttaksperioder":[{"aarligInntekt":0,"grad":100,"startAlder":0,"startMaaned":1}]})'
     )
     expect(store.getState().userInput.samtykke).toBe(true)
     expect(navigateMock).toHaveBeenCalledWith('/offentlig-tp')

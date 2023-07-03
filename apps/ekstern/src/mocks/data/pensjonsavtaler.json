@@ -64,8 +64,6 @@
       "utbetalingsperiode": {
         "startAlder": 67,
         "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
         "aarligUtbetaling": 103264,
         "grad": 100
       }

@@ -35,19 +35,19 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()
   const uttaksgrad = useUttaksgrad()
-  // TODO fylle ut riktig informasjon for henting av pensjonsavtaler
   const {
     data: pensjonsavtaler,
     isSuccess,
     isLoading,
   } = usePensjonsavtalerQuery({
-    aarligInntektFoerUttak: 0,
-    uttaksperiode: {
-      startAlder: 0,
-      startMaaned: 0,
-      grad: 100,
-      aarligInntekt: 500000,
-    },
+    uttaksperioder: [
+      {
+        startAlder: 0, // TODO PEK-94
+        startMaaned: 1,
+        grad: 100,
+        aarligInntekt: 0,
+      },
+    ],
     antallInntektsaarEtterUttak: 0,
   })
 

@@ -1,12 +1,14 @@
 export type PensjonsavtalerRequestBody = {
-  aarligInntektFoerUttak: number
-  uttaksperiode: {
-    startAlder: number
-    startMaaned: number
-    grad: number
-    aarligInntekt: number
-  }
+  aarligInntektFoerUttak?: number
+  uttaksperioder: Uttaksperiode[]
   antallInntektsaarEtterUttak: number
+}
+
+export type Uttaksperiode = {
+  startAlder: number
+  startMaaned: number
+  grad: number
+  aarligInntekt: number
 }
 
 export type PensjonsavtalerResponseBody = {
