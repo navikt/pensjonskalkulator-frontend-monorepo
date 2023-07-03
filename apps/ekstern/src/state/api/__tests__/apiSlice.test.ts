@@ -20,7 +20,6 @@ describe('apiSlice', () => {
     expect(apiSlice.endpoints).toHaveProperty('alderspensjon')
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
     expect(apiSlice.endpoints).toHaveProperty('getTpoMedlemskap')
-
     expect(apiSlice.endpoints).toHaveProperty('getSpraakvelgerFeatureToggle')
   })
 

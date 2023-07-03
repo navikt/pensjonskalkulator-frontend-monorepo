@@ -9,6 +9,21 @@ import { store, RootState } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, swallowErrors, waitFor } from '@/test-utils'
 
+const fakeApiCalls = {
+  queries: {
+    ['tulleQuery(undefined)']: {
+      status: 'fulfilled',
+      endpointName: 'getPerson',
+      requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+      startedTimeStamp: 1688046411971,
+      data: {
+        fornavn: 'Aprikos',
+        sivilstand: 'UGIFT',
+      },
+      fulfilledTimeStamp: 1688046412103,
+    },
+  },
+}
 describe('routes', () => {
   afterEach(() => {
     store.dispatch(apiSlice.util.resetApiState())
@@ -60,18 +75,52 @@ describe('routes', () => {
   })
 
   describe('/pensjon/kalkulator/samtykke', () => {
-    it('viser Steg 2', () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
       const router = createMemoryRouter(routes, {
         basename: ROUTER_BASE_URL,
         initialEntries: ['/pensjon/kalkulator/samtykke'],
       })
-      render(<RouterProvider router={router} />, { hasRouter: false })
-      expect(screen.getByText('stegvisning.samtykke.title')).toBeInTheDocument()
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.start.start')
+      ).toBeInTheDocument()
+    })
+
+    it('viser Steg 2 (gitt at brukeren kommer til steget gjennom stegvisningen)', async () => {
+      const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const router = createMemoryRouter(routes, {
+        basename: ROUTER_BASE_URL,
+        initialEntries: ['/pensjon/kalkulator/samtykke'],
+      })
+      render(<RouterProvider router={router} />, {
+        preloadedState: mockedState as unknown as RootState,
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.samtykke.title')
+      ).toBeInTheDocument()
     })
   })
 
   describe('/pensjon/kalkulator/offentlig-tp', () => {
-    it('redirigerer til Step 1 når brukeren prøver å aksessere steget direkte uten å ha svart på spørsmålet om samtykke', async () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      const mockedState = {
+        api: {},
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
       const router = createMemoryRouter(routes, {
         basename: ROUTER_BASE_URL,
         initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
@@ -84,9 +133,11 @@ describe('routes', () => {
       ).toBeInTheDocument()
     })
 
-    it('viser Steg 3 når brukeren har samtykket og har tpo-medlemskap', async () => {
+    it('viser Steg 3 når brukeren kommer til steget gjennom stegvisningen og har tpo-medlemskap', async () => {
       const mockedState = {
-        api: { queries: {} },
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: true },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -97,7 +148,7 @@ describe('routes', () => {
         initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
       })
       render(<RouterProvider router={router} />, {
-        preloadedState: mockedState as RootState,
+        preloadedState: mockedState as unknown as RootState,
         hasRouter: false,
       })
       expect(
@@ -107,6 +158,9 @@ describe('routes', () => {
 
     it('redirigerer til Step 4 når brukeren har svart nei på spørsmålet om samtykke', async () => {
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: false },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -117,7 +171,7 @@ describe('routes', () => {
         initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
       })
       render(<RouterProvider router={router} />, {
-        preloadedState: mockedState,
+        preloadedState: mockedState as unknown as RootState,
         hasRouter: false,
       })
       expect(await screen.findByText('stegvisning.afp.title')).toBeVisible()
@@ -129,6 +183,9 @@ describe('routes', () => {
         json: { harTjenestepensjonsforhold: false },
       })
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: true },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -149,11 +206,13 @@ describe('routes', () => {
   })
 
   describe('/pensjon/kalkulator/afp', () => {
-    it('redirigerer til Step 1 når brukeren prøver å aksessere steget direkte uten å ha svart på spørsmålet om samtykke,', async () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      const mockedState = {
+        api: {},
+        userInput: { ...userInputInitialState },
+      }
       store.getState = vi.fn().mockImplementation(() => {
-        return {
-          userInput: { ...userInputInitialState, samtykke: null },
-        }
+        return mockedState
       })
       const router = createMemoryRouter(routes, {
         basename: ROUTER_BASE_URL,
@@ -167,8 +226,11 @@ describe('routes', () => {
       ).toBeInTheDocument()
     })
 
-    it('viser Steg 4 (gitt at brukeren har samtykket og har tpo medlemskap)', async () => {
+    it('viser Steg 4 når brukeren kommer til steget gjennom stegvisningen og har tpo medlemskap', async () => {
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: true },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -179,7 +241,7 @@ describe('routes', () => {
         initialEntries: ['/pensjon/kalkulator/afp'],
       })
       render(<RouterProvider router={router} />, {
-        preloadedState: mockedState,
+        preloadedState: mockedState as unknown as RootState,
         hasRouter: false,
       })
       expect(
@@ -189,11 +251,13 @@ describe('routes', () => {
   })
 
   describe('/pensjon/kalkulator/sivilstand', () => {
-    it('redirigerer til Step 1 når brukeren prøver å aksessere steget direkte uten å ha svart på spørsmålet om samtykke,', async () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      const mockedState = {
+        api: {},
+        userInput: { ...userInputInitialState },
+      }
       store.getState = vi.fn().mockImplementation(() => {
-        return {
-          userInput: { ...userInputInitialState, samtykke: null },
-        }
+        return mockedState
       })
       const router = createMemoryRouter(routes, {
         basename: ROUTER_BASE_URL,
@@ -207,8 +271,11 @@ describe('routes', () => {
       ).toBeInTheDocument()
     })
 
-    it('viser Steg 5 (gitt at brukeren har samtykket)', async () => {
+    it('viser Steg 5 når brukeren kommer til steget gjennom stegvisningen', async () => {
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: true },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -219,7 +286,7 @@ describe('routes', () => {
         initialEntries: ['/pensjon/kalkulator/sivilstand'],
       })
       render(<RouterProvider router={router} />, {
-        preloadedState: mockedState,
+        preloadedState: mockedState as unknown as RootState,
         hasRouter: false,
       })
       expect(
@@ -229,11 +296,13 @@ describe('routes', () => {
   })
 
   describe('/pensjon/kalkulator/beregning', () => {
-    it('redirigerer til Step 1 når brukeren prøver å aksessere steget direkte uten å ha svart på spørsmålet om samtykke,', async () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      const mockedState = {
+        api: {},
+        userInput: { ...userInputInitialState },
+      }
       store.getState = vi.fn().mockImplementation(() => {
-        return {
-          userInput: { ...userInputInitialState, samtykke: null },
-        }
+        return mockedState
       })
       const router = createMemoryRouter(routes, {
         basename: ROUTER_BASE_URL,
@@ -247,8 +316,11 @@ describe('routes', () => {
       ).toBeInTheDocument()
     })
 
-    it('viser beregningen (gitt at brukeren har samtykket)', async () => {
+    it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: true },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -259,7 +331,7 @@ describe('routes', () => {
         initialEntries: ['/pensjon/kalkulator/beregning'],
       })
       render(<RouterProvider router={router} />, {
-        preloadedState: mockedState,
+        preloadedState: mockedState as unknown as RootState,
         hasRouter: false,
       })
       expect(
