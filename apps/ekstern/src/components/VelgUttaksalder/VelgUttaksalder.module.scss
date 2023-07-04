@@ -6,6 +6,11 @@
   gap: var(--a-spacing-3);
 }
 
+.pin {
+  position: absolute;
+  margin-top: -2rem;
+}
+
 .chipsWrapper {
   /* double-specificity nødvendig pga Aksel overskrivning */
   &.chipsWrapper__hasGap {

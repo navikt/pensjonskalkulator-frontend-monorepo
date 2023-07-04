@@ -15,33 +15,33 @@ Prosjektet kjører med Node > v19.6.0 og Npm > v9.4.0
 
 ## Komme i gang
 
-```
+```console
 // Bygger applikasjonen og starter vite devserver på port :5173
 npm run start
 ```
 
-```
+```console
 // Sørger for riktig formatering med eslint, prettier og stylelint
 npm run prebuild
 ```
 
-```
+```console
 // Bygger applikasjonen og outputer de kompilerte filene under /dist
 npm run build
 ```
 
-```
+```console
 // Serveren de statiske filene som er bygd under /dist
 // Forutsetter at man har kjørt npm run build før
 npm run preview
 ```
 
-```
+```console
 // Kjører enhetstester og genererer coverage
 npm run test
 ```
 
-```
+```console
 // Kjører integrasjonstester.
 // Tester opp mot den bundlede applikasjonen i /dist, så husk å bygge appen før kjøring.
 npm run cy:test

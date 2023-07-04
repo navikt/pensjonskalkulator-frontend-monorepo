@@ -29,6 +29,8 @@ window.ResizeObserver =
     unobserve: vi.fn(),
   }))
 
+window.HTMLElement.prototype.scrollIntoView = vi.fn()
+
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'error' })
   if (process.env.NODE_ENV === 'test') {

@@ -47,4 +47,7 @@ export const getHandlers = (baseUrl: string = PATH) => [
       )
     }
   ),
+  rest.post('http://localhost:12347/collect', (req, res, ctx) => {
+    return res(ctx.status(200))
+  }),
 ]

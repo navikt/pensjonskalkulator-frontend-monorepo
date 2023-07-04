@@ -5,6 +5,9 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
   <div
     class="_wrapper_4ca3e3"
   >
+    <span
+      class="_pin_4ca3e3"
+    />
     <h2
       class="navds-heading navds-heading--xsmall"
     >
@@ -162,6 +165,9 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
   <div
     class="_wrapper_4ca3e3"
   >
+    <span
+      class="_pin_4ca3e3"
+    />
     <h2
       class="navds-heading navds-heading--xsmall"
     >
