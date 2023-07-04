@@ -1,5 +1,9 @@
 import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
-import { groupPensjonsavtalerByType, getPensjonsavtalerTittel } from '../utils'
+import {
+  groupPensjonsavtalerByType,
+  getPensjonsavtalerTittel,
+  getMaanedString,
+} from '../utils'
 import { PensjonsavtaleKategori } from '@/types/enums'
 
 describe('groupPensjonsavtaler-utils', () => {
@@ -45,6 +49,17 @@ describe('groupPensjonsavtaler-utils', () => {
 
     it('returnerer riktig streng når samtykke er true og showError er false', () => {
       expect(getPensjonsavtalerTittel(true, false, '12')).toEqual('12')
+    })
+  })
+
+  describe('getMaanedString', () => {
+    it('returnerer tom streng når måned er undefined eller mindre eller lik 1', () => {
+      expect(getMaanedString()).toEqual('')
+      expect(getMaanedString(0)).toEqual('')
+      expect(getMaanedString(1)).toEqual('')
+    })
+    it('returnerer riktig streng når måned større enn 1', () => {
+      expect(getMaanedString(2)).toEqual('og 2 mnd.')
     })
   })
 })

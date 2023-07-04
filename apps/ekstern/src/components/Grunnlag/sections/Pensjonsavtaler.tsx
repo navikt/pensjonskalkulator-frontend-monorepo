@@ -12,8 +12,11 @@ import { capitalize } from '@/utils/string'
 
 import { SectionContent } from './components/SectionContent'
 import { SectionHeader } from './components/SectionHeader'
-import { groupPensjonsavtalerByType } from './utils'
-import { getPensjonsavtalerTittel } from './utils'
+import {
+  groupPensjonsavtalerByType,
+  getPensjonsavtalerTittel,
+  getMaanedString,
+} from './utils'
 
 import styles from './Pensjonsavtaler.module.scss'
 
@@ -101,8 +104,20 @@ export function Pensjonsavtaler({ pensjonsavtaler, showError }: Props) {
                           }
                           <BodyShort className={styles.utbetaling}>
                             {avtale.utbetalingsperiode.sluttAlder
-                              ? `Utbetales fra ${avtale.utbetalingsperiode.startAlder} og ${avtale.utbetalingsperiode.startMaaned} til ${avtale.utbetalingsperiode.sluttAlder} år og ${avtale.utbetalingsperiode.sluttMaaned}`
-                              : `Livsvarig utbetaling fra ${avtale.utbetalingsperiode.startAlder} år og ${avtale.utbetalingsperiode.startMaaned}`}
+                              ? `Utbetales fra ${
+                                  avtale.utbetalingsperiode.startAlder
+                                } år ${getMaanedString(
+                                  avtale.utbetalingsperiode.startMaaned
+                                )} til ${
+                                  avtale.utbetalingsperiode.sluttAlder
+                                } år ${getMaanedString(
+                                  avtale.utbetalingsperiode.sluttMaaned
+                                )}`
+                              : `Livsvarig utbetaling fra ${
+                                  avtale.utbetalingsperiode.startAlder
+                                } år ${getMaanedString(
+                                  avtale.utbetalingsperiode.startMaaned
+                                )}`}
                           </BodyShort>
                         </td>
                         <td

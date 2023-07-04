@@ -95,7 +95,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               <p
                 class="_utbetaling_ac6b69 navds-body-short"
               >
-                Livsvarig utbetaling fra 67 år og 1
+                Livsvarig utbetaling fra 67 år 
               </p>
             </td>
             <td
@@ -222,7 +222,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               <p
                 class="_utbetaling_ac6b69 navds-body-short"
               >
-                Utbetales fra 67 og 1 til 77 år og 8
+                Utbetales fra 67 år  til 77 år og 8 mnd.
               </p>
             </td>
             <td
