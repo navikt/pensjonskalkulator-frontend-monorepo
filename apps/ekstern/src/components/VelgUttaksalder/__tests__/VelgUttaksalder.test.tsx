@@ -61,6 +61,8 @@ describe('VelgUttaksalder', () => {
     const { rerender } = render(<VelgUttaksalder {...getProps()} />)
 
     await userEvent.click(screen.getByText('65 år', { exact: false }))
+    expect(window.HTMLElement.prototype.scrollIntoView).toHaveBeenCalled()
+
     rerender(<VelgUttaksalder {...getProps()} />)
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
       '65 år'

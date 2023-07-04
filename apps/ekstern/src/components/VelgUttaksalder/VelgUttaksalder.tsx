@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Button, Chips, Heading } from '@navikt/ds-react'
@@ -25,14 +25,21 @@ export const VelgUttaksalder: React.FC<Props> = ({
   visFlereAldereLabelClose = 'Vis flere aldere',
   visFlereAldereLabelOpen = 'Vis færre aldere',
 }) => {
+  const pinRef = useRef<HTMLDivElement>(null)
   const formaterteAldere = useMemo(
     () => getFormaterteAldere(tidligstMuligUttak),
     [tidligstMuligUttak]
   )
   const [isFlereAldereOpen, setIsFlereAldereOpen] = useState<boolean>(false)
 
+  const onAlderClick = (alderChip: string) => {
+    setValgtUttaksalder(alderChip)
+    pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <div className={styles.wrapper}>
+      <span ref={pinRef} className={styles.pin}></span>
       <Heading size="xsmall" level="2">
         Når vil du ta ut alderspensjon?
       </Heading>
@@ -48,7 +55,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
             <Chips.Toggle
               selected={valgtUttaksalder === alderChip}
               key={alderChip}
-              onClick={() => setValgtUttaksalder(alderChip)}
+              onClick={() => onAlderClick(alderChip)}
             >
               {alderChip}
             </Chips.Toggle>
