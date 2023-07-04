@@ -26,7 +26,7 @@ export function Step4() {
   }
 
   const onPrevious = (): void => {
-    // TODO: hva skjer dersom tpo medlemskap har feilet før? sender vi tilbake til samtykke?
+    // TODO: PEK-98 hva skjer dersom tpo medlemskap har feilet før? sender vi tilbake til samtykke?
     if (
       isTpoMedlemskapQuerySuccess &&
       TpoMedlemskap.harTjenestepensjonsforhold

@@ -33,7 +33,7 @@ export function Pensjonsavtaler({ pensjonsavtaler, showError }: Props) {
     return null
   }
 
-  // TODO håndtere delvis reponse fra backend
+  // PEK-97 TODO håndtere delvis reponse fra backend
   return (
     <Accordion.Item data-testid="pensjonsavtaler">
       <SectionHeader
@@ -99,9 +99,6 @@ export function Pensjonsavtaler({ pensjonsavtaler, showError }: Props) {
                       <tr key={i}>
                         <td className={styles.tabellCell}>
                           <BodyShort>Fra {avtale.produktbetegnelse}</BodyShort>
-                          {
-                            // TODO håndtere bedre aar + måned visning, og evt grad
-                          }
                           <BodyShort className={styles.utbetaling}>
                             {avtale.utbetalingsperiode.sluttAlder
                               ? `Utbetales fra ${

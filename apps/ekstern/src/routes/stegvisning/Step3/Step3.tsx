@@ -31,7 +31,7 @@ export function Step3() {
       <Suspense fallback={<Loader data-testid="loader" size="3xlarge" />}>
         <Await
           resolve={loaderData.getTpoMedlemskapQuery}
-          // errorElement={} //TODO hva gjør vi når kall til tp-registret feiler?
+          // errorElement={} //TODO PEK-98 hva gjør vi når kall til tp-registret feiler?
         >
           {(getTpoMedlemskapQuery: TpoMedlemskapQuery) => {
             return (
