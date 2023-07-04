@@ -57,13 +57,10 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
                     <tr key={i}>
                       <td className={styles.tabellCell}>
                         <BodyShort>Fra {avtale.produktbetegnelse}</BodyShort>
-                        {
-                          // TODO håndtere bedre aar + måned visning, og evt grad
-                        }
                         <BodyShort className={styles.utbetaling}>
                           {avtale.utbetalingsperiode.sluttAlder
-                            ? `Utbetales fra ${avtale.utbetalingsperiode.startAlder} og ${avtale.utbetalingsperiode.startMaaned} til ${avtale.utbetalingsperiode.sluttAlder} år og ${avtale.utbetalingsperiode.sluttMaaned}`
-                            : `Livsvarig utbetaling fra ${avtale.utbetalingsperiode.startAlder} år og ${avtale.utbetalingsperiode.startMaaned}`}
+                            ? `Utbetales fra ${avtale.utbetalingsperiode.startAlder} år til ${avtale.utbetalingsperiode.sluttAlder} år`
+                            : `Livsvarig utbetaling fra ${avtale.utbetalingsperiode.startAlder} år`}
                         </BodyShort>
                       </td>
                       <td
