@@ -1,5 +1,5 @@
 import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
-import { groupPensjonsavtalerByType } from '../Pensjonsavtaler-utils'
+import { groupPensjonsavtalerByType, getPensjonsavtalerTittel } from '../utils'
 import { PensjonsavtaleKategori } from '@/types/enums'
 
 describe('groupPensjonsavtaler-utils', () => {
@@ -24,6 +24,27 @@ describe('groupPensjonsavtaler-utils', () => {
       expect(grouped[PensjonsavtaleKategori.OFFENTLIG_TP]).toHaveLength(1)
       expect(grouped[PensjonsavtaleKategori.FRIPOLISE]).toHaveLength(1)
       expect(grouped[PensjonsavtaleKategori.EGEN_SPARING]).toHaveLength(1)
+    })
+  })
+
+  describe('getPensjonsavtalerTittel', () => {
+    it('returnerer riktig streng når samtykke er false', () => {
+      expect(getPensjonsavtalerTittel(false, true, '12')).toEqual(
+        'Ikke innhentet'
+      )
+      expect(getPensjonsavtalerTittel(false, false, '12')).toEqual(
+        'Ikke innhentet'
+      )
+    })
+
+    it('returnerer riktig streng når showError er true', () => {
+      expect(getPensjonsavtalerTittel(true, true, '12')).toEqual(
+        'Kan ikke hentes'
+      )
+    })
+
+    it('returnerer riktig streng når samtykke er true og showError er false', () => {
+      expect(getPensjonsavtalerTittel(true, false, '12')).toEqual('12')
     })
   })
 })

@@ -7,7 +7,7 @@ import { RootState } from '@/state/store'
 import { screen, render, userEvent } from '@/test-utils'
 
 describe('Step 2', () => {
-  it('registrerer samtykke, henter pensjonsavtaler og navigerer videre til riktig side når brukeren samtykker og klikker på Neste', async () => {
+  it('registrerer samtykke og navigerer videre til riktig side når brukeren samtykker og klikker på Neste', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -19,9 +19,6 @@ describe('Step 2', () => {
     await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
 
-    expect(store.getState().api.queries).toHaveProperty(
-      'pensjonsavtaler({"antallInntektsaarEtterUttak":0,"uttaksperioder":[{"aarligInntekt":0,"grad":100,"startAlder":67,"startMaaned":1}]})'
-    )
     expect(store.getState().userInput.samtykke).toBe(true)
     expect(navigateMock).toHaveBeenCalledWith('/offentlig-tp')
   })

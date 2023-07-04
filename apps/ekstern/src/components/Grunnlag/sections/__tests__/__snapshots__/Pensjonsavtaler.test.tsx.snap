@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`] = `
+exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med avtaler som bare har start dato 1`] = `
 <DocumentFragment>
   <div
     class="navds-accordion__item"
@@ -16,7 +16,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
       >
         <svg
           aria-hidden="true"
-          aria-labelledby="title-r0"
+          aria-labelledby="title-r4"
           class="navds-accordion__header-chevron"
           fill="none"
           focusable="false"
@@ -27,7 +27,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="title-r0"
+            id="title-r4"
           >
             Vis mer
           </title>
@@ -127,7 +127,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
 </DocumentFragment>
 `;
 
-exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sluttdato 1`] = `
+exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med avtaler som har både start- og sluttdato 1`] = `
 <DocumentFragment>
   <div
     class="navds-accordion__item"
@@ -143,7 +143,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
       >
         <svg
           aria-hidden="true"
-          aria-labelledby="title-r1"
+          aria-labelledby="title-r5"
           class="navds-accordion__header-chevron"
           fill="none"
           focusable="false"
@@ -154,7 +154,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="title-r1"
+            id="title-r5"
           >
             Vis mer
           </title>

@@ -23,3 +23,17 @@ export const groupPensjonsavtalerByType = (
   }
   return record
 }
+
+export function getPensjonsavtalerTittel(
+  harSamtykket: boolean,
+  showError: boolean,
+  antallAvtaler: string
+) {
+  if (!harSamtykket) {
+    return 'Ikke innhentet'
+  }
+  if (showError) {
+    return 'Kan ikke hentes'
+  }
+  return antallAvtaler
+}

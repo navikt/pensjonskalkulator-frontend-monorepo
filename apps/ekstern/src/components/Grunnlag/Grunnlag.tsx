@@ -1,7 +1,6 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
-import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 
 import { AFP } from './sections/AFP'
 import { Alderspensjon } from './sections/Alderspensjon'
@@ -29,27 +28,20 @@ const useUttaksgrad = (): number => {
 
 interface Props {
   tidligstMuligUttak: Uttaksalder
+  pensjonsavtaler: Pensjonsavtale[]
+  showLoader: boolean
+  showError: boolean
 }
 
-export function Grunnlag({ tidligstMuligUttak }: Props) {
+export function Grunnlag({
+  tidligstMuligUttak,
+  pensjonsavtaler,
+  showLoader,
+  showError,
+}: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()
   const uttaksgrad = useUttaksgrad()
-  const {
-    data: pensjonsavtaler,
-    isSuccess,
-    isLoading,
-  } = usePensjonsavtalerQuery({
-    uttaksperioder: [
-      {
-        startAlder: 67, // TODO PEK-94
-        startMaaned: 1,
-        grad: 100,
-        aarligInntekt: 0,
-      },
-    ],
-    antallInntektsaarEtterUttak: 0,
-  })
 
   return (
     <Card className={styles.section}>
@@ -69,8 +61,15 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
         <Utenlandsopphold />
         <Alderspensjon alderspensjon={alderspensjon} />
         <AFP />
-        {isLoading && <SectionSkeleton />}
-        {isSuccess && <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />}
+
+        {showLoader ? (
+          <SectionSkeleton />
+        ) : (
+          <Pensjonsavtaler
+            pensjonsavtaler={pensjonsavtaler}
+            showError={showError}
+          />
+        )}
       </Accordion>
     </Card>
   )

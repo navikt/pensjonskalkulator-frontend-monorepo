@@ -10,7 +10,12 @@ import { Pensjonssimulering } from '@/components/Pensjonssimulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
-import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
+import {
+  usePensjonsavtalerQuery,
+  useTidligsteUttaksalderQuery,
+} from '@/state/api/apiSlice'
+import { useAppSelector } from '@/state/hooks'
+import { selectSamtykke } from '@/state/userInput/selectors'
 
 export function Pensjonsberegning() {
   const {
@@ -19,8 +24,32 @@ export function Pensjonsberegning() {
     isError,
     isSuccess,
   } = useTidligsteUttaksalderQuery()
-
+  const harSamtykket = useAppSelector(selectSamtykke)
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
+
+  const {
+    data: pensjonsavtaler,
+    isLoading: isPensjonsavtalerLoading,
+    isError: isPensjonsavtalerError,
+  } = usePensjonsavtalerQuery(
+    {
+      uttaksperioder: [
+        {
+          startAlder: valgtUttaksalder ? parseInt(valgtUttaksalder, 10) : 0,
+          startMaaned:
+            valgtUttaksalder &&
+            tidligstMuligUttak?.maaned &&
+            parseInt(valgtUttaksalder, 10) === tidligstMuligUttak?.aar
+              ? tidligstMuligUttak?.maaned
+              : 1, // Defaulter til 1 for nå - brukeren kan ikke velge spesifikk måned
+          grad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
+          aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon
+        },
+      ],
+      antallInntektsaarEtterUttak: 0,
+    },
+    { skip: !harSamtykket || !valgtUttaksalder }
+  )
 
   if (isLoading) {
     return (
@@ -61,7 +90,12 @@ export function Pensjonsberegning() {
 
       {valgtUttaksalder && (
         <>
-          <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+          <Grunnlag
+            tidligstMuligUttak={tidligstMuligUttak}
+            pensjonsavtaler={pensjonsavtaler ?? []}
+            showLoader={isPensjonsavtalerLoading}
+            showError={isPensjonsavtalerError}
+          />
           <Forbehold />
           <TilbakeEllerAvslutt />
         </>
