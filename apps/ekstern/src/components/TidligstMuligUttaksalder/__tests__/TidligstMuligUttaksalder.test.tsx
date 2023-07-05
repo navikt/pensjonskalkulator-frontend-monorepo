@@ -22,6 +22,9 @@ describe('TidligstMuligUttaksalder', () => {
       expect(
         screen.getByText('Jo lenger du venter, desto mer får du i året.')
       ).toBeInTheDocument()
+      expect(
+        screen.getByText('Din AFP kan gjøre at tidspunktet blir tidligere')
+      ).toBeInTheDocument()
     })
 
     await user.click(screen.getByRole('button'))

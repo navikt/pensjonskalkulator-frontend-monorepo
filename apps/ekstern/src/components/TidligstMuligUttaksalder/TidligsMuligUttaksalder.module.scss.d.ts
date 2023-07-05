@@ -4,5 +4,8 @@ declare const classNames: typeof globalClassNames & {
   readonly ingress: 'ingress'
   readonly highlighted: 'highlighted'
   readonly helptext: 'helptext'
+  readonly info: 'info'
+  readonly infoIcon: 'infoIcon'
+  readonly infoText: 'infoText'
 }
 export = classNames
