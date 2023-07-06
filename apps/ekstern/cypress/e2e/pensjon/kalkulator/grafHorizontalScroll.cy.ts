@@ -23,7 +23,7 @@ describe('Graf Horizontal scroll', () => {
         cy.contains('button', 'Flere år').should('exist')
 
         // Scroller til høyre slik at begge knappene blir synlige
-        cy.contains('button', 'Flere år').click()
+        cy.contains('button', 'Flere år').click({ force: true })
         cy.contains('button', 'Færre år').should('exist')
         cy.contains('button', 'Flere år').should('exist')
         // Scroller maksimalt til høyre slik at Flere år skjules

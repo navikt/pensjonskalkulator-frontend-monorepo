@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Step3 } from '..'
 import { step3loader } from '../utils'
-import { ROUTER_BASE_URL } from '@/routes'
+import { BASE_PATH, paths } from '@/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store, RootState } from '@/state/store'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
@@ -29,14 +29,14 @@ describe('Step 3', () => {
   const router = createMemoryRouter(
     [
       {
-        path: '/offentlig-tp',
+        path: paths.offentligTp,
         loader: step3loader,
         element: <Step3 />,
       },
     ],
     {
-      basename: ROUTER_BASE_URL,
-      initialEntries: ['/pensjon/kalkulator/offentlig-tp'],
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.offentligTp}`],
     }
   )
 
@@ -55,7 +55,7 @@ describe('Step 3', () => {
     ).toBeVisible()
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.neste'))
-      expect(navigateMock).toHaveBeenCalledWith('/afp')
+      expect(navigateMock).toHaveBeenCalledWith(paths.afp)
     })
   })
 
@@ -74,7 +74,7 @@ describe('Step 3', () => {
     ).toBeVisible()
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
-      expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
     })
   })
 
@@ -94,7 +94,7 @@ describe('Step 3', () => {
     ).toBeVisible()
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.avbryt'))
-      expect(navigateMock).toHaveBeenCalledWith('/')
+      expect(navigateMock).toHaveBeenCalledWith(paths.root)
       expect(flushMock).toHaveBeenCalled()
     })
   })
