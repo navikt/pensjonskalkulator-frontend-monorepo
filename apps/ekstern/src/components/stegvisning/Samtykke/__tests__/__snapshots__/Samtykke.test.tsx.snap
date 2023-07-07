@@ -70,7 +70,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         </div>
       </div>
       <fieldset
-        aria-invalid="false"
         aria-required="true"
         class="_radiogroup_5b4738 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
@@ -86,7 +85,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r3"
               name="samtykke"
@@ -112,7 +110,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r4"
               name="samtykke"

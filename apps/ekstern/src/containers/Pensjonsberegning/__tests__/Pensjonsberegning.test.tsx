@@ -83,15 +83,16 @@ describe('Pensjonsberegning', () => {
 
     it('henter ikke pensjonsavtaler når brukeren ikke har samtykket', async () => {
       const user = userEvent.setup()
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap,
+        'initiate'
+      )
       render(<Pensjonsberegning />, {
         preloadedState: { userInput: { samtykke: false } } as RootState,
       })
       const button = await screen.findByText('68 år')
       await user.click(button)
-      await waitFor(() => {
-        expect(screen.queryByTestId('section-skeleton')).not.toBeInTheDocument()
-        expect(screen.queryByTestId('pensjonsavtaler')).not.toBeInTheDocument()
-      })
+      expect(initiateMock).not.toHaveBeenCalled()
     })
 
     it('henter pensjonsavtaler med riktig år og måned og viser dem når brukeren har samtykket', async () => {
@@ -106,12 +107,9 @@ describe('Pensjonsberegning', () => {
       const buttons = await screen.findAllByRole('button')
       expect(buttons).toHaveLength(10)
       await user.click(buttons[2])
-      expect(await screen.findByTestId('section-skeleton')).toBeVisible()
-      await waitFor(() => {
-        expect(screen.queryByTestId('section-skeleton')).not.toBeInTheDocument()
+      await waitFor(async () => {
+        expect(await screen.findByTestId('pensjonsavtaler')).toBeInTheDocument()
       })
-      expect(await screen.findByTestId('pensjonsavtaler')).toBeInTheDocument()
-
       expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
         antallInntektsaarEtterUttak: 0,
         uttaksperioder: [
@@ -150,15 +148,13 @@ describe('Pensjonsberegning', () => {
       const button = await screen.findByText('68 år')
       await user.click(button)
 
-      await waitFor(() => {
-        expect(screen.queryByTestId('section-skeleton')).not.toBeInTheDocument()
+      await waitFor(async () => {
+        expect(
+          await screen.findByText(
+            'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.'
+          )
+        ).toBeVisible()
       })
-
-      expect(
-        await screen.findByText(
-          'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.'
-        )
-      ).toBeVisible()
     })
   })
 })

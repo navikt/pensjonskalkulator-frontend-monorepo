@@ -1,16 +1,16 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/Card'
+import { PensjonsavtalerRequestBody } from '@/state/api/apiSlice.types'
 
-import { AFP } from './sections/AFP'
-import { Alderspensjon } from './sections/Alderspensjon'
-import { SectionSkeleton } from './sections/components/SectionSkeleton'
-import { Inntekt } from './sections/Inntekt'
+import { AFP } from './sections/AFP/AFP'
+import { Alderspensjon } from './sections/Alderspensjon/Alderspensjon'
+import { Inntekt } from './sections/Inntekt/Inntekt'
 import { Pensjonsavtaler } from './sections/Pensjonsavtaler'
 import { Sivilstand } from './sections/Sivilstand'
-import { TidligstMuligUttak } from './sections/TidligstMuligUttak'
-import { Utenlandsopphold } from './sections/Utenlandsopphold'
-import { Uttaksgrad } from './sections/Uttaksgrad'
+import { TidligstMuligUttak } from './sections/TidligstMuligUttak/TidligstMuligUttak'
+import { Utenlandsopphold } from './sections/Utenlandsopphold/Utenlandsopphold'
+import { Uttaksgrad } from './sections/Uttaksgrad/Uttaksgrad'
 
 import styles from './Grunnlag.module.scss'
 
@@ -28,16 +28,12 @@ const useUttaksgrad = (): number => {
 
 interface Props {
   tidligstMuligUttak: Uttaksalder
-  pensjonsavtaler: Pensjonsavtale[]
-  showLoader: boolean
-  showError: boolean
+  pensjonsavtalerRequestBody: PensjonsavtalerRequestBody
 }
 
 export function Grunnlag({
   tidligstMuligUttak,
-  pensjonsavtaler,
-  showLoader,
-  showError,
+  pensjonsavtalerRequestBody,
 }: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()
@@ -61,15 +57,7 @@ export function Grunnlag({
         <Utenlandsopphold />
         <Alderspensjon alderspensjon={alderspensjon} />
         <AFP />
-
-        {showLoader ? (
-          <SectionSkeleton />
-        ) : (
-          <Pensjonsavtaler
-            pensjonsavtaler={pensjonsavtaler}
-            showError={showError}
-          />
-        )}
+        <Pensjonsavtaler requestBody={pensjonsavtalerRequestBody} />
       </Accordion>
     </Card>
   )

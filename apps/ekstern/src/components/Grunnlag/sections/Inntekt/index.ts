@@ -1,0 +1,1 @@
+export { Inntekt } from './Inntekt'

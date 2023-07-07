@@ -1,4 +1,4 @@
-import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
+import pensjonsavtalerData from '../../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
 import {
   groupPensjonsavtalerByType,
   getPensjonsavtalerTittel,

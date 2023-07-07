@@ -13,7 +13,7 @@ export const getHandlers = (baseUrl: string = PATH) => [
     return res(
       ctx.status(200),
       ctx.json(pensjonsavtalerResponse),
-      ctx.delay(30)
+      ctx.delay(30000)
     )
   }),
   rest.post(`${baseUrl}/tidligste-uttaksalder`, (req, res, ctx) => {

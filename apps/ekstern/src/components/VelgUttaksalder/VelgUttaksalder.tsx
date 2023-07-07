@@ -11,7 +11,7 @@ import styles from './VelgUttaksalder.module.scss'
 interface Props {
   tidligstMuligUttak: Uttaksalder
   valgtUttaksalder?: string
-  setValgtUttaksalder: (alder: string) => void
+  valgtUttaksalderHandler: (alder: string) => void
   defaultAntallSynligeAldere?: number
   visFlereAldereLabelClose?: string
   visFlereAldereLabelOpen?: string
@@ -20,7 +20,7 @@ interface Props {
 export const VelgUttaksalder: React.FC<Props> = ({
   tidligstMuligUttak,
   valgtUttaksalder,
-  setValgtUttaksalder,
+  valgtUttaksalderHandler,
   defaultAntallSynligeAldere = 9,
   visFlereAldereLabelClose = 'Vis flere aldere',
   visFlereAldereLabelOpen = 'Vis færre aldere',
@@ -33,7 +33,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
   const [isFlereAldereOpen, setIsFlereAldereOpen] = useState<boolean>(false)
 
   const onAlderClick = (alderChip: string) => {
-    setValgtUttaksalder(alderChip)
+    valgtUttaksalderHandler(alderChip)
     pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 

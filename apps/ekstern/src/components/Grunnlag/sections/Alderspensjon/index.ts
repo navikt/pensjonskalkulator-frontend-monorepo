@@ -1,0 +1,1 @@
+export { Alderspensjon } from './Alderspensjon'

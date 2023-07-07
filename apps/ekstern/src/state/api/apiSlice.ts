@@ -37,6 +37,7 @@ export const apiSlice = createApi({
           !Array.isArray(response.avtaler) ||
           response.avtaler.some((avtale) => !isPensjonsavtale(avtale))
         ) {
+          console.log('response', response)
           throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
         }
         return response.avtaler

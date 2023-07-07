@@ -1,9 +1,7 @@
-import React from 'react'
-
 import { Accordion, BodyLong } from '@navikt/ds-react'
 
-import { SectionContent } from './components/SectionContent'
-import { SectionHeader } from './components/SectionHeader'
+import { SectionContent } from '../components/SectionContent'
+import { SectionHeader } from '../components/SectionHeader'
 
 const gyldigeUttaksgrader = [20, 40, 50, 60, 80, 100]
 

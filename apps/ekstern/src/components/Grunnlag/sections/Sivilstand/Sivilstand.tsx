@@ -2,10 +2,10 @@ import { useMemo } from 'react'
 
 import { Accordion, Alert, BodyLong, Link } from '@navikt/ds-react'
 
+import { SectionContent } from '../components/SectionContent'
+import { SectionHeader } from '../components/SectionHeader'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 
-import { SectionContent } from './components/SectionContent'
-import { SectionHeader } from './components/SectionHeader'
 import { formatSivilstand } from './Sivilstand-utils'
 
 export function Sivilstand() {

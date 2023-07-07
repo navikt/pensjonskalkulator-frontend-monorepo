@@ -2,10 +2,9 @@ import React from 'react'
 
 import { Accordion, BodyLong } from '@navikt/ds-react'
 
+import { SectionContent } from '../components/SectionContent'
+import { SectionHeader } from '../components/SectionHeader'
 import { formatAsDecimal } from '@/utils/currency'
-
-import { SectionContent } from './components/SectionContent'
-import { SectionHeader } from './components/SectionHeader'
 
 interface Props {
   inntekt: number

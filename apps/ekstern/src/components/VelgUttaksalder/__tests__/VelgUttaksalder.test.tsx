@@ -18,7 +18,7 @@ describe('VelgUttaksalder', () => {
           maaned: 1,
           uttaksdato: '2031-11-01',
         }}
-        setValgtUttaksalder={vi.fn()}
+        valgtUttaksalderHandler={vi.fn()}
       />
     )
 
@@ -31,7 +31,7 @@ describe('VelgUttaksalder', () => {
     const result = render(
       <VelgUttaksalder
         tidligstMuligUttak={uttaksalder}
-        setValgtUttaksalder={vi.fn()}
+        valgtUttaksalderHandler={vi.fn()}
       />
     )
 
@@ -49,14 +49,14 @@ describe('VelgUttaksalder', () => {
   it('oppdaterer valgt knapp og kaller setValgtUttaksalder når brukeren velger en alder', async () => {
     const user = userEvent.setup()
     let valgtUttaksalder = '63 år'
-    const setValgtUttaksalder = (alder: string) => {
+    const valgtUttaksalderHandler = (alder: string) => {
       valgtUttaksalder = alder
     }
 
     const getProps = () => ({
       tidligstMuligUttak: uttaksalder,
       valgtUttaksalder,
-      setValgtUttaksalder,
+      valgtUttaksalderHandler,
     })
 
     const { rerender } = render(<VelgUttaksalder {...getProps()} />)

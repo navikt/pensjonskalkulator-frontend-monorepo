@@ -5,13 +5,15 @@ import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
 import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
+import { SectionContent } from '../components/SectionContent'
+import { SectionHeader } from '../components/SectionHeader'
+import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
+import { PensjonsavtalerRequestBody } from '@/state/api/apiSlice.types'
 import { useAppSelector } from '@/state/hooks'
 import { selectSamtykke } from '@/state/userInput/selectors'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 
-import { SectionContent } from './components/SectionContent'
-import { SectionHeader } from './components/SectionHeader'
 import {
   groupPensjonsavtalerByType,
   getPensjonsavtalerTittel,
@@ -21,27 +23,32 @@ import {
 import styles from './Pensjonsavtaler.module.scss'
 
 interface Props {
-  pensjonsavtaler: Pensjonsavtale[]
-  showError: boolean
+  requestBody: PensjonsavtalerRequestBody
 }
 
-export function Pensjonsavtaler({ pensjonsavtaler, showError }: Props) {
+export function Pensjonsavtaler({ requestBody }: Props) {
   const navigate = useNavigate()
   const harSamtykket = useAppSelector(selectSamtykke)
 
-  if (!showError && pensjonsavtaler.length === 0) {
-    return null
-  }
+  const {
+    data: pensjonsavtaler,
+    isLoading,
+    isError,
+    isSuccess,
+  } = usePensjonsavtalerQuery(requestBody, {
+    skip: !harSamtykket,
+  })
 
   // PEK-97 TODO håndtere delvis reponse fra backend
   return (
     <Accordion.Item data-testid="pensjonsavtaler">
       <SectionHeader
         label="Pensjonsavtaler"
+        isLoading={isLoading}
         value={getPensjonsavtalerTittel(
           !!harSamtykket,
-          showError,
-          `${pensjonsavtaler.length}`
+          isError,
+          `${pensjonsavtaler?.length}`
         )}
       />
       <SectionContent>
@@ -55,7 +62,7 @@ export function Pensjonsavtaler({ pensjonsavtaler, showError }: Props) {
             dersom du ønsker å få dette i beregningen.
           </BodyLong>
         )}
-        {showError && (
+        {isError && (
           <div className={styles.error}>
             <ExclamationmarkTriangleFillIcon
               className={styles.errorIcon}
@@ -67,7 +74,7 @@ export function Pensjonsavtaler({ pensjonsavtaler, showError }: Props) {
             </BodyLong>
           </div>
         )}
-        {harSamtykket && !showError && (
+        {harSamtykket && isSuccess && (
           <>
             <table className={styles.tabell}>
               <thead>

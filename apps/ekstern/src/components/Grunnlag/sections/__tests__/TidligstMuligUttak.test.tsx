@@ -1,4 +1,4 @@
-import { TidligstMuligUttak } from '../TidligstMuligUttak'
+import { TidligstMuligUttak } from '../TidligstMuligUttak/TidligstMuligUttak'
 import { render, screen } from '@/test-utils'
 
 describe('TidligstMuligUttak', () => {

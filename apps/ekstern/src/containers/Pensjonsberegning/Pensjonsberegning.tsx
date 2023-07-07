@@ -10,46 +10,48 @@ import { Pensjonssimulering } from '@/components/Pensjonssimulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
-import {
-  usePensjonsavtalerQuery,
-  useTidligsteUttaksalderQuery,
-} from '@/state/api/apiSlice'
+import { apiSlice } from '@/state/api/apiSlice'
+import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
+import { store } from '@/state/store'
 import { selectSamtykke } from '@/state/userInput/selectors'
 
 export function Pensjonsberegning() {
+  const harSamtykket = useAppSelector(selectSamtykke)
+  const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
+
   const {
     data: tidligstMuligUttak,
     isLoading,
     isError,
     isSuccess,
   } = useTidligsteUttaksalderQuery()
-  const harSamtykket = useAppSelector(selectSamtykke)
-  const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
-  const {
-    data: pensjonsavtaler,
-    isLoading: isPensjonsavtalerLoading,
-    isError: isPensjonsavtalerError,
-  } = usePensjonsavtalerQuery(
-    {
-      uttaksperioder: [
-        {
-          startAlder: valgtUttaksalder ? parseInt(valgtUttaksalder, 10) : 0,
-          startMaaned:
-            valgtUttaksalder &&
-            tidligstMuligUttak?.maaned &&
-            parseInt(valgtUttaksalder, 10) === tidligstMuligUttak?.aar
-              ? tidligstMuligUttak?.maaned
-              : 1, // Defaulter til 1 for nå - brukeren kan ikke velge spesifikk måned
-          grad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
-          aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon
-        },
-      ],
-      antallInntektsaarEtterUttak: 0,
-    },
-    { skip: !harSamtykket || !valgtUttaksalder }
-  )
+  const pensjonsavtalerRequestBody = {
+    uttaksperioder: [
+      {
+        startAlder: valgtUttaksalder ? parseInt(valgtUttaksalder, 10) : 0,
+        startMaaned:
+          valgtUttaksalder &&
+          tidligstMuligUttak?.maaned &&
+          parseInt(valgtUttaksalder, 10) === tidligstMuligUttak?.aar
+            ? tidligstMuligUttak?.maaned
+            : 1, // Defaulter til 1 for nå - brukeren kan ikke velge spesifikk måned
+        grad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
+        aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon
+      },
+    ],
+    antallInntektsaarEtterUttak: 0,
+  }
+
+  const valgtUttaksalderHandler = (alder: string) => {
+    setValgtUttaksalder(alder)
+    if (harSamtykket) {
+      store.dispatch(
+        apiSlice.endpoints.pensjonsavtaler.initiate(pensjonsavtalerRequestBody)
+      )
+    }
+  }
 
   if (isLoading) {
     return (
@@ -80,7 +82,7 @@ export function Pensjonsberegning() {
         <VelgUttaksalder
           tidligstMuligUttak={tidligstMuligUttak}
           valgtUttaksalder={valgtUttaksalder}
-          setValgtUttaksalder={setValgtUttaksalder}
+          valgtUttaksalderHandler={valgtUttaksalderHandler}
         />
 
         {valgtUttaksalder && (
@@ -92,9 +94,7 @@ export function Pensjonsberegning() {
         <>
           <Grunnlag
             tidligstMuligUttak={tidligstMuligUttak}
-            pensjonsavtaler={pensjonsavtaler ?? []}
-            showLoader={isPensjonsavtalerLoading}
-            showError={isPensjonsavtalerError}
+            pensjonsavtalerRequestBody={pensjonsavtalerRequestBody}
           />
           <Forbehold />
           <TilbakeEllerAvslutt />
