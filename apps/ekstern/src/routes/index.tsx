@@ -10,7 +10,7 @@ import { Step2 } from '@/routes/stegvisning/Step2'
 import { Step3 } from '@/routes/stegvisning/Step3'
 import { step3loader } from '@/routes/stegvisning/Step3/utils'
 import { Step4 } from '@/routes/stegvisning/Step4'
-import { Step5 } from '@/routes/stegvisning/Step5'
+import { Step5, Step5Feil } from '@/routes/stegvisning/Step5'
 import { store } from '@/state/store'
 
 export const ROUTER_BASE_URL = '/pensjon/kalkulator'
@@ -85,6 +85,16 @@ export const routes: RouteObject[] = [
     element: (
       <PageFramework>
         <Step5 />
+      </PageFramework>
+    ),
+    ErrorBoundary: RouteErrorBoundary,
+  },
+  {
+    path: '/sivilstand-feil',
+    loader: directAccessGuard,
+    element: (
+      <PageFramework>
+        <Step5Feil />
       </PageFramework>
     ),
     ErrorBoundary: RouteErrorBoundary,

@@ -10,9 +10,30 @@ describe('Sivilstand', () => {
     })
     render(<Sivilstand />)
 
+    await waitFor(async () => {
+      expect(screen.queryByText('Kunne ikke hentes')).not.toBeInTheDocument()
+      expect(await screen.findByText('Gift')).toBeVisible()
+    })
+  })
+
+  it('viser feilmelding når henting av personopplysninger feiler', async () => {
+    mockErrorResponse('/person')
+    render(<Sivilstand />)
+
     await waitFor(() => {
-      const el = screen.getByTestId('accordion-sivilstand')
-      expect(el).toMatchSnapshot()
+      expect(screen.getByText('Kunne ikke hentes')).toBeVisible()
+    })
+  })
+
+  it('viser feilmelding når henting av personoppluysninger er delvis vellykket (mangler sivilstand)', async () => {
+    mockResponse('/person', {
+      status: 200,
+      json: { fornavn: 'Ola', sivilstand: null },
+    })
+    render(<Sivilstand />)
+
+    await waitFor(() => {
+      expect(screen.getByText('Kunne ikke hentes')).toBeVisible()
     })
   })
 
@@ -33,15 +54,6 @@ describe('Sivilstand', () => {
     render(<Sivilstand />)
     await waitFor(() => {
       expect(screen.getByText(expected)).toBeVisible()
-    })
-  })
-
-  it('viser feilmelding når henting av sivilstand feiler', async () => {
-    mockErrorResponse('/person')
-    render(<Sivilstand />)
-
-    await waitFor(() => {
-      expect(screen.getByText('Kunne ikke hente sivilstand')).toBeVisible()
     })
   })
 })

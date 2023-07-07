@@ -1,0 +1,42 @@
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import { checkHarSamboer, getNesteSide } from '../Step4/utils'
+import { ErrorStep } from '@/components/stegvisning/ErrorStep'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
+import { apiSlice } from '@/state/api/apiSlice'
+import { useAppDispatch } from '@/state/hooks'
+import { userInputActions } from '@/state/userInput/userInputReducer'
+
+export function Step5Feil() {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const { data: person, isLoading, isSuccess } = useGetPersonQuery()
+
+  const onNext = (harSamboer: boolean): void => {
+    if (harSamboer) {
+      dispatch(userInputActions.setSamboer(true))
+    }
+    const url = getNesteSide(harSamboer)
+    navigate(url)
+  }
+
+  useEffect(() => {
+    if (isSuccess && person.sivilstand !== null) {
+      onNext(checkHarSamboer(person?.sivilstand))
+    }
+  }, [isSuccess, person])
+
+  const onCancel = (): void => {
+    window.location.href = 'http://www.nav.no/pensjon'
+  }
+
+  const onReload = (): void => {
+    dispatch(apiSlice.util.invalidateTags(['Person']))
+    dispatch(apiSlice.endpoints.getPerson.initiate())
+  }
+
+  return (
+    <ErrorStep isLoading={isLoading} onCancel={onCancel} onReload={onReload} />
+  )
+}

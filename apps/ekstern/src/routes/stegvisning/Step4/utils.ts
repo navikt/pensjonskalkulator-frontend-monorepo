@@ -3,5 +3,8 @@ export function checkHarSamboer(sivilstand: Sivilstand): boolean {
 }
 
 export function getNesteSide(harSamboer: boolean | null): string {
+  if (harSamboer === null) {
+    return '/sivilstand-feil'
+  }
   return harSamboer ? '/beregning' : '/sivilstand'
 }

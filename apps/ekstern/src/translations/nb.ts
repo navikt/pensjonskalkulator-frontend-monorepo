@@ -1,5 +1,6 @@
 const translations = {
   'application.title': 'Pensjonskalkulator',
+  'loading.person': 'Henter personopplysninger',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -57,7 +58,6 @@ const translations = {
     'må taes ut sammen med alderspensjon fra folketrygden (NAV) og tjenestepensjon',
   'stegvisning.afp.readmore_offentlig_ingress':
     'Vi kan ikke innhente opplysninger om dette og ta det med i beregningen. Sjekk hva som gjelder deg hos din tjenestepensjonsordning',
-
   'stegvisning.afp.radio_label': 'Har du rett til AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Ja, i offentlig sektor',
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
@@ -76,5 +76,10 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'error.global.title': 'Oops! Det har oppstått en uventet feil',
+  'error.global.ingress':
+    'Vi jobber med å rette feilen. Hvis problemet vedvarer, kan du kontakte oss på XX XX XX XX.',
+  'error.global.button.reload': 'Last siden på nytt',
+  'error.global.button.avbryt': 'Tilbake til Din Pensjon',
 }
 export const getTranslation_nb = () => translations
