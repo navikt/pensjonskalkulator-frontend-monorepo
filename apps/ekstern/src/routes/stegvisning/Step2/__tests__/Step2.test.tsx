@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step2 } from '..'
+import { paths } from '@/routes'
 import { RootState } from '@/state/store'
 import { screen, render, userEvent } from '@/test-utils'
 
@@ -23,7 +24,7 @@ describe('Step 2', () => {
       'pensjonsavtaler({"aarligInntektFoerUttak":0,"antallInntektsaarEtterUttak":0,"uttaksperiode":{"aarligInntekt":500000,"grad":100,"startAlder":0,"startMaaned":0}})'
     )
     expect(store.getState().userInput.samtykke).toBe(true)
-    expect(navigateMock).toHaveBeenCalledWith('/offentlig-tp')
+    expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
   })
 
   it('registrerer samtykke, tømmer storen og navigerer videre til riktig side når brukeren ikke samtykker og klikker på Neste', async () => {
@@ -40,7 +41,7 @@ describe('Step 2', () => {
 
     expect(store.getState().userInput.samtykke).toBe(false)
     expect(Object.keys(store.getState().api.queries).length).toEqual(0)
-    expect(navigateMock).toHaveBeenCalledWith('/offentlig-tp')
+    expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
   })
 
   it('nullstiller input fra brukeren og sender tilbake til steg 1 når brukeren klikker på Tilbake', async () => {
@@ -57,7 +58,7 @@ describe('Step 2', () => {
 
     await user.click(screen.getByText('stegvisning.tilbake'))
 
-    expect(navigateMock).toHaveBeenCalledWith('/start')
+    expect(navigateMock).toHaveBeenCalledWith(paths.start)
     expect(store.getState().userInput.samtykke).toBe(null)
   })
 
@@ -76,6 +77,6 @@ describe('Step 2', () => {
     await user.click(screen.getByText('stegvisning.avbryt'))
 
     expect(store.getState().userInput.samtykke).toBe(null)
-    expect(navigateMock).toHaveBeenCalledWith('/')
+    expect(navigateMock).toHaveBeenCalledWith(paths.root)
   })
 })

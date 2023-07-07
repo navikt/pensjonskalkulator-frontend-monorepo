@@ -6,6 +6,7 @@ import {
   TypedUseQueryStateResult,
 } from '@reduxjs/toolkit/query/react'
 
+import { paths } from '@/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 
@@ -14,7 +15,7 @@ export const step3loader = async () => {
 
   // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til start steget
   if (harSamtykket === null) {
-    return redirect('/start')
+    return redirect(paths.start)
   }
 
   // Dersom brukeren samtykker kaller vi tp-registret
@@ -27,7 +28,7 @@ export const step3loader = async () => {
     })
   } else {
     // Dersom brukeren ikke samtykker til henting av tpo behøver ikke dette steget å vises
-    return redirect('/afp')
+    return redirect(paths.afp)
   }
 }
 
@@ -46,6 +47,7 @@ export function useStep3LoaderData<
 {
   /* c8 ignore next 10 - Dette er kun for typing */
 }
+
 export function deferredLoader<
   TData extends {
     getTpoMedlemskapQuery: TpoMedlemskapQuery

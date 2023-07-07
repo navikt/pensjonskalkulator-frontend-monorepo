@@ -5,6 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Step4 } from '..'
 import * as Step4Utils from '../utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { paths } from '@/routes'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
@@ -59,7 +60,7 @@ describe('Step 4', () => {
     expect(store.getState().userInput.afp).toBe('ja_offentlig')
     expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
     expect(nesteSideMock).toHaveBeenCalledWith(true)
-    expect(navigateMock).toHaveBeenCalledWith('/beregning')
+    expect(navigateMock).toHaveBeenCalledWith(paths.beregning)
     expect(store.getState().userInput.samboer).toBe(true)
   })
 
@@ -83,7 +84,7 @@ describe('Step 4', () => {
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(checkHarSamboerMock).toHaveBeenCalledWith('UGIFT')
       expect(nesteSideMock).toHaveBeenCalledWith(false)
-      expect(navigateMock).toHaveBeenCalledWith('/sivilstand')
+      expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
     })
   })
 
@@ -106,7 +107,7 @@ describe('Step 4', () => {
     await user.click(screen.getByText('stegvisning.neste'))
     expect(store.getState().userInput.afp).toBe('ja_offentlig')
     expect(nesteSideMock).toHaveBeenCalledWith(null)
-    expect(navigateMock).toHaveBeenCalledWith('/sivilstand-feil')
+    expect(navigateMock).toHaveBeenCalledWith(paths.sivilstandFeil)
   })
 
   it('registrerer afp og navigerer videre til steg 5 feilside når brukeren velger afp og klikker på Neste (gitt at kall til /person er delvis vellykket - mangler sivilstand)', async () => {
@@ -131,7 +132,7 @@ describe('Step 4', () => {
     await user.click(screen.getByText('stegvisning.neste'))
     expect(store.getState().userInput.afp).toBe('ja_offentlig')
     expect(nesteSideMock).toHaveBeenCalledWith(null)
-    expect(navigateMock).toHaveBeenCalledWith('/sivilstand-feil')
+    expect(navigateMock).toHaveBeenCalledWith(paths.sivilstandFeil)
   })
 
   it('sender tilbake til steg 2 når brukeren ikke har tpo-medlemskap og klikker på Tilbake', async () => {
@@ -147,7 +148,7 @@ describe('Step 4', () => {
     render(<Step4 />)
 
     await user.click(await screen.findByText('stegvisning.tilbake'))
-    expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+    expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
   })
 
   it('sender tilbake til steg 3 når brukeren har tpo medlemskap og klikker på Tilbake', async () => {
@@ -163,7 +164,7 @@ describe('Step 4', () => {
     })
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
-      expect(navigateMock).toHaveBeenCalledWith('/offentlig-tp')
+      expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
     })
   })
 
@@ -180,7 +181,7 @@ describe('Step 4', () => {
     })
 
     await user.click(await screen.findByText('stegvisning.avbryt'))
-    expect(navigateMock).toHaveBeenCalledWith('/')
+    expect(navigateMock).toHaveBeenCalledWith(paths.root)
     expect(store.getState().userInput.samtykke).toBe(null)
     expect(store.getState().userInput.afp).toBe(null)
   })

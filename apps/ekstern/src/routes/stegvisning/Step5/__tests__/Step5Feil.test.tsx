@@ -5,6 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Step5Feil } from '..'
 import * as Step4Utils from '../../Step4/utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { paths } from '@/routes'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 const realLocation = window.location
 describe('Step 5 Feil', () => {
@@ -68,7 +69,7 @@ describe('Step 5 Feil', () => {
     await waitFor(() => {
       expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
       expect(nesteSideMock).toHaveBeenCalledWith(true)
-      expect(navigateMock).toHaveBeenCalledWith('/beregning')
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregning)
       expect(store.getState().userInput.samboer).toBe(true)
     })
   })

@@ -1,10 +1,10 @@
 import * as ReactRouterUtils from 'react-router'
 
-import { TagDescription } from '@reduxjs/toolkit/dist/query/endpointDefinitions'
 import { describe, it, vi } from 'vitest'
 
 import { Step1 } from '..'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { paths } from '@/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 describe('Step 1', () => {
@@ -43,7 +43,7 @@ describe('Step 1', () => {
     render(<Step1 />)
     await waitFor(async () => {
       await user.click(await screen.findByText('stegvisning.start.start'))
-      expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
     })
   })
 
@@ -66,7 +66,7 @@ describe('Step 1', () => {
     render(<Step1 />)
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.start.start'))
-      expect(navigateMock).toHaveBeenCalledWith('/samtykke')
+      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
       expect(invalidateTagsMock).toHaveBeenCalledWith(['Person'])
     })
   })
@@ -80,7 +80,7 @@ describe('Step 1', () => {
     render(<Step1 />)
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.avbryt'))
-      expect(navigateMock).toHaveBeenCalledWith('/')
+      expect(navigateMock).toHaveBeenCalledWith(paths.root)
     })
   })
 })

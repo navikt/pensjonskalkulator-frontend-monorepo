@@ -3,8 +3,9 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step5 } from '..'
+import { paths } from '@/routes'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { screen, render, waitFor, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Step 5', () => {
   it('rendrer Step 5 slik den skal når brukeren har svart på spørsmålet om samtykke,', async () => {
@@ -37,7 +38,7 @@ describe('Step 5', () => {
       await user.click(radioButtons[0])
       await user.click(screen.getByText('stegvisning.beregn'))
       expect(store.getState().userInput.samboer).toBe(true)
-      expect(navigateMock).toHaveBeenCalledWith('/beregning')
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregning)
     })
   })
 
@@ -50,7 +51,7 @@ describe('Step 5', () => {
     render(<Step5 />)
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
-      expect(navigateMock).toHaveBeenCalledWith('/afp')
+      expect(navigateMock).toHaveBeenCalledWith(paths.afp)
     })
   })
 
@@ -67,7 +68,7 @@ describe('Step 5', () => {
     })
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.avbryt'))
-      expect(navigateMock).toHaveBeenCalledWith('/')
+      expect(navigateMock).toHaveBeenCalledWith(paths.root)
       expect(store.getState().userInput.samtykke).toBe(null)
       expect(store.getState().userInput.afp).toBe(null)
       expect(store.getState().userInput.samboer).toBe(null)

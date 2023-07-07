@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client'
 
 import { LanguageProvider } from '@/containers/LanguageProvider'
 import { initializeLogs } from '@/observability/faro'
-import { ROUTER_BASE_URL, routes } from '@/routes'
+import { BASE_PATH, routes } from '@/routes'
 
 import { store } from './state/store'
 
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const router = createBrowserRouter(routes, {
-  basename: ROUTER_BASE_URL,
+  basename: BASE_PATH,
 })
 
 initializeLogs()
