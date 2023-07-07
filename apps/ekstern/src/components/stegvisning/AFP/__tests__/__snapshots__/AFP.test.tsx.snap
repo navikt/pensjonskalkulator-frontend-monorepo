@@ -143,7 +143,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         </div>
       </div>
       <fieldset
-        aria-invalid="false"
         aria-required="true"
         class="_radiogroup_10a2c6 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
@@ -159,7 +158,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-re"
               name="afp"
@@ -185,7 +183,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-rf"
               name="afp"
@@ -211,7 +208,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               checked=""
               class="navds-radio__input"
               id="radio-rg"
@@ -238,7 +234,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-rh"
               name="afp"
@@ -449,7 +444,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         </div>
       </div>
       <fieldset
-        aria-invalid="false"
         aria-required="true"
         class="_radiogroup_10a2c6 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
@@ -465,7 +459,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r5"
               name="afp"
@@ -491,7 +484,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r6"
               name="afp"
@@ -517,7 +509,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r7"
               name="afp"
@@ -543,7 +534,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r8"
               name="afp"
@@ -754,7 +744,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         </div>
       </div>
       <fieldset
-        aria-invalid="false"
         aria-required="true"
         class="_radiogroup_10a2c6 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
       >
@@ -770,7 +759,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r5"
               name="afp"
@@ -796,7 +784,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r6"
               name="afp"
@@ -822,7 +809,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r7"
               name="afp"
@@ -848,7 +834,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-invalid="false"
               class="navds-radio__input"
               id="radio-r8"
               name="afp"
