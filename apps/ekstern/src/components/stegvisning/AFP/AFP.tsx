@@ -90,7 +90,11 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
                   target="_blank"
                 >
                   {chunks}
-                  <ExternalLinkIcon width="1.25rem" height="1.25rem" />
+                  <ExternalLinkIcon
+                    width="1.25rem"
+                    height="1.25rem"
+                    aria-hidden
+                  />
                 </Link>
               ),
             }}

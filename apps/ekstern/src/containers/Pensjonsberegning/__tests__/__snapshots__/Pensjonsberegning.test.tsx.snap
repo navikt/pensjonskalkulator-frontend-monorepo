@@ -155,6 +155,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
       class="_info_f5a642"
     >
       <svg
+        aria-hidden="true"
         class="_infoIcon_f5a642"
         fill="none"
         focusable="false"

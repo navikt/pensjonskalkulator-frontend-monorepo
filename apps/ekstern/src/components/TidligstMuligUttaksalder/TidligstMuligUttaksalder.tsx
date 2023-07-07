@@ -33,6 +33,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
           <InformationSquareFillIcon
             className={styles.infoIcon}
             fontSize="1.5rem"
+            aria-hidden
           />
           <p className={styles.infoText}>
             Din AFP kan gjøre at tidspunktet blir tidligere
