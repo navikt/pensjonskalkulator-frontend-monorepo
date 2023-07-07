@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import { Samtykke, SamtykkeRadio } from '@/components/stegvisning/Samtykke'
+import { paths } from '@/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSamtykke } from '@/state/userInput/selectors'
@@ -17,17 +18,17 @@ export function Step2() {
     if (!samtykke) {
       dispatch(apiSlice.util.resetApiState())
     }
-    navigate('/offentlig-tp')
+    navigate(paths.offentligTp)
   }
 
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
-    navigate('/')
+    navigate(paths.root)
   }
 
   const onPrevious = (): void => {
     dispatch(userInputActions.flush())
-    navigate('/start')
+    navigate(paths.start)
   }
 
   return (

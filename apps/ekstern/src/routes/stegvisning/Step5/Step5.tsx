@@ -4,6 +4,7 @@ import {
   Sivilstand,
   SivilstandRadio,
 } from '@/components/stegvisning/Sivilstand'
+import { paths } from '@/routes'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSamboer } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -15,16 +16,16 @@ export function Step5() {
 
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
-    navigate('/')
+    navigate(paths.root)
   }
 
   const onPrevious = (): void => {
-    return navigate('/afp')
+    return navigate(paths.afp)
   }
 
   const onNext = (sivilstandData: SivilstandRadio): void => {
     dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
-    navigate('/beregning')
+    navigate(paths.beregning)
   }
 
   return (
