@@ -114,7 +114,6 @@ export type ExtendedAxis = Axis & {
   labelGroup: { element: { childNodes: Array<HTMLElement> } }
 }
 export type ExtendedPoint = Point & {
-  tooltipPos: number[]
   series: { data: string[] }
 }
 
@@ -135,23 +134,26 @@ export function tooltipFormatter(
   context: TooltipFormatterContextObject,
   styles: Partial<typeof globalClassNames>
 ): string {
-  const yAxisHeight = (context.points?.[0].series.yAxis as ExtendedAxis).height
-  const lineYpos =
-    (context.points?.[0].series.chart.yAxis[0] as ExtendedAxis).pos -
-    TOOLTIP_YPOS
+  const chart = context.points?.[0].series.chart as Chart
+  const tooltipEntriesHeight =
+    20 * (context.points?.filter((point) => point.percentage > 0)?.length ?? 0)
+  const lineYstartPOS = tooltipEntriesHeight + 50
   const columnHeight =
-    yAxisHeight - (context.points?.[0].point as ExtendedPoint).tooltipPos[1]
+    (context.points?.[0].series.yAxis as ExtendedAxis).height -
+    (context.point.plotY ?? 0)
+
   const scrollPosition =
     document.querySelector(highchartsScrollingSelector)?.scrollLeft ?? 0
 
   const leftPosition = context.points?.[0].point?.plotX ?? 0
-  const numberOfBars = context.points?.[0].point.series.data.length ?? 0
 
   const tooltipConnectingLine = `<div class="${
     styles.tooltipLine
-  }" style="top: ${lineYpos}px; left: ${
-    leftPosition + 21 - scrollPosition - numberOfBars + COLUMN_WIDTH
-  }px; height: ${yAxisHeight - columnHeight}px"></div>`
+  }" style="top: ${lineYstartPOS}px; left: ${
+    leftPosition + chart.plotLeft - scrollPosition - 1
+  }px; height: ${
+    chart.chartHeight - lineYstartPOS - columnHeight - 80
+  }px"></div>`
 
   let hasInntekt = false
   let hasPensjon = false
@@ -390,8 +392,8 @@ export const getChartOptions = (
         align: 'high',
         offset: -55,
         rotation: 0,
-        x: -12,
-        y: -20,
+        x: -16,
+        y: -22,
       },
       labels: {
         formatter: labelFormatter,

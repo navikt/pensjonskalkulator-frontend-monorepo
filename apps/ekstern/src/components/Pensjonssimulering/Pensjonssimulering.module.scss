@@ -50,12 +50,14 @@
     table-layout: fixed;
     background-color: var(--a-white);
     border-collapse: separate;
-    border-spacing: 0 var(--a-spacing-1);
+    border-spacing: 0;
     z-index: 1;
 
     &HeaderCell {
-      border-bottom: 1px solid var(--a-gray-600);
-      font-size: var(var(--a-font-size-medium));
+      font-family: var(--a-font-family) !important;
+      font-size: var(--a-font-size-medium) !important;
+      padding: 0.25rem 0;
+      line-height: 1;
 
       &__left {
         width: 70%;
@@ -80,6 +82,8 @@
       font-family: var(--a-font-family);
       font-size: var(--a-font-size-small);
       vertical-align: middle;
+      padding: 0.188rem 0;
+      line-height: 1;
 
       &__right {
         font-weight: var(--a-font-weight-bold);
@@ -100,8 +104,8 @@
 
   &Line {
     position: absolute;
-    width: 2px;
-    border-right: 2px dashed white;
+    width: 1px;
+    border-right: 1px dashed white;
     background-color: var(--a-grayalpha-500);
   }
 }

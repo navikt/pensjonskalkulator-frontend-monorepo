@@ -195,30 +195,32 @@ describe('Pensjonssimulering-utils', () => {
       const total = 800000
       const colorSerie1 = 'lime'
       const colorSerie2 = 'salmon'
+      const plotY = 68
       const pointSumSerie1 = 200000
       const pointSumSerie2 = 350000
 
-      const beregnetLinePosition = 'top: 265px; left: 167px; height: 100px'
+      const beregnetLinePosition = 'top: 90px; left: 163px; height: 127px'
       const beregnetLinePositionAfterScroll =
-        'top: 265px; left: 117px; height: 100px'
+        'top: 90px; left: 113px; height: 127px'
 
       const point = {
         y: pointSumSerie1,
+        percentage: 20,
         total,
         series: {
           name: SERIE_NAME_INNTEKT,
           color: colorSerie1,
-          chart: { yAxis: [{ pos: 300 } as ExtendedAxis] },
-          yAxis: { height: 400 } as ExtendedAxis,
+          chart: { chartHeight: 400, plotLeft: 35 },
+          yAxis: { height: 171 } as ExtendedAxis,
         },
         point: {
           plotX: 129,
-          tooltipPos: [50, 100, 120],
           series: { data: ['70', '71', '72', '73', '74', '75', '76', '77+'] },
         } as ExtendedPoint,
       }
 
       const context = {
+        point: { plotY },
         x: alder,
         points: [
           {

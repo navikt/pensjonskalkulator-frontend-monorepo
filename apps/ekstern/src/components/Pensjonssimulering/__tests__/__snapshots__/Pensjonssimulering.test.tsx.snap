@@ -543,7 +543,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   text-anchor="end"
                   transform="translate(0,0)"
                   x="NaN"
-                  y="24"
+                  y="22"
                 >
                   Tusen kroner
                 </text>
