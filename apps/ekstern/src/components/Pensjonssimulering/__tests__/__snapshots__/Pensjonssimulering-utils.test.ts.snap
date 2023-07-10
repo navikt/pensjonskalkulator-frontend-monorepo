@@ -108,10 +108,11 @@ exports[`Pensjonssimulering-utils > getChartOptions > returnerer riktig default 
     "tickInterval": 200000,
     "title": {
       "align": "high",
-      "offset": -55,
+      "margin": -75,
       "rotation": 0,
       "text": "Tusen kroner",
-      "x": -16,
+      "textAlign": "left",
+      "x": -75,
       "y": -22,
     },
   },

@@ -390,9 +390,10 @@ export const getChartOptions = (
       title: {
         text: 'Tusen kroner',
         align: 'high',
-        offset: -55,
+        margin: -75,
         rotation: 0,
-        x: -16,
+        textAlign: 'left',
+        x: -75,
         y: -22,
       },
       labels: {
