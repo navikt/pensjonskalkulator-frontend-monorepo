@@ -6,6 +6,7 @@ import {
   Point,
   PointClickEventObject,
   Series,
+  Tooltip,
   TooltipFormatterContextObject,
 } from 'highcharts'
 
@@ -19,7 +20,7 @@ export const TOOLTIP_YPOS = 35
 
 export const SERIE_NAME_INNTEKT = 'Inntekt (lønn m.m.)'
 export const SERIE_NAME_AFP = 'Avtalefestet pensjon (AFP)'
-export const SERIE_NAME_TP = 'Pensjonsavtaler (arbeidsgiver)'
+export const SERIE_NAME_TP = 'Pensjonsavtaler (arbeidsgivere)'
 export const SERIE_NAME_ALDERSPENSJON = 'Alderspensjon (NAV)'
 
 export const SERIE_COLOR_INNTEKT = '#868F9C'
@@ -116,6 +117,9 @@ export type ExtendedAxis = Axis & {
 export type ExtendedPoint = Point & {
   series: { data: string[] }
 }
+export type ExtendedTooltip = Tooltip & {
+  isHidden: boolean
+}
 
 export function getTooltipTitle(
   hasInntekt: boolean,
@@ -141,10 +145,8 @@ export function tooltipFormatter(
   const columnHeight =
     (context.points?.[0].series.yAxis as ExtendedAxis).height -
     (context.point.plotY ?? 0)
-
   const scrollPosition =
     document.querySelector(highchartsScrollingSelector)?.scrollLeft ?? 0
-
   const leftPosition = context.points?.[0].point?.plotX ?? 0
 
   const tooltipConnectingLine = `<div class="${
@@ -269,6 +271,27 @@ export const getNormalColor = (previousColor: string): string => {
   }
 }
 
+export function resetColumnColors(chart: Chart): void {
+  chart.series.forEach(function (serie: Series) {
+    serie.data.forEach(function (point: Point) {
+      const color = getNormalColor(point.color as string)
+      if (point.color !== color) {
+        point.update({ color: getNormalColor(point.color as string) }, false)
+      }
+    })
+  })
+
+  if ((chart.xAxis[0] as ExtendedAxis).labelGroup) {
+    ;(chart.xAxis[0] as ExtendedAxis).labelGroup.element.childNodes.forEach(
+      function (label: HTMLElement) {
+        label.style.fontWeight = 'normal'
+      }
+    )
+  }
+  chart.redraw()
+  chart.tooltip.hide()
+}
+
 export function onPointClick(this: Point, event: PointClickEventObject): void {
   const pointIndex = event.point.index
   this.series.chart.series.forEach(function (serie: Series) {
@@ -298,22 +321,23 @@ export function onPointClick(this: Point, event: PointClickEventObject): void {
   this.series.chart.redraw()
 }
 
-export function onChartClick(this: Chart): void {
-  this.series.forEach(function (serie: Series) {
-    serie.data.forEach(function (point: Point) {
-      const color = getNormalColor(point.color as string)
-      if (point.color !== color) {
-        point.update({ color: getNormalColor(point.color as string) }, false)
-      }
-    })
-  })
-  ;(this.xAxis[0] as ExtendedAxis).labelGroup.element.childNodes.forEach(
-    function (label: HTMLElement) {
-      label.style.fontWeight = 'normal'
+export function onPointUnClick(
+  e: MouseEvent & {
+    chartX?: number
+    point?: Point
+  },
+  chart?: Chart
+) {
+  // Behov for litt delay slik at Highcharts rekker å sette chart.tooltip.hidden property
+  setTimeout(() => {
+    if (chart && e.chartX !== undefined && e.point === undefined) {
+      // Is inside chart ploot area, but not on a point
+      resetColumnColors(chart)
+    } else if (chart && (chart.tooltip as ExtendedTooltip)?.isHidden) {
+      // Is outside chart plot area, and tooltip is hidden
+      resetColumnColors(chart)
     }
-  )
-  this.redraw()
-  this.tooltip.hide()
+  }, 150)
 }
 
 export const getChartOptions = (
@@ -332,7 +356,6 @@ export const getChartOptions = (
         scrollPositionX: 0,
       },
       events: {
-        click: onChartClick,
         render() {
           const highchartsScrollingElement = document.querySelector(
             highchartsScrollingSelector
@@ -408,20 +431,21 @@ export const getChartOptions = (
       enabled: false,
     },
     tooltip: {
-      useHTML: true,
       className: styles.tooltip,
       /* c8 ignore next 3 */
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
       },
+      hideDelay: 30,
       outside: true,
-      shadow: false,
-      shared: true,
       padding: 0,
       /* c8 ignore next 3 */
       positioner: function () {
         return { x: 0, y: TOOLTIP_YPOS }
       },
+      shadow: false,
+      shared: true,
+      useHTML: true,
     },
     legend: {
       useHTML: true,

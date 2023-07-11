@@ -188,7 +188,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   data-z-index="2"
                   style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; z-index: 0;"
                 >
-                  Pensjonsavtaler (arbeidsgiver)
+                  Pensjonsavtaler (arbeidsgivere)
                 </span>
               </div>
               <div
@@ -297,7 +297,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 stroke-width="0"
                 width="725"
                 x="0"
-                y="0"
+                y="0.0004342611649834627"
               />
               <g
                 class="highcharts-grid highcharts-xaxis-grid"
@@ -962,7 +962,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       0
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1069,7 +1069,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       20 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1176,7 +1176,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1283,7 +1283,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1390,7 +1390,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1497,7 +1497,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1604,7 +1604,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1711,7 +1711,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1818,7 +1818,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1925,7 +1925,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2032,7 +2032,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2139,7 +2139,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2246,7 +2246,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2353,7 +2353,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2460,7 +2460,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       80 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"

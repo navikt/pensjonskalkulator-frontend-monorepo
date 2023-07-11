@@ -20,7 +20,7 @@ import {
   getHoverColor,
   getNormalColor,
   onPointClick,
-  onChartClick,
+  onPointUnClick,
   getChartOptions,
   onVisFlereAarClick,
   onVisFaerreAarClick,
@@ -35,6 +35,7 @@ import globalClassNames from './Pensjonssimulering.module.scss'
 describe('Pensjonssimulering-utils', () => {
   afterEach(() => {
     document.getElementsByTagName('html')[0].innerHTML = ''
+    vi.resetAllMocks()
   })
 
   describe('simulateDataArray', () => {
@@ -298,8 +299,11 @@ describe('Pensjonssimulering-utils', () => {
     })
   })
 
-  describe('onPointClick og onChartClick', () => {
+  describe('onPointClick og onPointUnClick', () => {
     const pointUpdateMock = vi.fn()
+    const redrawMock = vi.fn()
+    const tooltipHideMock = vi.fn()
+
     const data1 = [
       {
         index: 0,
@@ -353,6 +357,7 @@ describe('Pensjonssimulering-utils', () => {
     ]
 
     const chart = {
+      tooltip: { isHidden: false },
       series: [
         {
           data: [...data1],
@@ -381,7 +386,6 @@ describe('Pensjonssimulering-utils', () => {
 
     describe('onPointClick', () => {
       it('oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis', () => {
-        const redrawMock = vi.fn()
         const point = {
           series: {
             chart: {
@@ -404,144 +408,184 @@ describe('Pensjonssimulering-utils', () => {
         ).toMatchSnapshot()
         expect(redrawMock).toHaveBeenCalledOnce()
       })
-    })
 
-    describe('onChartClick', () => {
-      it('nullstiller fargene og label på xAxis', () => {
-        const redrawMock = vi.fn()
-        const tooltipHideMock = vi.fn()
-        const chartWithSelection = {
-          ...chart,
-          redraw: redrawMock,
-          tooltip: { hide: tooltipHideMock },
-        } as unknown as Chart
-        onChartClick.call(chartWithSelection)
-        expect(pointUpdateMock).toHaveBeenCalledTimes(6)
-        expect(pointUpdateMock.mock.calls.slice(3, 6)).toEqual([
-          [{ color: 'var(--a-deepblue-500)' }, false],
-          [{ color: 'var(--a-green-400)' }, false],
-          [{ color: 'var(--a-purple-400)' }, false],
-        ])
-        expect(
-          (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
-            .childNodes
-        ).toMatchSnapshot()
-        expect(redrawMock).toHaveBeenCalledOnce()
-        expect(tooltipHideMock).toHaveBeenCalledOnce()
+      describe('onPointUnClick', () => {
+        it('gjør ingenting når chart ikke er klar', () => {
+          expect(onPointUnClick({} as MouseEvent, undefined)).toBe(undefined)
+        })
+
+        it('gjør ingenting når brukeren klikker på et chart point', () => {
+          const event = { chartX: 123, point: {} as unknown as Point }
+          expect(
+            onPointUnClick(
+              event as unknown as MouseEvent,
+              { ...chart } as unknown as Chart
+            )
+          ).toBe(undefined)
+        })
+
+        it('kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor en chart point', () => {
+          vi.useFakeTimers()
+          const chartWithSelection = {
+            ...chart,
+            redraw: redrawMock,
+            tooltip: { hide: tooltipHideMock, isHidden: false },
+          } as unknown as Chart
+          onPointUnClick(
+            { chartX: 123 } as unknown as MouseEvent,
+            chartWithSelection
+          )
+          vi.advanceTimersByTime(150)
+          expect(pointUpdateMock).toHaveBeenCalledTimes(3)
+          expect(pointUpdateMock.mock.calls).toEqual([
+            [{ color: 'var(--a-deepblue-500)' }, false],
+            [{ color: 'var(--a-green-400)' }, false],
+            [{ color: 'var(--a-purple-400)' }, false],
+          ])
+          expect(
+            (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
+              .childNodes
+          ).toMatchSnapshot()
+          expect(redrawMock).toHaveBeenCalledOnce()
+          expect(tooltipHideMock).toHaveBeenCalledOnce()
+        })
+
+        it('kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor plot area og at tooltip er skjult', () => {
+          vi.useFakeTimers()
+          const chartWithSelection = {
+            ...chart,
+            redraw: redrawMock,
+            tooltip: { hide: tooltipHideMock, isHidden: true },
+          } as unknown as Chart
+          onPointUnClick({} as unknown as MouseEvent, chartWithSelection)
+          vi.advanceTimersByTime(150)
+          expect(pointUpdateMock).toHaveBeenCalledTimes(3)
+          expect(pointUpdateMock.mock.calls).toEqual([
+            [{ color: 'var(--a-deepblue-500)' }, false],
+            [{ color: 'var(--a-green-400)' }, false],
+            [{ color: 'var(--a-purple-400)' }, false],
+          ])
+          expect(
+            (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
+              .childNodes
+          ).toMatchSnapshot()
+          expect(redrawMock).toHaveBeenCalledOnce()
+          expect(tooltipHideMock).toHaveBeenCalledOnce()
+        })
       })
     })
-  })
 
-  describe('getChartOptions', () => {
-    it('returnerer riktig default options', () => {
-      const options = getChartOptions(
-        {} as Partial<typeof globalClassNames>,
-        vi.fn(),
-        vi.fn()
-      )
-      expect(options).toMatchSnapshot()
+    describe('getChartOptions', () => {
+      it('returnerer riktig default options', () => {
+        const options = getChartOptions(
+          {} as Partial<typeof globalClassNames>,
+          vi.fn(),
+          vi.fn()
+        )
+        expect(options).toMatchSnapshot()
+      })
     })
-  })
 
-  describe('onVisFlereAarClick og onVisFaerreAarClick', () => {
-    it('finner riktig element og øker scrollLeft', () => {
-      const div = document.createElement('div')
-      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
-      document.body.appendChild(div)
-      expect(div.scrollLeft).toBe(0)
-      onVisFlereAarClick()
-      expect(
-        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
-          .scrollLeft
-      ).toBe(50)
-      onVisFlereAarClick()
-      expect(
-        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
-          .scrollLeft
-      ).toBe(100)
-      onVisFaerreAarClick()
-      expect(
-        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
-          .scrollLeft
-      ).toBe(50)
-      onVisFaerreAarClick()
-      expect(
-        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
-          .scrollLeft
-      ).toBe(0)
+    describe('onVisFlereAarClick og onVisFaerreAarClick', () => {
+      it('finner riktig element og øker scrollLeft', () => {
+        const div = document.createElement('div')
+        div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
+        document.body.appendChild(div)
+        expect(div.scrollLeft).toBe(0)
+        onVisFlereAarClick()
+        expect(
+          (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+            .scrollLeft
+        ).toBe(50)
+        onVisFlereAarClick()
+        expect(
+          (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+            .scrollLeft
+        ).toBe(100)
+        onVisFaerreAarClick()
+        expect(
+          (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+            .scrollLeft
+        ).toBe(50)
+        onVisFaerreAarClick()
+        expect(
+          (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+            .scrollLeft
+        ).toBe(0)
+      })
     })
-  })
 
-  describe('handleChartScroll', () => {
-    it('Viser Flere år knapp og skjuler Færre år knapp når graffens scroll posisjon er på 0', () => {
-      const showRightButtonMock = vi.fn()
-      const showLeftButtonMock = vi.fn()
+    describe('handleChartScroll', () => {
+      it('Viser Flere år knapp og skjuler Færre år knapp når graffens scroll posisjon er på 0', () => {
+        const showRightButtonMock = vi.fn()
+        const showLeftButtonMock = vi.fn()
 
-      const mockedEvent = {
-        currentTarget: {
-          scrollLeft: 0,
-          handleButtonVisibility: {
-            showRightButton: showRightButtonMock,
-            showLeftButton: showLeftButtonMock,
+        const mockedEvent = {
+          currentTarget: {
+            scrollLeft: 0,
+            handleButtonVisibility: {
+              showRightButton: showRightButtonMock,
+              showLeftButton: showLeftButtonMock,
+            },
           },
-        },
-      }
-      handleChartScroll(mockedEvent as unknown as Event)
-      expect(showRightButtonMock).toHaveBeenCalledWith(true)
-      expect(showLeftButtonMock).toHaveBeenCalledWith(false)
-    })
+        }
+        handleChartScroll(mockedEvent as unknown as Event)
+        expect(showRightButtonMock).toHaveBeenCalledWith(true)
+        expect(showLeftButtonMock).toHaveBeenCalledWith(false)
+      })
 
-    it('Skjuler Flere år knapp og viser Færre år knapp når graffens scroll posisjon er på maks', () => {
-      const showRightButtonMock = vi.fn()
-      const showLeftButtonMock = vi.fn()
+      it('Skjuler Flere år knapp og viser Færre år knapp når graffens scroll posisjon er på maks', () => {
+        const showRightButtonMock = vi.fn()
+        const showLeftButtonMock = vi.fn()
 
-      const mockedEvent = {
-        currentTarget: {
-          scrollLeft: 50,
-          offsetWidth: 450,
-          scrollWidth: 500,
-          handleButtonVisibility: {
-            showRightButton: showRightButtonMock,
-            showLeftButton: showLeftButtonMock,
+        const mockedEvent = {
+          currentTarget: {
+            scrollLeft: 50,
+            offsetWidth: 450,
+            scrollWidth: 500,
+            handleButtonVisibility: {
+              showRightButton: showRightButtonMock,
+              showLeftButton: showLeftButtonMock,
+            },
           },
-        },
-      }
-      handleChartScroll(mockedEvent as unknown as Event)
-      expect(showRightButtonMock).toHaveBeenCalledWith(false)
-      expect(showLeftButtonMock).toHaveBeenCalledWith(true)
-    })
+        }
+        handleChartScroll(mockedEvent as unknown as Event)
+        expect(showRightButtonMock).toHaveBeenCalledWith(false)
+        expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+      })
 
-    it('Viser både Flere år knapp og Færre år knapp når graffens scroll posisjon er et sted i midten', () => {
-      const showRightButtonMock = vi.fn()
-      const showLeftButtonMock = vi.fn()
+      it('Viser både Flere år knapp og Færre år knapp når graffens scroll posisjon er et sted i midten', () => {
+        const showRightButtonMock = vi.fn()
+        const showLeftButtonMock = vi.fn()
 
-      const mockedEvent = {
-        currentTarget: {
-          scrollLeft: 50,
-          offsetWidth: 100,
-          scrollWidth: 500,
-          handleButtonVisibility: {
-            showRightButton: showRightButtonMock,
-            showLeftButton: showLeftButtonMock,
+        const mockedEvent = {
+          currentTarget: {
+            scrollLeft: 50,
+            offsetWidth: 100,
+            scrollWidth: 500,
+            handleButtonVisibility: {
+              showRightButton: showRightButtonMock,
+              showLeftButton: showLeftButtonMock,
+            },
           },
-        },
-      }
-      handleChartScroll(mockedEvent as unknown as Event)
-      expect(showRightButtonMock).toHaveBeenCalledWith(true)
-      expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+        }
+        handleChartScroll(mockedEvent as unknown as Event)
+        expect(showRightButtonMock).toHaveBeenCalledWith(true)
+        expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+      })
     })
-  })
 
-  describe('removeHandleChartScrollEventListener', () => {
-    it('Fjerner listener når elementet finnes i dom1en', () => {
-      const fnMock = vi.fn()
-      const div = document.createElement('div')
-      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
-      document.body.appendChild(div)
-      const el = document.querySelector('.highcharts-scrolling')
-      ;(el as Element).removeEventListener = fnMock
-      removeHandleChartScrollEventListener()
-      expect(fnMock).toHaveBeenCalled()
+    describe('removeHandleChartScrollEventListener', () => {
+      it('Fjerner listener når elementet finnes i dom1en', () => {
+        const fnMock = vi.fn()
+        const div = document.createElement('div')
+        div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
+        document.body.appendChild(div)
+        const el = document.querySelector('.highcharts-scrolling')
+        ;(el as Element).removeEventListener = fnMock
+        removeHandleChartScrollEventListener()
+        expect(fnMock).toHaveBeenCalled()
+      })
     })
   })
 })

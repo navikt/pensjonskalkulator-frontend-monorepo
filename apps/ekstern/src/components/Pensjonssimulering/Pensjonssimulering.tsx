@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
 import { Button, ReadMore } from '@navikt/ds-react'
@@ -8,6 +8,11 @@ import HighchartsReact from 'highcharts-react-official'
 import { TabellVisning } from '@/components/TabellVisning'
 
 import {
+  AFP_DATA,
+  COLUMN_WIDTH,
+  FOLKETRYGDEN_DATA,
+  MAX_UTTAKSALDER,
+  PENSJONSGIVENDE_DATA,
   SERIE_NAME_INNTEKT,
   SERIE_NAME_AFP,
   SERIE_NAME_TP,
@@ -16,15 +21,11 @@ import {
   SERIE_COLOR_AFP,
   SERIE_COLOR_TP,
   SERIE_COLOR_ALDERSPENSJON,
-  COLUMN_WIDTH,
-  MAX_UTTAKSALDER,
-  AFP_DATA,
-  FOLKETRYGDEN_DATA,
   getChartOptions,
   generateXAxis,
+  onPointUnClick,
   onVisFaerreAarClick,
   onVisFlereAarClick,
-  PENSJONSGIVENDE_DATA,
   simulateDataArray,
   simulateTjenestepensjon,
   removeHandleChartScrollEventListener,
@@ -46,8 +47,12 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
     getChartOptions(styles, setShowVisFlereAarButton, setShowVisFaerreAarButton)
   )
   const [isVisTabellOpen, setVisTabellOpen] = useState<boolean>(false)
+  const chartRef = useRef<HighchartsReact.RefObject>(null)
 
   useEffect(() => {
+    document.addEventListener('click', (e) =>
+      onPointUnClick(e, chartRef.current?.chart)
+    )
     return removeHandleChartScrollEventListener
   }, [])
 
@@ -104,7 +109,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
 
   return (
     <>
-      <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+      <HighchartsReact
+        ref={chartRef}
+        highcharts={Highcharts}
+        options={chartOptions}
+      />
       <div className={styles.buttonRow}>
         <div className={styles.buttonRowElement}>
           {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}

@@ -14,7 +14,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 150000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 180000,
       },
       {
@@ -36,7 +36,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 200000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 250000,
       },
       {
@@ -58,7 +58,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 380000,
       },
       {
@@ -80,7 +80,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 380000,
       },
       {
@@ -102,7 +102,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 380000,
       },
       {
@@ -124,7 +124,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 380000,
       },
       {
@@ -146,7 +146,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 380000,
       },
       {
@@ -168,7 +168,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 380000,
       },
       {
@@ -190,7 +190,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere)",
         "subSum": 380000,
       },
       {
