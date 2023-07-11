@@ -4,7 +4,6 @@ import {
   Chart,
   Options,
   Point,
-  PointClickEventObject,
   Series,
   Tooltip,
   TooltipFormatterContextObject,
@@ -218,14 +217,16 @@ export function handleChartScroll(event: Event) {
     const el = event.currentTarget as HighchartsScrollingHTMLDivElement
     const elementScrollPosition = el.scrollLeft
 
+    const isRightButtonAvailable = el.scrollWidth > el.offsetWidth
+
     if (elementScrollPosition === 0) {
-      el.handleButtonVisibility.showRightButton(true)
+      el.handleButtonVisibility.showRightButton(isRightButtonAvailable)
       el.handleButtonVisibility.showLeftButton(false)
     } else if (elementScrollPosition + el.offsetWidth === el.scrollWidth) {
       el.handleButtonVisibility.showRightButton(false)
       el.handleButtonVisibility.showLeftButton(true)
     } else {
-      el.handleButtonVisibility.showRightButton(true)
+      el.handleButtonVisibility.showRightButton(isRightButtonAvailable)
       el.handleButtonVisibility.showLeftButton(true)
     }
   }
@@ -292,8 +293,8 @@ export function resetColumnColors(chart: Chart): void {
   chart.tooltip.hide()
 }
 
-export function onPointClick(this: Point, event: PointClickEventObject): void {
-  const pointIndex = event.point.index
+export function onPointClick(this: Point): void {
+  const pointIndex = this.index
   this.series.chart.series.forEach(function (serie: Series) {
     serie.data.forEach(function (point: Point) {
       const color =
@@ -363,18 +364,23 @@ export const getChartOptions = (
           if (highchartsScrollingElement) {
             const el =
               highchartsScrollingElement as HighchartsScrollingHTMLDivElement
-            // Denne setTimeout er nødvendig fordi highcharts tegner scroll container litt etter render callback og har ikke noe eget flag for den
-            setTimeout(() => {
-              const elementScrollWidth = el.scrollWidth
-              const elementWidth = el.offsetWidth
-              showRightButton(elementScrollWidth > elementWidth)
 
-              el.addEventListener('scroll', handleChartScroll, false)
-              el.handleButtonVisibility = {
-                showRightButton,
-                showLeftButton,
-              }
-            }, 50)
+            if (el.handleButtonVisibility !== undefined) {
+              handleChartScroll({ currentTarget: el } as unknown as Event)
+            } else {
+              // Denne setTimeout er nødvendig fordi highcharts tegner scroll container litt etter render callback og har ikke noe eget flag for den
+              setTimeout(() => {
+                const elementScrollWidth = el.scrollWidth
+                const elementWidth = el.offsetWidth
+                showRightButton(elementScrollWidth > elementWidth)
+
+                el.addEventListener('scroll', handleChartScroll, false)
+                el.handleButtonVisibility = {
+                  showRightButton,
+                  showLeftButton,
+                }
+              }, 50)
+            }
           } else {
             showRightButton(false)
             showLeftButton(false)

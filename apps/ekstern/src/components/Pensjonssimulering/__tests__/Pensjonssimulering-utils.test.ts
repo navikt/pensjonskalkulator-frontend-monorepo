@@ -387,6 +387,7 @@ describe('Pensjonssimulering-utils', () => {
     describe('onPointClick', () => {
       it('oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis', () => {
         const point = {
+          index: 0,
           series: {
             chart: {
               ...chart,
@@ -394,8 +395,7 @@ describe('Pensjonssimulering-utils', () => {
             } as unknown as Chart,
           },
         } as Point
-        const event = { point: { index: 0 } } as PointClickEventObject
-        onPointClick.call(point, event)
+        onPointClick.call(point)
         expect(pointUpdateMock).toHaveBeenCalledTimes(3)
         expect(pointUpdateMock.mock.calls).toEqual([
           [{ color: 'var(--a-deepblue-200)' }, false],
@@ -516,13 +516,35 @@ describe('Pensjonssimulering-utils', () => {
     })
 
     describe('handleChartScroll', () => {
-      it('Viser Flere år knapp og skjuler Færre år knapp når graffens scroll posisjon er på 0', () => {
+      it('Viser ingen knapp når det ikke er mer innhold og at graffens scroll posisjon er på 0', () => {
         const showRightButtonMock = vi.fn()
         const showLeftButtonMock = vi.fn()
 
         const mockedEvent = {
           currentTarget: {
             scrollLeft: 0,
+            scrollWidth: 366,
+            offsetWidth: 366,
+            handleButtonVisibility: {
+              showRightButton: showRightButtonMock,
+              showLeftButton: showLeftButtonMock,
+            },
+          },
+        }
+        handleChartScroll(mockedEvent as unknown as Event)
+        expect(showRightButtonMock).toHaveBeenCalledWith(false)
+        expect(showLeftButtonMock).toHaveBeenCalledWith(false)
+      })
+
+      it('Viser Flere år knapp og skjuler Færre år knapp når det er mer innhold og at graffens scroll posisjon er på 0', () => {
+        const showRightButtonMock = vi.fn()
+        const showLeftButtonMock = vi.fn()
+
+        const mockedEvent = {
+          currentTarget: {
+            scrollLeft: 0,
+            scrollWidth: 500,
+            offsetWidth: 366,
             handleButtonVisibility: {
               showRightButton: showRightButtonMock,
               showLeftButton: showLeftButtonMock,
