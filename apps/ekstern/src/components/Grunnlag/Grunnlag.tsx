@@ -96,7 +96,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
         <Utenlandsopphold />
         <Alderspensjon alderspensjon={alderspensjon} />
         <AFP />
-        {<Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />}
+        <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
       </Accordion>
     </Card>
   )

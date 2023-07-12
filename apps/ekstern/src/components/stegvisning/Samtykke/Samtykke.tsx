@@ -10,6 +10,8 @@ import {
   ReadMore,
 } from '@navikt/ds-react'
 
+import { StegvisningFrame } from '@/components/stegvisning/components/StegvisningFrame'
+
 import styles from './Samtykke.module.scss'
 
 interface Props {
@@ -54,7 +56,7 @@ export function Samtykke({
 
   return (
     <form onSubmit={onSubmit}>
-      <section className={styles.section}>
+      <StegvisningFrame>
         <Heading size="large" level="2" spacing>
           <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
@@ -120,7 +122,7 @@ export function Samtykke({
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </section>
+      </StegvisningFrame>
     </form>
   )
 }

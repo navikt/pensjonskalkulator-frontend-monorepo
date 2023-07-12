@@ -1,8 +1,4 @@
-.section {
-  composes: whitesection from '../../../scss/modules/whitesection.module.scss';
-  padding: var(--a-spacing-8);
-  text-align: center;
-}
+@import '../../../scss/variables';
 
 .image {
   width: 9rem;
@@ -11,6 +7,5 @@
 }
 
 .button {
-  display: block;
-  margin: var(--a-spacing-8) auto var(--a-spacing-4) auto;
+  margin: var(--a-spacing-8) var(--a-spacing-4) 0 0;
 }

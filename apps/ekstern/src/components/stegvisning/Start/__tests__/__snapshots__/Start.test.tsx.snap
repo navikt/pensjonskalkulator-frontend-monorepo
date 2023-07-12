@@ -3,7 +3,7 @@
 exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_section_09901f"
+    class="_section_c336de "
   >
     <img
       alt="stegvisning.start.bildetekst"
@@ -49,7 +49,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
 exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_section_09901f"
+    class="_section_c336de "
   >
     <img
       alt="stegvisning.start.bildetekst"

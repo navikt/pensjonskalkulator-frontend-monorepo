@@ -1,0 +1,14 @@
+@import '../../../../scss/variables';
+
+.section {
+  composes: whitesection from '../../../../scss/modules/whitesection.module.scss';
+  padding: var(--a-spacing-8) var(--a-spacing-6);
+
+  // TODO PEK-67 verifisere verdi med Min Side
+  max-width: var(--a-breakpoint-md);
+
+  // TODO PEK-67 overgang til tablet
+  @media (min-width: $a-breakpoint-md) {
+    padding: var(--a-spacing-8) var(--a-spacing-10);
+  }
+}

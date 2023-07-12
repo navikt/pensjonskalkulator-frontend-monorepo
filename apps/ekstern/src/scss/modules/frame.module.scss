@@ -4,7 +4,9 @@
   width: 100%;
   margin: 0 auto;
   min-height: 40vh;
-  max-width: var(--a-breakpoint-xl);
+
+  // TODO PEK-67 verifisere verdi med Min Side
+  max-width: var(--a-breakpoint-lg);
 
   &_hasPadding {
     padding: var(--a-spacing-3);
