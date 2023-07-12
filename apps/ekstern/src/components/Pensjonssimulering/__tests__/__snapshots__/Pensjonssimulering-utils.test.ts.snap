@@ -59,6 +59,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
           "enabled": false,
         },
       },
+      "stickyTracking": false,
     },
   },
   "series": [],
@@ -75,6 +76,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
   },
   "tooltip": {
     "className": undefined,
+    "followTouchMove": false,
     "formatter": [Function],
     "hideDelay": 30,
     "outside": true,

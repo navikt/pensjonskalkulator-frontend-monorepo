@@ -10,6 +10,7 @@ import {
 } from 'highcharts'
 
 import { formatAsDecimal } from '@/utils/currency'
+import { addSelfDestructingEventListener } from '@/utils/events'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
 
@@ -212,26 +213,6 @@ type HighchartsScrollingHTMLDivElement = HTMLDivElement & {
   }
 }
 
-export function handleChartScroll(event: Event) {
-  if (event.currentTarget) {
-    const el = event.currentTarget as HighchartsScrollingHTMLDivElement
-    const elementScrollPosition = el.scrollLeft
-
-    const isRightButtonAvailable = el.scrollWidth > el.offsetWidth
-
-    if (elementScrollPosition === 0) {
-      el.handleButtonVisibility.showRightButton(isRightButtonAvailable)
-      el.handleButtonVisibility.showLeftButton(false)
-    } else if (elementScrollPosition + el.offsetWidth === el.scrollWidth) {
-      el.handleButtonVisibility.showRightButton(false)
-      el.handleButtonVisibility.showLeftButton(true)
-    } else {
-      el.handleButtonVisibility.showRightButton(isRightButtonAvailable)
-      el.handleButtonVisibility.showLeftButton(true)
-    }
-  }
-}
-
 export const getHoverColor = (previousColor: string): string => {
   switch (previousColor) {
     case SERIE_COLOR_INNTEKT: {
@@ -290,7 +271,7 @@ export function resetColumnColors(chart: Chart): void {
     )
   }
   chart.redraw()
-  chart.tooltip.hide()
+  chart.tooltip.hide(0)
 }
 
 export function onPointClick(this: Point): void {
@@ -323,7 +304,7 @@ export function onPointClick(this: Point): void {
 }
 
 export function onPointUnClick(
-  e: MouseEvent & {
+  e: Event & {
     chartX?: number
     point?: Point
   },
@@ -338,7 +319,37 @@ export function onPointUnClick(
       // Is outside chart plot area, and tooltip is hidden
       resetColumnColors(chart)
     }
-  }, 150)
+  }, 50)
+}
+
+export function handleChartScroll(
+  event: Event,
+  args: {
+    chart?: Chart
+    scrollPosition?: number
+  }
+) {
+  if (event.currentTarget) {
+    const { chart, scrollPosition } = args
+    const el = event.currentTarget as HighchartsScrollingHTMLDivElement
+    const elementScrollPosition = el.scrollLeft
+    if (chart && scrollPosition !== el.scrollLeft) {
+      resetColumnColors(chart)
+    }
+
+    const isRightButtonAvailable = el.scrollWidth > el.offsetWidth
+
+    if (elementScrollPosition === 0) {
+      el.handleButtonVisibility.showRightButton(isRightButtonAvailable)
+      el.handleButtonVisibility.showLeftButton(false)
+    } else if (elementScrollPosition + el.offsetWidth === el.scrollWidth) {
+      el.handleButtonVisibility.showRightButton(false)
+      el.handleButtonVisibility.showLeftButton(true)
+    } else {
+      el.handleButtonVisibility.showRightButton(isRightButtonAvailable)
+      el.handleButtonVisibility.showLeftButton(true)
+    }
+  }
 }
 
 export const getChartOptions = (
@@ -357,24 +368,34 @@ export const getChartOptions = (
         scrollPositionX: 0,
       },
       events: {
-        render() {
+        render(this) {
           const highchartsScrollingElement = document.querySelector(
             highchartsScrollingSelector
           )
           if (highchartsScrollingElement) {
             const el =
               highchartsScrollingElement as HighchartsScrollingHTMLDivElement
-
+            const scrollPosition = el.scrollLeft
             if (el.handleButtonVisibility !== undefined) {
-              handleChartScroll({ currentTarget: el } as unknown as Event)
+              handleChartScroll({ currentTarget: el } as unknown as Event, {
+                chart: this,
+                scrollPosition,
+              })
             } else {
               // Denne setTimeout er nødvendig fordi highcharts tegner scroll container litt etter render callback og har ikke noe eget flag for den
               setTimeout(() => {
                 const elementScrollWidth = el.scrollWidth
                 const elementWidth = el.offsetWidth
                 showRightButton(elementScrollWidth > elementWidth)
+                /* eslint-disable-next-line @typescript-eslint/no-this-alias */
+                const chart = this
 
-                el.addEventListener('scroll', handleChartScroll, false)
+                addSelfDestructingEventListener(
+                  el,
+                  'scroll',
+                  handleChartScroll,
+                  { chart, scrollPosition }
+                )
                 el.handleButtonVisibility = {
                   showRightButton,
                   showLeftButton,
@@ -438,6 +459,7 @@ export const getChartOptions = (
     },
     tooltip: {
       className: styles.tooltip,
+      followTouchMove: false,
       /* c8 ignore next 3 */
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
@@ -476,6 +498,7 @@ export const getChartOptions = (
     },
     plotOptions: {
       series: {
+        stickyTracking: false,
         stacking: 'normal',
         states: {
           inactive: {
@@ -499,9 +522,4 @@ export const getChartOptions = (
     },
     series: [],
   }
-}
-
-export const removeHandleChartScrollEventListener = () => {
-  const el = document.querySelector(highchartsScrollingSelector)
-  el?.removeEventListener('scroll', handleChartScroll)
 }

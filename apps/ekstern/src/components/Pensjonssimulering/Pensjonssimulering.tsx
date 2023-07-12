@@ -28,7 +28,6 @@ import {
   onVisFlereAarClick,
   simulateDataArray,
   simulateTjenestepensjon,
-  removeHandleChartScrollEventListener,
 } from './utils'
 
 import styles from './Pensjonssimulering.module.scss'
@@ -50,10 +49,12 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   const chartRef = useRef<HighchartsReact.RefObject>(null)
 
   useEffect(() => {
-    document.addEventListener('click', (e) =>
+    function onPointUnClickEventHandler(e: Event) {
       onPointUnClick(e, chartRef.current?.chart)
-    )
-    return removeHandleChartScrollEventListener
+    }
+    document.addEventListener('click', onPointUnClickEventHandler)
+    return () =>
+      document.removeEventListener('click', onPointUnClickEventHandler)
   }, [])
 
   useEffect(() => {

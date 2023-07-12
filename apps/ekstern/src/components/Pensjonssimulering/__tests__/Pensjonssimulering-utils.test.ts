@@ -3,7 +3,6 @@ import {
   TooltipFormatterContextObject,
   Chart,
   Point,
-  PointClickEventObject,
 } from 'highcharts'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -27,7 +26,6 @@ import {
   ExtendedAxis,
   ExtendedPoint,
   handleChartScroll,
-  removeHandleChartScrollEventListener,
 } from '../utils'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
@@ -516,97 +514,124 @@ describe('Pensjonssimulering-utils', () => {
     })
 
     describe('handleChartScroll', () => {
-      it('Viser ingen knapp når det ikke er mer innhold og at graffens scroll posisjon er på 0', () => {
+      it('skjuler tooltip og kaller resetColumnColors når brukeren ikke beveger scroll-posisjonen allikevel', () => {
+        vi.useFakeTimers()
         const showRightButtonMock = vi.fn()
         const showLeftButtonMock = vi.fn()
-
         const mockedEvent = {
           currentTarget: {
-            scrollLeft: 0,
-            scrollWidth: 366,
-            offsetWidth: 366,
+            scrollLeft: 150,
             handleButtonVisibility: {
               showRightButton: showRightButtonMock,
               showLeftButton: showLeftButtonMock,
             },
           },
         }
-        handleChartScroll(mockedEvent as unknown as Event)
-        expect(showRightButtonMock).toHaveBeenCalledWith(false)
-        expect(showLeftButtonMock).toHaveBeenCalledWith(false)
+        const chartWithSelection = {
+          ...chart,
+          redraw: redrawMock,
+          tooltip: { hide: tooltipHideMock, isHidden: false },
+        } as unknown as Chart
+        handleChartScroll(mockedEvent as unknown as Event, {
+          chart: { ...chartWithSelection } as unknown as Chart,
+          scrollPosition: 100,
+        })
+        vi.advanceTimersByTime(150)
+        expect(redrawMock).toHaveBeenCalledOnce()
+        expect(tooltipHideMock).toHaveBeenCalledOnce()
       })
+      describe('Gitt at brukeren scroller', () => {
+        it('Viser ingen knapp når det ikke er mer innhold og at graffens scroll posisjon er på 0', () => {
+          const showRightButtonMock = vi.fn()
+          const showLeftButtonMock = vi.fn()
 
-      it('Viser Flere år knapp og skjuler Færre år knapp når det er mer innhold og at graffens scroll posisjon er på 0', () => {
-        const showRightButtonMock = vi.fn()
-        const showLeftButtonMock = vi.fn()
-
-        const mockedEvent = {
-          currentTarget: {
-            scrollLeft: 0,
-            scrollWidth: 500,
-            offsetWidth: 366,
-            handleButtonVisibility: {
-              showRightButton: showRightButtonMock,
-              showLeftButton: showLeftButtonMock,
+          const mockedEvent = {
+            currentTarget: {
+              scrollLeft: 0,
+              scrollWidth: 366,
+              offsetWidth: 366,
+              handleButtonVisibility: {
+                showRightButton: showRightButtonMock,
+                showLeftButton: showLeftButtonMock,
+              },
             },
-          },
-        }
-        handleChartScroll(mockedEvent as unknown as Event)
-        expect(showRightButtonMock).toHaveBeenCalledWith(true)
-        expect(showLeftButtonMock).toHaveBeenCalledWith(false)
-      })
+          }
+          handleChartScroll(mockedEvent as unknown as Event, {
+            chart: undefined,
+            scrollPosition: undefined,
+          })
+          expect(showRightButtonMock).toHaveBeenCalledWith(false)
+          expect(showLeftButtonMock).toHaveBeenCalledWith(false)
+        })
 
-      it('Skjuler Flere år knapp og viser Færre år knapp når graffens scroll posisjon er på maks', () => {
-        const showRightButtonMock = vi.fn()
-        const showLeftButtonMock = vi.fn()
+        it('Viser Flere år knapp og skjuler Færre år knapp når det er mer innhold og at graffens scroll posisjon er på 0', () => {
+          const showRightButtonMock = vi.fn()
+          const showLeftButtonMock = vi.fn()
 
-        const mockedEvent = {
-          currentTarget: {
-            scrollLeft: 50,
-            offsetWidth: 450,
-            scrollWidth: 500,
-            handleButtonVisibility: {
-              showRightButton: showRightButtonMock,
-              showLeftButton: showLeftButtonMock,
+          const mockedEvent = {
+            currentTarget: {
+              scrollLeft: 0,
+              scrollWidth: 500,
+              offsetWidth: 366,
+              handleButtonVisibility: {
+                showRightButton: showRightButtonMock,
+                showLeftButton: showLeftButtonMock,
+              },
             },
-          },
-        }
-        handleChartScroll(mockedEvent as unknown as Event)
-        expect(showRightButtonMock).toHaveBeenCalledWith(false)
-        expect(showLeftButtonMock).toHaveBeenCalledWith(true)
-      })
+          }
+          handleChartScroll(mockedEvent as unknown as Event, {
+            chart: undefined,
+            scrollPosition: undefined,
+          })
+          expect(showRightButtonMock).toHaveBeenCalledWith(true)
+          expect(showLeftButtonMock).toHaveBeenCalledWith(false)
+        })
 
-      it('Viser både Flere år knapp og Færre år knapp når graffens scroll posisjon er et sted i midten', () => {
-        const showRightButtonMock = vi.fn()
-        const showLeftButtonMock = vi.fn()
+        it('Skjuler Flere år knapp og viser Færre år knapp når graffens scroll posisjon er på maks', () => {
+          const showRightButtonMock = vi.fn()
+          const showLeftButtonMock = vi.fn()
 
-        const mockedEvent = {
-          currentTarget: {
-            scrollLeft: 50,
-            offsetWidth: 100,
-            scrollWidth: 500,
-            handleButtonVisibility: {
-              showRightButton: showRightButtonMock,
-              showLeftButton: showLeftButtonMock,
+          const mockedEvent = {
+            currentTarget: {
+              scrollLeft: 50,
+              offsetWidth: 450,
+              scrollWidth: 500,
+              handleButtonVisibility: {
+                showRightButton: showRightButtonMock,
+                showLeftButton: showLeftButtonMock,
+              },
             },
-          },
-        }
-        handleChartScroll(mockedEvent as unknown as Event)
-        expect(showRightButtonMock).toHaveBeenCalledWith(true)
-        expect(showLeftButtonMock).toHaveBeenCalledWith(true)
-      })
-    })
+          }
+          handleChartScroll(mockedEvent as unknown as Event, {
+            chart: undefined,
+            scrollPosition: undefined,
+          })
+          expect(showRightButtonMock).toHaveBeenCalledWith(false)
+          expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+        })
 
-    describe('removeHandleChartScrollEventListener', () => {
-      it('Fjerner listener når elementet finnes i dom1en', () => {
-        const fnMock = vi.fn()
-        const div = document.createElement('div')
-        div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
-        document.body.appendChild(div)
-        const el = document.querySelector('.highcharts-scrolling')
-        ;(el as Element).removeEventListener = fnMock
-        removeHandleChartScrollEventListener()
-        expect(fnMock).toHaveBeenCalled()
+        it('Viser både Flere år knapp og Færre år knapp når graffens scroll posisjon er et sted i midten', () => {
+          const showRightButtonMock = vi.fn()
+          const showLeftButtonMock = vi.fn()
+
+          const mockedEvent = {
+            currentTarget: {
+              scrollLeft: 50,
+              offsetWidth: 100,
+              scrollWidth: 500,
+              handleButtonVisibility: {
+                showRightButton: showRightButtonMock,
+                showLeftButton: showLeftButtonMock,
+              },
+            },
+          }
+          handleChartScroll(mockedEvent as unknown as Event, {
+            chart: undefined,
+            scrollPosition: undefined,
+          })
+          expect(showRightButtonMock).toHaveBeenCalledWith(true)
+          expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+        })
       })
     })
   })
