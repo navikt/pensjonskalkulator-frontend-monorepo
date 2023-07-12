@@ -5,43 +5,51 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
   <section
     class="_section_c336de "
   >
-    <img
-      alt="stegvisning.start.bildetekst"
-      class="_image_09901f"
-      src="/pensjon/kalkulator/src/assets/frida.svg"
-    />
-    <h2
-      class="navds-heading navds-heading--large navds-typo--spacing"
+    <div
+      class="_wrapper_09901f"
     >
-      stegvisning.start.title Ola!
-    </h2>
-    <p
-      class="navds-ingress"
-    >
-      stegvisning.start.ingress
-    </p>
-    <button
-      class="_button_09901f navds-button navds-button--primary navds-button--medium"
-      type="submit"
-    >
-      <span
-        aria-live="polite"
-        class="navds-label"
+      <img
+        alt="stegvisning.start.bildetekst"
+        class="_image_09901f"
+        src="/pensjon/kalkulator/src/assets/frida.svg"
+      />
+      <div
+        class="_wrapperText_09901f"
       >
-        stegvisning.start.start
-      </span>
-    </button>
-    <button
-      class="navds-button navds-button--tertiary navds-button--medium"
-      type="button"
-    >
-      <span
-        aria-live="polite"
-        class="navds-label"
-      >
-        stegvisning.avbryt
-      </span>
-    </button>
+        <h2
+          class="navds-heading navds-heading--large navds-typo--spacing"
+        >
+          stegvisning.start.title Ola!
+        </h2>
+        <p
+          class="navds-ingress"
+        >
+          stegvisning.start.ingress
+        </p>
+        <button
+          class="_button_09901f navds-button navds-button--primary navds-button--medium"
+          type="submit"
+        >
+          <span
+            aria-live="polite"
+            class="navds-label"
+          >
+            stegvisning.start.start
+          </span>
+        </button>
+        <button
+          class="navds-button navds-button--tertiary navds-button--medium"
+          type="button"
+        >
+          <span
+            aria-live="polite"
+            class="navds-label"
+          >
+            stegvisning.avbryt
+          </span>
+        </button>
+      </div>
+    </div>
   </section>
 </DocumentFragment>
 `;
@@ -51,43 +59,51 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
   <section
     class="_section_c336de "
   >
-    <img
-      alt="stegvisning.start.bildetekst"
-      class="_image_09901f"
-      src="/pensjon/kalkulator/src/assets/frida.svg"
-    />
-    <h2
-      class="navds-heading navds-heading--large navds-typo--spacing"
+    <div
+      class="_wrapper_09901f"
     >
-      stegvisning.start.title!
-    </h2>
-    <p
-      class="navds-ingress"
-    >
-      stegvisning.start.ingress
-    </p>
-    <button
-      class="_button_09901f navds-button navds-button--primary navds-button--medium"
-      type="submit"
-    >
-      <span
-        aria-live="polite"
-        class="navds-label"
+      <img
+        alt="stegvisning.start.bildetekst"
+        class="_image_09901f"
+        src="/pensjon/kalkulator/src/assets/frida.svg"
+      />
+      <div
+        class="_wrapperText_09901f"
       >
-        stegvisning.start.start
-      </span>
-    </button>
-    <button
-      class="navds-button navds-button--tertiary navds-button--medium"
-      type="button"
-    >
-      <span
-        aria-live="polite"
-        class="navds-label"
-      >
-        stegvisning.avbryt
-      </span>
-    </button>
+        <h2
+          class="navds-heading navds-heading--large navds-typo--spacing"
+        >
+          stegvisning.start.title!
+        </h2>
+        <p
+          class="navds-ingress"
+        >
+          stegvisning.start.ingress
+        </p>
+        <button
+          class="_button_09901f navds-button navds-button--primary navds-button--medium"
+          type="submit"
+        >
+          <span
+            aria-live="polite"
+            class="navds-label"
+          >
+            stegvisning.start.start
+          </span>
+        </button>
+        <button
+          class="navds-button navds-button--tertiary navds-button--medium"
+          type="button"
+        >
+          <span
+            aria-live="polite"
+            class="navds-label"
+          >
+            stegvisning.avbryt
+          </span>
+        </button>
+      </div>
+    </div>
   </section>
 </DocumentFragment>
 `;
