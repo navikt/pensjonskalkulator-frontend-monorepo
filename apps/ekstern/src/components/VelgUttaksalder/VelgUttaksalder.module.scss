@@ -1,6 +1,8 @@
 @import '../../scss/variables';
 
 .wrapper {
+  composes: innerframe from '../../scss/modules/frame.module.scss';
+  composes: whitesection from '../../scss/modules/fadein.module.scss';
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-3);
@@ -25,5 +27,4 @@
 
 .visFlereAldere {
   margin-right: auto;
-  margin-bottom: var(--a-spacing-3);
 }

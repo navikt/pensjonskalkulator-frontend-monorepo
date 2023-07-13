@@ -1,9 +1,9 @@
 import { redirect } from 'react-router'
 import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
+import { PageFramework } from '@/components/components/PageFramework'
 import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
 import { LandingPage } from '@/routes/LandingPage'
-import { PageFramework } from '@/routes/PageFramework'
 import { RouteErrorBoundary } from '@/routes/RouteErrorBoundary'
 import { Step1 } from '@/routes/stegvisning/Step1'
 import { Step2 } from '@/routes/stegvisning/Step2'
@@ -78,11 +78,16 @@ export const routes: RouteObject[] = [
         loader: directAccessGuard,
         element: <Step5 />,
       },
-      {
-        path: paths.beregning,
-        loader: directAccessGuard,
-        element: <Pensjonsberegning />,
-      },
     ],
+  },
+  {
+    path: paths.beregning,
+    loader: directAccessGuard,
+    element: (
+      <PageFramework isFullWidth>
+        <Pensjonsberegning />
+      </PageFramework>
+    ),
+    ErrorBoundary: RouteErrorBoundary,
   },
 ]

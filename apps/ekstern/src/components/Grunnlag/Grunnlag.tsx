@@ -1,7 +1,5 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
-import { Card } from '@/components/Card'
-
 import { AFP } from './sections/AFP'
 import { Alderspensjon } from './sections/Alderspensjon'
 import { Inntekt } from './sections/Inntekt'
@@ -79,7 +77,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
   ]
 
   return (
-    <Card className={styles.section}>
+    <section className={styles.section}>
       <div className={styles.description}>
         <Heading level="2" size="medium">
           Grunnlaget for prognosen
@@ -98,6 +96,6 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
         <AFP />
         <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
       </Accordion>
-    </Card>
+    </section>
   )
 }

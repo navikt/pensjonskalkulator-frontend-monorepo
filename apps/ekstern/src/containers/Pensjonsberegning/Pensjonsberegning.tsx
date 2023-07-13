@@ -2,15 +2,16 @@ import { useState } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
 
-import { Card } from '@/components/Card'
+import { Loader } from '@/components/components/Loader'
 import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
-import { Loader } from '@/components/Loader'
 import { Pensjonssimulering } from '@/components/Pensjonssimulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
+
+import styles from './Pensjonsberegning.module.scss'
 
 export function Pensjonsberegning() {
   const {
@@ -45,26 +46,39 @@ export function Pensjonsberegning() {
 
   return (
     <>
-      <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
-
-      <Card>
-        <VelgUttaksalder
-          tidligstMuligUttak={tidligstMuligUttak}
-          valgtUttaksalder={valgtUttaksalder}
-          setValgtUttaksalder={setValgtUttaksalder}
-        />
+      <div className={styles.container}>
+        <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
+      </div>
+      {
+        // TODO etter merge - dette flyttes ut slik at containeren ikke har styles
+      }
+      <div
+        className={`${styles.background} ${styles.background__white} ${styles.background__hasMargin}`}
+      >
+        <div className={styles.container}>
+          <VelgUttaksalder
+            tidligstMuligUttak={tidligstMuligUttak}
+            valgtUttaksalder={valgtUttaksalder}
+            setValgtUttaksalder={setValgtUttaksalder}
+          />
+        </div>
 
         {valgtUttaksalder && (
-          <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
+          <div
+            className={`${styles.container} ${styles.container__hasPadding}`}
+          >
+            <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
+            <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+            <Forbehold />
+          </div>
         )}
-      </Card>
-
+      </div>
       {valgtUttaksalder && (
-        <>
-          <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
-          <Forbehold />
-          <TilbakeEllerAvslutt />
-        </>
+        <div className={`${styles.background} ${styles.background__lightblue}`}>
+          <div className={styles.container}>
+            <TilbakeEllerAvslutt />
+          </div>
+        </div>
       )}
     </>
   )

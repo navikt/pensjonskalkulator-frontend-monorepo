@@ -10,7 +10,7 @@ import {
   ReadMore,
 } from '@navikt/ds-react'
 
-import { StegvisningFrame } from '@/components/stegvisning/components/StegvisningFrame'
+import { ResponsiveCard } from '@/components/components/ResponsiveCard'
 
 import styles from './Samtykke.module.scss'
 
@@ -56,7 +56,7 @@ export function Samtykke({
 
   return (
     <form onSubmit={onSubmit}>
-      <StegvisningFrame>
+      <ResponsiveCard hasLargePadding>
         <Heading size="large" level="2" spacing>
           <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
@@ -122,7 +122,7 @@ export function Samtykke({
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </StegvisningFrame>
+      </ResponsiveCard>
     </form>
   )
 }

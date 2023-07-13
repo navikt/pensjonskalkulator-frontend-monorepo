@@ -1,19 +1,52 @@
 @import '../../scss/variables';
 
-.card {
-  composes: whitesection from '../../scss/modules/whitesection.module.scss';
-  padding: var(--a-spacing-6);
+.wrapper {
+  display: flex;
+
+  &Image {
+    display: none;
+
+    @media (min-width: $a-breakpoint-md) {
+      display: block;
+      width: 4rem;
+      height: 4rem;
+      margin-right: var(--a-spacing-4);
+    }
+  }
+
+  &Text {
+    @media (min-width: $a-breakpoint-md) {
+      padding-right: var(--a-spacing-8);
+    }
+  }
 }
 
 .ingress {
   line-height: var(--a-font-line-height-xlarge);
+
+  br {
+    display: none;
+
+    @media (min-width: $a-breakpoint-md) {
+      display: inline;
+    }
+  }
+
+  &__isInline {
+    display: inline;
+  }
 }
 
 .highlighted {
+  display: block;
   font-size: var(--a-font-size-heading-medium);
   line-height: var(--a-font-line-height-heading-medium);
   font-weight: var(--a-font-weight-bold);
   padding-bottom: var(--a-spacing-2);
+
+  @media (min-width: $a-breakpoint-md) {
+    display: inline;
+  }
 }
 
 .helptext {

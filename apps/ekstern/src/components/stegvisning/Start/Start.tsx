@@ -3,7 +3,7 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { Ingress, Button, Heading } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
-import { StegvisningFrame } from '@/components/stegvisning/components/StegvisningFrame'
+import { ResponsiveCard } from '@/components/components/ResponsiveCard'
 
 import styles from './Start.module.scss'
 
@@ -18,7 +18,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
   const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
 
   return (
-    <StegvisningFrame>
+    <ResponsiveCard hasLargePadding>
       <div className={styles.wrapper}>
         <img
           className={styles.image}
@@ -44,6 +44,6 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           </Button>
         </div>
       </div>
-    </StegvisningFrame>
+    </ResponsiveCard>
   )
 }

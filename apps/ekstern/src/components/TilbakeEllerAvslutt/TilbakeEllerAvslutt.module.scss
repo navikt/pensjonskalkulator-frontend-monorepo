@@ -1,9 +1,9 @@
 @import '../../scss/variables';
 
 .section {
-  composes: whitesection from '../../scss/modules/whitesection.module.scss';
+  composes: fadein from '../../scss/modules/fadein.module.scss';
+  composes: innerframe from '../../scss/modules/frame.module.scss';
   padding: var(--a-spacing-8);
-  text-align: center;
 }
 
 .button {
