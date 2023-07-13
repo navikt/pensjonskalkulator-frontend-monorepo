@@ -17,6 +17,7 @@
 
   &__white {
     background-color: var(--a-white);
+    composes: fadein from '../../scss/modules/fadein.module.scss';
   }
 
   &__lightblue {

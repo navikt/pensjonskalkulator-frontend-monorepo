@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import { Loader } from '@/components/components/Loader'
 import { Forbehold } from '@/components/Forbehold'
@@ -53,7 +54,9 @@ export function Pensjonsberegning() {
         // TODO etter merge - dette flyttes ut slik at containeren ikke har styles
       }
       <div
-        className={`${styles.background} ${styles.background__white} ${styles.background__hasMargin}`}
+        className={clsx(styles.background, styles.background__hasMargin, {
+          [styles.background__white]: valgtUttaksalder,
+        })}
       >
         <div className={styles.container}>
           <VelgUttaksalder
