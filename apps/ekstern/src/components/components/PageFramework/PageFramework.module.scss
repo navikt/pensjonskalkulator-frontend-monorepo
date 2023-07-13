@@ -14,7 +14,7 @@
 .headerGroup {
   width: 100%;
   max-width: var(--a-breakpoint-md);
-  padding: 0 var(--a-spacing-6) var(--a-spacing-4) 0;
+  padding: 0 var(--a-spacing-6) var(--a-spacing-4) var(--a-spacing-6);
 
   &__isFramed {
     composes: frame from '../../../scss/modules/frame.module.scss';

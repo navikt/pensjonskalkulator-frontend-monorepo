@@ -7,7 +7,6 @@ import clsx from 'clsx'
 
 import styles from './PageFramework.module.scss'
 
-// TODO utvide test
 export const PageFramework: React.FC<
   PropsWithChildren & { isFullWidth?: boolean }
 > = ({ children, isFullWidth }) => {
