@@ -1,6 +1,8 @@
 @import '../../scss/variables';
 
 .wrapper {
+  composes: innerframe from '../../scss/modules/frame.module.scss';
+  composes: whitesection from '../../scss/modules/fadein.module.scss';
   display: flex;
   flex-direction: column;
   gap: var(--a-spacing-3);
@@ -21,19 +23,8 @@
       flex: auto;
     }
   }
-
-  :global {
-    .navds-chips--icon-left {
-      padding-left: var(--a-spacing-3);
-    }
-
-    .navds-chips__toggle-icon {
-      display: none;
-    }
-  }
 }
 
 .visFlereAldere {
   margin-right: auto;
-  margin-bottom: var(--a-spacing-3);
 }

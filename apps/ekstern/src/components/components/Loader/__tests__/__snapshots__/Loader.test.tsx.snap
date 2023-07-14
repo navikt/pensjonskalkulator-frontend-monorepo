@@ -39,7 +39,7 @@ exports[`Loader > rendrer med riktig className og props by default 1`] = `
 <DocumentFragment>
   <svg
     aria-labelledby="loader-r0"
-    class="navds-loader _loader__isCentered_d51639 navds-loader--medium navds-loader--neutral"
+    class="navds-loader _loader__isCentered_a1303a navds-loader--medium navds-loader--neutral"
     data-testid="loader"
     focusable="false"
     preserveAspectRatio="xMidYMid"

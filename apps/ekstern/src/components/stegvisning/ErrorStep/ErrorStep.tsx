@@ -2,7 +2,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Ingress, Button, Heading } from '@navikt/ds-react'
 
-import { Loader } from '@/components/Loader'
+import { Loader } from '@/components/components/Loader'
 
 import styles from './ErrorStep.module.scss'
 
