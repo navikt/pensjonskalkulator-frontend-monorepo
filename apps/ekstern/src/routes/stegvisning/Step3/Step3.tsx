@@ -1,8 +1,9 @@
 import { Suspense } from 'react'
 import { useNavigate, Await } from 'react-router-dom'
 
-import { Loader } from '@/components/Loader'
+import { Loader } from '@/components/components/Loader'
 import { OffentligTP } from '@/components/stegvisning/OffentligTP'
+import { paths } from '@/routes'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -15,15 +16,15 @@ export function Step3() {
 
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
-    navigate('/')
+    navigate(paths.root)
   }
 
   const onPrevious = (): void => {
-    navigate('/samtykke')
+    navigate(paths.samtykke)
   }
 
   const onNext = (): void => {
-    navigate('/afp')
+    navigate(paths.afp)
   }
 
   return (

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { BodyShort, Button, Heading } from '@navikt/ds-react'
 
+import { paths } from '@/routes'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -13,7 +14,7 @@ export function TilbakeEllerAvslutt() {
 
   const onResetClick = (): void => {
     dispatch(userInputActions.flush())
-    navigate('/start')
+    navigate(paths.start)
   }
 
   const onCancelClick = (): void => {
@@ -22,23 +23,22 @@ export function TilbakeEllerAvslutt() {
 
   return (
     <section className={styles.section}>
-      <Heading size="medium" level="2" spacing>
-        Vil du starte en ny beregning?
-      </Heading>
-      <BodyShort>
-        Hvis du starter en ny beregning eller går ut av siden vil beregningen
-        over slettes.
-      </BodyShort>
-      <Button className={styles.button} onClick={onResetClick}>
-        Start ny beregning
-      </Button>
-      <Button
-        variant="tertiary"
-        className={styles.button}
-        onClick={onCancelClick}
-      >
-        Avslutt og gå til Din Pensjon
-      </Button>
+      <div className={styles.innerwrapper}>
+        <Button
+          variant="secondary"
+          className={styles.button}
+          onClick={onResetClick}
+        >
+          Tilbake til start
+        </Button>
+        <Button
+          variant="tertiary"
+          className={`${styles.button} ${styles.button__avbryt}`}
+          onClick={onCancelClick}
+        >
+          Avbryt
+        </Button>
+      </div>
     </section>
   )
 }

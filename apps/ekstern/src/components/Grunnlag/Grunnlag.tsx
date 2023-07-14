@@ -1,11 +1,7 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
-import { Card } from '@/components/Card'
-import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
-
 import { AFP } from './sections/AFP'
 import { Alderspensjon } from './sections/Alderspensjon'
-import { SectionSkeleton } from './sections/components/SectionSkeleton'
 import { Inntekt } from './sections/Inntekt'
 import { Pensjonsavtaler } from './sections/Pensjonsavtaler'
 import { Sivilstand } from './sections/Sivilstand'
@@ -35,24 +31,53 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()
   const uttaksgrad = useUttaksgrad()
-  // TODO fylle ut riktig informasjon for henting av pensjonsavtaler
-  const {
-    data: pensjonsavtaler,
-    isSuccess,
-    isLoading,
-  } = usePensjonsavtalerQuery({
-    aarligInntektFoerUttak: 0,
-    uttaksperiode: {
-      startAlder: 0,
+  const pensjonsavtaler: Pensjonsavtale[] = [
+    {
+      produktbetegnelse: 'Nordea Liv',
+      kategori: 'PRIVAT_TP',
+      startAlder: 67,
       startMaaned: 0,
-      grad: 100,
-      aarligInntekt: 500000,
+      utbetalingsperiode: {
+        startAlder: 67,
+        startMaaned: 0,
+        sluttAlder: 77,
+        sluttMaaned: 0,
+        aarligUtbetaling: 231_298,
+        grad: 100,
+      },
     },
-    antallInntektsaarEtterUttak: 0,
-  })
+    {
+      produktbetegnelse: 'Storebrand',
+      kategori: 'PRIVAT_TP',
+      startAlder: 67,
+      startMaaned: 0,
+      utbetalingsperiode: {
+        startAlder: 67,
+        startMaaned: 0,
+        sluttAlder: 77,
+        sluttMaaned: 0,
+        aarligUtbetaling: 39_582,
+        grad: 100,
+      },
+    },
+    {
+      produktbetegnelse: 'DNB',
+      kategori: 'FRIPOLISE',
+      startAlder: 67,
+      startMaaned: 0,
+      utbetalingsperiode: {
+        startAlder: 67,
+        startMaaned: 0,
+        sluttAlder: 77,
+        sluttMaaned: 0,
+        aarligUtbetaling: 103_264,
+        grad: 100,
+      },
+    },
+  ]
 
   return (
-    <Card className={styles.section}>
+    <section className={styles.section}>
       <div className={styles.description}>
         <Heading level="2" size="medium">
           Grunnlaget for prognosen
@@ -69,9 +94,8 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
         <Utenlandsopphold />
         <Alderspensjon alderspensjon={alderspensjon} />
         <AFP />
-        {isLoading && <SectionSkeleton />}
-        {isSuccess && <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />}
+        <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
       </Accordion>
-    </Card>
+    </section>
   )
 }

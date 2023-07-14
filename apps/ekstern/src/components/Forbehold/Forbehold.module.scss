@@ -1,5 +1,14 @@
 @import '../../scss/variables';
 
-.forbehold {
+.section {
+  margin-bottom: var(--a-spacing-12);
+}
+
+.heading {
+  margin-bottom: var(--a-spacing-2);
+}
+
+.text {
   max-width: $paragraph-max-width;
+  margin-bottom: var(--a-spacing-2);
 }
