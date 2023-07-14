@@ -1,5 +1,6 @@
 import globalClassNames from '../../style.d'
 declare const classNames: typeof globalClassNames & {
+  readonly section: 'section'
   readonly buttonRow: 'buttonRow'
   readonly buttonRowElement: 'buttonRowElement'
   readonly buttonRowElement__Right: 'buttonRowElement__Right'

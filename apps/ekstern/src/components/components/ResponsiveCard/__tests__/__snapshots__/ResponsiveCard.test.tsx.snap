@@ -1,0 +1,25 @@
+// Vitest Snapshot v1
+
+exports[`ResponsiveCard > rendrer slik den skal med className 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_645946 className"
+  >
+    <p>
+      lorem ipsum
+    </p>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`ResponsiveCard > rendrer slik den skal uten className 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_645946"
+  >
+    <p>
+      lorem ipsum
+    </p>
+  </section>
+</DocumentFragment>
+`;
