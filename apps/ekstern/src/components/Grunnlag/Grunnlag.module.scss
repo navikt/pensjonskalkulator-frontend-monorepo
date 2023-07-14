@@ -3,7 +3,13 @@
   flex-direction: column;
   gap: var(--a-spacing-4);
   margin-bottom: var(--a-spacing-12);
-  border-bottom: 2px solid var(--a-border-divider);
+
+  // TODO denne logikken kan vekk når Aksel har løst manglende border bottom
+  :global {
+    .navds-accordion__item.navds-accordion__item--open:last-child {
+      border-bottom: 2px solid var(--a-border-divider);
+    }
+  }
 }
 
 .description {

@@ -76,13 +76,12 @@ export function Pensjonsberegning() {
           </div>
         )}
       </div>
-      {valgtUttaksalder && (
-        <div className={`${styles.background} ${styles.background__lightblue}`}>
-          <div className={styles.container}>
-            <TilbakeEllerAvslutt />
-          </div>
+
+      <div className={`${styles.background} ${styles.background__lightblue}`}>
+        <div className={styles.container}>
+          <TilbakeEllerAvslutt />
         </div>
-      )}
+      </div>
     </>
   )
 }

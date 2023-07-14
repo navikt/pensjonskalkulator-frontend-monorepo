@@ -3,9 +3,30 @@
 .section {
   composes: fadein from '../../scss/modules/fadein.module.scss';
   composes: innerframe from '../../scss/modules/frame.module.scss';
-  padding: var(--a-spacing-8);
+}
+
+.innerwrapper {
+  padding: var(--a-spacing-2) 0;
+
+  @media (min-width: $a-breakpoint-md) {
+    padding: var(--a-spacing-6) 0;
+  }
 }
 
 .button {
-  margin-top: var(--a-spacing-6);
+  display: block;
+  margin: 0 auto;
+
+  &__avbryt {
+    margin-top: var(--a-spacing-4);
+  }
+
+  @media (min-width: $a-breakpoint-md) {
+    display: inline-block;
+
+    &__avbryt {
+      margin-top: 0;
+      margin-left: var(--a-spacing-4);
+    }
+  }
 }

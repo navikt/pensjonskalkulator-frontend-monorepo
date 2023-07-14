@@ -29,7 +29,7 @@ export const PageFramework: React.FC<
           [styles.headerGroup__isFramed]: isFullWidth,
         })}
       >
-        <Heading size="xlarge" level="1">
+        <Heading size="xlarge" level="1" className={styles.headerGroupTitle}>
           {intl.formatMessage({ id: 'application.title' })}
         </Heading>
       </div>
