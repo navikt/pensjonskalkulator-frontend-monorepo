@@ -55,7 +55,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
     <div
       class="_highlighted_f5a642"
     >
-      67 år og 1 måneder
+      67 år
       <div
         class="navds-help-text _helptext_f5a642"
       >
@@ -177,7 +177,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
             <span
               class="navds-chips__chip-text"
             >
-              67 år og 1 md.
+              67 år
             </span>
           </button>
         </li>

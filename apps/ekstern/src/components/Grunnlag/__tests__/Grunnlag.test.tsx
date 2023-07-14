@@ -1,9 +1,9 @@
 import { waitFor } from '@testing-library/react'
 
 import { Grunnlag } from '@/components/Grunnlag'
+import { SectionSkeleton } from '@/components/Grunnlag/sections/components/SectionSkeleton'
 import { mockErrorResponse } from '@/mocks/server'
 import { render, screen } from '@/test-utils'
-import { SectionSkeleton } from '@/components/Grunnlag/sections/components/SectionSkeleton'
 
 describe('Grunnlag', () => {
   it('viser tidligst mulig uttak', async () => {
@@ -13,7 +13,7 @@ describe('Grunnlag', () => {
       />
     )
     expect(await screen.findByText('Tidligst mulig uttak:')).toBeVisible()
-    expect(screen.getByText('62 år, 10 md.')).toBeVisible()
+    expect(screen.getByText('62 år og 10 md.')).toBeVisible()
   })
 
   it('viser pensjonsavtaler', async () => {
