@@ -1,11 +1,10 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
-import { Card } from '@/components/Card'
 import { PensjonsavtalerRequestBody } from '@/state/api/apiSlice.types'
 
-import { AFP } from './sections/AFP/AFP'
-import { Alderspensjon } from './sections/Alderspensjon/Alderspensjon'
-import { Inntekt } from './sections/Inntekt/Inntekt'
+import { AFP } from './sections/AFP'
+import { Alderspensjon } from './sections/Alderspensjon'
+import { Inntekt } from './sections/Inntekt'
 import { Pensjonsavtaler } from './sections/Pensjonsavtaler'
 import { Sivilstand } from './sections/Sivilstand'
 import { TidligstMuligUttak } from './sections/TidligstMuligUttak/TidligstMuligUttak'
@@ -40,7 +39,7 @@ export function Grunnlag({
   const uttaksgrad = useUttaksgrad()
 
   return (
-    <Card className={styles.section}>
+    <section className={styles.section}>
       <div className={styles.description}>
         <Heading level="2" size="medium">
           Grunnlaget for prognosen
@@ -59,6 +58,6 @@ export function Grunnlag({
         <AFP />
         <Pensjonsavtaler requestBody={pensjonsavtalerRequestBody} />
       </Accordion>
-    </Card>
+    </section>
   )
 }

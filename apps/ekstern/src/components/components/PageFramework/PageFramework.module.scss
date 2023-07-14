@@ -1,0 +1,34 @@
+@import '../../../scss/variables';
+
+.main {
+  padding: var(--a-spacing-6) 0 0 0;
+  display: flex;
+  flex-flow: column;
+  align-items: start;
+
+  &__isFramed {
+    composes: frame from '../../../scss/modules/frame.module.scss';
+  }
+}
+
+.headerGroup {
+  width: 100%;
+  padding: 0 var(--a-spacing-6) var(--a-spacing-4) var(--a-spacing-6);
+
+  &__isFramed {
+    composes: frame from '../../../scss/modules/frame.module.scss';
+  }
+
+  @media (min-width: $a-breakpoint-md) {
+    padding: 0 0 var(--a-spacing-4) 0;
+
+    &Title {
+      width: $container-max-width;
+      margin: 0 auto;
+
+      @media (min-width: $a-breakpoint-lg) {
+        margin: 0;
+      }
+    }
+  }
+}

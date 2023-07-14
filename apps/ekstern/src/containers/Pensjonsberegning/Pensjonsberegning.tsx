@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 import { Alert, Heading } from '@navikt/ds-react'
+import clsx from 'clsx'
 
-import { Card } from '@/components/Card'
+import { Loader } from '@/components/components/Loader'
 import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
-import { Loader } from '@/components/Loader'
 import { Pensjonssimulering } from '@/components/Pensjonssimulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
@@ -15,6 +15,8 @@ import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { store } from '@/state/store'
 import { selectSamtykke } from '@/state/userInput/selectors'
+
+import styles from './Pensjonsberegning.module.scss'
 
 export function Pensjonsberegning() {
   const harSamtykket = useAppSelector(selectSamtykke)
@@ -76,30 +78,44 @@ export function Pensjonsberegning() {
 
   return (
     <>
-      <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
-
-      <Card>
-        <VelgUttaksalder
-          tidligstMuligUttak={tidligstMuligUttak}
-          valgtUttaksalder={valgtUttaksalder}
-          valgtUttaksalderHandler={valgtUttaksalderHandler}
-        />
+      <div className={styles.container}>
+        <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
+      </div>
+      {
+        // TODO etter merge - denne flyttes under routes/pages slik at containeren ikke har styles
+      }
+      <div
+        className={clsx(styles.background, styles.background__hasMargin, {
+          [styles.background__white]: valgtUttaksalder,
+        })}
+      >
+        <div className={styles.container}>
+          <VelgUttaksalder
+            tidligstMuligUttak={tidligstMuligUttak}
+            valgtUttaksalder={valgtUttaksalder}
+            valgtUttaksalderHandler={valgtUttaksalderHandler}
+          />
+        </div>
 
         {valgtUttaksalder && (
-          <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
+          <div
+            className={`${styles.container} ${styles.container__hasPadding}`}
+          >
+            <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
+            <Grunnlag
+              tidligstMuligUttak={tidligstMuligUttak}
+              pensjonsavtalerRequestBody={pensjonsavtalerRequestBody}
+            />
+            <Forbehold />
+          </div>
         )}
-      </Card>
+      </div>
 
-      {valgtUttaksalder && (
-        <>
-          <Grunnlag
-            tidligstMuligUttak={tidligstMuligUttak}
-            pensjonsavtalerRequestBody={pensjonsavtalerRequestBody}
-          />
-          <Forbehold />
+      <div className={`${styles.background} ${styles.background__lightblue}`}>
+        <div className={styles.container}>
           <TilbakeEllerAvslutt />
-        </>
-      )}
+        </div>
+      </div>
     </>
   )
 }

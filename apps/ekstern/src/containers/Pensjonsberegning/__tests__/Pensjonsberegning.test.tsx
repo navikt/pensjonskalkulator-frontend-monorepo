@@ -21,7 +21,7 @@ describe('Pensjonsberegning', () => {
     })
     expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-    expect(screen.getAllByRole('button')).toHaveLength(10)
+    expect(screen.getAllByRole('button')).toHaveLength(12)
     expect(result.asFragment()).toMatchSnapshot()
   })
 
@@ -105,7 +105,7 @@ describe('Pensjonsberegning', () => {
         preloadedState: { userInput: { samtykke: true } } as RootState,
       })
       const buttons = await screen.findAllByRole('button')
-      expect(buttons).toHaveLength(10)
+      expect(buttons).toHaveLength(12)
       await user.click(buttons[2])
       await waitFor(async () => {
         expect(await screen.findByTestId('pensjonsavtaler')).toBeInTheDocument()

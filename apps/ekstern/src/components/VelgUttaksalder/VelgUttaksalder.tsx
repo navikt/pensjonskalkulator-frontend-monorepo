@@ -54,6 +54,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
           .map((alderChip) => (
             <Chips.Toggle
               selected={valgtUttaksalder === alderChip}
+              checkmark={false}
               key={alderChip}
               onClick={() => onAlderClick(alderChip)}
             >

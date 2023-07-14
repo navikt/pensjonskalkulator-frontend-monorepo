@@ -13,6 +13,8 @@ import {
   ReadMore,
 } from '@navikt/ds-react'
 
+import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+
 import styles from './AFP.module.scss'
 
 interface Props {
@@ -54,7 +56,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
 
   return (
     <form onSubmit={onSubmit}>
-      <section className={styles.section}>
+      <ResponsiveCard hasLargePadding>
         <Heading size="large" level="2" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
@@ -168,7 +170,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </section>
+      </ResponsiveCard>
     </form>
   )
 }

@@ -16,9 +16,6 @@ describe('TilbakeEllerAvslutt', () => {
 
   it('rendrer med riktig tekst og knapper', () => {
     const { asFragment } = render(<TilbakeEllerAvslutt />)
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'Vil du starte en ny beregning?'
-    )
     expect(screen.getAllByRole('button')).toHaveLength(2)
     expect(asFragment()).toMatchSnapshot()
   })
@@ -33,7 +30,7 @@ describe('TilbakeEllerAvslutt', () => {
       preloadedState: { userInput: { samtykke: true } } as RootState,
     })
 
-    await user.click(screen.getByText('Start ny beregning'))
+    await user.click(screen.getByText('Tilbake til start'))
     expect(navigateMock).toHaveBeenCalledWith(paths.start)
     expect(store.getState().userInput.samtykke).toBe(null)
   })
@@ -51,7 +48,7 @@ describe('TilbakeEllerAvslutt', () => {
 
     render(<TilbakeEllerAvslutt />)
 
-    await user.click(screen.getByText('Avslutt og gå til Din Pensjon'))
+    await user.click(screen.getByText('Avbryt'))
     expect(window.location.href).toBe('http://www.nav.no/pensjon')
   })
 })

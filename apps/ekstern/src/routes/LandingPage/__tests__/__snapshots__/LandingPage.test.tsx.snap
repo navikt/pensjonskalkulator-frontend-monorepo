@@ -3,7 +3,7 @@
 exports[`LandingPage > rendrer slik den skal, med riktig heading 1`] = `
 <DocumentFragment>
   <section
-    class="_section_d75732"
+    class="_section_645946 _section__largePadding_645946"
   >
     <h2>
       Utlogget landingsside

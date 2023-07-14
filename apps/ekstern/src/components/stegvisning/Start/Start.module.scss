@@ -1,11 +1,22 @@
-.section {
-  composes: whitesection from '../../../scss/modules/whitesection.module.scss';
-  padding: var(--a-spacing-8);
+@import '../../../scss/variables';
+
+.wrapper {
   text-align: center;
+
+  @media (min-width: $a-breakpoint-md) {
+    display: flex;
+    flex-flow: row-reverse;
+    text-align: left;
+
+    &Text {
+      padding-right: var(--a-spacing-8);
+    }
+  }
 }
 
 .image {
   width: 9rem;
+  height: 9rem;
   margin: 0 auto;
   margin-bottom: var(--a-spacing-4);
 }
@@ -13,4 +24,9 @@
 .button {
   display: block;
   margin: var(--a-spacing-8) auto var(--a-spacing-4) auto;
+
+  @media (min-width: $a-breakpoint-md) {
+    display: inline-block;
+    margin: var(--a-spacing-8) var(--a-spacing-4) 0 0;
+  }
 }
