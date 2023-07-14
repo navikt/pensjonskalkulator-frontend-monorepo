@@ -5,36 +5,30 @@ exports[`TilbakeEllerAvslutt > rendrer med riktig tekst og knapper 1`] = `
   <section
     class="_section_095025"
   >
-    <h2
-      class="navds-heading navds-heading--medium navds-typo--spacing"
+    <div
+      class="_innerwrapper_095025"
     >
-      Vil du starte en ny beregning?
-    </h2>
-    <p
-      class="navds-body-short"
-    >
-      Hvis du starter en ny beregning eller går ut av siden vil beregningen over slettes.
-    </p>
-    <button
-      class="_button_095025 navds-button navds-button--primary navds-button--medium"
-    >
-      <span
-        aria-live="polite"
-        class="navds-label"
+      <button
+        class="_button_095025 navds-button navds-button--secondary navds-button--medium"
       >
-        Start ny beregning
-      </span>
-    </button>
-    <button
-      class="_button_095025 navds-button navds-button--tertiary navds-button--medium"
-    >
-      <span
-        aria-live="polite"
-        class="navds-label"
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          Tilbake til start
+        </span>
+      </button>
+      <button
+        class="_button_095025 _button__avbryt_095025 navds-button navds-button--tertiary navds-button--medium"
       >
-        Avslutt og gå til Din Pensjon
-      </span>
-    </button>
+        <span
+          aria-live="polite"
+          class="navds-label"
+        >
+          Avbryt
+        </span>
+      </button>
+    </div>
   </section>
 </DocumentFragment>
 `;

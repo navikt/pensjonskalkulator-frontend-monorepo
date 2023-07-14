@@ -1,5 +1,15 @@
 @import '../variables';
 
+.whitesection {
+  background-color: var(--a-white);
+  width: 100%;
+  animation: 0.25s fade-in;
+
+  @media (prefers-reduced-motion) {
+    animation: none;
+  }
+}
+
 .fadein {
   animation: 0.25s fade-in;
 
