@@ -51,7 +51,7 @@ export default defineConfig(() => ({
     sassDts({
       global: {
         generate: true,
-        outFile: path.resolve(__dirname, './src/style.d.ts'),
+        outputFilePath: path.resolve(__dirname, './src/style.d.ts'),
       },
     }),
     visualizer({

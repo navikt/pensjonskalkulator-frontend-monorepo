@@ -109,7 +109,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   }, [uttaksalder])
 
   return (
-    <>
+    <section className={styles.section}>
       <HighchartsReact
         ref={chartRef}
         highcharts={Highcharts}
@@ -160,6 +160,6 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
         />
       </ReadMore>
-    </>
+    </section>
   )
 }

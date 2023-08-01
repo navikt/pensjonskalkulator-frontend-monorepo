@@ -1,5 +1,9 @@
 @import '../../scss/variables';
 
+.section {
+  margin-bottom: var(--a-spacing-6);
+}
+
 .buttonRow {
   margin-top: -0.125rem;
   display: flex;
@@ -18,6 +22,10 @@
 
   button {
     margin: 0 auto;
+
+    @media (min-width: $a-breakpoint-md) {
+      margin: 0;
+    }
   }
 
   :global {

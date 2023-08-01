@@ -1,6 +1,5 @@
 import globalClassNames from '../../../style.d'
 declare const classNames: typeof globalClassNames & {
-  readonly section: 'section'
   readonly readmorePrivat: 'readmorePrivat'
   readonly readmoreOffentlig: 'readmoreOffentlig'
   readonly list: 'list'
