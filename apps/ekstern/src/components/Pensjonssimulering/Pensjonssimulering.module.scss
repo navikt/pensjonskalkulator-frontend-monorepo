@@ -43,13 +43,29 @@
   min-height: 115px;
   z-index: 3;
 
+  @media (min-width: $a-breakpoint-lg) {
+    background-color: red !important;
+    min-height: none;
+    right: unset;
+
+    // right: auto !important;
+  }
+
   & > span {
-    position: relative !important;
-    width: 100% !important;
-    display: block;
-    box-shadow: 0 0 var(--a-spacing-1) var(--a-grayalpha-400);
-    border-radius: var(--a-spacing-1);
-    padding: var(--a-spacing-3) var(--a-spacing-4);
+    // position: relative !important;
+    // width: 100% !important;
+    // display: block;
+    // box-shadow: 0 0 var(--a-spacing-1) var(--a-grayalpha-400);
+    // border-radius: var(--a-spacing-1);
+    // padding: var(--a-spacing-3) var(--a-spacing-4);
+
+    @media (min-width: $a-breakpoint-lg) {
+      position: absolute;
+      background: yellow !important;
+
+      // width: auto !important;
+      // display: block !important;
+    }
   }
 
   &Table {
@@ -60,6 +76,10 @@
     border-collapse: separate;
     border-spacing: 0;
     z-index: 1;
+
+    @media (min-width: $a-breakpoint-lg) {
+      min-width: 22rem;
+    }
 
     &HeaderCell {
       font-family: var(--a-font-family) !important;
@@ -113,8 +133,12 @@
   &Line {
     position: absolute;
     width: 1px;
-    border-right: 1px dashed white;
+    border-right: 1px dashed var(--a-white);
     background-color: var(--a-grayalpha-500);
+
+    @media (min-width: $a-breakpoint-lg) {
+      display: none;
+    }
   }
 }
 

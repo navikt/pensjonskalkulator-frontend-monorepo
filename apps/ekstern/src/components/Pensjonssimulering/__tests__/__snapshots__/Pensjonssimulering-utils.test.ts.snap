@@ -11,7 +11,6 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
       "scrollPositionX": 0,
     },
     "spacingLeft": 0,
-    "spacingRight": 25,
     "spacingTop": 0,
     "type": "column",
   },
@@ -20,7 +19,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
   },
   "legend": {
     "align": "left",
-    "itemDistance": 0,
+    "itemDistance": 24,
     "itemHoverStyle": {
       "color": "#000000",
     },
@@ -37,7 +36,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
     "margin": 50,
     "padding": 0,
     "useHTML": true,
-    "verticalAlign": "top",
+    "verticalAlign": "bottom",
     "x": 0,
     "y": -25,
   },
@@ -46,6 +45,8 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
       "point": {
         "events": {
           "click": [Function],
+          "mouseOut": [Function],
+          "mouseOver": [Function],
         },
       },
     },
@@ -61,6 +62,64 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
       },
       "stickyTracking": false,
     },
+  },
+  "responsive": {
+    "rules": [
+      {
+        "chartOptions": {
+          "legend": {
+            "itemDistance": 12,
+            "verticalAlign": "top",
+          },
+          "tooltip": {
+            "outside": true,
+            "positioner": [Function],
+          },
+          "xAxis": {
+            "labels": {
+              "style": {
+                "fontSize": "var(--a-font-size-small)",
+              },
+            },
+            "title": {
+              "text": "",
+            },
+          },
+          "yAxis": {
+            "labels": {
+              "formatter": [Function],
+              "style": {
+                "backgroundColor": "transparent",
+                "fontSize": "var(--a-font-size-small)",
+              },
+              "x": -7,
+            },
+            "title": {
+              "margin": -75,
+              "style": {
+                "fontSize": "var(--a-font-size-small)",
+              },
+              "text": "Tusen kroner",
+              "x": -83,
+              "y": -22,
+            },
+          },
+        },
+        "condition": {
+          "maxWidth": 772,
+        },
+      },
+      {
+        "chartOptions": {
+          "legend": {
+            "itemDistance": 0,
+          },
+        },
+        "condition": {
+          "maxWidth": 480,
+        },
+      },
+    ],
   },
   "series": [],
   "title": {
@@ -79,9 +138,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
     "followTouchMove": false,
     "formatter": [Function],
     "hideDelay": 30,
-    "outside": true,
     "padding": 0,
-    "positioner": [Function],
     "shadow": false,
     "shared": true,
     "useHTML": true,
@@ -92,30 +149,47 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
       "formatter": [Function],
       "style": {
         "color": "var(--a-grayalpha-700)",
+        "fontSize": "var(--a-font-size-medium)",
       },
     },
     "lineColor": "var(--a-grayalpha-700)",
+    "title": {
+      "align": "high",
+      "style": {
+        "fontSize": "var(--a-font-size-medium)",
+      },
+      "text": "Årlig inntekt og pensjon etter uttak",
+    },
   },
   "yAxis": {
     "allowDecimals": false,
     "gridLineColor": "var(--a-grayalpha-200)",
     "labels": {
+      "align": "left",
       "formatter": [Function],
       "style": {
+        "backgroundColor": "var(--a-white)",
         "color": "var(--a-grayalpha-700)",
+        "fontSize": "var(--a-font-size-medium)",
+        "paddingRight": "var(--a-spacing-3)",
       },
+      "useHTML": true,
+      "x": -57,
     },
     "min": 0,
     "minorTickInterval": 200000,
+    "offset": 15,
     "tickInterval": 200000,
     "title": {
       "align": "high",
-      "margin": -75,
       "rotation": 0,
-      "text": "Tusen kroner",
+      "style": {
+        "fontSize": "var(--a-font-size-medium)",
+      },
+      "text": "Kroner",
       "textAlign": "left",
-      "x": -75,
-      "y": -22,
+      "x": -47,
+      "y": -20,
     },
   },
 }
@@ -180,6 +254,6 @@ exports[`Pensjonssimulering-utils > simulateDataArray > returnerer riktig array 
 ]
 `;
 
-exports[`Pensjonssimulering-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 1`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Inntekt og pensjon når du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Inntekt (lønn m.m.)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 90px; left: 163px; height: 127px\\"></div>"`;
+exports[`Pensjonssimulering-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 1`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Inntekt og pensjon når du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Inntekt (lønn m.m.)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Inntekt (lønn m.m.)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 70px; left: 163px; height: 147px\\"></div>"`;
 
-exports[`Pensjonssimulering-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 2`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Inntekt og pensjon når du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Inntekt (lønn m.m.)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 90px; left: 113px; height: 127px\\"></div>"`;
+exports[`Pensjonssimulering-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 2`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Inntekt og pensjon når du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Inntekt (lønn m.m.)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Inntekt (lønn m.m.)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 70px; left: 113px; height: 147px\\"></div>"`;

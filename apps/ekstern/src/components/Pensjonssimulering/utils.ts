@@ -103,10 +103,16 @@ export const generateXAxis = (startAlder: number, endAlder: number) => {
   return alderArray
 }
 
-export function labelFormatter(this: AxisLabelsFormatterContextObject) {
-  return this.value > 1000
-    ? ((this.value as number) / 1000).toString()
-    : this.value.toString()
+export function labelFormatterDesktop(this: AxisLabelsFormatterContextObject) {
+  const sum =
+    typeof this.value === 'number' ? this.value : parseInt(this.value, 10)
+  return formatAsDecimal(sum)
+}
+
+export function labelFormatterMobile(this: AxisLabelsFormatterContextObject) {
+  const sum =
+    typeof this.value === 'number' ? this.value : parseInt(this.value, 10)
+  return sum > 1000 ? (sum / 1000).toString() : sum.toString()
 }
 
 export type ExtendedAxis = Axis & {
@@ -138,7 +144,18 @@ export function tooltipFormatter(
   context: TooltipFormatterContextObject,
   styles: Partial<typeof globalClassNames>
 ): string {
-  const chart = context.points?.[0].series.chart as Chart
+  const series = context.points?.[0].series as Series
+  const chart = series.chart as Chart
+  const points: Point[] = []
+
+  chart.series.forEach(function (serie: Series) {
+    serie.data.forEach(function (point: Point) {
+      if (point.category === context.key) {
+        points.push(point)
+      }
+    })
+  })
+
   const tooltipEntriesHeight =
     20 * (context.points?.filter((point) => point.percentage > 0)?.length ?? 0)
   const lineYstartPOS = tooltipEntriesHeight + 50
@@ -161,7 +178,7 @@ export function tooltipFormatter(
   let hasPensjon = false
   let pointsFormat = ''
 
-  context?.points?.forEach(function (point) {
+  points.forEach(function (point) {
     if (point.y && point.y > 0) {
       if (point.series.name === SERIE_NAME_INNTEKT) {
         hasInntekt = true
@@ -185,7 +202,7 @@ export function tooltipFormatter(
     }">${getTooltipTitle(hasInntekt, hasPensjon)} ${context.x} år</th>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__right
-    }">${formatAsDecimal(context.points?.[0].total)} kr</th>` +
+    }">${formatAsDecimal(points?.[0].total)} kr</th>` +
     `</tr></thead><tbody>`
 
   const footerFormat = '</tbody></table>'
@@ -275,6 +292,9 @@ export function resetColumnColors(chart: Chart): void {
 }
 
 export function onPointClick(this: Point): void {
+  this.series.chart.tooltip.update({
+    enabled: true,
+  })
   const pointIndex = this.index
   this.series.chart.series.forEach(function (serie: Series) {
     serie.data.forEach(function (point: Point) {
@@ -362,7 +382,7 @@ export const getChartOptions = (
       type: 'column',
       spacingTop: 0,
       spacingLeft: 0,
-      spacingRight: 25,
+      // spacingRight: 25,
       scrollablePlotArea: {
         minWidth: 750,
         scrollPositionX: 0,
@@ -428,29 +448,46 @@ export const getChartOptions = (
         },
         style: {
           color: 'var(--a-grayalpha-700)',
+          fontSize: 'var(--a-font-size-medium)',
+        },
+      },
+      title: {
+        text: 'Årlig inntekt og pensjon etter uttak',
+        align: 'high',
+        style: {
+          fontSize: 'var(--a-font-size-medium)',
         },
       },
       lineColor: 'var(--a-grayalpha-700)',
     },
     yAxis: {
+      offset: 15,
       minorTickInterval: 200000,
       tickInterval: 200000,
       allowDecimals: false,
       min: 0,
       title: {
-        text: 'Tusen kroner',
+        text: 'Kroner',
         align: 'high',
-        margin: -75,
         rotation: 0,
         textAlign: 'left',
-        x: -75,
-        y: -22,
+        x: -47,
+        y: -20,
+        style: {
+          fontSize: 'var(--a-font-size-medium)',
+        },
       },
       labels: {
-        formatter: labelFormatter,
+        useHTML: true,
+        align: 'left',
+        formatter: labelFormatterDesktop,
         style: {
           color: 'var(--a-grayalpha-700)',
+          fontSize: 'var(--a-font-size-medium)',
+          backgroundColor: 'var(--a-white)',
+          paddingRight: 'var(--a-spacing-3)',
         },
+        x: -57,
       },
       gridLineColor: 'var(--a-grayalpha-200)',
     },
@@ -465,12 +502,7 @@ export const getChartOptions = (
         return tooltipFormatter(this, styles)
       },
       hideDelay: 30,
-      outside: true,
       padding: 0,
-      /* c8 ignore next 3 */
-      positioner: function () {
-        return { x: 0, y: TOOLTIP_YPOS }
-      },
       shadow: false,
       shared: true,
       useHTML: true,
@@ -483,8 +515,8 @@ export const getChartOptions = (
       margin: 50,
       layout: 'horizontal',
       align: 'left',
-      verticalAlign: 'top',
-      itemDistance: 0,
+      verticalAlign: 'bottom',
+      itemDistance: 24,
       itemStyle: {
         fontFamily: 'var(--a-font-family)',
         color: '#000000',
@@ -516,10 +548,76 @@ export const getChartOptions = (
         point: {
           events: {
             click: onPointClick,
+            /* c8 ignore next 6 */
+            mouseOut: function () {
+              this.series.chart.tooltip.update({ enabled: false })
+            },
+            mouseOver: function () {
+              this.series.chart.tooltip.update({ enabled: false })
+            },
           },
         },
       },
     },
     series: [],
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 772,
+          },
+          chartOptions: {
+            xAxis: {
+              title: {
+                text: '',
+              },
+              labels: {
+                style: {
+                  fontSize: 'var(--a-font-size-small)',
+                },
+              },
+            },
+            yAxis: {
+              title: {
+                text: 'Tusen kroner',
+                margin: -75,
+                x: -83,
+                y: -22,
+                style: {
+                  fontSize: 'var(--a-font-size-small)',
+                },
+              },
+              labels: {
+                formatter: labelFormatterMobile,
+                style: {
+                  fontSize: 'var(--a-font-size-small)',
+                  backgroundColor: 'transparent',
+                },
+                x: -7,
+              },
+            },
+            tooltip: {
+              outside: true,
+              /* c8 ignore next 3 */
+              positioner: function () {
+                return { x: 0, y: TOOLTIP_YPOS }
+              },
+            },
+            legend: {
+              itemDistance: 12,
+              verticalAlign: 'top',
+            },
+          },
+        },
+        {
+          condition: {
+            maxWidth: 480,
+          },
+          chartOptions: {
+            legend: { itemDistance: 0 },
+          },
+        },
+      ],
+    },
   }
 }

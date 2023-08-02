@@ -24,12 +24,14 @@ export const PageFramework: React.FC<
         [styles.main__isFramed]: !isFullWidth,
       })}
     >
-      <div
-        className={clsx(styles.headerGroup, {
-          [styles.headerGroup__isFramed]: isFullWidth,
-        })}
-      >
-        <Heading size="xlarge" level="1" className={styles.headerGroupTitle}>
+      <div className={styles.headerGroup}>
+        <Heading
+          size="xlarge"
+          level="1"
+          className={clsx(styles.headerGroupTitle, {
+            [styles.headerGroupTitle__isFramed]: !isFullWidth,
+          })}
+        >
           {intl.formatMessage({ id: 'application.title' })}
         </Heading>
       </div>

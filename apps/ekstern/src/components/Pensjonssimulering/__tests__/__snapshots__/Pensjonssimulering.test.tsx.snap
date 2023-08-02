@@ -38,6 +38,24 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               fill="#ffffff"
               fill-opacity="0.85"
             />
+            <text
+              class="highcharts-subtitle"
+              data-z-index="4"
+              style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666; pointer-events: auto;"
+              text-anchor="middle"
+              x="295"
+              y="0"
+            />
+            <text
+              class="highcharts-title"
+              data-z-index="4"
+              style="font-size: 20px; color: rgb(51, 51, 51); font-weight: bold; font-family: var(--a-font-family); fill: #333333; pointer-events: auto;"
+              text-anchor="start"
+              x="0"
+              y="20"
+            >
+              Beregning
+            </text>
             <g
               class="highcharts-legend highcharts-no-tooltip"
               data-z-index="7"
@@ -53,7 +71,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 ry="0"
                 stroke="#999999"
                 stroke-width="0"
-                width="84"
+                width="120"
                 x="0"
                 y="0"
               />
@@ -81,7 +99,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   <g
                     class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-1"
                     data-z-index="1"
-                    transform="translate(21,-5)"
+                    transform="translate(33,-5)"
                   >
                     <rect
                       class="highcharts-point"
@@ -98,7 +116,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   <g
                     class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-2"
                     data-z-index="1"
-                    transform="translate(42,-5)"
+                    transform="translate(66,-5)"
                   >
                     <rect
                       class="highcharts-point"
@@ -115,7 +133,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   <g
                     class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-3"
                     data-z-index="1"
-                    transform="translate(63,-5)"
+                    transform="translate(99,-5)"
                   >
                     <rect
                       class="highcharts-point"
@@ -132,24 +150,6 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 </g>
               </g>
             </g>
-            <text
-              class="highcharts-subtitle"
-              data-z-index="4"
-              style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666; pointer-events: auto;"
-              text-anchor="middle"
-              x="288"
-              y="0"
-            />
-            <text
-              class="highcharts-title"
-              data-z-index="4"
-              style="font-size: 20px; color: rgb(51, 51, 51); font-weight: bold; font-family: var(--a-font-family); fill: #333333; pointer-events: auto;"
-              text-anchor="start"
-              x="0"
-              y="20"
-            >
-              Beregning
-            </text>
           </svg>
           <div
             class="highcharts-legend highcharts-no-tooltip"
@@ -174,7 +174,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 </div>
                 <div
                   class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-1"
-                  style="position: absolute; left: 21px; top: -5px; opacity: 1;"
+                  style="position: absolute; left: 33px; top: -5px; opacity: 1;"
                 >
                   <span
                     data-z-index="2"
@@ -185,7 +185,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 </div>
                 <div
                   class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-2"
-                  style="position: absolute; left: 42px; top: -5px; opacity: 1;"
+                  style="position: absolute; left: 66px; top: -5px; opacity: 1;"
                 >
                   <span
                     data-z-index="2"
@@ -196,7 +196,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 </div>
                 <div
                   class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-3"
-                  style="position: absolute; left: 63px; top: -5px; opacity: 1;"
+                  style="position: absolute; left: 99px; top: -5px; opacity: 1;"
                 >
                   <span
                     data-z-index="2"
@@ -260,7 +260,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     />
                   </clippath>
                   <clippath
-                    id="highcharts-17-"
+                    id="highcharts-19-"
                   >
                     <rect
                       fill="none"
@@ -298,7 +298,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   height="385"
                   stroke="#cccccc"
                   stroke-width="0"
-                  width="725"
+                  width="740"
                   x="0"
                   y="0"
                 />
@@ -542,7 +542,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   <text
                     class="highcharts-axis-title"
                     data-z-index="7"
-                    style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
+                    style="color: rgb(102, 102, 102); fill: #666666;"
                     text-anchor="start"
                     transform="translate(0,0)"
                     x="NaN"
@@ -566,10 +566,10 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 >
                   <g
                     class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-17-)"
+                    clip-path="url(#highcharts-19-)"
                     data-z-index="0.1"
                     opacity="1"
-                    transform="translate(NaN,44) scale(1 0.001)"
+                    transform="translate(NaN,44) scale(1 0.0010024649316718226)"
                   />
                   <g
                     class="highcharts-markers highcharts-series-0 highcharts-column-series"
@@ -580,7 +580,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   />
                   <g
                     class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-17-)"
+                    clip-path="url(#highcharts-19-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -594,7 +594,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   />
                   <g
                     class="highcharts-series highcharts-series-2 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-17-)"
+                    clip-path="url(#highcharts-19-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -608,7 +608,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   />
                   <g
                     class="highcharts-series highcharts-series-3 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-17-)"
+                    clip-path="url(#highcharts-19-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -634,7 +634,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   data-z-index="7"
                 >
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -642,7 +642,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     64
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -650,7 +650,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     65
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -658,7 +658,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     66
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -666,7 +666,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     67
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -674,7 +674,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     68
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -682,7 +682,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     69
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -690,7 +690,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     70
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -698,7 +698,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     71
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -706,7 +706,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     72
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -714,7 +714,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     73
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -722,7 +722,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     74
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -730,7 +730,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     75
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -738,7 +738,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     76
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -746,7 +746,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     77
                   </text>
                   <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -757,49 +757,38 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 <g
                   class="highcharts-axis-labels highcharts-yaxis-labels"
                   data-z-index="7"
-                >
-                  <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
-                    text-anchor="end"
-                    transform="translate(0,0)"
-                    x="0"
-                  >
-                    0
-                  </text>
-                  <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
-                    text-anchor="end"
-                    transform="translate(0,0)"
-                    x="0"
-                  >
-                    200
-                  </text>
-                  <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
-                    text-anchor="end"
-                    transform="translate(0,0)"
-                    x="0"
-                  >
-                    400
-                  </text>
-                  <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
-                    text-anchor="end"
-                    transform="translate(0,0)"
-                    x="0"
-                  >
-                    600
-                  </text>
-                  <text
-                    style="cursor: default; font-size: 0.8em; fill: var(--a-grayalpha-700);"
-                    text-anchor="end"
-                    transform="translate(0,0)"
-                    x="0"
-                  >
-                    800
-                  </text>
-                </g>
+                />
               </svg>
+              <div
+                class="highcharts-axis-labels highcharts-yaxis-labels"
+                style="position: absolute; left: 0px; top: 0px; opacity: 1;"
+              >
+                <span
+                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  0
+                </span>
+                <span
+                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  200
+                </span>
+                <span
+                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  400
+                </span>
+                <span
+                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  600
+                </span>
+                <span
+                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  800
+                </span>
+              </div>
             </div>
           </div>
         </div>

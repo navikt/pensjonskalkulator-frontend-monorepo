@@ -13,7 +13,8 @@ import {
   simulateDataArray,
   simulateTjenestepensjon,
   generateXAxis,
-  labelFormatter,
+  labelFormatterDesktop,
+  labelFormatterMobile,
   getTooltipTitle,
   tooltipFormatter,
   getHoverColor,
@@ -136,27 +137,56 @@ describe('Pensjonssimulering-utils', () => {
     })
   })
 
-  describe('labelFormatter', () => {
+  describe('labelFormatterMobile', () => {
     it('returnerer riktig streng når verdien er under 1000', () => {
-      const thisIsThat = {
+      const a = labelFormatterMobile.bind({
         value: 300,
-      } as AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('300')
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('300')
     })
     it('returnerer riktig streng når verdien er lik 1000', () => {
-      const thisIsThat = {
+      const a = labelFormatterMobile.bind({
         value: 1000,
-      } as AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('1000')
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1000')
     })
     it('returnerer riktig streng når verdien er over 1000', () => {
-      const thisIsThat = {
+      const a = labelFormatterMobile.bind({
         value: 1000000,
-      } as AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('1000')
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1000')
+    })
+    it('returnerer riktig når verdien er av type streng', () => {
+      const a = labelFormatterMobile.bind({
+        value: '1000000',
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1000')
+    })
+  })
+  describe('labelFormatterDesktop', () => {
+    it('returnerer riktig streng når verdien er under 1000', () => {
+      const a = labelFormatterDesktop.bind({
+        value: 300,
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('300')
+    })
+    it('returnerer riktig streng når verdien er lik 1000', () => {
+      const a = labelFormatterDesktop.bind({
+        value: 1000,
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1 000')
+    })
+    it('returnerer riktig streng når verdien er over 1000', () => {
+      const a = labelFormatterDesktop.bind({
+        value: 1000000,
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1 000 000')
+    })
+    it('returnerer riktig når verdien er av type streng', () => {
+      const a = labelFormatterDesktop.bind({
+        value: '1000000',
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1 000 000')
     })
   })
 
@@ -198,24 +228,15 @@ describe('Pensjonssimulering-utils', () => {
       const pointSumSerie1 = 200000
       const pointSumSerie2 = 350000
 
-      const beregnetLinePosition = 'top: 90px; left: 163px; height: 127px'
+      const beregnetLinePosition = 'top: 70px; left: 163px; height: 147px'
       const beregnetLinePositionAfterScroll =
-        'top: 90px; left: 113px; height: 127px'
+        'top: 70px; left: 113px; height: 147px'
 
-      const point = {
+      const simplePoint = {
         y: pointSumSerie1,
         percentage: 20,
         total,
-        series: {
-          name: SERIE_NAME_INNTEKT,
-          color: colorSerie1,
-          chart: { chartHeight: 400, plotLeft: 35 },
-          yAxis: { height: 171 } as ExtendedAxis,
-        },
-        point: {
-          plotX: 129,
-          series: { data: ['70', '71', '72', '73', '74', '75', '76', '77+'] },
-        } as ExtendedPoint,
+        series: { name: SERIE_NAME_INNTEKT, color: colorSerie1 },
       }
 
       const context = {
@@ -223,16 +244,66 @@ describe('Pensjonssimulering-utils', () => {
         x: alder,
         points: [
           {
-            ...point,
-          },
-          {
-            ...point,
-            y: pointSumSerie2,
+            y: pointSumSerie1,
+            percentage: 20,
+            total,
             series: {
-              ...point.series,
-              name: SERIE_NAME_ALDERSPENSJON,
-              color: colorSerie2,
+              name: SERIE_NAME_INNTEKT,
+              color: colorSerie1,
+              chart: {
+                chartHeight: 400,
+                plotLeft: 35,
+                series: [
+                  {
+                    name: SERIE_NAME_INNTEKT,
+                    color: colorSerie1,
+                    chart: { chartHeight: 400, plotLeft: 35 },
+                    yAxis: { height: 171 } as ExtendedAxis,
+                    data: [
+                      {
+                        ...simplePoint,
+                      },
+                      {
+                        ...simplePoint,
+                        y: pointSumSerie2,
+                        series: {
+                          ...simplePoint.series,
+                          name: SERIE_NAME_ALDERSPENSJON,
+                          color: colorSerie2,
+                        },
+                      },
+                    ],
+                  },
+                  {
+                    name: SERIE_NAME_ALDERSPENSJON,
+                    color: colorSerie2,
+                    chart: { chartHeight: 400, plotLeft: 35 },
+                    yAxis: { height: 171 } as ExtendedAxis,
+                    data: [
+                      {
+                        ...simplePoint,
+                      },
+                      {
+                        ...simplePoint,
+                        y: pointSumSerie2,
+                        series: {
+                          ...simplePoint.series,
+                          name: SERIE_NAME_ALDERSPENSJON,
+                          color: colorSerie2,
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+              yAxis: { height: 171 } as ExtendedAxis,
             },
+            point: {
+              plotX: 129,
+              series: {
+                data: ['70', '71', '72', '73', '74', '75', '76', '77+'],
+              },
+            } as ExtendedPoint,
           },
         ],
       }
@@ -301,6 +372,7 @@ describe('Pensjonssimulering-utils', () => {
     const pointUpdateMock = vi.fn()
     const redrawMock = vi.fn()
     const tooltipHideMock = vi.fn()
+    const tooltipUpdateMock = vi.fn()
 
     const data1 = [
       {
@@ -355,7 +427,7 @@ describe('Pensjonssimulering-utils', () => {
     ]
 
     const chart = {
-      tooltip: { isHidden: false },
+      tooltip: { isHidden: false, update: tooltipUpdateMock },
       series: [
         {
           data: [...data1],
@@ -394,6 +466,7 @@ describe('Pensjonssimulering-utils', () => {
           },
         } as Point
         onPointClick.call(point)
+        expect(tooltipUpdateMock).toHaveBeenCalled()
         expect(pointUpdateMock).toHaveBeenCalledTimes(3)
         expect(pointUpdateMock.mock.calls).toEqual([
           [{ color: 'var(--a-deepblue-200)' }, false],
