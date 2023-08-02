@@ -495,6 +495,7 @@ export const getChartOptions = (
       enabled: false,
     },
     tooltip: {
+      borderRadius: 1,
       className: styles.tooltip,
       followTouchMove: false,
       /* c8 ignore next 3 */

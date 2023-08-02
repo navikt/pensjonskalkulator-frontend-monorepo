@@ -134,6 +134,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
     "y": 20,
   },
   "tooltip": {
+    "borderRadius": 1,
     "className": undefined,
     "followTouchMove": false,
     "formatter": [Function],

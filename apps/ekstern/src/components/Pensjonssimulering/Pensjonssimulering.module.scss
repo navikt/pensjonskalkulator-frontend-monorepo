@@ -44,27 +44,30 @@
   z-index: 3;
 
   @media (min-width: $a-breakpoint-lg) {
-    background-color: red !important;
-    min-height: none;
+    min-height: 0;
     right: unset;
+  }
 
-    // right: auto !important;
+  & path {
+    filter: drop-shadow(0 0 5px var(--a-grayalpha-400));
+    stroke: var(--a-white);
+    stroke-width: 24px;
   }
 
   & > span {
-    // position: relative !important;
-    // width: 100% !important;
-    // display: block;
-    // box-shadow: 0 0 var(--a-spacing-1) var(--a-grayalpha-400);
-    // border-radius: var(--a-spacing-1);
-    // padding: var(--a-spacing-3) var(--a-spacing-4);
+    position: relative !important;
+    width: 100% !important;
+    display: block;
+    box-shadow: 0 0 var(--a-spacing-1) var(--a-grayalpha-400);
+    border-radius: var(--a-spacing-1);
+    padding: var(--a-spacing-3) var(--a-spacing-4);
 
     @media (min-width: $a-breakpoint-lg) {
-      position: absolute;
-      background: yellow !important;
-
-      // width: auto !important;
-      // display: block !important;
+      background-color: var(--a-white);
+      position: absolute !important;
+      width: auto !important;
+      box-shadow: none;
+      padding: 0;
     }
   }
 
@@ -72,18 +75,18 @@
     position: relative;
     width: 100%;
     table-layout: fixed;
-    background-color: var(--a-white);
     border-collapse: separate;
     border-spacing: 0;
     z-index: 1;
 
     @media (min-width: $a-breakpoint-lg) {
-      min-width: 22rem;
+      width: 21rem;
+      margin: 0 0.5rem;
     }
 
     &HeaderCell {
       font-family: var(--a-font-family) !important;
-      font-size: var(--a-font-size-medium) !important;
+      font-size: var(--a-font-size-heading-xsmall) !important;
       padding: 0.25rem 0;
       line-height: 1;
 
