@@ -228,15 +228,19 @@ describe('Pensjonssimulering-utils', () => {
       const pointSumSerie1 = 200000
       const pointSumSerie2 = 350000
 
-      const beregnetLinePosition = 'top: 70px; left: 163px; height: 147px'
+      const beregnetLinePosition = 'top: 130px; left: 34px; height: 19px'
       const beregnetLinePositionAfterScroll =
-        'top: 70px; left: 113px; height: 147px'
+        'top: 130px; left: -16px; height: 19px'
 
       const simplePoint = {
         y: pointSumSerie1,
         percentage: 20,
         total,
-        series: { name: SERIE_NAME_INNTEKT, color: colorSerie1 },
+        series: {
+          name: SERIE_NAME_INNTEKT,
+          color: colorSerie1,
+          yAxis: { height: 171 } as ExtendedAxis,
+        },
       }
 
       const context = {
@@ -258,7 +262,6 @@ describe('Pensjonssimulering-utils', () => {
                     name: SERIE_NAME_INNTEKT,
                     color: colorSerie1,
                     chart: { chartHeight: 400, plotLeft: 35 },
-                    yAxis: { height: 171 } as ExtendedAxis,
                     data: [
                       {
                         ...simplePoint,
@@ -278,7 +281,6 @@ describe('Pensjonssimulering-utils', () => {
                     name: SERIE_NAME_ALDERSPENSJON,
                     color: colorSerie2,
                     chart: { chartHeight: 400, plotLeft: 35 },
-                    yAxis: { height: 171 } as ExtendedAxis,
                     data: [
                       {
                         ...simplePoint,
@@ -296,7 +298,6 @@ describe('Pensjonssimulering-utils', () => {
                   },
                 ],
               },
-              yAxis: { height: 171 } as ExtendedAxis,
             },
             point: {
               plotX: 129,

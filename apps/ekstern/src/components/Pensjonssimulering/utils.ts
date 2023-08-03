@@ -122,6 +122,7 @@ export type ExtendedAxis = Axis & {
 }
 export type ExtendedPoint = Point & {
   series: { data: string[] }
+  percentage: number
 }
 export type ExtendedTooltip = Tooltip & {
   isHidden: boolean
@@ -146,25 +147,26 @@ export function tooltipFormatter(
 ): string {
   const series = context.points?.[0].series as Series
   const chart = series.chart as Chart
-  const points: Point[] = []
+  const points: ExtendedPoint[] = []
 
   chart.series.forEach(function (serie: Series) {
     serie.data.forEach(function (point: Point) {
       if (point.category === context.key) {
-        points.push(point)
+        points.push(point as ExtendedPoint)
       }
     })
   })
 
   const tooltipEntriesHeight =
-    20 * (context.points?.filter((point) => point.percentage > 0)?.length ?? 0)
+    20 *
+    (points?.filter((point: ExtendedPoint) => point.percentage > 0)?.length ??
+      0)
   const lineYstartPOS = tooltipEntriesHeight + 50
   const columnHeight =
-    (context.points?.[0].series.yAxis as ExtendedAxis).height -
-    (context.point.plotY ?? 0)
+    (points?.[0].series.yAxis as ExtendedAxis).height - (points[0].plotY ?? 0)
   const scrollPosition =
     document.querySelector(highchartsScrollingSelector)?.scrollLeft ?? 0
-  const leftPosition = context.points?.[0].point?.plotX ?? 0
+  const leftPosition = points?.[0]?.plotX ?? 0
 
   const tooltipConnectingLine = `<div class="${
     styles.tooltipLine
@@ -382,7 +384,6 @@ export const getChartOptions = (
       type: 'column',
       spacingTop: 0,
       spacingLeft: 0,
-      // spacingRight: 25,
       scrollablePlotArea: {
         minWidth: 750,
         scrollPositionX: 0,
