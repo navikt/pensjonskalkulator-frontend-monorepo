@@ -475,6 +475,7 @@ export const getChartOptions = (
         y: -20,
         style: {
           fontSize: 'var(--a-font-size-medium)',
+          zIndex: 0,
         },
       },
       labels: {
@@ -484,7 +485,6 @@ export const getChartOptions = (
         style: {
           color: 'var(--a-grayalpha-700)',
           fontSize: 'var(--a-font-size-medium)',
-          backgroundColor: 'var(--a-white)',
           paddingRight: 'var(--a-spacing-3)',
         },
         x: -57,
@@ -495,7 +495,6 @@ export const getChartOptions = (
       enabled: false,
     },
     tooltip: {
-      borderRadius: 1,
       className: styles.tooltip,
       followTouchMove: false,
       /* c8 ignore next 3 */

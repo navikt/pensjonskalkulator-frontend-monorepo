@@ -50,8 +50,6 @@
 
   & path {
     filter: drop-shadow(0 0 5px var(--a-grayalpha-400));
-    stroke: var(--a-white);
-    stroke-width: 24px;
   }
 
   & > span {
@@ -80,8 +78,11 @@
     z-index: 1;
 
     @media (min-width: $a-breakpoint-lg) {
-      width: 21rem;
-      margin: 0 0.5rem;
+      width: 22rem;
+      border-width: var(--a-spacing-3) var(--a-spacing-4);
+      border-style: solid;
+      border-color: var(--a-white);
+      border-radius: 0.25rem;
     }
 
     &HeaderCell {

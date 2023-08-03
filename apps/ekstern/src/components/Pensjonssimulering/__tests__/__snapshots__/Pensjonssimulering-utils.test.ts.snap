@@ -134,7 +134,6 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
     "y": 20,
   },
   "tooltip": {
-    "borderRadius": 1,
     "className": undefined,
     "followTouchMove": false,
     "formatter": [Function],
@@ -169,7 +168,6 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
       "align": "left",
       "formatter": [Function],
       "style": {
-        "backgroundColor": "var(--a-white)",
         "color": "var(--a-grayalpha-700)",
         "fontSize": "var(--a-font-size-medium)",
         "paddingRight": "var(--a-spacing-3)",
@@ -186,6 +184,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
       "rotation": 0,
       "style": {
         "fontSize": "var(--a-font-size-medium)",
+        "zIndex": 0,
       },
       "text": "Kroner",
       "textAlign": "left",

@@ -542,7 +542,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   <text
                     class="highcharts-axis-title"
                     data-z-index="7"
-                    style="color: rgb(102, 102, 102); fill: #666666;"
+                    style="color: rgb(102, 102, 102); z-index: 0; fill: #666666; z-index: 0;"
                     text-anchor="start"
                     transform="translate(0,0)"
                     x="NaN"
