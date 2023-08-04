@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
 import { Button, ReadMore } from '@navikt/ds-react'
 import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
+import HighchartsAccessibility from 'highcharts/modules/accessibility'
 import HighchartsReact from 'highcharts-react-official'
 
 import { TabellVisning } from '@/components/TabellVisning'
@@ -35,6 +36,8 @@ import styles from './Pensjonssimulering.module.scss'
 type PensjonssimuleringProps = {
   uttaksalder: number
 }
+
+HighchartsAccessibility(Highcharts)
 
 export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
