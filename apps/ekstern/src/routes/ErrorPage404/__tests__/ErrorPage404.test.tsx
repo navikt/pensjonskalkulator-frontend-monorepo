@@ -2,40 +2,36 @@ import * as ReactRouterUtils from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { TilbakeEllerAvslutt } from '..'
-import { externalsUrls, paths } from '@/routes'
-import { RootState } from '@/state/store'
+import { ErrorPage404 } from '..'
+import { externalsUrls } from '@/routes'
 import { render, screen, userEvent } from '@/test-utils'
 
 const realLocation = window.location
 
-describe('TilbakeEllerAvslutt', () => {
+describe('ErrorPage404', () => {
   afterEach(() => {
     window.location = realLocation
   })
 
   it('rendrer med riktig tekst og knapper', () => {
-    const { asFragment } = render(<TilbakeEllerAvslutt />)
+    const { asFragment } = render(<ErrorPage404 />)
     expect(screen.getAllByRole('button')).toHaveLength(2)
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('nullstiller input fra brukeren og redirigerer til første steg av stegvisning når brukeren klikker på Start ny beregning', async () => {
+  it('sender brukeren til forrige siden når brukeren klikker på første knapp', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    const { store } = render(<TilbakeEllerAvslutt />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
-    })
+    render(<ErrorPage404 />)
 
-    await user.click(screen.getByText('Tilbake til start'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.start)
-    expect(store.getState().userInput.samtykke).toBe(null)
+    await user.click(screen.getByText('errorpage.404.button_1'))
+    expect(navigateMock).toHaveBeenCalledWith(-1)
   })
 
-  it('redirigerer til Din Pensjon når brukeren klikker på Avslutt', async () => {
+  it('sender brukeren til Din Pensjon når brukeren klikker på andre knapp', async () => {
     const user = userEvent.setup()
     global.window = Object.create(window)
     const url = 'http://dummy.com'
@@ -46,9 +42,9 @@ describe('TilbakeEllerAvslutt', () => {
       writable: true,
     })
 
-    render(<TilbakeEllerAvslutt />)
+    render(<ErrorPage404 />)
 
-    await user.click(screen.getByText('Avbryt'))
+    await user.click(screen.getByText('errorpage.404.button_2'))
     expect(window.location.href).toBe(externalsUrls.dinPensjon)
   })
 })

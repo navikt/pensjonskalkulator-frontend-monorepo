@@ -1,5 +1,12 @@
 const translations = {
   'application.title': 'Pensjonskalkulator',
+  'errorpage.404.title': 'Oops! Siden du leter etter finnes ikke.',
+  'errorpage.404.list_item1':
+    'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
+  'errorpage.404.list_item2':
+    'Hvis du klikket på en lenke er den feil eller utdatert.',
+  'errorpage.404.button_1': 'Tilbake til forrige side',
+  'errorpage.404.button_2': 'Tilbake til Din Pensjon',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
