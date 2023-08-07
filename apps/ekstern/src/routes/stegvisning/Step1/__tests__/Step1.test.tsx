@@ -8,6 +8,11 @@ import { paths } from '@/routes'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 
 describe('Step 1', () => {
+  it('har riktig sidetittel', () => {
+    render(<Step1 />)
+    expect(document.title).toBe('application.title.stegvisning.step1')
+  })
+
   it('henter personopplysninger og viser hilsen med fornavnet til brukeren', async () => {
     render(<Step1 />)
     await waitFor(() => {
