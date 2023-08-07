@@ -43,12 +43,11 @@ describe('RouteErrorBoundary', () => {
     ])
 
     swallowErrors(() => {
-      const component = render(<RouterProvider router={router} />, {
+      render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-
-      expect(screen.getByRole('heading')).toHaveTextContent('Oisann!')
-      expect(component.asFragment()).toMatchSnapshot()
+      expect(screen.queryByTestId('error-page-404')).not.toBeInTheDocument()
+      expect(screen.queryByTestId('error-page-unexpected')).toBeInTheDocument()
     })
   })
 })
