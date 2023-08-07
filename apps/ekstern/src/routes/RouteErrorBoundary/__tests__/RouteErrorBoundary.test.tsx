@@ -27,7 +27,6 @@ describe('RouteErrorBoundary', () => {
       router.navigate('/denne/siden/finnes/ikke')
     })
 
-    // expect(screen.getByText('errorpage.404.title')).toBeVisible()
     expect(screen.queryByTestId('error-boundary')).not.toBeInTheDocument()
     expect(screen.queryByTestId('error-page-404')).toBeInTheDocument()
   })
