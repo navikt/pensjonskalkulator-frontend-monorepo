@@ -26,7 +26,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
   return (
     <ResponsiveCard hasLargePadding>
       <div className={styles.wrapper}>
-        <img className={styles.image} src={FridaPortrett} />
+        <img className={styles.image} src={FridaPortrett} alt="" />
         <div className={styles.wrapperText}>
           <Heading
             ref={headingRef}

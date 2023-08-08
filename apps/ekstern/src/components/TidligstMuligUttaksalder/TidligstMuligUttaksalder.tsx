@@ -23,7 +23,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
     return (
       <ResponsiveCard data-testid="tidligst-mulig-uttak">
         <div className={styles.wrapper}>
-          <img className={styles.wrapperImage} src={Piggybank} />
+          <img className={styles.wrapperImage} src={Piggybank} alt="" />
           <div
             className={styles.wrapperText}
             ref={ingressRef}

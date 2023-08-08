@@ -54,6 +54,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         class="_wrapper_f5a642"
       >
         <img
+          alt=""
           class="_wrapperImage_f5a642"
           src="/pensjon/kalkulator/src/assets/piggybank.svg"
         />
