@@ -43,7 +43,11 @@ export function TabellVisning({ series, aarArray }: Props) {
           )
 
           return (
-            <Table.ExpandableRow key={i} content={detaljerGrid}>
+            <Table.ExpandableRow
+              key={i}
+              content={detaljerGrid}
+              expandOnRowClick
+            >
               <Table.DataCell scope="row">{alder}</Table.DataCell>
               <Table.DataCell className={styles.detailsItemRight}>
                 {formatAsDecimal(sum)}
