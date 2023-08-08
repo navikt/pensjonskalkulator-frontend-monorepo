@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
@@ -23,8 +23,12 @@ export function Sivilstand({
   onNext,
 }: Props) {
   const intl = useIntl()
-
+  const headingRef = useRef<HTMLHeadingElement>(null)
   const [validationError, setValidationError] = useState<string>('')
+
+  useEffect(() => {
+    headingRef.current?.focus()
+  }, [])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -49,8 +53,15 @@ export function Sivilstand({
 
   return (
     <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
-        <Heading size="large" level="2" spacing>
+      <ResponsiveCard aria-live="polite" hasLargePadding>
+        <Heading
+          ref={headingRef}
+          className={styles.heading}
+          level="2"
+          size="large"
+          tabIndex={-1}
+          spacing
+        >
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <Ingress className={styles.ingress}>

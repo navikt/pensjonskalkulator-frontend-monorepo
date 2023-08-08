@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useEffect, useRef } from 'react'
 
 import { HelpText, Ingress } from '@navikt/ds-react'
 
@@ -14,15 +14,22 @@ interface Props {
 
 export const TidligstMuligUttaksalder: React.FC<Props> = memo(
   ({ uttaksalder }) => {
+    const ingressRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+      ingressRef.current?.focus()
+    }, [])
+
     return (
       <ResponsiveCard data-testid="tidligst-mulig-uttak">
         <div className={styles.wrapper}>
-          <img
-            className={styles.wrapperImage}
-            src={Piggybank}
-            alt="Illustrasjon av sparegris"
-          />
-          <div className={styles.wrapperText}>
+          <img className={styles.wrapperImage} src={Piggybank} />
+          <div
+            className={styles.wrapperText}
+            ref={ingressRef}
+            tabIndex={-1}
+            aria-live="polite"
+          >
             <Ingress
               className={`${styles.ingress} ${styles.ingress__isInline}`}
             >

@@ -4,10 +4,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
 <DocumentFragment>
   <form>
     <section
+      aria-live="polite"
       class="_section_645946 _section__largePadding_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="_heading_10a2c6 navds-heading navds-heading--large navds-typo--spacing"
+        tabindex="-1"
       >
         stegvisning.afp.title
       </h2>
@@ -304,10 +306,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
 <DocumentFragment>
   <form>
     <section
+      aria-live="polite"
       class="_section_645946 _section__largePadding_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="_heading_10a2c6 navds-heading navds-heading--large navds-typo--spacing"
+        tabindex="-1"
       >
         stegvisning.afp.title
       </h2>
@@ -603,10 +607,12 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
 <DocumentFragment>
   <form>
     <section
+      aria-live="polite"
       class="_section_645946 _section__largePadding_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="_heading_10a2c6 navds-heading navds-heading--large navds-typo--spacing"
+        tabindex="-1"
       >
         stegvisning.afp.title
       </h2>

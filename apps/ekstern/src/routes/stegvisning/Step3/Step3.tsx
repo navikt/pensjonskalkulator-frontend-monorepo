@@ -29,7 +29,15 @@ export function Step3() {
 
   return (
     <>
-      <Suspense fallback={<Loader data-testid="loader" size="3xlarge" />}>
+      <Suspense
+        fallback={
+          <Loader
+            data-testid="loader"
+            size="3xlarge"
+            title="Ett øyeblikk, vi henter informasjon om din offentlig tjenestepensjon"
+          />
+        }
+      >
         <Await
           resolve={loaderData.getTpoMedlemskapQuery}
           // errorElement={} //TODO hva gjør vi når kall til tp-registret feiler?

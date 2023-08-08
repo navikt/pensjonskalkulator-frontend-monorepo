@@ -3,10 +3,12 @@
 exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
 <DocumentFragment>
   <section
+    aria-live="polite"
     class="_section_645946 _section__largePadding_645946"
   >
     <h2
-      class="navds-heading navds-heading--large navds-typo--spacing"
+      class="_heading_f5c4aa navds-heading navds-heading--large navds-typo--spacing"
+      tabindex="-1"
     >
       stegvisning.offentligtp.title
     </h2>

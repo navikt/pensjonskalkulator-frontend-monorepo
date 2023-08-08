@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { FormattedMessage } from 'react-intl'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
@@ -20,6 +20,11 @@ export function OffentligTP({
   onNext,
   shouldJumpOverStep,
 }: Props) {
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  useEffect(() => {
+    headingRef.current?.focus()
+  }, [])
+
   useEffect(() => {
     if (shouldJumpOverStep) {
       onNext()
@@ -27,8 +32,15 @@ export function OffentligTP({
   }, [shouldJumpOverStep])
 
   return (
-    <ResponsiveCard hasLargePadding>
-      <Heading size="large" level="2" spacing>
+    <ResponsiveCard aria-live="polite" hasLargePadding>
+      <Heading
+        ref={headingRef}
+        className={styles.heading}
+        level="2"
+        size="large"
+        tabIndex={-1}
+        spacing
+      >
         <FormattedMessage id="stegvisning.offentligtp.title" />
       </Heading>
       <BodyLong spacing>

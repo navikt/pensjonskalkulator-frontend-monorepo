@@ -7,7 +7,6 @@ const translations = {
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
-  'stegvisning.start.bildetekst': 'Bilde av veilederen Frida',
   'stegvisning.start.start': 'Kom i gang',
   'stegvisning.samtykke.title': 'Pensjonen din',
   'stegvisning.samtykke.ingress':

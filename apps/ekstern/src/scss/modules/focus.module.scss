@@ -1,0 +1,8 @@
+@import '../variables';
+
+.hiddenfocus {
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+}

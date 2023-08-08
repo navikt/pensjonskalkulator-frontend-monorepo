@@ -4,10 +4,12 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
 <DocumentFragment>
   <form>
     <section
+      aria-live="polite"
       class="_section_645946 _section__largePadding_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="_heading_885e37 navds-heading navds-heading--large navds-typo--spacing"
+        tabindex="-1"
       >
         stegvisning.sivilstand.title
       </h2>

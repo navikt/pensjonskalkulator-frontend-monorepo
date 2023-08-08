@@ -4,10 +4,12 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
 <DocumentFragment>
   <form>
     <section
+      aria-live="polite"
       class="_section_645946 _section__largePadding_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="_heading_5b4738 navds-heading navds-heading--large navds-typo--spacing"
+        tabindex="-1"
       >
         stegvisning.samtykke.title
       </h2>
