@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import { BodyShort, Button, Heading } from '@navikt/ds-react'
+import { Button } from '@navikt/ds-react'
 
 import { paths } from '@/routes'
 import { useAppDispatch } from '@/state/hooks'

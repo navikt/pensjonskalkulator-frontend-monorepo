@@ -91,7 +91,6 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         type="submit"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.beregn
@@ -102,7 +101,6 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.tilbake
@@ -113,7 +111,6 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.avbryt
