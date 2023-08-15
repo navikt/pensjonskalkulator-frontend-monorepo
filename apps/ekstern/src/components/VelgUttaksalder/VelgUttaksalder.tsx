@@ -39,51 +39,55 @@ export const VelgUttaksalder: React.FC<Props> = ({
 
   return (
     <div className={styles.wrapper}>
-      <span ref={pinRef} className={styles.pin}></span>
-      <Heading size="xsmall" level="2">
-        Når vil du ta ut alderspensjon?
-      </Heading>
-      <Chips className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}>
-        {formaterteAldere
-          .slice(
-            0,
-            isFlereAldereOpen
-              ? formaterteAldere.length
-              : defaultAntallSynligeAldere
-          )
-          .map((alderChip) => (
-            <Chips.Toggle
-              selected={valgtUttaksalder === alderChip}
-              checkmark={false}
-              key={alderChip}
-              onClick={() => onAlderClick(alderChip)}
-            >
-              {alderChip}
-            </Chips.Toggle>
-          ))}
-      </Chips>
-      {formaterteAldere.length > defaultAntallSynligeAldere && (
-        <Button
-          className={styles.visFlereAldere}
-          icon={
-            isFlereAldereOpen ? (
-              <ChevronUpIcon aria-hidden />
-            ) : (
-              <ChevronDownIcon aria-hidden />
-            )
-          }
-          iconPosition="left"
-          size="xsmall"
-          variant="tertiary"
-          onClick={() => {
-            setIsFlereAldereOpen((prevState) => !prevState)
-          }}
+      <div className={styles.wrapperCard}>
+        <span ref={pinRef} className={styles.pin}></span>
+        <Heading size="xsmall" level="2">
+          Når vil du ta ut alderspensjon?
+        </Heading>
+        <Chips
+          className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >
-          {isFlereAldereOpen
-            ? visFlereAldereLabelOpen
-            : visFlereAldereLabelClose}
-        </Button>
-      )}
+          {formaterteAldere
+            .slice(
+              0,
+              isFlereAldereOpen
+                ? formaterteAldere.length
+                : defaultAntallSynligeAldere
+            )
+            .map((alderChip) => (
+              <Chips.Toggle
+                selected={valgtUttaksalder === alderChip}
+                checkmark={false}
+                key={alderChip}
+                onClick={() => onAlderClick(alderChip)}
+              >
+                {alderChip}
+              </Chips.Toggle>
+            ))}
+        </Chips>
+        {formaterteAldere.length > defaultAntallSynligeAldere && (
+          <Button
+            className={styles.visFlereAldere}
+            icon={
+              isFlereAldereOpen ? (
+                <ChevronUpIcon aria-hidden />
+              ) : (
+                <ChevronDownIcon aria-hidden />
+              )
+            }
+            iconPosition="left"
+            size="xsmall"
+            variant="tertiary"
+            onClick={() => {
+              setIsFlereAldereOpen((prevState) => !prevState)
+            }}
+          >
+            {isFlereAldereOpen
+              ? visFlereAldereLabelOpen
+              : visFlereAldereLabelClose}
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

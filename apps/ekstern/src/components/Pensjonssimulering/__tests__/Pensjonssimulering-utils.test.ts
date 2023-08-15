@@ -3,7 +3,6 @@ import {
   TooltipFormatterContextObject,
   Chart,
   Point,
-  PointClickEventObject,
 } from 'highcharts'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -14,20 +13,20 @@ import {
   simulateDataArray,
   simulateTjenestepensjon,
   generateXAxis,
-  labelFormatter,
+  labelFormatterDesktop,
+  labelFormatterMobile,
   getTooltipTitle,
   tooltipFormatter,
   getHoverColor,
   getNormalColor,
   onPointClick,
-  onChartClick,
+  onPointUnclick,
   getChartOptions,
   onVisFlereAarClick,
   onVisFaerreAarClick,
   ExtendedAxis,
   ExtendedPoint,
   handleChartScroll,
-  removeHandleChartScrollEventListener,
 } from '../utils'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
@@ -35,6 +34,7 @@ import globalClassNames from './Pensjonssimulering.module.scss'
 describe('Pensjonssimulering-utils', () => {
   afterEach(() => {
     document.getElementsByTagName('html')[0].innerHTML = ''
+    vi.resetAllMocks()
   })
 
   describe('simulateDataArray', () => {
@@ -137,27 +137,56 @@ describe('Pensjonssimulering-utils', () => {
     })
   })
 
-  describe('labelFormatter', () => {
+  describe('labelFormatterMobile', () => {
     it('returnerer riktig streng når verdien er under 1000', () => {
-      const thisIsThat = {
+      const a = labelFormatterMobile.bind({
         value: 300,
-      } as AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('300')
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('300')
     })
     it('returnerer riktig streng når verdien er lik 1000', () => {
-      const thisIsThat = {
+      const a = labelFormatterMobile.bind({
         value: 1000,
-      } as AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('1000')
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1000')
     })
     it('returnerer riktig streng når verdien er over 1000', () => {
-      const thisIsThat = {
+      const a = labelFormatterMobile.bind({
         value: 1000000,
-      } as AxisLabelsFormatterContextObject
-      const a = labelFormatter.bind(thisIsThat)
-      expect(a()).toBe('1000')
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1000')
+    })
+    it('returnerer riktig når verdien er av type streng', () => {
+      const a = labelFormatterMobile.bind({
+        value: '1000000',
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1000')
+    })
+  })
+  describe('labelFormatterDesktop', () => {
+    it('returnerer riktig streng når verdien er under 1000', () => {
+      const a = labelFormatterDesktop.bind({
+        value: 300,
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('300')
+    })
+    it('returnerer riktig streng når verdien er lik 1000', () => {
+      const a = labelFormatterDesktop.bind({
+        value: 1000,
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1 000')
+    })
+    it('returnerer riktig streng når verdien er over 1000', () => {
+      const a = labelFormatterDesktop.bind({
+        value: 1000000,
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1 000 000')
+    })
+    it('returnerer riktig når verdien er av type streng', () => {
+      const a = labelFormatterDesktop.bind({
+        value: '1000000',
+      } as AxisLabelsFormatterContextObject)
+      expect(a()).toEqual('1 000 000')
     })
   })
 
@@ -195,43 +224,87 @@ describe('Pensjonssimulering-utils', () => {
       const total = 800000
       const colorSerie1 = 'lime'
       const colorSerie2 = 'salmon'
+      const plotY = 68
       const pointSumSerie1 = 200000
       const pointSumSerie2 = 350000
 
-      const beregnetLinePosition = 'top: 265px; left: 167px; height: 100px'
+      const beregnetLinePosition = 'top: 130px; left: 34px; height: 19px'
       const beregnetLinePositionAfterScroll =
-        'top: 265px; left: 117px; height: 100px'
+        'top: 130px; left: -16px; height: 19px'
 
-      const point = {
+      const simplePoint = {
         y: pointSumSerie1,
+        percentage: 20,
         total,
         series: {
           name: SERIE_NAME_INNTEKT,
           color: colorSerie1,
-          chart: { yAxis: [{ pos: 300 } as ExtendedAxis] },
-          yAxis: { height: 400 } as ExtendedAxis,
+          yAxis: { height: 171 } as ExtendedAxis,
         },
-        point: {
-          plotX: 129,
-          tooltipPos: [50, 100, 120],
-          series: { data: ['70', '71', '72', '73', '74', '75', '76', '77+'] },
-        } as ExtendedPoint,
       }
 
       const context = {
+        point: { plotY },
         x: alder,
         points: [
           {
-            ...point,
-          },
-          {
-            ...point,
-            y: pointSumSerie2,
+            y: pointSumSerie1,
+            percentage: 20,
+            total,
             series: {
-              ...point.series,
-              name: SERIE_NAME_ALDERSPENSJON,
-              color: colorSerie2,
+              name: SERIE_NAME_INNTEKT,
+              color: colorSerie1,
+              chart: {
+                chartHeight: 400,
+                plotLeft: 35,
+                series: [
+                  {
+                    name: SERIE_NAME_INNTEKT,
+                    color: colorSerie1,
+                    chart: { chartHeight: 400, plotLeft: 35 },
+                    data: [
+                      {
+                        ...simplePoint,
+                      },
+                      {
+                        ...simplePoint,
+                        y: pointSumSerie2,
+                        series: {
+                          ...simplePoint.series,
+                          name: SERIE_NAME_ALDERSPENSJON,
+                          color: colorSerie2,
+                        },
+                      },
+                    ],
+                  },
+                  {
+                    name: SERIE_NAME_ALDERSPENSJON,
+                    color: colorSerie2,
+                    chart: { chartHeight: 400, plotLeft: 35 },
+                    data: [
+                      {
+                        ...simplePoint,
+                      },
+                      {
+                        ...simplePoint,
+                        y: pointSumSerie2,
+                        series: {
+                          ...simplePoint.series,
+                          name: SERIE_NAME_ALDERSPENSJON,
+                          color: colorSerie2,
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
             },
+            point: {
+              plotX: 129,
+              series: {
+                data: ['70', '71', '72', '73', '74', '75', '76', '77+'],
+              },
+            } as ExtendedPoint,
           },
         ],
       }
@@ -296,8 +369,12 @@ describe('Pensjonssimulering-utils', () => {
     })
   })
 
-  describe('onPointClick og onChartClick', () => {
+  describe('onPointClick og onPointUnclick', () => {
     const pointUpdateMock = vi.fn()
+    const redrawMock = vi.fn()
+    const tooltipHideMock = vi.fn()
+    const tooltipUpdateMock = vi.fn()
+
     const data1 = [
       {
         index: 0,
@@ -351,6 +428,7 @@ describe('Pensjonssimulering-utils', () => {
     ]
 
     const chart = {
+      tooltip: { isHidden: false, update: tooltipUpdateMock },
       series: [
         {
           data: [...data1],
@@ -379,8 +457,8 @@ describe('Pensjonssimulering-utils', () => {
 
     describe('onPointClick', () => {
       it('oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis', () => {
-        const redrawMock = vi.fn()
         const point = {
+          index: 0,
           series: {
             chart: {
               ...chart,
@@ -388,8 +466,8 @@ describe('Pensjonssimulering-utils', () => {
             } as unknown as Chart,
           },
         } as Point
-        const event = { point: { index: 0 } } as PointClickEventObject
-        onPointClick.call(point, event)
+        onPointClick.call(point)
+        expect(tooltipUpdateMock).toHaveBeenCalled()
         expect(pointUpdateMock).toHaveBeenCalledTimes(3)
         expect(pointUpdateMock.mock.calls).toEqual([
           [{ color: 'var(--a-deepblue-200)' }, false],
@@ -402,144 +480,233 @@ describe('Pensjonssimulering-utils', () => {
         ).toMatchSnapshot()
         expect(redrawMock).toHaveBeenCalledOnce()
       })
+
+      describe('onPointUnclick', () => {
+        it('gjør ingenting når chart ikke er klar', () => {
+          expect(onPointUnclick({} as MouseEvent, undefined)).toBe(undefined)
+        })
+
+        it('gjør ingenting når brukeren klikker på et chart point', () => {
+          const event = { chartX: 123, point: {} as unknown as Point }
+          expect(
+            onPointUnclick(
+              event as unknown as MouseEvent,
+              { ...chart } as unknown as Chart
+            )
+          ).toBe(undefined)
+        })
+
+        it('kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor en chart point', () => {
+          vi.useFakeTimers()
+          const chartWithSelection = {
+            ...chart,
+            redraw: redrawMock,
+            tooltip: { hide: tooltipHideMock, isHidden: false },
+          } as unknown as Chart
+          onPointUnclick(
+            { chartX: 123 } as unknown as MouseEvent,
+            chartWithSelection
+          )
+          vi.advanceTimersByTime(150)
+          expect(pointUpdateMock).toHaveBeenCalledTimes(3)
+          expect(pointUpdateMock.mock.calls).toEqual([
+            [{ color: 'var(--a-deepblue-500)' }, false],
+            [{ color: 'var(--a-green-400)' }, false],
+            [{ color: 'var(--a-purple-400)' }, false],
+          ])
+          expect(
+            (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
+              .childNodes
+          ).toMatchSnapshot()
+          expect(redrawMock).toHaveBeenCalledOnce()
+          expect(tooltipHideMock).toHaveBeenCalledOnce()
+        })
+
+        it('kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor plot area og at tooltip er skjult', () => {
+          vi.useFakeTimers()
+          const chartWithSelection = {
+            ...chart,
+            redraw: redrawMock,
+            tooltip: { hide: tooltipHideMock, isHidden: true },
+          } as unknown as Chart
+          onPointUnclick({} as unknown as MouseEvent, chartWithSelection)
+          vi.advanceTimersByTime(150)
+          expect(pointUpdateMock).toHaveBeenCalledTimes(3)
+          expect(pointUpdateMock.mock.calls).toEqual([
+            [{ color: 'var(--a-deepblue-500)' }, false],
+            [{ color: 'var(--a-green-400)' }, false],
+            [{ color: 'var(--a-purple-400)' }, false],
+          ])
+          expect(
+            (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
+              .childNodes
+          ).toMatchSnapshot()
+          expect(redrawMock).toHaveBeenCalledOnce()
+          expect(tooltipHideMock).toHaveBeenCalledOnce()
+        })
+      })
     })
 
-    describe('onChartClick', () => {
-      it('nullstiller fargene og label på xAxis', () => {
-        const redrawMock = vi.fn()
-        const tooltipHideMock = vi.fn()
+    describe('getChartOptions', () => {
+      it('returnerer riktig default options', () => {
+        const options = getChartOptions(
+          {} as Partial<typeof globalClassNames>,
+          vi.fn(),
+          vi.fn()
+        )
+        expect(options).toMatchSnapshot()
+      })
+    })
+
+    describe('onVisFlereAarClick og onVisFaerreAarClick', () => {
+      it('finner riktig element og øker scrollLeft', () => {
+        const div = document.createElement('div')
+        div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
+        document.body.appendChild(div)
+        expect(div.scrollLeft).toBe(0)
+        onVisFlereAarClick()
+        expect(
+          (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+            .scrollLeft
+        ).toBe(50)
+        onVisFlereAarClick()
+        expect(
+          (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+            .scrollLeft
+        ).toBe(100)
+        onVisFaerreAarClick()
+        expect(
+          (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+            .scrollLeft
+        ).toBe(50)
+        onVisFaerreAarClick()
+        expect(
+          (document.querySelector(highchartsScrollingSelector) as HTMLElement)
+            .scrollLeft
+        ).toBe(0)
+      })
+    })
+
+    describe('handleChartScroll', () => {
+      it('skjuler tooltip og kaller resetColumnColors når brukeren ikke beveger scroll-posisjonen allikevel', () => {
+        vi.useFakeTimers()
+        const showRightButtonMock = vi.fn()
+        const showLeftButtonMock = vi.fn()
+        const mockedEvent = {
+          currentTarget: {
+            scrollLeft: 150,
+            handleButtonVisibility: {
+              showRightButton: showRightButtonMock,
+              showLeftButton: showLeftButtonMock,
+            },
+          },
+        }
         const chartWithSelection = {
           ...chart,
           redraw: redrawMock,
-          tooltip: { hide: tooltipHideMock },
+          tooltip: { hide: tooltipHideMock, isHidden: false },
         } as unknown as Chart
-        onChartClick.call(chartWithSelection)
-        expect(pointUpdateMock).toHaveBeenCalledTimes(6)
-        expect(pointUpdateMock.mock.calls.slice(3, 6)).toEqual([
-          [{ color: 'var(--a-deepblue-500)' }, false],
-          [{ color: 'var(--a-green-400)' }, false],
-          [{ color: 'var(--a-purple-400)' }, false],
-        ])
-        expect(
-          (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
-            .childNodes
-        ).toMatchSnapshot()
+        handleChartScroll(mockedEvent as unknown as Event, {
+          chart: { ...chartWithSelection } as unknown as Chart,
+          scrollPosition: 100,
+        })
+        vi.advanceTimersByTime(150)
         expect(redrawMock).toHaveBeenCalledOnce()
         expect(tooltipHideMock).toHaveBeenCalledOnce()
       })
-    })
-  })
+      describe('Gitt at brukeren scroller', () => {
+        it('Viser ingen knapp når det ikke er mer innhold og at graffens scroll posisjon er på 0', () => {
+          const showRightButtonMock = vi.fn()
+          const showLeftButtonMock = vi.fn()
 
-  describe('getChartOptions', () => {
-    it('returnerer riktig default options', () => {
-      const options = getChartOptions(
-        {} as Partial<typeof globalClassNames>,
-        vi.fn(),
-        vi.fn()
-      )
-      expect(options).toMatchSnapshot()
-    })
-  })
+          const mockedEvent = {
+            currentTarget: {
+              scrollLeft: 0,
+              scrollWidth: 366,
+              offsetWidth: 366,
+              handleButtonVisibility: {
+                showRightButton: showRightButtonMock,
+                showLeftButton: showLeftButtonMock,
+              },
+            },
+          }
+          handleChartScroll(mockedEvent as unknown as Event, {
+            chart: undefined,
+            scrollPosition: undefined,
+          })
+          expect(showRightButtonMock).toHaveBeenCalledWith(false)
+          expect(showLeftButtonMock).toHaveBeenCalledWith(false)
+        })
 
-  describe('onVisFlereAarClick og onVisFaerreAarClick', () => {
-    it('finner riktig element og øker scrollLeft', () => {
-      const div = document.createElement('div')
-      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
-      document.body.appendChild(div)
-      expect(div.scrollLeft).toBe(0)
-      onVisFlereAarClick()
-      expect(
-        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
-          .scrollLeft
-      ).toBe(50)
-      onVisFlereAarClick()
-      expect(
-        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
-          .scrollLeft
-      ).toBe(100)
-      onVisFaerreAarClick()
-      expect(
-        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
-          .scrollLeft
-      ).toBe(50)
-      onVisFaerreAarClick()
-      expect(
-        (document.querySelector(highchartsScrollingSelector) as HTMLElement)
-          .scrollLeft
-      ).toBe(0)
-    })
-  })
+        it('Viser Flere år knapp og skjuler Færre år knapp når det er mer innhold og at graffens scroll posisjon er på 0', () => {
+          const showRightButtonMock = vi.fn()
+          const showLeftButtonMock = vi.fn()
 
-  describe('handleChartScroll', () => {
-    it('Viser Flere år knapp og skjuler Færre år knapp når graffens scroll posisjon er på 0', () => {
-      const showRightButtonMock = vi.fn()
-      const showLeftButtonMock = vi.fn()
+          const mockedEvent = {
+            currentTarget: {
+              scrollLeft: 0,
+              scrollWidth: 500,
+              offsetWidth: 366,
+              handleButtonVisibility: {
+                showRightButton: showRightButtonMock,
+                showLeftButton: showLeftButtonMock,
+              },
+            },
+          }
+          handleChartScroll(mockedEvent as unknown as Event, {
+            chart: undefined,
+            scrollPosition: undefined,
+          })
+          expect(showRightButtonMock).toHaveBeenCalledWith(true)
+          expect(showLeftButtonMock).toHaveBeenCalledWith(false)
+        })
 
-      const mockedEvent = {
-        currentTarget: {
-          scrollLeft: 0,
-          handleButtonVisibility: {
-            showRightButton: showRightButtonMock,
-            showLeftButton: showLeftButtonMock,
-          },
-        },
-      }
-      handleChartScroll(mockedEvent as unknown as Event)
-      expect(showRightButtonMock).toHaveBeenCalledWith(true)
-      expect(showLeftButtonMock).toHaveBeenCalledWith(false)
-    })
+        it('Skjuler Flere år knapp og viser Færre år knapp når graffens scroll posisjon er på maks', () => {
+          const showRightButtonMock = vi.fn()
+          const showLeftButtonMock = vi.fn()
 
-    it('Skjuler Flere år knapp og viser Færre år knapp når graffens scroll posisjon er på maks', () => {
-      const showRightButtonMock = vi.fn()
-      const showLeftButtonMock = vi.fn()
+          const mockedEvent = {
+            currentTarget: {
+              scrollLeft: 50,
+              offsetWidth: 450,
+              scrollWidth: 500,
+              handleButtonVisibility: {
+                showRightButton: showRightButtonMock,
+                showLeftButton: showLeftButtonMock,
+              },
+            },
+          }
+          handleChartScroll(mockedEvent as unknown as Event, {
+            chart: undefined,
+            scrollPosition: undefined,
+          })
+          expect(showRightButtonMock).toHaveBeenCalledWith(false)
+          expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+        })
 
-      const mockedEvent = {
-        currentTarget: {
-          scrollLeft: 50,
-          offsetWidth: 450,
-          scrollWidth: 500,
-          handleButtonVisibility: {
-            showRightButton: showRightButtonMock,
-            showLeftButton: showLeftButtonMock,
-          },
-        },
-      }
-      handleChartScroll(mockedEvent as unknown as Event)
-      expect(showRightButtonMock).toHaveBeenCalledWith(false)
-      expect(showLeftButtonMock).toHaveBeenCalledWith(true)
-    })
+        it('Viser både Flere år knapp og Færre år knapp når graffens scroll posisjon er et sted i midten', () => {
+          const showRightButtonMock = vi.fn()
+          const showLeftButtonMock = vi.fn()
 
-    it('Viser både Flere år knapp og Færre år knapp når graffens scroll posisjon er et sted i midten', () => {
-      const showRightButtonMock = vi.fn()
-      const showLeftButtonMock = vi.fn()
-
-      const mockedEvent = {
-        currentTarget: {
-          scrollLeft: 50,
-          offsetWidth: 100,
-          scrollWidth: 500,
-          handleButtonVisibility: {
-            showRightButton: showRightButtonMock,
-            showLeftButton: showLeftButtonMock,
-          },
-        },
-      }
-      handleChartScroll(mockedEvent as unknown as Event)
-      expect(showRightButtonMock).toHaveBeenCalledWith(true)
-      expect(showLeftButtonMock).toHaveBeenCalledWith(true)
-    })
-  })
-
-  describe('removeHandleChartScrollEventListener', () => {
-    it('Fjerner listener når elementet finnes i dom1en', () => {
-      const fnMock = vi.fn()
-      const div = document.createElement('div')
-      div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'
-      document.body.appendChild(div)
-      const el = document.querySelector('.highcharts-scrolling')
-      ;(el as Element).removeEventListener = fnMock
-      removeHandleChartScrollEventListener()
-      expect(fnMock).toHaveBeenCalled()
+          const mockedEvent = {
+            currentTarget: {
+              scrollLeft: 50,
+              offsetWidth: 100,
+              scrollWidth: 500,
+              handleButtonVisibility: {
+                showRightButton: showRightButtonMock,
+                showLeftButton: showLeftButtonMock,
+              },
+            },
+          }
+          handleChartScroll(mockedEvent as unknown as Event, {
+            chart: undefined,
+            scrollPosition: undefined,
+          })
+          expect(showRightButtonMock).toHaveBeenCalledWith(true)
+          expect(showLeftButtonMock).toHaveBeenCalledWith(true)
+        })
+      })
     })
   })
 })
