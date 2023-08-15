@@ -48,7 +48,7 @@ export function Sivilstand({
 
   return (
     <form onSubmit={onSubmit}>
-      <ResponsiveCard aria-live="polite" hasLargePadding>
+      <ResponsiveCard aria-live="polite" hasLargePadding hasMargin>
         <Heading level="2" size="large" spacing>
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>

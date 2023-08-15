@@ -27,7 +27,7 @@ export function OffentligTP({
   }, [shouldJumpOverStep])
 
   return (
-    <ResponsiveCard aria-live="polite" hasLargePadding>
+    <ResponsiveCard aria-live="polite" hasLargePadding hasMargin>
       <Heading level="2" size="large" spacing>
         <FormattedMessage id="stegvisning.offentligtp.title" />
       </Heading>

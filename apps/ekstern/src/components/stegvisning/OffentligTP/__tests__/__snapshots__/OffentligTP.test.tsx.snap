@@ -4,7 +4,7 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
 <DocumentFragment>
   <section
     aria-live="polite"
-    class="_section_645946 _section__largePadding_645946"
+    class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
   >
     <h2
       class="navds-heading navds-heading--large navds-typo--spacing"

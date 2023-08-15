@@ -18,7 +18,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
   const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
 
   return (
-    <ResponsiveCard hasLargePadding>
+    <ResponsiveCard hasLargePadding hasMargin>
       <div className={styles.wrapper}>
         <img className={styles.image} src={FridaPortrett} alt="" />
         <div className={styles.wrapperText}>
