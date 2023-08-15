@@ -138,7 +138,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         </div>
       </div>
       <ReadMore
-        header={isVisTabellOpen ? 'Lukk tabell' : 'Vis tabell'}
+        header={
+          isVisTabellOpen
+            ? 'Lukk tabell av beregningen'
+            : 'Vis tabell av beregningen'
+        }
         className={styles.visTabell}
         open={isVisTabellOpen}
         onClick={() => {
