@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
 import { Button, ReadMore } from '@navikt/ds-react'
@@ -8,6 +8,11 @@ import HighchartsReact from 'highcharts-react-official'
 import { TabellVisning } from '@/components/TabellVisning'
 
 import {
+  AFP_DATA,
+  COLUMN_WIDTH,
+  FOLKETRYGDEN_DATA,
+  MAX_UTTAKSALDER,
+  PENSJONSGIVENDE_DATA,
   SERIE_NAME_INNTEKT,
   SERIE_NAME_AFP,
   SERIE_NAME_TP,
@@ -16,18 +21,13 @@ import {
   SERIE_COLOR_AFP,
   SERIE_COLOR_TP,
   SERIE_COLOR_ALDERSPENSJON,
-  COLUMN_WIDTH,
-  MAX_UTTAKSALDER,
-  AFP_DATA,
-  FOLKETRYGDEN_DATA,
   getChartOptions,
   generateXAxis,
+  onPointUnclick,
   onVisFaerreAarClick,
   onVisFlereAarClick,
-  PENSJONSGIVENDE_DATA,
   simulateDataArray,
   simulateTjenestepensjon,
-  removeHandleChartScrollEventListener,
 } from './utils'
 
 import styles from './Pensjonssimulering.module.scss'
@@ -46,9 +46,15 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
     getChartOptions(styles, setShowVisFlereAarButton, setShowVisFaerreAarButton)
   )
   const [isVisTabellOpen, setVisTabellOpen] = useState<boolean>(false)
+  const chartRef = useRef<HighchartsReact.RefObject>(null)
 
   useEffect(() => {
-    return removeHandleChartScrollEventListener
+    function onPointUnclickEventHandler(e: Event) {
+      onPointUnclick(e, chartRef.current?.chart)
+    }
+    document.addEventListener('click', onPointUnclickEventHandler)
+    return () =>
+      document.removeEventListener('click', onPointUnclickEventHandler)
   }, [])
 
   useEffect(() => {
@@ -104,7 +110,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
 
   return (
     <section className={styles.section}>
-      <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+      <HighchartsReact
+        ref={chartRef}
+        highcharts={Highcharts}
+        options={chartOptions}
+      />
       <div className={styles.buttonRow}>
         <div className={styles.buttonRowElement}>
           {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
@@ -138,7 +148,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         </div>
       </div>
       <ReadMore
-        header={isVisTabellOpen ? 'Lukk tabell' : 'Vis tabell'}
+        header={
+          isVisTabellOpen
+            ? 'Lukk tabell av beregningen'
+            : 'Vis tabell av beregningen'
+        }
         className={styles.visTabell}
         open={isVisTabellOpen}
         onClick={() => {

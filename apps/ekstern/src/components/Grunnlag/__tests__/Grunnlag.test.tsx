@@ -1,9 +1,9 @@
 import { waitFor } from '@testing-library/react'
 
 import { Grunnlag } from '@/components/Grunnlag'
+import { SectionSkeleton } from '@/components/Grunnlag/sections/components/SectionSkeleton'
 import { mockErrorResponse } from '@/mocks/server'
 import { render, screen } from '@/test-utils'
-import { SectionSkeleton } from '@/components/Grunnlag/sections/components/SectionSkeleton'
 
 describe('Grunnlag', () => {
   it('viser tidligst mulig uttak', async () => {

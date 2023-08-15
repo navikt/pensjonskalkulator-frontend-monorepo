@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@navikt/ds-react'
 
-import { externalsUrls, paths } from '@/routes'
+import { externalUrls, paths } from '@/routes'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -18,7 +18,7 @@ export function TilbakeEllerAvslutt() {
   }
 
   const onCancelClick = (): void => {
-    window.location.href = externalsUrls.dinPensjon
+    window.location.href = externalUrls.dinPensjon
   }
 
   return (

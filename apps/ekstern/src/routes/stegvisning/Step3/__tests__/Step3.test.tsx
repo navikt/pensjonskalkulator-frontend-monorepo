@@ -40,6 +40,14 @@ describe('Step 3', () => {
     }
   )
 
+  it('har riktig sidetittel', () => {
+    render(<RouterProvider router={router} />, {
+      preloadedState: mockedState as RootState,
+      hasRouter: false,
+    })
+    expect(document.title).toBe('application.title.stegvisning.step3')
+  })
+
   it('sender videre til steg 4 når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()

@@ -9,7 +9,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
       class="_headerGroup_4532c9"
     >
       <h1
-        class="_headerGroupTitle_4532c9 navds-heading navds-heading--xlarge"
+        class="_headerGroupTitle_4532c9 _headerGroupTitle__isFramed_4532c9 navds-heading navds-heading--xlarge"
       >
         application.title
       </h1>
@@ -93,20 +93,18 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
         class="_button_bc1ea0 navds-button navds-button--primary navds-button--medium"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
-          errorpage.404.button_1
+          errorpage.404.button.primary
         </span>
       </button>
       <button
         class="_button_bc1ea0 navds-button navds-button--secondary navds-button--medium"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
-          errorpage.404.button_2
+          errorpage.404.button.secondary
         </span>
       </button>
     </section>

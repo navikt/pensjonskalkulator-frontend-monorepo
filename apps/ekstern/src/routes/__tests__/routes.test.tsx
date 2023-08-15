@@ -304,6 +304,42 @@ describe('routes', () => {
     })
   })
 
+  describe(`${BASE_PATH}${paths.forbehold}`, () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      store.getState = vi.fn().mockImplementation(() => ({
+        api: {},
+        userInput: { ...userInputInitialState },
+      }))
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.forbehold}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.start.start')
+      ).toBeInTheDocument()
+    })
+
+    it('viser forbehold siden når brukeren kommer til steget gjennom stegvisningen', async () => {
+      store.getState = vi.fn().mockImplementation(() => ({
+        api: {
+          ...fakeApiCalls,
+        },
+        userInput: { ...userInputInitialState, samtykke: true },
+      }))
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.forbehold}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      expect(await screen.findByText('Forbehold')).toBeInTheDocument()
+    })
+  })
+
   it('Uregistrerte url med path /pensjon/kalkulator sender til 404 siden', () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,

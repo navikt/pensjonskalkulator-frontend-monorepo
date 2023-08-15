@@ -1,7 +1,12 @@
+import { Link as ReactRouterLink } from 'react-router-dom'
+
 import { BodyLong, Heading, Link } from '@navikt/ds-react'
+
+import { paths } from '@/routes'
 
 import styles from './Forbehold.module.scss'
 
+// TODO skrive tester
 export function Forbehold() {
   return (
     <section className={styles.section}>
@@ -16,7 +21,9 @@ export function Forbehold() {
         pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt.
         Beregningen er ikke juridisk bindende.
       </BodyLong>
-      <Link>Alle forbehold</Link>
+      <Link as={ReactRouterLink} to={paths.forbehold}>
+        Alle forbehold
+      </Link>
     </section>
   )
 }

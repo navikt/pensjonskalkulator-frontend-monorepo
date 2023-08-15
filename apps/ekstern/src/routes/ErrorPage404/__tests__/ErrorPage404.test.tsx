@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { ErrorPage404 } from '..'
-import { externalsUrls } from '@/routes'
+import { externalUrls } from '@/routes'
 import { render, screen, userEvent } from '@/test-utils'
 
 const realLocation = window.location
@@ -27,7 +27,7 @@ describe('ErrorPage404', () => {
     )
     render(<ErrorPage404 />)
 
-    await user.click(screen.getByText('errorpage.404.button_1'))
+    await user.click(screen.getByText('errorpage.404.button.primary'))
     expect(navigateMock).toHaveBeenCalledWith(-1)
   })
 
@@ -44,7 +44,7 @@ describe('ErrorPage404', () => {
 
     render(<ErrorPage404 />)
 
-    await user.click(screen.getByText('errorpage.404.button_2'))
-    expect(window.location.href).toBe(externalsUrls.dinPensjon)
+    await user.click(screen.getByText('errorpage.404.button.secondary'))
+    expect(window.location.href).toBe(externalUrls.dinPensjon)
   })
 })

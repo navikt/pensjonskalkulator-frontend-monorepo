@@ -5,7 +5,7 @@ import { Button, Heading, List } from '@navikt/ds-react'
 
 import { PageFramework } from '@/components/components/PageFramework'
 import { ResponsiveCard } from '@/components/components/ResponsiveCard'
-import { externalsUrls } from '@/routes'
+import { externalUrls } from '@/routes'
 
 import styles from './ErrorPage404.module.scss'
 
@@ -36,16 +36,16 @@ export function ErrorPage404() {
             navigate(-1)
           }}
         >
-          <FormattedMessage id="errorpage.404.button_1" />
+          <FormattedMessage id="errorpage.404.button.primary" />
         </Button>
         <Button
           className={styles.button}
           variant="secondary"
           onClick={() => {
-            window.location.href = externalsUrls.dinPensjon
+            window.location.href = externalUrls.dinPensjon
           }}
         >
-          <FormattedMessage id="errorpage.404.button_2" />
+          <FormattedMessage id="errorpage.404.button.secondary" />
         </Button>
       </ResponsiveCard>
     </PageFramework>
