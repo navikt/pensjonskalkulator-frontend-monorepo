@@ -56,7 +56,7 @@ export function Samtykke({
 
   return (
     <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
+      <ResponsiveCard hasLargePadding hasMargin>
         <Heading size="large" level="2" spacing>
           <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
