@@ -5,13 +5,19 @@ import clsx from 'clsx'
 import styles from './ResponsiveCard.module.scss'
 
 export const ResponsiveCard: React.FC<
-  React.HTMLAttributes<HTMLElement> & { hasLargePadding?: boolean }
-> = ({ className, children, hasLargePadding, ...elementProps }) => {
+  React.HTMLAttributes<HTMLElement> & {
+    hasLargePadding?: boolean
+    hasMargin?: boolean
+  }
+> = ({ className, children, hasLargePadding, hasMargin, ...elementProps }) => {
   return (
     <section
       className={clsx(
         styles.section,
-        { [styles.section__largePadding]: hasLargePadding },
+        {
+          [styles.section__largePadding]: hasLargePadding,
+          [styles.section__marginBotton]: hasMargin,
+        },
         className
       )}
       {...elementProps}

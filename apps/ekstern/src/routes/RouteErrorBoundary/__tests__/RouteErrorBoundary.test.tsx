@@ -27,7 +27,8 @@ describe('RouteErrorBoundary', () => {
       router.navigate('/denne/siden/finnes/ikke')
     })
 
-    expect(screen.getByText('Denne siden finnes ikke')).toBeVisible()
+    expect(screen.queryByTestId('error-boundary')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('error-page-404')).toBeInTheDocument()
   })
 
   it('rendrer feilmelding når det kastes en feil i children', () => {
