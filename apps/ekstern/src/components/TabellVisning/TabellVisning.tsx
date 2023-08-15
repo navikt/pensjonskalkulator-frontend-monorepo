@@ -70,7 +70,11 @@ export function TabellVisning({ series, aarArray }: Props) {
             </dl>
           )
           return (
-            <Table.ExpandableRow key={i} content={detaljerGrid}>
+            <Table.ExpandableRow
+              key={i}
+              content={detaljerGrid}
+              expandOnRowClick
+            >
               <Table.DataCell>{alder}</Table.DataCell>
               <Table.DataCell className={styles.detailsItemRight}>
                 {formatAsDecimal(sum)}
