@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { Ingress, Button, Heading } from '@navikt/ds-react'
@@ -16,26 +15,14 @@ interface Props {
 
 export function Start({ fornavn, onCancel, onNext }: Props) {
   const intl = useIntl()
-  const headingRef = useRef<HTMLHeadingElement>(null)
   const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
-
-  useEffect(() => {
-    headingRef.current?.focus()
-  }, [])
 
   return (
     <ResponsiveCard hasLargePadding>
       <div className={styles.wrapper}>
         <img className={styles.image} src={FridaPortrett} alt="" />
         <div className={styles.wrapperText}>
-          <Heading
-            ref={headingRef}
-            className={styles.heading}
-            level="2"
-            size="large"
-            tabIndex={-1}
-            spacing
-          >
+          <Heading level="2" size="large" spacing>
             {`${intl.formatMessage({
               id: 'stegvisning.start.title',
             })}${fornavnString}`}

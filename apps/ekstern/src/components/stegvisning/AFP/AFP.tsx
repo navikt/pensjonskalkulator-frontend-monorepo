@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useRef, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
@@ -28,13 +28,8 @@ export type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
 
 export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
-  const headingRef = useRef<HTMLHeadingElement>(null)
   const [validationError, setValidationError] = useState<string>('')
   const [showAlert, setShowAlert] = useState<AfpRadio | ''>('')
-
-  useEffect(() => {
-    headingRef.current?.focus()
-  }, [])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -61,14 +56,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   return (
     <form onSubmit={onSubmit}>
       <ResponsiveCard aria-live="polite" hasLargePadding>
-        <Heading
-          ref={headingRef}
-          className={styles.heading}
-          level="2"
-          size="large"
-          tabIndex={-1}
-          spacing
-        >
+        <Heading level="2" size="large" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
         <Ingress>

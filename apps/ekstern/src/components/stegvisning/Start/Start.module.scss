@@ -1,9 +1,5 @@
 @import '../../../scss/variables';
 
-.heading {
-  composes: hiddenfocus from '../../../scss/modules/focus.module.scss';
-}
-
 .wrapper {
   text-align: center;
 

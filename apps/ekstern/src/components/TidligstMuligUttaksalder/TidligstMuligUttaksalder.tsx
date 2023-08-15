@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from 'react'
+import { memo, useRef } from 'react'
 
 import { HelpText, Ingress } from '@navikt/ds-react'
 
@@ -14,10 +14,6 @@ interface Props {
 export const TidligstMuligUttaksalder: React.FC<Props> = memo(
   ({ uttaksalder }) => {
     const ingressRef = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-      ingressRef.current?.focus()
-    }, [])
 
     return (
       <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">

@@ -17,8 +17,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
         class="_wrapperText_09901f"
       >
         <h2
-          class="_heading_09901f navds-heading navds-heading--large navds-typo--spacing"
-          tabindex="-1"
+          class="navds-heading navds-heading--large navds-typo--spacing"
         >
           stegvisning.start.title Ola!
         </h2>
@@ -70,8 +69,7 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
         class="_wrapperText_09901f"
       >
         <h2
-          class="_heading_09901f navds-heading navds-heading--large navds-typo--spacing"
-          tabindex="-1"
+          class="navds-heading navds-heading--large navds-typo--spacing"
         >
           stegvisning.start.title!
         </h2>
