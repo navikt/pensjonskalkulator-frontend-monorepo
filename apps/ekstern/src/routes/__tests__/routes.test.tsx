@@ -347,7 +347,7 @@ describe('routes', () => {
     })
     swallowErrors(() => {
       render(<RouterProvider router={router} />, { hasRouter: false })
-      expect(screen.getByText('Denne siden finnes ikke')).toBeInTheDocument()
+      expect(screen.queryByTestId('error-page-404')).toBeInTheDocument()
     })
   })
 })
