@@ -1,0 +1,12 @@
+.button {
+  float: left;
+  clear: left;
+
+  &First {
+    margin-top: var(--a-spacing-3);
+  }
+
+  &Second {
+    margin-top: var(--a-spacing-4);
+  }
+}
