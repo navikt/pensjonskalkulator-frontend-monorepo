@@ -16,6 +16,10 @@ import { store } from '@/state/store'
 
 export const BASE_PATH = '/pensjon/kalkulator'
 
+export const externalUrls = {
+  dinPensjon: 'http://nav.no/pensjon',
+}
+
 export const paths = {
   root: '/',
   login: '/login',
