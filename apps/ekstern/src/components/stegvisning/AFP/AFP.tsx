@@ -56,7 +56,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
 
   return (
     <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
+      <ResponsiveCard hasLargePadding hasMargin>
         <Heading size="large" level="2" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
