@@ -3,6 +3,7 @@ import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
 import { PageFramework } from '@/components/components/PageFramework'
 import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
+import { Forbehold } from '@/routes/Forbehold'
 import { LandingPage } from '@/routes/LandingPage'
 import { RouteErrorBoundary } from '@/routes/RouteErrorBoundary'
 import { Step1 } from '@/routes/stegvisning/Step1'
@@ -24,6 +25,7 @@ export const paths = {
   afp: '/afp',
   sivilstand: '/sivilstand',
   beregning: '/beregning',
+  forbehold: '/forbehold',
 } as const
 
 const directAccessGuard = async () => {
@@ -77,6 +79,11 @@ export const routes: RouteObject[] = [
         path: paths.sivilstand,
         loader: directAccessGuard,
         element: <Step5 />,
+      },
+      {
+        path: paths.forbehold,
+        loader: directAccessGuard,
+        element: <Forbehold />,
       },
     ],
   },
