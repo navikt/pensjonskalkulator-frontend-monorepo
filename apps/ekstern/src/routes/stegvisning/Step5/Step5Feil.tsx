@@ -37,6 +37,10 @@ export function Step5Feil() {
   }
 
   return (
-    <ErrorStep isLoading={isLoading} onCancel={onCancel} onReload={onReload} />
+    <ErrorStep
+      isLoading={isLoading}
+      onPrimaryButtonClick={onReload}
+      onSecondaryButtonClick={onCancel}
+    />
   )
 }

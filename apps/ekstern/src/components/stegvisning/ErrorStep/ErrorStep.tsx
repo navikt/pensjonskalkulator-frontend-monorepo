@@ -7,12 +7,26 @@ import { Loader } from '@/components/components/Loader'
 import styles from './ErrorStep.module.scss'
 
 interface Props {
-  isLoading: boolean
-  onCancel: () => void
-  onReload: () => void
+  isLoading?: boolean
+  onPrimaryButtonClick: () => void
+  onSecondaryButtonClick: () => void
+  onCancel?: () => void
+  text?: {
+    header: string
+    ingress: string
+    primaryButton: string
+    secondaryButton: string
+    tertiaryButton: string
+  }
 }
-
-export function ErrorStep({ isLoading, onCancel, onReload }: Props) {
+// TODO etter merge av PEK-90 - vurdere flytting/merge av tekst og komponent med ErrorPageUnexpected
+export function ErrorStep({
+  isLoading,
+  onPrimaryButtonClick,
+  onSecondaryButtonClick,
+  onCancel,
+  text,
+}: Props) {
   const intl = useIntl()
   if (isLoading) {
     return (
@@ -28,28 +42,49 @@ export function ErrorStep({ isLoading, onCancel, onReload }: Props) {
   return (
     <section className={styles.section}>
       <Heading size="large" level="2" spacing>
-        <FormattedMessage id="error.global.title" />
+        <FormattedMessage id={text?.header ?? 'error.global.title'} />
       </Heading>
       <Ingress className={styles.ingress}>
-        <FormattedMessage id="error.global.ingress" />
+        <FormattedMessage
+          id={text?.ingress ?? 'error.global.ingress'}
+          values={{ br: <br /> }}
+        />
       </Ingress>
 
       <Button
         type="button"
         className={styles.button}
         variant="primary"
-        onClick={onReload}
+        onClick={onPrimaryButtonClick}
       >
-        <FormattedMessage id="error.global.button.reload" />
+        <FormattedMessage
+          id={text?.primaryButton ?? 'error.global.button.primary'}
+        />
       </Button>
+
       <Button
         type="button"
         className={styles.button}
         variant="secondary"
-        onClick={onCancel}
+        onClick={onSecondaryButtonClick}
       >
-        <FormattedMessage id="error.global.button.avbryt" />
+        <FormattedMessage
+          id={text?.secondaryButton ?? 'error.global.button.secondary'}
+        />
       </Button>
+
+      {onCancel && (
+        <Button
+          type="button"
+          className={styles.button}
+          variant="tertiary"
+          onClick={onCancel}
+        >
+          <FormattedMessage
+            id={text?.tertiaryButton ?? 'error.global.button.tertiary'}
+          />
+        </Button>
+      )}
     </section>
   )
 }

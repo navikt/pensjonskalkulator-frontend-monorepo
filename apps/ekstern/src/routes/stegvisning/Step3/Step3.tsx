@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { useNavigate, Await } from 'react-router-dom'
 
 import { Loader } from '@/components/components/Loader'
+import { ErrorStep } from '@/components/stegvisning/ErrorStep'
 import { OffentligTP } from '@/components/stegvisning/OffentligTP'
 import { paths } from '@/routes'
 import { useAppDispatch } from '@/state/hooks'
@@ -30,12 +31,22 @@ export function Step3() {
   return (
     <>
       <Suspense fallback={<Loader data-testid="loader" size="3xlarge" />}>
-        <Await
-          resolve={loaderData.getTpoMedlemskapQuery}
-          // errorElement={} //TODO hva gjør vi når kall til tp-registret feiler?
-        >
+        <Await resolve={loaderData.getTpoMedlemskapQuery}>
           {(getTpoMedlemskapQuery: TpoMedlemskapQuery) => {
-            return (
+            return getTpoMedlemskapQuery.isError ? (
+              <ErrorStep
+                onPrimaryButtonClick={onNext}
+                onSecondaryButtonClick={onPrevious}
+                onCancel={onCancel}
+                text={{
+                  header: 'stegvisning.offentligtp.error.title',
+                  ingress: 'stegvisning.offentligtp.error.ingress',
+                  primaryButton: 'stegvisning.neste',
+                  secondaryButton: 'stegvisning.tilbake',
+                  tertiaryButton: 'stegvisning.avbryt',
+                }}
+              />
+            ) : (
               <OffentligTP
                 shouldJumpOverStep={
                   getTpoMedlemskapQuery.isSuccess &&
