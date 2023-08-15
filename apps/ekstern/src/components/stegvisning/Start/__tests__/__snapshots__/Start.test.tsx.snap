@@ -31,7 +31,6 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
           type="submit"
         >
           <span
-            aria-live="polite"
             class="navds-label"
           >
             stegvisning.start.start
@@ -42,7 +41,6 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
           type="button"
         >
           <span
-            aria-live="polite"
             class="navds-label"
           >
             stegvisning.avbryt
@@ -85,7 +83,6 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
           type="submit"
         >
           <span
-            aria-live="polite"
             class="navds-label"
           >
             stegvisning.start.start
@@ -96,7 +93,6 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
           type="button"
         >
           <span
-            aria-live="polite"
             class="navds-label"
           >
             stegvisning.avbryt

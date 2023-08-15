@@ -66,7 +66,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           </ul>
           Les om vilkårene til 
           <a
-            class="navds-link"
+            class="navds-link navds-link--action"
             href="stegvisning.afp.readmore_privat_url"
             target="_blank"
           >
@@ -267,7 +267,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         type="submit"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.neste
@@ -278,7 +277,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.tilbake
@@ -289,7 +287,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.avbryt
@@ -366,7 +363,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           </ul>
           Les om vilkårene til 
           <a
-            class="navds-link"
+            class="navds-link navds-link--action"
             href="stegvisning.afp.readmore_privat_url"
             target="_blank"
           >
@@ -566,7 +563,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         type="submit"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.neste
@@ -577,7 +573,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.tilbake
@@ -588,7 +583,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.avbryt
@@ -665,7 +659,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           </ul>
           Les om vilkårene til 
           <a
-            class="navds-link"
+            class="navds-link navds-link--action"
             href="stegvisning.afp.readmore_privat_url"
             target="_blank"
           >
@@ -865,7 +859,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         type="submit"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.neste
@@ -876,7 +869,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.tilbake
@@ -887,7 +879,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.avbryt
