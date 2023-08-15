@@ -1,4 +1,4 @@
-import { memo, useRef } from 'react'
+import { memo } from 'react'
 
 import { HelpText, Ingress } from '@navikt/ds-react'
 
@@ -13,18 +13,11 @@ interface Props {
 
 export const TidligstMuligUttaksalder: React.FC<Props> = memo(
   ({ uttaksalder }) => {
-    const ingressRef = useRef<HTMLDivElement>(null)
-
     return (
       <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
         <div className={styles.wrapperCard}>
           <img className={styles.wrapperImage} src={Piggybank} alt="" />
-          <div
-            className={styles.wrapperText}
-            ref={ingressRef}
-            tabIndex={-1}
-            aria-live="polite"
-          >
+          <div className={styles.wrapperText} aria-live="polite">
             <Ingress
               className={`${styles.ingress} ${styles.ingress__isInline}`}
             >

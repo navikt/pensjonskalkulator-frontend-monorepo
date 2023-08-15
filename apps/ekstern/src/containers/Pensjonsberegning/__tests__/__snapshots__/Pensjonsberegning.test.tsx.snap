@@ -61,7 +61,6 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         <div
           aria-live="polite"
           class="_wrapperText_f5a642"
-          tabindex="-1"
         >
           <p
             class="_ingress_f5a642 _ingress__isInline_f5a642 navds-ingress"
