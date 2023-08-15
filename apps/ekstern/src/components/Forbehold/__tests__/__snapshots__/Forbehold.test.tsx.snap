@@ -1,0 +1,26 @@
+// Vitest Snapshot v1
+
+exports[`Forbehold > rendrer riktig 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_f70cbe"
+  >
+    <h2
+      class="_heading_f70cbe navds-heading navds-heading--medium"
+    >
+      Forbehold
+    </h2>
+    <p
+      class="_text_f70cbe navds-body-long"
+    >
+      Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Beregningen er ikke juridisk bindende.
+    </p>
+    <a
+      class="navds-link navds-link--action"
+      href="/forbehold"
+    >
+      Alle forbehold
+    </a>
+  </section>
+</DocumentFragment>
+`;

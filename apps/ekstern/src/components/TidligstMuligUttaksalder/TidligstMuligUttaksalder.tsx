@@ -16,12 +16,8 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
     return (
       <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
         <div className={styles.wrapperCard}>
-          <img
-            className={styles.wrapperImage}
-            src={Piggybank}
-            alt="Illustrasjon av sparegris"
-          />
-          <div className={styles.wrapperText}>
+          <img className={styles.wrapperImage} src={Piggybank} alt="" />
+          <div className={styles.wrapperText} aria-live="polite">
             <Ingress
               className={`${styles.ingress} ${styles.ingress__isInline}`}
             >

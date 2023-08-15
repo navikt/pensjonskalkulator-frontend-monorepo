@@ -37,7 +37,7 @@ export function Pensjonsberegning() {
       <Loader
         data-testid="loader"
         size="3xlarge"
-        title="Henter tidligste mulige uttaksalder"
+        title="Et øyeblikk, vi henter tidligste mulige uttaksalder"
       />
     )
   }
@@ -73,7 +73,9 @@ export function Pensjonsberegning() {
             setValgtUttaksalder={setValgtUttaksalder}
           />
         </div>
-
+        {
+          // TODO PEK-107 - sørge for at fokuset flyttes riktig og at skjermleseren leser opp i riktig rekkefølge etter valg av uttaksalder + at lasting er ferdig.
+        }
         {valgtUttaksalder && (
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}

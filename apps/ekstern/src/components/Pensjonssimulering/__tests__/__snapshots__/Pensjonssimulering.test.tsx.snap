@@ -839,6 +839,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
         class="navds-read-more__content navds-read-more__content--closed navds-body-long"
       >
         <table
+          aria-live="polite"
           class="navds-table navds-table--medium _table_15ff36"
         >
           <thead

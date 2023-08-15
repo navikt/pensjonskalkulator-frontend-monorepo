@@ -9,7 +9,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
       class="_wrapper_09901f"
     >
       <img
-        alt="stegvisning.start.bildetekst"
+        alt=""
         class="_image_09901f"
         src="/pensjon/kalkulator/src/assets/frida.svg"
       />
@@ -61,7 +61,7 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
       class="_wrapper_09901f"
     >
       <img
-        alt="stegvisning.start.bildetekst"
+        alt=""
         class="_image_09901f"
         src="/pensjon/kalkulator/src/assets/frida.svg"
       />

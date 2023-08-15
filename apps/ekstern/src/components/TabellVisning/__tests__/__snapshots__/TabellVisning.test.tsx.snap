@@ -3,6 +3,7 @@
 exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
 <DocumentFragment>
   <table
+    aria-live="polite"
     class="navds-table navds-table--medium _table_15ff36"
   >
     <thead
@@ -1197,6 +1198,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
 exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
 <DocumentFragment>
   <table
+    aria-live="polite"
     class="navds-table navds-table--medium _table_15ff36"
   >
     <thead

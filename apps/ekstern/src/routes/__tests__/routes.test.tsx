@@ -299,7 +299,9 @@ describe('routes', () => {
         hasRouter: false,
       })
       expect(
-        await screen.findByText('Henter tidligste mulige uttaksalder')
+        await screen.findByText(
+          'Et øyeblikk, vi henter tidligste mulige uttaksalder'
+        )
       ).toBeInTheDocument()
     })
   })

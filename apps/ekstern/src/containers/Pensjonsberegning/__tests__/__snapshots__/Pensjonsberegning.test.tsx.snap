@@ -54,11 +54,12 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
         class="_wrapperCard_f5a642"
       >
         <img
-          alt="Illustrasjon av sparegris"
+          alt=""
           class="_wrapperImage_f5a642"
           src="/pensjon/kalkulator/src/assets/piggybank.svg"
         />
         <div
+          aria-live="polite"
           class="_wrapperText_f5a642"
         >
           <p

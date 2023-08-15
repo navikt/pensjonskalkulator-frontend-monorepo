@@ -19,7 +19,7 @@ export function TabellVisning({ series, aarArray }: Props) {
   const tableData = useTableData(series, aarArray)
 
   return (
-    <Table className={styles.table}>
+    <Table className={styles.table} aria-live="polite">
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell className={styles.tableMobileOnly} />
