@@ -9,11 +9,11 @@ const translations = {
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
-  'errorpage.unexpected.title': 'Oops! Det har oppstått en uventet feil.',
-  'errorpage.unexpected.ingress':
-    'Vi jobber med å rette feilen. Hvis problemet medvarer, kan du kontakte oss på XXX XX XXX.',
-  'errorpage.unexpected.button.primary': 'Last siden på nytt',
-  'errorpage.unexpected.button.secondary': 'Tilbake til Din Pensjon',
+  'error.global.title': 'Oops! Det har oppstått en uventet feil',
+  'error.global.ingress':
+    'Vi jobber med å rette feilen. Hvis problemet vedvarer, kan du kontakte oss på 55 55 33 34.',
+  'errorpage.global.button.primary': 'Last siden på nytt',
+  'errorpage.global.button.secondary': 'Tilbake til Din Pensjon',
   'errorpage.404.title': 'Oops! Siden du leter etter finnes ikke.',
   'errorpage.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
@@ -95,10 +95,5 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
-  'error.global.title': 'Oops! Det har oppstått en uventet feil',
-  'error.global.ingress':
-    'Vi jobber med å rette feilen. Hvis problemet vedvarer, kan du kontakte oss på XX XX XX XX.',
-  'error.global.button.reload': 'Last siden på nytt',
-  'error.global.button.avbryt': 'Tilbake til Din Pensjon',
 }
 export const getTranslation_nb = () => translations
