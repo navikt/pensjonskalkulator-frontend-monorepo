@@ -20,7 +20,7 @@ import {
   getHoverColor,
   getNormalColor,
   onPointClick,
-  onPointUnClick,
+  onPointUnclick,
   getChartOptions,
   onVisFlereAarClick,
   onVisFaerreAarClick,
@@ -369,7 +369,7 @@ describe('Pensjonssimulering-utils', () => {
     })
   })
 
-  describe('onPointClick og onPointUnClick', () => {
+  describe('onPointClick og onPointUnclick', () => {
     const pointUpdateMock = vi.fn()
     const redrawMock = vi.fn()
     const tooltipHideMock = vi.fn()
@@ -481,15 +481,15 @@ describe('Pensjonssimulering-utils', () => {
         expect(redrawMock).toHaveBeenCalledOnce()
       })
 
-      describe('onPointUnClick', () => {
+      describe('onPointUnclick', () => {
         it('gjør ingenting når chart ikke er klar', () => {
-          expect(onPointUnClick({} as MouseEvent, undefined)).toBe(undefined)
+          expect(onPointUnclick({} as MouseEvent, undefined)).toBe(undefined)
         })
 
         it('gjør ingenting når brukeren klikker på et chart point', () => {
           const event = { chartX: 123, point: {} as unknown as Point }
           expect(
-            onPointUnClick(
+            onPointUnclick(
               event as unknown as MouseEvent,
               { ...chart } as unknown as Chart
             )
@@ -503,7 +503,7 @@ describe('Pensjonssimulering-utils', () => {
             redraw: redrawMock,
             tooltip: { hide: tooltipHideMock, isHidden: false },
           } as unknown as Chart
-          onPointUnClick(
+          onPointUnclick(
             { chartX: 123 } as unknown as MouseEvent,
             chartWithSelection
           )
@@ -529,7 +529,7 @@ describe('Pensjonssimulering-utils', () => {
             redraw: redrawMock,
             tooltip: { hide: tooltipHideMock, isHidden: true },
           } as unknown as Chart
-          onPointUnClick({} as unknown as MouseEvent, chartWithSelection)
+          onPointUnclick({} as unknown as MouseEvent, chartWithSelection)
           vi.advanceTimersByTime(150)
           expect(pointUpdateMock).toHaveBeenCalledTimes(3)
           expect(pointUpdateMock.mock.calls).toEqual([

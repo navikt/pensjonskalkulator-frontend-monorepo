@@ -3,6 +3,9 @@ export const formatSivilstand = (sivilstand: Sivilstand): string => {
     case 'GIFT': {
       return 'Gift'
     }
+    case 'ENKE_ELLER_ENKEMANN': {
+      return 'Enke / Enkemann'
+    }
     case 'SKILT': {
       return 'Skilt'
     }

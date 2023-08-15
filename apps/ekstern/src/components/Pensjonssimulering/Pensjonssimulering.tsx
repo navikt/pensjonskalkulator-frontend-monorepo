@@ -23,7 +23,7 @@ import {
   SERIE_COLOR_ALDERSPENSJON,
   getChartOptions,
   generateXAxis,
-  onPointUnClick,
+  onPointUnclick,
   onVisFaerreAarClick,
   onVisFlereAarClick,
   simulateDataArray,
@@ -49,12 +49,12 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   const chartRef = useRef<HighchartsReact.RefObject>(null)
 
   useEffect(() => {
-    function onPointUnClickEventHandler(e: Event) {
-      onPointUnClick(e, chartRef.current?.chart)
+    function onPointUnclickEventHandler(e: Event) {
+      onPointUnclick(e, chartRef.current?.chart)
     }
-    document.addEventListener('click', onPointUnClickEventHandler)
+    document.addEventListener('click', onPointUnclickEventHandler)
     return () =>
-      document.removeEventListener('click', onPointUnClickEventHandler)
+      document.removeEventListener('click', onPointUnclickEventHandler)
   }, [])
 
   useEffect(() => {
@@ -148,7 +148,11 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         </div>
       </div>
       <ReadMore
-        header={isVisTabellOpen ? 'Lukk tabell' : 'Vis tabell'}
+        header={
+          isVisTabellOpen
+            ? 'Lukk tabell av beregningen'
+            : 'Vis tabell av beregningen'
+        }
         className={styles.visTabell}
         open={isVisTabellOpen}
         onClick={() => {

@@ -144,7 +144,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="submit"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.neste
@@ -155,7 +154,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.tilbake
@@ -166,7 +164,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.avbryt

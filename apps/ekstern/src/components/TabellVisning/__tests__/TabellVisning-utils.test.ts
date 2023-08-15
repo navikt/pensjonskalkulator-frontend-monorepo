@@ -25,7 +25,7 @@ describe('TabellVisning-utils', () => {
       },
       {
         type: 'column',
-        name: 'Pensjonsavtaler (arbeidsgivere)',
+        name: 'Pensjonsavtaler (arbeidsgiver)',
         data: [
           180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000,
           380000,

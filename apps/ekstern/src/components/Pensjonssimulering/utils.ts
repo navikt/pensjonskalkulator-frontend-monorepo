@@ -20,7 +20,7 @@ export const TOOLTIP_YPOS = 35
 
 export const SERIE_NAME_INNTEKT = 'Inntekt (lønn m.m.)'
 export const SERIE_NAME_AFP = 'Avtalefestet pensjon (AFP)'
-export const SERIE_NAME_TP = 'Pensjonsavtaler (arbeidsgivere)'
+export const SERIE_NAME_TP = 'Pensjonsavtaler (arbeidsgiver)'
 export const SERIE_NAME_ALDERSPENSJON = 'Alderspensjon (NAV)'
 
 export const SERIE_COLOR_INNTEKT = '#868F9C'
@@ -325,7 +325,7 @@ export function onPointClick(this: Point): void {
   this.series.chart.redraw()
 }
 
-export function onPointUnClick(
+export function onPointUnclick(
   e: Event & {
     chartX?: number
     point?: Point

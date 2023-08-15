@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOptions > returnerer riktig default options 1`] = `
+exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOptions > returnerer riktig default options 1`] = `
 {
   "chart": {
     "events": {
@@ -195,7 +195,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > getChartOpt
 }
 `;
 
-exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > onPointClick > onPointUnClick > kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor en chart point 1`] = `
+exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > onPointClick > onPointUnclick > kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor en chart point 1`] = `
 [
   <text
     style="font-weight: normal;"
@@ -209,7 +209,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > onPointClic
 ]
 `;
 
-exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > onPointClick > onPointUnClick > kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor plot area og at tooltip er skjult 1`] = `
+exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > onPointClick > onPointUnclick > kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor plot area og at tooltip er skjult 1`] = `
 [
   <text
     style="font-weight: normal;"
@@ -223,7 +223,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > onPointClic
 ]
 `;
 
-exports[`Pensjonssimulering-utils > onPointClick og onPointUnClick > onPointClick > oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis 1`] = `
+exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > onPointClick > oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis 1`] = `
 [
   <text
     style="font-weight: bold;"
