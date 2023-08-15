@@ -18,17 +18,11 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
   const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
 
   return (
-    <ResponsiveCard hasLargePadding>
+    <ResponsiveCard hasLargePadding hasMargin>
       <div className={styles.wrapper}>
-        <img
-          className={styles.image}
-          src={FridaPortrett}
-          alt={intl.formatMessage({
-            id: 'stegvisning.start.bildetekst',
-          })}
-        />
+        <img className={styles.image} src={FridaPortrett} alt="" />
         <div className={styles.wrapperText}>
-          <Heading size="large" level="2" spacing>
+          <Heading level="2" size="large" spacing>
             {`${intl.formatMessage({
               id: 'stegvisning.start.title',
             })}${fornavnString}`}

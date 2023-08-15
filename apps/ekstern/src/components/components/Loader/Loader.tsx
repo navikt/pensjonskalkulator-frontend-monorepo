@@ -12,9 +12,11 @@ export function Loader(props: Props) {
 
   return (
     <AkselLoader
+      aria-live="polite"
       className={clsx(className, {
         [styles.loader__isCentered]: isCentered,
       })}
+      title="Laster..."
       {...rest}
     />
   )

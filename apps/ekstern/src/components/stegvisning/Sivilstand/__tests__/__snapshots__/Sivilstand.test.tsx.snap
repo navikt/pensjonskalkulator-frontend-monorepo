@@ -4,7 +4,8 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
 <DocumentFragment>
   <form>
     <section
-      class="_section_645946 _section__largePadding_645946"
+      aria-live="polite"
+      class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
     >
       <h2
         class="navds-heading navds-heading--large navds-typo--spacing"

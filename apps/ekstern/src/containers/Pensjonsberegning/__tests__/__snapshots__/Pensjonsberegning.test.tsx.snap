@@ -6,7 +6,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
     class="navds-alert navds-alert--error navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r5"
+      aria-labelledby="title-r6"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -17,7 +17,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r5"
+        id="title-r6"
       >
         Feil
       </title>
@@ -46,19 +46,20 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
   <div
     class="_container_46cd75"
   >
-    <section
-      class="_section_645946"
+    <div
+      class="_wrapper_f5a642"
       data-testid="tidligst-mulig-uttak"
     >
       <div
-        class="_wrapper_f5a642"
+        class="_wrapperCard_f5a642"
       >
         <img
-          alt="Illustrasjon av sparegris"
+          alt=""
           class="_wrapperImage_f5a642"
           src="/pensjon/kalkulator/src/assets/piggybank.svg"
         />
         <div
+          aria-live="polite"
           class="_wrapperText_f5a642"
         >
           <p
@@ -81,7 +82,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
                 type="button"
               >
                 <svg
-                  aria-labelledby="title-r1"
+                  aria-labelledby="title-r2"
                   class="navds-help-text__icon"
                   fill="none"
                   focusable="false"
@@ -92,7 +93,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r1"
+                    id="title-r2"
                   >
                     hjelp
                   </title>
@@ -112,7 +113,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
                   />
                 </svg>
                 <svg
-                  aria-labelledby="title-r2"
+                  aria-labelledby="title-r3"
                   class="navds-help-text__icon navds-help-text__icon--filled"
                   fill="none"
                   focusable="false"
@@ -123,7 +124,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <title
-                    id="title-r2"
+                    id="title-r3"
                   >
                     hjelp
                   </title>
@@ -169,7 +170,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
           </p>
         </div>
       </div>
-    </section>
+    </div>
   </div>
   <div
     class="_background_46cd75 _background__hasMargin_46cd75"
@@ -180,126 +181,130 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
       <div
         class="_wrapper_4ca3e3"
       >
-        <span
-          class="_pin_4ca3e3"
-        />
-        <h2
-          class="navds-heading navds-heading--xsmall"
+        <div
+          class="_wrapperCard_4ca3e3"
         >
-          Når vil du ta ut alderspensjon?
-        </h2>
-        <ul
-          class="navds-chips _chipsWrapper_4ca3e3 _chipsWrapper__hasGap_4ca3e3 navds-chips--medium navds-body-short navds-body-short--small"
-        >
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+          <span
+            class="_pin_4ca3e3"
+          />
+          <h2
+            class="navds-heading navds-heading--xsmall"
+          >
+            Når vil du ta ut alderspensjon?
+          </h2>
+          <ul
+            class="navds-chips _chipsWrapper_4ca3e3 _chipsWrapper__hasGap_4ca3e3 navds-chips--medium navds-body-short navds-body-short--small"
+          >
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                67 år og 1 md.
-              </span>
-            </button>
-          </li>
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  67 år og 1 md.
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                68 år
-              </span>
-            </button>
-          </li>
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  68 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                69 år
-              </span>
-            </button>
-          </li>
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  69 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                70 år
-              </span>
-            </button>
-          </li>
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  70 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                71 år
-              </span>
-            </button>
-          </li>
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  71 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                72 år
-              </span>
-            </button>
-          </li>
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  72 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                73 år
-              </span>
-            </button>
-          </li>
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  73 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                74 år
-              </span>
-            </button>
-          </li>
-          <li>
-            <button
-              aria-pressed="false"
-              class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
-            >
-              <span
-                class="navds-chips__chip-text"
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  74 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
               >
-                75 år
-              </span>
-            </button>
-          </li>
-        </ul>
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  75 år
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
