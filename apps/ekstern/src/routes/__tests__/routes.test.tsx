@@ -300,9 +300,45 @@ describe('routes', () => {
       })
       expect(
         await screen.findByText(
-          'Ett øyeblikk, vi henter tidligste mulige uttaksalder'
+          'Et øyeblikk, vi henter tidligste mulige uttaksalder'
         )
       ).toBeInTheDocument()
+    })
+  })
+
+  describe(`${BASE_PATH}${paths.forbehold}`, () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      store.getState = vi.fn().mockImplementation(() => ({
+        api: {},
+        userInput: { ...userInputInitialState },
+      }))
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.forbehold}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.start.start')
+      ).toBeInTheDocument()
+    })
+
+    it('viser forbehold siden når brukeren kommer til steget gjennom stegvisningen', async () => {
+      store.getState = vi.fn().mockImplementation(() => ({
+        api: {
+          ...fakeApiCalls,
+        },
+        userInput: { ...userInputInitialState, samtykke: true },
+      }))
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.forbehold}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      expect(await screen.findByText('Forbehold')).toBeInTheDocument()
     })
   })
 

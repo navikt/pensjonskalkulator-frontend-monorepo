@@ -3,7 +3,6 @@ import { memo, useEffect, useRef } from 'react'
 import { HelpText, Ingress } from '@navikt/ds-react'
 
 import Piggybank from '../../assets/piggybank.svg'
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 
 import styles from './TidligsMuligUttaksalder.module.scss'
@@ -21,8 +20,8 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
     }, [])
 
     return (
-      <ResponsiveCard data-testid="tidligst-mulig-uttak">
-        <div className={styles.wrapper}>
+      <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
+        <div className={styles.wrapperCard}>
           <img className={styles.wrapperImage} src={Piggybank} alt="" />
           <div
             className={styles.wrapperText}
@@ -48,7 +47,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
             </Ingress>
           </div>
         </div>
-      </ResponsiveCard>
+      </div>
     )
   }
 )

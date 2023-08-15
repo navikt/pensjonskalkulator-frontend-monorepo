@@ -10,6 +10,11 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
 describe('Step 4', () => {
+  it('har riktig sidetittel', () => {
+    render(<Step4 />)
+    expect(document.title).toBe('application.title.stegvisning.step4')
+  })
+
   it('rendrer Step 4 slik den skal når brukeren har svart nei på spørsmålet om samtykke,', async () => {
     render(<Step4 />, {
       preloadedState: {

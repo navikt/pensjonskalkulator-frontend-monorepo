@@ -27,7 +27,6 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       type="submit"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.neste
@@ -38,7 +37,6 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       type="button"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.tilbake
@@ -49,7 +47,6 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       type="button"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.avbryt

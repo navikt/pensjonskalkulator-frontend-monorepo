@@ -36,7 +36,6 @@ export const apiSlice = createApi({
           response.avtaler.forEach((avtale) => {
             if (!isPensjonsavtale(avtale)) {
               throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
-              // return undefined;
             }
           })
         } else {
