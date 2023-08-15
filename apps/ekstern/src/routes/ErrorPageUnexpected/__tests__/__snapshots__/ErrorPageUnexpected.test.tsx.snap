@@ -9,7 +9,7 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
       class="_headerGroup_4532c9"
     >
       <h1
-        class="_headerGroupTitle_4532c9 navds-heading navds-heading--xlarge"
+        class="_headerGroupTitle_4532c9 _headerGroupTitle__isFramed_4532c9 navds-heading navds-heading--xlarge"
       >
         application.title
       </h1>
@@ -32,20 +32,18 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
         class="_button_507cb1 _buttonFirst_507cb1 navds-button navds-button--primary navds-button--medium"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
-          errorpage.unexpected.button_1
+          errorpage.unexpected.button.primary
         </span>
       </button>
       <button
         class="_button_507cb1 _buttonSecond_507cb1 navds-button navds-button--secondary navds-button--medium"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
-          errorpage.unexpected.button_2
+          errorpage.unexpected.button.secondary
         </span>
       </button>
     </section>

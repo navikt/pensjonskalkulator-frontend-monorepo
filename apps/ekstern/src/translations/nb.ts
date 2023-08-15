@@ -1,10 +1,18 @@
 const translations = {
   'application.title': 'Pensjonskalkulator',
+  'application.title.stegvisning.step1': 'Start – Pensjonskalkulator',
+  'application.title.stegvisning.step2': 'Samtykke – Pensjonskalkulator',
+  'application.title.stegvisning.step3':
+    'Offentlig tjenestepensjon – Pensjonskalkulator',
+  'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
+  'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
+  'application.title.beregning': 'Beregning – Pensjonskalkulator',
+  'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'errorpage.unexpected.title': 'Oops! Det har oppstått en uventet feil.',
   'errorpage.unexpected.ingress':
     'Vi jobber med å rette feilen. Hvis problemet medvarer, kan du kontakte oss på XXX XX XXX.',
-  'errorpage.unexpected.button_1': 'Last siden på nytt',
-  'errorpage.unexpected.button_2': 'Tilbake til Din Pensjon',
+  'errorpage.unexpected.button.primary': 'Last siden på nytt',
+  'errorpage.unexpected.button.secondary': 'Tilbake til Din Pensjon',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',

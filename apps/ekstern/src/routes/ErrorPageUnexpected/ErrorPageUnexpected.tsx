@@ -4,7 +4,7 @@ import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { PageFramework } from '@/components/components/PageFramework'
 import { ResponsiveCard } from '@/components/components/ResponsiveCard'
-import { externalsUrls } from '@/routes'
+import { externalUrls } from '@/routes'
 
 import styles from './ErrorPageUnexpected.module.scss'
 
@@ -28,16 +28,16 @@ export function ErrorPageUnexpected() {
             window.location.reload()
           }}
         >
-          <FormattedMessage id="errorpage.unexpected.button_1" />
+          <FormattedMessage id="errorpage.unexpected.button.primary" />
         </Button>
         <Button
           className={`${styles.button} ${styles.buttonSecond}`}
           variant="secondary"
           onClick={() => {
-            window.location.href = externalsUrls.dinPensjon
+            window.location.href = externalUrls.dinPensjon
           }}
         >
-          <FormattedMessage id="errorpage.unexpected.button_2" />
+          <FormattedMessage id="errorpage.unexpected.button.secondary" />
         </Button>
       </ResponsiveCard>
     </PageFramework>

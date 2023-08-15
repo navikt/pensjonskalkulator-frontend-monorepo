@@ -59,7 +59,7 @@ exports[`Sivilstand > viser riktig tekst og lenke når henting av sivilstand er 
       Garantipensjon skal sikre et minste garantipensjonsnivå ved 67 år for de som har lav eller ingen opptjening til inntektspensjon. Størrelsen på garantipensjonen avhenger av din sivilstatus, og om ektefelle, partner eller samboer har egen inntekt eller mottar egen pensjon.
        
       <a
-        class="navds-link"
+        class="navds-link navds-link--action"
       >
         Mer om garantipensjon og satser
       </a>

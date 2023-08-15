@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useIntl } from 'react-intl'
 
 import { Alert, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -15,6 +16,7 @@ import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
 import styles from './Pensjonsberegning.module.scss'
 
 export function Pensjonsberegning() {
+  const intl = useIntl()
   const {
     data: tidligstMuligUttak,
     isLoading,
@@ -23,6 +25,12 @@ export function Pensjonsberegning() {
   } = useTidligsteUttaksalderQuery()
 
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
+
+  useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title.beregning',
+    })
+  }, [])
 
   if (isLoading) {
     return (

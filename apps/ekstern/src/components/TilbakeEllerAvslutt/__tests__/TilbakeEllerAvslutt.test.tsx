@@ -49,6 +49,6 @@ describe('TilbakeEllerAvslutt', () => {
     render(<TilbakeEllerAvslutt />)
 
     await user.click(screen.getByText('Avbryt'))
-    expect(window.location.href).toBe('http://www.nav.no/pensjon')
+    expect(window.location.href).toBe('http://nav.no/pensjon')
   })
 })

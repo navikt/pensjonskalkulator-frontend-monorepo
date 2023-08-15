@@ -1,7 +1,7 @@
 import { describe, it, vi } from 'vitest'
 
 import { ErrorPageUnexpected } from '..'
-import { externalsUrls } from '@/routes'
+import { externalUrls } from '@/routes'
 import { render, screen, userEvent } from '@/test-utils'
 
 const realLocation = window.location
@@ -26,7 +26,7 @@ describe('ErrorPageUnexpected', () => {
       writable: true,
     })
     render(<ErrorPageUnexpected />)
-    await user.click(screen.getByText('errorpage.unexpected.button_1'))
+    await user.click(screen.getByText('errorpage.unexpected.button.primary'))
     expect(reloadMock).toHaveBeenCalled()
   })
 
@@ -41,7 +41,7 @@ describe('ErrorPageUnexpected', () => {
       writable: true,
     })
     render(<ErrorPageUnexpected />)
-    await user.click(screen.getByText('errorpage.unexpected.button_2'))
-    expect(window.location.href).toBe(externalsUrls.dinPensjon)
+    await user.click(screen.getByText('errorpage.unexpected.button.secondary'))
+    expect(window.location.href).toBe(externalUrls.dinPensjon)
   })
 })

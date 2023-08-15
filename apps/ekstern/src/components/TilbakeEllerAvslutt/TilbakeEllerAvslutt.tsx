@@ -18,7 +18,7 @@ export function TilbakeEllerAvslutt() {
   }
 
   const onCancelClick = (): void => {
-    window.location.href = 'http://www.nav.no/pensjon'
+    window.location.href = 'http://nav.no/pensjon'
   }
 
   return (
