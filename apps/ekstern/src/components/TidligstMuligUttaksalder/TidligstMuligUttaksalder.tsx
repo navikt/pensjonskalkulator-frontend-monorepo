@@ -3,7 +3,6 @@ import { memo } from 'react'
 import { HelpText, Ingress } from '@navikt/ds-react'
 
 import Piggybank from '../../assets/piggybank.svg'
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 
 import styles from './TidligsMuligUttaksalder.module.scss'
@@ -15,14 +14,10 @@ interface Props {
 export const TidligstMuligUttaksalder: React.FC<Props> = memo(
   ({ uttaksalder }) => {
     return (
-      <ResponsiveCard data-testid="tidligst-mulig-uttak">
-        <div className={styles.wrapper}>
-          <img
-            className={styles.wrapperImage}
-            src={Piggybank}
-            alt="Illustrasjon av sparegris"
-          />
-          <div className={styles.wrapperText}>
+      <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
+        <div className={styles.wrapperCard}>
+          <img className={styles.wrapperImage} src={Piggybank} alt="" />
+          <div className={styles.wrapperText} aria-live="polite">
             <Ingress
               className={`${styles.ingress} ${styles.ingress__isInline}`}
             >
@@ -41,7 +36,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
             </Ingress>
           </div>
         </div>
-      </ResponsiveCard>
+      </div>
     )
   }
 )

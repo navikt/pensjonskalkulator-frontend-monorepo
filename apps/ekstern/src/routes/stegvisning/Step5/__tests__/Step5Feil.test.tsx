@@ -6,6 +6,7 @@ import { Step5Feil } from '..'
 import * as Step4Utils from '../../Step4/utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/routes'
+import { externalUrls } from '@/routes/routes'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 const realLocation = window.location
 describe('Step 5 Feil', () => {
@@ -74,7 +75,7 @@ describe('Step 5 Feil', () => {
     })
   })
 
-  it('redirigerer til Din Pensjon når brukeren klikker på Avbryt', async () => {
+  it('redirigerer til Din Pensjon når brukeren klikker på secondary knappen', async () => {
     const user = userEvent.setup()
     mockErrorResponse('/person')
     global.window = Object.create(window)
@@ -87,6 +88,6 @@ describe('Step 5 Feil', () => {
     })
     render(<Step5Feil />)
     await user.click(await screen.findByText('error.global.button.secondary'))
-    expect(window.location.href).toBe('http://www.nav.no/pensjon')
+    expect(window.location.href).toBe(externalUrls.dinPensjon)
   })
 })

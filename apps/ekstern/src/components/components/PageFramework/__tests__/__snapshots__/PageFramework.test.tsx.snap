@@ -6,10 +6,10 @@ exports[`PageFramework > rendrer slik den skal i full width 1`] = `
     class="_main_4532c9"
   >
     <div
-      class="_headerGroup_4532c9 _headerGroup__isFramed_4532c9"
+      class="_headerGroup_4532c9"
     >
       <h1
-        class="_headerGroupTitle_4532c9 navds-heading navds-heading--xlarge"
+        class="_headerGroupTitle_4532c9 navds-heading navds-heading--large"
       >
         application.title
       </h1>
@@ -27,7 +27,7 @@ exports[`PageFramework > rendrer slik den skal, med main tag og Heading på rikt
       class="_headerGroup_4532c9"
     >
       <h1
-        class="_headerGroupTitle_4532c9 navds-heading navds-heading--xlarge"
+        class="_headerGroupTitle_4532c9 _headerGroupTitle__isFramed_4532c9 navds-heading navds-heading--large"
       >
         application.title
       </h1>

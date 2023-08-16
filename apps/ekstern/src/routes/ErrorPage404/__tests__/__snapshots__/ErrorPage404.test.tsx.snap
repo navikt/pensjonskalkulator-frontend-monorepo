@@ -1,0 +1,121 @@
+// Vitest Snapshot v1
+
+exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
+<DocumentFragment>
+  <main
+    class="_main_4532c9 _main__isFramed_4532c9"
+  >
+    <div
+      class="_headerGroup_4532c9"
+    >
+      <h1
+        class="_headerGroupTitle_4532c9 _headerGroupTitle__isFramed_4532c9 navds-heading navds-heading--large"
+      >
+        application.title
+      </h1>
+    </div>
+    <section
+      class="_section_645946 _section__largePadding_645946"
+      data-testid="error-page-404"
+    >
+      <h2
+        class="navds-heading navds-heading--medium navds-typo--spacing"
+      >
+        errorpage.404.title
+      </h2>
+      <div
+        class="navds-list"
+      >
+        <ul>
+          <li
+            class="navds-list__item"
+          >
+            <div
+              class="navds-list__item-marker--bullet"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                focusable="false"
+                height="6"
+                role="img"
+                viewBox="0 0 6 6"
+                width="6"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="currentColor"
+                  height="6"
+                  rx="3"
+                  width="6"
+                />
+              </svg>
+            </div>
+            <div
+              class="navds-list__item-content navds-body-short navds-body-short--small"
+            >
+              <p
+                class="navds-body-short"
+              >
+                errorpage.404.list_item1
+              </p>
+            </div>
+          </li>
+          <li
+            class="navds-list__item"
+          >
+            <div
+              class="navds-list__item-marker--bullet"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                focusable="false"
+                height="6"
+                role="img"
+                viewBox="0 0 6 6"
+                width="6"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="currentColor"
+                  height="6"
+                  rx="3"
+                  width="6"
+                />
+              </svg>
+            </div>
+            <div
+              class="navds-list__item-content navds-body-short navds-body-short--small"
+            >
+              <p
+                class="navds-body-short"
+              >
+                errorpage.404.list_item2
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <button
+        class="_button_bc1ea0 navds-button navds-button--primary navds-button--medium"
+      >
+        <span
+          class="navds-label"
+        >
+          errorpage.404.button.primary
+        </span>
+      </button>
+      <button
+        class="_button_bc1ea0 navds-button navds-button--secondary navds-button--medium"
+      >
+        <span
+          class="navds-label"
+        >
+          errorpage.404.button.secondary
+        </span>
+      </button>
+    </section>
+  </main>
+</DocumentFragment>
+`;

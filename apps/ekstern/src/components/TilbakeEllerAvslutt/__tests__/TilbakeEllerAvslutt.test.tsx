@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { TilbakeEllerAvslutt } from '..'
-import { paths } from '@/routes'
+import { externalUrls, paths } from '@/routes'
 import { RootState } from '@/state/store'
 import { render, screen, userEvent } from '@/test-utils'
 
@@ -49,6 +49,6 @@ describe('TilbakeEllerAvslutt', () => {
     render(<TilbakeEllerAvslutt />)
 
     await user.click(screen.getByText('Avbryt'))
-    expect(window.location.href).toBe('http://www.nav.no/pensjon')
+    expect(window.location.href).toBe(externalUrls.dinPensjon)
   })
 })

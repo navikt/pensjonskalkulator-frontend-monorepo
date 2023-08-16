@@ -3,13 +3,13 @@
 exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_section_645946 _section__largePadding_645946"
+    class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
   >
     <div
       class="_wrapper_09901f"
     >
       <img
-        alt="stegvisning.start.bildetekst"
+        alt=""
         class="_image_09901f"
         src="/pensjon/kalkulator/src/assets/frida.svg"
       />
@@ -17,7 +17,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
         class="_wrapperText_09901f"
       >
         <h2
-          class="navds-heading navds-heading--large navds-typo--spacing"
+          class="navds-heading navds-heading--medium navds-typo--spacing"
         >
           stegvisning.start.title Ola!
         </h2>
@@ -55,13 +55,13 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
 exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_section_645946 _section__largePadding_645946"
+    class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
   >
     <div
       class="_wrapper_09901f"
     >
       <img
-        alt="stegvisning.start.bildetekst"
+        alt=""
         class="_image_09901f"
         src="/pensjon/kalkulator/src/assets/frida.svg"
       />
@@ -69,7 +69,7 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
         class="_wrapperText_09901f"
       >
         <h2
-          class="navds-heading navds-heading--large navds-typo--spacing"
+          class="navds-heading navds-heading--medium navds-typo--spacing"
         >
           stegvisning.start.title!
         </h2>

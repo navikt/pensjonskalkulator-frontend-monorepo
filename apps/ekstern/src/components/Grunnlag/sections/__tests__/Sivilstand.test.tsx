@@ -25,7 +25,7 @@ describe('Sivilstand', () => {
     })
   })
 
-  it('viser feilmelding når henting av personoppluysninger er delvis vellykket (mangler sivilstand)', async () => {
+  it('viser feilmelding når henting av personopplysninger er delvis vellykket (mangler sivilstand)', async () => {
     mockResponse('/person', {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: null },
@@ -38,14 +38,16 @@ describe('Sivilstand', () => {
   })
 
   test.each([
+    ['UOPPGITT', 'Ugift'],
+    ['UGIFT', 'Ugift'],
     ['GIFT', 'Gift'],
+    ['ENKE_ELLER_ENKEMANN', 'Enke / Enkemann'],
     ['SKILT', 'Skilt'],
     ['SEPARERT', 'Separert'],
     ['REGISTRERT_PARTNER', 'Registrert partner'],
     ['SEPARERT_PARTNER', 'Separert partner'],
     ['SKILT_PARTNER', 'Skilt partner'],
     ['GJENLEVENDE_PARTNER', 'Gjenlevende partner'],
-    ['UGIFT', 'Ugift'],
   ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
     mockResponse('/person', {
       status: 200,

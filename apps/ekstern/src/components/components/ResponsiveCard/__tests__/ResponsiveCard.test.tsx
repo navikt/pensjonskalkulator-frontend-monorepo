@@ -21,4 +21,13 @@ describe('ResponsiveCard', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
+
+  it('rendrer slik den skal med hasLargePadding og hasMargin', async () => {
+    const { asFragment } = render(
+      <ResponsiveCard hasLargePadding hasMargin>
+        <p>lorem ipsum</p>
+      </ResponsiveCard>
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
 })

@@ -8,6 +8,11 @@ import { paths } from '@/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 describe('Step 1', () => {
+  it('har riktig sidetittel', () => {
+    render(<Step1 />)
+    expect(document.title).toBe('application.title.stegvisning.step1')
+  })
+
   it('henter personopplysninger og viser hilsen med fornavnet til brukeren', async () => {
     render(<Step1 />)
     await waitFor(() => {
@@ -15,7 +20,7 @@ describe('Step 1', () => {
     })
   })
 
-  it('render hilsen uten fornavn når henting av personopplysninger er delvis vellykket (mangler sivilstand)', async () => {
+  it('rendrer hilsen uten fornavn når henting av personopplysninger er delvis vellykket (mangler sivilstand)', async () => {
     mockResponse('/person', {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: null },
@@ -26,7 +31,7 @@ describe('Step 1', () => {
     })
   })
 
-  it('render hilsen uten fornavn når henting av personopplysninger feiler', async () => {
+  it('rendrer hilsen uten fornavn når henting av personopplysninger feiler', async () => {
     mockErrorResponse('/person')
     render(<Step1 />)
     await waitFor(() => {

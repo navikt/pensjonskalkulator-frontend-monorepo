@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { checkHarSamboer, getNesteSide } from '../Step4/utils'
 import { ErrorStep } from '@/components/stegvisning/ErrorStep'
+import { externalUrls } from '@/routes/routes'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
@@ -28,7 +29,7 @@ export function Step5Feil() {
   }, [isSuccess, person])
 
   const onCancel = (): void => {
-    window.location.href = 'http://www.nav.no/pensjon'
+    window.location.href = externalUrls.dinPensjon
   }
 
   const onReload = (): void => {

@@ -1,0 +1,52 @@
+// Vitest Snapshot v1
+
+exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
+<DocumentFragment>
+  <main
+    class="_main_4532c9 _main__isFramed_4532c9"
+  >
+    <div
+      class="_headerGroup_4532c9"
+    >
+      <h1
+        class="_headerGroupTitle_4532c9 _headerGroupTitle__isFramed_4532c9 navds-heading navds-heading--large"
+      >
+        application.title
+      </h1>
+    </div>
+    <section
+      class="_section_645946 _section__largePadding_645946"
+      data-testid="error-page-unexpected"
+    >
+      <h2
+        class="navds-heading navds-heading--medium navds-typo--spacing"
+      >
+        errorpage.global.title
+      </h2>
+      <p
+        class="navds-body-long navds-typo--spacing"
+      >
+        errorpage.global.ingress
+      </p>
+      <button
+        class="_button_507cb1 _buttonFirst_507cb1 navds-button navds-button--primary navds-button--medium"
+      >
+        <span
+          class="navds-label"
+        >
+          errorpage.global.button.primary
+        </span>
+      </button>
+      <button
+        class="_button_507cb1 _buttonSecond_507cb1 navds-button navds-button--secondary navds-button--medium"
+      >
+        <span
+          class="navds-label"
+        >
+          errorpage.global.button.secondary
+        </span>
+      </button>
+    </section>
+  </main>
+</DocumentFragment>
+`;
