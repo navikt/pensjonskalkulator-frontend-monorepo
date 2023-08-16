@@ -41,6 +41,7 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
 export const isPerson = (data?: any): data is Person => {
   return (
     [
+      null,
       'UOPPGITT',
       'UGIFT',
       'GIFT',
@@ -51,7 +52,8 @@ export const isPerson = (data?: any): data is Person => {
       'SEPARERT_PARTNER',
       'SKILT_PARTNER',
       'GJENLEVENDE_PARTNER',
-    ].includes(data?.sivilstand) && typeof data.fornavn === 'string'
+    ].includes(data?.sivilstand) &&
+    (data.fornavn === null || typeof data.fornavn === 'string')
   )
 }
 

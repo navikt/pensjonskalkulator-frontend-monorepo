@@ -12,14 +12,11 @@ export function ErrorPageUnexpected() {
   return (
     <PageFramework>
       <ResponsiveCard data-testid="error-page-unexpected" hasLargePadding>
-        {
-          // TODO PEK-90 - avklaring rundt font-size for tittel
-        }
-        <Heading size="large" level="2" spacing>
-          <FormattedMessage id="errorpage.unexpected.title" />
+        <Heading size="medium" level="2" spacing>
+          <FormattedMessage id="errorpage.global.title" />
         </Heading>
         <BodyLong spacing>
-          <FormattedMessage id="errorpage.unexpected.ingress" />
+          <FormattedMessage id="errorpage.global.ingress" />
         </BodyLong>
 
         <Button
@@ -28,7 +25,7 @@ export function ErrorPageUnexpected() {
             window.location.reload()
           }}
         >
-          <FormattedMessage id="errorpage.unexpected.button.primary" />
+          <FormattedMessage id="errorpage.global.button.primary" />
         </Button>
         <Button
           className={`${styles.button} ${styles.buttonSecond}`}
@@ -37,7 +34,7 @@ export function ErrorPageUnexpected() {
             window.location.href = externalUrls.dinPensjon
           }}
         >
-          <FormattedMessage id="errorpage.unexpected.button.secondary" />
+          <FormattedMessage id="errorpage.global.button.secondary" />
         </Button>
       </ResponsiveCard>
     </PageFramework>

@@ -49,7 +49,7 @@ export function Sivilstand({
   return (
     <form onSubmit={onSubmit}>
       <ResponsiveCard aria-live="polite" hasLargePadding hasMargin>
-        <Heading level="2" size="large" spacing>
+        <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <Ingress className={styles.ingress}>

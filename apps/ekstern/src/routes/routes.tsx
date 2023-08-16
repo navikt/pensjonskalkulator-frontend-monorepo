@@ -11,7 +11,7 @@ import { Step2 } from '@/routes/stegvisning/Step2'
 import { Step3 } from '@/routes/stegvisning/Step3'
 import { step3loader } from '@/routes/stegvisning/Step3/utils'
 import { Step4 } from '@/routes/stegvisning/Step4'
-import { Step5 } from '@/routes/stegvisning/Step5'
+import { Step5, Step5Feil } from '@/routes/stegvisning/Step5'
 import { store } from '@/state/store'
 
 export const BASE_PATH = '/pensjon/kalkulator'
@@ -28,6 +28,7 @@ export const paths = {
   offentligTp: '/offentlig-tp',
   afp: '/afp',
   sivilstand: '/sivilstand',
+  sivilstandFeil: '/sivilstand-feil',
   beregning: '/beregning',
   forbehold: '/forbehold',
 } as const
@@ -83,6 +84,11 @@ export const routes: RouteObject[] = [
         path: paths.sivilstand,
         loader: directAccessGuard,
         element: <Step5 />,
+      },
+      {
+        path: paths.sivilstandFeil,
+        loader: directAccessGuard,
+        element: <Step5Feil />,
       },
       {
         path: paths.forbehold,

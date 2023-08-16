@@ -22,7 +22,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
       <div className={styles.wrapper}>
         <img className={styles.image} src={FridaPortrett} alt="" />
         <div className={styles.wrapperText}>
-          <Heading level="2" size="large" spacing>
+          <Heading level="2" size="medium" spacing>
             {`${intl.formatMessage({
               id: 'stegvisning.start.title',
             })}${fornavnString}`}

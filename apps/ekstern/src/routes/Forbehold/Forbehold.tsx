@@ -15,8 +15,8 @@ export function Forbehold() {
   }, [])
 
   return (
-    <ResponsiveCard hasLargePadding>
-      <Heading size="large" level="2" spacing>
+    <ResponsiveCard hasLargePadding hasMargin>
+      <Heading size="medium" level="2" spacing>
         Forbehold
       </Heading>
     </ResponsiveCard>

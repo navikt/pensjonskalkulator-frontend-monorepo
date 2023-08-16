@@ -8,11 +8,12 @@ const translations = {
   'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
-  'errorpage.unexpected.title': 'Oops! Det har oppstått en uventet feil.',
-  'errorpage.unexpected.ingress':
-    'Vi jobber med å rette feilen. Hvis problemet medvarer, kan du kontakte oss på XXX XX XXX.',
-  'errorpage.unexpected.button.primary': 'Last siden på nytt',
-  'errorpage.unexpected.button.secondary': 'Tilbake til Din Pensjon',
+  'loading.person': 'Henter personopplysninger',
+  'error.global.title': 'Oops! Det har oppstått en uventet feil',
+  'error.global.ingress':
+    'Vi jobber med å rette feilen. Hvis problemet vedvarer, kan du kontakte oss på 55 55 33 34.',
+  'errorpage.global.button.primary': 'Last siden på nytt',
+  'errorpage.global.button.secondary': 'Tilbake til Din Pensjon',
   'errorpage.404.title': 'Oops! Siden du leter etter finnes ikke.',
   'errorpage.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
@@ -76,7 +77,6 @@ const translations = {
     'må taes ut sammen med alderspensjon fra folketrygden (NAV) og tjenestepensjon',
   'stegvisning.afp.readmore_offentlig_ingress':
     'Vi kan ikke innhente opplysninger om dette og ta det med i beregningen. Sjekk hva som gjelder deg hos din tjenestepensjonsordning',
-
   'stegvisning.afp.radio_label': 'Har du rett til AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Ja, i offentlig sektor',
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',

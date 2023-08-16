@@ -9,7 +9,7 @@ describe('Forbehold', () => {
     expect(document.title).toBe('application.title.forbehold')
   })
 
-  it('render riktig', () => {
+  it('rendrer riktig', () => {
     render(<Forbehold />)
     expect(screen.getByText('Forbehold')).toBeVisible()
   })

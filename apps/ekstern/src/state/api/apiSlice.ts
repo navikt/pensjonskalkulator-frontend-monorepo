@@ -21,6 +21,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
   }),
+  tagTypes: ['Person'],
   endpoints: (builder) => ({
     pensjonsavtaler: builder.query<
       Pensjonsavtale[],
@@ -79,6 +80,7 @@ export const apiSlice = createApi({
     ),
     getPerson: builder.query<Person, void>({
       query: () => '/person',
+      providesTags: ['Person'],
       transformResponse: (response) => {
         if (!isPerson(response)) {
           throw new Error(`Mottok ugyldig person: ${response}`)

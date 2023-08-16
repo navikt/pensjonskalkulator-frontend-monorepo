@@ -1,7 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Button, Heading, List } from '@navikt/ds-react'
+import { BodyShort, Button, Heading, List } from '@navikt/ds-react'
 
 import { PageFramework } from '@/components/components/PageFramework'
 import { ResponsiveCard } from '@/components/components/ResponsiveCard'
@@ -15,18 +15,19 @@ export function ErrorPage404() {
   return (
     <PageFramework>
       <ResponsiveCard data-testid="error-page-404" hasLargePadding>
-        {
-          // TODO PEK-89 - avklaring rundt font-size for tittel
-        }
-        <Heading size="large" level="2" spacing>
+        <Heading size="medium" level="2" spacing>
           <FormattedMessage id="errorpage.404.title" />
         </Heading>
         <List>
           <List.Item>
-            <FormattedMessage id="errorpage.404.list_item1" />
+            <BodyShort>
+              <FormattedMessage id="errorpage.404.list_item1" />
+            </BodyShort>
           </List.Item>
           <List.Item>
-            <FormattedMessage id="errorpage.404.list_item2" />
+            <BodyShort>
+              <FormattedMessage id="errorpage.404.list_item2" />
+            </BodyShort>
           </List.Item>
         </List>
 

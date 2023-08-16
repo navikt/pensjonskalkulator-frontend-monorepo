@@ -8,7 +8,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
       class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="navds-heading navds-heading--medium navds-typo--spacing"
       >
         stegvisning.samtykke.title
       </h2>
