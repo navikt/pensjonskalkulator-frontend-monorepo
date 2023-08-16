@@ -29,7 +29,7 @@ describe('stegvisning - ErrorStep', () => {
     expect(onReloadMock).toHaveBeenCalled()
   })
 
-  it('kaller onCanceø når brukeren klikker på Last siden på avbryt knappen', async () => {
+  it('kaller onCancel når brukeren klikker på Last siden på avbryt knappen', async () => {
     const user = userEvent.setup()
     render(
       <ErrorStep

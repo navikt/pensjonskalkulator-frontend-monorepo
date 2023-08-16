@@ -8,7 +8,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
       class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="navds-heading navds-heading--medium navds-typo--spacing"
       >
         stegvisning.afp.title
       </h2>
@@ -306,7 +306,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
       class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="navds-heading navds-heading--medium navds-typo--spacing"
       >
         stegvisning.afp.title
       </h2>
@@ -603,7 +603,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
       class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
     >
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="navds-heading navds-heading--medium navds-typo--spacing"
       >
         stegvisning.afp.title
       </h2>

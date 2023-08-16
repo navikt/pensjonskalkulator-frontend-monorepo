@@ -20,7 +20,7 @@ describe('Step 1', () => {
     })
   })
 
-  it('render hilsen uten fornavn når henting av personopplysninger er delvis vellykket (mangler sivilstand)', async () => {
+  it('rendrer hilsen uten fornavn når henting av personopplysninger er delvis vellykket (mangler sivilstand)', async () => {
     mockResponse('/person', {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: null },
@@ -31,7 +31,7 @@ describe('Step 1', () => {
     })
   })
 
-  it('render hilsen uten fornavn når henting av personopplysninger feiler', async () => {
+  it('rendrer hilsen uten fornavn når henting av personopplysninger feiler', async () => {
     mockErrorResponse('/person')
     render(<Step1 />)
     await waitFor(() => {

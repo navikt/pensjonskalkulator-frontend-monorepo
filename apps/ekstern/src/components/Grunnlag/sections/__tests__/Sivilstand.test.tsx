@@ -25,7 +25,7 @@ describe('Sivilstand', () => {
     })
   })
 
-  it('viser feilmelding når henting av personoppluysninger er delvis vellykket (mangler sivilstand)', async () => {
+  it('viser feilmelding når henting av personopplysninger er delvis vellykket (mangler sivilstand)', async () => {
     mockResponse('/person', {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: null },

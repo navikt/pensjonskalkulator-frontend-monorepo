@@ -12,10 +12,7 @@ export function ErrorPageUnexpected() {
   return (
     <PageFramework>
       <ResponsiveCard data-testid="error-page-unexpected" hasLargePadding>
-        {
-          // TODO PEK-90 - avklaring rundt font-size for tittel
-        }
-        <Heading size="large" level="2" spacing>
+        <Heading size="medium" level="2" spacing>
           <FormattedMessage id="errorpage.global.title" />
         </Heading>
         <BodyLong spacing>
