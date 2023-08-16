@@ -21,12 +21,12 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"
       >
-        errorpage.global.title
+        error.global.title
       </h2>
       <p
         class="navds-body-long navds-typo--spacing"
       >
-        errorpage.global.ingress
+        error.global.ingress
       </p>
       <button
         class="_button_507cb1 _buttonFirst_507cb1 navds-button navds-button--primary navds-button--medium"
@@ -34,7 +34,7 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
         <span
           class="navds-label"
         >
-          errorpage.global.button.primary
+          error.global.button.primary
         </span>
       </button>
       <button
@@ -43,7 +43,7 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
         <span
           class="navds-label"
         >
-          errorpage.global.button.secondary
+          error.global.button.secondary
         </span>
       </button>
     </section>

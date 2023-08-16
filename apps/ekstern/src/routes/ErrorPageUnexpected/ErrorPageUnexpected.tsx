@@ -13,10 +13,10 @@ export function ErrorPageUnexpected() {
     <PageFramework>
       <ResponsiveCard data-testid="error-page-unexpected" hasLargePadding>
         <Heading size="medium" level="2" spacing>
-          <FormattedMessage id="errorpage.global.title" />
+          <FormattedMessage id="error.global.title" />
         </Heading>
         <BodyLong spacing>
-          <FormattedMessage id="errorpage.global.ingress" />
+          <FormattedMessage id="error.global.ingress" />
         </BodyLong>
 
         <Button
@@ -25,7 +25,7 @@ export function ErrorPageUnexpected() {
             window.location.reload()
           }}
         >
-          <FormattedMessage id="errorpage.global.button.primary" />
+          <FormattedMessage id="error.global.button.primary" />
         </Button>
         <Button
           className={`${styles.button} ${styles.buttonSecond}`}
@@ -34,7 +34,7 @@ export function ErrorPageUnexpected() {
             window.location.href = externalUrls.dinPensjon
           }}
         >
-          <FormattedMessage id="errorpage.global.button.secondary" />
+          <FormattedMessage id="error.global.button.secondary" />
         </Button>
       </ResponsiveCard>
     </PageFramework>
