@@ -35,7 +35,7 @@ describe('Step 3', () => {
   })
 
   describe('Gitt at kallet til /tpo-medlemskap er vellykket', async () => {
-    it('har riktig sidetittel', () => {
+    it('har riktig sidetittel', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.offentligTp}`],
@@ -43,7 +43,9 @@ describe('Step 3', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      expect(document.title).toBe('application.title.stegvisning.step3')
+      await waitFor(async () => {
+        expect(document.title).toBe('application.title.stegvisning.step3')
+      })
     })
 
     it('sender videre til steg 4 når brukeren klikker på Neste', async () => {
