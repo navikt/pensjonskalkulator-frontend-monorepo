@@ -1,10 +1,10 @@
 import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { BodyShort, Button, Heading, List } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, List } from '@navikt/ds-react'
 
+import { Card } from '@/components/components/Card'
 import { PageFramework } from '@/components/components/PageFramework'
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
 import { externalUrls } from '@/routes'
 
 import styles from './ErrorPage404.module.scss'
@@ -14,20 +14,20 @@ export function ErrorPage404() {
 
   return (
     <PageFramework>
-      <ResponsiveCard data-testid="error-page-404" hasLargePadding>
-        <Heading size="medium" level="2" spacing>
+      <Card data-testid="error-page-404" hasLargePadding>
+        <Heading level="2" size="medium" spacing>
           <FormattedMessage id="errorpage.404.title" />
         </Heading>
         <List>
           <List.Item>
-            <BodyShort>
+            <BodyLong>
               <FormattedMessage id="errorpage.404.list_item1" />
-            </BodyShort>
+            </BodyLong>
           </List.Item>
           <List.Item>
-            <BodyShort>
+            <BodyLong>
               <FormattedMessage id="errorpage.404.list_item2" />
-            </BodyShort>
+            </BodyLong>
           </List.Item>
         </List>
 
@@ -48,7 +48,7 @@ export function ErrorPage404() {
         >
           <FormattedMessage id="errorpage.404.button.secondary" />
         </Button>
-      </ResponsiveCard>
+      </Card>
     </PageFramework>
   )
 }

@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/components/Card'
 
 import styles from './OffentligTP.module.scss'
 
@@ -27,7 +27,7 @@ export function OffentligTP({
   }, [shouldJumpOverStep])
 
   return (
-    <ResponsiveCard aria-live="polite" hasLargePadding hasMargin>
+    <Card aria-live="polite" hasLargePadding hasMargin>
       <Heading level="2" size="medium" spacing>
         <FormattedMessage id="stegvisning.offentligtp.title" />
       </Heading>
@@ -57,6 +57,6 @@ export function OffentligTP({
       >
         <FormattedMessage id="stegvisning.avbryt" />
       </Button>
-    </ResponsiveCard>
+    </Card>
   )
 }

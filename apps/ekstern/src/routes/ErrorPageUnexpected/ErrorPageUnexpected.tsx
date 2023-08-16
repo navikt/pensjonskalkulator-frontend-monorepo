@@ -2,8 +2,8 @@ import { FormattedMessage } from 'react-intl'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
+import { Card } from '@/components/components/Card'
 import { PageFramework } from '@/components/components/PageFramework'
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
 import { externalUrls } from '@/routes'
 
 import styles from './ErrorPageUnexpected.module.scss'
@@ -11,8 +11,8 @@ import styles from './ErrorPageUnexpected.module.scss'
 export function ErrorPageUnexpected() {
   return (
     <PageFramework>
-      <ResponsiveCard data-testid="error-page-unexpected" hasLargePadding>
-        <Heading size="medium" level="2" spacing>
+      <Card data-testid="error-page-unexpected" hasLargePadding>
+        <Heading level="2" size="medium" spacing>
           <FormattedMessage id="error.global.title" />
         </Heading>
         <BodyLong spacing>
@@ -36,7 +36,7 @@ export function ErrorPageUnexpected() {
         >
           <FormattedMessage id="error.global.button.secondary" />
         </Button>
-      </ResponsiveCard>
+      </Card>
     </PageFramework>
   )
 }

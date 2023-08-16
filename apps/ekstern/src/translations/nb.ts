@@ -14,7 +14,6 @@ const translations = {
     'Vi jobber med å rette feilen. Hvis problemet vedvarer, kan du kontakte oss på 55 55 33 34.',
   'error.global.button.primary': 'Last siden på nytt',
   'error.global.button.secondary': 'Tilbake til Din Pensjon',
-  'error.global.button.tertiary': 'Avbryt',
   'errorpage.404.title': 'Oops! Siden du leter etter finnes ikke.',
   'errorpage.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
@@ -59,7 +58,7 @@ const translations = {
   'stegvisning.offentligtp.error.title':
     'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor',
   'stegvisning.offentligtp.error.ingress':
-    'Vi kan dessverre ikke hente inn avtaler om tjenestepensjon fra offentlig sektor. Har du vært eller er ansatt i offentlig sektor, kan du sjekke hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.). {br}{br}Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler fra  privat sektor.',
+    'Vi kan dessverre ikke hente inn avtaler om tjenestepensjon fra offentlig sektor. Har du vært eller er ansatt i offentlig sektor, kan du sjekke hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.). {br}{br}Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler fra privat sektor.',
   'stegvisning.afp.title': 'Du kan ha rett til AFP',
   'stegvisning.afp.ingress':
     'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',

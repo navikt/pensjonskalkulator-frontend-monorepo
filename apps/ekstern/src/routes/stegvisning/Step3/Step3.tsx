@@ -2,8 +2,8 @@ import { useEffect, Suspense } from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate, Await } from 'react-router-dom'
 
+import { Card } from '@/components/components/Card'
 import { Loader } from '@/components/components/Loader'
-import { ErrorStep } from '@/components/stegvisning/ErrorStep'
 import { OffentligTP } from '@/components/stegvisning/OffentligTP'
 import { paths } from '@/routes'
 import { useAppDispatch } from '@/state/hooks'
@@ -50,18 +50,20 @@ export function Step3() {
         <Await resolve={loaderData.getTpoMedlemskapQuery}>
           {(getTpoMedlemskapQuery: TpoMedlemskapQuery) => {
             return getTpoMedlemskapQuery.isError ? (
-              <ErrorStep
-                onPrimaryButtonClick={onNext}
-                onSecondaryButtonClick={onPrevious}
-                onCancel={onCancel}
-                text={{
-                  header: 'stegvisning.offentligtp.error.title',
-                  ingress: 'stegvisning.offentligtp.error.ingress',
-                  primaryButton: 'stegvisning.neste',
-                  secondaryButton: 'stegvisning.tilbake',
-                  tertiaryButton: 'stegvisning.avbryt',
-                }}
-              />
+              <Card aria-live="polite" hasLargePadding hasMargin>
+                <Card.Content
+                  onPrimaryButtonClick={onNext}
+                  onSecondaryButtonClick={onPrevious}
+                  onCancel={onCancel}
+                  text={{
+                    header: 'stegvisning.offentligtp.error.title',
+                    ingress: 'stegvisning.offentligtp.error.ingress',
+                    primaryButton: 'stegvisning.neste',
+                    secondaryButton: 'stegvisning.tilbake',
+                    tertiaryButton: 'stegvisning.avbryt',
+                  }}
+                />
+              </Card>
             ) : (
               <OffentligTP
                 shouldJumpOverStep={

@@ -15,7 +15,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
       </h1>
     </div>
     <section
-      class="_section_645946 _section__largePadding_645946"
+      class="_section_aded60 _section__largePadding_aded60"
       data-testid="error-page-404"
     >
       <h2
@@ -55,7 +55,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
               class="navds-list__item-content navds-body-short navds-body-short--small"
             >
               <p
-                class="navds-body-short"
+                class="navds-body-long"
               >
                 errorpage.404.list_item1
               </p>
@@ -89,7 +89,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
               class="navds-list__item-content navds-body-short navds-body-short--small"
             >
               <p
-                class="navds-body-short"
+                class="navds-body-long"
               >
                 errorpage.404.list_item2
               </p>

@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/components/Card'
 
 import styles from './Sivilstand.module.scss'
 
@@ -48,7 +48,7 @@ export function Sivilstand({
 
   return (
     <form onSubmit={onSubmit}>
-      <ResponsiveCard aria-live="polite" hasLargePadding hasMargin>
+      <Card aria-live="polite" hasLargePadding hasMargin>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
@@ -92,7 +92,7 @@ export function Sivilstand({
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </ResponsiveCard>
+      </Card>
     </form>
   )
 }

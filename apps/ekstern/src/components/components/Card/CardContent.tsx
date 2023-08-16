@@ -4,29 +4,30 @@ import { Ingress, Button, Heading } from '@navikt/ds-react'
 
 import { Loader } from '@/components/components/Loader'
 
-import styles from './ErrorStep.module.scss'
+import styles from './CardContent.module.scss'
 
-interface Props {
+export interface CardContentProps {
   isLoading?: boolean
   onPrimaryButtonClick: () => void
   onSecondaryButtonClick: () => void
   onCancel?: () => void
   text?: {
-    header: string
-    ingress: string
-    primaryButton: string
-    secondaryButton: string
-    tertiaryButton: string
+    loading?: string
+    header?: string
+    ingress?: string
+    primaryButton?: string
+    secondaryButton?: string
+    tertiaryButton?: string
   }
 }
-// TODO etter merge av PEK-90 - vurdere flytting/merge av tekst og komponent med ErrorPageUnexpected
-export function ErrorStep({
+
+export function CardContent({
   isLoading,
   onPrimaryButtonClick,
   onSecondaryButtonClick,
   onCancel,
   text,
-}: Props) {
+}: CardContentProps) {
   const intl = useIntl()
   if (isLoading) {
     return (
@@ -34,21 +35,18 @@ export function ErrorStep({
         data-testid="loader"
         size="3xlarge"
         title={intl.formatMessage({
-          id: 'loading.person',
+          id: text?.loading,
         })}
       />
     )
   }
   return (
-    <section className={styles.section}>
-      <Heading size="large" level="2" spacing>
-        <FormattedMessage id={text?.header ?? 'error.global.title'} />
+    <>
+      <Heading level="2" size="medium" spacing>
+        <FormattedMessage id={text?.header} />
       </Heading>
       <Ingress className={styles.ingress}>
-        <FormattedMessage
-          id={text?.ingress ?? 'error.global.ingress'}
-          values={{ br: <br /> }}
-        />
+        <FormattedMessage id={text?.ingress} values={{ br: <br /> }} />
       </Ingress>
 
       <Button
@@ -57,9 +55,7 @@ export function ErrorStep({
         variant="primary"
         onClick={onPrimaryButtonClick}
       >
-        <FormattedMessage
-          id={text?.primaryButton ?? 'error.global.button.primary'}
-        />
+        <FormattedMessage id={text?.primaryButton} />
       </Button>
 
       <Button
@@ -68,9 +64,7 @@ export function ErrorStep({
         variant="secondary"
         onClick={onSecondaryButtonClick}
       >
-        <FormattedMessage
-          id={text?.secondaryButton ?? 'error.global.button.secondary'}
-        />
+        <FormattedMessage id={text?.secondaryButton} />
       </Button>
 
       {onCancel && (
@@ -80,11 +74,9 @@ export function ErrorStep({
           variant="tertiary"
           onClick={onCancel}
         >
-          <FormattedMessage
-            id={text?.tertiaryButton ?? 'error.global.button.tertiary'}
-          />
+          <FormattedMessage id={text?.tertiaryButton} />
         </Button>
       )}
-    </section>
+    </>
   )
 }
