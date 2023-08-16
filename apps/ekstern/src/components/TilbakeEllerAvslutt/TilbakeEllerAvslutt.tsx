@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 
-import { BodyShort, Button, Heading } from '@navikt/ds-react'
+import { Button } from '@navikt/ds-react'
 
-import { paths } from '@/routes'
+import { externalUrls, paths } from '@/routes'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -18,7 +18,7 @@ export function TilbakeEllerAvslutt() {
   }
 
   const onCancelClick = (): void => {
-    window.location.href = 'http://www.nav.no/pensjon'
+    window.location.href = externalUrls.dinPensjon
   }
 
   return (

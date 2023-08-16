@@ -1,12 +1,22 @@
 @import '../../scss/variables';
 
 .wrapper {
-  display: flex;
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &Card {
+    composes: whitesection from '../../scss/modules/fadein.module.scss';
+    display: flex;
+    padding: var(--a-spacing-6);
+
+    @media (min-width: $a-breakpoint-lg) {
+      max-width: $container-max-width;
+    }
+  }
 
   &Image {
     display: none;
 
-    @media (min-width: $a-breakpoint-md) {
+    @media (min-width: $a-breakpoint-lg) {
       display: block;
       width: 4rem;
       height: 4rem;
@@ -27,7 +37,7 @@
   br {
     display: none;
 
-    @media (min-width: $a-breakpoint-md) {
+    @media (min-width: $a-breakpoint-lg) {
       display: inline;
     }
   }

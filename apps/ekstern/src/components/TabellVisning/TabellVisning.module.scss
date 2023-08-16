@@ -10,6 +10,22 @@
       font-weight: var(--a-font-weight-bold);
     }
   }
+
+  @media (min-width: $a-breakpoint-lg) {
+    table-layout: fixed;
+  }
+
+  &MobileOnly {
+    @media (min-width: $a-breakpoint-lg) {
+      display: none !important;
+    }
+  }
+
+  &DesktopOnly {
+    @media (max-width: $a-breakpoint-lg-down) {
+      display: none !important;
+    }
+  }
 }
 
 .details {
@@ -24,6 +40,10 @@
     &Right {
       text-align: right;
       margin-inline-start: var(--a-spacing-4);
+    }
+
+    &Bold {
+      font-weight: var(--a-font-weight-bold);
     }
   }
 

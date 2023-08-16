@@ -4,7 +4,8 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
 <DocumentFragment>
   <form>
     <section
-      class="_section_645946 _section__largePadding_645946"
+      aria-live="polite"
+      class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
     >
       <h2
         class="navds-heading navds-heading--large navds-typo--spacing"
@@ -144,7 +145,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="submit"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.neste
@@ -155,7 +155,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.tilbake
@@ -166,7 +165,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.avbryt

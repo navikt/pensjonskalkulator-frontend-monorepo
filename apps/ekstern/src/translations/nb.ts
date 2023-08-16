@@ -1,5 +1,25 @@
 const translations = {
   'application.title': 'Pensjonskalkulator',
+  'application.title.stegvisning.step1': 'Start – Pensjonskalkulator',
+  'application.title.stegvisning.step2': 'Samtykke – Pensjonskalkulator',
+  'application.title.stegvisning.step3':
+    'Offentlig tjenestepensjon – Pensjonskalkulator',
+  'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
+  'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
+  'application.title.beregning': 'Beregning – Pensjonskalkulator',
+  'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
+  'errorpage.unexpected.title': 'Oops! Det har oppstått en uventet feil.',
+  'errorpage.unexpected.ingress':
+    'Vi jobber med å rette feilen. Hvis problemet medvarer, kan du kontakte oss på XXX XX XXX.',
+  'errorpage.unexpected.button.primary': 'Last siden på nytt',
+  'errorpage.unexpected.button.secondary': 'Tilbake til Din Pensjon',
+  'errorpage.404.title': 'Oops! Siden du leter etter finnes ikke.',
+  'errorpage.404.list_item1':
+    'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
+  'errorpage.404.list_item2':
+    'Hvis du klikket på en lenke er den feil eller utdatert.',
+  'errorpage.404.button.primary': 'Tilbake til forrige side',
+  'errorpage.404.button.secondary': 'Tilbake til Din Pensjon',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -7,7 +27,6 @@ const translations = {
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
-  'stegvisning.start.bildetekst': 'Bilde av veilederen Frida',
   'stegvisning.start.start': 'Kom i gang',
   'stegvisning.samtykke.title': 'Pensjonen din',
   'stegvisning.samtykke.ingress':

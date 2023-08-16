@@ -115,7 +115,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som bare har start dato 1`
       >
         Alle avtaler i privat sektor er hentet fra 
         <a
-          class="navds-link"
+          class="navds-link navds-link--action"
           href="https://norskpensjon.no/"
         >
           Norsk Pensjon
@@ -242,7 +242,7 @@ exports[`Pensjonsavtaler > rendrer riktig med avtaler som har både start- og sl
       >
         Alle avtaler i privat sektor er hentet fra 
         <a
-          class="navds-link"
+          class="navds-link navds-link--action"
           href="https://norskpensjon.no/"
         >
           Norsk Pensjon

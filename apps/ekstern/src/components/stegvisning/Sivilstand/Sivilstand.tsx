@@ -23,7 +23,6 @@ export function Sivilstand({
   onNext,
 }: Props) {
   const intl = useIntl()
-
   const [validationError, setValidationError] = useState<string>('')
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
@@ -49,8 +48,8 @@ export function Sivilstand({
 
   return (
     <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
-        <Heading size="large" level="2" spacing>
+      <ResponsiveCard aria-live="polite" hasLargePadding hasMargin>
+        <Heading level="2" size="large" spacing>
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <Ingress className={styles.ingress}>

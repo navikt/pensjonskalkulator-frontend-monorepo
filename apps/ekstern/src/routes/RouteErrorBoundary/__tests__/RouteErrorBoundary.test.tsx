@@ -27,7 +27,8 @@ describe('RouteErrorBoundary', () => {
       router.navigate('/denne/siden/finnes/ikke')
     })
 
-    expect(screen.getByText('Denne siden finnes ikke')).toBeVisible()
+    expect(screen.queryByTestId('error-boundary')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('error-page-404')).toBeInTheDocument()
   })
 
   it('rendrer feilmelding når det kastes en feil i children', () => {
@@ -43,12 +44,11 @@ describe('RouteErrorBoundary', () => {
     ])
 
     swallowErrors(() => {
-      const component = render(<RouterProvider router={router} />, {
+      render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-
-      expect(screen.getByRole('heading')).toHaveTextContent('Oisann!')
-      expect(component.asFragment()).toMatchSnapshot()
+      expect(screen.queryByTestId('error-page-404')).not.toBeInTheDocument()
+      expect(screen.queryByTestId('error-page-unexpected')).toBeInTheDocument()
     })
   })
 })

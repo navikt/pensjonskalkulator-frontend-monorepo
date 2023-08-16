@@ -30,7 +30,6 @@ export function Samtykke({
   onNext,
 }: Props) {
   const intl = useIntl()
-
   const [validationError, setValidationError] = useState<string>('')
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
@@ -56,8 +55,8 @@ export function Samtykke({
 
   return (
     <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
-        <Heading size="large" level="2" spacing>
+      <ResponsiveCard aria-live="polite" hasLargePadding hasMargin>
+        <Heading level="2" size="large" spacing>
           <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
         <Ingress>
