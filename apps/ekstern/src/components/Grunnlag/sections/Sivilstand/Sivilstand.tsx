@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 
-import { Accordion, Alert, BodyLong, Link } from '@navikt/ds-react'
+import { Accordion, BodyLong, Link } from '@navikt/ds-react'
 
 import { SectionContent } from '../components/SectionContent'
 import { SectionHeader } from '../components/SectionHeader'
@@ -9,24 +9,24 @@ import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { formatSivilstand } from './Sivilstand-utils'
 
 export function Sivilstand() {
-  const { data: person, isError, isLoading, isSuccess } = useGetPersonQuery()
+  const { data: person, isSuccess } = useGetPersonQuery()
 
   const formatertSivilstand = useMemo(
-    () => (person ? formatSivilstand(person.sivilstand) : ''),
+    () =>
+      person && person.sivilstand ? formatSivilstand(person.sivilstand) : '',
     [person]
   )
 
-  if (isLoading) {
-    return null
-  }
-
-  if (isError || !isSuccess) {
-    return <Alert variant="error">Kunne ikke hente sivilstand</Alert>
-  }
-
   return (
     <Accordion.Item data-testid="accordion-sivilstand">
-      <SectionHeader label="Sivilstand" value={formatertSivilstand} />
+      <SectionHeader
+        label="Sivilstand"
+        value={
+          isSuccess && person.sivilstand !== null
+            ? formatertSivilstand
+            : 'Kunne ikke hentes'
+        }
+      />
       <SectionContent>
         <BodyLong>
           Garantipensjon skal sikre et minste garantipensjonsnivå ved 67 år for

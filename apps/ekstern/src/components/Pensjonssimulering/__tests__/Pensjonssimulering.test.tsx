@@ -20,9 +20,9 @@ describe('Pensjonssimulering', () => {
     const user = userEvent.setup()
     render(<Pensjonssimulering uttaksalder={65} />)
 
-    expect(screen.getByText('Vis tabell')).toBeVisible()
-    await user.click(screen.getByText('Vis tabell'))
-    expect(screen.getByText('Lukk tabell')).toBeVisible()
-    expect(screen.getAllByRole('row').length).toBe(16)
+    expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+    await user.click(screen.getByText('Vis tabell av beregningen'))
+    expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
+    expect(screen.getAllByRole('row').length).toBe(31)
   })
 })

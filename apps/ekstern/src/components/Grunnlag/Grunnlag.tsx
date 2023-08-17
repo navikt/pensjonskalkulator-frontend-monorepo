@@ -42,10 +42,11 @@ export function Grunnlag({
     <section className={styles.section}>
       <div className={styles.description}>
         <Heading level="2" size="medium">
-          Grunnlaget for prognosen
+          Grunnlaget for beregningen
         </Heading>
         <BodyLong>
-          Alle summer er oppgitt i dagens kroneverdi før skatt.
+          Pensjonsberegningen er gjort med dagens regelverk og er vist i dagens
+          kroneverdi før skatt.
         </BodyLong>
       </div>
       <Accordion>

@@ -13,6 +13,11 @@ import {
 } from '@/test-utils'
 
 describe('Pensjonsberegning', () => {
+  it('har riktig sidetittel', () => {
+    render(<Pensjonsberegning />)
+    expect(document.title).toBe('application.title.beregning')
+  })
+
   it('viser loading og deretter riktig header, tekst og knapper', async () => {
     const result = render(<Pensjonsberegning />)
     expect(screen.getByTestId('loader')).toBeVisible()

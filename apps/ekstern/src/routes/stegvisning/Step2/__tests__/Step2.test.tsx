@@ -8,6 +8,11 @@ import { RootState } from '@/state/store'
 import { screen, render, userEvent } from '@/test-utils'
 
 describe('Step 2', () => {
+  it('har riktig sidetittel', () => {
+    render(<Step2 />)
+    expect(document.title).toBe('application.title.stegvisning.step2')
+  })
+
   it('registrerer samtykke og navigerer videre til riktig side når brukeren samtykker og klikker på Neste', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
@@ -74,6 +79,6 @@ describe('Step 2', () => {
     await user.click(screen.getByText('stegvisning.avbryt'))
 
     expect(store.getState().userInput.samtykke).toBe(null)
-    expect(navigateMock).toHaveBeenCalledWith('/')
+    expect(navigateMock).toHaveBeenCalledWith(paths.root)
   })
 })

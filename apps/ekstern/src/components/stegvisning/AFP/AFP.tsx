@@ -13,7 +13,7 @@ import {
   ReadMore,
 } from '@navikt/ds-react'
 
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/components/Card'
 
 import styles from './AFP.module.scss'
 
@@ -28,7 +28,6 @@ export type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
 
 export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
-
   const [validationError, setValidationError] = useState<string>('')
   const [showAlert, setShowAlert] = useState<AfpRadio | ''>('')
 
@@ -56,8 +55,8 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
 
   return (
     <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
-        <Heading size="large" level="2" spacing>
+      <Card aria-live="polite" hasLargePadding hasMargin>
+        <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
         <Ingress>
@@ -170,7 +169,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </ResponsiveCard>
+      </Card>
     </form>
   )
 }

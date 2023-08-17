@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useIntl } from 'react-intl'
 
 import { Alert, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -22,6 +23,7 @@ export function Pensjonsberegning() {
   const harSamtykket = useAppSelector(selectSamtykke)
   const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
+  const intl = useIntl()
   const {
     data: tidligstMuligUttak,
     isLoading,
@@ -55,12 +57,18 @@ export function Pensjonsberegning() {
     }
   }
 
+  useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title.beregning',
+    })
+  }, [])
+
   if (isLoading) {
     return (
       <Loader
         data-testid="loader"
         size="3xlarge"
-        title="Henter tidligste mulige uttaksalder"
+        title="Et øyeblikk, vi henter tidligste mulige uttaksalder"
       />
     )
   }
@@ -96,7 +104,9 @@ export function Pensjonsberegning() {
             valgtUttaksalderHandler={valgtUttaksalderHandler}
           />
         </div>
-
+        {
+          // TODO PEK-107 - sørge for at fokuset flyttes riktig og at skjermleseren leser opp i riktig rekkefølge etter valg av uttaksalder + at lasting er ferdig.
+        }
         {valgtUttaksalder && (
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}

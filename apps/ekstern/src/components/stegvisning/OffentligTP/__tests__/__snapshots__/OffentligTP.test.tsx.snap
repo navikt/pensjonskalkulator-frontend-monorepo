@@ -3,10 +3,11 @@
 exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
 <DocumentFragment>
   <section
-    class="_section_645946 _section__largePadding_645946"
+    aria-live="polite"
+    class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
   >
     <h2
-      class="navds-heading navds-heading--large navds-typo--spacing"
+      class="navds-heading navds-heading--medium navds-typo--spacing"
     >
       stegvisning.offentligtp.title
     </h2>
@@ -25,7 +26,6 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       type="submit"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.neste
@@ -36,7 +36,6 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       type="button"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.tilbake
@@ -47,7 +46,6 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       type="button"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.avbryt

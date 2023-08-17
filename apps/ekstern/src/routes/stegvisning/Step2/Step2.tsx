@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { Samtykke, SamtykkeRadio } from '@/components/stegvisning/Samtykke'
@@ -8,9 +10,16 @@ import { selectSamtykke } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step2() {
+  const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
+
+  useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title.stegvisning.step2',
+    })
+  }, [])
 
   const onNext = (samtykkeData: SamtykkeRadio) => {
     const samtykke = samtykkeData === 'ja'

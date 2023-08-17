@@ -2,9 +2,8 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, vi } from 'vitest'
 
-import { BASE_PATH, routes } from '..'
+import { BASE_PATH, paths, routes } from '..'
 import { mockResponse } from '@/mocks/server'
-import { paths } from '@/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -299,8 +298,46 @@ describe('routes', () => {
         hasRouter: false,
       })
       expect(
-        await screen.findByText('Henter tidligste mulige uttaksalder')
+        await screen.findByText(
+          'Et øyeblikk, vi henter tidligste mulige uttaksalder'
+        )
       ).toBeInTheDocument()
+    })
+  })
+
+  describe(`${BASE_PATH}${paths.forbehold}`, () => {
+    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      store.getState = vi.fn().mockImplementation(() => ({
+        api: {},
+        userInput: { ...userInputInitialState },
+      }))
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.forbehold}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      expect(
+        await screen.findByText('stegvisning.start.start')
+      ).toBeInTheDocument()
+    })
+
+    it('viser forbehold siden når brukeren kommer til steget gjennom stegvisningen', async () => {
+      store.getState = vi.fn().mockImplementation(() => ({
+        api: {
+          ...fakeApiCalls,
+        },
+        userInput: { ...userInputInitialState, samtykke: true },
+      }))
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.forbehold}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      expect(await screen.findByText('Forbehold')).toBeInTheDocument()
     })
   })
 
@@ -311,7 +348,7 @@ describe('routes', () => {
     })
     swallowErrors(() => {
       render(<RouterProvider router={router} />, { hasRouter: false })
-      expect(screen.getByText('Denne siden finnes ikke')).toBeInTheDocument()
+      expect(screen.queryByTestId('error-page-404')).toBeInTheDocument()
     })
   })
 })

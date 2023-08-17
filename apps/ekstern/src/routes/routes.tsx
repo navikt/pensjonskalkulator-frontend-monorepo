@@ -3,6 +3,7 @@ import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
 import { PageFramework } from '@/components/components/PageFramework'
 import { Pensjonsberegning } from '@/containers/Pensjonsberegning'
+import { Forbehold } from '@/routes/Forbehold'
 import { LandingPage } from '@/routes/LandingPage'
 import { RouteErrorBoundary } from '@/routes/RouteErrorBoundary'
 import { Step1 } from '@/routes/stegvisning/Step1'
@@ -10,10 +11,14 @@ import { Step2 } from '@/routes/stegvisning/Step2'
 import { Step3 } from '@/routes/stegvisning/Step3'
 import { step3loader } from '@/routes/stegvisning/Step3/utils'
 import { Step4 } from '@/routes/stegvisning/Step4'
-import { Step5 } from '@/routes/stegvisning/Step5'
+import { Step5, Step5Feil } from '@/routes/stegvisning/Step5'
 import { store } from '@/state/store'
 
 export const BASE_PATH = '/pensjon/kalkulator'
+
+export const externalUrls = {
+  dinPensjon: 'http://nav.no/pensjon',
+}
 
 export const paths = {
   root: '/',
@@ -23,7 +28,9 @@ export const paths = {
   offentligTp: '/offentlig-tp',
   afp: '/afp',
   sivilstand: '/sivilstand',
+  sivilstandFeil: '/sivilstand-feil',
   beregning: '/beregning',
+  forbehold: '/forbehold',
 } as const
 
 const directAccessGuard = async () => {
@@ -77,6 +84,16 @@ export const routes: RouteObject[] = [
         path: paths.sivilstand,
         loader: directAccessGuard,
         element: <Step5 />,
+      },
+      {
+        path: paths.sivilstandFeil,
+        loader: directAccessGuard,
+        element: <Step5Feil />,
+      },
+      {
+        path: paths.forbehold,
+        loader: directAccessGuard,
+        element: <Forbehold />,
       },
     ],
   },
