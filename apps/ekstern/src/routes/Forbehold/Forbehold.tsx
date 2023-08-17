@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 
 import { Heading } from '@navikt/ds-react'
 
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/components/Card'
 
 export function Forbehold() {
   const intl = useIntl()
@@ -15,10 +15,10 @@ export function Forbehold() {
   }, [])
 
   return (
-    <ResponsiveCard hasLargePadding hasMargin>
-      <Heading size="medium" level="2" spacing>
+    <Card hasLargePadding hasMargin>
+      <Heading level="2" size="medium" spacing>
         Forbehold
       </Heading>
-    </ResponsiveCard>
+    </Card>
   )
 }

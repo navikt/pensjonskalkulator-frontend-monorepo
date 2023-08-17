@@ -32,7 +32,7 @@ describe('Step 5 Feil', () => {
       () => navigateMock
     )
     render(<Step5Feil />)
-    user.click(await screen.findByText('error.global.button.reload'))
+    user.click(await screen.findByText('error.global.button.primary'))
     await waitFor(() => {
       expect(navigateMock).not.toHaveBeenCalled()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
@@ -43,7 +43,7 @@ describe('Step 5 Feil', () => {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: null },
     })
-    user.click(await screen.findByText('error.global.button.reload'))
+    user.click(await screen.findByText('error.global.button.primary'))
     await waitFor(() => {
       expect(navigateMock).not.toHaveBeenCalled()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
@@ -66,7 +66,7 @@ describe('Step 5 Feil', () => {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: 'GIFT' },
     })
-    await user.click(await screen.findByText('error.global.button.reload'))
+    await user.click(await screen.findByText('error.global.button.primary'))
     await waitFor(() => {
       expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
       expect(nesteSideMock).toHaveBeenCalledWith(true)
@@ -75,7 +75,7 @@ describe('Step 5 Feil', () => {
     })
   })
 
-  it('redirigerer til Din Pensjon når brukeren klikker på Avbryt', async () => {
+  it('redirigerer til Din Pensjon når brukeren klikker på secondary knappen', async () => {
     const user = userEvent.setup()
     mockErrorResponse('/person')
     global.window = Object.create(window)
@@ -87,7 +87,7 @@ describe('Step 5 Feil', () => {
       writable: true,
     })
     render(<Step5Feil />)
-    await user.click(await screen.findByText('error.global.button.avbryt'))
+    await user.click(await screen.findByText('error.global.button.secondary'))
     expect(window.location.href).toBe(externalUrls.dinPensjon)
   })
 })

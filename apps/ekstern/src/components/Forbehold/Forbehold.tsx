@@ -6,7 +6,6 @@ import { paths } from '@/routes'
 
 import styles from './Forbehold.module.scss'
 
-// TODO skrive tester
 export function Forbehold() {
   return (
     <section className={styles.section}>

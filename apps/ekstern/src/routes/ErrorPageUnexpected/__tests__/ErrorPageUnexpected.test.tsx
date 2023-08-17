@@ -26,7 +26,7 @@ describe('ErrorPageUnexpected', () => {
       writable: true,
     })
     render(<ErrorPageUnexpected />)
-    await user.click(screen.getByText('errorpage.global.button.primary'))
+    await user.click(screen.getByText('error.global.button.primary'))
     expect(reloadMock).toHaveBeenCalled()
   })
 
@@ -41,7 +41,7 @@ describe('ErrorPageUnexpected', () => {
       writable: true,
     })
     render(<ErrorPageUnexpected />)
-    await user.click(screen.getByText('errorpage.global.button.secondary'))
+    await user.click(screen.getByText('error.global.button.secondary'))
     expect(window.location.href).toBe(externalUrls.dinPensjon)
   })
 })

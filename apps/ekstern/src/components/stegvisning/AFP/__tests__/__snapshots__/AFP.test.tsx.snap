@@ -5,7 +5,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
   <form>
     <section
       aria-live="polite"
-      class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
+      class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
     >
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"
@@ -303,7 +303,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
   <form>
     <section
       aria-live="polite"
-      class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
+      class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
     >
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"
@@ -600,7 +600,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
   <form>
     <section
       aria-live="polite"
-      class="_section_645946 _section__largePadding_645946 _section__marginBotton_645946"
+      class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
     >
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"

@@ -2,9 +2,8 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, vi } from 'vitest'
 
-import { BASE_PATH, routes } from '..'
+import { BASE_PATH, paths, routes } from '..'
 import { mockResponse } from '@/mocks/server'
-import { paths } from '@/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'

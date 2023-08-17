@@ -3,7 +3,7 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { Ingress, Button, Heading } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/components/Card'
 
 import styles from './Start.module.scss'
 
@@ -18,7 +18,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
   const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
 
   return (
-    <ResponsiveCard hasLargePadding hasMargin>
+    <Card hasLargePadding hasMargin>
       <div className={styles.wrapper}>
         <img className={styles.image} src={FridaPortrett} alt="" />
         <div className={styles.wrapperText}>
@@ -38,6 +38,6 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           </Button>
         </div>
       </div>
-    </ResponsiveCard>
+    </Card>
   )
 }

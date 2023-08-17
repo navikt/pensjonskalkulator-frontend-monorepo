@@ -19,7 +19,7 @@ describe('ErrorPage404', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('sender brukeren til forrige siden når brukeren klikker på første knapp', async () => {
+  it('sender brukeren til forrige side når brukeren klikker på første knapp', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -27,7 +27,7 @@ describe('ErrorPage404', () => {
     )
     render(<ErrorPage404 />)
 
-    await user.click(screen.getByText('errorpage.404.button.primary'))
+    await user.click(screen.getByText('error.404.button.primary'))
     expect(navigateMock).toHaveBeenCalledWith(-1)
   })
 
@@ -44,7 +44,7 @@ describe('ErrorPage404', () => {
 
     render(<ErrorPage404 />)
 
-    await user.click(screen.getByText('errorpage.404.button.secondary'))
+    await user.click(screen.getByText('error.404.button.secondary'))
     expect(window.location.href).toBe(externalUrls.dinPensjon)
   })
 })

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { checkHarSamboer, getNesteSide } from '../Step4/utils'
-import { ErrorStep } from '@/components/stegvisning/ErrorStep'
+import { Card } from '@/components/components/Card'
 import { externalUrls } from '@/routes/routes'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -38,6 +38,19 @@ export function Step5Feil() {
   }
 
   return (
-    <ErrorStep isLoading={isLoading} onCancel={onCancel} onReload={onReload} />
+    <Card aria-live="polite" hasLargePadding hasMargin>
+      <Card.Content
+        text={{
+          loading: 'loading.person',
+          header: 'error.global.title',
+          ingress: 'error.global.ingress',
+          primaryButton: 'error.global.button.primary',
+          secondaryButton: 'error.global.button.secondary',
+        }}
+        isLoading={isLoading}
+        onPrimaryButtonClick={onReload}
+        onSecondaryButtonClick={onCancel}
+      />
+    </Card>
   )
 }

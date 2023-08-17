@@ -15,35 +15,37 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
       </h1>
     </div>
     <section
-      class="_section_645946 _section__largePadding_645946"
+      class="_section_aded60 _section__largePadding_aded60"
       data-testid="error-page-unexpected"
     >
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"
       >
-        errorpage.global.title
+        error.global.title
       </h2>
       <p
-        class="navds-body-long navds-typo--spacing"
+        class="_ingress_ea3f8b navds-ingress"
       >
-        errorpage.global.ingress
+        error.global.ingress
       </p>
       <button
-        class="_button_507cb1 _buttonFirst_507cb1 navds-button navds-button--primary navds-button--medium"
+        class="_button_ea3f8b navds-button navds-button--primary navds-button--medium"
+        type="button"
       >
         <span
           class="navds-label"
         >
-          errorpage.global.button.primary
+          error.global.button.primary
         </span>
       </button>
       <button
-        class="_button_507cb1 _buttonSecond_507cb1 navds-button navds-button--secondary navds-button--medium"
+        class="_button_ea3f8b navds-button navds-button--secondary navds-button--medium"
+        type="button"
       >
         <span
           class="navds-label"
         >
-          errorpage.global.button.secondary
+          error.global.button.secondary
         </span>
       </button>
     </section>
