@@ -7,7 +7,7 @@ import { vi } from 'vitest'
 
 import { createSamtykkeListener } from '../samtykkeListener'
 import { AppStartListening, rootReducer } from '@/state/store'
-import { selectSomething } from '@/state/userInput/selectors'
+import { selectAfp } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 describe('samtykkeListener', () => {
@@ -43,11 +43,11 @@ describe('samtykkeListener', () => {
 
   it('lytter på endringer i samtykke og oppdaterer something-strengen', async () => {
     store.dispatch(userInputActions.setSamtykke(false))
-    const somethingString = selectSomething(store.getState())
-    expect(somethingString).toBe('Brukeren har ikke samtykket')
+    const somethingString = selectAfp(store.getState())
+    expect(somethingString).toBe('nei')
 
     store.dispatch(userInputActions.setSamtykke(true))
-    const somethingStringUpdated = selectSomething(store.getState())
-    expect(somethingStringUpdated).toBe('Brukeren har samtykket')
+    const somethingStringUpdated = selectAfp(store.getState())
+    expect(somethingStringUpdated).toBe('vet_ikke')
   })
 })

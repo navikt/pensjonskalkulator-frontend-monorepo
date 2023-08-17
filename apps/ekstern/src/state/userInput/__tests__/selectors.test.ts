@@ -1,9 +1,4 @@
-import {
-  selectSamtykke,
-  selectAfp,
-  selectSamboer,
-  selectSomething,
-} from '../selectors'
+import { selectSamtykke, selectAfp, selectSamboer } from '../selectors'
 import { store, RootState } from '@/state/store'
 
 describe('userInput selectors', () => {
@@ -40,20 +35,5 @@ describe('userInput selectors', () => {
       },
     }
     expect(selectSamboer(state)).toBe(true)
-  })
-
-  it('selectSomething', () => {
-    const somethingString = 'lorem ipsum dolor sit amet'
-    const state: RootState = {
-      ...initialState,
-      userInput: {
-        ...initialState.userInput,
-        currentSimulation: {
-          ...initialState.userInput.currentSimulation,
-          something: somethingString,
-        },
-      },
-    }
-    expect(selectSomething(state)).toBe(somethingString)
   })
 })

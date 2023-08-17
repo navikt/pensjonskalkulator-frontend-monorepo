@@ -9,11 +9,7 @@ async function onSamtykkeUpdate(
     dispatch /* , getState, getOriginalState, condition*/,
   }: AppListenerEffectAPI
 ) {
-  dispatch(
-    userInputActions.setSomething(
-      `Brukeren har${!payload ? ' ikke' : ''} samtykket`
-    )
-  )
+  dispatch(userInputActions.setAfp(payload === true ? 'vet_ikke' : 'nei'))
 }
 
 export function createSamtykkeListener(

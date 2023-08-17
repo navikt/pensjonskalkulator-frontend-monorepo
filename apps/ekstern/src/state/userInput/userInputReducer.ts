@@ -6,9 +6,6 @@ export interface Simulation {
   inntekt?: number | null
   uttaksalder?: number | null
   uttaksgrad?: number | null
-  something?: string
-  somethingElse?: string
-  hasSomething?: boolean
 }
 
 export interface UserInputState {
@@ -46,12 +43,6 @@ export const userInputSlice = createSlice({
       state.samtykke = null
       state.afp = null
       state.samboer = null
-    },
-    setSomething: (state, action: PayloadAction<string>) => {
-      state.currentSimulation = {
-        ...state.currentSimulation,
-        something: action.payload,
-      }
     },
   },
 })
