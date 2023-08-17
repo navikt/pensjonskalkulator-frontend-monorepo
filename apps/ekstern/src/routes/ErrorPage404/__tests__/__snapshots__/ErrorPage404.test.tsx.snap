@@ -21,7 +21,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"
       >
-        errorpage.404.title
+        error.404.title
       </h2>
       <div
         class="navds-list"
@@ -57,7 +57,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
               <p
                 class="navds-body-long"
               >
-                errorpage.404.list_item1
+                error.404.list_item1
               </p>
             </div>
           </li>
@@ -91,28 +91,30 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
               <p
                 class="navds-body-long"
               >
-                errorpage.404.list_item2
+                error.404.list_item2
               </p>
             </div>
           </li>
         </ul>
       </div>
       <button
-        class="_button_bc1ea0 navds-button navds-button--primary navds-button--medium"
+        class="_button_ea3f8b navds-button navds-button--primary navds-button--medium"
+        type="button"
       >
         <span
           class="navds-label"
         >
-          errorpage.404.button.primary
+          error.404.button.primary
         </span>
       </button>
       <button
-        class="_button_bc1ea0 navds-button navds-button--secondary navds-button--medium"
+        class="_button_ea3f8b navds-button navds-button--secondary navds-button--medium"
+        type="button"
       >
         <span
           class="navds-label"
         >
-          errorpage.404.button.secondary
+          error.404.button.secondary
         </span>
       </button>
     </section>

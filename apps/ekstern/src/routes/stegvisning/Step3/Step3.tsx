@@ -54,7 +54,7 @@ export function Step3() {
                 <Card.Content
                   onPrimaryButtonClick={onNext}
                   onSecondaryButtonClick={onPrevious}
-                  onCancel={onCancel}
+                  onTertiaryButtonClick={onCancel}
                   text={{
                     header: 'stegvisning.offentligtp.error.title',
                     ingress: 'stegvisning.offentligtp.error.ingress',

@@ -7,10 +7,6 @@ import { Loader } from '@/components/components/Loader'
 import styles from './CardContent.module.scss'
 
 export interface CardContentProps {
-  isLoading?: boolean
-  onPrimaryButtonClick: () => void
-  onSecondaryButtonClick: () => void
-  onCancel?: () => void
   text?: {
     loading?: string
     header?: string
@@ -19,14 +15,20 @@ export interface CardContentProps {
     secondaryButton?: string
     tertiaryButton?: string
   }
+  isLoading?: boolean
+  onPrimaryButtonClick: () => void
+  onSecondaryButtonClick: () => void
+  onTertiaryButtonClick?: () => void
+  children?: JSX.Element
 }
 
 export function CardContent({
   isLoading,
   onPrimaryButtonClick,
   onSecondaryButtonClick,
-  onCancel,
+  onTertiaryButtonClick,
   text,
+  children,
 }: CardContentProps) {
   const intl = useIntl()
   if (isLoading) {
@@ -45,9 +47,14 @@ export function CardContent({
       <Heading level="2" size="medium" spacing>
         <FormattedMessage id={text?.header} />
       </Heading>
-      <Ingress className={styles.ingress}>
-        <FormattedMessage id={text?.ingress} values={{ br: <br /> }} />
-      </Ingress>
+
+      {text?.ingress && (
+        <Ingress className={styles.ingress}>
+          <FormattedMessage id={text?.ingress} values={{ br: <br /> }} />
+        </Ingress>
+      )}
+
+      {children}
 
       <Button
         type="button"
@@ -67,12 +74,12 @@ export function CardContent({
         <FormattedMessage id={text?.secondaryButton} />
       </Button>
 
-      {onCancel && (
+      {onTertiaryButtonClick && (
         <Button
           type="button"
           className={styles.button}
           variant="tertiary"
-          onClick={onCancel}
+          onClick={onTertiaryButtonClick}
         >
           <FormattedMessage id={text?.tertiaryButton} />
         </Button>

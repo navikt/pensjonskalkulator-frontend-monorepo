@@ -14,13 +14,13 @@ const translations = {
     'Vi jobber med å rette feilen. Hvis problemet vedvarer, kan du kontakte oss på 55 55 33 34.',
   'error.global.button.primary': 'Last siden på nytt',
   'error.global.button.secondary': 'Tilbake til Din Pensjon',
-  'errorpage.404.title': 'Oops! Siden du leter etter finnes ikke.',
-  'errorpage.404.list_item1':
+  'error.404.title': 'Oops! Siden du leter etter finnes ikke.',
+  'error.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
-  'errorpage.404.list_item2':
+  'error.404.list_item2':
     'Hvis du klikket på en lenke er den feil eller utdatert.',
-  'errorpage.404.button.primary': 'Tilbake til forrige side',
-  'errorpage.404.button.secondary': 'Tilbake til Din Pensjon',
+  'error.404.button.primary': 'Tilbake til forrige side',
+  'error.404.button.secondary': 'Tilbake til Din Pensjon',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',

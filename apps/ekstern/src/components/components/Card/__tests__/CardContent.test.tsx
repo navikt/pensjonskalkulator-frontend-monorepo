@@ -6,7 +6,7 @@ import { screen, render, userEvent, swallowErrors } from '@/test-utils'
 describe('CardContent', () => {
   const onPrimaryButtonClickMock = vi.fn()
   const onSecondaryButtonClickMock = vi.fn()
-  const onCancelMock = vi.fn()
+  const onTertiaryButtonClickMock = vi.fn()
 
   const textIds = {
     loading: 'loading',
@@ -24,14 +24,17 @@ describe('CardContent', () => {
           isLoading={false}
           onPrimaryButtonClick={onPrimaryButtonClickMock}
           onSecondaryButtonClick={onSecondaryButtonClickMock}
-          onCancel={onCancelMock}
+          onTertiaryButtonClick={onTertiaryButtonClickMock}
           text={{ ...textIds }}
-        />
+        >
+          <p>childrenText</p>
+        </CardContent>
       )
       expect(screen.getByText(textIds.header)).toBeInTheDocument()
       expect(screen.getByText(textIds.ingress)).toBeInTheDocument()
       expect(screen.getByText(textIds.primaryButton)).toBeInTheDocument()
       expect(screen.getByText(textIds.secondaryButton)).toBeInTheDocument()
+      expect(screen.getByText('childrenText')).toBeInTheDocument()
     })
   })
 
@@ -94,7 +97,7 @@ describe('CardContent', () => {
           isLoading={false}
           onPrimaryButtonClick={onPrimaryButtonClickMock}
           onSecondaryButtonClick={onSecondaryButtonClickMock}
-          onCancel={onCancelMock}
+          onTertiaryButtonClick={onTertiaryButtonClickMock}
           text={{ ...textIds }}
         />
       )
@@ -102,6 +105,6 @@ describe('CardContent', () => {
     expect(screen.getByText(textIds.header)).toBeInTheDocument()
     expect(screen.getByText(textIds.tertiaryButton)).toBeInTheDocument()
     await user.click(screen.getByText(textIds.tertiaryButton))
-    expect(onCancelMock).toHaveBeenCalled()
+    expect(onTertiaryButtonClickMock).toHaveBeenCalled()
   })
 })

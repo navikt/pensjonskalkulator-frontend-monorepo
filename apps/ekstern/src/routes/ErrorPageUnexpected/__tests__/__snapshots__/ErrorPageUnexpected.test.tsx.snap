@@ -24,12 +24,13 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
         error.global.title
       </h2>
       <p
-        class="navds-body-long navds-typo--spacing"
+        class="_ingress_ea3f8b navds-ingress"
       >
         error.global.ingress
       </p>
       <button
-        class="_button_507cb1 _buttonFirst_507cb1 navds-button navds-button--primary navds-button--medium"
+        class="_button_ea3f8b navds-button navds-button--primary navds-button--medium"
+        type="button"
       >
         <span
           class="navds-label"
@@ -38,7 +39,8 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
         </span>
       </button>
       <button
-        class="_button_507cb1 _buttonSecond_507cb1 navds-button navds-button--secondary navds-button--medium"
+        class="_button_ea3f8b navds-button navds-button--secondary navds-button--medium"
+        type="button"
       >
         <span
           class="navds-label"

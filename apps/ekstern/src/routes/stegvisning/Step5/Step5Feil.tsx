@@ -40,9 +40,6 @@ export function Step5Feil() {
   return (
     <Card aria-live="polite" hasLargePadding hasMargin>
       <Card.Content
-        isLoading={isLoading}
-        onPrimaryButtonClick={onReload}
-        onSecondaryButtonClick={onCancel}
         text={{
           loading: 'loading.person',
           header: 'error.global.title',
@@ -50,6 +47,9 @@ export function Step5Feil() {
           primaryButton: 'error.global.button.primary',
           secondaryButton: 'error.global.button.secondary',
         }}
+        isLoading={isLoading}
+        onPrimaryButtonClick={onReload}
+        onSecondaryButtonClick={onCancel}
       />
     </Card>
   )
