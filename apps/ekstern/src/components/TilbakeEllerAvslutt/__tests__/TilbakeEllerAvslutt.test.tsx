@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { TilbakeEllerAvslutt } from '..'
 import { externalUrls, paths } from '@/routes'
-import { RootState } from '@/state/store'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 const realLocation = window.location
@@ -27,7 +27,9 @@ describe('TilbakeEllerAvslutt', () => {
       () => navigateMock
     )
     const { store } = render(<TilbakeEllerAvslutt />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
 
     await user.click(screen.getByText('Tilbake til start'))

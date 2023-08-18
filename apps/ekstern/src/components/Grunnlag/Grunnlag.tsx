@@ -1,7 +1,5 @@
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
-import { PensjonsavtalerRequestBody } from '@/state/api/apiSlice.types'
-
 import { AFP } from './sections/AFP'
 import { Alderspensjon } from './sections/Alderspensjon'
 import { Inntekt } from './sections/Inntekt'
@@ -27,13 +25,9 @@ const useUttaksgrad = (): number => {
 
 interface Props {
   tidligstMuligUttak: Uttaksalder
-  pensjonsavtalerRequestBody: PensjonsavtalerRequestBody
 }
 
-export function Grunnlag({
-  tidligstMuligUttak,
-  pensjonsavtalerRequestBody,
-}: Props) {
+export function Grunnlag({ tidligstMuligUttak }: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()
   const uttaksgrad = useUttaksgrad()
@@ -57,7 +51,7 @@ export function Grunnlag({
         <Utenlandsopphold />
         <Alderspensjon alderspensjon={alderspensjon} />
         <AFP />
-        <Pensjonsavtaler requestBody={pensjonsavtalerRequestBody} />
+        <Pensjonsavtaler />
       </Accordion>
     </section>
   )

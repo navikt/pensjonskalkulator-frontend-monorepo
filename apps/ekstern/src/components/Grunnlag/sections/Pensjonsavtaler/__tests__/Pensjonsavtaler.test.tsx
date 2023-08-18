@@ -4,19 +4,18 @@ import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { RootState } from '@/state/store'
+import {
+  userInputInitialState,
+  Simulation,
+} from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
+
 describe('Pensjonsavtaler', () => {
-  const requestBody = {
-    uttaksperioder: [
-      {
-        startAlder: 67,
-        startMaaned: 1,
-        grad: 100,
-        aarligInntekt: 0,
-      },
-    ],
-    antallInntektsaarEtterUttak: 0,
+  const currentSimulation: Simulation = {
+    startAlder: 67,
+    startMaaned: 1,
+    uttaksgrad: 100,
+    aarligInntekt: 0,
   }
 
   it('rendrer tittel med 0 avtaler når avtalelisten er tom', () => {
@@ -25,8 +24,14 @@ describe('Pensjonsavtaler', () => {
       json: { avtaler: [], utilgjengeligeSelskap: [] },
       method: 'post',
     })
-    render(<Pensjonsavtaler requestBody={requestBody} />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+    render(<Pensjonsavtaler />, {
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          samtykke: true,
+          currentSimulation: currentSimulation,
+        },
+      },
     })
     expect(
       screen.queryByText('Pensjonsavtaler', { exact: false })
@@ -39,8 +44,10 @@ describe('Pensjonsavtaler', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Pensjonsavtaler requestBody={requestBody} />, {
-      preloadedState: { userInput: { samtykke: false } } as RootState,
+    render(<Pensjonsavtaler />, {
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: false },
+      },
     })
     expect(await screen.findByText('Ikke innhentet')).toBeVisible()
     expect(screen.queryByText('Kan ikke hentes')).not.toBeInTheDocument()
@@ -61,8 +68,14 @@ describe('Pensjonsavtaler', () => {
         json: "Beep boop I'm an error!",
         method: 'post',
       })
-      render(<Pensjonsavtaler requestBody={requestBody} />, {
-        preloadedState: { userInput: { samtykke: true } } as RootState,
+      render(<Pensjonsavtaler />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
+          },
+        },
       })
       expect(await screen.findByText('Kan ikke hentes')).toBeVisible()
       expect(
@@ -93,12 +106,15 @@ describe('Pensjonsavtaler', () => {
         },
         method: 'post',
       })
-      const { asFragment } = render(
-        <Pensjonsavtaler requestBody={requestBody} />,
-        {
-          preloadedState: { userInput: { samtykke: true } } as RootState,
-        }
-      )
+      const { asFragment } = render(<Pensjonsavtaler />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
+          },
+        },
+      })
       expect(
         screen.queryByText('Pensjonsavtaler', { exact: false })
       ).toBeVisible()
@@ -129,12 +145,15 @@ describe('Pensjonsavtaler', () => {
         },
         method: 'post',
       })
-      const { asFragment } = render(
-        <Pensjonsavtaler requestBody={requestBody} />,
-        {
-          preloadedState: { userInput: { samtykke: true } } as RootState,
-        }
-      )
+      const { asFragment } = render(<Pensjonsavtaler />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
+          },
+        },
+      })
       expect(
         screen.queryByText('Pensjonsavtaler', { exact: false })
       ).toBeVisible()

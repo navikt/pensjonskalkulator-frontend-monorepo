@@ -68,7 +68,12 @@ describe('Step 5', () => {
     )
     const { store } = render(<Step5 />, {
       preloadedState: {
-        userInput: { samtykke: true, afp: 'nei', samboer: true },
+        userInput: {
+          ...userInputInitialState,
+          samtykke: true,
+          afp: 'nei',
+          samboer: true,
+        },
       },
     })
     await waitFor(async () => {

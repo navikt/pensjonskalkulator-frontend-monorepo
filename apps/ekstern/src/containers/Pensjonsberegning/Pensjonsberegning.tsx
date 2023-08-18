@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useIntl } from 'react-intl'
 
 import { Alert, Heading } from '@navikt/ds-react'
@@ -11,17 +11,14 @@ import { Pensjonssimulering } from '@/components/Pensjonssimulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
-import { apiSlice } from '@/state/api/apiSlice'
 import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
-import { store } from '@/state/store'
-import { selectSamtykke } from '@/state/userInput/selectors'
+import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
 
 import styles from './Pensjonsberegning.module.scss'
 
 export function Pensjonsberegning() {
-  const harSamtykket = useAppSelector(selectSamtykke)
-  const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
+  const isAlderValgt = useAppSelector(selectFormatertUttaksalder) !== null
 
   const intl = useIntl()
   const {
@@ -30,32 +27,6 @@ export function Pensjonsberegning() {
     isError,
     isSuccess,
   } = useTidligsteUttaksalderQuery()
-
-  const pensjonsavtalerRequestBody = {
-    uttaksperioder: [
-      {
-        startAlder: valgtUttaksalder ? parseInt(valgtUttaksalder, 10) : 0,
-        startMaaned:
-          valgtUttaksalder &&
-          tidligstMuligUttak?.maaned &&
-          parseInt(valgtUttaksalder, 10) === tidligstMuligUttak?.aar
-            ? tidligstMuligUttak?.maaned
-            : 1, // Defaulter til 1 for nå - brukeren kan ikke velge spesifikk måned
-        grad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
-        aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon
-      },
-    ],
-    antallInntektsaarEtterUttak: 0,
-  }
-
-  const valgtUttaksalderHandler = (alder: string) => {
-    setValgtUttaksalder(alder)
-    if (harSamtykket) {
-      store.dispatch(
-        apiSlice.endpoints.pensjonsavtaler.initiate(pensjonsavtalerRequestBody)
-      )
-    }
-  }
 
   useEffect(() => {
     document.title = intl.formatMessage({
@@ -94,28 +65,21 @@ export function Pensjonsberegning() {
       }
       <div
         className={clsx(styles.background, styles.background__hasMargin, {
-          [styles.background__white]: valgtUttaksalder,
+          [styles.background__white]: isAlderValgt,
         })}
       >
         <div className={styles.container}>
-          <VelgUttaksalder
-            tidligstMuligUttak={tidligstMuligUttak}
-            valgtUttaksalder={valgtUttaksalder}
-            valgtUttaksalderHandler={valgtUttaksalderHandler}
-          />
+          <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
         </div>
         {
           // TODO PEK-107 - sørge for at fokuset flyttes riktig og at skjermleseren leser opp i riktig rekkefølge etter valg av uttaksalder + at lasting er ferdig.
         }
-        {valgtUttaksalder && (
+        {isAlderValgt && (
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}
           >
-            <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
-            <Grunnlag
-              tidligstMuligUttak={tidligstMuligUttak}
-              pensjonsavtalerRequestBody={pensjonsavtalerRequestBody}
-            />
+            <Pensjonssimulering />
+            <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
             <Forbehold />
           </div>
         )}

@@ -1,4 +1,10 @@
-import { selectSamtykke, selectAfp, selectSamboer } from '../selectors'
+import {
+  selectSamtykke,
+  selectAfp,
+  selectSamboer,
+  selectFormatertUttaksalder,
+  selectCurrentSimulation,
+} from '../selectors'
 import { store, RootState } from '@/state/store'
 
 describe('userInput selectors', () => {
@@ -35,5 +41,33 @@ describe('userInput selectors', () => {
       },
     }
     expect(selectSamboer(state)).toBe(true)
+  })
+
+  it('selectFormatertUttaksalder', () => {
+    const state: RootState = {
+      ...initialState,
+      userInput: {
+        ...initialState.userInput,
+        formatertUttaksalder: '62 år og 5 måneder',
+      },
+    }
+    expect(selectFormatertUttaksalder(state)).toBe('62 år og 5 måneder')
+  })
+
+  it('selectCurrentSimulation', () => {
+    const currentSimulation = {
+      startAlder: 62,
+      startMaaned: 5,
+      uttaksgrad: 100,
+      aarligInntekt: 0,
+    }
+    const state: RootState = {
+      ...initialState,
+      userInput: {
+        ...initialState.userInput,
+        currentSimulation: { ...currentSimulation },
+      },
+    }
+    expect(selectCurrentSimulation(state)).toEqual(currentSimulation)
   })
 })

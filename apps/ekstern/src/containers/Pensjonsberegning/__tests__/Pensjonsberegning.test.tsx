@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { Pensjonsberegning } from '../Pensjonsberegning'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import { RootState } from '@/state/store'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import {
   render,
   screen,
@@ -93,7 +93,9 @@ describe('Pensjonsberegning', () => {
         'initiate'
       )
       render(<Pensjonsberegning />, {
-        preloadedState: { userInput: { samtykke: false } } as RootState,
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: false },
+        },
       })
       const button = await screen.findByText('68 år')
       await user.click(button)
@@ -107,8 +109,14 @@ describe('Pensjonsberegning', () => {
       )
       const user = userEvent.setup()
       render(<Pensjonsberegning />, {
-        preloadedState: { userInput: { samtykke: true } } as RootState,
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+          },
+        },
       })
+
       const buttons = await screen.findAllByRole('button')
       expect(buttons).toHaveLength(12)
       await user.click(buttons[2])
@@ -119,10 +127,10 @@ describe('Pensjonsberegning', () => {
         antallInntektsaarEtterUttak: 0,
         uttaksperioder: [
           {
-            aarligInntekt: 0,
-            grad: 100,
             startAlder: 68,
             startMaaned: 1,
+            aarligInntekt: 0,
+            grad: 100,
           },
         ],
       })
@@ -131,10 +139,10 @@ describe('Pensjonsberegning', () => {
         antallInntektsaarEtterUttak: 0,
         uttaksperioder: [
           {
-            aarligInntekt: 0,
-            grad: 100,
             startAlder: 67,
             startMaaned: 3,
+            aarligInntekt: 0,
+            grad: 100,
           },
         ],
       })
@@ -148,7 +156,9 @@ describe('Pensjonsberegning', () => {
         method: 'post',
       })
       render(<Pensjonsberegning />, {
-        preloadedState: { userInput: { samtykke: true } } as RootState,
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: true },
+        },
       })
       const button = await screen.findByText('68 år')
       await user.click(button)

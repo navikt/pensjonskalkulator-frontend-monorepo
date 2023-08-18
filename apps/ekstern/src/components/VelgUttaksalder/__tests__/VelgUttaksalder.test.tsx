@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { VelgUttaksalder } from '../VelgUttaksalder'
 import { render, screen, userEvent } from '@/test-utils'
@@ -18,7 +18,6 @@ describe('VelgUttaksalder', () => {
           maaned: 1,
           uttaksdato: '2031-11-01',
         }}
-        valgtUttaksalderHandler={vi.fn()}
       />
     )
 
@@ -28,12 +27,7 @@ describe('VelgUttaksalder', () => {
 
   it('viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere', async () => {
     const user = userEvent.setup()
-    const result = render(
-      <VelgUttaksalder
-        tidligstMuligUttak={uttaksalder}
-        valgtUttaksalderHandler={vi.fn()}
-      />
-    )
+    const result = render(<VelgUttaksalder tidligstMuligUttak={uttaksalder} />)
 
     expect(await screen.findAllByRole('button')).toHaveLength(10)
     expect(result.asFragment()).toMatchSnapshot()

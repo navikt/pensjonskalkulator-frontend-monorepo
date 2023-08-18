@@ -8,9 +8,10 @@ import clsx from 'clsx'
 import { SectionContent } from '../components/SectionContent'
 import { SectionHeader } from '../components/SectionHeader'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
-import { PensjonsavtalerRequestBody } from '@/state/api/apiSlice.types'
+import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import { selectSamtykke } from '@/state/userInput/selectors'
+import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 
@@ -22,22 +23,25 @@ import {
 
 import styles from './Pensjonsavtaler.module.scss'
 
-interface Props {
-  requestBody: PensjonsavtalerRequestBody
-}
-
-export function Pensjonsavtaler({ requestBody }: Props) {
+export function Pensjonsavtaler() {
   const navigate = useNavigate()
   const harSamtykket = useAppSelector(selectSamtykke)
+  const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
 
   const {
     data: pensjonsavtaler,
     isLoading,
     isError,
     isSuccess,
-  } = usePensjonsavtalerQuery(requestBody, {
-    skip: !harSamtykket,
-  })
+  } = usePensjonsavtalerQuery(
+    generatePensjonsavtalerRequestBody({
+      aar: startAlder ?? 0,
+      maaned: startMaaned ?? 0,
+    }),
+    {
+      skip: !harSamtykket,
+    }
+  )
 
   // PEK-97 TODO håndtere delvis reponse fra backend
   return (

@@ -5,6 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Step2 } from '..'
 import { paths } from '@/routes'
 import { RootState } from '@/state/store'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
 describe('Step 2', () => {
@@ -53,7 +54,9 @@ describe('Step 2', () => {
       () => navigateMock
     )
     const { store } = render(<Step2 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[0]).toBeChecked()
@@ -71,7 +74,9 @@ describe('Step 2', () => {
       () => navigateMock
     )
     const { store } = render(<Step2 />, {
-      preloadedState: { userInput: { samtykke: false } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: false },
+      },
     })
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[1]).toBeChecked()
