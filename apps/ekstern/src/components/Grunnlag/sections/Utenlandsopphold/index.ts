@@ -1,1 +1,0 @@
-export { Utenlandsopphold } from './Utenlandsopphold'

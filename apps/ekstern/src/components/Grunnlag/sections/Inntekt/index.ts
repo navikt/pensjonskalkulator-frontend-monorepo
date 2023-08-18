@@ -1,1 +1,0 @@
-export { Inntekt } from './Inntekt'

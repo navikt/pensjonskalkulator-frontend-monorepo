@@ -4,7 +4,6 @@ import { describe, it, vi } from 'vitest'
 
 import { Step2 } from '..'
 import { paths } from '@/routes'
-import { RootState } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 

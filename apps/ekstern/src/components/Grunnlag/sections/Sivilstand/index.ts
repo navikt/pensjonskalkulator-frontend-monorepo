@@ -1,1 +1,0 @@
-export { Sivilstand } from './Sivilstand'

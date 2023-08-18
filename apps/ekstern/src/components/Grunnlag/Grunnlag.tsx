@@ -5,9 +5,9 @@ import { Alderspensjon } from './sections/Alderspensjon'
 import { Inntekt } from './sections/Inntekt'
 import { Pensjonsavtaler } from './sections/Pensjonsavtaler'
 import { Sivilstand } from './sections/Sivilstand'
-import { TidligstMuligUttak } from './sections/TidligstMuligUttak/TidligstMuligUttak'
-import { Utenlandsopphold } from './sections/Utenlandsopphold/Utenlandsopphold'
-import { Uttaksgrad } from './sections/Uttaksgrad/Uttaksgrad'
+import { TidligstMuligUttak } from './sections/TidligstMuligUttak'
+import { Utenlandsopphold } from './sections/Utenlandsopphold'
+import { Uttaksgrad } from './sections/Uttaksgrad'
 
 import styles from './Grunnlag.module.scss'
 
@@ -27,6 +27,7 @@ interface Props {
   tidligstMuligUttak: Uttaksalder
 }
 
+// TODO refaktorere og koble til faktisk data
 export function Grunnlag({ tidligstMuligUttak }: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()

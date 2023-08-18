@@ -1,1 +1,0 @@
-export { Uttaksgrad } from './Uttaksgrad'

@@ -2,8 +2,8 @@ import React from 'react'
 
 import { Accordion, BodyLong, Link } from '@navikt/ds-react'
 
-import { SectionContent } from '../components/SectionContent'
-import { SectionHeader } from '../components/SectionHeader'
+import { SectionContent } from './components/SectionContent'
+import { SectionHeader } from './components/SectionHeader'
 
 export function AFP() {
   return (

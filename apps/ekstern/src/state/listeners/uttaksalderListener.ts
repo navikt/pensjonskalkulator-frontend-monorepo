@@ -9,13 +9,18 @@ import { AppListenerEffectAPI, AppStartListening } from '@/state/store'
 import { selectSamtykke } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
-// onSetFormatertUttaksalder
-// 1. unformat uttaksalder
-// 2. oppdater current simulation med riktig aar og maaned
-// 3. Hvis samtykke er true: hent pensjonsavtaler
+/**
+ * onSetFormatertUttaksalder
+ * 1. unformat uttaksalder
+ * 2. oppdater current simulation med riktig aar og maaned
+ * 3. Hvis samtykke er true: hent pensjonsavtaler
+ *
+ * @param payload - formatertUttaksalder satt av setFormatertUttaksalder
+ * @param { dispatch, getState getOriginalState, condition } - fra AppListenerEffectAPI
+ */
 async function onSetFormatertUttaksalder(
   { payload }: ReturnType<typeof userInputActions.setFormatertUttaksalder>,
-  { dispatch, getState /* getOriginalState, condition*/ }: AppListenerEffectAPI
+  { dispatch, getState }: AppListenerEffectAPI
 ) {
   const uttaksalder = unformatUttaksalder(payload)
 
