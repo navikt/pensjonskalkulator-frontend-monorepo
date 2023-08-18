@@ -39,7 +39,7 @@ export function Pensjonsavtaler() {
       maaned: startMaaned ?? 0,
     }),
     {
-      skip: !harSamtykket,
+      skip: !harSamtykket || !startAlder,
     }
   )
 
