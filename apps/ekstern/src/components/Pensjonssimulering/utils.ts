@@ -289,8 +289,10 @@ export function resetColumnColors(chart: Chart): void {
       }
     )
   }
+  chart?.tooltip.update({
+    enabled: false,
+  })
   chart.redraw()
-  chart.tooltip.hide(0)
 }
 
 export function onPointClick(this: Point): void {
@@ -323,6 +325,7 @@ export function onPointClick(this: Point): void {
     }
   })
   this.series.chart.redraw()
+  this.series.chart.tooltip.refresh(this)
 }
 
 export function onPointUnclick(
@@ -332,16 +335,13 @@ export function onPointUnclick(
   },
   chart?: Chart
 ) {
-  // Behov for litt delay slik at Highcharts rekker å sette chart.tooltip.hidden property
-  setTimeout(() => {
-    if (chart && e.chartX !== undefined && e.point === undefined) {
-      // Is inside chart ploot area, but not on a point
-      resetColumnColors(chart)
-    } else if (chart && (chart.tooltip as ExtendedTooltip)?.isHidden) {
-      // Is outside chart plot area, and tooltip is hidden
-      resetColumnColors(chart)
-    }
-  }, 50)
+  if (chart && e.chartX === undefined && e.point === undefined) {
+    // User has clicked outside of the plot area
+    resetColumnColors(chart)
+  } else if (chart && e.chartX !== undefined && e.point === undefined) {
+    // Is inside chart plot area, but not on a point
+    resetColumnColors(chart)
+  }
 }
 
 export function handleChartScroll(
@@ -502,7 +502,7 @@ export const getChartOptions = (
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
       },
-      hideDelay: 30,
+      hideDelay: 9e9,
       padding: 0,
       shadow: false,
       shared: true,
@@ -551,10 +551,10 @@ export const getChartOptions = (
             click: onPointClick,
             /* c8 ignore next 6 */
             mouseOut: function () {
-              this.series.chart.tooltip.update({ enabled: false })
+              return false
             },
             mouseOver: function () {
-              this.series.chart.tooltip.update({ enabled: false })
+              return false
             },
           },
         },

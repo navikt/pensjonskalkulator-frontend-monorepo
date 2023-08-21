@@ -372,7 +372,7 @@ describe('Pensjonssimulering-utils', () => {
   describe('onPointClick og onPointUnclick', () => {
     const pointUpdateMock = vi.fn()
     const redrawMock = vi.fn()
-    const tooltipHideMock = vi.fn()
+    const tooltipRefreshMock = vi.fn()
     const tooltipUpdateMock = vi.fn()
 
     const data1 = [
@@ -428,7 +428,11 @@ describe('Pensjonssimulering-utils', () => {
     ]
 
     const chart = {
-      tooltip: { isHidden: false, update: tooltipUpdateMock },
+      tooltip: {
+        isHidden: false,
+        update: tooltipUpdateMock,
+        refresh: tooltipRefreshMock,
+      },
       series: [
         {
           data: [...data1],
@@ -479,6 +483,7 @@ describe('Pensjonssimulering-utils', () => {
             .childNodes
         ).toMatchSnapshot()
         expect(redrawMock).toHaveBeenCalledOnce()
+        expect(tooltipRefreshMock).toHaveBeenCalledOnce()
       })
 
       describe('onPointUnclick', () => {
@@ -501,7 +506,10 @@ describe('Pensjonssimulering-utils', () => {
           const chartWithSelection = {
             ...chart,
             redraw: redrawMock,
-            tooltip: { hide: tooltipHideMock, isHidden: false },
+            tooltip: {
+              update: tooltipUpdateMock,
+              isHidden: false,
+            },
           } as unknown as Chart
           onPointUnclick(
             { chartX: 123 } as unknown as MouseEvent,
@@ -519,7 +527,7 @@ describe('Pensjonssimulering-utils', () => {
               .childNodes
           ).toMatchSnapshot()
           expect(redrawMock).toHaveBeenCalledOnce()
-          expect(tooltipHideMock).toHaveBeenCalledOnce()
+          expect(tooltipUpdateMock).toHaveBeenCalledOnce()
         })
 
         it('kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor plot area og at tooltip er skjult', () => {
@@ -527,7 +535,10 @@ describe('Pensjonssimulering-utils', () => {
           const chartWithSelection = {
             ...chart,
             redraw: redrawMock,
-            tooltip: { hide: tooltipHideMock, isHidden: true },
+            tooltip: {
+              update: tooltipUpdateMock,
+              isHidden: true,
+            },
           } as unknown as Chart
           onPointUnclick({} as unknown as MouseEvent, chartWithSelection)
           vi.advanceTimersByTime(150)
@@ -542,7 +553,7 @@ describe('Pensjonssimulering-utils', () => {
               .childNodes
           ).toMatchSnapshot()
           expect(redrawMock).toHaveBeenCalledOnce()
-          expect(tooltipHideMock).toHaveBeenCalledOnce()
+          expect(tooltipUpdateMock).toHaveBeenCalledOnce()
         })
       })
     })
@@ -604,7 +615,10 @@ describe('Pensjonssimulering-utils', () => {
         const chartWithSelection = {
           ...chart,
           redraw: redrawMock,
-          tooltip: { hide: tooltipHideMock, isHidden: false },
+          tooltip: {
+            update: tooltipUpdateMock,
+            isHidden: false,
+          },
         } as unknown as Chart
         handleChartScroll(mockedEvent as unknown as Event, {
           chart: { ...chartWithSelection } as unknown as Chart,
@@ -612,7 +626,6 @@ describe('Pensjonssimulering-utils', () => {
         })
         vi.advanceTimersByTime(150)
         expect(redrawMock).toHaveBeenCalledOnce()
-        expect(tooltipHideMock).toHaveBeenCalledOnce()
       })
       describe('Gitt at brukeren scroller', () => {
         it('Viser ingen knapp når det ikke er mer innhold og at graffens scroll posisjon er på 0', () => {
