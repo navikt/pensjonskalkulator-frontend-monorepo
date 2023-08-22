@@ -10,7 +10,7 @@ import {
 } from 'highcharts'
 
 import { formatAsDecimal } from '@/utils/currency'
-import { addSelfDestructingEventListener } from '@/utils/events'
+import { cleanAndAddEventListener } from '@/utils/events'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
 
@@ -411,12 +411,10 @@ export const getChartOptions = (
                 /* eslint-disable-next-line @typescript-eslint/no-this-alias */
                 const chart = this
 
-                addSelfDestructingEventListener(
-                  el,
-                  'scroll',
-                  handleChartScroll,
-                  { chart, scrollPosition }
-                )
+                cleanAndAddEventListener(el, 'scroll', handleChartScroll, {
+                  chart,
+                  scrollPosition,
+                })
                 el.handleButtonVisibility = {
                   showRightButton,
                   showLeftButton,
