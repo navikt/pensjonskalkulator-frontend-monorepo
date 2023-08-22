@@ -347,7 +347,7 @@ describe('Pensjonssimulering-utils', () => {
       ['var(--a-deepblue-500)', 'var(--a-deepblue-200)'],
       ['var(--a-green-400)', 'var(--a-green-200)'],
       ['var(--a-purple-400)', 'var(--a-purple-200)'],
-      ['#868F9C', '#AfAfAf'],
+      ['var(--a-gray-500)', 'var(--a-gray-300)'],
       ['#FF0000', ''],
     ])('returnerer riktig hover farge for: %s', async (a, expected) => {
       const color = getHoverColor(a)
@@ -358,11 +358,11 @@ describe('Pensjonssimulering-utils', () => {
       ['var(--a-deepblue-200)', 'var(--a-deepblue-500)'],
       ['var(--a-green-200)', 'var(--a-green-400)'],
       ['var(--a-purple-200)', 'var(--a-purple-400)'],
-      ['#AfAfAf', '#868F9C'],
+      ['var(--a-gray-300)', 'var(--a-gray-500)'],
       ['var(--a-deepblue-500)', 'var(--a-deepblue-500)'],
       ['var(--a-green-400)', 'var(--a-green-400)'],
       ['var(--a-purple-400)', 'var(--a-purple-400)'],
-      ['#868F9C', '#868F9C'],
+      ['var(--a-gray-500)', 'var(--a-gray-500)'],
     ])('returnerer riktig normal farge for: %s', async (a, expected) => {
       const color = getNormalColor(a)
       expect(color).toEqual(expected)

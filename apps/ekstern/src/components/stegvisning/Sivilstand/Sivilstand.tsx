@@ -47,15 +47,15 @@ export function Sivilstand({
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <Card aria-live="polite" hasLargePadding hasMargin>
+    <Card aria-live="polite" hasLargePadding hasMargin>
+      {' '}
+      <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <Ingress className={styles.ingress}>
           <FormattedMessage id="stegvisning.sivilstand.ingress" />
         </Ingress>
-
         <RadioGroup
           legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
           name="sivilstand"
@@ -72,7 +72,6 @@ export function Sivilstand({
             <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
           </Radio>
         </RadioGroup>
-
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.beregn" />
         </Button>
@@ -92,7 +91,7 @@ export function Sivilstand({
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </Card>
-    </form>
+      </form>
+    </Card>
   )
 }
