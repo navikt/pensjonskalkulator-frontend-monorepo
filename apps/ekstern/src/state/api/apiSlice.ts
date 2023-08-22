@@ -59,23 +59,27 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    alderspensjon: builder.query<Pensjonsberegning[], AlderspensjonRequestBody>(
-      {
-        query: (body) => ({
-          url: '/alderspensjon/simulering',
-          method: 'POST',
-          body,
-        }),
-        transformResponse: (response: AlderspensjonResponseBody) => {
-          if (!isPensjonsberegningArray(response?.pensjon)) {
-            throw new Error(
-              `Mottok ugyldig alderspensjon: ${response?.pensjon}`
-            )
-          }
-          return response.pensjon
-        },
-      }
-    ),
+    alderspensjon: builder.query<
+      AlderspensjonResponseBody,
+      AlderspensjonRequestBody
+    >({
+      query: (body) => ({
+        url: '/alderspensjon/simulering',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: AlderspensjonResponseBody) => {
+        if (
+          !isPensjonsberegningArray(response?.alderspensjon) ||
+          !isPensjonsberegningArray(response?.afpPrivat)
+        ) {
+          throw new Error(
+            `Mottok ugyldig alderspensjon: ${response?.alderspensjon}`
+          )
+        }
+        return response
+      },
+    }),
     getPerson: builder.query<Person, void>({
       query: () => '/person',
       providesTags: ['Person'],

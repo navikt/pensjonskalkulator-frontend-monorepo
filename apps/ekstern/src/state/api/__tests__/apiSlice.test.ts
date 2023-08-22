@@ -145,7 +145,7 @@ describe('apiSlice', () => {
         .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(alderspensjonResponse.pensjon)
+          expect(result.data).toMatchObject(alderspensjonResponse)
         })
     })
 

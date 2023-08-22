@@ -1,5 +1,5 @@
 {
-  "pensjon": [
+  "alderspensjon": [
     {
       "alder": 74,
       "belop": 356836
@@ -15,6 +15,24 @@
     {
       "alder": 77,
       "belop": 357192
+    }
+  ],
+  "afpPrivat": [
+    {
+      "alder": 74,
+      "belop": 20000
+    },
+    {
+      "alder": 75,
+      "belop": 80000
+    },
+    {
+      "alder": 76,
+      "belop": 80000
+    },
+    {
+      "alder": 77,
+      "belop": 80000
     }
   ]
 }
