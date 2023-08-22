@@ -542,7 +542,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   <text
                     class="highcharts-axis-title"
                     data-z-index="7"
-                    style="color: rgb(102, 102, 102); z-index: 0; fill: #666666; z-index: 0;"
+                    style="color: rgb(102, 102, 102); font-family: var(--a-font-family); z-index: 0; fill: #666666; z-index: 0;"
                     text-anchor="start"
                     transform="translate(0,0)"
                     x="NaN"
@@ -634,7 +634,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   data-z-index="7"
                 >
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -642,7 +642,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     64
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -650,7 +650,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     65
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -658,7 +658,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     66
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -666,7 +666,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     67
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -674,7 +674,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     68
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -682,7 +682,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     69
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -690,7 +690,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     70
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -698,7 +698,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     71
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -706,7 +706,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     72
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -714,7 +714,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     73
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -722,7 +722,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     74
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -730,7 +730,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     75
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -738,7 +738,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     76
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -746,7 +746,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     77
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -764,27 +764,27 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 style="position: absolute; left: 0px; top: 0px; opacity: 1;"
               >
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   0
                 </span>
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   200
                 </span>
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   400
                 </span>
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   600
                 </span>
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   800
                 </span>

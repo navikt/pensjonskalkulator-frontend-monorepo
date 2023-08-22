@@ -446,21 +446,24 @@ export const getChartOptions = (
           return this.value.toString()
         },
         style: {
-          color: 'var(--a-grayalpha-700)',
+          fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
+          color: 'var(--a-grayalpha-700)',
         },
+        y: 20,
       },
       title: {
         text: 'Årlig inntekt og pensjon etter uttak',
         align: 'high',
         style: {
+          fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
         },
       },
       lineColor: 'var(--a-grayalpha-700)',
     },
     yAxis: {
-      offset: 15,
+      offset: 28,
       minorTickInterval: 200000,
       tickInterval: 200000,
       allowDecimals: false,
@@ -470,9 +473,10 @@ export const getChartOptions = (
         align: 'high',
         rotation: 0,
         textAlign: 'left',
-        x: -47,
+        x: -44,
         y: -20,
         style: {
+          fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
           zIndex: 0,
         },
@@ -482,11 +486,12 @@ export const getChartOptions = (
         align: 'left',
         formatter: labelFormatterDesktop,
         style: {
-          color: 'var(--a-grayalpha-700)',
+          fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
+          color: 'var(--a-grayalpha-700)',
           paddingRight: 'var(--a-spacing-3)',
         },
-        x: -57,
+        x: -55,
       },
       gridLineColor: 'var(--a-grayalpha-200)',
     },
@@ -580,7 +585,7 @@ export const getChartOptions = (
               title: {
                 text: 'Tusen kroner',
                 margin: -75,
-                x: -83,
+                x: -73,
                 y: -22,
                 style: {
                   fontSize: 'var(--a-font-size-small)',
@@ -592,7 +597,7 @@ export const getChartOptions = (
                   fontSize: 'var(--a-font-size-small)',
                   backgroundColor: 'transparent',
                 },
-                x: -7,
+                x: 0,
               },
             },
             tooltip: {
