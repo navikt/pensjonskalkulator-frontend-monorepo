@@ -8,6 +8,7 @@ import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/routes'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
+import * as sivilstandUtils from '@/utils/sivilstand'
 
 describe('Step 4', () => {
   it('har riktig sidetittel', () => {
@@ -45,9 +46,9 @@ describe('Step 4', () => {
     const user = userEvent.setup()
     mockResponse('/person', {
       status: 200,
-      json: { fornavn: 'Ola', sivilstand: 'GIFT' },
+      json: { fornavn: 'Ola', sivilstand: 'GIFT', foedselsdato: '1963-04-30' },
     })
-    const checkHarSamboerMock = vi.spyOn(Step4Utils, 'checkHarSamboer')
+    const checkHarSamboerMock = vi.spyOn(sivilstandUtils, 'checkHarSamboer')
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -71,7 +72,7 @@ describe('Step 4', () => {
 
   it('registrerer afp og navigerer videre til steg 5 når brukeren velger afp og klikker på Neste (gitt at brukeren ikke har samboer)', async () => {
     const user = userEvent.setup()
-    const checkHarSamboerMock = vi.spyOn(Step4Utils, 'checkHarSamboer')
+    const checkHarSamboerMock = vi.spyOn(sivilstandUtils, 'checkHarSamboer')
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -119,7 +120,7 @@ describe('Step 4', () => {
     const user = userEvent.setup()
     mockResponse('/person', {
       status: 200,
-      json: { fornavn: 'Ola', sivilstand: null },
+      json: { fornavn: 'Ola', sivilstand: null, foedselsdato: '1963-04-30' },
     })
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()

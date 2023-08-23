@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { checkHarSamboer, getNesteSide } from '../Step4/utils'
+import { getNesteSide } from '../Step4/utils'
 import { Card } from '@/components/components/Card'
 import { externalUrls } from '@/routes/routes'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { checkHarSamboer } from '@/utils/sivilstand'
 
 export function Step5Feil() {
   const navigate = useNavigate()

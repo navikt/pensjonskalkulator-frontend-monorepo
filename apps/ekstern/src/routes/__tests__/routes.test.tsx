@@ -21,6 +21,7 @@ const fakeApiCalls = {
       data: {
         fornavn: 'Aprikos',
         sivilstand: 'UGIFT',
+        foedselsdato: '1963-04-30',
       },
       fulfilledTimeStamp: 1688046412103,
     },

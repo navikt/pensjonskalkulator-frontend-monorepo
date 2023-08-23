@@ -24,8 +24,6 @@ interface Props {
   onNext: (afpData: AfpRadio) => void
 }
 
-export type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
-
 export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
   const [validationError, setValidationError] = useState<string>('')

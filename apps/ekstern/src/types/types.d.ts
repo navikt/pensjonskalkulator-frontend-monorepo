@@ -1,3 +1,5 @@
+declare type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
+
 declare type Uttaksalder = {
   aar: number
   maaned: number
@@ -41,11 +43,14 @@ declare type Sivilstand =
   | 'SKILT_PARTNER'
   | 'GJENLEVENDE_PARTNER'
 
+declare type UtvidetSivilstand = Sivilstand | 'SAMBOER'
+
 declare type Step = '0' | '1' | '2' | '3'
 
 declare type Person = {
   fornavn: string | null
   sivilstand: Sivilstand | null
+  foedselsdato: string | null
 }
 
 declare type TpoMedlemskap = {

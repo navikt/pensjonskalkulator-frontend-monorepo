@@ -23,7 +23,7 @@ describe('Step 1', () => {
   it('rendrer hilsen uten fornavn når henting av personopplysninger er delvis vellykket (mangler sivilstand)', async () => {
     mockResponse('/person', {
       status: 200,
-      json: { fornavn: 'Ola', sivilstand: null },
+      json: { fornavn: 'Ola', sivilstand: null, foedselsdato: '1963-04-30' },
     })
     render(<Step1 />)
     await waitFor(async () => {

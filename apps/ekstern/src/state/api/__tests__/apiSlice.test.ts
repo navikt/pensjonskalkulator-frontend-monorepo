@@ -6,7 +6,7 @@ import { swallowErrorsAsync } from '@/test-utils'
 import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
 
 const tidligsteUttaksalderResponse = require('../../../mocks/data/tidligsteUttaksalder.json')
-const alderspensjonResponse = require('../../../mocks/data/alderspensjon/2031.json')
+const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
 const personResponse = require('../../../mocks/data/person.json')
 const tpoMedlemskapResponse = require('../../../mocks/data/tpo-medlemskap.json')
 const unleashResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
@@ -132,12 +132,12 @@ describe('apiSlice', () => {
 
   describe('alderspensjon', () => {
     const body: AlderspensjonRequestBody = {
-      simuleringstype: 'ALDER',
+      simuleringstype: 'ALDER_M_AFP_PRIVAT',
       uttaksgrad: 100,
-      foersteUttaksdato: '2031-11-01',
-      epsHarInntektOver2G: false,
-      forventetInntekt: 500_000,
+      foedselsdato: '1963-04-30',
+      foersteUttaksalder: { aar: 67, maaned: 8 },
       sivilstand: 'UGIFT',
+      epsHarInntektOver2G: true,
     }
     it('returnerer data ved vellykket query', async () => {
       const storeRef = await setupStore({}, true)

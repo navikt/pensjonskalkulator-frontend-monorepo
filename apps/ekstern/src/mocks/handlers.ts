@@ -21,12 +21,11 @@ export const getHandlers = (baseUrl: string = PATH) => [
   }),
   rest.post(`${baseUrl}/alderspensjon/simulering`, async (req, res, ctx) => {
     const body = await req.json()
-    const year = new Date(body.foersteUttaksdato).getFullYear()
-    const data = await import(`./data/alderspensjon/${year}.json`)
-
+    const data = await import(
+      `./data/alderspensjon/${body.foersteUttaksalder.aar}.json`
+    )
     return res(ctx.status(200), ctx.json(data), ctx.delay(30))
   }),
-
   rest.get(`${baseUrl}/tpo-medlemskap`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(tpoMedlemskapResponse), ctx.delay(30))
   }),

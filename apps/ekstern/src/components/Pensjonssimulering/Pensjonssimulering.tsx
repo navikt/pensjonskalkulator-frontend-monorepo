@@ -1,18 +1,26 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
-import { Button, ReadMore } from '@navikt/ds-react'
+import { Alert, Button, Heading, ReadMore } from '@navikt/ds-react'
+import { SeriesOptionsType } from 'highcharts'
 import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
+import { Loader } from '@/components/components/Loader'
 import { TabellVisning } from '@/components/TabellVisning'
+import { useAlderspensjonQuery, useGetPersonQuery } from '@/state/api/apiSlice'
+import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
+import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import { selectSamtykke } from '@/state/userInput/selectors'
+import {
+  selectCurrentSimulation,
+  selectAfp,
+  selectSamboer,
+} from '@/state/userInput/selectors'
 
 import {
-  AFP_DATA,
   COLUMN_WIDTH,
-  FOLKETRYGDEN_DATA,
   MAX_UTTAKSALDER,
   PENSJONSGIVENDE_DATA,
   SERIE_NAME_INNTEKT,
@@ -28,15 +36,24 @@ import {
   onPointUnclick,
   onVisFaerreAarClick,
   onVisFlereAarClick,
-  simulateDataArray,
+  processPensjonsberegningArray,
   simulateTjenestepensjon,
 } from './utils'
 
 import styles from './Pensjonssimulering.module.scss'
 
 export function Pensjonssimulering() {
-  const { startAlder } = useAppSelector(selectCurrentSimulation)
-
+  const { startAlder, startMaaned, uttaksgrad } = useAppSelector(
+    selectCurrentSimulation
+  )
+  const harSamtykket = useAppSelector(selectSamtykke)
+  const afp = useAppSelector(selectAfp)
+  const harSamboer = useAppSelector(selectSamboer)
+  const { data: person } = useGetPersonQuery()
+  const [alderspensjonRequestBody, setAlderspensjonRequestBody] = useState<
+    AlderspensjonRequestBody | undefined
+  >(undefined)
+  useState<boolean>(false)
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
@@ -48,6 +65,17 @@ export function Pensjonssimulering() {
   const [isVisTabellOpen, setVisTabellOpen] = useState<boolean>(false)
   const chartRef = useRef<HighchartsReact.RefObject>(null)
 
+  const {
+    data: alderspensjon,
+    isLoading,
+    isError,
+  } = useAlderspensjonQuery(
+    alderspensjonRequestBody as AlderspensjonRequestBody,
+    {
+      skip: !alderspensjonRequestBody,
+    }
+  )
+
   useEffect(() => {
     function onPointUnclickEventHandler(e: Event) {
       onPointUnclick(e, chartRef.current?.chart)
@@ -56,6 +84,19 @@ export function Pensjonssimulering() {
     return () =>
       document.removeEventListener('click', onPointUnclickEventHandler)
   }, [])
+
+  useEffect(() => {
+    const requestBody = generateAlderspensjonRequestBody({
+      afp,
+      sivilstand: person?.sivilstand,
+      harSamboer,
+      foedselsdato: person?.foedselsdato,
+      startAlder: startAlder,
+      startMaaned: startMaaned,
+      uttaksgrad: uttaksgrad,
+    })
+    setAlderspensjonRequestBody(requestBody)
+  }, [afp, person, startAlder, startMaaned, uttaksgrad])
 
   useEffect(() => {
     if (startAlder) {
@@ -77,41 +118,60 @@ export function Pensjonssimulering() {
             pointWidth: COLUMN_WIDTH,
             name: SERIE_NAME_INNTEKT,
             color: SERIE_COLOR_INNTEKT,
-            data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length),
+            data: [...PENSJONSGIVENDE_DATA].splice(0, aarArray.length),
           },
-          {
-            type: 'column',
-            pointWidth: COLUMN_WIDTH,
-            name: SERIE_NAME_AFP,
-            color: SERIE_COLOR_AFP,
-            data: simulateDataArray(AFP_DATA, aarArray.length),
-          },
-          {
-            type: 'column',
-            pointWidth: COLUMN_WIDTH,
-            name: SERIE_NAME_TP,
-            color: SERIE_COLOR_TP,
-            data: simulateTjenestepensjon(startAlder, MAX_UTTAKSALDER),
-          },
+          ...(afp === 'ja_privat'
+            ? [
+                {
+                  type: 'column',
+                  pointWidth: COLUMN_WIDTH,
+                  name: SERIE_NAME_AFP,
+                  color: SERIE_COLOR_AFP,
+                  /* c8 ignore next 1 */
+                  data: processPensjonsberegningArray(alderspensjon?.afpPrivat),
+                } as SeriesOptionsType,
+              ]
+            : []),
+          ...(harSamtykket
+            ? [
+                {
+                  type: 'column',
+                  pointWidth: COLUMN_WIDTH,
+                  name: SERIE_NAME_TP,
+                  color: SERIE_COLOR_TP,
+                  /* c8 ignore next 1 */
+                  data: simulateTjenestepensjon(startAlder, MAX_UTTAKSALDER),
+                } as SeriesOptionsType,
+              ]
+            : []),
           {
             type: 'column',
             pointWidth: COLUMN_WIDTH,
             name: SERIE_NAME_ALDERSPENSJON,
             color: SERIE_COLOR_ALDERSPENSJON,
-            data: simulateDataArray(
-              FOLKETRYGDEN_DATA,
-              aarArray.length,
-              startAlder,
-              18_000
-            ),
+            data: processPensjonsberegningArray(alderspensjon?.alderspensjon),
           },
         ],
       })
     }
-  }, [startAlder])
+  }, [startAlder, alderspensjon])
 
   return (
     <section className={styles.section}>
+      {isLoading && (
+        <Loader
+          data-testid="loader"
+          size="3xlarge"
+          title="Et øyeblikk, vi simulerer pensjonen din"
+        />
+      )}
+      {isError && (
+        <Alert variant="error">
+          <Heading spacing size="small" level="2">
+            TODO PEK-119 feilhåndtering Vi klarte ikke å simulere pensjonen din
+          </Heading>
+        </Alert>
+      )}
       <HighchartsReact
         ref={chartRef}
         highcharts={Highcharts}
