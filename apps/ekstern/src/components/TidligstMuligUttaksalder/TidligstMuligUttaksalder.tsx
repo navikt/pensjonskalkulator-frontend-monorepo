@@ -1,5 +1,6 @@
 import { memo } from 'react'
 
+import { InformationSquareFillIcon } from '@navikt/aksel-icons'
 import { HelpText, Ingress } from '@navikt/ds-react'
 
 import Piggybank from '../../assets/piggybank.svg'
@@ -34,6 +35,16 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
             <Ingress className={styles.ingress}>
               Jo lenger du venter, desto mer får du i året.
             </Ingress>
+            <div className={styles.info}>
+              <InformationSquareFillIcon
+                className={styles.infoIcon}
+                fontSize="1.5rem"
+                aria-hidden
+              />
+              <p className={styles.infoText}>
+                Din AFP kan gjøre at tidspunktet blir tidligere
+              </p>
+            </div>
           </div>
         </div>
       </div>

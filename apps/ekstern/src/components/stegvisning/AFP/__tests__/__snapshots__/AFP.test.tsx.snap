@@ -73,6 +73,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           >
             AFP i privat sektor på afp.no
             <svg
+              aria-hidden="true"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -372,6 +373,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           >
             AFP i privat sektor på afp.no
             <svg
+              aria-hidden="true"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -670,6 +672,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           >
             AFP i privat sektor på afp.no
             <svg
+              aria-hidden="true"
               fill="none"
               focusable="false"
               height="1.25rem"

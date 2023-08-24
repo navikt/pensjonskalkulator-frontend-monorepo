@@ -6,7 +6,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
     class="navds-alert navds-alert--error navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r6"
+      aria-labelledby="title-r7"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -17,7 +17,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r6"
+        id="title-r7"
       >
         Feil
       </title>
@@ -72,7 +72,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
           <span
             class="_highlighted_f5a642"
           >
-            67 år og 1 måneder
+            67 år
             <div
               class="navds-help-text _helptext_f5a642"
             >
@@ -168,6 +168,34 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
           >
             Jo lenger du venter, desto mer får du i året.
           </p>
+          <div
+            class="_info_f5a642"
+          >
+            <svg
+              aria-hidden="true"
+              class="_infoIcon_f5a642"
+              fill="none"
+              focusable="false"
+              font-size="1.5rem"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M3.25 4A.75.75 0 0 1 4 3.25h16a.75.75 0 0 1 .75.75v16a.75.75 0 0 1-.75.75H4a.75.75 0 0 1-.75-.75V4ZM11 7.75a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm-1.25 3a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 .75.75v4.75h.75a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h.75v-4h-.75a.75.75 0 0 1-.75-.75Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <p
+              class="_infoText_f5a642"
+            >
+              Din AFP kan gjøre at tidspunktet blir tidligere
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -203,7 +231,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
                 <span
                   class="navds-chips__chip-text"
                 >
-                  67 år og 1 md.
+                  67 år
                 </span>
               </button>
             </li>

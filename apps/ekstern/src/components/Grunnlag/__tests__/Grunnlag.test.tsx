@@ -13,7 +13,7 @@ describe('Grunnlag', () => {
       />
     )
     expect(await screen.findByText('Tidligst mulig uttak:')).toBeVisible()
-    expect(screen.getByText('62 år, 10 md.')).toBeVisible()
+    expect(screen.getByText('62 år og 10 md.')).toBeVisible()
   })
 
   it('viser pensjonsavtaler', async () => {

@@ -2,7 +2,7 @@ export const formatUttaksalder = (
   { aar, maaned }: Uttaksalder,
   options: { compact: boolean } = { compact: false }
 ): string => {
-  return maaned !== 0
+  return maaned > 1
     ? `${aar} år og ${maaned} ${options.compact ? 'md.' : 'måneder'}`
     : `${aar} år`
 }
