@@ -53,7 +53,8 @@ export const generateAlderspensjonRequestBody = (args: {
   }
 
   return {
-    simuleringstype: afp === 'ja_privat' ? 'ALDER_M_AFP_PRIVAT' : 'ALDER',
+    simuleringstype:
+      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
 
     uttaksgrad,
     foersteUttaksalder: {

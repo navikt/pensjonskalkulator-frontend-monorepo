@@ -17,7 +17,7 @@ export type PensjonsavtalerResponseBody = {
 }
 
 export type AlderspensjonRequestBody = {
-  simuleringstype: 'ALDER' | 'ALDER_M_AFP_PRIVAT'
+  simuleringstype: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
   forventetInntekt?: number
   uttaksgrad: number
   foedselsdato: string

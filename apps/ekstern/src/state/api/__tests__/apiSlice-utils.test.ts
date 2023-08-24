@@ -91,19 +91,19 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonRequestBody({
           ...requestBody,
         })?.simuleringstype
-      ).toEqual('ALDER_M_AFP_PRIVAT')
+      ).toEqual('ALDERSPENSJON_MED_AFP_PRIVAT')
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
           afp: 'nei',
         })?.simuleringstype
-      ).toEqual('ALDER')
+      ).toEqual('ALDERSPENSJON')
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
           afp: null,
         })?.simuleringstype
-      ).toEqual('ALDER')
+      ).toEqual('ALDERSPENSJON')
     })
     it('returnerer riktig uttaksgrad', () => {
       expect(

@@ -132,7 +132,7 @@ describe('apiSlice', () => {
 
   describe('alderspensjon', () => {
     const body: AlderspensjonRequestBody = {
-      simuleringstype: 'ALDER_M_AFP_PRIVAT',
+      simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
       uttaksgrad: 100,
       foedselsdato: '1963-04-30',
       foersteUttaksalder: { aar: 67, maaned: 8 },

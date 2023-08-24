@@ -162,7 +162,7 @@ export function Pensjonssimulering() {
         <Loader
           data-testid="loader"
           size="3xlarge"
-          title="Et øyeblikk, vi simulerer pensjonen din"
+          title="Et øyeblikk, vi beregner pensjonen din"
         />
       )}
       {isError && (
