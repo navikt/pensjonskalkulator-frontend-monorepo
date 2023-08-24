@@ -2,6 +2,7 @@ import { useEffect, Suspense } from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate, Await } from 'react-router-dom'
 
+import { Card } from '@/components/components/Card'
 import { Loader } from '@/components/components/Loader'
 import { OffentligTP } from '@/components/stegvisning/OffentligTP'
 import { paths } from '@/routes'
@@ -46,12 +47,24 @@ export function Step3() {
           />
         }
       >
-        <Await
-          resolve={loaderData.getTpoMedlemskapQuery}
-          // errorElement={} //TODO hva gjør vi når kall til tp-registret feiler?
-        >
+        <Await resolve={loaderData.getTpoMedlemskapQuery}>
           {(getTpoMedlemskapQuery: TpoMedlemskapQuery) => {
-            return (
+            return getTpoMedlemskapQuery.isError ? (
+              <Card aria-live="polite" hasLargePadding hasMargin>
+                <Card.Content
+                  onPrimaryButtonClick={onNext}
+                  onSecondaryButtonClick={onPrevious}
+                  onTertiaryButtonClick={onCancel}
+                  text={{
+                    header: 'stegvisning.offentligtp.error.title',
+                    ingress: 'stegvisning.offentligtp.error.ingress',
+                    primaryButton: 'stegvisning.neste',
+                    secondaryButton: 'stegvisning.tilbake',
+                    tertiaryButton: 'stegvisning.avbryt',
+                  }}
+                />
+              </Card>
+            ) : (
               <OffentligTP
                 shouldJumpOverStep={
                   getTpoMedlemskapQuery.isSuccess &&

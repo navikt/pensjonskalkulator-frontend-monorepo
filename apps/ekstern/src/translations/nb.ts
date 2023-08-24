@@ -8,18 +8,19 @@ const translations = {
   'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
-  'errorpage.unexpected.title': 'Oops! Det har oppstått en uventet feil.',
-  'errorpage.unexpected.ingress':
-    'Vi jobber med å rette feilen. Hvis problemet medvarer, kan du kontakte oss på XXX XX XXX.',
-  'errorpage.unexpected.button.primary': 'Last siden på nytt',
-  'errorpage.unexpected.button.secondary': 'Tilbake til Din Pensjon',
-  'errorpage.404.title': 'Oops! Siden du leter etter finnes ikke.',
-  'errorpage.404.list_item1':
+  'loading.person': 'Henter personopplysninger',
+  'error.global.title': 'Oops! Det har oppstått en uventet feil',
+  'error.global.ingress':
+    'Vi jobber med å rette feilen. Hvis problemet vedvarer, kan du kontakte oss på 55 55 33 34.',
+  'error.global.button.primary': 'Last siden på nytt',
+  'error.global.button.secondary': 'Tilbake til Din Pensjon',
+  'error.404.title': 'Oops! Siden du leter etter finnes ikke.',
+  'error.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
-  'errorpage.404.list_item2':
+  'error.404.list_item2':
     'Hvis du klikket på en lenke er den feil eller utdatert.',
-  'errorpage.404.button.primary': 'Tilbake til forrige side',
-  'errorpage.404.button.secondary': 'Tilbake til Din Pensjon',
+  'error.404.button.primary': 'Tilbake til forrige side',
+  'error.404.button.secondary': 'Tilbake til Din Pensjon',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -54,6 +55,10 @@ const translations = {
     'Du er eller har vært medlem i en offentlig tjenestepensjonsordning og kan ha rett til tjenestepensjon. Men vi kan dessverre ikke hente inn dine avtaler. Sjekk hva som gjelder deg hos din tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.)',
   'stegvisning.offentligtp.ingress_2':
     'Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
+  'stegvisning.offentligtp.error.title':
+    'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor',
+  'stegvisning.offentligtp.error.ingress':
+    'Vi kan dessverre ikke hente inn avtaler om tjenestepensjon fra offentlig sektor. Har du vært eller er ansatt i offentlig sektor, kan du sjekke hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.). {br}{br}Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler fra privat sektor.',
   'stegvisning.afp.title': 'Du kan ha rett til AFP',
   'stegvisning.afp.ingress':
     'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
@@ -76,7 +81,6 @@ const translations = {
     'må taes ut sammen med alderspensjon fra folketrygden (NAV) og tjenestepensjon',
   'stegvisning.afp.readmore_offentlig_ingress':
     'Vi kan ikke innhente opplysninger om dette og ta det med i beregningen. Sjekk hva som gjelder deg hos din tjenestepensjonsordning',
-
   'stegvisning.afp.radio_label': 'Har du rett til AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Ja, i offentlig sektor',
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',

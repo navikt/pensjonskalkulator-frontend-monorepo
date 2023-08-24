@@ -36,7 +36,6 @@ export function Step4() {
   }
 
   const onPrevious = (): void => {
-    // TODO: hva skjer dersom tpo medlemskap har feilet før? sender vi tilbake til samtykke?
     if (
       isTpoMedlemskapQuerySuccess &&
       TpoMedlemskap.harTjenestepensjonsforhold
@@ -49,9 +48,11 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    const harSamboer = isPersonQuerySuccess
-      ? checkHarSamboer(person?.sivilstand)
-      : null
+
+    const harSamboer =
+      isPersonQuerySuccess && person?.sivilstand
+        ? checkHarSamboer(person?.sivilstand)
+        : null
     if (harSamboer) {
       dispatch(userInputActions.setSamboer(true))
     }

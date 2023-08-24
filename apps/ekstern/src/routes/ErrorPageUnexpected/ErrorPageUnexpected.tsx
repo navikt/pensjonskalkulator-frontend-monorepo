@@ -1,45 +1,30 @@
-import { FormattedMessage } from 'react-intl'
-
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
-
+import { Card } from '@/components/components/Card'
 import { PageFramework } from '@/components/components/PageFramework'
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
 import { externalUrls } from '@/routes'
 
-import styles from './ErrorPageUnexpected.module.scss'
-
 export function ErrorPageUnexpected() {
+  const onReload = (): void => {
+    window.location.reload()
+  }
+
+  const onCancel = (): void => {
+    window.location.href = externalUrls.dinPensjon
+  }
+
   return (
     <PageFramework>
-      <ResponsiveCard data-testid="error-page-unexpected" hasLargePadding>
-        {
-          // TODO PEK-90 - avklaring rundt font-size for tittel
-        }
-        <Heading size="large" level="2" spacing>
-          <FormattedMessage id="errorpage.unexpected.title" />
-        </Heading>
-        <BodyLong spacing>
-          <FormattedMessage id="errorpage.unexpected.ingress" />
-        </BodyLong>
-
-        <Button
-          className={`${styles.button} ${styles.buttonFirst}`}
-          onClick={() => {
-            window.location.reload()
+      <Card data-testid="error-page-unexpected" hasLargePadding>
+        <Card.Content
+          text={{
+            header: 'error.global.title',
+            ingress: 'error.global.ingress',
+            primaryButton: 'error.global.button.primary',
+            secondaryButton: 'error.global.button.secondary',
           }}
-        >
-          <FormattedMessage id="errorpage.unexpected.button.primary" />
-        </Button>
-        <Button
-          className={`${styles.button} ${styles.buttonSecond}`}
-          variant="secondary"
-          onClick={() => {
-            window.location.href = externalUrls.dinPensjon
-          }}
-        >
-          <FormattedMessage id="errorpage.unexpected.button.secondary" />
-        </Button>
-      </ResponsiveCard>
+          onPrimaryButtonClick={onReload}
+          onSecondaryButtonClick={onCancel}
+        />
+      </Card>
     </PageFramework>
   )
 }

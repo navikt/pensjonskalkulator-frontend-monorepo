@@ -5,5 +5,8 @@ export function checkHarSamboer(sivilstand: Sivilstand): boolean {
 }
 
 export function getNesteSide(harSamboer: boolean | null): string {
+  if (harSamboer === null) {
+    return paths.sivilstandFeil
+  }
   return harSamboer ? paths.beregning : paths.sivilstand
 }

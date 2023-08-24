@@ -26,7 +26,7 @@ export const PageFramework: React.FC<
     >
       <div className={styles.headerGroup}>
         <Heading
-          size="xlarge"
+          size="large"
           level="1"
           className={clsx(styles.headerGroupTitle, {
             [styles.headerGroupTitle__isFramed]: !isFullWidth,
