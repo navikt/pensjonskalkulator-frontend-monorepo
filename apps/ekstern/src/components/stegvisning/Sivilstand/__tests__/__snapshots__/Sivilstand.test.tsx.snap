@@ -2,11 +2,12 @@
 
 exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke er oppgitt 1`] = `
 <DocumentFragment>
-  <form>
-    <section
-      aria-live="polite"
-      class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
-    >
+  <section
+    aria-live="polite"
+    class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
+  >
+     
+    <form>
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"
       >
@@ -117,7 +118,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
           stegvisning.avbryt
         </span>
       </button>
-    </section>
-  </form>
+    </form>
+  </section>
 </DocumentFragment>
 `;

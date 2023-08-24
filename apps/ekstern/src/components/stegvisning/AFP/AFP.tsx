@@ -54,8 +54,8 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <Card aria-live="polite" hasLargePadding hasMargin>
+    <Card aria-live="polite" hasLargePadding hasMargin>
+      <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
@@ -91,7 +91,11 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
                   target="_blank"
                 >
                   {chunks}
-                  <ExternalLinkIcon width="1.25rem" height="1.25rem" />
+                  <ExternalLinkIcon
+                    width="1.25rem"
+                    height="1.25rem"
+                    aria-hidden
+                  />
                 </Link>
               ),
             }}
@@ -149,7 +153,6 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
             </Alert>
           )}
         </RadioGroup>
-
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.neste" />
         </Button>
@@ -168,8 +171,8 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           onClick={onCancel}
         >
           <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
-      </Card>
-    </form>
+        </Button>{' '}
+      </form>
+    </Card>
   )
 }

@@ -59,27 +59,37 @@ describe('VelgUttaksalder-utils', () => {
 
   describe('formatUttaksalder', () => {
     it('returnerer riktig streng med år og måned', () => {
-      const streng = formatUttaksalder({
-        aar: 62,
-        maaned: 3,
-        uttaksdato: '2031-11-01',
-      })
-      expect(streng).toBe('62 år og 3 måneder')
+      expect(
+        formatUttaksalder({
+          aar: 62,
+          maaned: 3,
+          uttaksdato: '2031-11-01',
+        })
+      ).toBe('62 år og 3 måneder')
     })
-    it('returnerer riktig streng med år og uten  måned', () => {
-      const streng = formatUttaksalder({
-        aar: 62,
-        maaned: 0,
-        uttaksdato: '2031-11-01',
-      })
-      expect(streng).toBe('62 år')
+    it('returnerer riktig streng med år og uten måned', () => {
+      expect(
+        formatUttaksalder({
+          aar: 62,
+          maaned: 0,
+          uttaksdato: '2031-11-01',
+        })
+      ).toBe('62 år')
+      expect(
+        formatUttaksalder({
+          aar: 62,
+          maaned: 1,
+          uttaksdato: '2031-11-01',
+        })
+      ).toBe('62 år')
     })
     it('returnerer riktig streng med år og kompakt måned', () => {
-      const streng = formatUttaksalder(
-        { aar: 62, maaned: 3, uttaksdato: '2031-11-01' },
-        { compact: true }
-      )
-      expect(streng).toBe('62 år og 3 md.')
+      expect(
+        formatUttaksalder(
+          { aar: 62, maaned: 3, uttaksdato: '2031-11-01' },
+          { compact: true }
+        )
+      ).toBe('62 år og 3 md.')
     })
   })
 })
