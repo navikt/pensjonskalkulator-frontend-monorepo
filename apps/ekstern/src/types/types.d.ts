@@ -7,7 +7,7 @@ declare type Uttaksalder = {
 }
 
 declare type Pensjonsberegning = {
-  belop: number
+  beloep: number
   alder: number
 }
 

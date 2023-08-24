@@ -43,7 +43,7 @@ export const processPensjonsberegningArray = (
   pensjonsberegninger: Pensjonsberegning[] = []
 ): number[] => {
   const dataArray = [...pensjonsberegninger].map((value) => {
-    return value.belop
+    return value.beloep
   })
   dataArray.unshift(0)
   return dataArray

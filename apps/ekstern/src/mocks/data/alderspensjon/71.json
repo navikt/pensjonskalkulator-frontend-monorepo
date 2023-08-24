@@ -2,61 +2,61 @@
   "alderspensjon": [
     {
       "alder": 71,
-      "belop": 292836
+      "beloep": 292836
     },
     {
       "alder": 72,
-      "belop": 293094
+      "beloep": 293094
     },
     {
       "alder": 73,
-      "belop": 293136
+      "beloep": 293136
     },
     {
       "alder": 74,
-      "belop": 293136
+      "beloep": 293136
     },
     {
       "alder": 75,
-      "belop": 293136
+      "beloep": 293136
     },
     {
       "alder": 76,
-      "belop": 293136
+      "beloep": 293136
     },
     {
       "alder": 77,
-      "belop": 293136
+      "beloep": 293136
     }
   ],
   "afpPrivat": [
     {
       "alder": 71,
-      "belop": 20000
+      "beloep": 20000
     },
     {
       "alder": 72,
-      "belop": 80000
+      "beloep": 80000
     },
     {
       "alder": 73,
-      "belop": 80000
+      "beloep": 80000
     },
     {
       "alder": 74,
-      "belop": 80000
+      "beloep": 80000
     },
     {
       "alder": 75,
-      "belop": 80000
+      "beloep": 80000
     },
     {
       "alder": 76,
-      "belop": 80000
+      "beloep": 80000
     },
     {
       "alder": 77,
-      "belop": 80000
+      "beloep": 80000
     }
   ]
 }

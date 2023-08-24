@@ -8,7 +8,7 @@ export const isPensjonsberegningArray = (
     data.every(
       (beregning) =>
         typeof beregning.alder === 'number' &&
-        typeof beregning.belop === 'number'
+        typeof beregning.beloep === 'number'
     )
   )
 }

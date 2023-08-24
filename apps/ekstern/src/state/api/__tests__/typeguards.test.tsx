@@ -63,7 +63,7 @@ describe('Typeguards', () => {
         expect(
           isPensjonsberegningArray([
             {
-              belop: 2,
+              beloep: 2,
               alder: 3,
             },
           ])
@@ -75,7 +75,14 @@ describe('Typeguards', () => {
           isPensjonsberegningArray([
             {
               beloep: 1,
-              alder: 2,
+            },
+          ])
+        ).toBeFalsy()
+        expect(
+          isPensjonsberegningArray([
+            {
+              beloep: 1,
+              alder: 'abc',
             },
           ])
         ).toBeFalsy()

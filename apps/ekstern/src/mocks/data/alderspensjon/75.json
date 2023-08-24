@@ -2,29 +2,29 @@
   "alderspensjon": [
     {
       "alder": 75,
-      "belop": 384120
+      "beloep": 384120
     },
     {
       "alder": 76,
-      "belop": 384440
+      "beloep": 384440
     },
     {
       "alder": 77,
-      "belop": 384492
+      "beloep": 384492
     }
   ],
   "afpPrivat": [
     {
       "alder": 75,
-      "belop": 20000
+      "beloep": 20000
     },
     {
       "alder": 76,
-      "belop": 80000
+      "beloep": 80000
     },
     {
       "alder": 77,
-      "belop": 80000
+      "beloep": 80000
     }
   ]
 }

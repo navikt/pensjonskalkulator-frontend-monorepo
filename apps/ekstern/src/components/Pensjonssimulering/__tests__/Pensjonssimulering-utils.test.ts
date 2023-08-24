@@ -48,16 +48,16 @@ describe('Pensjonssimulering-utils', () => {
         processPensjonsberegningArray([
           {
             alder: 75,
-            belop: 20000,
+            beloep: 20000,
           },
 
           {
             alder: 76,
-            belop: 80000,
+            beloep: 80000,
           },
           {
             alder: 77,
-            belop: 80000,
+            beloep: 80000,
           },
         ])
       ).toEqual([0, 20000, 80000, 80000])
