@@ -1,0 +1,126 @@
+{
+  "alderspensjon": [
+    {
+      "alder": 63,
+      "belop": 184694
+    },
+    {
+      "alder": 64,
+      "belop": 184932
+    },
+    {
+      "alder": 65,
+      "belop": 184932
+    },
+    {
+      "alder": 66,
+      "belop": 184932
+    },
+    {
+      "alder": 67,
+      "belop": 184932
+    },
+    {
+      "alder": 68,
+      "belop": 184932
+    },
+    {
+      "alder": 69,
+      "belop": 184932
+    },
+    {
+      "alder": 70,
+      "belop": 184932
+    },
+    {
+      "alder": 71,
+      "belop": 184932
+    },
+    {
+      "alder": 72,
+      "belop": 184932
+    },
+    {
+      "alder": 73,
+      "belop": 184932
+    },
+    {
+      "alder": 74,
+      "belop": 184932
+    },
+    {
+      "alder": 75,
+      "belop": 184932
+    },
+    {
+      "alder": 76,
+      "belop": 184932
+    },
+    {
+      "alder": 77,
+      "belop": 184932
+    }
+  ],
+  "afpPrivat": [
+    {
+      "alder": 63,
+      "belop": 20000
+    },
+    {
+      "alder": 64,
+      "belop": 80000
+    },
+    {
+      "alder": 65,
+      "belop": 80000
+    },
+    {
+      "alder": 66,
+      "belop": 80000
+    },
+    {
+      "alder": 67,
+      "belop": 80000
+    },
+    {
+      "alder": 68,
+      "belop": 80000
+    },
+    {
+      "alder": 69,
+      "belop": 80000
+    },
+    {
+      "alder": 70,
+      "belop": 80000
+    },
+    {
+      "alder": 71,
+      "belop": 80000
+    },
+    {
+      "alder": 72,
+      "belop": 80000
+    },
+    {
+      "alder": 73,
+      "belop": 80000
+    },
+    {
+      "alder": 74,
+      "belop": 80000
+    },
+    {
+      "alder": 75,
+      "belop": 80000
+    },
+    {
+      "alder": 76,
+      "belop": 80000
+    },
+    {
+      "alder": 77,
+      "belop": 80000
+    }
+  ]
+}

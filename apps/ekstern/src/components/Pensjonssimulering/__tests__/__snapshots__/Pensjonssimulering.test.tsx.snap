@@ -163,7 +163,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
             <div
               class="highcharts-container "
               dir="ltr"
-              id="highcharts-72"
+              id="highcharts-8"
               style="position: relative; overflow: hidden; width: 600px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
             >
               <svg
@@ -193,7 +193,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     />
                   </filter>
                   <clippath
-                    id="highcharts-73-"
+                    id="highcharts-9-"
                   >
                     <rect
                       fill="none"
@@ -204,7 +204,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     />
                   </clippath>
                   <clippath
-                    id="highcharts-91-"
+                    id="highcharts-27-"
                   >
                     <rect
                       fill="none"
@@ -510,7 +510,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 >
                   <g
                     class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-91-)"
+                    clip-path="url(#highcharts-27-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -524,7 +524,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                   />
                   <g
                     class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-91-)"
+                    clip-path="url(#highcharts-27-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -822,13 +822,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r22"
+                  aria-controls="r7"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r23"
+                    aria-labelledby="title-r8"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -839,7 +839,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r23"
+                      id="title-r8"
                     >
                       Vis mer
                     </title>
@@ -866,7 +866,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r22"
+              id="r7"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -912,13 +912,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r24"
+                  aria-controls="r9"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r25"
+                    aria-labelledby="title-ra"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -929,7 +929,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r25"
+                      id="title-ra"
                     >
                       Vis mer
                     </title>
@@ -950,13 +950,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                469 606
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r24"
+              id="r9"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -987,7 +987,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 606
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1000,13 +1002,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r26"
+                  aria-controls="rb"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r27"
+                    aria-labelledby="title-rc"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1017,7 +1019,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r27"
+                      id="title-rc"
                     >
                       Vis mer
                     </title>
@@ -1038,13 +1040,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 810
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r26"
+              id="rb"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1075,7 +1077,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 810
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1088,13 +1092,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r28"
+                  aria-controls="rd"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r29"
+                    aria-labelledby="title-re"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1105,7 +1109,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r29"
+                      id="title-re"
                     >
                       Vis mer
                     </title>
@@ -1126,13 +1130,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r28"
+              id="rd"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1163,7 +1167,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1176,13 +1182,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2a"
+                  aria-controls="rf"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2b"
+                    aria-labelledby="title-rg"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1193,7 +1199,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2b"
+                      id="title-rg"
                     >
                       Vis mer
                     </title>
@@ -1214,13 +1220,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2a"
+              id="rf"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1251,7 +1257,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1264,13 +1272,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2c"
+                  aria-controls="rh"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2d"
+                    aria-labelledby="title-ri"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1281,7 +1289,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2d"
+                      id="title-ri"
                     >
                       Vis mer
                     </title>
@@ -1302,13 +1310,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2c"
+              id="rh"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1339,7 +1347,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1352,13 +1362,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2e"
+                  aria-controls="rj"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2f"
+                    aria-labelledby="title-rk"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1369,7 +1379,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2f"
+                      id="title-rk"
                     >
                       Vis mer
                     </title>
@@ -1390,13 +1400,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2e"
+              id="rj"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1427,7 +1437,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1440,13 +1452,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2g"
+                  aria-controls="rl"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2h"
+                    aria-labelledby="title-rm"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1457,7 +1469,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2h"
+                      id="title-rm"
                     >
                       Vis mer
                     </title>
@@ -1478,13 +1490,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2g"
+              id="rl"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1515,7 +1527,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1528,13 +1542,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2i"
+                  aria-controls="rn"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2j"
+                    aria-labelledby="title-ro"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1545,7 +1559,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2j"
+                      id="title-ro"
                     >
                       Vis mer
                     </title>
@@ -1566,13 +1580,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2i"
+              id="rn"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1603,7 +1617,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1616,13 +1632,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2k"
+                  aria-controls="rp"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2l"
+                    aria-labelledby="title-rq"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1633,7 +1649,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2l"
+                      id="title-rq"
                     >
                       Vis mer
                     </title>
@@ -1654,13 +1670,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2k"
+              id="rp"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1691,7 +1707,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1704,13 +1722,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2m"
+                  aria-controls="rr"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2n"
+                    aria-labelledby="title-rs"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1721,7 +1739,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2n"
+                      id="title-rs"
                     >
                       Vis mer
                     </title>
@@ -1742,13 +1760,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2m"
+              id="rr"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1779,7 +1797,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1792,13 +1812,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2o"
+                  aria-controls="rt"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2p"
+                    aria-labelledby="title-ru"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1809,7 +1829,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2p"
+                      id="title-ru"
                     >
                       Vis mer
                     </title>
@@ -1830,13 +1850,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2o"
+              id="rt"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1867,7 +1887,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1880,13 +1902,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2q"
+                  aria-controls="rv"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2r"
+                    aria-labelledby="title-r10"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1897,7 +1919,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2r"
+                      id="title-r10"
                     >
                       Vis mer
                     </title>
@@ -1918,13 +1940,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2q"
+              id="rv"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -1955,7 +1977,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -1968,13 +1992,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2s"
+                  aria-controls="r11"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2t"
+                    aria-labelledby="title-r12"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -1985,7 +2009,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2t"
+                      id="title-r12"
                     >
                       Vis mer
                     </title>
@@ -2006,13 +2030,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                NaN
+                209 844
               </td>
             </tr>
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2s"
+              id="r11"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -2043,7 +2067,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
-                      />
+                      >
+                        209 844
+                      </dd>
                     </dl>
                   </div>
                 </div>
@@ -2056,13 +2082,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r2u"
+                  aria-controls="r13"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
                   type="button"
                 >
                   <svg
-                    aria-labelledby="title-r2v"
+                    aria-labelledby="title-r14"
                     class="navds-table__expandable-icon"
                     fill="none"
                     focusable="false"
@@ -2073,7 +2099,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <title
-                      id="title-r2v"
+                      id="title-r14"
                     >
                       Vis mer
                     </title>
@@ -2100,7 +2126,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r2u"
+              id="r13"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -2173,7 +2199,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                469 606 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
@@ -2181,7 +2209,9 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 606 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2193,13 +2223,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 810 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 810 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2211,13 +2245,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2229,13 +2267,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2247,13 +2289,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2265,13 +2311,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2283,13 +2333,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2301,13 +2355,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2319,13 +2377,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2337,13 +2399,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2355,13 +2421,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2373,13 +2443,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2391,13 +2465,17 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
+              >
+                209 844 kr
+              </td>
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2418,6 +2496,337 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               />
             </tr>
           </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`Pensjonssimulering > viser feilmelding når simuleringen feiler 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_2cd409"
+  >
+    <div
+      class="navds-alert navds-alert--error navds-alert--medium"
+    >
+      <svg
+        aria-labelledby="title-r4"
+        class="navds-alert__icon"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="title-r4"
+        >
+          Feil
+        </title>
+        <path
+          clip-rule="evenodd"
+          d="M7.742 2.47a.75.75 0 0 1 .53-.22h7.456a.75.75 0 0 1 .53.22l5.272 5.272c.141.14.22.331.22.53v7.456a.75.75 0 0 1-.22.53l-5.272 5.272a.75.75 0 0 1-.53.22H8.272a.75.75 0 0 1-.53-.22L2.47 16.258a.75.75 0 0 1-.22-.53V8.272a.75.75 0 0 1 .22-.53L7.742 2.47Zm1.288 5.5a.75.75 0 0 0-1.06 1.06L10.94 12l-2.97 2.97a.75.75 0 1 0 1.06 1.06L12 13.06l2.97 2.97a.75.75 0 1 0 1.06-1.06L13.06 12l2.97-2.97a.75.75 0 0 0-1.06-1.06L12 10.94 9.03 7.97Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <div
+        class="navds-alert__wrapper navds-body-long"
+      >
+        <h2
+          class="navds-heading navds-heading--small navds-typo--spacing"
+        >
+          TODO PEK-119 feilhåndtering Vi klarte ikke å simulere pensjonen din
+        </h2>
+      </div>
+    </div>
+    <div
+      data-highcharts-chart="1"
+      style="overflow: visible;"
+    >
+      <div
+        class="highcharts-scrolling-parent"
+        style="position: relative;"
+      >
+        <div
+          class="highcharts-fixed"
+          dir="ltr"
+          style="padding: 0px; margin: 0px; position: absolute; overflow: hidden; pointer-events: none; z-index: 2; top: 0px;"
+        >
+          <svg
+            class="highcharts-root"
+            height="400"
+            style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
+            version="1.1"
+            viewBox="0 0 600 400"
+            width="600"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <desc>
+              Created with Highcharts 11.1.0
+            </desc>
+            <defs />
+            <path
+              class="highcharts-scrollable-mask"
+              d="M 0 -1 L -1 -1 L -1 386 L 0 386 Z M 590 -1 L 600 -1 L 600 386 L 590 386 Z"
+              data-z-index="-1"
+              fill="#ffffff"
+              fill-opacity="0.85"
+            />
+            <g
+              class="highcharts-legend highcharts-no-tooltip"
+              data-z-index="7"
+              style="pointer-events: auto;"
+              visibility="hidden"
+            >
+              <rect
+                class="highcharts-legend-box"
+                fill="none"
+                filter="none"
+                rx="0"
+                ry="0"
+                stroke="#999999"
+                stroke-width="0"
+              />
+              <g
+                data-z-index="1"
+              >
+                <g />
+              </g>
+            </g>
+            <text
+              class="highcharts-subtitle"
+              data-z-index="4"
+              style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666; pointer-events: auto;"
+              text-anchor="middle"
+              x="295"
+              y="0"
+            />
+            <text
+              class="highcharts-title"
+              data-z-index="4"
+              style="font-size: 20px; color: rgb(51, 51, 51); font-weight: bold; font-family: var(--a-font-family); fill: #333333; pointer-events: auto;"
+              text-anchor="start"
+              x="0"
+              y="20"
+            >
+              Beregning
+            </text>
+          </svg>
+        </div>
+        <div
+          class="highcharts-scrolling"
+          style="overflow-x: auto; overflow-y: hidden; height: 400px;"
+        >
+          <div
+            class="highcharts-inner-container"
+          >
+            <div
+              class="highcharts-container "
+              dir="ltr"
+              id="highcharts-4"
+              style="position: relative; overflow: hidden; width: 750px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
+            >
+              <svg
+                aria-label="Beregning"
+                class="highcharts-root"
+                height="400"
+                role="img"
+                style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
+                version="1.1"
+                viewBox="0 0 750 400"
+                width="750"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <desc>
+                  Created with Highcharts 11.1.0
+                </desc>
+                <defs>
+                  <filter
+                    id="highcharts-drop-shadow-1"
+                  >
+                    <fedropshadow
+                      dx="1"
+                      dy="1"
+                      flood-color="#000000"
+                      flood-opacity="0.75"
+                      stdDeviation="2.5"
+                    />
+                  </filter>
+                  <clippath
+                    id="highcharts-5-"
+                  >
+                    <rect
+                      fill="none"
+                      height="385"
+                      width="740"
+                      x="0"
+                      y="0"
+                    />
+                  </clippath>
+                </defs>
+                <rect
+                  class="highcharts-background"
+                  fill="#ffffff"
+                  filter="none"
+                  height="400"
+                  rx="0"
+                  ry="0"
+                  width="750"
+                  x="0"
+                  y="0"
+                />
+                <rect
+                  class="highcharts-plot-background"
+                  fill="none"
+                  filter="none"
+                  height="385"
+                  width="740"
+                  x="0"
+                  y="0"
+                />
+                <rect
+                  class="highcharts-plot-border"
+                  data-z-index="1"
+                  fill="none"
+                  height="385"
+                  stroke="#cccccc"
+                  stroke-width="0"
+                  width="740"
+                  x="0"
+                  y="0"
+                />
+                <g
+                  class="highcharts-series-group"
+                  data-z-index="3"
+                  filter="none"
+                />
+                <text
+                  class="highcharts-caption"
+                  data-z-index="4"
+                  style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
+                  text-anchor="start"
+                  x="0"
+                  y="387"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_buttonRow_2cd409"
+    >
+      <div
+        class="_buttonRowElement_2cd409"
+      />
+      <div
+        class="_buttonRowElement_2cd409 _buttonRowElement__Right_2cd409"
+      />
+    </div>
+    <div
+      class="navds-read-more navds-read-more--medium _visTabell_2cd409"
+    >
+      <button
+        aria-expanded="false"
+        class="navds-read-more__button navds-body-short"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="navds-read-more__expand-icon"
+          fill="none"
+          focusable="false"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <span>
+          Vis tabell av beregningen
+        </span>
+      </button>
+      <div
+        aria-hidden="true"
+        class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+      >
+        <table
+          aria-live="polite"
+          class="navds-table navds-table--medium _table_15ff36"
+        >
+          <thead
+            class="navds-table__header"
+          >
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <th
+                class="navds-table__header-cell navds-label _tableMobileOnly_15ff36"
+              />
+              <th
+                class="navds-table__header-cell navds-label"
+                scope="col"
+              >
+                Alder
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
+                scope="col"
+              >
+                Sum
+                <span
+                  class="_tableMobileOnly_15ff36"
+                >
+                   (kr)
+                </span>
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Inntekt
+                <br />
+                (lønn m.m.)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Avtalefestet pensjon (AFP)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Pensjonsavtaler (arbeidsgiver)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Alderspensjon (NAV)
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="navds-table__body _tableMobileOnly_15ff36"
+          />
+          <tbody
+            class="navds-table__body _tableDesktopOnly_15ff36"
+          />
         </table>
       </div>
     </div>

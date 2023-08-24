@@ -65,13 +65,13 @@ describe('Pensjonssimulering-utils', () => {
   })
 
   describe('simulateTjenestepensjon', () => {
-    it('returnerer en liste med 0 t.o.m. alder 66 og 0 på siste plass i lista', () => {
+    it('returnerer en liste med 0 t.o.m. alder 66', () => {
       expect(simulateTjenestepensjon(65, 70, 100)).toEqual([
-        0, 0, 0, 2300, 2300, 2300, 0,
+        0, 0, 0, 2300, 2300, 2300,
       ])
       expect(simulateTjenestepensjon(62, 78, 200)).toEqual([
         0, 0, 0, 0, 0, 0, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000, 4000,
-        4000, 4000, 0,
+        4000, 4000,
       ])
     })
 

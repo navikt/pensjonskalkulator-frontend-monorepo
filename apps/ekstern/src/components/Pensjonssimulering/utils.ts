@@ -63,11 +63,9 @@ export const simulateTjenestepensjon = (
   const faktor = startAge - 62
   const value = coefficient * 20 + faktor * coefficient
 
-  return new Array(endAge + 2 - startAge)
+  return new Array(endAge + 1 - startAge)
     .fill(startAge - 1)
-    .map((age, i, array) =>
-      age + i < 67 || i === array.length - 1 ? 0 : value
-    )
+    .map((age, i) => (age + i < 67 ? 0 : value))
 }
 
 export const generateXAxis = (startAlder: number, endAlder: number) => {

@@ -99,7 +99,7 @@ export function Pensjonssimulering() {
   }, [afp, person, startAlder, startMaaned, uttaksgrad])
 
   useEffect(() => {
-    if (startAlder) {
+    if (startAlder && alderspensjon) {
       const aarArray = generateXAxis(startAlder, MAX_UTTAKSALDER)
       setChartOptions({
         chart: {
@@ -128,7 +128,7 @@ export function Pensjonssimulering() {
                   name: SERIE_NAME_AFP,
                   color: SERIE_COLOR_AFP,
                   /* c8 ignore next 1 */
-                  data: processPensjonsberegningArray(alderspensjon?.afpPrivat),
+                  data: processPensjonsberegningArray(alderspensjon.afpPrivat),
                 } as SeriesOptionsType,
               ]
             : []),
@@ -149,7 +149,7 @@ export function Pensjonssimulering() {
             pointWidth: COLUMN_WIDTH,
             name: SERIE_NAME_ALDERSPENSJON,
             color: SERIE_COLOR_ALDERSPENSJON,
-            data: processPensjonsberegningArray(alderspensjon?.alderspensjon),
+            data: processPensjonsberegningArray(alderspensjon.alderspensjon),
           },
         ],
       })

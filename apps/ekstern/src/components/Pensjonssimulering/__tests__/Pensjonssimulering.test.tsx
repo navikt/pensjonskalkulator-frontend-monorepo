@@ -32,8 +32,12 @@ describe('Pensjonssimulering', () => {
   })
 
   it('viser feilmelding når simuleringen feiler', async () => {
-    mockErrorResponse('/alderspensjon/simulering')
-    render(<Pensjonssimulering />, {
+    mockErrorResponse('/alderspensjon/simulering', {
+      status: 500,
+      json: "Beep boop I'm an error!",
+      method: 'post',
+    })
+    const { asFragment } = render(<Pensjonssimulering />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
@@ -43,12 +47,13 @@ describe('Pensjonssimulering', () => {
       },
     })
 
-    await waitFor(() => {
+    await waitFor(async () => {
       expect(
-        screen.getByText(
+        await screen.findByText(
           'TODO PEK-119 feilhåndtering Vi klarte ikke å simulere pensjonen din'
         )
       ).toBeVisible()
+      expect(asFragment()).toMatchSnapshot()
     })
   })
 
@@ -64,13 +69,15 @@ describe('Pensjonssimulering', () => {
     })
 
     expect(await screen.findByText('Beregning')).toBeVisible()
-    expect(
-      container.getElementsByClassName('highcharts-container')
-    ).toHaveLength(1)
-    expect(
-      container.getElementsByClassName('highcharts-legend-item')
-    ).toHaveLength(4)
-    expect(asFragment()).toMatchSnapshot()
+    await waitFor(async () => {
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      expect(
+        container.getElementsByClassName('highcharts-legend-item')
+      ).toHaveLength(4)
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
   it('rendrer med AFP når brukeren har valgt AFP privat', async () => {
@@ -86,12 +93,14 @@ describe('Pensjonssimulering', () => {
     })
 
     expect(await screen.findByText('Beregning')).toBeVisible()
-    expect(
-      container.getElementsByClassName('highcharts-container')
-    ).toHaveLength(1)
-    expect(
-      container.getElementsByClassName('highcharts-legend-item')
-    ).toHaveLength(6)
+    await waitFor(async () => {
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      expect(
+        container.getElementsByClassName('highcharts-legend-item')
+      ).toHaveLength(6)
+    })
   })
 
   it('rendrer med AFP og Pensjonsavtaler når brukeren har valgt AFP privat og har smatykket', async () => {
@@ -107,12 +116,14 @@ describe('Pensjonssimulering', () => {
     })
 
     expect(await screen.findByText('Beregning')).toBeVisible()
-    expect(
-      container.getElementsByClassName('highcharts-container')
-    ).toHaveLength(1)
-    expect(
-      container.getElementsByClassName('highcharts-legend-item')
-    ).toHaveLength(8)
+    await waitFor(async () => {
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      expect(
+        container.getElementsByClassName('highcharts-legend-item')
+      ).toHaveLength(8)
+    })
   })
 
   it('viser tabell og oppdaterer label når brukeren klikker på Vis tabell knapp', async () => {
@@ -129,7 +140,9 @@ describe('Pensjonssimulering', () => {
 
     expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
     await user.click(screen.getByText('Vis tabell av beregningen'))
-    expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
-    expect(screen.getAllByRole('row').length).toBe(31)
+    await waitFor(async () => {
+      expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
+      expect(screen.getAllByRole('row').length).toBe(31)
+    })
   })
 })
