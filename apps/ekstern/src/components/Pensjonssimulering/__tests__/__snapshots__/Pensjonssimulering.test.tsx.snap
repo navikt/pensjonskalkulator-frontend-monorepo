@@ -816,7 +816,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
             class="navds-table__body _tableMobileOnly_15ff36"
           >
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -906,7 +906,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -996,7 +996,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1086,7 +1086,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1176,7 +1176,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1266,7 +1266,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1356,7 +1356,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1446,7 +1446,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1536,7 +1536,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1626,7 +1626,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1716,7 +1716,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1806,7 +1806,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1896,7 +1896,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1986,7 +1986,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -2076,7 +2076,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"

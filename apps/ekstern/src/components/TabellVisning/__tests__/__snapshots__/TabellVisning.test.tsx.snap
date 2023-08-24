@@ -64,7 +64,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
       class="navds-table__body _tableMobileOnly_15ff36"
     >
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -162,7 +162,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -260,7 +260,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -358,7 +358,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -456,7 +456,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -554,7 +554,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -652,7 +652,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -750,7 +750,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -848,7 +848,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1259,7 +1259,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
       class="navds-table__body _tableMobileOnly_15ff36"
     >
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--open navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--open navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-table__toggle-expand-cell--open navds-body-short"
@@ -1357,7 +1357,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1455,7 +1455,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1553,7 +1553,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1651,7 +1651,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1749,7 +1749,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1847,7 +1847,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1945,7 +1945,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -2043,7 +2043,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         </td>
       </tr>
       <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+        class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
       >
         <td
           class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"

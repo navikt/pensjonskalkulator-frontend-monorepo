@@ -24,7 +24,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
         error.404.title
       </h2>
       <div
-        class="navds-list navds-list--medium"
+        class="navds-list"
       >
         <ul>
           <li
@@ -52,7 +52,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
               </svg>
             </div>
             <div
-              class="navds-list__item-content navds-body-short"
+              class="navds-list__item-content navds-body-short navds-body-short--small"
             >
               <p
                 class="navds-body-long"
@@ -86,7 +86,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
               </svg>
             </div>
             <div
-              class="navds-list__item-content navds-body-short"
+              class="navds-list__item-content navds-body-short navds-body-short--small"
             >
               <p
                 class="navds-body-long"
