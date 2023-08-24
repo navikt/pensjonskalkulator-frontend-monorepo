@@ -87,7 +87,6 @@
 
     &HeaderCell {
       font-family: var(--a-font-family) !important;
-      font-size: var(--a-font-size-heading-xsmall) !important;
       padding: 0.25rem 0;
       line-height: 1;
 
@@ -95,6 +94,7 @@
         width: 70%;
         white-space: break-spaces;
         font-weight: var(--a-font-weight-regular);
+        font-size: var(--a-font-size-medium) !important;
         text-align: left;
         padding-right: var(--a-spacing-3);
 
@@ -105,6 +105,7 @@
       }
 
       &__right {
+        font-size: var(--a-font-size-large) !important;
         font-weight: var(--a-font-weight-bold);
         text-align: right;
       }

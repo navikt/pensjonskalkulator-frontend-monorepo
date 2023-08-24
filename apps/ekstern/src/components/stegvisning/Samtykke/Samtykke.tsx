@@ -54,8 +54,8 @@ export function Samtykke({
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <Card aria-live="polite" hasLargePadding hasMargin>
+    <Card aria-live="polite" hasLargePadding hasMargin>
+      <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
@@ -121,7 +121,7 @@ export function Samtykke({
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </Card>
-    </form>
+      </form>
+    </Card>
   )
 }

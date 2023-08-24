@@ -10,7 +10,7 @@ import {
 } from 'highcharts'
 
 import { formatAsDecimal } from '@/utils/currency'
-import { addSelfDestructingEventListener } from '@/utils/events'
+import { cleanAndAddEventListener } from '@/utils/events'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
 
@@ -23,12 +23,12 @@ export const SERIE_NAME_AFP = 'Avtalefestet pensjon (AFP)'
 export const SERIE_NAME_TP = 'Pensjonsavtaler (arbeidsgiver)'
 export const SERIE_NAME_ALDERSPENSJON = 'Alderspensjon (NAV)'
 
-export const SERIE_COLOR_INNTEKT = '#868F9C'
+export const SERIE_COLOR_INNTEKT = 'var(--a-gray-500)'
 export const SERIE_COLOR_AFP = 'var(--a-purple-400)'
 export const SERIE_COLOR_TP = 'var(--a-green-400)'
 export const SERIE_COLOR_ALDERSPENSJON = 'var(--a-deepblue-500)'
 
-export const SERIE_COLOR_FADED_INNTEKT = '#AfAfAf'
+export const SERIE_COLOR_FADED_INNTEKT = 'var(--a-gray-300)'
 export const SERIE_COLOR_FADED_AFP = 'var(--a-purple-200)'
 export const SERIE_COLOR_FADED_TP = 'var(--a-green-200)'
 export const SERIE_COLOR_FADED_ALDERSPENSJON = 'var(--a-deepblue-200)'
@@ -289,8 +289,10 @@ export function resetColumnColors(chart: Chart): void {
       }
     )
   }
+  chart?.tooltip.update({
+    enabled: false,
+  })
   chart.redraw()
-  chart.tooltip.hide(0)
 }
 
 export function onPointClick(this: Point): void {
@@ -323,6 +325,7 @@ export function onPointClick(this: Point): void {
     }
   })
   this.series.chart.redraw()
+  this.series.chart.tooltip.refresh(this)
 }
 
 export function onPointUnclick(
@@ -332,16 +335,13 @@ export function onPointUnclick(
   },
   chart?: Chart
 ) {
-  // Behov for litt delay slik at Highcharts rekker å sette chart.tooltip.hidden property
-  setTimeout(() => {
-    if (chart && e.chartX !== undefined && e.point === undefined) {
-      // Is inside chart ploot area, but not on a point
-      resetColumnColors(chart)
-    } else if (chart && (chart.tooltip as ExtendedTooltip)?.isHidden) {
-      // Is outside chart plot area, and tooltip is hidden
-      resetColumnColors(chart)
-    }
-  }, 50)
+  if (chart && e.chartX === undefined && e.point === undefined) {
+    // User has clicked outside of the plot area
+    resetColumnColors(chart)
+  } else if (chart && e.chartX !== undefined && e.point === undefined) {
+    // Is inside chart plot area, but not on a point
+    resetColumnColors(chart)
+  }
 }
 
 export function handleChartScroll(
@@ -411,12 +411,10 @@ export const getChartOptions = (
                 /* eslint-disable-next-line @typescript-eslint/no-this-alias */
                 const chart = this
 
-                addSelfDestructingEventListener(
-                  el,
-                  'scroll',
-                  handleChartScroll,
-                  { chart, scrollPosition }
-                )
+                cleanAndAddEventListener(el, 'scroll', handleChartScroll, {
+                  chart,
+                  scrollPosition,
+                })
                 el.handleButtonVisibility = {
                   showRightButton,
                   showLeftButton,
@@ -448,21 +446,24 @@ export const getChartOptions = (
           return this.value.toString()
         },
         style: {
-          color: 'var(--a-grayalpha-700)',
+          fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
+          color: 'var(--a-grayalpha-700)',
         },
+        y: 20,
       },
       title: {
         text: 'Årlig inntekt og pensjon etter uttak',
         align: 'high',
         style: {
+          fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
         },
       },
       lineColor: 'var(--a-grayalpha-700)',
     },
     yAxis: {
-      offset: 15,
+      offset: 28,
       minorTickInterval: 200000,
       tickInterval: 200000,
       allowDecimals: false,
@@ -472,9 +473,10 @@ export const getChartOptions = (
         align: 'high',
         rotation: 0,
         textAlign: 'left',
-        x: -47,
+        x: -44,
         y: -20,
         style: {
+          fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
           zIndex: 0,
         },
@@ -484,11 +486,12 @@ export const getChartOptions = (
         align: 'left',
         formatter: labelFormatterDesktop,
         style: {
-          color: 'var(--a-grayalpha-700)',
+          fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
+          color: 'var(--a-grayalpha-700)',
           paddingRight: 'var(--a-spacing-3)',
         },
-        x: -57,
+        x: -55,
       },
       gridLineColor: 'var(--a-grayalpha-200)',
     },
@@ -502,7 +505,7 @@ export const getChartOptions = (
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
       },
-      hideDelay: 30,
+      hideDelay: 9e9,
       padding: 0,
       shadow: false,
       shared: true,
@@ -551,10 +554,10 @@ export const getChartOptions = (
             click: onPointClick,
             /* c8 ignore next 6 */
             mouseOut: function () {
-              this.series.chart.tooltip.update({ enabled: false })
+              return false
             },
             mouseOver: function () {
-              this.series.chart.tooltip.update({ enabled: false })
+              return false
             },
           },
         },
@@ -582,7 +585,7 @@ export const getChartOptions = (
               title: {
                 text: 'Tusen kroner',
                 margin: -75,
-                x: -83,
+                x: -73,
                 y: -22,
                 style: {
                   fontSize: 'var(--a-font-size-small)',
@@ -594,7 +597,7 @@ export const getChartOptions = (
                   fontSize: 'var(--a-font-size-small)',
                   backgroundColor: 'transparent',
                 },
-                x: -7,
+                x: 0,
               },
             },
             tooltip: {
