@@ -23,10 +23,11 @@ describe('stegvisning - Sivilstand', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await waitFor(() => {
+    await waitFor(async () => {
       expect(screen.getAllByRole('radio')).toHaveLength(2)
       expect(radioButtons[0]).not.toBeChecked()
       expect(radioButtons[1]).not.toBeChecked()
+      expect(screen.getByText('ugift', { exact: false })).toBeVisible()
       expect(result.asFragment()).toMatchSnapshot()
     })
   })
@@ -42,10 +43,11 @@ describe('stegvisning - Sivilstand', () => {
         />
       )
       const radioButtons = screen.getAllByRole('radio')
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(screen.getAllByRole('radio')).toHaveLength(2)
         expect(radioButtons[0]).toBeChecked()
         expect(radioButtons[1]).not.toBeChecked()
+        expect(screen.getByText('ugift', { exact: false })).toBeVisible()
       })
     })
 
@@ -64,6 +66,7 @@ describe('stegvisning - Sivilstand', () => {
         expect(screen.getAllByRole('radio')).toHaveLength(2)
         expect(radioButtons[0]).not.toBeChecked()
         expect(radioButtons[1]).toBeChecked()
+        expect(screen.getByText('ugift', { exact: false })).toBeVisible()
       })
     })
   })

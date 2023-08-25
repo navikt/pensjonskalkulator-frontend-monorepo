@@ -16,7 +16,7 @@ export function Step5() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { data: person } = useGetPersonQuery()
+  const { data: person, isSuccess } = useGetPersonQuery()
   const harSamboer = useAppSelector(selectSamboer)
 
   useEffect(() => {
@@ -38,14 +38,17 @@ export function Step5() {
     dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
     navigate(paths.beregning)
   }
-  // person kan ikke være undefined her på grunn av feilhpndtering på forrige steg (Se Step4/Step5Feil)
   return (
-    <Sivilstand
-      sivilstand={(person as Person).sivilstand}
-      harSamboer={harSamboer}
-      onCancel={onCancel}
-      onPrevious={onPrevious}
-      onNext={onNext}
-    />
+    <>
+      {isSuccess && (
+        <Sivilstand
+          sivilstand={person.sivilstand}
+          harSamboer={harSamboer}
+          onCancel={onCancel}
+          onPrevious={onPrevious}
+          onNext={onNext}
+        />
+      )}
+    </>
   )
 }

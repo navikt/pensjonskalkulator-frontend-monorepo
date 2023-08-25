@@ -31,13 +31,11 @@ export function Step1() {
     }
   }
 
-  return isError ? (
+  return (
     <Start
       fornavn={isSuccess ? (person as Person).fornavn : ''}
       onCancel={onCancel}
       onNext={onNext}
     />
-  ) : (
-    <></>
   )
 }

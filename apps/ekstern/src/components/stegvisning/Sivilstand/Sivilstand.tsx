@@ -18,7 +18,6 @@ interface Props {
 
 export type SivilstandRadio = 'ja' | 'nei'
 
-// TODO PEK-92 utvide test
 export function Sivilstand({
   sivilstand,
   harSamboer,
@@ -30,7 +29,7 @@ export function Sivilstand({
   const [validationError, setValidationError] = useState<string>('')
 
   const formatertSivilstand = useMemo(
-    () => formatSivilstand(sivilstand),
+    () => formatSivilstand(sivilstand).toLowerCase(),
     [sivilstand]
   )
 

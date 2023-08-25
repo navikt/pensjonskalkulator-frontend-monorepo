@@ -45,7 +45,7 @@ describe('Step 4', () => {
     const user = userEvent.setup()
     mockResponse('/person', {
       status: 200,
-      json: { fornavn: 'Ola', sivilstand: 'GIFT' },
+      json: { fornavn: 'Ola', sivilstand: 'GIFT', foedselsdato: '1963-04-30' },
     })
     const checkHarSamboerMock = vi.spyOn(Step4Utils, 'checkHarSamboer')
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')

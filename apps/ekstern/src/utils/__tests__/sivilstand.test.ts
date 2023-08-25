@@ -6,7 +6,7 @@ describe('sivilstand-utils', () => {
       ['UOPPGITT', 'Ugift'],
       ['UGIFT', 'Ugift'],
       ['GIFT', 'Gift'],
-      ['ENKE_ELLER_ENKEMANN', 'Enke/Enkemann'],
+      ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann'],
       ['SKILT', 'Skilt'],
       ['SEPARERT', 'Separert'],
       ['REGISTRERT_PARTNER', 'Registrert partner'],

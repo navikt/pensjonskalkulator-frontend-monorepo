@@ -39,7 +39,7 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
 }
 
 export const isPerson = (data?: any): data is Person => {
-  return (
+  return !!(
     [
       null,
       'UOPPGITT',
