@@ -5,15 +5,13 @@ import { Accordion, BodyLong, Link } from '@navikt/ds-react'
 import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
 import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
-
-import { formatSivilstand } from './Sivilstand-utils'
+import { formatSivilstand } from '@/utils/sivilstand'
 
 export function Sivilstand() {
   const { data: person, isSuccess } = useGetPersonQuery()
 
   const formatertSivilstand = useMemo(
-    () =>
-      person && person.sivilstand ? formatSivilstand(person.sivilstand) : '',
+    () => (person ? formatSivilstand(person.sivilstand) : ''),
     [person]
   )
 
@@ -21,11 +19,7 @@ export function Sivilstand() {
     <Accordion.Item data-testid="accordion-sivilstand">
       <SectionHeader
         label="Sivilstand"
-        value={
-          isSuccess && person.sivilstand !== null
-            ? formatertSivilstand
-            : 'Kunne ikke hentes'
-        }
+        value={isSuccess ? formatertSivilstand : 'Kunne ikke hentes'}
       />
       <SectionContent>
         <BodyLong>

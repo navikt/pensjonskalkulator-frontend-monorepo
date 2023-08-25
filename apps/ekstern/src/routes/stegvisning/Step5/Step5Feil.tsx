@@ -23,8 +23,8 @@ export function Step5Feil() {
   }
 
   useEffect(() => {
-    if (isSuccess && person.sivilstand !== null) {
-      onNext(checkHarSamboer(person?.sivilstand))
+    if (isSuccess) {
+      onNext(checkHarSamboer(person.sivilstand))
     }
   }, [isSuccess, person])
 

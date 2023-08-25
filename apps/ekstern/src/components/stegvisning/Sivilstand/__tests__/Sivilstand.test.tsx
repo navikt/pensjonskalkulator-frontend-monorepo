@@ -11,6 +11,7 @@ describe('stegvisning - Sivilstand', () => {
   it('rendrer slik den skal når sivilstand ikke er oppgitt', async () => {
     const result = render(
       <Sivilstand
+        sivilstand="UOPPGITT"
         harSamboer={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -22,10 +23,11 @@ describe('stegvisning - Sivilstand', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await waitFor(() => {
+    await waitFor(async () => {
       expect(screen.getAllByRole('radio')).toHaveLength(2)
       expect(radioButtons[0]).not.toBeChecked()
       expect(radioButtons[1]).not.toBeChecked()
+      expect(screen.getByText('ugift', { exact: false })).toBeVisible()
       expect(result.asFragment()).toMatchSnapshot()
     })
   })
@@ -33,6 +35,7 @@ describe('stegvisning - Sivilstand', () => {
     it('når harSamboer er true', async () => {
       render(
         <Sivilstand
+          sivilstand="UGIFT"
           harSamboer
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
@@ -40,16 +43,18 @@ describe('stegvisning - Sivilstand', () => {
         />
       )
       const radioButtons = screen.getAllByRole('radio')
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(screen.getAllByRole('radio')).toHaveLength(2)
         expect(radioButtons[0]).toBeChecked()
         expect(radioButtons[1]).not.toBeChecked()
+        expect(screen.getByText('ugift', { exact: false })).toBeVisible()
       })
     })
 
     it('når harSamboer er false', async () => {
       render(
         <Sivilstand
+          sivilstand="UGIFT"
           harSamboer={false}
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
@@ -61,6 +66,7 @@ describe('stegvisning - Sivilstand', () => {
         expect(screen.getAllByRole('radio')).toHaveLength(2)
         expect(radioButtons[0]).not.toBeChecked()
         expect(radioButtons[1]).toBeChecked()
+        expect(screen.getByText('ugift', { exact: false })).toBeVisible()
       })
     })
   })
@@ -69,6 +75,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstand="UGIFT"
         harSamboer={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -103,6 +110,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstand="UGIFT"
         harSamboer
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -126,6 +134,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstand="UGIFT"
         harSamboer
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}

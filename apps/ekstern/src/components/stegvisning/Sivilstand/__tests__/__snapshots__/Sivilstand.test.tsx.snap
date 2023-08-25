@@ -6,7 +6,6 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
     aria-live="polite"
     class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
   >
-     
     <form>
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"
@@ -16,7 +15,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
       <p
         class="_ingress_885e37 navds-ingress"
       >
-        stegvisning.sivilstand.ingress
+        stegvisning.sivilstand.ingress_1ugiftstegvisning.sivilstand.ingress_2
       </p>
       <fieldset
         aria-required="true"
