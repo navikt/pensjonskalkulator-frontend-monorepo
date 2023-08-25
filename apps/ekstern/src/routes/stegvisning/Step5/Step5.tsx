@@ -7,6 +7,7 @@ import {
   SivilstandRadio,
 } from '@/components/stegvisning/Sivilstand'
 import { paths } from '@/routes'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSamboer } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -15,6 +16,7 @@ export function Step5() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { data: person, isSuccess } = useGetPersonQuery()
   const harSamboer = useAppSelector(selectSamboer)
 
   useEffect(() => {
@@ -36,13 +38,17 @@ export function Step5() {
     dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
     navigate(paths.beregning)
   }
-
   return (
-    <Sivilstand
-      harSamboer={harSamboer}
-      onCancel={onCancel}
-      onPrevious={onPrevious}
-      onNext={onNext}
-    />
+    <>
+      {isSuccess && (
+        <Sivilstand
+          sivilstand={person.sivilstand}
+          harSamboer={harSamboer}
+          onCancel={onCancel}
+          onPrevious={onPrevious}
+          onNext={onNext}
+        />
+      )}
+    </>
   )
 }
