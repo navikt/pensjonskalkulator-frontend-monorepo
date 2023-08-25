@@ -25,7 +25,7 @@ describe('Step 5 Feil', () => {
     })
   })
 
-  it('kaller /person på nytt (gitt at nytt kall fremdeles feiler eller at sivilstand ikke kan hentes), og blir værende på siden', async () => {
+  it('kaller /person på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden', async () => {
     const user = userEvent.setup()
     mockErrorResponse('/person')
     const navigateMock = vi.fn()
@@ -33,17 +33,6 @@ describe('Step 5 Feil', () => {
       () => navigateMock
     )
     render(<Step5Feil />)
-    user.click(await screen.findByText('error.global.button.primary'))
-    await waitFor(() => {
-      expect(navigateMock).not.toHaveBeenCalled()
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'error.global.title'
-      )
-    })
-    mockResponse('/person', {
-      status: 200,
-      json: { fornavn: 'Ola', sivilstand: null, foedselsdato: '1963-04-30' },
-    })
     user.click(await screen.findByText('error.global.button.primary'))
     await waitFor(() => {
       expect(navigateMock).not.toHaveBeenCalled()

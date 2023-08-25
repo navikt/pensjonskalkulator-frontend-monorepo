@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step1 } from '..'
-import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
@@ -17,17 +17,6 @@ describe('Step 1', () => {
     render(<Step1 />)
     await waitFor(() => {
       expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
-    })
-  })
-
-  it('rendrer hilsen uten fornavn når henting av personopplysninger er delvis vellykket (mangler sivilstand)', async () => {
-    mockResponse('/person', {
-      status: 200,
-      json: { fornavn: 'Ola', sivilstand: null, foedselsdato: '1963-04-30' },
-    })
-    render(<Step1 />)
-    await waitFor(async () => {
-      expect(screen.getByText('stegvisning.start.title Ola!')).toBeVisible()
     })
   })
 

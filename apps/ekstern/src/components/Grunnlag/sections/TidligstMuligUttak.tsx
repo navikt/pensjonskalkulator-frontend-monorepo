@@ -1,10 +1,9 @@
-import React from 'react'
+import { Accordion, BodyLong } from '@navikt/ds-react'
 
-import { Accordion, BodyLong, Link } from '@navikt/ds-react'
+import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 
 import { SectionContent } from './components/SectionContent'
 import { SectionHeader } from './components/SectionHeader'
-
 interface Props {
   uttaksalder: Uttaksalder
 }
@@ -14,36 +13,24 @@ export function TidligstMuligUttak({ uttaksalder }: Props) {
     <Accordion.Item>
       <SectionHeader
         label="Tidligst mulig uttak"
-        value={
-          uttaksalder.maaned === 0
-            ? `${uttaksalder.aar} år`
-            : `${uttaksalder.aar} år, ${uttaksalder.maaned} md.`
-        }
+        value={formatUttaksalder(uttaksalder, { compact: true })}
       />
       <SectionContent>
         <BodyLong>
-          Viser første mulige tidspunkt for uttak av 100 % alderspensjon.
-          Tidspunktet kan bli endret dersom din inntekt endrer seg. Selv om du
-          ikke kan ta ut 100 % alderspensjon på det tidspunktet du ønsker, kan
-          det være du har mulighet til å starte uttak av en lavere uttaksgrad.
+          Når du velger hvilken alder du ønsker ta ut pensjon er det alltid
+          måneden etter du fyller år som blir brukt i beregningen. Velger du for
+          eksempel 62 år, betyr det måneden etter du fyller 62 år. <br />
+          <br />
+          For å starte uttak før 67 år må opptjeningen være høy nok, og det vil
+          derfor ikke være alle som har mulighet til å starte uttak ved 62 år.
+          Tidspunktet som er oppgitt er ett estimat på når du tidligst kan
+          starte uttak av 100 % alderspensjon basert på din pensjonsopptjening
+          og opplysninger du har gitt.
           <br />
           <br />
-          Rett til AFP i privat eller offentlig sektor kan også ha betydning for
-          når du tidligst kan starte uttak av pensjon. Vær oppmerksom på at
-          dersom du ikke har rett til AFP, vil det kunne påvirke resultatet
-          ditt.
-          <br />
-          <br />
-          Hvorfor kan du ikke starte uttak tidligere: For å ta ut alderspensjon
-          før du har fylt 67 år, må du ha tilstrekkelig høy opptjening. Ved helt
-          eller delvis uttak før 67 år, må opptjeningen være så høy at pensjonen
-          ved fylte 67 år minst tilsvarer <Link>garantipensjonsnivået</Link>.
-          Fra fylte 67 år har alle med opptjente pensjonsrettigheter rett til å
-          starte alderspensjon.
-          <br />
-          <br />
-          Tidspunktet er et estimat og du bør sjekke igjen når tidspunktet
-          nærmer seg.
+          Tidspunktet kan bli endret hvis din inntekt endrer seg, og ut fra om
+          du har rett til AFP i privat eller offentlig sektor. Du bør derfor
+          sjekke igjen når det nærmer seg at du ønsker å starte alderspensjon.
         </BodyLong>
       </SectionContent>
     </Accordion.Item>

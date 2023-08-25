@@ -39,7 +39,7 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
 }
 
 export const isPerson = (data?: any): data is Person => {
-  return (
+  return !!(
     [
       null,
       'UOPPGITT',
@@ -53,10 +53,11 @@ export const isPerson = (data?: any): data is Person => {
       'SKILT_PARTNER',
       'GJENLEVENDE_PARTNER',
     ].includes(data?.sivilstand) &&
-    (data.fornavn === null || typeof data.fornavn === 'string') &&
-    (data.foedselsdato === null ||
-      (data.foedselsdato !== undefined &&
-        new Date(data.foedselsdato).toString() !== 'Invalid Date'))
+    data.fornavn &&
+    typeof data.fornavn === 'string' &&
+    data.foedselsdato &&
+    data.foedselsdato !== undefined &&
+    new Date(data.foedselsdato).toString() !== 'Invalid Date'
   )
 }
 

@@ -1,13 +1,15 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
+import { formatSivilstand } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
 
 interface Props {
+  sivilstand: Sivilstand
   harSamboer: boolean | null
   onCancel: () => void
   onPrevious: () => void
@@ -17,6 +19,7 @@ interface Props {
 export type SivilstandRadio = 'ja' | 'nei'
 
 export function Sivilstand({
+  sivilstand,
   harSamboer,
   onCancel,
   onPrevious,
@@ -24,6 +27,11 @@ export function Sivilstand({
 }: Props) {
   const intl = useIntl()
   const [validationError, setValidationError] = useState<string>('')
+
+  const formatertSivilstand = useMemo(
+    () => formatSivilstand(sivilstand).toLowerCase(),
+    [sivilstand]
+  )
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -47,15 +55,16 @@ export function Sivilstand({
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <Card aria-live="polite" hasLargePadding hasMargin>
+    <Card aria-live="polite" hasLargePadding hasMargin>
+      <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
         <Ingress className={styles.ingress}>
-          <FormattedMessage id="stegvisning.sivilstand.ingress" />
+          <FormattedMessage id="stegvisning.sivilstand.ingress_1" />
+          {formatertSivilstand}
+          <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
         </Ingress>
-
         <RadioGroup
           legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
           name="sivilstand"
@@ -72,7 +81,6 @@ export function Sivilstand({
             <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
           </Radio>
         </RadioGroup>
-
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.beregn" />
         </Button>
@@ -92,7 +100,7 @@ export function Sivilstand({
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </Card>
-    </form>
+      </form>
+    </Card>
   )
 }

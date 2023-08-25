@@ -48,9 +48,9 @@ declare type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 declare type Step = '0' | '1' | '2' | '3'
 
 declare type Person = {
-  fornavn: string | null
-  sivilstand: Sivilstand | null
-  foedselsdato: string | null
+  fornavn: string
+  sivilstand: Sivilstand
+  foedselsdato: string
 }
 
 declare type TpoMedlemskap = {

@@ -8,9 +8,11 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Step 5', () => {
-  it('har riktig sidetittel', () => {
+  it('har riktig sidetittel', async () => {
     render(<Step5 />)
-    expect(document.title).toBe('application.title.stegvisning.step5')
+    await waitFor(() => {
+      expect(document.title).toBe('application.title.stegvisning.step5')
+    })
   })
 
   it('rendrer Step 5 slik den skal når brukeren har svart på spørsmålet om samtykke,', async () => {

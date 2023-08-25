@@ -87,7 +87,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     <rect
                       class="highcharts-point"
                       data-z-index="3"
-                      fill="#868F9C"
+                      fill="var(--a-gray-500)"
                       height="14"
                       rx="7"
                       ry="7"
@@ -486,7 +486,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                   <text
                     class="highcharts-axis-title"
                     data-z-index="7"
-                    style="color: rgb(102, 102, 102); z-index: 0; fill: #666666; z-index: 0;"
+                    style="color: rgb(102, 102, 102); font-family: var(--a-font-family); z-index: 0; fill: #666666; z-index: 0;"
                     text-anchor="start"
                     transform="translate(0,0)"
                     x="NaN"
@@ -550,7 +550,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                   data-z-index="7"
                 >
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -558,7 +558,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     64
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -566,7 +566,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     65
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -574,7 +574,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     66
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -582,7 +582,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     67
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -590,7 +590,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     68
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -598,7 +598,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     69
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -606,7 +606,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     70
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -614,7 +614,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     71
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -622,7 +622,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     72
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -630,7 +630,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     73
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -638,7 +638,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     74
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -646,7 +646,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     75
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -654,7 +654,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     76
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -662,7 +662,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                     77
                   </text>
                   <text
-                    style="cursor: default; fill: var(--a-grayalpha-700);"
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
                     text-anchor="middle"
                     transform="translate(0,0)"
                     x="0"
@@ -680,27 +680,27 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
                 style="position: absolute; left: 0px; top: 0px; opacity: 1;"
               >
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   0
                 </span>
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   200
                 </span>
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   400
                 </span>
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   600
                 </span>
                 <span
-                  style="position: absolute; font-family: Helvetica, Arial, sans-serif; font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
                 >
                   800
                 </span>
@@ -816,7 +816,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
             class="navds-table__body _tableMobileOnly_15ff36"
           >
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -906,7 +906,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -996,7 +996,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1086,7 +1086,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1176,7 +1176,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1266,7 +1266,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1356,7 +1356,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1446,7 +1446,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1536,7 +1536,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1626,7 +1626,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1716,7 +1716,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1806,7 +1806,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1896,7 +1896,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -1986,7 +1986,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
@@ -2076,7 +2076,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
               </td>
             </tr>
             <tr
-              class="navds-table__row navds-table__expandable-row navds-table__row--shade-on-hover"
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"

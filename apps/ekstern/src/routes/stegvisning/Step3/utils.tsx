@@ -39,7 +39,7 @@ export type TpoMedlemskapQuery = TypedUseQueryStateResult<
 >
 
 export function useStep3LoaderData<
-  TReturnedValue extends ReturnType<typeof deferredLoader>
+  TReturnedValue extends ReturnType<typeof deferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
@@ -50,7 +50,7 @@ export function useStep3LoaderData<
 export function deferredLoader<
   TData extends {
     getTpoMedlemskapQuery: TpoMedlemskapQuery
-  }
+  },
 >(dataFunc: (args?: LoaderFunctionArgs) => TData) {
   return (args?: LoaderFunctionArgs) =>
     defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {

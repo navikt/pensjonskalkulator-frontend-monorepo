@@ -11,10 +11,18 @@ describe('Grunnlag', () => {
       <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
     )
     expect(await screen.findByText('Tidligst mulig uttak:')).toBeVisible()
-    expect(screen.getByText('62 år, 10 md.')).toBeVisible()
+    expect(screen.getByText('62 år og 10 md.')).toBeVisible()
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('viser pensjonsavtaler', async () => {
+    render(
+      <Grunnlag
+        tidligstMuligUttak={{ aar: 62, maaned: 10, uttaksdato: '2031-11-01' }}
+      />
+    )
     await waitFor(() => {
       expect(screen.getByTestId('pensjonsavtaler')).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
     })
   })
 })
