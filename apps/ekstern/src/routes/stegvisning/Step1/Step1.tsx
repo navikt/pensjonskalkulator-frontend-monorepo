@@ -26,14 +26,14 @@ export function Step1() {
 
   const onNext = (): void => {
     navigate(paths.samtykke)
-    if (isError || person?.sivilstand === null) {
+    if (isError) {
       dispatch(apiSlice.util.invalidateTags(['Person']))
     }
   }
 
-  return isError || (isSuccess && person?.fornavn) ? (
+  return isError ? (
     <Start
-      fornavn={isSuccess && person?.fornavn ? person.fornavn : ''}
+      fornavn={isSuccess ? (person as Person).fornavn : ''}
       onCancel={onCancel}
       onNext={onNext}
     />

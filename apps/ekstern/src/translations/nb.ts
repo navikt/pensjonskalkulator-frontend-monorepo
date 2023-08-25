@@ -92,8 +92,9 @@ const translations = {
     'AFP blir ikke med i beregningen din. Dette kan påvirke når du kan ta ut alderspensjon.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
   'stegvisning.sivilstand.title': 'Din sivilstand',
-  'stegvisning.sivilstand.ingress':
-    'Du er registrert som ugift i folkeregisteret. Hvis du har samboer, kan det påvirke beregningen.',
+  'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
+  'stegvisning.sivilstand.ingress_2':
+    ' i folkeregisteret. Hvis du har samboer, kan det påvirke beregningen.',
   'stegvisning.sivilstand.radio_label': 'Har du samboer?',
   'stegvisning.sivilstand.radio_ja': 'Ja',
   'stegvisning.sivilstand.radio_nei': 'Nei',

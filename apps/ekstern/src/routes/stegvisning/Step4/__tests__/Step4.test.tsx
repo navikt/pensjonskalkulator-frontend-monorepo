@@ -115,31 +115,6 @@ describe('Step 4', () => {
     expect(navigateMock).toHaveBeenCalledWith(paths.sivilstandFeil)
   })
 
-  it('registrerer afp og navigerer videre til steg 5 feilside når brukeren velger afp og klikker på Neste (gitt at kall til /person er delvis vellykket - mangler sivilstand)', async () => {
-    const user = userEvent.setup()
-    mockResponse('/person', {
-      status: 200,
-      json: { fornavn: 'Ola', sivilstand: null },
-    })
-    const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    const { store } = render(<Step4 />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: true },
-      },
-    })
-
-    const radioButtons = await screen.findAllByRole('radio')
-    await user.click(radioButtons[0])
-    await user.click(screen.getByText('stegvisning.neste'))
-    expect(store.getState().userInput.afp).toBe('ja_offentlig')
-    expect(nesteSideMock).toHaveBeenCalledWith(null)
-    expect(navigateMock).toHaveBeenCalledWith(paths.sivilstandFeil)
-  })
-
   it('sender tilbake til steg 2 når brukeren ikke har tpo-medlemskap og klikker på Tilbake', async () => {
     const user = userEvent.setup()
     mockResponse('/tpo-medlemskap', {

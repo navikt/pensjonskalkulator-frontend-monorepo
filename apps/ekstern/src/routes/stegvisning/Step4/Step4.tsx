@@ -49,10 +49,9 @@ export function Step4() {
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
 
-    const harSamboer =
-      isPersonQuerySuccess && person?.sivilstand
-        ? checkHarSamboer(person?.sivilstand)
-        : null
+    const harSamboer = isPersonQuerySuccess
+      ? checkHarSamboer(person.sivilstand)
+      : null
     if (harSamboer) {
       dispatch(userInputActions.setSamboer(true))
     }

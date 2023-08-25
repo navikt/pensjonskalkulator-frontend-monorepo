@@ -11,6 +11,7 @@ describe('stegvisning - Sivilstand', () => {
   it('rendrer slik den skal når sivilstand ikke er oppgitt', async () => {
     const result = render(
       <Sivilstand
+        sivilstand="UOPPGITT"
         harSamboer={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -33,6 +34,7 @@ describe('stegvisning - Sivilstand', () => {
     it('når harSamboer er true', async () => {
       render(
         <Sivilstand
+          sivilstand="UGIFT"
           harSamboer
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
@@ -50,6 +52,7 @@ describe('stegvisning - Sivilstand', () => {
     it('når harSamboer er false', async () => {
       render(
         <Sivilstand
+          sivilstand="UGIFT"
           harSamboer={false}
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
@@ -69,6 +72,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstand="UGIFT"
         harSamboer={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -103,6 +107,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstand="UGIFT"
         harSamboer
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -126,6 +131,7 @@ describe('stegvisning - Sivilstand', () => {
     const user = userEvent.setup()
     render(
       <Sivilstand
+        sivilstand="UGIFT"
         harSamboer
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
