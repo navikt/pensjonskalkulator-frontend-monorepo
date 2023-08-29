@@ -17,6 +17,24 @@
   }
 }
 
+.info {
+  display: flex;
+  margin: var(--a-spacing-2) 0;
+
+  &Icon {
+    flex-basis: 1.5rem;
+    color: var(--a-lightblue-800);
+    margin-right: var(--a-spacing-2);
+    align-self: start;
+  }
+
+  &Text {
+    font-size: var(--a-font-size-medium);
+    flex-basis: 100%;
+    margin: 0;
+  }
+}
+
 .visTabell {
   width: 100%;
 

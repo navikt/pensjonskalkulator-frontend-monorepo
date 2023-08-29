@@ -1,19 +1,32 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { InformationSquareFillIcon } from '@navikt/aksel-icons'
 import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
 import { Button, ReadMore } from '@navikt/ds-react'
-import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
+import Highcharts, {
+  SeriesColumnOptions,
+  SeriesOptionsType,
+  XAxisOptions,
+} from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 import { TabellVisning } from '@/components/TabellVisning'
+import {
+  useGetPersonQuery,
+  usePensjonsavtalerQuery,
+} from '@/state/api/apiSlice'
+import { PensjonsavtalerRequestBody } from '@/state/api/apiSlice.types'
+import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import {
+  selectCurrentSimulation,
+  selectSamtykke,
+} from '@/state/userInput/selectors'
 
 import {
   AFP_DATA,
   COLUMN_WIDTH,
   FOLKETRYGDEN_DATA,
-  MAX_UTTAKSALDER,
   PENSJONSGIVENDE_DATA,
   SERIE_NAME_INNTEKT,
   SERIE_NAME_AFP,
@@ -28,25 +41,37 @@ import {
   onPointUnclick,
   onVisFaerreAarClick,
   onVisFlereAarClick,
+  processPensjonsavtalerArray,
   simulateDataArray,
-  simulateTjenestepensjon,
 } from './utils'
 
 import styles from './Pensjonssimulering.module.scss'
 
 export function Pensjonssimulering() {
-  const { startAlder } = useAppSelector(selectCurrentSimulation)
-
+  const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
+  const harSamtykket = useAppSelector(selectSamtykke)
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
     useState<boolean>(false)
-
+  const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] = useState<
+    PensjonsavtalerRequestBody | undefined
+  >(undefined)
   const [chartOptions, setChartOptions] = useState<Highcharts.Options>(
     getChartOptions(styles, setShowVisFlereAarButton, setShowVisFaerreAarButton)
   )
   const [isVisTabellOpen, setVisTabellOpen] = useState<boolean>(false)
+  const [isPensjonsavtaleFlagVisible, setIsPensjonsavtaleFlagVisible] =
+    useState<boolean>(false)
   const chartRef = useRef<HighchartsReact.RefObject>(null)
+  const { data: person } = useGetPersonQuery()
+  const { data: pensjonsavtaler, isSuccess: isPensjonsavtalerSuccess } =
+    usePensjonsavtalerQuery(
+      pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
+      {
+        skip: !pensjonsavtalerRequestBody || !harSamtykket || !startAlder,
+      }
+    )
 
   useEffect(() => {
     function onPointUnclickEventHandler(e: Event) {
@@ -58,8 +83,23 @@ export function Pensjonssimulering() {
   }, [])
 
   useEffect(() => {
-    if (startAlder) {
-      const aarArray = generateXAxis(startAlder, MAX_UTTAKSALDER)
+    if (harSamtykket && startAlder) {
+      const requestBody = generatePensjonsavtalerRequestBody({
+        aar: startAlder ?? 0,
+        maaned: startMaaned ?? 0,
+      })
+      setPensjonsavtalerRequestBody(requestBody)
+    }
+  }, [harSamtykket, startAlder, startMaaned])
+
+  // TODO (etter merge?) skrive tester, sjekke at generateXAxis kalles og graph tegnes med pensjonsavtaler
+  useEffect(() => {
+    if (startAlder && person?.foedselsdato) {
+      const aarArray = generateXAxis(
+        startAlder,
+        pensjonsavtaler ?? [],
+        setIsPensjonsavtaleFlagVisible
+      )
       setChartOptions({
         chart: {
           type: 'column',
@@ -86,13 +126,23 @@ export function Pensjonssimulering() {
             color: SERIE_COLOR_AFP,
             data: simulateDataArray(AFP_DATA, aarArray.length),
           },
-          {
-            type: 'column',
-            pointWidth: COLUMN_WIDTH,
-            name: SERIE_NAME_TP,
-            color: SERIE_COLOR_TP,
-            data: simulateTjenestepensjon(startAlder, MAX_UTTAKSALDER),
-          },
+          ...(isPensjonsavtalerSuccess
+            ? [
+                {
+                  type: 'column',
+                  pointWidth: COLUMN_WIDTH,
+                  name: SERIE_NAME_TP,
+                  color: SERIE_COLOR_TP,
+                  /* c8 ignore next 1 */
+                  data: processPensjonsavtalerArray(
+                    startAlder - 1,
+                    aarArray.length,
+                    person?.foedselsdato,
+                    pensjonsavtaler
+                  ),
+                } as SeriesOptionsType,
+              ]
+            : []),
           {
             type: 'column',
             pointWidth: COLUMN_WIDTH,
@@ -108,7 +158,7 @@ export function Pensjonssimulering() {
         ],
       })
     }
-  }, [startAlder])
+  }, [startAlder, pensjonsavtaler, person])
 
   return (
     <section className={styles.section}>
@@ -149,6 +199,22 @@ export function Pensjonssimulering() {
           )}
         </div>
       </div>
+      {
+        // TODO justere styling + utvide test
+      }
+      {isPensjonsavtaleFlagVisible && (
+        <div className={styles.info}>
+          <InformationSquareFillIcon
+            className={styles.infoIcon}
+            fontSize="1.5rem"
+            aria-hidden
+          />
+          <p className={styles.infoText}>
+            Du har pensjonsavtaler som starter før valgt alder. Se detaljer
+            under.
+          </p>
+        </div>
+      )}
       <ReadMore
         header={
           isVisTabellOpen

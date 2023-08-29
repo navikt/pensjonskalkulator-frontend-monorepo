@@ -5,7 +5,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Pensjonssimulering', () => {
   const currentSimulation: Simulation = {
@@ -47,6 +47,9 @@ describe('Pensjonssimulering', () => {
     expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
     await user.click(screen.getByText('Vis tabell av beregningen'))
     expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
-    expect(screen.getAllByRole('row').length).toBe(31)
+    await waitFor(async () => {
+      const rows = await screen.findAllByRole('row')
+      expect(rows.length).toBe(47)
+    })
   })
 })

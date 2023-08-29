@@ -14,7 +14,7 @@ import { cleanAndAddEventListener } from '@/utils/events'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
 
-export const MAX_UTTAKSALDER = 78
+export const MAX_UTTAKSALDER = 77
 export const COLUMN_WIDTH = 25
 export const TOOLTIP_YPOS = 35
 
@@ -54,7 +54,7 @@ export const simulateDataArray = (
   length: number,
   startAge?: number,
   coefficient = 0
-) => {
+): number[] => {
   if (startAge && startAge < 60) {
     throw Error("Can't simulate dataArray when startAge is smaller than 60")
   }
@@ -62,44 +62,102 @@ export const simulateDataArray = (
   const dataArray = [...array].map((value, i) => {
     return i > 1 ? value + faktor * coefficient : value
   })
-
   return [...dataArray].splice(0, length)
 }
 
-export const simulateTjenestepensjon = (
-  startAge: number,
-  endAge: number,
-  coefficient = 4_000
-) => {
-  if (endAge < startAge || startAge < 62) {
-    throw Error(
-      "Can't simulate tjenestepensjon when endAge is larger than startAge or smaller than 62"
-    )
-  }
+export const processPensjonsavtalerArray = (
+  startAlder: number,
+  length: number,
+  foedsesldato: string,
+  pensjonsavtaler: Pensjonsavtale[]
+): number[] => {
+  const d = new Date(foedsesldato)
+  const foedseslmaaned = d.getMonth() + 1
 
-  const faktor = startAge - 62
-  const value = coefficient * 20 + faktor * coefficient
+  const sluttAlder = startAlder + length - 1
+  const result = new Array(sluttAlder - startAlder + 1).fill(0)
 
-  return new Array(endAge + 2 - startAge)
-    .fill(startAge - 1)
-    .map((age, i, array) =>
-      age + i < 67 || i === array.length - 1 ? 0 : value
+  pensjonsavtaler.forEach((avtale) => {
+    const avtaleStartYear = Math.max(
+      startAlder,
+      avtale.utbetalingsperiode.startAlder
     )
+    const avtaleEndYear = avtale.utbetalingsperiode.sluttAlder
+      ? Math.min(sluttAlder, avtale.utbetalingsperiode.sluttAlder)
+      : sluttAlder
+
+    for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
+      if (year >= startAlder) {
+        const isFirstYear = year === avtaleStartYear
+        const isLastYear =
+          avtale.utbetalingsperiode.sluttAlder && year === avtaleEndYear
+
+        const startMonth =
+          isFirstYear && avtale.utbetalingsperiode.startMaaned !== undefined
+            ? foedseslmaaned + avtale.utbetalingsperiode.startMaaned
+            : isFirstYear && avtale.utbetalingsperiode.startMaaned === undefined
+            ? foedseslmaaned + 1
+            : 1
+
+        const endMonth =
+          isLastYear && avtale.utbetalingsperiode.sluttMaaned !== undefined
+            ? foedseslmaaned + avtale.utbetalingsperiode.sluttMaaned
+            : isLastYear && avtale.utbetalingsperiode.sluttMaaned === undefined
+            ? foedseslmaaned
+            : 12
+
+        const monthsInYear =
+          endMonth <= 0 || endMonth > 12 ? 0 : endMonth - startMonth + 1
+        const allocatedAmount =
+          (avtale.utbetalingsperiode.aarligUtbetaling *
+            avtale.utbetalingsperiode.grad *
+            Math.max(0, monthsInYear)) /
+          100 /
+          12
+
+        result[year - startAlder] += allocatedAmount
+      }
+    }
+  })
+  return result
 }
 
-export const generateXAxis = (startAlder: number, endAlder: number) => {
+// TODO utvide test
+export const generateXAxis = (
+  startAlder: number,
+  pensjonsavtaler: Pensjonsavtale[],
+  setIsPensjonsavtaleFlagVisible: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  let sluttAlder = MAX_UTTAKSALDER
+  let hasAvtaleBeforeStartAlder = false
+
+  pensjonsavtaler.forEach((avtale) => {
+    if (
+      avtale.utbetalingsperiode.sluttAlder &&
+      avtale.utbetalingsperiode.sluttAlder > sluttAlder
+    ) {
+      sluttAlder = avtale.utbetalingsperiode.sluttAlder
+    }
+    if (
+      !hasAvtaleBeforeStartAlder &&
+      avtale.utbetalingsperiode.startAlder < startAlder
+    ) {
+      hasAvtaleBeforeStartAlder = true
+    }
+  })
   const alderArray: string[] = []
-  for (let i = startAlder; i <= endAlder; i++) {
+  for (let i = startAlder; i <= sluttAlder + 1; i++) {
     if (i === startAlder) {
       alderArray.push((i - 1).toString())
     }
 
-    if (i === endAlder) {
+    if (i === sluttAlder + 1) {
       alderArray.push(`${i - 1}+`.toString())
     } else {
       alderArray.push(i.toString())
     }
   }
+  setIsPensjonsavtaleFlagVisible(hasAvtaleBeforeStartAlder)
   return alderArray
 }
 
