@@ -47,6 +47,7 @@ describe('Pensjonssimulering-utils', () => {
       grad = 100,
     } = args
     return {
+      key: 0,
       produktbetegnelse: 'Innskuddpensjon',
       kategori: 'INNSKUDD',
       startAlder: 67,
