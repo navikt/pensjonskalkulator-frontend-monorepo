@@ -2,11 +2,10 @@ import { useMemo } from 'react'
 
 import { Accordion, BodyLong, Link } from '@navikt/ds-react'
 
+import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
+import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { formatSivilstand } from '@/utils/sivilstand'
-
-import { SectionContent } from './components/SectionContent'
-import { SectionHeader } from './components/SectionHeader'
 
 export function Sivilstand() {
   const { data: person, isSuccess } = useGetPersonQuery()

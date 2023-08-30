@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom'
 import { PreloadedState, createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
-import { createSamtykkeListener } from './state/listeners/samtykkeListener'
+import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
 import {
   setupStore,
   RootState,
@@ -75,7 +75,9 @@ export function renderWithProviders(
   }
 
   const listenerMiddleware = createListenerMiddleware()
-  createSamtykkeListener(listenerMiddleware.startListening as AppStartListening)
+  createUttaksalderListener(
+    listenerMiddleware.startListening as AppStartListening
+  )
 
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) }
 }

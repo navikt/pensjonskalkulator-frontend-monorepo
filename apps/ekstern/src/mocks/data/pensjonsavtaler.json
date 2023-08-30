@@ -64,8 +64,6 @@
       "utbetalingsperiode": {
         "startAlder": 67,
         "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
         "aarligUtbetaling": 103264,
         "grad": 100
       }
@@ -87,13 +85,13 @@
     {
       "produktbetegnelse": "IPS",
       "kategori": "EGEN_SPARING",
-      "startAlder": 67,
-      "startMaaned": 1,
+      "startAlder": 70,
+      "startMaaned": 6,
       "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
+        "startAlder": 70,
+        "startMaaned": 6,
+        "sluttAlder": 75,
+        "sluttMaaned": 6,
         "aarligUtbetaling": 241802,
         "grad": 100
       }

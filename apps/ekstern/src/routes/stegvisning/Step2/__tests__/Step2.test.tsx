@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Step2 } from '..'
 import { paths } from '@/routes'
-import { RootState } from '@/state/store'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
 describe('Step 2', () => {
@@ -13,7 +13,7 @@ describe('Step 2', () => {
     expect(document.title).toBe('application.title.stegvisning.step2')
   })
 
-  it('registrerer samtykke, henter pensjonsavtaler og navigerer videre til riktig side når brukeren samtykker og klikker på Neste', async () => {
+  it('registrerer samtykke og navigerer videre til riktig side når brukeren samtykker og klikker på Neste', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -25,9 +25,6 @@ describe('Step 2', () => {
     await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
 
-    expect(store.getState().api.queries).toHaveProperty(
-      'pensjonsavtaler({"aarligInntektFoerUttak":0,"antallInntektsaarEtterUttak":0,"uttaksperiode":{"aarligInntekt":500000,"grad":100,"startAlder":0,"startMaaned":0}})'
-    )
     expect(store.getState().userInput.samtykke).toBe(true)
     expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
   })
@@ -56,7 +53,9 @@ describe('Step 2', () => {
       () => navigateMock
     )
     const { store } = render(<Step2 />, {
-      preloadedState: { userInput: { samtykke: true } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
+      },
     })
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[0]).toBeChecked()
@@ -74,7 +73,9 @@ describe('Step 2', () => {
       () => navigateMock
     )
     const { store } = render(<Step2 />, {
-      preloadedState: { userInput: { samtykke: false } } as RootState,
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: false },
+      },
     })
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[1]).toBeChecked()

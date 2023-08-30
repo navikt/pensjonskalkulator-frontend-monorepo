@@ -27,54 +27,11 @@ interface Props {
   tidligstMuligUttak: Uttaksalder
 }
 
+// TODO refaktorere og koble til faktisk data
 export function Grunnlag({ tidligstMuligUttak }: Props) {
   const inntekt = useInntekt()
   const alderspensjon = useAlderspensjon()
   const uttaksgrad = useUttaksgrad()
-  const pensjonsavtaler: Pensjonsavtale[] = [
-    {
-      produktbetegnelse: 'Nordea Liv',
-      kategori: 'PRIVAT_TP',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 231_298,
-        grad: 100,
-      },
-    },
-    {
-      produktbetegnelse: 'Storebrand',
-      kategori: 'PRIVAT_TP',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 39_582,
-        grad: 100,
-      },
-    },
-    {
-      produktbetegnelse: 'DNB',
-      kategori: 'FRIPOLISE',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 103_264,
-        grad: 100,
-      },
-    },
-  ]
 
   return (
     <section className={styles.section}>
@@ -95,7 +52,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
         <Utenlandsopphold />
         <Alderspensjon alderspensjon={alderspensjon} />
         <AFP />
-        <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
+        <Pensjonsavtaler />
       </Accordion>
     </section>
   )

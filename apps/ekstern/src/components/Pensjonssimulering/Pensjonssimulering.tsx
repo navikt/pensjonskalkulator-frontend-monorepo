@@ -6,6 +6,8 @@ import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 import { TabellVisning } from '@/components/TabellVisning'
+import { useAppSelector } from '@/state/hooks'
+import { selectCurrentSimulation } from '@/state/userInput/selectors'
 
 import {
   AFP_DATA,
@@ -32,11 +34,9 @@ import {
 
 import styles from './Pensjonssimulering.module.scss'
 
-type PensjonssimuleringProps = {
-  uttaksalder: number
-}
+export function Pensjonssimulering() {
+  const { startAlder } = useAppSelector(selectCurrentSimulation)
 
-export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
@@ -58,55 +58,57 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   }, [])
 
   useEffect(() => {
-    const aarArray = generateXAxis(uttaksalder, MAX_UTTAKSALDER)
-    setChartOptions({
-      chart: {
-        type: 'column',
-        scrollablePlotArea: {
-          minWidth: aarArray.length * COLUMN_WIDTH * 1.6,
-          scrollPositionX: 0,
-        },
-      },
-      xAxis: {
-        categories: aarArray,
-      },
-      series: [
-        {
+    if (startAlder) {
+      const aarArray = generateXAxis(startAlder, MAX_UTTAKSALDER)
+      setChartOptions({
+        chart: {
           type: 'column',
-          pointWidth: COLUMN_WIDTH,
-          name: SERIE_NAME_INNTEKT,
-          color: SERIE_COLOR_INNTEKT,
-          data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length),
+          scrollablePlotArea: {
+            minWidth: aarArray.length * COLUMN_WIDTH * 1.6,
+            scrollPositionX: 0,
+          },
         },
-        {
-          type: 'column',
-          pointWidth: COLUMN_WIDTH,
-          name: SERIE_NAME_AFP,
-          color: SERIE_COLOR_AFP,
-          data: simulateDataArray(AFP_DATA, aarArray.length),
+        xAxis: {
+          categories: aarArray,
         },
-        {
-          type: 'column',
-          pointWidth: COLUMN_WIDTH,
-          name: SERIE_NAME_TP,
-          color: SERIE_COLOR_TP,
-          data: simulateTjenestepensjon(uttaksalder, MAX_UTTAKSALDER),
-        },
-        {
-          type: 'column',
-          pointWidth: COLUMN_WIDTH,
-          name: SERIE_NAME_ALDERSPENSJON,
-          color: SERIE_COLOR_ALDERSPENSJON,
-          data: simulateDataArray(
-            FOLKETRYGDEN_DATA,
-            aarArray.length,
-            uttaksalder,
-            18_000
-          ),
-        },
-      ],
-    })
-  }, [uttaksalder])
+        series: [
+          {
+            type: 'column',
+            pointWidth: COLUMN_WIDTH,
+            name: SERIE_NAME_INNTEKT,
+            color: SERIE_COLOR_INNTEKT,
+            data: simulateDataArray(PENSJONSGIVENDE_DATA, aarArray.length),
+          },
+          {
+            type: 'column',
+            pointWidth: COLUMN_WIDTH,
+            name: SERIE_NAME_AFP,
+            color: SERIE_COLOR_AFP,
+            data: simulateDataArray(AFP_DATA, aarArray.length),
+          },
+          {
+            type: 'column',
+            pointWidth: COLUMN_WIDTH,
+            name: SERIE_NAME_TP,
+            color: SERIE_COLOR_TP,
+            data: simulateTjenestepensjon(startAlder, MAX_UTTAKSALDER),
+          },
+          {
+            type: 'column',
+            pointWidth: COLUMN_WIDTH,
+            name: SERIE_NAME_ALDERSPENSJON,
+            color: SERIE_COLOR_ALDERSPENSJON,
+            data: simulateDataArray(
+              FOLKETRYGDEN_DATA,
+              aarArray.length,
+              startAlder,
+              18_000
+            ),
+          },
+        ],
+      })
+    }
+  }, [startAlder])
 
   return (
     <section className={styles.section}>

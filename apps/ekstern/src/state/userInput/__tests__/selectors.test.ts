@@ -2,7 +2,8 @@ import {
   selectSamtykke,
   selectAfp,
   selectSamboer,
-  selectSomething,
+  selectFormatertUttaksalder,
+  selectCurrentSimulation,
 } from '../selectors'
 import { store, RootState } from '@/state/store'
 
@@ -42,18 +43,31 @@ describe('userInput selectors', () => {
     expect(selectSamboer(state)).toBe(true)
   })
 
-  it('selectSomething', () => {
-    const somethingString = 'lorem ipsum dolor sit amet'
+  it('selectFormatertUttaksalder', () => {
     const state: RootState = {
       ...initialState,
       userInput: {
         ...initialState.userInput,
-        currentSimulation: {
-          ...initialState.userInput.currentSimulation,
-          something: somethingString,
-        },
+        formatertUttaksalder: '62 år og 5 måneder',
       },
     }
-    expect(selectSomething(state)).toBe(somethingString)
+    expect(selectFormatertUttaksalder(state)).toBe('62 år og 5 måneder')
+  })
+
+  it('selectCurrentSimulation', () => {
+    const currentSimulation = {
+      startAlder: 62,
+      startMaaned: 5,
+      uttaksgrad: 100,
+      aarligInntekt: 0,
+    }
+    const state: RootState = {
+      ...initialState,
+      userInput: {
+        ...initialState.userInput,
+        currentSimulation: { ...currentSimulation },
+      },
+    }
+    expect(selectCurrentSimulation(state)).toEqual(currentSimulation)
   })
 })

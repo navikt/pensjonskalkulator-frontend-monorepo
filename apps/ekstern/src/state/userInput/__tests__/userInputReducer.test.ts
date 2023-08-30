@@ -41,6 +41,38 @@ describe('userInputSlice', () => {
       })
     })
 
+    it('setFormatertUttaksalder', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setFormatertUttaksalder('65 år og 4 måneder')
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        formatertUttaksalder: '65 år og 4 måneder',
+      })
+    })
+
+    it('updateCurrentSimulation', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.updateCurrentSimulation({
+          startAlder: 65,
+          startMaaned: 4,
+        })
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          startAlder: 65,
+          startMaaned: 4,
+          uttaksgrad: 100,
+          aarligInntekt: 0,
+        },
+      })
+    })
+
     it('flush', () => {
       const updatedState = userInputSlice(
         {
@@ -48,6 +80,12 @@ describe('userInputSlice', () => {
           samtykke: true,
           afp: 'ja_offentlig',
           samboer: false,
+          currentSimulation: {
+            startAlder: 66,
+            startMaaned: 4,
+            uttaksgrad: 100,
+            aarligInntekt: 0,
+          },
         },
         userInputActions.flush()
       )

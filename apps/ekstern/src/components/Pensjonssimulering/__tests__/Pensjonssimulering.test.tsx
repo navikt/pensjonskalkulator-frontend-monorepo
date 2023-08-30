@@ -1,13 +1,29 @@
 import { describe, it } from 'vitest'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
+import {
+  userInputInitialState,
+  Simulation,
+} from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('Pensjonssimulering', () => {
+  const currentSimulation: Simulation = {
+    startAlder: 65,
+    startMaaned: 5,
+    uttaksgrad: 100,
+    aarligInntekt: 0,
+  }
   it('rendrer med riktig tittel og chart og uten scroll-knapper', async () => {
-    const { container, asFragment } = render(
-      <Pensjonssimulering uttaksalder={65} />
-    )
+    const { container, asFragment } = render(<Pensjonssimulering />, {
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          samtykke: true,
+          currentSimulation: { ...currentSimulation },
+        },
+      },
+    })
 
     expect(await screen.findByText('Beregning')).toBeVisible()
     expect(
@@ -18,7 +34,15 @@ describe('Pensjonssimulering', () => {
 
   it('viser tabell og oppdaterer label når brukeren klikker på Vis tabell knapp', async () => {
     const user = userEvent.setup()
-    render(<Pensjonssimulering uttaksalder={65} />)
+    render(<Pensjonssimulering />, {
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          samtykke: true,
+          currentSimulation: { ...currentSimulation },
+        },
+      },
+    })
 
     expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
     await user.click(screen.getByText('Vis tabell av beregningen'))

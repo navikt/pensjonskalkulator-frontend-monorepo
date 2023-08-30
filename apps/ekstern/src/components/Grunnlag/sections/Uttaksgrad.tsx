@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Accordion, BodyLong } from '@navikt/ds-react'
 
 import { SectionContent } from './components/SectionContent'

@@ -15,10 +15,12 @@ describe('store', () => {
       samtykke: true,
       afp: null,
       samboer: null,
+      formatertUttaksalder: null,
       currentSimulation: {
-        inntekt: 500000,
-        uttaksalder: null,
-        uttaksgrad: null,
+        startAlder: null,
+        startMaaned: null,
+        aarligInntekt: 500000,
+        uttaksgrad: 0,
       },
     }
 

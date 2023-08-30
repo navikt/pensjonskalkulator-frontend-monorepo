@@ -24,21 +24,7 @@ export function Step2() {
   const onNext = (samtykkeData: SamtykkeRadio) => {
     const samtykke = samtykkeData === 'ja'
     dispatch(userInputActions.setSamtykke(samtykke))
-    if (samtykke) {
-      // TODO fylle ut riktig informasjon for henting av pensjonsavtaler
-      dispatch(
-        apiSlice.endpoints.pensjonsavtaler.initiate({
-          aarligInntektFoerUttak: 0,
-          uttaksperiode: {
-            startAlder: 0,
-            startMaaned: 0,
-            grad: 100,
-            aarligInntekt: 500000,
-          },
-          antallInntektsaarEtterUttak: 0,
-        })
-      )
-    } else {
+    if (!samtykke) {
       dispatch(apiSlice.util.resetApiState())
     }
     navigate(paths.offentligTp)

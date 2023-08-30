@@ -25,13 +25,14 @@ describe('apiSlice', () => {
 
   describe('pensjonsavtaler', () => {
     const dummyRequestBody = {
-      aarligInntektFoerUttak: 0,
-      uttaksperiode: {
-        startAlder: 0,
-        startMaaned: 0,
-        grad: 100,
-        aarligInntekt: 500000,
-      },
+      uttaksperioder: [
+        {
+          startAlder: 0,
+          startMaaned: 0,
+          grad: 100,
+          aarligInntekt: 500000,
+        },
+      ],
       antallInntektsaarEtterUttak: 0,
     }
 

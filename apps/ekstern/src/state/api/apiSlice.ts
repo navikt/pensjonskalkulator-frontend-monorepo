@@ -33,16 +33,19 @@ export const apiSlice = createApi({
         body,
       }),
       transformResponse: (response: PensjonsavtalerResponseBody) => {
-        if (response.avtaler && Array.isArray(response.avtaler)) {
-          response.avtaler.forEach((avtale) => {
-            if (!isPensjonsavtale(avtale)) {
-              throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
-            }
-          })
-        } else {
+        if (
+          !response.avtaler ||
+          !Array.isArray(response.avtaler) ||
+          response.avtaler.some((avtale) => !isPensjonsavtale(avtale))
+        ) {
           throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
         }
-        return response.avtaler
+        const avtalerWithKeys = response.avtaler.map((avtale, index) => ({
+          ...avtale,
+          key: index,
+        }))
+
+        return avtalerWithKeys
       },
     }),
     tidligsteUttaksalder: builder.query<
