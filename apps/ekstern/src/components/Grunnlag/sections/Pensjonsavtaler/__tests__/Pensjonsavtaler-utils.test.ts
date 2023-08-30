@@ -24,7 +24,7 @@ describe('groupPensjonsavtaler-utils', () => {
 
       expect(grouped[PensjonsavtaleKategori.INNSKUDD]).toHaveLength(1)
       expect(grouped[PensjonsavtaleKategori.INNSKUDD_KOLL]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleKategori.PRIVAT_TP]).toHaveLength(1)
+      expect(grouped[PensjonsavtaleKategori.PRIVAT_TP]).toHaveLength(2)
       expect(grouped[PensjonsavtaleKategori.OFFENTLIG_TP]).toHaveLength(1)
       expect(grouped[PensjonsavtaleKategori.FRIPOLISE]).toHaveLength(1)
       expect(grouped[PensjonsavtaleKategori.EGEN_SPARING]).toHaveLength(1)

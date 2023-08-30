@@ -83,16 +83,15 @@ export function Pensjonssimulering() {
   }, [])
 
   useEffect(() => {
-    if (harSamtykket && startAlder) {
+    if (harSamtykket && startAlder && startMaaned) {
       const requestBody = generatePensjonsavtalerRequestBody({
-        aar: startAlder ?? 0,
-        maaned: startMaaned ?? 0,
+        aar: startAlder,
+        maaned: startMaaned,
       })
       setPensjonsavtalerRequestBody(requestBody)
     }
   }, [harSamtykket, startAlder, startMaaned])
 
-  // TODO (etter merge?) skrive tester, sjekke at generateXAxis kalles og graph tegnes med pensjonsavtaler
   useEffect(() => {
     if (startAlder && person?.foedselsdato) {
       const aarArray = generateXAxis(
@@ -199,9 +198,6 @@ export function Pensjonssimulering() {
           )}
         </div>
       </div>
-      {
-        // TODO justere styling + utvide test
-      }
       {isPensjonsavtaleFlagVisible && (
         <div className={styles.info}>
           <InformationSquareFillIcon
@@ -210,8 +206,8 @@ export function Pensjonssimulering() {
             aria-hidden
           />
           <p className={styles.infoText}>
-            Du har pensjonsavtaler som starter før valgt alder. Se detaljer
-            under.
+            Du har pensjonsavtaler som starter før valgt alder. Se detaljer i
+            grunnlaget under.
           </p>
         </div>
       )}

@@ -92,12 +92,9 @@ export const processPensjonsavtalerArray = (
         const isLastYear =
           avtale.utbetalingsperiode.sluttAlder && year === avtaleEndYear
 
-        const startMonth =
-          isFirstYear && avtale.utbetalingsperiode.startMaaned !== undefined
-            ? foedseslmaaned + avtale.utbetalingsperiode.startMaaned
-            : isFirstYear && avtale.utbetalingsperiode.startMaaned === undefined
-            ? foedseslmaaned + 1
-            : 1
+        const startMonth = isFirstYear
+          ? foedseslmaaned + avtale.utbetalingsperiode.startMaaned
+          : 1
 
         const endMonth =
           isLastYear && avtale.utbetalingsperiode.sluttMaaned !== undefined
@@ -122,7 +119,6 @@ export const processPensjonsavtalerArray = (
   return result
 }
 
-// TODO utvide test
 export const generateXAxis = (
   startAlder: number,
   pensjonsavtaler: Pensjonsavtale[],

@@ -141,7 +141,6 @@ describe('Pensjonssimulering-utils', () => {
         200000, 200000, 200000, 200000, 200000, 133333.33333333334, 100000,
       ])
     })
-
     it('returnerer riktig summer med graderte avtaler', () => {
       expect(
         processPensjonsavtalerArray(66, 13, '1963-04-30', [
@@ -174,7 +173,6 @@ describe('Pensjonssimulering-utils', () => {
         75000,
       ])
     })
-
     describe('returnerer riktig summer basert på startMaaned og sluttMaaned', () => {
       it('med en avtale', () => {
         expect(
@@ -329,6 +327,31 @@ describe('Pensjonssimulering-utils', () => {
       '77+',
     ]
 
+    it('returnerer riktig array når pensjonsavtaler-arrayet er tomt', () => {
+      const alderArray = generateXAxis(
+        65,
+        [],
+        setIsPensjonsavtaleFlagVisibleMock
+      )
+      expect(alderArray).toEqual([
+        '64',
+        '65',
+        '66',
+        '67',
+        '68',
+        '69',
+        '70',
+        '71',
+        '72',
+        '73',
+        '74',
+        '75',
+        '76',
+        '77',
+        '77+',
+      ])
+    })
+
     it('returnerer et minimum array fra året før startAlder til 77+ når pensjonsavtaler dekker en mindre periode eller er livsvarige', () => {
       const alderArray = generateXAxis(
         62,
@@ -354,6 +377,105 @@ describe('Pensjonssimulering-utils', () => {
       )
       expect(alderArrayUnlimited).toHaveLength(18)
       expect(alderArrayUnlimited).toEqual(maxArray)
+    })
+
+    it('returnerer riktig array når pensjonsavtaler har ulike startAlder', () => {
+      const alderArray = generateXAxis(
+        67,
+        [
+          createMockedPensjonsavtale({
+            startAlder: 68,
+            sluttAlder: 70,
+          }),
+          createMockedPensjonsavtale({
+            startAlder: 70,
+            sluttAlder: 72,
+          }),
+        ],
+        setIsPensjonsavtaleFlagVisibleMock
+      )
+      expect(alderArray).toHaveLength(13)
+      expect(alderArray).toEqual([
+        '66',
+        '67',
+        '68',
+        '69',
+        '70',
+        '71',
+        '72',
+        '73',
+        '74',
+        '75',
+        '76',
+        '77',
+        '77+',
+      ])
+    })
+
+    it('returnerer riktig array når pensjonsavtaler har ulike sluttAlder under 77', () => {
+      const alderArray = generateXAxis(
+        65,
+        [
+          createMockedPensjonsavtale({
+            startAlder: 67,
+            sluttAlder: 70,
+          }),
+          createMockedPensjonsavtale({
+            startAlder: 68,
+            sluttAlder: 72,
+          }),
+        ],
+        setIsPensjonsavtaleFlagVisibleMock
+      )
+      expect(alderArray).toHaveLength(15)
+      expect(alderArray).toEqual([
+        '64',
+        '65',
+        '66',
+        '67',
+        '68',
+        '69',
+        '70',
+        '71',
+        '72',
+        '73',
+        '74',
+        '75',
+        '76',
+        '77',
+        '77+',
+      ])
+    })
+    it('returnerer riktig array når sluttAlder er utenfor standardområdet, og kaller setIsPensjonsavtaleFlagVisible når en avtale begynner før startAlder', () => {
+      const alderArray = generateXAxis(
+        62,
+        [createMockedPensjonsavtale({ startAlder: 55, sluttAlder: 80 })],
+        setIsPensjonsavtaleFlagVisibleMock
+      )
+      expect(alderArray).toEqual([
+        '61',
+        '62',
+        '63',
+        '64',
+        '65',
+        '66',
+        '67',
+        '68',
+        '69',
+        '70',
+        '71',
+        '72',
+        '73',
+        '74',
+        '75',
+        '76',
+        '77',
+        '78',
+        '79',
+        '80',
+        '80+',
+      ])
+      expect(setIsPensjonsavtaleFlagVisibleMock).toHaveBeenCalled()
     })
   })
 

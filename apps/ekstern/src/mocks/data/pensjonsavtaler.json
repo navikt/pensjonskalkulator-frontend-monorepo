@@ -43,6 +43,20 @@
       }
     },
     {
+      "produktbetegnelse": "Storebrand",
+      "kategori": "PRIVAT_TP",
+      "startAlder": 67,
+      "startMaaned": 1,
+      "utbetalingsperiode": {
+        "startAlder": 67,
+        "startMaaned": 1,
+        "sluttAlder": 77,
+        "sluttMaaned": 1,
+        "aarligUtbetaling": 31298,
+        "grad": 100
+      }
+    },
+    {
       "produktbetegnelse": "Oslo Pensjonsforsikring",
       "kategori": "OFFENTLIG_TP",
       "startAlder": 67,
