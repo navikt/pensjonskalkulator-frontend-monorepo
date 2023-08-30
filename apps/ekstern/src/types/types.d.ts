@@ -10,6 +10,7 @@ declare type Pensjonsberegning = {
 }
 
 declare type Pensjonsavtale = {
+  key: number
   produktbetegnelse: string
   kategori: PensjonsavtaleKategori
   startAlder: number

@@ -87,6 +87,7 @@ describe('Pensjonsavtaler', () => {
 
     it('rendrer riktig med avtaler som bare har start dato', () => {
       const avtale: Pensjonsavtale = {
+        key: 0,
         produktbetegnelse: 'DNB',
         kategori: 'PRIVAT_TP',
         startAlder: 67,
@@ -123,6 +124,7 @@ describe('Pensjonsavtaler', () => {
 
     it('rendrer riktig med avtaler som har både start- og sluttdato', () => {
       const avtale: Pensjonsavtale = {
+        key: 0,
         produktbetegnelse: 'DNB',
         kategori: 'PRIVAT_TP',
         startAlder: 67,
