@@ -92,7 +92,7 @@ describe('Pensjonsavtaler', () => {
         kategori: 'PRIVAT_TJENESTEPENSJON',
         startAlder: 67,
         startMaaned: 1,
-        utbetalingsperiode: {
+        utbetalingsperioder: {
           startAlder: 67,
           startMaaned: 1,
           aarligUtbetaling: 12345,
@@ -129,7 +129,7 @@ describe('Pensjonsavtaler', () => {
         kategori: 'PRIVAT_TJENESTEPENSJON',
         startAlder: 67,
         startMaaned: 1,
-        utbetalingsperiode: {
+        utbetalingsperioder: {
           startAlder: 67,
           startMaaned: 1,
           sluttAlder: 77,

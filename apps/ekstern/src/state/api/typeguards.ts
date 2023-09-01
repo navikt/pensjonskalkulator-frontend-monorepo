@@ -26,15 +26,15 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
     typeof data.startAlder === 'number' &&
     data.startMaaned &&
     typeof data.startMaaned === 'number' &&
-    data.utbetalingsperiode &&
-    data.utbetalingsperiode.startAlder &&
-    typeof data.utbetalingsperiode.startAlder === 'number' &&
-    data.utbetalingsperiode.startMaaned &&
-    typeof data.utbetalingsperiode.startMaaned === 'number' &&
-    data.utbetalingsperiode.grad &&
-    typeof data.utbetalingsperiode.grad === 'number' &&
-    data.utbetalingsperiode.aarligUtbetaling &&
-    typeof data.utbetalingsperiode.aarligUtbetaling === 'number'
+    data.utbetalingsperioder &&
+    data.utbetalingsperioder.startAlder &&
+    typeof data.utbetalingsperioder.startAlder === 'number' &&
+    data.utbetalingsperioder.startMaaned &&
+    typeof data.utbetalingsperioder.startMaaned === 'number' &&
+    data.utbetalingsperioder.grad &&
+    typeof data.utbetalingsperioder.grad === 'number' &&
+    data.utbetalingsperioder.aarligUtbetaling &&
+    typeof data.utbetalingsperioder.aarligUtbetaling === 'number'
   )
 }
 

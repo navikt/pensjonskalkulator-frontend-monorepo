@@ -15,7 +15,7 @@ declare type Pensjonsavtale = {
   kategori: PensjonsavtaleKategori
   startAlder: number
   startMaaned: number
-  utbetalingsperiode: {
+  utbetalingsperioder: {
     startAlder: number
     startMaaned: number
     sluttAlder?: number

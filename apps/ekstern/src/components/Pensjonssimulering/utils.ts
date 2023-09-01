@@ -80,34 +80,34 @@ export const processPensjonsavtalerArray = (
   pensjonsavtaler.forEach((avtale) => {
     const avtaleStartYear = Math.max(
       startAlder,
-      avtale.utbetalingsperiode.startAlder
+      avtale.utbetalingsperioder.startAlder
     )
-    const avtaleEndYear = avtale.utbetalingsperiode.sluttAlder
-      ? Math.min(sluttAlder, avtale.utbetalingsperiode.sluttAlder)
+    const avtaleEndYear = avtale.utbetalingsperioder.sluttAlder
+      ? Math.min(sluttAlder, avtale.utbetalingsperioder.sluttAlder)
       : sluttAlder
 
     for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
       if (year >= startAlder) {
         const isFirstYear = year === avtaleStartYear
         const isLastYear =
-          avtale.utbetalingsperiode.sluttAlder && year === avtaleEndYear
+          avtale.utbetalingsperioder.sluttAlder && year === avtaleEndYear
 
         const startMonth = isFirstYear
-          ? foedseslmaaned + avtale.utbetalingsperiode.startMaaned
+          ? foedseslmaaned + avtale.utbetalingsperioder.startMaaned
           : 1
 
         const endMonth =
-          isLastYear && avtale.utbetalingsperiode.sluttMaaned !== undefined
-            ? foedseslmaaned + avtale.utbetalingsperiode.sluttMaaned
-            : isLastYear && avtale.utbetalingsperiode.sluttMaaned === undefined
+          isLastYear && avtale.utbetalingsperioder.sluttMaaned !== undefined
+            ? foedseslmaaned + avtale.utbetalingsperioder.sluttMaaned
+            : isLastYear && avtale.utbetalingsperioder.sluttMaaned === undefined
             ? foedseslmaaned
             : 12
 
         const monthsInYear =
           endMonth <= 0 || endMonth > 12 ? 0 : endMonth - startMonth + 1
         const allocatedAmount =
-          (avtale.utbetalingsperiode.aarligUtbetaling *
-            avtale.utbetalingsperiode.grad *
+          (avtale.utbetalingsperioder.aarligUtbetaling *
+            avtale.utbetalingsperioder.grad *
             Math.max(0, monthsInYear)) /
           100 /
           12
@@ -129,14 +129,14 @@ export const generateXAxis = (
 
   pensjonsavtaler.forEach((avtale) => {
     if (
-      avtale.utbetalingsperiode.sluttAlder &&
-      avtale.utbetalingsperiode.sluttAlder > sluttAlder
+      avtale.utbetalingsperioder.sluttAlder &&
+      avtale.utbetalingsperioder.sluttAlder > sluttAlder
     ) {
-      sluttAlder = avtale.utbetalingsperiode.sluttAlder
+      sluttAlder = avtale.utbetalingsperioder.sluttAlder
     }
     if (
       !hasAvtaleBeforeStartAlder &&
-      avtale.utbetalingsperiode.startAlder < startAlder
+      avtale.utbetalingsperioder.startAlder < startAlder
     ) {
       hasAvtaleBeforeStartAlder = true
     }

@@ -111,20 +111,20 @@ export function Pensjonsavtaler() {
                         <td className={styles.tabellCell}>
                           <BodyShort>Fra {avtale.produktbetegnelse}</BodyShort>
                           <BodyShort className={styles.utbetaling}>
-                            {avtale.utbetalingsperiode.sluttAlder
+                            {avtale.utbetalingsperioder.sluttAlder
                               ? `Utbetales fra ${
-                                  avtale.utbetalingsperiode.startAlder
+                                  avtale.utbetalingsperioder.startAlder
                                 } år ${getMaanedString(
-                                  avtale.utbetalingsperiode.startMaaned
+                                  avtale.utbetalingsperioder.startMaaned
                                 )} til ${
-                                  avtale.utbetalingsperiode.sluttAlder
+                                  avtale.utbetalingsperioder.sluttAlder
                                 } år ${getMaanedString(
-                                  avtale.utbetalingsperiode.sluttMaaned
+                                  avtale.utbetalingsperioder.sluttMaaned
                                 )}`
                               : `Livsvarig utbetaling fra ${
-                                  avtale.utbetalingsperiode.startAlder
+                                  avtale.utbetalingsperioder.startAlder
                                 } år ${getMaanedString(
-                                  avtale.utbetalingsperiode.startMaaned
+                                  avtale.utbetalingsperioder.startMaaned
                                 )}`}
                           </BodyShort>
                         </td>
@@ -136,7 +136,7 @@ export function Pensjonsavtaler() {
                         >
                           <BodyShort>
                             {formatAsDecimal(
-                              avtale.utbetalingsperiode.aarligUtbetaling
+                              avtale.utbetalingsperioder.aarligUtbetaling
                             )}
                             kr
                           </BodyShort>
