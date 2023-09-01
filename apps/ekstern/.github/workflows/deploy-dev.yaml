@@ -153,6 +153,7 @@ jobs:
 
   deploy-to-dev:
     name: Deploy to dev-gcp
+    permissions: write-all
     runs-on: ubuntu-latest
     needs: [ run-unit-tests, run-integration-tests ]
     env:

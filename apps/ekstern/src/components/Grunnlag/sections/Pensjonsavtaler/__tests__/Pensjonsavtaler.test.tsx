@@ -89,7 +89,7 @@ describe('Pensjonsavtaler', () => {
       const avtale: Pensjonsavtale = {
         key: 0,
         produktbetegnelse: 'DNB',
-        kategori: 'PRIVAT_TP',
+        kategori: 'PRIVAT_TJENESTEPENSJON',
         startAlder: 67,
         startMaaned: 1,
         utbetalingsperiode: {
@@ -126,7 +126,7 @@ describe('Pensjonsavtaler', () => {
       const avtale: Pensjonsavtale = {
         key: 0,
         produktbetegnelse: 'DNB',
-        kategori: 'PRIVAT_TP',
+        kategori: 'PRIVAT_TJENESTEPENSJON',
         startAlder: 67,
         startMaaned: 1,
         utbetalingsperiode: {

@@ -157,7 +157,7 @@ describe('Pensjonssimulering', () => {
         avtaler: [
           {
             produktbetegnelse: 'Storebrand',
-            kategori: 'PRIVAT_TP',
+            kategori: 'PRIVAT_TJENESTEPENSJON',
             startAlder: 62,
             startMaaned: 1,
             utbetalingsperiode: {

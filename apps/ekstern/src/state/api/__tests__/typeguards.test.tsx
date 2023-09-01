@@ -17,7 +17,7 @@ describe('Typeguards', () => {
       expect(
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
-          kategori: 'PRIVAT_TP',
+          kategori: 'PRIVAT_TJENESTEPENSJON',
           startAlder: 67,
           startMaaned: 1,
           utbetalingsperiode: {
@@ -37,7 +37,7 @@ describe('Typeguards', () => {
       expect(
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
-          kategori: 'PRIVAT_TP',
+          kategori: 'PRIVAT_TJENESTEPENSJON',
           startAlder: 67,
           startMaaned: 1,
         })
@@ -45,7 +45,7 @@ describe('Typeguards', () => {
       expect(
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
-          kategori: 'PRIVAT_TP',
+          kategori: 'PRIVAT_TJENESTEPENSJON',
           startAlder: 67,
           startMaaned: 1,
           utbetalingsperiode: {
@@ -210,7 +210,9 @@ describe('Typeguards', () => {
       expect(isSomeEnumKey(PensjonsavtaleKategori)('RANDOM')).toBeFalsy()
     })
     it('returnerer true når typen er riktig', () => {
-      expect(isSomeEnumKey(PensjonsavtaleKategori)('INNSKUDD')).toBeTruthy()
+      expect(
+        isSomeEnumKey(PensjonsavtaleKategori)('INDIVIDUELL_ORDNING')
+      ).toBeTruthy()
     })
   })
 })
