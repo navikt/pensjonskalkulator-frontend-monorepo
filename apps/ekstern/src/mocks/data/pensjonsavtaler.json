@@ -6,11 +6,11 @@
       "startAlder": 67,
       "startMaaned": 1,
       "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
+        "startAlder": 71,
+        "startMaaned": 7,
+        "sluttAlder": 75,
         "sluttMaaned": 1,
-        "aarligUtbetaling": 250000,
+        "aarligUtbetaling": 100000,
         "grad": 100
       }
     },
@@ -24,21 +24,21 @@
         "startMaaned": 1,
         "sluttAlder": 77,
         "sluttMaaned": 1,
-        "aarligUtbetaling": 150000,
+        "aarligUtbetaling": 50000,
         "grad": 100
       }
     },
     {
       "produktbetegnelse": "Nordea Liv",
       "kategori": "PRIVAT_TP",
-      "startAlder": 67,
+      "startAlder": 75,
       "startMaaned": 1,
       "utbetalingsperiode": {
-        "startAlder": 67,
+        "startAlder": 75,
         "startMaaned": 1,
-        "sluttAlder": 77,
+        "sluttAlder": 85,
         "sluttMaaned": 1,
-        "aarligUtbetaling": 231298,
+        "aarligUtbetaling": 39582,
         "grad": 100
       }
     },
@@ -52,7 +52,7 @@
         "startMaaned": 1,
         "sluttAlder": 77,
         "sluttMaaned": 1,
-        "aarligUtbetaling": 39582,
+        "aarligUtbetaling": 31298,
         "grad": 100
       }
     },
@@ -77,7 +77,7 @@
         "startAlder": 67,
         "startMaaned": 1,
         "sluttAlder": 77,
-        "sluttMaaned": 1,
+        "sluttMaaned": 8,
         "aarligUtbetaling": 37264,
         "grad": 100
       }
@@ -92,7 +92,7 @@
         "startMaaned": 6,
         "sluttAlder": 75,
         "sluttMaaned": 6,
-        "aarligUtbetaling": 241802,
+        "aarligUtbetaling": 41802,
         "grad": 100
       }
     }
