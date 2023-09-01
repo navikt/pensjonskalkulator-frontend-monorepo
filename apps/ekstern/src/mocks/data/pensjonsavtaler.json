@@ -2,7 +2,7 @@
   "avtaler": [
     {
       "produktbetegnelse": "Innskuddpensjon",
-      "kategori": "INNSKUDD",
+      "kategori": "UNKNOWN",
       "startAlder": 67,
       "startMaaned": 1,
       "utbetalingsperiode": {
@@ -15,22 +15,8 @@
       }
     },
     {
-      "produktbetegnelse": "Innskuddpensjon",
-      "kategori": "INNSKUDD_KOLL",
-      "startAlder": 67,
-      "startMaaned": 1,
-      "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
-        "aarligUtbetaling": 50000,
-        "grad": 100
-      }
-    },
-    {
       "produktbetegnelse": "Nordea Liv",
-      "kategori": "PRIVAT_TP",
+      "kategori": "PRIVAT_TJENESTEPENSJON",
       "startAlder": 75,
       "startMaaned": 1,
       "utbetalingsperiode": {
@@ -44,7 +30,7 @@
     },
     {
       "produktbetegnelse": "Storebrand",
-      "kategori": "PRIVAT_TP",
+      "kategori": "PRIVAT_TJENESTEPENSJON",
       "startAlder": 67,
       "startMaaned": 1,
       "utbetalingsperiode": {
@@ -57,8 +43,22 @@
       }
     },
     {
+      "produktbetegnelse": "Innskuddpensjon",
+      "kategori": "PRIVAT_TJENESTEPENSJON",
+      "startAlder": 67,
+      "startMaaned": 1,
+      "utbetalingsperiode": {
+        "startAlder": 67,
+        "startMaaned": 1,
+        "sluttAlder": 77,
+        "sluttMaaned": 1,
+        "aarligUtbetaling": 50000,
+        "grad": 100
+      }
+    },
+    {
       "produktbetegnelse": "Oslo Pensjonsforsikring",
-      "kategori": "OFFENTLIG_TP",
+      "kategori": "OFFENTLIG_TJENESTEPENSJON",
       "startAlder": 67,
       "startMaaned": 1,
       "utbetalingsperiode": {
@@ -70,7 +70,7 @@
     },
     {
       "produktbetegnelse": "DNB",
-      "kategori": "FRIPOLISE",
+      "kategori": "INDIVIDUELL_ORDNING",
       "startAlder": 67,
       "startMaaned": 1,
       "utbetalingsperiode": {
@@ -84,7 +84,7 @@
     },
     {
       "produktbetegnelse": "IPS",
-      "kategori": "EGEN_SPARING",
+      "kategori": "INDIVIDUELL_ORDNING",
       "startAlder": 70,
       "startMaaned": 6,
       "utbetalingsperiode": {

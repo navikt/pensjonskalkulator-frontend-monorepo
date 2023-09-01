@@ -48,8 +48,8 @@ describe('Pensjonssimulering-utils', () => {
     } = args
     return {
       key: 0,
-      produktbetegnelse: 'Innskuddpensjon',
-      kategori: 'INNSKUDD',
+      produktbetegnelse: 'Egen Sparing',
+      kategori: 'INDIVIDUELL_ORDNING',
       startAlder: 67,
       startMaaned: 1,
       utbetalingsperiode: {
