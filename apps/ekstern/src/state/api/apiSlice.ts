@@ -40,7 +40,12 @@ export const apiSlice = createApi({
         ) {
           throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
         }
-        return response.avtaler
+        const avtalerWithKeys = response.avtaler.map((avtale, index) => ({
+          ...avtale,
+          key: index,
+        }))
+
+        return avtalerWithKeys
       },
     }),
     tidligsteUttaksalder: builder.query<

@@ -106,8 +106,8 @@ export function Pensjonsavtaler() {
                         </BodyShort>
                       </td>
                     </tr>
-                    {avtaler.map((avtale, i) => (
-                      <tr key={i}>
+                    {avtaler.map((avtale) => (
+                      <tr key={avtale.key}>
                         <td className={styles.tabellCell}>
                           <BodyShort>Fra {avtale.produktbetegnelse}</BodyShort>
                           <BodyShort className={styles.utbetaling}>

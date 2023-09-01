@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pensjonsavtaler og uten scroll-knapper 1`] = `
+exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer som default med riktig tittel og chart, kun med alderspensjon og inntekt, og uten scroll-knapper 1`] = `
 <DocumentFragment>
   <section
     class="_section_2cd409"
@@ -2503,7 +2503,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart, uten AFP og Pe
 </DocumentFragment>
 `;
 
-exports[`Pensjonssimulering > viser feilmelding når simuleringen feiler 1`] = `
+exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat feiler 1`] = `
 <DocumentFragment>
   <section
     class="_section_2cd409"

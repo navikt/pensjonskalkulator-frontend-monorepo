@@ -7,20 +7,25 @@ import {
 import { PensjonsavtaleKategori } from '@/types/enums'
 
 describe('groupPensjonsavtaler-utils', () => {
+  const avtalerWithKeys = pensjonsavtalerData.avtaler.map((avtale, index) => ({
+    ...avtale,
+    key: index,
+  }))
+
   describe('groupPensjonsavtalerByType', () => {
     it('returnerer tomt object når det ikke er noe pensjonsvtaler å grupperer', () => {
       expect(groupPensjonsavtalerByType([])).toEqual({})
     })
 
     it('returnerer riktig navn på grupper', () => {
-      const grouped = groupPensjonsavtalerByType(pensjonsavtalerData.avtaler)
+      const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
       const keys = Object.keys(grouped)
       expect(keys).toHaveLength(6)
       expect(keys).toEqual(Object.values(PensjonsavtaleKategori))
     })
 
     it('grupperer pensjonsavtaler på avtaletype', () => {
-      const grouped = groupPensjonsavtalerByType(pensjonsavtalerData.avtaler)
+      const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
 
       expect(grouped[PensjonsavtaleKategori.INNSKUDD]).toHaveLength(1)
       expect(grouped[PensjonsavtaleKategori.INNSKUDD_KOLL]).toHaveLength(1)

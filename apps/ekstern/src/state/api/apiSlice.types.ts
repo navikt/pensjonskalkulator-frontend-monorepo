@@ -12,7 +12,7 @@ export type Uttaksperiode = {
 }
 
 export type PensjonsavtalerResponseBody = {
-  avtaler: Pensjonsavtale[]
+  avtaler: Omit<Pensjonsavtale, 'key'>[]
   utilgjengeligeSelskap: UtilgjengeligeSelskap[]
 }
 
