@@ -20,19 +20,29 @@ describe('groupPensjonsavtaler-utils', () => {
     it('returnerer riktig navn på grupper', () => {
       const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
       const keys = Object.keys(grouped)
-      expect(keys).toHaveLength(6)
-      expect(keys).toEqual(Object.values(PensjonsavtaleKategori))
+      expect(keys).toHaveLength(4)
+      expect(keys).toEqual([
+        'ukjent',
+        'privat tjenestepensjon',
+        'offentlig tjenestepensjon',
+        'individuell ordning',
+      ])
     })
 
     it('grupperer pensjonsavtaler på avtaletype', () => {
       const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
 
-      expect(grouped[PensjonsavtaleKategori.INNSKUDD]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleKategori.INNSKUDD_KOLL]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleKategori.PRIVAT_TP]).toHaveLength(2)
-      expect(grouped[PensjonsavtaleKategori.OFFENTLIG_TP]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleKategori.FRIPOLISE]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleKategori.EGEN_SPARING]).toHaveLength(1)
+      expect(grouped[PensjonsavtaleKategori.NONE]).toHaveLength(1)
+      expect(grouped[PensjonsavtaleKategori.UNKNOWN]).toHaveLength(1)
+      expect(
+        grouped[PensjonsavtaleKategori.OFFENTLIG_TJENESTEPENSJON]
+      ).toHaveLength(1)
+      expect(
+        grouped[PensjonsavtaleKategori.PRIVAT_TJENESTEPENSJON]
+      ).toHaveLength(3)
+      expect(grouped[PensjonsavtaleKategori.INDIVIDUELL_ORDNING]).toHaveLength(
+        2
+      )
     })
   })
 
