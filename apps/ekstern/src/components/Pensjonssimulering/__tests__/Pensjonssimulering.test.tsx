@@ -87,7 +87,7 @@ describe('Pensjonssimulering', () => {
             kategori: 'PRIVAT_TJENESTEPENSJON',
             startAlder: 62,
             startMaaned: 1,
-            utbetalingsperiode: {
+            utbetalingsperioder: {
               startAlder: 62,
               startMaaned: 1,
               sluttAlder: 72,

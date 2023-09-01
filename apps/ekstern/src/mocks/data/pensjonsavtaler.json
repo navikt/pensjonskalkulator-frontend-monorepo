@@ -5,7 +5,7 @@
       "kategori": "UNKNOWN",
       "startAlder": 67,
       "startMaaned": 1,
-      "utbetalingsperiode": {
+      "utbetalingsperioder": {
         "startAlder": 71,
         "startMaaned": 7,
         "sluttAlder": 75,
@@ -19,7 +19,7 @@
       "kategori": "PRIVAT_TJENESTEPENSJON",
       "startAlder": 75,
       "startMaaned": 1,
-      "utbetalingsperiode": {
+      "utbetalingsperioder": {
         "startAlder": 75,
         "startMaaned": 1,
         "sluttAlder": 85,
@@ -33,7 +33,7 @@
       "kategori": "PRIVAT_TJENESTEPENSJON",
       "startAlder": 67,
       "startMaaned": 1,
-      "utbetalingsperiode": {
+      "utbetalingsperioder": {
         "startAlder": 67,
         "startMaaned": 1,
         "sluttAlder": 77,
@@ -47,7 +47,7 @@
       "kategori": "PRIVAT_TJENESTEPENSJON",
       "startAlder": 67,
       "startMaaned": 1,
-      "utbetalingsperiode": {
+      "utbetalingsperioder": {
         "startAlder": 67,
         "startMaaned": 1,
         "sluttAlder": 77,
@@ -61,7 +61,7 @@
       "kategori": "OFFENTLIG_TJENESTEPENSJON",
       "startAlder": 67,
       "startMaaned": 1,
-      "utbetalingsperiode": {
+      "utbetalingsperioder": {
         "startAlder": 67,
         "startMaaned": 1,
         "aarligUtbetaling": 103264,
@@ -73,7 +73,7 @@
       "kategori": "INDIVIDUELL_ORDNING",
       "startAlder": 67,
       "startMaaned": 1,
-      "utbetalingsperiode": {
+      "utbetalingsperioder": {
         "startAlder": 67,
         "startMaaned": 1,
         "sluttAlder": 77,
@@ -87,7 +87,7 @@
       "kategori": "INDIVIDUELL_ORDNING",
       "startAlder": 70,
       "startMaaned": 6,
-      "utbetalingsperiode": {
+      "utbetalingsperioder": {
         "startAlder": 70,
         "startMaaned": 6,
         "sluttAlder": 75,

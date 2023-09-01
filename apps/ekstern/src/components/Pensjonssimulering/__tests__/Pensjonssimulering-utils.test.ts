@@ -52,7 +52,7 @@ describe('Pensjonssimulering-utils', () => {
       kategori: 'INDIVIDUELL_ORDNING',
       startAlder: 67,
       startMaaned: 1,
-      utbetalingsperiode: {
+      utbetalingsperioder: {
         startAlder,
         startMaaned,
         sluttAlder,

@@ -20,7 +20,7 @@ describe('Typeguards', () => {
           kategori: 'PRIVAT_TJENESTEPENSJON',
           startAlder: 67,
           startMaaned: 1,
-          utbetalingsperiode: {
+          utbetalingsperioder: {
             startAlder: 67,
             startMaaned: 1,
             sluttAlder: 77,
@@ -48,7 +48,7 @@ describe('Typeguards', () => {
           kategori: 'PRIVAT_TJENESTEPENSJON',
           startAlder: 67,
           startMaaned: 1,
-          utbetalingsperiode: {
+          utbetalingsperioder: {
             startAlder: 67,
             startMaaned: 1,
             grad: 100,
