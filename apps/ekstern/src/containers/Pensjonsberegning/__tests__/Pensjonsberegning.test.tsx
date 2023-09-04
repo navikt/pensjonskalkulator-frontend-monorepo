@@ -122,29 +122,31 @@ describe('Pensjonsberegning', () => {
       await user.click(buttons[2])
       await waitFor(async () => {
         expect(await screen.findByTestId('pensjonsavtaler')).toBeInTheDocument()
-      })
-      expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
-        antallInntektsaarEtterUttak: 0,
-        uttaksperioder: [
-          {
-            startAlder: 68,
-            startMaaned: 1,
-            aarligInntekt: 0,
-            grad: 100,
-          },
-        ],
+        expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
+          antallInntektsaarEtterUttak: 0,
+          uttaksperioder: [
+            {
+              startAlder: 68,
+              startMaaned: 1,
+              aarligInntekt: 0,
+              grad: 100,
+            },
+          ],
+        })
       })
       await user.click(buttons[1])
-      expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
-        antallInntektsaarEtterUttak: 0,
-        uttaksperioder: [
-          {
-            startAlder: 67,
-            startMaaned: 3,
-            aarligInntekt: 0,
-            grad: 100,
-          },
-        ],
+      await waitFor(async () => {
+        expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
+          antallInntektsaarEtterUttak: 0,
+          uttaksperioder: [
+            {
+              startAlder: 67,
+              startMaaned: 3,
+              aarligInntekt: 0,
+              grad: 100,
+            },
+          ],
+        })
       })
     })
 
