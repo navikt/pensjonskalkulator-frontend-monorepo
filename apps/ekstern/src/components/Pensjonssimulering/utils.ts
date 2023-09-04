@@ -78,43 +78,45 @@ export const processPensjonsavtalerArray = (
   const result = new Array(sluttAlder - startAlder + 1).fill(0)
 
   pensjonsavtaler.forEach((avtale) => {
-    const avtaleStartYear = Math.max(
-      startAlder,
-      avtale.utbetalingsperioder.startAlder
-    )
-    const avtaleEndYear = avtale.utbetalingsperioder.sluttAlder
-      ? Math.min(sluttAlder, avtale.utbetalingsperioder.sluttAlder)
-      : sluttAlder
+    avtale.utbetalingsperioder.forEach((utbetalingsperiode) => {
+      const avtaleStartYear = Math.max(
+        startAlder,
+        utbetalingsperiode.startAlder
+      )
+      const avtaleEndYear = utbetalingsperiode.sluttAlder
+        ? Math.min(sluttAlder, utbetalingsperiode.sluttAlder)
+        : sluttAlder
 
-    for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
-      if (year >= startAlder) {
-        const isFirstYear = year === avtaleStartYear
-        const isLastYear =
-          avtale.utbetalingsperioder.sluttAlder && year === avtaleEndYear
+      for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
+        if (year >= startAlder) {
+          const isFirstYear = year === avtaleStartYear
+          const isLastYear =
+            utbetalingsperiode.sluttAlder && year === avtaleEndYear
 
-        const startMonth = isFirstYear
-          ? foedseslmaaned + avtale.utbetalingsperioder.startMaaned
-          : 1
+          const startMonth = isFirstYear
+            ? foedseslmaaned + utbetalingsperiode.startMaaned
+            : 1
 
-        const endMonth =
-          isLastYear && avtale.utbetalingsperioder.sluttMaaned !== undefined
-            ? foedseslmaaned + avtale.utbetalingsperioder.sluttMaaned
-            : isLastYear && avtale.utbetalingsperioder.sluttMaaned === undefined
-            ? foedseslmaaned
-            : 12
+          const endMonth =
+            isLastYear && utbetalingsperiode.sluttMaaned !== undefined
+              ? foedseslmaaned + utbetalingsperiode.sluttMaaned
+              : isLastYear && utbetalingsperiode.sluttMaaned === undefined
+              ? foedseslmaaned
+              : 12
 
-        const monthsInYear =
-          endMonth <= 0 || endMonth > 12 ? 0 : endMonth - startMonth + 1
-        const allocatedAmount =
-          (avtale.utbetalingsperioder.aarligUtbetaling *
-            avtale.utbetalingsperioder.grad *
-            Math.max(0, monthsInYear)) /
-          100 /
-          12
+          const monthsInYear =
+            endMonth <= 0 || endMonth > 12 ? 0 : endMonth - startMonth + 1
+          const allocatedAmount =
+            (utbetalingsperiode.aarligUtbetaling *
+              utbetalingsperiode.grad *
+              Math.max(0, monthsInYear)) /
+            100 /
+            12
 
-        result[year - startAlder] += allocatedAmount
+          result[year - startAlder] += allocatedAmount
+        }
       }
-    }
+    })
   })
   return result
 }
@@ -128,15 +130,13 @@ export const generateXAxis = (
   let hasAvtaleBeforeStartAlder = false
 
   pensjonsavtaler.forEach((avtale) => {
-    if (
-      avtale.utbetalingsperioder.sluttAlder &&
-      avtale.utbetalingsperioder.sluttAlder > sluttAlder
-    ) {
-      sluttAlder = avtale.utbetalingsperioder.sluttAlder
+    if (avtale.sluttAlder && avtale.sluttAlder > sluttAlder) {
+      sluttAlder = avtale.sluttAlder
     }
     if (
       !hasAvtaleBeforeStartAlder &&
-      avtale.utbetalingsperioder.startAlder < startAlder
+      avtale.startAlder &&
+      avtale.startAlder < startAlder
     ) {
       hasAvtaleBeforeStartAlder = true
     }

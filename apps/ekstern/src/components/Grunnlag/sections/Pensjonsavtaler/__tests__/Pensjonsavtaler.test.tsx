@@ -91,13 +91,14 @@ describe('Pensjonsavtaler', () => {
         produktbetegnelse: 'DNB',
         kategori: 'PRIVAT_TJENESTEPENSJON',
         startAlder: 67,
-        startMaaned: 1,
-        utbetalingsperioder: {
-          startAlder: 67,
-          startMaaned: 1,
-          aarligUtbetaling: 12345,
-          grad: 100,
-        },
+        utbetalingsperioder: [
+          {
+            startAlder: 67,
+            startMaaned: 1,
+            aarligUtbetaling: 12345,
+            grad: 100,
+          },
+        ],
       }
       mockResponse('/pensjonsavtaler', {
         status: 200,
@@ -128,15 +129,17 @@ describe('Pensjonsavtaler', () => {
         produktbetegnelse: 'DNB',
         kategori: 'PRIVAT_TJENESTEPENSJON',
         startAlder: 67,
-        startMaaned: 1,
-        utbetalingsperioder: {
-          startAlder: 67,
-          startMaaned: 1,
-          sluttAlder: 77,
-          sluttMaaned: 8,
-          aarligUtbetaling: 12345,
-          grad: 100,
-        },
+        sluttAlder: 77,
+        utbetalingsperioder: [
+          {
+            startAlder: 67,
+            startMaaned: 1,
+            sluttAlder: 77,
+            sluttMaaned: 8,
+            aarligUtbetaling: 12345,
+            grad: 100,
+          },
+        ],
       }
 
       mockResponse('/pensjonsavtaler', {
