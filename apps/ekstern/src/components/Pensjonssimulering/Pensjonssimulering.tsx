@@ -84,6 +84,7 @@ export function Pensjonssimulering() {
 
   useEffect(() => {
     if (harSamtykket && startAlder && startMaaned) {
+      console.log('> useEffect generatePensjonsavtalerRequestBody')
       const requestBody = generatePensjonsavtalerRequestBody({
         aar: startAlder,
         maaned: startMaaned,
@@ -93,11 +94,22 @@ export function Pensjonssimulering() {
   }, [harSamtykket, startAlder, startMaaned])
 
   useEffect(() => {
+    console.log(
+      '>>> useEffect isPensjonsavtalerSuccess',
+      isPensjonsavtalerSuccess,
+      pensjonsavtaler
+    )
     if (startAlder && person?.foedselsdato) {
       const aarArray = generateXAxis(
         startAlder,
         pensjonsavtaler ?? [],
         setIsPensjonsavtaleFlagVisible
+      )
+      console.log(
+        'startAlder, fødselsdato og aarArray',
+        startAlder,
+        person?.foedselsdato,
+        aarArray
       )
       setChartOptions({
         chart: {
