@@ -8,7 +8,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Pensjonsavtaler', () => {
   const currentSimulation: Simulation = {
@@ -85,7 +85,7 @@ describe('Pensjonsavtaler', () => {
       ).toBeVisible()
     })
 
-    it('rendrer riktig med avtaler som bare har start dato', () => {
+    it('rendrer riktig med avtaler som bare har start dato', async () => {
       const avtale: Pensjonsavtale = {
         key: 0,
         produktbetegnelse: 'DNB',
@@ -117,13 +117,15 @@ describe('Pensjonsavtaler', () => {
           },
         },
       })
-      expect(
-        screen.queryByText('Pensjonsavtaler', { exact: false })
-      ).toBeVisible()
-      expect(asFragment()).toMatchSnapshot()
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Pensjonsavtaler', { exact: false })
+        ).toBeVisible()
+        expect(asFragment()).toMatchSnapshot()
+      })
     })
 
-    it('rendrer riktig med avtaler som har både start- og sluttdato', () => {
+    it('rendrer riktig med avtaler som har både start- og sluttdato', async () => {
       const avtale: Pensjonsavtale = {
         key: 0,
         produktbetegnelse: 'DNB',
@@ -159,10 +161,12 @@ describe('Pensjonsavtaler', () => {
           },
         },
       })
-      expect(
-        screen.queryByText('Pensjonsavtaler', { exact: false })
-      ).toBeVisible()
-      expect(asFragment()).toMatchSnapshot()
+      await waitFor(() => {
+        expect(
+          screen.queryByText('Pensjonsavtaler', { exact: false })
+        ).toBeVisible()
+        expect(asFragment()).toMatchSnapshot()
+      })
     })
   })
 })
