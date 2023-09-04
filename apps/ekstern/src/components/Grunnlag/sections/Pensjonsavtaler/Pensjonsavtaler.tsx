@@ -90,7 +90,7 @@ export function Pensjonsavtaler() {
                       styles.tabellHeader__Right
                     )}
                   >
-                    Årlig utbetaling
+                    Årlig beløp
                   </th>
                 </tr>
               </thead>
@@ -110,23 +110,33 @@ export function Pensjonsavtaler() {
                       <tr key={avtale.key}>
                         <td className={styles.tabellCell}>
                           <BodyShort>Fra {avtale.produktbetegnelse}</BodyShort>
-                          <BodyShort className={styles.utbetaling}>
-                            {avtale.utbetalingsperioder.sluttAlder
-                              ? `Utbetales fra ${
-                                  avtale.utbetalingsperioder.startAlder
-                                } år ${getMaanedString(
-                                  avtale.utbetalingsperioder.startMaaned
-                                )} til ${
-                                  avtale.utbetalingsperioder.sluttAlder
-                                } år ${getMaanedString(
-                                  avtale.utbetalingsperioder.sluttMaaned
-                                )}`
-                              : `Livsvarig utbetaling fra ${
-                                  avtale.utbetalingsperioder.startAlder
-                                } år ${getMaanedString(
-                                  avtale.utbetalingsperioder.startMaaned
-                                )}`}
-                          </BodyShort>
+
+                          {avtale.utbetalingsperioder.map(
+                            (utbetalingsperiode) => {
+                              return (
+                                <BodyShort className={styles.utbetaling}>
+                                  {utbetalingsperiode.sluttAlder
+                                    ? `${formatAsDecimal(
+                                        utbetalingsperiode.aarligUtbetaling
+                                      )} kr utbetales fra
+                                  ${
+                                    utbetalingsperiode.startAlder
+                                  } år ${getMaanedString(
+                                    utbetalingsperiode.startMaaned
+                                  )} til ${
+                                    utbetalingsperiode.sluttAlder
+                                  } år ${getMaanedString(
+                                    utbetalingsperiode.sluttMaaned
+                                  )}.`
+                                    : `Livsvarig utbetaling fra ${
+                                        utbetalingsperiode.startAlder
+                                      } år ${getMaanedString(
+                                        utbetalingsperiode.startMaaned
+                                      )}.`}
+                                </BodyShort>
+                              )
+                            }
+                          )}
                         </td>
                         <td
                           className={clsx(
@@ -135,10 +145,14 @@ export function Pensjonsavtaler() {
                           )}
                         >
                           <BodyShort>
-                            {formatAsDecimal(
-                              avtale.utbetalingsperioder.aarligUtbetaling
-                            )}
-                            kr
+                            {`${formatAsDecimal(
+                              avtale.utbetalingsperioder.reduce(function (
+                                acc,
+                                v
+                              ) {
+                                return acc + v.aarligUtbetaling
+                              }, 0)
+                            )} kr`}
                           </BodyShort>
                         </td>
                       </tr>

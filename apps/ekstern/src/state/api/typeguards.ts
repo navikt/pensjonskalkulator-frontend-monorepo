@@ -13,28 +13,57 @@ export const isPensjonsberegningArray = (
   )
 }
 
-export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
+export const isUtbetalingsperiode = (
+  data?: any
+): data is Utbetalingsperiode => {
+  if (data === null || data === undefined) {
+    return false
+  }
+  const harFeilSluttAlder =
+    data.sluttAlder && typeof data.sluttAlder !== 'number'
+  const harFeilSluttMaaned =
+    data.sluttMaaned && typeof data.sluttMaaned !== 'number'
   return (
-    data !== null &&
-    data !== undefined &&
+    data.startAlder &&
+    typeof data.startAlder === 'number' &&
+    data.startMaaned &&
+    typeof data.startMaaned === 'number' &&
+    data.grad &&
+    typeof data.grad === 'number' &&
+    data.aarligUtbetaling &&
+    typeof data.aarligUtbetaling === 'number' &&
+    !harFeilSluttAlder &&
+    !harFeilSluttMaaned
+  )
+}
+
+export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
+  if (data === null || data === undefined) {
+    return false
+  }
+  const harFeilUtbetalingsperiode =
+    data.utbetalingsperioder !== undefined &&
+    Array.isArray(data.utbetalingsperioder) &&
+    data.utbetalingsperioder.some(
+      (utbetalingsperiode: Utbetalingsperiode) =>
+        !isUtbetalingsperiode(utbetalingsperiode)
+    )
+
+  const harFeilStartAlder =
+    data.startAlder && typeof data.startAlder !== 'number'
+  const harFeilSluttAlder =
+    data.sluttAlder && typeof data.sluttAlder !== 'number'
+
+  return (
     !Array.isArray(data) &&
     data.produktbetegnelse &&
     typeof data.produktbetegnelse === 'string' &&
     data.kategori &&
     isSomeEnumKey(PensjonsavtaleKategori)(data.kategori) &&
-    data.startAlder &&
-    typeof data.startAlder === 'number' &&
-    data.startMaaned &&
-    typeof data.startMaaned === 'number' &&
-    data.utbetalingsperioder &&
-    data.utbetalingsperioder.startAlder &&
-    typeof data.utbetalingsperioder.startAlder === 'number' &&
-    data.utbetalingsperioder.startMaaned &&
-    typeof data.utbetalingsperioder.startMaaned === 'number' &&
-    data.utbetalingsperioder.grad &&
-    typeof data.utbetalingsperioder.grad === 'number' &&
-    data.utbetalingsperioder.aarligUtbetaling &&
-    typeof data.utbetalingsperioder.aarligUtbetaling === 'number'
+    Array.isArray(data.utbetalingsperioder) &&
+    !harFeilUtbetalingsperiode &&
+    !harFeilStartAlder &&
+    !harFeilSluttAlder
   )
 }
 

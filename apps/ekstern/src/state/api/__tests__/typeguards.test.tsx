@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { PensjonsavtaleKategori } from '@/types/enums'
 
 import {
+  isUtbetalingsperiode,
   isPensjonsavtale,
   isPensjonsberegningArray,
   isPerson,
@@ -12,6 +13,108 @@ import {
 } from '../typeguards'
 
 describe('Typeguards', () => {
+  describe('isUtbetalingsperiode', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 1,
+          aarligUtbetaling: 100000,
+          grad: 100,
+        })
+      ).toBeTruthy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 1,
+          sluttAlder: 67,
+          sluttMaaned: 7,
+          aarligUtbetaling: 100000,
+          grad: 100,
+        })
+      ).toBeTruthy()
+    })
+    it('returnerer false når typen er undefined eller at Utbetalingsperiode ikke inneholder alle forventet keys', () => {
+      expect(isUtbetalingsperiode(undefined)).toBeFalsy()
+      expect(isUtbetalingsperiode({})).toBeFalsy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 1,
+          aarligUtbetaling: 100000,
+        })
+      ).toBeFalsy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 1,
+          grad: 100,
+        })
+      ).toBeFalsy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          aarligUtbetaling: 100000,
+          grad: 100,
+        })
+      ).toBeFalsy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 'abc',
+          startMaaned: 1,
+          aarligUtbetaling: 100000,
+          grad: 100,
+        })
+      ).toBeFalsy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 'abc',
+          aarligUtbetaling: 100000,
+          grad: 100,
+        })
+      ).toBeFalsy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 1,
+          aarligUtbetaling: 'abc',
+          grad: 100,
+        })
+      ).toBeFalsy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 1,
+          aarligUtbetaling: 100000,
+          grad: 'abc',
+        })
+      ).toBeFalsy()
+    })
+    it('returnerer false når Utbetalingsperiode har feil sluttAlder eller sluttMaaned', () => {
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 1,
+          sluttAlder: 'abc',
+          sluttMaaned: 7,
+          aarligUtbetaling: 100000,
+          grad: 100,
+        })
+      ).toBeFalsy()
+      expect(
+        isUtbetalingsperiode({
+          startAlder: 62,
+          startMaaned: 1,
+          sluttAlder: 67,
+          sluttMaaned: 'abc',
+          aarligUtbetaling: 100000,
+          grad: 100,
+        })
+      ).toBeFalsy()
+    })
+  })
+
   describe('isPensjonsavtale', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
@@ -19,19 +122,30 @@ describe('Typeguards', () => {
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
           startAlder: 67,
-          startMaaned: 1,
-          utbetalingsperioder: {
-            startAlder: 67,
-            startMaaned: 1,
-            sluttAlder: 77,
-            sluttMaaned: 1,
-            aarligUtbetaling: 39582,
-            grad: 100,
-          },
+          sluttAlder: 70,
+          utbetalingsperioder: [],
+        })
+      ).toBeTruthy()
+      expect(
+        isPensjonsavtale({
+          produktbetegnelse: 'Storebrand',
+          kategori: 'PRIVAT_TJENESTEPENSJON',
+          startAlder: 67,
+          sluttAlder: 70,
+          utbetalingsperioder: [
+            {
+              startAlder: 67,
+              startMaaned: 1,
+              sluttAlder: 77,
+              sluttMaaned: 1,
+              aarligUtbetaling: 39582,
+              grad: 100,
+            },
+          ],
         })
       ).toBeTruthy()
     })
-    it('returnerer false når typen er undefined eller at Pensjonsavtale ikke inneholder alle forventet keys', () => {
+    it('returnerer false når typen er undefined eller at Pensjonsavtale ikke inneholder alle forventet keys eller har feil utbetalingsperiode', () => {
       expect(isPensjonsavtale(undefined)).toBeFalsy()
       expect(isPensjonsavtale({})).toBeFalsy()
       expect(
@@ -39,7 +153,22 @@ describe('Typeguards', () => {
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
           startAlder: 67,
-          startMaaned: 1,
+          sluttAlder: 70,
+        })
+      ).toBeFalsy()
+      expect(
+        isPensjonsavtale({
+          kategori: 'PRIVAT_TJENESTEPENSJON',
+          startAlder: 67,
+          sluttAlder: 70,
+          utbetalingsperioder: [],
+        })
+      ).toBeFalsy()
+      expect(
+        isPensjonsavtale({
+          produktbetegnelse: 'Storebrand',
+          kategori: 'RANDOM KATEGORI',
+          utbetalingsperioder: [],
         })
       ).toBeFalsy()
       expect(
@@ -47,52 +176,77 @@ describe('Typeguards', () => {
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
           startAlder: 67,
-          startMaaned: 1,
-          utbetalingsperioder: {
-            startAlder: 67,
-            startMaaned: 1,
-            grad: 100,
-          },
+          sluttAlder: 70,
+          utbetalingsperioder: [
+            {
+              startAlder: 'abc',
+              startMaaned: 1,
+              grad: 100,
+            },
+          ],
         })
       ).toBeFalsy()
     })
 
-    describe('isPensjonsberegningArray', () => {
-      it('returnerer true når typen er riktig', () => {
-        expect(isPensjonsberegningArray([])).toBeTruthy()
-        expect(
-          isPensjonsberegningArray([
-            {
-              belop: 2,
-              alder: 3,
-            },
-          ])
-        ).toBeTruthy()
-      })
-      it('returnerer false når typen er undefined eller at Pensjonsberegning inneholder noe annet enn number', () => {
-        expect(isPensjonsberegningArray(undefined)).toBeFalsy()
-        expect(
-          isPensjonsberegningArray([
-            {
-              beloep: 1,
-              alder: 2,
-            },
-          ])
-        ).toBeFalsy()
-      })
-    })
-
-    it('returnerer false når typen er undefined eller at Pensjonsavtale ikke inneholder riktig type', () => {
-      expect(isPensjonsavtale(undefined)).toBeFalsy()
+    it('returnerer false når Pensjonsavtale har feil startAlder eller startMaaned', () => {
       expect(
-        isPensjonsavtale([
+        isPensjonsavtale({
+          produktbetegnelse: 'Storebrand',
+          kategori: 'PRIVAT_TJENESTEPENSJON',
+          startAlder: 'abc',
+          sluttAlder: 67,
+          utbetalingsperioder: [
+            {
+              startAlder: 67,
+              startMaaned: 1,
+              sluttAlder: 77,
+              sluttMaaned: 1,
+              aarligUtbetaling: 39582,
+              grad: 100,
+            },
+          ],
+        })
+      ).toBeFalsy()
+      expect(
+        isPensjonsavtale({
+          produktbetegnelse: 'Storebrand',
+          kategori: 'PRIVAT_TJENESTEPENSJON',
+          startAlder: 62,
+          sluttAlder: 'abc',
+          utbetalingsperioder: [
+            {
+              startAlder: 67,
+              startMaaned: 1,
+              sluttAlder: 77,
+              sluttMaaned: 1,
+              aarligUtbetaling: 39582,
+              grad: 100,
+            },
+          ],
+        })
+      ).toBeFalsy()
+    })
+  })
+
+  describe('isPensjonsberegningArray', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(isPensjonsberegningArray([])).toBeTruthy()
+      expect(
+        isPensjonsberegningArray([
           {
-            navn: 'Storebrand',
-            type: 'RANDOM_TYPE',
-            startAar: 67,
-            startMaaned: 1,
-            grad: 100,
-            beholdning: 39582,
+            belop: 2,
+            alder: 3,
+          },
+        ])
+      ).toBeTruthy()
+    })
+    it('returnerer false når typen er undefined eller at Pensjonsberegning inneholder noe annet enn number', () => {
+      expect(isPensjonsberegningArray(undefined)).toBeFalsy()
+      expect(
+        isPensjonsberegningArray([
+          {
+            beloep: 1,
+            alder: 2,
           },
         ])
       ).toBeFalsy()

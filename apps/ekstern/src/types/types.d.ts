@@ -9,20 +9,22 @@ declare type Pensjonsberegning = {
   alder: number
 }
 
+declare type Utbetalingsperiode = {
+  startAlder: number
+  startMaaned: number
+  sluttAlder?: number
+  sluttMaaned?: number
+  aarligUtbetaling: number
+  grad: number
+}
+
 declare type Pensjonsavtale = {
   key: number
   produktbetegnelse: string
   kategori: PensjonsavtaleKategori
-  startAlder: number
-  startMaaned: number
-  utbetalingsperioder: {
-    startAlder: number
-    startMaaned: number
-    sluttAlder?: number
-    sluttMaaned?: number
-    aarligUtbetaling: number
-    grad: number
-  }
+  startAlder?: number
+  sluttAlder?: number
+  utbetalingsperioder: Utbetalingsperiode[]
 }
 
 declare type UtilgjengeligeSelskap = {
