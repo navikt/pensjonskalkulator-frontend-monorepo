@@ -110,11 +110,13 @@ export function Pensjonsavtaler() {
                       <tr key={avtale.key}>
                         <td className={styles.tabellCell}>
                           <BodyShort>Fra {avtale.produktbetegnelse}</BodyShort>
-
                           {avtale.utbetalingsperioder.map(
                             (utbetalingsperiode) => {
                               return (
-                                <BodyShort className={styles.utbetaling}>
+                                <BodyShort
+                                  key={utbetalingsperiode.startAlder}
+                                  className={styles.utbetaling}
+                                >
                                   {utbetalingsperiode.sluttAlder
                                     ? `${formatAsDecimal(
                                         utbetalingsperiode.aarligUtbetaling
