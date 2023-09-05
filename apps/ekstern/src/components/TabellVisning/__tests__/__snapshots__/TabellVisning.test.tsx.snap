@@ -67,7 +67,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r0"
@@ -101,12 +101,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           69 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           480 000
         </td>
@@ -165,7 +165,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r2"
@@ -199,12 +199,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           70 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           775 000
         </td>
@@ -263,7 +263,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r4"
@@ -297,12 +297,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           71 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -361,7 +361,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r6"
@@ -395,12 +395,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           72 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -459,7 +459,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r8"
@@ -493,12 +493,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           73 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -557,7 +557,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="ra"
@@ -591,12 +591,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           74 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -655,7 +655,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="rc"
@@ -689,12 +689,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           75 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -753,7 +753,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="re"
@@ -787,12 +787,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           76 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -851,7 +851,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="rg"
@@ -885,12 +885,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           77+ (livsvarig)
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           0
         </td>
@@ -953,27 +953,27 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           69 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           480 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           100 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           180 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           200 000 kr
         </td>
@@ -982,27 +982,27 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           70 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           775 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           175 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           250 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           350 000 kr
         </td>
@@ -1011,25 +1011,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           71 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -1038,25 +1038,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           72 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -1065,25 +1065,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           73 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -1092,25 +1092,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           74 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -1119,25 +1119,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           75 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -1146,25 +1146,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           76 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -1173,21 +1173,21 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           77+ (livsvarig)
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
       </tr>
     </tbody>
@@ -1262,7 +1262,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--open navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-table__toggle-expand-cell--open navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-table__toggle-expand-cell--open navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r0"
@@ -1296,12 +1296,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           69 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           480 000
         </td>
@@ -1360,7 +1360,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r2"
@@ -1394,12 +1394,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           70 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           775 000
         </td>
@@ -1458,7 +1458,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r4"
@@ -1492,12 +1492,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           71 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -1556,7 +1556,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r6"
@@ -1590,12 +1590,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           72 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -1654,7 +1654,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="r8"
@@ -1688,12 +1688,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           73 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -1752,7 +1752,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="ra"
@@ -1786,12 +1786,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           74 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -1850,7 +1850,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="rc"
@@ -1884,12 +1884,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           75 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -1948,7 +1948,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="re"
@@ -1982,12 +1982,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           76 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000
         </td>
@@ -2046,7 +2046,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
         >
           <button
             aria-controls="rg"
@@ -2080,12 +2080,12 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
           </button>
         </td>
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           77+ (livsvarig)
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           0
         </td>
@@ -2148,27 +2148,27 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           69 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           480 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           100 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           180 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           200 000 kr
         </td>
@@ -2177,27 +2177,27 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           70 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           775 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           175 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           250 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           350 000 kr
         </td>
@@ -2206,25 +2206,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           71 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -2233,25 +2233,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           72 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -2260,25 +2260,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           73 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -2287,25 +2287,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           74 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -2314,25 +2314,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           75 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -2341,25 +2341,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           76 år
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         >
           780 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           380 000 kr
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         >
           400 000 kr
         </td>
@@ -2368,21 +2368,21 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
         class="navds-table__row navds-table__row--shade-on-hover"
       >
         <td
-          class="navds-table__data-cell navds-body-short"
+          class="navds-table__data-cell navds-body-short navds-body-short--medium"
         >
           77+ (livsvarig)
         </td>
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
         <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
         />
       </tr>
     </tbody>
