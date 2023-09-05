@@ -1,5 +1,6 @@
-import { Accordion, BodyLong } from '@navikt/ds-react'
+import { BodyLong } from '@navikt/ds-react'
 
+import { AccordionItem } from '@/components/components/AccordionItem'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 
 import { SectionContent } from './components/SectionContent'
@@ -10,7 +11,7 @@ interface Props {
 
 export function TidligstMuligUttak({ uttaksalder }: Props) {
   return (
-    <Accordion.Item>
+    <AccordionItem name="Tidligst mulig uttak">
       <SectionHeader
         label="Tidligst mulig uttak"
         value={formatUttaksalder(uttaksalder, { compact: true })}
@@ -33,6 +34,6 @@ export function TidligstMuligUttak({ uttaksalder }: Props) {
           sjekke igjen når det nærmer seg at du ønsker å starte alderspensjon.
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

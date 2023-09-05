@@ -2,6 +2,8 @@ import React from 'react'
 
 import { Accordion } from '@navikt/ds-react'
 
+import { AccordionContext } from '@/components/components/AccordionItem'
+
 import styles from './SectionHeader.module.scss'
 
 interface Props {
@@ -10,8 +12,9 @@ interface Props {
 }
 
 export function SectionHeader({ label, value }: Props) {
+  const { toggleOpen } = React.useContext(AccordionContext)
   return (
-    <Accordion.Header>
+    <Accordion.Header onClick={toggleOpen}>
       {label}
       {value && (
         <>

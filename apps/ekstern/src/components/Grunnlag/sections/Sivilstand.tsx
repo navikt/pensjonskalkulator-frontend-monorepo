@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 
-import { Accordion, BodyLong, Link } from '@navikt/ds-react'
+import { BodyLong, Link } from '@navikt/ds-react'
 
+import { AccordionItem } from '@/components/components/AccordionItem'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { formatSivilstand } from '@/utils/sivilstand'
 
@@ -17,7 +18,7 @@ export function Sivilstand() {
   )
 
   return (
-    <Accordion.Item data-testid="accordion-sivilstand">
+    <AccordionItem name="Sivilstand" data-testid="accordion-sivilstand">
       <SectionHeader
         label="Sivilstand"
         value={isSuccess ? formatertSivilstand : 'Kunne ikke hentes'}
@@ -31,6 +32,6 @@ export function Sivilstand() {
           <Link>Mer om garantipensjon og satser</Link>.
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

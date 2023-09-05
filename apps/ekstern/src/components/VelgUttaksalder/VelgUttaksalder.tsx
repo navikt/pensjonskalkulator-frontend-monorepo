@@ -4,6 +4,8 @@ import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Button, Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
+import logger from '@/utils/logging'
+
 import { getFormaterteAldere } from './utils'
 
 import styles from './VelgUttaksalder.module.scss'
@@ -35,6 +37,12 @@ export const VelgUttaksalder: React.FC<Props> = ({
   const onAlderClick = (alderChip: string) => {
     setValgtUttaksalder(alderChip)
     pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+    // TODO: Sende alder som strukturert data?
+    logger('skjema spørsmål besvart', {
+      svar: alderChip,
+      skjemanavn: 'naar-vil-du-ta-ut-alderspensjon',
+    })
   }
 
   return (

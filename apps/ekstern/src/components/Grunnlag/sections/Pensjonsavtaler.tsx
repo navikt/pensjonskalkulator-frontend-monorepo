@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
+import { AccordionItem } from '@/components/components/AccordionItem'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 
@@ -22,7 +23,7 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
   }
 
   return (
-    <Accordion.Item data-testid="pensjonsavtaler">
+    <AccordionItem name="Pensjonsavtaler" data-testid="pensjonsavtaler">
       <SectionHeader
         label="Pensjonsavtaler"
         value={`${pensjonsavtaler.length}`}
@@ -90,6 +91,6 @@ export function Pensjonsavtaler({ pensjonsavtaler }: Props) {
           pensjonsordning.
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

@@ -1,7 +1,6 @@
-import React from 'react'
+import { BodyLong, Link } from '@navikt/ds-react'
 
-import { Accordion, BodyLong, Link } from '@navikt/ds-react'
-
+import { AccordionItem } from '@/components/components/AccordionItem'
 import { formatAsDecimal } from '@/utils/currency'
 
 import { SectionContent } from './components/SectionContent'
@@ -13,7 +12,7 @@ interface Props {
 
 export function Alderspensjon({ alderspensjon }: Props) {
   return (
-    <Accordion.Item>
+    <AccordionItem name="Alderspensjon (NAV)">
       <SectionHeader
         label="Alderspensjon (NAV)"
         value={`${formatAsDecimal(alderspensjon)} kr`}
@@ -35,6 +34,6 @@ export function Alderspensjon({ alderspensjon }: Props) {
           om hvordan din pensjon er beregnet.
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }
