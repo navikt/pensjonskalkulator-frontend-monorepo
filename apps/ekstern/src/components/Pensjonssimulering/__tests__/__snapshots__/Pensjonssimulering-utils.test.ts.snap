@@ -10,6 +10,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOpt
       "minWidth": 750,
       "scrollPositionX": 0,
     },
+    "spacingBottom": 0,
     "spacingLeft": 0,
     "spacingTop": 0,
     "type": "column",
@@ -33,7 +34,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOpt
       "zIndex": 0,
     },
     "layout": "horizontal",
-    "margin": 50,
+    "margin": 8,
     "padding": 0,
     "useHTML": true,
     "verticalAlign": "bottom",
@@ -69,6 +70,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOpt
         "chartOptions": {
           "legend": {
             "itemDistance": 12,
+            "margin": 50,
             "verticalAlign": "top",
           },
           "tooltip": {
