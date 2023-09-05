@@ -9,9 +9,9 @@ import { describe, expect, it, vi } from 'vitest'
 import {
   SERIE_NAME_INNTEKT,
   SERIE_NAME_ALDERSPENSJON,
+  processPensjonsberegningArray,
   highchartsScrollingSelector,
   processPensjonsavtalerArray,
-  simulateDataArray,
   generateXAxis,
   labelFormatterDesktop,
   labelFormatterMobile,
@@ -70,31 +70,30 @@ describe('Pensjonssimulering-utils', () => {
     vi.resetAllMocks()
   })
 
-  describe('simulateDataArray', () => {
-    it('returnerer riktig array ', () => {
-      expect(simulateDataArray([], 10)).toHaveLength(0)
-      expect(simulateDataArray([1, 2, 3], 0)).toHaveLength(0)
-      expect(simulateDataArray([1, 2, 3], 10)).toHaveLength(3)
-      expect(simulateDataArray([1, 2, 3, 4, 5, 6], 2)).toHaveLength(2)
+  describe('processPensjonsberegningArray', () => {
+    it('returnerer et array med en 0 verdi uten å feile hvis input er et tomt array', () => {
+      expect(processPensjonsberegningArray()).toEqual([0])
+      expect(processPensjonsberegningArray([])).toEqual([0])
     })
 
-    it('thrower dersom startAge < 60', () => {
-      expect(() => simulateDataArray([], 1, 59)).toThrow()
-    })
-
-    it('returnerer riktig array når man angir en startAge uten coefficient', () => {
-      expect(simulateDataArray([], 10, 62)).toHaveLength(0)
-      expect(simulateDataArray([1, 2, 3], 0, 62)).toHaveLength(0)
-      expect(simulateDataArray([1, 2, 3], 10, 62)).toHaveLength(3)
-    })
-
-    it('returnerer riktig array når man angir en startAge med coefficient', () => {
-      expect(simulateDataArray([], 10, 62, 20_000)).toHaveLength(0)
-      expect(simulateDataArray([1, 2, 3], 0, 62, 20_000)).toMatchSnapshot()
-      expect(simulateDataArray([1, 2, 3], 10, 62, 20_000)).toMatchSnapshot()
+    it('returnerer riktig mappet array med beløp og 0 verdi først', () => {
       expect(
-        simulateDataArray([1, 2, 3, 4, 5, 6], 2, 62, 20_000)
-      ).toMatchSnapshot()
+        processPensjonsberegningArray([
+          {
+            alder: 75,
+            beloep: 20000,
+          },
+
+          {
+            alder: 76,
+            beloep: 80000,
+          },
+          {
+            alder: 77,
+            beloep: 80000,
+          },
+        ])
+      ).toEqual([0, 20000, 80000, 80000])
     })
   })
 

@@ -1,12 +1,2551 @@
 // Vitest Snapshot v1
 
-exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-knapper 1`] = `
+exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer som default med riktig tittel og chart, kun med alderspensjon og inntekt, og uten scroll-knapper 1`] = `
 <DocumentFragment>
   <section
     class="_section_2cd409"
   >
     <div
-      data-highcharts-chart="0"
+      data-highcharts-chart="2"
+      style="overflow: visible;"
+    >
+      <div
+        class="highcharts-scrolling-parent"
+        style="position: relative;"
+      >
+        <div
+          class="highcharts-fixed"
+          dir="ltr"
+          style="padding: 0px; margin: 0px; position: absolute; overflow: hidden; pointer-events: none; z-index: 2; top: 0px;"
+        >
+          <svg
+            class="highcharts-root"
+            height="400"
+            style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
+            version="1.1"
+            viewBox="0 0 600 400"
+            width="600"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <desc>
+              Created with Highcharts 11.1.0
+            </desc>
+            <defs />
+            <path
+              class="highcharts-scrollable-mask"
+              d="M 0 0"
+              data-z-index="-1"
+              fill="#ffffff"
+              fill-opacity="0.85"
+            />
+            <text
+              class="highcharts-subtitle"
+              data-z-index="4"
+              style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666; pointer-events: auto;"
+              text-anchor="middle"
+              x="295"
+              y="0"
+            />
+            <text
+              class="highcharts-title"
+              data-z-index="4"
+              style="font-size: 20px; color: rgb(51, 51, 51); font-weight: bold; font-family: var(--a-font-family); fill: #333333; pointer-events: auto;"
+              text-anchor="start"
+              x="0"
+              y="20"
+            >
+              Beregning
+            </text>
+            <g
+              class="highcharts-legend highcharts-no-tooltip"
+              data-z-index="7"
+              style="pointer-events: auto;"
+              transform="translate(0,-25)"
+            >
+              <rect
+                class="highcharts-legend-box"
+                fill="none"
+                filter="none"
+                height="19"
+                rx="0"
+                ry="0"
+                stroke="#999999"
+                stroke-width="0"
+                width="54"
+                x="0"
+                y="0"
+              />
+              <g
+                data-z-index="1"
+              >
+                <g>
+                  <g
+                    class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-0"
+                    data-z-index="1"
+                    transform="translate(0,-5)"
+                  >
+                    <rect
+                      class="highcharts-point"
+                      data-z-index="3"
+                      fill="var(--a-gray-500)"
+                      height="14"
+                      rx="7"
+                      ry="7"
+                      width="14"
+                      x="1"
+                      y="6"
+                    />
+                  </g>
+                  <g
+                    class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-1"
+                    data-z-index="1"
+                    transform="translate(33,-5)"
+                  >
+                    <rect
+                      class="highcharts-point"
+                      data-z-index="3"
+                      fill="var(--a-deepblue-500)"
+                      height="14"
+                      rx="7"
+                      ry="7"
+                      width="14"
+                      x="1"
+                      y="6"
+                    />
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <div
+            class="highcharts-legend highcharts-no-tooltip"
+            style="position: absolute; left: 0px; top: -25px; opacity: 1; visibility: inherit; pointer-events: auto;"
+          >
+            <div
+              style="position: absolute; left: 0px; top: 0px; opacity: 1;"
+            >
+              <div
+                style="position: absolute; left: 0px; top: 0px; opacity: 1;"
+              >
+                <div
+                  class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-0"
+                  style="position: absolute; left: 0px; top: -5px; opacity: 1;"
+                >
+                  <span
+                    data-z-index="2"
+                    style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; z-index: 0;"
+                  >
+                    Inntekt (lønn m.m.)
+                  </span>
+                </div>
+                <div
+                  class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-1"
+                  style="position: absolute; left: 33px; top: -5px; opacity: 1;"
+                >
+                  <span
+                    data-z-index="2"
+                    style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; z-index: 0;"
+                  >
+                    Alderspensjon (NAV)
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="highcharts-scrolling"
+          style="overflow-x: auto; overflow-y: hidden; height: 400px;"
+        >
+          <div
+            class="highcharts-inner-container"
+          >
+            <div
+              class="highcharts-container "
+              dir="ltr"
+              id="highcharts-8"
+              style="position: relative; overflow: hidden; width: 600px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
+            >
+              <svg
+                aria-label="Beregning"
+                class="highcharts-root"
+                height="400"
+                role="img"
+                style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
+                version="1.1"
+                viewBox="0 0 600 400"
+                width="600"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <desc>
+                  Created with Highcharts 11.1.0
+                </desc>
+                <defs>
+                  <filter
+                    id="highcharts-drop-shadow-2"
+                  >
+                    <fedropshadow
+                      dx="1"
+                      dy="1"
+                      flood-color="#000000"
+                      flood-opacity="0.75"
+                      stdDeviation="2.5"
+                    />
+                  </filter>
+                  <clippath
+                    id="highcharts-9-"
+                  >
+                    <rect
+                      fill="none"
+                      height="NaN"
+                      width="NaN"
+                      x="0"
+                      y="0"
+                    />
+                  </clippath>
+                  <clippath
+                    id="highcharts-27-"
+                  >
+                    <rect
+                      fill="none"
+                      height="NaNNaN"
+                      width="NaNNaN"
+                      x="0"
+                      y="0"
+                    />
+                  </clippath>
+                </defs>
+                <rect
+                  class="highcharts-background"
+                  fill="#ffffff"
+                  filter="none"
+                  height="400"
+                  rx="0"
+                  ry="0"
+                  width="600"
+                  x="0"
+                  y="0"
+                />
+                <rect
+                  class="highcharts-plot-background"
+                  fill="none"
+                  filter="none"
+                  height="NaN"
+                  width="NaN"
+                  x="NaN"
+                  y="0"
+                />
+                <rect
+                  class="highcharts-plot-border"
+                  data-z-index="1"
+                  fill="none"
+                  height="385"
+                  stroke="#cccccc"
+                  stroke-width="0"
+                  width="740"
+                  x="0"
+                  y="0"
+                />
+                <g
+                  class="highcharts-grid highcharts-xaxis-grid"
+                  data-z-index="1"
+                >
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="#e6e6e6"
+                    stroke-dasharray="none"
+                    stroke-width="0"
+                  />
+                </g>
+                <g
+                  class="highcharts-grid highcharts-yaxis-grid"
+                  data-z-index="1"
+                >
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="var(--a-grayalpha-200)"
+                    stroke-dasharray="none"
+                    stroke-width="1"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="var(--a-grayalpha-200)"
+                    stroke-dasharray="none"
+                    stroke-width="1"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="var(--a-grayalpha-200)"
+                    stroke-dasharray="none"
+                    stroke-width="1"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="var(--a-grayalpha-200)"
+                    stroke-dasharray="none"
+                    stroke-width="1"
+                  />
+                  <path
+                    class="highcharts-grid-line"
+                    d="M 0 0"
+                    data-z-index="1"
+                    fill="none"
+                    opacity="1"
+                    stroke="var(--a-grayalpha-200)"
+                    stroke-dasharray="none"
+                    stroke-width="1"
+                  />
+                </g>
+                <g
+                  class="highcharts-axis highcharts-xaxis"
+                  data-z-index="2"
+                >
+                  <path
+                    class="highcharts-axis-line"
+                    d="M 0 0"
+                    data-z-index="7"
+                    fill="none"
+                    stroke="var(--a-grayalpha-700)"
+                    stroke-width="1"
+                  />
+                </g>
+                <g
+                  class="highcharts-axis highcharts-yaxis"
+                  data-z-index="2"
+                >
+                  <text
+                    class="highcharts-axis-title"
+                    data-z-index="7"
+                    style="color: rgb(102, 102, 102); font-family: var(--a-font-family); z-index: 0; fill: #666666; z-index: 0;"
+                    text-anchor="start"
+                    transform="translate(0,0)"
+                    x="NaN"
+                    y="22"
+                  >
+                    Tusen kroner
+                  </text>
+                  <path
+                    class="highcharts-axis-line"
+                    d="M 0 0"
+                    data-z-index="7"
+                    fill="none"
+                    stroke="#333333"
+                    stroke-width="0"
+                  />
+                </g>
+                <g
+                  class="highcharts-series-group"
+                  data-z-index="3"
+                  filter="none"
+                >
+                  <g
+                    class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
+                    clip-path="url(#highcharts-27-)"
+                    data-z-index="0.1"
+                    opacity="1"
+                    transform="translate(NaN,44) scale(1 0.001)"
+                  />
+                  <g
+                    class="highcharts-markers highcharts-series-0 highcharts-column-series"
+                    clip-path="none"
+                    data-z-index="0.1"
+                    opacity="1"
+                    transform="translate(NaN,44) scale(1 1)"
+                  />
+                  <g
+                    class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
+                    clip-path="url(#highcharts-27-)"
+                    data-z-index="0.1"
+                    opacity="1"
+                    transform="translate(NaN,44) scale(1 0.001)"
+                  />
+                  <g
+                    class="highcharts-markers highcharts-series-1 highcharts-column-series"
+                    clip-path="none"
+                    data-z-index="0.1"
+                    opacity="1"
+                    transform="translate(NaN,44) scale(1 1)"
+                  />
+                </g>
+                <text
+                  class="highcharts-caption"
+                  data-z-index="4"
+                  style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
+                  text-anchor="start"
+                  x="0"
+                  y="387"
+                />
+                <g
+                  class="highcharts-axis-labels highcharts-xaxis-labels"
+                  data-z-index="7"
+                >
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    64
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    65
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    66
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    67
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    68
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    69
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    70
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    71
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    72
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    73
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    74
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    75
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    76
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    77
+                  </text>
+                  <text
+                    style="cursor: default; font-family: var(--a-font-family); fill: var(--a-grayalpha-700);"
+                    text-anchor="middle"
+                    transform="translate(0,0)"
+                    x="0"
+                  >
+                    77+
+                  </text>
+                </g>
+                <g
+                  class="highcharts-axis-labels highcharts-yaxis-labels"
+                  data-z-index="7"
+                />
+              </svg>
+              <div
+                class="highcharts-axis-labels highcharts-yaxis-labels"
+                style="position: absolute; left: 0px; top: 0px; opacity: 1;"
+              >
+                <span
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  0
+                </span>
+                <span
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  200
+                </span>
+                <span
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  400
+                </span>
+                <span
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  600
+                </span>
+                <span
+                  style="position: absolute; font-family: var(--a-font-family); font-size: 1rem; white-space: nowrap; margin-left: 0px; margin-top: 0px; left: 0px; top: -3px; cursor: default; background-color: transparent; text-overflow: clip;"
+                >
+                  800
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_buttonRow_2cd409"
+    >
+      <div
+        class="_buttonRowElement_2cd409"
+      />
+      <div
+        class="_buttonRowElement_2cd409 _buttonRowElement__Right_2cd409"
+      />
+    </div>
+    <div
+      class="navds-read-more navds-read-more--medium _visTabell_2cd409"
+    >
+      <button
+        aria-expanded="false"
+        class="navds-read-more__button navds-body-short"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="navds-read-more__expand-icon"
+          fill="none"
+          focusable="false"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <span>
+          Vis tabell av beregningen
+        </span>
+      </button>
+      <div
+        aria-hidden="true"
+        class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+      >
+        <table
+          aria-live="polite"
+          class="navds-table navds-table--medium _table_15ff36"
+        >
+          <thead
+            class="navds-table__header"
+          >
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <th
+                class="navds-table__header-cell navds-label _tableMobileOnly_15ff36"
+              />
+              <th
+                class="navds-table__header-cell navds-label"
+                scope="col"
+              >
+                Alder
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
+                scope="col"
+              >
+                Sum
+                <span
+                  class="_tableMobileOnly_15ff36"
+                >
+                   (kr)
+                </span>
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Inntekt
+                <br />
+                (lønn m.m.)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Avtalefestet pensjon (AFP)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Pensjonsavtaler (arbeidsgiver)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Alderspensjon (NAV)
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="navds-table__body _tableMobileOnly_15ff36"
+          >
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r7"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r8"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r8"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                64 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                650 000
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r7"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        650 000
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r9"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-ra"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-ra"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                65 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                469 606
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r9"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        260 000
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 606
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rb"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-rc"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-rc"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                66 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 810
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rb"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 810
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rd"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-re"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-re"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                67 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rd"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rf"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-rg"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-rg"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                68 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rf"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rh"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-ri"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-ri"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                69 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rh"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rj"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-rk"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-rk"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                70 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rj"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rl"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-rm"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-rm"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                71 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rl"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rn"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-ro"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-ro"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                72 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rn"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rp"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-rq"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-rq"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                73 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rp"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rr"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-rs"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-rs"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                74 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rr"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rt"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-ru"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-ru"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                75 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rt"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="rv"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r10"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r10"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                76 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rv"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r11"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r12"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r12"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                77 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r11"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r13"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r14"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r14"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                77+ (livsvarig)
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                NaN
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r13"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      />
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+          <tbody
+            class="navds-table__body _tableDesktopOnly_15ff36"
+          >
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                64 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                650 000 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                650 000 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                65 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                469 606 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                260 000 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 606 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                66 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 810 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 810 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                67 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                68 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                69 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                70 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                71 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                72 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                73 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                74 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                75 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                76 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                77 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                209 844 kr
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                77+ (livsvarig)
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              />
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat feiler 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_2cd409"
+  >
+    <div
+      class="navds-alert navds-alert--error navds-alert--medium"
+    >
+      <svg
+        aria-labelledby="title-r4"
+        class="navds-alert__icon"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="title-r4"
+        >
+          Feil
+        </title>
+        <path
+          clip-rule="evenodd"
+          d="M7.742 2.47a.75.75 0 0 1 .53-.22h7.456a.75.75 0 0 1 .53.22l5.272 5.272c.141.14.22.331.22.53v7.456a.75.75 0 0 1-.22.53l-5.272 5.272a.75.75 0 0 1-.53.22H8.272a.75.75 0 0 1-.53-.22L2.47 16.258a.75.75 0 0 1-.22-.53V8.272a.75.75 0 0 1 .22-.53L7.742 2.47Zm1.288 5.5a.75.75 0 0 0-1.06 1.06L10.94 12l-2.97 2.97a.75.75 0 1 0 1.06 1.06L12 13.06l2.97 2.97a.75.75 0 1 0 1.06-1.06L13.06 12l2.97-2.97a.75.75 0 0 0-1.06-1.06L12 10.94 9.03 7.97Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <div
+        class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+      >
+        <h2
+          class="navds-heading navds-heading--small navds-typo--spacing"
+        >
+          TODO PEK-119 feilhåndtering Vi klarte ikke å simulere pensjonen din
+        </h2>
+      </div>
+    </div>
+    <div
+      data-highcharts-chart="1"
       style="overflow: visible;"
     >
       <div
@@ -89,7 +2628,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
             <div
               class="highcharts-container "
               dir="ltr"
-              id="highcharts-0"
+              id="highcharts-4"
               style="position: relative; overflow: hidden; width: 750px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
             >
               <svg
@@ -108,7 +2647,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 </desc>
                 <defs>
                   <filter
-                    id="highcharts-drop-shadow-0"
+                    id="highcharts-drop-shadow-1"
                   >
                     <fedropshadow
                       dx="1"
@@ -119,7 +2658,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     />
                   </filter>
                   <clippath
-                    id="highcharts-1-"
+                    id="highcharts-5-"
                   >
                     <rect
                       fill="none"

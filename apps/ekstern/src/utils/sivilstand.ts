@@ -1,3 +1,7 @@
+export function checkHarSamboer(sivilstand: Sivilstand): boolean {
+  return ['GIFT', 'REGISTRERT_PARTNER'].includes(sivilstand)
+}
+
 export const formatSivilstand = (sivilstand: Sivilstand): string => {
   switch (sivilstand) {
     case 'GIFT': {

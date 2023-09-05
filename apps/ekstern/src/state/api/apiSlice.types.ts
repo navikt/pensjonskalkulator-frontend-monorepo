@@ -17,16 +17,18 @@ export type PensjonsavtalerResponseBody = {
 }
 
 export type AlderspensjonRequestBody = {
-  simuleringstype: string
-  uttaksgrad: number
-  foersteUttaksdato: string
-  epsHarInntektOver2G: boolean
+  simuleringstype: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
   forventetInntekt?: number
-  sivilstand?: Sivilstand
+  uttaksgrad: number
+  foedselsdato: string
+  foersteUttaksalder: { aar: number; maaned: number }
+  sivilstand?: UtvidetSivilstand
+  epsHarInntektOver2G: boolean
 }
 
 export type AlderspensjonResponseBody = {
-  pensjon: Pensjonsberegning[]
+  alderspensjon: Pensjonsberegning[]
+  afpPrivat: Pensjonsberegning[]
 }
 
 export type UttaksalderRequestBody = {

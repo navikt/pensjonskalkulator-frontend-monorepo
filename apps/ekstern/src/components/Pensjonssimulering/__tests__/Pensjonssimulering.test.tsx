@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { Pensjonssimulering } from '../Pensjonssimulering'
-import { mockResponse } from '@/mocks/server'
+import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import {
   userInputInitialState,
   Simulation,
@@ -15,8 +15,29 @@ describe('Pensjonssimulering', () => {
     uttaksgrad: 100,
     aarligInntekt: 0,
   }
-  it('rendrer med riktig tittel og chart og uten scroll-knapper', async () => {
-    const { container, asFragment } = render(<Pensjonssimulering />, {
+
+  it('viser loader når alderspensjon/afp-privat beregnes', async () => {
+    render(<Pensjonssimulering />, {
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          afp: 'nei',
+          samtykke: true,
+          samboer: true,
+          currentSimulation: { ...currentSimulation },
+        },
+      },
+    })
+    expect(await screen.findByTestId('loader')).toBeVisible()
+  })
+
+  it('viser feilmelding når alderspensjon/afp-privat feiler', async () => {
+    mockErrorResponse('/alderspensjon/simulering', {
+      status: 500,
+      json: "Beep boop I'm an error!",
+      method: 'post',
+    })
+    const { asFragment } = render(<Pensjonssimulering />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
@@ -26,19 +47,48 @@ describe('Pensjonssimulering', () => {
       },
     })
 
-    expect(await screen.findByText('Beregning')).toBeVisible()
-    expect(
-      container.getElementsByClassName('highcharts-container')
-    ).toHaveLength(1)
-    expect(asFragment()).toMatchSnapshot()
+    await waitFor(async () => {
+      expect(
+        await screen.findByText(
+          'TODO PEK-119 feilhåndtering Vi klarte ikke å simulere pensjonen din'
+        )
+      ).toBeVisible()
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
-  it('rendrer uten pensjonsavtaler når brukeren ikke har samtykket', async () => {
+  describe('Når brukeren ikke samtykker og ikke velger AFP', () => {
+    it('rendrer som default med riktig tittel og chart, kun med alderspensjon og inntekt, og uten scroll-knapper', async () => {
+      const { container, asFragment } = render(<Pensjonssimulering />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: { ...currentSimulation },
+          },
+        },
+      })
+
+      expect(await screen.findByText('Beregning')).toBeVisible()
+      await waitFor(async () => {
+        expect(
+          container.getElementsByClassName('highcharts-container')
+        ).toHaveLength(1)
+        expect(
+          container.getElementsByClassName('highcharts-legend-item')
+        ).toHaveLength(4)
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
+  })
+
+  it('rendrer med AFP når brukeren har valgt AFP-privat', async () => {
     const { container } = render(<Pensjonssimulering />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
           samtykke: false,
+          afp: 'ja_privat',
           currentSimulation: { ...currentSimulation },
         },
       },
@@ -55,12 +105,35 @@ describe('Pensjonssimulering', () => {
     })
   })
 
-  it('rendrer med pensjonsavtaler når brukeren har samtykket', async () => {
+  it('rendrer med Pensjonsavtaler når brukeren har samtykket', async () => {
     const { container } = render(<Pensjonssimulering />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
           samtykke: true,
+          currentSimulation: { ...currentSimulation },
+        },
+      },
+    })
+
+    expect(await screen.findByText('Beregning')).toBeVisible()
+    await waitFor(async () => {
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      expect(
+        container.getElementsByClassName('highcharts-legend-item')
+      ).toHaveLength(6)
+    })
+  })
+
+  it('rendrer med AFP og Pensjonsavtaler når brukeren har valgt AFP-privat og har samtykket', async () => {
+    const { container } = render(<Pensjonssimulering />, {
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          samtykke: true,
+          afp: 'ja_privat',
           currentSimulation: { ...currentSimulation },
         },
       },
@@ -137,8 +210,8 @@ describe('Pensjonssimulering', () => {
 
     expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
     await user.click(screen.getByText('Vis tabell av beregningen'))
-    expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
     await waitFor(async () => {
+      expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
       const rows = await screen.findAllByRole('row')
       expect(rows.length).toBe(47)
     })

@@ -185,7 +185,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
             <span
               class="_details_c03039"
             >
-              543 031 kr før uttak
+              0 kr før uttak
             </span>
           </span>
         </button>
@@ -368,7 +368,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
             <span
               class="_details_c03039"
             >
-              204 573 kr
+              Folketrygden (NAV)
             </span>
           </span>
         </button>

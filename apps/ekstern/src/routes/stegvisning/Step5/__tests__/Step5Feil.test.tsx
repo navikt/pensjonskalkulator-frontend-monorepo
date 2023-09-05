@@ -8,6 +8,7 @@ import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/routes'
 import { externalUrls } from '@/routes/routes'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
+import * as sivilstandUtils from '@/utils/sivilstand'
 const realLocation = window.location
 describe('Step 5 Feil', () => {
   afterEach(() => {
@@ -44,7 +45,7 @@ describe('Step 5 Feil', () => {
   it('kaller /person på nytt (gitt at nytt kall er vellykket), registrerer riktig samboerskap og navigerer videre til beregning når brukeren klikker på reload knappen', async () => {
     const user = userEvent.setup()
     mockErrorResponse('/person')
-    const checkHarSamboerMock = vi.spyOn(Step4Utils, 'checkHarSamboer')
+    const checkHarSamboerMock = vi.spyOn(sivilstandUtils, 'checkHarSamboer')
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(

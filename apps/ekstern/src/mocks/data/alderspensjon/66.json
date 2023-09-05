@@ -1,90 +1,58 @@
 {
   "alderspensjon": [
     {
-      "alder": 62,
-      "beloep": 172238
-    },
-    {
-      "alder": 63,
-      "beloep": 172476
-    },
-    {
-      "alder": 64,
-      "beloep": 172476
-    },
-    {
-      "alder": 65,
-      "beloep": 172476
-    },
-    {
       "alder": 66,
-      "beloep": 172476
+      "beloep": 222062
     },
     {
       "alder": 67,
-      "beloep": 172476
+      "beloep": 222266
     },
     {
       "alder": 68,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 69,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 70,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 71,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 72,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 73,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 74,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 75,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 76,
-      "beloep": 172476
+      "beloep": 222300
     },
     {
       "alder": 77,
-      "beloep": 172476
+      "beloep": 222300
     }
   ],
   "afpPrivat": [
     {
-      "alder": 62,
-      "beloep": 20000
-    },
-    {
-      "alder": 63,
-      "beloep": 80000
-    },
-    {
-      "alder": 64,
-      "beloep": 80000
-    },
-    {
-      "alder": 65,
-      "beloep": 80000
-    },
-    {
       "alder": 66,
-      "beloep": 80000
+      "beloep": 20000
     },
     {
       "alder": 67,

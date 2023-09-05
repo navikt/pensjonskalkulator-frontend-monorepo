@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { AfpRadio } from '@/components/stegvisning/AFP'
-
 export interface Simulation {
   startAlder: number | null
   startMaaned: number | null
