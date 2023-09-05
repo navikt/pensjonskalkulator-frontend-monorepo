@@ -73,8 +73,8 @@ describe('groupPensjonsavtaler-utils', () => {
       expect(getMaanedString(0)).toEqual('')
       expect(getMaanedString(1)).toEqual('')
     })
-    it('returnerer riktig streng når måned større enn 1', () => {
-      expect(getMaanedString(2)).toEqual('og 2 mnd.')
+    it('returnerer riktig streng når måned er større enn 1', () => {
+      expect(getMaanedString(2)).toEqual(' og 2 mnd.')
     })
   })
 })
