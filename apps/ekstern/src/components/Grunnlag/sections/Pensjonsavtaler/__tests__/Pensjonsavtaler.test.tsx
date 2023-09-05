@@ -18,7 +18,7 @@ describe('Pensjonsavtaler', () => {
     aarligInntekt: 0,
   }
 
-  it('rendrer tittel med 0 avtaler når avtalelisten er tom', () => {
+  it('rendrer tittel med 0 avtaler når avtalelisten er tom', async () => {
     mockResponse('/pensjonsavtaler', {
       status: 200,
       json: { avtaler: [], utilgjengeligeSelskap: [] },
@@ -33,9 +33,11 @@ describe('Pensjonsavtaler', () => {
         },
       },
     })
-    expect(
-      screen.queryByText('Pensjonsavtaler', { exact: false })
-    ).toBeVisible()
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Pensjonsavtaler', { exact: false })
+      ).toBeVisible()
+    })
   })
 
   it('viser riktig header og melding når brukeren ikke samtykker', async () => {
@@ -117,9 +119,9 @@ describe('Pensjonsavtaler', () => {
           },
         },
       })
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
-          screen.queryByText('Pensjonsavtaler', { exact: false })
+          await screen.findByText('Pensjonsavtaler', { exact: false })
         ).toBeVisible()
         expect(asFragment()).toMatchSnapshot()
       })
@@ -161,9 +163,9 @@ describe('Pensjonsavtaler', () => {
           },
         },
       })
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
-          screen.queryByText('Pensjonsavtaler', { exact: false })
+          await screen.findByText('Pensjonsavtaler', { exact: false })
         ).toBeVisible()
         expect(asFragment()).toMatchSnapshot()
       })
