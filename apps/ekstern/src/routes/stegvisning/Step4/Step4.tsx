@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { AFP, AfpRadio } from '@/components/stegvisning/AFP'
+import { AFP } from '@/components/stegvisning/AFP'
 import { paths } from '@/routes'
 import {
   useGetPersonQuery,
@@ -11,8 +11,9 @@ import {
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSamtykke, selectAfp } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { checkHarSamboer } from '@/utils/sivilstand'
 
-import { checkHarSamboer, getNesteSide } from './utils'
+import { getNesteSide } from './utils'
 
 export function Step4() {
   const intl = useIntl()

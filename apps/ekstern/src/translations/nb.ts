@@ -52,13 +52,13 @@ const translations = {
   'stegvisning.offentligtp.loading':
     'Henter informasjon om medlemskap til offentlig tjenestepensjon',
   'stegvisning.offentligtp.ingress_1':
-    'Du er eller har vært medlem i en offentlig tjenestepensjonsordning og kan ha rett til tjenestepensjon. Men vi kan dessverre ikke hente inn dine avtaler. Sjekk hva som gjelder deg hos din tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.)',
+    'Du er eller har vært medlem i en offentlig tjenestepensjonsordning og kan ha rett til tjenestepensjon. Men vi kan dessverre ikke hente inn dine avtaler. Sjekk hva som gjelder deg hos din tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring m.fl.)',
   'stegvisning.offentligtp.ingress_2':
     'Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.offentligtp.error.title':
     'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor',
   'stegvisning.offentligtp.error.ingress':
-    'Vi kan dessverre ikke hente inn avtaler om tjenestepensjon fra offentlig sektor. Har du vært eller er ansatt i offentlig sektor, kan du sjekke hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonskasse m.fl.). {br}{br}Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler fra privat sektor.',
+    'Vi kan dessverre ikke hente inn avtaler om tjenestepensjon fra offentlig sektor. Har du vært eller er ansatt i offentlig sektor, kan du sjekke hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring m.fl.). {br}{br}Du kan likevel gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler fra privat sektor.',
   'stegvisning.afp.title': 'Du kan ha rett til AFP',
   'stegvisning.afp.ingress':
     'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',

@@ -187,7 +187,6 @@ describe('Typeguards', () => {
         })
       ).toBeFalsy()
     })
-
     it('returnerer false når Pensjonsavtale har feil startAlder eller startMaaned', () => {
       expect(
         isPensjonsavtale({
@@ -234,7 +233,7 @@ describe('Typeguards', () => {
       expect(
         isPensjonsberegningArray([
           {
-            belop: 2,
+            beloep: 2,
             alder: 3,
           },
         ])
@@ -242,11 +241,19 @@ describe('Typeguards', () => {
     })
     it('returnerer false når typen er undefined eller at Pensjonsberegning inneholder noe annet enn number', () => {
       expect(isPensjonsberegningArray(undefined)).toBeFalsy()
+
       expect(
         isPensjonsberegningArray([
           {
             beloep: 1,
-            alder: 2,
+          },
+        ])
+      ).toBeFalsy()
+      expect(
+        isPensjonsberegningArray([
+          {
+            beloep: 1,
+            alder: 'abc',
           },
         ])
       ).toBeFalsy()

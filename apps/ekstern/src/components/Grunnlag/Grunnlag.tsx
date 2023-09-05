@@ -11,28 +11,12 @@ import { Uttaksgrad } from './sections/Uttaksgrad'
 
 import styles from './Grunnlag.module.scss'
 
-const useInntekt = (): number => {
-  return 543031
-}
-
-const useAlderspensjon = (): number => {
-  return 204573
-}
-
-const useUttaksgrad = (): number => {
-  return 100
-}
-
 interface Props {
   tidligstMuligUttak: Uttaksalder
 }
 
-// TODO refaktorere og koble til faktisk data
+// TODO refaktorere og koble til inntekt data
 export function Grunnlag({ tidligstMuligUttak }: Props) {
-  const inntekt = useInntekt()
-  const alderspensjon = useAlderspensjon()
-  const uttaksgrad = useUttaksgrad()
-
   return (
     <section className={styles.section}>
       <div className={styles.description}>
@@ -46,11 +30,11 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
       </div>
       <Accordion>
         <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
-        <Uttaksgrad uttaksgrad={uttaksgrad} />
-        <Inntekt inntekt={inntekt} />
+        <Uttaksgrad uttaksgrad={100} />
+        <Inntekt inntekt={0} />
         <Sivilstand />
         <Utenlandsopphold />
-        <Alderspensjon alderspensjon={alderspensjon} />
+        <Alderspensjon />
         <AFP />
         <Pensjonsavtaler />
       </Accordion>

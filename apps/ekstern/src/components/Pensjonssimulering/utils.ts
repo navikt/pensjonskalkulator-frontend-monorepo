@@ -40,30 +40,14 @@ export const PENSJONSGIVENDE_DATA = [
   650000, 260000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
-export const AFP_DATA = [
-  0, 20000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000,
-  80000, 80000, 80000, 80000, 80000, 80000, 80000,
-]
-
-export const FOLKETRYGDEN_DATA = [
-  0, 35000, 175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
-  175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
-]
-
-export const simulateDataArray = (
-  array: number[],
-  length: number,
-  startAge?: number,
-  coefficient = 0
+export const processPensjonsberegningArray = (
+  pensjonsberegninger: Pensjonsberegning[] = []
 ): number[] => {
-  if (startAge && startAge < 60) {
-    throw Error("Can't simulate dataArray when startAge is smaller than 60")
-  }
-  const faktor = startAge ? startAge - 60 : 0
-  const dataArray = [...array].map((value, i) => {
-    return i > 1 ? value + faktor * coefficient : value
+  const dataArray = [...pensjonsberegninger].map((value) => {
+    return value.beloep
   })
-  return [...dataArray].splice(0, length)
+  dataArray.unshift(0)
+  return dataArray
 }
 
 export const processPensjonsavtalerArray = (

@@ -1,0 +1,46 @@
+{
+  "alderspensjon": [
+    {
+      "alder": 73,
+      "beloep": 332840
+    },
+    {
+      "alder": 74,
+      "beloep": 333132
+    },
+    {
+      "alder": 75,
+      "beloep": 333180
+    },
+    {
+      "alder": 76,
+      "beloep": 333180
+    },
+    {
+      "alder": 77,
+      "beloep": 333180
+    }
+  ],
+  "afpPrivat": [
+    {
+      "alder": 73,
+      "beloep": 20000
+    },
+    {
+      "alder": 74,
+      "beloep": 80000
+    },
+    {
+      "alder": 75,
+      "beloep": 80000
+    },
+    {
+      "alder": 76,
+      "beloep": 80000
+    },
+    {
+      "alder": 77,
+      "beloep": 80000
+    }
+  ]
+}

@@ -1,4 +1,3 @@
-import { AfpRadio } from '@/components/stegvisning/AFP'
 import { RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
 
