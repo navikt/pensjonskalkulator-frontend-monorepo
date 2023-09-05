@@ -140,6 +140,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOpt
     "formatter": [Function],
     "hideDelay": 9000000000,
     "padding": 0,
+    "positioner": [Function],
     "shadow": false,
     "shared": true,
     "useHTML": true,

@@ -114,27 +114,35 @@ export function Pensjonsavtaler() {
                             (utbetalingsperiode) => {
                               return (
                                 <BodyShort
-                                  key={utbetalingsperiode.startAlder}
+                                  key={`${utbetalingsperiode.startAlder}-${utbetalingsperiode.startMaaned}`}
                                   className={styles.utbetaling}
                                 >
                                   {utbetalingsperiode.sluttAlder
                                     ? `${formatAsDecimal(
                                         utbetalingsperiode.aarligUtbetaling
-                                      )} kr utbetales fra
-                                  ${
-                                    utbetalingsperiode.startAlder
-                                  } år ${getMaanedString(
-                                    utbetalingsperiode.startMaaned
-                                  )} til ${
-                                    utbetalingsperiode.sluttAlder
-                                  } år ${getMaanedString(
-                                    utbetalingsperiode.sluttMaaned
-                                  )}.`
+                                      )} kr utbetales fra ${
+                                        utbetalingsperiode.startAlder
+                                      } år${getMaanedString(
+                                        utbetalingsperiode.startMaaned
+                                      )} til ${
+                                        utbetalingsperiode.sluttAlder
+                                      } år${
+                                        utbetalingsperiode.sluttMaaned &&
+                                        utbetalingsperiode.sluttMaaned > 1
+                                          ? getMaanedString(
+                                              utbetalingsperiode.sluttMaaned
+                                            )
+                                          : '.'
+                                      }`
                                     : `Livsvarig utbetaling fra ${
                                         utbetalingsperiode.startAlder
-                                      } år ${getMaanedString(
-                                        utbetalingsperiode.startMaaned
-                                      )}.`}
+                                      } år${
+                                        utbetalingsperiode.startMaaned > 1
+                                          ? getMaanedString(
+                                              utbetalingsperiode.startMaaned
+                                            )
+                                          : '.'
+                                      }`}
                                 </BodyShort>
                               )
                             }

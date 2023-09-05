@@ -7,6 +7,7 @@ import {
   Series,
   Tooltip,
   TooltipFormatterContextObject,
+  TooltipPositionerPointObject,
 } from 'highcharts'
 
 import { formatAsDecimal } from '@/utils/currency'
@@ -177,6 +178,8 @@ export type ExtendedAxis = Axis & {
 export type ExtendedPoint = Point & {
   series: { data: string[] }
   percentage: number
+  stackTotal: number
+  tooltipPos: number[]
 }
 export type ExtendedTooltip = Tooltip & {
   isHidden: boolean
@@ -555,9 +558,26 @@ export const getChartOptions = (
     tooltip: {
       className: styles.tooltip,
       followTouchMove: false,
-      /* c8 ignore next 3 */
+      /* c8 ignore next 20 */
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
+      },
+      positioner: function (
+        labelWidth: number,
+        labelHeight: number,
+        point: TooltipPositionerPointObject
+      ) {
+        const hoverPoint = this.chart.hoverPoint as ExtendedPoint
+        const plotY = hoverPoint?.series.yAxis.toPixels(
+          hoverPoint.stackTotal,
+          true
+        )
+        const defaultPos = this.getPosition.apply(this, [
+          labelWidth,
+          labelHeight,
+          { ...point, plotY } as TooltipPositionerPointObject,
+        ])
+        return { ...defaultPos }
       },
       hideDelay: 9e9,
       padding: 0,
