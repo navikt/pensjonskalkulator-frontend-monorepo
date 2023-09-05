@@ -72,7 +72,7 @@ export const processPensjonsavtalerArray = (
   pensjonsavtaler: Pensjonsavtale[]
 ): number[] => {
   const d = new Date(foedsesldato)
-  const foedseslmaaned = d.getMonth() + 1
+  const foedselsmaaned = d.getMonth() + 1
 
   const sluttAlder = startAlder + length - 1
   const result = new Array(sluttAlder - startAlder + 1).fill(0)
@@ -94,14 +94,14 @@ export const processPensjonsavtalerArray = (
             utbetalingsperiode.sluttAlder && year === avtaleEndYear
 
           const startMonth = isFirstYear
-            ? foedseslmaaned + utbetalingsperiode.startMaaned
+            ? foedselsmaaned + utbetalingsperiode.startMaaned
             : 1
 
           const endMonth =
             isLastYear && utbetalingsperiode.sluttMaaned !== undefined
-              ? foedseslmaaned + utbetalingsperiode.sluttMaaned
+              ? foedselsmaaned + utbetalingsperiode.sluttMaaned
               : isLastYear && utbetalingsperiode.sluttMaaned === undefined
-              ? foedseslmaaned
+              ? foedselsmaaned
               : 12
 
           const monthsInYear =
