@@ -29,7 +29,7 @@ exports[`Pensjonsberegning > viser feilmelding om henting av pensjonberegning fe
       />
     </svg>
     <div
-      class="navds-alert__wrapper navds-body-long"
+      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
     >
       <h2
         class="navds-heading navds-heading--small navds-typo--spacing"

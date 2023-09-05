@@ -752,7 +752,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
       </button>
       <div
         aria-hidden="true"
-        class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+        class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
       >
         <table
           aria-live="polite"
@@ -819,7 +819,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="r7"
@@ -853,12 +853,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 64 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 650 000
               </td>
@@ -909,7 +909,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="r9"
@@ -943,12 +943,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 65 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 469 606
               </td>
@@ -999,7 +999,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rb"
@@ -1033,12 +1033,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 66 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 810
               </td>
@@ -1089,7 +1089,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rd"
@@ -1123,12 +1123,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 67 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1179,7 +1179,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rf"
@@ -1213,12 +1213,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 68 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1269,7 +1269,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rh"
@@ -1303,12 +1303,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 69 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1359,7 +1359,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rj"
@@ -1393,12 +1393,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 70 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1449,7 +1449,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rl"
@@ -1483,12 +1483,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 71 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1539,7 +1539,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rn"
@@ -1573,12 +1573,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 72 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1629,7 +1629,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rp"
@@ -1663,12 +1663,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 73 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1719,7 +1719,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rr"
@@ -1753,12 +1753,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 74 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1809,7 +1809,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rt"
@@ -1843,12 +1843,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 75 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1899,7 +1899,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="rv"
@@ -1933,12 +1933,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 76 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -1989,7 +1989,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="r11"
@@ -2023,12 +2023,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 77 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844
               </td>
@@ -2079,7 +2079,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
                   aria-controls="r13"
@@ -2113,12 +2113,12 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                 </button>
               </td>
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 77+ (livsvarig)
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 NaN
               </td>
@@ -2171,44 +2171,44 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 64 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 650 000 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 650 000 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 65 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 469 606 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 260 000 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 606 kr
               </td>
@@ -2217,20 +2217,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 66 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 810 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 810 kr
               </td>
@@ -2239,20 +2239,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 67 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2261,20 +2261,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 68 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2283,20 +2283,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 69 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2305,20 +2305,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 70 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2327,20 +2327,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 71 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2349,20 +2349,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 72 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2371,20 +2371,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 73 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2393,20 +2393,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 74 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2415,20 +2415,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 75 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2437,20 +2437,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 76 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2459,20 +2459,20 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 77 år
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
                 209 844 kr
               </td>
@@ -2481,18 +2481,18 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
               class="navds-table__row navds-table__row--shade-on-hover"
             >
               <td
-                class="navds-table__data-cell navds-body-short"
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
                 77+ (livsvarig)
               </td>
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
             </tr>
           </tbody>
@@ -2535,7 +2535,7 @@ exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat fe
         />
       </svg>
       <div
-        class="navds-alert__wrapper navds-body-long"
+        class="navds-alert__wrapper navds-body-long navds-body-long--medium"
       >
         <h2
           class="navds-heading navds-heading--small navds-typo--spacing"
@@ -2761,7 +2761,7 @@ exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat fe
       </button>
       <div
         aria-hidden="true"
-        class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+        class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
       >
         <table
           aria-live="polite"

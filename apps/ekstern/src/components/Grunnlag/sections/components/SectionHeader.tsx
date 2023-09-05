@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function SectionHeader({ label, isLoading, value }: Props) {
-  const renderedValue = isLoading ? <Loader /> : value
+  const renderedValue = isLoading ? <Loader data-testid="loader" /> : value
   return (
     <Accordion.Header>
       {label}

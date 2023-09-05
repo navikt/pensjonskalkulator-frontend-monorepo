@@ -50,16 +50,18 @@ describe('Pensjonssimulering-utils', () => {
       key: 0,
       produktbetegnelse: 'Egen Sparing',
       kategori: 'INDIVIDUELL_ORDNING',
-      startAlder: 67,
-      startMaaned: 1,
-      utbetalingsperiode: {
-        startAlder,
-        startMaaned,
-        sluttAlder,
-        sluttMaaned,
-        grad,
-        aarligUtbetaling: 100000,
-      },
+      startAlder,
+      sluttAlder,
+      utbetalingsperioder: [
+        {
+          startAlder,
+          startMaaned,
+          sluttAlder,
+          sluttMaaned,
+          grad,
+          aarligUtbetaling: 100000,
+        },
+      ],
     }
   }
 
@@ -103,18 +105,49 @@ describe('Pensjonssimulering-utils', () => {
       expect(processPensjonsavtalerArray(66, 1, '1963-04-30', [])).toEqual([0])
       expect(processPensjonsavtalerArray(66, 0, '1963-04-30', [])).toEqual([])
     })
-    it('returnerer riktig summer basert på fødselsmaaned med en eller flere avtaler', () => {
+    it('returnerer riktig summer basert på fødselsmaaned med en eller flere avtaler, eller med flere utbetalingsperioder', () => {
+      const avtale = createMockedPensjonsavtale({
+        startAlder: 67,
+        sluttAlder: 77,
+      })
       expect(
-        processPensjonsavtalerArray(66, 13, '1963-04-30', [
-          createMockedPensjonsavtale({ startAlder: 67, sluttAlder: 77 }),
-        ])
+        processPensjonsavtalerArray(66, 13, '1963-04-30', [{ ...avtale }])
       ).toEqual([
         0, 66666.66666666667, 100000, 100000, 100000, 100000, 100000, 100000,
         100000, 100000, 100000, 33333.333333333336, 0,
       ])
       expect(
         processPensjonsavtalerArray(66, 13, '1963-04-30', [
-          createMockedPensjonsavtale({ startAlder: 67, sluttAlder: 77 }),
+          { ...avtale },
+          createMockedPensjonsavtale({ startAlder: 70, sluttAlder: 78 }),
+        ])
+      ).toEqual([
+        0, 66666.66666666667, 100000, 100000, 166666.6666666667, 200000, 200000,
+        200000, 200000, 200000, 200000, 133333.33333333334, 33333.333333333336,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 13, '1963-04-30', [
+          {
+            ...avtale,
+            utbetalingsperioder: [
+              {
+                startAlder: 67,
+                startMaaned: 1,
+                sluttAlder: 70,
+                sluttMaaned: 0,
+                aarligUtbetaling: 100000,
+                grad: 100,
+              },
+              {
+                startAlder: 70,
+                startMaaned: 1,
+                sluttAlder: 77,
+                sluttMaaned: 0,
+                aarligUtbetaling: 100000,
+                grad: 100,
+              },
+            ],
+          },
           createMockedPensjonsavtale({ startAlder: 70, sluttAlder: 78 }),
         ])
       ).toEqual([
@@ -141,26 +174,55 @@ describe('Pensjonssimulering-utils', () => {
         200000, 200000, 200000, 200000, 200000, 133333.33333333334, 100000,
       ])
     })
-    it('returnerer riktig summer med graderte avtaler', () => {
+    it('returnerer riktig summer med graderte avtaler, eller graderte utbetalingsperioder', () => {
+      const avtale = createMockedPensjonsavtale({
+        startAlder: 67,
+        sluttAlder: 77,
+        grad: 50,
+      })
       expect(
-        processPensjonsavtalerArray(66, 13, '1963-04-30', [
-          createMockedPensjonsavtale({
-            startAlder: 67,
-            sluttAlder: 77,
-            grad: 50,
-          }),
-        ])
+        processPensjonsavtalerArray(66, 13, '1963-04-30', [{ ...avtale }])
       ).toEqual([
         0, 33333.333333333336, 50000, 50000, 50000, 50000, 50000, 50000, 50000,
         50000, 50000, 16666.666666666668, 0,
       ])
       expect(
         processPensjonsavtalerArray(66, 14, '1963-04-30', [
+          { ...avtale },
+          createMockedPensjonsavtale({ startAlder: 70, sluttAlder: 78 }),
           createMockedPensjonsavtale({
-            startAlder: 67,
-            sluttAlder: 77,
-            grad: 50,
+            startAlder: 75,
+            grad: 75,
           }),
+        ])
+      ).toEqual([
+        0, 33333.333333333336, 50000, 50000, 116666.66666666667, 150000, 150000,
+        150000, 150000, 200000, 225000, 191666.6666666667, 108333.33333333334,
+        75000,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 14, '1963-04-30', [
+          {
+            ...avtale,
+            utbetalingsperioder: [
+              {
+                startAlder: 67,
+                startMaaned: 1,
+                sluttAlder: 70,
+                sluttMaaned: 0,
+                aarligUtbetaling: 100000,
+                grad: 50,
+              },
+              {
+                startAlder: 70,
+                startMaaned: 1,
+                sluttAlder: 77,
+                sluttMaaned: 0,
+                aarligUtbetaling: 100000,
+                grad: 50,
+              },
+            ],
+          },
           createMockedPensjonsavtale({ startAlder: 70, sluttAlder: 78 }),
           createMockedPensjonsavtale({
             startAlder: 75,
@@ -379,14 +441,15 @@ describe('Pensjonssimulering-utils', () => {
       expect(alderArrayUnlimited).toEqual(maxArray)
     })
 
-    it('returnerer riktig array når pensjonsavtaler har ulike startAlder', () => {
-      const alderArray = generateXAxis(
+    it('returnerer riktig array når pensjonsavtaler har ulike startAlder, eller utbetalingsperioder med ulike startAlder', () => {
+      const avtale1 = createMockedPensjonsavtale({
+        startAlder: 68,
+        sluttAlder: 70,
+      })
+      const alderArray1 = generateXAxis(
         67,
         [
-          createMockedPensjonsavtale({
-            startAlder: 68,
-            sluttAlder: 70,
-          }),
+          { ...avtale1 },
           createMockedPensjonsavtale({
             startAlder: 70,
             sluttAlder: 72,
@@ -394,8 +457,45 @@ describe('Pensjonssimulering-utils', () => {
         ],
         setIsPensjonsavtaleFlagVisibleMock
       )
-      expect(alderArray).toHaveLength(13)
-      expect(alderArray).toEqual([
+      expect(alderArray1).toHaveLength(13)
+      expect(alderArray1).toEqual([
+        '66',
+        '67',
+        '68',
+        '69',
+        '70',
+        '71',
+        '72',
+        '73',
+        '74',
+        '75',
+        '76',
+        '77',
+        '77+',
+      ])
+
+      const alderArray2 = generateXAxis(
+        67,
+        [
+          {
+            ...avtale1,
+            utbetalingsperioder: [
+              ...avtale1.utbetalingsperioder,
+              {
+                startAlder: 70,
+                startMaaned: 1,
+                sluttAlder: 72,
+                sluttMaaned: 1,
+                aarligUtbetaling: 100000,
+                grad: 100,
+              },
+            ],
+          },
+        ],
+        setIsPensjonsavtaleFlagVisibleMock
+      )
+      expect(alderArray2).toHaveLength(13)
+      expect(alderArray2).toEqual([
         '66',
         '67',
         '68',

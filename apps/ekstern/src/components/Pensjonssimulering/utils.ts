@@ -7,6 +7,7 @@ import {
   Series,
   Tooltip,
   TooltipFormatterContextObject,
+  TooltipPositionerPointObject,
 } from 'highcharts'
 
 import { formatAsDecimal } from '@/utils/currency'
@@ -56,49 +57,51 @@ export const processPensjonsavtalerArray = (
   pensjonsavtaler: Pensjonsavtale[]
 ): number[] => {
   const d = new Date(foedsesldato)
-  const foedseslmaaned = d.getMonth() + 1
+  const foedselsmaaned = d.getMonth() + 1
 
   const sluttAlder = startAlder + length - 1
   const result = new Array(sluttAlder - startAlder + 1).fill(0)
 
   pensjonsavtaler.forEach((avtale) => {
-    const avtaleStartYear = Math.max(
-      startAlder,
-      avtale.utbetalingsperiode.startAlder
-    )
-    const avtaleEndYear = avtale.utbetalingsperiode.sluttAlder
-      ? Math.min(sluttAlder, avtale.utbetalingsperiode.sluttAlder)
-      : sluttAlder
+    avtale.utbetalingsperioder.forEach((utbetalingsperiode) => {
+      const avtaleStartYear = Math.max(
+        startAlder,
+        utbetalingsperiode.startAlder
+      )
+      const avtaleEndYear = utbetalingsperiode.sluttAlder
+        ? Math.min(sluttAlder, utbetalingsperiode.sluttAlder)
+        : sluttAlder
 
-    for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
-      if (year >= startAlder) {
-        const isFirstYear = year === avtaleStartYear
-        const isLastYear =
-          avtale.utbetalingsperiode.sluttAlder && year === avtaleEndYear
+      for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
+        if (year >= startAlder) {
+          const isFirstYear = year === avtaleStartYear
+          const isLastYear =
+            utbetalingsperiode.sluttAlder && year === avtaleEndYear
 
-        const startMonth = isFirstYear
-          ? foedseslmaaned + avtale.utbetalingsperiode.startMaaned
-          : 1
+          const startMonth = isFirstYear
+            ? foedselsmaaned + utbetalingsperiode.startMaaned
+            : 1
 
-        const endMonth =
-          isLastYear && avtale.utbetalingsperiode.sluttMaaned !== undefined
-            ? foedseslmaaned + avtale.utbetalingsperiode.sluttMaaned
-            : isLastYear && avtale.utbetalingsperiode.sluttMaaned === undefined
-            ? foedseslmaaned
-            : 12
+          const endMonth =
+            isLastYear && utbetalingsperiode.sluttMaaned !== undefined
+              ? foedselsmaaned + utbetalingsperiode.sluttMaaned
+              : isLastYear && utbetalingsperiode.sluttMaaned === undefined
+              ? foedselsmaaned
+              : 12
 
-        const monthsInYear =
-          endMonth <= 0 || endMonth > 12 ? 0 : endMonth - startMonth + 1
-        const allocatedAmount =
-          (avtale.utbetalingsperiode.aarligUtbetaling *
-            avtale.utbetalingsperiode.grad *
-            Math.max(0, monthsInYear)) /
-          100 /
-          12
+          const monthsInYear =
+            endMonth <= 0 || endMonth > 12 ? 0 : endMonth - startMonth + 1
+          const allocatedAmount =
+            (utbetalingsperiode.aarligUtbetaling *
+              utbetalingsperiode.grad *
+              Math.max(0, monthsInYear)) /
+            100 /
+            12
 
-        result[year - startAlder] += allocatedAmount
+          result[year - startAlder] += allocatedAmount
+        }
       }
-    }
+    })
   })
   return result
 }
@@ -112,15 +115,13 @@ export const generateXAxis = (
   let hasAvtaleBeforeStartAlder = false
 
   pensjonsavtaler.forEach((avtale) => {
-    if (
-      avtale.utbetalingsperiode.sluttAlder &&
-      avtale.utbetalingsperiode.sluttAlder > sluttAlder
-    ) {
-      sluttAlder = avtale.utbetalingsperiode.sluttAlder
+    if (avtale.sluttAlder && avtale.sluttAlder > sluttAlder) {
+      sluttAlder = avtale.sluttAlder
     }
     if (
       !hasAvtaleBeforeStartAlder &&
-      avtale.utbetalingsperiode.startAlder < startAlder
+      avtale.startAlder &&
+      avtale.startAlder < startAlder
     ) {
       hasAvtaleBeforeStartAlder = true
     }
@@ -161,6 +162,8 @@ export type ExtendedAxis = Axis & {
 export type ExtendedPoint = Point & {
   series: { data: string[] }
   percentage: number
+  stackTotal: number
+  tooltipPos: number[]
 }
 export type ExtendedTooltip = Tooltip & {
   isHidden: boolean
@@ -501,7 +504,7 @@ export const getChartOptions = (
       lineColor: 'var(--a-grayalpha-700)',
     },
     yAxis: {
-      offset: 28,
+      offset: 10,
       minorTickInterval: 200000,
       tickInterval: 200000,
       allowDecimals: false,
@@ -539,9 +542,26 @@ export const getChartOptions = (
     tooltip: {
       className: styles.tooltip,
       followTouchMove: false,
-      /* c8 ignore next 3 */
+      /* c8 ignore next 20 */
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
+      },
+      positioner: function (
+        labelWidth: number,
+        labelHeight: number,
+        point: TooltipPositionerPointObject
+      ) {
+        const hoverPoint = this.chart.hoverPoint as ExtendedPoint
+        const plotY = hoverPoint?.series.yAxis.toPixels(
+          hoverPoint.stackTotal,
+          true
+        )
+        const defaultPos = this.getPosition.apply(this, [
+          labelWidth,
+          labelHeight,
+          { ...point, plotY } as TooltipPositionerPointObject,
+        ])
+        return { ...defaultPos }
       },
       hideDelay: 9e9,
       padding: 0,
@@ -620,6 +640,7 @@ export const getChartOptions = (
               },
             },
             yAxis: {
+              offset: 28,
               title: {
                 text: 'Tusen kroner',
                 margin: -75,

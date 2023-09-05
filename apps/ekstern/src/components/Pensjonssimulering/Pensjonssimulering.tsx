@@ -125,10 +125,10 @@ export function Pensjonssimulering() {
 
   // Hent pensjonsavtaler
   useEffect(() => {
-    if (harSamtykket && startAlder && startMaaned) {
+    if (harSamtykket && startAlder) {
       const requestBody = generatePensjonsavtalerRequestBody({
         aar: startAlder,
-        maaned: startMaaned,
+        maaned: startMaaned ?? 1,
       })
       setPensjonsavtalerRequestBody(requestBody)
     }

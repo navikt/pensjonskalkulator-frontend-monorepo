@@ -10,7 +10,11 @@ import unleashDisableSpraakvelgerResponse from './data/unleash-disable-spraakvel
 
 export const getHandlers = (baseUrl: string = PATH) => [
   rest.post(`${baseUrl}/pensjonsavtaler`, async (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(pensjonsavtalerResponse))
+    return res(
+      ctx.status(200),
+      ctx.json(pensjonsavtalerResponse),
+      ctx.delay(30)
+    )
   }),
   rest.post(`${baseUrl}/tidligste-uttaksalder`, (req, res, ctx) => {
     return res(

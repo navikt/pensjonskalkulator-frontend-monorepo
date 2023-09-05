@@ -35,8 +35,8 @@ export function Pensjonsavtaler() {
     isSuccess,
   } = usePensjonsavtalerQuery(
     generatePensjonsavtalerRequestBody({
-      aar: startAlder ?? 0,
-      maaned: startMaaned ?? 0,
+      aar: startAlder as number,
+      maaned: startMaaned ?? 1,
     }),
     {
       skip: !harSamtykket || !startAlder,
@@ -90,7 +90,7 @@ export function Pensjonsavtaler() {
                       styles.tabellHeader__Right
                     )}
                   >
-                    Årlig utbetaling
+                    Årlig beløp
                   </th>
                 </tr>
               </thead>
@@ -110,23 +110,43 @@ export function Pensjonsavtaler() {
                       <tr key={avtale.key}>
                         <td className={styles.tabellCell}>
                           <BodyShort>Fra {avtale.produktbetegnelse}</BodyShort>
-                          <BodyShort className={styles.utbetaling}>
-                            {avtale.utbetalingsperiode.sluttAlder
-                              ? `Utbetales fra ${
-                                  avtale.utbetalingsperiode.startAlder
-                                } år ${getMaanedString(
-                                  avtale.utbetalingsperiode.startMaaned
-                                )} til ${
-                                  avtale.utbetalingsperiode.sluttAlder
-                                } år ${getMaanedString(
-                                  avtale.utbetalingsperiode.sluttMaaned
-                                )}`
-                              : `Livsvarig utbetaling fra ${
-                                  avtale.utbetalingsperiode.startAlder
-                                } år ${getMaanedString(
-                                  avtale.utbetalingsperiode.startMaaned
-                                )}`}
-                          </BodyShort>
+                          {avtale.utbetalingsperioder.map(
+                            (utbetalingsperiode) => {
+                              return (
+                                <BodyShort
+                                  key={`${utbetalingsperiode.startAlder}-${utbetalingsperiode.startMaaned}`}
+                                  className={styles.utbetaling}
+                                >
+                                  {utbetalingsperiode.sluttAlder
+                                    ? `${formatAsDecimal(
+                                        utbetalingsperiode.aarligUtbetaling
+                                      )} kr utbetales fra ${
+                                        utbetalingsperiode.startAlder
+                                      } år${getMaanedString(
+                                        utbetalingsperiode.startMaaned
+                                      )} til ${
+                                        utbetalingsperiode.sluttAlder
+                                      } år${
+                                        utbetalingsperiode.sluttMaaned &&
+                                        utbetalingsperiode.sluttMaaned > 1
+                                          ? getMaanedString(
+                                              utbetalingsperiode.sluttMaaned
+                                            )
+                                          : '.'
+                                      }`
+                                    : `Livsvarig utbetaling fra ${
+                                        utbetalingsperiode.startAlder
+                                      } år${
+                                        utbetalingsperiode.startMaaned > 1
+                                          ? getMaanedString(
+                                              utbetalingsperiode.startMaaned
+                                            )
+                                          : '.'
+                                      }`}
+                                </BodyShort>
+                              )
+                            }
+                          )}
                         </td>
                         <td
                           className={clsx(
@@ -135,10 +155,14 @@ export function Pensjonsavtaler() {
                           )}
                         >
                           <BodyShort>
-                            {formatAsDecimal(
-                              avtale.utbetalingsperiode.aarligUtbetaling
-                            )}
-                            kr
+                            {`${formatAsDecimal(
+                              avtale.utbetalingsperioder.reduce(function (
+                                acc,
+                                v
+                              ) {
+                                return acc + v.aarligUtbetaling
+                              }, 0)
+                            )} kr`}
                           </BodyShort>
                         </td>
                       </tr>
