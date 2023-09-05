@@ -52,10 +52,10 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
               </svg>
             </div>
             <div
-              class="navds-list__item-content navds-body-short"
+              class="navds-list__item-content navds-body-short navds-body-short--medium"
             >
               <p
-                class="navds-body-long"
+                class="navds-body-long navds-body-long--medium"
               >
                 error.404.list_item1
               </p>
@@ -86,10 +86,10 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
               </svg>
             </div>
             <div
-              class="navds-list__item-content navds-body-short"
+              class="navds-list__item-content navds-body-short navds-body-short--medium"
             >
               <p
-                class="navds-body-long"
+                class="navds-body-long navds-body-long--medium"
               >
                 error.404.list_item2
               </p>

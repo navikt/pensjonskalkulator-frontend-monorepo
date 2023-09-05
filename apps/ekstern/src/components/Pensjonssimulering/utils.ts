@@ -520,7 +520,7 @@ export const getChartOptions = (
       lineColor: 'var(--a-grayalpha-700)',
     },
     yAxis: {
-      offset: 28,
+      offset: 10,
       minorTickInterval: 200000,
       tickInterval: 200000,
       allowDecimals: false,
@@ -656,6 +656,7 @@ export const getChartOptions = (
               },
             },
             yAxis: {
+              offset: 28,
               title: {
                 text: 'Tusen kroner',
                 margin: -75,

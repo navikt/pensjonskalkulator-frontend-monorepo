@@ -49,7 +49,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         </button>
         <div
           aria-hidden="true"
-          class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         >
           stegvisning.samtykke.readmore_ingress
           <br />
@@ -100,7 +100,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.samtykke.radio_ja
                 </span>
@@ -125,7 +125,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.samtykke.radio_nei
                 </span>

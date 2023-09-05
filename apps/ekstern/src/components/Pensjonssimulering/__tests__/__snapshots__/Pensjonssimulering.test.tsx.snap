@@ -222,7 +222,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
       </button>
       <div
         aria-hidden="true"
-        class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+        class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
       >
         <table
           aria-live="polite"

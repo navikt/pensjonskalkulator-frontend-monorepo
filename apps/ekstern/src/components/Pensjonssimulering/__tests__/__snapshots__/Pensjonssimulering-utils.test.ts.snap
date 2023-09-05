@@ -94,6 +94,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOpt
               },
               "x": 0,
             },
+            "offset": 28,
             "title": {
               "margin": -75,
               "style": {
@@ -182,7 +183,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOpt
     },
     "min": 0,
     "minorTickInterval": 200000,
-    "offset": 28,
+    "offset": 10,
     "tickInterval": 200000,
     "title": {
       "align": "high",

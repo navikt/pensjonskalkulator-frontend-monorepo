@@ -8,7 +8,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Pensjonsavtaler', () => {
   const currentSimulation: Simulation = {
@@ -18,7 +18,7 @@ describe('Pensjonsavtaler', () => {
     aarligInntekt: 0,
   }
 
-  it('rendrer tittel med 0 avtaler når avtalelisten er tom', () => {
+  it('rendrer tittel med 0 avtaler når avtalelisten er tom', async () => {
     mockResponse('/pensjonsavtaler', {
       status: 200,
       json: { avtaler: [], utilgjengeligeSelskap: [] },
@@ -33,9 +33,11 @@ describe('Pensjonsavtaler', () => {
         },
       },
     })
-    expect(
-      screen.queryByText('Pensjonsavtaler', { exact: false })
-    ).toBeVisible()
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Pensjonsavtaler', { exact: false })
+      ).toBeVisible()
+    })
   })
 
   it('viser riktig header og melding når brukeren ikke samtykker', async () => {
@@ -85,7 +87,7 @@ describe('Pensjonsavtaler', () => {
       ).toBeVisible()
     })
 
-    it('rendrer riktig med avtaler som bare har start dato', () => {
+    it('rendrer riktig med avtaler som bare har start dato', async () => {
       const avtale: Pensjonsavtale = {
         key: 0,
         produktbetegnelse: 'DNB',
@@ -117,13 +119,15 @@ describe('Pensjonsavtaler', () => {
           },
         },
       })
-      expect(
-        screen.queryByText('Pensjonsavtaler', { exact: false })
-      ).toBeVisible()
-      expect(asFragment()).toMatchSnapshot()
+      await waitFor(async () => {
+        expect(
+          await screen.findByText('Pensjonsavtaler', { exact: false })
+        ).toBeVisible()
+        expect(asFragment()).toMatchSnapshot()
+      })
     })
 
-    it('rendrer riktig med avtaler som har både start- og sluttdato', () => {
+    it('rendrer riktig med avtaler som har både start- og sluttdato', async () => {
       const avtale: Pensjonsavtale = {
         key: 0,
         produktbetegnelse: 'DNB',
@@ -159,10 +163,12 @@ describe('Pensjonsavtaler', () => {
           },
         },
       })
-      expect(
-        screen.queryByText('Pensjonsavtaler', { exact: false })
-      ).toBeVisible()
-      expect(asFragment()).toMatchSnapshot()
+      await waitFor(async () => {
+        expect(
+          await screen.findByText('Pensjonsavtaler', { exact: false })
+        ).toBeVisible()
+        expect(asFragment()).toMatchSnapshot()
+      })
     })
   })
 })
