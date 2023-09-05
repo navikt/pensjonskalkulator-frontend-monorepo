@@ -79,7 +79,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
       </span>
     </button>
     <div
-      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long"
+      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long navds-body-long--medium"
     />
   </div>
 </DocumentFragment>
@@ -164,7 +164,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
       </span>
     </button>
     <div
-      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long"
+      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long navds-body-long--medium"
     />
   </div>
 </DocumentFragment>

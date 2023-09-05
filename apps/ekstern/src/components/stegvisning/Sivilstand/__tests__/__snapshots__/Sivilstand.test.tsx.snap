@@ -47,7 +47,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.sivilstand.radio_ja
                 </span>
@@ -72,7 +72,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.sivilstand.radio_nei
                 </span>

@@ -12,12 +12,12 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       stegvisning.offentligtp.title
     </h2>
     <p
-      class="navds-body-long navds-typo--spacing"
+      class="navds-body-long navds-body-long--medium navds-typo--spacing"
     >
       stegvisning.offentligtp.ingress_1
     </p>
     <p
-      class="_lastIngress_f5c4aa navds-body-long"
+      class="_lastIngress_f5c4aa navds-body-long navds-body-long--medium"
     >
       stegvisning.offentligtp.ingress_2
     </p>
