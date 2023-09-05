@@ -20,23 +20,22 @@ export const AccordionItem: React.FC<IProps> = ({
   children,
   initialOpen = false,
 }) => {
-  const toggleOpenReducer: React.ReducerWithoutAction<boolean> = (
-    prevState
-  ) => {
-    if (prevState) {
-      logger('accordion lukket', {
-        tekst: name,
-      })
-      return false
-    } else {
+  const [isOpen, toggleOpen] = React.useReducer(
+    (prevOpen) => !prevOpen,
+    initialOpen
+  )
+
+  React.useEffect(() => {
+    if (isOpen) {
       logger('accordion åpnet', {
         tekst: name,
       })
-      return true
+    } else {
+      logger('accordion lukket', {
+        tekst: name,
+      })
     }
-  }
-
-  const [isOpen, toggleOpen] = React.useReducer(toggleOpenReducer, initialOpen)
+  }, [isOpen])
 
   return (
     <AccordionContext.Provider value={{ isOpen, toggleOpen }}>
