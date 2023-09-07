@@ -6,7 +6,7 @@ import { SectionHeader } from '@/components/Grunnlag/sections/components/Section
 
 export const Utenlandsopphold = () => {
   return (
-    <AccordionItem name="Utenlandsopphold">
+    <AccordionItem name="Grunnlag: Utenlandsopphold">
       <SectionHeader label="Utenlandsopphold" value="Ingen" />
       <SectionContent>
         <BodyLong>

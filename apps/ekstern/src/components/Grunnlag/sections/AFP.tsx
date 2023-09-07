@@ -7,7 +7,7 @@ import { SectionHeader } from './components/SectionHeader'
 
 export function AFP() {
   return (
-    <AccordionItem name="AFP">
+    <AccordionItem name="Grunnlag: AFP">
       <SectionHeader label="AFP" />
       <SectionContent>
         <BodyLong>

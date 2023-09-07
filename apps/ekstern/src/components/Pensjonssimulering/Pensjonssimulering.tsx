@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
 import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
-import { Button, ReadMore } from '@navikt/ds-react'
+import { Button } from '@navikt/ds-react'
 import Highcharts, { SeriesColumnOptions, XAxisOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
@@ -31,6 +31,7 @@ import {
 } from './utils'
 
 import styles from './Pensjonssimulering.module.scss'
+import { ReadMore } from '../components/ReadMore'
 
 type PensjonssimuleringProps = {
   uttaksalder: number
@@ -38,17 +39,17 @@ type PensjonssimuleringProps = {
 
 export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
-    useState<boolean>(false)
+    React.useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
-    useState<boolean>(false)
+    React.useState<boolean>(false)
 
-  const [chartOptions, setChartOptions] = useState<Highcharts.Options>(
+  const [chartOptions, setChartOptions] = React.useState<Highcharts.Options>(
     getChartOptions(styles, setShowVisFlereAarButton, setShowVisFaerreAarButton)
   )
-  const [isVisTabellOpen, setVisTabellOpen] = useState<boolean>(false)
-  const chartRef = useRef<HighchartsReact.RefObject>(null)
+  const [isVisTabellOpen, setVisTabellOpen] = React.useState<boolean>(false)
+  const chartRef = React.useRef<HighchartsReact.RefObject>(null)
 
-  useEffect(() => {
+  React.useEffect(() => {
     function onPointUnclickEventHandler(e: Event) {
       onPointUnclick(e, chartRef.current?.chart)
     }
@@ -57,7 +58,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
       document.removeEventListener('click', onPointUnclickEventHandler)
   }, [])
 
-  useEffect(() => {
+  React.useEffect(() => {
     const aarArray = generateXAxis(uttaksalder, MAX_UTTAKSALDER)
     setChartOptions({
       chart: {
@@ -148,6 +149,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
         </div>
       </div>
       <ReadMore
+        name="Tabell av beregningen"
         header={
           isVisTabellOpen
             ? 'Lukk tabell av beregningen'
@@ -159,6 +161,7 @@ export function Pensjonssimulering({ uttaksalder }: PensjonssimuleringProps) {
           setVisTabellOpen(!isVisTabellOpen)
         }}
       >
+        <></>
         <TabellVisning
           series={chartOptions.series as SeriesColumnOptions[]}
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}

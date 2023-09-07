@@ -23,6 +23,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
           type="button"
         >
           <svg

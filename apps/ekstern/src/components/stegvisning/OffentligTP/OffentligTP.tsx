@@ -6,6 +6,7 @@ import { BodyLong, Button, Heading } from '@navikt/ds-react'
 import { Card } from '@/components/components/Card'
 
 import styles from './OffentligTP.module.scss'
+import { wrapLogger } from '@/utils/logging'
 
 interface Props {
   onCancel: () => void
@@ -45,7 +46,7 @@ export function OffentligTP({
         type="button"
         className={styles.button}
         variant="secondary"
-        onClick={onPrevious}
+        onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
       >
         <FormattedMessage id="stegvisning.tilbake" />
       </Button>
@@ -53,7 +54,7 @@ export function OffentligTP({
         type="button"
         className={styles.button}
         variant="tertiary"
-        onClick={onCancel}
+        onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
       >
         <FormattedMessage id="stegvisning.avbryt" />
       </Button>

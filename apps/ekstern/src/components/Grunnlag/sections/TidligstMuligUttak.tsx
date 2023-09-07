@@ -11,7 +11,7 @@ interface Props {
 
 export function TidligstMuligUttak({ uttaksalder }: Props) {
   return (
-    <AccordionItem name="Tidligst mulig uttak">
+    <AccordionItem name="Grunnlag: Tidligst mulig uttak">
       <SectionHeader
         label="Tidligst mulig uttak"
         value={formatUttaksalder(uttaksalder, { compact: true })}

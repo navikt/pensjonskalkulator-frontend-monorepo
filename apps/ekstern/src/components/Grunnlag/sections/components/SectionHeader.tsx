@@ -14,7 +14,7 @@ interface Props {
 export function SectionHeader({ label, value }: Props) {
   const { toggleOpen } = React.useContext(AccordionContext)
   return (
-    <Accordion.Header onClick={toggleOpen}>
+    <Accordion.Header data-testid="accordion-header" onClick={toggleOpen}>
       {label}
       {value && (
         <>

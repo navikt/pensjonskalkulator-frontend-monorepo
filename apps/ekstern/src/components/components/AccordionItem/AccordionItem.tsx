@@ -12,6 +12,7 @@ interface IProps {
 
 export const AccordionContext = React.createContext({
   isOpen: false,
+  /* c8 ignore next 1 - Treffer aldri siden Aksel vil kaste feil dersom Accordion.Item ikke er i en Accordion */
   toggleOpen: () => console.warn('Context not initialized'),
 })
 
@@ -20,13 +21,11 @@ export const AccordionItem: React.FC<IProps> = ({
   children,
   initialOpen = false,
 }) => {
-  const [isOpen, toggleOpen] = React.useReducer(
-    (prevOpen) => !prevOpen,
-    initialOpen
-  )
-
-  React.useEffect(() => {
-    if (isOpen) {
+  const toggleOpenReducer: React.ReducerWithoutAction<boolean> = (
+    prevState
+  ) => {
+    const newState = !prevState
+    if (newState) {
       logger('accordion åpnet', {
         tekst: name,
       })
@@ -35,7 +34,10 @@ export const AccordionItem: React.FC<IProps> = ({
         tekst: name,
       })
     }
-  }, [isOpen])
+
+    return newState
+  }
+  const [isOpen, toggleOpen] = React.useReducer(toggleOpenReducer, initialOpen)
 
   return (
     <AccordionContext.Provider value={{ isOpen, toggleOpen }}>

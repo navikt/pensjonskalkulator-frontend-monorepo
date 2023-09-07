@@ -6,6 +6,7 @@ import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/components/Card'
 
 import styles from './Start.module.scss'
+import { wrapLogger } from '@/utils/logging'
 
 interface Props {
   fornavn: string
@@ -33,7 +34,11 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           <Button type="submit" className={styles.button} onClick={onNext}>
             <FormattedMessage id="stegvisning.start.start" />
           </Button>
-          <Button type="button" variant="tertiary" onClick={onCancel}>
+          <Button
+            type="button"
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
             <FormattedMessage id="stegvisning.avbryt" />
           </Button>
         </div>

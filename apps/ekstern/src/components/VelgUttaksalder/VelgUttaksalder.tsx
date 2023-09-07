@@ -39,9 +39,9 @@ export const VelgUttaksalder: React.FC<Props> = ({
     pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
     // TODO: Sende alder som strukturert data?
-    logger('skjema spørsmål besvart', {
-      svar: alderChip,
-      skjemanavn: 'naar-vil-du-ta-ut-alderspensjon',
+    logger('chip valgt', {
+      tekst: 'Når vil du ta ut alderspensjon?',
+      data: alderChip,
     })
   }
 

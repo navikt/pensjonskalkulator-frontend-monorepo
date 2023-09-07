@@ -810,6 +810,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
       <button
         aria-expanded="false"
         class="navds-read-more__button navds-body-short"
+        data-testid="readmore"
         type="button"
       >
         <svg

@@ -18,7 +18,10 @@ export function Sivilstand() {
   )
 
   return (
-    <AccordionItem name="Sivilstand" data-testid="accordion-sivilstand">
+    <AccordionItem
+      name="Gunnlag: Sivilstand"
+      data-testid="accordion-sivilstand"
+    >
       <SectionHeader
         label="Sivilstand"
         value={isSuccess ? formatertSivilstand : 'Kunne ikke hentes'}

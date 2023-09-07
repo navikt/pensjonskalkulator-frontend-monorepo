@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 import styles from './TilbakeEllerAvslutt.module.scss'
+import { wrapLogger } from '@/utils/logging'
 
 export function TilbakeEllerAvslutt() {
   const dispatch = useAppDispatch()
@@ -27,14 +28,18 @@ export function TilbakeEllerAvslutt() {
         <Button
           variant="secondary"
           className={styles.button}
-          onClick={onResetClick}
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake til start' })(
+            onResetClick
+          )}
         >
           Tilbake til start
         </Button>
         <Button
           variant="tertiary"
           className={`${styles.button} ${styles.button__avbryt}`}
-          onClick={onCancelClick}
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
+            onCancelClick
+          )}
         >
           Avbryt
         </Button>

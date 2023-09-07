@@ -12,7 +12,7 @@ interface Props {
 
 export function Alderspensjon({ alderspensjon }: Props) {
   return (
-    <AccordionItem name="Alderspensjon (NAV)">
+    <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
       <SectionHeader
         label="Alderspensjon (NAV)"
         value={`${formatAsDecimal(alderspensjon)} kr`}

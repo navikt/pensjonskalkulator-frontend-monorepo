@@ -23,7 +23,7 @@ interface Props {
 
 export function Uttaksgrad({ uttaksgrad }: Props) {
   return (
-    <AccordionItem name="Uttaksgrad">
+    <AccordionItem name="Grunnlag: Uttaksgrad">
       <SectionHeader label="Uttaksgrad" value={`${uttaksgrad} %`} />
       <SectionContent>
         <BodyLong>

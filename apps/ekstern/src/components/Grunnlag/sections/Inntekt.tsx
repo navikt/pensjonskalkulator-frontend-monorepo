@@ -14,7 +14,7 @@ interface Props {
 
 export function Inntekt({ inntekt }: Props) {
   return (
-    <AccordionItem name="Inntekt">
+    <AccordionItem name="Grunnlag: Inntekt">
       <SectionHeader
         label="Inntekt"
         value={`${formatAsDecimal(inntekt)} kr før uttak`}

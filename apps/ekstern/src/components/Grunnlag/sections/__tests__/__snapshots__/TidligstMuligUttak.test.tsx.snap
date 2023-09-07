@@ -8,6 +8,7 @@ exports[`TidligstMuligUttak > rendrer riktig tittel med formatert uttaksalder og
     <button
       aria-expanded="true"
       class="navds-accordion__header"
+      data-testid="accordion-header"
       type="button"
     >
       <div
