@@ -34,7 +34,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOpt
       "zIndex": 0,
     },
     "layout": "horizontal",
-    "margin": 8,
+    "margin": 0,
     "padding": 0,
     "useHTML": true,
     "verticalAlign": "bottom",
@@ -166,6 +166,7 @@ exports[`Pensjonssimulering-utils > onPointClick og onPointUnclick > getChartOpt
         "fontSize": "var(--a-font-size-medium)",
       },
       "text": "Årlig inntekt og pensjon etter uttak",
+      "y": -5,
     },
   },
   "yAxis": {

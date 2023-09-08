@@ -497,6 +497,7 @@ export const getChartOptions = (
       title: {
         text: 'Årlig inntekt og pensjon etter uttak',
         align: 'high',
+        y: -5,
         style: {
           fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
@@ -575,7 +576,7 @@ export const getChartOptions = (
       x: 0,
       y: -25,
       padding: 0,
-      margin: 8,
+      margin: 0,
       layout: 'horizontal',
       align: 'left',
       verticalAlign: 'bottom',
