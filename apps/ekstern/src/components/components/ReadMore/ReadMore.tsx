@@ -42,10 +42,8 @@ export const ReadMore: React.FC<IProps> = ({
 
   const wrappedOnClick = React.useCallback(() => {
     // Inversert da det er en antagelse at onClick endrer state
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Er definert siden man aldri vil kalle denne dersom isControlled er false
-    logIsOpen(name, !open!)
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Er definert siden man aldri vil kalle denne dersom isControlled er false
-    onClick!()
+    logIsOpen(name, !open as boolean)
+    !!onClick && onClick()
   }, [onClick])
 
   return (
