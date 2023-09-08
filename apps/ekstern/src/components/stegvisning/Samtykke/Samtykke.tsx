@@ -1,16 +1,11 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import {
-  BodyLong,
-  Button,
-  Heading,
-  Radio,
-  RadioGroup,
-  ReadMore,
-} from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
+import { ReadMore } from '@/components/components/ReadMore/ReadMore'
+import logger, { wrapLogger } from '@/utils/logging'
 
 import styles from './Samtykke.module.scss'
 
@@ -36,7 +31,7 @@ export function Samtykke({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const samtykkeData = data.get('samtykke')
+    const samtykkeData = data.get('samtykke') as SamtykkeRadio | undefined
 
     if (!samtykkeData) {
       setValidationError(
@@ -45,7 +40,11 @@ export function Samtykke({
         })
       )
     } else {
-      onNext(samtykkeData as SamtykkeRadio)
+      logger('radiogroup valgt', {
+        tekst: 'Samtykke',
+        valg: samtykkeData,
+      })
+      onNext(samtykkeData)
     }
   }
 
@@ -63,6 +62,7 @@ export function Samtykke({
           <FormattedMessage id="stegvisning.samtykke.ingress" />
         </BodyLong>
         <ReadMore
+          name="Disse opplysningene henter vi"
           className={styles.readmore}
           header={<FormattedMessage id="stegvisning.samtykke.readmore_title" />}
         >
@@ -109,7 +109,7 @@ export function Samtykke({
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={onPrevious}
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
@@ -117,7 +117,7 @@ export function Samtykke({
           type="button"
           className={styles.button}
           variant="tertiary"
-          onClick={onCancel}
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>

@@ -726,6 +726,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
       <button
         aria-expanded="false"
         class="navds-read-more__button navds-body-short"
+        data-testid="readmore"
         type="button"
       >
         <svg
@@ -2735,6 +2736,7 @@ exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat fe
       <button
         aria-expanded="false"
         class="navds-read-more__button navds-body-short"
+        data-testid="readmore"
         type="button"
       >
         <svg

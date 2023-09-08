@@ -1,11 +1,12 @@
-import { Accordion, BodyLong, Link } from '@navikt/ds-react'
+import { BodyLong, Link } from '@navikt/ds-react'
 
+import { AccordionItem } from '@/components/components/AccordionItem'
 import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
 import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
 
 export const Utenlandsopphold = () => {
   return (
-    <Accordion.Item>
+    <AccordionItem name="Grunnlag: Utenlandsopphold">
       <SectionHeader label="Utenlandsopphold" value="Ingen" />
       <SectionContent>
         <BodyLong>
@@ -14,6 +15,6 @@ export const Utenlandsopphold = () => {
           <Link>avansert kalkulator.</Link>
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

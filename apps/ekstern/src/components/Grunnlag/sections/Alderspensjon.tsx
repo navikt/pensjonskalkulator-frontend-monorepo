@@ -1,11 +1,13 @@
-import { Accordion, BodyLong, Link } from '@navikt/ds-react'
+import { BodyLong, Link } from '@navikt/ds-react'
+
+import { AccordionItem } from '@/components/components/AccordionItem'
 
 import { SectionContent } from './components/SectionContent'
 import { SectionHeader } from './components/SectionHeader'
 
 export function Alderspensjon() {
   return (
-    <Accordion.Item>
+    <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
       <SectionHeader label="Alderspensjon (NAV)" value="Folketrygden (NAV)" />
       <SectionContent>
         <BodyLong>
@@ -24,6 +26,6 @@ export function Alderspensjon() {
           om hvordan din pensjon er beregnet.
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

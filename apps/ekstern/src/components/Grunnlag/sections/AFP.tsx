@@ -1,13 +1,13 @@
-import React from 'react'
+import { BodyLong, Link } from '@navikt/ds-react'
 
-import { Accordion, BodyLong, Link } from '@navikt/ds-react'
+import { AccordionItem } from '@/components/components/AccordionItem'
 
 import { SectionContent } from './components/SectionContent'
 import { SectionHeader } from './components/SectionHeader'
 
 export function AFP() {
   return (
-    <Accordion.Item>
+    <AccordionItem name="Grunnlag: AFP">
       <SectionHeader label="AFP" />
       <SectionContent>
         <BodyLong>
@@ -21,6 +21,6 @@ export function AFP() {
           tjenestepensjonsordning.
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

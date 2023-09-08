@@ -4,6 +4,7 @@ import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/components/Card'
+import { wrapLogger } from '@/utils/logging'
 
 import styles from './Start.module.scss'
 
@@ -33,7 +34,11 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           <Button type="submit" className={styles.button} onClick={onNext}>
             <FormattedMessage id="stegvisning.start.start" />
           </Button>
-          <Button type="button" variant="tertiary" onClick={onCancel}>
+          <Button
+            type="button"
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
             <FormattedMessage id="stegvisning.avbryt" />
           </Button>
         </div>

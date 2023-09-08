@@ -1,11 +1,13 @@
 import { useMemo } from 'react'
 
-import { Accordion, BodyLong, Link } from '@navikt/ds-react'
+import { BodyLong, Link } from '@navikt/ds-react'
 
-import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
-import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
+import { AccordionItem } from '@/components/components/AccordionItem'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { formatSivilstand } from '@/utils/sivilstand'
+
+import { SectionContent } from './components/SectionContent'
+import { SectionHeader } from './components/SectionHeader'
 
 export function Sivilstand() {
   const { data: person, isSuccess } = useGetPersonQuery()
@@ -16,7 +18,10 @@ export function Sivilstand() {
   )
 
   return (
-    <Accordion.Item data-testid="accordion-sivilstand">
+    <AccordionItem
+      name="Gunnlag: Sivilstand"
+      data-testid="accordion-sivilstand"
+    >
       <SectionHeader
         label="Sivilstand"
         value={isSuccess ? formatertSivilstand : 'Kunne ikke hentes'}
@@ -30,6 +35,6 @@ export function Sivilstand() {
           <Link>Mer om garantipensjon og satser</Link>.
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

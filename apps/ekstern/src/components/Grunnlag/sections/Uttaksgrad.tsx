@@ -1,4 +1,8 @@
-import { Accordion, BodyLong } from '@navikt/ds-react'
+import React from 'react'
+
+import { BodyLong } from '@navikt/ds-react'
+
+import { AccordionItem } from '@/components/components/AccordionItem'
 
 import { SectionContent } from './components/SectionContent'
 import { SectionHeader } from './components/SectionHeader'
@@ -19,7 +23,7 @@ interface Props {
 
 export function Uttaksgrad({ uttaksgrad }: Props) {
   return (
-    <Accordion.Item>
+    <AccordionItem name="Grunnlag: Uttaksgrad">
       <SectionHeader label="Uttaksgrad" value={`${uttaksgrad} %`} />
       <SectionContent>
         <BodyLong>
@@ -30,6 +34,6 @@ export function Uttaksgrad({ uttaksgrad }: Props) {
           ut {uttaksgrad} %.
         </BodyLong>
       </SectionContent>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

@@ -4,10 +4,10 @@ import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Button, Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { useAppDispatch } from '@/state/hooks'
-import { useAppSelector } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import logger from '@/utils/logging'
 import { isViewPortMobile } from '@/utils/viewport'
 
 import { getFormaterteAldere } from './utils'
@@ -54,6 +54,10 @@ export const VelgUttaksalder: React.FC<Props> = ({
     React.useState<boolean>(false)
 
   const onAlderClick = (alder: string) => {
+    logger('chip valgt', {
+      tekst: 'Velg uttaksalder alder',
+      data: alder,
+    })
     dispatch(userInputActions.setFormatertUttaksalder(alder))
     pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }

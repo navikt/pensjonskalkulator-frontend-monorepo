@@ -23,6 +23,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
           type="button"
         >
           <svg
@@ -98,6 +99,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
           type="button"
         >
           <svg
@@ -323,6 +325,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
           type="button"
         >
           <svg
@@ -398,6 +401,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
           type="button"
         >
           <svg
@@ -622,6 +626,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
           type="button"
         >
           <svg
@@ -697,6 +702,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         <button
           aria-expanded="true"
           class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
           type="button"
         >
           <svg

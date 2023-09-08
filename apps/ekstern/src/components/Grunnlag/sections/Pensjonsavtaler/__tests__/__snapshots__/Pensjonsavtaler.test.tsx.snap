@@ -9,6 +9,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
     <button
       aria-expanded="false"
       class="navds-accordion__header"
+      data-testid="accordion-header"
       type="button"
     >
       <div
@@ -161,6 +162,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
     <button
       aria-expanded="false"
       class="navds-accordion__header"
+      data-testid="accordion-header"
       type="button"
     >
       <div

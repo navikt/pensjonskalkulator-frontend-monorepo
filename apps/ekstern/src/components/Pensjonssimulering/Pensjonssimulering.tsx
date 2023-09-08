@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { InformationSquareFillIcon } from '@navikt/aksel-icons'
 import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
-import { Alert, Button, Heading, ReadMore } from '@navikt/ds-react'
+import { Alert, Button, Heading } from '@navikt/ds-react'
 import Highcharts, {
   SeriesColumnOptions,
   SeriesOptionsType,
@@ -10,6 +10,7 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
+import { ReadMore } from '../components/ReadMore'
 import { Loader } from '@/components/components/Loader'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
@@ -268,6 +269,7 @@ export function Pensjonssimulering() {
         </div>
       )}
       <ReadMore
+        name="Tabell av beregningen"
         header={
           isVisTabellOpen
             ? 'Lukk tabell av beregningen'

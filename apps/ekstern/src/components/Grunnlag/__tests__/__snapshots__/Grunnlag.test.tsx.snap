@@ -28,6 +28,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
         <button
           aria-expanded="false"
           class="navds-accordion__header"
+          data-testid="accordion-header"
           type="button"
         >
           <div
@@ -91,6 +92,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
         <button
           aria-expanded="false"
           class="navds-accordion__header"
+          data-testid="accordion-header"
           type="button"
         >
           <div
@@ -148,6 +150,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
         <button
           aria-expanded="false"
           class="navds-accordion__header"
+          data-testid="accordion-header"
           type="button"
         >
           <div
@@ -201,11 +204,11 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
       </div>
       <div
         class="navds-accordion__item"
-        data-testid="accordion-sivilstand"
       >
         <button
           aria-expanded="false"
           class="navds-accordion__header"
+          data-testid="accordion-header"
           type="button"
         >
           <div
@@ -269,6 +272,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
         <button
           aria-expanded="false"
           class="navds-accordion__header"
+          data-testid="accordion-header"
           type="button"
         >
           <div
@@ -331,6 +335,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
         <button
           aria-expanded="false"
           class="navds-accordion__header"
+          data-testid="accordion-header"
           type="button"
         >
           <div
@@ -403,6 +408,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
         <button
           aria-expanded="false"
           class="navds-accordion__header"
+          data-testid="accordion-header"
           type="button"
         >
           <div
@@ -465,6 +471,7 @@ exports[`Grunnlag > viser alle seksjonene 1`] = `
         <button
           aria-expanded="false"
           class="navds-accordion__header"
+          data-testid="accordion-header"
           type="button"
         >
           <div

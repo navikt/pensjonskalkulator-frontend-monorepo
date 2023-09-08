@@ -10,10 +10,11 @@ import {
   Link,
   Radio,
   RadioGroup,
-  ReadMore,
 } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
+import { ReadMore } from '@/components/components/ReadMore'
+import logger, { wrapLogger } from '@/utils/logging'
 
 import styles from './AFP.module.scss'
 
@@ -33,7 +34,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const afpData = data.get('afp')
+    const afpData = data.get('afp') as AfpRadio | undefined
 
     if (!afpData) {
       setValidationError(
@@ -42,7 +43,11 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
         })
       )
     } else {
-      onNext(afpData as AfpRadio)
+      logger('radiogroup valgt', {
+        tekst: 'Rett til AFP',
+        valg: afpData,
+      })
+      onNext(afpData)
     }
   }
 
@@ -61,6 +66,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage id="stegvisning.afp.ingress" />
         </BodyLong>
         <ReadMore
+          name="Avtalefestet pensjon i privat sektor"
           className={styles.readmorePrivat}
           header={
             <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
@@ -100,6 +106,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           />
         </ReadMore>
         <ReadMore
+          name="Avtalefestet pensjon i offentlig sektor"
           className={styles.readmoreOffentlig}
           header={
             <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
@@ -158,7 +165,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={onPrevious}
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
@@ -166,7 +173,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           type="button"
           className={styles.button}
           variant="tertiary"
-          onClick={onCancel}
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>{' '}

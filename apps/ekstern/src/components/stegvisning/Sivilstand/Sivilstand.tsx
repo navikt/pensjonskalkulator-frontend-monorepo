@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
+import logger, { wrapLogger } from '@/utils/logging'
 import { formatSivilstand } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
@@ -37,7 +38,7 @@ export function Sivilstand({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const sivilstandData = data.get('sivilstand')
+    const sivilstandData = data.get('sivilstand') as SivilstandRadio | undefined
 
     if (!sivilstandData) {
       setValidationError(
@@ -46,7 +47,11 @@ export function Sivilstand({
         })
       )
     } else {
-      onNext(sivilstandData as SivilstandRadio)
+      logger('radiogroup valgt', {
+        tekst: 'Samboer',
+        valg: sivilstandData,
+      })
+      onNext(sivilstandData)
     }
   }
 
@@ -88,7 +93,7 @@ export function Sivilstand({
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={onPrevious}
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
@@ -96,7 +101,7 @@ export function Sivilstand({
           type="button"
           className={styles.button}
           variant="tertiary"
-          onClick={onCancel}
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>

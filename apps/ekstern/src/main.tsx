@@ -12,6 +12,8 @@ import { store } from './state/store'
 
 import './scss/designsystem.scss'
 
+import '@/utils/logging'
+
 const root = document.getElementById('root')
 
 if (!root) {
