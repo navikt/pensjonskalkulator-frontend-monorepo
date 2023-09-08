@@ -6,7 +6,7 @@ describe('ReadMore', () => {
   afterEach(() => {
     loggerTeardown()
   })
-  it('should open and close uncontrolled and log', async () => {
+  it('åpne og lukk som unkonrollert komponent og logg', async () => {
     const user = userEvent.setup()
     render(
       <ReadMore header="header" name="name">
@@ -28,7 +28,7 @@ describe('ReadMore', () => {
     )
   })
 
-  it('should open controlled and log', async () => {
+  it('åpne som en kontrollert komponent og logg', async () => {
     const user = userEvent.setup()
     let isOpen = false
     const toggleOpen = () => (isOpen = !isOpen)

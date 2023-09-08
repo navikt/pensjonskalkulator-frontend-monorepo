@@ -8,7 +8,7 @@ describe('AccordionItem', () => {
   afterEach(() => {
     loggerTeardown()
   })
-  it('should open and log', async () => {
+  it('åpne og logg', async () => {
     const user = userEvent.setup()
 
     render(
@@ -26,7 +26,7 @@ describe('AccordionItem', () => {
       expect.any(Object)
     )
   })
-  it('should close and log', async () => {
+  it('lukke og logg', async () => {
     const user = userEvent.setup()
 
     render(
