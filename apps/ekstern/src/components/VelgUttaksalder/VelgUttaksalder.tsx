@@ -8,6 +8,7 @@ import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { isViewPortMobile } from '@/utils/viewport'
 
 import { getFormaterteAldere } from './utils'
 
@@ -30,12 +31,12 @@ export const VelgUttaksalder: React.FC<Props> = ({
   const pinRef = React.useRef<HTMLDivElement>(null)
 
   const [isMobile, setIsMobile] = React.useState<boolean>(
-    window.innerWidth <= 768
+    isViewPortMobile(window.innerWidth)
   )
 
   React.useEffect(() => {
     function handleWindowSizeChange() {
-      setIsMobile(window.innerWidth <= 768)
+      setIsMobile(isViewPortMobile(window.innerWidth))
     }
     window.addEventListener('resize', handleWindowSizeChange)
     return () => {

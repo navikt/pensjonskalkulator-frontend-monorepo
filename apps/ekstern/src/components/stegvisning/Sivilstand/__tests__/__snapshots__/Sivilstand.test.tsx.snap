@@ -13,7 +13,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         stegvisning.sivilstand.title
       </h2>
       <p
-        class="_ingress_885e37 navds-ingress"
+        class="_ingress_885e37 navds-body-long navds-body-long--large"
       >
         stegvisning.sivilstand.ingress_1ugiftstegvisning.sivilstand.ingress_2
       </p>

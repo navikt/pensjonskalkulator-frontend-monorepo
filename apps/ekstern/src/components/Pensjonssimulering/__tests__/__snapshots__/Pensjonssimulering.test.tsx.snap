@@ -513,7 +513,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                     clip-path="url(#highcharts-27-)"
                     data-z-index="0.1"
                     opacity="1"
-                    transform="translate(NaN,44) scale(1 0.001)"
+                    transform="translate(NaN,44) scale(1 0.0010024649316718226)"
                   />
                   <g
                     class="highcharts-markers highcharts-series-0 highcharts-column-series"
