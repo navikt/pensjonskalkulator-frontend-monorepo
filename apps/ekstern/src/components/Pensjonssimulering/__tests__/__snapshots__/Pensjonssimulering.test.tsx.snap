@@ -1,12 +1,12 @@
 // Vitest Snapshot v1
 
-exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-knapper 1`] = `
+exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer som default med riktig tittel og chart, kun med alderspensjon og inntekt, og uten scroll-knapper 1`] = `
 <DocumentFragment>
   <section
     class="_section_2cd409"
   >
     <div
-      data-highcharts-chart="0"
+      data-highcharts-chart="2"
       style="overflow: visible;"
     >
       <div
@@ -71,7 +71,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 ry="0"
                 stroke="#999999"
                 stroke-width="0"
-                width="120"
+                width="54"
                 x="0"
                 y="0"
               />
@@ -100,40 +100,6 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-1"
                     data-z-index="1"
                     transform="translate(33,-5)"
-                  >
-                    <rect
-                      class="highcharts-point"
-                      data-z-index="3"
-                      fill="var(--a-purple-400)"
-                      height="14"
-                      rx="7"
-                      ry="7"
-                      width="14"
-                      x="1"
-                      y="6"
-                    />
-                  </g>
-                  <g
-                    class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-2"
-                    data-z-index="1"
-                    transform="translate(66,-5)"
-                  >
-                    <rect
-                      class="highcharts-point"
-                      data-z-index="3"
-                      fill="var(--a-green-400)"
-                      height="14"
-                      rx="7"
-                      ry="7"
-                      width="14"
-                      x="1"
-                      y="6"
-                    />
-                  </g>
-                  <g
-                    class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-3"
-                    data-z-index="1"
-                    transform="translate(99,-5)"
                   >
                     <rect
                       class="highcharts-point"
@@ -180,28 +146,6 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     data-z-index="2"
                     style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; z-index: 0;"
                   >
-                    Avtalefestet pensjon (AFP)
-                  </span>
-                </div>
-                <div
-                  class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-2"
-                  style="position: absolute; left: 66px; top: -5px; opacity: 1;"
-                >
-                  <span
-                    data-z-index="2"
-                    style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; z-index: 0;"
-                  >
-                    Pensjonsavtaler (arbeidsgiver)
-                  </span>
-                </div>
-                <div
-                  class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-3"
-                  style="position: absolute; left: 99px; top: -5px; opacity: 1;"
-                >
-                  <span
-                    data-z-index="2"
-                    style="position: absolute; font-family: var(--a-font-family); font-size: 14px; white-space: nowrap; color: rgb(0, 0, 0); cursor: default; text-decoration: none; text-overflow: ellipsis; font-weight: regular; z-index: 0; overflow: hidden; margin-left: 0px; margin-top: 0px; left: 21px; top: 5px; z-index: 0;"
-                  >
                     Alderspensjon (NAV)
                   </span>
                 </div>
@@ -219,7 +163,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
             <div
               class="highcharts-container "
               dir="ltr"
-              id="highcharts-0"
+              id="highcharts-8"
               style="position: relative; overflow: hidden; width: 600px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
             >
               <svg
@@ -238,7 +182,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 </desc>
                 <defs>
                   <filter
-                    id="highcharts-drop-shadow-0"
+                    id="highcharts-drop-shadow-2"
                   >
                     <fedropshadow
                       dx="1"
@@ -249,7 +193,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     />
                   </filter>
                   <clippath
-                    id="highcharts-1-"
+                    id="highcharts-9-"
                   >
                     <rect
                       fill="none"
@@ -260,12 +204,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                     />
                   </clippath>
                   <clippath
-                    id="highcharts-19-"
+                    id="highcharts-27-"
                   >
                     <rect
                       fill="none"
-                      height="NaNNaNNaNNaN"
-                      width="NaNNaNNaNNaN"
+                      height="NaNNaN"
+                      width="NaNNaN"
                       x="0"
                       y="0"
                     />
@@ -566,7 +510,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 >
                   <g
                     class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-19-)"
+                    clip-path="url(#highcharts-27-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -580,41 +524,13 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                   />
                   <g
                     class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-19-)"
+                    clip-path="url(#highcharts-27-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
                   />
                   <g
                     class="highcharts-markers highcharts-series-1 highcharts-column-series"
-                    clip-path="none"
-                    data-z-index="0.1"
-                    opacity="1"
-                    transform="translate(NaN,44) scale(1 1)"
-                  />
-                  <g
-                    class="highcharts-series highcharts-series-2 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-19-)"
-                    data-z-index="0.1"
-                    opacity="1"
-                    transform="translate(NaN,44) scale(1 0.001)"
-                  />
-                  <g
-                    class="highcharts-markers highcharts-series-2 highcharts-column-series"
-                    clip-path="none"
-                    data-z-index="0.1"
-                    opacity="1"
-                    transform="translate(NaN,44) scale(1 1)"
-                  />
-                  <g
-                    class="highcharts-series highcharts-series-3 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-19-)"
-                    data-z-index="0.1"
-                    opacity="1"
-                    transform="translate(NaN,44) scale(1 0.001)"
-                  />
-                  <g
-                    class="highcharts-markers highcharts-series-3 highcharts-column-series"
                     clip-path="none"
                     data-z-index="0.1"
                     opacity="1"
@@ -810,7 +726,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
       <button
         aria-expanded="false"
         class="navds-read-more__button navds-body-short"
-        data-testid="readmore"
+        name="Tabell av beregningen"
         type="button"
       >
         <svg
@@ -907,324 +823,6 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
               >
                 <button
-                  aria-controls="r1"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-r2"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-r2"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short"
-              >
-                64 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                650 000
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="r1"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        650 000
-                      </dd>
-                      <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
-              >
-                <button
-                  aria-controls="r3"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-r4"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-r4"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short"
-              >
-                65 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                315 000
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="r3"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        260 000
-                      </dd>
-                      <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        20 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        35 000
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
-              >
-                <button
-                  aria-controls="r5"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-r6"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-r6"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short"
-              >
-                66 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                345 000
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="r5"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        265 000
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
-              >
-                <button
                   aria-controls="r7"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
@@ -1258,12 +856,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                67 år
+                64 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                650 000
               </td>
             </tr>
             <tr
@@ -1293,23 +891,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        0
-                      </dd>
-                      <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
+                        650 000
                       </dd>
                       <dt>
                         Alderspensjon (NAV)
@@ -1317,7 +899,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        0
                       </dd>
                     </dl>
                   </div>
@@ -1364,12 +946,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                68 år
+                65 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                469 606
               </td>
             </tr>
             <tr
@@ -1399,23 +981,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        0
-                      </dd>
-                      <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
+                        260 000
                       </dd>
                       <dt>
                         Alderspensjon (NAV)
@@ -1423,7 +989,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 606
                       </dd>
                     </dl>
                   </div>
@@ -1470,12 +1036,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                69 år
+                66 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 810
               </td>
             </tr>
             <tr
@@ -1508,28 +1074,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 810
                       </dd>
                     </dl>
                   </div>
@@ -1576,12 +1126,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                70 år
+                67 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 844
               </td>
             </tr>
             <tr
@@ -1614,28 +1164,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
                     </dl>
                   </div>
@@ -1682,12 +1216,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                71 år
+                68 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 844
               </td>
             </tr>
             <tr
@@ -1720,28 +1254,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
                     </dl>
                   </div>
@@ -1788,12 +1306,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                72 år
+                69 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 844
               </td>
             </tr>
             <tr
@@ -1826,28 +1344,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
                     </dl>
                   </div>
@@ -1894,12 +1396,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                73 år
+                70 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 844
               </td>
             </tr>
             <tr
@@ -1932,28 +1434,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
                     </dl>
                   </div>
@@ -2000,12 +1486,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                74 år
+                71 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 844
               </td>
             </tr>
             <tr
@@ -2038,28 +1524,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
                     </dl>
                   </div>
@@ -2106,12 +1576,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                75 år
+                72 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 844
               </td>
             </tr>
             <tr
@@ -2144,28 +1614,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
                     </dl>
                   </div>
@@ -2212,12 +1666,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                76 år
+                73 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 844
               </td>
             </tr>
             <tr
@@ -2250,28 +1704,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
                     </dl>
                   </div>
@@ -2318,12 +1756,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                77 år
+                74 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                437 000
+                209 844
               </td>
             </tr>
             <tr
@@ -2356,28 +1794,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        80 000
-                      </dd>
-                      <dt>
-                        Pensjonsavtaler (arbeidsgiver)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        92 000
-                      </dd>
-                      <dt>
                         Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
                     </dl>
                   </div>
@@ -2424,12 +1846,12 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell navds-body-short"
               >
-                77+ (livsvarig)
+                75 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                345 000
+                209 844
               </td>
             </tr>
             <tr
@@ -2462,15 +1884,89 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                         0
                       </dd>
                       <dt>
-                        Avtalefestet pensjon (AFP)
+                        Alderspensjon (NAV)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        80 000
+                        209 844
                       </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+              >
+                <button
+                  aria-controls="rv"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r10"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r10"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short"
+              >
+                76 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="rv"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
                       <dt>
-                        Pensjonsavtaler (arbeidsgiver)
+                        Inntekt (lønn m.m.)
                       </dt>
                       <dd
                         class="_detailsItemRight_15ff36"
@@ -2483,8 +1979,186 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        265 000
+                        209 844
                       </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+              >
+                <button
+                  aria-controls="r11"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r12"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r12"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short"
+              >
+                77 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+              >
+                209 844
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r11"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        209 844
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short"
+              >
+                <button
+                  aria-controls="r13"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r14"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r14"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short"
+              >
+                77+ (livsvarig)
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
+              >
+                NaN
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r13"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      />
                     </dl>
                   </div>
                 </div>
@@ -2515,12 +2189,6 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2533,7 +2201,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                315 000 kr
+                469 606 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2543,15 +2211,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                20 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                35 000 kr
+                209 606 kr
               </td>
             </tr>
             <tr
@@ -2565,7 +2225,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                345 000 kr
+                209 810 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2573,15 +2233,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              />
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 810 kr
               </td>
             </tr>
             <tr
@@ -2595,7 +2247,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2603,17 +2255,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2627,7 +2269,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2635,17 +2277,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2659,7 +2291,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2667,17 +2299,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2691,7 +2313,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2699,17 +2321,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2723,7 +2335,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2731,17 +2343,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2755,7 +2357,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2763,17 +2365,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2787,7 +2379,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2795,17 +2387,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2819,7 +2401,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2827,17 +2409,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2851,7 +2423,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2859,17 +2431,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2883,7 +2445,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2891,17 +2453,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2915,7 +2467,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
               >
-                437 000 kr
+                209 844 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
@@ -2923,17 +2475,7 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                92 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
+                209 844 kr
               </td>
             </tr>
             <tr
@@ -2946,27 +2488,347 @@ exports[`Pensjonssimulering > rendrer med riktig tittel og chart og uten scroll-
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short"
-              >
-                345 000 kr
-              </td>
+              />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                80 000 kr
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
               />
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short"
-              >
-                265 000 kr
-              </td>
             </tr>
           </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat feiler 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_2cd409"
+  >
+    <div
+      class="navds-alert navds-alert--error navds-alert--medium"
+    >
+      <svg
+        aria-labelledby="title-r4"
+        class="navds-alert__icon"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="title-r4"
+        >
+          Feil
+        </title>
+        <path
+          clip-rule="evenodd"
+          d="M7.742 2.47a.75.75 0 0 1 .53-.22h7.456a.75.75 0 0 1 .53.22l5.272 5.272c.141.14.22.331.22.53v7.456a.75.75 0 0 1-.22.53l-5.272 5.272a.75.75 0 0 1-.53.22H8.272a.75.75 0 0 1-.53-.22L2.47 16.258a.75.75 0 0 1-.22-.53V8.272a.75.75 0 0 1 .22-.53L7.742 2.47Zm1.288 5.5a.75.75 0 0 0-1.06 1.06L10.94 12l-2.97 2.97a.75.75 0 1 0 1.06 1.06L12 13.06l2.97 2.97a.75.75 0 1 0 1.06-1.06L13.06 12l2.97-2.97a.75.75 0 0 0-1.06-1.06L12 10.94 9.03 7.97Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <div
+        class="navds-alert__wrapper navds-body-long"
+      >
+        <h2
+          class="navds-heading navds-heading--small navds-typo--spacing"
+        >
+          TODO PEK-119 feilhåndtering Vi klarte ikke å simulere pensjonen din
+        </h2>
+      </div>
+    </div>
+    <div
+      data-highcharts-chart="1"
+      style="overflow: visible;"
+    >
+      <div
+        class="highcharts-scrolling-parent"
+        style="position: relative;"
+      >
+        <div
+          class="highcharts-fixed"
+          dir="ltr"
+          style="padding: 0px; margin: 0px; position: absolute; overflow: hidden; pointer-events: none; z-index: 2; top: 0px;"
+        >
+          <svg
+            class="highcharts-root"
+            height="400"
+            style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
+            version="1.1"
+            viewBox="0 0 600 400"
+            width="600"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <desc>
+              Created with Highcharts 11.1.0
+            </desc>
+            <defs />
+            <path
+              class="highcharts-scrollable-mask"
+              d="M 0 -1 L -1 -1 L -1 386 L 0 386 Z M 590 -1 L 600 -1 L 600 386 L 590 386 Z"
+              data-z-index="-1"
+              fill="#ffffff"
+              fill-opacity="0.85"
+            />
+            <g
+              class="highcharts-legend highcharts-no-tooltip"
+              data-z-index="7"
+              style="pointer-events: auto;"
+              visibility="hidden"
+            >
+              <rect
+                class="highcharts-legend-box"
+                fill="none"
+                filter="none"
+                rx="0"
+                ry="0"
+                stroke="#999999"
+                stroke-width="0"
+              />
+              <g
+                data-z-index="1"
+              >
+                <g />
+              </g>
+            </g>
+            <text
+              class="highcharts-subtitle"
+              data-z-index="4"
+              style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666; pointer-events: auto;"
+              text-anchor="middle"
+              x="295"
+              y="0"
+            />
+            <text
+              class="highcharts-title"
+              data-z-index="4"
+              style="font-size: 20px; color: rgb(51, 51, 51); font-weight: bold; font-family: var(--a-font-family); fill: #333333; pointer-events: auto;"
+              text-anchor="start"
+              x="0"
+              y="20"
+            >
+              Beregning
+            </text>
+          </svg>
+        </div>
+        <div
+          class="highcharts-scrolling"
+          style="overflow-x: auto; overflow-y: hidden; height: 400px;"
+        >
+          <div
+            class="highcharts-inner-container"
+          >
+            <div
+              class="highcharts-container "
+              dir="ltr"
+              id="highcharts-4"
+              style="position: relative; overflow: hidden; width: 750px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
+            >
+              <svg
+                aria-label="Beregning"
+                class="highcharts-root"
+                height="400"
+                role="img"
+                style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
+                version="1.1"
+                viewBox="0 0 750 400"
+                width="750"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <desc>
+                  Created with Highcharts 11.1.0
+                </desc>
+                <defs>
+                  <filter
+                    id="highcharts-drop-shadow-1"
+                  >
+                    <fedropshadow
+                      dx="1"
+                      dy="1"
+                      flood-color="#000000"
+                      flood-opacity="0.75"
+                      stdDeviation="2.5"
+                    />
+                  </filter>
+                  <clippath
+                    id="highcharts-5-"
+                  >
+                    <rect
+                      fill="none"
+                      height="385"
+                      width="740"
+                      x="0"
+                      y="0"
+                    />
+                  </clippath>
+                </defs>
+                <rect
+                  class="highcharts-background"
+                  fill="#ffffff"
+                  filter="none"
+                  height="400"
+                  rx="0"
+                  ry="0"
+                  width="750"
+                  x="0"
+                  y="0"
+                />
+                <rect
+                  class="highcharts-plot-background"
+                  fill="none"
+                  filter="none"
+                  height="385"
+                  width="740"
+                  x="0"
+                  y="0"
+                />
+                <rect
+                  class="highcharts-plot-border"
+                  data-z-index="1"
+                  fill="none"
+                  height="385"
+                  stroke="#cccccc"
+                  stroke-width="0"
+                  width="740"
+                  x="0"
+                  y="0"
+                />
+                <g
+                  class="highcharts-series-group"
+                  data-z-index="3"
+                  filter="none"
+                />
+                <text
+                  class="highcharts-caption"
+                  data-z-index="4"
+                  style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
+                  text-anchor="start"
+                  x="0"
+                  y="387"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_buttonRow_2cd409"
+    >
+      <div
+        class="_buttonRowElement_2cd409"
+      />
+      <div
+        class="_buttonRowElement_2cd409 _buttonRowElement__Right_2cd409"
+      />
+    </div>
+    <div
+      class="navds-read-more navds-read-more--medium _visTabell_2cd409"
+    >
+      <button
+        aria-expanded="false"
+        class="navds-read-more__button navds-body-short"
+        name="Tabell av beregningen"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="navds-read-more__expand-icon"
+          fill="none"
+          focusable="false"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+            fill="currentColor"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <span>
+          Vis tabell av beregningen
+        </span>
+      </button>
+      <div
+        aria-hidden="true"
+        class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+      >
+        <table
+          aria-live="polite"
+          class="navds-table navds-table--medium _table_15ff36"
+        >
+          <thead
+            class="navds-table__header"
+          >
+            <tr
+              class="navds-table__row navds-table__row--shade-on-hover"
+            >
+              <th
+                class="navds-table__header-cell navds-label _tableMobileOnly_15ff36"
+              />
+              <th
+                class="navds-table__header-cell navds-label"
+                scope="col"
+              >
+                Alder
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
+                scope="col"
+              >
+                Sum
+                <span
+                  class="_tableMobileOnly_15ff36"
+                >
+                   (kr)
+                </span>
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Inntekt
+                <br />
+                (lønn m.m.)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Avtalefestet pensjon (AFP)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Pensjonsavtaler (arbeidsgiver)
+              </th>
+              <th
+                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+                scope="col"
+              >
+                Alderspensjon (NAV)
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="navds-table__body _tableMobileOnly_15ff36"
+          />
+          <tbody
+            class="navds-table__body _tableDesktopOnly_15ff36"
+          />
         </table>
       </div>
     </div>

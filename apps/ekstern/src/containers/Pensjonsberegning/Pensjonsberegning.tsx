@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useIntl } from 'react-intl'
 
 import { Alert, Heading } from '@navikt/ds-react'
@@ -12,10 +12,14 @@ import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
+import { useAppSelector } from '@/state/hooks'
+import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
 
 import styles from './Pensjonsberegning.module.scss'
 
 export function Pensjonsberegning() {
+  const isAlderValgt = useAppSelector(selectFormatertUttaksalder) !== null
+
   const intl = useIntl()
   const {
     data: tidligstMuligUttak,
@@ -23,8 +27,6 @@ export function Pensjonsberegning() {
     isError,
     isSuccess,
   } = useTidligsteUttaksalderQuery()
-
-  const [valgtUttaksalder, setValgtUttaksalder] = useState<string | undefined>()
 
   useEffect(() => {
     document.title = intl.formatMessage({
@@ -59,28 +61,24 @@ export function Pensjonsberegning() {
         <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
       </div>
       {
-        // TODO etter merge - dette flyttes ut slik at containeren ikke har styles
+        // TODO etter merge - denne flyttes under routes/pages slik at containeren ikke har styles
       }
       <div
         className={clsx(styles.background, styles.background__hasMargin, {
-          [styles.background__white]: valgtUttaksalder,
+          [styles.background__white]: isAlderValgt,
         })}
       >
         <div className={styles.container}>
-          <VelgUttaksalder
-            tidligstMuligUttak={tidligstMuligUttak}
-            valgtUttaksalder={valgtUttaksalder}
-            setValgtUttaksalder={setValgtUttaksalder}
-          />
+          <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
         </div>
         {
           // TODO PEK-107 - sørge for at fokuset flyttes riktig og at skjermleseren leser opp i riktig rekkefølge etter valg av uttaksalder + at lasting er ferdig.
         }
-        {valgtUttaksalder && (
+        {isAlderValgt && (
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}
           >
-            <Pensjonssimulering uttaksalder={parseInt(valgtUttaksalder, 10)} />
+            <Pensjonssimulering />
             <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
             <Forbehold />
           </div>

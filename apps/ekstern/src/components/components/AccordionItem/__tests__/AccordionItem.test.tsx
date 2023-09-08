@@ -1,9 +1,8 @@
 import { AccordionItem } from '../AccordionItem'
-import { userEvent, render, screen } from '@/test-utils'
-import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
-import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
-import { vi } from 'vitest'
+import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
+import { userEvent, render, screen } from '@/test-utils'
+import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
 describe('AccordionItem', () => {
   afterEach(() => {

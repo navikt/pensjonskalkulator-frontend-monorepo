@@ -4,9 +4,9 @@ import { FormattedMessage } from 'react-intl'
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
+import { wrapLogger } from '@/utils/logging'
 
 import styles from './OffentligTP.module.scss'
-import { wrapLogger } from '@/utils/logging'
 
 interface Props {
   onCancel: () => void

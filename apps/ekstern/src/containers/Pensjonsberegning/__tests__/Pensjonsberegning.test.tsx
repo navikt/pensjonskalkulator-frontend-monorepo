@@ -1,7 +1,9 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { Pensjonsberegning } from '../Pensjonsberegning'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import * as apiSliceUtils from '@/state/api/apiSlice'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import {
   render,
   screen,
@@ -70,18 +72,106 @@ describe('Pensjonsberegning', () => {
     })
   })
 
-  it('oppdaterer valgt knapp og tegner graph når uttaksalder er valgt', async () => {
-    const { container } = render(<Pensjonsberegning />)
+  describe('Når brukeren velger uttaksalder', () => {
+    it('oppdaterer valgt knapp og tegner graph', async () => {
+      const user = userEvent.setup()
+      const { container } = render(<Pensjonsberegning />)
+      const button = await screen.findByText('68 år')
+      await user.click(button)
+      expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
+        '68 år'
+      )
+      expect(
+        container.getElementsByClassName('highcharts-container').length
+      ).toBe(1)
+    })
 
-    const button = await screen.findByText('68 år')
+    it('henter ikke pensjonsavtaler når brukeren ikke har samtykket', async () => {
+      const user = userEvent.setup()
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap,
+        'initiate'
+      )
+      render(<Pensjonsberegning />, {
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: false },
+        },
+      })
+      const button = await screen.findByText('68 år')
+      await user.click(button)
+      expect(initiateMock).not.toHaveBeenCalled()
+    })
 
-    await userEvent.click(button)
+    it('henter pensjonsavtaler med riktig år og måned og viser dem når brukeren har samtykket', async () => {
+      const usePensjonsavtalerQueryMock = vi.spyOn(
+        apiSliceUtils,
+        'usePensjonsavtalerQuery'
+      )
+      const user = userEvent.setup()
+      render(<Pensjonsberegning />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+          },
+        },
+      })
 
-    expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '68 år'
-    )
-    expect(
-      container.getElementsByClassName('highcharts-container').length
-    ).toBe(1)
+      const buttons = await screen.findAllByRole('button')
+      expect(buttons).toHaveLength(12)
+      await user.click(buttons[2])
+      await waitFor(async () => {
+        expect(await screen.findByTestId('pensjonsavtaler')).toBeInTheDocument()
+        expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
+          antallInntektsaarEtterUttak: 0,
+          uttaksperioder: [
+            {
+              startAlder: 68,
+              startMaaned: 1,
+              aarligInntekt: 0,
+              grad: 100,
+            },
+          ],
+        })
+      })
+      await user.click(buttons[1])
+      await waitFor(async () => {
+        expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
+          antallInntektsaarEtterUttak: 0,
+          uttaksperioder: [
+            {
+              startAlder: 67,
+              startMaaned: 3,
+              aarligInntekt: 0,
+              grad: 100,
+            },
+          ],
+        })
+      })
+    })
+
+    it('henter pensjonsavtaler og viser riktig feilmelding ved feil', async () => {
+      const user = userEvent.setup()
+      mockErrorResponse('/pensjonsavtaler', {
+        status: 500,
+        json: "Beep boop I'm an error!",
+        method: 'post',
+      })
+      render(<Pensjonsberegning />, {
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: true },
+        },
+      })
+      const button = await screen.findByText('68 år')
+      await user.click(button)
+
+      await waitFor(async () => {
+        expect(
+          await screen.findByText(
+            'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.'
+          )
+        ).toBeVisible()
+      })
+    })
   })
 })

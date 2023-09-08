@@ -5,9 +5,9 @@ import { Button } from '@navikt/ds-react'
 import { externalUrls, paths } from '@/routes'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { wrapLogger } from '@/utils/logging'
 
 import styles from './TilbakeEllerAvslutt.module.scss'
-import { wrapLogger } from '@/utils/logging'
 
 export function TilbakeEllerAvslutt() {
   const dispatch = useAppDispatch()

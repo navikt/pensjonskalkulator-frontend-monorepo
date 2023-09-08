@@ -9,7 +9,7 @@ import {
 } from '@reduxjs/toolkit'
 
 import { apiSlice } from './api/apiSlice'
-// import { createSamtykkeListener } from './listeners/samtykkeListener'
+import { createUttaksalderListener } from './listeners/uttaksalderListener'
 import userInputReducer from './userInput/userInputReducer'
 
 const listenerMiddleware = createListenerMiddleware()
@@ -37,7 +37,9 @@ export function setupStore(
 
 export const store = setupStore()
 
-// createSamtykkeListener(listenerMiddleware.startListening as AppStartListening)
+createUttaksalderListener(
+  listenerMiddleware.startListening as AppStartListening
+)
 
 export type RootState = ReturnType<typeof rootReducer>
 export type AppStore = ReturnType<typeof setupStore>

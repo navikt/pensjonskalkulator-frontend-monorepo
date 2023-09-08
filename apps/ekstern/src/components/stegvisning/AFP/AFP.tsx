@@ -13,10 +13,10 @@ import {
 } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
+import { ReadMore } from '@/components/components/ReadMore'
+import logger, { wrapLogger } from '@/utils/logging'
 
 import styles from './AFP.module.scss'
-import logger, { wrapLogger } from '@/utils/logging'
-import { ReadMore } from '@/components/components/ReadMore'
 
 interface Props {
   afp: AfpRadio | null
@@ -24,8 +24,6 @@ interface Props {
   onPrevious: () => void
   onNext: (afpData: AfpRadio) => void
 }
-
-export type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
 
 export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()

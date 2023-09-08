@@ -4,9 +4,9 @@ import { Ingress, Button, Heading } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/components/Card'
+import { wrapLogger } from '@/utils/logging'
 
 import styles from './Start.module.scss'
-import { wrapLogger } from '@/utils/logging'
 
 interface Props {
   fornavn: string

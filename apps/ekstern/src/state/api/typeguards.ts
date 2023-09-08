@@ -8,33 +8,62 @@ export const isPensjonsberegningArray = (
     data.every(
       (beregning) =>
         typeof beregning.alder === 'number' &&
-        typeof beregning.belop === 'number'
+        typeof beregning.beloep === 'number'
     )
   )
 }
 
-export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
+export const isUtbetalingsperiode = (
+  data?: any
+): data is Utbetalingsperiode => {
+  if (data === null || data === undefined) {
+    return false
+  }
+  const harFeilSluttAlder =
+    data.sluttAlder && typeof data.sluttAlder !== 'number'
+  const harFeilSluttMaaned =
+    data.sluttMaaned && typeof data.sluttMaaned !== 'number'
   return (
-    data !== null &&
-    data !== undefined &&
+    data.startAlder &&
+    typeof data.startAlder === 'number' &&
+    data.startMaaned &&
+    typeof data.startMaaned === 'number' &&
+    data.grad &&
+    typeof data.grad === 'number' &&
+    data.aarligUtbetaling &&
+    typeof data.aarligUtbetaling === 'number' &&
+    !harFeilSluttAlder &&
+    !harFeilSluttMaaned
+  )
+}
+
+export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
+  if (data === null || data === undefined) {
+    return false
+  }
+  const harFeilUtbetalingsperiode =
+    data.utbetalingsperioder !== undefined &&
+    Array.isArray(data.utbetalingsperioder) &&
+    data.utbetalingsperioder.some(
+      (utbetalingsperiode: Utbetalingsperiode) =>
+        !isUtbetalingsperiode(utbetalingsperiode)
+    )
+
+  const harFeilStartAlder =
+    data.startAlder && typeof data.startAlder !== 'number'
+  const harFeilSluttAlder =
+    data.sluttAlder && typeof data.sluttAlder !== 'number'
+
+  return (
     !Array.isArray(data) &&
     data.produktbetegnelse &&
     typeof data.produktbetegnelse === 'string' &&
     data.kategori &&
     isSomeEnumKey(PensjonsavtaleKategori)(data.kategori) &&
-    data.startAlder &&
-    typeof data.startAlder === 'number' &&
-    data.startMaaned &&
-    typeof data.startMaaned === 'number' &&
-    data.utbetalingsperiode &&
-    data.utbetalingsperiode.startAlder &&
-    typeof data.utbetalingsperiode.startAlder === 'number' &&
-    data.utbetalingsperiode.startMaaned &&
-    typeof data.utbetalingsperiode.startMaaned === 'number' &&
-    data.utbetalingsperiode.grad &&
-    typeof data.utbetalingsperiode.grad === 'number' &&
-    data.utbetalingsperiode.aarligUtbetaling &&
-    typeof data.utbetalingsperiode.aarligUtbetaling === 'number'
+    Array.isArray(data.utbetalingsperioder) &&
+    !harFeilUtbetalingsperiode &&
+    !harFeilStartAlder &&
+    !harFeilSluttAlder
   )
 }
 

@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js v19.6.0
         uses: actions/setup-node@v3
@@ -61,7 +61,7 @@ jobs:
       fail-fast: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js v19.6.0
         uses: actions/setup-node@v3
@@ -101,7 +101,7 @@ jobs:
       fail-fast: true
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js v19.6.0
         uses: actions/setup-node@v3
@@ -153,13 +153,14 @@ jobs:
 
   deploy-to-dev:
     name: Deploy to dev-gcp
+    permissions: write-all
     runs-on: ubuntu-latest
     needs: [ run-unit-tests, run-integration-tests ]
     env:
       IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend:${{ github.sha }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download the build folders
         uses: actions/download-artifact@v3

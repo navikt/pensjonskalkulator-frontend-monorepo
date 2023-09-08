@@ -10,8 +10,8 @@ function TestComponent() {
   return <div data-testid="test-component">lorem ipsum</div>
 }
 
-describe('events', () => {
-  it('addSelfDestructingEventListener legger til og fjerner event listener', async () => {
+describe('events-utils', () => {
+  it('addSelfDestructingEventListener legger til og fjerner events', async () => {
     const user = userEvent.setup()
     const cbMock = vi.fn()
     const removeEventListenerMock = vi.fn()

@@ -4,10 +4,10 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
+import logger, { wrapLogger } from '@/utils/logging'
 import { formatSivilstand } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
-import logger, { wrapLogger } from '@/utils/logging'
 
 interface Props {
   sivilstand: Sivilstand

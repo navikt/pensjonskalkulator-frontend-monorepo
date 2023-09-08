@@ -11,71 +11,12 @@ import { Uttaksgrad } from './sections/Uttaksgrad'
 
 import styles from './Grunnlag.module.scss'
 
-const useInntekt = (): number => {
-  return 543031
-}
-
-const useAlderspensjon = (): number => {
-  return 204573
-}
-
-const useUttaksgrad = (): number => {
-  return 100
-}
-
 interface Props {
   tidligstMuligUttak: Uttaksalder
 }
 
+// TODO refaktorere og koble til inntekt data
 export function Grunnlag({ tidligstMuligUttak }: Props) {
-  const inntekt = useInntekt()
-  const alderspensjon = useAlderspensjon()
-  const uttaksgrad = useUttaksgrad()
-  const pensjonsavtaler: Pensjonsavtale[] = [
-    {
-      produktbetegnelse: 'Nordea Liv',
-      kategori: 'PRIVAT_TP',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 231_298,
-        grad: 100,
-      },
-    },
-    {
-      produktbetegnelse: 'Storebrand',
-      kategori: 'PRIVAT_TP',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 39_582,
-        grad: 100,
-      },
-    },
-    {
-      produktbetegnelse: 'DNB',
-      kategori: 'FRIPOLISE',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 103_264,
-        grad: 100,
-      },
-    },
-  ]
-
   return (
     <section className={styles.section}>
       <div className={styles.description}>
@@ -89,13 +30,13 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
       </div>
       <Accordion>
         <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
-        <Uttaksgrad uttaksgrad={uttaksgrad} />
-        <Inntekt inntekt={inntekt} />
+        <Uttaksgrad uttaksgrad={100} />
+        <Inntekt inntekt={0} />
         <Sivilstand />
         <Utenlandsopphold />
-        <Alderspensjon alderspensjon={alderspensjon} />
+        <Alderspensjon />
         <AFP />
-        <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
+        <Pensjonsavtaler />
       </Accordion>
     </section>
   )

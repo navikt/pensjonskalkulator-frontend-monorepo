@@ -1,6 +1,8 @@
 import React from 'react'
-import logger from '@/utils/logging'
+
 import { ReadMore as ReadMoreAksel, ReadMoreProps } from '@navikt/ds-react'
+
+import logger from '@/utils/logging'
 interface IProps extends ReadMoreProps {
   name: string
   children: React.ReactFragment
@@ -40,7 +42,9 @@ export const ReadMore: React.FC<IProps> = ({
 
   const wrappedOnClick = React.useCallback(() => {
     // Inversert da det er en antagelse at onClick endrer state
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Er definert siden man aldri vil kalle denne dersom isControlled er false
     logIsOpen(name, !open!)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- Er definert siden man aldri vil kalle denne dersom isControlled er false
     onClick!()
   }, [onClick])
 

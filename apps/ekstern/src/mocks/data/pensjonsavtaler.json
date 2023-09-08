@@ -2,101 +2,120 @@
   "avtaler": [
     {
       "produktbetegnelse": "Innskuddpensjon",
-      "kategori": "INNSKUDD",
+      "kategori": "UNKNOWN",
       "startAlder": 67,
-      "startMaaned": 1,
-      "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
-        "aarligUtbetaling": 250000,
-        "grad": 100
-      }
-    },
-    {
-      "produktbetegnelse": "Innskuddpensjon",
-      "kategori": "INNSKUDD_KOLL",
-      "startAlder": 67,
-      "startMaaned": 1,
-      "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
-        "aarligUtbetaling": 150000,
-        "grad": 100
-      }
+      "sluttAlder": 75,
+      "utbetalingsperioder": [
+        {
+          "startAlder": 71,
+          "startMaaned": 7,
+          "sluttAlder": 75,
+          "sluttMaaned": 1,
+          "aarligUtbetaling": 100000,
+          "grad": 100
+        },
+        {
+          "startAlder": 75,
+          "startMaaned": 7,
+          "sluttAlder": 80,
+          "sluttMaaned": 1,
+          "aarligUtbetaling": 50000,
+          "grad": 100
+        }
+      ]
     },
     {
       "produktbetegnelse": "Nordea Liv",
-      "kategori": "PRIVAT_TP",
-      "startAlder": 67,
-      "startMaaned": 1,
-      "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
-        "aarligUtbetaling": 231298,
-        "grad": 100
-      }
+      "kategori": "PRIVAT_TJENESTEPENSJON",
+      "startAlder": 75,
+      "sluttAlder": 85,
+      "utbetalingsperioder": [
+        {
+          "startAlder": 75,
+          "startMaaned": 1,
+          "sluttAlder": 85,
+          "sluttMaaned": 1,
+          "aarligUtbetaling": 39582,
+          "grad": 100
+        }
+      ]
     },
     {
       "produktbetegnelse": "Storebrand",
-      "kategori": "PRIVAT_TP",
+      "kategori": "PRIVAT_TJENESTEPENSJON",
       "startAlder": 67,
-      "startMaaned": 1,
-      "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
-        "aarligUtbetaling": 39582,
-        "grad": 100
-      }
+      "sluttAlder": 77,
+      "utbetalingsperioder": [
+        {
+          "startAlder": 67,
+          "startMaaned": 1,
+          "sluttAlder": 77,
+          "sluttMaaned": 1,
+          "aarligUtbetaling": 31298,
+          "grad": 100
+        }
+      ]
+    },
+    {
+      "produktbetegnelse": "Innskuddpensjon",
+      "kategori": "PRIVAT_TJENESTEPENSJON",
+      "startAlder": 67,
+      "sluttAlder": 77,
+      "utbetalingsperioder": [
+        {
+          "startAlder": 67,
+          "startMaaned": 1,
+          "sluttAlder": 77,
+          "sluttMaaned": 1,
+          "aarligUtbetaling": 50000,
+          "grad": 100
+        }
+      ]
     },
     {
       "produktbetegnelse": "Oslo Pensjonsforsikring",
-      "kategori": "OFFENTLIG_TP",
+      "kategori": "OFFENTLIG_TJENESTEPENSJON",
       "startAlder": 67,
-      "startMaaned": 1,
-      "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
-        "aarligUtbetaling": 103264,
-        "grad": 100
-      }
+      "utbetalingsperioder": [
+        {
+          "startAlder": 67,
+          "startMaaned": 1,
+          "aarligUtbetaling": 103264,
+          "grad": 100
+        }
+      ]
     },
     {
       "produktbetegnelse": "DNB",
-      "kategori": "FRIPOLISE",
+      "kategori": "INDIVIDUELL_ORDNING",
       "startAlder": 67,
-      "startMaaned": 1,
-      "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
-        "aarligUtbetaling": 37264,
-        "grad": 100
-      }
+      "sluttAlder": 77,
+      "utbetalingsperioder": [
+        {
+          "startAlder": 67,
+          "startMaaned": 1,
+          "sluttAlder": 77,
+          "sluttMaaned": 8,
+          "aarligUtbetaling": 37264,
+          "grad": 100
+        }
+      ]
     },
     {
       "produktbetegnelse": "IPS",
-      "kategori": "EGEN_SPARING",
-      "startAlder": 67,
-      "startMaaned": 1,
-      "utbetalingsperiode": {
-        "startAlder": 67,
-        "startMaaned": 1,
-        "sluttAlder": 77,
-        "sluttMaaned": 1,
-        "aarligUtbetaling": 241802,
-        "grad": 100
-      }
+      "kategori": "INDIVIDUELL_ORDNING",
+      "startAlder": 70,
+      "sluttAlder": 75,
+      "utbetalingsperioder": [
+        {
+          "startAlder": 70,
+          "startMaaned": 6,
+          "sluttAlder": 75,
+          "sluttMaaned": 6,
+          "aarligUtbetaling": 41802,
+          "grad": 100
+        }
+      ]
     }
   ],
   "utilgjengeligeSelskap": []

@@ -1,8 +1,9 @@
 export enum PensjonsavtaleKategori {
-  INNSKUDD = 'innskudd',
-  INNSKUDD_KOLL = 'innskudd kollektiv',
-  PRIVAT_TP = 'privat tjenestepensjon',
-  OFFENTLIG_TP = 'offentlig tjenestepensjon',
-  FRIPOLISE = 'fripolise',
-  EGEN_SPARING = 'egen sparing',
+  NONE = 'ukjent',
+  UNKNOWN = 'ukjent',
+  PRIVAT_TJENESTEPENSJON = 'privat tjenestepensjon',
+  OFFENTLIG_TJENESTEPENSJON = 'offentlig tjenestepensjon',
+  INDIVIDUELL_ORDNING = 'individuell ordning',
+  PRIVAT_AFP = 'privat avtalefestet pensjon',
+  FOLKETRYGD = 'folketrygd',
 }

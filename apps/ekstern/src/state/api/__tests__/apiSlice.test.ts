@@ -6,7 +6,7 @@ import { swallowErrorsAsync } from '@/test-utils'
 import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
 
 const tidligsteUttaksalderResponse = require('../../../mocks/data/tidligsteUttaksalder.json')
-const alderspensjonResponse = require('../../../mocks/data/alderspensjon/2031.json')
+const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
 const personResponse = require('../../../mocks/data/person.json')
 const tpoMedlemskapResponse = require('../../../mocks/data/tpo-medlemskap.json')
 const unleashResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
@@ -25,13 +25,14 @@ describe('apiSlice', () => {
 
   describe('pensjonsavtaler', () => {
     const dummyRequestBody = {
-      aarligInntektFoerUttak: 0,
-      uttaksperiode: {
-        startAlder: 0,
-        startMaaned: 0,
-        grad: 100,
-        aarligInntekt: 500000,
-      },
+      uttaksperioder: [
+        {
+          startAlder: 0,
+          startMaaned: 0,
+          grad: 100,
+          aarligInntekt: 500000,
+        },
+      ],
       antallInntektsaarEtterUttak: 0,
     }
 
@@ -131,12 +132,12 @@ describe('apiSlice', () => {
 
   describe('alderspensjon', () => {
     const body: AlderspensjonRequestBody = {
-      simuleringstype: 'ALDER',
+      simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
       uttaksgrad: 100,
-      foersteUttaksdato: '2031-11-01',
-      epsHarInntektOver2G: false,
-      forventetInntekt: 500_000,
+      foedselsdato: '1963-04-30',
+      foersteUttaksalder: { aar: 67, maaned: 8 },
       sivilstand: 'UGIFT',
+      epsHarInntektOver2G: true,
     }
     it('returnerer data ved vellykket query', async () => {
       const storeRef = await setupStore({}, true)
@@ -144,7 +145,7 @@ describe('apiSlice', () => {
         .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(alderspensjonResponse.pensjon)
+          expect(result.data).toMatchObject(alderspensjonResponse)
         })
     })
 

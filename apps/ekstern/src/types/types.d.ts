@@ -1,3 +1,5 @@
+declare type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
+
 declare type Uttaksalder = {
   aar: number
   maaned: number
@@ -5,23 +7,26 @@ declare type Uttaksalder = {
 }
 
 declare type Pensjonsberegning = {
-  belop: number
+  beloep: number
   alder: number
 }
 
-declare type Pensjonsavtale = {
-  produktbetegnelse: string
-  kategori: PensjonsavtaleKategori
+declare type Utbetalingsperiode = {
   startAlder: number
   startMaaned: number
-  utbetalingsperiode: {
-    startAlder: number
-    startMaaned: number
-    sluttAlder?: number
-    sluttMaaned?: number
-    aarligUtbetaling: number
-    grad: number
-  }
+  sluttAlder?: number
+  sluttMaaned?: number
+  aarligUtbetaling: number
+  grad: number
+}
+
+declare type Pensjonsavtale = {
+  key: number
+  produktbetegnelse: string
+  kategori: PensjonsavtaleKategori
+  startAlder?: number
+  sluttAlder?: number
+  utbetalingsperioder: Utbetalingsperiode[]
 }
 
 declare type UtilgjengeligeSelskap = {
@@ -40,6 +45,8 @@ declare type Sivilstand =
   | 'SEPARERT_PARTNER'
   | 'SKILT_PARTNER'
   | 'GJENLEVENDE_PARTNER'
+
+declare type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 
 declare type Step = '0' | '1' | '2' | '3'
 

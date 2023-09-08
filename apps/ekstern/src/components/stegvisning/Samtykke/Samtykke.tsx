@@ -4,10 +4,10 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
+import { ReadMore } from '@/components/components/ReadMore/ReadMore'
+import logger, { wrapLogger } from '@/utils/logging'
 
 import styles from './Samtykke.module.scss'
-import logger, { wrapLogger } from '@/utils/logging'
-import { ReadMore } from '@/components/components/ReadMore/ReadMore'
 
 interface Props {
   harSamtykket: boolean | null

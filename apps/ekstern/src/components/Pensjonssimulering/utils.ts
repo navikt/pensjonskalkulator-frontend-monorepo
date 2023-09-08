@@ -7,6 +7,7 @@ import {
   Series,
   Tooltip,
   TooltipFormatterContextObject,
+  TooltipPositionerPointObject,
 } from 'highcharts'
 
 import { formatAsDecimal } from '@/utils/currency'
@@ -14,7 +15,7 @@ import { cleanAndAddEventListener } from '@/utils/events'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
 
-export const MAX_UTTAKSALDER = 78
+export const MAX_UTTAKSALDER = 77
 export const COLUMN_WIDTH = 25
 export const TOOLTIP_YPOS = 35
 
@@ -39,67 +40,105 @@ export const PENSJONSGIVENDE_DATA = [
   650000, 260000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 
-export const AFP_DATA = [
-  0, 20000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000,
-  80000, 80000, 80000, 80000, 80000, 80000, 80000,
-]
-
-export const FOLKETRYGDEN_DATA = [
-  0, 35000, 175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
-  175000, 175000, 175000, 175000, 175000, 175000, 175000, 175000,
-]
-
-export const simulateDataArray = (
-  array: number[],
-  length: number,
-  startAge?: number,
-  coefficient = 0
-) => {
-  if (startAge && startAge < 60) {
-    throw Error("Can't simulate dataArray when startAge is smaller than 60")
-  }
-  const faktor = startAge ? startAge - 60 : 0
-  const dataArray = [...array].map((value, i) => {
-    return i > 1 ? value + faktor * coefficient : value
+export const processPensjonsberegningArray = (
+  pensjonsberegninger: Pensjonsberegning[] = []
+): number[] => {
+  const dataArray = [...pensjonsberegninger].map((value) => {
+    return value.beloep
   })
-
-  return [...dataArray].splice(0, length)
+  dataArray.unshift(0)
+  return dataArray
 }
 
-export const simulateTjenestepensjon = (
-  startAge: number,
-  endAge: number,
-  coefficient = 4_000
+export const processPensjonsavtalerArray = (
+  startAlder: number,
+  length: number,
+  foedsesldato: string,
+  pensjonsavtaler: Pensjonsavtale[]
+): number[] => {
+  const d = new Date(foedsesldato)
+  const foedselsmaaned = d.getMonth() + 1
+
+  const sluttAlder = startAlder + length - 1
+  const result = new Array(sluttAlder - startAlder + 1).fill(0)
+
+  pensjonsavtaler.forEach((avtale) => {
+    avtale.utbetalingsperioder.forEach((utbetalingsperiode) => {
+      const avtaleStartYear = Math.max(
+        startAlder,
+        utbetalingsperiode.startAlder
+      )
+      const avtaleEndYear = utbetalingsperiode.sluttAlder
+        ? Math.min(sluttAlder, utbetalingsperiode.sluttAlder)
+        : sluttAlder
+
+      for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
+        if (year >= startAlder) {
+          const isFirstYear = year === avtaleStartYear
+          const isLastYear =
+            utbetalingsperiode.sluttAlder && year === avtaleEndYear
+
+          const startMonth = isFirstYear
+            ? foedselsmaaned + utbetalingsperiode.startMaaned
+            : 1
+
+          const endMonth =
+            isLastYear && utbetalingsperiode.sluttMaaned !== undefined
+              ? foedselsmaaned + utbetalingsperiode.sluttMaaned
+              : isLastYear && utbetalingsperiode.sluttMaaned === undefined
+              ? foedselsmaaned
+              : 12
+
+          const monthsInYear =
+            endMonth <= 0 || endMonth > 12 ? 0 : endMonth - startMonth + 1
+          const allocatedAmount =
+            (utbetalingsperiode.aarligUtbetaling *
+              utbetalingsperiode.grad *
+              Math.max(0, monthsInYear)) /
+            100 /
+            12
+
+          result[year - startAlder] += allocatedAmount
+        }
+      }
+    })
+  })
+  return result
+}
+
+export const generateXAxis = (
+  startAlder: number,
+  pensjonsavtaler: Pensjonsavtale[],
+  setIsPensjonsavtaleFlagVisible: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  if (endAge < startAge || startAge < 62) {
-    throw Error(
-      "Can't simulate tjenestepensjon when endAge is larger than startAge or smaller than 62"
-    )
-  }
+  let sluttAlder = MAX_UTTAKSALDER
+  let hasAvtaleBeforeStartAlder = false
 
-  const faktor = startAge - 62
-  const value = coefficient * 20 + faktor * coefficient
-
-  return new Array(endAge + 2 - startAge)
-    .fill(startAge - 1)
-    .map((age, i, array) =>
-      age + i < 67 || i === array.length - 1 ? 0 : value
-    )
-}
-
-export const generateXAxis = (startAlder: number, endAlder: number) => {
+  pensjonsavtaler.forEach((avtale) => {
+    if (avtale.sluttAlder && avtale.sluttAlder > sluttAlder) {
+      sluttAlder = avtale.sluttAlder
+    }
+    if (
+      !hasAvtaleBeforeStartAlder &&
+      avtale.startAlder &&
+      avtale.startAlder < startAlder
+    ) {
+      hasAvtaleBeforeStartAlder = true
+    }
+  })
   const alderArray: string[] = []
-  for (let i = startAlder; i <= endAlder; i++) {
+  for (let i = startAlder; i <= sluttAlder + 1; i++) {
     if (i === startAlder) {
       alderArray.push((i - 1).toString())
     }
 
-    if (i === endAlder) {
+    if (i === sluttAlder + 1) {
       alderArray.push(`${i - 1}+`.toString())
     } else {
       alderArray.push(i.toString())
     }
   }
+  setIsPensjonsavtaleFlagVisible(hasAvtaleBeforeStartAlder)
   return alderArray
 }
 
@@ -123,6 +162,8 @@ export type ExtendedAxis = Axis & {
 export type ExtendedPoint = Point & {
   series: { data: string[] }
   percentage: number
+  stackTotal: number
+  tooltipPos: number[]
 }
 export type ExtendedTooltip = Tooltip & {
   isHidden: boolean
@@ -463,7 +504,7 @@ export const getChartOptions = (
       lineColor: 'var(--a-grayalpha-700)',
     },
     yAxis: {
-      offset: 28,
+      offset: 10,
       minorTickInterval: 200000,
       tickInterval: 200000,
       allowDecimals: false,
@@ -501,9 +542,26 @@ export const getChartOptions = (
     tooltip: {
       className: styles.tooltip,
       followTouchMove: false,
-      /* c8 ignore next 3 */
+      /* c8 ignore next 20 */
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
+      },
+      positioner: function (
+        labelWidth: number,
+        labelHeight: number,
+        point: TooltipPositionerPointObject
+      ) {
+        const hoverPoint = this.chart.hoverPoint as ExtendedPoint
+        const plotY = hoverPoint?.series.yAxis.toPixels(
+          hoverPoint.stackTotal,
+          true
+        )
+        const defaultPos = this.getPosition.apply(this, [
+          labelWidth,
+          labelHeight,
+          { ...point, plotY } as TooltipPositionerPointObject,
+        ])
+        return { ...defaultPos }
       },
       hideDelay: 9e9,
       padding: 0,
@@ -582,6 +640,7 @@ export const getChartOptions = (
               },
             },
             yAxis: {
+              offset: 28,
               title: {
                 text: 'Tusen kroner',
                 margin: -75,
