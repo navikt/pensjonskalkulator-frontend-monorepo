@@ -1,7 +1,7 @@
 import { memo } from 'react'
 
 import { InformationSquareFillIcon } from '@navikt/aksel-icons'
-import { HelpText, Ingress } from '@navikt/ds-react'
+import { BodyLong, HelpText } from '@navikt/ds-react'
 
 import Piggybank from '../../assets/piggybank.svg'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
@@ -19,12 +19,13 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
         <div className={styles.wrapperCard}>
           <img className={styles.wrapperImage} src={Piggybank} alt="" />
           <div className={styles.wrapperText} aria-live="polite">
-            <Ingress
+            <BodyLong
+              size="large"
               className={`${styles.ingress} ${styles.ingress__isInline}`}
             >
-              Din opptjening i folketrygden gjør at du tidligst kan
-              <br /> ta ut alderspensjon når du er{' '}
-            </Ingress>
+              Din opptjening i folketrygden gjør at du tidligst kan ta <br />
+              ut alderspensjon når du er{' '}
+            </BodyLong>
             <span className={styles.highlighted}>
               {formatUttaksalder(uttaksalder)}
               <HelpText wrapperClassName={styles.helptext}>
@@ -32,9 +33,9 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
                 nok. Tidspunktet er et estimat.
               </HelpText>
             </span>
-            <Ingress className={styles.ingress}>
+            <BodyLong size="large" className={styles.ingress}>
               Jo lenger du venter, desto mer får du i året.
-            </Ingress>
+            </BodyLong>
             <div className={styles.info}>
               <InformationSquareFillIcon
                 className={styles.infoIcon}

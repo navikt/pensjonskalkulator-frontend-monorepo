@@ -1,6 +1,6 @@
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Ingress, Button, Heading } from '@navikt/ds-react'
+import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Loader } from '@/components/components/Loader'
 
@@ -49,9 +49,9 @@ export function CardContent({
       </Heading>
 
       {text?.ingress && (
-        <Ingress className={styles.ingress}>
+        <BodyLong size="large" className={styles.ingress}>
           <FormattedMessage id={text?.ingress} values={{ br: <br /> }} />
-        </Ingress>
+        </BodyLong>
       )}
 
       {children}

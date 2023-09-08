@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React from 'react'
 
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Button, Chips, Heading } from '@navikt/ds-react'
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import logger from '@/utils/logging'
+import { isViewPortMobile } from '@/utils/viewport'
 
 import { getFormaterteAldere } from './utils'
 
@@ -27,15 +28,30 @@ export const VelgUttaksalder: React.FC<Props> = ({
   visFlereAldereLabelOpen = 'Vis færre aldere',
 }) => {
   const dispatch = useAppDispatch()
-  const pinRef = useRef<HTMLDivElement>(null)
+  const pinRef = React.useRef<HTMLDivElement>(null)
+
+  const [isMobile, setIsMobile] = React.useState<boolean>(
+    isViewPortMobile(window.innerWidth)
+  )
+
+  React.useEffect(() => {
+    function handleWindowSizeChange() {
+      setIsMobile(isViewPortMobile(window.innerWidth))
+    }
+    window.addEventListener('resize', handleWindowSizeChange)
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange)
+    }
+  }, [])
 
   const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
 
-  const formaterteAldere = useMemo(
+  const formaterteAldere = React.useMemo(
     () => getFormaterteAldere(tidligstMuligUttak),
     [tidligstMuligUttak]
   )
-  const [isFlereAldereOpen, setIsFlereAldereOpen] = useState<boolean>(false)
+  const [isFlereAldereOpen, setIsFlereAldereOpen] =
+    React.useState<boolean>(false)
 
   const onAlderClick = (alder: string) => {
     logger('chip valgt', {
@@ -59,9 +75,9 @@ export const VelgUttaksalder: React.FC<Props> = ({
           {formaterteAldere
             .slice(
               0,
-              isFlereAldereOpen
-                ? formaterteAldere.length
-                : defaultAntallSynligeAldere
+              isMobile && !isFlereAldereOpen
+                ? defaultAntallSynligeAldere
+                : formaterteAldere.length
             )
             .map((alderChip) => (
               <Chips.Toggle
@@ -74,7 +90,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
               </Chips.Toggle>
             ))}
         </Chips>
-        {formaterteAldere.length > defaultAntallSynligeAldere && (
+        {isMobile && formaterteAldere.length > defaultAntallSynligeAldere && (
           <Button
             className={styles.visFlereAldere}
             icon={

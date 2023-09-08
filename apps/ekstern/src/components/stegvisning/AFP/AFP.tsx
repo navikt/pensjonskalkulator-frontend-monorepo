@@ -4,9 +4,9 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
   Alert,
+  BodyLong,
   Button,
   Heading,
-  Ingress,
   Link,
   Radio,
   RadioGroup,
@@ -62,9 +62,9 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
-        <Ingress>
+        <BodyLong size="large">
           <FormattedMessage id="stegvisning.afp.ingress" />
-        </Ingress>
+        </BodyLong>
         <ReadMore
           name="Avtalefestet pensjon i privat sektor"
           className={styles.readmorePrivat}

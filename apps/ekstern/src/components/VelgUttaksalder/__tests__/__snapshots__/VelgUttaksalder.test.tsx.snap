@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere 1`] = `
+exports[`VelgUttaksalder > Gitt at brukeren er på mobil > viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere 1`] = `
 <DocumentFragment>
   <div
     class="_wrapper_4ca3e3"
@@ -163,7 +163,7 @@ exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når bruke
 </DocumentFragment>
 `;
 
-exports[`VelgUttaksalder > viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere 2`] = `
+exports[`VelgUttaksalder > Gitt at brukeren er på mobil > viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere 2`] = `
 <DocumentFragment>
   <div
     class="_wrapper_4ca3e3"

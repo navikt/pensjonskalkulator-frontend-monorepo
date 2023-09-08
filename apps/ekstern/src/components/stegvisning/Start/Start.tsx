@@ -1,6 +1,6 @@
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { Ingress, Button, Heading } from '@navikt/ds-react'
+import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/components/Card'
@@ -28,9 +28,9 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
               id: 'stegvisning.start.title',
             })}${fornavnString}`}
           </Heading>
-          <Ingress>
+          <BodyLong size="large">
             <FormattedMessage id="stegvisning.start.ingress" />
-          </Ingress>
+          </BodyLong>
           <Button type="submit" className={styles.button} onClick={onNext}>
             <FormattedMessage id="stegvisning.start.start" />
           </Button>

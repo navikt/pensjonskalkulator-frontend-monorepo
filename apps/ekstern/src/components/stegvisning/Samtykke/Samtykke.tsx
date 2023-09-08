@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
 import { ReadMore } from '@/components/components/ReadMore/ReadMore'
@@ -58,9 +58,9 @@ export function Samtykke({
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
-        <Ingress>
+        <BodyLong size="large">
           <FormattedMessage id="stegvisning.samtykke.ingress" />
-        </Ingress>
+        </BodyLong>
         <ReadMore
           name="Disse opplysningene henter vi"
           className={styles.readmore}

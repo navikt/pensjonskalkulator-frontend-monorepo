@@ -1,7 +1,7 @@
 import { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/components/Card'
 import logger, { wrapLogger } from '@/utils/logging'
@@ -65,11 +65,11 @@ export function Sivilstand({
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
-        <Ingress className={styles.ingress}>
+        <BodyLong size="large" className={styles.ingress}>
           <FormattedMessage id="stegvisning.sivilstand.ingress_1" />
           {formatertSivilstand}
           <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
-        </Ingress>
+        </BodyLong>
         <RadioGroup
           legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
           name="sivilstand"

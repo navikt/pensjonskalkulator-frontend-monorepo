@@ -13,7 +13,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         stegvisning.samtykke.title
       </h2>
       <p
-        class="navds-ingress"
+        class="navds-body-long navds-body-long--large"
       >
         stegvisning.samtykke.ingress
       </p>

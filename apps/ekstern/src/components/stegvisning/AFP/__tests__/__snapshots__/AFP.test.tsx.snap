@@ -13,7 +13,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         stegvisning.afp.title
       </h2>
       <p
-        class="navds-ingress"
+        class="navds-body-long navds-body-long--large"
       >
         stegvisning.afp.ingress
       </p>
@@ -315,7 +315,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         stegvisning.afp.title
       </h2>
       <p
-        class="navds-ingress"
+        class="navds-body-long navds-body-long--large"
       >
         stegvisning.afp.ingress
       </p>
@@ -616,7 +616,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         stegvisning.afp.title
       </h2>
       <p
-        class="navds-ingress"
+        class="navds-body-long navds-body-long--large"
       >
         stegvisning.afp.ingress
       </p>

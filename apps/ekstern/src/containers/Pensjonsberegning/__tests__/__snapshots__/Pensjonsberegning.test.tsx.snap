@@ -63,11 +63,11 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
           class="_wrapperText_f5a642"
         >
           <p
-            class="_ingress_f5a642 _ingress__isInline_f5a642 navds-ingress"
+            class="_ingress_f5a642 _ingress__isInline_f5a642 navds-body-long navds-body-long--large"
           >
-            Din opptjening i folketrygden gjør at du tidligst kan
+            Din opptjening i folketrygden gjør at du tidligst kan ta 
             <br />
-             ta ut alderspensjon når du er 
+            ut alderspensjon når du er 
           </p>
           <span
             class="_highlighted_f5a642"
@@ -164,7 +164,7 @@ exports[`Pensjonsberegning > viser loading og deretter riktig header, tekst og k
             </div>
           </span>
           <p
-            class="_ingress_f5a642 navds-ingress"
+            class="_ingress_f5a642 navds-body-long navds-body-long--large"
           >
             Jo lenger du venter, desto mer får du i året.
           </p>

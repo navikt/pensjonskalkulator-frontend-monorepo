@@ -239,7 +239,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                   class="highcharts-plot-border"
                   data-z-index="1"
                   fill="none"
-                  height="385"
+                  height="400"
                   stroke="#cccccc"
                   stroke-width="0"
                   width="740"
@@ -543,7 +543,7 @@ exports[`Pensjonssimulering > Når brukeren ikke samtykker og ikke velger AFP > 
                   style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
                   text-anchor="start"
                   x="0"
-                  y="387"
+                  y="402"
                 />
                 <g
                   class="highcharts-axis-labels highcharts-xaxis-labels"
@@ -2573,7 +2573,7 @@ exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat fe
             <defs />
             <path
               class="highcharts-scrollable-mask"
-              d="M 0 -1 L -1 -1 L -1 386 L 0 386 Z M 590 -1 L 600 -1 L 600 386 L 590 386 Z"
+              d="M 0 -1 L -1 -1 L -1 401 L 0 401 Z M 590 -1 L 600 -1 L 600 401 L 590 401 Z"
               data-z-index="-1"
               fill="#ffffff"
               fill-opacity="0.85"
@@ -2663,7 +2663,7 @@ exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat fe
                   >
                     <rect
                       fill="none"
-                      height="385"
+                      height="400"
                       width="740"
                       x="0"
                       y="0"
@@ -2685,7 +2685,7 @@ exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat fe
                   class="highcharts-plot-background"
                   fill="none"
                   filter="none"
-                  height="385"
+                  height="400"
                   width="740"
                   x="0"
                   y="0"
@@ -2694,7 +2694,7 @@ exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat fe
                   class="highcharts-plot-border"
                   data-z-index="1"
                   fill="none"
-                  height="385"
+                  height="400"
                   stroke="#cccccc"
                   stroke-width="0"
                   width="740"
@@ -2712,7 +2712,7 @@ exports[`Pensjonssimulering > viser feilmelding når alderspensjon/afp-privat fe
                   style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
                   text-anchor="start"
                   x="0"
-                  y="387"
+                  y="402"
                 />
               </svg>
             </div>

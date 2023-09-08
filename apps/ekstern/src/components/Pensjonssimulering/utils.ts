@@ -424,6 +424,7 @@ export const getChartOptions = (
     chart: {
       type: 'column',
       spacingTop: 0,
+      spacingBottom: 0,
       spacingLeft: 0,
       scrollablePlotArea: {
         minWidth: 750,
@@ -496,6 +497,7 @@ export const getChartOptions = (
       title: {
         text: 'Årlig inntekt og pensjon etter uttak',
         align: 'high',
+        y: -5,
         style: {
           fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
@@ -574,7 +576,7 @@ export const getChartOptions = (
       x: 0,
       y: -25,
       padding: 0,
-      margin: 50,
+      margin: 0,
       layout: 'horizontal',
       align: 'left',
       verticalAlign: 'bottom',
@@ -667,6 +669,7 @@ export const getChartOptions = (
               },
             },
             legend: {
+              margin: 50,
               itemDistance: 12,
               verticalAlign: 'top',
             },
