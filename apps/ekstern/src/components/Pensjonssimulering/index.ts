@@ -1,1 +1,0 @@
-export { Pensjonssimulering } from './Pensjonssimulering'

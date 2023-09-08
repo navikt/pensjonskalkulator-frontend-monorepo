@@ -2,7 +2,7 @@ import { Link as ReactRouterLink } from 'react-router-dom'
 
 import { BodyLong, Heading, Link } from '@navikt/ds-react'
 
-import { paths } from '@/routes'
+import { paths } from '@/router'
 
 import styles from './Forbehold.module.scss'
 

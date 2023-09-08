@@ -1,0 +1,1 @@
+export { Beregning } from './Beregning'

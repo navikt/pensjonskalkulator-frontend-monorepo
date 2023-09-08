@@ -1,6 +1,6 @@
 import { BodyLong } from '@navikt/ds-react'
 
-import { AccordionItem } from '@/components/components/AccordionItem'
+import { AccordionItem } from '@/components/common/AccordionItem'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 
 import { SectionContent } from './components/SectionContent'

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { BodyLong } from '@navikt/ds-react'
 
-import { AccordionItem } from '@/components/components/AccordionItem'
+import { AccordionItem } from '@/components/common/AccordionItem'
 import { formatAsDecimal } from '@/utils/currency'
 
 import { SectionContent } from './components/SectionContent'

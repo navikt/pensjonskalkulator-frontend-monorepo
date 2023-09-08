@@ -12,8 +12,8 @@ import {
   RadioGroup,
 } from '@navikt/ds-react'
 
-import { Card } from '@/components/components/Card'
-import { ReadMore } from '@/components/components/ReadMore'
+import { Card } from '@/components/common/Card'
+import { ReadMore } from '@/components/common/ReadMore'
 import logger, { wrapLogger } from '@/utils/logging'
 
 import styles from './AFP.module.scss'
@@ -176,7 +176,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
-        </Button>{' '}
+        </Button>
       </form>
     </Card>
   )

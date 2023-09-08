@@ -1,0 +1,18 @@
+// Vitest Snapshot v1
+
+exports[`LandingPage > rendrer slik den skal, med riktig heading 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_67454f _section__largePadding_67454f"
+  >
+    <h2>
+      Utlogget landingsside
+    </h2>
+    <a
+      href="/start"
+    >
+      Logg inn og test kalkulatoren
+    </a>
+  </section>
+</DocumentFragment>
+`;
