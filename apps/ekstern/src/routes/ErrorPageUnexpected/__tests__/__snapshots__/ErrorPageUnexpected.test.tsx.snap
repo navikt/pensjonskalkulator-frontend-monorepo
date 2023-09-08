@@ -24,7 +24,7 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
         error.global.title
       </h2>
       <p
-        class="_ingress_ea3f8b navds-ingress"
+        class="_ingress_ea3f8b navds-body-long navds-body-long--large"
       >
         error.global.ingress
       </p>

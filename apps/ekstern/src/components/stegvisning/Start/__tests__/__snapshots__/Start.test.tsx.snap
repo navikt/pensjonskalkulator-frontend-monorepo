@@ -22,7 +22,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
           stegvisning.start.title Ola!
         </h2>
         <p
-          class="navds-ingress"
+          class="navds-body-long navds-body-long--large"
         >
           stegvisning.start.ingress
         </p>
@@ -74,7 +74,7 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
           stegvisning.start.title!
         </h2>
         <p
-          class="navds-ingress"
+          class="navds-body-long navds-body-long--large"
         >
           stegvisning.start.ingress
         </p>
