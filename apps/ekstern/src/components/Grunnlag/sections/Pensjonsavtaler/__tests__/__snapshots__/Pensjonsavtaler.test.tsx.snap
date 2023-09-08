@@ -52,7 +52,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
       </span>
     </button>
     <div
-      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long"
+      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long navds-body-long--medium"
     >
       <table
         class="_tabell_c8f064"
@@ -78,7 +78,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               colspan="2"
             >
               <p
-                class="_mellomtittel_c8f064 navds-body-short"
+                class="_mellomtittel_c8f064 navds-body-short navds-body-short--medium"
               >
                 Privat tjenestepensjon
               </p>
@@ -89,12 +89,12 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               class="_tabellCell_c8f064"
             >
               <p
-                class="navds-body-short"
+                class="navds-body-short navds-body-short--medium"
               >
                 Fra DNB
               </p>
               <p
-                class="_utbetaling_c8f064 navds-body-short"
+                class="_utbetaling_c8f064 navds-body-short navds-body-short--medium"
               >
                 Livsvarig utbetaling fra 67 år.
               </p>
@@ -103,7 +103,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               class="_tabellCell_c8f064 _tabellCell__Right_c8f064"
             >
               <p
-                class="navds-body-short"
+                class="navds-body-short navds-body-short--medium"
               >
                 12 345 kr
               </p>
@@ -114,12 +114,12 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               class="_tabellCell_c8f064"
             >
               <p
-                class="navds-body-short"
+                class="navds-body-short navds-body-short--medium"
               >
                 Fra DNB
               </p>
               <p
-                class="_utbetaling_c8f064 navds-body-short"
+                class="_utbetaling_c8f064 navds-body-short navds-body-short--medium"
               >
                 Livsvarig utbetaling fra 67 år og 6 mnd.
               </p>
@@ -128,7 +128,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               class="_tabellCell_c8f064 _tabellCell__Right_c8f064"
             >
               <p
-                class="navds-body-short"
+                class="navds-body-short navds-body-short--medium"
               >
                 12 345 kr
               </p>
@@ -205,7 +205,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
       </span>
     </button>
     <div
-      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long"
+      class="navds-accordion__content navds-accordion__content--closed _content_e53ef6 navds-body-long navds-body-long--medium"
     >
       <table
         class="_tabell_c8f064"
@@ -231,7 +231,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               colspan="2"
             >
               <p
-                class="_mellomtittel_c8f064 navds-body-short"
+                class="_mellomtittel_c8f064 navds-body-short navds-body-short--medium"
               >
                 Privat tjenestepensjon
               </p>
@@ -242,17 +242,17 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               class="_tabellCell_c8f064"
             >
               <p
-                class="navds-body-short"
+                class="navds-body-short navds-body-short--medium"
               >
                 Fra DNB
               </p>
               <p
-                class="_utbetaling_c8f064 navds-body-short"
+                class="_utbetaling_c8f064 navds-body-short navds-body-short--medium"
               >
                 12 345 kr utbetales fra 67 år til 77 år og 8 mnd.
               </p>
               <p
-                class="_utbetaling_c8f064 navds-body-short"
+                class="_utbetaling_c8f064 navds-body-short navds-body-short--medium"
               >
                 12 345 kr utbetales fra 67 år og 6 mnd. til 77 år.
               </p>
@@ -261,7 +261,7 @@ exports[`Pensjonsavtaler > Gitt at brukeren har samtykket > rendrer riktig med a
               class="_tabellCell_c8f064 _tabellCell__Right_c8f064"
             >
               <p
-                class="navds-body-short"
+                class="navds-body-short navds-body-short--medium"
               >
                 24 690 kr
               </p>

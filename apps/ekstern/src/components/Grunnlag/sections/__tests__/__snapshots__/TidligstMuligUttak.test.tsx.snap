@@ -51,10 +51,10 @@ exports[`TidligstMuligUttak > rendrer riktig tittel med formatert uttaksalder og
       </span>
     </button>
     <div
-      class="navds-accordion__content _content_e53ef6 navds-body-long"
+      class="navds-accordion__content _content_e53ef6 navds-body-long navds-body-long--medium"
     >
       <p
-        class="navds-body-long"
+        class="navds-body-long navds-body-long--medium"
       >
         Når du velger hvilken alder du ønsker ta ut pensjon er det alltid måneden etter du fyller år som blir brukt i beregningen. Velger du for eksempel 62 år, betyr det måneden etter du fyller 62 år. 
         <br />

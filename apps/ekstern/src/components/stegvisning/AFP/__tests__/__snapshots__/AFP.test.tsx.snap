@@ -50,7 +50,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         </button>
         <div
           aria-hidden="true"
-          class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         >
           stegvisning.afp.readmore_list_title
           <ul
@@ -126,7 +126,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         </button>
         <div
           aria-hidden="true"
-          class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         >
           stegvisning.afp.readmore_list_title
           <ul
@@ -175,7 +175,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -200,7 +200,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -226,7 +226,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -251,7 +251,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>
@@ -352,7 +352,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         </button>
         <div
           aria-hidden="false"
-          class="navds-read-more__content navds-body-long"
+          class="navds-read-more__content navds-body-long navds-body-long--medium"
         >
           stegvisning.afp.readmore_list_title
           <ul
@@ -428,7 +428,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         </button>
         <div
           aria-hidden="false"
-          class="navds-read-more__content navds-body-long"
+          class="navds-read-more__content navds-body-long navds-body-long--medium"
         >
           stegvisning.afp.readmore_list_title
           <ul
@@ -477,7 +477,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -502,7 +502,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -527,7 +527,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -552,7 +552,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>
@@ -653,7 +653,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         </button>
         <div
           aria-hidden="false"
-          class="navds-read-more__content navds-body-long"
+          class="navds-read-more__content navds-body-long navds-body-long--medium"
         >
           stegvisning.afp.readmore_list_title
           <ul
@@ -729,7 +729,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         </button>
         <div
           aria-hidden="false"
-          class="navds-read-more__content navds-body-long"
+          class="navds-read-more__content navds-body-long navds-body-long--medium"
         >
           stegvisning.afp.readmore_list_title
           <ul
@@ -778,7 +778,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -803,7 +803,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -828,7 +828,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -853,7 +853,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>

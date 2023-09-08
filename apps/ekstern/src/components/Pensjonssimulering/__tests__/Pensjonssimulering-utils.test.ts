@@ -754,7 +754,7 @@ describe('Pensjonssimulering-utils', () => {
         context as unknown as TooltipFormatterContextObject,
         stylesMock
       )
-      expect(tooltipMarkup).toContain(`800 000 kr`)
+      expect(tooltipMarkup).toContain('800 000 kr')
       expect(tooltipMarkup).toContain(
         `Inntekt og pensjon når du er ${alder} år`
       )
@@ -762,8 +762,8 @@ describe('Pensjonssimulering-utils', () => {
       expect(tooltipMarkup).toContain(SERIE_NAME_ALDERSPENSJON)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie1}`)
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie2}`)
-      expect(tooltipMarkup).toContain(`200 000 kr`)
-      expect(tooltipMarkup).toContain(`350 000 kr`)
+      expect(tooltipMarkup).toContain('200 000 kr')
+      expect(tooltipMarkup).toContain('350 000 kr')
       expect(tooltipMarkup).toContain(beregnetLinePosition)
       expect(tooltipMarkup).toMatchSnapshot()
 
