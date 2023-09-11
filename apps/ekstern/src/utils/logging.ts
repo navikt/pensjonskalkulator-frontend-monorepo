@@ -11,7 +11,8 @@ type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'chip valgt', { tekst: string; data: string }>
   | AmplitudeEvent<'chip avvalgt', { tekst: string; data: string }>
 
-const logger = getAmplitudeInstance<IExtendedAmpltitudeEvents>('dekoratoren')
+export const logger =
+  getAmplitudeInstance<IExtendedAmpltitudeEvents>('dekoratoren')
 
 export const wrapLogger =
   (
@@ -23,5 +24,3 @@ export const wrapLogger =
     logger(name, properties)
     return func()
   }
-
-export default logger

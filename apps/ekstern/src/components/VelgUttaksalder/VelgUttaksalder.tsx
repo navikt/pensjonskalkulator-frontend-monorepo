@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import logger from '@/utils/logging'
+import { logger } from '@/utils/logging'
 import { isViewPortMobile } from '@/utils/viewport'
 
 import { getFormaterteAldere } from './utils'

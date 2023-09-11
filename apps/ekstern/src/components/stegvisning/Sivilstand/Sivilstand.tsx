@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
-import logger, { wrapLogger } from '@/utils/logging'
+import { logger, wrapLogger } from '@/utils/logging'
 import { formatSivilstand } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Accordion } from '@navikt/ds-react'
 
-import logger from '@/utils/logging'
+import { logger } from '@/utils/logging'
 
 interface IProps {
   name: string

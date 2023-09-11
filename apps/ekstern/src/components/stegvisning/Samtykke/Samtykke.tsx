@@ -5,7 +5,7 @@ import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore/ReadMore'
-import logger, { wrapLogger } from '@/utils/logging'
+import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './Samtykke.module.scss'
 
