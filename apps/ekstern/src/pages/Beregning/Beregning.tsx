@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useIntl } from 'react-intl'
 
-import { Alert, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { Loader } from '@/components/common/Loader'
@@ -24,7 +23,6 @@ export function Beregning() {
   const {
     data: tidligstMuligUttak,
     isLoading,
-    isError,
     isSuccess,
   } = useTidligsteUttaksalderQuery()
 
@@ -44,25 +42,13 @@ export function Beregning() {
     )
   }
 
-  if (isError || !isSuccess) {
-    return (
-      <Alert variant="error">
-        <Heading spacing size="small" level="2">
-          Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen
-          senere.
-        </Heading>
-      </Alert>
-    )
-  }
-
   return (
     <>
-      <div className={styles.container}>
-        <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
-      </div>
-      {
-        // TODO etter merge - denne flyttes under routes/pages slik at containeren ikke har styles
-      }
+      {isSuccess && (
+        <div className={styles.container}>
+          <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
+        </div>
+      )}
       <div
         className={clsx(styles.background, styles.background__hasMargin, {
           [styles.background__white]: isAlderValgt,
@@ -79,12 +65,11 @@ export function Beregning() {
             className={`${styles.container} ${styles.container__hasPadding}`}
           >
             <Simulering />
-            <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+            <Grunnlag />
             <Forbehold />
           </div>
         )}
       </div>
-
       <div className={`${styles.background} ${styles.background__lightblue}`}>
         <div className={styles.container}>
           <TilbakeEllerAvslutt />

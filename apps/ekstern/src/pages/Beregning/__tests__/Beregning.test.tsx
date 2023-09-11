@@ -30,7 +30,7 @@ describe('Beregning', () => {
     expect(result.asFragment()).toMatchSnapshot()
   })
 
-  it('viser feilmelding om henting av pensjonberegning feiler', async () => {
+  it('viser ikke info om tidligst mulig uttaksalder når kallet feiler, og resten av siden er som vanlig', async () => {
     mockErrorResponse('/tidligste-uttaksalder', {
       status: 500,
       json: "Beep boop I'm an error!",
@@ -41,34 +41,9 @@ describe('Beregning', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(
-          'Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.'
-        )
-      ).toBeVisible()
+        screen.queryByTestId('tidligst-mulig-uttak')
+      ).not.toBeInTheDocument()
       expect(result.asFragment()).toMatchSnapshot()
-    })
-  })
-
-  it('viser feilmelding om Beregning er på ugyldig format', async () => {
-    const invalidData = {
-      aar: 67,
-      maaned: null,
-    } as unknown as Uttaksalder
-    mockResponse('/tidligste-uttaksalder', {
-      json: [invalidData],
-      method: 'post',
-    })
-
-    render(<Beregning />)
-
-    await swallowErrorsAsync(async () => {
-      await waitFor(() => {
-        expect(
-          screen.getByText(
-            'Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.'
-          )
-        ).toBeVisible()
-      })
     })
   })
 

@@ -1,43 +1,38 @@
 // Vitest Snapshot v1
 
-exports[`Beregning > viser feilmelding om henting av pensjonberegning feiler 1`] = `
+exports[`Beregning > viser ikke info om tidligst mulig uttaksalder når kallet feiler, og resten av siden er som vanlig 1`] = `
 <DocumentFragment>
-  <div
-    class="navds-alert navds-alert--error navds-alert--medium"
+  <svg
+    aria-labelledby="loader-r6"
+    aria-live="polite"
+    class="navds-loader _loader__isCentered_1c4a2e navds-loader--3xlarge navds-loader--neutral"
+    data-testid="loader"
+    focusable="false"
+    preserveAspectRatio="xMidYMid"
+    viewBox="0 0 50 50"
   >
-    <svg
-      aria-labelledby="title-r7"
-      class="navds-alert__icon"
+    <title
+      id="loader-r6"
+    >
+      Et øyeblikk, vi henter tidligste mulige uttaksalder
+    </title>
+    <circle
+      class="navds-loader__background"
+      cx="25"
+      cy="25"
       fill="none"
-      focusable="false"
-      height="1em"
-      role="img"
-      viewBox="0 0 24 24"
-      width="1em"
+      r="20"
       xmlns="http://www.w3.org/2000/svg"
-    >
-      <title
-        id="title-r7"
-      >
-        Feil
-      </title>
-      <path
-        clip-rule="evenodd"
-        d="M7.742 2.47a.75.75 0 0 1 .53-.22h7.456a.75.75 0 0 1 .53.22l5.272 5.272c.141.14.22.331.22.53v7.456a.75.75 0 0 1-.22.53l-5.272 5.272a.75.75 0 0 1-.53.22H8.272a.75.75 0 0 1-.53-.22L2.47 16.258a.75.75 0 0 1-.22-.53V8.272a.75.75 0 0 1 .22-.53L7.742 2.47Zm1.288 5.5a.75.75 0 0 0-1.06 1.06L10.94 12l-2.97 2.97a.75.75 0 1 0 1.06 1.06L12 13.06l2.97 2.97a.75.75 0 1 0 1.06-1.06L13.06 12l2.97-2.97a.75.75 0 0 0-1.06-1.06L12 10.94 9.03 7.97Z"
-        fill="currentColor"
-        fill-rule="evenodd"
-      />
-    </svg>
-    <div
-      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
-    >
-      <h2
-        class="navds-heading navds-heading--small navds-typo--spacing"
-      >
-        Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.
-      </h2>
-    </div>
-  </div>
+    />
+    <circle
+      class="navds-loader__foreground"
+      cx="25"
+      cy="25"
+      fill="none"
+      r="20"
+      stroke-dasharray="50 155"
+    />
+  </svg>
 </DocumentFragment>
 `;
 
