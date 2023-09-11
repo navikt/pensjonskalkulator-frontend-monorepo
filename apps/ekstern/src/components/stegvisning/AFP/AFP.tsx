@@ -14,7 +14,7 @@ import {
 
 import { Card } from '@/components/components/Card'
 import { ReadMore } from '@/components/components/ReadMore'
-import logger, { wrapLogger } from '@/utils/logging'
+import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './AFP.module.scss'
 
