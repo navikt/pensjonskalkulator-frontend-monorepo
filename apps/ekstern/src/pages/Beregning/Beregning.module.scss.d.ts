@@ -1,4 +1,4 @@
-import globalClassNames from '../../style'
+import globalClassNames from '../../style.d'
 declare const classNames: typeof globalClassNames & {
   readonly container: 'container'
   readonly container__hasPadding: 'container__hasPadding'
