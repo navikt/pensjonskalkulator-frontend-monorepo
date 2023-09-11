@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-import { PATH } from '@/api/paths'
+import { PATH } from '@/paths'
 
 import pensjonsavtalerResponse from './data/pensjonsavtaler.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }

@@ -7,7 +7,7 @@ import {
   isUnleashToggle,
   isUttaksalder,
 } from './typeguards'
-import { API_BASEURL } from '@/api/paths'
+import { API_BASEURL } from '@/paths'
 import {
   PensjonsavtalerResponseBody,
   PensjonsavtalerRequestBody,

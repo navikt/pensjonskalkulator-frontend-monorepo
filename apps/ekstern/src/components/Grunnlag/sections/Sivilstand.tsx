@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 
 import { BodyLong, Link } from '@navikt/ds-react'
 
-import { AccordionItem } from '@/components/components/AccordionItem'
+import { AccordionItem } from '@/components/common/AccordionItem'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { formatSivilstand } from '@/utils/sivilstand'
 

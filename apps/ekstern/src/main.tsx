@@ -4,9 +4,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import ReactDOM from 'react-dom/client'
 
-import { LanguageProvider } from '@/containers/LanguageProvider'
-import { initializeLogs } from '@/observability/faro'
-import { BASE_PATH, routes } from '@/routes'
+import { LanguageProvider } from '@/context/LanguageProvider'
+import { initializeLogs } from '@/faro'
+import { BASE_PATH, routes } from '@/router'
 
 import { store } from './state/store'
 

@@ -1,7 +1,7 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
-import { API_BASEURL } from '@/api/paths'
+import { API_BASEURL } from '@/paths'
 
 import { getHandlers } from './handlers'
 

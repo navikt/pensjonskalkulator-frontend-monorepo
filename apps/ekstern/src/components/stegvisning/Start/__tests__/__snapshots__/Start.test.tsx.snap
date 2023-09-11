@@ -3,7 +3,7 @@
 exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
+    class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
   >
     <div
       class="_wrapper_09901f"
@@ -55,7 +55,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
 exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
-    class="_section_aded60 _section__largePadding_aded60 _section__marginBotton_aded60"
+    class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
   >
     <div
       class="_wrapper_09901f"

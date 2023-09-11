@@ -3,7 +3,7 @@ import React from 'react'
 import { Loader } from '@navikt/ds-react'
 import { Accordion } from '@navikt/ds-react'
 
-import { AccordionContext } from '@/components/components/AccordionItem'
+import { AccordionContext } from '@/components/common/AccordionItem'
 
 import styles from './SectionHeader.module.scss'
 

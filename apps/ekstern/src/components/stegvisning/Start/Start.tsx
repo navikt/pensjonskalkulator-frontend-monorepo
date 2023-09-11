@@ -3,7 +3,7 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
-import { Card } from '@/components/components/Card'
+import { Card } from '@/components/common/Card'
 import { wrapLogger } from '@/utils/logging'
 
 import styles from './Start.module.scss'
