@@ -32,8 +32,11 @@ export function TidligstMuligUttak() {
           For å starte uttak før 67 år må opptjeningen være høy nok. Alle kan
           derfor ikke starte uttak ved 62 år. Tidspunktet er et estimat på når
           du tidligst kan ta ut 100 % alderspensjon. I{' '}
-          <Link href="">detaljert kalkulator</Link> kan du sjekke om du kan ta
-          ut alderspensjon tidligere med en lavere uttaksgrad.
+          <Link href="https://www.nav.no/pselv/simulering.jsf">
+            detaljert kalkulator
+          </Link>{' '}
+          kan du sjekke om du kan ta ut alderspensjon tidligere med en lavere
+          uttaksgrad.
           <br />
           <br />
           Når du velger uttaksalder, bruker vi måneden etter du fyller år.
