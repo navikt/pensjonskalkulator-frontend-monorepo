@@ -10,19 +10,20 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import { logger } from '@/utils/logging'
 import { isViewPortMobile } from '@/utils/viewport'
 
-import { getFormaterteAldere } from './utils'
+import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
 
 import styles from './VelgUttaksalder.module.scss'
 
 interface Props {
-  tidligstMuligUttak: Uttaksalder
+  tidligstMuligUttak?: Uttaksalder | UttaksalderForenklet
   defaultAntallSynligeAldere?: number
   visFlereAldereLabelClose?: string
   visFlereAldereLabelOpen?: string
 }
 
+// TODO utvide test optional tidligstMuligUttak
 export const VelgUttaksalder: React.FC<Props> = ({
-  tidligstMuligUttak,
+  tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
   defaultAntallSynligeAldere = 9,
   visFlereAldereLabelClose = 'Vis flere aldere',
   visFlereAldereLabelOpen = 'Vis færre aldere',

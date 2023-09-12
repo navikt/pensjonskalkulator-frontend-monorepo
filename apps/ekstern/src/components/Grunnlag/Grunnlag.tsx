@@ -11,12 +11,8 @@ import { Uttaksgrad } from './sections/Uttaksgrad'
 
 import styles from './Grunnlag.module.scss'
 
-interface Props {
-  tidligstMuligUttak: Uttaksalder
-}
-
 // TODO refaktorere og koble til inntekt data
-export function Grunnlag({ tidligstMuligUttak }: Props) {
+export function Grunnlag() {
   return (
     <section className={styles.section}>
       <div className={styles.description}>
@@ -29,7 +25,7 @@ export function Grunnlag({ tidligstMuligUttak }: Props) {
         </BodyLong>
       </div>
       <Accordion>
-        <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
+        <TidligstMuligUttak />
         <Uttaksgrad uttaksgrad={100} />
         <Inntekt inntekt={0} />
         <Sivilstand />

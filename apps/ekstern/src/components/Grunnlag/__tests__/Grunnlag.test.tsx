@@ -1,28 +1,22 @@
-import { waitFor } from '@testing-library/react'
-
 import { Grunnlag } from '@/components/Grunnlag'
 import { render, screen } from '@/test-utils'
 
 describe('Grunnlag', () => {
-  const tidligstMuligUttak = { aar: 62, maaned: 10, uttaksdato: '2031-11-01' }
-
   it('viser alle seksjonene', async () => {
-    const { asFragment } = render(
-      <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
-    )
-    expect(await screen.findByText('Tidligst mulig uttak:')).toBeVisible()
-    expect(screen.getByText('62 år og 10 md.')).toBeVisible()
-    expect(asFragment()).toMatchSnapshot()
-  })
+    const { asFragment } = render(<Grunnlag />)
 
-  it('viser pensjonsavtaler', async () => {
-    render(
-      <Grunnlag
-        tidligstMuligUttak={{ aar: 62, maaned: 10, uttaksdato: '2031-11-01' }}
-      />
-    )
-    await waitFor(() => {
-      expect(screen.getByTestId('pensjonsavtaler')).toBeInTheDocument()
-    })
+    expect(
+      await screen.findByText('Grunnlaget for beregningen')
+    ).toBeInTheDocument()
+    expect(await screen.findByText('Tidligst mulig uttak:')).toBeVisible()
+    expect(await screen.findByText('Uttaksgrad:')).toBeVisible()
+    expect(await screen.findByText('Inntekt:')).toBeVisible()
+    expect(await screen.findByText('Sivilstand:')).toBeVisible()
+    expect(await screen.findByText('Utenlandsopphold:')).toBeVisible()
+    expect(await screen.findByText('Alderspensjon (NAV):')).toBeVisible()
+    expect(await screen.findByText('AFP')).toBeVisible()
+    expect(await screen.findByText('Pensjonsavtaler:')).toBeVisible()
+
+    expect(asFragment()).toMatchSnapshot()
   })
 })
