@@ -6,7 +6,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
     class="_section_ccee9c"
   >
     <div
-      data-highcharts-chart="2"
+      data-highcharts-chart="3"
       style="overflow: visible;"
     >
       <div
@@ -163,7 +163,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
             <div
               class="highcharts-container "
               dir="ltr"
-              id="highcharts-8"
+              id="highcharts-136"
               style="position: relative; overflow: hidden; width: 600px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
             >
               <svg
@@ -182,7 +182,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                 </desc>
                 <defs>
                   <filter
-                    id="highcharts-drop-shadow-2"
+                    id="highcharts-drop-shadow-3"
                   >
                     <fedropshadow
                       dx="1"
@@ -193,7 +193,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                     />
                   </filter>
                   <clippath
-                    id="highcharts-9-"
+                    id="highcharts-137-"
                   >
                     <rect
                       fill="none"
@@ -204,7 +204,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                     />
                   </clippath>
                   <clippath
-                    id="highcharts-27-"
+                    id="highcharts-155-"
                   >
                     <rect
                       fill="none"
@@ -510,7 +510,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                 >
                   <g
                     class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-27-)"
+                    clip-path="url(#highcharts-155-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -524,7 +524,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   />
                   <g
                     class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-27-)"
+                    clip-path="url(#highcharts-155-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -721,7 +721,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
       />
     </div>
     <div
-      class="navds-read-more navds-read-more--medium _visTabell_ccee9c"
+      class="navds-read-more navds-read-more--medium _visTabell_15ff36"
     >
       <button
         aria-expanded="false"
@@ -823,1176 +823,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                 class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
               >
                 <button
-                  aria-controls="r7"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-r8"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-r8"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                64 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                650 000
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="r7"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        650 000
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="r9"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-ra"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-ra"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                65 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                469 606
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="r9"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        260 000
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 606
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rb"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-rc"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-rc"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                66 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 810
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rb"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 810
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rd"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-re"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-re"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                67 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rd"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rf"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-rg"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-rg"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                68 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rf"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rh"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-ri"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-ri"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                69 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rh"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rj"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-rk"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-rk"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                70 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rj"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rl"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-rm"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-rm"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                71 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rl"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rn"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-ro"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-ro"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                72 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rn"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rp"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-rq"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-rq"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                73 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rp"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rr"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-rs"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-rs"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                74 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rr"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rt"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-ru"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-ru"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                75 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rt"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
-                  aria-controls="rv"
-                  aria-expanded="false"
-                  class="navds-table__toggle-expand-button"
-                  type="button"
-                >
-                  <svg
-                    aria-labelledby="title-r10"
-                    class="navds-table__expandable-icon"
-                    fill="none"
-                    focusable="false"
-                    height="1em"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    width="1em"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <title
-                      id="title-r10"
-                    >
-                      Vis mer
-                    </title>
-                    <path
-                      clip-rule="evenodd"
-                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </td>
-              <td
-                class="navds-table__data-cell navds-body-short navds-body-short--medium"
-              >
-                76 år
-              </td>
-              <td
-                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844
-              </td>
-            </tr>
-            <tr
-              aria-hidden="true"
-              class="navds-table__expanded-row"
-              id="rv"
-            >
-              <td
-                class="navds-table__expanded-row-cell"
-                colspan="999"
-              >
-                <div
-                  class="navds-table__expanded-row-collapse"
-                  style="height: 0px; overflow: hidden;"
-                >
-                  <div
-                    aria-hidden="true"
-                    class="navds-table__expanded-row-content"
-                    style="display: none;"
-                  >
-                    <dl
-                      class="_details_15ff36"
-                    >
-                      <dt>
-                        Inntekt (lønn m.m.)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        0
-                      </dd>
-                      <dt>
-                        Alderspensjon (NAV)
-                      </dt>
-                      <dd
-                        class="_detailsItemRight_15ff36"
-                      >
-                        209 844
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr
-              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-            >
-              <td
-                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-              >
-                <button
                   aria-controls="r11"
                   aria-expanded="false"
                   class="navds-table__toggle-expand-button"
@@ -2026,12 +856,12 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
-                77 år
+                64 år
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844
+                650 000
               </td>
             </tr>
             <tr
@@ -2061,7 +891,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        0
+                        650 000
                       </dd>
                       <dt>
                         Alderspensjon (NAV)
@@ -2069,7 +899,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                       <dd
                         class="_detailsItemRight_15ff36"
                       >
-                        209 844
+                        0
                       </dd>
                     </dl>
                   </div>
@@ -2116,6 +946,1172 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell navds-body-short navds-body-short--medium"
               >
+                65 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                494 518
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r13"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        260 000
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 518
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r15"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r16"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r16"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                66 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 722
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r15"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 722
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r17"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r18"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r18"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                67 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r17"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r19"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1a"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1a"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                68 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r19"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1b"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1c"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1c"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                69 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1b"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1d"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1e"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1e"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                70 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1d"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1f"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1g"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1g"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                71 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1f"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1h"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1i"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1i"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                72 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1h"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1j"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1k"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1k"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                73 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1j"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1l"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1m"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1m"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                74 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1l"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1n"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1o"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1o"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                75 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                234 756
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1n"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        234 756
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1p"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1q"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1q"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                76 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                NaN
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1p"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      />
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1r"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1s"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1s"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
+                77 år
+              </td>
+              <td
+                class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+              >
+                NaN
+              </td>
+            </tr>
+            <tr
+              aria-hidden="true"
+              class="navds-table__expanded-row"
+              id="r1r"
+            >
+              <td
+                class="navds-table__expanded-row-cell"
+                colspan="999"
+              >
+                <div
+                  class="navds-table__expanded-row-collapse"
+                  style="height: 0px; overflow: hidden;"
+                >
+                  <div
+                    aria-hidden="true"
+                    class="navds-table__expanded-row-content"
+                    style="display: none;"
+                  >
+                    <dl
+                      class="_details_15ff36"
+                    >
+                      <dt>
+                        Inntekt (lønn m.m.)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      >
+                        0
+                      </dd>
+                      <dt>
+                        Alderspensjon (NAV)
+                      </dt>
+                      <dd
+                        class="_detailsItemRight_15ff36"
+                      />
+                    </dl>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+            >
+              <td
+                class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+              >
+                <button
+                  aria-controls="r1t"
+                  aria-expanded="false"
+                  class="navds-table__toggle-expand-button"
+                  type="button"
+                >
+                  <svg
+                    aria-labelledby="title-r1u"
+                    class="navds-table__expandable-icon"
+                    fill="none"
+                    focusable="false"
+                    height="1em"
+                    role="img"
+                    viewBox="0 0 24 24"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title
+                      id="title-r1u"
+                    >
+                      Vis mer
+                    </title>
+                    <path
+                      clip-rule="evenodd"
+                      d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </td>
+              <td
+                class="navds-table__data-cell navds-body-short navds-body-short--medium"
+              >
                 77+ (livsvarig)
               </td>
               <td
@@ -2127,7 +2123,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
             <tr
               aria-hidden="true"
               class="navds-table__expanded-row"
-              id="r13"
+              id="r1t"
             >
               <td
                 class="navds-table__expanded-row-cell"
@@ -2201,7 +2197,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                469 606 kr
+                494 518 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2211,7 +2207,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 606 kr
+                234 518 kr
               </td>
             </tr>
             <tr
@@ -2225,7 +2221,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 810 kr
+                234 722 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2233,7 +2229,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 810 kr
+                234 722 kr
               </td>
             </tr>
             <tr
@@ -2247,7 +2243,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2255,7 +2251,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2269,7 +2265,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2277,7 +2273,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2291,7 +2287,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2299,7 +2295,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2313,7 +2309,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2321,7 +2317,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2335,7 +2331,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2343,7 +2339,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2357,7 +2353,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2365,7 +2361,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2379,7 +2375,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2387,7 +2383,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2401,7 +2397,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2409,7 +2405,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2423,7 +2419,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2431,7 +2427,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               >
-                209 844 kr
+                234 756 kr
               </td>
             </tr>
             <tr
@@ -2444,17 +2440,13 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844 kr
-              </td>
+              />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844 kr
-              </td>
+              />
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2466,17 +2458,13 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               </td>
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844 kr
-              </td>
+              />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
               />
               <td
                 class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-              >
-                209 844 kr
-              </td>
+              />
             </tr>
             <tr
               class="navds-table__row navds-table__row--shade-on-hover"
@@ -2497,338 +2485,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
               />
             </tr>
           </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-</DocumentFragment>
-`;
-
-exports[`Simulering > viser feilmelding når alderspensjon/afp-privat feiler 1`] = `
-<DocumentFragment>
-  <section
-    class="_section_ccee9c"
-  >
-    <div
-      class="navds-alert navds-alert--error navds-alert--medium"
-    >
-      <svg
-        aria-labelledby="title-r4"
-        class="navds-alert__icon"
-        fill="none"
-        focusable="false"
-        height="1em"
-        role="img"
-        viewBox="0 0 24 24"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <title
-          id="title-r4"
-        >
-          Feil
-        </title>
-        <path
-          clip-rule="evenodd"
-          d="M7.742 2.47a.75.75 0 0 1 .53-.22h7.456a.75.75 0 0 1 .53.22l5.272 5.272c.141.14.22.331.22.53v7.456a.75.75 0 0 1-.22.53l-5.272 5.272a.75.75 0 0 1-.53.22H8.272a.75.75 0 0 1-.53-.22L2.47 16.258a.75.75 0 0 1-.22-.53V8.272a.75.75 0 0 1 .22-.53L7.742 2.47Zm1.288 5.5a.75.75 0 0 0-1.06 1.06L10.94 12l-2.97 2.97a.75.75 0 1 0 1.06 1.06L12 13.06l2.97 2.97a.75.75 0 1 0 1.06-1.06L13.06 12l2.97-2.97a.75.75 0 0 0-1.06-1.06L12 10.94 9.03 7.97Z"
-          fill="currentColor"
-          fill-rule="evenodd"
-        />
-      </svg>
-      <div
-        class="navds-alert__wrapper navds-body-long navds-body-long--medium"
-      >
-        <h2
-          class="navds-heading navds-heading--small navds-typo--spacing"
-        >
-          TODO PEK-119 feilhåndtering Vi klarte ikke å simulere pensjonen din
-        </h2>
-      </div>
-    </div>
-    <div
-      data-highcharts-chart="1"
-      style="overflow: visible;"
-    >
-      <div
-        class="highcharts-scrolling-parent"
-        style="position: relative;"
-      >
-        <div
-          class="highcharts-fixed"
-          dir="ltr"
-          style="padding: 0px; margin: 0px; position: absolute; overflow: hidden; pointer-events: none; z-index: 2; top: 0px;"
-        >
-          <svg
-            class="highcharts-root"
-            height="400"
-            style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
-            version="1.1"
-            viewBox="0 0 600 400"
-            width="600"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <desc>
-              Created with Highcharts 11.1.0
-            </desc>
-            <defs />
-            <path
-              class="highcharts-scrollable-mask"
-              d="M 0 -1 L -1 -1 L -1 401 L 0 401 Z M 590 -1 L 600 -1 L 600 401 L 590 401 Z"
-              data-z-index="-1"
-              fill="#ffffff"
-              fill-opacity="0.85"
-            />
-            <g
-              class="highcharts-legend highcharts-no-tooltip"
-              data-z-index="7"
-              style="pointer-events: auto;"
-              visibility="hidden"
-            >
-              <rect
-                class="highcharts-legend-box"
-                fill="none"
-                filter="none"
-                rx="0"
-                ry="0"
-                stroke="#999999"
-                stroke-width="0"
-              />
-              <g
-                data-z-index="1"
-              >
-                <g />
-              </g>
-            </g>
-            <text
-              class="highcharts-subtitle"
-              data-z-index="4"
-              style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666; pointer-events: auto;"
-              text-anchor="middle"
-              x="295"
-              y="0"
-            />
-            <text
-              class="highcharts-title"
-              data-z-index="4"
-              style="font-size: 20px; color: rgb(51, 51, 51); font-weight: bold; font-family: var(--a-font-family); fill: #333333; pointer-events: auto;"
-              text-anchor="start"
-              x="0"
-              y="20"
-            >
-              Beregning
-            </text>
-          </svg>
-        </div>
-        <div
-          class="highcharts-scrolling"
-          style="overflow-x: auto; overflow-y: hidden; height: 400px;"
-        >
-          <div
-            class="highcharts-inner-container"
-          >
-            <div
-              class="highcharts-container "
-              dir="ltr"
-              id="highcharts-4"
-              style="position: relative; overflow: hidden; width: 750px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
-            >
-              <svg
-                aria-label="Beregning"
-                class="highcharts-root"
-                height="400"
-                role="img"
-                style="font-family: Helvetica, Arial, sans-serif; font-size: 1rem;"
-                version="1.1"
-                viewBox="0 0 750 400"
-                width="750"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <desc>
-                  Created with Highcharts 11.1.0
-                </desc>
-                <defs>
-                  <filter
-                    id="highcharts-drop-shadow-1"
-                  >
-                    <fedropshadow
-                      dx="1"
-                      dy="1"
-                      flood-color="#000000"
-                      flood-opacity="0.75"
-                      stdDeviation="2.5"
-                    />
-                  </filter>
-                  <clippath
-                    id="highcharts-5-"
-                  >
-                    <rect
-                      fill="none"
-                      height="400"
-                      width="740"
-                      x="0"
-                      y="0"
-                    />
-                  </clippath>
-                </defs>
-                <rect
-                  class="highcharts-background"
-                  fill="#ffffff"
-                  filter="none"
-                  height="400"
-                  rx="0"
-                  ry="0"
-                  width="750"
-                  x="0"
-                  y="0"
-                />
-                <rect
-                  class="highcharts-plot-background"
-                  fill="none"
-                  filter="none"
-                  height="400"
-                  width="740"
-                  x="0"
-                  y="0"
-                />
-                <rect
-                  class="highcharts-plot-border"
-                  data-z-index="1"
-                  fill="none"
-                  height="400"
-                  stroke="#cccccc"
-                  stroke-width="0"
-                  width="740"
-                  x="0"
-                  y="0"
-                />
-                <g
-                  class="highcharts-series-group"
-                  data-z-index="3"
-                  filter="none"
-                />
-                <text
-                  class="highcharts-caption"
-                  data-z-index="4"
-                  style="color: rgb(102, 102, 102); font-size: 0.8em; fill: #666666;"
-                  text-anchor="start"
-                  x="0"
-                  y="402"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="_buttonRow_ccee9c"
-    >
-      <div
-        class="_buttonRowElement_ccee9c"
-      />
-      <div
-        class="_buttonRowElement_ccee9c _buttonRowElement__Right_ccee9c"
-      />
-    </div>
-    <div
-      class="navds-read-more navds-read-more--medium _visTabell_ccee9c"
-    >
-      <button
-        aria-expanded="false"
-        class="navds-read-more__button navds-body-short"
-        data-testid="readmore"
-        type="button"
-      >
-        <svg
-          aria-hidden="true"
-          class="navds-read-more__expand-icon"
-          fill="none"
-          focusable="false"
-          height="1em"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clip-rule="evenodd"
-            d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
-        <span>
-          Vis tabell av beregningen
-        </span>
-      </button>
-      <div
-        aria-hidden="true"
-        class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
-      >
-        <table
-          aria-live="polite"
-          class="navds-table navds-table--medium _table_15ff36"
-        >
-          <thead
-            class="navds-table__header"
-          >
-            <tr
-              class="navds-table__row navds-table__row--shade-on-hover"
-            >
-              <th
-                class="navds-table__header-cell navds-label _tableMobileOnly_15ff36"
-              />
-              <th
-                class="navds-table__header-cell navds-label"
-                scope="col"
-              >
-                Alder
-              </th>
-              <th
-                class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
-                scope="col"
-              >
-                Sum
-                <span
-                  class="_tableMobileOnly_15ff36"
-                >
-                   (kr)
-                </span>
-              </th>
-              <th
-                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-                scope="col"
-              >
-                Inntekt
-                <br />
-                (lønn m.m.)
-              </th>
-              <th
-                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-                scope="col"
-              >
-                Avtalefestet pensjon (AFP)
-              </th>
-              <th
-                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-                scope="col"
-              >
-                Pensjonsavtaler (arbeidsgiver)
-              </th>
-              <th
-                class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-                scope="col"
-              >
-                Alderspensjon (NAV)
-              </th>
-            </tr>
-          </thead>
-          <tbody
-            class="navds-table__body _tableMobileOnly_15ff36"
-          />
-          <tbody
-            class="navds-table__body _tableDesktopOnly_15ff36"
-          />
         </table>
       </div>
     </div>

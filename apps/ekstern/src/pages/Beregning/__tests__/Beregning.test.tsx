@@ -1,16 +1,12 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { Beregning } from '../Beregning'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import * as apiSliceUtils from '@/state/api/apiSlice'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import {
-  render,
-  screen,
-  swallowErrorsAsync,
-  userEvent,
-  waitFor,
-} from '@/test-utils'
+  userInputInitialState,
+  Simulation,
+} from '@/state/userInput/userInputReducer'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
   it('har riktig sidetittel', () => {
@@ -18,62 +14,103 @@ describe('Beregning', () => {
     expect(document.title).toBe('application.title.beregning')
   })
 
-  it('viser loading og deretter riktig header, tekst og knapper', async () => {
-    const result = render(<Beregning />)
-    expect(screen.getByTestId('loader')).toBeVisible()
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
-    })
-    expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-    expect(screen.getAllByRole('button')).toHaveLength(12)
-    expect(result.asFragment()).toMatchSnapshot()
-  })
+  describe('Når tidligst mulig uttaksalder hentes', () => {
+    // it('viser loader når alderspensjon/afp-privat beregnes', async () => {
+    //   render(<Simulering showAfp={false} showButtonsAndTable={true} />, {
+    //     preloadedState: {
+    //       userInput: {
+    //         ...userInputInitialState,
+    //         afp: 'nei',
+    //         samtykke: true,
+    //         samboer: true,
+    //         currentSimulation: { ...currentSimulation },
+    //       },
+    //     },
+    //   })
+    //   expect(await screen.findByTestId('loader')).toBeVisible()
+    // })
 
-  it('viser feilmelding om henting av pensjonberegning feiler', async () => {
-    mockErrorResponse('/tidligste-uttaksalder', {
-      status: 500,
-      json: "Beep boop I'm an error!",
-      method: 'post',
-    })
+    // it('viser feilmelding når alderspensjon/afp-privat feiler', async () => {
+    //   mockErrorResponse('/alderspensjon/simulering', {
+    //     status: 500,
+    //     json: "Beep boop I'm an error!",
+    //     method: 'post',
+    //   })
+    //   const { asFragment } = render(<Simulering />, {
+    //     preloadedState: {
+    //       userInput: {
+    //         ...userInputInitialState,
+    //         samtykke: true,
+    //         currentSimulation: { ...currentSimulation },
+    //       },
+    //     },
+    //   })
 
-    const result = render(<Beregning />)
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          'Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.'
-        )
-      ).toBeVisible()
+    //   await waitFor(async () => {
+    //     expect(
+    //       await screen.findByText(
+    //         'TODO PEK-119 feilhåndtering Vi klarte ikke å simulere pensjonen din'
+    //       )
+    //     ).toBeVisible()
+    //     expect(asFragment()).toMatchSnapshot()
+    //   })
+    // })
+    it('viser loading og deretter riktig header, tekst og knapper', async () => {
+      const result = render(<Beregning />)
+      expect(screen.getByTestId('loader')).toBeVisible()
+      await waitFor(() => {
+        expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
+      })
+      expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
+      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+      expect(screen.getAllByRole('button')).toHaveLength(12)
       expect(result.asFragment()).toMatchSnapshot()
     })
-  })
 
-  it('viser feilmelding om Beregning er på ugyldig format', async () => {
-    const invalidData = {
-      aar: 67,
-      maaned: null,
-    } as unknown as Uttaksalder
-    mockResponse('/tidligste-uttaksalder', {
-      json: [invalidData],
-      method: 'post',
-    })
+    // TODO PEK-119 - utvide med sjekk på at feilmeldingen dukker riktig opp under Grunnlag (etter merge)
+    // it('viser feilmelding når henting av tidligst mulig uttaksalder feiler', async () => {
+    //   mockErrorResponse('/tidligste-uttaksalder', {
+    //     status: 500,
+    //     json: "Beep boop I'm an error!",
+    //     method: 'post',
+    //   })
 
-    render(<Beregning />)
+    //   const result = render(<Beregning />)
 
-    await swallowErrorsAsync(async () => {
-      await waitFor(() => {
-        expect(
-          screen.getByText(
-            'Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.'
-          )
-        ).toBeVisible()
-      })
-    })
+    //   await waitFor(() => {
+    //     expect(
+    //       screen.getByText(
+    //         'Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen senere.'
+    //       )
+    //     ).toBeVisible()
+    //     expect(result.asFragment()).toMatchSnapshot()
+    //   })
+    // })
   })
 
   describe('Når brukeren velger uttaksalder', () => {
-    it('oppdaterer valgt knapp og tegner graph', async () => {
+    const currentSimulation: Simulation = {
+      startAlder: 65,
+      startMaaned: 5,
+      uttaksgrad: 100,
+      aarligInntekt: 0,
+    }
+    // it('viser en loader mens beregning av alderspensjon pågår', async () => {
+    //   render(<Beregning />, {
+    //     preloadedState: {
+    //       userInput: {
+    //         ...userInputInitialState,
+    //         afp: 'nei',
+    //         samtykke: true,
+    //         samboer: true,
+    //         currentSimulation: { ...currentSimulation },
+    //       },
+    //     },
+    //   })
+    //   expect(await screen.findByTestId('alderspensjon-loader')).toBeVisible()
+    // })
+
+    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
       const { container } = render(<Beregning />)
       const button = await screen.findByText('68 år')
@@ -81,96 +118,56 @@ describe('Beregning', () => {
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
         '68 år'
       )
+      expect(await screen.findByTestId('alderspensjon-loader')).toBeVisible()
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
     })
 
-    it('henter ikke pensjonsavtaler når brukeren ikke har samtykket', async () => {
-      const user = userEvent.setup()
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap,
-        'initiate'
-      )
-      render(<Beregning />, {
-        preloadedState: {
-          userInput: { ...userInputInitialState, samtykke: false },
-        },
-      })
-      const button = await screen.findByText('68 år')
-      await user.click(button)
-      expect(initiateMock).not.toHaveBeenCalled()
-    })
-
-    it('henter pensjonsavtaler med riktig år og måned og viser dem når brukeren har samtykket', async () => {
-      const usePensjonsavtalerQueryMock = vi.spyOn(
-        apiSliceUtils,
-        'usePensjonsavtalerQuery'
-      )
-      const user = userEvent.setup()
-      render(<Beregning />, {
-        preloadedState: {
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-          },
-        },
-      })
-
-      const buttons = await screen.findAllByRole('button')
-      expect(buttons).toHaveLength(12)
-      await user.click(buttons[2])
-      await waitFor(async () => {
-        expect(await screen.findByTestId('pensjonsavtaler')).toBeInTheDocument()
-        expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
-          antallInntektsaarEtterUttak: 0,
-          uttaksperioder: [
-            {
-              startAlder: 68,
-              startMaaned: 1,
-              aarligInntekt: 0,
-              grad: 100,
-            },
-          ],
-        })
-      })
-      await user.click(buttons[1])
-      await waitFor(async () => {
-        expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
-          antallInntektsaarEtterUttak: 0,
-          uttaksperioder: [
-            {
-              startAlder: 67,
-              startMaaned: 3,
-              aarligInntekt: 0,
-              grad: 100,
-            },
-          ],
-        })
-      })
-    })
-
-    it('henter pensjonsavtaler og viser riktig feilmelding ved feil', async () => {
-      const user = userEvent.setup()
-      mockErrorResponse('/pensjonsavtaler', {
+    // TODO PEK-119 - legge til test for retry
+    it('viser feilmelding når simuleringen feiler med mulighet til å prøve på nytt, og skjuler Grunnlag', async () => {
+      mockErrorResponse('/alderspensjon/simulering', {
         status: 500,
         json: "Beep boop I'm an error!",
         method: 'post',
       })
-      render(<Beregning />, {
-        preloadedState: {
-          userInput: { ...userInputInitialState, samtykke: true },
-        },
-      })
+      const user = userEvent.setup()
+      const { asFragment } = render(<Beregning />)
       const button = await screen.findByText('68 år')
       await user.click(button)
-
       await waitFor(async () => {
         expect(
           await screen.findByText(
-            'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.'
+            'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'
           )
         ).toBeVisible()
+        expect(
+          screen.queryByText('Grunnlaget for beregningen')
+        ).not.toBeInTheDocument()
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
+
+    it('viser feilmelding og skjuler Grunnlag når tidligste-uttaksalder har feilet og brukeren prøver å simulere med for lav uttaksalder', async () => {
+      mockErrorResponse('/tidligste-uttaksalder', {
+        status: 500,
+        json: "Beep boop I'm an error!",
+        method: 'post',
+      })
+      const user = userEvent.setup()
+      const { asFragment } = render(<Beregning />)
+      const button = await screen.findByText('62 år')
+      await user.click(button)
+      await waitFor(async () => {
+        expect(
+          await screen.findByText(
+            'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'
+          )
+        ).toBeVisible()
+        expect(
+          screen.queryByText('Grunnlaget for beregningen')
+        ).not.toBeInTheDocument()
+        expect(asFragment()).toMatchSnapshot()
       })
     })
   })

@@ -1,5 +1,25 @@
 @import '../../scss/variables';
 
+.visTabell {
+  width: 100%;
+
+  button {
+    margin: 0 auto;
+
+    @media (min-width: $a-breakpoint-md) {
+      margin: 0;
+    }
+  }
+
+  :global {
+    .navds-read-more__content {
+      border-left: 0;
+      margin-left: 0;
+      padding-left: 0;
+    }
+  }
+}
+
 .table {
   :global {
     .navds-table__expanded-row-content {

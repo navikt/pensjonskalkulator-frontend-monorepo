@@ -21,7 +21,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
   }),
-  tagTypes: ['Person'],
+  tagTypes: ['Person', 'Alderspensjon'],
   endpoints: (builder) => ({
     pensjonsavtaler: builder.query<
       Pensjonsavtale[],
@@ -73,6 +73,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
+      providesTags: ['Alderspensjon'],
       transformResponse: (response: AlderspensjonResponseBody) => {
         if (
           !isPensjonsberegningArray(response?.alderspensjon) ||

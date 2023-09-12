@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { Alert, Heading } from '@navikt/ds-react'
+import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
+import { Alert } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
@@ -11,28 +12,81 @@ import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
-import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
-import { useAppSelector } from '@/state/hooks'
-import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
+import {
+  apiSlice,
+  useAlderspensjonQuery,
+  useGetPersonQuery,
+  useTidligsteUttaksalderQuery,
+} from '@/state/api/apiSlice'
+import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
+import { generateAlderspensjonRequestBody } from '@/state/api/utils'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import {
+  selectAfp,
+  selectSamboer,
+  selectCurrentSimulation,
+  selectFormatertUttaksalder,
+} from '@/state/userInput/selectors'
 
 import styles from './Beregning.module.scss'
 
 export function Beregning() {
   const isAlderValgt = useAppSelector(selectFormatertUttaksalder) !== null
+  const harSamboer = useAppSelector(selectSamboer)
+  const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
+    React.useState<AlderspensjonRequestBody | undefined>(undefined)
 
   const intl = useIntl()
-  const {
-    data: tidligstMuligUttak,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useTidligsteUttaksalderQuery()
+  const dispatch = useAppDispatch()
 
-  useEffect(() => {
+  const { data: person } = useGetPersonQuery()
+  const afp = useAppSelector(selectAfp)
+  const { startAlder, startMaaned, uttaksgrad } = useAppSelector(
+    selectCurrentSimulation
+  )
+  React.useEffect(() => {
+    const requestBody = generateAlderspensjonRequestBody({
+      afp,
+      sivilstand: person?.sivilstand,
+      harSamboer,
+      foedselsdato: person?.foedselsdato,
+      startAlder: startAlder,
+      startMaaned: startMaaned,
+      uttaksgrad: uttaksgrad,
+    })
+    setAlderspensjonRequestBody(requestBody)
+  }, [afp, person, startAlder, startMaaned, uttaksgrad])
+
+  React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title.beregning',
     })
   }, [])
+
+  // Hent tidligst mulig uttaksalder
+  const { data: tidligstMuligUttak, isLoading } = useTidligsteUttaksalderQuery()
+
+  // Hent alderspensjon + AFP
+  const {
+    data: alderspensjon,
+    isLoading: isAlderspensjonLoading,
+    isError,
+    isSuccess,
+  } = useAlderspensjonQuery(
+    alderspensjonRequestBody as AlderspensjonRequestBody,
+    {
+      skip: !alderspensjonRequestBody,
+    }
+  )
+
+  const onRetry = (): void => {
+    dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
+    if (alderspensjonRequestBody) {
+      dispatch(
+        apiSlice.endpoints.alderspensjon.initiate(alderspensjonRequestBody)
+      )
+    }
+  }
 
   if (isLoading) {
     return (
@@ -44,25 +98,11 @@ export function Beregning() {
     )
   }
 
-  if (isError || !isSuccess) {
-    return (
-      <Alert variant="error">
-        <Heading spacing size="small" level="2">
-          Vi klarte ikke å hente din tidligste mulige uttaksalder. Prøv igjen
-          senere.
-        </Heading>
-      </Alert>
-    )
-  }
-
   return (
     <>
       <div className={styles.container}>
         <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
       </div>
-      {
-        // TODO etter merge - denne flyttes under routes/pages slik at containeren ikke har styles
-      }
       <div
         className={clsx(styles.background, styles.background__hasMargin, {
           [styles.background__white]: isAlderValgt,
@@ -78,9 +118,37 @@ export function Beregning() {
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}
           >
-            <Simulering />
-            <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
-            <Forbehold />
+            {isAlderspensjonLoading && (
+              <Loader
+                data-testid="alderspensjon-loader"
+                size="3xlarge"
+                title="Et øyeblikk, vi beregner pensjonen din"
+              />
+            )}
+            {isError || alderspensjon?.uttakskravIkkeOppfylt ? (
+              <>
+                <Heading level="2" size="small">
+                  Beregning
+                </Heading>
+                <Alert onRetry={isError ? onRetry : undefined}>
+                  {isError
+                    ? 'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'
+                    : `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAlder} år. Prøv en høyere alder.`}
+                </Alert>
+              </>
+            ) : (
+              <>
+                <Simulering
+                  alderspensjon={alderspensjon}
+                  showAfp={afp === 'ja_privat'}
+                  showButtonsAndTable={
+                    isSuccess && !alderspensjon?.uttakskravIkkeOppfylt
+                  }
+                />
+                <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+                <Forbehold />
+              </>
+            )}
           </div>
         )}
       </div>

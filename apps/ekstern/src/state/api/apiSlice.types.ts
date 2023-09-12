@@ -29,6 +29,7 @@ export type AlderspensjonRequestBody = {
 export type AlderspensjonResponseBody = {
   alderspensjon: Pensjonsberegning[]
   afpPrivat: Pensjonsberegning[]
+  uttakskravIkkeOppfylt: boolean
 }
 
 export type UttaksalderRequestBody = {

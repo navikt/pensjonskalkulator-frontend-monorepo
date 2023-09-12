@@ -33,10 +33,10 @@ async function onSetFormatertUttaksalder(
 
   const samtykke = selectSamtykke(getState())
   if (samtykke) {
-    const pensjonsavtalerRequestBody =
-      generatePensjonsavtalerRequestBody(uttaksalder)
     dispatch(
-      apiSlice.endpoints.pensjonsavtaler.initiate(pensjonsavtalerRequestBody)
+      apiSlice.endpoints.pensjonsavtaler.initiate(
+        generatePensjonsavtalerRequestBody(uttaksalder)
+      )
     )
   }
 }
