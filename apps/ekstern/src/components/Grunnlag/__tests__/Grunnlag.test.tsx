@@ -1,28 +1,57 @@
-import { waitFor } from '@testing-library/react'
+import { vi } from 'vitest'
 
 import { Grunnlag } from '@/components/Grunnlag'
-import { render, screen } from '@/test-utils'
+import * as velgUttaksalderUtils from '@/components/VelgUttaksalder/utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 describe('Grunnlag', () => {
-  const tidligstMuligUttak = { aar: 62, maaned: 10, uttaksdato: '2031-11-01' }
-
   it('viser alle seksjonene', async () => {
-    const { asFragment } = render(
-      <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
-    )
+    const { asFragment } = render(<Grunnlag />)
+
+    expect(
+      await screen.findByText('Grunnlaget for beregningen')
+    ).toBeInTheDocument()
     expect(await screen.findByText('Tidligst mulig uttak:')).toBeVisible()
-    expect(screen.getByText('62 år og 10 md.')).toBeVisible()
+    expect(await screen.findByText('Uttaksgrad:')).toBeVisible()
+    expect(await screen.findByText('Inntekt:')).toBeVisible()
+    expect(await screen.findByText('Sivilstand:')).toBeVisible()
+    expect(await screen.findByText('Utenlandsopphold:')).toBeVisible()
+    expect(await screen.findByText('Alderspensjon (NAV):')).toBeVisible()
+    expect(await screen.findByText('AFP')).toBeVisible()
+    expect(await screen.findByText('Pensjonsavtaler:')).toBeVisible()
+
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('viser pensjonsavtaler', async () => {
-    render(
-      <Grunnlag
-        tidligstMuligUttak={{ aar: 62, maaned: 10, uttaksdato: '2031-11-01' }}
-      />
-    )
-    await waitFor(() => {
-      expect(screen.getByTestId('pensjonsavtaler')).toBeInTheDocument()
+  describe('Grunnlag - tidligst mulig uttak', () => {
+    it('rendrer riktig tittel med formatert uttaksalder og tekst', async () => {
+      const user = userEvent.setup()
+      const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
+      const { asFragment } = render(
+        <Grunnlag tidligstMuligUttak={{ aar: 67, maaned: 1 }} />
+      )
+      expect(screen.getByText('Tidligst mulig uttak:')).toBeVisible()
+      expect(formatMock).toHaveBeenCalled()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[0])
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('rendrer riktig når tidligst mulig uttaksalder ikke kunne hentes', async () => {
+      const user = userEvent.setup()
+      const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
+      const { asFragment } = render(<Grunnlag />)
+      expect(screen.getByText('Tidligst mulig uttak:')).toBeVisible()
+      expect(screen.getByText('Ikke funnet')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[0])
+      expect(
+        screen.getByText(
+          'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon. Prøv igjen senere.'
+        )
+      ).toBeVisible()
+      expect(formatMock).not.toHaveBeenCalled()
+      expect(asFragment()).toMatchSnapshot()
     })
   })
 })

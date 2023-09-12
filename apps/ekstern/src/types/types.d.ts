@@ -6,6 +6,8 @@ declare type Uttaksalder = {
   uttaksdato: string
 }
 
+declare type UttaksalderForenklet = Omit<Uttaksalder, 'uttaksdato'>
+
 declare type Pensjonsberegning = {
   beloep: number
   alder: number

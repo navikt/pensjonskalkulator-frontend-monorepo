@@ -44,6 +44,13 @@ export function Beregning() {
   const { startAlder, startMaaned, uttaksgrad } = useAppSelector(
     selectCurrentSimulation
   )
+
+  React.useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title.beregning',
+    })
+  }, [])
+
   React.useEffect(() => {
     const requestBody = generateAlderspensjonRequestBody({
       afp,
@@ -57,21 +64,19 @@ export function Beregning() {
     setAlderspensjonRequestBody(requestBody)
   }, [afp, person, startAlder, startMaaned, uttaksgrad])
 
-  React.useEffect(() => {
-    document.title = intl.formatMessage({
-      id: 'application.title.beregning',
-    })
-  }, [])
-
   // Hent tidligst mulig uttaksalder
-  const { data: tidligstMuligUttak, isLoading } = useTidligsteUttaksalderQuery()
+  // TODO fikse bug, tidligst mulig uttak går i loop (!)
+  const {
+    data: tidligstMuligUttak,
+    isLoading: isTidligstMuligUttaksalderLoading,
+    isError: isTidligstMuligUttaksalderError,
+  } = useTidligsteUttaksalderQuery()
 
   // Hent alderspensjon + AFP
   const {
     data: alderspensjon,
-    isLoading: isAlderspensjonLoading,
+    isLoading,
     isError,
-    isSuccess,
   } = useAlderspensjonQuery(
     alderspensjonRequestBody as AlderspensjonRequestBody,
     {
@@ -88,10 +93,10 @@ export function Beregning() {
     }
   }
 
-  if (isLoading) {
+  if (isTidligstMuligUttaksalderLoading) {
     return (
       <Loader
-        data-testid="loader"
+        data-testid="uttaksalder-loader"
         size="3xlarge"
         title="Et øyeblikk, vi henter tidligste mulige uttaksalder"
       />
@@ -100,9 +105,11 @@ export function Beregning() {
 
   return (
     <>
-      <div className={styles.container}>
-        <TidligstMuligUttaksalder uttaksalder={tidligstMuligUttak} />
-      </div>
+      {!isTidligstMuligUttaksalderError && tidligstMuligUttak && (
+        <div className={styles.container}>
+          <TidligstMuligUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
+        </div>
+      )}
       <div
         className={clsx(styles.background, styles.background__hasMargin, {
           [styles.background__white]: isAlderValgt,
@@ -118,7 +125,7 @@ export function Beregning() {
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}
           >
-            {isAlderspensjonLoading && (
+            {isLoading && (
               <Loader
                 data-testid="alderspensjon-loader"
                 size="3xlarge"
@@ -142,7 +149,7 @@ export function Beregning() {
                   alderspensjon={alderspensjon}
                   showAfp={afp === 'ja_privat'}
                   showButtonsAndTable={
-                    isSuccess && !alderspensjon?.uttakskravIkkeOppfylt
+                    !isError && !alderspensjon?.uttakskravIkkeOppfylt
                   }
                 />
                 <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
@@ -152,7 +159,6 @@ export function Beregning() {
           </div>
         )}
       </div>
-
       <div className={`${styles.background} ${styles.background__lightblue}`}>
         <div className={styles.container}>
           <TilbakeEllerAvslutt />

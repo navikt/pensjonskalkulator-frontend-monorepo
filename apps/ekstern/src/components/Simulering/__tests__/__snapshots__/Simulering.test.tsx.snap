@@ -163,7 +163,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
             <div
               class="highcharts-container "
               dir="ltr"
-              id="highcharts-136"
+              id="highcharts-109"
               style="position: relative; overflow: hidden; width: 600px; height: 400px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
             >
               <svg
@@ -193,7 +193,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                     />
                   </filter>
                   <clippath
-                    id="highcharts-137-"
+                    id="highcharts-110-"
                   >
                     <rect
                       fill="none"
@@ -204,7 +204,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                     />
                   </clippath>
                   <clippath
-                    id="highcharts-155-"
+                    id="highcharts-128-"
                   >
                     <rect
                       fill="none"
@@ -510,7 +510,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                 >
                   <g
                     class="highcharts-series highcharts-series-0 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-155-)"
+                    clip-path="url(#highcharts-128-)"
                     data-z-index="0.1"
                     opacity="1"
                     transform="translate(NaN,44) scale(1 0.001)"
@@ -524,10 +524,10 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   />
                   <g
                     class="highcharts-series highcharts-series-1 highcharts-column-series highcharts-tracker"
-                    clip-path="url(#highcharts-155-)"
+                    clip-path="url(#highcharts-128-)"
                     data-z-index="0.1"
                     opacity="1"
-                    transform="translate(NaN,44) scale(1 0.001)"
+                    transform="translate(NaN,44) scale(1 0.0010024649316718226)"
                   />
                   <g
                     class="highcharts-markers highcharts-series-1 highcharts-column-series"

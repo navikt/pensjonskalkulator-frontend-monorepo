@@ -10,25 +10,27 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import { logger } from '@/utils/logging'
 import { isViewPortMobile } from '@/utils/viewport'
 
-import { getFormaterteAldere } from './utils'
+import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
 
 import styles from './VelgUttaksalder.module.scss'
 
 interface Props {
-  tidligstMuligUttak: Uttaksalder
+  tidligstMuligUttak?: Uttaksalder | UttaksalderForenklet
   defaultAntallSynligeAldere?: number
   visFlereAldereLabelClose?: string
   visFlereAldereLabelOpen?: string
 }
 
+// TODO PEK-119 utvide test optional tidligstMuligUttak
 export const VelgUttaksalder: React.FC<Props> = ({
-  tidligstMuligUttak,
+  tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
   defaultAntallSynligeAldere = 9,
   visFlereAldereLabelClose = 'Vis flere aldere',
   visFlereAldereLabelOpen = 'Vis færre aldere',
 }) => {
   const dispatch = useAppDispatch()
   const pinRef = React.useRef<HTMLDivElement>(null)
+  const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
 
   const [isMobile, setIsMobile] = React.useState<boolean>(
     isViewPortMobile(window.innerWidth)
@@ -43,8 +45,6 @@ export const VelgUttaksalder: React.FC<Props> = ({
       window.removeEventListener('resize', handleWindowSizeChange)
     }
   }, [])
-
-  const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
 
   const formaterteAldere = React.useMemo(
     () => getFormaterteAldere(tidligstMuligUttak),
