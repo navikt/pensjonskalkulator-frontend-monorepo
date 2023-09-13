@@ -233,6 +233,8 @@ export const getChartOptions = (
             showRightButton(false)
             showLeftButton(false)
           }
+          const el1 = document.querySelector('[data-highcharts-chart]')
+          el1?.setAttribute('data-testid', 'highcharts-done-drawing')
         },
       },
     },
