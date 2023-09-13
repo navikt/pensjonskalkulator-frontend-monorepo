@@ -1,13 +1,22 @@
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
 import { mockErrorResponse } from '@/mocks/server'
+import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  swallowErrorsAsync,
+} from '@/test-utils'
 
 describe('Beregning', () => {
   it('har riktig sidetittel', () => {
@@ -99,6 +108,38 @@ describe('Beregning', () => {
       })
       await user.click(await screen.findByText('Prøv på nytt'))
       expect(initiateMock).toHaveBeenCalledTimes(2)
+    })
+
+    it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
+      const cache = console.error
+      console.error = () => {}
+
+      const user = userEvent.setup()
+      mockErrorResponse('/alderspensjon/simulering', {
+        status: 503,
+        json: "Beep boop I'm an error!",
+        method: 'post',
+      })
+      const router = createMemoryRouter([
+        {
+          path: '/',
+          element: <Beregning />,
+          ErrorBoundary: RouteErrorBoundary,
+        },
+      ])
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await user.click(await screen.findByText('68 år'))
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('alderspensjon-loader')
+        ).not.toBeInTheDocument()
+      })
+      expect(await screen.findByText('error.global.title')).toBeVisible()
+      expect(await screen.findByText('error.global.ingress')).toBeVisible()
+
+      console.error = cache
     })
 
     it('viser feilmelding og skjuler Grunnlag når tidligste-uttaksalder har feilet og brukeren prøver å simulere med for lav uttaksalder', async () => {

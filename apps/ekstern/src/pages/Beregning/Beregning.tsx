@@ -2,6 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 
 import { Heading } from '@navikt/ds-react'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
 import { Alert } from '@/components/common/Alert'
@@ -65,7 +66,6 @@ export function Beregning() {
   }, [afp, person, startAlder, startMaaned, uttaksgrad])
 
   // Hent tidligst mulig uttaksalder
-  // TODO fikse bug, tidligst mulig uttak går i loop (!)
   const {
     data: tidligstMuligUttak,
     isLoading: isTidligstMuligUttaksalderLoading,
@@ -77,12 +77,19 @@ export function Beregning() {
     data: alderspensjon,
     isLoading,
     isError,
+    error,
   } = useAlderspensjonQuery(
     alderspensjonRequestBody as AlderspensjonRequestBody,
     {
       skip: !alderspensjonRequestBody,
     }
   )
+
+  React.useEffect(() => {
+    if (error && (error as FetchBaseQueryError).status === 503) {
+      throw new Error((error as FetchBaseQueryError).data as string)
+    }
+  }, [error])
 
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
