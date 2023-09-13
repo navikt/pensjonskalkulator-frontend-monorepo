@@ -171,8 +171,8 @@ describe('Simulering', () => {
         }
       )
 
-      expect(await screen.findByText('Beregning')).toBeVisible()
       await waitFor(async () => {
+        expect(await screen.findByText('Beregning')).toBeVisible()
         expect(
           container.getElementsByClassName('highcharts-container')
         ).toHaveLength(1)
@@ -203,8 +203,8 @@ describe('Simulering', () => {
       }
     )
 
-    expect(await screen.findByText('Beregning')).toBeVisible()
     await waitFor(async () => {
+      expect(await screen.findByText('Beregning')).toBeVisible()
       expect(
         container.getElementsByClassName('highcharts-container')
       ).toHaveLength(1)

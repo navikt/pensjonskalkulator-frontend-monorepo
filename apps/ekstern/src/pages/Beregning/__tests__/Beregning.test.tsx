@@ -68,10 +68,15 @@ describe('Beregning', () => {
         '68 år'
       )
       expect(await screen.findByTestId('alderspensjon-loader')).toBeVisible()
-      expect(
-        container.getElementsByClassName('highcharts-container').length
-      ).toBe(1)
-      expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          container.getElementsByClassName('highcharts-container').length
+        ).toBe(1)
+        expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+      })
     })
 
     it('viser feilmelding og skjuler Grunnlag når simuleringen feiler med mulighet til å prøve på nytt', async () => {
@@ -175,20 +180,20 @@ describe('Beregning', () => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
         ).not.toBeInTheDocument()
-        await user.click(await screen.findByText('62 år'))
-        expect(
-          await screen.findByText(
-            'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'
-          )
-        ).toBeVisible()
-        expect(
-          screen.queryByText('Grunnlaget for beregningen')
-        ).not.toBeInTheDocument()
-        expect(
-          screen.queryByText('Vis tabell av beregningen')
-        ).not.toBeInTheDocument()
-        expect(result.asFragment()).toMatchSnapshot()
       })
+      await user.click(await screen.findByText('62 år'))
+      expect(
+        await screen.findByText(
+          'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'
+        )
+      ).toBeVisible()
+      expect(
+        screen.queryByText('Grunnlaget for beregningen')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('Vis tabell av beregningen')
+      ).not.toBeInTheDocument()
+      expect(result.asFragment()).toMatchSnapshot()
     })
   })
 })

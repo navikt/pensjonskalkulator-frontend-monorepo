@@ -13,7 +13,7 @@ import styles from './Alert.module.scss'
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(
   ({ children, onRetry, ...rest }, ref) => {
     return (
-      <div {...rest} ref={ref} className={styles.alert}>
+      <div {...rest} ref={ref} className={styles.alert} role="alert">
         <BodyLong as="div" className={styles.alertWrapper}>
           {children}
         </BodyLong>

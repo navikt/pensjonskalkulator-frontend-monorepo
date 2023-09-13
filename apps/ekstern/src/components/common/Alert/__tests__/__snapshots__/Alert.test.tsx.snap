@@ -5,6 +5,7 @@ exports[`Alert > rendrer riktig med default verdier 1`] = `
   <div
     class="_alert_9168cd"
     data-testid="alert"
+    role="alert"
   >
     <div
       class="_alertWrapper_9168cd navds-body-long navds-body-long--medium"
@@ -20,6 +21,7 @@ exports[`Alert > rendrer riktig når onRetry er oppgitt 1`] = `
   <div
     class="_alert_9168cd"
     data-testid="alert"
+    role="alert"
   >
     <div
       class="_alertWrapper_9168cd navds-body-long navds-body-long--medium"

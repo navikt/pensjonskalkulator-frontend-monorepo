@@ -304,6 +304,7 @@ exports[`Beregning > Når brukeren velger uttaksalder > viser feilmelding og skj
       </h2>
       <div
         class="_alert_9168cd"
+        role="alert"
       >
         <div
           class="_alertWrapper_9168cd navds-body-long navds-body-long--medium"
@@ -340,6 +341,291 @@ exports[`Beregning > Når brukeren velger uttaksalder > viser feilmelding og skj
             </svg>
           </span>
         </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="_background_21eff7 _background__lightblue_21eff7"
+  >
+    <div
+      class="_container_21eff7"
+    >
+      <section
+        class="_section_095025"
+      >
+        <div
+          class="_innerwrapper_095025"
+        >
+          <button
+            class="_button_095025 navds-button navds-button--secondary navds-button--medium"
+          >
+            <span
+              class="navds-label"
+            >
+              Tilbake til start
+            </span>
+          </button>
+          <button
+            class="_button_095025 _button__avbryt_095025 navds-button navds-button--tertiary navds-button--medium"
+          >
+            <span
+              class="navds-label"
+            >
+              Avbryt
+            </span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Beregning > Når brukeren velger uttaksalder > viser feilmelding og skjuler Grunnlag når tidligste-uttaksalder har feilet og brukeren prøver å simulere med for lav uttaksalder 1`] = `
+<DocumentFragment>
+  <div
+    class="_background_21eff7 _background__hasMargin_21eff7 _background__white_21eff7"
+  >
+    <div
+      class="_container_21eff7"
+    >
+      <div
+        class="_wrapper_4ca3e3"
+      >
+        <div
+          class="_wrapperCard_4ca3e3"
+        >
+          <span
+            class="_pin_4ca3e3"
+          />
+          <h2
+            class="navds-heading navds-heading--xsmall"
+          >
+            Når vil du ta ut alderspensjon?
+          </h2>
+          <ul
+            class="navds-chips _chipsWrapper_4ca3e3 _chipsWrapper__hasGap_4ca3e3 navds-chips--medium navds-body-short navds-body-short--small"
+          >
+            <li>
+              <button
+                aria-pressed="true"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  62 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  63 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  64 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  65 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  66 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  67 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  68 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  69 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  70 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  71 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  72 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  73 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  74 år
+                </span>
+              </button>
+            </li>
+            <li>
+              <button
+                aria-pressed="false"
+                class="navds-chips__chip navds-chips__toggle navds-chips__toggle--action"
+              >
+                <span
+                  class="navds-chips__chip-text"
+                >
+                  75 år
+                </span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_container_21eff7 _container__hasPadding_21eff7"
+    >
+      <svg
+        aria-labelledby="loader-r17"
+        aria-live="polite"
+        class="navds-loader _loader__isCentered_1c4a2e navds-loader--3xlarge navds-loader--neutral"
+        data-testid="alderspensjon-loader"
+        focusable="false"
+        preserveAspectRatio="xMidYMid"
+        viewBox="0 0 50 50"
+      >
+        <title
+          id="loader-r17"
+        >
+          Et øyeblikk, vi beregner pensjonen din
+        </title>
+        <circle
+          class="navds-loader__background"
+          cx="25"
+          cy="25"
+          fill="none"
+          r="20"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+        <circle
+          class="navds-loader__foreground"
+          cx="25"
+          cy="25"
+          fill="none"
+          r="20"
+          stroke-dasharray="50 155"
+        />
+      </svg>
+      <h2
+        class="navds-heading navds-heading--small"
+      >
+        Beregning
+      </h2>
+      <div
+        class="_alert_9168cd"
+        role="alert"
+      >
+        <div
+          class="_alertWrapper_9168cd navds-body-long navds-body-long--medium"
+        >
+          Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.
+        </div>
       </div>
     </div>
   </div>
