@@ -7,6 +7,7 @@ import clsx from 'clsx'
 
 import { SectionContent } from '../components/SectionContent'
 import { SectionHeader } from '../components/SectionHeader'
+import { paths } from '@/router'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -60,7 +61,7 @@ export function Pensjonsavtaler() {
           <BodyLong>
             Du har ikke samtykket til å hente inn pensjonsavtaler om
             tjenestepensjon.{' '}
-            <Link onClick={() => navigate('/start')}>
+            <Link onClick={() => navigate(paths.start)}>
               Start en ny beregning
             </Link>{' '}
             dersom du ønsker å få dette i beregningen.

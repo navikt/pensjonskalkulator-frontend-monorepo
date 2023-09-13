@@ -16,12 +16,13 @@ export interface CardContentProps {
     tertiaryButton?: string
   }
   isLoading?: boolean
-  onPrimaryButtonClick: () => void
-  onSecondaryButtonClick: () => void
+  onPrimaryButtonClick?: () => void
+  onSecondaryButtonClick?: () => void
   onTertiaryButtonClick?: () => void
   children?: JSX.Element
 }
 
+// TODO utvide tester med optional buttons
 export function CardContent({
   isLoading,
   onPrimaryButtonClick,
@@ -56,23 +57,27 @@ export function CardContent({
 
       {children}
 
-      <Button
-        type="button"
-        className={styles.button}
-        variant="primary"
-        onClick={onPrimaryButtonClick}
-      >
-        <FormattedMessage id={text?.primaryButton} />
-      </Button>
+      {onPrimaryButtonClick && (
+        <Button
+          type="button"
+          className={styles.button}
+          variant="primary"
+          onClick={onPrimaryButtonClick}
+        >
+          <FormattedMessage id={text?.primaryButton} />
+        </Button>
+      )}
 
-      <Button
-        type="button"
-        className={styles.button}
-        variant="secondary"
-        onClick={onSecondaryButtonClick}
-      >
-        <FormattedMessage id={text?.secondaryButton} />
-      </Button>
+      {onSecondaryButtonClick && (
+        <Button
+          type="button"
+          className={styles.button}
+          variant="secondary"
+          onClick={onSecondaryButtonClick}
+        >
+          <FormattedMessage id={text?.secondaryButton} />
+        </Button>
+      )}
 
       {onTertiaryButtonClick && (
         <Button

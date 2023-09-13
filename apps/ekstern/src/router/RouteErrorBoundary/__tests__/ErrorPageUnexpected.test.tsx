@@ -1,7 +1,9 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { describe, it, vi } from 'vitest'
 
 import { ErrorPageUnexpected } from '../ErrorPageUnexpected'
-import { externalUrls } from '@/router'
+import { externalUrls, paths } from '@/router'
 import { render, screen, userEvent } from '@/test-utils'
 
 const realLocation = window.location
@@ -30,18 +32,14 @@ describe('ErrorPageUnexpected', () => {
     expect(reloadMock).toHaveBeenCalled()
   })
 
-  it('sender brukeren til Din Pensjon når brukeren klikker på andre knapp', async () => {
+  it('sender brukeren til landingside når brukeren klikker på andre knapp', async () => {
     const user = userEvent.setup()
-    global.window = Object.create(window)
-    const url = 'http://dummy.com'
-    Object.defineProperty(window, 'location', {
-      value: {
-        href: url,
-      },
-      writable: true,
-    })
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
     render(<ErrorPageUnexpected />)
     await user.click(screen.getByText('error.global.button.secondary'))
-    expect(window.location.href).toBe(externalUrls.dinPensjon)
+    expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
   })
 })

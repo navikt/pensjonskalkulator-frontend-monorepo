@@ -21,7 +21,7 @@ export function Step1() {
   }, [])
 
   const onCancel = (): void => {
-    navigate(paths.root)
+    navigate(paths.login)
   }
 
   const onNext = (): void => {

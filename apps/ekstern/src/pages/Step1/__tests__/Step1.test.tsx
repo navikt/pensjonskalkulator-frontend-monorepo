@@ -7,6 +7,7 @@ import { mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
+
 describe('Step 1', () => {
   it('har riktig sidetittel', () => {
     render(<Step1 />)
@@ -74,7 +75,7 @@ describe('Step 1', () => {
     render(<Step1 />)
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.avbryt'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.root)
+      expect(navigateMock).toHaveBeenCalledWith(paths.login)
     })
   })
 })
