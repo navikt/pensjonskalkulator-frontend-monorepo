@@ -527,7 +527,7 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                     clip-path="url(#highcharts-128-)"
                     data-z-index="0.1"
                     opacity="1"
-                    transform="translate(NaN,44) scale(1 0.0010024649316718226)"
+                    transform="translate(NaN,44) scale(1 0.001)"
                   />
                   <g
                     class="highcharts-markers highcharts-series-1 highcharts-column-series"
@@ -880,7 +880,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -970,7 +969,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1060,7 +1058,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1150,7 +1147,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1240,7 +1236,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1330,7 +1325,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1420,7 +1414,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1510,7 +1503,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1600,7 +1592,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1690,7 +1681,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1780,7 +1770,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1870,7 +1859,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -1960,7 +1948,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -2048,7 +2035,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"
@@ -2136,7 +2122,6 @@ exports[`Simulering > Når brukeren ikke samtykker og ikke velger AFP > rendrer 
                   <div
                     aria-hidden="true"
                     class="navds-table__expanded-row-content"
-                    style="display: none;"
                   >
                     <dl
                       class="_details_15ff36"

@@ -10,13 +10,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import {
-  render,
-  screen,
-  userEvent,
-  waitFor,
-  swallowErrorsAsync,
-} from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
   it('har riktig sidetittel', () => {
@@ -64,7 +58,6 @@ describe('Beregning', () => {
     })
   })
 
-  // TODO PEK-119 - legge til test for afp?
   describe('Når brukeren velger uttaksalder', () => {
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
@@ -78,6 +71,7 @@ describe('Beregning', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
+      expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
     })
 
     it('viser feilmelding og skjuler Grunnlag når simuleringen feiler med mulighet til å prøve på nytt', async () => {
@@ -108,6 +102,9 @@ describe('Beregning', () => {
       })
       await user.click(await screen.findByText('Prøv på nytt'))
       expect(initiateMock).toHaveBeenCalledTimes(2)
+      expect(
+        screen.queryByText('Vis tabell av beregningen')
+      ).not.toBeInTheDocument()
     })
 
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
@@ -186,6 +183,9 @@ describe('Beregning', () => {
         ).toBeVisible()
         expect(
           screen.queryByText('Grunnlaget for beregningen')
+        ).not.toBeInTheDocument()
+        expect(
+          screen.queryByText('Vis tabell av beregningen')
         ).not.toBeInTheDocument()
         expect(result.asFragment()).toMatchSnapshot()
       })

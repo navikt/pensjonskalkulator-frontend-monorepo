@@ -21,7 +21,6 @@ interface Props {
   visFlereAldereLabelOpen?: string
 }
 
-// TODO PEK-119 utvide test optional tidligstMuligUttak
 export const VelgUttaksalder: React.FC<Props> = ({
   tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
   defaultAntallSynligeAldere = 9,
