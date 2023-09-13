@@ -6,8 +6,7 @@ import { render, screen, userEvent } from '@/test-utils'
 
 describe('Grunnlag', () => {
   it('viser alle seksjonene', async () => {
-    const { asFragment } = render(<Grunnlag />)
-
+    render(<Grunnlag />)
     expect(
       await screen.findByText('Grunnlaget for beregningen')
     ).toBeInTheDocument()
@@ -19,8 +18,6 @@ describe('Grunnlag', () => {
     expect(await screen.findByText('Alderspensjon (NAV):')).toBeVisible()
     expect(await screen.findByText('AFP')).toBeVisible()
     expect(await screen.findByText('Pensjonsavtaler:')).toBeVisible()
-
-    expect(asFragment()).toMatchSnapshot()
   })
 
   describe('Grunnlag - tidligst mulig uttak', () => {

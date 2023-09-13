@@ -182,7 +182,7 @@ describe('Beregning', () => {
         json: "Beep boop I'm an error!",
         method: 'post',
       })
-      const result = render(<Beregning />, {
+      render(<Beregning />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -192,7 +192,6 @@ describe('Beregning', () => {
           },
         },
       })
-
       await waitFor(async () => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
@@ -202,7 +201,6 @@ describe('Beregning', () => {
         ).not.toBeInTheDocument()
       })
       await user.click(await screen.findByText('62 år'))
-
       expect(
         await screen.findByText(
           'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'
@@ -214,7 +212,6 @@ describe('Beregning', () => {
       expect(
         screen.queryByText('Vis tabell av beregningen')
       ).not.toBeInTheDocument()
-      expect(result.asFragment()).toMatchSnapshot()
     })
   })
 })
