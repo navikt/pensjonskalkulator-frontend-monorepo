@@ -146,7 +146,7 @@ describe('Beregning', () => {
 
     it('viser feilmelding og skjuler Grunnlag når tidligste-uttaksalder har feilet og brukeren prøver å simulere med for lav uttaksalder', async () => {
       const currentSimulation: Simulation = {
-        startAlder: 62,
+        startAlder: 68,
         startMaaned: 1,
         uttaksgrad: 100,
         aarligInntekt: 0,
@@ -161,12 +161,13 @@ describe('Beregning', () => {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
-            formatertUttaksalder: '62 år og 5 måneder',
+            formatertUttaksalder: '68 år og 5 måneder',
             samtykke: true,
             currentSimulation: currentSimulation,
           },
         },
       })
+
       await waitFor(async () => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
@@ -175,13 +176,8 @@ describe('Beregning', () => {
           screen.queryByTestId('tidligst-mulig-uttak')
         ).not.toBeInTheDocument()
       })
-      await user.click(await screen.findByText('68 år'))
-      await waitFor(async () => {
-        expect(
-          screen.queryByTestId('uttaksalder-loader')
-        ).not.toBeInTheDocument()
-      })
       await user.click(await screen.findByText('62 år'))
+
       expect(
         await screen.findByText(
           'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'

@@ -71,6 +71,7 @@ export function Simulering(props: {
     )
 
   useEffect(() => {
+    /* c8 ignore next 3 */
     function onPointUnclickEventHandler(e: Event) {
       onPointUnclick(e, chartRef.current?.chart)
     }
