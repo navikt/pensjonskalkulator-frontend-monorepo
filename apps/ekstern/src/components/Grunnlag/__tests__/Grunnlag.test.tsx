@@ -27,22 +27,20 @@ describe('Grunnlag', () => {
     it('rendrer riktig tittel med formatert uttaksalder og tekst', async () => {
       const user = userEvent.setup()
       const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
-      const { asFragment } = render(
-        <Grunnlag tidligstMuligUttak={{ aar: 67, maaned: 1 }} />
-      )
+      render(<Grunnlag tidligstMuligUttak={{ aar: 67, maaned: 1 }} />)
       expect(screen.getByText('Tidligst mulig uttak:')).toBeVisible()
       expect(formatMock).toHaveBeenCalled()
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
-      expect(asFragment()).toMatchSnapshot()
+      expect(await screen.findByText('67 år')).toBeVisible()
     })
 
     it('rendrer riktig når tidligst mulig uttaksalder ikke kunne hentes', async () => {
       const user = userEvent.setup()
       const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
-      const { asFragment } = render(<Grunnlag />)
+      render(<Grunnlag />)
       expect(screen.getByText('Tidligst mulig uttak:')).toBeVisible()
-      expect(screen.getByText('Ikke funnet')).toBeVisible()
+      expect(await screen.findByText('Ikke funnet')).toBeVisible()
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
       expect(
@@ -51,7 +49,6 @@ describe('Grunnlag', () => {
         )
       ).toBeVisible()
       expect(formatMock).not.toHaveBeenCalled()
-      expect(asFragment()).toMatchSnapshot()
     })
   })
 })

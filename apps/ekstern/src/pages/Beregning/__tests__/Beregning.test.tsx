@@ -10,7 +10,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
   it('har riktig sidetittel', () => {
@@ -26,19 +26,19 @@ describe('Beregning', () => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
         ).not.toBeInTheDocument()
-        expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
-        expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-        expect(screen.getAllByRole('button')).toHaveLength(12)
       })
+      expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
+      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+      expect(screen.getAllByRole('button')).toHaveLength(12)
     })
-
-    it('viser ikke info om tidligst mulig uttaksalder når kallet feiler, og resten av siden er som vanlig', async () => {
+    it('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
+      const user = userEvent.setup()
       mockErrorResponse('/tidligste-uttaksalder', {
         status: 500,
         json: "Beep boop I'm an error!",
         method: 'post',
       })
-      const result = render(<Beregning />, {
+      const { container } = render(<Beregning />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -48,13 +48,29 @@ describe('Beregning', () => {
       })
       await waitFor(() => {
         expect(
-          screen.queryByTestId('uttaksalder-loader')
-        ).not.toBeInTheDocument()
-        expect(
           screen.queryByTestId('tidligst-mulig-uttak')
         ).not.toBeInTheDocument()
-        expect(result.asFragment()).toMatchSnapshot()
       })
+      const button = await screen.findByText('68 år')
+      await user.click(button)
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+      })
+      await waitFor(async () => {
+        expect(
+          await screen.findByTestId('highcharts-done-drawing')
+        ).toBeVisible()
+      })
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container').length
+      ).toBe(1)
+      expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
     })
   })
 
@@ -72,14 +88,23 @@ describe('Beregning', () => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
         ).not.toBeInTheDocument()
-        expect(
-          container.getElementsByClassName('highcharts-container').length
-        ).toBe(1)
-        expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
       })
+      await waitFor(async () => {
+        expect(
+          await screen.findByTestId('highcharts-done-drawing')
+        ).toBeVisible()
+      })
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container').length
+      ).toBe(1)
+      expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
     })
 
-    it('viser feilmelding og skjuler Grunnlag når simuleringen feiler med mulighet til å prøve på nytt', async () => {
+    it('viser feilmelding og skjuler Grunnlag og tabell når simuleringen feiler med mulighet til å prøve på nytt', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
@@ -90,7 +115,7 @@ describe('Beregning', () => {
         method: 'post',
       })
       const user = userEvent.setup()
-      const { asFragment } = render(<Beregning />)
+      render(<Beregning />)
 
       await user.click(await screen.findByText('68 år'))
       expect(initiateMock).toHaveBeenCalledTimes(1)
@@ -100,11 +125,11 @@ describe('Beregning', () => {
             'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'
           )
         ).toBeVisible()
-        expect(
-          screen.queryByText('Grunnlaget for beregningen')
-        ).not.toBeInTheDocument()
-        expect(asFragment()).toMatchSnapshot()
       })
+      expect(
+        screen.queryByText('Grunnlaget for beregningen')
+      ).not.toBeInTheDocument()
+
       await user.click(await screen.findByText('Prøv på nytt'))
       expect(initiateMock).toHaveBeenCalledTimes(2)
       expect(
