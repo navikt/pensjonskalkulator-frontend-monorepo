@@ -12,7 +12,7 @@ describe('VelgUttaksalder', () => {
     uttaksdato: '2031-11-01',
   }
   describe('Gitt at brukeren er på desktop', () => {
-    it('viser riktige aldere når tidligstMuligUttak ikke er angitt', async () => {
+    it('viser riktige aldere når uttaksalder ikke er angitt', async () => {
       render(<VelgUttaksalder tidligstMuligUttak={undefined} />)
       expect(await screen.findAllByRole('button')).toHaveLength(14)
     })
