@@ -80,7 +80,7 @@ describe('Step 5', () => {
     })
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.avbryt'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.root)
+      expect(navigateMock).toHaveBeenCalledWith(paths.login)
       expect(store.getState().userInput.samtykke).toBe(null)
       expect(store.getState().userInput.afp).toBe(null)
       expect(store.getState().userInput.samboer).toBe(null)

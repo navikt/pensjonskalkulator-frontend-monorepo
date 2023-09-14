@@ -1,47 +1,43 @@
 import { FormattedMessage } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { Link as ReactRouterLink } from 'react-router-dom'
 
-import { BodyLong, List } from '@navikt/ds-react'
+import { BodyLong, Link, List, VStack } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { PageFramework } from '@/components/common/PageFramework'
-import { externalUrls } from '@/router'
+import { externalUrls, paths } from '@/router'
 
 export function ErrorPage404() {
-  const navigate = useNavigate()
-
-  const onPrevious = (): void => {
-    navigate(-1)
-  }
-
-  const onCancel = (): void => {
-    window.location.href = externalUrls.dinPensjon
-  }
-
   return (
     <PageFramework>
       <Card data-testid="error-page-404" hasLargePadding>
         <Card.Content
           text={{
             header: 'error.404.title',
-            primaryButton: 'error.404.button.primary',
-            secondaryButton: 'error.404.button.secondary',
           }}
-          onPrimaryButtonClick={onPrevious}
-          onSecondaryButtonClick={onCancel}
         >
-          <List>
-            <List.Item>
-              <BodyLong>
-                <FormattedMessage id="error.404.list_item1" />
-              </BodyLong>
-            </List.Item>
-            <List.Item>
-              <BodyLong>
-                <FormattedMessage id="error.404.list_item2" />
-              </BodyLong>
-            </List.Item>
-          </List>
+          <>
+            <List>
+              <List.Item>
+                <BodyLong>
+                  <FormattedMessage id="error.404.list_item1" />
+                </BodyLong>
+              </List.Item>
+              <List.Item>
+                <BodyLong>
+                  <FormattedMessage id="error.404.list_item2" />
+                </BodyLong>
+              </List.Item>
+            </List>
+            <VStack gap="4">
+              <Link as={ReactRouterLink} to={paths.login}>
+                <FormattedMessage id="error.404.button.link_1" />
+              </Link>
+              <Link href={externalUrls.dinPensjon}>
+                <FormattedMessage id="error.404.button.link_2" />
+              </Link>
+            </VStack>
+          </>
         </Card.Content>
       </Card>
     </PageFramework>

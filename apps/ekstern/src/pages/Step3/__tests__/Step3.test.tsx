@@ -114,7 +114,7 @@ describe('Step 3', () => {
       ).toBeVisible()
       await waitFor(async () => {
         await user.click(screen.getByText('stegvisning.avbryt'))
-        expect(navigateMock).toHaveBeenCalledWith(paths.root)
+        expect(navigateMock).toHaveBeenCalledWith(paths.login)
         expect(flushMock).toHaveBeenCalled()
       })
     })

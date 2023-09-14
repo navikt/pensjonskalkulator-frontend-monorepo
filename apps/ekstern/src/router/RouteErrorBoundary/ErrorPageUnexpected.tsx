@@ -1,14 +1,18 @@
+import { useNavigate } from 'react-router-dom'
+
 import { Card } from '@/components/common/Card'
 import { PageFramework } from '@/components/common/PageFramework'
-import { externalUrls } from '@/router'
+import { paths } from '@/router'
 
 export function ErrorPageUnexpected() {
+  const navigate = useNavigate()
+
   const onReload = (): void => {
     window.location.reload()
   }
 
   const onCancel = (): void => {
-    window.location.href = externalUrls.dinPensjon
+    navigate(paths.login)
   }
 
   return (

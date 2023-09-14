@@ -11,16 +11,16 @@ const translations = {
   'loading.person': 'Henter personopplysninger',
   'error.global.title': 'Oops! Det har oppstått en uventet feil',
   'error.global.ingress':
-    'Vi jobber med å rette feilen. Hvis problemet vedvarer, kan du kontakte oss på 55 55 33 34.',
+    'Vi jobber med å rette feilen. Prøv å last siden på nytt eller prøv igjen senere.',
   'error.global.button.primary': 'Last siden på nytt',
-  'error.global.button.secondary': 'Tilbake til Din Pensjon',
+  'error.global.button.secondary': 'Avbryt',
   'error.404.title': 'Oops! Siden du leter etter finnes ikke.',
   'error.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
   'error.404.list_item2':
     'Hvis du klikket på en lenke er den feil eller utdatert.',
-  'error.404.button.primary': 'Tilbake til forrige side',
-  'error.404.button.secondary': 'Tilbake til Din Pensjon',
+  'error.404.button.link_1': 'Til pensjonskalkulator',
+  'error.404.button.link_2': 'Les om pensjon',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',

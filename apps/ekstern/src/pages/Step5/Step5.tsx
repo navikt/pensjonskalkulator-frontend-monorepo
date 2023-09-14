@@ -27,7 +27,7 @@ export function Step5() {
 
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
-    navigate(paths.root)
+    navigate(paths.login)
   }
 
   const onPrevious = (): void => {

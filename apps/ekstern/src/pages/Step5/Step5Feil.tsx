@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { getNesteSide } from '../Step4/utils'
 import { Card } from '@/components/common/Card'
-import { externalUrls } from '@/router/routes'
+import { paths } from '@/router/routes'
 import { apiSlice, useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -29,7 +29,7 @@ export function Step5Feil() {
   }, [isSuccess, person])
 
   const onCancel = (): void => {
-    window.location.href = externalUrls.dinPensjon
+    navigate(paths.login)
   }
 
   const onReload = (): void => {

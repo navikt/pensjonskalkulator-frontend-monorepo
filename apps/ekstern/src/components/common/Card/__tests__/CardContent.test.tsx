@@ -53,6 +53,16 @@ describe('CardContent', () => {
     })
   })
 
+  it('viser ikke knappene når onClick funksjone rikke er oppgitt', async () => {
+    swallowErrors(() => {
+      render(<CardContent isLoading={false} text={{ ...textIds }} />)
+    })
+    expect(screen.getByText(textIds.header)).toBeInTheDocument()
+    expect(screen.queryByText(textIds.primaryButton)).not.toBeInTheDocument()
+    expect(screen.queryByText(textIds.secondaryButton)).not.toBeInTheDocument()
+    expect(screen.queryByText(textIds.tertiaryButton)).not.toBeInTheDocument()
+  })
+
   it('kaller onPrimaryButtonClick når brukeren klikker på primary knappen', async () => {
     const user = userEvent.setup()
     swallowErrors(() => {
