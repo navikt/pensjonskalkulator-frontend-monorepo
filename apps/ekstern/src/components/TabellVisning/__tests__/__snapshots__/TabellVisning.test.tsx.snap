@@ -2,2390 +2,2464 @@
 
 exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 1`] = `
 <DocumentFragment>
-  <table
-    aria-live="polite"
-    class="navds-table navds-table--medium _table_15ff36"
+  <div
+    class="navds-read-more navds-read-more--medium _visTabell_15ff36 navds-read-more--open"
   >
-    <thead
-      class="navds-table__header"
+    <button
+      aria-expanded="true"
+      class="navds-read-more__button navds-body-short"
+      data-testid="readmore"
+      type="button"
     >
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
+      <svg
+        aria-hidden="true"
+        class="navds-read-more__expand-icon"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <th
-          class="navds-table__header-cell navds-label _tableMobileOnly_15ff36"
+        <path
+          clip-rule="evenodd"
+          d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+          fill="currentColor"
+          fill-rule="evenodd"
         />
-        <th
-          class="navds-table__header-cell navds-label"
-          scope="col"
-        >
-          Alder
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
-          scope="col"
-        >
-          Sum
-          <span
-            class="_tableMobileOnly_15ff36"
-          >
-             (kr)
-          </span>
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-          scope="col"
-        >
-          Inntekt
-          <br />
-          (lønn m.m.)
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-          scope="col"
-        >
-          Avtalefestet pensjon (AFP)
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-          scope="col"
-        >
-          Pensjonsavtaler (arbeidsgiver)
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-          scope="col"
-        >
-          Alderspensjon (NAV)
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      class="navds-table__body _tableMobileOnly_15ff36"
+      </svg>
+      <span>
+        Lukk tabell av beregningen
+      </span>
+    </button>
+    <div
+      aria-hidden="false"
+      class="navds-read-more__content navds-body-long navds-body-long--medium"
     >
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+      <table
+        aria-live="polite"
+        class="navds-table navds-table--medium _table_15ff36"
       >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
+        <thead
+          class="navds-table__header"
         >
-          <button
-            aria-controls="r0"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <svg
-              aria-labelledby="title-r1"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <th
+              class="navds-table__header-cell navds-label _tableMobileOnly_15ff36"
+            />
+            <th
+              class="navds-table__header-cell navds-label"
+              scope="col"
             >
-              <title
-                id="title-r1"
+              Alder
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
+              scope="col"
+            >
+              Sum
+              <span
+                class="_tableMobileOnly_15ff36"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
+                 (kr)
+              </span>
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+              scope="col"
+            >
+              Inntekt
+              <br />
+              (lønn m.m.)
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+              scope="col"
+            >
+              Avtalefestet pensjon (AFP)
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+              scope="col"
+            >
+              Pensjonsavtaler (arbeidsgiver)
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+              scope="col"
+            >
+              Alderspensjon (NAV)
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="navds-table__body _tableMobileOnly_15ff36"
         >
-          69 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          480 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r0"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r1"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-r2"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  100 000
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  180 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  200 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="r2"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-r2"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              69 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              480 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r1"
           >
-            <svg
-              aria-labelledby="title-r3"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-r3"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          70 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          775 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r2"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      100 000
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      180 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      200 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r3"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-r4"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  175 000
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  250 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  350 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="r4"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-r4"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              70 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              775 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r3"
           >
-            <svg
-              aria-labelledby="title-r5"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-r5"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          71 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r4"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      175 000
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      250 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      350 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r5"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-r6"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="r6"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-r6"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              71 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r5"
           >
-            <svg
-              aria-labelledby="title-r7"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-r7"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          72 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r6"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r7"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-r8"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="r8"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-r8"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              72 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r7"
           >
-            <svg
-              aria-labelledby="title-r9"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-r9"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          73 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r8"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r9"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-ra"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="ra"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-ra"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              73 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r9"
           >
-            <svg
-              aria-labelledby="title-rb"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-rb"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          74 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="ra"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="rb"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-rc"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="rc"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-rc"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              74 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="rb"
           >
-            <svg
-              aria-labelledby="title-rd"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-rd"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          75 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="rc"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="rd"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-re"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="re"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-re"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              75 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="rd"
           >
-            <svg
-              aria-labelledby="title-rf"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-rf"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          76 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="re"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="rf"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-rg"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="rg"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-rg"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              76 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="rf"
           >
-            <svg
-              aria-labelledby="title-rh"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-rh"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          77+ (livsvarig)
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          0
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="rg"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="rh"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-ri"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                  <title
+                    id="title-ri"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              77+ (livsvarig)
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              0
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="rh"
+          >
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
+            >
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
+              >
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
                 >
-                  0
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  0
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-    <tbody
-      class="navds-table__body _tableDesktopOnly_15ff36"
-    >
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="navds-table__body _tableDesktopOnly_15ff36"
         >
-          69 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          480 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          100 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          180 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          200 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          70 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          775 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          175 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          250 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          350 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          71 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          72 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          73 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          74 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          75 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          76 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          77+ (livsvarig)
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-      </tr>
-    </tbody>
-  </table>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              69 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              480 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              100 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              180 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              200 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              70 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              775 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              175 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              250 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              350 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              71 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              72 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              73 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              74 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              75 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              76 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              77+ (livsvarig)
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`TabellVisning > rendrer riktig formatert tabell med detaljer 2`] = `
 <DocumentFragment>
-  <table
-    aria-live="polite"
-    class="navds-table navds-table--medium _table_15ff36"
+  <div
+    class="navds-read-more navds-read-more--medium _visTabell_15ff36 navds-read-more--open"
   >
-    <thead
-      class="navds-table__header"
+    <button
+      aria-expanded="true"
+      class="navds-read-more__button navds-body-short"
+      data-testid="readmore"
+      type="button"
     >
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
+      <svg
+        aria-hidden="true"
+        class="navds-read-more__expand-icon"
+        fill="none"
+        focusable="false"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <th
-          class="navds-table__header-cell navds-label _tableMobileOnly_15ff36"
+        <path
+          clip-rule="evenodd"
+          d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+          fill="currentColor"
+          fill-rule="evenodd"
         />
-        <th
-          class="navds-table__header-cell navds-label"
-          scope="col"
-        >
-          Alder
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
-          scope="col"
-        >
-          Sum
-          <span
-            class="_tableMobileOnly_15ff36"
-          >
-             (kr)
-          </span>
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-          scope="col"
-        >
-          Inntekt
-          <br />
-          (lønn m.m.)
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-          scope="col"
-        >
-          Avtalefestet pensjon (AFP)
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-          scope="col"
-        >
-          Pensjonsavtaler (arbeidsgiver)
-        </th>
-        <th
-          class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
-          scope="col"
-        >
-          Alderspensjon (NAV)
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      class="navds-table__body _tableMobileOnly_15ff36"
+      </svg>
+      <span>
+        Lukk tabell av beregningen
+      </span>
+    </button>
+    <div
+      aria-hidden="false"
+      class="navds-read-more__content navds-body-long navds-body-long--medium"
     >
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--open navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
+      <table
+        aria-live="polite"
+        class="navds-table navds-table--medium _table_15ff36"
       >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-table__toggle-expand-cell--open navds-body-short navds-body-short--medium"
+        <thead
+          class="navds-table__header"
         >
-          <button
-            aria-controls="r0"
-            aria-expanded="true"
-            class="navds-table__toggle-expand-button"
-            type="button"
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <svg
-              aria-labelledby="title-r1"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <th
+              class="navds-table__header-cell navds-label _tableMobileOnly_15ff36"
+            />
+            <th
+              class="navds-table__header-cell navds-label"
+              scope="col"
             >
-              <title
-                id="title-r1"
+              Alder
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
+              scope="col"
+            >
+              Sum
+              <span
+                class="_tableMobileOnly_15ff36"
               >
-                Vis mindre
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
+                 (kr)
+              </span>
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+              scope="col"
+            >
+              Inntekt
+              <br />
+              (lønn m.m.)
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+              scope="col"
+            >
+              Avtalefestet pensjon (AFP)
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+              scope="col"
+            >
+              Pensjonsavtaler (arbeidsgiver)
+            </th>
+            <th
+              class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
+              scope="col"
+            >
+              Alderspensjon (NAV)
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="navds-table__body _tableMobileOnly_15ff36"
         >
-          69 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          480 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="false"
-        class="navds-table__expanded-row"
-        id="r0"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden; transition: height 250ms ease 0ms;"
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--open navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="false"
-              class="navds-table__expanded-row-content"
-              style=""
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-table__toggle-expand-cell--open navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r1"
+                aria-expanded="true"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-r2"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  100 000
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  180 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  200 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="r2"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-r2"
+                  >
+                    Vis mindre
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              69 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              480 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="false"
+            class="navds-table__expanded-row"
+            id="r1"
           >
-            <svg
-              aria-labelledby="title-r3"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-r3"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden; transition: height 250ms ease 0ms;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          70 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          775 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r2"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="false"
+                  class="navds-table__expanded-row-content"
+                  style=""
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      100 000
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      180 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      200 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r3"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-r4"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  175 000
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  250 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  350 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="r4"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-r4"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              70 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              775 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r3"
           >
-            <svg
-              aria-labelledby="title-r5"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-r5"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          71 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r4"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      175 000
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      250 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      350 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r5"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-r6"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="r6"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-r6"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              71 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r5"
           >
-            <svg
-              aria-labelledby="title-r7"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-r7"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          72 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r6"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r7"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-r8"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="r8"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-r8"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              72 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r7"
           >
-            <svg
-              aria-labelledby="title-r9"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-r9"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          73 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="r8"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="r9"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-ra"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="ra"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-ra"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              73 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="r9"
           >
-            <svg
-              aria-labelledby="title-rb"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-rb"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          74 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="ra"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="rb"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-rc"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="rc"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-rc"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              74 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="rb"
           >
-            <svg
-              aria-labelledby="title-rd"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-rd"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          75 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="rc"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="rd"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-re"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="re"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-re"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              75 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="rd"
           >
-            <svg
-              aria-labelledby="title-rf"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-rf"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          76 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="re"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="rf"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-rg"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  380 000
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  400 000
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
-        >
-          <button
-            aria-controls="rg"
-            aria-expanded="false"
-            class="navds-table__toggle-expand-button"
-            type="button"
+                  <title
+                    id="title-rg"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              76 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="rf"
           >
-            <svg
-              aria-labelledby="title-rh"
-              class="navds-table__expandable-icon"
-              fill="none"
-              focusable="false"
-              height="1em"
-              role="img"
-              viewBox="0 0 24 24"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
             >
-              <title
-                id="title-rh"
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
               >
-                Vis mer
-              </title>
-              <path
-                clip-rule="evenodd"
-                d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </td>
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          77+ (livsvarig)
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          0
-        </td>
-      </tr>
-      <tr
-        aria-hidden="true"
-        class="navds-table__expanded-row"
-        id="rg"
-      >
-        <td
-          class="navds-table__expanded-row-cell"
-          colspan="999"
-        >
-          <div
-            class="navds-table__expanded-row-collapse"
-            style="height: 0px; overflow: hidden;"
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
+                >
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      380 000
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      400 000
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__expandable-row navds-table__expandable-row--clickable navds-table__row--shade-on-hover"
           >
-            <div
-              aria-hidden="true"
-              class="navds-table__expanded-row-content"
-              style="display: none;"
+            <td
+              class="navds-table__data-cell navds-table__toggle-expand-cell navds-body-short navds-body-short--medium"
             >
-              <dl
-                class="_details_15ff36"
+              <button
+                aria-controls="rh"
+                aria-expanded="false"
+                class="navds-table__toggle-expand-button"
+                type="button"
               >
-                <dt>
-                  Pensjonsgivende inntekt
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                <svg
+                  aria-labelledby="title-ri"
+                  class="navds-table__expandable-icon"
+                  fill="none"
+                  focusable="false"
+                  height="1em"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  0
-                </dd>
-                <dt>
-                  Pensjonsavtaler (arbeidsgiver)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
+                  <title
+                    id="title-ri"
+                  >
+                    Vis mer
+                  </title>
+                  <path
+                    clip-rule="evenodd"
+                    d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </td>
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              77+ (livsvarig)
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              0
+            </td>
+          </tr>
+          <tr
+            aria-hidden="true"
+            class="navds-table__expanded-row"
+            id="rh"
+          >
+            <td
+              class="navds-table__expanded-row-cell"
+              colspan="999"
+            >
+              <div
+                class="navds-table__expanded-row-collapse"
+                style="height: 0px; overflow: hidden;"
+              >
+                <div
+                  aria-hidden="true"
+                  class="navds-table__expanded-row-content"
+                  style="display: none;"
                 >
-                  0
-                </dd>
-                <dt>
-                  Alderspensjon (NAV)
-                </dt>
-                <dd
-                  class="_detailsItemRight_15ff36"
-                >
-                  0
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-    <tbody
-      class="navds-table__body _tableDesktopOnly_15ff36"
-    >
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
+                  <dl
+                    class="_details_15ff36"
+                  >
+                    <dt>
+                      Pensjonsgivende inntekt
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Pensjonsavtaler (arbeidsgiver)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                    <dt>
+                      Alderspensjon (NAV)
+                    </dt>
+                    <dd
+                      class="_detailsItemRight_15ff36"
+                    >
+                      0
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody
+          class="navds-table__body _tableDesktopOnly_15ff36"
         >
-          69 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          480 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          100 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          180 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          200 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          70 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          775 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          175 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          250 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          350 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          71 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          72 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          73 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          74 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          75 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          76 år
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        >
-          780 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          380 000 kr
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        >
-          400 000 kr
-        </td>
-      </tr>
-      <tr
-        class="navds-table__row navds-table__row--shade-on-hover"
-      >
-        <td
-          class="navds-table__data-cell navds-body-short navds-body-short--medium"
-        >
-          77+ (livsvarig)
-        </td>
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-        <td
-          class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
-        />
-      </tr>
-    </tbody>
-  </table>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              69 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              480 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              100 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              180 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              200 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              70 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              775 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              175 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              250 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              350 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              71 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              72 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              73 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              74 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              75 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              76 år
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            >
+              780 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              380 000 kr
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            >
+              400 000 kr
+            </td>
+          </tr>
+          <tr
+            class="navds-table__row navds-table__row--shade-on-hover"
+          >
+            <td
+              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            >
+              77+ (livsvarig)
+            </td>
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+            <td
+              class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
+            />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </DocumentFragment>
 `;

@@ -8,7 +8,7 @@ describe('TidligstMuligUttaksalder', () => {
     const user = userEvent.setup()
     render(
       <TidligstMuligUttaksalder
-        uttaksalder={{ aar: 62, maaned: 9, uttaksdato: '2031-11-01' }}
+        tidligstMuligUttak={{ aar: 62, maaned: 9, uttaksdato: '2031-11-01' }}
       />
     )
 

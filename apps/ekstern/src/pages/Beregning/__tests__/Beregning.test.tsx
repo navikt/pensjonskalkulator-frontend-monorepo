@@ -1,16 +1,16 @@
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
+
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { mockErrorResponse } from '@/mocks/server'
+import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import {
-  render,
-  screen,
-  swallowErrorsAsync,
-  userEvent,
-  waitFor,
-} from '@/test-utils'
+  userInputInitialState,
+  Simulation,
+} from '@/state/userInput/userInputReducer'
+import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
   it('har riktig sidetittel', () => {
@@ -18,72 +18,27 @@ describe('Beregning', () => {
     expect(document.title).toBe('application.title.beregning')
   })
 
-  it('viser loading og deretter riktig header, tekst og knapper', async () => {
-    const result = render(<Beregning />)
-    expect(screen.getByTestId('loader')).toBeVisible()
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
-    })
-    expect(screen.getByTestId('tidligst-mulig-uttak')).toBeVisible()
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-    expect(screen.getAllByRole('button')).toHaveLength(12)
-    expect(result.asFragment()).toMatchSnapshot()
-  })
-
-  it('viser ikke info om tidligst mulig uttaksalder når kallet feiler, og resten av siden er som vanlig', async () => {
-    mockErrorResponse('/tidligste-uttaksalder', {
-      status: 500,
-      json: "Beep boop I'm an error!",
-      method: 'post',
-    })
-
-    const result = render(<Beregning />)
-
-    await waitFor(() => {
-      expect(
-        screen.queryByTestId('tidligst-mulig-uttak')
-      ).not.toBeInTheDocument()
-      expect(result.asFragment()).toMatchSnapshot()
-    })
-  })
-
-  describe('Når brukeren velger uttaksalder', () => {
-    it('oppdaterer valgt knapp og tegner graph', async () => {
-      const user = userEvent.setup()
-      const { container } = render(<Beregning />)
-      const button = await screen.findByText('68 år')
-      await user.click(button)
-      expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-        '68 år'
-      )
-      expect(
-        container.getElementsByClassName('highcharts-container').length
-      ).toBe(1)
-    })
-
-    it('henter ikke pensjonsavtaler når brukeren ikke har samtykket', async () => {
-      const user = userEvent.setup()
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap,
-        'initiate'
-      )
-      render(<Beregning />, {
-        preloadedState: {
-          userInput: { ...userInputInitialState, samtykke: false },
-        },
+  describe('Når tidligst mulig uttaksalder hentes', () => {
+    it('viser loading og deretter riktig header, tekst og knapper', async () => {
+      render(<Beregning />)
+      expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
       })
-      const button = await screen.findByText('68 år')
-      await user.click(button)
-      expect(initiateMock).not.toHaveBeenCalled()
+      expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
+      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+      expect(screen.getAllByRole('button')).toHaveLength(12)
     })
-
-    it('henter pensjonsavtaler med riktig år og måned og viser dem når brukeren har samtykket', async () => {
-      const usePensjonsavtalerQueryMock = vi.spyOn(
-        apiSliceUtils,
-        'usePensjonsavtalerQuery'
-      )
+    it('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
       const user = userEvent.setup()
-      render(<Beregning />, {
+      mockErrorResponse('/tidligste-uttaksalder', {
+        status: 500,
+        json: "Beep boop I'm an error!",
+        method: 'post',
+      })
+      const { container } = render(<Beregning />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -91,62 +46,172 @@ describe('Beregning', () => {
           },
         },
       })
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('tidligst-mulig-uttak')
+        ).not.toBeInTheDocument()
+      })
+      const button = await screen.findByText('68 år')
+      await user.click(button)
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+      })
+      await waitFor(async () => {
+        expect(
+          await screen.findByTestId('highcharts-done-drawing')
+        ).toBeVisible()
+      })
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container').length
+      ).toBe(1)
+      expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+    })
+  })
 
-      const buttons = await screen.findAllByRole('button')
-      expect(buttons).toHaveLength(12)
-      await user.click(buttons[2])
-      await waitFor(async () => {
-        expect(await screen.findByTestId('pensjonsavtaler')).toBeInTheDocument()
-        expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
-          antallInntektsaarEtterUttak: 0,
-          uttaksperioder: [
-            {
-              startAlder: 68,
-              startMaaned: 1,
-              aarligInntekt: 0,
-              grad: 100,
-            },
-          ],
-        })
+  describe('Når brukeren velger uttaksalder', () => {
+    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
+      const user = userEvent.setup()
+      const { container } = render(<Beregning />)
+      const button = await screen.findByText('68 år')
+      await user.click(button)
+      expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
+        '68 år'
+      )
+      expect(await screen.findByTestId('alderspensjon-loader')).toBeVisible()
+      await waitFor(() => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
       })
-      await user.click(buttons[1])
       await waitFor(async () => {
-        expect(usePensjonsavtalerQueryMock.mock?.lastCall?.[0]).toEqual({
-          antallInntektsaarEtterUttak: 0,
-          uttaksperioder: [
-            {
-              startAlder: 67,
-              startMaaned: 3,
-              aarligInntekt: 0,
-              grad: 100,
-            },
-          ],
-        })
+        expect(
+          await screen.findByTestId('highcharts-done-drawing')
+        ).toBeVisible()
       })
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container').length
+      ).toBe(1)
+      expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
     })
 
-    it('henter pensjonsavtaler og viser riktig feilmelding ved feil', async () => {
+    it('viser feilmelding og skjuler Grunnlag og tabell når simuleringen feiler med mulighet til å prøve på nytt', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        'initiate'
+      )
+      mockErrorResponse('/alderspensjon/simulering', {
+        status: 500,
+        json: "Beep boop I'm an error!",
+        method: 'post',
+      })
       const user = userEvent.setup()
-      mockErrorResponse('/pensjonsavtaler', {
+      render(<Beregning />)
+
+      await user.click(await screen.findByText('68 år'))
+      expect(initiateMock).toHaveBeenCalledTimes(1)
+      await waitFor(async () => {
+        expect(
+          await screen.findByText(
+            'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'
+          )
+        ).toBeVisible()
+      })
+      expect(
+        screen.queryByText('Grunnlaget for beregningen')
+      ).not.toBeInTheDocument()
+
+      await user.click(await screen.findByText('Prøv på nytt'))
+      expect(initiateMock).toHaveBeenCalledTimes(2)
+      expect(
+        screen.queryByText('Vis tabell av beregningen')
+      ).not.toBeInTheDocument()
+    })
+
+    it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
+      const cache = console.error
+      console.error = () => {}
+
+      const user = userEvent.setup()
+      mockErrorResponse('/alderspensjon/simulering', {
+        status: 503,
+        json: "Beep boop I'm an error!",
+        method: 'post',
+      })
+      const router = createMemoryRouter([
+        {
+          path: '/',
+          element: <Beregning />,
+          ErrorBoundary: RouteErrorBoundary,
+        },
+      ])
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await user.click(await screen.findByText('68 år'))
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('alderspensjon-loader')
+        ).not.toBeInTheDocument()
+      })
+      expect(await screen.findByText('error.global.title')).toBeVisible()
+      expect(await screen.findByText('error.global.ingress')).toBeVisible()
+
+      console.error = cache
+    })
+
+    it('viser feilmelding og skjuler Grunnlag når tidligste-uttaksalder har feilet og brukeren prøver å simulere med for lav uttaksalder', async () => {
+      const currentSimulation: Simulation = {
+        startAlder: 68,
+        startMaaned: 1,
+        uttaksgrad: 100,
+        aarligInntekt: 0,
+      }
+      const user = userEvent.setup()
+      mockErrorResponse('/tidligste-uttaksalder', {
         status: 500,
         json: "Beep boop I'm an error!",
         method: 'post',
       })
       render(<Beregning />, {
         preloadedState: {
-          userInput: { ...userInputInitialState, samtykke: true },
+          userInput: {
+            ...userInputInitialState,
+            formatertUttaksalder: '68 år og 5 måneder',
+            samtykke: true,
+            currentSimulation: currentSimulation,
+          },
         },
       })
-      const button = await screen.findByText('68 år')
-      await user.click(button)
-
       await waitFor(async () => {
         expect(
-          await screen.findByText(
-            'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.'
-          )
-        ).toBeVisible()
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          screen.queryByTestId('tidligst-mulig-uttak')
+        ).not.toBeInTheDocument()
       })
+      await user.click(await screen.findByText('62 år'))
+      expect(
+        await screen.findByText(
+          'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'
+        )
+      ).toBeVisible()
+      expect(
+        screen.queryByText('Grunnlaget for beregningen')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('Vis tabell av beregningen')
+      ).not.toBeInTheDocument()
     })
   })
 })

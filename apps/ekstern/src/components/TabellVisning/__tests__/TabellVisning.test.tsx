@@ -31,15 +31,19 @@ describe('TabellVisning', () => {
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
       />
     )
-    expect(asFragment()).toMatchSnapshot()
+    expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+    await user.click(screen.getByText('Vis tabell av beregningen'))
+    await waitFor(async () => {
+      expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
+      expect(screen.getAllByRole('row').length).toBe(19)
+      expect(screen.getAllByRole('cell').length).toBe(72)
+      expect(screen.getAllByRole('button')).toHaveLength(10)
+      expect(screen.getByText('480 000')).toBeInTheDocument()
+      expect(asFragment()).toMatchSnapshot()
+    })
 
-    expect(screen.getAllByRole('row').length).toBe(19)
-    expect(screen.getAllByRole('cell').length).toBe(72)
-    expect(screen.getAllByRole('button')).toHaveLength(9)
     const buttons = screen.getAllByRole('button')
-    expect(screen.getByText('480 000')).toBeInTheDocument()
-
-    await user.click(buttons[0])
+    await user.click(buttons[1])
     await waitFor(() => {
       expect(screen.getAllByRole('term')).toHaveLength(3)
       expect(screen.getByText('100 000')).toBeInTheDocument()

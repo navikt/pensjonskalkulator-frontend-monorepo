@@ -9,11 +9,11 @@ import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 import styles from './TidligsMuligUttaksalder.module.scss'
 
 interface Props {
-  uttaksalder: Uttaksalder
+  tidligstMuligUttak: Uttaksalder
 }
 
 export const TidligstMuligUttaksalder: React.FC<Props> = memo(
-  ({ uttaksalder }) => {
+  ({ tidligstMuligUttak }) => {
     return (
       <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
         <div className={styles.wrapperCard}>
@@ -27,7 +27,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
               ut alderspensjon når du er{' '}
             </BodyLong>
             <span className={styles.highlighted}>
-              {formatUttaksalder(uttaksalder)}
+              {formatUttaksalder(tidligstMuligUttak)}
               <HelpText wrapperClassName={styles.helptext}>
                 For å starte uttak mellom 62 og 67 år må opptjeningen være høy
                 nok. Tidspunktet er et estimat.
