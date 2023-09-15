@@ -1,9 +1,5 @@
 import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
-import {
-  groupPensjonsavtalerByType,
-  getPensjonsavtalerTittel,
-  getMaanedString,
-} from '../utils'
+import { groupPensjonsavtalerByType, getMaanedString } from '../utils'
 import { PensjonsavtaleKategori } from '@/types/enums'
 
 describe('GrunnlagPensjonsavtaler-utils', () => {

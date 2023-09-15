@@ -1,9 +1,9 @@
-import { FormattedMessage, useIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 
 import { describe, expect, it } from 'vitest'
 
 import { formatMessageValues } from '../translations'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen } from '@/test-utils'
 
 describe('translations-utils', () => {
   describe('formatMessageValues', async () => {
