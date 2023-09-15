@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { useIntl } from 'react-intl'
 import { useLocation } from 'react-router-dom'
 
@@ -14,7 +14,7 @@ export const PageFramework: React.FC<
 
   const { pathname } = useLocation()
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
 
