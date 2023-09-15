@@ -64,10 +64,14 @@ export const processPensjonsavtalerArray = (
           const isLastYear =
             utbetalingsperiode.sluttAlder && year === avtaleEndYear
 
+          // TODO hva skjer dersom brukeren har en avtale som bikker over neste år.
+          // Eks: hva skjer med en bruker som er født 01.12 med en avtale som starter på 66 år blank? (skulle da teoretisk være om én måned etter fødsesldato)
+          // Tar backend høyde for det ved å aldri returnere mer enn noe som bikker over, og forsåvidt aldri mer enn 11 på "sluttAlder"?
           const startMonth = isFirstYear
-            ? foedselsmaaned + utbetalingsperiode.startMaaned
+            ? foedselsmaaned + utbetalingsperiode.startMaaned + 1
             : 1
 
+          // TODO Hvordan beregner man sluttMåned? Er det som startMaaned som trenger å legges +1 på?
           const endMonth =
             isLastYear && utbetalingsperiode.sluttMaaned !== undefined
               ? foedselsmaaned + utbetalingsperiode.sluttMaaned
