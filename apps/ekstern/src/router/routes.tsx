@@ -23,6 +23,7 @@ export const externalUrls = {
   alderspensjonsregler: 'https://loremipsum',
   afp: 'https://www.afp.no',
   garantipensjon: 'https://loremipsum',
+  norskPensjkon: 'https://norskpensjon.no/',
 }
 
 export const paths = {

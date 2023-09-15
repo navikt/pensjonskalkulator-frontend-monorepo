@@ -1,7 +1,5 @@
-import { Accordion } from '@navikt/ds-react'
-
 import { AccordionItem } from '../AccordionItem'
-import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
+import { GrunnlagSection } from '@/components/Grunnlag/GrunnlagSection'
 import { userEvent, render, screen } from '@/test-utils'
 import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
@@ -14,8 +12,9 @@ describe('AccordionItem', () => {
 
     render(
       <AccordionItem name="log-data">
-        <SectionHeader label="SectionHeader" />
-        <Accordion.Content>Test</Accordion.Content>
+        <GrunnlagSection headerTitle="SectionHeader" headerValue="">
+          <p>Test</p>
+        </GrunnlagSection>
       </AccordionItem>
     )
 
@@ -32,8 +31,9 @@ describe('AccordionItem', () => {
 
     render(
       <AccordionItem initialOpen={true} name="test">
-        <SectionHeader label="SectionHeader" />
-        <Accordion.Content>Test</Accordion.Content>
+        <GrunnlagSection headerTitle="SectionHeader" headerValue="">
+          <p>Test</p>
+        </GrunnlagSection>
       </AccordionItem>
     )
 

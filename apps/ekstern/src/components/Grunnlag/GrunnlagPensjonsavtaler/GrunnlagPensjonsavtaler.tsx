@@ -3,11 +3,10 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
-import { Accordion, BodyLong, BodyShort, Link } from '@navikt/ds-react'
+import { Accordion, BodyLong, BodyShort } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
-import { paths } from '@/router'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -15,6 +14,7 @@ import { selectSamtykke } from '@/state/userInput/selectors'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
+import { formatMessageValues } from '@/utils/translations'
 
 import {
   groupPensjonsavtalerByType,
@@ -25,10 +25,8 @@ import {
 import styles from './GrunnlagPensjonsavtaler.module.scss'
 
 // TODO legge til key
-// TODO legge til tekster i nb fila
 export function GrunnlagPensjonsavtaler() {
   const intl = useIntl()
-  const navigate = useNavigate()
   const harSamtykket = useAppSelector(selectSamtykke)
   const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
 
@@ -64,12 +62,12 @@ export function GrunnlagPensjonsavtaler() {
         <>
           {!harSamtykket && (
             <BodyLong>
-              Du har ikke samtykket til å hente inn pensjonsavtaler om
-              tjenestepensjon.{' '}
-              <Link onClick={() => navigate(paths.start)}>
-                Start en ny beregning
-              </Link>{' '}
-              dersom du ønsker å få dette i beregningen.
+              <FormattedMessage
+                id="grunnlag.pensjonsavtaler.ingress.error.samtykke"
+                values={{
+                  ...formatMessageValues,
+                }}
+              />
             </BodyLong>
           )}
           {isError && (
@@ -79,8 +77,7 @@ export function GrunnlagPensjonsavtaler() {
                 fontSize="1.5rem"
               />
               <BodyLong className={styles.errorText}>
-                Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon.
-                Prøv igjen senere.
+                <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler" />
               </BodyLong>
             </div>
           )}
@@ -89,14 +86,16 @@ export function GrunnlagPensjonsavtaler() {
               <table className={styles.tabell}>
                 <thead>
                   <tr>
-                    <th className={styles.tabellHeader}>Pensjonsavtale</th>
+                    <th className={styles.tabellHeader}>
+                      <FormattedMessage id="grunnlag.pensjonsavtaler.tabell.title.left" />
+                    </th>
                     <th
                       className={clsx(
                         styles.tabellHeader,
                         styles.tabellHeader__Right
                       )}
                     >
-                      Årlig beløp
+                      <FormattedMessage id="grunnlag.pensjonsavtaler.tabell.title.right" />
                     </th>
                   </tr>
                 </thead>
@@ -104,7 +103,7 @@ export function GrunnlagPensjonsavtaler() {
                   {Object.entries(
                     groupPensjonsavtalerByType(pensjonsavtaler)
                   ).map(([avtaleType, avtaler], i) => (
-                    <React.Fragment key={avtaleType}>
+                    <React.Fragment key={`table-left-${avtaleType}`}>
                       <tr>
                         <td colSpan={2}>
                           <BodyShort
@@ -118,7 +117,7 @@ export function GrunnlagPensjonsavtaler() {
                       </tr>
                       {avtaler.map((avtale) => (
                         <>
-                          <tr key={avtale.key}>
+                          <tr key={`table-right-${avtaleType}`}>
                             <td colSpan={2}>
                               <BodyShort className={styles.tabellSubtittel}>
                                 {avtale.produktbetegnelse}
@@ -130,7 +129,7 @@ export function GrunnlagPensjonsavtaler() {
                             (utbetalingsperiode) => {
                               return (
                                 <tr
-                                  key={`${utbetalingsperiode.startAlder}-${utbetalingsperiode.startMaaned}`}
+                                  key={`${avtaleType}-${utbetalingsperiode.startAlder}-${utbetalingsperiode.startMaaned}`}
                                 >
                                   <td className={styles.tabellCell__Small}>
                                     {utbetalingsperiode.sluttAlder
@@ -179,14 +178,12 @@ export function GrunnlagPensjonsavtaler() {
                 </tbody>
               </table>
               <BodyLong className={styles.paragraph} size="small">
-                Alle avtaler i privat sektor er hentet fra{' '}
-                <Link href="https://norskpensjon.no/">Norsk Pensjon</Link>. Du
-                kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt
-                aktuell pensjonsordning.
-                <br />
-                <br />
-                Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekk
-                aktuell tjenestepensjonsordning.
+                <FormattedMessage
+                  id="grunnlag.pensjonsavtaler.ingress"
+                  values={{
+                    ...formatMessageValues,
+                  }}
+                />
               </BodyLong>
             </>
           )}
