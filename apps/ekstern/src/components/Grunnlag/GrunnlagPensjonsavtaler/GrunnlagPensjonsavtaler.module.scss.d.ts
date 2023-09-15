@@ -1,4 +1,4 @@
-import globalClassNames from '../../../style'
+import globalClassNames from '../../../style.d'
 declare const classNames: typeof globalClassNames & {
   readonly tabell: 'tabell'
   readonly tabellMellomtittel: 'tabellMellomtittel'
@@ -9,7 +9,6 @@ declare const classNames: typeof globalClassNames & {
   readonly tabellCell__Large: 'tabellCell__Large'
   readonly tabellCell__Small: 'tabellCell__Small'
   readonly tabellCell__Right: 'tabellCell__Right'
-  readonly sectionContent: 'sectionContent'
   readonly error: 'error'
   readonly errorIcon: 'errorIcon'
   readonly errorText: 'errorText'

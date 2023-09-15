@@ -3,10 +3,7 @@ import React from 'react'
 import { Loader } from '@navikt/ds-react'
 import { Accordion } from '@navikt/ds-react'
 
-import {
-  AccordionContext,
-  AccordionItem,
-} from '@/components/common/AccordionItem'
+import { AccordionContext } from '@/components/common/AccordionItem'
 
 import styles from './GrunnlagSection.module.scss'
 

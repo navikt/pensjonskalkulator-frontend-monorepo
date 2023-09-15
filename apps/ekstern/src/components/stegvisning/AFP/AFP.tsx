@@ -1,13 +1,11 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
   Alert,
   BodyLong,
   Button,
   Heading,
-  Link,
   Radio,
   RadioGroup,
 } from '@navikt/ds-react'

@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
 import { Accordion, BodyLong, BodyShort } from '@navikt/ds-react'
@@ -16,11 +15,7 @@ import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 import { formatMessageValues } from '@/utils/translations'
 
-import {
-  groupPensjonsavtalerByType,
-  getPensjonsavtalerTittel,
-  getMaanedString,
-} from './utils'
+import { groupPensjonsavtalerByType, getMaanedString } from './utils'
 
 import styles from './GrunnlagPensjonsavtaler.module.scss'
 
@@ -52,11 +47,17 @@ export function GrunnlagPensjonsavtaler() {
         headerTitle={intl.formatMessage({
           id: 'grunnlag.pensjonsavtaler.title',
         })}
-        headerValue={getPensjonsavtalerTittel(
-          !!harSamtykket,
-          isError,
-          `${pensjonsavtaler?.length}`
-        )}
+        headerValue={
+          !harSamtykket
+            ? intl.formatMessage({
+                id: 'grunnlag.pensjonsavtaler.title.error.samtykke',
+              })
+            : isError
+            ? intl.formatMessage({
+                id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler',
+              })
+            : `${pensjonsavtaler?.length}`
+        }
         isLoading={isLoading}
       >
         <>
@@ -116,20 +117,19 @@ export function GrunnlagPensjonsavtaler() {
                         </td>
                       </tr>
                       {avtaler.map((avtale) => (
-                        <>
-                          <tr key={`table-right-${avtaleType}`}>
+                        <React.Fragment key={`table-right-${avtale.key}`}>
+                          <tr>
                             <td colSpan={2}>
                               <BodyShort className={styles.tabellSubtittel}>
                                 {avtale.produktbetegnelse}
                               </BodyShort>
                             </td>
                           </tr>
-
                           {avtale.utbetalingsperioder.map(
                             (utbetalingsperiode) => {
                               return (
                                 <tr
-                                  key={`${avtaleType}-${utbetalingsperiode.startAlder}-${utbetalingsperiode.startMaaned}`}
+                                  key={`${avtale.key}-${utbetalingsperiode.startAlder}-${utbetalingsperiode.startMaaned}`}
                                 >
                                   <td className={styles.tabellCell__Small}>
                                     {utbetalingsperiode.sluttAlder
@@ -171,7 +171,7 @@ export function GrunnlagPensjonsavtaler() {
                               )
                             }
                           )}
-                        </>
+                        </React.Fragment>
                       ))}
                     </React.Fragment>
                   ))}

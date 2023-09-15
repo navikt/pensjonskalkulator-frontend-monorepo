@@ -28,7 +28,7 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - tidligst mulig uttak', () => {
-    it('rendrer riktig tittel med formatert uttaksalder og tekst', async () => {
+    it('viser riktig tittel med formatert uttaksalder og tekst', async () => {
       const user = userEvent.setup()
       const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
       render(<Grunnlag tidligstMuligUttak={{ aar: 67, maaned: 1 }} />)
@@ -79,7 +79,7 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - uttaksgrad', () => {
-    it('rendrer riktig tittel med formatert uttaksgrad og tekst', async () => {
+    it('viser riktig tittel med formatert uttaksgrad og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag />)
       expect(screen.getByText('grunnlag.uttaksgrad.title:')).toBeVisible()
@@ -96,7 +96,7 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - inntekt', () => {
-    it('rendrer riktig tittel med formatert inntekt og tekst', async () => {
+    it('viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag />)
       expect(screen.getByText('grunnlag.inntekt.title:')).toBeVisible()
@@ -206,7 +206,7 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - opphold', () => {
-    it('rendrer riktig tittel med formatert inntekt og tekst', async () => {
+    it('viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag />)
       expect(screen.getByText('grunnlag.opphold.title:')).toBeVisible()
@@ -223,7 +223,7 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - alderspensjon', () => {
-    it('rendrer riktig tittel med formatert inntekt og tekst', async () => {
+    it('viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag />)
       expect(screen.getByText('grunnlag.alderspensjon.title:')).toBeVisible()
@@ -239,7 +239,7 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - AFP', () => {
-    it('Når brukeren har valgt AFP offentlig, rendrer riktig tittel med formatert inntekt og tekst', async () => {
+    it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag />, {
         preloadedState: {
@@ -258,7 +258,7 @@ describe('Grunnlag', () => {
       ).toBeVisible()
     })
 
-    it('Når brukeren har valgt AFP privat, rendrer riktig tittel med formatert inntekt og tekst', async () => {
+    it('Når brukeren har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag />, {
         preloadedState: {
@@ -280,7 +280,7 @@ describe('Grunnlag', () => {
       ).toBeVisible()
     })
 
-    it('Når brukeren har valgt uten AFP, rendrer riktig tittel med formatert inntekt og tekst', async () => {
+    it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag />, {
         preloadedState: {
@@ -297,7 +297,7 @@ describe('Grunnlag', () => {
       expect(await screen.findByText('grunnlag.afp.ingress.nei')).toBeVisible()
     })
 
-    it('Når brukeren har svart "vet ikke" på AFP, rendrer riktig tittel med formatert inntekt og tekst', async () => {
+    it('Når brukeren har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag />, {
         preloadedState: {

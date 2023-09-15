@@ -1,5 +1,3 @@
-import * as ReactRouterUtils from 'react-router'
-
 import { describe, it, vi } from 'vitest'
 
 import { GrunnlagPensjonsavtaler } from '../GrunnlagPensjonsavtaler'
@@ -17,54 +15,41 @@ describe('GrunnlagPensjonsavtaler', () => {
     uttaksgrad: 100,
     aarligInntekt: 0,
   }
-
-  it('rendrer tittel med 0 avtaler når avtalelisten er tom', async () => {
-    mockResponse('/pensjonsavtaler', {
-      status: 200,
-      json: { avtaler: [], utilgjengeligeSelskap: [] },
-      method: 'post',
-    })
-    render(<GrunnlagPensjonsavtaler />, {
-      preloadedState: {
-        userInput: {
-          ...userInputInitialState,
-          samtykke: true,
-          currentSimulation: currentSimulation,
+  describe('Gitt at brukeren ikke har samtykket', () => {
+    it('viser riktig header og melding, og skjuler ingress og tabell', async () => {
+      const user = userEvent.setup()
+      render(<GrunnlagPensjonsavtaler />, {
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: false },
         },
-      },
-    })
-    await waitFor(() => {
+      })
       expect(
-        screen.queryByText('Pensjonsavtaler', { exact: false })
+        await screen.findByText('grunnlag.pensjonsavtaler.title:')
       ).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.pensjonsavtaler.title.error.samtykke')
+      ).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[0])
+      expect(
+        await screen.findByText(
+          'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon',
+          {
+            exact: false,
+          }
+        )
+      ).toBeVisible()
+      expect(
+        screen.queryByText('Alle avtaler i privat sektor er hentet fra', {
+          exact: false,
+        })
+      ).not.toBeInTheDocument()
+      expect(screen.queryByRole('table')).not.toBeInTheDocument()
     })
-  })
-
-  it('viser riktig header og melding når brukeren ikke samtykker', async () => {
-    const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<GrunnlagPensjonsavtaler />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: false },
-      },
-    })
-    expect(await screen.findByText('Ikke innhentet')).toBeVisible()
-    expect(screen.queryByText('Kan ikke hentes')).not.toBeInTheDocument()
-    expect(
-      await screen.findByText(
-        'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon.',
-        { exact: false }
-      )
-    ).toBeVisible()
-    await user.click(screen.getByText('Start en ny beregning'))
-    expect(navigateMock).toHaveBeenCalledWith('/start')
   })
 
   describe('Gitt at brukeren har samtykket', () => {
-    it('viser riktig header og melding når pensjonsavtaler laster', async () => {
+    it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: {
@@ -75,12 +60,22 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
       })
       expect(
-        screen.getByText('Pensjonsavtaler:', { exact: false })
+        screen.queryByText(
+          'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon',
+          {
+            exact: false,
+          }
+        )
+      ).not.toBeInTheDocument()
+      expect(
+        await screen.findByText('grunnlag.pensjonsavtaler.title:')
       ).toBeVisible()
-      expect(screen.getByTestId('loader')).toBeVisible()
+      expect(
+        screen.getByTestId('grunnlag.pensjonsavtaler.title-loader')
+      ).toBeVisible()
     })
 
-    it('viser riktig header og melding dersom pensjonsavtaler har feilet', async () => {
+    it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {
       mockErrorResponse('/pensjonsavtaler', {
         status: 500,
         json: "Beep boop I'm an error!",
@@ -95,15 +90,53 @@ describe('GrunnlagPensjonsavtaler', () => {
           },
         },
       })
-      expect(await screen.findByText('Kan ikke hentes')).toBeVisible()
       expect(
         await screen.findByText(
-          'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.'
+          'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler'
         )
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
+        )
+      ).toBeVisible()
+      expect(
+        screen.queryByText('Alle avtaler i privat sektor er hentet fra', {
+          exact: false,
+        })
+      ).not.toBeInTheDocument()
+      expect(screen.queryByRole('table')).not.toBeInTheDocument()
+    })
+
+    it('viser riktig tittel med antall avtaler og tekst når avtalelisten er tom', async () => {
+      mockResponse('/pensjonsavtaler', {
+        status: 200,
+        json: { avtaler: [], utilgjengeligeSelskap: [] },
+        method: 'post',
+      })
+      const user = userEvent.setup()
+      render(<GrunnlagPensjonsavtaler />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.pensjonsavtaler.title:')).toBeVisible()
+      expect(await screen.findByText('0')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[0])
+      expect(
+        await screen.findByText('Alle avtaler i privat sektor er hentet fra', {
+          exact: false,
+        })
       ).toBeVisible()
     })
 
     it('rendrer riktig med avtaler som bare har start dato', async () => {
+      const user = userEvent.setup()
       const avtale: Pensjonsavtale = {
         key: 0,
         produktbetegnelse: 'DNB',
@@ -134,8 +167,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
         method: 'post',
       })
-
-      const { asFragment } = render(<GrunnlagPensjonsavtaler />, {
+      render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -144,21 +176,37 @@ describe('GrunnlagPensjonsavtaler', () => {
           },
         },
       })
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[0])
+      expect(await screen.findByRole('table')).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.left')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.right')
+      ).toBeVisible()
       await waitFor(async () => {
-        expect(await screen.findByText('Årlig beløp')).toBeVisible()
+        expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
+        expect(await screen.findByText('Livsvarig fra 67 år')).toBeVisible()
         expect(
-          await screen.findByText('Livsvarig utbetaling fra 67 år.')
+          await screen.findByText('Livsvarig fra 67 år og 6 mnd.')
         ).toBeVisible()
-        expect(
-          await screen.findByText('Livsvarig utbetaling fra 67 år og 6 mnd.')
-        ).toBeVisible()
+        expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
         const rows = await screen.findAllByRole('row')
-        expect(rows.length).toBe(4)
-        expect(asFragment()).toMatchSnapshot()
+        expect(rows.length).toBe(6)
+        expect(
+          await screen.findByText(
+            'Alle avtaler i privat sektor er hentet fra',
+            {
+              exact: false,
+            }
+          )
+        ).toBeVisible()
       })
     })
 
     it('rendrer riktig med avtaler som har både start- og sluttdato', async () => {
+      const user = userEvent.setup()
       const avtale: Pensjonsavtale = {
         key: 0,
         produktbetegnelse: 'DNB',
@@ -192,7 +240,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
         method: 'post',
       })
-      const { asFragment } = render(<GrunnlagPensjonsavtaler />, {
+      render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -201,23 +249,34 @@ describe('GrunnlagPensjonsavtaler', () => {
           },
         },
       })
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[0])
+      expect(await screen.findByRole('table')).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.left')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.right')
+      ).toBeVisible()
       await waitFor(async () => {
-        expect(await screen.findByText('Årlig beløp')).toBeVisible()
+        expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
         expect(
-          await screen.findByText(
-            '12 345 kr utbetales fra 67 år til 77 år og 8 mnd.',
-            { exact: false }
-          )
+          await screen.findByText('Fra 67 år til 77 år og 8 mnd.')
         ).toBeVisible()
         expect(
-          await screen.findByText(
-            '12 345 kr utbetales fra 67 år og 6 mnd. til 77 år.',
-            { exact: false }
-          )
+          await screen.findByText('Fra 67 år og 6 mnd. til 77 år')
         ).toBeVisible()
+        expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
         const rows = await screen.findAllByRole('row')
-        expect(rows.length).toBe(3)
-        expect(asFragment()).toMatchSnapshot()
+        expect(rows.length).toBe(5)
+        expect(
+          await screen.findByText(
+            'Alle avtaler i privat sektor er hentet fra',
+            {
+              exact: false,
+            }
+          )
+        ).toBeVisible()
       })
     })
   })

@@ -46,27 +46,6 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
     })
   })
 
-  describe('getPensjonsavtalerTittel', () => {
-    it('returnerer riktig streng når samtykke er false', () => {
-      expect(getPensjonsavtalerTittel(false, true, '12')).toEqual(
-        'Ikke innhentet'
-      )
-      expect(getPensjonsavtalerTittel(false, false, '12')).toEqual(
-        'Ikke innhentet'
-      )
-    })
-
-    it('returnerer riktig streng når showError er true', () => {
-      expect(getPensjonsavtalerTittel(true, true, '12')).toEqual(
-        'Kan ikke hentes'
-      )
-    })
-
-    it('returnerer riktig streng når samtykke er true og showError er false', () => {
-      expect(getPensjonsavtalerTittel(true, false, '12')).toEqual('12')
-    })
-  })
-
   describe('getMaanedString', () => {
     it('returnerer tom streng når måned er undefined eller mindre eller lik 1', () => {
       expect(getMaanedString()).toEqual('')
