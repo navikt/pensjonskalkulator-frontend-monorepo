@@ -42,13 +42,7 @@ function generateMockedTranslations() {
   const testTranslations: Record<string, string> = getTranslation_test()
   const translationsInput = { ...nbTranslations, ...testTranslations }
   const translations: Record<string, string> = {}
-  /*
-  if (
-      /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(
-        translationsInput[key]
-      )
-    )
-    */
+
   for (const key in translationsInput) {
     if (
       /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>|{[^}]+}/i.test(
