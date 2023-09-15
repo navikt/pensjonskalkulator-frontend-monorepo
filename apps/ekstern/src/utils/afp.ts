@@ -1,4 +1,3 @@
-// TODO skrive tester
 export const formatAfp = (afp: AfpRadio): string => {
   switch (afp) {
     case 'ja_offentlig': {

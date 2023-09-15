@@ -1,4 +1,4 @@
-import { describe, it, vi } from 'vitest'
+import { describe, it } from 'vitest'
 
 import { GrunnlagPensjonsavtaler } from '../GrunnlagPensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'

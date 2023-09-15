@@ -5,7 +5,6 @@ import { Link } from '@navikt/ds-react'
 
 import { externalUrls, paths } from '@/router'
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// TODO skrive tester
 export const formatMessageValues: Record<string, any> = {
   detaljertKalkulatorLink: (chunks: string) => (
     <Link href={externalUrls.detaljertKalkulator} target="_blank">
@@ -37,7 +36,7 @@ export const formatMessageValues: Record<string, any> = {
       <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
     </Link>
   ),
-  norskPensjkonLink: (chunks: string) => (
+  norskPensjonLink: (chunks: string) => (
     <Link href={externalUrls.norskPensjkon} target="_blank">
       {chunks}
       <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />

@@ -66,7 +66,10 @@ describe('Grunnlag', () => {
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
       expect(
-        await screen.findByText('grunnlag.tidligstmuliguttak.ingress.error')
+        await screen.findByText(
+          'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon',
+          { exact: false }
+        )
       ).toBeVisible()
       expect(
         await screen.findByText(

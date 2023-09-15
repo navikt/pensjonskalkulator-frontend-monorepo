@@ -19,7 +19,6 @@ import { groupPensjonsavtalerByType, getMaanedString } from './utils'
 
 import styles from './GrunnlagPensjonsavtaler.module.scss'
 
-// TODO legge til key
 export function GrunnlagPensjonsavtaler() {
   const intl = useIntl()
   const harSamtykket = useAppSelector(selectSamtykke)
