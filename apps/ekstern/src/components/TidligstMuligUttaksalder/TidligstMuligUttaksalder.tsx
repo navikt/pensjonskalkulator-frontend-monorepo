@@ -6,14 +6,17 @@ import { BodyLong, HelpText } from '@navikt/ds-react'
 import Piggybank from '../../assets/piggybank.svg'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 
+import { isUttaksalderOver62 } from './utils'
+
 import styles from './TidligsMuligUttaksalder.module.scss'
 
 interface Props {
   tidligstMuligUttak: Uttaksalder
+  hasAfpOffentlig: boolean
 }
 
 export const TidligstMuligUttaksalder: React.FC<Props> = memo(
-  ({ tidligstMuligUttak }) => {
+  ({ tidligstMuligUttak, hasAfpOffentlig }) => {
     return (
       <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
         <div className={styles.wrapperCard}>
@@ -36,16 +39,18 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
             <BodyLong size="large" className={styles.ingress}>
               Jo lenger du venter, desto mer får du i året.
             </BodyLong>
-            <div className={styles.info}>
-              <InformationSquareFillIcon
-                className={styles.infoIcon}
-                fontSize="1.5rem"
-                aria-hidden
-              />
-              <p className={styles.infoText}>
-                Din AFP kan gjøre at tidspunktet blir tidligere
-              </p>
-            </div>
+            {hasAfpOffentlig && isUttaksalderOver62(tidligstMuligUttak) && (
+              <div className={styles.info}>
+                <InformationSquareFillIcon
+                  className={styles.infoIcon}
+                  fontSize="1.5rem"
+                  aria-hidden
+                />
+                <p className={styles.infoText}>
+                  Din AFP kan gjøre at tidspunktet blir tidligere
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

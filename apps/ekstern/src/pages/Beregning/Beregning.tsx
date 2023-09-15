@@ -114,7 +114,10 @@ export function Beregning() {
     <>
       {!isTidligstMuligUttaksalderError && tidligstMuligUttak && (
         <div className={styles.container}>
-          <TidligstMuligUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
+          <TidligstMuligUttaksalder
+            tidligstMuligUttak={tidligstMuligUttak}
+            hasAfpOffentlig={afp === 'ja_offentlig'}
+          />
         </div>
       )}
       <div
