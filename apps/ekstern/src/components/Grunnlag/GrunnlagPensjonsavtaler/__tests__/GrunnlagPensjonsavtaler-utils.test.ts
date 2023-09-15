@@ -1,4 +1,4 @@
-import pensjonsavtalerData from '../../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
+import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
 import {
   groupPensjonsavtalerByType,
   getPensjonsavtalerTittel,
@@ -6,7 +6,7 @@ import {
 } from '../utils'
 import { PensjonsavtaleKategori } from '@/types/enums'
 
-describe('groupPensjonsavtaler-utils', () => {
+describe('GrunnlagPensjonsavtaler-utils', () => {
   const avtalerWithKeys = pensjonsavtalerData.avtaler.map((avtale, index) => ({
     ...avtale,
     key: index,

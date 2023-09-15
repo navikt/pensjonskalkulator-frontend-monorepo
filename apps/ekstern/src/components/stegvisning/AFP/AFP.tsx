@@ -15,6 +15,7 @@ import {
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { logger, wrapLogger } from '@/utils/logging'
+import { formatMessageValues } from '@/utils/translations'
 
 import styles from './AFP.module.scss'
 
@@ -87,21 +88,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage
             id="stegvisning.afp.readmore_privat_link"
             values={{
-              link: (chunks) => (
-                <Link
-                  href={intl.formatMessage({
-                    id: 'stegvisning.afp.readmore_privat_url',
-                  })}
-                  target="_blank"
-                >
-                  {chunks}
-                  <ExternalLinkIcon
-                    width="1.25rem"
-                    height="1.25rem"
-                    aria-hidden
-                  />
-                </Link>
-              ),
+              ...formatMessageValues,
             }}
           />
         </ReadMore>

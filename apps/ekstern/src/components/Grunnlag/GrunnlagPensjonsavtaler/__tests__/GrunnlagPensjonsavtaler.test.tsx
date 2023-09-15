@@ -2,7 +2,7 @@ import * as ReactRouterUtils from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { Pensjonsavtaler } from '../Pensjonsavtaler'
+import { GrunnlagPensjonsavtaler } from '../GrunnlagPensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import {
   userInputInitialState,
@@ -10,7 +10,7 @@ import {
 } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
-describe('Pensjonsavtaler', () => {
+describe('GrunnlagPensjonsavtaler', () => {
   const currentSimulation: Simulation = {
     startAlder: 67,
     startMaaned: 1,
@@ -24,7 +24,7 @@ describe('Pensjonsavtaler', () => {
       json: { avtaler: [], utilgjengeligeSelskap: [] },
       method: 'post',
     })
-    render(<Pensjonsavtaler />, {
+    render(<GrunnlagPensjonsavtaler />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
@@ -46,7 +46,7 @@ describe('Pensjonsavtaler', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Pensjonsavtaler />, {
+    render(<GrunnlagPensjonsavtaler />, {
       preloadedState: {
         userInput: { ...userInputInitialState, samtykke: false },
       },
@@ -65,7 +65,7 @@ describe('Pensjonsavtaler', () => {
 
   describe('Gitt at brukeren har samtykket', () => {
     it('viser riktig header og melding når pensjonsavtaler laster', async () => {
-      render(<Pensjonsavtaler />, {
+      render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -86,7 +86,7 @@ describe('Pensjonsavtaler', () => {
         json: "Beep boop I'm an error!",
         method: 'post',
       })
-      render(<Pensjonsavtaler />, {
+      render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -135,7 +135,7 @@ describe('Pensjonsavtaler', () => {
         method: 'post',
       })
 
-      const { asFragment } = render(<Pensjonsavtaler />, {
+      const { asFragment } = render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -192,7 +192,7 @@ describe('Pensjonsavtaler', () => {
         },
         method: 'post',
       })
-      const { asFragment } = render(<Pensjonsavtaler />, {
+      const { asFragment } = render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,

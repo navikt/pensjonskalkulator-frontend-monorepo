@@ -16,6 +16,12 @@
       border-bottom: 2px solid var(--a-border-divider);
     }
   }
+
+  &Header {
+    font-weight: normal;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
 }
 
 .description {

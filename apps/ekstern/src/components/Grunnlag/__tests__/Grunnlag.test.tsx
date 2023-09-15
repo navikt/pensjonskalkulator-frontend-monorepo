@@ -2,22 +2,29 @@ import { vi } from 'vitest'
 
 import { Grunnlag } from '@/components/Grunnlag'
 import * as velgUttaksalderUtils from '@/components/VelgUttaksalder/utils'
-import { render, screen, userEvent } from '@/test-utils'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Grunnlag', () => {
   it('viser alle seksjonene', async () => {
     render(<Grunnlag />)
+    expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+    expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(
-      await screen.findByText('Grunnlaget for beregningen')
-    ).toBeInTheDocument()
-    expect(await screen.findByText('Tidligst mulig uttak:')).toBeVisible()
-    expect(await screen.findByText('Uttaksgrad:')).toBeVisible()
-    expect(await screen.findByText('Inntekt:')).toBeVisible()
-    expect(await screen.findByText('Sivilstand:')).toBeVisible()
-    expect(await screen.findByText('Utenlandsopphold:')).toBeVisible()
-    expect(await screen.findByText('Alderspensjon (NAV):')).toBeVisible()
-    expect(await screen.findByText('AFP')).toBeVisible()
-    expect(await screen.findByText('Pensjonsavtaler:')).toBeVisible()
+      await screen.findByText('grunnlag.tidligstmuliguttak.title:')
+    ).toBeVisible()
+    expect(await screen.findByText('grunnlag.uttaksgrad.title:')).toBeVisible()
+    expect(await screen.findByText('grunnlag.inntekt.title:')).toBeVisible()
+    expect(await screen.findByText('grunnlag.sivilstand.title:')).toBeVisible()
+    expect(await screen.findByText('grunnlag.opphold.title:')).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.alderspensjon.title:')
+    ).toBeVisible()
+    expect(await screen.findByText('grunnlag.afp.title:')).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.pensjonsavtaler.title:')
+    ).toBeVisible()
   })
 
   describe('Grunnlag - tidligst mulig uttak', () => {
@@ -25,27 +32,288 @@ describe('Grunnlag', () => {
       const user = userEvent.setup()
       const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
       render(<Grunnlag tidligstMuligUttak={{ aar: 67, maaned: 1 }} />)
-      expect(screen.getByText('Tidligst mulig uttak:')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.tidligstmuliguttak.title:')
+      ).toBeVisible()
+      expect(await screen.findByText('67 år')).toBeVisible()
+      expect(
+        screen.queryByText('grunnlag.tidligstmuliguttak.title.error')
+      ).not.toBeInTheDocument()
       expect(formatMock).toHaveBeenCalled()
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
-      expect(await screen.findByText('67 år')).toBeVisible()
+      expect(
+        await screen.findByText(
+          'For å starte uttak før 67 år må opptjeningen være høy nok',
+          { exact: false }
+        )
+      ).toBeVisible()
+      expect(
+        screen.queryByText('grunnlag.tidligstmuliguttak.ingress.error')
+      ).not.toBeInTheDocument()
     })
 
     it('rendrer riktig når tidligst mulig uttaksalder ikke kunne hentes', async () => {
       const user = userEvent.setup()
       const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
       render(<Grunnlag />)
-      expect(screen.getByText('Tidligst mulig uttak:')).toBeVisible()
-      expect(await screen.findByText('Ikke funnet')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.tidligstmuliguttak.title:')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.tidligstmuliguttak.title.error')
+      ).toBeVisible()
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
       expect(
-        screen.getByText(
-          'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon. Prøv igjen senere.'
+        await screen.findByText('grunnlag.tidligstmuliguttak.ingress.error')
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'For å starte uttak før 67 år må opptjeningen være høy nok',
+          { exact: false }
         )
       ).toBeVisible()
       expect(formatMock).not.toHaveBeenCalled()
+    })
+  })
+
+  describe('Grunnlag - uttaksgrad', () => {
+    it('rendrer riktig tittel med formatert uttaksgrad og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag />)
+      expect(screen.getByText('grunnlag.uttaksgrad.title:')).toBeVisible()
+      expect(screen.getByText('100 %')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[1])
+      expect(
+        await screen.findByText(
+          'Denne beregningen viser 100 % uttak av alderspensjon',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+  })
+
+  describe('Grunnlag - inntekt', () => {
+    it('rendrer riktig tittel med formatert inntekt og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag />)
+      expect(screen.getByText('grunnlag.inntekt.title:')).toBeVisible()
+      expect(screen.getByText('0 kr')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[2])
+      expect(
+        await screen.findByText(
+          'Beløpet er din siste pensjonsgivende årsinntekt',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+  })
+
+  describe('Grunnlag - sivilstand', () => {
+    it('viser riktig tekst og lenke når henting av sivilstand er vellykket', async () => {
+      const user = userEvent.setup()
+      mockResponse('/person', {
+        status: 200,
+        json: {
+          fornavn: 'Ola',
+          sivilstand: 'GIFT',
+          foedselsdato: '1963-04-30',
+        },
+      })
+      render(<Grunnlag />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samboer: true,
+          },
+        },
+      })
+      await waitFor(async () => {
+        expect(screen.getByText('grunnlag.sivilstand.title:')).toBeVisible()
+        expect(await screen.findByText('Gift, med samboer')).toBeVisible()
+        expect(
+          screen.queryByText('grunnlag.sivilstand.title.error')
+        ).not.toBeInTheDocument()
+      })
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[3])
+      expect(
+        await screen.findByText(
+          'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+
+    it('viser riktig tekst og lenke når brukeren har oppgitt samboerskap manuelt', async () => {
+      const user = userEvent.setup()
+      mockResponse('/person', {
+        status: 200,
+        json: {
+          fornavn: 'Ola',
+          sivilstand: 'UGIFT',
+          foedselsdato: '1963-04-30',
+        },
+      })
+      render(<Grunnlag />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samboer: false,
+          },
+        },
+      })
+      await waitFor(async () => {
+        expect(screen.getByText('grunnlag.sivilstand.title:')).toBeVisible()
+        expect(
+          screen.queryByText('grunnlag.sivilstand.title.error')
+        ).not.toBeInTheDocument()
+        expect(await screen.findByText('Ugift, uten samboer')).toBeVisible()
+      })
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[3])
+      expect(
+        await screen.findByText(
+          'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+
+    it('viser feilmelding når henting av personopplysninger feiler', async () => {
+      const user = userEvent.setup()
+      mockErrorResponse('/person')
+      render(<Grunnlag />)
+
+      await waitFor(() => {
+        expect(screen.getByText('grunnlag.sivilstand.title:')).toBeVisible()
+        expect(
+          screen.getByText('grunnlag.sivilstand.title.error')
+        ).toBeVisible()
+      })
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[3])
+      expect(
+        await screen.findByText(
+          'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+  })
+
+  describe('Grunnlag - opphold', () => {
+    it('rendrer riktig tittel med formatert inntekt og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag />)
+      expect(screen.getByText('grunnlag.opphold.title:')).toBeVisible()
+      expect(screen.getByText('Minst 40 år')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[4])
+      expect(
+        await screen.findByText(
+          'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+  })
+
+  describe('Grunnlag - alderspensjon', () => {
+    it('rendrer riktig tittel med formatert inntekt og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag />)
+      expect(screen.getByText('grunnlag.alderspensjon.title:')).toBeVisible()
+      expect(screen.getByText('Folketrygden (NAV)')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[5])
+      expect(
+        await screen.findByText('Alderspensjon beregnes ut ifra', {
+          exact: false,
+        })
+      ).toBeVisible()
+    })
+  })
+
+  describe('Grunnlag - AFP', () => {
+    it('Når brukeren har valgt AFP offentlig, rendrer riktig tittel med formatert inntekt og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_offentlig',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title:')).toBeVisible()
+      expect(screen.getByText('Offentlig')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[6])
+      expect(
+        await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
+      ).toBeVisible()
+    })
+
+    it('Når brukeren har valgt AFP privat, rendrer riktig tittel med formatert inntekt og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_privat',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title:')).toBeVisible()
+      expect(screen.getByText('Privat')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[6])
+      expect(
+        await screen.findByText(
+          'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
+
+    it('Når brukeren har valgt uten AFP, rendrer riktig tittel med formatert inntekt og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            afp: 'nei',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title:')).toBeVisible()
+      expect(screen.getByText('Nei')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[6])
+      expect(await screen.findByText('grunnlag.afp.ingress.nei')).toBeVisible()
+    })
+
+    it('Når brukeren har svart "vet ikke" på AFP, rendrer riktig tittel med formatert inntekt og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            afp: 'vet_ikke',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title:')).toBeVisible()
+      expect(screen.getByText('Vet ikke')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[6])
+      expect(
+        await screen.findByText('grunnlag.afp.ingress.vet_ikke')
+      ).toBeVisible()
     })
   })
 })

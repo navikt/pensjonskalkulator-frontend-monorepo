@@ -70,8 +70,7 @@ const translations = {
   'stegvisning.afp.readmore_privat_list_item3':
     'må taes ut sammen med alderspensjon fra folketrygden (NAV) og tjenestepensjon',
   'stegvisning.afp.readmore_privat_link':
-    'Les om vilkårene til <link>AFP i privat sektor på afp.no</link>',
-  'stegvisning.afp.readmore_privat_url': 'https://www.afp.no',
+    'Les om vilkårene til <afpLink>AFP i privat sektor på afp.no</afpLink>',
   'stegvisning.afp.readmore_offentlig_title':
     'Om avtalefestet pensjon i offentlig sektor',
   'stegvisning.afp.readmore_offentlig_list_item1': 'er en livsvarig pensjon',
@@ -100,5 +99,41 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'grunnlag.title': 'Grunnlaget for beregningen',
+  'grunnlag.ingress':
+    'Pensjonsberegningen er gjort med dagens regelverk og er vist i dagens kroneverdi før skatt.',
+  'grunnlag.tidligstmuliguttak.title': 'Tidligst mulig uttak',
+  'grunnlag.tidligstmuliguttak.title.error': 'Ikke funnet',
+  'grunnlag.tidligstmuliguttak.ingress':
+    'For å starte uttak før 67 år må opptjeningen være høy nok. Alle kan derfor ikke starte uttak ved 62 år. Tidspunktet er et estimat på når du tidligst kan ta ut 100 % alderspensjon. I <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink> kan du sjekke om du kan ta ut alderspensjon tidligere med en lavere uttaksgrad.{br}{br}Når du velger uttaksalder, bruker vi måneden etter du fyller år. Velger du for eksempel 62 år, betyr det måneden etter du fyller 62 år.',
+  'grunnlag.tidligstmuliguttak.ingress.error':
+    'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon. Prøv igjen senere.{br}{br}',
+  'grunnlag.uttaksgrad.title': 'Uttakgsgrad',
+  'grunnlag.uttaksgrad.ingress':
+    'Denne beregningen viser 100 % uttak av alderspensjon. I <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink> kan du beregne alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut 100 %.',
+  'grunnlag.inntekt.title': 'Inntekt',
+  'grunnlag.inntekt.ingress':
+    'Beløpet er din siste pensjonsgivende årsinntekt {aarsinntekt} fra Skatteetaten. Inntekten blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon. Ønsker du å endre fremtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>.',
+  'grunnlag.sivilstand.title': 'Sivilstand',
+  'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
+  'grunnlag.sivilstand.ingress':
+    'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen. <garantiPensjonLink>Mer om garantipensjon og satser</garantiPensjonLink>',
+  'grunnlag.opphold.title': 'Opphold i Norge',
+  'grunnlag.opphold.ingress':
+    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. ',
+  'grunnlag.alderspensjon.title': 'Alderspensjon',
+  'grunnlag.alderspensjon.ingress':
+    'Alderspensjon beregnes ut ifra <dinPensjonLink>din pensjonsbeholdning</dinPensjonLink> i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil din alderspensjon øke.{br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
+  'grunnlag.afp.title': 'Avtalefestet pensjon',
+  'grunnlag.afp.ingress.null': '-',
+  'grunnlag.afp.ingress.ja_offentlig':
+    'Vi kan ikke vise din AFP fordi regelverket for ny AFP i offentlig sektor ikke er endelig avklart. For mer informasjon sjekk din tjenestepensjonsordning.',
+  'grunnlag.afp.ingress.ja_privat':
+    'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP, men forutsetter at du gjør det i beregningen. Les mer om vilkårene for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
+  'grunnlag.afp.ingress.vet_ikke':
+    'Hvis du er usikker på om du har rett til AFP bør du spørre din arbeidsgiver. AFP kan påvirke når du kan ta ut alderspensjon.',
+  'grunnlag.afp.ingress.nei':
+    'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ny beregning.',
+  'grunnlag.pensjonsavtaler.title': 'Pensjonsavtaler',
 }
 export const getTranslation_nb = () => translations
