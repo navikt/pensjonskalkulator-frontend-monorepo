@@ -18,18 +18,18 @@ export function LandingPage() {
 
   if (isLoading) {
     return (
-      <Card hasLargePadding>
+      <Card>
         <Loader />
       </Card>
     )
   }
 
   return (
-    <Card hasLargePadding>
+    <Card hasNoPadding>
       <VStack gap="4">
         <section>
           <VStack gap="2">
-            <Heading size="large" level="2">
+            <Heading size="medium" level="2">
               For deg født før 1963
             </Heading>
             <BodyLong>
@@ -47,7 +47,7 @@ export function LandingPage() {
 
         <section>
           <VStack gap="2">
-            <Heading size="large" level="2">
+            <Heading size="medium" level="2">
               For deg født i 1963 eller senere
             </Heading>
             <BodyLong>
@@ -84,7 +84,7 @@ export function LandingPage() {
         {!isLoggedIn && (
           <section>
             <VStack gap="2">
-              <Heading size="large" level="2">
+              <Heading size="medium" level="2">
                 Uinnlogget kalkulator
               </Heading>
               <BodyLong>

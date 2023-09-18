@@ -5,9 +5,9 @@ import { useLocation } from 'react-router-dom'
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import styles from './PageFramework.module.scss'
+import styles from './AlternatePageFramework.module.scss'
 
-export const PageFramework: React.FC<
+export const AlternatePageFramework: React.FC<
   PropsWithChildren & { isFullWidth?: boolean }
 > = ({ children, isFullWidth }) => {
   const intl = useIntl()
@@ -27,7 +27,7 @@ export const PageFramework: React.FC<
       <style>
         {`
       #root {
-        background: var(--a-gray-100);
+        background: var(--a-bg-default);
         }
       `}
       </style>

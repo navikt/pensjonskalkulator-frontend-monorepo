@@ -1,6 +1,7 @@
 import { redirect } from 'react-router'
 import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
+import { AlternatePageFramework } from '@/components/common/AlternatePageFramework'
 import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
@@ -58,10 +59,6 @@ export const routes: RouteObject[] = [
         element: <Navigate to={paths.start} replace />,
       },
       {
-        path: paths.login,
-        element: <LandingPage />,
-      },
-      {
         path: paths.start,
         element: <Step1 />,
       },
@@ -106,5 +103,13 @@ export const routes: RouteObject[] = [
       </PageFramework>
     ),
     ErrorBoundary: RouteErrorBoundary,
+  },
+  {
+    element: (
+      <AlternatePageFramework>
+        <Outlet />
+      </AlternatePageFramework>
+    ),
+    children: [{ path: paths.login, element: <LandingPage /> }],
   },
 ]

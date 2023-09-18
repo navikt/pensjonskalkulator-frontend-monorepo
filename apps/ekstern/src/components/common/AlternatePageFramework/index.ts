@@ -1,0 +1,1 @@
+export { AlternatePageFramework } from './AlternatePageFramework'
