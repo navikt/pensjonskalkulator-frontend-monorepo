@@ -1,4 +1,8 @@
-@import '../../../../scss/variables';
+.header {
+  font-weight: normal;
+  white-space: nowrap;
+  vertical-align: middle;
+}
 
 .content {
   padding-top: var(--a-spacing-2);

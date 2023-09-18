@@ -6,7 +6,6 @@ import { Step5Feil } from '..'
 import * as Step4Utils from '../../Step4/utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router'
-import { externalUrls } from '@/router/routes'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 import * as sivilstandUtils from '@/utils/sivilstand'
 const realLocation = window.location

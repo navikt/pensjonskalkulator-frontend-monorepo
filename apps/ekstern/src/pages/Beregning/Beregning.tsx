@@ -159,7 +159,7 @@ export function Beregning() {
                   alderspensjon={alderspensjon}
                   showAfp={afp === 'ja_privat'}
                   showButtonsAndTable={
-                    !isError && !!alderspensjon?.vilkaarErOppfylt
+                    !isError && alderspensjon?.vilkaarErOppfylt
                   }
                 />
                 <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />

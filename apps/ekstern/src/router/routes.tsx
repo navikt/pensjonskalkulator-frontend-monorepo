@@ -16,8 +16,14 @@ import { store } from '@/state/store'
 
 export const BASE_PATH = '/pensjon/kalkulator'
 
+// TODO mangler lenke for garantipensjon
 export const externalUrls = {
   dinPensjon: 'http://nav.no/pensjon',
+  detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
+  alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
+  afp: 'https://www.afp.no',
+  garantipensjon: 'https://loremipsum',
+  norskPensjkon: 'https://norskpensjon.no/',
 }
 
 export const paths = {
