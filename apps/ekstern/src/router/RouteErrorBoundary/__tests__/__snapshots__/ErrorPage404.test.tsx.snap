@@ -97,26 +97,23 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
           </li>
         </ul>
       </div>
-      <button
-        class="_button_789545 navds-button navds-button--primary navds-button--medium"
-        type="button"
+      <div
+        class="navds-stack navds-vstack"
+        style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
       >
-        <span
-          class="navds-label"
+        <a
+          class="navds-link navds-link--action"
+          href="/login"
         >
-          error.404.button.primary
-        </span>
-      </button>
-      <button
-        class="_button_789545 navds-button navds-button--secondary navds-button--medium"
-        type="button"
-      >
-        <span
-          class="navds-label"
+          error.404.button.link_1
+        </a>
+        <a
+          class="navds-link navds-link--action"
+          href="http://nav.no/pensjon"
         >
-          error.404.button.secondary
-        </span>
-      </button>
+          error.404.button.link_2
+        </a>
+      </div>
     </section>
   </main>
 </DocumentFragment>

@@ -21,7 +21,6 @@ interface Props {
   visFlereAldereLabelOpen?: string
 }
 
-// TODO utvide test optional tidligstMuligUttak
 export const VelgUttaksalder: React.FC<Props> = ({
   tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
   defaultAntallSynligeAldere = 9,
@@ -30,6 +29,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
 }) => {
   const dispatch = useAppDispatch()
   const pinRef = React.useRef<HTMLDivElement>(null)
+  const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
 
   const [isMobile, setIsMobile] = React.useState<boolean>(
     isViewPortMobile(window.innerWidth)
@@ -44,8 +44,6 @@ export const VelgUttaksalder: React.FC<Props> = ({
       window.removeEventListener('resize', handleWindowSizeChange)
     }
   }, [])
-
-  const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
 
   const formaterteAldere = React.useMemo(
     () => getFormaterteAldere(tidligstMuligUttak),

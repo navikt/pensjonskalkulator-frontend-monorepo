@@ -67,17 +67,12 @@ describe('Step 5 Feil', () => {
 
   it('redirigerer til Din Pensjon når brukeren klikker på secondary knappen', async () => {
     const user = userEvent.setup()
-    mockErrorResponse('/person')
-    global.window = Object.create(window)
-    const url = 'http://dummy.com'
-    Object.defineProperty(window, 'location', {
-      value: {
-        href: url,
-      },
-      writable: true,
-    })
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
     render(<Step5Feil />)
     await user.click(await screen.findByText('error.global.button.secondary'))
-    expect(window.location.href).toBe(externalUrls.dinPensjon)
+    expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
   })
 })
