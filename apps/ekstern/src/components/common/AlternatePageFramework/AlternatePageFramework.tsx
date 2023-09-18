@@ -19,30 +19,25 @@ export const AlternatePageFramework: React.FC<
   }, [pathname])
 
   return (
-    <main
-      className={clsx(styles.main, {
-        [styles.main__isFramed]: !isFullWidth,
-      })}
-    >
-      <style>
-        {`
-      #root {
-        background: var(--a-bg-default);
-        }
-      `}
-      </style>
-      <div className={styles.headerGroup}>
-        <Heading
-          size="large"
-          level="1"
-          className={clsx(styles.headerGroupTitle, {
-            [styles.headerGroupTitle__isFramed]: !isFullWidth,
-          })}
-        >
-          {intl.formatMessage({ id: 'application.title' })}
-        </Heading>
+    <main style={{ background: 'var(--a-bg-default)' }}>
+      <div
+        className={clsx(styles.main, {
+          [styles.main__isFramed]: !isFullWidth,
+        })}
+      >
+        <div className={styles.headerGroup}>
+          <Heading
+            size="large"
+            level="1"
+            className={clsx(styles.headerGroupTitle, {
+              [styles.headerGroupTitle__isFramed]: !isFullWidth,
+            })}
+          >
+            {intl.formatMessage({ id: 'application.title' })}
+          </Heading>
+        </div>
+        {children}
       </div>
-      {children}
     </main>
   )
 }

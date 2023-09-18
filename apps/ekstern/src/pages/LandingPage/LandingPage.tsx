@@ -82,7 +82,7 @@ export function LandingPage() {
         </section>
 
         {!isLoggedIn && (
-          <section>
+          <section data-testid="uinlogget-kalkulator">
             <VStack gap="2">
               <Heading size="medium" level="2">
                 Uinnlogget kalkulator
