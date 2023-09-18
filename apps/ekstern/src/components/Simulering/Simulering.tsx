@@ -195,7 +195,10 @@ export function Simulering(props: {
         <TabellVisning
           series={chartOptions.series as SeriesColumnOptions[]}
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
-          // TODO legge til showAfp og showPensjonsavtaler
+          showAfp={showAfp}
+          showPensjonsavtaler={
+            isPensjonsavtalerSuccess && pensjonsavtaler.length > 0
+          }
         />
       )}
     </section>
