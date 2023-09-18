@@ -12,11 +12,18 @@ import { useTableData } from './hooks'
 interface Props {
   series: SeriesColumnOptions[]
   aarArray?: string[]
+  showAfp?: boolean
+  showPensjonsavtaler?: boolean
 }
 
 import styles from './TabellVisning.module.scss'
 
-export function TabellVisning({ series, aarArray }: Props) {
+export function TabellVisning({
+  series,
+  aarArray,
+  showAfp = false,
+  showPensjonsavtaler = false,
+}: Props) {
   const tableData = useTableData(series, aarArray)
   const [isVisTabellOpen, setVisTabellOpen] = React.useState<boolean>(false)
   return (
@@ -49,18 +56,28 @@ export function TabellVisning({ series, aarArray }: Props) {
               <br />
               (lønn m.m.)
             </Table.HeaderCell>
-            <Table.HeaderCell
-              scope="col"
-              className={clsx(styles.detailsItemRight, styles.tableDesktopOnly)}
-            >
-              Avtalefestet pensjon (AFP)
-            </Table.HeaderCell>
-            <Table.HeaderCell
-              scope="col"
-              className={clsx(styles.detailsItemRight, styles.tableDesktopOnly)}
-            >
-              Pensjonsavtaler (arbeidsgiver)
-            </Table.HeaderCell>
+            {showAfp && (
+              <Table.HeaderCell
+                scope="col"
+                className={clsx(
+                  styles.detailsItemRight,
+                  styles.tableDesktopOnly
+                )}
+              >
+                Avtalefestet pensjon (AFP)
+              </Table.HeaderCell>
+            )}
+            {showPensjonsavtaler && (
+              <Table.HeaderCell
+                scope="col"
+                className={clsx(
+                  styles.detailsItemRight,
+                  styles.tableDesktopOnly
+                )}
+              >
+                Pensjonsavtaler (arbeidsgiver)
+              </Table.HeaderCell>
+            )}
             <Table.HeaderCell
               scope="col"
               className={clsx(styles.detailsItemRight, styles.tableDesktopOnly)}
