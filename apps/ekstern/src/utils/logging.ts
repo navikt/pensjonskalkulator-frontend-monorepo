@@ -11,8 +11,11 @@ type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'chip valgt', { tekst: string; data: string }>
   | AmplitudeEvent<'chip avvalgt', { tekst: string; data: string }>
 
+// TODO: Setup mock
 export const logger =
-  getAmplitudeInstance<IExtendedAmpltitudeEvents>('dekoratoren')
+  process.env.NODE_ENV === 'test'
+    ? console.log
+    : getAmplitudeInstance<IExtendedAmpltitudeEvents>('dekoratoren')
 
 export const wrapLogger =
   (
