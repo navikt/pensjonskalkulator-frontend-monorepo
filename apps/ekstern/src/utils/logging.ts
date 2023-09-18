@@ -12,6 +12,7 @@ type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'chip avvalgt', { tekst: string; data: string }>
 
 // TODO: Setup mock
+/* c8 ignore next 3 */
 export const logger =
   process.env.NODE_ENV === 'test'
     ? console.log
