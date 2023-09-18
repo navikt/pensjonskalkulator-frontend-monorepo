@@ -2,10 +2,11 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
-import { Accordion, BodyLong, BodyShort } from '@navikt/ds-react'
+import { BodyLong, BodyShort } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
+import { AccordionItem } from '@/components/common/AccordionItem'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -41,7 +42,7 @@ export function GrunnlagPensjonsavtaler() {
 
   // PEK-97 TODO håndtere delvis reponse fra backend
   return (
-    <Accordion.Item data-testid="pensjonsavtaler">
+    <AccordionItem name="Grunnlag: Pensjonsavtaler">
       <GrunnlagSection
         headerTitle={intl.formatMessage({
           id: 'grunnlag.pensjonsavtaler.title',
@@ -188,6 +189,6 @@ export function GrunnlagPensjonsavtaler() {
           )}
         </>
       </GrunnlagSection>
-    </Accordion.Item>
+    </AccordionItem>
   )
 }

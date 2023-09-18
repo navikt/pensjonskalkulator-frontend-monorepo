@@ -31,8 +31,8 @@ export const Grunnlag: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const formatertAfp = React.useMemo(() => formatAfp(afp ?? 'vet_ikke'), [afp])
 
   const formatertSivilstand = React.useMemo(() => {
-    const a = person ? formatSivilstand(person.sivilstand) : ''
-    return `${a}, ${harSamboer ? 'med' : 'uten'} samboer`
+    const sivilstand = person ? formatSivilstand(person.sivilstand) : ''
+    return `${sivilstand}, ${harSamboer ? 'med' : 'uten'} samboer`
   }, [person])
 
   return (
