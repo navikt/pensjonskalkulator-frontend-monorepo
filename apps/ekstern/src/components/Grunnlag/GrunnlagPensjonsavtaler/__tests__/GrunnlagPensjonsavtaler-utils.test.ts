@@ -1,12 +1,8 @@
-import pensjonsavtalerData from '../../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
-import {
-  groupPensjonsavtalerByType,
-  getPensjonsavtalerTittel,
-  getMaanedString,
-} from '../utils'
+import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
+import { groupPensjonsavtalerByType, getMaanedString } from '../utils'
 import { PensjonsavtaleKategori } from '@/types/enums'
 
-describe('groupPensjonsavtaler-utils', () => {
+describe('GrunnlagPensjonsavtaler-utils', () => {
   const avtalerWithKeys = pensjonsavtalerData.avtaler.map((avtale, index) => ({
     ...avtale,
     key: index,
@@ -43,27 +39,6 @@ describe('groupPensjonsavtaler-utils', () => {
       expect(grouped[PensjonsavtaleKategori.INDIVIDUELL_ORDNING]).toHaveLength(
         2
       )
-    })
-  })
-
-  describe('getPensjonsavtalerTittel', () => {
-    it('returnerer riktig streng når samtykke er false', () => {
-      expect(getPensjonsavtalerTittel(false, true, '12')).toEqual(
-        'Ikke innhentet'
-      )
-      expect(getPensjonsavtalerTittel(false, false, '12')).toEqual(
-        'Ikke innhentet'
-      )
-    })
-
-    it('returnerer riktig streng når showError er true', () => {
-      expect(getPensjonsavtalerTittel(true, true, '12')).toEqual(
-        'Kan ikke hentes'
-      )
-    })
-
-    it('returnerer riktig streng når samtykke er true og showError er false', () => {
-      expect(getPensjonsavtalerTittel(true, false, '12')).toEqual('12')
     })
   })
 

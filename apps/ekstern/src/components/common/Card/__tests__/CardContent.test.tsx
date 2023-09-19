@@ -53,7 +53,7 @@ describe('CardContent', () => {
     })
   })
 
-  it('viser ikke knappene når onClick funksjone rikke er oppgitt', async () => {
+  it('viser ikke knappene når onClick funksjoner ikke er oppgitt', async () => {
     swallowErrors(() => {
       render(<CardContent isLoading={false} text={{ ...textIds }} />)
     })

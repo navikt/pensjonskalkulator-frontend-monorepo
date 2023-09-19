@@ -31,7 +31,7 @@ describe('stegvisning - AFP', () => {
     expect(result.asFragment()).toMatchSnapshot()
     expect(
       screen.getByRole('link', { name: 'AFP i privat sektor på afp.no' })
-    ).toHaveAttribute('href', 'stegvisning.afp.readmore_privat_url')
+    ).toHaveAttribute('href', 'https://www.afp.no')
 
     const radioButtons = screen.getAllByRole('radio')
     await waitFor(() => {

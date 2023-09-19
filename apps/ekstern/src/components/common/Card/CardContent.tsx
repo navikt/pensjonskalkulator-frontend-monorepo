@@ -22,7 +22,6 @@ export interface CardContentProps {
   children?: JSX.Element
 }
 
-// TODO utvide tester med optional buttons
 export function CardContent({
   isLoading,
   onPrimaryButtonClick,

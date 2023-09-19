@@ -69,7 +69,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           Les om vilkårene til 
           <a
             class="navds-link navds-link--action"
-            href="stegvisning.afp.readmore_privat_url"
+            href="https://www.afp.no"
             target="_blank"
           >
             AFP i privat sektor på afp.no
@@ -370,7 +370,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           Les om vilkårene til 
           <a
             class="navds-link navds-link--action"
-            href="stegvisning.afp.readmore_privat_url"
+            href="https://www.afp.no"
             target="_blank"
           >
             AFP i privat sektor på afp.no
@@ -670,7 +670,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           Les om vilkårene til 
           <a
             class="navds-link navds-link--action"
-            href="stegvisning.afp.readmore_privat_url"
+            href="https://www.afp.no"
             target="_blank"
           >
             AFP i privat sektor på afp.no

@@ -1,13 +1,11 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
   Alert,
   BodyLong,
   Button,
   Heading,
-  Link,
   Radio,
   RadioGroup,
 } from '@navikt/ds-react'
@@ -15,6 +13,7 @@ import {
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { logger, wrapLogger } from '@/utils/logging'
+import { formatMessageValues } from '@/utils/translations'
 
 import styles from './AFP.module.scss'
 
@@ -87,21 +86,7 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage
             id="stegvisning.afp.readmore_privat_link"
             values={{
-              link: (chunks) => (
-                <Link
-                  href={intl.formatMessage({
-                    id: 'stegvisning.afp.readmore_privat_url',
-                  })}
-                  target="_blank"
-                >
-                  {chunks}
-                  <ExternalLinkIcon
-                    width="1.25rem"
-                    height="1.25rem"
-                    aria-hidden
-                  />
-                </Link>
-              ),
+              ...formatMessageValues,
             }}
           />
         </ReadMore>

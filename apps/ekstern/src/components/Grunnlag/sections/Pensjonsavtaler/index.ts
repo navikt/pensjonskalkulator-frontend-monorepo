@@ -1,1 +1,0 @@
-export { Pensjonsavtaler } from './Pensjonsavtaler'

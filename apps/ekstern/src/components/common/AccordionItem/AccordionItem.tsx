@@ -7,7 +7,7 @@ import { logger } from '@/utils/logging'
 interface IProps {
   name: string
   initialOpen?: boolean
-  children: React.ReactFragment
+  children: React.ReactFragment | JSX.Element
 }
 
 export const AccordionContext = React.createContext({
