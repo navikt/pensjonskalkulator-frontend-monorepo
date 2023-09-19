@@ -70,7 +70,7 @@ describe('Beregning', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
-      expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+      expect(await screen.findByText('Vis tabell av beregningen')).toBeVisible()
     })
   })
 
@@ -101,7 +101,7 @@ describe('Beregning', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
-      expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+      expect(await screen.findByText('Vis tabell av beregningen')).toBeVisible()
     })
 
     it('viser feilmelding og skjuler Grunnlag og tabell når simuleringen feiler med mulighet til å prøve på nytt', async () => {

@@ -36,15 +36,37 @@ export const processPensjonsberegningArray = (
   return dataArray
 }
 
+export const getAntallMaanederMedPensjon = (
+  isFirstYear: boolean,
+  isLastYear: boolean,
+  startMonth: number, // Heltall 1-12 fra Norsk Pensjon
+  sluttMonth: number // Heltall 1-12 fra Norsk Pensjon
+) => {
+  // I måten NAV beregner er start- og sluttMåned heltall fra 0-12. Tilpasser startMonth for enklere logikk
+  const startMonthNav = startMonth - 1
+  if (!isFirstYear && !isLastYear) {
+    return 12
+  }
+  if (isFirstYear && !isLastYear) {
+    // Gjelder fra og med måneden etter fødseslsemåned (såkalt 0 måneden) til og med bursdagsmaaneden igjen
+    return 12 - startMonthNav
+  }
+  if (!isFirstYear && isLastYear) {
+    // Gjelder fra og med måneden etter fødseslsmåned (såkalt 0 måneden) til og med sluttMaaneden
+    return sluttMonth
+  }
+  if (isFirstYear && isLastYear) {
+    //  Gjelder fra og med måneden etter fødseslsmåned  (såkalt 0 måneden) til og med sluttmaaneden
+    return sluttMonth - startMonthNav
+  }
+  return 0
+}
+
 export const processPensjonsavtalerArray = (
   startAlder: number,
   length: number,
-  foedsesldato: string,
   pensjonsavtaler: Pensjonsavtale[]
 ): number[] => {
-  const d = new Date(foedsesldato)
-  const foedselsmaaned = d.getMonth() + 1
-
   const sluttAlder = startAlder + length - 1
   const result = new Array(sluttAlder - startAlder + 1).fill(0)
 
@@ -64,23 +86,16 @@ export const processPensjonsavtalerArray = (
           const isLastYear =
             utbetalingsperiode.sluttAlder && year === avtaleEndYear
 
-          const startMonth = isFirstYear
-            ? foedselsmaaned + utbetalingsperiode.startMaaned
-            : 1
-
-          const endMonth =
-            isLastYear && utbetalingsperiode.sluttMaaned !== undefined
-              ? foedselsmaaned + utbetalingsperiode.sluttMaaned
-              : isLastYear && utbetalingsperiode.sluttMaaned === undefined
-              ? foedselsmaaned
-              : 12
-
-          const monthsInYear =
-            endMonth <= 0 || endMonth > 12 ? 0 : endMonth - startMonth + 1
+          const antallMaanederMedPensjon = getAntallMaanederMedPensjon(
+            isFirstYear,
+            !!isLastYear,
+            utbetalingsperiode.startMaaned,
+            utbetalingsperiode.sluttMaaned ?? 0
+          )
           const allocatedAmount =
             (utbetalingsperiode.aarligUtbetaling *
               utbetalingsperiode.grad *
-              Math.max(0, monthsInYear)) /
+              Math.max(0, antallMaanederMedPensjon)) /
             100 /
             12
 
