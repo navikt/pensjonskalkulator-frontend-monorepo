@@ -1,6 +1,5 @@
 import { AccordionItem } from '../AccordionItem'
-import { SectionContent } from '@/components/Grunnlag/sections/components/SectionContent'
-import { SectionHeader } from '@/components/Grunnlag/sections/components/SectionHeader'
+import { GrunnlagSection } from '@/components/Grunnlag/GrunnlagSection'
 import { userEvent, render, screen } from '@/test-utils'
 import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
@@ -13,8 +12,9 @@ describe('AccordionItem', () => {
 
     render(
       <AccordionItem name="log-data">
-        <SectionHeader label="SectionHeader" />
-        <SectionContent>Test</SectionContent>
+        <GrunnlagSection headerTitle="SectionHeader" headerValue="">
+          <p>Test</p>
+        </GrunnlagSection>
       </AccordionItem>
     )
 
@@ -31,8 +31,9 @@ describe('AccordionItem', () => {
 
     render(
       <AccordionItem initialOpen={true} name="test">
-        <SectionHeader label="SectionHeader" />
-        <SectionContent>Test</SectionContent>
+        <GrunnlagSection headerTitle="SectionHeader" headerValue="">
+          <p>Test</p>
+        </GrunnlagSection>
       </AccordionItem>
     )
 

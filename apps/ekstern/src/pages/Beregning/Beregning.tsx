@@ -142,7 +142,7 @@ export function Beregning() {
                 title="Et øyeblikk, vi beregner pensjonen din"
               />
             )}
-            {isError || !alderspensjon?.vilkaarErOppfylt ? (
+            {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
               <>
                 <Heading level="2" size="small">
                   Beregning

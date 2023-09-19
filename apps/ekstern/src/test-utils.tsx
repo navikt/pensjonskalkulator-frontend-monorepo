@@ -6,6 +6,8 @@ import { MemoryRouter } from 'react-router-dom'
 import { PreloadedState, createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
+import { getTranslation_test } from '@/utils/__tests__/test-translations'
+
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
 import {
   setupStore,
@@ -37,15 +39,18 @@ export const swallowErrorsAsync = async (testFn: () => Promise<void>) => {
 
 function generateMockedTranslations() {
   const nbTranslations: Record<string, string> = getTranslation_nb()
+  const testTranslations: Record<string, string> = getTranslation_test()
+  const translationsInput = { ...nbTranslations, ...testTranslations }
   const translations: Record<string, string> = {}
-  for (const key in nbTranslations) {
+
+  for (const key in translationsInput) {
     if (
-      /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>/i.test(
-        nbTranslations[key]
+      /<(?=.*? .*?\/ ?>|br|hr|input|!--|wbr)[a-z]+.*?>|<([a-z]+).*?<\/\1>|{[^}]+}/i.test(
+        translationsInput[key]
       )
     ) {
-      // for html keys: results in 'my_key' : 'my_key with some <html>'
-      translations[key] = nbTranslations[key]
+      // for html or chunks keys: results in 'my_key' : 'my_key with some <html> or {chunk}'
+      translations[key] = translationsInput[key]
     } else {
       // results in 'my_key' : 'my_key'
       translations[key] = key

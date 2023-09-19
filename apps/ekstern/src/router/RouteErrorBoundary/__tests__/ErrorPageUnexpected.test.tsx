@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { ErrorPageUnexpected } from '../ErrorPageUnexpected'
-import { externalUrls, paths } from '@/router'
+import { paths } from '@/router'
 import { render, screen, userEvent } from '@/test-utils'
 
 const realLocation = window.location
