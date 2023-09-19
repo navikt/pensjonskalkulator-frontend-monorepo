@@ -64,10 +64,8 @@ describe('Step 3', () => {
       expect(
         await screen.findByText('stegvisning.offentligtp.title')
       ).toBeVisible()
-      await waitFor(async () => {
-        await user.click(screen.getByText('stegvisning.neste'))
-        expect(navigateMock).toHaveBeenCalledWith(paths.afp)
-      })
+      await user.click(await screen.findByText('stegvisning.neste'))
+      expect(navigateMock).toHaveBeenCalledWith(paths.afp)
     })
 
     it('sender tilbake til steg 2 når brukeren klikker på Tilbake', async () => {
@@ -86,10 +84,8 @@ describe('Step 3', () => {
       expect(
         await screen.findByText('stegvisning.offentligtp.title')
       ).toBeVisible()
-      await waitFor(async () => {
-        await user.click(screen.getByText('stegvisning.tilbake'))
-        expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
-      })
+      await user.click(await screen.findByText('stegvisning.tilbake'))
+      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
     })
 
     it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
@@ -112,11 +108,9 @@ describe('Step 3', () => {
       expect(
         await screen.findByText('stegvisning.offentligtp.title')
       ).toBeVisible()
-      await waitFor(async () => {
-        await user.click(screen.getByText('stegvisning.avbryt'))
-        expect(navigateMock).toHaveBeenCalledWith(paths.login)
-        expect(flushMock).toHaveBeenCalled()
-      })
+      await user.click(await screen.findByText('stegvisning.avbryt'))
+      expect(navigateMock).toHaveBeenCalledWith(paths.login)
+      expect(flushMock).toHaveBeenCalled()
     })
   })
 
@@ -130,20 +124,18 @@ describe('Step 3', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      waitFor(async () => {
-        expect(
-          screen.queryByText('stegvisning.offentligtp.title')
-        ).not.toBeInTheDocument()
-        expect(
-          await screen.findByText('stegvisning.offentligtp.error.title')
-        ).toBeVisible()
-        expect(
-          await screen.findByText('stegvisning.offentligtp.error.ingress')
-        ).toBeVisible()
-        expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-        expect(await screen.findByText('stegvisning.tilbake')).toBeVisible()
-        expect(await screen.findByText('stegvisning.avbryt')).toBeVisible()
-      })
+      expect(
+        await screen.findByText('stegvisning.offentligtp.error.title')
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'Vi kan dessverre ikke hente inn avtaler om tjenestepensjon fra offentlig sektor',
+          { exact: false }
+        )
+      ).toBeVisible()
+      expect(await screen.findByText('stegvisning.neste')).toBeVisible()
+      expect(await screen.findByText('stegvisning.tilbake')).toBeVisible()
+      expect(await screen.findByText('stegvisning.avbryt')).toBeVisible()
     })
 
     it('sender videre til steg 4 når brukeren klikker på Neste', async () => {
@@ -161,12 +153,10 @@ describe('Step 3', () => {
         hasRouter: false,
       })
       expect(
-        await screen.queryByText('stegvisning.offentligtp.title')
+        screen.queryByText('stegvisning.offentligtp.title')
       ).not.toBeInTheDocument()
-      await waitFor(async () => {
-        await user.click(screen.getByText('stegvisning.neste'))
-        expect(navigateMock).toHaveBeenCalledWith(paths.afp)
-      })
+      await user.click(await screen.findByText('stegvisning.neste'))
+      expect(navigateMock).toHaveBeenCalledWith(paths.afp)
     })
 
     it('sender tilbake til steg 2 når brukeren klikker på Tilbake', async () => {
@@ -184,12 +174,10 @@ describe('Step 3', () => {
         hasRouter: false,
       })
       expect(
-        await screen.queryByText('stegvisning.offentligtp.title')
+        screen.queryByText('stegvisning.offentligtp.title')
       ).not.toBeInTheDocument()
-      await waitFor(async () => {
-        await user.click(screen.getByText('stegvisning.tilbake'))
-        expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
-      })
+      await user.click(await screen.findByText('stegvisning.tilbake'))
+      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
     })
   })
 })

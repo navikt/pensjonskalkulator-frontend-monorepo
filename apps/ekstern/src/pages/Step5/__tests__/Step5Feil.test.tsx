@@ -6,7 +6,7 @@ import { Step5Feil } from '..'
 import * as Step4Utils from '../../Step4/utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router'
-import { externalUrls } from '@/router/routes'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 import * as sivilstandUtils from '@/utils/sivilstand'
 const realLocation = window.location
@@ -65,14 +65,26 @@ describe('Step 5 Feil', () => {
     })
   })
 
-  it('redirigerer til Din Pensjon når brukeren klikker på secondary knappen', async () => {
+  it('redirigerer til landingssiden når brukeren klikker på secondary knappen', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Step5Feil />)
+    const { store } = render(<Step5Feil />, {
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          samtykke: true,
+          afp: 'nei',
+          samboer: true,
+        },
+      },
+    })
     await user.click(await screen.findByText('error.global.button.secondary'))
     expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
+    expect(store.getState().userInput.samtykke).toBe(null)
+    expect(store.getState().userInput.afp).toBe(null)
+    expect(store.getState().userInput.samboer).toBe(null)
   })
 })

@@ -31,7 +31,21 @@ window.ResizeObserver =
 
 window.HTMLElement.prototype.scrollIntoView = vi.fn()
 
-beforeAll(() => {
+vi.mock(
+  '@navikt/nav-dekoratoren-moduler',
+  async (): Promise<typeof import('@navikt/nav-dekoratoren-moduler')> => {
+    const mod = await vi.importActual<{
+      default: typeof import('@navikt/nav-dekoratoren-moduler')
+    }>('@navikt/nav-dekoratoren-moduler')
+
+    return {
+      ...mod.default,
+      getAmplitudeInstance: () => vi.fn(),
+    }
+  }
+)
+
+beforeAll(async () => {
   server.listen({ onUnhandledRequest: 'error' })
   if (process.env.NODE_ENV === 'test') {
     useSerialIds(true)

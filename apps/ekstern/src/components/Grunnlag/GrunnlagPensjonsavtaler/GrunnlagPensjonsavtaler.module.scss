@@ -1,4 +1,4 @@
-@import '../../../../scss/variables';
+@import '../../../scss/variables.scss';
 
 .tabell {
   margin-bottom: var(--a-spacing-4);
@@ -8,6 +8,20 @@
 
   @media (min-width: $a-breakpoint-md) {
     width: auto;
+  }
+
+  &Mellomtittel {
+    padding-top: var(--a-spacing-6);
+    font-weight: var(--a-font-weight-bold);
+
+    &__First {
+      padding-top: 0;
+    }
+  }
+
+  &Subtittel {
+    padding-top: var(--a-spacing-2);
+    line-height: var(--a-font-line-height-heading-medium);
   }
 
   &Header {
@@ -20,11 +34,19 @@
     &__Right {
       text-align: right;
       padding-left: var(--a-spacing-2);
+      white-space: nowrap;
     }
   }
 
   &Cell {
-    padding: 0 0 var(--a-spacing-2);
+    &__Large {
+      padding: 0 0 var(--a-spacing-2);
+    }
+
+    &__Small {
+      font-size: var(--a-font-size-medium);
+      line-height: var(--a-font-line-height-medium);
+    }
 
     &__Right {
       text-align: right;
@@ -32,15 +54,6 @@
       padding-left: var(--a-spacing-2);
     }
   }
-}
-
-.mellomtittel {
-  padding-top: var(--a-spacing-4);
-  font-weight: var(--a-font-weight-bold);
-}
-
-.utbetaling {
-  font-size: var(--a-font-size-medium);
 }
 
 .error {

@@ -39,7 +39,7 @@ import styles from './Simulering.module.scss'
 export function Simulering(props: {
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
-  showButtonsAndTable: boolean
+  showButtonsAndTable?: boolean
 }) {
   const { alderspensjon, showAfp, showButtonsAndTable } = props
   const harSamtykket = useAppSelector(selectSamtykke)
@@ -190,6 +190,10 @@ export function Simulering(props: {
         <TabellVisning
           series={chartOptions.series as SeriesColumnOptions[]}
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
+          showAfp={showAfp}
+          showPensjonsavtaler={
+            isPensjonsavtalerSuccess && pensjonsavtaler.length > 0
+          }
         />
       )}
     </section>
