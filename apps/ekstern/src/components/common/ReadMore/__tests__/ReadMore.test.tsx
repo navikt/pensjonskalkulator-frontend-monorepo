@@ -6,7 +6,7 @@ describe('ReadMore', () => {
   afterEach(() => {
     loggerTeardown()
   })
-  it('åpne og lukk som unkonrollert komponent og logg', async () => {
+  it('åpne og lukk som ukontrollert komponent og logg', async () => {
     const user = userEvent.setup()
     render(
       <ReadMore header="header" name="name">

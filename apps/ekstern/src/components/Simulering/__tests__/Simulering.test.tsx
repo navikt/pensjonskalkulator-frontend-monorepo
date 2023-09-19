@@ -8,7 +8,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, waitFor, within } from '@/test-utils'
+import { act, render, screen, waitFor } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {

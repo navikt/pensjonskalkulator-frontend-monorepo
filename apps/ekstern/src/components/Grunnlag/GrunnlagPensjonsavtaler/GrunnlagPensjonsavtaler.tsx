@@ -7,6 +7,7 @@ import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
+import { AccordionContext } from '@/components/common/AccordionItem'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -24,7 +25,11 @@ export function GrunnlagPensjonsavtaler() {
   const intl = useIntl()
   const harSamtykket = useAppSelector(selectSamtykke)
   const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
-
+  const {
+    ref: grunnlagPensjonsavtalerRef,
+    isOpen: isPensjonsavtalerAccordionItemOpen,
+    toggleOpen: togglePensjonsavtalerAccordionItem,
+  } = React.useContext(AccordionContext)
   const {
     data: pensjonsavtaler,
     isLoading,
@@ -40,10 +45,14 @@ export function GrunnlagPensjonsavtaler() {
     }
   )
 
-  // PEK-97 TODO håndtere delvis reponse fra backend
   return (
-    <AccordionItem name="Grunnlag: Pensjonsavtaler">
+    <AccordionItem
+      name="Grunnlag: Pensjonsavtaler"
+      open={isPensjonsavtalerAccordionItemOpen}
+      onClick={togglePensjonsavtalerAccordionItem}
+    >
       <GrunnlagSection
+        ref={grunnlagPensjonsavtalerRef}
         headerTitle={intl.formatMessage({
           id: 'grunnlag.pensjonsavtaler.title',
         })}

@@ -99,6 +99,14 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'beregning.button.faerreaar': 'Færre år',
+  'beregning.button.flereaar': 'Flere år',
+  'beregning.pensjonsavtaler.error':
+    'Vi klatre ikke å hente <link>pensjonsavtalene dine</link>',
+  'beregning.pensjonsavtaler.error.partial':
+    'Vi klatre ikke å hente alle <link>pensjonsavtalene dine</link>',
+  'beregning.pensjonsavtaler.info':
+    'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress':
     'Pensjonsberegningen er gjort med dagens regelverk og er vist i dagens kroneverdi før skatt.',

@@ -29,7 +29,6 @@
     "@grafana/faro-web-sdk": "^1.2.0",
     "@navikt/aksel-icons": "^5.5.0",
     "@navikt/ds-css": "^5.5.0",
-    "@navikt/ds-icons": "^3.4.3",
     "@navikt/ds-react": "^5.5.0",
     "@navikt/ds-tokens": "^5.5.0",
     "@reduxjs/toolkit": "^1.9.5",
