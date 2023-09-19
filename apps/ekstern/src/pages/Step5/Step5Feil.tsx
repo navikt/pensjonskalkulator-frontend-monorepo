@@ -29,6 +29,7 @@ export function Step5Feil() {
   }, [isSuccess, person])
 
   const onCancel = (): void => {
+    dispatch(userInputActions.flush())
     navigate(paths.login)
   }
 
