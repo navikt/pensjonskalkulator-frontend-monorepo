@@ -4,6 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { ErrorPageUnexpected } from '../ErrorPageUnexpected'
 import { paths } from '@/router'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 const realLocation = window.location
@@ -32,14 +33,22 @@ describe('ErrorPageUnexpected', () => {
     expect(reloadMock).toHaveBeenCalled()
   })
 
-  it('sender brukeren til landingside når brukeren klikker på andre knapp', async () => {
+  it('sender brukeren til landingside og tømmer storen når brukeren klikker på andre knapp', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<ErrorPageUnexpected />)
+    const { store } = render(<ErrorPageUnexpected />, {
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          samtykke: true,
+        },
+      },
+    })
     await user.click(screen.getByText('error.global.button.secondary'))
     expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
+    expect(store.getState().userInput.samtykke).toBe(null)
   })
 })

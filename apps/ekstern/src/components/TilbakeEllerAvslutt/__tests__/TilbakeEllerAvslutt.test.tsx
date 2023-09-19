@@ -39,18 +39,18 @@ describe('TilbakeEllerAvslutt', () => {
 
   it('redirigerer til Din Pensjon når brukeren klikker på Avslutt', async () => {
     const user = userEvent.setup()
-    global.window = Object.create(window)
-    const url = 'http://dummy.com'
-    Object.defineProperty(window, 'location', {
-      value: {
-        href: url,
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const { store } = render(<TilbakeEllerAvslutt />, {
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykke: true },
       },
-      writable: true,
     })
 
-    render(<TilbakeEllerAvslutt />)
-
     await user.click(screen.getByText('Avbryt'))
-    expect(window.location.href).toBe(externalUrls.dinPensjon)
+    expect(navigateMock).toHaveBeenCalledWith(paths.login)
+    expect(store.getState().userInput.samtykke).toBe(null)
   })
 })
