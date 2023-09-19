@@ -23,9 +23,12 @@ export const mockResponse = (
   }
 ) => {
   server.use(
-    rest[options?.method ?? 'get'](`${API_BASEURL}${path}`, (req, res, ctx) => {
-      return res(ctx.status(options.status ?? 200), ctx.json(options.json))
-    })
+    rest[options?.method ?? 'get'](
+      `${API_BASEURL}${path}`,
+      (_req, res, ctx) => {
+        return res(ctx.status(options.status ?? 200), ctx.json(options.json))
+      }
+    )
   )
 }
 

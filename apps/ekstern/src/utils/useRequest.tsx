@@ -1,33 +1,55 @@
 import React from 'react'
 
-export interface IRequestState<T> {
-  status?: number
-  error?: string
-  loadingState: 'SHOULD_LOAD' | 'LOADING' | 'ERROR' | 'SUCCESS'
-  data?: T
-}
+export type IRequestState<T, E> =
+  | {
+      loadingState: 'SHOULD_LOAD'
+      data?: undefined
+      status?: undefined
+      error?: undefined
+    }
+  | {
+      loadingState: 'ERROR'
+      error: E
+      status: number
+      data?: undefined
+    }
+  | {
+      loadingState: 'LOADING'
+      data?: undefined
+      status?: undefined
+      error?: undefined
+    }
+  | {
+      loadingState: 'SUCCESS'
+      data: T
+      status: number
+      error?: undefined
+    }
 
-type Action<T> =
+type Action<T, E> =
   | { action: 'RELOAD' }
   | { action: 'LOADING' }
-  | { action: 'SUCCESS'; data: T }
-  | { action: 'ERROR'; error: string }
-  | { action: 'SET_STATUS'; status: number }
+  | { action: 'SUCCESS'; data: T; status: number }
+  | { action: 'ERROR'; error: E; status: number }
 
-type ReducerType<T> = React.Reducer<IRequestState<T>, Action<T>>
+type ReducerType<T, E> = React.Reducer<IRequestState<T, E>, Action<T, E>>
 
-export function useRequest<T>(request: Partial<RequestInfo> | URL) {
-  const initialRequestState: IRequestState<T> = {
+type ErrorType = { error: string } & string
+
+export function useRequest<T, E = ErrorType>(
+  request: Partial<RequestInfo> | URL
+) {
+  const initialRequestState: IRequestState<T, E> = {
     loadingState: 'SHOULD_LOAD',
   }
 
-  const requestReducer: ReducerType<T> = (state, event) => {
+  const requestReducer: ReducerType<T, E> = (
+    state,
+    event
+  ): IRequestState<T, E> => {
     switch (event.action) {
       case 'RELOAD':
-        return {
-          ...state,
-          loadingState: 'SHOULD_LOAD',
-        }
+        return initialRequestState
       case 'LOADING':
         return {
           ...initialRequestState,
@@ -35,27 +57,23 @@ export function useRequest<T>(request: Partial<RequestInfo> | URL) {
         }
       case 'SUCCESS':
         return {
-          ...state,
           loadingState: 'SUCCESS',
           data: event.data,
+          status: event.status,
         }
       case 'ERROR':
         return {
-          ...state,
           loadingState: 'ERROR',
           error: event.error,
-        }
-      case 'SET_STATUS':
-        return {
-          ...state,
           status: event.status,
         }
+      /* c8 ignore next 2 - Kan ikke treffes fra hook */
       default:
         return state
     }
   }
 
-  const [state, dispatch] = React.useReducer<ReducerType<T>>(
+  const [state, dispatch] = React.useReducer<ReducerType<T, E>>(
     requestReducer,
     initialRequestState
   )
@@ -69,22 +87,25 @@ export function useRequest<T>(request: Partial<RequestInfo> | URL) {
       })
       fetch(request as RequestInfo | URL)
         .then((resp) => {
-          dispatch({
-            action: 'SET_STATUS',
-            status: resp.status,
-          })
-          return resp.json()
+          if (resp.ok) {
+            resp.json().then((data: T) => {
+              dispatch({
+                action: 'SUCCESS',
+                status: resp.status,
+                data,
+              })
+            })
+          } else {
+            return Promise.reject(resp)
+          }
         })
-        .then((data) => {
-          dispatch({
-            action: 'SUCCESS',
-            data,
-          })
-        })
-        .catch((error) => {
-          dispatch({
-            action: 'ERROR',
-            error: error,
+        .catch((resp: Response) => {
+          resp.json().then((error: E) => {
+            dispatch({
+              action: 'ERROR',
+              error: error,
+              status: resp.status,
+            })
           })
         })
     }
@@ -92,11 +113,12 @@ export function useRequest<T>(request: Partial<RequestInfo> | URL) {
 
   return {
     reload,
-    data: state.data,
+    data: state?.data,
     isLoading: ['SHOULD_LOAD', 'LOADING'].includes(state.loadingState),
     loadingState: state.loadingState,
     hasError: state.loadingState === 'ERROR',
     status: state.status,
+    errorData: state?.error,
   }
 }
 
