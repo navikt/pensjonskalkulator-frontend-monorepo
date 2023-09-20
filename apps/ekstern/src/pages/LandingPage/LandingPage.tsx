@@ -21,7 +21,7 @@ export function LandingPage() {
   }
 
   return (
-    <Card>
+    <Card hasNoPadding>
       <VStack gap="4">
         <section>
           <VStack gap="2">

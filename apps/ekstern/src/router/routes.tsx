@@ -112,7 +112,7 @@ export const routes: RouteObject[] = [
   },
   {
     element: (
-      <PageFramework isFullWidth whiteBg>
+      <PageFramework whiteBg>
         <Outlet />
       </PageFramework>
     ),
