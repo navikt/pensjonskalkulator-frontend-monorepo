@@ -11,10 +11,7 @@ import Highcharts, {
 import HighchartsReact from 'highcharts-react-official'
 
 import { TabellVisning } from '@/components/TabellVisning'
-import {
-  useGetPersonQuery,
-  usePensjonsavtalerQuery,
-} from '@/state/api/apiSlice'
+import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import {
   AlderspensjonResponseBody,
   PensjonsavtalerRequestBody,
@@ -61,7 +58,6 @@ export function Simulering(props: {
   const [isPensjonsavtaleFlagVisible, setIsPensjonsavtaleFlagVisible] =
     useState<boolean>(false)
   const chartRef = useRef<HighchartsReact.RefObject>(null)
-  const { data: person } = useGetPersonQuery()
   const { data: pensjonsavtaler, isSuccess: isPensjonsavtalerSuccess } =
     usePensjonsavtalerQuery(
       pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
@@ -92,7 +88,7 @@ export function Simulering(props: {
   }, [harSamtykket, startAlder, startMaaned])
 
   useEffect(() => {
-    if (startAlder && alderspensjon && person?.foedselsdato) {
+    if (startAlder && alderspensjon) {
       const aarArray = generateXAxis(
         startAlder,
         pensjonsavtaler ?? [],
@@ -122,7 +118,6 @@ export function Simulering(props: {
                   data: processPensjonsavtalerArray(
                     startAlder - 1,
                     aarArray.length,
-                    person.foedselsdato,
                     pensjonsavtaler
                   ),
                 } as SeriesOptionsType,
@@ -135,7 +130,7 @@ export function Simulering(props: {
         ],
       })
     }
-  }, [startAlder, alderspensjon, pensjonsavtaler, person])
+  }, [startAlder, alderspensjon, pensjonsavtaler])
 
   return (
     <section className={styles.section}>

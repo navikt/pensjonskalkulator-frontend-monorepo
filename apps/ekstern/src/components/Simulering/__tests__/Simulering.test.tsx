@@ -8,7 +8,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, waitFor } from '@/test-utils'
+import { act, render, screen, waitFor, within } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
@@ -27,7 +27,7 @@ describe('Simulering', () => {
       apiSliceUtils,
       'usePensjonsavtalerQuery'
     )
-    const { container } = render(
+    const { asFragment, container } = render(
       <Simulering
         alderspensjon={alderspensjonData}
         showAfp={false}
@@ -38,6 +38,7 @@ describe('Simulering', () => {
           userInput: {
             ...userInputInitialState,
             samtykke: true,
+            afp: 'nei',
             currentSimulation: { ...currentSimulation },
           },
         },
@@ -64,15 +65,19 @@ describe('Simulering', () => {
     await act(async () => {
       await new Promise((r) => setTimeout(r, 500))
     })
+
     expect(
       container.getElementsByClassName('highcharts-container')
     ).toHaveLength(1)
-    expect(
-      container.getElementsByClassName('highcharts-legend-item')
-    ).toHaveLength(6)
+    const legendContainer =
+      container.getElementsByClassName('highcharts-legend')
+    const legendItems = (
+      legendContainer[0] as HTMLElement
+    ).getElementsByClassName('highcharts-legend-item')
+    expect(legendItems).toHaveLength(3)
   })
 
-  it('Når brukeren har samtykket og valgt AFP-privat, henter og viser  AFP og Pensjonsavtaler når brukeren har valgt', async () => {
+  it('Når brukeren har samtykket og valgt AFP-privat, henter og viser AFP og Pensjonsavtaler når brukeren har valgt', async () => {
     const { container } = render(
       <Simulering
         alderspensjon={alderspensjonData}
@@ -102,9 +107,12 @@ describe('Simulering', () => {
     expect(
       container.getElementsByClassName('highcharts-container')
     ).toHaveLength(1)
-    expect(
-      container.getElementsByClassName('highcharts-legend-item')
-    ).toHaveLength(8)
+    const legendContainer =
+      container.getElementsByClassName('highcharts-legend')
+    const legendItems = (
+      legendContainer[0] as HTMLElement
+    ).getElementsByClassName('highcharts-legend-item')
+    expect(legendItems).toHaveLength(4)
   })
 
   it('Når brukeren ikke samtykker og ikke velger AFP, viser kun alderspensjon og inntekt', async () => {
