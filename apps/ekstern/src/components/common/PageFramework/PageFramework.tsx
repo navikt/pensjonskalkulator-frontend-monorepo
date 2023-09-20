@@ -8,8 +8,8 @@ import clsx from 'clsx'
 import styles from './PageFramework.module.scss'
 
 export const PageFramework: React.FC<
-  PropsWithChildren & { isFullWidth?: boolean }
-> = ({ children, isFullWidth }) => {
+  PropsWithChildren & { isFullWidth?: boolean; whiteBg?: boolean }
+> = ({ children, isFullWidth, whiteBg = false }) => {
   const intl = useIntl()
 
   const { pathname } = useLocation()
@@ -19,10 +19,14 @@ export const PageFramework: React.FC<
   }, [pathname])
 
   return (
-    <main style={{ background: 'blue' }}>
+    <main
+      className={clsx(styles.main, {
+        [styles.main__white]: whiteBg,
+      })}
+    >
       <div
-        className={clsx(styles.main, {
-          [styles.main__isFramed]: !isFullWidth,
+        className={clsx(styles.content, {
+          [styles.content__isFramed]: !isFullWidth,
         })}
       >
         <div className={styles.headerGroup}>

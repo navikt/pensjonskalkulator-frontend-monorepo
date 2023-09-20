@@ -1,6 +1,15 @@
 @import '../../../scss/variables';
 
 .main {
+  background: var(--a-gray-100);
+  min-height: 55vh;
+
+  &__white {
+    background: white;
+  }
+}
+
+.content {
   padding: var(--a-spacing-6) 0 0 0;
   display: flex;
   flex-flow: column;
@@ -24,6 +33,11 @@
     width: 100%;
     padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
 
+    @media (min-width: $a-breakpoint-md) {
+      padding: 0;
+      width: $container-max-width;
+    }
+
     @media (min-width: $a-breakpoint-lg) {
       width: $a-breakpoint-lg;
       padding: 0;
@@ -35,7 +49,7 @@
 
       @media (min-width: $a-breakpoint-md) {
         padding: 0;
-        width: $container-max-width;
+        width: $a-breakpoint-lg;
       }
 
       @media (min-width: $a-breakpoint-lg) {
