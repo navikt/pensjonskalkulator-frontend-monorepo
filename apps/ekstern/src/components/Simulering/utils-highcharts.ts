@@ -313,7 +313,7 @@ export const getChartOptions = (
     tooltip: {
       className: styles.tooltip,
       followTouchMove: false,
-      /* v8 ignore next 20 */
+      /* c8 ignore next 20 */
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
       },
@@ -371,7 +371,7 @@ export const getChartOptions = (
           },
         },
         events: {
-          /* v8 ignore next 3 */
+          /* c8 ignore next 3 */
           legendItemClick: function (e) {
             e.preventDefault()
           },
@@ -381,7 +381,7 @@ export const getChartOptions = (
         point: {
           events: {
             click: onPointClick,
-            /* v8 ignore next 6 */
+            /* c8 ignore next 6 */
             mouseOut: function () {
               return false
             },
@@ -432,7 +432,7 @@ export const getChartOptions = (
             },
             tooltip: {
               outside: true,
-              /* v8 ignore next 3 */
+              /* c8 ignore next 3 */
               positioner: function () {
                 return { x: 0, y: TOOLTIP_YPOS }
               },

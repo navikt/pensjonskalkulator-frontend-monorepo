@@ -45,7 +45,7 @@ export function useStep3LoaderData<
 }
 
 {
-  /* v8 ignore next 11 - Dette er kun for typing */
+  /* c8 ignore next 11 - Dette er kun for typing */
 }
 export function deferredLoader<
   TData extends {

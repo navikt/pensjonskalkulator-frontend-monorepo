@@ -70,6 +70,7 @@ export function Simulering(props: {
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
   const {
     data: pensjonsavtaler,
+    isLoading: isPensjonsavtalerLoading,
     isSuccess: isPensjonsavtalerSuccess,
     isError: isPensjonsavtalerError,
   } = usePensjonsavtalerQuery(
@@ -80,7 +81,7 @@ export function Simulering(props: {
   )
 
   React.useEffect(() => {
-    /* v8 ignore next 3 */
+    /* c8 ignore next 3 */
     function onPointUnclickEventHandler(e: Event) {
       onPointUnclick(e, chartRef.current?.chart)
     }
@@ -118,16 +119,16 @@ export function Simulering(props: {
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_AFP,
-                  /* v8 ignore next 1 */
+                  /* c8 ignore next 1 */
                   data: processPensjonsberegningArray(alderspensjon.afpPrivat),
                 } as SeriesOptionsType,
               ]
             : []),
-          ...(isPensjonsavtalerSuccess
+          ...(isPensjonsavtalerSuccess && pensjonsavtaler.length > 0
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_TP,
-                  /* v8 ignore next 1 */
+                  /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
                     startAlder - 1,
                     aarArray.length,
@@ -156,7 +157,7 @@ export function Simulering(props: {
       {showButtonsAndTable && (
         <div className={styles.buttonRow}>
           <div className={styles.buttonRowElement}>
-            {/* v8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
+            {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
             {showVisFaerreAarButton && (
               <Button
                 icon={<ChevronLeftCircleIcon aria-hidden />}
@@ -172,7 +173,7 @@ export function Simulering(props: {
           <div
             className={`${styles.buttonRowElement} ${styles.buttonRowElement__Right}`}
           >
-            {/* v8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
+            {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
             {showVisFlereAarButton && (
               <Button
                 icon={<ChevronRightCircleIcon aria-hidden />}
@@ -221,7 +222,7 @@ export function Simulering(props: {
           </BodyLong>
         </div>
       )}
-      {isPensjonsavtaleFlagVisible && (
+      {!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible && (
         <div className={styles.info}>
           <InformationSquareFillIcon
             className={styles.infoIcon}

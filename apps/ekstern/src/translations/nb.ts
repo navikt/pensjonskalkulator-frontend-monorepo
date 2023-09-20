@@ -102,9 +102,9 @@ const translations = {
   'beregning.button.faerreaar': 'Færre år',
   'beregning.button.flereaar': 'Flere år',
   'beregning.pensjonsavtaler.error':
-    'Vi klatre ikke å hente <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikke å hente <link>pensjonsavtalene dine</link>',
   'beregning.pensjonsavtaler.error.partial':
-    'Vi klatre ikke å hente alle <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikke å hente alle <link>pensjonsavtalene dine</link>',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
   'grunnlag.title': 'Grunnlaget for beregningen',
@@ -151,6 +151,7 @@ const translations = {
     'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon. <startLink>Start en ny beregning</startLink> dersom du ønsker å få dette i beregningen.',
   'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler':
     'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
+  'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtaler',
   'grunnlag.pensjonsavtaler.tabell.title.right': 'Årlig beløp',
 }

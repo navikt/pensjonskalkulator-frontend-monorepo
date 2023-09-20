@@ -39,12 +39,12 @@ describe('GrunnlagPensjonsavtaler', () => {
           }
         )
       ).toBeVisible()
+      expect(screen.queryByRole('table')).not.toBeInTheDocument()
       expect(
-        screen.queryByText('Alle avtaler i privat sektor er hentet fra', {
+        screen.queryByText('Alle avtaler i privat sektor er hentet fra ', {
           exact: false,
         })
       ).not.toBeInTheDocument()
-      expect(screen.queryByRole('table')).not.toBeInTheDocument()
     })
   })
 
@@ -100,21 +100,24 @@ describe('GrunnlagPensjonsavtaler', () => {
           'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
         )
       ).toBeVisible()
+      expect(screen.queryByRole('table')).not.toBeInTheDocument()
       expect(
-        screen.queryByText('Alle avtaler i privat sektor er hentet fra', {
+        screen.queryByText('Alle avtaler i privat sektor er hentet fra ', {
           exact: false,
         })
       ).not.toBeInTheDocument()
-      expect(screen.queryByRole('table')).not.toBeInTheDocument()
     })
 
-    it('viser riktig tittel med antall avtaler og tekst når avtalelisten er tom', async () => {
+    it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
+      const user = userEvent.setup()
       mockResponse('/pensjonsavtaler', {
         status: 200,
-        json: { avtaler: [], utilgjengeligeSelskap: [] },
+        json: {
+          avtaler: [],
+          utilgjengeligeSelskap: [],
+        },
         method: 'post',
       })
-      const user = userEvent.setup()
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: {
@@ -125,11 +128,15 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
       })
       expect(screen.getByText('grunnlag.pensjonsavtaler.title')).toBeVisible()
-      expect(await screen.findByText('0')).toBeVisible()
+      expect(await screen.findByText('0', { exact: false })).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.pensjonsavtaler.ingress.ingen')
+      ).toBeVisible()
+      expect(screen.queryByRole('table')).not.toBeInTheDocument()
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
       expect(
-        await screen.findByText('Alle avtaler i privat sektor er hentet fra', {
+        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
           exact: false,
         })
       ).toBeVisible()

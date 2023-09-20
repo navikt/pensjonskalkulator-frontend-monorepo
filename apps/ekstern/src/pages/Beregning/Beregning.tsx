@@ -42,6 +42,7 @@ export function Beregning() {
     setIslePensjonsavtalerAccordionItem,
   ] = React.useState<boolean>(false)
   const grunnlagPensjonsavtalerRef = React.useRef<HTMLSpanElement>(null)
+  /* c8 ignore next 3 */
   const togglePensjonsavtalerAccordionItem = () => {
     setIslePensjonsavtalerAccordionItem((prevState) => !prevState)
   }
