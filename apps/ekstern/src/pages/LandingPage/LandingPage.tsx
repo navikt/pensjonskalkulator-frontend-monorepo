@@ -1,13 +1,22 @@
 import React from 'react'
+import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { BodyLong, Button, Heading, Loader, VStack } from '@navikt/ds-react'
+import {
+  BodyLong,
+  Button,
+  Heading,
+  HStack,
+  Loader,
+  VStack,
+} from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
-import { BASE_PATH } from '@/router'
+import { BASE_PATH, externalUrls } from '@/router'
 import useRequest from '@/utils/useRequest'
 
 export function LandingPage() {
+  const intl = useIntl()
   const { isLoading, status } = useRequest<null>(`${BASE_PATH}/oauth2/session`)
   const navigate = useNavigate()
 
@@ -20,22 +29,34 @@ export function LandingPage() {
     return <Loader />
   }
 
+  const gaaTilDetaljertKalkulator = () => {
+    window.open(externalUrls.detaljertKalkulator, '_self')
+  }
+
   return (
     <Card hasNoPadding>
       <VStack gap="4">
         <section>
           <VStack gap="2">
             <Heading size="medium" level="2">
-              For deg født før 1963
+              {intl.formatMessage({
+                id: 'landingsside.for.deg.foedt.foer.1963',
+              })}
             </Heading>
             <BodyLong>
-              Du må bruke vår detaljerte kalkulator for å beregne din pensjon.
+              {intl.formatMessage({
+                id: 'landingsside.du.maa.bruke.detaljert',
+              })}
             </BodyLong>
             <div>
-              <Button variant="secondary" onClick={console.log}>
+              <Button variant="secondary" onClick={gaaTilDetaljertKalkulator}>
                 {isLoggedIn
-                  ? 'Detaljert kalkulator'
-                  : 'Logg inn i detaljert kalkulator'}
+                  ? intl.formatMessage({
+                      id: 'landingsside.button.detaljert-kalkulator',
+                    })
+                  : intl.formatMessage({
+                      id: 'landingsside.button.detaljert-kalkulator-utlogget',
+                    })}
               </Button>
             </div>
           </VStack>
@@ -44,36 +65,57 @@ export function LandingPage() {
         <section>
           <VStack gap="2">
             <Heading size="medium" level="2">
-              For deg født i 1963 eller senere
+              {intl.formatMessage({
+                id: 'landingsside.for.deg.foedt.etter.1963',
+              })}
             </Heading>
             <BodyLong>
-              Du kan velge mellom enkel eller detaljert kalkulator. Enkel
-              kalkulator passer for deg som vil ha en rask oversikt. Detaljert
-              kalkulator passer for deg som vil ha en mer spesifisert beregning.
-              Enkel kalkulator er under utvikling. Derfor må du bruke detaljert
-              kalkulator hvis du:
+              {intl.formatMessage({
+                id: 'landingsside.velge-mellom-detaljert-og-enkel',
+              })}
             </BodyLong>
             <ul>
               <li>
-                har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte
-                16 år
+                {intl.formatMessage({
+                  id: 'landingsside.liste.1',
+                })}
               </li>
-              <li>mottar uføretrygd eller gjenlevendepensjon</li>
-              <li>har hatt betydelig endring i inntekt de siste 2 årene</li>
-              <li>har særaldersgrense</li>
+              <li>
+                {intl.formatMessage({
+                  id: 'landingsside.liste.2',
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'landingsside.liste.3',
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'landingsside.liste.4',
+                })}
+              </li>
             </ul>
-            <div>
-              <Button variant="secondary" onClick={console.log}>
+            <HStack gap="2">
+              <Button variant="secondary" onClick={gaaTilDetaljertKalkulator}>
                 {isLoggedIn
-                  ? 'Detaljert kalkulator'
-                  : 'Logg inn i detaljert kalkulator'}
+                  ? intl.formatMessage({
+                      id: 'landingsside.button.detaljert-kalkulator',
+                    })
+                  : intl.formatMessage({
+                      id: 'landingsside.button.detaljert-kalkulator-utlogget',
+                    })}
               </Button>
               <Button variant="secondary" onClick={() => navigate('/start')}>
                 {isLoggedIn
-                  ? 'Enkel kalkulator'
-                  : 'Logg inn i enkel kalkulator'}
+                  ? intl.formatMessage({
+                      id: 'landingsside.button.enkel-kalkulator',
+                    })
+                  : intl.formatMessage({
+                      id: 'landingsside.button.enkel-kalkulator-utlogget',
+                    })}
               </Button>
-            </div>
+            </HStack>
           </VStack>
         </section>
 
@@ -81,18 +123,23 @@ export function LandingPage() {
           <section data-testid="uinlogget-kalkulator">
             <VStack gap="2">
               <Heading size="medium" level="2">
-                Uinnlogget kalkulator
+                {intl.formatMessage({
+                  id: 'landingsside.heading.uinnlogget-kalkulator',
+                })}
               </Heading>
               <BodyLong>
-                For deg som ikke kan logge inn på nav.no. Kalkulatoren henter
-                ikke inn eller lagrer noen opplysninger om deg. Du må finne og
-                oppgi alle opplysningene selv og den beregner kun alderspensjon
-                fra folketrygden (NAV).
+                {intl.formatMessage({
+                  id: 'landingsside.body.uinnlogget-kalkulator',
+                })}
               </BodyLong>
             </VStack>
           </section>
         )}
-        <a href="">Personopplysninger som brukes i enkel kalkulator</a>
+        <a href="">
+          {intl.formatMessage({
+            id: 'landingsside.link.personopplysninger',
+          })}
+        </a>
       </VStack>
     </Card>
   )
