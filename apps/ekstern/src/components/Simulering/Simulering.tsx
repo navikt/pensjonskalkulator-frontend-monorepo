@@ -105,7 +105,7 @@ export function Simulering(props: {
     if (startAlder && alderspensjon) {
       const aarArray = generateXAxis(
         startAlder,
-        pensjonsavtaler ?? [],
+        pensjonsavtaler?.avtaler ?? [],
         setIsPensjonsavtaleFlagVisible
       )
       setChartOptions({
@@ -124,7 +124,7 @@ export function Simulering(props: {
                 } as SeriesOptionsType,
               ]
             : []),
-          ...(isPensjonsavtalerSuccess && pensjonsavtaler.length > 0
+          ...(isPensjonsavtalerSuccess && pensjonsavtaler?.avtaler.length > 0
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_TP,
@@ -132,7 +132,7 @@ export function Simulering(props: {
                   data: processPensjonsavtalerArray(
                     startAlder - 1,
                     aarArray.length,
-                    pensjonsavtaler
+                    pensjonsavtaler?.avtaler
                   ),
                 } as SeriesOptionsType,
               ]
@@ -188,10 +188,7 @@ export function Simulering(props: {
           </div>
         </div>
       )}
-      {
-        // TODO PEK-97 utvide test for error + dekke det som vises i grunnlag
-      }
-      {isPensjonsavtalerError && (
+      {(isPensjonsavtalerError || pensjonsavtaler?.partialResponse) && (
         <div className={styles.error}>
           <ExclamationmarkTriangleFillIcon
             className={styles.errorIcon}
@@ -199,7 +196,11 @@ export function Simulering(props: {
           />
           <BodyLong className={styles.errorText}>
             <FormattedMessage
-              id="beregning.pensjonsavtaler.error"
+              id={
+                isPensjonsavtalerError
+                  ? 'beregning.pensjonsavtaler.error'
+                  : 'beregning.pensjonsavtaler.error.partial'
+              }
               values={{
                 link: (chunks) => (
                   <Link
@@ -240,7 +241,7 @@ export function Simulering(props: {
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
           showAfp={showAfp}
           showPensjonsavtaler={
-            isPensjonsavtalerSuccess && pensjonsavtaler.length > 0
+            isPensjonsavtalerSuccess && pensjonsavtaler?.avtaler.length > 0
           }
         />
       )}

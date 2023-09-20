@@ -310,7 +310,6 @@ describe('Simulering', () => {
 
     it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding som sender til Grunnlag', async () => {
       const scrollIntoViewMock = vi.fn()
-
       const user = userEvent.setup()
       mockErrorResponse('/pensjonsavtaler', {
         status: 500,
@@ -340,10 +339,55 @@ describe('Simulering', () => {
           },
         }
       )
-
       await waitFor(async () => {
         expect(
           await screen.findByText('Vi klarte ikke å hente', {
+            exact: false,
+          })
+        ).toBeVisible()
+      })
+      await user.click(await screen.findByText('pensjonsavtalene dine'))
+      expect(scrollIntoViewMock).toHaveBeenCalled()
+      expect(toggleOpenMock).toHaveBeenCalled()
+    })
+
+    it('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
+      const scrollIntoViewMock = vi.fn()
+      const user = userEvent.setup()
+      mockResponse('/pensjonsavtaler', {
+        status: 200,
+        json: {
+          avtaler: [],
+          utilgjengeligeSelskap: ['Something'],
+        },
+        method: 'post',
+      })
+      const refMock = { current: { scrollIntoView: scrollIntoViewMock } }
+      const toggleOpenMock = vi.fn()
+      render(
+        <AccordionContext.Provider
+          value={{
+            ref: refMock as unknown as React.RefObject<HTMLSpanElement>,
+            isOpen: false,
+            toggleOpen: toggleOpenMock,
+          }}
+        >
+          <Simulering showAfp={false} showButtonsAndTable={false} />
+        </AccordionContext.Provider>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      await waitFor(async () => {
+        expect(
+          await screen.findByText('Vi klarte ikke å hente alle', {
             exact: false,
           })
         ).toBeVisible()

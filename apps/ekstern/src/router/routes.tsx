@@ -22,7 +22,7 @@ export const externalUrls = {
   detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
-  garantipensjon: 'https://loremipsum',
+  garantipensjon: 'https://www.nav.no/minstepensjon',
   norskPensjkon: 'https://norskpensjon.no/',
 }
 

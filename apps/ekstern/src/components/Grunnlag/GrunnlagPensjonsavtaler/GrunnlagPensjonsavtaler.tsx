@@ -68,7 +68,12 @@ export function GrunnlagPensjonsavtaler() {
             ? intl.formatMessage({
                 id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler',
               })
-            : `${pensjonsavtaler?.length}`
+            : `${pensjonsavtaler?.avtaler.length} ${
+                pensjonsavtaler?.partialResponse &&
+                intl.formatMessage({
+                  id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
+                })
+              }`
         }
         isLoading={isLoading}
       >
@@ -83,29 +88,38 @@ export function GrunnlagPensjonsavtaler() {
               />
             </BodyLong>
           )}
-          {isError && (
+          {(isError || pensjonsavtaler?.partialResponse) && (
             <div className={styles.info}>
               <ExclamationmarkTriangleFillIcon
                 className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
                 fontSize="1.5rem"
               />
               <BodyLong className={styles.infoText}>
-                <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler" />
+                <FormattedMessage
+                  id={
+                    isError
+                      ? 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
+                      : 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+                  }
+                />
               </BodyLong>
             </div>
           )}
-          {harSamtykket && isSuccess && pensjonsavtaler.length === 0 && (
-            <div className={styles.info}>
-              <InformationSquareFillIcon
-                className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
-                fontSize="1.5rem"
-              />
-              <BodyLong className={styles.infoText}>
-                <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.ingen" />
-              </BodyLong>
-            </div>
-          )}
-          {harSamtykket && isSuccess && pensjonsavtaler.length > 0 && (
+          {harSamtykket &&
+            isSuccess &&
+            !pensjonsavtaler?.partialResponse &&
+            pensjonsavtaler?.avtaler.length === 0 && (
+              <div className={styles.info}>
+                <InformationSquareFillIcon
+                  className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
+                  fontSize="1.5rem"
+                />
+                <BodyLong className={styles.infoText}>
+                  <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.ingen" />
+                </BodyLong>
+              </div>
+            )}
+          {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
             <table className={styles.tabell}>
               <thead>
                 <tr>
@@ -124,7 +138,7 @@ export function GrunnlagPensjonsavtaler() {
               </thead>
               <tbody>
                 {Object.entries(
-                  groupPensjonsavtalerByType(pensjonsavtaler)
+                  groupPensjonsavtalerByType(pensjonsavtaler?.avtaler)
                 ).map(([avtaleType, avtaler], i) => (
                   <React.Fragment key={`table-left-${avtaleType}`}>
                     <tr>

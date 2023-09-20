@@ -108,6 +108,60 @@ describe('GrunnlagPensjonsavtaler', () => {
       ).not.toBeInTheDocument()
     })
 
+    it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress og tabell', async () => {
+      mockResponse('/pensjonsavtaler', {
+        status: 200,
+        json: {
+          avtaler: [
+            {
+              produktbetegnelse: 'IPS',
+              kategori: 'INDIVIDUELL_ORDNING',
+              startAlder: 70,
+              sluttAlder: 75,
+              utbetalingsperioder: [
+                {
+                  startAlder: 70,
+                  startMaaned: 6,
+                  sluttAlder: 75,
+                  sluttMaaned: 6,
+                  aarligUtbetaling: 41802,
+                  grad: 100,
+                },
+              ],
+            },
+          ],
+          utilgjengeligeSelskap: ['Something'],
+        },
+        method: 'post',
+      })
+      render(<GrunnlagPensjonsavtaler />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
+          },
+        },
+      })
+      expect(
+        await screen.findByText(
+          'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
+          { exact: false }
+        )
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+        )
+      ).toBeVisible()
+      expect(await screen.findByRole('table')).toBeVisible()
+      expect(
+        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
+          exact: false,
+        })
+      ).toBeVisible()
+    })
+
     it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
       const user = userEvent.setup()
       mockResponse('/pensjonsavtaler', {

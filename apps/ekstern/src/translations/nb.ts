@@ -145,12 +145,16 @@ const translations = {
   'grunnlag.pensjonsavtaler.title': 'Pensjonsavtaler',
   'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikke innhentet',
   'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikke hentes',
+  'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial':
+    '(Avtaler mangler))',
   'grunnlag.pensjonsavtaler.ingress':
     'Alle avtaler i privat sektor er hentet fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekkaktuell tjenestepensjonsordning.',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke':
     'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon. <startLink>Start en ny beregning</startLink> dersom du ønsker å få dette i beregningen.',
   'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler':
     'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
+  'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+    'Vi klarte ikke å hente alle pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
   'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtaler',
   'grunnlag.pensjonsavtaler.tabell.title.right': 'Årlig beløp',
