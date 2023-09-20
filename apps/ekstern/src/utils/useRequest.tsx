@@ -85,27 +85,41 @@ export function useRequest<T, E = ErrorType>(
       dispatch({
         action: 'LOADING',
       })
+
       fetch(request as RequestInfo | URL)
         .then((resp) => {
           if (resp.ok) {
-            resp.json().then((data: T) => {
+            resp
+              .json()
+              .then((data: T) => {
+                dispatch({
+                  action: 'SUCCESS',
+                  status: resp.status,
+                  data,
+                })
+              })
+              .catch(async () => {
+                dispatch({
+                  action: 'SUCCESS',
+                  status: resp.status,
+                  data: undefined as T,
+                })
+              })
+          } else {
+            resp.json().then((error: E) => {
               dispatch({
-                action: 'SUCCESS',
+                action: 'ERROR',
+                error: error,
                 status: resp.status,
-                data,
               })
             })
-          } else {
-            return Promise.reject(resp)
           }
         })
-        .catch((resp: Response) => {
-          resp.json().then((error: E) => {
-            dispatch({
-              action: 'ERROR',
-              error: error,
-              status: resp.status,
-            })
+        .catch(() => {
+          dispatch({
+            action: 'ERROR',
+            error: undefined as E,
+            status: 0,
           })
         })
     }
