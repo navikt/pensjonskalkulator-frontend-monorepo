@@ -4,6 +4,7 @@
 .frame {
   width: 100%;
   max-width: var(--a-breakpoint-lg);
+  margin: 0 auto;
 
   &__hasPadding {
     padding: 0 var(--a-spacing-6);
