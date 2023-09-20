@@ -112,9 +112,9 @@ export const routes: RouteObject[] = [
   },
   {
     element: (
-      <AlternatePageFramework>
+      <PageFramework isFullWidth whiteBg>
         <Outlet />
-      </AlternatePageFramework>
+      </PageFramework>
     ),
     children: [{ path: paths.login, element: <LandingPage /> }],
   },

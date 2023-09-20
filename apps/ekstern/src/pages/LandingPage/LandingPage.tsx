@@ -17,15 +17,11 @@ export function LandingPage() {
   )
 
   if (isLoading) {
-    return (
-      <Card>
-        <Loader />
-      </Card>
-    )
+    return <Loader />
   }
 
   return (
-    <Card hasNoPadding>
+    <Card>
       <VStack gap="4">
         <section>
           <VStack gap="2">
