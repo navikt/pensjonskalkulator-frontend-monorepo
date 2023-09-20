@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import { useIntl } from 'react-intl'
 import { useLocation } from 'react-router-dom'
+import KalkulatorLogo from '../../../assets/kalkulator.svg'
 
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -8,8 +9,12 @@ import clsx from 'clsx'
 import styles from './PageFramework.module.scss'
 
 export const PageFramework: React.FC<
-  PropsWithChildren & { isFullWidth?: boolean; whiteBg?: boolean }
-> = ({ children, isFullWidth, whiteBg = false }) => {
+  PropsWithChildren & {
+    isFullWidth?: boolean
+    whiteBg?: boolean
+    showLogo?: boolean
+  }
+> = ({ children, isFullWidth, whiteBg = false, showLogo = false }) => {
   const intl = useIntl()
 
   const { pathname } = useLocation()
@@ -30,15 +35,22 @@ export const PageFramework: React.FC<
         })}
       >
         <div className={styles.headerGroup}>
-          <Heading
-            size="large"
-            level="1"
+          <div
             className={clsx(styles.headerGroupTitle, {
               [styles.headerGroupTitle__isFramed]: !isFullWidth,
             })}
           >
-            {intl.formatMessage({ id: 'application.title' })}
-          </Heading>
+            {showLogo && (
+              <img
+                className={styles.headerGroupTitle__logo}
+                src={KalkulatorLogo}
+                alt=""
+              />
+            )}
+            <Heading size="large" level="1">
+              {intl.formatMessage({ id: 'application.title' })}
+            </Heading>
+          </div>
         </div>
         {children}
       </div>

@@ -111,7 +111,7 @@ export const routes: RouteObject[] = [
   },
   {
     element: (
-      <PageFramework whiteBg>
+      <PageFramework whiteBg showLogo>
         <Outlet />
       </PageFramework>
     ),

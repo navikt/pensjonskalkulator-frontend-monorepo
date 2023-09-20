@@ -30,8 +30,21 @@
   }
 
   &Title {
+    display: flex;
+    align-items: center;
     width: 100%;
     padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
+
+    &__logo {
+      padding-right: var(--a-spacing-4);
+      max-height: 48px;
+      max-width: 48px;
+
+      @media (min-width: $a-breakpoint-md) {
+        max-height: 56px;
+        max-width: 56px;
+      }
+    }
 
     @media (min-width: $a-breakpoint-lg) {
       padding: 0;

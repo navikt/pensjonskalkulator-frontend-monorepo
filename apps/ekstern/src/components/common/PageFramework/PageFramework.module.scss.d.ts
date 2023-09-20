@@ -7,5 +7,6 @@ declare const classNames: typeof globalClassNames & {
   readonly headerGroup: 'headerGroup'
   readonly headerGroupTitle: 'headerGroupTitle'
   readonly headerGroupTitle__isFramed: 'headerGroupTitle__isFramed'
+  readonly headerGroupTitle__logo: 'headerGroupTitle__logo'
 }
 export = classNames

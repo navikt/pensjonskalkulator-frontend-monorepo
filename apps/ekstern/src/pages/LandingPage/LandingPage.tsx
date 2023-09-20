@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
+import KalkulatorLogo from '../../../assets/kalkulator.svg'
 
 import {
   BodyLong,
