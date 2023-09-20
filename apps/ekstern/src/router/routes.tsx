@@ -1,7 +1,6 @@
 import { redirect } from 'react-router'
 import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
-import { AlternatePageFramework } from '@/components/common/AlternatePageFramework'
 import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
