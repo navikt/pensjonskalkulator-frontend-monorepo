@@ -48,7 +48,7 @@ export function GrunnlagPensjonsavtaler() {
   return (
     <AccordionItem
       name="Grunnlag: Pensjonsavtaler"
-      open={isPensjonsavtalerAccordionItemOpen}
+      isOpen={isPensjonsavtalerAccordionItemOpen}
       onClick={togglePensjonsavtalerAccordionItem}
     >
       <GrunnlagSection

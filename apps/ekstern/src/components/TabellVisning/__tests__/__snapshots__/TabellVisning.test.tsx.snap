@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 serier er oppgitt og showAfp og showPensjonsavtaler er false 1`] = `
 <DocumentFragment>

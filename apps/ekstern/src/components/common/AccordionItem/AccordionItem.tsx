@@ -8,7 +8,7 @@ interface IProps {
   name: string
   initialOpen?: boolean
   onClick?: () => void // kun hvis controlled
-  open?: boolean // kun hvis controlled
+  isOpen?: boolean // kun hvis controlled
   children: React.ReactFragment | JSX.Element
 }
 
@@ -21,7 +21,7 @@ interface AccordionContextType {
 export const AccordionContext = React.createContext<AccordionContextType>({
   ref: undefined,
   isOpen: false,
-  /* c8 ignore next 1 - Treffer aldri siden Aksel vil kaste feil dersom Accordion.Item ikke er i en Accordion */
+  /* v8 ignore next 1 - Treffer aldri siden Aksel vil kaste feil dersom Accordion.Item ikke er i en Accordion */
   toggleOpen: () => console.warn('Context not initialized'),
 })
 
@@ -37,12 +37,12 @@ export const AccordionItem: React.FC<IProps> = ({
   name,
   children,
   initialOpen = false,
-  open,
+  isOpen: isOpenFromProps,
   onClick,
 }) => {
   const isControlled = React.useMemo(
-    () => open !== undefined && !!onClick,
-    [open, onClick]
+    () => isOpenFromProps !== undefined && !!onClick,
+    [isOpenFromProps, onClick]
   )
 
   const toggleOpenReducer: React.ReducerWithoutAction<boolean> = (
@@ -57,7 +57,7 @@ export const AccordionItem: React.FC<IProps> = ({
 
   const wrappedOnClick = React.useCallback(() => {
     // Inversert da det er en antagelse at onClick endrer state
-    logIsOpen(name, !open as boolean)
+    logIsOpen(name, !isOpenFromProps as boolean)
     !!onClick && onClick()
   }, [onClick])
 
@@ -65,7 +65,7 @@ export const AccordionItem: React.FC<IProps> = ({
     <AccordionContext.Provider
       value={{ isOpen, toggleOpen: isControlled ? wrappedOnClick : toggleOpen }}
     >
-      <Accordion.Item open={isControlled ? open : isOpen}>
+      <Accordion.Item open={isControlled ? isOpenFromProps : isOpen}>
         {children}
       </Accordion.Item>
     </AccordionContext.Provider>

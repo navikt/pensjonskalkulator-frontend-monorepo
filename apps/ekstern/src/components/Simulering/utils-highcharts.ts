@@ -181,6 +181,7 @@ export function tooltipFormatter(
   return `${headerFormat}${pointsFormat}${footerFormat}${tooltipConnectingLine}`
 }
 
+// TODO utvide med react-intl
 export const getChartOptions = (
   styles: Partial<typeof globalClassNames>,
   showRightButton: React.Dispatch<React.SetStateAction<boolean>>,
@@ -312,7 +313,7 @@ export const getChartOptions = (
     tooltip: {
       className: styles.tooltip,
       followTouchMove: false,
-      /* c8 ignore next 20 */
+      /* v8 ignore next 20 */
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
       },
@@ -370,7 +371,7 @@ export const getChartOptions = (
           },
         },
         events: {
-          /* c8 ignore next 3 */
+          /* v8 ignore next 3 */
           legendItemClick: function (e) {
             e.preventDefault()
           },
@@ -380,7 +381,7 @@ export const getChartOptions = (
         point: {
           events: {
             click: onPointClick,
-            /* c8 ignore next 6 */
+            /* v8 ignore next 6 */
             mouseOut: function () {
               return false
             },
@@ -431,7 +432,7 @@ export const getChartOptions = (
             },
             tooltip: {
               outside: true,
-              /* c8 ignore next 3 */
+              /* v8 ignore next 3 */
               positioner: function () {
                 return { x: 0, y: TOOLTIP_YPOS }
               },

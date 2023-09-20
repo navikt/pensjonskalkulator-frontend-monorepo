@@ -31,7 +31,7 @@ export function LanguageProvider({ children }: Props) {
     useGetSpraakvelgerFeatureToggleQuery()
 
   // TODO dekke kobling mellom intl-provider'en og dekoratøren i E2E test
-  /* c8 ignore next 3 */
+  /* v8 ignore next 3 */
   onLanguageSelect((language) => {
     setCookie('decorator-language', language.locale)
     setLanguageCookie(language.locale)

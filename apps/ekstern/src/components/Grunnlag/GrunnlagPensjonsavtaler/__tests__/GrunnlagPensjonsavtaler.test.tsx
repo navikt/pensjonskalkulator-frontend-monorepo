@@ -24,7 +24,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
       })
       expect(
-        await screen.findByText('grunnlag.pensjonsavtaler.title:')
+        await screen.findByText('grunnlag.pensjonsavtaler.title')
       ).toBeVisible()
       expect(
         await screen.findByText('grunnlag.pensjonsavtaler.title.error.samtykke')
@@ -68,7 +68,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         )
       ).not.toBeInTheDocument()
       expect(
-        await screen.findByText('grunnlag.pensjonsavtaler.title:')
+        await screen.findByText('grunnlag.pensjonsavtaler.title')
       ).toBeVisible()
       expect(
         screen.getByTestId('grunnlag.pensjonsavtaler.title-loader')
@@ -124,7 +124,7 @@ describe('GrunnlagPensjonsavtaler', () => {
           },
         },
       })
-      expect(screen.getByText('grunnlag.pensjonsavtaler.title:')).toBeVisible()
+      expect(screen.getByText('grunnlag.pensjonsavtaler.title')).toBeVisible()
       expect(await screen.findByText('0')).toBeVisible()
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])

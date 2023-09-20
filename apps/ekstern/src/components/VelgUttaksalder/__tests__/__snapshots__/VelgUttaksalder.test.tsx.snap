@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`VelgUttaksalder > Gitt at brukeren er på mobil > viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere 1`] = `
 <DocumentFragment>

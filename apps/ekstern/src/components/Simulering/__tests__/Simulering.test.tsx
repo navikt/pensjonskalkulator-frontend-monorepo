@@ -27,7 +27,7 @@ describe('Simulering', () => {
       apiSliceUtils,
       'usePensjonsavtalerQuery'
     )
-    const { asFragment, container } = render(
+    const { container } = render(
       <Simulering
         alderspensjon={alderspensjonData}
         showAfp={false}
@@ -236,9 +236,7 @@ describe('Simulering', () => {
     await waitFor(async () => {
       expect(await screen.findByText('Beregning')).toBeVisible()
       expect(
-        await screen.findByText(
-          'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.'
-        )
+        await screen.findByText('beregning.pensjonsavtaler.info')
       ).toBeVisible()
     })
   })

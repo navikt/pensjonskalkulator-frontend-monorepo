@@ -80,7 +80,7 @@ export function Simulering(props: {
   )
 
   React.useEffect(() => {
-    /* c8 ignore next 3 */
+    /* v8 ignore next 3 */
     function onPointUnclickEventHandler(e: Event) {
       onPointUnclick(e, chartRef.current?.chart)
     }
@@ -118,7 +118,7 @@ export function Simulering(props: {
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_AFP,
-                  /* c8 ignore next 1 */
+                  /* v8 ignore next 1 */
                   data: processPensjonsberegningArray(alderspensjon.afpPrivat),
                 } as SeriesOptionsType,
               ]
@@ -127,7 +127,7 @@ export function Simulering(props: {
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_TP,
-                  /* c8 ignore next 1 */
+                  /* v8 ignore next 1 */
                   data: processPensjonsavtalerArray(
                     startAlder - 1,
                     aarArray.length,
@@ -156,7 +156,7 @@ export function Simulering(props: {
       {showButtonsAndTable && (
         <div className={styles.buttonRow}>
           <div className={styles.buttonRowElement}>
-            {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
+            {/* v8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
             {showVisFaerreAarButton && (
               <Button
                 icon={<ChevronLeftCircleIcon aria-hidden />}
@@ -172,7 +172,7 @@ export function Simulering(props: {
           <div
             className={`${styles.buttonRowElement} ${styles.buttonRowElement__Right}`}
           >
-            {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
+            {/* v8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
             {showVisFlereAarButton && (
               <Button
                 icon={<ChevronRightCircleIcon aria-hidden />}
