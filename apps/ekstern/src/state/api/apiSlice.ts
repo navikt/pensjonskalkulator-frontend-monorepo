@@ -16,7 +16,6 @@ import {
   UttaksalderRequestBody,
 } from '@/state/api/apiSlice.types'
 
-// TODO PEK-97 utvide test
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
