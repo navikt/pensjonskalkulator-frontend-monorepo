@@ -99,8 +99,8 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
-  'beregning.button.faerreaar': 'Færre år',
-  'beregning.button.flereaar': 'Flere år',
+  'beregning.button.faerre_aar': 'Færre år',
+  'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
     'Vi klarte ikke å hente <link>pensjonsavtalene dine</link>',
   'beregning.pensjonsavtaler.error.partial':

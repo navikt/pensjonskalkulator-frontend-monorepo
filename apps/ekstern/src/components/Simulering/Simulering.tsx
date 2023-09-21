@@ -166,7 +166,7 @@ export function Simulering(props: {
                 variant="tertiary"
                 onClick={onVisFaerreAarClick}
               >
-                <FormattedMessage id="beregning.button.faerreaar" />
+                <FormattedMessage id="beregning.button.faerre_aar" />
               </Button>
             )}
           </div>
@@ -182,7 +182,7 @@ export function Simulering(props: {
                 variant="tertiary"
                 onClick={onVisFlereAarClick}
               >
-                <FormattedMessage id="beregning.button.flereaar" />
+                <FormattedMessage id="beregning.button.flere_aar" />
               </Button>
             )}
           </div>

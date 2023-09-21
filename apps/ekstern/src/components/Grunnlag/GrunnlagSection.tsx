@@ -14,7 +14,6 @@ interface Props {
   children: JSX.Element
 }
 
-// TODO PEK-97 skrive tester logikk ref
 export const GrunnlagSection = React.forwardRef(
   (
     { headerTitle, headerValue, isLoading, children }: Props,
@@ -32,7 +31,12 @@ export const GrunnlagSection = React.forwardRef(
     return (
       <>
         <Accordion.Header data-testid="accordion-header" onClick={toggleOpen}>
-          <span ref={forwardedRef ?? accordionContextRef}>{headerTitle}</span>
+          <span
+            ref={forwardedRef ?? accordionContextRef}
+            data-testid="accordion-ref"
+          >
+            {headerTitle}
+          </span>
           {renderedValue && (
             <>
               : <span className={styles.header}>{renderedValue}</span>
