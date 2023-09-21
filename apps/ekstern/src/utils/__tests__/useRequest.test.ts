@@ -6,16 +6,29 @@ import { API_BASEURL } from '@/paths'
 import { renderHook, waitFor, act } from '@/test-utils'
 
 describe('useRequest', () => {
-  it('henter data feiler JSON', async () => {
+  it('henter data feiler', async () => {
     mockErrorResponse('/use-request/fail')
     const { result } = renderHook(() =>
-      useRequest<boolean>(`${API_BASEURL}/use-request/fail`)
+      useRequest<boolean, { data: string }>(`${API_BASEURL}/use-request/fail`)
     )
     expect(result.current.isLoading).toBe(true)
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     expect(result.current.status).toBe(500)
     expect(result.current.hasError).toBe(true)
-    expect(result.current.errorData).toBe(`Beep boop I'm an error!`)
+    expect(result.current.errorData?.data).toBe(`Beep boop I'm an error!`)
+  })
+
+  it('henter data OK, men ikke JSON', async () => {
+    mockResponse('/use-request/ok', {
+      text: 'Error string',
+    })
+    const { result } = renderHook(() =>
+      useRequest<string>(`${API_BASEURL}/use-request/ok`)
+    )
+    expect(result.current.isLoading).toBe(true)
+    await waitFor(() => expect(result.current.isLoading).toBe(false))
+    expect(result.current.hasError).toBe(false)
+    expect(result.current.data).toBeUndefined()
   })
 
   it('henter strukturert feildata', async () => {
@@ -43,28 +56,28 @@ describe('useRequest', () => {
   it('henter data ok', async () => {
     mockResponse('/use-request/ok')
     const { result } = renderHook(() =>
-      useRequest<boolean>(`${API_BASEURL}/use-request/ok`)
+      useRequest<{ data: string }>(`${API_BASEURL}/use-request/ok`)
     )
     expect(result.current.isLoading).toBe(true)
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     expect(result.current.hasError).toBe(false)
-    expect(result.current.data).toBe('OK')
+    expect(result.current.data?.data).toBe('OK')
   })
 
   it('henter data på nytt', async () => {
     mockResponse('/use-request/retry')
     const { result } = renderHook(() =>
-      useRequest<boolean>(`${API_BASEURL}/use-request/retry`)
+      useRequest<{ data: string }>(`${API_BASEURL}/use-request/retry`)
     )
     expect(result.current.isLoading).toBe(true)
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     expect(result.current.hasError).toBe(false)
-    expect(result.current.data).toBe('OK')
+    expect(result.current.data?.data).toBe('OK')
 
     act(() => result.current.reload())
     await waitFor(() => expect(result.current.isLoading).toBe(true))
     expect(result.current.data).toBeUndefined()
     await waitFor(() => expect(result.current.isLoading).toBe(false))
-    expect(result.current.data).toBe('OK')
+    expect(result.current.data?.data).toBe('OK')
   })
 })

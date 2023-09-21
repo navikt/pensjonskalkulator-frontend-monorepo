@@ -1,18 +1,225 @@
 // Vitest Snapshot v1
 
-exports[`LandingPage > rendrer slik den skal, med riktig heading 1`] = `
+exports[`LandingPage > rendrer innlogget side 1`] = `
 <DocumentFragment>
   <section
-    class="_section_67454f _section__largePadding_67454f"
+    class="_section_67454f _section__noPadding_67454f"
   >
-    <h2>
-      Utlogget landingsside
-    </h2>
-    <a
-      href="/start"
+    <div
+      class="navds-stack navds-vstack"
+      style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
     >
-      Logg inn og test kalkulatoren
-    </a>
+      <section>
+        <div
+          class="navds-stack navds-vstack"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
+        >
+          <h2
+            class="navds-heading navds-heading--medium"
+          >
+            landingsside.for.deg.foedt.foer.1963
+          </h2>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.du.maa.bruke.detaljert
+          </p>
+          <div>
+            <button
+              class="navds-button navds-button--secondary navds-button--medium"
+              data-testid="landingside-detaljert-kalkulator-button"
+            >
+              <span
+                class="navds-label"
+              >
+                landingsside.button.detaljert-kalkulator
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div
+          class="navds-stack navds-vstack"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
+        >
+          <h2
+            class="navds-heading navds-heading--medium"
+          >
+            landingsside.for.deg.foedt.etter.1963
+          </h2>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.velge-mellom-detaljert-og-enkel
+          </p>
+          <ul>
+            <li>
+              landingsside.liste.1
+            </li>
+            <li>
+              landingsside.liste.2
+            </li>
+            <li>
+              landingsside.liste.3
+            </li>
+            <li>
+              landingsside.liste.4
+            </li>
+          </ul>
+          <div
+            class="navds-stack navds-hstack"
+            style="--__ac-stack-direction: row; --__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
+          >
+            <button
+              class="navds-button navds-button--secondary navds-button--medium"
+            >
+              <span
+                class="navds-label"
+              >
+                landingsside.button.detaljert-kalkulator
+              </span>
+            </button>
+            <button
+              class="navds-button navds-button--secondary navds-button--medium"
+              data-testid="landingside-enkel-kalkulator-button"
+            >
+              <span
+                class="navds-label"
+              >
+                landingsside.button.enkel-kalkulator
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <a
+        href=""
+      >
+        landingsside.link.personopplysninger
+      </a>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`LandingPage > rendrer utlogget side 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_67454f _section__noPadding_67454f"
+  >
+    <div
+      class="navds-stack navds-vstack"
+      style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
+    >
+      <section>
+        <div
+          class="navds-stack navds-vstack"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
+        >
+          <h2
+            class="navds-heading navds-heading--medium"
+          >
+            landingsside.for.deg.foedt.foer.1963
+          </h2>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.du.maa.bruke.detaljert
+          </p>
+          <div>
+            <button
+              class="navds-button navds-button--secondary navds-button--medium"
+              data-testid="landingside-detaljert-kalkulator-button"
+            >
+              <span
+                class="navds-label"
+              >
+                landingsside.button.detaljert-kalkulator-utlogget
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div
+          class="navds-stack navds-vstack"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
+        >
+          <h2
+            class="navds-heading navds-heading--medium"
+          >
+            landingsside.for.deg.foedt.etter.1963
+          </h2>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.velge-mellom-detaljert-og-enkel
+          </p>
+          <ul>
+            <li>
+              landingsside.liste.1
+            </li>
+            <li>
+              landingsside.liste.2
+            </li>
+            <li>
+              landingsside.liste.3
+            </li>
+            <li>
+              landingsside.liste.4
+            </li>
+          </ul>
+          <div
+            class="navds-stack navds-hstack"
+            style="--__ac-stack-direction: row; --__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
+          >
+            <button
+              class="navds-button navds-button--secondary navds-button--medium"
+            >
+              <span
+                class="navds-label"
+              >
+                landingsside.button.detaljert-kalkulator-utlogget
+              </span>
+            </button>
+            <button
+              class="navds-button navds-button--secondary navds-button--medium"
+              data-testid="landingside-enkel-kalkulator-button"
+            >
+              <span
+                class="navds-label"
+              >
+                landingsside.button.enkel-kalkulator-utlogget
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div
+          class="navds-stack navds-vstack"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
+        >
+          <h2
+            class="navds-heading navds-heading--medium"
+            data-testid="uinlogget-kalkulator"
+          >
+            landingsside.heading.uinnlogget-kalkulator
+          </h2>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.body.uinnlogget-kalkulator
+          </p>
+        </div>
+      </section>
+      <a
+        href=""
+      >
+        landingsside.link.personopplysninger
+      </a>
+    </div>
   </section>
 </DocumentFragment>
 `;

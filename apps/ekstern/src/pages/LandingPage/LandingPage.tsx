@@ -1,7 +1,6 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
-import KalkulatorLogo from '../../../assets/kalkulator.svg'
 
 import {
   BodyLong,
@@ -13,12 +12,15 @@ import {
 } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
-import { BASE_PATH, externalUrls } from '@/router'
+import { HOST_BASEURL } from '@/paths'
+import { externalUrls } from '@/router'
 import useRequest from '@/utils/useRequest'
 
 export function LandingPage() {
   const intl = useIntl()
-  const { isLoading, status } = useRequest<null>(`${BASE_PATH}/oauth2/session`)
+  const { isLoading, status } = useRequest<null>(
+    `${HOST_BASEURL}/oauth2/session`
+  )
   const navigate = useNavigate()
 
   const isLoggedIn = React.useMemo(
@@ -50,7 +52,11 @@ export function LandingPage() {
               })}
             </BodyLong>
             <div>
-              <Button variant="secondary" onClick={gaaTilDetaljertKalkulator}>
+              <Button
+                data-testid="landingside-detaljert-kalkulator-button"
+                variant="secondary"
+                onClick={gaaTilDetaljertKalkulator}
+              >
                 {isLoggedIn
                   ? intl.formatMessage({
                       id: 'landingsside.button.detaljert-kalkulator',
@@ -107,7 +113,12 @@ export function LandingPage() {
                       id: 'landingsside.button.detaljert-kalkulator-utlogget',
                     })}
               </Button>
-              <Button variant="secondary" onClick={() => navigate('/start')}>
+              <Button
+                data-testid="landingside-enkel-kalkulator-button"
+                variant="secondary"
+                /* c8 ignore next 1 */
+                onClick={() => navigate('/start')}
+              >
                 {isLoggedIn
                   ? intl.formatMessage({
                       id: 'landingsside.button.enkel-kalkulator',
@@ -121,9 +132,13 @@ export function LandingPage() {
         </section>
 
         {!isLoggedIn && (
-          <section data-testid="uinlogget-kalkulator">
+          <section>
             <VStack gap="2">
-              <Heading size="medium" level="2">
+              <Heading
+                data-testid="uinlogget-kalkulator"
+                size="medium"
+                level="2"
+              >
                 {intl.formatMessage({
                   id: 'landingsside.heading.uinnlogget-kalkulator',
                 })}

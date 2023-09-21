@@ -46,7 +46,7 @@ vi.mock(
 )
 
 beforeAll(async () => {
-  server.listen({ onUnhandledRequest: 'bypass' })
+  server.listen({ onUnhandledRequest: 'error' })
   if (process.env.NODE_ENV === 'test') {
     useSerialIds(true)
   }

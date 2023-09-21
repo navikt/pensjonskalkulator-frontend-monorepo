@@ -1,23 +1,61 @@
 import { describe, it, vi } from 'vitest'
 
 import { LandingPage } from '..'
-import { render, screen, waitFor } from '@/test-utils'
-import { mockResponse } from '@/mocks/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { HOST_BASEURL } from '@/paths'
+import { externalUrls } from '@/router'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('LandingPage', () => {
-  it('rendrer slik den skal, med riktig heading', async () => {
-    vi.mock('@/utils/useRequest', () => ({
-      default: () => console.log,
-    }))
-
-    mockResponse('/oauth2/session')
+  it('rendrer innlogget side', async () => {
+    mockResponse('/oauth2/session', {
+      baseUrl: `${HOST_BASEURL}`,
+    })
     const result = render(<LandingPage />)
 
     await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'Utlogget landingsside'
+      expect(
+        screen.getByTestId('landingside-detaljert-kalkulator-button')
+          .textContent
+      ).toBe('landingsside.button.detaljert-kalkulator')
+      expect(result.asFragment()).toMatchSnapshot()
+    })
+  })
+
+  it('rendrer utlogget side', async () => {
+    mockErrorResponse('/oauth2/session', {
+      baseUrl: `${HOST_BASEURL}`,
+    })
+    const result = render(<LandingPage />)
+
+    await waitFor(() => {
+      expect(screen.getByTestId('uinlogget-kalkulator').textContent).toBe(
+        'landingsside.heading.uinnlogget-kalkulator'
       )
       expect(result.asFragment()).toMatchSnapshot()
     })
+  })
+
+  it('gå til detaljert kalkulator', async () => {
+    const user = userEvent.setup()
+    mockResponse('/oauth2/session', {
+      baseUrl: `${HOST_BASEURL}`,
+    })
+
+    const open = vi.fn()
+    vi.stubGlobal('open', open)
+
+    render(<LandingPage />)
+    await waitFor(() => {
+      expect(
+        screen.getByTestId('landingside-detaljert-kalkulator-button')
+      ).toBeDefined()
+    })
+
+    await user.click(
+      screen.getByTestId('landingside-detaljert-kalkulator-button')
+    )
+
+    expect(open).toHaveBeenCalledWith(externalUrls.detaljertKalkulator, '_self')
   })
 })
