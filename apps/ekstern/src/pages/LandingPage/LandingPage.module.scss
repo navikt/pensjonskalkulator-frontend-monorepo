@@ -1,0 +1,4 @@
+.landingPage {
+  composes: innerframe from '../../scss/modules/frame.module.scss';
+  composes: whitesection from '../../scss/modules/fadein.module.scss';
+}

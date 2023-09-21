@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-import { PATH } from '@/paths'
+import { API_PATH } from '@/paths'
 
 import pensjonsavtalerResponse from './data/pensjonsavtaler.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
@@ -8,8 +8,8 @@ import tidligstemuligeuttaksalderResponse from './data/tidligsteUttaksalder.json
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
 import unleashDisableSpraakvelgerResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
 
-export const getHandlers = (baseUrl: string = PATH) => [
-  rest.get(`${baseUrl}/person`, (req, res, ctx) => {
+export const getHandlers = (baseUrl: string = API_PATH) => [
+  rest.get(`${baseUrl}/person`, (_req, res, ctx) => {
     return res(ctx.status(200), ctx.json(personResponse), ctx.delay(30))
   }),
 

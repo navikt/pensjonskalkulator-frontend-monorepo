@@ -3,8 +3,8 @@
 // Gjenbrukbar module for lg wrapperen som er sentrert på siden
 .frame {
   width: 100%;
-  margin: 0 auto;
   max-width: var(--a-breakpoint-lg);
+  margin: 0 auto;
 
   &__hasPadding {
     padding: 0 var(--a-spacing-6);
@@ -23,6 +23,14 @@
 
   @media (min-width: $a-breakpoint-lg) {
     margin: 0;
+  }
+
+  &__noPadding {
+    padding: 0 var(--a-spacing-6) var(--a-spacing-12) var(--a-spacing-6);
+
+    @media (min-width: $a-breakpoint-md) {
+      padding: 0 0 var(--a-spacing-12) 0;
+    }
   }
 
   &__largePadding {

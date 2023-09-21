@@ -77,8 +77,6 @@ describe('GrunnlagPensjonsavtaler', () => {
 
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {
       mockErrorResponse('/pensjonsavtaler', {
-        status: 500,
-        json: "Beep boop I'm an error!",
         method: 'post',
       })
       render(<GrunnlagPensjonsavtaler />, {
