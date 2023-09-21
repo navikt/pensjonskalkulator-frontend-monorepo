@@ -10,6 +10,7 @@ declare const classNames: typeof globalClassNames & {
   readonly tabellCell__Small: 'tabellCell__Small'
   readonly tabellCell__Right: 'tabellCell__Right'
   readonly info: 'info'
+  readonly info__hasMargin: 'info__hasMargin'
   readonly infoIcon: 'infoIcon'
   readonly infoIcon__orange: 'infoIcon__orange'
   readonly infoIcon__blue: 'infoIcon__blue'
