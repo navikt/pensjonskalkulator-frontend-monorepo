@@ -88,7 +88,7 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
-        'https://loremipsum'
+        'https://www.nav.no/minstepensjon'
       )
       expect(
         await screen.findByRole('img', { hidden: true })
@@ -110,7 +110,7 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
-        'https://loremipsum'
+        'https://www.nav.no/minstepensjon'
       )
       expect(
         await screen.findByRole('img', { hidden: true })

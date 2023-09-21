@@ -44,6 +44,22 @@
   }
 }
 
+.error {
+  display: flex;
+  padding: var(--a-spacing-3) 0;
+
+  &Icon {
+    flex-basis: 1.5rem;
+    color: var(--a-orange-600);
+    vertical-align: top;
+    margin-right: var(--a-spacing-2);
+  }
+
+  &Text {
+    flex-basis: 100%;
+  }
+}
+
 .tooltip {
   right: 0.375rem;
   background-color: var(--a-white);

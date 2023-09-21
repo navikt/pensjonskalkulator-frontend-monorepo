@@ -99,7 +99,7 @@ export default defineConfig(() => ({
     globals: true,
     setupFiles: 'src/test-setup.ts',
     coverage: {
-      provider: 'c8',
+      provider: 'v8',
       all: true,
       extension: ['.ts', '.tsx'],
       exclude: [

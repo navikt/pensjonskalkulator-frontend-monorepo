@@ -9,9 +9,11 @@ declare const classNames: typeof globalClassNames & {
   readonly tabellCell__Large: 'tabellCell__Large'
   readonly tabellCell__Small: 'tabellCell__Small'
   readonly tabellCell__Right: 'tabellCell__Right'
-  readonly error: 'error'
-  readonly errorIcon: 'errorIcon'
-  readonly errorText: 'errorText'
+  readonly info: 'info'
+  readonly infoIcon: 'infoIcon'
+  readonly infoIcon__orange: 'infoIcon__orange'
+  readonly infoIcon__blue: 'infoIcon__blue'
+  readonly infoText: 'infoText'
   readonly paragraph: 'paragraph'
 }
 export = classNames

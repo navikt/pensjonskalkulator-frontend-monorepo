@@ -99,6 +99,14 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'beregning.button.faerre_aar': 'Færre år',
+  'beregning.button.flere_aar': 'Flere år',
+  'beregning.pensjonsavtaler.error':
+    'Vi klarte ikke å hente <link>pensjonsavtalene dine</link>',
+  'beregning.pensjonsavtaler.error.partial':
+    'Vi klarte ikke å hente alle <link>pensjonsavtalene dine</link>',
+  'beregning.pensjonsavtaler.info':
+    'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress':
     'Pensjonsberegningen er gjort med dagens regelverk og er vist i dagens kroneverdi før skatt.',
@@ -137,12 +145,17 @@ const translations = {
   'grunnlag.pensjonsavtaler.title': 'Pensjonsavtaler',
   'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikke innhentet',
   'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikke hentes',
+  'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial':
+    '(Avtaler mangler))',
   'grunnlag.pensjonsavtaler.ingress':
     'Alle avtaler i privat sektor er hentet fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekkaktuell tjenestepensjonsordning.',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke':
     'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon. <startLink>Start en ny beregning</startLink> dersom du ønsker å få dette i beregningen.',
   'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler':
     'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
+  'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+    'Vi klarte ikke å hente alle pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
+  'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtaler',
   'grunnlag.pensjonsavtaler.tabell.title.right': 'Årlig beløp',
 }
