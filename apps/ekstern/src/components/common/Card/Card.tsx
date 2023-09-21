@@ -13,6 +13,7 @@ export interface CardComponent extends React.FC<CardProps> {
 type CardProps = React.HTMLAttributes<HTMLElement> & {
   hasLargePadding?: boolean
   hasMargin?: boolean
+  hasNoPadding?: boolean
 }
 
 export const Card = (({

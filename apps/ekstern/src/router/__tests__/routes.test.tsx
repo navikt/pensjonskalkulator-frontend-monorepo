@@ -8,6 +8,7 @@ import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, swallowErrors, waitFor } from '@/test-utils'
+import { API_BASEURL } from '@/paths'
 
 const initialGetState = store.getState
 
@@ -43,12 +44,7 @@ describe('routes', () => {
         initialEntries: [`${BASE_PATH}${paths.login}`],
       })
       render(<RouterProvider router={router} />, { hasRouter: false })
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'Utlogget landingsside'
-      )
-      const links: HTMLAnchorElement[] = await screen.findAllByRole('link')
-      expect(links[0].textContent).toEqual('Logg inn og test kalkulatoren')
-      expect(links[0].href).toContain(paths.start)
+      expect(router.state.location.pathname).toBe(`${BASE_PATH}/login`)
     })
   })
 

@@ -63,10 +63,6 @@ export const routes: RouteObject[] = [
         element: <Navigate to={paths.start} replace />,
       },
       {
-        path: paths.login,
-        element: <LandingPage />,
-      },
-      {
         path: paths.start,
         element: <Step1 />,
       },
@@ -111,5 +107,13 @@ export const routes: RouteObject[] = [
       </PageFramework>
     ),
     ErrorBoundary: RouteErrorBoundary,
+  },
+  {
+    element: (
+      <PageFramework shouldShowLogo hasWhiteBg>
+        <Outlet />
+      </PageFramework>
+    ),
+    children: [{ path: paths.login, element: <LandingPage /> }],
   },
 ]

@@ -34,8 +34,6 @@ describe('Beregning', () => {
     it('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
       const user = userEvent.setup()
       mockErrorResponse('/tidligste-uttaksalder', {
-        status: 500,
-        json: "Beep boop I'm an error!",
         method: 'post',
       })
       const { container } = render(<Beregning />, {
@@ -110,8 +108,6 @@ describe('Beregning', () => {
         'initiate'
       )
       mockErrorResponse('/alderspensjon/simulering', {
-        status: 500,
-        json: "Beep boop I'm an error!",
         method: 'post',
       })
       const user = userEvent.setup()
@@ -144,7 +140,6 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       mockErrorResponse('/alderspensjon/simulering', {
         status: 503,
-        json: "Beep boop I'm an error!",
         method: 'post',
       })
       const router = createMemoryRouter([
@@ -178,8 +173,6 @@ describe('Beregning', () => {
       }
       const user = userEvent.setup()
       mockErrorResponse('/tidligste-uttaksalder', {
-        status: 500,
-        json: "Beep boop I'm an error!",
         method: 'post',
       })
       render(<Beregning />, {

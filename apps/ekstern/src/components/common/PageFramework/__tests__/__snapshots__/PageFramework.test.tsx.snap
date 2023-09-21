@@ -6,13 +6,21 @@ exports[`PageFramework > rendrer slik den skal i full width 1`] = `
     class="_main_58a32b"
   >
     <div
-      class="_headerGroup_58a32b"
+      class="_content_58a32b"
     >
-      <h1
-        class="_headerGroupTitle_58a32b navds-heading navds-heading--large"
+      <div
+        class="_headerGroup_58a32b"
       >
-        application.title
-      </h1>
+        <div
+          class="_headerGroupTitle_58a32b"
+        >
+          <h1
+            class="navds-heading navds-heading--large"
+          >
+            application.title
+          </h1>
+        </div>
+      </div>
     </div>
   </main>
 </DocumentFragment>
@@ -21,16 +29,24 @@ exports[`PageFramework > rendrer slik den skal i full width 1`] = `
 exports[`PageFramework > rendrer slik den skal, med main tag og Heading på riktig nivå 1`] = `
 <DocumentFragment>
   <main
-    class="_main_58a32b _main__isFramed_58a32b"
+    class="_main_58a32b"
   >
     <div
-      class="_headerGroup_58a32b"
+      class="_content_58a32b _content__isFramed_58a32b"
     >
-      <h1
-        class="_headerGroupTitle_58a32b _headerGroupTitle__isFramed_58a32b navds-heading navds-heading--large"
+      <div
+        class="_headerGroup_58a32b"
       >
-        application.title
-      </h1>
+        <div
+          class="_headerGroupTitle_58a32b _headerGroupTitle__isFramed_58a32b"
+        >
+          <h1
+            class="navds-heading navds-heading--large"
+          >
+            application.title
+          </h1>
+        </div>
+      </div>
     </div>
   </main>
 </DocumentFragment>

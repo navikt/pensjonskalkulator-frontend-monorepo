@@ -97,8 +97,6 @@ describe('apiSlice', () => {
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
       mockErrorResponse('/pensjonsavtaler', {
-        status: 500,
-        json: "Beep boop I'm an error!",
         method: 'post',
       })
       return storeRef
@@ -198,8 +196,6 @@ describe('apiSlice', () => {
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
       mockErrorResponse('/alderspensjon/simulering', {
-        status: 500,
-        json: "Beep boop I'm an error!",
         method: 'post',
       })
       return storeRef
