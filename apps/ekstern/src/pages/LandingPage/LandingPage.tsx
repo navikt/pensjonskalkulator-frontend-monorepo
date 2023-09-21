@@ -60,10 +60,10 @@ export function LandingPage() {
               >
                 {isLoggedIn
                   ? intl.formatMessage({
-                      id: 'landingsside.button.detaljert-kalkulator',
+                      id: 'landingsside.button.detaljert_kalkulator',
                     })
                   : intl.formatMessage({
-                      id: 'landingsside.button.detaljert-kalkulator-utlogget',
+                      id: 'landingsside.button.detaljert_kalkulator_utlogget',
                     })}
               </Button>
             </div>
@@ -79,7 +79,7 @@ export function LandingPage() {
             </Heading>
             <BodyLong>
               {intl.formatMessage({
-                id: 'landingsside.velge-mellom-detaljert-og-enkel',
+                id: 'landingsside.velge_mellom_detaljert_og_enkel',
               })}
             </BodyLong>
             <ul>
@@ -108,10 +108,10 @@ export function LandingPage() {
               <Button variant="secondary" onClick={gaaTilDetaljertKalkulator}>
                 {isLoggedIn
                   ? intl.formatMessage({
-                      id: 'landingsside.button.detaljert-kalkulator',
+                      id: 'landingsside.button.detaljert_kalkulator',
                     })
                   : intl.formatMessage({
-                      id: 'landingsside.button.detaljert-kalkulator-utlogget',
+                      id: 'landingsside.button.detaljert_kalkulator_utlogget',
                     })}
               </Button>
               <Button
@@ -122,10 +122,10 @@ export function LandingPage() {
               >
                 {isLoggedIn
                   ? intl.formatMessage({
-                      id: 'landingsside.button.enkel-kalkulator',
+                      id: 'landingsside.button.enkel_kalkulator',
                     })
                   : intl.formatMessage({
-                      id: 'landingsside.button.enkel-kalkulator-utlogget',
+                      id: 'landingsside.button.enkel_kalkulator_utlogget',
                     })}
               </Button>
             </HStack>
@@ -141,12 +141,12 @@ export function LandingPage() {
                 level="2"
               >
                 {intl.formatMessage({
-                  id: 'landingsside.heading.uinnlogget-kalkulator',
+                  id: 'landingsside.heading.uinnlogget_kalkulator',
                 })}
               </Heading>
               <BodyLong>
                 {intl.formatMessage({
-                  id: 'landingsside.body.uinnlogget-kalkulator',
+                  id: 'landingsside.body.uinnlogget_kalkulator',
                 })}
               </BodyLong>
             </VStack>

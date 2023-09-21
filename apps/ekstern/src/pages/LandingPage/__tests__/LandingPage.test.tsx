@@ -17,7 +17,7 @@ describe('LandingPage', () => {
       expect(
         screen.getByTestId('landingside-detaljert-kalkulator-button')
           .textContent
-      ).toBe('landingsside.button.detaljert-kalkulator')
+      ).toBe('landingsside.button.detaljert_kalkulator')
       expect(result.asFragment()).toMatchSnapshot()
     })
   })
@@ -30,7 +30,7 @@ describe('LandingPage', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('uinlogget-kalkulator').textContent).toBe(
-        'landingsside.heading.uinnlogget-kalkulator'
+        'landingsside.heading.uinnlogget_kalkulator'
       )
       expect(result.asFragment()).toMatchSnapshot()
     })

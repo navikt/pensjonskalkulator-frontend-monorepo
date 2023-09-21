@@ -32,7 +32,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
               <span
                 class="navds-label"
               >
-                landingsside.button.detaljert-kalkulator
+                landingsside.button.detaljert_kalkulator
               </span>
             </button>
           </div>
@@ -51,7 +51,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
           <p
             class="navds-body-long navds-body-long--medium"
           >
-            landingsside.velge-mellom-detaljert-og-enkel
+            landingsside.velge_mellom_detaljert_og_enkel
           </p>
           <ul>
             <li>
@@ -77,7 +77,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
               <span
                 class="navds-label"
               >
-                landingsside.button.detaljert-kalkulator
+                landingsside.button.detaljert_kalkulator
               </span>
             </button>
             <button
@@ -87,7 +87,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
               <span
                 class="navds-label"
               >
-                landingsside.button.enkel-kalkulator
+                landingsside.button.enkel_kalkulator
               </span>
             </button>
           </div>
@@ -135,7 +135,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               <span
                 class="navds-label"
               >
-                landingsside.button.detaljert-kalkulator-utlogget
+                landingsside.button.detaljert_kalkulator_utlogget
               </span>
             </button>
           </div>
@@ -154,7 +154,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           <p
             class="navds-body-long navds-body-long--medium"
           >
-            landingsside.velge-mellom-detaljert-og-enkel
+            landingsside.velge_mellom_detaljert_og_enkel
           </p>
           <ul>
             <li>
@@ -180,7 +180,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               <span
                 class="navds-label"
               >
-                landingsside.button.detaljert-kalkulator-utlogget
+                landingsside.button.detaljert_kalkulator_utlogget
               </span>
             </button>
             <button
@@ -190,7 +190,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               <span
                 class="navds-label"
               >
-                landingsside.button.enkel-kalkulator-utlogget
+                landingsside.button.enkel_kalkulator_utlogget
               </span>
             </button>
           </div>
@@ -205,12 +205,12 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
             class="navds-heading navds-heading--medium"
             data-testid="uinlogget-kalkulator"
           >
-            landingsside.heading.uinnlogget-kalkulator
+            landingsside.heading.uinnlogget_kalkulator
           </h2>
           <p
             class="navds-body-long navds-body-long--medium"
           >
-            landingsside.body.uinnlogget-kalkulator
+            landingsside.body.uinnlogget_kalkulator
           </p>
         </div>
       </section>
