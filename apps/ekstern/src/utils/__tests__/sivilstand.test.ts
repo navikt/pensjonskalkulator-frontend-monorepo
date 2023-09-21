@@ -37,42 +37,42 @@ describe('sivilstand-utils', () => {
       })
     })
 
-    // describe('returnerer riktig formatert sivilstand med samboerskap', () => {
-    //   test.each([
-    //     ['UOPPGITT', 'Ugift'],
-    //     ['UGIFT', 'Ugift'],
-    //     ['GIFT', 'Gift'],
-    //     ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann, med samboer'],
-    //     ['SKILT', 'Skilt, med samboer'],
-    //     ['SEPARERT', 'Separert, med samboer'],
-    //     ['REGISTRERT_PARTNER', 'Registrert partner'],
-    //     ['SEPARERT_PARTNER', 'Separert partner, med samboer'],
-    //     ['SKILT_PARTNER', 'Skilt partner, med samboer'],
-    //     ['GJENLEVENDE_PARTNER', 'Gjenlevende partner, med samboer'],
-    //   ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
-    //     const sivilstand = formatSivilstand(a as Sivilstand, {
-    //       harSamboer: true,
-    //     })
-    //     expect(sivilstand).toEqual(expected)
-    //   })
+    describe('returnerer riktig formatert sivilstand med samboerskap', () => {
+      test.each([
+        ['UOPPGITT', 'Ugift'],
+        ['UGIFT', 'Ugift'],
+        ['GIFT', 'Gift'],
+        ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann, med samboer'],
+        ['SKILT', 'Skilt, med samboer'],
+        ['SEPARERT', 'Separert, med samboer'],
+        ['REGISTRERT_PARTNER', 'Registrert partner'],
+        ['SEPARERT_PARTNER', 'Separert partner, med samboer'],
+        ['SKILT_PARTNER', 'Skilt partner, med samboer'],
+        ['GJENLEVENDE_PARTNER', 'Gjenlevende partner, med samboer'],
+      ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
+        const sivilstand = formatSivilstand(a as Sivilstand, {
+          harSamboer: true,
+        })
+        expect(sivilstand).toEqual(expected)
+      })
 
-    //   test.each([
-    //     ['UOPPGITT', 'Ugift'],
-    //     ['UGIFT', 'Ugift'],
-    //     ['GIFT', 'Gift'],
-    //     ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann, uten samboer'],
-    //     ['SKILT', 'Skilt, uten samboer'],
-    //     ['SEPARERT', 'Separert, uten samboer'],
-    //     ['REGISTRERT_PARTNER', 'Registrert partner'],
-    //     ['SEPARERT_PARTNER', 'Separert partner, uten samboer'],
-    //     ['SKILT_PARTNER', 'Skilt partner, uten samboer'],
-    //     ['GJENLEVENDE_PARTNER', 'Gjenlevende partner, uten samboer'],
-    //   ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
-    //     const sivilstand = formatSivilstand(a as Sivilstand, {
-    //       harSamboer: false,
-    //     })
-    //     expect(sivilstand).toEqual(expected)
-    //   })
-    // })
+      test.each([
+        ['UOPPGITT', 'Ugift'],
+        ['UGIFT', 'Ugift'],
+        ['GIFT', 'Gift'],
+        ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann, uten samboer'],
+        ['SKILT', 'Skilt, uten samboer'],
+        ['SEPARERT', 'Separert, uten samboer'],
+        ['REGISTRERT_PARTNER', 'Registrert partner'],
+        ['SEPARERT_PARTNER', 'Separert partner, uten samboer'],
+        ['SKILT_PARTNER', 'Skilt partner, uten samboer'],
+        ['GJENLEVENDE_PARTNER', 'Gjenlevende partner, uten samboer'],
+      ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
+        const sivilstand = formatSivilstand(a as Sivilstand, {
+          harSamboer: false,
+        })
+        expect(sivilstand).toEqual(expected)
+      })
+    })
   })
 })
