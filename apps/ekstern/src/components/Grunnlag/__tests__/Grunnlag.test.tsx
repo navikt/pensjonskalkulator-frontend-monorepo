@@ -136,7 +136,7 @@ describe('Grunnlag', () => {
       })
       await waitFor(async () => {
         expect(screen.getByText('grunnlag.sivilstand.title:')).toBeVisible()
-        expect(await screen.findByText('Gift, med samboer')).toBeVisible()
+        expect(await screen.findByText('Gift')).toBeVisible()
         expect(
           screen.queryByText('grunnlag.sivilstand.title.error')
         ).not.toBeInTheDocument()
