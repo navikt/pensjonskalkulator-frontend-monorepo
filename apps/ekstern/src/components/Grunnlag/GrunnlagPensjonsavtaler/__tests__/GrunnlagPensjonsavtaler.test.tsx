@@ -1,7 +1,10 @@
-import { describe, it } from 'vitest'
+import * as ReactRouterUtils from 'react-router'
+
+import { describe, it, vi } from 'vitest'
 
 import { GrunnlagPensjonsavtaler } from '../GrunnlagPensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { paths } from '@/router'
 import {
   userInputInitialState,
   Simulation,
@@ -16,9 +19,13 @@ describe('GrunnlagPensjonsavtaler', () => {
     aarligInntekt: 0,
   }
   describe('Gitt at brukeren ikke har samtykket', () => {
-    it('viser riktig header og melding, og skjuler ingress og tabell', async () => {
+    it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress og tabell', async () => {
       const user = userEvent.setup()
-      render(<GrunnlagPensjonsavtaler />, {
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
+      const { store } = render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           userInput: { ...userInputInitialState, samtykke: false },
         },
@@ -32,19 +39,26 @@ describe('GrunnlagPensjonsavtaler', () => {
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
       expect(
-        await screen.findByText(
-          'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon',
-          {
-            exact: false,
-          }
+        await screen.findAllByText(
+          'grunnlag.pensjonsavtaler.ingress.error.samtykke',
+          { exact: false }
         )
-      ).toBeVisible()
+      ).toHaveLength(2)
+
       expect(screen.queryByRole('table')).not.toBeInTheDocument()
       expect(
         screen.queryByText('Alle avtaler i privat sektor er hentet fra ', {
           exact: false,
         })
       ).not.toBeInTheDocument()
+
+      await user.click(
+        await screen.findByText(
+          'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1'
+        )
+      )
+      expect(navigateMock).toHaveBeenCalledWith(paths.login)
+      expect(store.getState().userInput.samtykke).toBe(null)
     })
   })
 

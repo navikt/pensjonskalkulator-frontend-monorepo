@@ -109,7 +109,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
         </a>
         <a
           class="navds-link navds-link--action"
-          href="http://nav.no/pensjon"
+          href="https://nav.no/pensjon"
         >
           error.404.button.link_2
         </a>

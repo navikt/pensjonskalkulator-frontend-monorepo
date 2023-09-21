@@ -17,7 +17,7 @@ import { store } from '@/state/store'
 export const BASE_PATH = '/pensjon/kalkulator'
 
 export const externalUrls = {
-  dinPensjon: 'http://nav.no/pensjon',
+  dinPensjon: 'https://nav.no/pensjon',
   detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
