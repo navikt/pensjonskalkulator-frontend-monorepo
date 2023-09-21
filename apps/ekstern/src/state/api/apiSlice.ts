@@ -24,7 +24,7 @@ export const apiSlice = createApi({
   tagTypes: ['Person', 'Alderspensjon'],
   endpoints: (builder) => ({
     pensjonsavtaler: builder.query<
-      Pensjonsavtale[],
+      { avtaler: Pensjonsavtale[]; partialResponse: boolean },
       PensjonsavtalerRequestBody
     >({
       query: (body) => ({
@@ -45,7 +45,10 @@ export const apiSlice = createApi({
           key: index,
         }))
 
-        return avtalerWithKeys
+        return {
+          avtaler: avtalerWithKeys,
+          partialResponse: response.utilgjengeligeSelskap.length > 0,
+        }
       },
     }),
     tidligsteUttaksalder: builder.query<

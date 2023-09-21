@@ -39,8 +39,8 @@ describe('sivilstand-utils', () => {
 
     describe('returnerer riktig formatert sivilstand med samboerskap', () => {
       test.each([
-        ['UOPPGITT', 'Ugift'],
-        ['UGIFT', 'Ugift'],
+        ['UOPPGITT', 'Ugift, med samboer'],
+        ['UGIFT', 'Ugift, med samboer'],
         ['GIFT', 'Gift'],
         ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann, med samboer'],
         ['SKILT', 'Skilt, med samboer'],
@@ -57,8 +57,8 @@ describe('sivilstand-utils', () => {
       })
 
       test.each([
-        ['UOPPGITT', 'Ugift'],
-        ['UGIFT', 'Ugift'],
+        ['UOPPGITT', 'Ugift, uten samboer'],
+        ['UGIFT', 'Ugift, uten samboer'],
         ['GIFT', 'Gift'],
         ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann, uten samboer'],
         ['SKILT', 'Skilt, uten samboer'],

@@ -1,8 +1,13 @@
-import { useEffect, useRef, useState } from 'react'
+import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
-import { InformationSquareFillIcon } from '@navikt/aksel-icons'
-import { ChevronLeftCircle, ChevronRightCircle } from '@navikt/ds-icons'
-import { Button } from '@navikt/ds-react'
+import {
+  ChevronLeftCircleIcon,
+  ChevronRightCircleIcon,
+  ExclamationmarkTriangleFillIcon,
+  InformationSquareFillIcon,
+} from '@navikt/aksel-icons'
+import { BodyLong, Button, Link } from '@navikt/ds-react'
 import Highcharts, {
   SeriesColumnOptions,
   SeriesOptionsType,
@@ -10,6 +15,7 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
+import { AccordionContext } from '@/components/common/AccordionItem'
 import { TabellVisning } from '@/components/TabellVisning'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import {
@@ -43,30 +49,38 @@ export function Simulering(props: {
 }) {
   const { alderspensjon, showAfp, showButtonsAndTable } = props
   const harSamtykket = useAppSelector(selectSamtykke)
-  useState<boolean>(false)
+  React.useState<boolean>(false)
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
-    useState<boolean>(false)
+    React.useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
-    useState<boolean>(false)
+    React.useState<boolean>(false)
+  const {
+    ref: grunnlagPensjonsavtalerRef,
+    isOpen: isPensjonsavtalerAccordionItemOpen,
+    toggleOpen: togglePensjonsavtalerAccordionItem,
+  } = React.useContext(AccordionContext)
   const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
-  const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] = useState<
-    PensjonsavtalerRequestBody | undefined
-  >(undefined)
-  const [chartOptions, setChartOptions] = useState<Highcharts.Options>(
+  const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
+    React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
+  const [chartOptions, setChartOptions] = React.useState<Highcharts.Options>(
     getChartOptions(styles, setShowVisFlereAarButton, setShowVisFaerreAarButton)
   )
   const [isPensjonsavtaleFlagVisible, setIsPensjonsavtaleFlagVisible] =
-    useState<boolean>(false)
-  const chartRef = useRef<HighchartsReact.RefObject>(null)
-  const { data: pensjonsavtaler, isSuccess: isPensjonsavtalerSuccess } =
-    usePensjonsavtalerQuery(
-      pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
-      {
-        skip: !pensjonsavtalerRequestBody || !harSamtykket || !startAlder,
-      }
-    )
+    React.useState<boolean>(false)
+  const chartRef = React.useRef<HighchartsReact.RefObject>(null)
+  const {
+    data: pensjonsavtaler,
+    isLoading: isPensjonsavtalerLoading,
+    isSuccess: isPensjonsavtalerSuccess,
+    isError: isPensjonsavtalerError,
+  } = usePensjonsavtalerQuery(
+    pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
+    {
+      skip: !pensjonsavtalerRequestBody || !harSamtykket || !startAlder,
+    }
+  )
 
-  useEffect(() => {
+  React.useEffect(() => {
     /* c8 ignore next 3 */
     function onPointUnclickEventHandler(e: Event) {
       onPointUnclick(e, chartRef.current?.chart)
@@ -77,7 +91,7 @@ export function Simulering(props: {
   }, [])
 
   // Hent pensjonsavtaler
-  useEffect(() => {
+  React.useEffect(() => {
     if (harSamtykket && startAlder) {
       const requestBody = generatePensjonsavtalerRequestBody({
         aar: startAlder,
@@ -87,11 +101,11 @@ export function Simulering(props: {
     }
   }, [harSamtykket, startAlder, startMaaned])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (startAlder && alderspensjon) {
       const aarArray = generateXAxis(
         startAlder,
-        pensjonsavtaler ?? [],
+        pensjonsavtaler?.avtaler ?? [],
         setIsPensjonsavtaleFlagVisible
       )
       setChartOptions({
@@ -110,7 +124,7 @@ export function Simulering(props: {
                 } as SeriesOptionsType,
               ]
             : []),
-          ...(isPensjonsavtalerSuccess
+          ...(isPensjonsavtalerSuccess && pensjonsavtaler?.avtaler.length > 0
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_TP,
@@ -118,7 +132,7 @@ export function Simulering(props: {
                   data: processPensjonsavtalerArray(
                     startAlder - 1,
                     aarArray.length,
-                    pensjonsavtaler
+                    pensjonsavtaler?.avtaler
                   ),
                 } as SeriesOptionsType,
               ]
@@ -139,19 +153,20 @@ export function Simulering(props: {
         highcharts={Highcharts}
         options={chartOptions}
       />
+
       {showButtonsAndTable && (
         <div className={styles.buttonRow}>
           <div className={styles.buttonRowElement}>
             {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
             {showVisFaerreAarButton && (
               <Button
-                icon={<ChevronLeftCircle aria-hidden />}
+                icon={<ChevronLeftCircleIcon aria-hidden />}
                 iconPosition="left"
                 size="xsmall"
                 variant="tertiary"
                 onClick={onVisFaerreAarClick}
               >
-                Færre år
+                <FormattedMessage id="beregning.button.faerre_aar" />
               </Button>
             )}
           </div>
@@ -161,19 +176,54 @@ export function Simulering(props: {
             {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
             {showVisFlereAarButton && (
               <Button
-                icon={<ChevronRightCircle aria-hidden />}
+                icon={<ChevronRightCircleIcon aria-hidden />}
                 iconPosition="right"
                 size="xsmall"
                 variant="tertiary"
                 onClick={onVisFlereAarClick}
               >
-                Flere år
+                <FormattedMessage id="beregning.button.flere_aar" />
               </Button>
             )}
           </div>
         </div>
       )}
-      {isPensjonsavtaleFlagVisible && (
+      {(isPensjonsavtalerError || pensjonsavtaler?.partialResponse) && (
+        <div className={styles.error}>
+          <ExclamationmarkTriangleFillIcon
+            className={styles.errorIcon}
+            fontSize="1.5rem"
+          />
+          <BodyLong className={styles.errorText}>
+            <FormattedMessage
+              id={
+                isPensjonsavtalerError
+                  ? 'beregning.pensjonsavtaler.error'
+                  : 'beregning.pensjonsavtaler.error.partial'
+              }
+              values={{
+                link: (chunks) => (
+                  <Link
+                    onClick={(e) => {
+                      e?.preventDefault()
+                      if (grunnlagPensjonsavtalerRef?.current) {
+                        grunnlagPensjonsavtalerRef?.current.scrollIntoView({
+                          behavior: 'smooth',
+                        })
+                      }
+                      if (!isPensjonsavtalerAccordionItemOpen)
+                        togglePensjonsavtalerAccordionItem()
+                    }}
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              }}
+            />
+          </BodyLong>
+        </div>
+      )}
+      {!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible && (
         <div className={styles.info}>
           <InformationSquareFillIcon
             className={styles.infoIcon}
@@ -181,8 +231,7 @@ export function Simulering(props: {
             aria-hidden
           />
           <p className={styles.infoText}>
-            Du har pensjonsavtaler som starter før valgt alder. Se detaljer i
-            grunnlaget under.
+            <FormattedMessage id="beregning.pensjonsavtaler.info" />
           </p>
         </div>
       )}
@@ -192,7 +241,7 @@ export function Simulering(props: {
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
           showAfp={showAfp}
           showPensjonsavtaler={
-            isPensjonsavtalerSuccess && pensjonsavtaler.length > 0
+            isPensjonsavtalerSuccess && pensjonsavtaler?.avtaler.length > 0
           }
         />
       )}

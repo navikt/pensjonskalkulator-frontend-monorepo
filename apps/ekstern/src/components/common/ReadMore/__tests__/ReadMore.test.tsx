@@ -6,44 +6,75 @@ describe('ReadMore', () => {
   afterEach(() => {
     loggerTeardown()
   })
-  it('åpne og lukk som unkonrollert komponent og logg', async () => {
-    const user = userEvent.setup()
-    render(
-      <ReadMore header="header" name="name">
-        test-data
-      </ReadMore>
-    )
 
-    await user.click(screen.getByTestId('readmore'))
-    expect(loggerSpy).toHaveBeenNthCalledWith(
-      1,
-      'readmore åpnet',
-      expect.any(Object)
-    )
-    await user.click(screen.getByTestId('readmore'))
-    expect(loggerSpy).toHaveBeenNthCalledWith(
-      2,
-      'readmore lukket',
-      expect.any(Object)
-    )
+  describe('Gitt at komponenten er ukontrollert', () => {
+    it('åpne, lukk og logg', async () => {
+      const user = userEvent.setup()
+      render(
+        <ReadMore header="header" name="name">
+          test-data
+        </ReadMore>
+      )
+      await user.click(screen.getByTestId('readmore'))
+      expect(loggerSpy).toHaveBeenNthCalledWith(
+        1,
+        'readmore åpnet',
+        expect.any(Object)
+      )
+      await user.click(screen.getByTestId('readmore'))
+      expect(loggerSpy).toHaveBeenNthCalledWith(
+        2,
+        'readmore lukket',
+        expect.any(Object)
+      )
+    })
   })
 
-  it('åpne som en kontrollert komponent og logg', async () => {
-    const user = userEvent.setup()
-    let isOpen = false
-    const toggleOpen = () => (isOpen = !isOpen)
+  describe('Gitt at komponenten er kontrollert', () => {
+    it('åpne og logg', async () => {
+      const user = userEvent.setup()
+      let isOpen = false
+      const toggleOpen = () => (isOpen = !isOpen)
+      render(
+        <ReadMore
+          header="header"
+          name="name"
+          open={isOpen}
+          onClick={toggleOpen}
+        >
+          test-data
+        </ReadMore>
+      )
+      await user.click(screen.getByTestId('readmore'))
+      expect(loggerSpy).toHaveBeenNthCalledWith(
+        1,
+        'readmore åpnet',
+        expect.any(Object)
+      )
+    })
 
-    render(
-      <ReadMore header="header" name="name" open={isOpen} onClick={toggleOpen}>
-        test-data
-      </ReadMore>
-    )
+    it('lukke og logg', async () => {
+      const user = userEvent.setup()
+      let isOpen = true
+      const toggleOpen = () => (isOpen = !isOpen)
 
-    await user.click(screen.getByTestId('readmore'))
-    expect(loggerSpy).toHaveBeenNthCalledWith(
-      1,
-      'readmore åpnet',
-      expect.any(Object)
-    )
+      render(
+        <ReadMore
+          header="header"
+          name="name"
+          open={isOpen}
+          onClick={toggleOpen}
+        >
+          test-data
+        </ReadMore>
+      )
+
+      await user.click(screen.getByTestId('readmore'))
+      expect(loggerSpy).toHaveBeenNthCalledWith(
+        1,
+        'readmore lukket',
+        expect.any(Object)
+      )
+    })
   })
 })

@@ -181,6 +181,7 @@ export function tooltipFormatter(
   return `${headerFormat}${pointsFormat}${footerFormat}${tooltipConnectingLine}`
 }
 
+// TODO utvide med react-intl
 export const getChartOptions = (
   styles: Partial<typeof globalClassNames>,
   showRightButton: React.Dispatch<React.SetStateAction<boolean>>,

@@ -5,6 +5,7 @@ import { Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
+import { AccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { Forbehold } from '@/components/Forbehold'
@@ -36,6 +37,15 @@ export function Beregning() {
   const harSamboer = useAppSelector(selectSamboer)
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
+  const [
+    isPensjonsavtalerAccordionItemOpen,
+    setIslePensjonsavtalerAccordionItem,
+  ] = React.useState<boolean>(false)
+  const grunnlagPensjonsavtalerRef = React.useRef<HTMLSpanElement>(null)
+  /* c8 ignore next 3 */
+  const togglePensjonsavtalerAccordionItem = () => {
+    setIslePensjonsavtalerAccordionItem((prevState) => !prevState)
+  }
 
   const intl = useIntl()
   const dispatch = useAppDispatch()
@@ -155,15 +165,23 @@ export function Beregning() {
               </>
             ) : (
               <>
-                <Simulering
-                  alderspensjon={alderspensjon}
-                  showAfp={afp === 'ja_privat'}
-                  showButtonsAndTable={
-                    !isError && alderspensjon?.vilkaarErOppfylt
-                  }
-                />
-                <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
-                <Forbehold />
+                <AccordionContext.Provider
+                  value={{
+                    ref: grunnlagPensjonsavtalerRef,
+                    isOpen: isPensjonsavtalerAccordionItemOpen,
+                    toggleOpen: togglePensjonsavtalerAccordionItem,
+                  }}
+                >
+                  <Simulering
+                    alderspensjon={alderspensjon}
+                    showAfp={afp === 'ja_privat'}
+                    showButtonsAndTable={
+                      !isError && alderspensjon?.vilkaarErOppfylt
+                    }
+                  />
+                  <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+                  <Forbehold />
+                </AccordionContext.Provider>
               </>
             )}
           </div>

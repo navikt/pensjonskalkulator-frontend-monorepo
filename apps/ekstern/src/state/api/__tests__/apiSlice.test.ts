@@ -36,7 +36,7 @@ describe('apiSlice', () => {
       antallInntektsaarEtterUttak: 0,
     }
 
-    it('returnerer data ved vellykket query', async () => {
+    it('returnerer riktig data og flag ved vellykket query', async () => {
       const storeRef = await setupStore({}, true)
       return storeRef
         .dispatch<any>(
@@ -44,7 +44,53 @@ describe('apiSlice', () => {
         )
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(pensjonsavtalerResponse.avtaler)
+          const obj = result.data as {
+            avtaler: Pensjonsavtale[]
+            partialResponse: boolean
+          }
+          expect(obj.avtaler).toMatchObject(pensjonsavtalerResponse.avtaler)
+          expect(obj.partialResponse).toBeFalsy()
+        })
+    })
+
+    it('returnerer riktig data og flagg ved delvis vellykket query', async () => {
+      const avtale = {
+        produktbetegnelse: 'IPS',
+        kategori: 'INDIVIDUELL_ORDNING',
+        startAlder: 70,
+        sluttAlder: 75,
+        utbetalingsperioder: [
+          {
+            startAlder: 70,
+            startMaaned: 6,
+            sluttAlder: 75,
+            sluttMaaned: 6,
+            aarligUtbetaling: 41802,
+            grad: 100,
+          },
+        ],
+      }
+      mockResponse('/pensjonsavtaler', {
+        status: 200,
+        json: {
+          avtaler: [{ ...avtale }],
+          utilgjengeligeSelskap: ['Something'],
+        },
+        method: 'post',
+      })
+      const storeRef = await setupStore({}, true)
+      return storeRef
+        .dispatch<any>(
+          apiSlice.endpoints.pensjonsavtaler.initiate(dummyRequestBody)
+        )
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          const obj = result.data as {
+            avtaler: Pensjonsavtale[]
+            partialResponse: boolean
+          }
+          expect(obj.avtaler).toMatchObject([{ ...avtale }])
+          expect(obj.partialResponse).toBeTruthy()
         })
     })
 

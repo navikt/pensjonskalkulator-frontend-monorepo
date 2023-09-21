@@ -52,14 +52,21 @@
   }
 }
 
-.error {
+.info {
   display: flex;
 
   &Icon {
     flex-basis: 1.5rem;
-    color: var(--a-orange-600);
     vertical-align: top;
     margin-right: var(--a-spacing-2);
+
+    &__orange {
+      color: var(--a-orange-600);
+    }
+
+    &__blue {
+      color: var(--a-deepblue-600);
+    }
   }
 
   &Text {
