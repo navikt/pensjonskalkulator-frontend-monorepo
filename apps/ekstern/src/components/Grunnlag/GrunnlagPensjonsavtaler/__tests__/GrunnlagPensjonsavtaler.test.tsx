@@ -189,7 +189,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
         expect(await screen.findByText('Livsvarig fra 67 år')).toBeVisible()
         expect(
-          await screen.findByText('Livsvarig fra 67 år og 6 mnd.')
+          await screen.findByText('Livsvarig fra 67 år og 6 md.')
         ).toBeVisible()
         expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
         const rows = await screen.findAllByRole('row')
@@ -261,10 +261,10 @@ describe('GrunnlagPensjonsavtaler', () => {
       await waitFor(async () => {
         expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
         expect(
-          await screen.findByText('Fra 67 år til 77 år og 8 mnd.')
+          await screen.findByText('Fra 67 år til 77 år og 8 md.')
         ).toBeVisible()
         expect(
-          await screen.findByText('Fra 67 år og 6 mnd. til 77 år')
+          await screen.findByText('Fra 67 år og 6 md. til 77 år')
         ).toBeVisible()
         expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
         const rows = await screen.findAllByRole('row')
