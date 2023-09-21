@@ -108,7 +108,7 @@ const translations = {
     'For å starte uttak før 67 år må opptjeningen være høy nok. Alle kan derfor ikke starte uttak ved 62 år. Tidspunktet er et estimat på når du tidligst kan ta ut 100 % alderspensjon. I <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink> kan du sjekke om du kan ta ut alderspensjon tidligere med en lavere uttaksgrad.{br}{br}Når du velger uttaksalder, bruker vi måneden etter du fyller år. Velger du for eksempel 62 år, betyr det måneden etter du fyller 62 år.',
   'grunnlag.tidligstmuliguttak.ingress.error':
     'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon. Prøv igjen senere.{br}{br}',
-  'grunnlag.uttaksgrad.title': 'Uttakgsgrad',
+  'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.ingress':
     'Denne beregningen viser 100 % uttak av alderspensjon. I <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink> kan du beregne alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut 100 %.',
   'grunnlag.inntekt.title': 'Inntekt',
@@ -124,7 +124,7 @@ const translations = {
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.ingress':
     'Alderspensjon beregnes ut ifra <dinPensjonLink>din pensjonsbeholdning</dinPensjonLink> i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil din alderspensjon øke.{br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
-  'grunnlag.afp.title': 'Avtalefestet pensjon',
+  'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.ja_offentlig':
     'Vi kan ikke vise din AFP fordi regelverket for ny AFP i offentlig sektor ikke er endelig avklart. For mer informasjon sjekk din tjenestepensjonsordning.',
@@ -138,7 +138,7 @@ const translations = {
   'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikke innhentet',
   'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikke hentes',
   'grunnlag.pensjonsavtaler.ingress':
-    'Alle avtaler i privat sektor er hentet fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekkaktuell tjenestepensjonsordning.',
+    'Alle avtaler i privat sektor er hentet fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekk aktuell tjenestepensjonsordning.',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke':
     'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon. <startLink>Start en ny beregning</startLink> dersom du ønsker å få dette i beregningen.',
   'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler':
