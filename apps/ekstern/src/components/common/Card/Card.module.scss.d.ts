@@ -3,6 +3,5 @@ declare const classNames: typeof globalClassNames & {
   readonly section: 'section'
   readonly section__largePadding: 'section__largePadding'
   readonly section__marginBotton: 'section__marginBotton'
-  readonly section__noPadding: 'section__noPadding'
 }
 export = classNames

@@ -21,7 +21,6 @@ export const Card = (({
   children,
   hasLargePadding,
   hasMargin,
-  hasNoPadding,
   ...elementProps
 }) => {
   return (
@@ -30,7 +29,6 @@ export const Card = (({
         styles.section,
         {
           [styles.section__largePadding]: hasLargePadding,
-          [styles.section__noPadding]: hasNoPadding,
           [styles.section__marginBotton]: hasMargin,
         },
         className

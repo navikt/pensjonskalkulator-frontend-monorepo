@@ -2,8 +2,8 @@
 
 exports[`LandingPage > rendrer innlogget side 1`] = `
 <DocumentFragment>
-  <section
-    class="_section_67454f _section__noPadding_67454f"
+  <div
+    class="_landingPage_6ae597"
   >
     <div
       class="navds-stack navds-vstack"
@@ -99,14 +99,14 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
         landingsside.link.personopplysninger
       </a>
     </div>
-  </section>
+  </div>
 </DocumentFragment>
 `;
 
 exports[`LandingPage > rendrer utlogget side 1`] = `
 <DocumentFragment>
-  <section
-    class="_section_67454f _section__noPadding_67454f"
+  <div
+    class="_landingPage_6ae597"
   >
     <div
       class="navds-stack navds-vstack"
@@ -220,6 +220,6 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
         landingsside.link.personopplysninger
       </a>
     </div>
-  </section>
+  </div>
 </DocumentFragment>
 `;

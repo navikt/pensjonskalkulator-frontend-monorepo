@@ -11,10 +11,11 @@ import {
   VStack,
 } from '@navikt/ds-react'
 
-import { Card } from '@/components/common/Card'
 import { HOST_BASEURL } from '@/paths'
 import { externalUrls } from '@/router'
 import useRequest from '@/utils/useRequest'
+
+import styles from './LandingPage.module.scss'
 
 export function LandingPage() {
   const intl = useIntl()
@@ -37,7 +38,7 @@ export function LandingPage() {
   }
 
   return (
-    <Card hasNoPadding>
+    <div className={styles.landingPage}>
       <VStack gap="4">
         <section>
           <VStack gap="2">
@@ -157,6 +158,6 @@ export function LandingPage() {
           })}
         </a>
       </VStack>
-    </Card>
+    </div>
   )
 }
