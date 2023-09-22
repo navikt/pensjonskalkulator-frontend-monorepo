@@ -1,21 +1,24 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, BodyShort } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { AccordionContext } from '@/components/common/AccordionItem'
+import { paths } from '@/router'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
-import { useAppSelector } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSamtykke } from '@/state/userInput/selectors'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 import { formatMessageValues } from '@/utils/translations'
@@ -47,6 +50,13 @@ export function GrunnlagPensjonsavtaler() {
       skip: !harSamtykket || !startAlder,
     }
   )
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+  const onCancel = (): void => {
+    dispatch(userInputActions.flush())
+    navigate(paths.login)
+  }
 
   return (
     <AccordionItem
@@ -81,8 +91,14 @@ export function GrunnlagPensjonsavtaler() {
         <>
           {!harSamtykket && (
             <BodyLong>
+              <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress" />
+              <Link onClick={onCancel}>
+                {intl.formatMessage({
+                  id: 'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1',
+                })}
+              </Link>{' '}
               <FormattedMessage
-                id="grunnlag.pensjonsavtaler.ingress.error.samtykke"
+                id="grunnlag.pensjonsavtaler.ingress.error.samtykke_link_2"
                 values={{
                   ...formatMessageValues,
                 }}

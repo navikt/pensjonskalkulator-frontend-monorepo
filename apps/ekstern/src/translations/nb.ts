@@ -149,8 +149,12 @@ const translations = {
     '(Avtaler mangler)',
   'grunnlag.pensjonsavtaler.ingress':
     'Alle avtaler i privat sektor er hentet fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekk aktuell tjenestepensjonsordning.',
-  'grunnlag.pensjonsavtaler.ingress.error.samtykke':
-    'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon. <startLink>Start en ny beregning</startLink> dersom du ønsker å få dette i beregningen.',
+  'grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress':
+    'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon.',
+  'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1':
+    'Start en ny beregning',
+  'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_2':
+    'dersom du ønsker å få dette i beregningen.',
   'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler':
     'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
   'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial':

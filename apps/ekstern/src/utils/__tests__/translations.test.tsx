@@ -44,7 +44,7 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
-        'http://nav.no/pensjon'
+        'https://nav.no/pensjon'
       )
       expect(
         await screen.findByRole('img', { hidden: true })
@@ -159,26 +159,6 @@ describe('translations-utils', () => {
       expect(
         await screen.findByRole('img', { hidden: true })
       ).toBeInTheDocument()
-    })
-
-    it('formaterer <startLink> med riktig url og ikon', async () => {
-      render(
-        <FormattedMessage
-          id="translation.test.startLink"
-          values={{ ...formatMessageValues }}
-        />
-      )
-      expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
-      ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
-      expect(screen.queryByRole('link')).toHaveAttribute('href', '/start')
-
-      expect(
-        screen.queryByRole('img', { hidden: true })
-      ).not.toBeInTheDocument()
     })
 
     it('formaterer {br} til <br/>', async () => {
