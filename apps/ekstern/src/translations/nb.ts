@@ -146,7 +146,7 @@ const translations = {
   'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikke innhentet',
   'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikke hentes',
   'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial':
-    '(Avtaler mangler))',
+    '(Avtaler mangler)',
   'grunnlag.pensjonsavtaler.ingress':
     'Alle avtaler i privat sektor er hentet fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekkaktuell tjenestepensjonsordning.',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke':
