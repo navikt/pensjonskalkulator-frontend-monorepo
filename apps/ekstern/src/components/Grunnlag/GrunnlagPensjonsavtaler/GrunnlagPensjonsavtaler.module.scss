@@ -6,10 +6,6 @@
   border-spacing: 0;
   padding: 0;
 
-  @media (min-width: $a-breakpoint-md) {
-    width: auto;
-  }
-
   &Mellomtittel {
     padding-top: var(--a-spacing-6);
     font-weight: var(--a-font-weight-bold);
