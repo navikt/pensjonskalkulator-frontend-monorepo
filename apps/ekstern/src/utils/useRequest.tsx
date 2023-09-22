@@ -106,13 +106,22 @@ export function useRequest<T, E = ErrorType>(
                 })
               })
           } else {
-            resp.json().then((error: E) => {
-              dispatch({
-                action: 'ERROR',
-                error: error,
-                status: resp.status,
+            resp
+              .json()
+              .then((error: E) => {
+                dispatch({
+                  action: 'ERROR',
+                  error: error,
+                  status: resp.status,
+                })
               })
-            })
+              .catch(() => {
+                dispatch({
+                  action: 'ERROR',
+                  error: undefined as E,
+                  status: resp.status,
+                })
+              })
           }
         })
         .catch(() => {

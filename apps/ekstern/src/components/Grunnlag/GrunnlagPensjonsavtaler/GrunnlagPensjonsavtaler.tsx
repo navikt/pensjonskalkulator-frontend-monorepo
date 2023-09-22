@@ -79,10 +79,11 @@ export function GrunnlagPensjonsavtaler() {
                 id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler',
               })
             : `${pensjonsavtaler?.avtaler.length} ${
-                pensjonsavtaler?.partialResponse &&
-                intl.formatMessage({
-                  id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
-                })
+                pensjonsavtaler?.partialResponse
+                  ? intl.formatMessage({
+                      id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
+                    })
+                  : ''
               }`
         }
         isLoading={isLoading}
@@ -104,28 +105,11 @@ export function GrunnlagPensjonsavtaler() {
               />
             </BodyLong>
           )}
-          {(isError || pensjonsavtaler?.partialResponse) && (
-            <div className={styles.info}>
-              <ExclamationmarkTriangleFillIcon
-                className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
-                fontSize="1.5rem"
-              />
-              <BodyLong className={styles.infoText}>
-                <FormattedMessage
-                  id={
-                    isError
-                      ? 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
-                      : 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
-                  }
-                />
-              </BodyLong>
-            </div>
-          )}
           {harSamtykket &&
             isSuccess &&
             !pensjonsavtaler?.partialResponse &&
             pensjonsavtaler?.avtaler.length === 0 && (
-              <div className={styles.info}>
+              <div className={`${styles.info} ${styles.info__hasMargin}`}>
                 <InformationSquareFillIcon
                   className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
                   fontSize="1.5rem"
@@ -229,6 +213,27 @@ export function GrunnlagPensjonsavtaler() {
                 ))}
               </tbody>
             </table>
+          )}
+          {(isError || pensjonsavtaler?.partialResponse) && (
+            <div
+              className={clsx(styles.info, {
+                [styles.info__hasMargin]: pensjonsavtaler?.partialResponse,
+              })}
+            >
+              <ExclamationmarkTriangleFillIcon
+                className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
+                fontSize="1.5rem"
+              />
+              <BodyLong className={styles.infoText}>
+                <FormattedMessage
+                  id={
+                    isError
+                      ? 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
+                      : 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+                  }
+                />
+              </BodyLong>
+            </div>
           )}
           {harSamtykket && isSuccess && (
             <BodyLong className={styles.paragraph} size="small">
