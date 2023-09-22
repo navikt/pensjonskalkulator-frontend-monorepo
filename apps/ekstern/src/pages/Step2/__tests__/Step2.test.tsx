@@ -54,10 +54,11 @@ describe('Step 2', () => {
     )
     const { store } = render(<Step2 />, {
       preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: true },
+        userInput: { ...userInputInitialState, samtykke: null },
       },
     })
     const radioButtons = screen.getAllByRole('radio')
+    await user.click(radioButtons[0])
     expect(radioButtons[0]).toBeChecked()
 
     await user.click(screen.getByText('stegvisning.tilbake'))
