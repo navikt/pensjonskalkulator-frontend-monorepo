@@ -1,10 +1,12 @@
 import * as ReactRouterUtils from 'react-router'
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
 import { Step1 } from '..'
 import { mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router'
+import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 
@@ -64,6 +66,28 @@ describe('Step 1', () => {
       expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
       expect(invalidateTagsMock).toHaveBeenCalledWith(['Person'])
     })
+  })
+
+  it('kaller /inntekt, og viser ErrorPageUnexpected når inntekt feiler', async () => {
+    const cache = console.error
+    console.error = () => {}
+
+    mockErrorResponse('/inntekt')
+    const router = createMemoryRouter([
+      {
+        path: '/',
+        element: <Step1 />,
+        ErrorBoundary: RouteErrorBoundary,
+      },
+    ])
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
+
+    expect(await screen.findByText('error.global.title')).toBeVisible()
+    expect(await screen.findByText('error.global.ingress')).toBeVisible()
+
+    console.error = cache
   })
 
   it('redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {

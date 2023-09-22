@@ -2,6 +2,7 @@ import { rest } from 'msw'
 
 import { API_PATH } from '@/paths'
 
+import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import pensjonsavtalerResponse from './data/pensjonsavtaler.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
 import tidligstemuligeuttaksalderResponse from './data/tidligsteUttaksalder.json' assert { type: 'json' }
@@ -9,6 +10,10 @@ import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'j
 import unleashDisableSpraakvelgerResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
 
 export const getHandlers = (baseUrl: string = API_PATH) => [
+  rest.get(`${baseUrl}/inntekt`, (_req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(inntektResponse), ctx.delay(30))
+  }),
+
   rest.get(`${baseUrl}/person`, (_req, res, ctx) => {
     return res(ctx.status(200), ctx.json(personResponse), ctx.delay(30))
   }),
