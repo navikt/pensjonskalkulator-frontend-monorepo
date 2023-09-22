@@ -43,11 +43,12 @@ import { getChartOptions, onPointUnclick } from './utils-highcharts'
 import styles from './Simulering.module.scss'
 
 export function Simulering(props: {
+  isLoading: boolean
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
   showButtonsAndTable?: boolean
 }) {
-  const { alderspensjon, showAfp, showButtonsAndTable } = props
+  const { isLoading, alderspensjon, showAfp, showButtonsAndTable } = props
   const harSamtykket = useAppSelector(selectSamtykke)
   React.useState<boolean>(false)
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
@@ -100,6 +101,18 @@ export function Simulering(props: {
       setPensjonsavtalerRequestBody(requestBody)
     }
   }, [harSamtykket, startAlder, startMaaned])
+
+  React.useEffect(() => {
+    if (chartRef.current) {
+      if (isLoading || isPensjonsavtalerLoading) {
+        chartRef.current.chart.showLoading(
+          `<div class="${styles.loader}"><div></div><div></div><div></div><div></div></div>`
+        )
+      } else {
+        chartRef.current.chart.hideLoading()
+      }
+    }
+  }, [isLoading, isPensjonsavtalerLoading])
 
   React.useEffect(() => {
     if (startAlder && alderspensjon) {
