@@ -80,4 +80,18 @@ describe('useRequest', () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     expect(result.current.data?.data).toBe('OK')
   })
+
+  it('feiler med tekst', async () => {
+    mockErrorResponse('/use-request/error', {
+      noData: true,
+      status: 401,
+    })
+    const { result } = renderHook(() =>
+      useRequest<undefined, undefined>(`${API_BASEURL}/use-request/error`)
+    )
+
+    await waitFor(() => expect(result.current.isLoading).toBe(false))
+
+    expect(result.current.status).toBe(401)
+  })
 })

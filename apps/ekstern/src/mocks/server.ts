@@ -14,6 +14,7 @@ type MockResponseOptions = {
   text?: string
   method?: 'post' | 'get'
   baseUrl?: string
+  noData?: boolean
 }
 
 const defaultResponseOptions: Required<MockResponseOptions> = {
@@ -22,6 +23,7 @@ const defaultResponseOptions: Required<MockResponseOptions> = {
   method: 'get',
   baseUrl: `${API_BASEURL}`,
   text: '',
+  noData: false,
 }
 
 export const mockResponse = (
@@ -35,7 +37,9 @@ export const mockResponse = (
     rest[options.method](parsedPath, (_req, res, ctx) => {
       return res(
         ctx.status(options.status),
-        options.text ? ctx.text(options.text) : ctx.json(options.json)
+        !options.noData && options.text
+          ? ctx.text(options.text)
+          : ctx.json(options.json)
       )
     })
   )
@@ -46,6 +50,7 @@ const defaultErrorResponseOptions: Required<MockResponseOptions> = {
   json: { data: "Beep boop I'm an error!" },
   text: '',
   method: 'get',
+  noData: false,
   baseUrl: `${API_BASEURL}`,
 }
 
