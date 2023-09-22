@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { highchartsScrollingSelector } from '../constants'
 import {
   getChartDefaults,
+  processInntektArray,
   processPensjonsberegningArray,
   getAntallMaanederMedPensjon,
   processPensjonsavtalerArray,
@@ -61,6 +62,19 @@ describe('Simulering-utils', () => {
     it('enrer riktig defaults avhengig av aldere som sendes inn', () => {
       expect(getChartDefaults([])).toMatchSnapshot()
       expect(getChartDefaults(['62', '63', '64', '65'])).toMatchSnapshot()
+    })
+  })
+
+  //
+  describe('processInntektArray', () => {
+    it('returnerer et array med en 0 verdi uten å feile hvis input er 0', () => {
+      expect(processInntektArray(0, 0)).toEqual([0])
+      expect(processInntektArray(0, 1)).toEqual([0])
+    })
+
+    it('returnerer riktig mappet array med beløp og 0 verdi', () => {
+      expect(processInntektArray(500000, 1)).toEqual([500000])
+      expect(processInntektArray(500000, 4)).toEqual([500000, 0, 0, 0])
     })
   })
 

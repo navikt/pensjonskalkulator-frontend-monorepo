@@ -17,6 +17,7 @@ import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import {
   apiSlice,
   useAlderspensjonQuery,
+  useGetInntektQuery,
   useGetPersonQuery,
   useTidligsteUttaksalderQuery,
 } from '@/state/api/apiSlice'
@@ -47,14 +48,15 @@ export function Beregning() {
     setIslePensjonsavtalerAccordionItem((prevState) => !prevState)
   }
 
-  const intl = useIntl()
-  const dispatch = useAppDispatch()
-
   const { data: person } = useGetPersonQuery()
+  const { data: inntekt, isError: isInntektError } = useGetInntektQuery()
   const afp = useAppSelector(selectAfp)
   const { startAlder, startMaaned, uttaksgrad } = useAppSelector(
     selectCurrentSimulation
   )
+
+  const intl = useIntl()
+  const dispatch = useAppDispatch()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -152,7 +154,9 @@ export function Beregning() {
                 title="Et øyeblikk, vi beregner pensjonen din"
               />
             )}
-            {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
+            {isError ||
+            isInntektError ||
+            (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
               <>
                 <Heading level="2" size="small">
                   Beregning
@@ -172,14 +176,21 @@ export function Beregning() {
                     toggleOpen: togglePensjonsavtalerAccordionItem,
                   }}
                 >
+                  {
+                    // Inntekt kan ikke være undefined her fordi feil fanges på Steg 1 allerede
+                  }
                   <Simulering
+                    inntekt={inntekt as Inntekt}
                     alderspensjon={alderspensjon}
                     showAfp={afp === 'ja_privat'}
                     showButtonsAndTable={
                       !isError && alderspensjon?.vilkaarErOppfylt
                     }
                   />
-                  <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+                  <Grunnlag
+                    inntekt={inntekt as Inntekt}
+                    tidligstMuligUttak={tidligstMuligUttak}
+                  />
                   <Forbehold />
                 </AccordionContext.Provider>
               </>

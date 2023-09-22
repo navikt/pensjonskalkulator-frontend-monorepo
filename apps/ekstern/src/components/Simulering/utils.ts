@@ -26,6 +26,15 @@ export const getChartDefaults = (aarArray: string[]) => {
   }
 }
 
+export const processInntektArray = (
+  beloep: number,
+  length: number
+): number[] => {
+  const dataArray = new Array(length).fill(0)
+  dataArray[0] = beloep
+  return dataArray
+}
+
 export const processPensjonsberegningArray = (
   pensjonsberegninger: Pensjonsberegning[] = []
 ): number[] => {

@@ -11,7 +11,7 @@ import unleashDisableSpraakvelgerResponse from './data/unleash-disable-spraakvel
 
 export const getHandlers = (baseUrl: string = API_PATH) => [
   rest.get(`${baseUrl}/inntekt`, (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(inntektResponse), ctx.delay(30))
+    return res(ctx.status(200), ctx.json(inntektResponse), ctx.delay(0))
   }),
 
   rest.get(`${baseUrl}/person`, (_req, res, ctx) => {

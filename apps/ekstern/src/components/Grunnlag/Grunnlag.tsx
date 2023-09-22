@@ -18,11 +18,11 @@ import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
 interface Props {
+  inntekt: Inntekt
   tidligstMuligUttak?: Uttaksalder | UttaksalderForenklet
 }
 
-// TODO koble inntekt
-export const Grunnlag: React.FC<Props> = ({ tidligstMuligUttak }) => {
+export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
   const intl = useIntl()
   const { data: person, isSuccess } = useGetPersonQuery()
   const afp = useAppSelector(selectAfp)
@@ -103,14 +103,14 @@ export const Grunnlag: React.FC<Props> = ({ tidligstMuligUttak }) => {
             headerTitle={intl.formatMessage({
               id: 'grunnlag.inntekt.title',
             })}
-            headerValue={`${formatAsDecimal(0)} kr`}
+            headerValue={`${formatAsDecimal(inntekt.beloep)} kr`}
           >
             <BodyLong>
               <FormattedMessage
                 id="grunnlag.inntekt.ingress"
                 values={{
                   ...formatMessageValues,
-                  aarsinntekt: '0000',
+                  aarsinntekt: inntekt.aar,
                 }}
               />
             </BodyLong>

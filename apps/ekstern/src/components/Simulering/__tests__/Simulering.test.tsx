@@ -12,6 +12,7 @@ import {
 import { act, render, screen, waitFor, userEvent } from '@/test-utils'
 
 describe('Simulering', () => {
+  const inntekt = { beloep: 500000, aar: 2021 }
   const currentSimulation: Simulation = {
     startAlder: 70,
     startMaaned: 5,
@@ -30,6 +31,7 @@ describe('Simulering', () => {
       )
       const { container } = render(
         <Simulering
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -69,6 +71,7 @@ describe('Simulering', () => {
     it('Når brukeren velger AFP-privat, viser inntekt, alderspensjon og AFP', async () => {
       const { container } = render(
         <Simulering
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={true}
           showButtonsAndTable={true}
@@ -112,6 +115,7 @@ describe('Simulering', () => {
       )
       const { container } = render(
         <Simulering
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -172,6 +176,7 @@ describe('Simulering', () => {
     it('Når brukeren velger AFP-privat, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
       const { container } = render(
         <Simulering
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={true}
           showButtonsAndTable={true}
@@ -221,6 +226,7 @@ describe('Simulering', () => {
 
       const { container } = render(
         <Simulering
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={true}
@@ -286,6 +292,7 @@ describe('Simulering', () => {
       })
       render(
         <Simulering
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={true}
@@ -326,7 +333,11 @@ describe('Simulering', () => {
             toggleOpen: toggleOpenMock,
           }}
         >
-          <Simulering showAfp={false} showButtonsAndTable={false} />
+          <Simulering
+            inntekt={inntekt}
+            showAfp={false}
+            showButtonsAndTable={false}
+          />
         </AccordionContext.Provider>,
         {
           preloadedState: {
@@ -372,7 +383,11 @@ describe('Simulering', () => {
             toggleOpen: toggleOpenMock,
           }}
         >
-          <Simulering showAfp={false} showButtonsAndTable={false} />
+          <Simulering
+            inntekt={inntekt}
+            showAfp={false}
+            showButtonsAndTable={false}
+          />
         </AccordionContext.Provider>,
         {
           preloadedState: {
@@ -399,15 +414,22 @@ describe('Simulering', () => {
   })
 
   it('viser tabell', async () => {
-    render(<Simulering showAfp={true} showButtonsAndTable={true} />, {
-      preloadedState: {
-        userInput: {
-          ...userInputInitialState,
-          samtykke: true,
-          currentSimulation: { ...currentSimulation },
+    render(
+      <Simulering
+        inntekt={inntekt}
+        showAfp={true}
+        showButtonsAndTable={true}
+      />,
+      {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: { ...currentSimulation },
+          },
         },
-      },
-    })
+      }
+    )
     expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
   })
 })
