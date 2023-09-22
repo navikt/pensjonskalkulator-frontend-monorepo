@@ -1,24 +1,53 @@
-/* c8 ignore next 23 -- TODO: Legg til test */
+import React from 'react'
+import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Button } from '@navikt/ds-react'
-
+import {
+  UtenlandsoppholdRadio,
+  Utenlandsopphold,
+} from '@/components/stegvisning/Utenlandsopphold'
 import { paths } from '@/router'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { selectUtenlandsopphold } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step1() {
+  const intl = useIntl()
   const navigate = useNavigate()
-  const onNext = (): void => {
-    navigate(paths.samtykke)
+  const dispatch = useAppDispatch()
+  const harUtenlandsopphold = useAppSelector(selectUtenlandsopphold)
+
+  React.useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title.stegvisning.step1',
+    })
+  }, [])
+
+  const onNext = (utenlandsoppholdData: UtenlandsoppholdRadio) => {
+    const utenlandsopphold = utenlandsoppholdData === 'ja'
+    if (utenlandsopphold) {
+      navigate(paths.utenlandsoppholdFeil)
+    } else {
+      dispatch(userInputActions.setUtenlandsopphold(utenlandsopphold))
+      navigate(paths.samtykke)
+    }
   }
-  const onPrev = (): void => {
+
+  const onCancel = (): void => {
+    dispatch(userInputActions.flush())
+    navigate(paths.login)
+  }
+
+  const onPrevious = (): void => {
     navigate(paths.start)
   }
-  return (
-    <div>
-      <h1>Utenlandsopphold</h1>
 
-      <Button onClick={onNext}>Neste</Button>
-      <Button onClick={onPrev}>Tilbake</Button>
-    </div>
+  return (
+    <Utenlandsopphold
+      harUtenlandsopphold={harUtenlandsopphold}
+      onCancel={onCancel}
+      onPrevious={onPrevious}
+      onNext={onNext}
+    />
   )
 }

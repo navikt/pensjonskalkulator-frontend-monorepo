@@ -1,4 +1,5 @@
 import {
+  selectUtenlandsopphold,
   selectSamtykke,
   selectAfp,
   selectSamboer,
@@ -9,6 +10,17 @@ import { store, RootState } from '@/state/store'
 
 describe('userInput selectors', () => {
   const initialState = store.getState()
+
+  it('selectUtenlandsopphold', () => {
+    const state: RootState = {
+      ...initialState,
+      userInput: {
+        ...initialState.userInput,
+        utenlandsopphold: true,
+      },
+    }
+    expect(selectUtenlandsopphold(state)).toBe(true)
+  })
 
   it('selectSamtykke', () => {
     const state: RootState = {

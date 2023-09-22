@@ -36,7 +36,6 @@ export function Step2() {
   }
 
   const onPrevious = (): void => {
-    dispatch(userInputActions.flush())
     navigate(paths.utenlandsopphold)
   }
 

@@ -8,6 +8,7 @@ export interface Simulation {
 }
 
 export interface UserInputState {
+  utenlandsopphold: boolean | null
   samtykke: boolean | null
   afp: AfpRadio | null
   samboer: boolean | null
@@ -16,6 +17,7 @@ export interface UserInputState {
 }
 
 export const userInputInitialState: UserInputState = {
+  utenlandsopphold: null,
   samtykke: null,
   afp: null,
   samboer: null,
@@ -32,6 +34,9 @@ export const userInputSlice = createSlice({
   name: 'userInputSlice',
   initialState: userInputInitialState,
   reducers: {
+    setUtenlandsopphold: (state, action: PayloadAction<boolean>) => {
+      state.utenlandsopphold = action.payload
+    },
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
     },
@@ -57,6 +62,7 @@ export const userInputSlice = createSlice({
       }
     },
     flush: (state) => {
+      state.utenlandsopphold = null
       state.samtykke = null
       state.afp = null
       state.samboer = null
