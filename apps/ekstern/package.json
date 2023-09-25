@@ -31,7 +31,7 @@
     "@navikt/ds-css": "^5.5.0",
     "@navikt/ds-react": "^5.5.0",
     "@navikt/ds-tokens": "^5.5.0",
-    "@reduxjs/toolkit": "^1.9.5",
+    "@reduxjs/toolkit": "^1.9.6",
     "clsx": "^1.2.1",
     "highcharts": "^11.1.0",
     "highcharts-react-official": "^3.2.1",
