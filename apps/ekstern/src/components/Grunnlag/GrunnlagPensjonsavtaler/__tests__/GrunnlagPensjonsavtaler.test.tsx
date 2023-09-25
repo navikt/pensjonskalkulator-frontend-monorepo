@@ -57,7 +57,7 @@ describe('GrunnlagPensjonsavtaler', () => {
           'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1'
         )
       )
-      expect(navigateMock).toHaveBeenCalledWith(paths.login)
+      expect(navigateMock).toHaveBeenCalledWith(paths.start)
       expect(store.getState().userInput.samtykke).toBe(null)
     })
   })
