@@ -7,13 +7,7 @@ import { paths } from '@/router'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
-const realLocation = window.location
-
 describe('TilbakeEllerAvslutt', () => {
-  afterEach(() => {
-    window.location = realLocation
-  })
-
   it('rendrer med riktig tekst og knapper', () => {
     const { asFragment } = render(<TilbakeEllerAvslutt />)
     expect(screen.getAllByRole('button')).toHaveLength(2)

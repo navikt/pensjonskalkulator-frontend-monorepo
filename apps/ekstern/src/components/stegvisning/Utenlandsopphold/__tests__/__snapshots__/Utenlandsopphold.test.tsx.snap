@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når samtykket ikke er oppgitt 1`] = `
+exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmålet om utenlandsopphold ikke er besvart 1`] = `
 <DocumentFragment>
   <section
     aria-live="polite"

@@ -12,7 +12,7 @@ interface Props {
   harUtenlandsopphold: boolean | null
   onCancel: () => void
   onPrevious: () => void
-  onNext: (samtykkeData: UtenlandsoppholdRadio) => void
+  onNext: (utenlandsoppholdData: UtenlandsoppholdRadio) => void
 }
 
 export type UtenlandsoppholdRadio = 'ja' | 'nei'
@@ -37,7 +37,7 @@ export function Utenlandsopphold({
     if (!utenlandsoppholdData) {
       setValidationError(
         intl.formatMessage({
-          id: 'stegvisning.samtykke.validation_error',
+          id: 'stegvisning.utenlandsopphold.validation_error',
         })
       )
     } else {

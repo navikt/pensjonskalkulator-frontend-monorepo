@@ -9,7 +9,7 @@ describe('stegvisning - Utenlandsopphold', () => {
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
 
-  it('rendrer slik den skal når samtykket ikke er oppgitt', async () => {
+  it('rendrer slik den skal når spørsmålet om utenlandsopphold ikke er besvart', async () => {
     const result = render(
       <Utenlandsopphold
         harUtenlandsopphold={null}
@@ -31,114 +31,112 @@ describe('stegvisning - Utenlandsopphold', () => {
     })
   })
 
-  // describe('rendrer slik den skal når samtykket er oppgitt', async () => {
-  //   it('når samtykket er true', async () => {
-  //     render(
-  //       <Samtykke
-  //         harSamtykket
-  //         onCancel={onCancelMock}
-  //         onPrevious={onPreviousMock}
-  //         onNext={onNextMock}
-  //       />
-  //     )
-  //     const radioButtons = screen.getAllByRole('radio')
-  //     await waitFor(() => {
-  //       expect(screen.getAllByRole('radio')).toHaveLength(2)
-  //       expect(radioButtons[0]).toBeChecked()
-  //       expect(radioButtons[1]).not.toBeChecked()
-  //     })
-  //   })
+  describe('rendrer slik den skal når spørsmålet om utenlandsopphold er besvart', async () => {
+    it('Når utenlandsopphold er false', async () => {
+      render(
+        <Utenlandsopphold
+          harUtenlandsopphold={false}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />
+      )
+      const radioButtons = screen.getAllByRole('radio')
+      await waitFor(() => {
+        expect(screen.getAllByRole('radio')).toHaveLength(2)
+        expect(radioButtons[0]).not.toBeChecked()
+        expect(radioButtons[1]).toBeChecked()
+      })
+    })
 
-  //   it('når samtykket er false', async () => {
-  //     render(
-  //       <Samtykke
-  //         harSamtykket={false}
-  //         onCancel={onCancelMock}
-  //         onPrevious={onPreviousMock}
-  //         onNext={onNextMock}
-  //       />
-  //     )
-  //     const radioButtons = screen.getAllByRole('radio')
-  //     await waitFor(() => {
-  //       expect(screen.getAllByRole('radio')).toHaveLength(2)
-  //       expect(radioButtons[0]).not.toBeChecked()
-  //       expect(radioButtons[1]).toBeChecked()
-  //     })
-  //   })
-  // })
+    it('Når utenlandsopphold er true', async () => {
+      render(
+        <Utenlandsopphold
+          harUtenlandsopphold={true}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />
+      )
+      const radioButtons = screen.getAllByRole('radio')
+      await waitFor(() => {
+        expect(screen.getAllByRole('radio')).toHaveLength(2)
+        expect(radioButtons[0]).toBeChecked()
+        expect(radioButtons[1]).not.toBeChecked()
+      })
+    })
+  })
 
-  // it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
-  //   const user = userEvent.setup()
-  //   render(
-  //     <Samtykke
-  //       harSamtykket={null}
-  //       onCancel={onCancelMock}
-  //       onPrevious={onPreviousMock}
-  //       onNext={onNextMock}
-  //     />
-  //   )
-  //   const radioButtons = screen.getAllByRole('radio')
+  it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
+    const user = userEvent.setup()
+    render(
+      <Utenlandsopphold
+        harUtenlandsopphold={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
 
-  //   await user.click(screen.getByText('stegvisning.neste'))
+    await user.click(screen.getByText('stegvisning.neste'))
 
-  //   waitFor(() => {
-  //     expect(
-  //       screen.getByText('stegvisning.samtykke.validation_error')
-  //     ).toBeInTheDocument()
-  //     expect(onNextMock).not.toHaveBeenCalled()
-  //   })
+    expect(
+      await screen.findByText('stegvisning.utenlandsopphold.validation_error')
+    ).toBeInTheDocument()
+    expect(onNextMock).not.toHaveBeenCalled()
 
-  //   await user.click(radioButtons[0])
+    const radioButtons = screen.getAllByRole('radio')
+    await user.click(radioButtons[1])
 
-  //   expect(
-  //     screen.queryByText('stegvisning.samtykke.validation_error')
-  //   ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText('stegvisning.utenlandsopphold.validation_error')
+    ).not.toBeInTheDocument()
 
-  //   await user.click(screen.getByText('stegvisning.neste'))
+    await user.click(screen.getByText('stegvisning.neste'))
 
-  //   waitFor(() => {
-  //     expect(onNextMock).toHaveBeenCalled()
-  //   })
-  // })
+    waitFor(() => {
+      expect(onNextMock).toHaveBeenCalled()
+    })
+  })
 
-  // it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
-  //   const user = userEvent.setup()
-  //   render(
-  //     <Samtykke
-  //       harSamtykket
-  //       onCancel={onCancelMock}
-  //       onPrevious={onPreviousMock}
-  //       onNext={onNextMock}
-  //     />,
-  //     {
-  //       preloadedState: { userInput: { samtykke: true } } as RootState,
-  //     }
-  //   )
-  //   const radioButtons = screen.getAllByRole('radio')
-  //   expect(radioButtons[0]).toBeChecked()
+  it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
+    const user = userEvent.setup()
+    render(
+      <Utenlandsopphold
+        harUtenlandsopphold={false}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />,
+      {
+        preloadedState: { userInput: { utenlandsopphold: false } } as RootState,
+      }
+    )
+    const radioButtons = screen.getAllByRole('radio')
+    expect(radioButtons[1]).toBeChecked()
 
-  //   await user.click(screen.getByText('stegvisning.tilbake'))
+    await user.click(screen.getByText('stegvisning.tilbake'))
 
-  //   waitFor(() => {
-  //     expect(onPreviousMock).toHaveBeenCalled()
-  //   })
-  // })
+    waitFor(() => {
+      expect(onPreviousMock).toHaveBeenCalled()
+    })
+  })
 
-  // it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
-  //   const user = userEvent.setup()
-  //   render(
-  //     <Samtykke
-  //       harSamtykket
-  //       onCancel={onCancelMock}
-  //       onPrevious={onPreviousMock}
-  //       onNext={onNextMock}
-  //     />
-  //   )
+  it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
+    const user = userEvent.setup()
+    render(
+      <Utenlandsopphold
+        harUtenlandsopphold={false}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
 
-  //   await user.click(screen.getByText('stegvisning.avbryt'))
+    await user.click(screen.getByText('stegvisning.avbryt'))
 
-  //   waitFor(() => {
-  //     expect(onCancelMock).toHaveBeenCalled()
-  //   })
-  // })
+    waitFor(() => {
+      expect(onCancelMock).toHaveBeenCalled()
+    })
+  })
 })
