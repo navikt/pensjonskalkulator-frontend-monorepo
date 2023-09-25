@@ -173,7 +173,7 @@ describe('Beregning', () => {
       mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
       })
-      const { asFragment } = render(<Beregning />, {
+      render(<Beregning />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
