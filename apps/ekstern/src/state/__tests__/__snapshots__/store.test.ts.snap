@@ -29,6 +29,7 @@ exports[`store > returnerer store med riktig slices og default state 1`] = `
     "formatertUttaksalder": null,
     "samboer": null,
     "samtykke": null,
+    "utenlandsopphold": null,
   },
 }
 `;

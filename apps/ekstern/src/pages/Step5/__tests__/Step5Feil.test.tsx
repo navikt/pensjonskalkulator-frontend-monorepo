@@ -9,12 +9,8 @@ import { paths } from '@/router'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 import * as sivilstandUtils from '@/utils/sivilstand'
-const realLocation = window.location
-describe('Step 5 Feil', () => {
-  afterEach(() => {
-    window.location = realLocation
-  })
 
+describe('Step 5 Feil', () => {
   it('rendrer Step 5 Feil slik den skal når brukeren har svart på spørsmålet om samtykke,', async () => {
     render(<Step5Feil />)
     expect(screen.getByTestId('loader')).toBeVisible()

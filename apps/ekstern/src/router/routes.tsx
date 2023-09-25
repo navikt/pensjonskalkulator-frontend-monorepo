@@ -5,7 +5,8 @@ import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
 import { LandingPage } from '@/pages/LandingPage'
-import { Step1 } from '@/pages/Step1'
+import { Step0 } from '@/pages/Step0'
+import { Step1, Step1Feil } from '@/pages/Step1'
 import { Step2 } from '@/pages/Step2'
 import { Step3 } from '@/pages/Step3'
 import { step3loader } from '@/pages/Step3/utils'
@@ -13,7 +14,6 @@ import { Step4 } from '@/pages/Step4'
 import { Step5, Step5Feil } from '@/pages/Step5'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
-import { Step0 } from '@/pages/Step0'
 
 export const BASE_PATH = '/pensjon/kalkulator'
 
@@ -32,6 +32,7 @@ export const paths = {
   start: '/start',
   samtykke: '/samtykke',
   utenlandsopphold: '/utenlandsopphold',
+  utenlandsoppholdFeil: '/henvisning-utland',
   offentligTp: '/offentlig-tp',
   afp: '/afp',
   sivilstand: '/sivilstand',
@@ -71,6 +72,10 @@ export const routes: RouteObject[] = [
       {
         path: paths.utenlandsopphold,
         element: <Step1 />,
+      },
+      {
+        path: paths.utenlandsoppholdFeil,
+        element: <Step1Feil />,
       },
       {
         path: paths.samtykke,

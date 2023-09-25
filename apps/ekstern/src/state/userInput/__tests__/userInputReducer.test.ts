@@ -5,6 +5,18 @@ import userInputSlice, {
 
 describe('userInputSlice', () => {
   describe('actions', () => {
+    it('setUtenlandsopphold', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setUtenlandsopphold(true)
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        utenlandsopphold: true,
+      })
+    })
+
     it('setSamtykke', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
@@ -77,6 +89,7 @@ describe('userInputSlice', () => {
       const updatedState = userInputSlice(
         {
           ...userInputInitialState,
+          utenlandsopphold: true,
           samtykke: true,
           afp: 'ja_offentlig',
           samboer: false,

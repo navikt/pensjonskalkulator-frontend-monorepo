@@ -31,6 +31,20 @@ const translations = {
   'stegvisning.start.ingress':
     'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
   'stegvisning.start.start': 'Kom i gang',
+  'stegvisning.utenlandsopphold.title': 'Utenlandsopphold',
+  'stegvisning.utenlandsopphold.ingress':
+    'Enkel kalkulator er under utvikling og støtter ikke beregning med lengre utenlandsopphold.',
+  'stegvisning.utenlandsopphold.radio_label':
+    'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?',
+  'stegvisning.utenlandsopphold.radio_ja': 'Ja',
+  'stegvisning.utenlandsopphold.radio_nei': 'Nei',
+  'stegvisning.utenlandsopphold.validation_error':
+    'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.',
+  'stegvisning.utenlandsopphold.error.title':
+    'Du kan dessverre ikke bruke enkel kalkulator',
+  'stegvisning.utenlandsopphold.error.button.primary': 'Detaljert kalkulator',
+  'stegvisning.utenlandsopphold.error.ingress':
+    'Fordi du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert kalkulator. ',
   'stegvisning.samtykke.title': 'Pensjonen din',
   'stegvisning.samtykke.ingress':
     'Kalkulatoren viser alderspensjonen din fra folketrygden (NAV) og eventuelt avtalefestet pensjon (AFP). For å vise tjenestepensjon fra arbeidsgivere må vi ha ditt samtykke til å hente pensjonsavtalene dine.',
