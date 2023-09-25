@@ -29,12 +29,13 @@ import {
   selectSamtykke,
 } from '@/state/userInput/selectors'
 
-import { PENSJONSGIVENDE_DATA, SERIES_DEFAULT } from './constants'
+import { SERIES_DEFAULT } from './constants'
 import {
   getChartDefaults,
   generateXAxis,
   onVisFaerreAarClick,
   onVisFlereAarClick,
+  processInntektArray,
   processPensjonsberegningArray,
   processPensjonsavtalerArray,
 } from './utils'
@@ -44,11 +45,13 @@ import styles from './Simulering.module.scss'
 
 export function Simulering(props: {
   isLoading: boolean
+  inntekt: Inntekt
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
   showButtonsAndTable?: boolean
 }) {
-  const { isLoading, alderspensjon, showAfp, showButtonsAndTable } = props
+  const { isLoading, inntekt, alderspensjon, showAfp, showButtonsAndTable } =
+    props
   const harSamtykket = useAppSelector(selectSamtykke)
   React.useState<boolean>(false)
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
@@ -126,7 +129,7 @@ export function Simulering(props: {
         series: [
           {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
-            data: [...PENSJONSGIVENDE_DATA].splice(0, aarArray.length),
+            data: processInntektArray(inntekt.beloep, aarArray.length),
           } as SeriesOptionsType,
           ...(showAfp
             ? [

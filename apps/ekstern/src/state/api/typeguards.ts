@@ -1,5 +1,17 @@
 import { PensjonsavtaleKategori } from '@/types/enums'
 
+export const isInntekt = (data?: any): data is Inntekt => {
+  if (data === null || data === undefined) {
+    return false
+  }
+  return !!(
+    data.beloep &&
+    typeof data.beloep === 'number' &&
+    data.aar &&
+    typeof data.aar === 'number'
+  )
+}
+
 export const isPensjonsberegningArray = (
   data?: any
 ): data is Pensjonsberegning[] => {

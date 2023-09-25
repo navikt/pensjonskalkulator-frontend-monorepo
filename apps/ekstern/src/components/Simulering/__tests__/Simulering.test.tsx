@@ -12,6 +12,7 @@ import {
 import { act, render, screen, waitFor, userEvent } from '@/test-utils'
 
 describe('Simulering', () => {
+  const inntekt = { beloep: 500000, aar: 2021 }
   const currentSimulation: Simulation = {
     startAlder: 70,
     startMaaned: 5,
@@ -27,6 +28,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={true}
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -69,6 +71,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -109,6 +112,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={true}
           showButtonsAndTable={true}
@@ -153,6 +157,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -215,6 +220,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={true}
           showButtonsAndTable={true}
@@ -265,6 +271,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={true}
@@ -331,6 +338,7 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
+          inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={true}
@@ -375,6 +383,7 @@ describe('Simulering', () => {
             isLoading={false}
             showAfp={false}
             showButtonsAndTable={false}
+            inntekt={inntekt}
           />
         </AccordionContext.Provider>,
         {
@@ -425,6 +434,7 @@ describe('Simulering', () => {
             isLoading={false}
             showAfp={false}
             showButtonsAndTable={false}
+            inntekt={inntekt}
           />
         </AccordionContext.Provider>,
         {
@@ -457,6 +467,7 @@ describe('Simulering', () => {
         isLoading={false}
         showAfp={true}
         showButtonsAndTable={true}
+        inntekt={inntekt}
       />,
       {
         preloadedState: {

@@ -2,17 +2,39 @@ import { describe, expect, it } from 'vitest'
 import { PensjonsavtaleKategori } from '@/types/enums'
 
 import {
-  isUtbetalingsperiode,
+  isInntekt,
   isPensjonsavtale,
   isPensjonsberegningArray,
   isPerson,
   isTpoMedlemskap,
+  isUtbetalingsperiode,
   isUnleashToggle,
   isUttaksalder,
   isSomeEnumKey,
 } from '../typeguards'
 
 describe('Typeguards', () => {
+  describe('isInntekt', () => {
+    it('returnerer true når input er et Inntekt-objekt', () => {
+      expect(
+        isInntekt({
+          beloep: 500000,
+          aar: 2021,
+        })
+      ).toEqual(true)
+    })
+
+    it('returnerer false når input ikke er et Inntekt-objekt', () => {
+      expect(isInntekt(undefined)).toEqual(false)
+      expect(isInntekt(null)).toEqual(false)
+      expect(isInntekt({})).toEqual(false)
+      expect(isInntekt({ beloep: 500000 })).toEqual(false)
+      expect(isInntekt({ beloep: 500000, aar: '2021' })).toEqual(false)
+      expect(isInntekt({ aar: 2021 })).toEqual(false)
+      expect(isInntekt({ beloep: '500000', aar: 2021 })).toEqual(false)
+    })
+  })
+
   describe('isUtbetalingsperiode', () => {
     it('returnerer true når typen er riktig', () => {
       expect(

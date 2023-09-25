@@ -58,6 +58,11 @@ declare type Person = {
   foedselsdato: string
 }
 
+declare type Inntekt = {
+  beloep: number
+  aar: number
+}
+
 declare type TpoMedlemskap = {
   harTjenestepensjonsforhold: boolean
 }
