@@ -74,7 +74,7 @@ export function Simulering(props: {
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
   const {
     data: pensjonsavtaler,
-    isLoading: isPensjonsavtalerLoading,
+    isFetching: isPensjonsavtalerLoading,
     isSuccess: isPensjonsavtalerSuccess,
     isError: isPensjonsavtalerError,
   } = usePensjonsavtalerQuery(
@@ -169,6 +169,13 @@ export function Simulering(props: {
         highcharts={Highcharts}
         options={chartOptions}
       />
+
+      <p>
+        {isPensjonsavtalerLoading
+          ? 'PENSJONSAVTALER LOADING'
+          : 'PENSJONSAVTALER KLAR'}
+      </p>
+      <p>{isLoading ? 'ALDERSP. LOADING' : 'ALDERSP. KLAR'}</p>
 
       {showButtonsAndTable && (
         <div className={styles.buttonRow}>

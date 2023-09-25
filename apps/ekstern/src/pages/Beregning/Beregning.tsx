@@ -87,7 +87,7 @@ export function Beregning() {
   // Hent alderspensjon + AFP
   const {
     data: alderspensjon,
-    isLoading,
+    isFetching,
     isError,
     error,
   } = useAlderspensjonQuery(
@@ -173,7 +173,7 @@ export function Beregning() {
                     // Inntekt kan ikke være undefined her fordi feil fanges på Steg 1 allerede
                   }
                   <Simulering
-                    isLoading={isLoading}
+                    isLoading={isFetching}
                     inntekt={inntekt as Inntekt}
                     alderspensjon={alderspensjon}
                     showAfp={afp === 'ja_privat'}
