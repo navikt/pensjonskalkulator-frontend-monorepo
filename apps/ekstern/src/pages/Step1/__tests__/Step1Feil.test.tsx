@@ -26,7 +26,7 @@ describe('Step 1 Feil', () => {
 
     const user = userEvent.setup()
 
-    const { store } = render(<Step1Feil />, {
+    render(<Step1Feil />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
