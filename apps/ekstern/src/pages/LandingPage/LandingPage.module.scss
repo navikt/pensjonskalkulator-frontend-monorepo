@@ -1,4 +1,10 @@
+@import '../../scss/variables';
+
 .landingPage {
   composes: innerframe from '../../scss/modules/frame.module.scss';
   composes: whitesection from '../../scss/modules/fadein.module.scss';
+
+  @media (min-width: $a-breakpoint-md) {
+    padding: var(--a-spacing-6) 0;
+  }
 }
