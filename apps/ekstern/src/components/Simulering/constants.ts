@@ -1,9 +1,6 @@
 export const MAX_UTTAKSALDER = 77
 export const COLUMN_WIDTH = 25
 export const TOOLTIP_YPOS = 35
-export const PENSJONSGIVENDE_DATA = [
-  650000, 260000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-]
 
 export const SERIES_COLORS = {
   SERIE_COLOR_INNTEKT: 'var(--a-gray-500)',

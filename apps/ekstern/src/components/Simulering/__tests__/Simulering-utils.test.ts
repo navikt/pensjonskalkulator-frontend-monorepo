@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { highchartsScrollingSelector } from '../constants'
 import {
   getChartDefaults,
+  processInntektArray,
   processPensjonsberegningArray,
   getAntallMaanederMedPensjon,
   processPensjonsavtalerArray,
@@ -64,6 +65,18 @@ describe('Simulering-utils', () => {
     })
   })
 
+  describe('processInntektArray', () => {
+    it('returnerer et array med en 0 verdi uten å feile hvis input er 0', () => {
+      expect(processInntektArray(0, 0)).toEqual([0])
+      expect(processInntektArray(0, 1)).toEqual([0])
+    })
+
+    it('returnerer riktig mappet array med beløp og 0 verdi', () => {
+      expect(processInntektArray(500000, 1)).toEqual([500000])
+      expect(processInntektArray(500000, 4)).toEqual([500000, 0, 0, 0])
+    })
+  })
+
   describe('processPensjonsberegningArray', () => {
     it('returnerer et array med en 0 verdi uten å feile hvis input er et tomt array', () => {
       expect(processPensjonsberegningArray()).toEqual([0])
@@ -90,6 +103,7 @@ describe('Simulering-utils', () => {
       ).toEqual([0, 20000, 80000, 80000])
     })
   })
+
   describe('getAntallMaanederMedPensjon', () => {
     it('returnerer riktig når året er hverken først eller sist', () => {
       expect(getAntallMaanederMedPensjon(false, false, 2, 6)).toBe(12)

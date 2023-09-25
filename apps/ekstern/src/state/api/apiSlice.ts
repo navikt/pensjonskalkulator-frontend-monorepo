@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
+  isInntekt,
   isPensjonsberegningArray,
   isPerson,
   isPensjonsavtale,
@@ -21,8 +22,53 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
   }),
-  tagTypes: ['Person', 'Alderspensjon'],
+  tagTypes: ['Person', 'Inntekt', 'Alderspensjon'],
   endpoints: (builder) => ({
+    getInntekt: builder.query<Inntekt, void>({
+      query: () => '/inntekt',
+      providesTags: ['Inntekt'],
+      transformResponse: (response) => {
+        if (!isInntekt(response)) {
+          throw new Error(`Mottok ugyldig inntekt: ${response}`)
+        }
+        return response
+      },
+    }),
+    getPerson: builder.query<Person, void>({
+      query: () => '/person',
+      providesTags: ['Person'],
+      transformResponse: (response) => {
+        if (!isPerson(response)) {
+          throw new Error(`Mottok ugyldig person: ${response}`)
+        }
+        return response
+      },
+    }),
+    getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
+      query: () => '/tpo-medlemskap',
+      transformResponse: (response: TpoMedlemskap) => {
+        if (!isTpoMedlemskap(response)) {
+          throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
+        }
+        return response
+      },
+    }),
+    tidligsteUttaksalder: builder.query<
+      Uttaksalder,
+      UttaksalderRequestBody | void
+    >({
+      query: (body) => ({
+        url: '/tidligste-uttaksalder',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: Uttaksalder) => {
+        if (!isUttaksalder(response)) {
+          throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
+        }
+        return response
+      },
+    }),
     pensjonsavtaler: builder.query<
       { avtaler: Pensjonsavtale[]; partialResponse: boolean },
       PensjonsavtalerRequestBody
@@ -51,22 +97,7 @@ export const apiSlice = createApi({
         }
       },
     }),
-    tidligsteUttaksalder: builder.query<
-      Uttaksalder,
-      UttaksalderRequestBody | void
-    >({
-      query: (body) => ({
-        url: '/tidligste-uttaksalder',
-        method: 'POST',
-        body,
-      }),
-      transformResponse: (response: Uttaksalder) => {
-        if (!isUttaksalder(response)) {
-          throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
-        }
-        return response
-      },
-    }),
+
     alderspensjon: builder.query<
       AlderspensjonResponseBody,
       AlderspensjonRequestBody
@@ -89,25 +120,7 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getPerson: builder.query<Person, void>({
-      query: () => '/person',
-      providesTags: ['Person'],
-      transformResponse: (response) => {
-        if (!isPerson(response)) {
-          throw new Error(`Mottok ugyldig person: ${response}`)
-        }
-        return response
-      },
-    }),
-    getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
-      query: () => '/tpo-medlemskap',
-      transformResponse: (response: TpoMedlemskap) => {
-        if (!isTpoMedlemskap(response)) {
-          throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
-        }
-        return response
-      },
-    }),
+
     getSpraakvelgerFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.disable-spraakvelger',
       transformResponse: (response: UnleashToggle) => {
@@ -121,10 +134,11 @@ export const apiSlice = createApi({
 })
 
 export const {
+  useGetInntektQuery,
+  useGetPersonQuery,
+  useGetTpoMedlemskapQuery,
   useTidligsteUttaksalderQuery,
   useAlderspensjonQuery,
-  useGetPersonQuery,
   usePensjonsavtalerQuery,
-  useGetTpoMedlemskapQuery,
   useGetSpraakvelgerFeatureToggleQuery,
 } = apiSlice
