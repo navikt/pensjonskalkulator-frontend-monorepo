@@ -55,7 +55,7 @@ export function GrunnlagPensjonsavtaler() {
 
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
-    navigate(paths.login)
+    navigate(paths.start)
   }
 
   return (
