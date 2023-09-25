@@ -33,7 +33,7 @@ describe('Beregning', () => {
     })
     it('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
       const user = userEvent.setup()
-      mockErrorResponse('/tidligste-uttaksalder', {
+      mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
       })
       const { container } = render(<Beregning />, {
@@ -41,6 +41,7 @@ describe('Beregning', () => {
           userInput: {
             ...userInputInitialState,
             samtykke: true,
+            samboer: false,
           },
         },
       })
@@ -164,20 +165,21 @@ describe('Beregning', () => {
     it('viser feilmelding og skjuler Grunnlag når tidligste-uttaksalder har feilet og brukeren prøver å simulere med for lav uttaksalder', async () => {
       const currentSimulation: Simulation = {
         startAlder: 68,
-        startMaaned: 1,
+        startMaaned: 5,
         uttaksgrad: 100,
         aarligInntekt: 0,
       }
       const user = userEvent.setup()
-      mockErrorResponse('/tidligste-uttaksalder', {
+      mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
       })
-      render(<Beregning />, {
+      const { asFragment } = render(<Beregning />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
             formatertUttaksalder: '68 år og 5 måneder',
             samtykke: true,
+            samboer: false,
             currentSimulation: currentSimulation,
           },
         },

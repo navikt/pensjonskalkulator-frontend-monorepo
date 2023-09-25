@@ -14,7 +14,7 @@ import {
   PensjonsavtalerRequestBody,
   AlderspensjonRequestBody,
   AlderspensjonResponseBody,
-  UttaksalderRequestBody,
+  TidligsteUttaksalderRequestBody,
 } from '@/state/api/apiSlice.types'
 
 export const apiSlice = createApi({
@@ -55,10 +55,10 @@ export const apiSlice = createApi({
     }),
     tidligsteUttaksalder: builder.query<
       Uttaksalder,
-      UttaksalderRequestBody | void
+      TidligsteUttaksalderRequestBody | void
     >({
       query: (body) => ({
-        url: '/tidligste-uttaksalder',
+        url: '/v1/tidligste-uttaksalder',
         method: 'POST',
         body,
       }),
