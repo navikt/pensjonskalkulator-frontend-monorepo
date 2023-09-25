@@ -39,7 +39,7 @@ export function LandingPage() {
 
   return (
     <div className={styles.landingPage}>
-      <VStack gap="4">
+      <VStack gap="10">
         <section>
           <VStack gap="2">
             <Heading size="medium" level="2">
@@ -71,7 +71,7 @@ export function LandingPage() {
         </section>
 
         <section>
-          <VStack gap="2">
+          <VStack gap="4">
             <Heading size="medium" level="2">
               {intl.formatMessage({
                 id: 'landingsside.for.deg.foedt.etter.1963',
@@ -104,7 +104,7 @@ export function LandingPage() {
                 })}
               </li>
             </ul>
-            <HStack gap="2">
+            <HStack gap="4">
               <Button variant="secondary" onClick={gaaTilDetaljertKalkulator}>
                 {isLoggedIn
                   ? intl.formatMessage({
@@ -149,6 +149,19 @@ export function LandingPage() {
                   id: 'landingsside.body.uinnlogget_kalkulator',
                 })}
               </BodyLong>
+
+              <div>
+                <Button
+                  data-testid="landingside-enkel-kalkulator-button"
+                  variant="secondary"
+                  /* c8 ignore next 1 */
+                  onClick={() => navigate('/start')}
+                >
+                  {intl.formatMessage({
+                    id: 'landingsside.button.enkel_kalkulator_utlogget',
+                  })}
+                </Button>
+              </div>
             </VStack>
           </section>
         )}
