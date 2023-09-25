@@ -1,13 +1,9 @@
 import React from 'react'
 
 import { Accordion } from '@navikt/ds-react'
-import { vi } from 'vitest'
 
 import { GrunnlagSection } from '@/components/Grunnlag/GrunnlagSection'
-import * as velgUttaksalderUtils from '@/components/VelgUttaksalder/utils'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen } from '@/test-utils'
 
 describe('GrunnlagSection', () => {
   it('Når isLoading er true, viser loader, headerTitle og innhold, men ikke headerValue', async () => {

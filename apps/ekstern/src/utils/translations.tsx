@@ -1,9 +1,7 @@
-import { Link as ReactRouterLink } from 'react-router-dom'
-
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
 
-import { externalUrls, paths } from '@/router'
+import { externalUrls } from '@/router'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const formatMessageValues: Record<string, any> = {
   detaljertKalkulatorLink: (chunks: string) => (
@@ -40,11 +38,6 @@ export const formatMessageValues: Record<string, any> = {
     <Link href={externalUrls.norskPensjkon} target="_blank">
       {chunks}
       <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
-    </Link>
-  ),
-  startLink: (chunks: string) => (
-    <Link as={ReactRouterLink} to={paths.start}>
-      {chunks}
     </Link>
   ),
   br: <br />,

@@ -3,21 +3,21 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { Step1 } from '..'
+import { Step0 } from '..'
 import { mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 
-describe('Step 1', () => {
+describe('Step 0', () => {
   it('har riktig sidetittel', () => {
-    render(<Step1 />)
-    expect(document.title).toBe('application.title.stegvisning.step1')
+    render(<Step0 />)
+    expect(document.title).toBe('application.title.stegvisning.step0')
   })
 
   it('henter personopplysninger og viser hilsen med fornavnet til brukeren', async () => {
-    render(<Step1 />)
+    render(<Step0 />)
     await waitFor(() => {
       expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
     })
@@ -25,7 +25,7 @@ describe('Step 1', () => {
 
   it('rendrer hilsen uten fornavn når henting av personopplysninger feiler', async () => {
     mockErrorResponse('/person')
-    render(<Step1 />)
+    render(<Step0 />)
     await waitFor(() => {
       expect(screen.getByText('stegvisning.start.title!')).toBeVisible()
     })
@@ -37,10 +37,10 @@ describe('Step 1', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Step1 />)
+    render(<Step0 />)
     await waitFor(async () => {
       await user.click(await screen.findByText('stegvisning.start.start'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
+      expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
     })
   })
 
@@ -60,10 +60,10 @@ describe('Step 1', () => {
       })
     invalidateTagsMock = Object.assign(invalidateTagsMock, { match: vi.fn() })
 
-    render(<Step1 />)
+    render(<Step0 />)
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.start.start'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
+      expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
       expect(invalidateTagsMock).toHaveBeenCalledWith(['Person'])
     })
   })
@@ -76,7 +76,7 @@ describe('Step 1', () => {
     const router = createMemoryRouter([
       {
         path: '/',
-        element: <Step1 />,
+        element: <Step0 />,
         ErrorBoundary: RouteErrorBoundary,
       },
     ])
@@ -96,7 +96,7 @@ describe('Step 1', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Step1 />)
+    render(<Step0 />)
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.avbryt'))
       expect(navigateMock).toHaveBeenCalledWith(paths.login)

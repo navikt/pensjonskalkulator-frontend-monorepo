@@ -62,7 +62,7 @@ describe('Step 2', () => {
 
     await user.click(screen.getByText('stegvisning.tilbake'))
 
-    expect(navigateMock).toHaveBeenCalledWith(paths.start)
+    expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
     expect(store.getState().userInput.samtykke).toBe(null)
   })
 

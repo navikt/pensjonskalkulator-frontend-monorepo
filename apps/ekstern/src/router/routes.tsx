@@ -13,11 +13,12 @@ import { Step4 } from '@/pages/Step4'
 import { Step5, Step5Feil } from '@/pages/Step5'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
+import { Step0 } from '@/pages/Step0'
 
 export const BASE_PATH = '/pensjon/kalkulator'
 
 export const externalUrls = {
-  dinPensjon: 'http://nav.no/pensjon',
+  dinPensjon: 'https://nav.no/pensjon',
   detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
@@ -30,6 +31,7 @@ export const paths = {
   login: '/login',
   start: '/start',
   samtykke: '/samtykke',
+  utenlandsopphold: '/utenlandsopphold',
   offentligTp: '/offentlig-tp',
   afp: '/afp',
   sivilstand: '/sivilstand',
@@ -64,6 +66,10 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.start,
+        element: <Step0 />,
+      },
+      {
+        path: paths.utenlandsopphold,
         element: <Step1 />,
       },
       {

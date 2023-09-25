@@ -30,10 +30,14 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
 
   const formatertAfp = React.useMemo(() => formatAfp(afp ?? 'vet_ikke'), [afp])
 
-  const formatertSivilstand = React.useMemo(() => {
-    const sivilstand = person ? formatSivilstand(person.sivilstand) : ''
-    return `${sivilstand}, ${harSamboer ? 'med' : 'uten'} samboer`
-  }, [person])
+  const formatertSivilstand = React.useMemo(
+    () =>
+      person
+        ? formatSivilstand(person.sivilstand, { harSamboer: !!harSamboer })
+        : '',
+
+    [person]
+  )
 
   return (
     <section className={styles.section}>

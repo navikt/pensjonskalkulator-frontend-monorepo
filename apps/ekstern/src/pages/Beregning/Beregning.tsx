@@ -147,13 +147,6 @@ export function Beregning() {
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}
           >
-            {isLoading && (
-              <Loader
-                data-testid="alderspensjon-loader"
-                size="3xlarge"
-                title="Et øyeblikk, vi beregner pensjonen din"
-              />
-            )}
             {isError ||
             isInntektError ||
             (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
@@ -180,6 +173,7 @@ export function Beregning() {
                     // Inntekt kan ikke være undefined her fordi feil fanges på Steg 1 allerede
                   }
                   <Simulering
+                    isLoading={isLoading}
                     inntekt={inntekt as Inntekt}
                     alderspensjon={alderspensjon}
                     showAfp={afp === 'ja_privat'}

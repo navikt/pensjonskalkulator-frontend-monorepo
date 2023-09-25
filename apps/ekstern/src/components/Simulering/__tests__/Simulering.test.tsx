@@ -24,6 +24,45 @@ describe('Simulering', () => {
     vi.clearAllMocks()
   })
   describe('Gitt at brukeren IKKE samtykker', () => {
+    it('Når alderspensjon laster så vises det en spinner', async () => {
+      const { container } = render(
+        <Simulering
+          isLoading={true}
+          inntekt={inntekt}
+          alderspensjon={alderspensjonData}
+          showAfp={false}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: false,
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+
+      await waitFor(async () => {
+        expect(
+          await screen.findByTestId('highcharts-done-drawing')
+        ).toBeVisible()
+      })
+
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      expect(
+        container.getElementsByClassName('highcharts-loading')
+      ).toHaveLength(1)
+    })
+
     it('Når brukeren ikke velger AFP, viser kun inntekt og alderspensjon', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
@@ -31,6 +70,7 @@ describe('Simulering', () => {
       )
       const { container } = render(
         <Simulering
+          isLoading={false}
           inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
@@ -71,6 +111,7 @@ describe('Simulering', () => {
     it('Når brukeren velger AFP-privat, viser inntekt, alderspensjon og AFP', async () => {
       const { container } = render(
         <Simulering
+          isLoading={false}
           inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={true}
@@ -115,6 +156,7 @@ describe('Simulering', () => {
       )
       const { container } = render(
         <Simulering
+          isLoading={false}
           inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
@@ -150,6 +192,7 @@ describe('Simulering', () => {
         },
         { skip: false }
       )
+
       // Nødvendig for at animasjonen rekker å bli ferdig
       await act(async () => {
         await new Promise((r) => setTimeout(r, 500))
@@ -176,6 +219,7 @@ describe('Simulering', () => {
     it('Når brukeren velger AFP-privat, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
       const { container } = render(
         <Simulering
+          isLoading={false}
           inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={true}
@@ -226,6 +270,7 @@ describe('Simulering', () => {
 
       const { container } = render(
         <Simulering
+          isLoading={false}
           inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
@@ -292,6 +337,7 @@ describe('Simulering', () => {
       })
       render(
         <Simulering
+          isLoading={false}
           inntekt={inntekt}
           alderspensjon={alderspensjonData}
           showAfp={false}
@@ -334,9 +380,10 @@ describe('Simulering', () => {
           }}
         >
           <Simulering
-            inntekt={inntekt}
+            isLoading={false}
             showAfp={false}
             showButtonsAndTable={false}
+            inntekt={inntekt}
           />
         </AccordionContext.Provider>,
         {
@@ -384,9 +431,10 @@ describe('Simulering', () => {
           }}
         >
           <Simulering
-            inntekt={inntekt}
+            isLoading={false}
             showAfp={false}
             showButtonsAndTable={false}
+            inntekt={inntekt}
           />
         </AccordionContext.Provider>,
         {
@@ -416,9 +464,10 @@ describe('Simulering', () => {
   it('viser tabell', async () => {
     render(
       <Simulering
-        inntekt={inntekt}
+        isLoading={false}
         showAfp={true}
         showButtonsAndTable={true}
+        inntekt={inntekt}
       />,
       {
         preloadedState: {
