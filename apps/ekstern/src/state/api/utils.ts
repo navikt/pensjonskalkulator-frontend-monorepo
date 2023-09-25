@@ -11,7 +11,7 @@ export const generatePensjonsavtalerRequestBody = (
     uttaksperioder: [
       {
         startAlder: uttaksalder.aar,
-        startMaaned: uttaksalder.maaned > 0 ? uttaksalder.maaned : 1,
+        startMaaned: uttaksalder.maaned > 0 ? uttaksalder.maaned : 0,
         grad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
         aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon
       },
@@ -59,7 +59,7 @@ export const generateAlderspensjonRequestBody = (args: {
     uttaksgrad,
     foersteUttaksalder: {
       aar: startAlder,
-      maaned: startMaaned > 0 ? startMaaned : 1,
+      maaned: startMaaned > 0 ? startMaaned : 0,
     },
     foedselsdato,
     sivilstand:
