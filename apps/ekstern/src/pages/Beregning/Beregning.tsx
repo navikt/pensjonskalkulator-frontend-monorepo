@@ -145,13 +145,6 @@ export function Beregning() {
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}
           >
-            {isLoading && (
-              <Loader
-                data-testid="alderspensjon-loader"
-                size="3xlarge"
-                title="Et øyeblikk, vi beregner pensjonen din"
-              />
-            )}
             {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
               <>
                 <Heading level="2" size="small">
@@ -173,6 +166,7 @@ export function Beregning() {
                   }}
                 >
                   <Simulering
+                    isLoading={isLoading}
                     alderspensjon={alderspensjon}
                     showAfp={afp === 'ja_privat'}
                     showButtonsAndTable={

@@ -81,7 +81,9 @@ describe('Beregning', () => {
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
         '68 år'
       )
-      expect(await screen.findByTestId('alderspensjon-loader')).toBeVisible()
+      expect(
+        container.getElementsByClassName('highcharts-loading')
+      ).toHaveLength(1)
       await waitFor(() => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
@@ -153,11 +155,6 @@ describe('Beregning', () => {
         hasRouter: false,
       })
       await user.click(await screen.findByText('68 år'))
-      await waitFor(async () => {
-        expect(
-          screen.queryByTestId('alderspensjon-loader')
-        ).not.toBeInTheDocument()
-      })
       expect(await screen.findByText('error.global.title')).toBeVisible()
       expect(await screen.findByText('error.global.ingress')).toBeVisible()
 
