@@ -183,7 +183,9 @@ const translations = {
     'Du må bruke vår detaljerte kalkulator for å beregne din pensjon.',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
   'landingsside.velge_mellom_detaljert_og_enkel':
-    'Du kan velge mellom enkel eller detaljert kalkulator. Enkel kalkulator passer for deg som vil ha en rask oversikt. Detaljert kalkulator passer for deg som vil ha en mer spesifisert beregning. Enkel kalkulator er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
+    'Du kan velge mellom enkel eller detaljert kalkulator. Enkel kalkulator passer for deg som vil ha en rask oversikt. Detaljert kalkulator passer for deg som vil ha en mer spesifisert beregning. ',
+  'landingsside.velge_mellom_detaljert_og_enkel_2':
+    'Enkel kalkulator er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
   'landingsside.liste.1':
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
 

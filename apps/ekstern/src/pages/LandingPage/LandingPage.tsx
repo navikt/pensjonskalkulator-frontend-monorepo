@@ -82,6 +82,11 @@ export function LandingPage() {
                 id: 'landingsside.velge_mellom_detaljert_og_enkel',
               })}
             </BodyLong>
+            <BodyLong>
+              {intl.formatMessage({
+                id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
+              })}
+            </BodyLong>
             <ul>
               <li>
                 {intl.formatMessage({
