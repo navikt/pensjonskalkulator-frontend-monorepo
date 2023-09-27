@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Henvisning1963 > rendrer 1`] = `
+<DocumentFragment>
+  <section
+    aria-live="polite"
+    class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
+    data-testid="henvisning-1963"
+  >
+    <h2
+      class="navds-heading navds-heading--medium navds-typo--spacing"
+    >
+      error.du_kan_ikke_bruke_enkel_kalkulator
+    </h2>
+    <div
+      class="navds-stack navds-vstack"
+      style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
+    >
+      <p
+        class="navds-body-long navds-body-long--large"
+      >
+        henvisning1963.body
+      </p>
+      <div
+        class="navds-stack navds-hstack"
+        style="--__ac-stack-direction: row; --__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
+      >
+        <button
+          class="navds-button navds-button--primary navds-button--medium"
+          data-testid="henvisning-1963.gaa-til-detaljert-kalkulator-knapp"
+          type="button"
+        >
+          <span
+            class="navds-label"
+          >
+            henvisning1963.detaljert_kalkulator
+          </span>
+        </button>
+        <button
+          class="navds-button navds-button--secondary navds-button--medium"
+          data-testid="henvisning-1963.avbryt-knapp"
+          type="button"
+        >
+          <span
+            class="navds-label"
+          >
+            stegvisning.avbryt
+          </span>
+        </button>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

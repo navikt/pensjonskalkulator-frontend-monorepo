@@ -4,7 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, it, vi } from 'vitest'
 
 import { Step0 } from '..'
-import { mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
@@ -100,6 +100,46 @@ describe('Step 0', () => {
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.avbryt'))
       expect(navigateMock).toHaveBeenCalledWith(paths.login)
+    })
+  })
+
+  it('redirigerer til feilside dersom bruker er født før 1963', async () => {
+    mockResponse('/person', {
+      json: {
+        fornavn: 'Test',
+        sivilstand: 'UGIFT',
+        foedselsdato: '1960-12-31',
+      },
+    })
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    render(<Step0 />)
+
+    // expect(navigateMock).toHaveBeenCalledWith(paths.henvisning1963)
+    await waitFor(async () => {
+      expect(navigateMock).toHaveBeenCalledWith(paths.henvisning1963)
+    })
+  })
+
+  it('redirigerer til feilside dersom bruker har uføretrygd eller gjenlevendepensjon', async () => {
+    mockResponse('/sak-status', {
+      json: {
+        harUfoeretrygdEllerGjenlevendeytelse: true,
+      },
+    })
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    render(<Step0 />)
+
+    // expect(navigateMock).toHaveBeenCalledWith(paths.henvisning1963)
+    await waitFor(async () => {
+      expect(navigateMock).toHaveBeenCalledWith(
+        paths.henvisningUfoeretrygdGjenlevendepensjon
+      )
     })
   })
 })

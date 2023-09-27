@@ -7,6 +7,7 @@ import {
   isTpoMedlemskap,
   isUnleashToggle,
   isUttaksalder,
+  isSakStatus,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
 import {
@@ -16,6 +17,8 @@ import {
   AlderspensjonResponseBody,
   UttaksalderRequestBody,
 } from '@/state/api/apiSlice.types'
+
+import { parse } from 'date-fns'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -41,7 +44,14 @@ export const apiSlice = createApi({
         if (!isPerson(response)) {
           throw new Error(`Mottok ugyldig person: ${response}`)
         }
-        return response
+        return {
+          ...response,
+          foedselsdato: parse(
+            response.foedselsdato,
+            'yyyy-MM-dd',
+            new Date()
+          ).toISOString(),
+        }
       },
     }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
@@ -130,12 +140,22 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getSakStatus: builder.query<SakStatus, void>({
+      query: () => '/sak-status',
+      transformResponse: (response: any) => {
+        if (!isSakStatus(response)) {
+          throw new Error(`Mottok ugyldig sak response:`, response)
+        }
+        return response
+      },
+    }),
   }),
 })
 
 export const {
   useGetInntektQuery,
   useGetPersonQuery,
+  useGetSakStatusQuery,
   useGetTpoMedlemskapQuery,
   useTidligsteUttaksalderQuery,
   useAlderspensjonQuery,

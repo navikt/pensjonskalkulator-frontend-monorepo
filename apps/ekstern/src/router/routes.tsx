@@ -2,6 +2,8 @@ import { redirect } from 'react-router'
 import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
 import { PageFramework } from '@/components/common/PageFramework'
+import Henvisning1963 from '@/components/Henvisning1963'
+import HenvisningUfoeretrygdGjenlevendepensjon from '@/components/HenvisningUfoeretrygdGjenlevendepensjon'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
 import { LandingPage } from '@/pages/LandingPage'
@@ -39,6 +41,9 @@ export const paths = {
   sivilstandFeil: '/sivilstand-feil',
   beregning: '/beregning',
   forbehold: '/forbehold',
+  henvisningUfoeretrygdGjenlevendepensjon:
+    '/henvisning-ufoeretrygd-gjenlevendepensjon',
+  henvisning1963: '/henvisning-1963',
 } as const
 
 const directAccessGuard = async () => {
@@ -68,6 +73,14 @@ export const routes: RouteObject[] = [
       {
         path: paths.start,
         element: <Step0 />,
+      },
+      {
+        path: paths.henvisningUfoeretrygdGjenlevendepensjon,
+        element: <HenvisningUfoeretrygdGjenlevendepensjon />,
+      },
+      {
+        path: paths.henvisning1963,
+        element: <Henvisning1963 onAvbryt={console.log} />,
       },
       {
         path: paths.utenlandsopphold,

@@ -202,5 +202,13 @@ const translations = {
     'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv og den beregner kun alderspensjon fra folketrygden (NAV).',
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i enkel kalkulator',
+  'error.du_kan_ikke_bruke_enkel_kalkulator':
+    'Du kan dessverre ikke bruke enkel kalkulator',
+  'henvisning1963.body':
+    'Siden du er født før 1963 må du bruke detaljert kalkulator',
+  'henvisning1963.detaljert_kalkulator': 'Detaljert kalkulator',
+  'henvisning_ufoere_gjenlevende.detaljert_kalkulator': 'Detaljert kalkulator',
+  'henvisning_ufoere_gjenlevende.body':
+    'Siden du mottar uføretrygd eller gjenlevendepensjon, må du bruke detaljert kalkulator.',
 }
 export const getTranslation_nb = () => translations
