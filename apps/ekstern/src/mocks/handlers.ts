@@ -33,7 +33,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     )
   }),
 
-  rest.post(`${baseUrl}/tidligste-uttaksalder`, (req, res, ctx) => {
+  rest.post(`${baseUrl}/v1/tidligste-uttaksalder`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json(tidligstemuligeuttaksalderResponse),

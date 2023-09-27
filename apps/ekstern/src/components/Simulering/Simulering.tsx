@@ -170,13 +170,6 @@ export function Simulering(props: {
         options={chartOptions}
       />
 
-      <p>
-        {isPensjonsavtalerLoading
-          ? 'PENSJONSAVTALER LOADING'
-          : 'PENSJONSAVTALER KLAR'}
-      </p>
-      <p>{isLoading ? 'ALDERSP. LOADING' : 'ALDERSP. KLAR'}</p>
-
       {showButtonsAndTable && (
         <div className={styles.buttonRow}>
           <div className={styles.buttonRowElement}>

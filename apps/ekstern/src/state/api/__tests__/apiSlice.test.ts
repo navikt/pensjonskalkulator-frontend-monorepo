@@ -281,7 +281,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
-      mockErrorResponse('/tidligste-uttaksalder', {
+      mockErrorResponse('/v1/tidligste-uttaksalder', {
         status: 500,
         method: 'post',
       })
@@ -295,7 +295,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uforventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
-      mockResponse('/tidligste-uttaksalder', {
+      mockResponse('/v1/tidligste-uttaksalder', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',

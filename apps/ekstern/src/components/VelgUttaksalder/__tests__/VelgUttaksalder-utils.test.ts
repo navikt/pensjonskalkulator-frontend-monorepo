@@ -78,7 +78,7 @@ describe('VelgUttaksalder-utils', () => {
           aar: 62,
           maaned: 1,
         })
-      ).toBe('62 år')
+      ).toBe('62 år og 1 måned')
     })
     it('returnerer riktig streng med år og kompakt måned', () => {
       expect(formatUttaksalder({ aar: 62, maaned: 3 }, { compact: true })).toBe(

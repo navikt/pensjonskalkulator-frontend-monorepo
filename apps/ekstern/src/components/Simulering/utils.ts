@@ -48,17 +48,15 @@ export const processPensjonsberegningArray = (
 export const getAntallMaanederMedPensjon = (
   isFirstYear: boolean,
   isLastYear: boolean,
-  startMonth: number, // Heltall 1-12 fra Norsk Pensjon
-  sluttMonth: number // Heltall 1-12 fra Norsk Pensjon
+  startMonth: number, // Heltall 0-11
+  sluttMonth: number // Heltall 0-11
 ) => {
-  // I måten NAV beregner er start- og sluttMåned heltall fra 0-12. Tilpasser startMonth for enklere logikk
-  const startMonthNav = startMonth - 1
   if (!isFirstYear && !isLastYear) {
     return 12
   }
   if (isFirstYear && !isLastYear) {
     // Gjelder fra og med måneden etter fødseslsemåned (såkalt 0 måneden) til og med bursdagsmaaneden igjen
-    return 12 - startMonthNav
+    return 12 - startMonth
   }
   if (!isFirstYear && isLastYear) {
     // Gjelder fra og med måneden etter fødseslsmåned (såkalt 0 måneden) til og med sluttMaaneden
@@ -66,7 +64,7 @@ export const getAntallMaanederMedPensjon = (
   }
   if (isFirstYear && isLastYear) {
     //  Gjelder fra og med måneden etter fødseslsmåned  (såkalt 0 måneden) til og med sluttmaaneden
-    return sluttMonth - startMonthNav
+    return sluttMonth - startMonth
   }
   return 0
 }

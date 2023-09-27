@@ -82,7 +82,11 @@ export function Beregning() {
     data: tidligstMuligUttak,
     isLoading: isTidligstMuligUttaksalderLoading,
     isError: isTidligstMuligUttaksalderError,
-  } = useTidligsteUttaksalderQuery()
+  } = useTidligsteUttaksalderQuery({
+    sivilstand: person?.sivilstand ?? undefined,
+    harEps: harSamboer !== null ? harSamboer : undefined,
+    sisteInntekt: inntekt?.beloep ?? undefined,
+  })
 
   // Hent alderspensjon + AFP
   const {
