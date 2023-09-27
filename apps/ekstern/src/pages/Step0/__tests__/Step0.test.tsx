@@ -1,12 +1,10 @@
 import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
 import { Step0 } from '..'
 import { mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router'
-import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 

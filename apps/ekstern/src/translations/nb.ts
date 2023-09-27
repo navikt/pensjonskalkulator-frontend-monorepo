@@ -11,7 +11,7 @@ const translations = {
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
-  'error.global.title': 'Oops! Det har oppstått en uventet feil',
+  'error.global.title': 'Oops! Det har oppstått en uventet feil.',
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
   'error.global.button': 'Avbryt',
   'error.404.title': 'Oops! Siden du leter etter finnes ikke.',

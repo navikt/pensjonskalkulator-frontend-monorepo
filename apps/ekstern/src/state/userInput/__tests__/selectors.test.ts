@@ -57,60 +57,64 @@ describe('userInput selectors', () => {
     expect(selectSamboerFraBrukerInput(state)).toBe(true)
   })
 
-  // describe('selectSamboerFraSivilstand', () => {
-  //   it('returnerer false når sivilstanden medfører at personen ikke har samboer', () => {
-  //     const fakeApiCall = {
-  //       queries: {
-  //         ['getPerson(undefined)']: {
-  //           status: 'fulfilled',
-  //           endpointName: 'getPerson',
-  //           requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-  //           startedTimeStamp: 1688046411971,
-  //           data: {
-  //             fornavn: 'Aprikos',
-  //             sivilstand: 'UGIFT',
-  //             foedselsdato: '1963-04-30',
-  //           },
-  //           fulfilledTimeStamp: 1688046412103,
-  //         },
-  //       },
-  //     }
+  describe('selectSamboerFraSivilstand', () => {
+    it('returnerer false når sivilstanden medfører at personen ikke har samboer', () => {
+      const fakeApiCall = {
+        queries: {
+          ['getPerson(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getPerson',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              fornavn: 'Aprikos',
+              sivilstand: 'UGIFT',
+              foedselsdato: '1963-04-30',
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
 
-  //     const state: RootState = {
-  //       ...initialState,
-  //       api: {
-  //         ...fakeApiCall,
-  //       },
-  //     }
-  //     expect(selectSamboerFraSivilstand(state)).toBe(false)
-  //   })
-  //   it('returnerer true når sivilstanden medfører at personen har samboer', () => {
-  //     const fakeApiCall = {
-  //       queries: {
-  //         ['getPerson(undefined)']: {
-  //           status: 'fulfilled',
-  //           endpointName: 'getPerson',
-  //           requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-  //           startedTimeStamp: 1688046411971,
-  //           data: {
-  //             fornavn: 'Aprikos',
-  //             sivilstand: 'GIFT',
-  //             foedselsdato: '1963-04-30',
-  //           },
-  //           fulfilledTimeStamp: 1688046412103,
-  //         },
-  //       },
-  //     }
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+      }
+      expect(selectSamboerFraSivilstand(state)).toBe(false)
+    })
+    it('returnerer true når sivilstanden medfører at personen har samboer', () => {
+      const fakeApiCall = {
+        queries: {
+          ['getPerson(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getPerson',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              fornavn: 'Aprikos',
+              sivilstand: 'GIFT',
+              foedselsdato: '1963-04-30',
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
 
-  //     const state: RootState = {
-  //       ...initialState,
-  //       api: {
-  //         ...fakeApiCall,
-  //       },
-  //     }
-  //     expect(selectSamboerFraSivilstand(state)).toBe(true)
-  //   })
-  // })
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+      }
+      expect(selectSamboerFraSivilstand(state)).toBe(true)
+    })
+  })
 
   describe('selectSamboer', () => {
     it('returnerer samboerskap basert på svaret som brukeren har oppgitt, til tross for at sivilstanden sier noe annet', () => {
@@ -133,6 +137,8 @@ describe('userInput selectors', () => {
 
       const state: RootState = {
         ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
         api: {
           ...fakeApiCall,
         },
@@ -164,6 +170,8 @@ describe('userInput selectors', () => {
 
       const state: RootState = {
         ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
         api: {
           ...fakeApiCall,
         },
