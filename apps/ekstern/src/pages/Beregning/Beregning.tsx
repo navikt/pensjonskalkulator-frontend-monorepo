@@ -85,7 +85,7 @@ export function Beregning() {
   } = useTidligsteUttaksalderQuery({
     sivilstand: person?.sivilstand ?? undefined,
     harEps: harSamboer !== null ? harSamboer : undefined,
-    inntekt: inntekt?.beloep ?? undefined,
+    sisteInntekt: inntekt?.beloep ?? undefined,
   })
 
   // Hent alderspensjon + AFP

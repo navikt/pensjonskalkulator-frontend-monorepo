@@ -35,5 +35,5 @@ export type AlderspensjonResponseBody = {
 export type TidligsteUttaksalderRequestBody = {
   sivilstand?: Sivilstand
   harEps?: boolean
-  inntekt?: number
+  sisteInntekt?: number
 }
