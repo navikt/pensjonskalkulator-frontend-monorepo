@@ -32,8 +32,8 @@ export type AlderspensjonResponseBody = {
   vilkaarErOppfylt: boolean
 }
 
-export type UttaksalderRequestBody = {
+export type TidligsteUttaksalderRequestBody = {
   sivilstand?: Sivilstand
   harEps?: boolean
-  sisteInntekt?: number
+  inntekt?: number
 }

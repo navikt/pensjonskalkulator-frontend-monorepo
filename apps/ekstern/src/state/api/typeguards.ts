@@ -34,15 +34,15 @@ export const isUtbetalingsperiode = (
   const harFeilSluttAlder =
     data.sluttAlder && typeof data.sluttAlder !== 'number'
   const harFeilSluttMaaned =
-    data.sluttMaaned && typeof data.sluttMaaned !== 'number'
+    data.sluttMaaned !== undefined && typeof data.sluttMaaned !== 'number'
   return (
     data.startAlder &&
     typeof data.startAlder === 'number' &&
-    data.startMaaned &&
+    data.startMaaned !== undefined &&
     typeof data.startMaaned === 'number' &&
-    data.grad &&
+    data.grad !== undefined &&
     typeof data.grad === 'number' &&
-    data.aarligUtbetaling &&
+    data.aarligUtbetaling !== undefined &&
     typeof data.aarligUtbetaling === 'number' &&
     !harFeilSluttAlder &&
     !harFeilSluttMaaned

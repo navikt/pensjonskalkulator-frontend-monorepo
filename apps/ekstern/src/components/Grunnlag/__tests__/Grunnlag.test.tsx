@@ -34,7 +34,7 @@ describe('Grunnlag', () => {
       render(
         <Grunnlag
           inntekt={{ beloep: 500000, aar: 2021 }}
-          tidligstMuligUttak={{ aar: 67, maaned: 1 }}
+          tidligstMuligUttak={{ aar: 67, maaned: 0 }}
         />
       )
       expect(

@@ -29,9 +29,9 @@ describe('Simulering-utils', () => {
   }) => {
     const {
       startAlder,
-      startMaaned = 1,
+      startMaaned = 0,
       sluttAlder,
-      sluttMaaned = 1,
+      sluttMaaned = 0,
       grad = 100,
     } = args
     return {
@@ -109,20 +109,21 @@ describe('Simulering-utils', () => {
       expect(getAntallMaanederMedPensjon(false, false, 2, 6)).toBe(12)
     })
     it('returnerer riktig når året er først', () => {
-      expect(getAntallMaanederMedPensjon(true, false, 1, 6)).toBe(12)
-      expect(getAntallMaanederMedPensjon(true, false, 2, 6)).toBe(11)
-      expect(getAntallMaanederMedPensjon(true, false, 3, 6)).toBe(10)
-      expect(getAntallMaanederMedPensjon(true, false, 4, 6)).toBe(9)
-      expect(getAntallMaanederMedPensjon(true, false, 5, 6)).toBe(8)
-      expect(getAntallMaanederMedPensjon(true, false, 6, 6)).toBe(7)
-      expect(getAntallMaanederMedPensjon(true, false, 7, 6)).toBe(6)
-      expect(getAntallMaanederMedPensjon(true, false, 8, 6)).toBe(5)
-      expect(getAntallMaanederMedPensjon(true, false, 9, 6)).toBe(4)
-      expect(getAntallMaanederMedPensjon(true, false, 10, 6)).toBe(3)
-      expect(getAntallMaanederMedPensjon(true, false, 11, 6)).toBe(2)
-      expect(getAntallMaanederMedPensjon(true, false, 12, 6)).toBe(1)
+      expect(getAntallMaanederMedPensjon(true, false, 0, 6)).toBe(12)
+      expect(getAntallMaanederMedPensjon(true, false, 1, 6)).toBe(11)
+      expect(getAntallMaanederMedPensjon(true, false, 2, 6)).toBe(10)
+      expect(getAntallMaanederMedPensjon(true, false, 3, 6)).toBe(9)
+      expect(getAntallMaanederMedPensjon(true, false, 4, 6)).toBe(8)
+      expect(getAntallMaanederMedPensjon(true, false, 5, 6)).toBe(7)
+      expect(getAntallMaanederMedPensjon(true, false, 6, 6)).toBe(6)
+      expect(getAntallMaanederMedPensjon(true, false, 7, 6)).toBe(5)
+      expect(getAntallMaanederMedPensjon(true, false, 8, 6)).toBe(4)
+      expect(getAntallMaanederMedPensjon(true, false, 9, 6)).toBe(3)
+      expect(getAntallMaanederMedPensjon(true, false, 10, 6)).toBe(2)
+      expect(getAntallMaanederMedPensjon(true, false, 11, 6)).toBe(1)
     })
     it('returnerer riktig når året er sist', () => {
+      expect(getAntallMaanederMedPensjon(false, true, 1, 0)).toBe(0)
       expect(getAntallMaanederMedPensjon(false, true, 1, 1)).toBe(1)
       expect(getAntallMaanederMedPensjon(false, true, 1, 2)).toBe(2)
       expect(getAntallMaanederMedPensjon(false, true, 1, 3)).toBe(3)
@@ -134,14 +135,14 @@ describe('Simulering-utils', () => {
       expect(getAntallMaanederMedPensjon(false, true, 1, 9)).toBe(9)
       expect(getAntallMaanederMedPensjon(false, true, 1, 10)).toBe(10)
       expect(getAntallMaanederMedPensjon(false, true, 1, 11)).toBe(11)
-      expect(getAntallMaanederMedPensjon(false, true, 1, 12)).toBe(12)
     })
     it('returnerer riktig når året er først og sist', () => {
-      expect(getAntallMaanederMedPensjon(true, true, 1, 1)).toBe(1)
-      expect(getAntallMaanederMedPensjon(true, true, 12, 12)).toBe(1)
-      expect(getAntallMaanederMedPensjon(true, true, 1, 12)).toBe(12)
-      expect(getAntallMaanederMedPensjon(true, true, 6, 12)).toBe(7)
-      expect(getAntallMaanederMedPensjon(true, true, 11, 12)).toBe(2)
+      expect(getAntallMaanederMedPensjon(true, true, 0, 0)).toBe(0)
+      expect(getAntallMaanederMedPensjon(true, true, 11, 11)).toBe(0)
+      expect(getAntallMaanederMedPensjon(true, true, 0, 11)).toBe(11)
+      expect(getAntallMaanederMedPensjon(true, true, 5, 11)).toBe(6)
+      expect(getAntallMaanederMedPensjon(true, true, 0, 1)).toBe(1)
+      expect(getAntallMaanederMedPensjon(true, true, 10, 11)).toBe(1)
     })
   })
   describe('processPensjonsavtalerArray', () => {
@@ -159,19 +160,9 @@ describe('Simulering-utils', () => {
       })
       expect(processPensjonsavtalerArray(66, 13, [{ ...avtale }])).toEqual([
         0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-        100000, 100000, 8333.333333333334, 0,
+        100000, 100000, 0, 0,
       ])
-      const avtaleSluttMaaned12 = createMockedPensjonsavtale({
-        startAlder: 67,
-        sluttAlder: 77,
-        sluttMaaned: 12,
-      })
-      expect(
-        processPensjonsavtalerArray(66, 13, [{ ...avtaleSluttMaaned12 }])
-      ).toEqual([
-        0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-        100000, 100000, 100000, 0,
-      ])
+
       expect(
         processPensjonsavtalerArray(66, 13, [
           { ...avtale },
@@ -179,7 +170,7 @@ describe('Simulering-utils', () => {
         ])
       ).toEqual([
         0, 100000, 100000, 100000, 200000, 200000, 200000, 200000, 200000,
-        200000, 200000, 108333.33333333333, 8333.333333333334,
+        200000, 200000, 100000, 0,
       ])
       expect(
         processPensjonsavtalerArray(66, 13, [
@@ -207,8 +198,8 @@ describe('Simulering-utils', () => {
           createMockedPensjonsavtale({ startAlder: 70, sluttAlder: 78 }),
         ])
       ).toEqual([
-        0, 91666.66666666667, 100000, 100000, 191666.6666666667, 200000, 200000,
-        200000, 200000, 200000, 200000, 100000, 8333.333333333334,
+        0, 83333.33333333333, 100000, 100000, 183333.3333333333, 200000, 200000,
+        200000, 200000, 200000, 200000, 100000, 0,
       ])
     })
     it('returnerer riktig summer med livsvarig avtale (avtale uten sluttAlder)', () => {
@@ -227,7 +218,7 @@ describe('Simulering-utils', () => {
         ])
       ).toEqual([
         0, 100000, 100000, 100000, 200000, 200000, 200000, 200000, 200000,
-        200000, 200000, 200000, 108333.33333333333, 100000,
+        200000, 200000, 200000, 100000, 100000,
       ])
     })
     it('returnerer riktig summer med graderte avtaler, eller graderte utbetalingsperioder', () => {
@@ -238,7 +229,7 @@ describe('Simulering-utils', () => {
       })
       expect(processPensjonsavtalerArray(66, 13, [{ ...avtale }])).toEqual([
         0, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000,
-        4166.666666666667, 0,
+        0, 0,
       ])
       expect(
         processPensjonsavtalerArray(66, 14, [
@@ -251,7 +242,7 @@ describe('Simulering-utils', () => {
         ])
       ).toEqual([
         0, 50000, 50000, 50000, 150000, 150000, 150000, 150000, 150000, 225000,
-        225000, 179166.6666666667, 83333.33333333333, 75000,
+        225000, 175000, 75000, 75000,
       ])
       expect(
         processPensjonsavtalerArray(66, 14, [
@@ -283,8 +274,8 @@ describe('Simulering-utils', () => {
           }),
         ])
       ).toEqual([
-        0, 50000, 50000, 50000, 150000, 150000, 150000, 150000, 150000, 225000,
-        225000, 175000, 83333.33333333333, 75000,
+        0, 45833.333333333336, 50000, 50000, 145833.33333333334, 150000, 150000,
+        150000, 150000, 225000, 225000, 175000, 75000, 75000,
       ])
     })
     describe('returnerer riktig summer basert på startMaaned og sluttMaaned', () => {
@@ -298,8 +289,8 @@ describe('Simulering-utils', () => {
             }),
           ])
         ).toEqual([
-          0, 58333.333333333336, 100000, 100000, 100000, 100000, 100000, 100000,
-          100000, 100000, 100000, 8333.333333333334, 0,
+          0, 50000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
+          100000, 100000, 0, 0,
         ])
         expect(
           processPensjonsavtalerArray(66, 13, [
@@ -323,8 +314,8 @@ describe('Simulering-utils', () => {
             }),
           ])
         ).toEqual([
-          0, 58333.333333333336, 100000, 100000, 100000, 100000, 100000, 100000,
-          100000, 100000, 100000, 16666.666666666668, 0,
+          0, 50000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
+          100000, 100000, 16666.666666666668, 0,
         ])
       })
       it('med flere avtaler (livsvarige og graderte)', () => {
@@ -338,8 +329,8 @@ describe('Simulering-utils', () => {
             createMockedPensjonsavtale({ startAlder: 70, sluttAlder: 78 }),
           ])
         ).toEqual([
-          0, 91666.66666666667, 100000, 100000, 200000, 200000, 200000, 200000,
-          200000, 200000, 200000, 108333.33333333333, 8333.333333333334,
+          0, 83333.33333333333, 100000, 100000, 200000, 200000, 200000, 200000,
+          200000, 200000, 200000, 100000, 0,
         ])
         expect(
           processPensjonsavtalerArray(66, 13, [
@@ -356,8 +347,8 @@ describe('Simulering-utils', () => {
             }),
           ])
         ).toEqual([
-          0, 150000, 200000, 200000, 200000, 200000, 200000, 200000, 200000,
-          200000, 200000, 116666.66666666667, 100000,
+          0, 133333.3333333333, 200000, 200000, 200000, 200000, 200000, 200000,
+          200000, 200000, 200000, 116666.66666666667, 100000,
         ])
         expect(
           processPensjonsavtalerArray(66, 13, [
@@ -384,8 +375,8 @@ describe('Simulering-utils', () => {
             }),
           ])
         ).toEqual([
-          0, 141666.6666666667, 150000, 150000, 250000, 250000, 250000, 250000,
-          250000, 293750, 325000, 241666.6666666667, 158333.33333333334,
+          0, 133333.3333333333, 150000, 150000, 250000, 250000, 250000, 250000,
+          250000, 287500, 325000, 241666.6666666667, 158333.33333333334,
         ])
       })
       it('når antall måneder bikker over neste år', () => {
@@ -398,8 +389,8 @@ describe('Simulering-utils', () => {
             }),
           ])
         ).toEqual([
-          0, 25000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-          100000, 100000, 8333.333333333334, 0,
+          0, 16666.666666666668, 100000, 100000, 100000, 100000, 100000, 100000,
+          100000, 100000, 100000, 0, 0,
         ])
         expect(
           processPensjonsavtalerArray(66, 13, [

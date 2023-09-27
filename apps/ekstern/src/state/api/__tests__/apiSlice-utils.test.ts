@@ -13,7 +13,7 @@ describe('apiSlice - utils', () => {
         uttaksperioder: [
           {
             startAlder: 67,
-            startMaaned: 1,
+            startMaaned: 0,
             grad: 100,
             aarligInntekt: 0,
           },
@@ -162,7 +162,7 @@ describe('apiSlice - utils', () => {
         })?.foersteUttaksalder
       ).toEqual({
         aar: 68,
-        maaned: 1,
+        maaned: 0,
       })
     })
   })

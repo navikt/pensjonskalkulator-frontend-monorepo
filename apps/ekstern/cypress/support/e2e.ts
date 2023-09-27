@@ -14,7 +14,7 @@ beforeEach(() => {
   )
 
   cy.intercept(
-    { method: 'POST', url: '/pensjon/kalkulator/api/tidligste-uttaksalder' },
+    { method: 'POST', url: '/pensjon/kalkulator/api/v1/tidligste-uttaksalder' },
     { fixture: 'tidligste-uttaksalder.json' }
   )
 
