@@ -51,6 +51,28 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
     })
 
+    it('formaterer <dinPensjonBeholdningLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.dinPensjonBeholdningLink"
+          values={{ ...formatMessageValues }}
+        />
+      )
+      expect(
+        screen.queryByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByText('my link', { exact: false })
+      ).toBeInTheDocument()
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        'https://www.nav.no/pensjon/opptjening/nb/'
+      )
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
     it('formaterer <alderspensjonsreglerLink> med riktig url og ikon', async () => {
       render(
         <FormattedMessage

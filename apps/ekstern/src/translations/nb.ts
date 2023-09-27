@@ -147,7 +147,7 @@ const translations = {
     'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. ',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.ingress':
-    'Alderspensjon beregnes ut ifra <dinPensjonLink>din pensjonsbeholdning</dinPensjonLink> i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil din alderspensjon øke.{br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
+    'Alderspensjon beregnes ut ifra <dinPensjonBeholdningLink>din pensjonsbeholdning</dinPensjonBeholdningLink> i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil din alderspensjon øke.{br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.ja_offentlig':

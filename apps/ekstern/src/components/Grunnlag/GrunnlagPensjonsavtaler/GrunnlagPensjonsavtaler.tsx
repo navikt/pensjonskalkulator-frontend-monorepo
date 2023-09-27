@@ -53,7 +53,8 @@ export function GrunnlagPensjonsavtaler() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const onCancel = (): void => {
+  const onCancel = (e: React.MouseEvent<HTMLAnchorElement>): void => {
+    e.preventDefault()
     dispatch(userInputActions.flush())
     navigate(paths.start)
   }
@@ -92,7 +93,7 @@ export function GrunnlagPensjonsavtaler() {
           {!harSamtykket && (
             <BodyLong>
               <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress" />
-              <Link onClick={onCancel}>
+              <Link href={paths.start} onClick={onCancel}>
                 {intl.formatMessage({
                   id: 'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1',
                 })}
