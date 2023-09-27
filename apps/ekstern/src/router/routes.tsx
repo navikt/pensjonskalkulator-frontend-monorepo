@@ -11,7 +11,8 @@ import { Step2 } from '@/pages/Step2'
 import { Step3 } from '@/pages/Step3'
 import { step3loader } from '@/pages/Step3/utils'
 import { Step4 } from '@/pages/Step4'
-import { Step5, Step5Feil } from '@/pages/Step5'
+import { Step5 } from '@/pages/Step5'
+import { StepFeil } from '@/pages/StepFeil/'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
 
@@ -36,7 +37,7 @@ export const paths = {
   offentligTp: '/offentlig-tp',
   afp: '/afp',
   sivilstand: '/sivilstand',
-  sivilstandFeil: '/sivilstand-feil',
+  uventetFeil: '/uventet-feil',
   beregning: '/beregning',
   forbehold: '/forbehold',
 } as const
@@ -98,9 +99,9 @@ export const routes: RouteObject[] = [
         element: <Step5 />,
       },
       {
-        path: paths.sivilstandFeil,
+        path: paths.uventetFeil,
         loader: directAccessGuard,
-        element: <Step5Feil />,
+        element: <StepFeil />,
       },
       {
         path: paths.forbehold,

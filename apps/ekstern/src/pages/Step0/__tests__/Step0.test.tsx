@@ -68,26 +68,28 @@ describe('Step 0', () => {
     })
   })
 
-  it('kaller /inntekt, og viser ErrorPageUnexpected når inntekt feiler', async () => {
-    const cache = console.error
-    console.error = () => {}
-
+  it('nullstiller cachen for /inntekt kall når brukeren klikker på Neste og at kallet har feilet', async () => {
     mockErrorResponse('/inntekt')
-    const router = createMemoryRouter([
-      {
-        path: '/',
-        element: <Step0 />,
-        ErrorBoundary: RouteErrorBoundary,
-      },
-    ])
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
+    const user = userEvent.setup()
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+
+    let invalidateTagsMock = vi
+      .spyOn(apiSliceUtils.apiSlice.util, 'invalidateTags')
+      .mockReturnValue({
+        type: 'something',
+        payload: ['Inntekt'],
+      })
+    invalidateTagsMock = Object.assign(invalidateTagsMock, { match: vi.fn() })
+
+    render(<Step0 />)
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.start.start'))
+      expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
+      expect(invalidateTagsMock).toHaveBeenCalledWith(['Inntekt'])
     })
-
-    expect(await screen.findByText('error.global.title')).toBeVisible()
-    expect(await screen.findByText('error.global.ingress')).toBeVisible()
-
-    console.error = cache
   })
 
   it('redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
