@@ -8,6 +8,8 @@ const translations = {
     'Offentlig tjenestepensjon – Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
   'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.uforventet_feil':
+    'Uforventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',

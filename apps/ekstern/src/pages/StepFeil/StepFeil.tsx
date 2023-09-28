@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import React from 'react'
+import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { getNesteSide } from '../Step4/utils'
@@ -9,8 +10,10 @@ import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { checkHarSamboer } from '@/utils/sivilstand'
 export function StepFeil() {
+  const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
   const {
     data: person,
     isLoading: isPersonLoading,
@@ -19,7 +22,13 @@ export function StepFeil() {
   const { isLoading: isInntektLoading, isSuccess: isInntektSuccess } =
     useGetInntektQuery()
 
-  useEffect(() => {
+  React.useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title.stegvisning.uforventet_feil',
+    })
+  }, [])
+
+  React.useEffect(() => {
     if (isInntektSuccess && isPersonSuccess) {
       const url = getNesteSide(checkHarSamboer(person.sivilstand))
       navigate(url)

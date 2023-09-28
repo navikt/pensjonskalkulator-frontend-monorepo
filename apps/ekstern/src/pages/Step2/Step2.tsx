@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,7 +15,7 @@ export function Step2() {
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.step2',
     })
