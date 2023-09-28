@@ -13,7 +13,7 @@ import * as sivilstandUtils from '@/utils/sivilstand'
 describe('Step Feil', () => {
   it('har riktig sidetittel', () => {
     render(<StepFeil />)
-    expect(document.title).toBe('application.title.stegvisning.uforventet_feil')
+    expect(document.title).toBe('application.title.stegvisning.uventet_feil')
   })
 
   it('rendrer Step Feil slik den skal når brukeren har svart på spørsmålet om samtykke,', async () => {

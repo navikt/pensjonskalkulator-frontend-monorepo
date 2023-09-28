@@ -24,7 +24,7 @@ export function StepFeil() {
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
-      id: 'application.title.stegvisning.uforventet_feil',
+      id: 'application.title.stegvisning.uventet_feil',
     })
   }, [])
 
