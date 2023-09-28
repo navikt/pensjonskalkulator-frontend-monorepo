@@ -9,7 +9,7 @@ import { render, screen, userEvent, waitFor } from '@/test-utils'
 describe('LandingPage', () => {
   it('har riktig sidetittel', () => {
     render(<LandingPage />)
-    expect(document.title).toBe('application.title.login')
+    expect(document.title).toBe('application.title')
   })
 
   it('rendrer innlogget side', async () => {

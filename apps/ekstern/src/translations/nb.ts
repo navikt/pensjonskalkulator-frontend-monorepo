@@ -1,6 +1,5 @@
 const translations = {
-  'application.title': 'Pensjonskalkulator',
-  'application.title.login': 'Login – Pensjonskalkulator',
+  'application.title': 'Pensjonskalkulator – Pensjon',
   'application.title.stegvisning.step0': 'Start – Pensjonskalkulator',
   'application.title.stegvisning.step1':
     'Utenlandsopphold – Pensjonskalkulator',

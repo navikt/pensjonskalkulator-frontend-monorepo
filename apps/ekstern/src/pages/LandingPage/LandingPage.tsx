@@ -26,7 +26,7 @@ export function LandingPage() {
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
-      id: 'application.title.login',
+      id: 'application.title',
     })
   }, [])
 
