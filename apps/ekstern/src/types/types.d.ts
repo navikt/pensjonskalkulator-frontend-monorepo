@@ -2,7 +2,7 @@ declare type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
 
 declare type Uttaksalder = {
   aar: number
-  maaned: number
+  maaneder: number
   uttaksdato: string
 }
 

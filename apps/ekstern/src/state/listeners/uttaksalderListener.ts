@@ -13,12 +13,11 @@ import {
   selectSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { checkHarAfp } from '@/utils/afp'
 
 /**
  * onSetFormatertUttaksalder
  * 1. unformat uttaksalder
- * 2. oppdater current simulation med riktig aar og maaned
+ * 2. oppdater current simulation med riktig aar og maaneder
  * 3. Hvis samtykke er true: hent pensjonsavtaler
  *
  * @param payload - formatertUttaksalder satt av setFormatertUttaksalder
@@ -33,7 +32,7 @@ async function onSetFormatertUttaksalder(
   dispatch(
     userInputActions.updateCurrentSimulation({
       startAlder: uttaksalder.aar,
-      startMaaned: uttaksalder.maaned,
+      startMaaned: uttaksalder.maaneder,
     })
   )
 
@@ -47,7 +46,7 @@ async function onSetFormatertUttaksalder(
       apiSlice.endpoints.pensjonsavtaler.initiate(
         generatePensjonsavtalerRequestBody(
           inntekt.beloep,
-          checkHarAfp(afp),
+          afp,
           uttaksalder,
           sivilstand
         )

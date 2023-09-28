@@ -324,7 +324,7 @@ describe('Typeguards', () => {
       expect(
         isUttaksalder({
           aar: 12,
-          maaned: 2,
+          maaneder: 2,
         })
       ).toBeTruthy()
     })
@@ -335,7 +335,7 @@ describe('Typeguards', () => {
       expect(
         isUttaksalder({
           aar: 'string',
-          maaned: 2,
+          maaneder: 2,
         })
       ).toBeFalsy()
     })

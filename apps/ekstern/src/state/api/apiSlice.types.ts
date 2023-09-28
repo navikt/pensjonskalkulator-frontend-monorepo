@@ -10,8 +10,7 @@ export type PensjonsavtalerRequestBody = {
 }
 
 export type Uttaksperiode = {
-  startAlder: number
-  startMaaned: number
+  startAlder: { aar: number; maaneder: number }
   grad: number
   aarligInntekt: number
 }
@@ -26,7 +25,7 @@ export type AlderspensjonRequestBody = {
   forventetInntekt?: number
   uttaksgrad: number
   foedselsdato: string
-  foersteUttaksalder: { aar: number; maaned: number }
+  foersteUttaksalder: { aar: number; maaneder: number }
   sivilstand?: UtvidetSivilstand
   epsHarInntektOver2G: boolean
 }

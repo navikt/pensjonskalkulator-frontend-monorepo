@@ -255,7 +255,7 @@ describe('userInput selectors', () => {
           ...fakeApiCall,
         },
       }
-      const inntekt = selectInntekt(state)
+      const inntekt = selectInntekt(state) as Inntekt
       expect(inntekt.beloep).toBe(500000)
       expect(inntekt.aar).toBe(2021)
     })

@@ -30,7 +30,6 @@ import {
   selectSivilstand,
   selectAfp,
 } from '@/state/userInput/selectors'
-import { checkHarAfp } from '@/utils/afp'
 
 import { SERIES_DEFAULT } from './constants'
 import {
@@ -104,10 +103,10 @@ export function Simulering(props: {
     if (harSamtykket && startAlder) {
       const requestBody = generatePensjonsavtalerRequestBody(
         inntekt?.beloep,
-        checkHarAfp(afp),
+        afp,
         {
           aar: startAlder,
-          maaned: startMaaned ?? 1,
+          maaneder: startMaaned ?? 1,
         },
         sivilstand
       )

@@ -24,7 +24,6 @@ import {
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { checkHarAfp } from '@/utils/afp'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 import { formatMessageValues } from '@/utils/translations'
@@ -53,10 +52,10 @@ export const GrunnlagPensjonsavtaler = () => {
   } = usePensjonsavtalerQuery(
     generatePensjonsavtalerRequestBody(
       inntekt ? inntekt.beloep : 0,
-      checkHarAfp(afp),
+      afp,
       {
         aar: startAlder as number,
-        maaned: startMaaned ?? 1,
+        maaneder: startMaaned ?? 1,
       },
       sivilstand
     ),

@@ -76,7 +76,7 @@ describe('uttaksalderListener', () => {
 
       const queries = store.getState().api.queries
       expect(queries).toHaveProperty(
-        'pensjonsavtaler({"aarligInntektFoerUttak":521338,"antallInntektsaarEtterUttak":0,"harAfp":false,"sivilstand":"UGIFT","uttaksperioder":[{"aarligInntekt":0,"grad":100,"startAlder":62,"startMaaned":2}]})'
+        'pensjonsavtaler({"aarligInntektFoerUttak":521338,"antallInntektsaarEtterUttak":0,"harAfp":false,"sivilstand":"UGIFT","uttaksperioder":[{"aarligInntekt":0,"grad":100,"startAlder":{"aar":62,"maaneder":2}}]})'
       )
     })
   })

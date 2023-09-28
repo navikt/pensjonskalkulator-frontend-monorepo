@@ -149,8 +149,7 @@ describe('apiSlice', () => {
     const dummyRequestBody = {
       uttaksperioder: [
         {
-          startAlder: 0,
-          startMaaned: 0,
+          startAlder: { aar: 0, maaneder: 0 },
           grad: 100,
           aarligInntekt: 500000,
         },
@@ -301,7 +300,7 @@ describe('apiSlice', () => {
       simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
       uttaksgrad: 100,
       foedselsdato: '1963-04-30',
-      foersteUttaksalder: { aar: 67, maaned: 8 },
+      foersteUttaksalder: { aar: 67, maaneder: 8 },
       sivilstand: 'UGIFT',
       epsHarInntektOver2G: true,
     }

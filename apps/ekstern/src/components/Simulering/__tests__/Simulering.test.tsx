@@ -186,10 +186,9 @@ describe('Simulering', () => {
           sivilstand: undefined,
           uttaksperioder: [
             {
+              startAlder: { aar: 70, maaneder: 5 },
               aarligInntekt: 0,
               grad: 100,
-              startAlder: 70,
-              startMaaned: 5,
             },
           ],
         },

@@ -126,7 +126,7 @@ export const isUttaksalder = (data?: any): data is Uttaksalder => {
     data !== null &&
     !Array.isArray(data) &&
     typeof data.aar === 'number' &&
-    typeof data.maaned === 'number'
+    typeof data.maaneder === 'number'
   )
 }
 

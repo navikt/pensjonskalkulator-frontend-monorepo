@@ -18,8 +18,3 @@ export const formatAfp = (afp: AfpRadio): string => {
     }
   }
 }
-
-// TODO PEK 149 skrive tester
-export const checkHarAfp = (afp: AfpRadio | null) => {
-  return afp === 'ja_offentlig' || afp === 'ja_privat'
-}
