@@ -8,7 +8,6 @@ import clsx from 'clsx'
 import { AccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
-import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
@@ -189,7 +188,6 @@ export function Beregning() {
                     inntekt={inntekt as Inntekt}
                     tidligstMuligUttak={tidligstMuligUttak}
                   />
-                  <Forbehold />
                 </AccordionContext.Provider>
               </>
             )}

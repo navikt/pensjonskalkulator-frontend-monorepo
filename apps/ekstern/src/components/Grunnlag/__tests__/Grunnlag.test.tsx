@@ -7,7 +7,7 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Grunnlag', () => {
-  it('viser alle seksjonene', async () => {
+  it('viser alle seksjonene og forbehold', async () => {
     render(<Grunnlag inntekt={{ beloep: 500000, aar: 2021 }} />)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
@@ -25,6 +25,7 @@ describe('Grunnlag', () => {
     expect(
       await screen.findByText('grunnlag.pensjonsavtaler.title')
     ).toBeVisible()
+    expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
   })
 
   describe('Grunnlag - tidligst mulig uttak', () => {

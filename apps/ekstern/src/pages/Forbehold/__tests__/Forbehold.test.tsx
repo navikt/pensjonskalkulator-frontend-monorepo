@@ -10,7 +10,8 @@ describe('Forbehold', () => {
   })
 
   it('rendrer riktig', () => {
-    render(<Forbehold />)
-    expect(screen.getByText('Forbehold')).toBeVisible()
+    const { asFragment } = render(<Forbehold />)
+    expect(screen.getByText('forbehold.title')).toBeVisible()
+    expect(asFragment()).toMatchSnapshot()
   })
 })
