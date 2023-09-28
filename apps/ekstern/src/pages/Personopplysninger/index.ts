@@ -1,0 +1,1 @@
+export { Personopplysninger } from './Personopplysninger'

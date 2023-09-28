@@ -39,7 +39,7 @@ describe('Step 0', () => {
     )
     render(<Step0 />)
     await waitFor(async () => {
-      await user.click(await screen.findByText('stegvisning.start.start'))
+      await user.click(await screen.findByText('stegvisning.start.button'))
       expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
     })
   })
@@ -62,7 +62,7 @@ describe('Step 0', () => {
 
     render(<Step0 />)
     await waitFor(async () => {
-      await user.click(screen.getByText('stegvisning.start.start'))
+      await user.click(screen.getByText('stegvisning.start.button'))
       expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
       expect(invalidateTagsMock).toHaveBeenCalledWith(['Person'])
     })

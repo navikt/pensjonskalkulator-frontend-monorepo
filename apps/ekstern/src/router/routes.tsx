@@ -5,6 +5,7 @@ import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
 import { LandingPage } from '@/pages/LandingPage'
+import { Personopplysninger } from '@/pages/Personopplysninger'
 import { Step0 } from '@/pages/Step0'
 import { Step1, Step1Feil } from '@/pages/Step1'
 import { Step2 } from '@/pages/Step2'
@@ -40,6 +41,7 @@ export const paths = {
   sivilstandFeil: '/sivilstand-feil',
   beregning: '/beregning',
   forbehold: '/forbehold',
+  personopplysninger: '/personopplysninger',
 } as const
 
 const directAccessGuard = async () => {
@@ -107,6 +109,11 @@ export const routes: RouteObject[] = [
         path: paths.forbehold,
         loader: directAccessGuard,
         element: <Forbehold />,
+      },
+      {
+        path: paths.personopplysninger,
+        loader: directAccessGuard,
+        element: <Personopplysninger />,
       },
     ],
   },
