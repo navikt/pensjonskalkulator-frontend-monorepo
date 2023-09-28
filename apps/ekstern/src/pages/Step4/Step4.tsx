@@ -1,17 +1,20 @@
-import { useEffect } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { AFP } from '@/components/stegvisning/AFP'
 import { paths } from '@/router'
 import {
-  useGetPersonQuery,
+  useGetInntektQuery,
   useGetTpoMedlemskapQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamtykke, selectAfp } from '@/state/userInput/selectors'
+import {
+  selectSamtykke,
+  selectAfp,
+  selectSamboer,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { checkHarSamboer } from '@/utils/sivilstand'
 
 import { getNesteSide } from './utils'
 
@@ -20,12 +23,13 @@ export function Step4() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
+  const harSamboer = useAppSelector(selectSamboer)
   const previousAfp = useAppSelector(selectAfp)
-  const { data: person, isSuccess: isPersonQuerySuccess } = useGetPersonQuery()
+  const { isError: isInntektError } = useGetInntektQuery()
   const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
     useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.step4',
     })
@@ -49,14 +53,7 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-
-    const harSamboer = isPersonQuerySuccess
-      ? checkHarSamboer(person.sivilstand)
-      : null
-    if (harSamboer) {
-      dispatch(userInputActions.setSamboer(true))
-    }
-    navigate(getNesteSide(harSamboer))
+    navigate(getNesteSide(harSamboer, isInntektError))
   }
 
   return (

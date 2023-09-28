@@ -10,10 +10,6 @@ export function ErrorPageUnexpected() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const onReload = (): void => {
-    window.location.reload()
-  }
-
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
     navigate(paths.login)
@@ -26,11 +22,9 @@ export function ErrorPageUnexpected() {
           text={{
             header: 'error.global.title',
             ingress: 'error.global.ingress',
-            primaryButton: 'error.global.button.primary',
-            secondaryButton: 'error.global.button.secondary',
+            primaryButton: 'error.global.button',
           }}
-          onPrimaryButtonClick={onReload}
-          onSecondaryButtonClick={onCancel}
+          onPrimaryButtonClick={onCancel}
         />
       </Card>
     </PageFramework>
