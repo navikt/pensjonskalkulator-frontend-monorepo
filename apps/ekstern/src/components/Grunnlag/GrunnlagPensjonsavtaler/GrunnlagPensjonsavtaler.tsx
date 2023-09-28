@@ -38,7 +38,7 @@ export const GrunnlagPensjonsavtaler = () => {
   const sivilstand = useAppSelector(selectSivilstand)
   const inntekt = useAppSelector(selectInntekt)
   const afp = useAppSelector(selectAfp)
-  const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
+  const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
   const {
     ref: grunnlagPensjonsavtalerRef,
     isOpen: isPensjonsavtalerAccordionItemOpen,
@@ -54,13 +54,13 @@ export const GrunnlagPensjonsavtaler = () => {
       inntekt ? inntekt.beloep : 0,
       afp,
       {
-        aar: startAlder as number,
+        aar: startAar as number,
         maaneder: startMaaned ?? 1,
       },
       sivilstand
     ),
     {
-      skip: !harSamtykket || !startAlder || !inntekt,
+      skip: !harSamtykket || !startAar || !inntekt,
     }
   )
   const navigate = useNavigate()
@@ -179,30 +179,35 @@ export const GrunnlagPensjonsavtaler = () => {
                           (utbetalingsperiode) => {
                             return (
                               <tr
-                                key={`${avtale.key}-${utbetalingsperiode.startAlder}-${utbetalingsperiode.startMaaned}`}
+                                key={`${avtale.key}-${utbetalingsperiode.startAlder.aar}-${utbetalingsperiode.startAlder.maaneder}`}
                               >
                                 <td className={styles.tabellCell__Small}>
                                   {utbetalingsperiode.sluttAlder
                                     ? `Fra ${
-                                        utbetalingsperiode.startAlder
+                                        utbetalingsperiode.startAlder.aar
                                       } år${getMaanedString(
-                                        utbetalingsperiode.startMaaned
+                                        utbetalingsperiode.startAlder.maaneder
                                       )} til ${
-                                        utbetalingsperiode.sluttAlder
+                                        utbetalingsperiode.sluttAlder.aar
                                       } år${
-                                        utbetalingsperiode.sluttMaaned &&
-                                        utbetalingsperiode.sluttMaaned > 1
+                                        utbetalingsperiode.sluttAlder
+                                          .maaneder &&
+                                        utbetalingsperiode.sluttAlder.maaneder >
+                                          1
                                           ? getMaanedString(
-                                              utbetalingsperiode.sluttMaaned
+                                              utbetalingsperiode.sluttAlder
+                                                .maaneder
                                             )
                                           : ''
                                       }`
                                     : `Livsvarig fra ${
-                                        utbetalingsperiode.startAlder
+                                        utbetalingsperiode.startAlder.aar
                                       } år${
-                                        utbetalingsperiode.startMaaned > 1
+                                        utbetalingsperiode.startAlder.maaneder >
+                                        1
                                           ? getMaanedString(
-                                              utbetalingsperiode.startMaaned
+                                              utbetalingsperiode.startAlder
+                                                .maaneder
                                             )
                                           : ''
                                       }`}

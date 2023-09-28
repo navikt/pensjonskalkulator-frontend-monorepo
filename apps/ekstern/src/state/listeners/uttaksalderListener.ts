@@ -31,7 +31,7 @@ async function onSetFormatertUttaksalder(
 
   dispatch(
     userInputActions.updateCurrentSimulation({
-      startAlder: uttaksalder.aar,
+      startAar: uttaksalder.aar,
       startMaaned: uttaksalder.maaneder,
     })
   )

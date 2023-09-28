@@ -274,7 +274,7 @@ describe('userInput selectors', () => {
 
   it('selectCurrentSimulation', () => {
     const currentSimulation = {
-      startAlder: 62,
+      startAar: 62,
       startMaaned: 5,
       uttaksgrad: 100,
       aarligInntekt: 0,

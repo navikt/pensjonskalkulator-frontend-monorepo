@@ -29,7 +29,7 @@ describe('GrunnlagPensjonsavtaler', () => {
   }
 
   const currentSimulation: Simulation = {
-    startAlder: 67,
+    startAar: 67,
     startMaaned: 1,
     uttaksgrad: 100,
     aarligInntekt: 0,
@@ -153,14 +153,12 @@ describe('GrunnlagPensjonsavtaler', () => {
             {
               produktbetegnelse: 'IPS',
               kategori: 'INDIVIDUELL_ORDNING',
-              startAlder: 70,
-              sluttAlder: 75,
+              startAar: 70,
+              sluttAar: 75,
               utbetalingsperioder: [
                 {
-                  startAlder: 70,
-                  startMaaned: 6,
-                  sluttAlder: 75,
-                  sluttMaaned: 6,
+                  startAlder: { aar: 70, maaneder: 6 },
+                  sluttAlder: { aar: 75, maaneder: 6 },
                   aarligUtbetaling: 41802,
                   grad: 100,
                 },
@@ -245,11 +243,10 @@ describe('GrunnlagPensjonsavtaler', () => {
         key: 0,
         produktbetegnelse: 'DNB',
         kategori: 'PRIVAT_TJENESTEPENSJON',
-        startAlder: 67,
+        startAar: 67,
         utbetalingsperioder: [
           {
-            startAlder: 67,
-            startMaaned: 1,
+            startAlder: { aar: 67, maaneder: 1 },
             aarligUtbetaling: 12345,
             grad: 100,
           },
@@ -263,7 +260,10 @@ describe('GrunnlagPensjonsavtaler', () => {
             {
               ...avtale,
               utbetalingsperioder: [
-                { ...avtale.utbetalingsperioder[0], startMaaned: 6 },
+                {
+                  ...avtale.utbetalingsperioder[0],
+                  startAlder: { aar: 67, maaneder: 6 },
+                },
               ],
             },
           ],
@@ -318,22 +318,18 @@ describe('GrunnlagPensjonsavtaler', () => {
         key: 0,
         produktbetegnelse: 'DNB',
         kategori: 'PRIVAT_TJENESTEPENSJON',
-        startAlder: 67,
-        sluttAlder: 77,
+        startAar: 67,
+        sluttAar: 77,
         utbetalingsperioder: [
           {
-            startAlder: 67,
-            startMaaned: 1,
-            sluttAlder: 77,
-            sluttMaaned: 8,
+            startAlder: { aar: 67, maaneder: 1 },
+            sluttAlder: { aar: 77, maaneder: 8 },
             aarligUtbetaling: 12345,
             grad: 100,
           },
           {
-            startAlder: 67,
-            startMaaned: 6,
-            sluttAlder: 77,
-            sluttMaaned: 1,
+            startAlder: { aar: 67, maaneder: 6 },
+            sluttAlder: { aar: 77, maaneder: 1 },
             aarligUtbetaling: 12345,
             grad: 100,
           },

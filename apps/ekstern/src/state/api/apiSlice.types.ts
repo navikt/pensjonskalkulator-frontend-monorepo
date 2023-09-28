@@ -1,3 +1,15 @@
+export type TidligsteUttaksalderRequestBody = {
+  sivilstand?: Sivilstand
+  harEps?: boolean
+  sisteInntekt?: number
+}
+
+export type Uttaksperiode = {
+  startAlder: { aar: number; maaneder: number }
+  grad: number
+  aarligInntekt: number
+}
+
 export type PensjonsavtalerRequestBody = {
   aarligInntektFoerUttak?: number
   uttaksperioder: Uttaksperiode[]
@@ -7,12 +19,6 @@ export type PensjonsavtalerRequestBody = {
   harEpsPensjonsgivendeInntektOver2G?: boolean
   antallAarIUtlandetEtter16?: number
   sivilstand?: Sivilstand
-}
-
-export type Uttaksperiode = {
-  startAlder: { aar: number; maaneder: number }
-  grad: number
-  aarligInntekt: number
 }
 
 export type PensjonsavtalerResponseBody = {
@@ -34,10 +40,4 @@ export type AlderspensjonResponseBody = {
   alderspensjon: Pensjonsberegning[]
   afpPrivat: Pensjonsberegning[]
   vilkaarErOppfylt: boolean
-}
-
-export type TidligsteUttaksalderRequestBody = {
-  sivilstand?: Sivilstand
-  harEps?: boolean
-  sisteInntekt?: number
 }

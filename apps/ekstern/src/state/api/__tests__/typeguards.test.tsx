@@ -9,6 +9,7 @@ import {
   isTpoMedlemskap,
   isUtbetalingsperiode,
   isUnleashToggle,
+  isAlder,
   isUttaksalder,
   isSomeEnumKey,
 } from '../typeguards'
@@ -39,18 +40,15 @@ describe('Typeguards', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 1,
+          startAlder: { aar: 70, maaneder: 1 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeTruthy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 1,
-          sluttAlder: 67,
-          sluttMaaned: 7,
+          startAlder: { aar: 65, maaneder: 1 },
+          sluttAlder: { aar: 70, maaneder: 1 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
@@ -61,53 +59,47 @@ describe('Typeguards', () => {
       expect(isUtbetalingsperiode({})).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 1,
+          startAlder: { aar: 70, maaneder: 1 },
           aarligUtbetaling: 100000,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 1,
+          startAlder: { aar: 70, maaneder: 1 },
           grad: 100,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
+          startAlder: { aar: 70 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 'abc',
-          startMaaned: 1,
+          startAlder: { aar: 'abc', maaneder: 1 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 'abc',
+          startAlder: { aar: 70, maaneder: 'abc' },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 1,
+          startAlder: { aar: 70, maaneder: 1 },
           aarligUtbetaling: 'abc',
           grad: 100,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 1,
+          startAlder: { aar: 70, maaneder: 1 },
           aarligUtbetaling: 100000,
           grad: 'abc',
         })
@@ -116,20 +108,16 @@ describe('Typeguards', () => {
     it('returnerer false når Utbetalingsperiode har feil sluttAlder eller sluttMaaned', () => {
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 1,
-          sluttAlder: 'abc',
-          sluttMaaned: 7,
+          startAlder: { aar: 70, maaneder: 1 },
+          sluttAlder: { aar: 'abc', maaneder: 1 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: 62,
-          startMaaned: 1,
-          sluttAlder: 67,
-          sluttMaaned: 'abc',
+          startAlder: { aar: 70, maaneder: 1 },
+          sluttAlder: { aar: 70, maaneder: 'abc' },
           aarligUtbetaling: 100000,
           grad: 100,
         })
@@ -143,8 +131,8 @@ describe('Typeguards', () => {
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
-          startAlder: 67,
-          sluttAlder: 70,
+          startAar: 67,
+          sluttAar: 70,
           utbetalingsperioder: [],
         })
       ).toBeTruthy()
@@ -152,14 +140,12 @@ describe('Typeguards', () => {
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
-          startAlder: 67,
-          sluttAlder: 70,
+          startAar: 67,
+          sluttAar: 70,
           utbetalingsperioder: [
             {
-              startAlder: 67,
-              startMaaned: 1,
-              sluttAlder: 77,
-              sluttMaaned: 1,
+              startAlder: { aar: 70, maaneder: 1 },
+              sluttAlder: { aar: 70, maaneder: 1 },
               aarligUtbetaling: 39582,
               grad: 100,
             },
@@ -174,15 +160,15 @@ describe('Typeguards', () => {
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
-          startAlder: 67,
-          sluttAlder: 70,
+          startAar: 67,
+          sluttAar: 70,
         })
       ).toBeFalsy()
       expect(
         isPensjonsavtale({
           kategori: 'PRIVAT_TJENESTEPENSJON',
-          startAlder: 67,
-          sluttAlder: 70,
+          startAar: 67,
+          sluttAar: 70,
           utbetalingsperioder: [],
         })
       ).toBeFalsy()
@@ -197,31 +183,28 @@ describe('Typeguards', () => {
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
-          startAlder: 67,
-          sluttAlder: 70,
+          startAar: 67,
+          sluttAar: 70,
           utbetalingsperioder: [
             {
-              startAlder: 'abc',
-              startMaaned: 1,
+              startAlder: { aar: 'abc', maaneder: 1 },
               grad: 100,
             },
           ],
         })
       ).toBeFalsy()
     })
-    it('returnerer false når Pensjonsavtale har feil startAlder eller startMaaned', () => {
+    it('returnerer false når Pensjonsavtale har feil startAar eller startMaaned', () => {
       expect(
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
-          startAlder: 'abc',
-          sluttAlder: 67,
+          startAar: 'abc',
+          sluttAar: 67,
           utbetalingsperioder: [
             {
-              startAlder: 67,
-              startMaaned: 1,
-              sluttAlder: 77,
-              sluttMaaned: 1,
+              startAlder: { aar: 70, maaneder: 1 },
+              sluttAlder: { aar: 70, maaneder: 1 },
               aarligUtbetaling: 39582,
               grad: 100,
             },
@@ -232,14 +215,12 @@ describe('Typeguards', () => {
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
-          startAlder: 62,
-          sluttAlder: 'abc',
+          startAar: 62,
+          sluttAar: 'abc',
           utbetalingsperioder: [
             {
-              startAlder: 67,
-              startMaaned: 1,
-              sluttAlder: 77,
-              sluttMaaned: 1,
+              startAlder: { aar: 70, maaneder: 1 },
+              sluttAlder: { aar: 70, maaneder: 1 },
               aarligUtbetaling: 39582,
               grad: 100,
             },
@@ -319,12 +300,34 @@ describe('Typeguards', () => {
     })
   })
 
+  describe('isAlder', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(
+        isAlder({
+          aar: 12,
+          maaneder: 2,
+        })
+      ).toBeTruthy()
+    })
+    it('returnerer false når typen er undefined eller at TidligsteMuligeUttaksalder inneholder noe annet enn number', () => {
+      expect(isAlder(undefined)).toBeFalsy()
+      expect(isAlder([])).toBeFalsy()
+      expect(isAlder({})).toBeFalsy()
+      expect(
+        isAlder({
+          aar: 'string',
+          maaneder: 2,
+        })
+      ).toBeFalsy()
+    })
+  })
   describe('isTidligsteUttaksalder', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
         isUttaksalder({
           aar: 12,
           maaneder: 2,
+          uttaksdato: '1963-10-10',
         })
       ).toBeTruthy()
     })
@@ -335,6 +338,13 @@ describe('Typeguards', () => {
       expect(
         isUttaksalder({
           aar: 'string',
+          maaneder: 2,
+          uttaksdato: '1963-10-10',
+        })
+      ).toBeFalsy()
+      expect(
+        isUttaksalder({
+          aar: 67,
           maaneder: 2,
         })
       ).toBeFalsy()

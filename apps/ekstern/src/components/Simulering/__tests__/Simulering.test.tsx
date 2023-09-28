@@ -14,7 +14,7 @@ import { act, render, screen, waitFor, userEvent } from '@/test-utils'
 describe('Simulering', () => {
   const inntekt = { beloep: 500000, aar: 2021 }
   const currentSimulation: Simulation = {
-    startAlder: 70,
+    startAar: 70,
     startMaaned: 5,
     uttaksgrad: 100,
     aarligInntekt: 0,
@@ -319,14 +319,12 @@ describe('Simulering', () => {
             {
               produktbetegnelse: 'Storebrand',
               kategori: 'PRIVAT_TJENESTEPENSJON',
-              startAlder: 62,
-              sluttAlder: 72,
+              startAar: 62,
+              sluttAar: 72,
               utbetalingsperioder: [
                 {
-                  startAlder: 62,
-                  startMaaned: 1,
-                  sluttAlder: 72,
-                  sluttMaaned: 1,
+                  startAlder: { aar: 62, maaneder: 1 },
+                  sluttAlder: { aar: 72, maaneder: 1 },
                   aarligUtbetaling: 31298,
                   grad: 100,
                 },

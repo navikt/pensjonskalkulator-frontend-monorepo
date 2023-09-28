@@ -51,12 +51,12 @@ describe('uttaksalderListener', () => {
         userInputActions.setFormatertUttaksalder('66 år og 5 måneder')
       )
       const currentSimulation = selectCurrentSimulation(store.getState())
-      expect(currentSimulation.startAlder).toBe(66)
+      expect(currentSimulation.startAar).toBe(66)
       expect(currentSimulation.startMaaned).toBe(5)
 
       store.dispatch(userInputActions.setFormatertUttaksalder('67 år'))
       const currentSimulationUpdated = selectCurrentSimulation(store.getState())
-      expect(currentSimulationUpdated.startAlder).toBe(67)
+      expect(currentSimulationUpdated.startAar).toBe(67)
       expect(currentSimulationUpdated.startMaaned).toBe(0)
 
       const queries = store.getState().api.queries
@@ -71,7 +71,7 @@ describe('uttaksalderListener', () => {
         userInputActions.setFormatertUttaksalder('62 år og 2 måneder')
       )
       const currentSimulation = selectCurrentSimulation(store.getState())
-      expect(currentSimulation.startAlder).toBe(62)
+      expect(currentSimulation.startAar).toBe(62)
       expect(currentSimulation.startMaaned).toBe(2)
 
       const queries = store.getState().api.queries

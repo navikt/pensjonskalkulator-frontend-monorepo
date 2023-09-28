@@ -178,14 +178,12 @@ describe('apiSlice', () => {
       const avtale = {
         produktbetegnelse: 'IPS',
         kategori: 'INDIVIDUELL_ORDNING',
-        startAlder: 70,
-        sluttAlder: 75,
+        startAar: 70,
+        sluttAar: 75,
         utbetalingsperioder: [
           {
-            startAlder: 70,
-            startMaaned: 6,
-            sluttAlder: 75,
-            sluttMaaned: 6,
+            startAlder: { aar: 70, maaneder: 6 },
+            sluttAlder: { aar: 75, maaneder: 6 },
             aarligUtbetaling: 41802,
             grad: 100,
           },
