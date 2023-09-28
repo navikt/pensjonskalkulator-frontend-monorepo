@@ -57,7 +57,7 @@ describe('Step 1 Feil', () => {
         },
       },
     })
-    await user.click(await screen.findByText('error.global.button.secondary'))
+    await user.click(await screen.findByText('error.global.button'))
     expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
     expect(store.getState().userInput.utenlandsopphold).toBe(null)
   })

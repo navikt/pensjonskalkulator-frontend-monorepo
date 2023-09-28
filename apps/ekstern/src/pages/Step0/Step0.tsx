@@ -2,8 +2,6 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-
 import { Start } from '@/components/stegvisning/Start'
 import { paths } from '@/router'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -15,7 +13,7 @@ export function Step0() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const { isError: isInntektError, error } = useGetInntektQuery()
+  const { isError: isInntektError } = useGetInntektQuery()
   const {
     data: person,
     isError: isPersonError,
@@ -28,22 +26,18 @@ export function Step0() {
     })
   }, [])
 
-  React.useEffect(() => {
-    // TODO PEK-134 invalidate tag i onNext og prøv igjen senere i stegvisningen
-    if (isInntektError) {
-      throw new Error((error as FetchBaseQueryError).data as string)
-    }
-  }, [isInntektError])
-
   const onCancel = (): void => {
     navigate(paths.login)
   }
 
   const onNext = (): void => {
-    navigate(paths.utenlandsopphold)
+    if (isInntektError) {
+      dispatch(apiSlice.util.invalidateTags(['Inntekt']))
+    }
     if (isPersonError) {
       dispatch(apiSlice.util.invalidateTags(['Person']))
     }
+    navigate(paths.utenlandsopphold)
   }
 
   return (

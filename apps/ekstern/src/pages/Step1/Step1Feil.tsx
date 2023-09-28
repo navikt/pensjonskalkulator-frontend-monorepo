@@ -26,7 +26,7 @@ export function Step1Feil() {
           header: 'stegvisning.utenlandsopphold.error.title',
           ingress: 'stegvisning.utenlandsopphold.error.ingress',
           primaryButton: 'stegvisning.utenlandsopphold.error.button.primary',
-          secondaryButton: 'error.global.button.secondary',
+          secondaryButton: 'error.global.button',
         }}
         onPrimaryButtonClick={onNext}
         onSecondaryButtonClick={onCancel}

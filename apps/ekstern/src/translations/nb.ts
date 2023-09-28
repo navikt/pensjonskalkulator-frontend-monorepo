@@ -8,14 +8,14 @@ const translations = {
     'Offentlig tjenestepensjon – Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
   'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.uventet_feil':
+    'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
-  'error.global.title': 'Oops! Det har oppstått en uventet feil',
-  'error.global.ingress':
-    'Vi jobber med å rette feilen. Prøv å last siden på nytt eller prøv igjen senere.',
-  'error.global.button.primary': 'Last siden på nytt',
-  'error.global.button.secondary': 'Avbryt',
+  'error.global.title': 'Oops! Det har oppstått en uventet feil.',
+  'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
+  'error.global.button': 'Avbryt',
   'error.404.title': 'Oops! Siden du leter etter finnes ikke.',
   'error.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
