@@ -55,7 +55,7 @@ export const GrunnlagPensjonsavtaler = () => {
       afp,
       {
         aar: startAar as number,
-        maaneder: startMaaned ?? 1,
+        maaneder: startMaaned ?? 0,
       },
       sivilstand
     ),

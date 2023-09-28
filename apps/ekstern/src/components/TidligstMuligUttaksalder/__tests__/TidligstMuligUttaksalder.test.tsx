@@ -55,7 +55,7 @@ describe('TidligstMuligUttaksalder', () => {
   it('viser ikke AFP melding hvis brukeren har AFP offentlig men at tidligstMuligUttak er 62', async () => {
     render(
       <TidligstMuligUttaksalder
-        tidligstMuligUttak={{ aar: 62, maaneder: 1, uttaksdato: '2031-11-01' }}
+        tidligstMuligUttak={{ aar: 62, maaneder: 0, uttaksdato: '2031-11-01' }}
         hasAfpOffentlig={true}
       />
     )

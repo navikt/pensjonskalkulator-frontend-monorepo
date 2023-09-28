@@ -106,7 +106,7 @@ export function Simulering(props: {
         afp,
         {
           aar: startAar,
-          maaneder: startMaaned ?? 1,
+          maaneder: startMaaned ?? 0,
         },
         sivilstand
       )
