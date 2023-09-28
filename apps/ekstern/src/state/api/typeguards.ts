@@ -115,7 +115,6 @@ export const isUnleashToggle = (data?: any): data is UnleashToggle => {
   )
 }
 
-// TODO PEK-149 skrive tester
 export const isAlder = (data?: any): data is Alder => {
   return (
     typeof data === 'object' &&

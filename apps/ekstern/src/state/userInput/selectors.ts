@@ -42,7 +42,6 @@ export const selectSamboer = (state: RootState): boolean | null => {
   return samboerSkapFraBrukerInput
 }
 
-// TODO PEK-149 skrive tester
 export const selectInntekt = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
