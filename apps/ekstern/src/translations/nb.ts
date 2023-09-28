@@ -12,6 +12,8 @@ const translations = {
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
+  'application.title.personopplysninger':
+    'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
@@ -30,7 +32,8 @@ const translations = {
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
-  'stegvisning.start.start': 'Kom i gang',
+  'stegvisning.start.button': 'Kom i gang',
+  'stegvisning.start.link': 'Personopplysninger som brukes i enkel kalkulator',
   'stegvisning.utenlandsopphold.title': 'Utenlandsopphold',
   'stegvisning.utenlandsopphold.ingress':
     'Enkel kalkulator er under utvikling og støtter ikke beregning med lengre utenlandsopphold.',

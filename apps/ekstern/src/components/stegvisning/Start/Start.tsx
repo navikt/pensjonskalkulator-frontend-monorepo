@@ -1,9 +1,11 @@
 import { useIntl, FormattedMessage } from 'react-intl'
+import { Link as ReactRouterLink } from 'react-router-dom'
 
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
+import { paths } from '@/router'
 import { wrapLogger } from '@/utils/logging'
 
 import styles from './Start.module.scss'
@@ -32,7 +34,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
             <FormattedMessage id="stegvisning.start.ingress" />
           </BodyLong>
           <Button type="submit" className={styles.button} onClick={onNext}>
-            <FormattedMessage id="stegvisning.start.start" />
+            <FormattedMessage id="stegvisning.start.button" />
           </Button>
           <Button
             type="button"
@@ -43,6 +45,13 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           </Button>
         </div>
       </div>
+      <Link
+        className={styles.link}
+        as={ReactRouterLink}
+        to={paths.personopplysninger}
+      >
+        <FormattedMessage id="stegvisning.start.link" />
+      </Link>
     </Card>
   )
 }

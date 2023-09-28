@@ -33,7 +33,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
           <span
             class="navds-label"
           >
-            stegvisning.start.start
+            stegvisning.start.button
           </span>
         </button>
         <button
@@ -48,6 +48,12 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
         </button>
       </div>
     </div>
+    <a
+      class="navds-link _link_09901f navds-link--action"
+      href="/personopplysninger"
+    >
+      stegvisning.start.link
+    </a>
   </section>
 </DocumentFragment>
 `;
@@ -85,7 +91,7 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
           <span
             class="navds-label"
           >
-            stegvisning.start.start
+            stegvisning.start.button
           </span>
         </button>
         <button
@@ -100,6 +106,12 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
         </button>
       </div>
     </div>
+    <a
+      class="navds-link _link_09901f navds-link--action"
+      href="/personopplysninger"
+    >
+      stegvisning.start.link
+    </a>
   </section>
 </DocumentFragment>
 `;
