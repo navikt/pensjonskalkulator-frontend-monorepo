@@ -192,7 +192,7 @@ describe('apiSlice', () => {
           },
         ],
       }
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [{ ...avtale }],
@@ -218,7 +218,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
-      mockErrorResponse('/pensjonsavtaler', {
+      mockErrorResponse('/v1/pensjonsavtaler', {
         method: 'post',
       })
       return storeRef
@@ -233,7 +233,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',

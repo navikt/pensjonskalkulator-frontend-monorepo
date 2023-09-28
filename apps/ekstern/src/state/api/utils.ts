@@ -5,9 +5,13 @@ import {
 import { checkHarSamboer } from '@/utils/sivilstand'
 
 export const generatePensjonsavtalerRequestBody = (
-  uttaksalder: Omit<Uttaksalder, 'uttaksdato'>
+  inntekt: number,
+  harAfp: boolean,
+  uttaksalder: Omit<Uttaksalder, 'uttaksdato'>,
+  sivilstand?: Sivilstand
 ): PensjonsavtalerRequestBody => {
   return {
+    aarligInntektFoerUttak: inntekt,
     uttaksperioder: [
       {
         startAlder: uttaksalder.aar,
@@ -17,6 +21,11 @@ export const generatePensjonsavtalerRequestBody = (
       },
     ],
     antallInntektsaarEtterUttak: 0,
+    harAfp,
+    // harEpsPensjon?: boolean -> jeg vet bare om den har samboer eller ikke, men ikke om saboeren har pensjon
+    // harEpsPensjonsgivendeInntektOver2G?: boolean -> samme
+    // antallAarIUtlandetEtter16?: number -> sender ingenting for nå
+    sivilstand,
   }
 }
 

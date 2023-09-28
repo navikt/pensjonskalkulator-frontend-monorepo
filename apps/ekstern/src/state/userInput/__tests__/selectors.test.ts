@@ -2,9 +2,11 @@ import {
   selectUtenlandsopphold,
   selectSamtykke,
   selectAfp,
+  selectSivilstand,
   selectSamboerFraBrukerInput,
   selectSamboerFraSivilstand,
   selectSamboer,
+  selectInntekt,
   selectFormatertUttaksalder,
   selectCurrentSimulation,
 } from '../selectors'
@@ -55,6 +57,43 @@ describe('userInput selectors', () => {
       },
     }
     expect(selectSamboerFraBrukerInput(state)).toBe(true)
+  })
+
+  describe('selectSivilstand', () => {
+    it('returnerer undefined sivilstand når /person har ikke blitt kalt eller har feilet', () => {
+      const state: RootState = {
+        ...initialState,
+      }
+      expect(selectSivilstand(state)).toBe(undefined)
+    })
+    it('returnerer riktig sivilstand når queryen er vellykket', () => {
+      const fakeApiCall = {
+        queries: {
+          ['getPerson(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getPerson',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              fornavn: 'Aprikos',
+              sivilstand: 'UGIFT',
+              foedselsdato: '1963-04-30',
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
+
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+      }
+      expect(selectSivilstand(state)).toBe('UGIFT')
+    })
   })
 
   describe('selectSamboerFraSivilstand', () => {
@@ -181,6 +220,44 @@ describe('userInput selectors', () => {
         },
       }
       expect(selectSamboer(state)).toBe(true)
+    })
+  })
+
+  describe('selectInntekt', () => {
+    it('returnerer undefined når /inntekt har ikke blitt kalt eller har feilet', () => {
+      const state: RootState = {
+        ...initialState,
+      }
+      expect(selectInntekt(state)).toBe(undefined)
+    })
+    it('returnerer riktig beløp når queryen er vellykket', () => {
+      const fakeApiCall = {
+        queries: {
+          ['getInntekt(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getPerson',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              beloep: 500000,
+              aar: 2021,
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
+
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+      }
+      const inntekt = selectInntekt(state)
+      expect(inntekt.beloep).toBe(500000)
+      expect(inntekt.aar).toBe(2021)
     })
   })
 

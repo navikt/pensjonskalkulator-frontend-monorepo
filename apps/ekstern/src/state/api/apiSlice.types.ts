@@ -2,6 +2,11 @@ export type PensjonsavtalerRequestBody = {
   aarligInntektFoerUttak?: number
   uttaksperioder: Uttaksperiode[]
   antallInntektsaarEtterUttak: number
+  harAfp?: boolean
+  harEpsPensjon?: boolean
+  harEpsPensjonsgivendeInntektOver2G?: boolean
+  antallAarIUtlandetEtter16?: number
+  sivilstand?: Sivilstand
 }
 
 export type Uttaksperiode = {

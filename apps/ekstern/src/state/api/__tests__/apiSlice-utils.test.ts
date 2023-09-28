@@ -6,10 +6,17 @@ import {
 
 describe('apiSlice - utils', () => {
   describe('generatePensjonsavtalerRequestBody', () => {
-    it('returnerer riktig requestBody når maaned er 0', () => {
+    it('returnerer riktig requestBody når maaned er 0 og sivilstand undefined', () => {
       expect(
-        generatePensjonsavtalerRequestBody({ aar: 67, maaned: 0 })
+        generatePensjonsavtalerRequestBody(500000, false, {
+          aar: 67,
+          maaned: 0,
+        })
       ).toEqual({
+        aarligInntektFoerUttak: 500000,
+        antallInntektsaarEtterUttak: 0,
+        harAfp: false,
+        sivilstand: undefined,
         uttaksperioder: [
           {
             startAlder: 67,
@@ -18,13 +25,21 @@ describe('apiSlice - utils', () => {
             aarligInntekt: 0,
           },
         ],
-        antallInntektsaarEtterUttak: 0,
       })
     })
     it('returnerer riktig requestBody når uttaksalder består av både år og måned', () => {
       expect(
-        generatePensjonsavtalerRequestBody({ aar: 62, maaned: 4 })
+        generatePensjonsavtalerRequestBody(
+          500000,
+          true,
+          { aar: 62, maaned: 4 },
+          'GIFT'
+        )
       ).toEqual({
+        aarligInntektFoerUttak: 500000,
+        antallInntektsaarEtterUttak: 0,
+        harAfp: true,
+        sivilstand: 'GIFT',
         uttaksperioder: [
           {
             startAlder: 62,
@@ -33,7 +48,6 @@ describe('apiSlice - utils', () => {
             aarligInntekt: 0,
           },
         ],
-        antallInntektsaarEtterUttak: 0,
       })
     })
   })

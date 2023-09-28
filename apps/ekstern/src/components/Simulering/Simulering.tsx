@@ -27,7 +27,10 @@ import { useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectSamtykke,
+  selectSivilstand,
+  selectAfp,
 } from '@/state/userInput/selectors'
+import { checkHarAfp } from '@/utils/afp'
 
 import { SERIES_DEFAULT } from './constants'
 import {
@@ -53,6 +56,8 @@ export function Simulering(props: {
   const { isLoading, inntekt, alderspensjon, showAfp, showButtonsAndTable } =
     props
   const harSamtykket = useAppSelector(selectSamtykke)
+  const afp = useAppSelector(selectAfp)
+  const sivilstand = useAppSelector(selectSivilstand)
   React.useState<boolean>(false)
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     React.useState<boolean>(false)
@@ -97,10 +102,15 @@ export function Simulering(props: {
   // Hent pensjonsavtaler
   React.useEffect(() => {
     if (harSamtykket && startAlder) {
-      const requestBody = generatePensjonsavtalerRequestBody({
-        aar: startAlder,
-        maaned: startMaaned ?? 1,
-      })
+      const requestBody = generatePensjonsavtalerRequestBody(
+        inntekt?.beloep,
+        checkHarAfp(afp),
+        {
+          aar: startAlder,
+          maaned: startMaaned ?? 1,
+        },
+        sivilstand
+      )
       setPensjonsavtalerRequestBody(requestBody)
     }
   }, [harSamtykket, startAlder, startMaaned])

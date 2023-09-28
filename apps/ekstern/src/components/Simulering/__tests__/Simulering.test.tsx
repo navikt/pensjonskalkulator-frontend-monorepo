@@ -180,7 +180,10 @@ describe('Simulering', () => {
       })
       expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
         {
+          aarligInntektFoerUttak: 500000,
           antallInntektsaarEtterUttak: 0,
+          harAfp: false,
+          sivilstand: undefined,
           uttaksperioder: [
             {
               aarligInntekt: 0,
@@ -259,7 +262,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler', async () => {
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -310,7 +313,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler ', async () => {
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -364,7 +367,7 @@ describe('Simulering', () => {
     it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding som sender til Grunnlag', async () => {
       const scrollIntoViewMock = vi.fn()
       const user = userEvent.setup()
-      mockErrorResponse('/pensjonsavtaler', {
+      mockErrorResponse('/v1/pensjonsavtaler', {
         status: 500,
         json: "Beep boop I'm an error!",
         method: 'post',
@@ -412,7 +415,7 @@ describe('Simulering', () => {
     it('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
       const scrollIntoViewMock = vi.fn()
       const user = userEvent.setup()
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],

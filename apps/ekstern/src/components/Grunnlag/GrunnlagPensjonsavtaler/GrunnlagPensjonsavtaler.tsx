@@ -16,9 +16,15 @@ import { paths } from '@/router'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamtykke } from '@/state/userInput/selectors'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import {
+  selectSamtykke,
+  selectInntekt,
+  selectAfp,
+  selectSivilstand,
+  selectCurrentSimulation,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { checkHarAfp } from '@/utils/afp'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 import { formatMessageValues } from '@/utils/translations'
@@ -27,9 +33,12 @@ import { groupPensjonsavtalerByType, getMaanedString } from './utils'
 
 import styles from './GrunnlagPensjonsavtaler.module.scss'
 
-export function GrunnlagPensjonsavtaler() {
+export const GrunnlagPensjonsavtaler = () => {
   const intl = useIntl()
   const harSamtykket = useAppSelector(selectSamtykke)
+  const sivilstand = useAppSelector(selectSivilstand)
+  const inntekt = useAppSelector(selectInntekt)
+  const afp = useAppSelector(selectAfp)
   const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
   const {
     ref: grunnlagPensjonsavtalerRef,
@@ -42,12 +51,17 @@ export function GrunnlagPensjonsavtaler() {
     isError,
     isSuccess,
   } = usePensjonsavtalerQuery(
-    generatePensjonsavtalerRequestBody({
-      aar: startAlder as number,
-      maaned: startMaaned ?? 1,
-    }),
+    generatePensjonsavtalerRequestBody(
+      inntekt ? inntekt.beloep : 0,
+      checkHarAfp(afp),
+      {
+        aar: startAlder as number,
+        maaned: startMaaned ?? 1,
+      },
+      sivilstand
+    ),
     {
-      skip: !harSamtykket || !startAlder,
+      skip: !harSamtykket || !startAlder || !inntekt,
     }
   )
   const navigate = useNavigate()

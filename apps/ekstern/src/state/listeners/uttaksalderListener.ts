@@ -6,8 +6,14 @@ import {
   unformatUttaksalder,
 } from '@/state/api/utils'
 import { AppListenerEffectAPI, AppStartListening } from '@/state/store'
-import { selectSamtykke } from '@/state/userInput/selectors'
+import {
+  selectInntekt,
+  selectSamtykke,
+  selectAfp,
+  selectSivilstand,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { checkHarAfp } from '@/utils/afp'
 
 /**
  * onSetFormatertUttaksalder
@@ -31,11 +37,20 @@ async function onSetFormatertUttaksalder(
     })
   )
 
+  const inntekt = selectInntekt(getState())
   const samtykke = selectSamtykke(getState())
-  if (samtykke) {
+  const afp = selectAfp(getState())
+  const sivilstand = selectSivilstand(getState())
+
+  if (samtykke && inntekt !== undefined) {
     dispatch(
       apiSlice.endpoints.pensjonsavtaler.initiate(
-        generatePensjonsavtalerRequestBody(uttaksalder)
+        generatePensjonsavtalerRequestBody(
+          inntekt.beloep,
+          checkHarAfp(afp),
+          uttaksalder,
+          sivilstand
+        )
       )
     )
   }

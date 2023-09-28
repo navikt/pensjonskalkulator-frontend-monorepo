@@ -12,6 +12,22 @@ import {
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('GrunnlagPensjonsavtaler', () => {
+  const fakeInntektApiCall = {
+    queries: {
+      ['getInntekt(undefined)']: {
+        status: 'fulfilled',
+        endpointName: 'getInntekt',
+        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+        startedTimeStamp: 1688046411971,
+        data: {
+          beloep: 500000,
+          aar: 2021,
+        },
+        fulfilledTimeStamp: 1688046412103,
+      },
+    },
+  }
+
   const currentSimulation: Simulation = {
     startAlder: 67,
     startMaaned: 1,
@@ -27,6 +43,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       )
       const { store } = render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: { ...userInputInitialState, samtykke: false },
         },
       })
@@ -66,6 +85,9 @@ describe('GrunnlagPensjonsavtaler', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -90,11 +112,14 @@ describe('GrunnlagPensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {
-      mockErrorResponse('/pensjonsavtaler', {
+      mockErrorResponse('/v1/pensjonsavtaler', {
         method: 'post',
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -121,7 +146,7 @@ describe('GrunnlagPensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress og tabell', async () => {
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -148,6 +173,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -176,7 +204,7 @@ describe('GrunnlagPensjonsavtaler', () => {
 
     it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
       const user = userEvent.setup()
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -186,6 +214,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -224,7 +255,7 @@ describe('GrunnlagPensjonsavtaler', () => {
           },
         ],
       }
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -242,6 +273,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -305,7 +339,7 @@ describe('GrunnlagPensjonsavtaler', () => {
           },
         ],
       }
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [avtale],
@@ -315,6 +349,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
