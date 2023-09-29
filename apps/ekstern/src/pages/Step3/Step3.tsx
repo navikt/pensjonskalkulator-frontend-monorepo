@@ -1,4 +1,4 @@
-import { useEffect, Suspense } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate, Await } from 'react-router-dom'
 
@@ -17,7 +17,7 @@ export function Step3() {
   const dispatch = useAppDispatch()
   const loaderData = useStep3LoaderData()
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.step3',
     })
@@ -38,7 +38,7 @@ export function Step3() {
 
   return (
     <>
-      <Suspense
+      <React.Suspense
         fallback={
           <Loader
             data-testid="loader"
@@ -77,7 +77,7 @@ export function Step3() {
             )
           }}
         </Await>
-      </Suspense>
+      </React.Suspense>
     </>
   )
 }

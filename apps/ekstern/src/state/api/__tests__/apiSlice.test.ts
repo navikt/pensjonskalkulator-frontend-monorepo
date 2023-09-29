@@ -48,7 +48,7 @@ describe('apiSlice', () => {
         })
     })
 
-    it('kaster feil ved uforventet format på responsen', async () => {
+    it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
       mockResponse('/inntekt', {
         status: 200,
@@ -91,7 +91,7 @@ describe('apiSlice', () => {
         })
     })
 
-    it('kaster feil ved uforventet format på responsen', async () => {
+    it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
       mockResponse('/person', {
         status: 200,
@@ -160,7 +160,7 @@ describe('apiSlice', () => {
         })
     })
 
-    it('kaster feil ved uforventet format på responsen', async () => {
+    it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
       mockResponse('/tpo-medlemskap', {
         status: 200,
@@ -264,7 +264,7 @@ describe('apiSlice', () => {
         })
     })
 
-    it('kaster feil ved uforventet format på responsen', async () => {
+    it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
       mockResponse('/pensjonsavtaler', {
         status: 200,
@@ -310,7 +310,7 @@ describe('apiSlice', () => {
         })
     })
 
-    it('kaster feil ved uforventet format på responsen', async () => {
+    it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
       mockResponse('/v1/tidligste-uttaksalder', {
         status: 200,
@@ -361,7 +361,7 @@ describe('apiSlice', () => {
         })
     })
 
-    it('kaster feil ved uforventet format på responsen', async () => {
+    it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
       mockResponse('/alderspensjon/simulering', {
         status: 200,
@@ -406,7 +406,7 @@ describe('apiSlice', () => {
         })
     })
 
-    it('kaster feil ved uforventet format på responsen', async () => {
+    it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
 
       mockResponse('/feature/pensjonskalkulator.disable-spraakvelger', {

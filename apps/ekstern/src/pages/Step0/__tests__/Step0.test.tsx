@@ -1,12 +1,10 @@
 import * as ReactRouterUtils from 'react-router'
-import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
 import { Step0 } from '..'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router'
-import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 
@@ -39,7 +37,7 @@ describe('Step 0', () => {
     )
     render(<Step0 />)
     await waitFor(async () => {
-      await user.click(await screen.findByText('stegvisning.start.start'))
+      await user.click(await screen.findByText('stegvisning.start.button'))
       expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
     })
   })
@@ -62,32 +60,34 @@ describe('Step 0', () => {
 
     render(<Step0 />)
     await waitFor(async () => {
-      await user.click(screen.getByText('stegvisning.start.start'))
+      await user.click(screen.getByText('stegvisning.start.button'))
       expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
       expect(invalidateTagsMock).toHaveBeenCalledWith(['Person'])
     })
   })
 
-  it('kaller /inntekt, og viser ErrorPageUnexpected når inntekt feiler', async () => {
-    const cache = console.error
-    console.error = () => {}
-
+  it('nullstiller cachen for /inntekt kall når brukeren klikker på Neste og at kallet har feilet', async () => {
     mockErrorResponse('/inntekt')
-    const router = createMemoryRouter([
-      {
-        path: '/',
-        element: <Step0 />,
-        ErrorBoundary: RouteErrorBoundary,
-      },
-    ])
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
+    const user = userEvent.setup()
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+
+    let invalidateTagsMock = vi
+      .spyOn(apiSliceUtils.apiSlice.util, 'invalidateTags')
+      .mockReturnValue({
+        type: 'something',
+        payload: ['Inntekt'],
+      })
+    invalidateTagsMock = Object.assign(invalidateTagsMock, { match: vi.fn() })
+
+    render(<Step0 />)
+    await waitFor(async () => {
+      await user.click(screen.getByText('stegvisning.start.button'))
+      expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
+      expect(invalidateTagsMock).toHaveBeenCalledWith(['Inntekt'])
     })
-
-    expect(await screen.findByText('error.global.title')).toBeVisible()
-    expect(await screen.findByText('error.global.ingress')).toBeVisible()
-
-    console.error = cache
   })
 
   it('redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {

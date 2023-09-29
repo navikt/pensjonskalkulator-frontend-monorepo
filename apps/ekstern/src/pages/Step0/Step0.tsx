@@ -2,7 +2,6 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { lastDayOfYear, isBefore } from 'date-fns'
 
 import { Loader } from '@/components/common/Loader'
@@ -10,9 +9,9 @@ import { Start } from '@/components/stegvisning/Start'
 import { paths } from '@/router'
 import { apiSlice } from '@/state/api/apiSlice'
 import {
-  useGetInntektQuery,
   useGetPersonQuery,
   useGetSakStatusQuery,
+  useGetInntektQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 
@@ -23,11 +22,9 @@ export function Step0() {
 
   const { isFetching: isSakFetching, data: sak } = useGetSakStatusQuery()
 
-  const {
-    isError: isInntektError,
-    error,
-    isFetching: isInntektFetching,
-  } = useGetInntektQuery()
+  const { isError: isInntektError, isFetching: isInntektFetching } =
+    useGetInntektQuery()
+
   const {
     data: person,
     isError: isPersonError,
@@ -40,13 +37,6 @@ export function Step0() {
       id: 'application.title.stegvisning.step0',
     })
   }, [])
-
-  React.useEffect(() => {
-    // TODO PEK-134 invalidate tag i onNext og prøv igjen senere i stegvisningen
-    if (isInntektError) {
-      throw new Error((error as FetchBaseQueryError).data as string)
-    }
-  }, [isInntektError])
 
   React.useEffect(() => {
     if (!isSakFetching && sak?.harUfoeretrygdEllerGjenlevendeytelse) {
@@ -69,10 +59,13 @@ export function Step0() {
   }
 
   const onNext = (): void => {
-    navigate(paths.utenlandsopphold)
+    if (isInntektError) {
+      dispatch(apiSlice.util.invalidateTags(['Inntekt']))
+    }
     if (isPersonError) {
       dispatch(apiSlice.util.invalidateTags(['Person']))
     }
+    navigate(paths.utenlandsopphold)
   }
 
   if (isPersonFetching || isInntektFetching || isSakFetching) {

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
@@ -19,7 +19,7 @@ export function Step5() {
   const { data: person, isSuccess } = useGetPersonQuery()
   const harSamboer = useAppSelector(selectSamboer)
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.step5',
     })

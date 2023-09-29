@@ -16,24 +16,11 @@ describe('ErrorPageUnexpected', () => {
 
   it('rendrer med riktig tekst og knapper', () => {
     const { asFragment } = render(<ErrorPageUnexpected />)
-    expect(screen.getAllByRole('button')).toHaveLength(2)
+    expect(screen.getAllByRole('button')).toHaveLength(1)
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('laster siden på nytt når brukeren klikker på første knapp', async () => {
-    const user = userEvent.setup()
-    global.window = Object.create(window)
-    const reloadMock = vi.fn()
-    Object.defineProperty(window, 'location', {
-      value: { reload: reloadMock },
-      writable: true,
-    })
-    render(<ErrorPageUnexpected />)
-    await user.click(screen.getByText('error.global.button.primary'))
-    expect(reloadMock).toHaveBeenCalled()
-  })
-
-  it('sender brukeren til landingside og tømmer storen når brukeren klikker på andre knapp', async () => {
+  it('sender brukeren til landingside og tømmer storen når brukeren klikker på knappen', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -47,7 +34,7 @@ describe('ErrorPageUnexpected', () => {
         },
       },
     })
-    await user.click(screen.getByText('error.global.button.secondary'))
+    await user.click(screen.getByText('error.global.button'))
     expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
     expect(store.getState().userInput.samtykke).toBe(null)
   })
