@@ -19,7 +19,7 @@ import { GrunnlagSection } from './GrunnlagSection'
 import styles from './Grunnlag.module.scss'
 interface Props {
   inntekt: Inntekt
-  tidligstMuligUttak?: Uttaksalder | UttaksalderForenklet
+  tidligstMuligUttak?: Alder
 }
 
 export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {

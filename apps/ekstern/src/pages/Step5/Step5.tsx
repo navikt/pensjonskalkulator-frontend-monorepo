@@ -9,7 +9,7 @@ import {
 import { paths } from '@/router'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamboer } from '@/state/userInput/selectors'
+import { selectSamboerFraBrukerInput } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step5() {
@@ -17,7 +17,7 @@ export function Step5() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { data: person, isSuccess } = useGetPersonQuery()
-  const harSamboer = useAppSelector(selectSamboer)
+  const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -43,7 +43,7 @@ export function Step5() {
       {isSuccess && (
         <Sivilstand
           sivilstand={person.sivilstand}
-          harSamboer={harSamboer}
+          harSamboer={samboerSvar}
           onCancel={onCancel}
           onPrevious={onPrevious}
           onNext={onNext}

@@ -134,14 +134,6 @@ export const isAlder = (data?: any): data is Alder => {
   )
 }
 
-export const isUttaksalder = (data?: any): data is Uttaksalder => {
-  return (
-    isAlder(data) &&
-    (data as Uttaksalder).uttaksdato !== undefined &&
-    typeof (data as Uttaksalder).uttaksdato === 'string'
-  )
-}
-
 export const isSomeEnumKey =
   <T extends { [s: string]: unknown }>(e: T) =>
   (token: unknown): token is T[keyof T] => {

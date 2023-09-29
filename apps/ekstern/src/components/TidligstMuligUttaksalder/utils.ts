@@ -1,4 +1,4 @@
-export const isUttaksalderOver62 = (tidligstMuligUttak: Uttaksalder) => {
+export const isUttaksalderOver62 = (tidligstMuligUttak: Alder) => {
   if (tidligstMuligUttak.aar > 62) {
     return true
   } else if (tidligstMuligUttak.aar === 62 && tidligstMuligUttak.maaneder > 0) {

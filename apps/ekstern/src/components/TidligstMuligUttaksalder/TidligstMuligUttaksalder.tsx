@@ -11,7 +11,7 @@ import { isUttaksalderOver62 } from './utils'
 import styles from './TidligsMuligUttaksalder.module.scss'
 
 interface Props {
-  tidligstMuligUttak: Uttaksalder
+  tidligstMuligUttak: Alder
   hasAfpOffentlig: boolean
 }
 
