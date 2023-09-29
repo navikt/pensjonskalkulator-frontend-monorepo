@@ -10,11 +10,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js v19.6.0
+      - name: Use Node.js v18
         uses: actions/setup-node@v3
         with:
-          node-version: '19.6.0'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: 18
 
       - name: Cache node modules
         id: cache-node
