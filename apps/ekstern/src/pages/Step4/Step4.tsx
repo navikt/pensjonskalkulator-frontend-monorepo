@@ -35,6 +35,11 @@ export function Step4() {
     })
   }, [])
 
+  const nesteSide = React.useMemo(
+    () => getNesteSide(harSamboer, isInntektError),
+    [harSamboer, isInntektError]
+  )
+
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
     navigate(paths.login)
@@ -53,11 +58,12 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    navigate(getNesteSide(harSamboer, isInntektError))
+    navigate(nesteSide)
   }
 
   return (
     <AFP
+      isLastStep={nesteSide === paths.beregning}
       afp={previousAfp}
       onCancel={onCancel}
       onPrevious={onPrevious}
