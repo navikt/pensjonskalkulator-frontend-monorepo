@@ -42,7 +42,7 @@ describe('Step 4', () => {
     expect(screen.getAllByRole('radio')).toHaveLength(4)
   })
   describe('Gitt at brukeren er GIFT (og har dermed en samboer)', () => {
-    it('registrerer afp, evaluerer samboerskapet og navigerer videre til beregning når brukeren velger afp og klikker på Neste', async () => {
+    it('registrerer afp, evaluerer samboerskapet og navigerer videre til beregning når brukeren velger afp og klikker på Beregn', async () => {
       const user = userEvent.setup()
       mockResponse('/person', {
         status: 200,
@@ -68,7 +68,8 @@ describe('Step 4', () => {
 
       const radioButtons = await screen.findAllByRole('radio')
       await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.neste'))
+      expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
+      await user.click(screen.getByText('stegvisning.beregn'))
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
 
       expect(nesteSideMock).toHaveBeenCalledWith(true, false)
@@ -99,7 +100,7 @@ describe('Step 4', () => {
       })
       // Simulerer at /person har vært kalt i et tidligere steg
       store.dispatch(apiSlice.endpoints.getPerson.initiate())
-
+      expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
       const radioButtons = screen.getAllByRole('radio')
       await user.click(radioButtons[0])
       await user.click(screen.getByText('stegvisning.neste'))

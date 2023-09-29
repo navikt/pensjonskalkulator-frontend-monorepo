@@ -1,14 +1,14 @@
-export const DEFAULT_TIDLIGST_UTTAKSALDER: Omit<Uttaksalder, 'uttaksdato'> = {
+export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
   aar: 62,
   maaneder: 0,
 }
-export const DEFAULT_SENEST_UTTAKSALDER: Omit<Uttaksalder, 'uttaksdato'> = {
+export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
   aar: 75,
   maaneder: 0,
 }
 
 export const formatUttaksalder = (
-  { aar, maaneder }: UttaksalderForenklet,
+  { aar, maaneder }: Alder,
   options: { compact: boolean } = { compact: false }
 ): string => {
   if (maaneder === 0) {
@@ -20,8 +20,8 @@ export const formatUttaksalder = (
 }
 
 export const getFormaterteAldere = (
-  start: UttaksalderForenklet,
-  end: UttaksalderForenklet = {
+  start: Alder,
+  end: Alder = {
     ...DEFAULT_SENEST_UTTAKSALDER,
   }
 ): string[] => {

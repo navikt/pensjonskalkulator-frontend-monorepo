@@ -5,12 +5,6 @@ declare type Alder = {
   maaneder: number
 }
 
-declare type Uttaksalder = Alder & {
-  uttaksdato: string
-}
-
-declare type UttaksalderForenklet = Omit<Uttaksalder, 'uttaksdato'>
-
 declare type Pensjonsberegning = {
   beloep: number
   alder: number
@@ -70,4 +64,8 @@ declare type TpoMedlemskap = {
 
 declare type UnleashToggle = {
   enabled: boolean
+}
+
+declare type SakStatus = {
+  harUfoeretrygdEllerGjenlevendeytelse: boolean
 }

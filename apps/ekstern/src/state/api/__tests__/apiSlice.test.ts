@@ -11,6 +11,7 @@ const tpoMedlemskapResponse = require('../../../mocks/data/tpo-medlemskap.json')
 const tidligsteUttaksalderResponse = require('../../../mocks/data/tidligsteUttaksalder.json')
 const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
+const sakStatusResponse = require('../../../mocks/data/sak-status.json')
 const unleashResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
 
 // TODO: fikse bedre typing ved dispatch
@@ -72,7 +73,10 @@ describe('apiSlice', () => {
         .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(personResponse)
+          expect(result.data).toMatchObject({
+            ...personResponse,
+            foedselsdato: new Date(1963, 3, 30).toISOString(),
+          })
         })
     })
 
@@ -102,6 +106,35 @@ describe('apiSlice', () => {
             expect(result.data).toBe(undefined)
           })
       })
+    })
+  })
+
+  describe('getSakStatus', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = await setupStore({}, true)
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(sakStatusResponse)
+        })
+    })
+
+    it('kaster feil ved uforventet format på data', async () => {
+      const storeRef = await setupStore({}, true)
+
+      mockResponse('/sak-status', {
+        json: {
+          feil: 'format',
+        },
+      })
+
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
     })
   })
 
@@ -314,7 +347,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
-      mockErrorResponse('/alderspensjon/simulering', {
+      mockErrorResponse('/v1/alderspensjon/simulering', {
         method: 'post',
       })
       return storeRef
@@ -327,7 +360,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
-      mockResponse('/alderspensjon/simulering', {
+      mockResponse('/v1/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',

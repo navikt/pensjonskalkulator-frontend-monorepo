@@ -18,13 +18,14 @@ import { formatMessageValues } from '@/utils/translations'
 import styles from './AFP.module.scss'
 
 interface Props {
+  isLastStep: boolean
   afp: AfpRadio | null
   onCancel: () => void
   onPrevious: () => void
   onNext: (afpData: AfpRadio) => void
 }
 
-export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
+export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
   const [validationError, setValidationError] = useState<string>('')
   const [showAlert, setShowAlert] = useState<AfpRadio | ''>('')
@@ -144,7 +145,9 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           )}
         </RadioGroup>
         <Button type="submit" className={styles.button}>
-          <FormattedMessage id="stegvisning.neste" />
+          <FormattedMessage
+            id={isLastStep ? 'stegvisning.beregn' : 'stegvisning.neste'}
+          />
         </Button>
         <Button
           type="button"

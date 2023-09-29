@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
   selectAfp,
-  selectSamboer,
+  selectSamboerFraSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -23,7 +23,7 @@ export function Step4() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
-  const harSamboer = useAppSelector(selectSamboer)
+  const harSamboer = useAppSelector(selectSamboerFraSivilstand)
   const previousAfp = useAppSelector(selectAfp)
   const { isError: isInntektError } = useGetInntektQuery()
   const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
@@ -34,6 +34,11 @@ export function Step4() {
       id: 'application.title.stegvisning.step4',
     })
   }, [])
+
+  const nesteSide = React.useMemo(
+    () => getNesteSide(harSamboer, isInntektError),
+    [harSamboer, isInntektError]
+  )
 
   const onCancel = (): void => {
     dispatch(userInputActions.flush())
@@ -53,11 +58,12 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    navigate(getNesteSide(harSamboer, isInntektError))
+    navigate(nesteSide)
   }
 
   return (
     <AFP
+      isLastStep={nesteSide === paths.beregning}
       afp={previousAfp}
       onCancel={onCancel}
       onPrevious={onPrevious}

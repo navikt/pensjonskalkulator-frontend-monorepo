@@ -6,7 +6,8 @@ import {
   isPensjonsavtale,
   isTpoMedlemskap,
   isUnleashToggle,
-  isUttaksalder,
+  isAlder,
+  isSakStatus,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
 import {
@@ -16,6 +17,8 @@ import {
   AlderspensjonResponseBody,
   TidligsteUttaksalderRequestBody,
 } from '@/state/api/apiSlice.types'
+
+import { parse } from 'date-fns'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -41,7 +44,14 @@ export const apiSlice = createApi({
         if (!isPerson(response)) {
           throw new Error(`Mottok ugyldig person: ${response}`)
         }
-        return response
+        return {
+          ...response,
+          foedselsdato: parse(
+            response.foedselsdato,
+            'yyyy-MM-dd',
+            new Date()
+          ).toISOString(),
+        }
       },
     }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
@@ -54,7 +64,7 @@ export const apiSlice = createApi({
       },
     }),
     tidligsteUttaksalder: builder.query<
-      Uttaksalder,
+      Alder,
       TidligsteUttaksalderRequestBody | void
     >({
       query: (body) => ({
@@ -62,8 +72,8 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: Uttaksalder) => {
-        if (!isUttaksalder(response)) {
+      transformResponse: (response: Alder) => {
+        if (!isAlder(response)) {
           throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
         }
         return response
@@ -103,7 +113,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/alderspensjon/simulering',
+        url: '/v1/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -130,12 +140,22 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getSakStatus: builder.query<SakStatus, void>({
+      query: () => '/sak-status',
+      transformResponse: (response: any) => {
+        if (!isSakStatus(response)) {
+          throw new Error(`Mottok ugyldig sak response:`, response)
+        }
+        return response
+      },
+    }),
   }),
 })
 
 export const {
   useGetInntektQuery,
   useGetPersonQuery,
+  useGetSakStatusQuery,
   useGetTpoMedlemskapQuery,
   useTidligsteUttaksalderQuery,
   useAlderspensjonQuery,

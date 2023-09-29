@@ -13,6 +13,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     const result = render(
       <AFP
+        isLastStep={false}
         afp={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -47,6 +48,7 @@ describe('stegvisning - AFP', () => {
   it('rendrer slik den skal når afp er oppgitt', async () => {
     const result = render(
       <AFP
+        isLastStep={false}
         afp="nei"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -71,6 +73,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     render(
       <AFP
+        isLastStep={false}
         afp={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -129,6 +132,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     render(
       <AFP
+        isLastStep={false}
         afp={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -159,10 +163,32 @@ describe('stegvisning - AFP', () => {
     })
   })
 
+  it('kaller onNext når det er siste steg og at brukeren klikker på Beregn', async () => {
+    const user = userEvent.setup()
+    render(
+      <AFP
+        isLastStep={true}
+        afp={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    const radioButtons = screen.getAllByRole('radio')
+    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
+    await user.click(radioButtons[0])
+    await user.click(screen.getByText('stegvisning.beregn'))
+
+    waitFor(() => {
+      expect(onNextMock).toHaveBeenCalled()
+    })
+  })
+
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
     render(
       <AFP
+        isLastStep={false}
         afp="ja_privat"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -181,6 +207,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     render(
       <AFP
+        isLastStep={false}
         afp="ja_privat"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}

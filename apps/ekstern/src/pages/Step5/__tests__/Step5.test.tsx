@@ -42,6 +42,8 @@ describe('Step 5', () => {
     })
     await waitFor(async () => {
       const radioButtons = screen.getAllByRole('radio')
+      expect(radioButtons[0]).not.toBeChecked()
+      expect(radioButtons[1]).not.toBeChecked()
       await user.click(radioButtons[0])
       await user.click(screen.getByText('stegvisning.beregn'))
       expect(store.getState().userInput.samboer).toBe(true)

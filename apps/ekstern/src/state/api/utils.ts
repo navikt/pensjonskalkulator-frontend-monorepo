@@ -7,7 +7,7 @@ import { checkHarSamboer } from '@/utils/sivilstand'
 export const generatePensjonsavtalerRequestBody = (
   inntekt: number,
   afp: AfpRadio | null,
-  uttaksalder: Omit<Uttaksalder, 'uttaksdato'>,
+  uttaksalder: Alder,
   sivilstand?: Sivilstand
 ): PensjonsavtalerRequestBody => {
   return {
@@ -31,9 +31,7 @@ export const generatePensjonsavtalerRequestBody = (
   }
 }
 
-export const unformatUttaksalder = (
-  alderChip: string
-): Omit<Uttaksalder, 'uttaksdato'> => {
+export const unformatUttaksalder = (alderChip: string): Alder => {
   const uttaksalder = alderChip.match(/[-+]?[0-9]*\.?[0-9]+/g)
   const aar = uttaksalder?.[0] ? parseInt(uttaksalder?.[0], 10) : 0
   const maaneder = uttaksalder?.[1] ? parseInt(uttaksalder?.[1], 10) : 0
@@ -45,6 +43,7 @@ export const generateAlderspensjonRequestBody = (args: {
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
+  inntekt?: Inntekt
   startAlder: number | null
   startMaaned: number | null
   uttaksgrad: number | null | undefined
@@ -54,6 +53,7 @@ export const generateAlderspensjonRequestBody = (args: {
     sivilstand,
     harSamboer,
     foedselsdato,
+    inntekt,
     startAlder,
     startMaaned,
     uttaksgrad,
@@ -70,16 +70,16 @@ export const generateAlderspensjonRequestBody = (args: {
     uttaksgrad,
     foersteUttaksalder: {
       aar: startAlder,
-      maaneder: startMaaned > 0 ? startMaaned : 0,
+      maaneder: startMaaned,
     },
     foedselsdato,
+    forventetInntekt: inntekt?.beloep, // hvis tomt, henter backend fra pensjonsopptjeningsregisteret POPP.
+    epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand
         : harSamboer
         ? 'SAMBOER'
         : 'UGIFT',
-    epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    // forventetInntekt?: number // Tomt i MVP1 - backend henter fra pensjonsopptjeningsregisteret POPP.
   }
 }

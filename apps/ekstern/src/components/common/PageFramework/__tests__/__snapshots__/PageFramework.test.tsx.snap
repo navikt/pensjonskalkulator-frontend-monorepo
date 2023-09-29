@@ -17,7 +17,7 @@ exports[`PageFramework > rendrer slik den skal i full width 1`] = `
           <h1
             class="navds-heading navds-heading--large"
           >
-            application.title
+            pageframework.title
           </h1>
         </div>
       </div>
@@ -43,7 +43,7 @@ exports[`PageFramework > rendrer slik den skal, med main tag og Heading på rikt
           <h1
             class="navds-heading navds-heading--large"
           >
-            application.title
+            pageframework.title
           </h1>
         </div>
       </div>
