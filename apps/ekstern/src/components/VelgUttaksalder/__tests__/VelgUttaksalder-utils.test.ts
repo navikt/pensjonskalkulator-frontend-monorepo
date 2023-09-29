@@ -5,7 +5,7 @@ import { formatUttaksalder, getFormaterteAldere } from '../utils'
 describe('VelgUttaksalder-utils', () => {
   describe('getFormaterteAldere', () => {
     it('returnerer array med én verdi når start og slutt er like', () => {
-      const start = { aar: 64, maaneder: 3, uttaksdato: '2031-11-01' }
+      const start = { aar: 64, maaneder: 3 }
       const end = { ...start }
 
       const aldere = getFormaterteAldere(start, end)
@@ -14,8 +14,8 @@ describe('VelgUttaksalder-utils', () => {
     })
 
     it('tar kun hensyn til måned når det er snakk om start-alder', () => {
-      const start = { aar: 64, maaneder: 3, uttaksdato: '2031-11-01' }
-      const end = { aar: 66, maaneder: 5, uttaksdato: '2031-11-01' }
+      const start = { aar: 64, maaneder: 3 }
+      const end = { aar: 66, maaneder: 5 }
 
       const aldere = getFormaterteAldere(start, end)
       expect(aldere).toHaveLength(3)

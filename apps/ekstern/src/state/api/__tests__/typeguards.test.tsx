@@ -10,7 +10,6 @@ import {
   isUtbetalingsperiode,
   isUnleashToggle,
   isAlder,
-  isUttaksalder,
   isSomeEnumKey,
 } from '../typeguards'
 
@@ -316,35 +315,6 @@ describe('Typeguards', () => {
       expect(
         isAlder({
           aar: 'string',
-          maaneder: 2,
-        })
-      ).toBeFalsy()
-    })
-  })
-  describe('isTidligsteUttaksalder', () => {
-    it('returnerer true når typen er riktig', () => {
-      expect(
-        isUttaksalder({
-          aar: 12,
-          maaneder: 2,
-          uttaksdato: '1963-10-10',
-        })
-      ).toBeTruthy()
-    })
-    it('returnerer false når typen er undefined eller at TidligsteMuligeUttaksalder inneholder noe annet enn number', () => {
-      expect(isUttaksalder(undefined)).toBeFalsy()
-      expect(isUttaksalder([])).toBeFalsy()
-      expect(isUttaksalder({})).toBeFalsy()
-      expect(
-        isUttaksalder({
-          aar: 'string',
-          maaneder: 2,
-          uttaksdato: '1963-10-10',
-        })
-      ).toBeFalsy()
-      expect(
-        isUttaksalder({
-          aar: 67,
           maaneder: 2,
         })
       ).toBeFalsy()

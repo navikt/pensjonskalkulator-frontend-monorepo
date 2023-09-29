@@ -7,7 +7,7 @@ import { checkHarSamboer } from '@/utils/sivilstand'
 export const generatePensjonsavtalerRequestBody = (
   inntekt: number,
   afp: AfpRadio | null,
-  uttaksalder: Omit<Uttaksalder, 'uttaksdato'>,
+  uttaksalder: Alder,
   sivilstand?: Sivilstand
 ): PensjonsavtalerRequestBody => {
   return {
@@ -31,9 +31,7 @@ export const generatePensjonsavtalerRequestBody = (
   }
 }
 
-export const unformatUttaksalder = (
-  alderChip: string
-): Omit<Uttaksalder, 'uttaksdato'> => {
+export const unformatUttaksalder = (alderChip: string): Alder => {
   const uttaksalder = alderChip.match(/[-+]?[0-9]*\.?[0-9]+/g)
   const aar = uttaksalder?.[0] ? parseInt(uttaksalder?.[0], 10) : 0
   const maaneder = uttaksalder?.[1] ? parseInt(uttaksalder?.[1], 10) : 0
