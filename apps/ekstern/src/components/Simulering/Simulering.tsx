@@ -27,6 +27,8 @@ import { useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectSamtykke,
+  selectSivilstand,
+  selectAfp,
 } from '@/state/userInput/selectors'
 
 import { SERIES_DEFAULT } from './constants'
@@ -53,6 +55,8 @@ export function Simulering(props: {
   const { isLoading, inntekt, alderspensjon, showAfp, showButtonsAndTable } =
     props
   const harSamtykket = useAppSelector(selectSamtykke)
+  const afp = useAppSelector(selectAfp)
+  const sivilstand = useAppSelector(selectSivilstand)
   React.useState<boolean>(false)
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     React.useState<boolean>(false)
@@ -63,7 +67,7 @@ export function Simulering(props: {
     isOpen: isPensjonsavtalerAccordionItemOpen,
     toggleOpen: togglePensjonsavtalerAccordionItem,
   } = React.useContext(AccordionContext)
-  const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
+  const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
   const [chartOptions, setChartOptions] = React.useState<Highcharts.Options>(
@@ -80,7 +84,7 @@ export function Simulering(props: {
   } = usePensjonsavtalerQuery(
     pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
     {
-      skip: !pensjonsavtalerRequestBody || !harSamtykket || !startAlder,
+      skip: !pensjonsavtalerRequestBody || !harSamtykket || !startAar,
     }
   )
 
@@ -96,14 +100,19 @@ export function Simulering(props: {
 
   // Hent pensjonsavtaler
   React.useEffect(() => {
-    if (harSamtykket && startAlder) {
-      const requestBody = generatePensjonsavtalerRequestBody({
-        aar: startAlder,
-        maaned: startMaaned ?? 1,
-      })
+    if (harSamtykket && startAar) {
+      const requestBody = generatePensjonsavtalerRequestBody(
+        inntekt?.beloep,
+        afp,
+        {
+          aar: startAar,
+          maaneder: startMaaned ?? 0,
+        },
+        sivilstand
+      )
       setPensjonsavtalerRequestBody(requestBody)
     }
-  }, [harSamtykket, startAlder, startMaaned])
+  }, [harSamtykket, startAar, startMaaned])
 
   React.useEffect(() => {
     if (chartRef.current) {
@@ -118,9 +127,9 @@ export function Simulering(props: {
   }, [isLoading, isPensjonsavtalerLoading])
 
   React.useEffect(() => {
-    if (startAlder && alderspensjon) {
+    if (startAar && alderspensjon) {
       const aarArray = generateXAxis(
-        startAlder,
+        startAar,
         pensjonsavtaler?.avtaler ?? [],
         setIsPensjonsavtaleFlagVisible
       )
@@ -146,7 +155,7 @@ export function Simulering(props: {
                   ...SERIES_DEFAULT.SERIE_TP,
                   /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
-                    startAlder - 1,
+                    startAar - 1,
                     aarArray.length,
                     pensjonsavtaler?.avtaler
                   ),
@@ -160,7 +169,7 @@ export function Simulering(props: {
         ],
       })
     }
-  }, [startAlder, alderspensjon, pensjonsavtaler])
+  }, [startAar, alderspensjon, pensjonsavtaler])
 
   return (
     <section className={styles.section}>

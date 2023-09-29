@@ -49,7 +49,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     )
   }),
 
-  rest.post(`${baseUrl}/pensjonsavtaler`, async (req, res, ctx) => {
+  rest.post(`${baseUrl}/v1/pensjonsavtaler`, async (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json(pensjonsavtalerResponse),

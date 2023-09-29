@@ -31,21 +31,18 @@ export const isUtbetalingsperiode = (
   if (data === null || data === undefined) {
     return false
   }
-  const harFeilSluttAlder =
-    data.sluttAlder && typeof data.sluttAlder !== 'number'
-  const harFeilSluttMaaned =
-    data.sluttMaaned !== undefined && typeof data.sluttMaaned !== 'number'
+
+  const hasCorrectSluttAlder =
+    data.sluttAlder === undefined ||
+    (data.sluttAlder !== undefined && isAlder(data.sluttAlder))
+
   return (
     data.startAlder &&
-    typeof data.startAlder === 'number' &&
-    data.startMaaned !== undefined &&
-    typeof data.startMaaned === 'number' &&
-    data.grad !== undefined &&
+    isAlder(data.startAlder) &&
     typeof data.grad === 'number' &&
     data.aarligUtbetaling !== undefined &&
     typeof data.aarligUtbetaling === 'number' &&
-    !harFeilSluttAlder &&
-    !harFeilSluttMaaned
+    hasCorrectSluttAlder
   )
 }
 
@@ -61,10 +58,8 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
         !isUtbetalingsperiode(utbetalingsperiode)
     )
 
-  const harFeilStartAlder =
-    data.startAlder && typeof data.startAlder !== 'number'
-  const harFeilSluttAlder =
-    data.sluttAlder && typeof data.sluttAlder !== 'number'
+  const harFeilStartAar = data.startAar && typeof data.startAar !== 'number'
+  const harFeilSluttAar = data.sluttAar && typeof data.sluttAar !== 'number'
 
   return (
     !Array.isArray(data) &&
@@ -74,8 +69,8 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
     isSomeEnumKey(PensjonsavtaleKategori)(data.kategori) &&
     Array.isArray(data.utbetalingsperioder) &&
     !harFeilUtbetalingsperiode &&
-    !harFeilStartAlder &&
-    !harFeilSluttAlder
+    !harFeilStartAar &&
+    !harFeilSluttAar
   )
 }
 
@@ -129,13 +124,21 @@ export const isSakStatus = (data?: any): data is SakStatus => {
   )
 }
 
-export const isUttaksalder = (data?: any): data is Uttaksalder => {
+export const isAlder = (data?: any): data is Alder => {
   return (
     typeof data === 'object' &&
     data !== null &&
     !Array.isArray(data) &&
     typeof data.aar === 'number' &&
-    typeof data.maaned === 'number'
+    typeof data.maaneder === 'number'
+  )
+}
+
+export const isUttaksalder = (data?: any): data is Uttaksalder => {
+  return (
+    isAlder(data) &&
+    (data as Uttaksalder).uttaksdato !== undefined &&
+    typeof (data as Uttaksalder).uttaksdato === 'string'
   )
 }
 
