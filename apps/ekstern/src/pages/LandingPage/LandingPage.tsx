@@ -92,33 +92,35 @@ export function LandingPage() {
                 id: 'landingsside.velge_mellom_detaljert_og_enkel',
               })}
             </BodyLong>
-            <BodyLong>
-              {intl.formatMessage({
-                id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
-              })}
-            </BodyLong>
-            <ul>
-              <li>
+            <div>
+              <BodyLong>
                 {intl.formatMessage({
-                  id: 'landingsside.liste.1',
+                  id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
                 })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.2',
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.3',
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.4',
-                })}
-              </li>
-            </ul>
+              </BodyLong>
+              <ul>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.1',
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.2',
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.3',
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.4',
+                  })}
+                </li>
+              </ul>
+            </div>
             <HStack gap="4">
               <Button variant="secondary" onClick={gaaTilDetaljertKalkulator}>
                 {isLoggedIn
