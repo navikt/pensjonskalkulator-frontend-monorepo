@@ -43,6 +43,7 @@ export const generateAlderspensjonRequestBody = (args: {
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
+  inntekt?: Inntekt
   startAlder: number | null
   startMaaned: number | null
   uttaksgrad: number | null | undefined
@@ -52,6 +53,7 @@ export const generateAlderspensjonRequestBody = (args: {
     sivilstand,
     harSamboer,
     foedselsdato,
+    inntekt,
     startAlder,
     startMaaned,
     uttaksgrad,
@@ -68,16 +70,16 @@ export const generateAlderspensjonRequestBody = (args: {
     uttaksgrad,
     foersteUttaksalder: {
       aar: startAlder,
-      maaneder: startMaaned > 0 ? startMaaned : 0,
+      maaneder: startMaaned,
     },
     foedselsdato,
+    forventetInntekt: inntekt?.beloep, // hvis tomt, henter backend fra pensjonsopptjeningsregisteret POPP.
+    epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand
         : harSamboer
         ? 'SAMBOER'
         : 'UGIFT',
-    epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    // forventetInntekt?: number // Tomt i MVP1 - backend henter fra pensjonsopptjeningsregisteret POPP.
   }
 }

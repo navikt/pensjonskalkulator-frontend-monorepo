@@ -110,7 +110,7 @@ describe('Beregning', () => {
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
-      mockErrorResponse('/alderspensjon/simulering', {
+      mockErrorResponse('/v1/alderspensjon/simulering', {
         method: 'post',
       })
       const user = userEvent.setup()
@@ -141,7 +141,7 @@ describe('Beregning', () => {
       console.error = () => {}
 
       const user = userEvent.setup()
-      mockErrorResponse('/alderspensjon/simulering', {
+      mockErrorResponse('/v1/alderspensjon/simulering', {
         status: 503,
         method: 'post',
       })
