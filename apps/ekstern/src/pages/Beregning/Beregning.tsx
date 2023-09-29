@@ -69,13 +69,14 @@ export function Beregning() {
       afp,
       sivilstand: person?.sivilstand,
       harSamboer,
+      inntekt,
       foedselsdato: person?.foedselsdato,
       startAlder: startAar,
       startMaaned: startMaaned,
       uttaksgrad: uttaksgrad,
     })
     setAlderspensjonRequestBody(requestBody)
-  }, [afp, person, startAar, startMaaned, uttaksgrad])
+  }, [afp, person, startAar, startMaaned, uttaksgrad, inntekt])
 
   // Hent tidligst mulig uttaksalder
   const {

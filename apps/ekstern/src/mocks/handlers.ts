@@ -38,7 +38,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     )
   }),
 
-  rest.post(`${baseUrl}/alderspensjon/simulering`, async (req, res, ctx) => {
+  rest.post(`${baseUrl}/v1/alderspensjon/simulering`, async (req, res, ctx) => {
     const body = await req.json()
     const data = await import(
       `./data/alderspensjon/${body.foersteUttaksalder.aar}.json`
