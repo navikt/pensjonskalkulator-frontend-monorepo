@@ -42,7 +42,9 @@ describe('LanguageProvider-utils', () => {
       ).length
 
       const nbTranslations = getTranslations('nb')
-      expect(nbTranslations['application.title']).toBe('Pensjonskalkulator')
+      expect(nbTranslations['application.title']).toBe(
+        'Pensjonskalkulator – Pensjon'
+      )
       const nbTranslationsKeys = Object.keys(nbTranslations)
       expect(nbTranslationsKeys).toHaveLength(forventetLength)
 
@@ -104,11 +106,11 @@ describe('LanguageProvider-utils', () => {
     it('returnerer nb som default når locale er ukjent', () => {
       const defaultTranslations = getTranslations('')
       expect(defaultTranslations['application.title']).toBe(
-        'Pensjonskalkulator'
+        'Pensjonskalkulator – Pensjon'
       )
       const unknownTranslations = getTranslations('abc')
       expect(unknownTranslations['application.title']).toBe(
-        'Pensjonskalkulator'
+        'Pensjonskalkulator – Pensjon'
       )
     })
   })
