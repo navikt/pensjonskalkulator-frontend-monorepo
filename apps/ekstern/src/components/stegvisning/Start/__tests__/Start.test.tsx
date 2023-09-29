@@ -36,7 +36,7 @@ describe('stegvisning - Start', () => {
   it('kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(<Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
-    await user.click(screen.getByText('stegvisning.start.start'))
+    await user.click(screen.getByText('stegvisning.start.button'))
     expect(onNextMock).toHaveBeenCalled()
   })
 

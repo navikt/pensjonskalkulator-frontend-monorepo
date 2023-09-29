@@ -6,34 +6,42 @@ import {
 
 describe('apiSlice - utils', () => {
   describe('generatePensjonsavtalerRequestBody', () => {
-    it('returnerer riktig requestBody når maaned er 0', () => {
+    it('returnerer riktig requestBody når maaneder er 0 og sivilstand undefined', () => {
       expect(
-        generatePensjonsavtalerRequestBody({ aar: 67, maaned: 0 })
+        generatePensjonsavtalerRequestBody(500000, 'vet_ikke', {
+          aar: 67,
+          maaneder: 0,
+        })
       ).toEqual({
+        aarligInntektFoerUttak: 500000,
+        antallInntektsaarEtterUttak: 0,
+        harAfp: false,
+        sivilstand: undefined,
         uttaksperioder: [
           {
-            startAlder: 67,
-            startMaaned: 1,
+            startAlder: { aar: 67, maaneder: 0 },
             grad: 100,
             aarligInntekt: 0,
           },
         ],
-        antallInntektsaarEtterUttak: 0,
       })
     })
     it('returnerer riktig requestBody når uttaksalder består av både år og måned', () => {
       expect(
-        generatePensjonsavtalerRequestBody({ aar: 62, maaned: 4 })
+        generatePensjonsavtalerRequestBody(
+          500000,
+          'ja_privat',
+          { aar: 62, maaneder: 4 },
+          'GIFT'
+        )
       ).toEqual({
-        uttaksperioder: [
-          {
-            startAlder: 62,
-            startMaaned: 4,
-            grad: 100,
-            aarligInntekt: 0,
-          },
-        ],
+        aarligInntektFoerUttak: 500000,
         antallInntektsaarEtterUttak: 0,
+        harAfp: true,
+        sivilstand: 'GIFT',
+        uttaksperioder: [
+          { startAlder: { aar: 62, maaneder: 4 }, grad: 100, aarligInntekt: 0 },
+        ],
       })
     })
   })
@@ -41,11 +49,11 @@ describe('apiSlice - utils', () => {
     it('returnerer riktig aar og maaned', () => {
       expect(
         unformatUttaksalder('random string without number (feil)')
-      ).toEqual({ aar: 0, maaned: 0 })
-      expect(unformatUttaksalder('67 år')).toEqual({ aar: 67, maaned: 0 })
+      ).toEqual({ aar: 0, maaneder: 0 })
+      expect(unformatUttaksalder('67 år')).toEqual({ aar: 67, maaneder: 0 })
       expect(unformatUttaksalder('62 år 5 måneder')).toEqual({
         aar: 62,
-        maaned: 5,
+        maaneder: 5,
       })
     })
   })
@@ -153,7 +161,7 @@ describe('apiSlice - utils', () => {
         })?.foersteUttaksalder
       ).toEqual({
         aar: 68,
-        maaned: 3,
+        maaneder: 3,
       })
       expect(
         generateAlderspensjonRequestBody({
@@ -162,7 +170,7 @@ describe('apiSlice - utils', () => {
         })?.foersteUttaksalder
       ).toEqual({
         aar: 68,
-        maaned: 1,
+        maaneder: 0,
       })
     })
   })

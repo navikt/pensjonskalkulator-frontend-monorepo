@@ -5,13 +5,15 @@ import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
 import { LandingPage } from '@/pages/LandingPage'
+import { Personopplysninger } from '@/pages/Personopplysninger'
 import { Step0 } from '@/pages/Step0'
 import { Step1, Step1Feil } from '@/pages/Step1'
 import { Step2 } from '@/pages/Step2'
 import { Step3 } from '@/pages/Step3'
 import { step3loader } from '@/pages/Step3/utils'
 import { Step4 } from '@/pages/Step4'
-import { Step5, Step5Feil } from '@/pages/Step5'
+import { Step5 } from '@/pages/Step5'
+import { StepFeil } from '@/pages/StepFeil/'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
 
@@ -19,6 +21,7 @@ export const BASE_PATH = '/pensjon/kalkulator'
 
 export const externalUrls = {
   dinPensjon: 'https://nav.no/pensjon',
+  dinPensjonBeholdning: 'https://www.nav.no/pensjon/opptjening/nb/',
   detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
@@ -36,9 +39,10 @@ export const paths = {
   offentligTp: '/offentlig-tp',
   afp: '/afp',
   sivilstand: '/sivilstand',
-  sivilstandFeil: '/sivilstand-feil',
+  uventetFeil: '/uventet-feil',
   beregning: '/beregning',
   forbehold: '/forbehold',
+  personopplysninger: '/personopplysninger',
 } as const
 
 const directAccessGuard = async () => {
@@ -98,14 +102,19 @@ export const routes: RouteObject[] = [
         element: <Step5 />,
       },
       {
-        path: paths.sivilstandFeil,
+        path: paths.uventetFeil,
         loader: directAccessGuard,
-        element: <Step5Feil />,
+        element: <StepFeil />,
       },
       {
         path: paths.forbehold,
         loader: directAccessGuard,
         element: <Forbehold />,
+      },
+      {
+        path: paths.personopplysninger,
+        loader: directAccessGuard,
+        element: <Personopplysninger />,
       },
     ],
   },

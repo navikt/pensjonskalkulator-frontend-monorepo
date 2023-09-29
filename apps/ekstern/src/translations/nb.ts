@@ -1,21 +1,25 @@
 const translations = {
-  'application.title': 'Pensjonskalkulator',
+  'application.title': 'Pensjonskalkulator – Pensjon',
   'application.title.stegvisning.step0': 'Start – Pensjonskalkulator',
   'application.title.stegvisning.step1':
     'Utenlandsopphold – Pensjonskalkulator',
+  'application.title.stegvisning.step1.feil':
+    'Henvisning utland – Pensjonskalkulator',
   'application.title.stegvisning.step2': 'Samtykke – Pensjonskalkulator',
   'application.title.stegvisning.step3':
     'Offentlig tjenestepensjon – Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
   'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.uventet_feil':
+    'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
+  'application.title.personopplysninger':
+    'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
-  'error.global.title': 'Oops! Det har oppstått en uventet feil',
-  'error.global.ingress':
-    'Vi jobber med å rette feilen. Prøv å last siden på nytt eller prøv igjen senere.',
-  'error.global.button.primary': 'Last siden på nytt',
-  'error.global.button.secondary': 'Avbryt',
+  'error.global.title': 'Oops! Det har oppstått en uventet feil.',
+  'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
+  'error.global.button': 'Avbryt',
   'error.404.title': 'Oops! Siden du leter etter finnes ikke.',
   'error.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
@@ -30,7 +34,8 @@ const translations = {
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'For å kunne beregne din pensjon trenger vi at du svarer på noen spørsmål. Du må svare på alle spørsmålene for å kunne gå videre.',
-  'stegvisning.start.start': 'Kom i gang',
+  'stegvisning.start.button': 'Kom i gang',
+  'stegvisning.start.link': 'Personopplysninger som brukes i enkel kalkulator',
   'stegvisning.utenlandsopphold.title': 'Utenlandsopphold',
   'stegvisning.utenlandsopphold.ingress':
     'Enkel kalkulator er under utvikling og støtter ikke beregning med lengre utenlandsopphold.',
@@ -147,7 +152,7 @@ const translations = {
     'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. ',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.ingress':
-    'Alderspensjon beregnes ut ifra <dinPensjonLink>din pensjonsbeholdning</dinPensjonLink> i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil din alderspensjon øke.{br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
+    'Alderspensjon beregnes ut ifra <dinPensjonBeholdningLink>din pensjonsbeholdning</dinPensjonBeholdningLink> i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil din alderspensjon øke.{br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.ja_offentlig':

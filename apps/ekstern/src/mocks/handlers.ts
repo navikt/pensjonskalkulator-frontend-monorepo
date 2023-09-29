@@ -15,14 +15,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   }),
 
   rest.get(`${baseUrl}/person`, (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(personResponse), ctx.delay(30))
+    return res(ctx.status(200), ctx.json(personResponse), ctx.delay(0))
   }),
 
   rest.get(`${baseUrl}/tpo-medlemskap`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(tpoMedlemskapResponse), ctx.delay(30))
   }),
 
-  rest.post(`${baseUrl}/tidligste-uttaksalder`, (req, res, ctx) => {
+  rest.post(`${baseUrl}/v1/tidligste-uttaksalder`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json(tidligstemuligeuttaksalderResponse),
@@ -30,7 +30,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     )
   }),
 
-  rest.post(`${baseUrl}/pensjonsavtaler`, async (req, res, ctx) => {
+  rest.post(`${baseUrl}/v1/pensjonsavtaler`, async (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json(pensjonsavtalerResponse),

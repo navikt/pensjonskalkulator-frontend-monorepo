@@ -8,7 +8,7 @@ describe('VelgUttaksalder', () => {
 
   const uttaksalder: Uttaksalder = {
     aar: 62,
-    maaned: 10,
+    maaneder: 10,
     uttaksdato: '2031-11-01',
   }
   describe('Gitt at brukeren er på desktop', () => {
@@ -40,7 +40,7 @@ describe('VelgUttaksalder', () => {
         <VelgUttaksalder
           tidligstMuligUttak={{
             aar: 67,
-            maaned: 1,
+            maaneder: 1,
             uttaksdato: '2031-11-01',
           }}
         />

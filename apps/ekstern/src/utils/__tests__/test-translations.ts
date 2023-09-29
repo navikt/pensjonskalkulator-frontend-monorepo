@@ -3,6 +3,8 @@ const translations = {
     'lorem ipsum dolor <detaljertKalkulatorLink>my link</detaljertKalkulatorLink>',
   'translation.test.dinPensjonLink':
     'lorem ipsum dolor <dinPensjonLink>my link</dinPensjonLink>',
+  'translation.test.dinPensjonBeholdningLink':
+    'lorem ipsum dolor <dinPensjonBeholdningLink>my link</dinPensjonBeholdningLink>',
   'translation.test.alderspensjonsreglerLink':
     'lorem ipsum dolor <alderspensjonsreglerLink>my link</alderspensjonsreglerLink>',
   'translation.test.garantiPensjonLink':

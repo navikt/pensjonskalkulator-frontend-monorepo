@@ -19,10 +19,16 @@ import styles from './LandingPage.module.scss'
 
 export function LandingPage() {
   const intl = useIntl()
+  const navigate = useNavigate()
   const { isLoading, status } = useRequest<null>(
     `${HOST_BASEURL}/oauth2/session`
   )
-  const navigate = useNavigate()
+
+  React.useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title',
+    })
+  }, [])
 
   const isLoggedIn = React.useMemo(
     () => !isLoading && status === 200,

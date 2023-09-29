@@ -9,7 +9,12 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
 describe('Step 1 Feil', () => {
-  it('rendrer Step 1 Feil slik den skal ', () => {
+  it('har riktig sidetittel', () => {
+    render(<Step1Feil />)
+    expect(document.title).toBe('application.title.stegvisning.step1.feil')
+  })
+
+  it('rendrer Step 1 Feil slik den skal', () => {
     render(<Step1Feil />)
 
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
@@ -57,7 +62,7 @@ describe('Step 1 Feil', () => {
         },
       },
     })
-    await user.click(await screen.findByText('error.global.button.secondary'))
+    await user.click(await screen.findByText('error.global.button'))
     expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
     expect(store.getState().userInput.utenlandsopphold).toBe(null)
   })

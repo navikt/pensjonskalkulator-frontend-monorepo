@@ -16,6 +16,12 @@ export const formatMessageValues: Record<string, any> = {
       <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
     </Link>
   ),
+  dinPensjonBeholdningLink: (chunks: string) => (
+    <Link href={externalUrls.dinPensjonBeholdning} target="_blank">
+      {chunks}
+      <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
+    </Link>
+  ),
   alderspensjonsreglerLink: (chunks: string) => (
     <Link href={externalUrls.alderspensjonsregler} target="_blank">
       {chunks}

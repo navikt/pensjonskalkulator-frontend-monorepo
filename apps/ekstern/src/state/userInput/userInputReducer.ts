@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface Simulation {
-  startAlder: number | null
+  startAar: number | null
   startMaaned: number | null
   uttaksgrad?: number | null
   aarligInntekt: number | null
@@ -23,7 +23,7 @@ export const userInputInitialState: UserInputState = {
   samboer: null,
   formatertUttaksalder: null,
   currentSimulation: {
-    startAlder: null,
+    startAar: null,
     startMaaned: null,
     uttaksgrad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
     aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon
@@ -52,7 +52,7 @@ export const userInputSlice = createSlice({
     updateCurrentSimulation: (
       state,
       action: PayloadAction<{
-        startAlder?: number
+        startAar?: number
         startMaaned?: number
       }>
     ) => {
@@ -67,7 +67,7 @@ export const userInputSlice = createSlice({
       state.afp = null
       state.samboer = null
       state.formatertUttaksalder = null
-      state.currentSimulation.startAlder = null
+      state.currentSimulation.startAar = null
       state.currentSimulation.startMaaned = null
     },
   },

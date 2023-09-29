@@ -3,22 +3,18 @@
     {
       "produktbetegnelse": "Innskuddpensjon",
       "kategori": "UNKNOWN",
-      "startAlder": 71,
-      "sluttAlder": 80,
+      "startAar": 71,
+      "sluttAar": 80,
       "utbetalingsperioder": [
         {
-          "startAlder": 71,
-          "startMaaned": 7,
-          "sluttAlder": 75,
-          "sluttMaaned": 1,
+          "startAlder": { "aar": 71, "maaneder": 7 },
+          "sluttAlder": { "aar": 75, "maaneder": 0 },
           "aarligUtbetaling": 100000,
           "grad": 100
         },
         {
-          "startAlder": 75,
-          "startMaaned": 7,
-          "sluttAlder": 80,
-          "sluttMaaned": 1,
+          "startAlder": { "aar": 75, "maaneder": 7 },
+          "sluttAlder": { "aar": 80, "maaneder": 0 },
           "aarligUtbetaling": 50000,
           "grad": 100
         }
@@ -27,14 +23,12 @@
     {
       "produktbetegnelse": "Nordea Liv",
       "kategori": "PRIVAT_TJENESTEPENSJON",
-      "startAlder": 75,
-      "sluttAlder": 85,
+      "startAar": 75,
+      "sluttAar": 85,
       "utbetalingsperioder": [
         {
-          "startAlder": 75,
-          "startMaaned": 1,
-          "sluttAlder": 85,
-          "sluttMaaned": 1,
+          "startAlder": { "aar": 75, "maaneder": 1 },
+          "sluttAlder": { "aar": 85, "maaneder": 0 },
           "aarligUtbetaling": 39582,
           "grad": 100
         }
@@ -43,14 +37,12 @@
     {
       "produktbetegnelse": "Storebrand",
       "kategori": "PRIVAT_TJENESTEPENSJON",
-      "startAlder": 67,
-      "sluttAlder": 77,
+      "startAar": 67,
+      "sluttAar": 77,
       "utbetalingsperioder": [
         {
-          "startAlder": 67,
-          "startMaaned": 1,
-          "sluttAlder": 77,
-          "sluttMaaned": 1,
+          "startAlder": { "aar": 67, "maaneder": 1 },
+          "sluttAlder": { "aar": 77, "maaneder": 0 },
           "aarligUtbetaling": 31298,
           "grad": 100
         }
@@ -59,14 +51,12 @@
     {
       "produktbetegnelse": "Innskuddpensjon",
       "kategori": "PRIVAT_TJENESTEPENSJON",
-      "startAlder": 67,
-      "sluttAlder": 77,
+      "startAar": 67,
+      "sluttAar": 77,
       "utbetalingsperioder": [
         {
-          "startAlder": 67,
-          "startMaaned": 1,
-          "sluttAlder": 77,
-          "sluttMaaned": 1,
+          "startAlder": { "aar": 67, "maaneder": 3 },
+          "sluttAlder": { "aar": 77, "maaneder": 0 },
           "aarligUtbetaling": 50000,
           "grad": 100
         }
@@ -75,11 +65,10 @@
     {
       "produktbetegnelse": "Oslo Pensjonsforsikring",
       "kategori": "OFFENTLIG_TJENESTEPENSJON",
-      "startAlder": 67,
+      "startAar": 67,
       "utbetalingsperioder": [
         {
-          "startAlder": 67,
-          "startMaaned": 1,
+          "startAlder": { "aar": 67, "maaneder": 0 },
           "aarligUtbetaling": 103264,
           "grad": 100
         }
@@ -88,14 +77,12 @@
     {
       "produktbetegnelse": "DNB",
       "kategori": "INDIVIDUELL_ORDNING",
-      "startAlder": 67,
-      "sluttAlder": 77,
+      "startAar": 67,
+      "sluttAar": 77,
       "utbetalingsperioder": [
         {
-          "startAlder": 67,
-          "startMaaned": 1,
-          "sluttAlder": 77,
-          "sluttMaaned": 8,
+          "startAlder": { "aar": 67, "maaneder": 0 },
+          "sluttAlder": { "aar": 77, "maaneder": 8 },
           "aarligUtbetaling": 37264,
           "grad": 100
         }
@@ -104,14 +91,12 @@
     {
       "produktbetegnelse": "IPS",
       "kategori": "INDIVIDUELL_ORDNING",
-      "startAlder": 70,
-      "sluttAlder": 75,
+      "startAar": 70,
+      "sluttAar": 75,
       "utbetalingsperioder": [
         {
-          "startAlder": 70,
-          "startMaaned": 6,
-          "sluttAlder": 75,
-          "sluttMaaned": 6,
+          "startAlder": { "aar": 70, "maaneder": 6 },
+          "sluttAlder": { "aar": 75, "maaneder": 6 },
           "aarligUtbetaling": 41802,
           "grad": 100
         }

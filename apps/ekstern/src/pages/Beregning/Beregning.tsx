@@ -51,7 +51,7 @@ export function Beregning() {
   const { data: person } = useGetPersonQuery()
   const { data: inntekt, isError: isInntektError } = useGetInntektQuery()
   const afp = useAppSelector(selectAfp)
-  const { startAlder, startMaaned, uttaksgrad } = useAppSelector(
+  const { startAar, startMaaned, uttaksgrad } = useAppSelector(
     selectCurrentSimulation
   )
 
@@ -70,19 +70,23 @@ export function Beregning() {
       sivilstand: person?.sivilstand,
       harSamboer,
       foedselsdato: person?.foedselsdato,
-      startAlder: startAlder,
+      startAlder: startAar,
       startMaaned: startMaaned,
       uttaksgrad: uttaksgrad,
     })
     setAlderspensjonRequestBody(requestBody)
-  }, [afp, person, startAlder, startMaaned, uttaksgrad])
+  }, [afp, person, startAar, startMaaned, uttaksgrad])
 
   // Hent tidligst mulig uttaksalder
   const {
     data: tidligstMuligUttak,
     isLoading: isTidligstMuligUttaksalderLoading,
     isError: isTidligstMuligUttaksalderError,
-  } = useTidligsteUttaksalderQuery()
+  } = useTidligsteUttaksalderQuery({
+    sivilstand: person?.sivilstand ?? undefined,
+    harEps: harSamboer !== null ? harSamboer : undefined,
+    sisteInntekt: inntekt?.beloep ?? undefined,
+  })
 
   // Hent alderspensjon + AFP
   const {
@@ -157,7 +161,7 @@ export function Beregning() {
                 <Alert onRetry={isError ? onRetry : undefined}>
                   {isError
                     ? 'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'
-                    : `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAlder} år. Prøv en høyere alder.`}
+                    : `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAar} år. Prøv en høyere alder.`}
                 </Alert>
               </>
             ) : (
