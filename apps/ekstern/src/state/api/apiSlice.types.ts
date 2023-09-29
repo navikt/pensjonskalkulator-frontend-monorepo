@@ -1,7 +1,10 @@
+export type Simuleringstype = 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
+
 export type TidligsteUttaksalderRequestBody = {
   sivilstand?: Sivilstand
   harEps?: boolean
   sisteInntekt?: number
+  simuleringstype: Simuleringstype
 }
 
 export type Uttaksperiode = {
@@ -27,7 +30,7 @@ export type PensjonsavtalerResponseBody = {
 }
 
 export type AlderspensjonRequestBody = {
-  simuleringstype: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
+  simuleringstype: Simuleringstype
   uttaksgrad: number
   foersteUttaksalder: { aar: number; maaneder: number }
   foedselsdato: string
