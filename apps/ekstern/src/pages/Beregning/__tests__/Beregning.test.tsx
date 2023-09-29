@@ -164,7 +164,7 @@ describe('Beregning', () => {
 
     it('viser feilmelding og skjuler Grunnlag når tidligste-uttaksalder har feilet og brukeren prøver å simulere med for lav uttaksalder', async () => {
       const currentSimulation: Simulation = {
-        startAlder: 68,
+        startAar: 68,
         startMaaned: 5,
         uttaksgrad: 100,
         aarligInntekt: 0,

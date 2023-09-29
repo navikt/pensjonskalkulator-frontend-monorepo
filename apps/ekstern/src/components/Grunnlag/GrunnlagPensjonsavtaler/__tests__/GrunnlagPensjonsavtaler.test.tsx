@@ -12,8 +12,24 @@ import {
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('GrunnlagPensjonsavtaler', () => {
+  const fakeInntektApiCall = {
+    queries: {
+      ['getInntekt(undefined)']: {
+        status: 'fulfilled',
+        endpointName: 'getInntekt',
+        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+        startedTimeStamp: 1688046411971,
+        data: {
+          beloep: 500000,
+          aar: 2021,
+        },
+        fulfilledTimeStamp: 1688046412103,
+      },
+    },
+  }
+
   const currentSimulation: Simulation = {
-    startAlder: 67,
+    startAar: 67,
     startMaaned: 1,
     uttaksgrad: 100,
     aarligInntekt: 0,
@@ -27,6 +43,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       )
       const { store } = render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: { ...userInputInitialState, samtykke: false },
         },
       })
@@ -66,6 +85,9 @@ describe('GrunnlagPensjonsavtaler', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -90,11 +112,14 @@ describe('GrunnlagPensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {
-      mockErrorResponse('/pensjonsavtaler', {
+      mockErrorResponse('/v1/pensjonsavtaler', {
         method: 'post',
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -121,21 +146,19 @@ describe('GrunnlagPensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress og tabell', async () => {
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
             {
               produktbetegnelse: 'IPS',
               kategori: 'INDIVIDUELL_ORDNING',
-              startAlder: 70,
-              sluttAlder: 75,
+              startAar: 70,
+              sluttAar: 75,
               utbetalingsperioder: [
                 {
-                  startAlder: 70,
-                  startMaaned: 6,
-                  sluttAlder: 75,
-                  sluttMaaned: 6,
+                  startAlder: { aar: 70, maaneder: 6 },
+                  sluttAlder: { aar: 75, maaneder: 6 },
                   aarligUtbetaling: 41802,
                   grad: 100,
                 },
@@ -148,6 +171,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -176,7 +202,7 @@ describe('GrunnlagPensjonsavtaler', () => {
 
     it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
       const user = userEvent.setup()
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -186,6 +212,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -214,17 +243,16 @@ describe('GrunnlagPensjonsavtaler', () => {
         key: 0,
         produktbetegnelse: 'DNB',
         kategori: 'PRIVAT_TJENESTEPENSJON',
-        startAlder: 67,
+        startAar: 67,
         utbetalingsperioder: [
           {
-            startAlder: 67,
-            startMaaned: 1,
+            startAlder: { aar: 67, maaneder: 1 },
             aarligUtbetaling: 12345,
             grad: 100,
           },
         ],
       }
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -232,7 +260,10 @@ describe('GrunnlagPensjonsavtaler', () => {
             {
               ...avtale,
               utbetalingsperioder: [
-                { ...avtale.utbetalingsperioder[0], startMaaned: 6 },
+                {
+                  ...avtale.utbetalingsperioder[0],
+                  startAlder: { aar: 67, maaneder: 6 },
+                },
               ],
             },
           ],
@@ -242,6 +273,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -284,28 +318,24 @@ describe('GrunnlagPensjonsavtaler', () => {
         key: 0,
         produktbetegnelse: 'DNB',
         kategori: 'PRIVAT_TJENESTEPENSJON',
-        startAlder: 67,
-        sluttAlder: 77,
+        startAar: 67,
+        sluttAar: 77,
         utbetalingsperioder: [
           {
-            startAlder: 67,
-            startMaaned: 1,
-            sluttAlder: 77,
-            sluttMaaned: 8,
+            startAlder: { aar: 67, maaneder: 1 },
+            sluttAlder: { aar: 77, maaneder: 8 },
             aarligUtbetaling: 12345,
             grad: 100,
           },
           {
-            startAlder: 67,
-            startMaaned: 6,
-            sluttAlder: 77,
-            sluttMaaned: 1,
+            startAlder: { aar: 67, maaneder: 6 },
+            sluttAlder: { aar: 77, maaneder: 1 },
             aarligUtbetaling: 12345,
             grad: 100,
           },
         ],
       }
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [avtale],
@@ -315,6 +345,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,

@@ -149,8 +149,7 @@ describe('apiSlice', () => {
     const dummyRequestBody = {
       uttaksperioder: [
         {
-          startAlder: 0,
-          startMaaned: 0,
+          startAlder: { aar: 0, maaneder: 0 },
           grad: 100,
           aarligInntekt: 500000,
         },
@@ -179,20 +178,18 @@ describe('apiSlice', () => {
       const avtale = {
         produktbetegnelse: 'IPS',
         kategori: 'INDIVIDUELL_ORDNING',
-        startAlder: 70,
-        sluttAlder: 75,
+        startAar: 70,
+        sluttAar: 75,
         utbetalingsperioder: [
           {
-            startAlder: 70,
-            startMaaned: 6,
-            sluttAlder: 75,
-            sluttMaaned: 6,
+            startAlder: { aar: 70, maaneder: 6 },
+            sluttAlder: { aar: 75, maaneder: 6 },
             aarligUtbetaling: 41802,
             grad: 100,
           },
         ],
       }
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [{ ...avtale }],
@@ -218,7 +215,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
-      mockErrorResponse('/pensjonsavtaler', {
+      mockErrorResponse('/v1/pensjonsavtaler', {
         method: 'post',
       })
       return storeRef
@@ -233,7 +230,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -301,7 +298,7 @@ describe('apiSlice', () => {
       simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
       uttaksgrad: 100,
       foedselsdato: '1963-04-30',
-      foersteUttaksalder: { aar: 67, maaned: 8 },
+      foersteUttaksalder: { aar: 67, maaneder: 8 },
       sivilstand: 'UGIFT',
       epsHarInntektOver2G: true,
     }

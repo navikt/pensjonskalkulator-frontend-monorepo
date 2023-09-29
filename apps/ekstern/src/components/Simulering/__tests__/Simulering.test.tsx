@@ -14,7 +14,7 @@ import { act, render, screen, waitFor, userEvent } from '@/test-utils'
 describe('Simulering', () => {
   const inntekt = { beloep: 500000, aar: 2021 }
   const currentSimulation: Simulation = {
-    startAlder: 70,
+    startAar: 70,
     startMaaned: 5,
     uttaksgrad: 100,
     aarligInntekt: 0,
@@ -180,13 +180,15 @@ describe('Simulering', () => {
       })
       expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
         {
+          aarligInntektFoerUttak: 500000,
           antallInntektsaarEtterUttak: 0,
+          harAfp: false,
+          sivilstand: undefined,
           uttaksperioder: [
             {
+              startAlder: { aar: 70, maaneder: 5 },
               aarligInntekt: 0,
               grad: 100,
-              startAlder: 70,
-              startMaaned: 5,
             },
           ],
         },
@@ -259,7 +261,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler', async () => {
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -310,21 +312,19 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler ', async () => {
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
             {
               produktbetegnelse: 'Storebrand',
               kategori: 'PRIVAT_TJENESTEPENSJON',
-              startAlder: 62,
-              sluttAlder: 72,
+              startAar: 62,
+              sluttAar: 72,
               utbetalingsperioder: [
                 {
-                  startAlder: 62,
-                  startMaaned: 1,
-                  sluttAlder: 72,
-                  sluttMaaned: 1,
+                  startAlder: { aar: 62, maaneder: 1 },
+                  sluttAlder: { aar: 72, maaneder: 1 },
                   aarligUtbetaling: 31298,
                   grad: 100,
                 },
@@ -364,7 +364,7 @@ describe('Simulering', () => {
     it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding som sender til Grunnlag', async () => {
       const scrollIntoViewMock = vi.fn()
       const user = userEvent.setup()
-      mockErrorResponse('/pensjonsavtaler', {
+      mockErrorResponse('/v1/pensjonsavtaler', {
         status: 500,
         json: "Beep boop I'm an error!",
         method: 'post',
@@ -412,7 +412,7 @@ describe('Simulering', () => {
     it('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
       const scrollIntoViewMock = vi.fn()
       const user = userEvent.setup()
-      mockResponse('/pensjonsavtaler', {
+      mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],

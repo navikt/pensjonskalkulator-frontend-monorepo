@@ -16,8 +16,13 @@ import { paths } from '@/router'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamtykke } from '@/state/userInput/selectors'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import {
+  selectSamtykke,
+  selectInntekt,
+  selectAfp,
+  selectSivilstand,
+  selectCurrentSimulation,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatAsDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
@@ -27,10 +32,13 @@ import { groupPensjonsavtalerByType, getMaanedString } from './utils'
 
 import styles from './GrunnlagPensjonsavtaler.module.scss'
 
-export function GrunnlagPensjonsavtaler() {
+export const GrunnlagPensjonsavtaler = () => {
   const intl = useIntl()
   const harSamtykket = useAppSelector(selectSamtykke)
-  const { startAlder, startMaaned } = useAppSelector(selectCurrentSimulation)
+  const sivilstand = useAppSelector(selectSivilstand)
+  const inntekt = useAppSelector(selectInntekt)
+  const afp = useAppSelector(selectAfp)
+  const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
   const {
     ref: grunnlagPensjonsavtalerRef,
     isOpen: isPensjonsavtalerAccordionItemOpen,
@@ -42,12 +50,17 @@ export function GrunnlagPensjonsavtaler() {
     isError,
     isSuccess,
   } = usePensjonsavtalerQuery(
-    generatePensjonsavtalerRequestBody({
-      aar: startAlder as number,
-      maaned: startMaaned ?? 1,
-    }),
+    generatePensjonsavtalerRequestBody(
+      inntekt ? inntekt.beloep : 0,
+      afp,
+      {
+        aar: startAar as number,
+        maaneder: startMaaned ?? 0,
+      },
+      sivilstand
+    ),
     {
-      skip: !harSamtykket || !startAlder,
+      skip: !harSamtykket || !startAar || !inntekt,
     }
   )
   const navigate = useNavigate()
@@ -166,30 +179,35 @@ export function GrunnlagPensjonsavtaler() {
                           (utbetalingsperiode) => {
                             return (
                               <tr
-                                key={`${avtale.key}-${utbetalingsperiode.startAlder}-${utbetalingsperiode.startMaaned}`}
+                                key={`${avtale.key}-${utbetalingsperiode.startAlder.aar}-${utbetalingsperiode.startAlder.maaneder}`}
                               >
                                 <td className={styles.tabellCell__Small}>
                                   {utbetalingsperiode.sluttAlder
                                     ? `Fra ${
-                                        utbetalingsperiode.startAlder
+                                        utbetalingsperiode.startAlder.aar
                                       } år${getMaanedString(
-                                        utbetalingsperiode.startMaaned
+                                        utbetalingsperiode.startAlder.maaneder
                                       )} til ${
-                                        utbetalingsperiode.sluttAlder
+                                        utbetalingsperiode.sluttAlder.aar
                                       } år${
-                                        utbetalingsperiode.sluttMaaned &&
-                                        utbetalingsperiode.sluttMaaned > 1
+                                        utbetalingsperiode.sluttAlder
+                                          .maaneder &&
+                                        utbetalingsperiode.sluttAlder.maaneder >
+                                          1
                                           ? getMaanedString(
-                                              utbetalingsperiode.sluttMaaned
+                                              utbetalingsperiode.sluttAlder
+                                                .maaneder
                                             )
                                           : ''
                                       }`
                                     : `Livsvarig fra ${
-                                        utbetalingsperiode.startAlder
+                                        utbetalingsperiode.startAlder.aar
                                       } år${
-                                        utbetalingsperiode.startMaaned > 1
+                                        utbetalingsperiode.startAlder.maaneder >
+                                        1
                                           ? getMaanedString(
-                                              utbetalingsperiode.startMaaned
+                                              utbetalingsperiode.startAlder
+                                                .maaneder
                                             )
                                           : ''
                                       }`}
