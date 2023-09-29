@@ -204,7 +204,7 @@ const translations = {
   'landingsside.button.enkel_kalkulator_utlogget':
     'Logg inn i enkel kalkulator',
   'landingsside.button.enkel_kalkulator': 'Enkel kalkulator',
-  'landingsside.heading.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
+  'landingsside.text.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.body.uinnlogget_kalkulator':
     'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv og den beregner kun alderspensjon fra folketrygden (NAV).',
   'landingsside.link.personopplysninger':

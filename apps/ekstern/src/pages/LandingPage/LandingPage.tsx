@@ -43,6 +43,10 @@ export function LandingPage() {
     window.open(externalUrls.detaljertKalkulator, '_self')
   }
 
+  const gaaTilUninnloggetKalkulator = () => {
+    window.open(externalUrls.uinloggetKalkulator, '_self')
+  }
+
   return (
     <div className={styles.landingPage}>
       <VStack gap="10">
@@ -152,7 +156,7 @@ export function LandingPage() {
                 level="2"
               >
                 {intl.formatMessage({
-                  id: 'landingsside.heading.uinnlogget_kalkulator',
+                  id: 'landingsside.text.uinnlogget_kalkulator',
                 })}
               </Heading>
               <BodyLong>
@@ -166,10 +170,10 @@ export function LandingPage() {
                   data-testid="landingside-enkel-kalkulator-button"
                   variant="secondary"
                   /* c8 ignore next 1 */
-                  onClick={() => navigate('/start')}
+                  onClick={gaaTilUninnloggetKalkulator}
                 >
                   {intl.formatMessage({
-                    id: 'landingsside.button.enkel_kalkulator_utlogget',
+                    id: 'landingsside.text.uinnlogget_kalkulator',
                   })}
                 </Button>
               </div>

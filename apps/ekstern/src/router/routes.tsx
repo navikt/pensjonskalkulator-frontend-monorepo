@@ -27,6 +27,8 @@ export const externalUrls = {
   afp: 'https://www.afp.no',
   garantipensjon: 'https://www.nav.no/minstepensjon',
   norskPensjkon: 'https://norskpensjon.no/',
+  uinloggetKalkulator:
+    'https://www.nav.no/pselv/simulering/forenkletsimulering.jsf',
 }
 
 export const paths = {
