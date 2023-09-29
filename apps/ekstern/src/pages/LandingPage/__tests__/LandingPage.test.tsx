@@ -35,7 +35,7 @@ describe('LandingPage', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('uinlogget-kalkulator').textContent).toBe(
-        'landingsside.heading.uinnlogget_kalkulator'
+        'landingsside.text.uinnlogget_kalkulator'
       )
       expect(result.asFragment()).toMatchSnapshot()
     })

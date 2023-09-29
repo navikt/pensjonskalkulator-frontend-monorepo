@@ -215,7 +215,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
             class="navds-heading navds-heading--medium"
             data-testid="uinlogget-kalkulator"
           >
-            landingsside.heading.uinnlogget_kalkulator
+            landingsside.text.uinnlogget_kalkulator
           </h2>
           <p
             class="navds-body-long navds-body-long--medium"
@@ -230,7 +230,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               <span
                 class="navds-label"
               >
-                landingsside.button.enkel_kalkulator_utlogget
+                landingsside.text.uinnlogget_kalkulator
               </span>
             </button>
           </div>
