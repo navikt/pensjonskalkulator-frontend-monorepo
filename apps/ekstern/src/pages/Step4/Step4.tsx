@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
   selectAfp,
-  selectSamboer,
+  selectSamboerFraSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -23,7 +23,7 @@ export function Step4() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
-  const harSamboer = useAppSelector(selectSamboer)
+  const harSamboer = useAppSelector(selectSamboerFraSivilstand)
   const previousAfp = useAppSelector(selectAfp)
   const { isError: isInntektError } = useGetInntektQuery()
   const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
