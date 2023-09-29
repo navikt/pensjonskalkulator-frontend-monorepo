@@ -1,8 +1,10 @@
 const translations = {
-  'application.title': 'Pensjonskalkulator',
+  'application.title': 'Pensjonskalkulator – Pensjon',
   'application.title.stegvisning.step0': 'Start – Pensjonskalkulator',
   'application.title.stegvisning.step1':
     'Utenlandsopphold – Pensjonskalkulator',
+  'application.title.stegvisning.step1.feil':
+    'Henvisning utland – Pensjonskalkulator',
   'application.title.stegvisning.step2': 'Samtykke – Pensjonskalkulator',
   'application.title.stegvisning.step3':
     'Offentlig tjenestepensjon – Pensjonskalkulator',
@@ -14,6 +16,7 @@ const translations = {
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
+  'pageframework.title': 'Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',

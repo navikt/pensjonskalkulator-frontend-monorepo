@@ -6,10 +6,9 @@ import { render, screen, userEvent } from '@/test-utils'
 describe('VelgUttaksalder', () => {
   const realInnerWidth = window.innerWidth
 
-  const uttaksalder: Uttaksalder = {
+  const uttaksalder: Alder = {
     aar: 62,
-    maaned: 10,
-    uttaksdato: '2031-11-01',
+    maaneder: 10,
   }
   describe('Gitt at brukeren er på desktop', () => {
     it('viser riktige aldere når uttaksalder ikke er angitt', async () => {
@@ -40,8 +39,7 @@ describe('VelgUttaksalder', () => {
         <VelgUttaksalder
           tidligstMuligUttak={{
             aar: 67,
-            maaned: 1,
-            uttaksdato: '2031-11-01',
+            maaneder: 1,
           }}
         />
       )

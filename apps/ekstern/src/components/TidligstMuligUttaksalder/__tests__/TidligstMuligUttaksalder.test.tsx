@@ -8,7 +8,7 @@ describe('TidligstMuligUttaksalder', () => {
     const user = userEvent.setup()
     render(
       <TidligstMuligUttaksalder
-        tidligstMuligUttak={{ aar: 62, maaned: 9, uttaksdato: '2031-11-01' }}
+        tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
         hasAfpOffentlig={false}
       />
     )
@@ -36,7 +36,7 @@ describe('TidligstMuligUttaksalder', () => {
   it('viser AFP melding hvis brukeren har AFP offentlig og tidligstMuligUttak etter 62', async () => {
     render(
       <TidligstMuligUttaksalder
-        tidligstMuligUttak={{ aar: 62, maaned: 9, uttaksdato: '2031-11-01' }}
+        tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
         hasAfpOffentlig={true}
       />
     )
@@ -55,7 +55,7 @@ describe('TidligstMuligUttaksalder', () => {
   it('viser ikke AFP melding hvis brukeren har AFP offentlig men at tidligstMuligUttak er 62', async () => {
     render(
       <TidligstMuligUttaksalder
-        tidligstMuligUttak={{ aar: 62, maaned: 1, uttaksdato: '2031-11-01' }}
+        tidligstMuligUttak={{ aar: 62, maaneder: 0 }}
         hasAfpOffentlig={true}
       />
     )

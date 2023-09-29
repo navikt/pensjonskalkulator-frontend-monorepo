@@ -17,6 +17,14 @@ export const selectAfp = (state: RootState): AfpRadio | null =>
 export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
   state.userInput.samboer
 
+export const selectSivilstand = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return apiSlice.endpoints.getPerson.select(undefined)(state)?.data
+      ?.sivilstand
+  }
+)
+
 export const selectSamboerFraSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
@@ -33,6 +41,13 @@ export const selectSamboer = (state: RootState): boolean | null => {
   }
   return samboerSkapFraBrukerInput
 }
+
+export const selectInntekt = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return apiSlice.endpoints.getInntekt.select(undefined)(state)?.data
+  }
+)
 
 export const selectFormatertUttaksalder = (state: RootState): string | null =>
   state.userInput.formatertUttaksalder

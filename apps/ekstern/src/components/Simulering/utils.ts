@@ -70,25 +70,25 @@ export const getAntallMaanederMedPensjon = (
 }
 
 export const processPensjonsavtalerArray = (
-  startAlder: number,
+  startAar: number,
   length: number,
   pensjonsavtaler: Pensjonsavtale[]
 ): number[] => {
-  const sluttAlder = startAlder + length - 1
-  const result = new Array(sluttAlder - startAlder + 1).fill(0)
+  const sluttAlder = startAar + length - 1
+  const result = new Array(sluttAlder - startAar + 1).fill(0)
 
   pensjonsavtaler.forEach((avtale) => {
     avtale.utbetalingsperioder.forEach((utbetalingsperiode) => {
       const avtaleStartYear = Math.max(
-        startAlder,
-        utbetalingsperiode.startAlder
+        startAar,
+        utbetalingsperiode.startAlder.aar
       )
       const avtaleEndYear = utbetalingsperiode.sluttAlder
-        ? Math.min(sluttAlder, utbetalingsperiode.sluttAlder)
+        ? Math.min(sluttAlder, utbetalingsperiode.sluttAlder.aar)
         : sluttAlder
 
       for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
-        if (year >= startAlder) {
+        if (year >= startAar) {
           const isFirstYear = year === avtaleStartYear
           const isLastYear =
             utbetalingsperiode.sluttAlder && year === avtaleEndYear
@@ -96,8 +96,8 @@ export const processPensjonsavtalerArray = (
           const antallMaanederMedPensjon = getAntallMaanederMedPensjon(
             isFirstYear,
             !!isLastYear,
-            utbetalingsperiode.startMaaned,
-            utbetalingsperiode.sluttMaaned ?? 0
+            utbetalingsperiode.startAlder.maaneder,
+            utbetalingsperiode.sluttAlder?.maaneder ?? 0
           )
           const allocatedAmount =
             (utbetalingsperiode.aarligUtbetaling *
@@ -106,7 +106,7 @@ export const processPensjonsavtalerArray = (
             100 /
             12
 
-          result[year - startAlder] += allocatedAmount
+          result[year - startAar] += allocatedAmount
         }
       }
     })
@@ -115,32 +115,32 @@ export const processPensjonsavtalerArray = (
 }
 
 export const generateXAxis = (
-  startAlder: number,
+  startAar: number,
   pensjonsavtaler: Pensjonsavtale[],
   setIsPensjonsavtaleFlagVisible: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  let sluttAlder = MAX_UTTAKSALDER
+  let sluttAar = MAX_UTTAKSALDER
   let hasAvtaleBeforeStartAlder = false
 
   pensjonsavtaler.forEach((avtale) => {
-    if (avtale.sluttAlder && avtale.sluttAlder > sluttAlder) {
-      sluttAlder = avtale.sluttAlder
+    if (avtale.sluttAar && avtale.sluttAar > sluttAar) {
+      sluttAar = avtale.sluttAar
     }
     if (
       !hasAvtaleBeforeStartAlder &&
-      avtale.startAlder &&
-      avtale.startAlder < startAlder
+      avtale.startAar &&
+      avtale.startAar < startAar
     ) {
       hasAvtaleBeforeStartAlder = true
     }
   })
   const alderArray: string[] = []
-  for (let i = startAlder; i <= sluttAlder + 1; i++) {
-    if (i === startAlder) {
+  for (let i = startAar; i <= sluttAar + 1; i++) {
+    if (i === startAar) {
       alderArray.push((i - 1).toString())
     }
 
-    if (i === sluttAlder + 1) {
+    if (i === sluttAar + 1) {
       alderArray.push(`${i - 1}+`.toString())
     } else {
       alderArray.push(i.toString())

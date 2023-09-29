@@ -1,12 +1,9 @@
 declare type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
 
-declare type Uttaksalder = {
+declare type Alder = {
   aar: number
-  maaned: number
-  uttaksdato: string
+  maaneder: number
 }
-
-declare type UttaksalderForenklet = Omit<Uttaksalder, 'uttaksdato'>
 
 declare type Pensjonsberegning = {
   beloep: number
@@ -14,10 +11,8 @@ declare type Pensjonsberegning = {
 }
 
 declare type Utbetalingsperiode = {
-  startAlder: number
-  startMaaned: number
-  sluttAlder?: number
-  sluttMaaned?: number
+  startAlder: Alder
+  sluttAlder?: Alder
   aarligUtbetaling: number
   grad: number
 }
@@ -26,8 +21,8 @@ declare type Pensjonsavtale = {
   key: number
   produktbetegnelse: string
   kategori: PensjonsavtaleKategori
-  startAlder?: number
-  sluttAlder?: number
+  startAar?: number
+  sluttAar?: number
   utbetalingsperioder: Utbetalingsperiode[]
 }
 

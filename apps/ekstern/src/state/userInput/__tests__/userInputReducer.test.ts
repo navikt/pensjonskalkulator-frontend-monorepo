@@ -69,7 +69,7 @@ describe('userInputSlice', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
         userInputActions.updateCurrentSimulation({
-          startAlder: 65,
+          startAar: 65,
           startMaaned: 4,
         })
       )
@@ -77,7 +77,7 @@ describe('userInputSlice', () => {
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
-          startAlder: 65,
+          startAar: 65,
           startMaaned: 4,
           uttaksgrad: 100,
           aarligInntekt: 0,
@@ -94,7 +94,7 @@ describe('userInputSlice', () => {
           afp: 'ja_offentlig',
           samboer: false,
           currentSimulation: {
-            startAlder: 66,
+            startAar: 66,
             startMaaned: 4,
             uttaksgrad: 100,
             aarligInntekt: 0,

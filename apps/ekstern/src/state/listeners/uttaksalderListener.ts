@@ -6,13 +6,18 @@ import {
   unformatUttaksalder,
 } from '@/state/api/utils'
 import { AppListenerEffectAPI, AppStartListening } from '@/state/store'
-import { selectSamtykke } from '@/state/userInput/selectors'
+import {
+  selectInntekt,
+  selectSamtykke,
+  selectAfp,
+  selectSivilstand,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 /**
  * onSetFormatertUttaksalder
  * 1. unformat uttaksalder
- * 2. oppdater current simulation med riktig aar og maaned
+ * 2. oppdater current simulation med riktig aar og maaneder
  * 3. Hvis samtykke er true: hent pensjonsavtaler
  *
  * @param payload - formatertUttaksalder satt av setFormatertUttaksalder
@@ -26,16 +31,25 @@ async function onSetFormatertUttaksalder(
 
   dispatch(
     userInputActions.updateCurrentSimulation({
-      startAlder: uttaksalder.aar,
-      startMaaned: uttaksalder.maaned,
+      startAar: uttaksalder.aar,
+      startMaaned: uttaksalder.maaneder,
     })
   )
 
+  const inntekt = selectInntekt(getState())
   const samtykke = selectSamtykke(getState())
-  if (samtykke) {
+  const afp = selectAfp(getState())
+  const sivilstand = selectSivilstand(getState())
+
+  if (samtykke && inntekt !== undefined) {
     dispatch(
       apiSlice.endpoints.pensjonsavtaler.initiate(
-        generatePensjonsavtalerRequestBody(uttaksalder)
+        generatePensjonsavtalerRequestBody(
+          inntekt.beloep,
+          afp,
+          uttaksalder,
+          sivilstand
+        )
       )
     )
   }
