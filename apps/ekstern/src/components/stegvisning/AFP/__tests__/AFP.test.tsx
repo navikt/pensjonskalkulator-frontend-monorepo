@@ -163,7 +163,7 @@ describe('stegvisning - AFP', () => {
     })
   })
 
-  it('kaller onNext når det er siste steg og at brukeren klikker på Beren', async () => {
+  it('kaller onNext når det er siste steg og at brukeren klikker på Beregn', async () => {
     const user = userEvent.setup()
     render(
       <AFP
