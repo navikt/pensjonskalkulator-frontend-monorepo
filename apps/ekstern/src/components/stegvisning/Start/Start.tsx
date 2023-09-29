@@ -1,6 +1,7 @@
 import { useIntl, FormattedMessage } from 'react-intl'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
@@ -49,8 +50,10 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
         className={styles.link}
         as={ReactRouterLink}
         to={paths.personopplysninger}
+        inlineText
       >
         <FormattedMessage id="stegvisning.start.link" />
+        <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
       </Link>
     </Card>
   )

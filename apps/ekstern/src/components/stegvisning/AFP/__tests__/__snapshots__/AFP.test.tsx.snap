@@ -68,7 +68,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           </ul>
           Les om vilkårene til 
           <a
-            class="navds-link navds-link--action"
+            class="navds-link navds-link--action navds-link--inline-text"
             href="https://www.afp.no"
             target="_blank"
           >
@@ -369,7 +369,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           </ul>
           Les om vilkårene til 
           <a
-            class="navds-link navds-link--action"
+            class="navds-link navds-link--action navds-link--inline-text"
             href="https://www.afp.no"
             target="_blank"
           >
@@ -669,7 +669,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           </ul>
           Les om vilkårene til 
           <a
-            class="navds-link navds-link--action"
+            class="navds-link navds-link--action navds-link--inline-text"
             href="https://www.afp.no"
             target="_blank"
           >
