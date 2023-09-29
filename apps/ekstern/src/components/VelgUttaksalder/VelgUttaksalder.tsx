@@ -15,7 +15,7 @@ import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
 import styles from './VelgUttaksalder.module.scss'
 
 interface Props {
-  tidligstMuligUttak?: Uttaksalder | UttaksalderForenklet
+  tidligstMuligUttak?: Alder
   defaultAntallSynligeAldere?: number
   visFlereAldereLabelClose?: string
   visFlereAldereLabelOpen?: string

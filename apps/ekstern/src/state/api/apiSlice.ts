@@ -6,7 +6,7 @@ import {
   isPensjonsavtale,
   isTpoMedlemskap,
   isUnleashToggle,
-  isUttaksalder,
+  isAlder,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
 import {
@@ -54,7 +54,7 @@ export const apiSlice = createApi({
       },
     }),
     tidligsteUttaksalder: builder.query<
-      Uttaksalder,
+      Alder,
       TidligsteUttaksalderRequestBody | void
     >({
       query: (body) => ({
@@ -62,8 +62,8 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: Uttaksalder) => {
-        if (!isUttaksalder(response)) {
+      transformResponse: (response: Alder) => {
+        if (!isAlder(response)) {
           throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
         }
         return response
