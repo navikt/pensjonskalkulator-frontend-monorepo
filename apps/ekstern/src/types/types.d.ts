@@ -65,3 +65,7 @@ declare type TpoMedlemskap = {
 declare type UnleashToggle = {
   enabled: boolean
 }
+
+declare type SakStatus = {
+  harUfoeretrygdEllerGjenlevendeytelse: boolean
+}

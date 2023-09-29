@@ -59,6 +59,7 @@ export function CardContent({
       {onPrimaryButtonClick && (
         <Button
           type="button"
+          data-testid="card-button-primary"
           className={styles.button}
           variant="primary"
           onClick={onPrimaryButtonClick}
@@ -70,6 +71,7 @@ export function CardContent({
       {onSecondaryButtonClick && (
         <Button
           type="button"
+          data-testid="card-button-secondary"
           className={styles.button}
           variant="secondary"
           onClick={onSecondaryButtonClick}
@@ -81,6 +83,7 @@ export function CardContent({
       {onTertiaryButtonClick && (
         <Button
           type="button"
+          data-testid="card-button-tertiary"
           className={styles.button}
           variant="tertiary"
           onClick={onTertiaryButtonClick}

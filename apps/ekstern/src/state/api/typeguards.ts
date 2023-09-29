@@ -115,6 +115,15 @@ export const isUnleashToggle = (data?: any): data is UnleashToggle => {
   )
 }
 
+export const isSakStatus = (data?: any): data is SakStatus => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    !Array.isArray(data) &&
+    typeof data.harUfoeretrygdEllerGjenlevendeytelse === 'boolean'
+  )
+}
+
 export const isAlder = (data?: any): data is Alder => {
   return (
     typeof data === 'object' &&

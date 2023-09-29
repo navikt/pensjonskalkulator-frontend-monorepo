@@ -2,6 +2,8 @@ import { redirect } from 'react-router'
 import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
 import { PageFramework } from '@/components/common/PageFramework'
+import Henvisning1963 from '@/components/Henvisning1963'
+import HenvisningUfoeretrygdGjenlevendepensjon from '@/components/HenvisningUfoeretrygdGjenlevendepensjon'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
 import { LandingPage } from '@/pages/LandingPage'
@@ -32,6 +34,9 @@ export const externalUrls = {
 export const paths = {
   root: '/',
   login: '/login',
+  henvisningUfoeretrygdGjenlevendepensjon:
+    '/henvisning-ufoeretrygd-gjenlevendepensjon',
+  henvisning1963: '/henvisning-1963',
   start: '/start',
   samtykke: '/samtykke',
   utenlandsopphold: '/utenlandsopphold',
@@ -72,6 +77,14 @@ export const routes: RouteObject[] = [
       {
         path: paths.start,
         element: <Step0 />,
+      },
+      {
+        path: paths.henvisningUfoeretrygdGjenlevendepensjon,
+        element: <HenvisningUfoeretrygdGjenlevendepensjon />,
+      },
+      {
+        path: paths.henvisning1963,
+        element: <Henvisning1963 />,
       },
       {
         path: paths.utenlandsopphold,
