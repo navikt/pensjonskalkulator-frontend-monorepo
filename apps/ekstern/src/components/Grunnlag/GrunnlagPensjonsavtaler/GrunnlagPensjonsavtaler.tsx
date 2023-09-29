@@ -134,7 +134,10 @@ export const GrunnlagPensjonsavtaler = () => {
               </div>
             )}
           {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-            <table className={styles.tabell}>
+            <table
+              data-testid="pensjonsavtaler-table"
+              className={styles.tabell}
+            >
               <thead>
                 <tr>
                   <th className={styles.tabellHeader}>
