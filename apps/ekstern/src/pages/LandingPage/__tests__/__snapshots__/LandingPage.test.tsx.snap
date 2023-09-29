@@ -53,6 +53,11 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
           >
             landingsside.velge_mellom_detaljert_og_enkel
           </p>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.velge_mellom_detaljert_og_enkel_2
+          </p>
           <ul>
             <li>
               landingsside.liste.1
@@ -156,6 +161,11 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           >
             landingsside.velge_mellom_detaljert_og_enkel
           </p>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.velge_mellom_detaljert_og_enkel_2
+          </p>
           <ul>
             <li>
               landingsside.liste.1
@@ -205,7 +215,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
             class="navds-heading navds-heading--medium"
             data-testid="uinlogget-kalkulator"
           >
-            landingsside.heading.uinnlogget_kalkulator
+            landingsside.text.uinnlogget_kalkulator
           </h2>
           <p
             class="navds-body-long navds-body-long--medium"
@@ -220,7 +230,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               <span
                 class="navds-label"
               >
-                landingsside.button.enkel_kalkulator_utlogget
+                landingsside.text.uinnlogget_kalkulator
               </span>
             </button>
           </div>

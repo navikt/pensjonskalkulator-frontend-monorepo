@@ -194,7 +194,9 @@ const translations = {
     'Du må bruke vår detaljerte kalkulator for å beregne din pensjon.',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
   'landingsside.velge_mellom_detaljert_og_enkel':
-    'Du kan velge mellom enkel eller detaljert kalkulator. Enkel kalkulator passer for deg som vil ha en rask oversikt. Detaljert kalkulator passer for deg som vil ha en mer spesifisert beregning. Enkel kalkulator er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
+    'Du kan velge mellom enkel eller detaljert kalkulator. Enkel kalkulator passer for deg som vil ha en rask oversikt. Detaljert kalkulator passer for deg som vil ha en mer spesifisert beregning. ',
+  'landingsside.velge_mellom_detaljert_og_enkel_2':
+    'Enkel kalkulator er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
   'landingsside.liste.1':
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
 
@@ -208,7 +210,7 @@ const translations = {
   'landingsside.button.enkel_kalkulator_utlogget':
     'Logg inn i enkel kalkulator',
   'landingsside.button.enkel_kalkulator': 'Enkel kalkulator',
-  'landingsside.heading.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
+  'landingsside.text.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.body.uinnlogget_kalkulator':
     'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv og den beregner kun alderspensjon fra folketrygden (NAV).',
   'landingsside.link.personopplysninger':
