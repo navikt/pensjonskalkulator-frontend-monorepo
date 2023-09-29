@@ -49,7 +49,7 @@ export const PageFramework: React.FC<
               />
             )}
             <Heading size="large" level="1">
-              {intl.formatMessage({ id: 'application.title' })}
+              {intl.formatMessage({ id: 'pageframework.title' })}
             </Heading>
           </div>
         </div>

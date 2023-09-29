@@ -16,6 +16,7 @@ const translations = {
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
+  'pageframework.title': 'Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',

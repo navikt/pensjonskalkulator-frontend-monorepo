@@ -17,7 +17,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
           <h1
             class="navds-heading navds-heading--large"
           >
-            application.title
+            pageframework.title
           </h1>
         </div>
       </div>
