@@ -12,43 +12,33 @@ exports[`HenvisningUfoeretrygdGjenlevendepensjon  > rendrer 1`] = `
     >
       error.du_kan_ikke_bruke_enkel_kalkulator
     </h2>
-    <div
-      class="navds-stack navds-vstack"
-      style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
+    <p
+      class="_ingress_789545 navds-body-long navds-body-long--large"
     >
-      <p
-        class="navds-body-long navds-body-long--large"
+      henvisning_ufoere_gjenlevende.body
+    </p>
+    <button
+      class="_button_789545 navds-button navds-button--primary navds-button--medium"
+      data-testid="card-button-primary"
+      type="button"
+    >
+      <span
+        class="navds-label"
       >
-        henvisning_ufoere_gjenlevende.body
-      </p>
-      <div
-        class="navds-stack navds-hstack"
-        style="--__ac-stack-direction: row; --__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
+        henvisning_ufoere_gjenlevende.detaljert_kalkulator
+      </span>
+    </button>
+    <button
+      class="_button_789545 navds-button navds-button--secondary navds-button--medium"
+      data-testid="card-button-secondary"
+      type="button"
+    >
+      <span
+        class="navds-label"
       >
-        <button
-          class="navds-button navds-button--primary navds-button--medium"
-          data-testid="henvisning-ufoere-gjenlevende.gaa-til-detaljert-kalkulator-knapp"
-          type="button"
-        >
-          <span
-            class="navds-label"
-          >
-            henvisning_ufoere_gjenlevende.detaljert_kalkulator
-          </span>
-        </button>
-        <button
-          class="navds-button navds-button--secondary navds-button--medium"
-          data-testid="henvisning-ufoere-gjenlevende.avbryt-knapp"
-          type="button"
-        >
-          <span
-            class="navds-label"
-          >
-            stegvisning.avbryt
-          </span>
-        </button>
-      </div>
-    </div>
+        stegvisning.avbryt
+      </span>
+    </button>
   </section>
 </DocumentFragment>
 `;

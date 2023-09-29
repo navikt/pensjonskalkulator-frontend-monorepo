@@ -31,6 +31,9 @@ export const externalUrls = {
 export const paths = {
   root: '/',
   login: '/login',
+  henvisningUfoeretrygdGjenlevendepensjon:
+    '/henvisning-ufoeretrygd-gjenlevendepensjon',
+  henvisning1963: '/henvisning-1963',
   start: '/start',
   samtykke: '/samtykke',
   utenlandsopphold: '/utenlandsopphold',
@@ -41,9 +44,6 @@ export const paths = {
   sivilstandFeil: '/sivilstand-feil',
   beregning: '/beregning',
   forbehold: '/forbehold',
-  henvisningUfoeretrygdGjenlevendepensjon:
-    '/henvisning-ufoeretrygd-gjenlevendepensjon',
-  henvisning1963: '/henvisning-1963',
 } as const
 
 const directAccessGuard = async () => {
@@ -80,7 +80,7 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.henvisning1963,
-        element: <Henvisning1963 onAvbryt={console.log} />,
+        element: <Henvisning1963 />,
       },
       {
         path: paths.utenlandsopphold,

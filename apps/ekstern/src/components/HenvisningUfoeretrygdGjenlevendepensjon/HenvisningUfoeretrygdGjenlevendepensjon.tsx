@@ -1,22 +1,33 @@
-import { FormattedMessage } from 'react-intl'
-
-import { BodyLong, Button, Heading, HStack, VStack } from '@navikt/ds-react'
+import React from 'react'
+import { useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { Card } from '../common/Card'
-import { externalUrls } from '@/router'
+import { externalUrls, paths } from '@/router'
+import { apiSlice } from '@/state/api/apiSlice'
+import { useAppDispatch } from '@/state/hooks'
 import { wrapLogger } from '@/utils/logging'
-
-interface IProps {
-  onAvbryt: () => void
-}
 
 const gaaTilDetaljertKalkulator = () => {
   window.open(externalUrls.detaljertKalkulator, '_self')
 }
 
-export const HenvisningUfoeretrygdGjenlevendepensjon: React.FC<IProps> = ({
-  onAvbryt,
-}) => {
+export const HenvisningUfoeretrygdGjenlevendepensjon: React.FC = () => {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const intl = useIntl()
+
+  React.useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title.henvisning_ufoere_gjenlevende',
+    })
+  }, [])
+
+  const onAvbryt = (): void => {
+    dispatch(apiSlice.util.resetApiState())
+    navigate(paths.login)
+  }
+
   return (
     <Card
       data-testid="henvisning-ufoere-gjenlevende"
@@ -24,36 +35,20 @@ export const HenvisningUfoeretrygdGjenlevendepensjon: React.FC<IProps> = ({
       hasLargePadding
       hasMargin
     >
-      <Heading level="2" size="medium" spacing>
-        <FormattedMessage id="error.du_kan_ikke_bruke_enkel_kalkulator" />
-      </Heading>
-
-      <VStack gap="4">
-        <BodyLong size="large">
-          <FormattedMessage id="henvisning_ufoere_gjenlevende.body" />
-        </BodyLong>
-
-        <HStack gap="4">
-          <Button
-            type="button"
-            data-testid="henvisning-ufoere-gjenlevende.gaa-til-detaljert-kalkulator-knapp"
-            variant="primary"
-            onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(
-              gaaTilDetaljertKalkulator
-            )}
-          >
-            <FormattedMessage id="henvisning_ufoere_gjenlevende.detaljert_kalkulator" />
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            data-testid="henvisning-ufoere-gjenlevende.avbryt-knapp"
-            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onAvbryt)}
-          >
-            <FormattedMessage id="stegvisning.avbryt" />
-          </Button>
-        </HStack>
-      </VStack>
+      <Card.Content
+        text={{
+          header: 'error.du_kan_ikke_bruke_enkel_kalkulator',
+          ingress: 'henvisning_ufoere_gjenlevende.body',
+          primaryButton: 'henvisning_ufoere_gjenlevende.detaljert_kalkulator',
+          secondaryButton: 'stegvisning.avbryt',
+        }}
+        onPrimaryButtonClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(
+          gaaTilDetaljertKalkulator
+        )}
+        onSecondaryButtonClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
+          onAvbryt
+        )}
+      />
     </Card>
   )
 }

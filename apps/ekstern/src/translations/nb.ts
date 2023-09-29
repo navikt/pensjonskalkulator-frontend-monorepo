@@ -10,6 +10,9 @@ const translations = {
   'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
+  'application.title.henvisning_1963': '– Pensjonskalkulator',
+  'application.title.henvisning_ufoere_gjenlevende':
+    'Henvisning uføretrygd og gjenlevendepensjon – Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
   'error.global.title': 'Oops! Det har oppstått en uventet feil',
   'error.global.ingress':
@@ -23,6 +26,8 @@ const translations = {
     'Hvis du klikket på en lenke er den feil eller utdatert.',
   'error.404.button.link_1': 'Til pensjonskalkulator',
   'error.404.button.link_2': 'Les om pensjon',
+  'error.du_kan_ikke_bruke_enkel_kalkulator':
+    'Du kan dessverre ikke bruke enkel kalkulator',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -202,8 +207,6 @@ const translations = {
     'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv og den beregner kun alderspensjon fra folketrygden (NAV).',
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i enkel kalkulator',
-  'error.du_kan_ikke_bruke_enkel_kalkulator':
-    'Du kan dessverre ikke bruke enkel kalkulator',
   'henvisning1963.body':
     'Siden du er født før 1963 må du bruke detaljert kalkulator',
   'henvisning1963.detaljert_kalkulator': 'Detaljert kalkulator',

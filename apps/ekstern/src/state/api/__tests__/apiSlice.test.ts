@@ -80,18 +80,6 @@ describe('apiSlice', () => {
         })
     })
 
-    describe('getSakStatus', () => {
-      it('returnerer data ved vellykket query', async () => {
-        const storeRef = await setupStore({}, true)
-        return storeRef
-          .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
-          .then((result: FetchBaseQueryError) => {
-            expect(result.status).toBe('fulfilled')
-            expect(result.data).toMatchObject(sakStatusResponse)
-          })
-      })
-    })
-
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
       mockErrorResponse('/person')
@@ -118,6 +106,35 @@ describe('apiSlice', () => {
             expect(result.data).toBe(undefined)
           })
       })
+    })
+  })
+
+  describe('getSakStatus', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = await setupStore({}, true)
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(sakStatusResponse)
+        })
+    })
+
+    it('kaster feil ved uforventet format på data', async () => {
+      const storeRef = await setupStore({}, true)
+
+      mockResponse('/sak-status', {
+        json: {
+          feil: 'format',
+        },
+      })
+
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
     })
   })
 

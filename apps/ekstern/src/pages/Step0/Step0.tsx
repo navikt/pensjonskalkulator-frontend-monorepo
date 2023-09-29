@@ -52,7 +52,7 @@ export function Step0() {
     if (!isSakFetching && sak?.harUfoeretrygdEllerGjenlevendeytelse) {
       navigate(paths.henvisningUfoeretrygdGjenlevendepensjon)
     }
-  })
+  }, [isSakFetching, sak, navigate])
 
   React.useEffect(() => {
     const LAST_DAY_1962 = lastDayOfYear(new Date(1962, 1, 1))
@@ -62,7 +62,7 @@ export function Step0() {
     ) {
       navigate(paths.henvisning1963)
     }
-  }, [isPersonSuccess, person])
+  }, [isPersonSuccess, person, navigate])
 
   const onCancel = (): void => {
     navigate(paths.login)
@@ -75,7 +75,7 @@ export function Step0() {
     }
   }
 
-  if (isPersonFetching || isInntektFetching) {
+  if (isPersonFetching || isInntektFetching || isSakFetching) {
     return (
       <div style={{ width: '100%' }}>
         <Loader size="3xlarge" title="venter..." isCentered />

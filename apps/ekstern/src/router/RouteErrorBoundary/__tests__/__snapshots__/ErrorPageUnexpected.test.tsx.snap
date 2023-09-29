@@ -37,6 +37,7 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
         </p>
         <button
           class="_button_789545 navds-button navds-button--primary navds-button--medium"
+          data-testid="card-button-primary"
           type="button"
         >
           <span
@@ -47,6 +48,7 @@ exports[`ErrorPageUnexpected > rendrer med riktig tekst og knapper 1`] = `
         </button>
         <button
           class="_button_789545 navds-button navds-button--secondary navds-button--medium"
+          data-testid="card-button-secondary"
           type="button"
         >
           <span
