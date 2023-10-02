@@ -132,7 +132,6 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.personopplysninger,
-        loader: directAccessGuard,
         element: <Personopplysninger />,
       },
     ],
