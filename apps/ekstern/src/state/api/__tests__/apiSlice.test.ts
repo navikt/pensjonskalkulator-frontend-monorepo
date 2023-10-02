@@ -128,13 +128,14 @@ describe('apiSlice', () => {
           feil: 'format',
         },
       })
-
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('rejected')
-          expect(result.data).toBe(undefined)
-        })
+      await swallowErrorsAsync(async () => {
+        return storeRef
+          .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
+          .then((result: FetchBaseQueryError) => {
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
     })
   })
 

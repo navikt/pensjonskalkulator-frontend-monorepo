@@ -41,6 +41,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
         () => navigateMock
       )
+
       const { store } = render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -64,7 +65,9 @@ describe('GrunnlagPensjonsavtaler', () => {
         )
       ).toHaveLength(2)
 
-      expect(screen.queryByRole('table')).not.toBeInTheDocument()
+      expect(
+        screen.queryByTestId('pensjonsavtaler-table')
+      ).not.toBeInTheDocument()
       expect(
         screen.queryByText('Alle avtaler i privat sektor er hentet fra ', {
           exact: false,
@@ -137,7 +140,9 @@ describe('GrunnlagPensjonsavtaler', () => {
           'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
         )
       ).toBeVisible()
-      expect(screen.queryByRole('table')).not.toBeInTheDocument()
+      expect(
+        screen.queryByTestId('pensjonsavtaler-table')
+      ).not.toBeInTheDocument()
       expect(
         screen.queryByText('Alle avtaler i privat sektor er hentet fra ', {
           exact: false,
@@ -192,7 +197,7 @@ describe('GrunnlagPensjonsavtaler', () => {
           'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
         )
       ).toBeVisible()
-      expect(await screen.findByRole('table')).toBeVisible()
+      expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
       expect(
         await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
           exact: false,
@@ -227,7 +232,9 @@ describe('GrunnlagPensjonsavtaler', () => {
       expect(
         await screen.findByText('grunnlag.pensjonsavtaler.ingress.ingen')
       ).toBeVisible()
-      expect(screen.queryByRole('table')).not.toBeInTheDocument()
+      expect(
+        screen.queryByTestId('pensjonsavtaler-table')
+      ).not.toBeInTheDocument()
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
       expect(
@@ -271,7 +278,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(<GrunnlagPensjonsavtaler />, {
+      const { container } = render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -285,7 +292,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
-      expect(await screen.findByRole('table')).toBeVisible()
+      expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
       expect(
         await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.left')
       ).toBeVisible()
@@ -299,8 +306,8 @@ describe('GrunnlagPensjonsavtaler', () => {
           await screen.findByText('Livsvarig fra 67 år og 6 md.')
         ).toBeVisible()
         expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
-        const rows = await screen.findAllByRole('row')
-        expect(rows.length).toBe(6)
+        const rows = container.querySelectorAll('tr')
+        expect(rows?.length).toBe(6)
         expect(
           await screen.findByText(
             'Alle avtaler i privat sektor er hentet fra',
@@ -343,7 +350,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(<GrunnlagPensjonsavtaler />, {
+      const { container } = render(<GrunnlagPensjonsavtaler />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -357,7 +364,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[0])
-      expect(await screen.findByRole('table')).toBeVisible()
+      expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
       expect(
         await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.left')
       ).toBeVisible()
@@ -373,8 +380,8 @@ describe('GrunnlagPensjonsavtaler', () => {
           await screen.findByText('Fra 67 år og 6 md. til 77 år')
         ).toBeVisible()
         expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
-        const rows = await screen.findAllByRole('row')
-        expect(rows.length).toBe(5)
+        const rows = container.querySelectorAll('tr')
+        expect(rows?.length).toBe(5)
         expect(
           await screen.findByText(
             'Alle avtaler i privat sektor er hentet fra',
