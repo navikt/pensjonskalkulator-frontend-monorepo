@@ -4,6 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Step2 } from '..'
 import { paths } from '@/router'
+import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
@@ -13,37 +14,84 @@ describe('Step 2', () => {
     expect(document.title).toBe('application.title.stegvisning.step2')
   })
 
-  it('registrerer samtykke og navigerer videre til riktig side når brukeren samtykker og klikker på Neste', async () => {
-    const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    const { store } = render(<Step2 />, {})
-    const radioButtons = screen.getAllByRole('radio')
+  describe('Gitt at brukeren svarer Ja på spørsmål om samtykke', async () => {
+    it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
+      const user = userEvent.setup()
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
+      const { store } = render(<Step2 />, {})
+      const radioButtons = screen.getAllByRole('radio')
 
-    await user.click(radioButtons[0])
-    await user.click(screen.getByText('stegvisning.neste'))
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
 
-    expect(store.getState().userInput.samtykke).toBe(true)
-    expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
+      expect(store.getState().userInput.samtykke).toBe(true)
+      expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
+    })
   })
 
-  it('registrerer samtykke, tømmer storen og navigerer videre til riktig side når brukeren ikke samtykker og klikker på Neste', async () => {
-    const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    const { store } = render(<Step2 />, {})
-    const radioButtons = screen.getAllByRole('radio')
+  describe('Gitt at brukeren svarer Nei på spørsmål om samtykke', async () => {
+    it('nullstiller api storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke) og kaller feature toggle, person og inntekt på nytt. Navigerer videre til riktig side når brukerenklikker på Neste', async () => {
+      const fakeApiCalls = {
+        queries: {
+          ['tulleQuerySomKreverSamtykke(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'tulleQuerySomKreverSamtykke',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              harTjenestepensjonsforhold: true,
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
+      const initiategetSpraakvelgerFeatureToggleMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getSpraakvelgerFeatureToggle,
+        'initiate'
+      )
+      const initiateGetPersonMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getPerson,
+        'initiate'
+      )
+      const initiateGetInntektMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getInntekt,
+        'initiate'
+      )
 
-    await user.click(radioButtons[1])
-    await user.click(screen.getByText('stegvisning.neste'))
+      const user = userEvent.setup()
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
 
-    expect(store.getState().userInput.samtykke).toBe(false)
-    expect(Object.keys(store.getState().api.queries).length).toEqual(0)
-    expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
+      const { store } = render(<Step2 />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+          },
+        },
+      })
+      expect(Object.keys(store.getState().api.queries).length).toEqual(1)
+
+      const radioButtons = screen.getAllByRole('radio')
+      await user.click(radioButtons[1])
+      await user.click(screen.getByText('stegvisning.neste'))
+
+      expect(store.getState().userInput.samtykke).toBe(false)
+      expect(initiategetSpraakvelgerFeatureToggleMock).toHaveBeenCalled()
+      expect(initiateGetPersonMock).toHaveBeenCalled()
+      expect(initiateGetInntektMock).toHaveBeenCalled()
+      console.log('store.getState().api.queries', store.getState().api.queries)
+      expect(Object.keys(store.getState().api.queries).length).toEqual(3)
+      expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
+    })
   })
 
   it('nullstiller input fra brukeren og sender tilbake til steg 1 når brukeren klikker på Tilbake', async () => {
