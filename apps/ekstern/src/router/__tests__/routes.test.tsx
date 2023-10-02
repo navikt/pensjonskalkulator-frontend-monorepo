@@ -370,7 +370,9 @@ describe('routes', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      expect(await screen.findByText('Personopplysninger')).toBeInTheDocument()
+      expect(
+        await screen.findByText('personopplysninger.header')
+      ).toBeInTheDocument()
     })
   })
 

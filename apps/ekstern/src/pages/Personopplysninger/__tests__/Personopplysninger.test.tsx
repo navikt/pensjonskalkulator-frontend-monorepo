@@ -11,6 +11,6 @@ describe('Personopplysninger', () => {
 
   it('rendrer riktig', () => {
     render(<Personopplysninger />)
-    expect(screen.getByText('Personopplysninger')).toBeVisible()
+    expect(screen.getByText('personopplysninger.header')).toBeVisible()
   })
 })

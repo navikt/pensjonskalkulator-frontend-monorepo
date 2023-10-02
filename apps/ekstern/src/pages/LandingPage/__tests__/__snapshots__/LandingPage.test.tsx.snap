@@ -7,12 +7,12 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
   >
     <div
       class="navds-stack navds-vstack"
-      style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10); --__ac-stack-direction-xs: column;"
+      style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10);"
     >
       <section>
         <div
           class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
         >
           <h2
             class="navds-heading navds-heading--medium"
@@ -41,7 +41,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
       <section>
         <div
           class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column;"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
         >
           <h2
             class="navds-heading navds-heading--medium"
@@ -76,7 +76,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
           </div>
           <div
             class="navds-stack navds-hstack"
-            style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
+            style="--__ac-stack-direction: row; --__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
           >
             <button
               class="navds-button navds-button--secondary navds-button--medium"
@@ -117,12 +117,12 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
   >
     <div
       class="navds-stack navds-vstack"
-      style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10); --__ac-stack-direction-xs: column;"
+      style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10);"
     >
       <section>
         <div
           class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
         >
           <h2
             class="navds-heading navds-heading--medium"
@@ -151,7 +151,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
       <section>
         <div
           class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column;"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
         >
           <h2
             class="navds-heading navds-heading--medium"
@@ -186,7 +186,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           </div>
           <div
             class="navds-stack navds-hstack"
-            style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
+            style="--__ac-stack-direction: row; --__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4);"
           >
             <button
               class="navds-button navds-button--secondary navds-button--medium"
@@ -213,7 +213,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
       <section>
         <div
           class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
+          style="--__ac-stack-direction: column; --__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2);"
         >
           <h2
             class="navds-heading navds-heading--medium"
