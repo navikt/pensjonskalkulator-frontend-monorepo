@@ -50,6 +50,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
         className={styles.link}
         as={ReactRouterLink}
         to={paths.personopplysninger}
+        target="_blank"
         inlineText
       >
         <FormattedMessage id="stegvisning.start.link" />
