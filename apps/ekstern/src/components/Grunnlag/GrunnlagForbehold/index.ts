@@ -1,0 +1,1 @@
+export { GrunnlagForbehold } from './GrunnlagForbehold'

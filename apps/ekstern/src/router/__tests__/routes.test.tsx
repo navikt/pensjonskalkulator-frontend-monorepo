@@ -334,7 +334,7 @@ describe('routes', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      expect(await screen.findByText('Forbehold')).toBeInTheDocument()
+      expect(await screen.findByText('forbehold.title')).toBeInTheDocument()
     })
   })
 

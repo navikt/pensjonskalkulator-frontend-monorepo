@@ -1,24 +1,20 @@
+import { FormattedMessage } from 'react-intl'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
 import { BodyLong, Heading, Link } from '@navikt/ds-react'
 
 import { paths } from '@/router'
 
-import styles from './Forbehold.module.scss'
+import styles from './GrunnlagForbehold.module.scss'
 
-export function Forbehold() {
+export function GrunnlagForbehold() {
   return (
     <section className={styles.section}>
       <Heading level="2" size="medium" className={styles.heading}>
-        Forbehold
+        <FormattedMessage id="grunnlag.forbehold.title" />
       </Heading>
-
       <BodyLong className={styles.text}>
-        Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til
-        de opplysningene du har oppgitt selv, på tidspunktet for beregningen.
-        Dette er derfor en foreløpig beregning av hva du kan forvente deg i
-        pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt.
-        Beregningen er ikke juridisk bindende.
+        <FormattedMessage id="grunnlag.forbehold.ingress" />
       </BodyLong>
       <Link as={ReactRouterLink} to={paths.forbehold}>
         Alle forbehold

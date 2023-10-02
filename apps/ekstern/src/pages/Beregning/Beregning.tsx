@@ -8,7 +8,6 @@ import clsx from 'clsx'
 import { AccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
-import { Forbehold } from '@/components/Forbehold'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
@@ -21,7 +20,10 @@ import {
   useGetPersonQuery,
   useTidligsteUttaksalderQuery,
 } from '@/state/api/apiSlice'
-import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
+import {
+  AlderspensjonRequestBody,
+  TidligsteUttaksalderRequestBody,
+} from '@/state/api/apiSlice.types'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -38,6 +40,8 @@ export function Beregning() {
   const harSamboer = useAppSelector(selectSamboer)
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
+  const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
+    React.useState<TidligsteUttaksalderRequestBody | undefined>(undefined)
   const [
     isPensjonsavtalerAccordionItemOpen,
     setIslePensjonsavtalerAccordionItem,
@@ -76,17 +80,25 @@ export function Beregning() {
       uttaksgrad: uttaksgrad,
     })
     setAlderspensjonRequestBody(requestBody)
-  }, [afp, person, startAar, startMaaned, uttaksgrad, inntekt])
+  }, [afp, person, inntekt, harSamboer, startAar, startMaaned, uttaksgrad])
+
+  React.useEffect(() => {
+    setTidligsteUttaksalderRequestBody({
+      sivilstand: person?.sivilstand,
+      harEps: harSamboer !== null ? harSamboer : undefined,
+      sisteInntekt: inntekt?.beloep,
+      simuleringstype:
+        afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+    })
+  }, [afp, person, inntekt, harSamboer])
 
   // Hent tidligst mulig uttaksalder
   const {
     data: tidligstMuligUttak,
     isLoading: isTidligstMuligUttaksalderLoading,
     isError: isTidligstMuligUttaksalderError,
-  } = useTidligsteUttaksalderQuery({
-    sivilstand: person?.sivilstand ?? undefined,
-    harEps: harSamboer !== null ? harSamboer : undefined,
-    sisteInntekt: inntekt?.beloep ?? undefined,
+  } = useTidligsteUttaksalderQuery(tidligsteUttaksalderRequestBody, {
+    skip: !tidligsteUttaksalderRequestBody,
   })
 
   // Hent alderspensjon + AFP
@@ -190,7 +202,6 @@ export function Beregning() {
                     inntekt={inntekt as Inntekt}
                     tidligstMuligUttak={tidligstMuligUttak}
                   />
-                  <Forbehold />
                 </AccordionContext.Provider>
               </>
             )}

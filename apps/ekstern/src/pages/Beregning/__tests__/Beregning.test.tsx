@@ -13,12 +13,75 @@ import {
 import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
+  const fakeApiCalls = {
+    queries: {
+      ['getPerson(undefined)']: {
+        status: 'fulfilled',
+        endpointName: 'getPerson',
+        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+        startedTimeStamp: 1688046411971,
+        data: {
+          fornavn: 'Aprikos',
+          sivilstand: 'UGIFT',
+          foedselsdato: '1963-04-30',
+        },
+        fulfilledTimeStamp: 1688046412103,
+      },
+      ['getInntekt(undefined)']: {
+        status: 'fulfilled',
+        endpointName: 'getInntekt',
+        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+        startedTimeStamp: 1688046411971,
+        data: {
+          beloep: 500000,
+          aar: 2021,
+        },
+        fulfilledTimeStamp: 1688046412103,
+      },
+    },
+  }
+
   it('har riktig sidetittel', () => {
     render(<Beregning />)
     expect(document.title).toBe('application.title.beregning')
   })
 
   describe('Når tidligst mulig uttaksalder hentes', () => {
+    it('kalles endepunktet med riktig request body', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.tidligsteUttaksalder,
+        'initiate'
+      )
+      render(<Beregning />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samboer: false,
+            afp: 'ja_privat',
+          },
+        },
+      })
+      expect(initiateMock).toHaveBeenCalledWith(
+        {
+          harEps: false,
+          simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
+          sisteInntekt: 500000,
+          sivilstand: 'UGIFT',
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+          },
+        }
+      )
+    })
     it('viser loading og deretter riktig header, tekst og knapper', async () => {
       render(<Beregning />)
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
@@ -38,6 +101,9 @@ describe('Beregning', () => {
       })
       const { container } = render(<Beregning />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -175,6 +241,9 @@ describe('Beregning', () => {
       })
       render(<Beregning />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
           userInput: {
             ...userInputInitialState,
             formatertUttaksalder: '68 år og 5 måneder',
