@@ -27,10 +27,12 @@
 
   @media (min-width: $a-breakpoint-md) {
     display: inline-block;
+    margin-right: var(--a-spacing-4);
   }
 }
 
 .link {
+  display: block;
   margin-top: var(--a-spacing-8);
 
   @media (min-width: $a-breakpoint-md) {
