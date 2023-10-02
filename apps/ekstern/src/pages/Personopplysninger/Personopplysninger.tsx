@@ -17,11 +17,11 @@ export function Personopplysninger() {
 
   return (
     <Card hasLargePadding hasMargin>
-      <Heading level="2" size="large" spacing>
+      <Heading level="2" size="medium" spacing>
         <FormattedMessage id="personopplysninger.header" />
       </Heading>
       <section>
-        <Heading level="3" size="medium" spacing>
+        <Heading level="3" size="small" spacing>
           <FormattedMessage id="personopplysninger.section.formaal.header" />
         </Heading>
 
@@ -34,7 +34,7 @@ export function Personopplysninger() {
         </BodyLong>
       </section>
       <section>
-        <Heading level="3" size="medium" spacing>
+        <Heading level="3" size="small" spacing>
           <FormattedMessage id="personopplysninger.section.hvordan_brukes.header" />
         </Heading>
 
@@ -51,7 +51,7 @@ export function Personopplysninger() {
         </BodyLong>
       </section>
       <section>
-        <Heading level="3" size="medium" spacing>
+        <Heading level="3" size="small" spacing>
           <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.header" />
         </Heading>
 
@@ -110,7 +110,7 @@ export function Personopplysninger() {
       </section>
 
       <section>
-        <Heading level="3" size="medium" spacing>
+        <Heading level="3" size="small" spacing>
           <FormattedMessage id="personopplysninger.section.lagring.heading" />
         </Heading>
 
@@ -120,7 +120,7 @@ export function Personopplysninger() {
       </section>
 
       <section>
-        <Heading level="3" size="medium" spacing>
+        <Heading level="3" size="small" spacing>
           <FormattedMessage id="personopplysninger.section.informasjon_om_rettighetene.heading" />
         </Heading>
 
@@ -135,7 +135,7 @@ export function Personopplysninger() {
       </section>
 
       <section>
-        <Heading level="3" size="medium" spacing>
+        <Heading level="3" size="small" spacing>
           <FormattedMessage id="personopplysninger.section.spoersmaal.heading" />
         </Heading>
 
