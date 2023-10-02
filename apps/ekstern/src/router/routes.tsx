@@ -28,7 +28,7 @@ export const externalUrls = {
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
   garantipensjon: 'https://www.nav.no/minstepensjon',
-  norskPensjkon: 'https://norskpensjon.no/',
+  norskPensjon: 'https://norskpensjon.no/',
   uinloggetKalkulator:
     'https://www.nav.no/pselv/simulering/forenkletsimulering.jsf',
 }

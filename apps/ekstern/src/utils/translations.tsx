@@ -41,7 +41,7 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   norskPensjonLink: (chunks: string) => (
-    <Link href={externalUrls.norskPensjkon} target="_blank" inlineText>
+    <Link href={externalUrls.norskPensjon} target="_blank" inlineText>
       {chunks}
       <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
     </Link>
