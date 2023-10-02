@@ -43,6 +43,10 @@ export function LandingPage() {
     window.open(externalUrls.detaljertKalkulator, '_self')
   }
 
+  const gaaTilUninnloggetKalkulator = () => {
+    window.open(externalUrls.uinloggetKalkulator, '_self')
+  }
+
   return (
     <div className={styles.landingPage}>
       <VStack gap="10">
@@ -88,28 +92,35 @@ export function LandingPage() {
                 id: 'landingsside.velge_mellom_detaljert_og_enkel',
               })}
             </BodyLong>
-            <ul>
-              <li>
+            <div>
+              <BodyLong>
                 {intl.formatMessage({
-                  id: 'landingsside.liste.1',
+                  id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
                 })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.2',
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.3',
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.4',
-                })}
-              </li>
-            </ul>
+              </BodyLong>
+              <ul>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.1',
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.2',
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.3',
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.4',
+                  })}
+                </li>
+              </ul>
+            </div>
             <HStack gap="4">
               <Button variant="secondary" onClick={gaaTilDetaljertKalkulator}>
                 {isLoggedIn
@@ -147,7 +158,7 @@ export function LandingPage() {
                 level="2"
               >
                 {intl.formatMessage({
-                  id: 'landingsside.heading.uinnlogget_kalkulator',
+                  id: 'landingsside.text.uinnlogget_kalkulator',
                 })}
               </Heading>
               <BodyLong>
@@ -161,10 +172,10 @@ export function LandingPage() {
                   data-testid="landingside-enkel-kalkulator-button"
                   variant="secondary"
                   /* c8 ignore next 1 */
-                  onClick={() => navigate('/start')}
+                  onClick={gaaTilUninnloggetKalkulator}
                 >
                   {intl.formatMessage({
-                    id: 'landingsside.button.enkel_kalkulator_utlogget',
+                    id: 'landingsside.text.uinnlogget_kalkulator',
                   })}
                 </Button>
               </div>

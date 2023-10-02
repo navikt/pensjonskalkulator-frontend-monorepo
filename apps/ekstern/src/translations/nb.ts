@@ -14,6 +14,9 @@ const translations = {
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
+  'application.title.henvisning_1963': '– Pensjonskalkulator',
+  'application.title.henvisning_ufoere_gjenlevende':
+    'Henvisning uføretrygd og gjenlevendepensjon – Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'pageframework.title': 'Pensjonskalkulator',
@@ -21,6 +24,8 @@ const translations = {
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
   'error.global.button': 'Avbryt',
+  'error.du_kan_ikke_bruke_enkel_kalkulator':
+    'Du kan dessverre ikke bruke enkel kalkulator',
   'error.404.title': 'Oops! Siden du leter etter finnes ikke.',
   'error.404.list_item1':
     'Hvis du skrev inn adressen direkte i nettleseren kan du sjekke om den er stavet riktig.',
@@ -28,6 +33,37 @@ const translations = {
     'Hvis du klikket på en lenke er den feil eller utdatert.',
   'error.404.button.link_1': 'Til pensjonskalkulator',
   'error.404.button.link_2': 'Les om pensjon',
+  'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
+  'landingsside.du.maa.bruke.detaljert':
+    'Du må bruke vår detaljerte kalkulator for å beregne din pensjon.',
+  'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
+  'landingsside.velge_mellom_detaljert_og_enkel':
+    'Du kan velge mellom enkel eller detaljert kalkulator. Enkel kalkulator passer for deg som vil ha en rask oversikt. Detaljert kalkulator passer for deg som vil ha en mer spesifisert beregning. ',
+  'landingsside.velge_mellom_detaljert_og_enkel_2':
+    'Enkel kalkulator er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
+  'landingsside.liste.1':
+    'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
+  'landingsside.liste.2': 'mottar uføretrygd eller gjenlevendepensjon',
+  'landingsside.liste.3':
+    'har hatt betydelig endring i inntekt de siste 2 årene',
+  'landingsside.liste.4': 'har særaldersgrense',
+  'landingsside.button.detaljert_kalkulator_utlogget':
+    'Logg inn i detaljert kalkulator',
+  'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
+  'landingsside.button.enkel_kalkulator_utlogget':
+    'Logg inn i enkel kalkulator',
+  'landingsside.button.enkel_kalkulator': 'Enkel kalkulator',
+  'landingsside.text.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
+  'landingsside.body.uinnlogget_kalkulator':
+    'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv og den beregner kun alderspensjon fra folketrygden (NAV).',
+  'landingsside.link.personopplysninger':
+    'Personopplysninger som brukes i enkel kalkulator',
+  'henvisning1963.body':
+    'Siden du er født før 1963 må du bruke detaljert kalkulator',
+  'henvisning1963.detaljert_kalkulator': 'Detaljert kalkulator',
+  'henvisning_ufoere_gjenlevende.detaljert_kalkulator': 'Detaljert kalkulator',
+  'henvisning_ufoere_gjenlevende.body':
+    'Siden du mottar uføretrygd eller gjenlevendepensjon, må du bruke detaljert kalkulator.',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -187,29 +223,7 @@ const translations = {
   'grunnlag.forbehold.title': 'Forbehold',
   'grunnlag.forbehold.ingress':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Beregningen er ikke juridisk bindende.',
-  'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
-  'landingsside.du.maa.bruke.detaljert':
-    'Du må bruke vår detaljerte kalkulator for å beregne din pensjon.',
-  'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
-  'landingsside.velge_mellom_detaljert_og_enkel':
-    'Du kan velge mellom enkel eller detaljert kalkulator. Enkel kalkulator passer for deg som vil ha en rask oversikt. Detaljert kalkulator passer for deg som vil ha en mer spesifisert beregning. Enkel kalkulator er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
-  'landingsside.liste.1':
-    'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
-  'landingsside.liste.2': 'mottar uføretrygd eller gjenlevendepensjon',
-  'landingsside.liste.3':
-    'har hatt betydelig endring i inntekt de siste 2 årene',
-  'landingsside.liste.4': 'har særaldersgrense',
-  'landingsside.button.detaljert_kalkulator_utlogget':
-    'Logg inn i detaljert kalkulator',
-  'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
-  'landingsside.button.enkel_kalkulator_utlogget':
-    'Logg inn i enkel kalkulator',
-  'landingsside.button.enkel_kalkulator': 'Enkel kalkulator',
-  'landingsside.heading.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
-  'landingsside.body.uinnlogget_kalkulator':
-    'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv og den beregner kun alderspensjon fra folketrygden (NAV).',
-  'landingsside.link.personopplysninger':
-    'Personopplysninger som brukes i enkel kalkulator',
+
   'forbehold.title': 'Forbehold',
   'forbehold.intro':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt.  Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter den er fastsatt av Skatteetaten. Alderspensjon vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Dersom du fortsetter i jobb etter uttak av alderspensjon vil alderspensjon fortsette å øke etter hvert som ny opptjening legges til. Du kan tjene opp til alderspensjon helt fram til året du fyller 75 år.',
