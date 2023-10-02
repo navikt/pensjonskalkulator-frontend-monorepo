@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`GrunnlagForbehold > rendrer riktig 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_b1579a"
+  >
+    <h2
+      class="_heading_b1579a navds-heading navds-heading--medium"
+    >
+      grunnlag.forbehold.title
+    </h2>
+    <p
+      class="_text_b1579a navds-body-long navds-body-long--medium"
+    >
+      grunnlag.forbehold.ingress
+    </p>
+    <a
+      class="navds-link navds-link--action"
+      href="/forbehold"
+    >
+      Alle forbehold
+    </a>
+  </section>
+</DocumentFragment>
+`;
