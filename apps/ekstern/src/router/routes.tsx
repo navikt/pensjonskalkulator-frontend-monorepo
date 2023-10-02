@@ -31,6 +31,10 @@ export const externalUrls = {
   norskPensjkon: 'https://norskpensjon.no/',
   uinloggetKalkulator:
     'https://www.nav.no/pselv/simulering/forenkletsimulering.jsf',
+  personvernerklaering:
+    'https://www.nav.no/personvernerklaering#dine-rettigheter',
+  personvernerklaeringKontaktOss:
+    'https://www.nav.no/personvernerklaering#kontakt-nav',
 }
 
 export const paths = {
