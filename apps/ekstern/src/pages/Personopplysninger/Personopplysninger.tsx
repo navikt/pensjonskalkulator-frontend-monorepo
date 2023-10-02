@@ -43,6 +43,10 @@ export function Personopplysninger() {
         </BodyLong>
 
         <BodyLong spacing>
+          <FormattedMessage id="personopplysninger.section.hvordan_brukes.2" />
+        </BodyLong>
+
+        <BodyLong spacing>
           <FormattedMessage id="personopplysninger.section.hvordan_brukes.3" />
         </BodyLong>
       </section>
@@ -94,7 +98,7 @@ export function Personopplysninger() {
 
         <ul>
           <li>
-            <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.gpdr.list.2" />
+            <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.gpdr.list.1" />
           </li>
           <li>
             <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.gpdr.list.2" />
