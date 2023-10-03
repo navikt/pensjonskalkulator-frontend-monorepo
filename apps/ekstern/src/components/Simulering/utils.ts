@@ -28,10 +28,15 @@ export const getChartDefaults = (aarArray: string[]) => {
 
 export const processInntektArray = (
   beloep: number,
-  length: number
+  length: number,
+  startMaaned: number | null
 ): number[] => {
   const dataArray = new Array(length).fill(0)
   dataArray[0] = beloep
+  if (startMaaned && startMaaned !== 0) {
+    const inntektPrMnd = beloep / 12
+    dataArray[1] = inntektPrMnd * startMaaned
+  }
   return dataArray
 }
 
