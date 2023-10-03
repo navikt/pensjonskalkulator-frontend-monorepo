@@ -46,6 +46,22 @@ export const formatMessageValues: Record<string, any> = {
       <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
     </Link>
   ),
+  navPersonvernerklaeringLink: (chunks: string) => (
+    <Link href={externalUrls.personvernerklaering} target="_blank" inlineText>
+      {chunks}
+      <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
+    </Link>
+  ),
+  navPersonvernerklaeringKontaktOss: (chunks: string) => (
+    <Link
+      href={externalUrls.personvernerklaeringKontaktOss}
+      target="_blank"
+      inlineText
+    >
+      {chunks}
+      <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
+    </Link>
+  ),
   br: <br />,
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */

@@ -254,5 +254,65 @@ const translations = {
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtaler',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har samtykket til det, henter vi inn opplysninger om hva du vil få i pensjon fra offentlige og private pensjonsordninger. NAV har ikke ansvar for beløpene som oppgis, men er ment for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon.{br}{br}NAV har for tiden ikke mulighet til å hente informasjon fra offentlige tjenestepensjonsordninger. Dette skyldes at reglene for ny offentlig AFP ikke er endelig vedtatt, og nye samordningsregler for offentlig tjenestepensjon. Ta kontakt med din tjenestepensjonsordning dersom du trenger informasjon om tjenestepensjonen din.{br}{br}Hvis du ønsker en nærmere oversikt over dine pensjonsavtaler, må du sjekke direkte med den enkelte pensjonsordningen.',
+  'personopplysninger.header':
+    'Personopplysninger som brukes i enkel pensjonskalkulator',
+  'personopplysninger.section.formaal.header':
+    'Hva er formålet med personopplysningene?',
+  'personopplysninger.section.formaal.1':
+    'NAV henter inn personopplysninger i kalkulatoren for at du skal kunne planlegge pensjonen din, og få et estimat på fremtidig pensjon.',
+  'personopplysninger.section.formaal.2':
+    'Du må logge inn for å bruke kalkulatoren. For å beregne alderspensjon bruker vi opplysninger du oppgir i kalkulatoren, opplysninger NAV har om deg, og nødvendige opplysninger fra andre offentlige instanser. Hvis du samtykker, henter vi inn pensjonsavtaler fra andre pensjonsleverandører, for å gi deg en samlet oversikt over pensjonen din.',
+  'personopplysninger.section.hvordan_brukes.header':
+    'Hvordan behandler vi personopplysninger?',
+  'personopplysninger.section.hvordan_brukes.1':
+    'NAV henter inn og utleverer kun personopplysninger når vi har lovhjemmel til det. Hvis vi trenger ytterligere opplysninger, ber vi om et samtykke fra deg til å innhente eller utlevere opplysningene. Vi bruker kun opplysningene til det du samtykker til. Samtykket er frivillig. Du får informasjon underveis om hvilke opplysninger vi henter inn fra andre, som f.eks. Folkeregisteret og pensjonsleverandører.',
+  'personopplysninger.section.hvordan_brukes.2':
+    'Vi lagrer ikke beregningene du gjør, eller personopplysningene brukt i behandlingen.',
+  'personopplysninger.section.hvordan_brukes.3':
+    'Behandlingsgrunnlaget for behandlingen simulering av pensjon er Art. 6 (1) c Rettslig forpliktelse, Forvaltningsloven § 11, Folketrygdlovens kapittel 20 Alderspensjon og Art 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlingen som gjøres i pensjonskalkulatoren.',
+  'personopplysninger.section.hvilke_opplysninger.header':
+    'Hvilke personopplysninger bruker vi?',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
+    'Opplysninger som vi henter for å oppfylle NAV sin veiledningsplikt etter Art. 6 (1) c Rettslig forpliktelse, Forvaltningsloven § 11.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.1':
+    'Fødselsnummeret ditt henter vi fra ID-porten for å identifisere deg.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.2':
+    'Fornavnet ditt henter vi fra Folkeregisteret for å tydeliggjøre at beregningen gjelder deg.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.3':
+    'Fødselsdatoen din henter vi fra Folkeregisteret for at vi skal kunne beregne alderspensjonen din.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.4':
+    'Ønsket alder (år og ev. måned) for uttak av pensjon oppgir du for at vi skal kunne beregne alderspensjonen din.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
+    'Din pensjonsopptjening hentes fra pensjonsopptjeningsregisteret hos NAV, som er basert på innrapporterte inntekter fra Skatteetaten, og ev. opptjening fra dagpenger, førstegangstjeneste, omsorgsopptjening og opptjening fra uføretrygd.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
+    'Din siste pensjonsgivende årsinntekt (og årstall) fra Skatteetaten brukes som inntekt frem til uttak av pensjon. Den inngår i pensjonsbeholdningen for beregning av alderspensjonen din.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
+    'Din sivilstand kan påvirke pensjonens størrelse. Opplysninger om sivilstanden din hentes fra Folkeregisteret. Hvis du er registrert som ugift, separert, skilt eller enke/enkemann, spør vi deg om du har samboer. Endringer du gjør, gjelder kun for den beregningen og lagres ikke hos NAV eller Folkeregisteret.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
+    'Hvis du har uføretrygd eller gjenlevendepensjon, henviser vi deg til detaljert kalkulator når du logger inn. Enkel kalkulator tar ikke høyde for uføretrygd eller gjenlevendepensjon.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
+    'Vi spør deg om utenlandsopphold. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg til detaljert kalkulator. Enkel kalkulator tar ikke høyde for lengre utenlandsopphold.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
+    'Vi spør deg om du har rett til AFP i enten offentlig eller privat sektor. Vi bruker opplysningen til å identifisere om vi skal beregne alderspensjonen din med AFP. Opplysningen brukes også til å informere om at AFP kan påvirke når du kan ta ut alderspensjon.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
+    'Opplysninger som vi henter hvis du samtykker (GDPR Art 6 (1) a, Samtykke).',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.1':
+    'Fra Norsk Pensjon henter vi pensjonsavtaler fra privat sektor, som tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon), fripoliser og enkelte avtaler om pensjonssparing.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.2':
+    'Vi sjekker også om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du er eller har vært medlem, informerer vi deg om at du kan ha rettigheter, men henter ikke inn avtalene.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
+    'Vi henter inn disse opplysningene for at du skal få oversikt over din samlede pensjon.',
+
+  'personopplysninger.section.lagring.heading': 'Lagring',
+  'personopplysninger.section.lagring.text':
+    'Det er mellomlagring i pensjonskalkulatoren for å gjøre en beregning av pensjonen din. Når du avslutter beregningen eller logger ut, slettes mellomlagringen. Beregningen din blir ikke lagret eller arkivert hos NAV.',
+  'personopplysninger.section.informasjon_om_rettighetene.heading':
+    'Informasjon om rettighetene dine',
+  'personopplysninger.section.informasjon_om_rettighetene.text':
+    'Se <navPersonvernerklaeringLink>personvernserklæringen</navPersonvernerklaeringLink> for NAV.',
+  'personopplysninger.section.spoersmaal.heading':
+    'Spørsmål til NAV eller datatilsynet om personvern',
+  'personopplysninger.section.spoersmaal.text':
+    'Se kontaktinformasjon i <navPersonvernerklaeringKontaktOss>personvernerklæringen</navPersonvernerklaeringKontaktOss> for NAV.',
 }
 export const getTranslation_nb = () => translations

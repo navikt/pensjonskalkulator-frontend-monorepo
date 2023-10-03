@@ -339,23 +339,6 @@ describe('routes', () => {
   })
 
   describe(`${BASE_PATH}${paths.personopplysninger}`, () => {
-    it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
-      store.getState = vi.fn().mockImplementation(() => ({
-        api: {},
-        userInput: { ...userInputInitialState },
-      }))
-      const router = createMemoryRouter(routes, {
-        basename: BASE_PATH,
-        initialEntries: [`${BASE_PATH}${paths.personopplysninger}`],
-      })
-      render(<RouterProvider router={router} />, {
-        hasRouter: false,
-      })
-      expect(
-        await screen.findByText('stegvisning.start.button')
-      ).toBeInTheDocument()
-    })
-
     it('viser personopplysninger siden når brukeren kommer til steget gjennom stegvisningen', async () => {
       store.getState = vi.fn().mockImplementation(() => ({
         api: {
@@ -370,7 +353,9 @@ describe('routes', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      expect(await screen.findByText('Personopplysninger')).toBeInTheDocument()
+      expect(
+        await screen.findByText('personopplysninger.header')
+      ).toBeInTheDocument()
     })
   })
 

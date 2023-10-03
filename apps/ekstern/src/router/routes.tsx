@@ -31,6 +31,10 @@ export const externalUrls = {
   norskPensjon: 'https://norskpensjon.no/',
   uinloggetKalkulator:
     'https://www.nav.no/pselv/simulering/forenkletsimulering.jsf',
+  personvernerklaering:
+    'https://www.nav.no/personvernerklaering#dine-rettigheter',
+  personvernerklaeringKontaktOss:
+    'https://www.nav.no/personvernerklaering#kontakt-nav',
 }
 
 export const paths = {
@@ -128,7 +132,6 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.personopplysninger,
-        loader: directAccessGuard,
         element: <Personopplysninger />,
       },
     ],
