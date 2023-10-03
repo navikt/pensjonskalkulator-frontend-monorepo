@@ -312,8 +312,9 @@ export const getChartOptions = (
     },
     tooltip: {
       className: styles.tooltip,
+      animation: false,
       followTouchMove: false,
-      /* c8 ignore next 20 */
+      // /* c8 ignore next 20 */
       formatter: function (this: TooltipFormatterContextObject) {
         return tooltipFormatter(this, styles)
       },
