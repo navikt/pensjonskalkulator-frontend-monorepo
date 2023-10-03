@@ -26,6 +26,9 @@ export function Step2() {
     dispatch(userInputActions.setSamtykke(samtykke))
     if (!samtykke) {
       dispatch(apiSlice.util.resetApiState())
+      dispatch(apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate())
+      dispatch(apiSlice.endpoints.getPerson.initiate())
+      dispatch(apiSlice.endpoints.getInntekt.initiate())
     }
     navigate(paths.offentligTp)
   }
