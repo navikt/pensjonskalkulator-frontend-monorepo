@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { describe, expect, it } from 'vitest'
 
 import { formatMessageValues } from '../translations'
+import { externalUrls } from '@/router'
 import { render, screen } from '@/test-utils'
 
 describe('translations-utils', () => {
@@ -178,6 +179,56 @@ describe('translations-utils', () => {
         'href',
         'https://norskpensjon.no/'
       )
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <navPersonvernerklaeringLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.navPersonvernerklaeringLink"
+          values={{ ...formatMessageValues }}
+        />
+      )
+      expect(
+        screen.queryByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(
+        screen.queryByText('my link', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.personvernerklaering
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <navPersonvernerklaeringKontaktOss> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.navPersonvernerklaeringKontaktOss"
+          values={{ ...formatMessageValues }}
+        />
+      )
+      expect(
+        screen.queryByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(
+        screen.queryByText('my link', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.personvernerklaeringKontaktOss
+      )
+
       expect(
         await screen.findByRole('img', { hidden: true })
       ).toBeInTheDocument()

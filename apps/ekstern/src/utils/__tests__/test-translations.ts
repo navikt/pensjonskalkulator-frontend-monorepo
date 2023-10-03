@@ -12,6 +12,10 @@ const translations = {
   'translation.test.afpLink': 'lorem ipsum dolor <afpLink>my link</afpLink>',
   'translation.test.norskPensjonLink':
     'lorem ipsum dolor <norskPensjonLink>my link</norskPensjonLink>',
+  'translation.test.navPersonvernerklaeringLink':
+    'lorem ipsum dolor <navPersonvernerklaeringLink>my link</navPersonvernerklaeringLink>',
+  'translation.test.navPersonvernerklaeringKontaktOss':
+    'lorem ipsum dolor <navPersonvernerklaeringKontaktOss>my link</navPersonvernerklaeringKontaktOss>',
   'translation.test.br': 'lorem{br}ipsum{br}{br}dolor',
 }
 export const getTranslation_test = () => translations
