@@ -229,6 +229,7 @@ export function Simulering(props: {
               values={{
                 link: (chunks) => (
                   <Link
+                    href="#"
                     onClick={(e) => {
                       e?.preventDefault()
                       if (grunnlagPensjonsavtalerRef?.current) {
