@@ -39,15 +39,15 @@ describe('Typeguards', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 70, maaneder: 1 },
+          startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeTruthy()
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 65, maaneder: 1 },
-          sluttAlder: { aar: 70, maaneder: 1 },
+          startAlder: { aar: 65, maaneder: 0 },
+          sluttAlder: { aar: 70, maaneder: 11 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
@@ -58,13 +58,13 @@ describe('Typeguards', () => {
       expect(isUtbetalingsperiode({})).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 70, maaneder: 1 },
+          startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 70, maaneder: 1 },
+          startAlder: { aar: 70, maaneder: 0 },
           grad: 100,
         })
       ).toBeFalsy()
@@ -77,7 +77,7 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 'abc', maaneder: 1 },
+          startAlder: { aar: 'abc', maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
@@ -91,14 +91,14 @@ describe('Typeguards', () => {
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 70, maaneder: 1 },
+          startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 'abc',
           grad: 100,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 70, maaneder: 1 },
+          startAlder: { aar: 70, maaneder: 0 },
           aarligUtbetaling: 100000,
           grad: 'abc',
         })
@@ -107,15 +107,15 @@ describe('Typeguards', () => {
     it('returnerer false når Utbetalingsperiode har feil sluttAlder eller sluttMaaned', () => {
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 70, maaneder: 1 },
-          sluttAlder: { aar: 'abc', maaneder: 1 },
+          startAlder: { aar: 70, maaneder: 0 },
+          sluttAlder: { aar: 'abc', maaneder: 11 },
           aarligUtbetaling: 100000,
           grad: 100,
         })
       ).toBeFalsy()
       expect(
         isUtbetalingsperiode({
-          startAlder: { aar: 70, maaneder: 1 },
+          startAlder: { aar: 70, maaneder: 0 },
           sluttAlder: { aar: 70, maaneder: 'abc' },
           aarligUtbetaling: 100000,
           grad: 100,
@@ -143,8 +143,8 @@ describe('Typeguards', () => {
           sluttAar: 70,
           utbetalingsperioder: [
             {
-              startAlder: { aar: 70, maaneder: 1 },
-              sluttAlder: { aar: 70, maaneder: 1 },
+              startAlder: { aar: 70, maaneder: 0 },
+              sluttAlder: { aar: 70, maaneder: 11 },
               aarligUtbetaling: 39582,
               grad: 100,
             },
@@ -186,7 +186,7 @@ describe('Typeguards', () => {
           sluttAar: 70,
           utbetalingsperioder: [
             {
-              startAlder: { aar: 'abc', maaneder: 1 },
+              startAlder: { aar: 'abc', maaneder: 0 },
               grad: 100,
             },
           ],
@@ -202,8 +202,8 @@ describe('Typeguards', () => {
           sluttAar: 67,
           utbetalingsperioder: [
             {
-              startAlder: { aar: 70, maaneder: 1 },
-              sluttAlder: { aar: 70, maaneder: 1 },
+              startAlder: { aar: 70, maaneder: 0 },
+              sluttAlder: { aar: 70, maaneder: 11 },
               aarligUtbetaling: 39582,
               grad: 100,
             },
@@ -218,8 +218,8 @@ describe('Typeguards', () => {
           sluttAar: 'abc',
           utbetalingsperioder: [
             {
-              startAlder: { aar: 70, maaneder: 1 },
-              sluttAlder: { aar: 70, maaneder: 1 },
+              startAlder: { aar: 70, maaneder: 0 },
+              sluttAlder: { aar: 70, maaneder: 11 },
               aarligUtbetaling: 39582,
               grad: 100,
             },

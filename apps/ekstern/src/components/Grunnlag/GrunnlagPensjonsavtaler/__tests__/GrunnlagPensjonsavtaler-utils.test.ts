@@ -35,7 +35,7 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
       ).toHaveLength(1)
       expect(
         grouped[PensjonsavtaleKategori.PRIVAT_TJENESTEPENSJON]
-      ).toHaveLength(3)
+      ).toHaveLength(2)
       expect(grouped[PensjonsavtaleKategori.INDIVIDUELL_ORDNING]).toHaveLength(
         2
       )
@@ -43,13 +43,13 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
   })
 
   describe('getMaanedString', () => {
-    it('returnerer tom streng når måned er undefined eller mindre eller lik 1', () => {
+    it('returnerer tom streng når måned er undefined eller lik 0', () => {
       expect(getMaanedString()).toEqual('')
       expect(getMaanedString(0)).toEqual('')
-      expect(getMaanedString(1)).toEqual('')
     })
-    it('returnerer riktig streng når måned er større enn 1', () => {
-      expect(getMaanedString(2)).toEqual(' og 2 md.')
+    it('returnerer riktig streng når måned er større enn 0', () => {
+      expect(getMaanedString(1)).toEqual(' og 1 md.')
+      expect(getMaanedString(5)).toEqual(' og 5 md.')
     })
   })
 })

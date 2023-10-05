@@ -253,7 +253,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         startAar: 67,
         utbetalingsperioder: [
           {
-            startAlder: { aar: 67, maaneder: 1 },
+            startAlder: { aar: 67, maaneder: 0 },
             aarligUtbetaling: 12345,
             grad: 100,
           },
@@ -329,8 +329,8 @@ describe('GrunnlagPensjonsavtaler', () => {
         sluttAar: 77,
         utbetalingsperioder: [
           {
-            startAlder: { aar: 67, maaneder: 1 },
-            sluttAlder: { aar: 77, maaneder: 8 },
+            startAlder: { aar: 67, maaneder: 0 },
+            sluttAlder: { aar: 77, maaneder: 11 },
             aarligUtbetaling: 12345,
             grad: 100,
           },
@@ -374,10 +374,12 @@ describe('GrunnlagPensjonsavtaler', () => {
       await waitFor(async () => {
         expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
         expect(
-          await screen.findByText('Fra 67 år til 77 år og 8 md.')
+          await screen.findByText('Fra 67 år til og med 77 år')
         ).toBeVisible()
         expect(
-          await screen.findByText('Fra 67 år og 6 md. til 77 år')
+          await screen.findByText(
+            'Fra 67 år og 6 md. til og med 77 år og 1 md.'
+          )
         ).toBeVisible()
         expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
         const rows = container.querySelectorAll('tr')

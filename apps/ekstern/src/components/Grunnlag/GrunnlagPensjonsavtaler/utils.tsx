@@ -25,7 +25,7 @@ export const groupPensjonsavtalerByType = (
 }
 
 export function getMaanedString(maaned?: number) {
-  if (maaned !== undefined && maaned > 1) {
+  if (maaned !== undefined && maaned > 0) {
     return ` og ${maaned} md.`
   }
   return ''

@@ -88,7 +88,6 @@ describe('Step 2', () => {
       expect(initiategetSpraakvelgerFeatureToggleMock).toHaveBeenCalled()
       expect(initiateGetPersonMock).toHaveBeenCalled()
       expect(initiateGetInntektMock).toHaveBeenCalled()
-      console.log('store.getState().api.queries', store.getState().api.queries)
       expect(Object.keys(store.getState().api.queries).length).toEqual(3)
       expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
     })

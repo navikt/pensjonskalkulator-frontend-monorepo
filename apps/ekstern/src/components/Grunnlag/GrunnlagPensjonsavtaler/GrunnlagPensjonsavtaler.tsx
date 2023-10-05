@@ -190,13 +190,13 @@ export const GrunnlagPensjonsavtaler = () => {
                                         utbetalingsperiode.startAlder.aar
                                       } år${getMaanedString(
                                         utbetalingsperiode.startAlder.maaneder
-                                      )} til ${
+                                      )} til og med ${
                                         utbetalingsperiode.sluttAlder.aar
                                       } år${
                                         utbetalingsperiode.sluttAlder
                                           .maaneder &&
-                                        utbetalingsperiode.sluttAlder.maaneder >
-                                          1
+                                        utbetalingsperiode.sluttAlder.maaneder <
+                                          11
                                           ? getMaanedString(
                                               utbetalingsperiode.sluttAlder
                                                 .maaneder
@@ -206,8 +206,7 @@ export const GrunnlagPensjonsavtaler = () => {
                                     : `Livsvarig fra ${
                                         utbetalingsperiode.startAlder.aar
                                       } år${
-                                        utbetalingsperiode.startAlder.maaneder >
-                                        1
+                                        utbetalingsperiode.startAlder.maaneder
                                           ? getMaanedString(
                                               utbetalingsperiode.startAlder
                                                 .maaneder
