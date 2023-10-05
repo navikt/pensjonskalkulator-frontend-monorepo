@@ -107,6 +107,7 @@ describe('apiSlice - utils', () => {
           afp: 'nei',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
+
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
@@ -114,6 +115,7 @@ describe('apiSlice - utils', () => {
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
     })
+
     it('returnerer riktig uttaksgrad', () => {
       expect(
         generateAlderspensjonRequestBody({
@@ -180,6 +182,21 @@ describe('apiSlice - utils', () => {
         aar: 68,
         maaneder: 0,
       })
+    })
+
+    it('formaterer streng dato korrekt', () => {
+      expect(generateAlderspensjonRequestBody(requestBody)?.foedselsdato).toBe(
+        '1963-04-30'
+      )
+    })
+
+    it('formaterer isoString dato korrekt', () => {
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          foedselsdato: '1963-04-29T23:00:00.000Z',
+        })?.foedselsdato
+      ).toBe('1963-04-30')
     })
   })
 })
