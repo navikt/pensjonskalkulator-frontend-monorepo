@@ -45,6 +45,7 @@ export const processPensjonsberegningArray = (
   return dataArray
 }
 
+// TODO PEK-163 tilpasse tester
 export const getAntallMaanederMedPensjon = (
   isFirstYear: boolean,
   isLastYear: boolean,
@@ -54,21 +55,35 @@ export const getAntallMaanederMedPensjon = (
   if (!isFirstYear && !isLastYear) {
     return 12
   }
+
   if (isFirstYear && !isLastYear) {
-    // Gjelder fra og med måneden etter fødseslsemåned (såkalt 0 måneden) til og med bursdagsmaaneden igjen
-    return 12 - startMonth
+    // Hvis det er første år er startMonth mest sannsynlig 1
+    // Hvis det er ulik 1, sjekk at sluttMonth er lik startMonth slik at det blir 12 mnd
+    if (startMonth === 0 || (startMonth > 0 && startMonth === sluttMonth)) {
+      return 12
+    } else {
+      // TODO PEK-163 - Hvis ikke - hva gjør vi?
+      return 12
+    }
+    // UTDATERT: Gjelder fra og med måneden etter fødseslsemåned (såkalt 0 måneden) til og med bursdagsmaaneden igjen
+    // return 12 - startMonth
   }
   if (!isFirstYear && isLastYear) {
-    // Gjelder fra og med måneden etter fødseslsmåned (såkalt 0 måneden) til og med sluttMaaneden
-    return sluttMonth
+    // UTDATERT Gjelder fra og med måneden etter fødseslsmåned (såkalt 0 måneden) til og med sluttMaaneden
+    // En avtale med utbetalingsperiode på (74,1) → (75,1) betyr 12 måneder med utbetaling
+    // En avtale med utbetalingsperiode på (74,6) → (75,1) betyr 7 måneder med utbetaling
+    return 12 - startMonth + sluttMonth
   }
   if (isFirstYear && isLastYear) {
-    //  Gjelder fra og med måneden etter fødseslsmåned  (såkalt 0 måneden) til og med sluttmaaneden
+    //  UTDATERT Gjelder fra og med måneden etter fødseslsmåned  (såkalt 0 måneden) til og med sluttmaaneden
+    // En avtale med utbetalingsperiode på (74,1) → (74,6) betyr 5 måneder med utbetaling.
     return sluttMonth - startMonth
   }
   return 0
 }
 
+// TODO PEK-163 sjekke hvordan livsvarige pensjonsavtaler ser ut
+// For livsvarige ytelser er sluttMaaned utelatt. For utbetalingsperioder med sluttalder er sluttmaaned påkrevd
 export const processPensjonsavtalerArray = (
   startAar: number,
   length: number,
@@ -77,6 +92,7 @@ export const processPensjonsavtalerArray = (
   const sluttAlder = startAar + length - 1
   const result = new Array(sluttAlder - startAar + 1).fill(0)
 
+  // TODO PEK-163 håndtere at en avtale ikke alltid har startaar - hva gjør vi da?
   pensjonsavtaler.forEach((avtale) => {
     avtale.utbetalingsperioder.forEach((utbetalingsperiode) => {
       const avtaleStartYear = Math.max(
