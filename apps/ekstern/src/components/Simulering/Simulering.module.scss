@@ -208,6 +208,15 @@
     background-color: rgb(255 255 255 / 70%) !important;
   }
 
+  .highcharts-loading-inner {
+    display: block;
+    width: 80vw;
+
+    @media (min-width: $a-breakpoint-sm) {
+      width: 100%;
+    }
+  }
+
   .highcharts-tooltip-container {
     left: 1.125rem !important;
     right: 1.125rem;

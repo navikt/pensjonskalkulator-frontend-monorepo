@@ -21,6 +21,7 @@ declare const classNames: typeof globalClassNames & {
   readonly tooltipTableCell__right: 'tooltipTableCell__right'
   readonly tooltipTableCellDot: 'tooltipTableCellDot'
   readonly 'highcharts-loading': 'highcharts-loading'
+  readonly 'highcharts-loading-inner': 'highcharts-loading-inner'
   readonly 'highcharts-tooltip-container': 'highcharts-tooltip-container'
   readonly 'highcharts-scrollable-mask': 'highcharts-scrollable-mask'
 }
