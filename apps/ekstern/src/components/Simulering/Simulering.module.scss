@@ -129,8 +129,6 @@
     width: 100%;
     table-layout: fixed;
     border-collapse: separate;
-
-    // border-spacing: 0;
     z-index: 1;
 
     @media (min-width: $a-breakpoint-lg) {
@@ -253,9 +251,6 @@
   @media (min-width: $a-breakpoint-lg) {
     width: unset;
     border-width: 0;
-
-    // border-spacing: 2px;
-    // outline: 1px solid var(--a-grayalpha-400);
   }
 }
 
