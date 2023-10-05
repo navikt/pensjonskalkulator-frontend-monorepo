@@ -67,13 +67,19 @@ describe('Simulering-utils', () => {
 
   describe('processInntektArray', () => {
     it('returnerer et array med en 0 verdi uten å feile hvis input er 0', () => {
-      expect(processInntektArray(0, 0)).toEqual([0])
-      expect(processInntektArray(0, 1)).toEqual([0])
+      expect(processInntektArray(0, 0, 0)).toEqual([0])
+      expect(processInntektArray(0, 1, 0)).toEqual([0])
     })
 
     it('returnerer riktig mappet array med beløp og 0 verdi', () => {
-      expect(processInntektArray(500000, 1)).toEqual([500000])
-      expect(processInntektArray(500000, 4)).toEqual([500000, 0, 0, 0])
+      expect(processInntektArray(500000, 1, 0)).toEqual([500000])
+      expect(processInntektArray(500000, 4, 0)).toEqual([500000, 0, 0, 0])
+    })
+
+    it('returnerer riktig mappet array uttak etter mnd ', () => {
+      expect(processInntektArray(1200, 1, 4)).toEqual([1200, 400])
+      expect(processInntektArray(1200, 4, 4)).toEqual([1200, 400, 0, 0])
+      expect(processInntektArray(1200, 2, 4)).toEqual([1200, 400])
     })
   })
 
