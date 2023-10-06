@@ -3,6 +3,7 @@
 exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartOptions > returnerer riktig default options 1`] = `
 {
   "chart": {
+    "animation": false,
     "events": {
       "render": [Function],
     },

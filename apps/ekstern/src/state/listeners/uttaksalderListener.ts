@@ -25,7 +25,7 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
  */
 async function onSetFormatertUttaksalder(
   { payload }: ReturnType<typeof userInputActions.setFormatertUttaksalder>,
-  { dispatch, getState }: AppListenerEffectAPI
+  { dispatch /* , getState*/ }: AppListenerEffectAPI
 ) {
   const uttaksalder = unformatUttaksalder(payload)
 
@@ -35,24 +35,6 @@ async function onSetFormatertUttaksalder(
       startMaaned: uttaksalder.maaneder,
     })
   )
-
-  const inntekt = selectInntekt(getState())
-  const samtykke = selectSamtykke(getState())
-  const afp = selectAfp(getState())
-  const sivilstand = selectSivilstand(getState())
-
-  if (samtykke && inntekt !== undefined) {
-    dispatch(
-      apiSlice.endpoints.pensjonsavtaler.initiate(
-        generatePensjonsavtalerRequestBody(
-          inntekt.beloep,
-          afp,
-          uttaksalder,
-          sivilstand
-        )
-      )
-    )
-  }
 }
 
 // Vil kalle onSetFormatertUttaksalder hver gang setFormatertUttaksalder kjører

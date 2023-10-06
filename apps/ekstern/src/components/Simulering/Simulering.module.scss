@@ -129,7 +129,6 @@
     width: 100%;
     table-layout: fixed;
     border-collapse: separate;
-    border-spacing: 0;
     z-index: 1;
 
     @media (min-width: $a-breakpoint-lg) {
@@ -208,6 +207,15 @@
     background-color: rgb(255 255 255 / 70%) !important;
   }
 
+  .highcharts-loading-inner {
+    display: block;
+    width: 80vw;
+
+    @media (min-width: $a-breakpoint-sm) {
+      width: 100%;
+    }
+  }
+
   .highcharts-tooltip-container {
     left: 1.125rem !important;
     right: 1.125rem;
@@ -236,5 +244,30 @@
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+::-webkit-full-page-media,
+:future,
+:root .tooltip path {
+  stroke-width: 1px;
+  stroke: var(--a-grayalpha-400);
+}
+
+::-webkit-full-page-media,
+:future,
+:root .tooltipTable {
+  @media (min-width: $a-breakpoint-lg) {
+    width: unset;
+    border-width: 0;
+  }
+}
+
+::-webkit-full-page-media,
+:future,
+:root .tooltipTableHeaderCell,
+:root .tooltipTableCell {
+  @media (min-width: $a-breakpoint-lg) {
+    padding: 0;
   }
 }

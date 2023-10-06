@@ -190,6 +190,7 @@ export const getChartOptions = (
   return {
     chart: {
       type: 'column',
+      animation: false,
       spacingTop: 0,
       spacingBottom: 0,
       spacingLeft: 0,

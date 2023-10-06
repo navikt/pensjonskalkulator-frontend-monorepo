@@ -133,12 +133,17 @@ export function Simulering(props: {
         pensjonsavtaler?.avtaler ?? [],
         setIsPensjonsavtaleFlagVisible
       )
+
       setChartOptions({
         ...getChartDefaults(aarArray),
         series: [
           {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
-            data: processInntektArray(inntekt.beloep, aarArray.length),
+            data: processInntektArray(
+              inntekt.beloep,
+              aarArray.length,
+              startMaaned
+            ),
           } as SeriesOptionsType,
           ...(showAfp
             ? [
@@ -169,7 +174,7 @@ export function Simulering(props: {
         ],
       })
     }
-  }, [startAar, alderspensjon, pensjonsavtaler])
+  }, [startAar, startMaaned, alderspensjon, pensjonsavtaler])
 
   return (
     <section className={styles.section}>
@@ -229,6 +234,7 @@ export function Simulering(props: {
               values={{
                 link: (chunks) => (
                   <Link
+                    href="#"
                     onClick={(e) => {
                       e?.preventDefault()
                       if (grunnlagPensjonsavtalerRef?.current) {
