@@ -24,9 +24,17 @@ export const groupPensjonsavtalerByType = (
   return record
 }
 
-export function getMaanedString(maaned?: number) {
+// TODO PEK-163 ta høyde for oversettelser
+export function getMaanedString(
+  formatFn: (a: { id: string }) => string,
+  maaned?: number
+) {
   if (maaned !== undefined && maaned > 0) {
-    return ` og ${maaned} md.`
+    return ` ${formatFn({
+      id: 'grunnlag.pensjonsavtaler.og',
+    })} ${maaned} ${formatFn({
+      id: 'grunnlag.pensjonsavtaler.md',
+    })}`
   }
   return ''
 }

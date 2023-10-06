@@ -1,24 +1,13 @@
 import { Unsubscribe } from '@reduxjs/toolkit'
 
-import { apiSlice } from '@/state/api/apiSlice'
-import {
-  generatePensjonsavtalerRequestBody,
-  unformatUttaksalder,
-} from '@/state/api/utils'
+import { unformatUttaksalder } from '@/state/api/utils'
 import { AppListenerEffectAPI, AppStartListening } from '@/state/store'
-import {
-  selectInntekt,
-  selectSamtykke,
-  selectAfp,
-  selectSivilstand,
-} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 /**
  * onSetFormatertUttaksalder
  * 1. unformat uttaksalder
  * 2. oppdater current simulation med riktig aar og maaneder
- * 3. Hvis samtykke er true: hent pensjonsavtaler
  *
  * @param payload - formatertUttaksalder satt av setFormatertUttaksalder
  * @param { dispatch, getState getOriginalState, condition } - fra AppListenerEffectAPI

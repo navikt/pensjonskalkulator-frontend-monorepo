@@ -301,9 +301,15 @@ describe('GrunnlagPensjonsavtaler', () => {
       ).toBeVisible()
       await waitFor(async () => {
         expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
-        expect(await screen.findByText('Livsvarig fra 67 år')).toBeVisible()
         expect(
-          await screen.findByText('Livsvarig fra 67 år og 6 md.')
+          await screen.findByText(
+            'grunnlag.pensjonsavtaler.livsvarig 67 grunnlag.pensjonsavtaler.aar'
+          )
+        ).toBeVisible()
+        expect(
+          await screen.findByText(
+            'grunnlag.pensjonsavtaler.livsvarig 67 grunnlag.pensjonsavtaler.aar grunnlag.pensjonsavtaler.og 6 grunnlag.pensjonsavtaler.md'
+          )
         ).toBeVisible()
         expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
         const rows = container.querySelectorAll('tr')
@@ -374,11 +380,13 @@ describe('GrunnlagPensjonsavtaler', () => {
       await waitFor(async () => {
         expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
         expect(
-          await screen.findByText('Fra 67 år til og med 77 år')
+          await screen.findByText(
+            'grunnlag.pensjonsavtaler.fra_og_med 67 grunnlag.pensjonsavtaler.aar grunnlag.pensjonsavtaler.til_og_med 77 grunnlag.pensjonsavtaler.aar'
+          )
         ).toBeVisible()
         expect(
           await screen.findByText(
-            'Fra 67 år og 6 md. til og med 77 år og 1 md.'
+            'grunnlag.pensjonsavtaler.fra_og_med 67 grunnlag.pensjonsavtaler.aar grunnlag.pensjonsavtaler.og 6 grunnlag.pensjonsavtaler.md grunnlag.pensjonsavtaler.til_og_med 77 grunnlag.pensjonsavtaler.aar grunnlag.pensjonsavtaler.og 1 grunnlag.pensjonsavtaler.md'
           )
         ).toBeVisible()
         expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)

@@ -1,3 +1,5 @@
+import { vi } from 'vitest'
+
 import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler.json' assert { type: 'json' }
 import { groupPensjonsavtalerByType, getMaanedString } from '../utils'
 import { PensjonsavtaleKategori } from '@/types/enums'
@@ -44,12 +46,21 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
 
   describe('getMaanedString', () => {
     it('returnerer tom streng når måned er undefined eller lik 0', () => {
-      expect(getMaanedString()).toEqual('')
-      expect(getMaanedString(0)).toEqual('')
+      const mockFn = vi.fn()
+      expect(getMaanedString(mockFn)).toEqual('')
+      expect(getMaanedString(mockFn, 0)).toEqual('')
+      expect(mockFn).not.toHaveBeenCalled()
     })
     it('returnerer riktig streng når måned er større enn 0', () => {
-      expect(getMaanedString(1)).toEqual(' og 1 md.')
-      expect(getMaanedString(5)).toEqual(' og 5 md.')
+      const mockFn = vi.fn().mockReturnValue('string')
+      expect(getMaanedString(mockFn, 1)).toEqual(' string 1 string')
+      expect(mockFn).toHaveBeenNthCalledWith(1, {
+        id: 'grunnlag.pensjonsavtaler.og',
+      })
+      expect(mockFn).toHaveBeenNthCalledWith(2, {
+        id: 'grunnlag.pensjonsavtaler.md',
+      })
+      expect(getMaanedString(mockFn, 5)).toEqual(' string 5 string')
     })
   })
 })

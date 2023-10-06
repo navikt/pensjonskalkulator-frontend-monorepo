@@ -186,28 +186,43 @@ export const GrunnlagPensjonsavtaler = () => {
                               >
                                 <td className={styles.tabellCell__Small}>
                                   {utbetalingsperiode.sluttAlder
-                                    ? `Fra ${
+                                    ? `${intl.formatMessage({
+                                        id: 'grunnlag.pensjonsavtaler.fra_og_med',
+                                      })} ${
                                         utbetalingsperiode.startAlder.aar
-                                      } år${getMaanedString(
+                                      } ${intl.formatMessage({
+                                        id: 'grunnlag.pensjonsavtaler.aar',
+                                      })}${getMaanedString(
+                                        intl.formatMessage,
                                         utbetalingsperiode.startAlder.maaneder
-                                      )} til og med ${
+                                      )} ${intl.formatMessage({
+                                        id: 'grunnlag.pensjonsavtaler.til_og_med',
+                                      })} ${
                                         utbetalingsperiode.sluttAlder.aar
-                                      } år${
+                                      } ${intl.formatMessage({
+                                        id: 'grunnlag.pensjonsavtaler.aar',
+                                      })}${
                                         utbetalingsperiode.sluttAlder
                                           .maaneder &&
                                         utbetalingsperiode.sluttAlder.maaneder <
                                           11
                                           ? getMaanedString(
+                                              intl.formatMessage,
                                               utbetalingsperiode.sluttAlder
                                                 .maaneder
                                             )
                                           : ''
                                       }`
-                                    : `Livsvarig fra ${
+                                    : `${intl.formatMessage({
+                                        id: 'grunnlag.pensjonsavtaler.livsvarig',
+                                      })} ${
                                         utbetalingsperiode.startAlder.aar
-                                      } år${
+                                      } ${intl.formatMessage({
+                                        id: 'grunnlag.pensjonsavtaler.aar',
+                                      })}${
                                         utbetalingsperiode.startAlder.maaneder
                                           ? getMaanedString(
+                                              intl.formatMessage,
                                               utbetalingsperiode.startAlder
                                                 .maaneder
                                             )
