@@ -1,57 +1,5 @@
 @import '../../../scss/variables.scss';
 
-.tabell {
-  margin-bottom: var(--a-spacing-4);
-  width: 100%;
-  border-spacing: 0;
-  padding: 0;
-
-  &Mellomtittel {
-    padding-top: var(--a-spacing-6);
-    font-weight: var(--a-font-weight-bold);
-
-    &__First {
-      padding-top: 0;
-    }
-  }
-
-  &Subtittel {
-    padding-top: var(--a-spacing-2);
-    line-height: var(--a-font-line-height-heading-medium);
-  }
-
-  &Header {
-    font-size: var(--a-font-size-heading-small);
-    line-height: var(--a-font-line-height-heading-small);
-    font-weight: var(--a-font-weight-bold);
-    text-align: left;
-    padding: var(--a-spacing-2) 0 var(--a-spacing-2) 0;
-
-    &__Right {
-      text-align: right;
-      padding-left: var(--a-spacing-2);
-      white-space: nowrap;
-    }
-  }
-
-  &Cell {
-    &__Large {
-      padding: 0 0 var(--a-spacing-2);
-    }
-
-    &__Small {
-      font-size: var(--a-font-size-medium);
-      line-height: var(--a-font-line-height-medium);
-    }
-
-    &__Right {
-      text-align: right;
-      vertical-align: top;
-      padding-left: var(--a-spacing-2);
-    }
-  }
-}
-
 .info {
   display: flex;
 
