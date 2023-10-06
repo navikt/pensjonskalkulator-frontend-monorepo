@@ -75,7 +75,7 @@ describe('apiSlice', () => {
           expect(result.status).toBe('fulfilled')
           expect(result.data).toMatchObject({
             ...personResponse,
-            foedselsdato: new Date(1963, 3, 30).toISOString(),
+            foedselsdato: '1963-04-30',
           })
         })
     })

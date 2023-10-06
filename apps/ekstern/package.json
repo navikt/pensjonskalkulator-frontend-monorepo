@@ -8,7 +8,7 @@
     "prebuild": "npm run eslint:check && npm run prettier:check && npm run stylelint:check",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "TZ=CET vitest run --coverage",
+    "test": "vitest run --coverage",
     "test:update": "vitest run -u --coverage",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
