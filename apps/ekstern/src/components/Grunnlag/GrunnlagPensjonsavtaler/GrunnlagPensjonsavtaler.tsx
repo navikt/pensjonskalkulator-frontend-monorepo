@@ -26,7 +26,7 @@ import {
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatMessageValues } from '@/utils/translations'
 
-import { GrunnlagPensjonsavtaleTable } from './GrunnlagPensjonsavtaleTable'
+import { GrunnlagPensjonsavtalerTable } from './GrunnlagPensjonsavtalerTable'
 
 import styles from './GrunnlagPensjonsavtaler.module.scss'
 
@@ -132,7 +132,7 @@ export const GrunnlagPensjonsavtaler = () => {
               </div>
             )}
           {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-            <GrunnlagPensjonsavtaleTable
+            <GrunnlagPensjonsavtalerTable
               pensjonsavtaler={pensjonsavtaler.avtaler}
             />
           )}

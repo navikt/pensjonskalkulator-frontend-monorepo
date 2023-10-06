@@ -15,7 +15,7 @@ interface IProps {
   pensjonsavtaler: Pensjonsavtale[]
 }
 
-export const GrunnlagPensjonsavtaleTable = (props: IProps) => {
+export const GrunnlagPensjonsavtalerTable = (props: IProps) => {
   const intl = useIntl()
   const { pensjonsavtaler } = props
 
