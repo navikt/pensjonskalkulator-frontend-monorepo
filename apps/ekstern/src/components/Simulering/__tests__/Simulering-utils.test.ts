@@ -31,7 +31,7 @@ describe('Simulering-utils', () => {
       startAar,
       startMaaned = 0,
       sluttAar,
-      sluttMaaned = 0,
+      sluttMaaned = 11,
       grad = 100,
     } = args
     return {
@@ -215,251 +215,181 @@ describe('Simulering-utils', () => {
       expect(processPensjonsavtalerArray(66, 1, [])).toEqual([0])
       expect(processPensjonsavtalerArray(66, 0, [])).toEqual([])
     })
-    // it('returnerer riktig summer med en eller flere avtaler, eller med flere utbetalingsperioder', () => {
-    //   const avtale = createMockedPensjonsavtale({
-    //     startAar: 67,
-    //     sluttAar: 77,
-    //   })
-    //   expect(processPensjonsavtalerArray(66, 13, [{ ...avtale }])).toEqual([
-    //     0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-    //     100000, 100000, 0, 0,
-    //   ])
 
-    //   expect(
-    //     processPensjonsavtalerArray(66, 13, [
-    //       { ...avtale },
-    //       createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
-    //     ])
-    //   ).toEqual([
-    //     0, 100000, 100000, 100000, 200000, 200000, 200000, 200000, 200000,
-    //     200000, 200000, 100000, 0,
-    //   ])
-    //   expect(
-    //     processPensjonsavtalerArray(66, 13, [
-    //       {
-    //         ...avtale,
-    //         utbetalingsperioder: [
-    //           {
-    //             startAlder: { aar: 67, maaneder: 2 },
-    //             sluttAlder: { aar: 70, maaneder: 0 },
-    //             aarligUtbetaling: 100000,
-    //             grad: 100,
-    //           },
-    //           {
-    //             startAlder: { aar: 70, maaneder: 2 },
-    //             sluttAlder: { aar: 77, maaneder: 0 },
-    //             aarligUtbetaling: 100000,
-    //             grad: 100,
-    //           },
-    //         ],
-    //       },
-    //       createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
-    //     ])
-    //   ).toEqual([
-    //     0, 83333.33333333333, 100000, 100000, 183333.3333333333, 200000, 200000,
-    //     200000, 200000, 200000, 200000, 100000, 0,
-    //   ])
-    // })
-    // it('returnerer riktig summer med livsvarig avtale (avtale uten sluttAar)', () => {
-    //   expect(
-    //     processPensjonsavtalerArray(66, 13, [
-    //       createMockedPensjonsavtale({ startAar: 67, sluttAar: undefined }),
-    //     ])
-    //   ).toEqual([
-    //     0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-    //     100000, 100000, 100000, 100000,
-    //   ])
-    //   expect(
-    //     processPensjonsavtalerArray(66, 14, [
-    //       createMockedPensjonsavtale({ startAar: 67, sluttAar: undefined }),
-    //       createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
-    //     ])
-    //   ).toEqual([
-    //     0, 100000, 100000, 100000, 200000, 200000, 200000, 200000, 200000,
-    //     200000, 200000, 200000, 100000, 100000,
-    //   ])
-    // })
-    // it('returnerer riktig summer med graderte avtaler, eller graderte utbetalingsperioder', () => {
-    //   const avtale = createMockedPensjonsavtale({
-    //     startAar: 67,
-    //     sluttAar: 77,
-    //     grad: 50,
-    //   })
-    //   expect(processPensjonsavtalerArray(66, 13, [{ ...avtale }])).toEqual([
-    //     0, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000,
-    //     0, 0,
-    //   ])
-    //   expect(
-    //     processPensjonsavtalerArray(66, 14, [
-    //       { ...avtale },
-    //       createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
-    //       createMockedPensjonsavtale({
-    //         startAar: 75,
-    //         grad: 75,
-    //       }),
-    //     ])
-    //   ).toEqual([
-    //     0, 50000, 50000, 50000, 150000, 150000, 150000, 150000, 150000, 225000,
-    //     225000, 175000, 75000, 75000,
-    //   ])
-    //   expect(
-    //     processPensjonsavtalerArray(66, 14, [
-    //       {
-    //         ...avtale,
-    //         utbetalingsperioder: [
-    //           {
-    //             startAlder: { aar: 67, maaneder: 1 },
-    //             sluttAlder: { aar: 70, maaneder: 0 },
-    //             aarligUtbetaling: 100000,
-    //             grad: 50,
-    //           },
-    //           {
-    //             startAlder: { aar: 70, maaneder: 1 },
-    //             sluttAlder: { aar: 77, maaneder: 0 },
-    //             aarligUtbetaling: 100000,
-    //             grad: 50,
-    //           },
-    //         ],
-    //       },
-    //       createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
-    //       createMockedPensjonsavtale({
-    //         startAar: 75,
-    //         grad: 75,
-    //       }),
-    //     ])
-    //   ).toEqual([
-    //     0, 45833.333333333336, 50000, 50000, 145833.33333333334, 150000, 150000,
-    //     150000, 150000, 225000, 225000, 175000, 75000, 75000,
-    //   ])
-    // })
-    // describe('returnerer riktig summer basert på startMaaned og sluttMaaned', () => {
-    //   it('med en avtale', () => {
-    //     expect(
-    //       processPensjonsavtalerArray(66, 13, [
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           startMaaned: 6,
-    //           sluttAar: 77,
-    //         }),
-    //       ])
-    //     ).toEqual([
-    //       0, 50000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-    //       100000, 100000, 0, 0,
-    //     ])
-    //     expect(
-    //       processPensjonsavtalerArray(66, 13, [
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           sluttAar: 77,
-    //           sluttMaaned: 2,
-    //         }),
-    //       ])
-    //     ).toEqual([
-    //       0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-    //       100000, 100000, 16666.666666666668, 0,
-    //     ])
-    //     expect(
-    //       processPensjonsavtalerArray(66, 13, [
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           startMaaned: 6,
-    //           sluttAar: 77,
-    //           sluttMaaned: 2,
-    //         }),
-    //       ])
-    //     ).toEqual([
-    //       0, 50000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-    //       100000, 100000, 16666.666666666668, 0,
-    //     ])
-    //   })
-    //   it('med flere avtaler (livsvarige og graderte)', () => {
-    //     expect(
-    //       processPensjonsavtalerArray(66, 13, [
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           startMaaned: 2,
-    //           sluttAar: 77,
-    //         }),
-    //         createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
-    //       ])
-    //     ).toEqual([
-    //       0, 83333.33333333333, 100000, 100000, 200000, 200000, 200000, 200000,
-    //       200000, 200000, 200000, 100000, 0,
-    //     ])
-    //     expect(
-    //       processPensjonsavtalerArray(66, 13, [
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           startMaaned: 6,
-    //           sluttAar: undefined,
-    //         }),
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           startMaaned: 2,
-    //           sluttAar: 77,
-    //           sluttMaaned: 2,
-    //         }),
-    //       ])
-    //     ).toEqual([
-    //       0, 133333.3333333333, 200000, 200000, 200000, 200000, 200000, 200000,
-    //       200000, 200000, 200000, 116666.66666666667, 100000,
-    //     ])
-    //     expect(
-    //       processPensjonsavtalerArray(66, 13, [
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           sluttAar: undefined,
-    //           grad: 50,
-    //         }),
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           startMaaned: 2,
-    //           sluttAar: 77,
-    //           sluttMaaned: 2,
-    //         }),
-    //         createMockedPensjonsavtale({
-    //           startAar: 70,
-    //           sluttAar: 78,
-    //           sluttMaaned: 4,
-    //         }),
-    //         createMockedPensjonsavtale({
-    //           startAar: 75,
-    //           startMaaned: 6,
-    //           grad: 75,
-    //         }),
-    //       ])
-    //     ).toEqual([
-    //       0, 133333.3333333333, 150000, 150000, 250000, 250000, 250000, 250000,
-    //       250000, 287500, 325000, 241666.6666666667, 158333.33333333334,
-    //     ])
-    //   })
-    //   it('når antall måneder bikker over neste år', () => {
-    //     expect(
-    //       processPensjonsavtalerArray(66, 13, [
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           startMaaned: 10,
-    //           sluttAar: 77,
-    //         }),
-    //       ])
-    //     ).toEqual([
-    //       0, 16666.666666666668, 100000, 100000, 100000, 100000, 100000, 100000,
-    //       100000, 100000, 100000, 0, 0,
-    //     ])
-    //     expect(
-    //       processPensjonsavtalerArray(66, 13, [
-    //         createMockedPensjonsavtale({
-    //           startAar: 67,
-    //           sluttAar: 77,
-    //           sluttMaaned: 10,
-    //         }),
-    //       ])
-    //     ).toEqual([
-    //       0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
-    //       100000, 100000, 83333.33333333333, 0,
-    //     ])
-    //   })
-    // })
+    it('returnerer riktig summer med en eller flere avtaler, eller med flere utbetalingsperioder', () => {
+      const avtale = createMockedPensjonsavtale({
+        startAar: 67,
+        sluttAar: 77,
+      })
+      expect(processPensjonsavtalerArray(66, 13, [{ ...avtale }])).toEqual([
+        0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
+        100000, 100000, 100000, 0,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 13, [
+          createMockedPensjonsavtale({
+            startAar: 67,
+            startMaaned: 6,
+            sluttAar: 77,
+          }),
+        ])
+      ).toEqual([
+        0, 50000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
+        100000, 100000, 100000, 0,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 13, [
+          {
+            ...avtale,
+            utbetalingsperioder: [
+              {
+                startAlder: { aar: 67, maaneder: 0 },
+                sluttAlder: { aar: 70, maaneder: 11 },
+                aarligUtbetaling: 100000,
+                grad: 100,
+              },
+              {
+                startAlder: { aar: 71, maaneder: 0 },
+                sluttAlder: { aar: 77, maaneder: 11 },
+                aarligUtbetaling: 100000,
+                grad: 100,
+              },
+            ],
+          },
+          createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
+        ])
+      ).toEqual([
+        0, 100000, 100000, 100000, 200000, 200000, 200000, 200000, 200000,
+        200000, 200000, 200000, 100000,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 13, [
+          {
+            ...avtale,
+            utbetalingsperioder: [
+              {
+                startAlder: { aar: 67, maaneder: 0 },
+                sluttAlder: { aar: 70, maaneder: 5 },
+                aarligUtbetaling: 100000,
+                grad: 100,
+              },
+              {
+                startAlder: { aar: 70, maaneder: 6 },
+                sluttAlder: { aar: 77, maaneder: 11 },
+                aarligUtbetaling: 100000,
+                grad: 100,
+              },
+            ],
+          },
+          createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
+        ])
+      ).toEqual([
+        0, 100000, 100000, 100000, 200000, 200000, 200000, 200000, 200000,
+        200000, 200000, 200000, 100000,
+      ])
+    })
+
+    it('returnerer riktig summer med livsvarig avtale (avtale uten sluttAar)', () => {
+      expect(
+        processPensjonsavtalerArray(66, 13, [
+          createMockedPensjonsavtale({ startAar: 67, sluttAar: undefined }),
+        ])
+      ).toEqual([
+        0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000,
+        100000, 100000, 100000, 100000,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 14, [
+          createMockedPensjonsavtale({ startAar: 67, sluttAar: undefined }),
+          createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
+        ])
+      ).toEqual([
+        0, 100000, 100000, 100000, 200000, 200000, 200000, 200000, 200000,
+        200000, 200000, 200000, 200000, 100000,
+      ])
+    })
+
+    it('returnerer riktig summer med graderte avtaler, eller graderte utbetalingsperioder', () => {
+      const avtale = createMockedPensjonsavtale({
+        startAar: 67,
+        sluttAar: 77,
+        grad: 50,
+      })
+      expect(processPensjonsavtalerArray(66, 13, [{ ...avtale }])).toEqual([
+        0, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 50000,
+        50000, 0,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 14, [
+          { ...avtale },
+          createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
+          createMockedPensjonsavtale({
+            startAar: 75,
+            grad: 75,
+          }),
+        ])
+      ).toEqual([
+        0, 50000, 50000, 50000, 150000, 150000, 150000, 150000, 150000, 225000,
+        225000, 225000, 175000, 75000,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 14, [
+          {
+            ...avtale,
+            utbetalingsperioder: [
+              {
+                startAlder: { aar: 67, maaneder: 0 },
+                sluttAlder: { aar: 70, maaneder: 11 },
+                aarligUtbetaling: 100000,
+                grad: 50,
+              },
+              {
+                startAlder: { aar: 71, maaneder: 0 },
+                sluttAlder: { aar: 77, maaneder: 11 },
+                aarligUtbetaling: 100000,
+                grad: 50,
+              },
+            ],
+          },
+          createMockedPensjonsavtale({ startAar: 70, sluttAar: 78 }),
+          createMockedPensjonsavtale({
+            startAar: 75,
+            grad: 75,
+          }),
+        ])
+      ).toEqual([
+        0, 50000, 50000, 50000, 150000, 150000, 150000, 150000, 150000, 225000,
+        225000, 225000, 175000, 75000,
+      ])
+      expect(
+        processPensjonsavtalerArray(66, 13, [
+          createMockedPensjonsavtale({
+            startAar: 67,
+            sluttAar: undefined,
+            grad: 50,
+          }),
+          createMockedPensjonsavtale({
+            startAar: 67,
+            startMaaned: 2,
+            sluttAar: 77,
+            sluttMaaned: 2,
+          }),
+          createMockedPensjonsavtale({
+            startAar: 70,
+            sluttAar: 78,
+            sluttMaaned: 4,
+          }),
+          createMockedPensjonsavtale({
+            startAar: 75,
+            startMaaned: 6,
+            grad: 75,
+          }),
+        ])
+      ).toEqual([
+        0, 133333.3333333333, 150000, 150000, 250000, 250000, 250000, 250000,
+        250000, 287500, 325000, 250000, 166666.66666666666,
+      ])
+    })
   })
 
   describe('generateXAxis', () => {

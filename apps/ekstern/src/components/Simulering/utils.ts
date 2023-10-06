@@ -59,7 +59,7 @@ export const processPensjonsberegningArray = (
 //     { aar: 67, maaneder: 3 }
 //   )
 // ).toBe(1)
-// Antall maaneder i en avtale beregnes "Fra" og "Til og med"
+// Antall maaneder i en avtale beregnes "Fra og med" og "Til og med"
 export const getAntallMaanederMedPensjon = (
   year: number,
   utbetalingsperiodeStartAlder: Alder,
