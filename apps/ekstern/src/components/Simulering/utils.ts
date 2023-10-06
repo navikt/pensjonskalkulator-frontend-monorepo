@@ -45,6 +45,7 @@ export const processPensjonsberegningArray = (
   return dataArray
 }
 
+// TODO PEK-163 håndtere at en avtale ikke alltid har startaar - hva gjør vi da?
 // TODO PEK-163 Bør legges til en guard slik at sluttmaaned ikke får lov til å være lik eller lavere enn startMaaned når det er på samme år
 //  expect(
 //   getAntallMaanederMedPensjon(
@@ -74,7 +75,6 @@ export const getAntallMaanederMedPensjon = (
   return periodEndMonth - periodStartMonth + 1
 }
 
-// TODO PEK-163 håndtere at en avtale ikke alltid har startaar - hva gjør vi da?
 export const processPensjonsavtalerArray = (
   startAar: number, // uttaksaar, minus 1
   length: number,
