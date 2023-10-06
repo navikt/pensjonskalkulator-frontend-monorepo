@@ -116,7 +116,7 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
                   id="grunnlag.inntekt.ingress"
                   values={{
                     ...formatMessageValues,
-                    aarsinntekt: inntekt.aar,
+                    aarsinntekt: inntekt.aar > 0 ? inntekt.aar : '',
                   }}
                 />
               </BodyLong>

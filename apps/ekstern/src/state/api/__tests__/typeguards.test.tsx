@@ -24,6 +24,15 @@ describe('Typeguards', () => {
       ).toEqual(true)
     })
 
+    it('returnerer true når input er et Inntekt-objekt med 0 verdier', () => {
+      expect(
+        isInntekt({
+          beloep: 0,
+          aar: 0,
+        })
+      ).toEqual(true)
+    })
+
     it('returnerer false når input ikke er et Inntekt-objekt', () => {
       expect(isInntekt(undefined)).toEqual(false)
       expect(isInntekt(null)).toEqual(false)

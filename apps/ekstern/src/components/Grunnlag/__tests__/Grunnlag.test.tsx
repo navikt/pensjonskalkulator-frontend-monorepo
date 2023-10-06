@@ -120,6 +120,21 @@ describe('Grunnlag', () => {
       ).toBeVisible()
       expect(await screen.findByText('2021', { exact: false })).toBeVisible()
     })
+
+    it('viser riktig tittel og tekst uten inntekt', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag inntekt={{ beloep: 0, aar: 0 }} />)
+      expect(screen.getByText('grunnlag.inntekt.title')).toBeVisible()
+      expect(screen.getByText('0 kr')).toBeVisible()
+      const buttons = screen.getAllByRole('button')
+      await user.click(buttons[2])
+      expect(
+        await screen.findByText(
+          'Beløpet er din siste pensjonsgivende årsinntekt fra Skatteetaten.',
+          { exact: false }
+        )
+      ).toBeVisible()
+    })
   })
 
   describe('Grunnlag - sivilstand', () => {
