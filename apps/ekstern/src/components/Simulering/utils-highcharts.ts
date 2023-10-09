@@ -365,6 +365,7 @@ export const getChartOptions = (
     },
     plotOptions: {
       series: {
+        animation: false,
         stickyTracking: false,
         stacking: 'normal',
         states: {

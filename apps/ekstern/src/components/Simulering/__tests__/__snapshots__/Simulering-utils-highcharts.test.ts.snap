@@ -53,6 +53,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartO
       },
     },
     "series": {
+      "animation": false,
       "events": {
         "legendItemClick": [Function],
       },
