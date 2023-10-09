@@ -182,6 +182,14 @@ describe('Typeguards', () => {
         isPensjonsavtale({
           produktbetegnelse: 'Storebrand',
           kategori: 'PRIVAT_TJENESTEPENSJON',
+          sluttAar: 70,
+          utbetalingsperioder: [],
+        })
+      ).toBeFalsy()
+      expect(
+        isPensjonsavtale({
+          produktbetegnelse: 'Storebrand',
+          kategori: 'PRIVAT_TJENESTEPENSJON',
           startAar: 67,
           sluttAar: 70,
           utbetalingsperioder: [

@@ -21,7 +21,7 @@ declare type Pensjonsavtale = {
   key: number
   produktbetegnelse: string
   kategori: PensjonsavtaleKategori
-  startAar?: number
+  startAar: number
   sluttAar?: number
   utbetalingsperioder: Utbetalingsperiode[]
 }
