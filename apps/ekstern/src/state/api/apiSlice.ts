@@ -46,11 +46,7 @@ export const apiSlice = createApi({
         }
         return {
           ...response,
-          foedselsdato: parse(
-            response.foedselsdato,
-            'yyyy-MM-dd',
-            new Date()
-          ).toISOString(),
+          foedselsdato: response.foedselsdato,
         }
       },
     }),

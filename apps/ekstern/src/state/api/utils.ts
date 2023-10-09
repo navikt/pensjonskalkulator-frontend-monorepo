@@ -3,6 +3,7 @@ import {
   AlderspensjonRequestBody,
 } from '@/state/api/apiSlice.types'
 import { checkHarSamboer } from '@/utils/sivilstand'
+import { format, parseISO } from 'date-fns'
 
 export const generatePensjonsavtalerRequestBody = (
   inntekt: number,
@@ -72,7 +73,7 @@ export const generateAlderspensjonRequestBody = (args: {
       aar: startAlder,
       maaneder: startMaaned,
     },
-    foedselsdato,
+    foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     forventetInntekt: inntekt?.beloep, // hvis tomt, henter backend fra pensjonsopptjeningsregisteret POPP.
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     sivilstand:

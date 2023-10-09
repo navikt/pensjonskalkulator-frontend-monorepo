@@ -1,13 +1,18 @@
 import { PensjonsavtaleKategori } from '@/types/enums'
 
 export const isInntekt = (data?: any): data is Inntekt => {
-  if (data === null || data === undefined) {
+  if (
+    data === null ||
+    data === undefined ||
+    data.beloep === undefined ||
+    data.aar === undefined
+  ) {
     return false
   }
   return !!(
-    data.beloep &&
+    data.beloep >= 0 &&
     typeof data.beloep === 'number' &&
-    data.aar &&
+    data.aar >= 0 &&
     typeof data.aar === 'number'
   )
 }
@@ -37,7 +42,7 @@ export const isUtbetalingsperiode = (
     (data.sluttAlder !== undefined && isAlder(data.sluttAlder))
 
   return (
-    data.startAlder &&
+    data.startAlder !== undefined &&
     isAlder(data.startAlder) &&
     typeof data.grad === 'number' &&
     data.aarligUtbetaling !== undefined &&
@@ -58,8 +63,12 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
         !isUtbetalingsperiode(utbetalingsperiode)
     )
 
-  const harFeilStartAar = !data.startAar || typeof data.startAar !== 'number'
-  const harFeilSluttAar = data.sluttAar && typeof data.sluttAar !== 'number'
+  const harFeilStartAar =
+    data.startAar === undefined ||
+    !data.startAar ||
+    typeof data.startAar !== 'number'
+  const harFeilSluttAar =
+    data.sluttAar !== undefined && typeof data.sluttAar !== 'number'
 
   return (
     !Array.isArray(data) &&
