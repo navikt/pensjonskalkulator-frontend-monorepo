@@ -257,7 +257,7 @@ export const GrunnlagPensjonsavtaler = () => {
               </BodyLong>
             </div>
           )}
-          {harSamtykket && isSuccess && (
+          {harSamtykket && (
             <BodyLong className={styles.paragraph} size="small">
               <FormattedMessage
                 id="grunnlag.pensjonsavtaler.ingress"
