@@ -19,6 +19,37 @@ export const GrunnlagPensjonsavtalerTable = (props: IProps) => {
   const intl = useIntl()
   const { pensjonsavtaler } = props
 
+  const formaterSluttAlderString = (startAlder: Alder, sluttAlder: Alder) => {
+    return `${intl.formatMessage({
+      id: 'grunnlag.pensjonsavtaler.fra_og_med',
+    })} ${startAlder.aar} ${intl.formatMessage({
+      id: 'grunnlag.pensjonsavtaler.aar',
+    })}${getMaanedString(
+      intl.formatMessage,
+      startAlder.maaneder
+    )} ${intl.formatMessage({
+      id: 'grunnlag.pensjonsavtaler.til_og_med',
+    })} ${sluttAlder.aar} ${intl.formatMessage({
+      id: 'grunnlag.pensjonsavtaler.aar',
+    })}${
+      sluttAlder.maaneder && sluttAlder.maaneder < 11
+        ? getMaanedString(intl.formatMessage, sluttAlder.maaneder)
+        : ''
+    }`
+  }
+
+  const formaterLivsvarigString = (startAlder: Alder) => {
+    return `${intl.formatMessage({
+      id: 'grunnlag.pensjonsavtaler.livsvarig',
+    })} ${startAlder.aar} ${intl.formatMessage({
+      id: 'grunnlag.pensjonsavtaler.aar',
+    })}${
+      startAlder.maaneder
+        ? getMaanedString(intl.formatMessage, startAlder.maaneder)
+        : ''
+    }`
+  }
+
   return (
     <table data-testid="pensjonsavtaler-table" className={styles.tabell}>
       <thead>
@@ -62,44 +93,13 @@ export const GrunnlagPensjonsavtalerTable = (props: IProps) => {
                       >
                         <td className={styles.tabellCell__Small}>
                           {utbetalingsperiode.sluttAlder
-                            ? `${intl.formatMessage({
-                                id: 'grunnlag.pensjonsavtaler.fra_og_med',
-                              })} ${
-                                utbetalingsperiode.startAlder.aar
-                              } ${intl.formatMessage({
-                                id: 'grunnlag.pensjonsavtaler.aar',
-                              })}${getMaanedString(
-                                intl.formatMessage,
-                                utbetalingsperiode.startAlder.maaneder
-                              )} ${intl.formatMessage({
-                                id: 'grunnlag.pensjonsavtaler.til_og_med',
-                              })} ${
-                                utbetalingsperiode.sluttAlder.aar
-                              } ${intl.formatMessage({
-                                id: 'grunnlag.pensjonsavtaler.aar',
-                              })}${
-                                utbetalingsperiode.sluttAlder.maaneder &&
-                                utbetalingsperiode.sluttAlder.maaneder < 11
-                                  ? getMaanedString(
-                                      intl.formatMessage,
-                                      utbetalingsperiode.sluttAlder.maaneder
-                                    )
-                                  : ''
-                              }`
-                            : `${intl.formatMessage({
-                                id: 'grunnlag.pensjonsavtaler.livsvarig',
-                              })} ${
-                                utbetalingsperiode.startAlder.aar
-                              } ${intl.formatMessage({
-                                id: 'grunnlag.pensjonsavtaler.aar',
-                              })}${
-                                utbetalingsperiode.startAlder.maaneder
-                                  ? getMaanedString(
-                                      intl.formatMessage,
-                                      utbetalingsperiode.startAlder.maaneder
-                                    )
-                                  : ''
-                              }`}
+                            ? formaterSluttAlderString(
+                                utbetalingsperiode.startAlder,
+                                utbetalingsperiode.sluttAlder
+                              )
+                            : formaterLivsvarigString(
+                                utbetalingsperiode.startAlder
+                              )}
                         </td>
                         <td
                           className={clsx(
