@@ -85,28 +85,73 @@ describe('Simulering-utils', () => {
 
   describe('processPensjonsberegningArray', () => {
     it('returnerer et array med en 0 verdi uten å feile hvis input er et tomt array', () => {
-      expect(processPensjonsberegningArray()).toEqual([0])
-      expect(processPensjonsberegningArray([])).toEqual([0])
+      expect(processPensjonsberegningArray([], 0)).toEqual([0, 0])
+      expect(processPensjonsberegningArray([], 1)).toEqual([0, 0])
     })
 
-    it('returnerer riktig mappet array med beløp og 0 verdi først', () => {
+    it('returnerer riktig mappet array med 0 verdi først, beløp, og livsvarig beløp duplisert sist, avhengig av x-axis lengden', () => {
       expect(
-        processPensjonsberegningArray([
-          {
-            alder: 75,
-            beloep: 20000,
-          },
+        processPensjonsberegningArray(
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
 
-          {
-            alder: 76,
-            beloep: 80000,
-          },
-          {
-            alder: 77,
-            beloep: 80000,
-          },
-        ])
-      ).toEqual([0, 20000, 80000, 80000])
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          2
+        )
+      ).toEqual([0, 20000, 80000, 80000, 80000])
+      expect(
+        processPensjonsberegningArray(
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          5
+        )
+      ).toEqual([0, 20000, 80000, 80000, 80000])
+      expect(
+        processPensjonsberegningArray(
+          [
+            {
+              alder: 75,
+              beloep: 20000,
+            },
+
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          10
+        )
+      ).toEqual([
+        0, 20000, 80000, 80000, 80000, 80000, 80000, 80000, 80000, 80000,
+      ])
     })
   })
 

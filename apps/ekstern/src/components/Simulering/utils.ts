@@ -41,12 +41,20 @@ export const processInntektArray = (
 }
 
 export const processPensjonsberegningArray = (
-  pensjonsberegninger: Pensjonsberegning[] = []
+  pensjonsberegninger: Pensjonsberegning[] = [],
+  length: number
 ): number[] => {
-  const dataArray = [...pensjonsberegninger].map((value) => {
-    return value.beloep
-  })
-  dataArray.unshift(0)
+  const arrayLength = Math.max(length, pensjonsberegninger.length + 2)
+  const dataArray = new Array(1).fill(0)
+
+  const livsvarigPensjonsbeloep =
+    pensjonsberegninger[pensjonsberegninger.length - 1]?.beloep ?? 0
+
+  for (let index = 1; index < arrayLength; index++) {
+    dataArray.push(
+      pensjonsberegninger[index - 1]?.beloep || livsvarigPensjonsbeloep
+    )
+  }
   return dataArray
 }
 
