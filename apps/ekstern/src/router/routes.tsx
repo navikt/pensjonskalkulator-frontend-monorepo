@@ -127,7 +127,6 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.forbehold,
-        loader: directAccessGuard,
         element: <Forbehold />,
       },
       {
