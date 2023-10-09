@@ -150,7 +150,10 @@ export function Simulering(props: {
                 {
                   ...SERIES_DEFAULT.SERIE_AFP,
                   /* c8 ignore next 1 */
-                  data: processPensjonsberegningArray(alderspensjon.afpPrivat),
+                  data: processPensjonsberegningArray(
+                    alderspensjon.afpPrivat,
+                    aarArray.length
+                  ),
                 } as SeriesOptionsType,
               ]
             : []),
@@ -169,7 +172,10 @@ export function Simulering(props: {
             : []),
           {
             ...SERIES_DEFAULT.SERIE_ALDERSPENSJON,
-            data: processPensjonsberegningArray(alderspensjon.alderspensjon),
+            data: processPensjonsberegningArray(
+              alderspensjon.alderspensjon,
+              aarArray.length
+            ),
           } as SeriesOptionsType,
         ],
       })
