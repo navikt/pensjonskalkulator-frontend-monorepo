@@ -220,6 +220,12 @@ const translations = {
   'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtaler',
   'grunnlag.pensjonsavtaler.tabell.title.right': 'Årlig beløp',
+  'grunnlag.pensjonsavtaler.fra_og_med': 'Fra og med',
+  'grunnlag.pensjonsavtaler.til_og_med': 'til og med',
+  'grunnlag.pensjonsavtaler.og': 'og',
+  'grunnlag.pensjonsavtaler.aar': 'år',
+  'grunnlag.pensjonsavtaler.md': 'md.',
+  'grunnlag.pensjonsavtaler.livsvarig': 'Livsvarig fra',
   'grunnlag.forbehold.title': 'Forbehold',
   'grunnlag.forbehold.ingress':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Beregningen er ikke juridisk bindende.',

@@ -50,32 +50,29 @@ export const processPensjonsberegningArray = (
   return dataArray
 }
 
+// Antall maaneder i en avtale beregnes "Fra og med" og "Til og med"
 export const getAntallMaanederMedPensjon = (
-  isFirstYear: boolean,
-  isLastYear: boolean,
-  startMonth: number, // Heltall 0-11
-  sluttMonth: number // Heltall 0-11
+  year: number,
+  utbetalingsperiodeStartAlder: Alder,
+  utbetalingsperiodeSluttAlder?: Alder
 ) => {
-  if (!isFirstYear && !isLastYear) {
-    return 12
-  }
-  if (isFirstYear && !isLastYear) {
-    // Gjelder fra og med måneden etter fødseslsemåned (såkalt 0 måneden) til og med bursdagsmaaneden igjen
-    return 12 - startMonth
-  }
-  if (!isFirstYear && isLastYear) {
-    // Gjelder fra og med måneden etter fødseslsmåned (såkalt 0 måneden) til og med sluttMaaneden
-    return sluttMonth
-  }
-  if (isFirstYear && isLastYear) {
-    //  Gjelder fra og med måneden etter fødseslsmåned  (såkalt 0 måneden) til og med sluttmaaneden
-    return sluttMonth - startMonth
-  }
-  return 0
+  // Hvis vi viser første år av avtalen, tar vi høyde for startMaaned, hvis ikke teller avtalen fra måned 0 (fult år)
+  const periodStartMonth =
+    utbetalingsperiodeStartAlder.aar === year
+      ? utbetalingsperiodeStartAlder.maaneder
+      : 0
+
+  // Hvis avtalen har en sluttdato og at vi viser siste av avtalen, tar vi høyde for sluttMaaned, hvis ikke teller avtalen til måned 11 (fult år)
+  const periodEndMonth =
+    utbetalingsperiodeSluttAlder && year === utbetalingsperiodeSluttAlder?.aar
+      ? utbetalingsperiodeSluttAlder.maaneder
+      : 11
+
+  return periodEndMonth - periodStartMonth + 1
 }
 
 export const processPensjonsavtalerArray = (
-  startAar: number,
+  startAar: number, // uttaksaar, minus 1
   length: number,
   pensjonsavtaler: Pensjonsavtale[]
 ): number[] => {
@@ -94,16 +91,12 @@ export const processPensjonsavtalerArray = (
 
       for (let year = avtaleStartYear; year <= avtaleEndYear; year++) {
         if (year >= startAar) {
-          const isFirstYear = year === avtaleStartYear
-          const isLastYear =
-            utbetalingsperiode.sluttAlder && year === avtaleEndYear
-
           const antallMaanederMedPensjon = getAntallMaanederMedPensjon(
-            isFirstYear,
-            !!isLastYear,
-            utbetalingsperiode.startAlder.maaneder,
-            utbetalingsperiode.sluttAlder?.maaneder ?? 0
+            year,
+            utbetalingsperiode.startAlder,
+            utbetalingsperiode.sluttAlder
           )
+
           const allocatedAmount =
             (utbetalingsperiode.aarligUtbetaling *
               utbetalingsperiode.grad *

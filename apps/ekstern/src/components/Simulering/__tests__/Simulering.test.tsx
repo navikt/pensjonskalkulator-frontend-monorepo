@@ -320,11 +320,11 @@ describe('Simulering', () => {
               produktbetegnelse: 'Storebrand',
               kategori: 'PRIVAT_TJENESTEPENSJON',
               startAar: 62,
-              sluttAar: 72,
+              sluttAar: 71,
               utbetalingsperioder: [
                 {
-                  startAlder: { aar: 62, maaneder: 1 },
-                  sluttAlder: { aar: 72, maaneder: 1 },
+                  startAlder: { aar: 62, maaneder: 0 },
+                  sluttAlder: { aar: 71, maaneder: 11 },
                   aarligUtbetaling: 31298,
                   grad: 100,
                 },

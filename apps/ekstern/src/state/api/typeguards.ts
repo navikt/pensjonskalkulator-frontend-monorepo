@@ -64,7 +64,9 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
     )
 
   const harFeilStartAar =
-    data.startAar !== undefined && typeof data.startAar !== 'number'
+    data.startAar === undefined ||
+    !data.startAar ||
+    typeof data.startAar !== 'number'
   const harFeilSluttAar =
     data.sluttAar !== undefined && typeof data.sluttAar !== 'number'
 

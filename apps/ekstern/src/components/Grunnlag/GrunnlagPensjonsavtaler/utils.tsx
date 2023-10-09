@@ -24,9 +24,16 @@ export const groupPensjonsavtalerByType = (
   return record
 }
 
-export function getMaanedString(maaned?: number) {
-  if (maaned !== undefined && maaned > 1) {
-    return ` og ${maaned} md.`
+export function getMaanedString(
+  formatFn: (a: { id: string }) => string,
+  maaned?: number
+) {
+  if (maaned !== undefined && maaned > 0) {
+    return ` ${formatFn({
+      id: 'grunnlag.pensjonsavtaler.og',
+    })} ${maaned} ${formatFn({
+      id: 'grunnlag.pensjonsavtaler.md',
+    })}`
   }
   return ''
 }

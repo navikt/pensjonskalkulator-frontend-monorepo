@@ -6,7 +6,7 @@ import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, BodyShort, Link } from '@navikt/ds-react'
+import { BodyLong, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
@@ -24,11 +24,9 @@ import {
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { formatAsDecimal } from '@/utils/currency'
-import { capitalize } from '@/utils/string'
 import { formatMessageValues } from '@/utils/translations'
 
-import { groupPensjonsavtalerByType, getMaanedString } from './utils'
+import { GrunnlagPensjonsavtalerTable } from './GrunnlagPensjonsavtalerTable'
 
 import styles from './GrunnlagPensjonsavtaler.module.scss'
 
@@ -134,107 +132,9 @@ export const GrunnlagPensjonsavtaler = () => {
               </div>
             )}
           {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-            <table
-              data-testid="pensjonsavtaler-table"
-              className={styles.tabell}
-            >
-              <thead>
-                <tr>
-                  <th className={styles.tabellHeader}>
-                    <FormattedMessage id="grunnlag.pensjonsavtaler.tabell.title.left" />
-                  </th>
-                  <th
-                    className={clsx(
-                      styles.tabellHeader,
-                      styles.tabellHeader__Right
-                    )}
-                  >
-                    <FormattedMessage id="grunnlag.pensjonsavtaler.tabell.title.right" />
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(
-                  groupPensjonsavtalerByType(pensjonsavtaler?.avtaler)
-                ).map(([avtaleType, avtaler], i) => (
-                  <React.Fragment key={`table-left-${avtaleType}`}>
-                    <tr>
-                      <td colSpan={2}>
-                        <BodyShort
-                          className={clsx(styles.tabellMellomtittel, {
-                            [styles.tabellMellomtittel__First]: i < 1,
-                          })}
-                        >
-                          {capitalize(avtaleType)}
-                        </BodyShort>
-                      </td>
-                    </tr>
-                    {avtaler.map((avtale) => (
-                      <React.Fragment key={`table-right-${avtale.key}`}>
-                        <tr>
-                          <td colSpan={2}>
-                            <BodyShort className={styles.tabellSubtittel}>
-                              {avtale.produktbetegnelse}
-                            </BodyShort>
-                          </td>
-                        </tr>
-                        {avtale.utbetalingsperioder.map(
-                          (utbetalingsperiode) => {
-                            return (
-                              <tr
-                                key={`${avtale.key}-${utbetalingsperiode.startAlder.aar}-${utbetalingsperiode.startAlder.maaneder}`}
-                              >
-                                <td className={styles.tabellCell__Small}>
-                                  {utbetalingsperiode.sluttAlder
-                                    ? `Fra ${
-                                        utbetalingsperiode.startAlder.aar
-                                      } år${getMaanedString(
-                                        utbetalingsperiode.startAlder.maaneder
-                                      )} til ${
-                                        utbetalingsperiode.sluttAlder.aar
-                                      } år${
-                                        utbetalingsperiode.sluttAlder
-                                          .maaneder &&
-                                        utbetalingsperiode.sluttAlder.maaneder >
-                                          1
-                                          ? getMaanedString(
-                                              utbetalingsperiode.sluttAlder
-                                                .maaneder
-                                            )
-                                          : ''
-                                      }`
-                                    : `Livsvarig fra ${
-                                        utbetalingsperiode.startAlder.aar
-                                      } år${
-                                        utbetalingsperiode.startAlder.maaneder >
-                                        1
-                                          ? getMaanedString(
-                                              utbetalingsperiode.startAlder
-                                                .maaneder
-                                            )
-                                          : ''
-                                      }`}
-                                </td>
-                                <td
-                                  className={clsx(
-                                    styles.tabellCell__Small,
-                                    styles.tabellCell__Right
-                                  )}
-                                >
-                                  {`${formatAsDecimal(
-                                    utbetalingsperiode.aarligUtbetaling
-                                  )} kr`}
-                                </td>
-                              </tr>
-                            )
-                          }
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
+            <GrunnlagPensjonsavtalerTable
+              pensjonsavtaler={pensjonsavtaler.avtaler}
+            />
           )}
           {(isError || pensjonsavtaler?.partialResponse) && (
             <div
