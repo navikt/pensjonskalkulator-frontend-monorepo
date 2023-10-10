@@ -23,7 +23,7 @@
 
   &__white {
     background-color: var(--a-white);
-    composes: fadein from '../../scss/modules/fadein.module.scss';
+    transition: background-color 0.15s ease;
   }
 
   &__lightblue {

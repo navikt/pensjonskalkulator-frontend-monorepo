@@ -40,7 +40,7 @@ export function TabellVisning({
         setVisTabellOpen(!isVisTabellOpen)
       }}
     >
-      <Table className={styles.table} aria-live="polite">
+      <Table className={styles.table}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell className={styles.tableMobileOnly} />

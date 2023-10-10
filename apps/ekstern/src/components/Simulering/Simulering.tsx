@@ -184,11 +184,13 @@ export function Simulering(props: {
 
   return (
     <section className={styles.section}>
-      <HighchartsReact
-        ref={chartRef}
-        highcharts={Highcharts}
-        options={chartOptions}
-      />
+      <div aria-hidden="true">
+        <HighchartsReact
+          ref={chartRef}
+          highcharts={Highcharts}
+          options={chartOptions}
+        />
+      </div>
 
       {showButtonsAndTable && (
         <div className={styles.buttonRow}>
@@ -261,7 +263,7 @@ export function Simulering(props: {
         </div>
       )}
       {!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible && (
-        <div className={styles.info}>
+        <div className={styles.info} aria-live="assertive">
           <InformationSquareFillIcon
             className={styles.infoIcon}
             fontSize="1.5rem"
