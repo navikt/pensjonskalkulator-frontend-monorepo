@@ -6,6 +6,7 @@ import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import KalkulatorLogo from '../../../assets/kalkulator.svg'
+import { apiSlice } from '@/state/api/apiSlice'
 
 import styles from './PageFramework.module.scss'
 
@@ -23,6 +24,18 @@ export const PageFramework: React.FC<
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
+
+  React.useEffect(() => {
+    const onUnload = () => {
+      apiSlice.util.resetApiState()
+    }
+
+    window.addEventListener('beforeunload', onUnload)
+
+    return () => {
+      window.removeEventListener('beforeunload', onUnload)
+    }
+  }, [])
 
   return (
     <main
