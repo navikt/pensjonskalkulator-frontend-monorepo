@@ -316,7 +316,7 @@ const translations = {
   'personopplysninger.section.informasjon_om_rettighetene.heading':
     'Informasjon om rettighetene dine',
   'personopplysninger.section.informasjon_om_rettighetene.text':
-    'Se <navPersonvernerklaeringLink>personvernserklæringen</navPersonvernerklaeringLink> for NAV.',
+    'Se <navPersonvernerklaeringLink>personvernerklæringen</navPersonvernerklaeringLink> for NAV.',
   'personopplysninger.section.spoersmaal.heading':
     'Spørsmål til NAV eller datatilsynet om personvern',
   'personopplysninger.section.spoersmaal.text':
