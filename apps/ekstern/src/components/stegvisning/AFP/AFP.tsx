@@ -57,7 +57,7 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
   }
 
   return (
-    <Card aria-live="polite" hasLargePadding hasMargin>
+    <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
@@ -125,7 +125,7 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
             <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
           </Radio>
           {showAlert === 'ja_offentlig' && (
-            <Alert className={styles.alert} variant="info">
+            <Alert className={styles.alert} variant="info" aria-live="polite">
               <FormattedMessage id="stegvisning.afp.alert_ja_offentlig" />
             </Alert>
           )}
@@ -139,7 +139,7 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
             <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
           </Radio>
           {showAlert === 'vet_ikke' && (
-            <Alert className={styles.alert} variant="info">
+            <Alert className={styles.alert} variant="info" aria-live="polite">
               <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
             </Alert>
           )}
