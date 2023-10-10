@@ -6,7 +6,9 @@ import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import KalkulatorLogo from '../../../assets/kalkulator.svg'
+import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
+import useRequest from '@/utils/useRequest'
 
 import styles from './PageFramework.module.scss'
 
@@ -15,11 +17,22 @@ export const PageFramework: React.FC<
     isFullWidth?: boolean
     hasWhiteBg?: boolean
     shouldShowLogo?: boolean
+    isAuthenticated?: boolean
   }
-> = ({ children, isFullWidth, hasWhiteBg = false, shouldShowLogo = false }) => {
+> = ({
+  children,
+  isFullWidth,
+  hasWhiteBg = false,
+  shouldShowLogo = false,
+  isAuthenticated = true,
+}) => {
   const intl = useIntl()
 
   const { pathname } = useLocation()
+
+  const { isLoading, status, reload } = useRequest<null>(
+    `${HOST_BASEURL}/oauth2/session`
+  )
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
@@ -36,6 +49,30 @@ export const PageFramework: React.FC<
       window.removeEventListener('beforeunload', onUnload)
     }
   }, [])
+
+  const isLoggedIn = React.useMemo(() => {
+    return status === 200 || isLoading
+  }, [status, isLoading])
+
+  // TODO: Fjern denne etter debugging av edge
+  console.log(isLoggedIn)
+
+  React.useEffect(() => {
+    const onFocus = () => {
+      /* c8 ignore next 3 */
+      if (!isLoading) {
+        reload()
+      }
+    }
+
+    window.addEventListener('focus', onFocus)
+    window.addEventListener('visibilitychange', onFocus)
+
+    return () => {
+      window.removeEventListener('focus', onFocus)
+      window.removeEventListener('visibilitychange', onFocus)
+    }
+  }, [isLoading, status])
 
   return (
     <main

@@ -60,4 +60,15 @@ describe('PageFramework', () => {
     window.dispatchEvent(new Event('beforeunload'))
     expect(spy).toHaveBeenCalledTimes(1)
   })
+
+  // Legg på test om focus fungerer
+  it('sjekke auth når siden kommer i fokus', () => {
+    render(
+      <PageFramework>
+        <TestComponent />
+      </PageFramework>
+    )
+
+    window.dispatchEvent(new Event('focus'))
+  })
 })
