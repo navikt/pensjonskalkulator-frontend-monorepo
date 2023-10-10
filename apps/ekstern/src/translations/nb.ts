@@ -228,6 +228,7 @@ const translations = {
   'grunnlag.pensjonsavtaler.md': 'md.',
   'grunnlag.pensjonsavtaler.livsvarig': 'Livsvarig fra',
   'grunnlag.forbehold.title': 'Forbehold',
+  'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.ingress':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Beregningen er ikke juridisk bindende.',
 
