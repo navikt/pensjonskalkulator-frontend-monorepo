@@ -60,8 +60,6 @@ export function Step4() {
     dispatch(userInputActions.setAfp(afpData))
     navigate(nesteSide)
   }
-  console.log('harSamboer', harSamboer)
-  console.log('isInntektError', isInntektError)
 
   return (
     <AFP
