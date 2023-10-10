@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { describe, it, vi } from 'vitest'
 
 import { PageFramework } from '..'
+import { apiSlice } from '@/state/api/apiSlice'
 import { render, screen, userEvent } from '@/test-utils'
 
 function TestComponent() {
@@ -46,5 +47,17 @@ describe('PageFramework', () => {
 
     await await user.click(screen.getByText('Klikk'))
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
+  })
+
+  it('resetter data når man forlater siden', () => {
+    const spy = vi.spyOn(apiSlice.util, 'resetApiState')
+    render(
+      <PageFramework>
+        <TestComponent />
+      </PageFramework>
+    )
+
+    window.dispatchEvent(new Event('beforeunload'))
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })
