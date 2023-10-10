@@ -50,7 +50,7 @@ export function Step3() {
         <Await resolve={loaderData.getTpoMedlemskapQuery}>
           {(getTpoMedlemskapQuery: TpoMedlemskapQuery) => {
             return getTpoMedlemskapQuery.isError ? (
-              <Card aria-live="polite" hasLargePadding hasMargin>
+              <Card hasLargePadding hasMargin>
                 <Card.Content
                   onPrimaryButtonClick={onNext}
                   onSecondaryButtonClick={onPrevious}

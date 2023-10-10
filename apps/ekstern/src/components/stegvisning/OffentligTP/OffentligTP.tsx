@@ -28,7 +28,7 @@ export function OffentligTP({
   }, [shouldJumpOverStep])
 
   return (
-    <Card aria-live="polite" hasLargePadding hasMargin>
+    <Card hasLargePadding hasMargin>
       <Heading level="2" size="medium" spacing>
         <FormattedMessage id="stegvisning.offentligtp.title" />
       </Heading>

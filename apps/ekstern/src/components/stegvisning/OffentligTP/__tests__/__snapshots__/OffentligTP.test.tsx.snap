@@ -3,7 +3,6 @@
 exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
 <DocumentFragment>
   <section
-    aria-live="polite"
     class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
   >
     <h2

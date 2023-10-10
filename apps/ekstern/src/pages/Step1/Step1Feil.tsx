@@ -29,7 +29,7 @@ export function Step1Feil() {
   }
 
   return (
-    <Card aria-live="polite" hasLargePadding hasMargin>
+    <Card hasLargePadding hasMargin>
       <Card.Content
         text={{
           header: 'stegvisning.utenlandsopphold.error.title',

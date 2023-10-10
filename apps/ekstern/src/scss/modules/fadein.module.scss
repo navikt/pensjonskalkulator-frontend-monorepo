@@ -3,13 +3,24 @@
 .whitesection {
   background-color: var(--a-white);
   width: 100%;
-  animation: 0.25s fade-in;
+  animation: 0.15s fade-white-background-in;
 
   @media (prefers-reduced-motion) {
     animation: none;
   }
 }
 
+@keyframes fade-white-background-in {
+  from {
+    background-color: transparent;
+  }
+
+  to {
+    background-color: var(--a-white);
+  }
+}
+
+/* (!) Obs denne kan skape problemer med skjermlesere på Chrome når det er første element på siden */
 .fadein {
   animation: 0.25s fade-in;
 

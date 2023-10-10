@@ -54,7 +54,7 @@ export function Utenlandsopphold({
   }
 
   return (
-    <Card aria-live="polite" hasLargePadding hasMargin>
+    <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.utenlandsopphold.title" />

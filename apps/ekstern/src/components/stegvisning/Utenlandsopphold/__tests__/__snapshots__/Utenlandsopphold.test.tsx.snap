@@ -3,7 +3,6 @@
 exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmålet om utenlandsopphold ikke er besvart 1`] = `
 <DocumentFragment>
   <section
-    aria-live="polite"
     class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
   >
     <form>
