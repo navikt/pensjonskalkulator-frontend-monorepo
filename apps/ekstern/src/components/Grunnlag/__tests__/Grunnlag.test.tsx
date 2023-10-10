@@ -125,15 +125,22 @@ describe('Grunnlag', () => {
       const user = userEvent.setup()
       render(<Grunnlag inntekt={{ beloep: 0, aar: 0 }} />)
       expect(screen.getByText('grunnlag.inntekt.title')).toBeVisible()
-      expect(screen.getByText('0 kr')).toBeVisible()
+      expect(screen.getByText('grunnlag.inntekt.title.error')).toBeVisible()
+      expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
       const buttons = screen.getAllByRole('button')
       await user.click(buttons[2])
       expect(
         await screen.findByText(
-          'Beløpet er din siste pensjonsgivende årsinntekt fra Skatteetaten.',
+          'Du er ikke registrert med pensjonsgivende inntekt.',
           { exact: false }
         )
       ).toBeVisible()
+      expect(
+        screen.queryByText(
+          'Beløpet er din siste pensjonsgivende årsinntekt fra Skatteetaten.',
+          { exact: false }
+        )
+      ).not.toBeInTheDocument()
     })
   })
 
