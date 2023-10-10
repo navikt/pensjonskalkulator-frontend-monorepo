@@ -365,6 +365,7 @@ export const getChartOptions = (
     },
     plotOptions: {
       series: {
+        animation: false,
         stickyTracking: false,
         stacking: 'normal',
         states: {
@@ -451,7 +452,7 @@ export const getChartOptions = (
             maxWidth: 480,
           },
           chartOptions: {
-            legend: { itemDistance: 0 },
+            legend: { itemDistance: 15 },
           },
         },
       ],

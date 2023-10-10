@@ -172,9 +172,12 @@ export function Beregning() {
                   Beregning
                 </Heading>
                 <Alert onRetry={isError ? onRetry : undefined}>
-                  {isError
-                    ? 'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'
-                    : `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAar} år. Prøv en høyere alder.`}
+                  {alderspensjon &&
+                  !alderspensjon?.vilkaarErOppfylt &&
+                  startAar &&
+                  startAar < 67
+                    ? `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAar} år. Prøv en høyere alder.`
+                    : 'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'}
                 </Alert>
               </>
             ) : (

@@ -73,7 +73,6 @@ describe('GrunnlagPensjonsavtaler', () => {
           exact: false,
         })
       ).not.toBeInTheDocument()
-
       await user.click(
         await screen.findByText(
           'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1'
@@ -144,10 +143,10 @@ describe('GrunnlagPensjonsavtaler', () => {
         screen.queryByTestId('pensjonsavtaler-table')
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByText('Alle avtaler i privat sektor er hentet fra ', {
+        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
           exact: false,
         })
-      ).not.toBeInTheDocument()
+      ).toBeVisible()
     })
 
     it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress og tabell', async () => {
