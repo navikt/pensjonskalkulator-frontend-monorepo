@@ -153,6 +153,7 @@ export const generateXAxis = (
     }
   }
   setIsPensjonsavtaleFlagVisible(hasAvtaleBeforeStartAlder)
+  console.log('generateXAxis return', alderArray)
   return alderArray
 }
 

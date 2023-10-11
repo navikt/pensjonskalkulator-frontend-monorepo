@@ -141,14 +141,23 @@ export function Simulering(props: {
 
   React.useEffect(() => {
     if (startAar && alderspensjon) {
+      // XAxis beregnes på nytt i tilfelle den var 0 (skjer når graf'en f.eks feiler)
+      const latestXAxis =
+        XAxis.length > 0
+          ? XAxis
+          : generateXAxis(
+              startAar,
+              pensjonsavtaler?.avtaler ?? [],
+              setIsPensjonsavtaleFlagVisible
+            )
       setChartOptions({
-        ...getChartDefaults(XAxis),
+        ...getChartDefaults(latestXAxis),
         series: [
           {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
             data: processInntektArray(
               inntekt.beloep,
-              XAxis.length,
+              latestXAxis.length,
               startMaaned
             ),
           } as SeriesOptionsType,
@@ -171,7 +180,7 @@ export function Simulering(props: {
                   /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
                     startAar - 1,
-                    XAxis.length,
+                    latestXAxis.length,
                     pensjonsavtaler?.avtaler
                   ),
                 } as SeriesOptionsType,
@@ -181,7 +190,7 @@ export function Simulering(props: {
             ...SERIES_DEFAULT.SERIE_ALDERSPENSJON,
             data: processPensjonsberegningArray(
               alderspensjon.alderspensjon,
-              XAxis.length
+              latestXAxis.length
             ),
           } as SeriesOptionsType,
         ],
