@@ -109,14 +109,20 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
               headerTitle={intl.formatMessage({
                 id: 'grunnlag.inntekt.title',
               })}
-              headerValue={`${formatAsDecimal(inntekt.beloep)} kr`}
+              headerValue={
+                inntekt.beloep
+                  ? `${formatAsDecimal(inntekt.beloep)} kr`
+                  : intl.formatMessage({
+                      id: 'grunnlag.inntekt.title.error',
+                    })
+              }
             >
               <BodyLong>
                 <FormattedMessage
-                  id="grunnlag.inntekt.ingress"
+                  id={`grunnlag.inntekt.ingress${inntekt.aar ? '' : '.error'}`}
                   values={{
                     ...formatMessageValues,
-                    aarsinntekt: inntekt.aar > 0 ? inntekt.aar : '',
+                    aarsinntekt: inntekt.aar,
                   }}
                 />
               </BodyLong>
