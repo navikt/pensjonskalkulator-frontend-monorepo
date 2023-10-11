@@ -77,6 +77,7 @@ export function Sivilstand({
           defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
           onChange={handleRadioChange}
           error={validationError}
+          role="radiogroup"
           aria-required="true"
         >
           <Radio value="ja">

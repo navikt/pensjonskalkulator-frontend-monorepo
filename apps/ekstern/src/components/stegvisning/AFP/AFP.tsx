@@ -119,6 +119,7 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
           defaultValue={afp}
           onChange={handleRadioChange}
           error={validationError}
+          role="radiogroup"
           aria-required="true"
         >
           <Radio value="ja_offentlig">

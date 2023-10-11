@@ -125,6 +125,7 @@ export const GrunnlagPensjonsavtaler = () => {
                 <InformationSquareFillIcon
                   className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
                   fontSize="1.5rem"
+                  aria-hidden
                 />
                 <BodyLong className={styles.infoText}>
                   <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.ingen" />
@@ -145,6 +146,7 @@ export const GrunnlagPensjonsavtaler = () => {
               <ExclamationmarkTriangleFillIcon
                 className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
                 fontSize="1.5rem"
+                aria-hidden
               />
               <BodyLong className={styles.infoText}>
                 <FormattedMessage

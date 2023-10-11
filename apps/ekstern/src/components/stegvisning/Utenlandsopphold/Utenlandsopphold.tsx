@@ -77,6 +77,7 @@ export function Utenlandsopphold({
           }
           onChange={handleRadioChange}
           error={validationError}
+          role="radiogroup"
           aria-required="true"
         >
           <Radio value="ja">
