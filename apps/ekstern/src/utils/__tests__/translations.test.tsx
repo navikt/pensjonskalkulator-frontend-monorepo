@@ -23,7 +23,7 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
-        'https://www.nav.no/pselv/simulering.jsf'
+        externalUrls.detaljertKalkulator
       )
       expect(
         await screen.findByRole('img', { hidden: true })

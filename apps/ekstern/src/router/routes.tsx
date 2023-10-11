@@ -24,7 +24,8 @@ export const BASE_PATH = '/pensjon/kalkulator'
 export const externalUrls = {
   dinPensjon: 'https://nav.no/pensjon',
   dinPensjonBeholdning: 'https://www.nav.no/pensjon/opptjening/nb/',
-  detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
+  detaljertKalkulator:
+    'https://pensjon-pselv-q2-gcp.intern.dev.nav.no/pselv/simulering.jsf',
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
   garantipensjon: 'https://www.nav.no/minstepensjon',
