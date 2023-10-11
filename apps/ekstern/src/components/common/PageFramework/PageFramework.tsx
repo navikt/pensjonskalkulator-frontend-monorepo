@@ -1,13 +1,15 @@
 import React, { PropsWithChildren } from 'react'
 import { useIntl } from 'react-intl'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import KalkulatorLogo from '../../../assets/kalkulator.svg'
 import { HOST_BASEURL } from '@/paths'
+import { paths } from '@/router'
 import { apiSlice } from '@/state/api/apiSlice'
+import { useAppDispatch } from '@/state/hooks'
 import useRequest from '@/utils/useRequest'
 
 import styles from './PageFramework.module.scss'
@@ -27,6 +29,8 @@ export const PageFramework: React.FC<
   isAuthenticated = true,
 }) => {
   const intl = useIntl()
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const { pathname } = useLocation()
 
@@ -38,24 +42,16 @@ export const PageFramework: React.FC<
     window.scrollTo(0, 0)
   }, [pathname])
 
-  React.useEffect(() => {
-    const onUnload = () => {
-      apiSlice.util.resetApiState()
-    }
-
-    window.addEventListener('beforeunload', onUnload)
-
-    return () => {
-      window.removeEventListener('beforeunload', onUnload)
-    }
-  }, [])
-
   const isLoggedIn = React.useMemo(() => {
     return status === 200 || isLoading
   }, [status, isLoading])
 
-  // TODO: Fjern denne etter debugging av edge
-  console.log(isLoggedIn)
+  React.useEffect(() => {
+    if (!isLoggedIn && isAuthenticated) {
+      navigate(paths.login)
+      dispatch(apiSlice.util.resetApiState())
+    }
+  }, [isLoggedIn])
 
   React.useEffect(() => {
     const onFocus = () => {
@@ -66,11 +62,9 @@ export const PageFramework: React.FC<
     }
 
     window.addEventListener('focus', onFocus)
-    window.addEventListener('visibilitychange', onFocus)
 
     return () => {
       window.removeEventListener('focus', onFocus)
-      window.removeEventListener('visibilitychange', onFocus)
     }
   }, [isLoading, status])
 
