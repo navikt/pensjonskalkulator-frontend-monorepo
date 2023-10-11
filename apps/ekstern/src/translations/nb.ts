@@ -226,7 +226,7 @@ const translations = {
   'grunnlag.pensjonsavtaler.og': 'og',
   'grunnlag.pensjonsavtaler.aar': 'år',
   'grunnlag.pensjonsavtaler.md': 'md.',
-  'grunnlag.pensjonsavtaler.livsvarig': 'Livsvarig fra',
+  'grunnlag.pensjonsavtaler.livsvarig': 'Livsvarig fra og med',
   'grunnlag.forbehold.title': 'Forbehold',
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.ingress':
