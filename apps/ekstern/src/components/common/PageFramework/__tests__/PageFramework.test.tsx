@@ -1,10 +1,12 @@
+import * as ReactRouterUtils from 'react-router'
 import { Link } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
 import { PageFramework } from '..'
-import { apiSlice } from '@/state/api/apiSlice'
+import { paths } from '@/router'
 import { render, screen, userEvent } from '@/test-utils'
+import * as useRequest from '@/utils/useRequest'
 
 function TestComponent() {
   return <Link to="/something-else">Klikk</Link>
@@ -49,15 +51,32 @@ describe('PageFramework', () => {
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
   })
 
-  it('resetter data når man forlater siden', () => {
-    const spy = vi.spyOn(apiSlice.util, 'resetApiState')
+  it('sjekker auth når siden kommer i fokus', () => {
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+
+    const reloadMock = vi.fn()
+
+    const spy = vi.spyOn(useRequest, 'default')
+    spy.mockReturnValue({
+      status: 401,
+      reload: reloadMock,
+      isLoading: false,
+      loadingState: 'ERROR',
+      data: null,
+      hasError: false,
+      errorData: null,
+    })
+
     render(
-      <PageFramework>
+      <PageFramework isAuthenticated>
         <TestComponent />
       </PageFramework>
     )
 
-    window.dispatchEvent(new Event('beforeunload'))
-    expect(spy).toHaveBeenCalledTimes(1)
+    window.dispatchEvent(new Event('focus'))
+    expect(navigateMock).toHaveBeenCalledWith(paths.login)
   })
 })
