@@ -1,18 +1,21 @@
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
+import { Link as ReactRouterLink } from 'react-router-dom'
 
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
   BodyLong,
   Button,
   Heading,
   HStack,
+  Link,
   Loader,
   VStack,
 } from '@navikt/ds-react'
 
 import { HOST_BASEURL } from '@/paths'
-import { externalUrls } from '@/router'
+import { externalUrls, paths } from '@/router'
 import useRequest from '@/utils/useRequest'
 
 import styles from './LandingPage.module.scss'
@@ -182,11 +185,16 @@ export function LandingPage() {
             </VStack>
           </section>
         )}
-        <a href="">
-          {intl.formatMessage({
-            id: 'landingsside.link.personopplysninger',
-          })}
-        </a>
+        <Link
+          className={styles.link}
+          as={ReactRouterLink}
+          to={paths.personopplysninger}
+          target="_blank"
+          inlineText
+        >
+          <FormattedMessage id="landingsside.link.personopplysninger" />
+          <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
+        </Link>
       </VStack>
     </div>
   )
