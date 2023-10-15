@@ -66,7 +66,7 @@ export const PageFramework: React.FC<
     return () => {
       window.removeEventListener('focus', onFocus)
     }
-  }, [isLoading, status])
+  }, [isLoading])
 
   return (
     <main
