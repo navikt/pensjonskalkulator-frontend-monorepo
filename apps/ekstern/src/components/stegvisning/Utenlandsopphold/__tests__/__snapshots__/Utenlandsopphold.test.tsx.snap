@@ -19,6 +19,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
       <fieldset
         aria-required="true"
         class="_radiogroup_30e252 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        role="radiogroup"
       >
         <legend
           class="navds-fieldset__legend navds-label"

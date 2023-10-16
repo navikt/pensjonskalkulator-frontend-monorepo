@@ -19,6 +19,11 @@ beforeEach(() => {
   )
 
   cy.intercept(
+    { method: 'POST', url: '/pensjon/kalkulator/api/v1/pensjonsavtaler' },
+    { fixture: 'pensjonsavtaler.json' }
+  )
+
+  cy.intercept(
     {
       method: 'POST',
       url: '/pensjon/kalkulator/api/v1/alderspensjon/simulering',

@@ -238,6 +238,7 @@ export function Simulering(props: {
           <ExclamationmarkTriangleFillIcon
             className={styles.errorIcon}
             fontSize="1.5rem"
+            aria-hidden
           />
           <BodyLong className={styles.errorText}>
             <FormattedMessage

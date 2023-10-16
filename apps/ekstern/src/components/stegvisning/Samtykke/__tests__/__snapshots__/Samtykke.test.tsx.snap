@@ -73,6 +73,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
       <fieldset
         aria-required="true"
         class="_radiogroup_5b4738 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        role="radiogroup"
       >
         <legend
           class="navds-fieldset__legend navds-label"
