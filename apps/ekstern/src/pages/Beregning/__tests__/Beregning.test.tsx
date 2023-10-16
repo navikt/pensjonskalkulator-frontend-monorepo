@@ -117,7 +117,9 @@ describe('Beregning', () => {
         ).not.toBeInTheDocument()
       })
       const button = await screen.findByText('68 år')
-      await user.click(button)
+      await act(async () => {
+        user.click(button)
+      })
       await waitFor(() => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
@@ -144,7 +146,9 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       const { container } = render(<Beregning />)
       const button = await screen.findByText('68 år')
-      await user.click(button)
+      await act(async () => {
+        user.click(button)
+      })
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
         '68 år'
       )
@@ -182,7 +186,10 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       render(<Beregning />)
 
-      await user.click(await screen.findByText('68 år'))
+      const button = await screen.findByText('68 år')
+      await act(async () => {
+        user.click(button)
+      })
       expect(initiateMock).toHaveBeenCalledTimes(1)
       await waitFor(async () => {
         expect(
@@ -195,7 +202,10 @@ describe('Beregning', () => {
         screen.queryByText('Grunnlaget for beregningen')
       ).not.toBeInTheDocument()
 
-      await user.click(await screen.findByText('Prøv på nytt'))
+      const proevPaaNyttbutton = await screen.findByText('Prøv på nytt')
+      await act(async () => {
+        await user.click(proevPaaNyttbutton)
+      })
       expect(initiateMock).toHaveBeenCalledTimes(2)
       expect(
         screen.queryByText('Vis tabell av beregningen')
@@ -221,7 +231,10 @@ describe('Beregning', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      await user.click(await screen.findByText('68 år'))
+      const button = await screen.findByText('68 år')
+      await act(async () => {
+        user.click(button)
+      })
       expect(await screen.findByText('error.global.title')).toBeVisible()
       expect(await screen.findByText('error.global.ingress')).toBeVisible()
 
@@ -261,7 +274,10 @@ describe('Beregning', () => {
           screen.queryByTestId('tidligst-mulig-uttak')
         ).not.toBeInTheDocument()
       })
-      await user.click(await screen.findByText('62 år'))
+      const button = await screen.findByText('62 år')
+      await act(async () => {
+        user.click(button)
+      })
       expect(
         await screen.findByText(
           'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'

@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { ErrorPageUnexpected } from '../ErrorPageUnexpected'
 import { paths } from '@/router'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent } from '@/test-utils'
+import { act, render, screen, userEvent } from '@/test-utils'
 
 const realLocation = window.location
 
@@ -34,7 +34,9 @@ describe('ErrorPageUnexpected', () => {
         },
       },
     })
-    await user.click(screen.getByText('error.global.button'))
+    await act(async () => {
+      await user.click(screen.getByText('error.global.button'))
+    })
     expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
     expect(store.getState().userInput.samtykke).toBe(null)
   })

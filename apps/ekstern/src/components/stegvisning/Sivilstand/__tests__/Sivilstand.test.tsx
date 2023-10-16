@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Sivilstand } from '..'
 import { RootState } from '@/state/store'
-import { screen, render, waitFor, userEvent } from '@/test-utils'
+import { act, screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - Sivilstand', () => {
   const onCancelMock = vi.fn()
@@ -84,7 +84,9 @@ describe('stegvisning - Sivilstand', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await user.click(screen.getByText('stegvisning.beregn'))
+    await act(async () => {
+      await user.click(screen.getByText('stegvisning.beregn'))
+    })
 
     waitFor(() => {
       expect(
@@ -93,13 +95,17 @@ describe('stegvisning - Sivilstand', () => {
       expect(onNextMock).not.toHaveBeenCalled()
     })
 
-    await user.click(radioButtons[0])
+    await act(async () => {
+      await user.click(radioButtons[0])
+    })
 
     expect(
       screen.queryByText('stegvisning.sivilstand.validation_error')
     ).not.toBeInTheDocument()
 
-    await user.click(screen.getByText('stegvisning.beregn'))
+    await act(async () => {
+      await user.click(screen.getByText('stegvisning.beregn'))
+    })
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
@@ -123,7 +129,9 @@ describe('stegvisning - Sivilstand', () => {
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[0]).toBeChecked()
 
-    await user.click(screen.getByText('stegvisning.tilbake'))
+    await act(async () => {
+      await user.click(screen.getByText('stegvisning.tilbake'))
+    })
 
     waitFor(() => {
       expect(onPreviousMock).toHaveBeenCalled()
@@ -142,7 +150,9 @@ describe('stegvisning - Sivilstand', () => {
       />
     )
 
-    await user.click(screen.getByText('stegvisning.avbryt'))
+    await act(async () => {
+      await user.click(screen.getByText('stegvisning.avbryt'))
+    })
 
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()

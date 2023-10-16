@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { ErrorPage404 } from '../ErrorPage404'
 import { externalUrls, paths } from '@/router'
-import { render, screen, userEvent } from '@/test-utils'
+import { act, render, screen, userEvent } from '@/test-utils'
 
 describe('ErrorPage404', () => {
   it('rendrer med riktig tekst og knapper', () => {
@@ -20,7 +20,10 @@ describe('ErrorPage404', () => {
       () => navigateMock
     )
     render(<ErrorPage404 />)
-    await user.click(screen.getByText('error.404.button.link_1'))
+    await act(async () => {
+      await user.click(screen.getByText('error.404.button.link_1'))
+    })
+
     expect(navigateMock.mock.lastCall?.[0]).toBe(paths.login)
   })
 
