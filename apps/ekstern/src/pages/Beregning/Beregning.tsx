@@ -157,9 +157,7 @@ export function Beregning() {
         <div className={styles.container}>
           <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
         </div>
-        {
-          // TODO PEK-107 - sørge for at fokuset flyttes riktig og at skjermleseren leser opp i riktig rekkefølge etter valg av uttaksalder + at lasting er ferdig.
-        }
+
         {isAlderValgt && (
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}
@@ -173,11 +171,12 @@ export function Beregning() {
                 </Heading>
                 <Alert onRetry={isError ? onRetry : undefined}>
                   {alderspensjon &&
-                  !alderspensjon?.vilkaarErOppfylt &&
-                  startAar &&
-                  startAar < 67
-                    ? `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAar} år. Prøv en høyere alder.`
-                    : 'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'}
+                    !alderspensjon?.vilkaarErOppfylt &&
+                    startAar &&
+                    startAar < 67 &&
+                    `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAar} år. Prøv en høyere alder.`}
+                  {isError &&
+                    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'}
                 </Alert>
               </>
             ) : (
