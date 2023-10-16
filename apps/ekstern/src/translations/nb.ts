@@ -276,7 +276,7 @@ const translations = {
   'personopplysninger.section.hvordan_brukes.header':
     'Hvordan behandler vi personopplysninger?',
   'personopplysninger.section.hvordan_brukes.1':
-    'NAV henter inn og utleverer kun personopplysninger når vi har lovhjemmel til det. Hvis vi trenger ytterligere opplysninger, ber vi om et samtykke fra deg til å innhente eller utlevere opplysningene. Vi bruker kun opplysningene til det du samtykker til. Samtykket er frivillig. Du får informasjon underveis om hvilke opplysninger vi henter inn fra andre, som f.eks. Folkeregisteret og pensjonsleverandører.',
+    'NAV henter inn og utleverer kun personopplysninger når vi har lovhjemmel til det. Hvis vi trenger flere opplysninger, ber vi om et samtykke fra deg til å innhente eller utlevere opplysningene. Vi bruker kun opplysningene til det du samtykker til. Samtykket er frivillig. Du får informasjon underveis om hvilke opplysninger vi henter inn fra andre, som f.eks. Folkeregisteret og pensjonsleverandører.',
   'personopplysninger.section.hvordan_brukes.2':
     'Vi lagrer ikke beregningene du gjør, eller personopplysningene brukt i behandlingen.',
   'personopplysninger.section.hvordan_brukes.3':
