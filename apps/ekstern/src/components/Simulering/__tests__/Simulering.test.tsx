@@ -404,7 +404,10 @@ describe('Simulering', () => {
           })
         ).toBeVisible()
       })
-      await user.click(await screen.findByText('pensjonsavtalene dine'))
+      const button = await screen.findByText('pensjonsavtalene dine')
+      await act(async () => {
+        await user.click(button)
+      })
       expect(scrollIntoViewMock).toHaveBeenCalled()
       expect(toggleOpenMock).toHaveBeenCalled()
     })
@@ -455,7 +458,10 @@ describe('Simulering', () => {
           })
         ).toBeVisible()
       })
-      await user.click(await screen.findByText('pensjonsavtalene dine'))
+      const button = await screen.findByText('pensjonsavtalene dine')
+      await act(async () => {
+        await user.click(button)
+      })
       expect(scrollIntoViewMock).toHaveBeenCalled()
       expect(toggleOpenMock).toHaveBeenCalled()
     })

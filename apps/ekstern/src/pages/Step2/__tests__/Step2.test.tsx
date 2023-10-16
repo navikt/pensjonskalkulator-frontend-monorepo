@@ -6,7 +6,7 @@ import { Step2 } from '..'
 import { paths } from '@/router'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { screen, render, userEvent } from '@/test-utils'
+import { act, screen, render, userEvent } from '@/test-utils'
 
 describe('Step 2', () => {
   it('har riktig sidetittel', () => {
@@ -24,8 +24,10 @@ describe('Step 2', () => {
       const { store } = render(<Step2 />, {})
       const radioButtons = screen.getAllByRole('radio')
 
-      await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.neste'))
+      await act(async () => {
+        await user.click(radioButtons[0])
+        await user.click(screen.getByText('stegvisning.neste'))
+      })
 
       expect(store.getState().userInput.samtykke).toBe(true)
       expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
@@ -81,8 +83,10 @@ describe('Step 2', () => {
       expect(Object.keys(store.getState().api.queries).length).toEqual(1)
 
       const radioButtons = screen.getAllByRole('radio')
-      await user.click(radioButtons[1])
-      await user.click(screen.getByText('stegvisning.neste'))
+      await act(async () => {
+        await user.click(radioButtons[1])
+        await user.click(screen.getByText('stegvisning.neste'))
+      })
 
       expect(store.getState().userInput.samtykke).toBe(false)
       expect(initiategetSpraakvelgerFeatureToggleMock).toHaveBeenCalled()
@@ -105,10 +109,11 @@ describe('Step 2', () => {
       },
     })
     const radioButtons = screen.getAllByRole('radio')
-    await user.click(radioButtons[0])
-    expect(radioButtons[0]).toBeChecked()
-
-    await user.click(screen.getByText('stegvisning.tilbake'))
+    await act(async () => {
+      await user.click(radioButtons[0])
+      expect(radioButtons[0]).toBeChecked()
+      await user.click(screen.getByText('stegvisning.tilbake'))
+    })
 
     expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
     expect(store.getState().userInput.samtykke).toBe(null)
@@ -128,7 +133,9 @@ describe('Step 2', () => {
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[1]).toBeChecked()
 
-    await user.click(screen.getByText('stegvisning.avbryt'))
+    await act(async () => {
+      await user.click(screen.getByText('stegvisning.avbryt'))
+    })
 
     expect(navigateMock).toHaveBeenCalledWith(paths.login)
     expect(store.getState().userInput.samtykke).toBe(null)

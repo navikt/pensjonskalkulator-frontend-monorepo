@@ -8,7 +8,7 @@ import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { screen, render, userEvent, waitFor } from '@/test-utils'
+import { act, screen, render, userEvent, waitFor } from '@/test-utils'
 
 describe('Step 4', () => {
   it('har riktig sidetittel', () => {
@@ -67,9 +67,13 @@ describe('Step 4', () => {
       store.dispatch(apiSlice.endpoints.getPerson.initiate())
 
       const radioButtons = await screen.findAllByRole('radio')
-      await user.click(radioButtons[0])
+      await act(async () => {
+        await user.click(radioButtons[0])
+      })
       expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-      await user.click(screen.getByText('stegvisning.beregn'))
+      await act(async () => {
+        await user.click(screen.getByText('stegvisning.beregn'))
+      })
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
 
       expect(nesteSideMock).toHaveBeenCalledWith(true, false)
@@ -102,8 +106,10 @@ describe('Step 4', () => {
       store.dispatch(apiSlice.endpoints.getPerson.initiate())
       expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
       const radioButtons = screen.getAllByRole('radio')
-      await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.neste'))
+      await act(async () => {
+        await user.click(radioButtons[0])
+        await user.click(screen.getByText('stegvisning.neste'))
+      })
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(nesteSideMock).toHaveBeenCalledWith(false, false)
       expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
@@ -126,8 +132,10 @@ describe('Step 4', () => {
       })
 
       const radioButtons = await screen.findAllByRole('radio')
-      await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.neste'))
+      await act(async () => {
+        await user.click(radioButtons[0])
+        await user.click(screen.getByText('stegvisning.neste'))
+      })
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(nesteSideMock).toHaveBeenCalledWith(null, false)
       expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
@@ -151,8 +159,10 @@ describe('Step 4', () => {
       store.dispatch(apiSlice.endpoints.getPerson.initiate())
 
       const radioButtons = await screen.findAllByRole('radio')
-      await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.neste'))
+      await act(async () => {
+        await user.click(radioButtons[0])
+        await user.click(screen.getByText('stegvisning.neste'))
+      })
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(nesteSideMock).toHaveBeenCalledWith(false, true)
       expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
@@ -171,11 +181,13 @@ describe('Step 4', () => {
     )
     render(<Step4 />)
 
-    await user.click(await screen.findByText('stegvisning.tilbake'))
+    await waitFor(async () => {
+      await user.click(await screen.findByText('stegvisning.tilbake'))
+    })
     expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
   })
 
-  it('sender tilbake til steg 3 når brukeren har tpo medlemskap og klikker på Tilbake', async () => {
+  it('sender tilbake til steg 3 når brukeren har tpo-medlemskap og klikker på Tilbake', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -187,9 +199,9 @@ describe('Step 4', () => {
       },
     })
     await waitFor(async () => {
-      await user.click(screen.getByText('stegvisning.tilbake'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
+      await user.click(await screen.findByText('stegvisning.tilbake'))
     })
+    expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
   })
 
   it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
@@ -204,7 +216,9 @@ describe('Step 4', () => {
       },
     })
 
-    await user.click(await screen.findByText('stegvisning.avbryt'))
+    await act(async () => {
+      await user.click(screen.getByText('stegvisning.avbryt'))
+    })
     expect(navigateMock).toHaveBeenCalledWith(paths.login)
     expect(store.getState().userInput.samtykke).toBe(null)
     expect(store.getState().userInput.afp).toBe(null)

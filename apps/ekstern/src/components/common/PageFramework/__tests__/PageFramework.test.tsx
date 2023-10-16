@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 
 import { PageFramework } from '..'
 import { paths } from '@/router'
-import { render, screen, userEvent } from '@/test-utils'
+import { act, render, screen, userEvent } from '@/test-utils'
 import * as useRequest from '@/utils/useRequest'
 
 function TestComponent() {
@@ -47,7 +47,10 @@ describe('PageFramework', () => {
       </PageFramework>
     )
 
-    await await user.click(screen.getByText('Klikk'))
+    const button = await screen.findByText('Klikk')
+    await act(async () => {
+      user.click(button)
+    })
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
   })
 

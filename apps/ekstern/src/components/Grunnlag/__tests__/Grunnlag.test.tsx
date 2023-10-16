@@ -4,7 +4,7 @@ import { Grunnlag } from '@/components/Grunnlag'
 import * as velgUttaksalderUtils from '@/components/VelgUttaksalder/utils'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Grunnlag', () => {
   it('viser alle seksjonene og forbehold', async () => {
@@ -47,7 +47,9 @@ describe('Grunnlag', () => {
       ).not.toBeInTheDocument()
       expect(formatMock).toHaveBeenCalled()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[0])
+      await act(async () => {
+        await user.click(buttons[0])
+      })
       expect(
         await screen.findByText(
           'For å starte uttak før 67 år må opptjeningen være høy nok',
@@ -70,7 +72,9 @@ describe('Grunnlag', () => {
         await screen.findByText('grunnlag.tidligstmuliguttak.title.error')
       ).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[0])
+      await act(async () => {
+        await user.click(buttons[0])
+      })
       expect(
         await screen.findByText(
           'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon',
@@ -94,7 +98,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.uttaksgrad.title')).toBeVisible()
       expect(screen.getByText('100 %')).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[1])
+      await act(async () => {
+        await user.click(buttons[1])
+      })
       expect(
         await screen.findByText(
           'Denne beregningen viser 100 % uttak av alderspensjon',
@@ -111,7 +117,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.inntekt.title')).toBeVisible()
       expect(screen.getByText('500 000 kr')).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[2])
+      await act(async () => {
+        await user.click(buttons[2])
+      })
       expect(
         await screen.findByText(
           'Beløpet er din siste pensjonsgivende årsinntekt',
@@ -128,7 +136,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.inntekt.title.error')).toBeVisible()
       expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[2])
+      await act(async () => {
+        await user.click(buttons[2])
+      })
       expect(
         await screen.findByText(
           'Du er ikke registrert med pensjonsgivende inntekt.',
@@ -171,7 +181,9 @@ describe('Grunnlag', () => {
         ).not.toBeInTheDocument()
       })
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[3])
+      await act(async () => {
+        await user.click(buttons[3])
+      })
       expect(
         await screen.findByText(
           'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen',
@@ -206,7 +218,9 @@ describe('Grunnlag', () => {
         expect(await screen.findByText('Ugift, uten samboer')).toBeVisible()
       })
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[3])
+      await act(async () => {
+        await user.click(buttons[3])
+      })
       expect(
         await screen.findByText(
           'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen',
@@ -227,7 +241,9 @@ describe('Grunnlag', () => {
         ).toBeVisible()
       })
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[3])
+      await act(async () => {
+        await user.click(buttons[3])
+      })
       expect(
         await screen.findByText(
           'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen',
@@ -244,7 +260,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.opphold.title')).toBeVisible()
       expect(screen.getByText('Minst 40 år')).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[4])
+      await act(async () => {
+        await user.click(buttons[4])
+      })
       expect(
         await screen.findByText(
           'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år',
@@ -261,7 +279,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
       expect(screen.getByText('Folketrygden (NAV)')).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[5])
+      await act(async () => {
+        await user.click(buttons[5])
+      })
       expect(
         await screen.findByText('Alderspensjon beregnes ut ifra', {
           exact: false,
@@ -284,7 +304,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
       expect(screen.getByText('Offentlig')).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[6])
+      await act(async () => {
+        await user.click(buttons[6])
+      })
       expect(
         await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
       ).toBeVisible()
@@ -303,7 +325,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
       expect(screen.getByText('Privat')).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[6])
+      await act(async () => {
+        await user.click(buttons[6])
+      })
       expect(
         await screen.findByText(
           'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP',
@@ -325,7 +349,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
       expect(screen.getByText('Nei')).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[6])
+      await act(async () => {
+        await user.click(buttons[6])
+      })
       expect(await screen.findByText('grunnlag.afp.ingress.nei')).toBeVisible()
     })
 
@@ -342,7 +368,9 @@ describe('Grunnlag', () => {
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
       expect(screen.getByText('Vet ikke')).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await user.click(buttons[6])
+      await act(async () => {
+        await user.click(buttons[6])
+      })
       expect(
         await screen.findByText('grunnlag.afp.ingress.vet_ikke')
       ).toBeVisible()

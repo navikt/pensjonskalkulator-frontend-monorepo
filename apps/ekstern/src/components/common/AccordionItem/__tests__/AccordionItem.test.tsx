@@ -1,6 +1,6 @@
 import { AccordionItem } from '../AccordionItem'
 import { GrunnlagSection } from '@/components/Grunnlag/GrunnlagSection'
-import { userEvent, render, screen } from '@/test-utils'
+import { act, render, screen, userEvent } from '@/test-utils'
 import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
 describe('AccordionItem', () => {
@@ -18,13 +18,17 @@ describe('AccordionItem', () => {
           </GrunnlagSection>
         </AccordionItem>
       )
-      await user.click(screen.getByTestId('accordion-header'))
+      await act(async () => {
+        await user.click(screen.getByTestId('accordion-header'))
+      })
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'accordion åpnet',
         expect.any(Object)
       )
-      await user.click(screen.getByTestId('accordion-header'))
+      await act(async () => {
+        await user.click(screen.getByTestId('accordion-header'))
+      })
       expect(loggerSpy).toHaveBeenNthCalledWith(
         2,
         'accordion lukket',
@@ -45,7 +49,9 @@ describe('AccordionItem', () => {
           </GrunnlagSection>
         </AccordionItem>
       )
-      await user.click(screen.getByTestId('accordion-header'))
+      await act(async () => {
+        await user.click(screen.getByTestId('accordion-header'))
+      })
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'accordion åpnet',
@@ -64,7 +70,9 @@ describe('AccordionItem', () => {
           </GrunnlagSection>
         </AccordionItem>
       )
-      await user.click(screen.getByTestId('accordion-header'))
+      await act(async () => {
+        await user.click(screen.getByTestId('accordion-header'))
+      })
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'accordion lukket',

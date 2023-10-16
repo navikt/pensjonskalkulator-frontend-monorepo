@@ -1,5 +1,5 @@
 import { ReadMore } from '../ReadMore'
-import { userEvent, render, screen } from '@/test-utils'
+import { act, render, screen, userEvent } from '@/test-utils'
 import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
 describe('ReadMore', () => {
@@ -15,13 +15,19 @@ describe('ReadMore', () => {
           test-data
         </ReadMore>
       )
-      await user.click(screen.getByTestId('readmore'))
+      await act(async () => {
+        await user.click(screen.getByTestId('readmore'))
+      })
+
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'readmore åpnet',
         expect.any(Object)
       )
-      await user.click(screen.getByTestId('readmore'))
+      await act(async () => {
+        await user.click(screen.getByTestId('readmore'))
+      })
+
       expect(loggerSpy).toHaveBeenNthCalledWith(
         2,
         'readmore lukket',
@@ -45,7 +51,10 @@ describe('ReadMore', () => {
           test-data
         </ReadMore>
       )
-      await user.click(screen.getByTestId('readmore'))
+      await act(async () => {
+        await user.click(screen.getByTestId('readmore'))
+      })
+
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'readmore åpnet',
@@ -69,7 +78,10 @@ describe('ReadMore', () => {
         </ReadMore>
       )
 
-      await user.click(screen.getByTestId('readmore'))
+      await act(async () => {
+        await user.click(screen.getByTestId('readmore'))
+      })
+
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
         'readmore lukket',
