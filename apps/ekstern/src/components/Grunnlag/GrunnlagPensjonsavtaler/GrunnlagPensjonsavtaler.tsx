@@ -141,6 +141,7 @@ export const GrunnlagPensjonsavtaler = () => {
             <div
               className={clsx(styles.info, {
                 [styles.info__hasMargin]: pensjonsavtaler?.partialResponse,
+                [styles.info__hasMarginBottom]: isError,
               })}
             >
               <ExclamationmarkTriangleFillIcon
