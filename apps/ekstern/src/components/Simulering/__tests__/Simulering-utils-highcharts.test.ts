@@ -97,9 +97,9 @@ describe('Simulering-highcarts-utils', () => {
       const pointSumSerie1 = 200000
       const pointSumSerie2 = 350000
 
-      const beregnetLinePosition = 'top: 130px; left: 34px; height: 19px'
+      const beregnetLinePosition = 'top: 135px; left: 34px; height: 34px'
       const beregnetLinePositionAfterScroll =
-        'top: 130px; left: -16px; height: 19px'
+        'top: 135px; left: -16px; height: 34px'
 
       const simplePoint = {
         y: pointSumSerie1,
@@ -191,8 +191,8 @@ describe('Simulering-highcarts-utils', () => {
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie2}`)
       expect(tooltipMarkup).toContain('200 000 kr')
       expect(tooltipMarkup).toContain('350 000 kr')
-      expect(tooltipMarkup).toContain(beregnetLinePosition)
       expect(tooltipMarkup).toMatchSnapshot()
+      expect(tooltipMarkup).toContain(beregnetLinePosition)
 
       const div = document.createElement('div')
       div.innerHTML = '<div class="highcharts-scrolling">SPAN</div>'

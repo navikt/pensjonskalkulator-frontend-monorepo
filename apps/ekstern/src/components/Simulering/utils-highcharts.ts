@@ -131,7 +131,7 @@ export function tooltipFormatter(
     20 *
     (points?.filter((point: ExtendedPoint) => point.percentage > 0)?.length ??
       0)
-  const lineYstartPOS = tooltipEntriesHeight + 50
+  const lineYstartPOS = tooltipEntriesHeight + 55
   const columnHeight =
     (points?.[0].series.yAxis as ExtendedAxis).height - (points[0].plotY ?? 0)
   const scrollPosition =
@@ -143,7 +143,7 @@ export function tooltipFormatter(
   }" style="top: ${lineYstartPOS}px; left: ${
     leftPosition + chart.plotLeft - scrollPosition - 1
   }px; height: ${
-    chart.chartHeight - lineYstartPOS - columnHeight - 80
+    chart.chartHeight - lineYstartPOS - columnHeight - 60
   }px"></div>`
 
   let hasInntekt = false
