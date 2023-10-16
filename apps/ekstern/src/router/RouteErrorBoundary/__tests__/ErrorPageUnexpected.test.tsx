@@ -7,13 +7,7 @@ import { paths } from '@/router'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { act, render, screen, userEvent } from '@/test-utils'
 
-const realLocation = window.location
-
 describe('ErrorPageUnexpected', () => {
-  afterEach(() => {
-    window.location = realLocation
-  })
-
   it('rendrer med riktig tekst og knapper', () => {
     const { asFragment } = render(<ErrorPageUnexpected />)
     expect(screen.getAllByRole('button')).toHaveLength(1)

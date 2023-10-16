@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
@@ -15,14 +14,13 @@ import {
 } from '@navikt/ds-react'
 
 import { HOST_BASEURL } from '@/paths'
-import { externalUrls, paths } from '@/router'
+import { BASE_PATH, externalUrls, paths } from '@/router'
 import useRequest from '@/utils/useRequest'
 
 import styles from './LandingPage.module.scss'
 
 export function LandingPage() {
   const intl = useIntl()
-  const navigate = useNavigate()
   const { isLoading, status } = useRequest<null>(
     `${HOST_BASEURL}/oauth2/session`
   )
@@ -46,9 +44,29 @@ export function LandingPage() {
     window.open(externalUrls.detaljertKalkulator, '_self')
   }
 
-  const gaaTilUninnloggetKalkulator = () => {
-    window.open(externalUrls.uinloggetKalkulator, '_self')
+  const gaaTilEnkelKalkulator = () => {
+    window.open(`${BASE_PATH}${paths.start}`, '_self')
   }
+
+  const gaaTilUinnloggetKalkulator = () => {
+    window.open(externalUrls.uinnloggetKalkulator, '_self')
+  }
+
+  const detaljertKalkulatorButtonText = isLoggedIn
+    ? intl.formatMessage({
+        id: 'landingsside.button.detaljert_kalkulator',
+      })
+    : intl.formatMessage({
+        id: 'landingsside.button.detaljert_kalkulator_utlogget',
+      })
+
+  const enkelKalkulatorButtonText = isLoggedIn
+    ? intl.formatMessage({
+        id: 'landingsside.button.enkel_kalkulator',
+      })
+    : intl.formatMessage({
+        id: 'landingsside.button.enkel_kalkulator_utlogget',
+      })
 
   return (
     <div className={styles.landingPage}>
@@ -67,17 +85,11 @@ export function LandingPage() {
             </BodyLong>
             <div>
               <Button
-                data-testid="landingside-detaljert-kalkulator-button"
+                data-testid="landingside-first-button"
                 variant="secondary"
                 onClick={gaaTilDetaljertKalkulator}
               >
-                {isLoggedIn
-                  ? intl.formatMessage({
-                      id: 'landingsside.button.detaljert_kalkulator',
-                    })
-                  : intl.formatMessage({
-                      id: 'landingsside.button.detaljert_kalkulator_utlogget',
-                    })}
+                {detaljertKalkulatorButtonText}
               </Button>
             </div>
           </VStack>
@@ -125,28 +137,19 @@ export function LandingPage() {
               </ul>
             </div>
             <HStack gap="4">
-              <Button variant="secondary" onClick={gaaTilDetaljertKalkulator}>
-                {isLoggedIn
-                  ? intl.formatMessage({
-                      id: 'landingsside.button.detaljert_kalkulator',
-                    })
-                  : intl.formatMessage({
-                      id: 'landingsside.button.detaljert_kalkulator_utlogget',
-                    })}
+              <Button
+                data-testid="landingside-detaljert-kalkulator-button"
+                variant="secondary"
+                onClick={gaaTilDetaljertKalkulator}
+              >
+                {detaljertKalkulatorButtonText}
               </Button>
               <Button
                 data-testid="landingside-enkel-kalkulator-button"
                 variant="secondary"
-                /* c8 ignore next 1 */
-                onClick={() => navigate('/start')}
+                onClick={gaaTilEnkelKalkulator}
               >
-                {isLoggedIn
-                  ? intl.formatMessage({
-                      id: 'landingsside.button.enkel_kalkulator',
-                    })
-                  : intl.formatMessage({
-                      id: 'landingsside.button.enkel_kalkulator_utlogget',
-                    })}
+                {enkelKalkulatorButtonText}
               </Button>
             </HStack>
           </VStack>
@@ -155,11 +158,7 @@ export function LandingPage() {
         {!isLoggedIn && (
           <section>
             <VStack gap="2">
-              <Heading
-                data-testid="uinlogget-kalkulator"
-                size="medium"
-                level="2"
-              >
+              <Heading size="medium" level="2">
                 {intl.formatMessage({
                   id: 'landingsside.text.uinnlogget_kalkulator',
                 })}
@@ -172,13 +171,12 @@ export function LandingPage() {
 
               <div>
                 <Button
-                  data-testid="landingside-enkel-kalkulator-button"
+                  data-testid="landingside-uinnlogget-kalkulator-button"
                   variant="secondary"
-                  /* c8 ignore next 1 */
-                  onClick={gaaTilUninnloggetKalkulator}
+                  onClick={gaaTilUinnloggetKalkulator}
                 >
                   {intl.formatMessage({
-                    id: 'landingsside.text.uinnlogget_kalkulator',
+                    id: 'landingsside.button.uinnlogget_kalkulator',
                   })}
                 </Button>
               </div>

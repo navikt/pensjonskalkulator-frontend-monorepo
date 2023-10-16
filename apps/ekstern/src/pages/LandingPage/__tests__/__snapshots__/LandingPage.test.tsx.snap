@@ -27,7 +27,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
           <div>
             <button
               class="navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-detaljert-kalkulator-button"
+              data-testid="landingside-first-button"
             >
               <span
                 class="navds-label"
@@ -80,6 +80,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
           >
             <button
               class="navds-button navds-button--secondary navds-button--medium"
+              data-testid="landingside-detaljert-kalkulator-button"
             >
               <span
                 class="navds-label"
@@ -156,7 +157,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           <div>
             <button
               class="navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-detaljert-kalkulator-button"
+              data-testid="landingside-first-button"
             >
               <span
                 class="navds-label"
@@ -209,6 +210,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           >
             <button
               class="navds-button navds-button--secondary navds-button--medium"
+              data-testid="landingside-detaljert-kalkulator-button"
             >
               <span
                 class="navds-label"
@@ -236,7 +238,6 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
         >
           <h2
             class="navds-heading navds-heading--medium"
-            data-testid="uinlogget-kalkulator"
           >
             landingsside.text.uinnlogget_kalkulator
           </h2>
@@ -248,12 +249,12 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           <div>
             <button
               class="navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-enkel-kalkulator-button"
+              data-testid="landingside-uinnlogget-kalkulator-button"
             >
               <span
                 class="navds-label"
               >
-                landingsside.text.uinnlogget_kalkulator
+                landingsside.button.uinnlogget_kalkulator
               </span>
             </button>
           </div>
