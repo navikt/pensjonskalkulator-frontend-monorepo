@@ -400,7 +400,9 @@ export const getChartOptions = (
       rules: [
         {
           condition: {
-            maxWidth: 772,
+            callback: () => {
+              return window.matchMedia('(max-width: 1023px)').matches
+            },
           },
           chartOptions: {
             xAxis: {
@@ -445,14 +447,6 @@ export const getChartOptions = (
               itemDistance: 12,
               verticalAlign: 'top',
             },
-          },
-        },
-        {
-          condition: {
-            maxWidth: 480,
-          },
-          chartOptions: {
-            legend: { itemDistance: 15 },
           },
         },
       ],
