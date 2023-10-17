@@ -1,4 +1,4 @@
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
@@ -9,6 +9,7 @@ import { paths } from '@/router'
 import styles from './GrunnlagForbehold.module.scss'
 
 export function GrunnlagForbehold() {
+  const intl = useIntl()
   return (
     <section className={styles.section}>
       <Heading level="2" size="medium" className={styles.heading}>
@@ -24,7 +25,13 @@ export function GrunnlagForbehold() {
         inlineText
       >
         <FormattedMessage id="grunnlag.forbehold.link" />
-        <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
+        <ExternalLinkIcon
+          title={intl.formatMessage({
+            id: 'application.global.external_link',
+          })}
+          width="1.25rem"
+          height="1.25rem"
+        />
       </Link>
     </section>
   )

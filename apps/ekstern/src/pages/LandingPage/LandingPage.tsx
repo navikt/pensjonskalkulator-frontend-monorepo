@@ -191,7 +191,13 @@ export function LandingPage() {
           inlineText
         >
           <FormattedMessage id="landingsside.link.personopplysninger" />
-          <ExternalLinkIcon width="1.25rem" height="1.25rem" aria-hidden />
+          <ExternalLinkIcon
+            title={intl.formatMessage({
+              id: 'application.global.external_link',
+            })}
+            width="1.25rem"
+            height="1.25rem"
+          />
         </Link>
       </VStack>
     </div>

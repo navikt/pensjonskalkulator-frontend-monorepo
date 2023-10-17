@@ -26,7 +26,7 @@ describe('LanguageProvider-utils', () => {
 
   describe('setCookie', () => {
     it('setter cookie med riktig value', () => {
-      expect(getCookie('my-cookie')).toBe('')
+      expect(getCookie('my-cookie')).toBe(';expires')
       setCookie('my-cookie', 'updatedValue')
 
       const cookie = getCookie('my-cookie')

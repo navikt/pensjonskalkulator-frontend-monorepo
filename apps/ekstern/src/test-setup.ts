@@ -31,6 +31,11 @@ window.ResizeObserver =
     unobserve: vi.fn(),
   }))
 
+Object.defineProperty(window.document, 'cookie', {
+  writable: true,
+  value: 'decorator-language=nb',
+})
+
 window.HTMLElement.prototype.scrollIntoView = vi.fn()
 
 vi.mock(
