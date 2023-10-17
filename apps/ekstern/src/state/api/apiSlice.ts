@@ -18,8 +18,6 @@ import {
   TidligsteUttaksalderRequestBody,
 } from '@/state/api/apiSlice.types'
 
-import { parse } from 'date-fns'
-
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({

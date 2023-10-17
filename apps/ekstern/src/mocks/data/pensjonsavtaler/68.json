@@ -51,11 +51,11 @@
     {
       "produktbetegnelse": "Oslo Pensjonsforsikring (livsvarig eksempel)",
       "kategori": "OFFENTLIG_TJENESTEPENSJON",
-      "startAar": 67,
+      "startAar": 68,
       "utbetalingsperioder": [
         {
-          "startAlder": { "aar": 67, "maaneder": 0 },
-          "aarligUtbetaling": 23456,
+          "startAlder": { "aar": 68, "maaneder": 0 },
+          "aarligUtbetaling": 150000,
           "grad": 100
         }
       ]

@@ -127,8 +127,14 @@ export function Simulering(props: {
     }
   }, [isLoading, isPensjonsavtalerLoading])
 
+  // Calculates the length of the x-axis, once at first and every time uttakalder or pensjonsavtaler is updated
   React.useEffect(() => {
-    if (startAar) {
+    // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler
+    if (startAar && !isLoading && isPensjonsavtalerLoading) {
+      setXAxis(generateXAxis(startAar, [], setIsPensjonsavtaleFlagVisible))
+    }
+    // recalculates correclty when alderspensjon AND pensjonsavtaler are done loading
+    if (startAar && !isLoading && !isPensjonsavtalerLoading) {
       setXAxis(
         generateXAxis(
           startAar,
@@ -137,27 +143,19 @@ export function Simulering(props: {
         )
       )
     }
-  }, [startAar, pensjonsavtaler])
+  }, [alderspensjon, pensjonsavtaler])
 
+  // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
     if (startAar && alderspensjon) {
-      // XAxis beregnes på nytt i tilfelle den var 0 (skjer når graf'en f.eks feiler)
-      const latestXAxis =
-        XAxis.length > 0
-          ? XAxis
-          : generateXAxis(
-              startAar,
-              pensjonsavtaler?.avtaler ?? [],
-              setIsPensjonsavtaleFlagVisible
-            )
       setChartOptions({
-        ...getChartDefaults(latestXAxis),
+        ...getChartDefaults(XAxis),
         series: [
           {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
             data: processInntektArray(
               inntekt.beloep,
-              latestXAxis.length,
+              XAxis.length,
               startMaaned
             ),
           } as SeriesOptionsType,
@@ -180,7 +178,7 @@ export function Simulering(props: {
                   /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
                     startAar - 1,
-                    latestXAxis.length,
+                    XAxis.length,
                     pensjonsavtaler?.avtaler
                   ),
                 } as SeriesOptionsType,
@@ -190,13 +188,13 @@ export function Simulering(props: {
             ...SERIES_DEFAULT.SERIE_ALDERSPENSJON,
             data: processPensjonsberegningArray(
               alderspensjon.alderspensjon,
-              latestXAxis.length
+              XAxis.length
             ),
           } as SeriesOptionsType,
         ],
       })
     }
-  }, [alderspensjon, pensjonsavtaler])
+  }, [XAxis])
 
   return (
     <section className={styles.section}>

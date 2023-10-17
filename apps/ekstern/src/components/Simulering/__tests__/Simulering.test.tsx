@@ -14,7 +14,7 @@ import { act, render, screen, waitFor, userEvent } from '@/test-utils'
 describe('Simulering', () => {
   const inntekt = { beloep: 500000, aar: 2021 }
   const currentSimulation: Simulation = {
-    startAar: 70,
+    startAar: 67,
     startMaaned: 5,
     uttaksgrad: 100,
     aarligInntekt: 0,
@@ -103,9 +103,14 @@ describe('Simulering', () => {
       expect(
         container.getElementsByClassName('highcharts-container')
       ).toHaveLength(1)
-      expect(
-        container.getElementsByClassName('highcharts-legend-item')
-      ).toHaveLength(4)
+      const legendItems = container.getElementsByClassName(
+        'highcharts-legend-item'
+      )
+      const SVGlegendItems = Array.from(legendItems).filter(
+        (item) => item.tagName === 'g'
+      )
+      expect(SVGlegendItems).toMatchSnapshot()
+      expect(SVGlegendItems).toHaveLength(2)
     })
 
     it('Når brukeren velger AFP-privat, viser inntekt, alderspensjon og AFP', async () => {
@@ -142,9 +147,14 @@ describe('Simulering', () => {
       expect(
         container.getElementsByClassName('highcharts-container')
       ).toHaveLength(1)
-      expect(
-        container.getElementsByClassName('highcharts-legend-item')
-      ).toHaveLength(6)
+      const legendItems = container.getElementsByClassName(
+        'highcharts-legend-item'
+      )
+      const SVGlegendItems = Array.from(legendItems).filter(
+        (item) => item.tagName === 'g'
+      )
+      expect(SVGlegendItems).toMatchSnapshot()
+      expect(SVGlegendItems).toHaveLength(3)
     })
   })
 
@@ -186,7 +196,7 @@ describe('Simulering', () => {
           sivilstand: undefined,
           uttaksperioder: [
             {
-              startAlder: { aar: 70, maaneder: 5 },
+              startAlder: { aar: 67, maaneder: 5 },
               aarligInntekt: 0,
               grad: 100,
             },
