@@ -20,6 +20,7 @@ const translations = {
     'Henvisning uføretrygd og gjenlevendepensjon – Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
+  'application.global.external_link': 'åpner i en ny fane',
   'pageframework.title': 'Pensjonskalkulator',
   'loading.person': 'Henter personopplysninger',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
