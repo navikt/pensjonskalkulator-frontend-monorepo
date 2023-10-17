@@ -9,7 +9,7 @@ const inntektResponse = require('../../../mocks/data/inntekt.json')
 const personResponse = require('../../../mocks/data/person.json')
 const tpoMedlemskapResponse = require('../../../mocks/data/tpo-medlemskap.json')
 const tidligsteUttaksalderResponse = require('../../../mocks/data/tidligsteUttaksalder.json')
-const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler.json')
+const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler/67.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
 const sakStatusResponse = require('../../../mocks/data/sak-status.json')
 const unleashResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
@@ -183,7 +183,7 @@ describe('apiSlice', () => {
     const dummyRequestBody = {
       uttaksperioder: [
         {
-          startAlder: { aar: 0, maaneder: 0 },
+          startAlder: { aar: 67, maaneder: 0 },
           grad: 100,
           aarligInntekt: 500000,
         },

@@ -3,7 +3,6 @@ import { rest } from 'msw'
 import { API_PATH } from '@/paths'
 
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
-import pensjonsavtalerResponse from './data/pensjonsavtaler.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
 import sakStatusReponse from './data/sak-status.json' assert { type: 'json' }
 import tidligstemuligeuttaksalderResponse from './data/tidligsteUttaksalder.json' assert { type: 'json' }
@@ -50,11 +49,10 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   }),
 
   rest.post(`${baseUrl}/v1/pensjonsavtaler`, async (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json(pensjonsavtalerResponse),
-      ctx.delay(TEST_DELAY)
-    )
+    const body = await req.json()
+    const aar = body.uttaksperioder[0]?.startAlder.aar
+    const data = await import(`./data/pensjonsavtaler/${aar}.json`)
+    return res(ctx.status(200), ctx.json(data), ctx.delay(TEST_DELAY))
   }),
 
   rest.post(`${baseUrl}/v1/alderspensjon/simulering`, async (req, res, ctx) => {
