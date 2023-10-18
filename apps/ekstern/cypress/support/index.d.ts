@@ -1,4 +1,4 @@
-import { AfpRadio } from '../../src/components/stegvisning/AFP'
+/// <reference types="../../src/types/types" />
 
 declare global {
   namespace Cypress {

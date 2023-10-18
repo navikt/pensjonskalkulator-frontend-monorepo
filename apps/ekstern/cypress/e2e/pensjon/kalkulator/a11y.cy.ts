@@ -28,7 +28,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker Steg 4
-    cy.contains('Du kan ha rett til AFP')
+    cy.contains('Avtalefestet pensjon')
     cy.contains('button', 'Om avtalefestet pensjon i privat sektor').click()
     cy.get('[type="radio"]').first().check()
     cy.checkA11y()
