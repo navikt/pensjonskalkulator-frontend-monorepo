@@ -48,7 +48,7 @@ exports[`GrunnlagForbehold > rendrer riktig 1`] = `
       Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i 
       <a
         class="navds-link navds-link--action navds-link--inline-text"
-        href="https://pensjon-pselv-q2-gcp.intern.dev.nav.no/pselv/simulering.jsf"
+        href="https://www.nav.no/pselv/simulering.jsf"
         target="_blank"
       >
         detaljert kalkulator

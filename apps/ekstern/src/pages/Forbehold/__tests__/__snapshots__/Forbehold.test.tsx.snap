@@ -33,7 +33,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         I beregningen benytter vi den siste registrerte pensjonsgivende årsinntekten som NAV har mottatt fra Skatteetaten. Inntekten blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon. Hvis du ønsker å endre fremtidig inntekt, må du benytte 
         <a
           class="navds-link navds-link--action navds-link--inline-text"
-          href="https://pensjon-pselv-q2-gcp.intern.dev.nav.no/pselv/simulering.jsf"
+          href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
           detaljert kalkulator
@@ -77,7 +77,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         Hvis du har mindre enn 40 års trygdetid kan det påvirke hvor mye du får i alderspensjon, og når du kan ta ut alderspensjon. I denne utgaven av kalkulatoren kan du foreløpig ikke registrere opphold utenfor Norge. For å få beregnet alderspensjonen din så riktig som mulig, må du derfor benytte 
         <a
           class="navds-link navds-link--action navds-link--inline-text"
-          href="https://pensjon-pselv-q2-gcp.intern.dev.nav.no/pselv/simulering.jsf"
+          href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
           detaljert kalkulator
@@ -167,7 +167,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         Mottar du hel eller delvis uføretrygd kan beregningen gi feil resultat. Du må benytte 
         <a
           class="navds-link navds-link--action navds-link--inline-text"
-          href="https://pensjon-pselv-q2-gcp.intern.dev.nav.no/pselv/simulering.jsf"
+          href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
           detaljert kalkulator
@@ -209,7 +209,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         Er du innvilget gjenlevendepensjon kan beregningen gi feil resultat. Du må benytte 
         <a
           class="navds-link navds-link--action navds-link--inline-text"
-          href="https://pensjon-pselv-q2-gcp.intern.dev.nav.no/pselv/simulering.jsf"
+          href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
           detaljert kalkulator
@@ -251,7 +251,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         Mottar du særalderspensjon fra en tjenestepensjonsordning, må du bruke 
         <a
           class="navds-link navds-link--action navds-link--inline-text"
-          href="https://pensjon-pselv-q2-gcp.intern.dev.nav.no/pselv/simulering.jsf"
+          href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
           detaljert kalkulator
