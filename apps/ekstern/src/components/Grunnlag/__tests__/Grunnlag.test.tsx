@@ -52,7 +52,7 @@ describe('Grunnlag', () => {
       })
       expect(
         await screen.findByText(
-          'For å starte uttak før 67 år må opptjeningen være høy nok',
+          'For å starte uttak mellom 62 og 67 år må opptjeningen din',
           { exact: false }
         )
       ).toBeVisible()
@@ -83,7 +83,7 @@ describe('Grunnlag', () => {
       ).toBeVisible()
       expect(
         await screen.findByText(
-          'For å starte uttak før 67 år må opptjeningen være høy nok',
+          'For å starte uttak mellom 62 og 67 år må opptjeningen din',
           { exact: false }
         )
       ).toBeVisible()

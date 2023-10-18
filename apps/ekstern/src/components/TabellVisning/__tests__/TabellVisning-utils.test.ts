@@ -9,7 +9,7 @@ describe('TabellVisning-utils', () => {
     const series: SeriesColumnOptions[] = [
       {
         type: 'column',
-        name: 'Inntekt (lønn m.m.)',
+        name: 'Pensjonsgivende inntekt',
         data: [
           100000, 175000, 220000, 220000, 220000, 220000, 220000, 220000,
           220000,
@@ -17,7 +17,7 @@ describe('TabellVisning-utils', () => {
       },
       {
         type: 'column',
-        name: 'Avtalefestet pensjon (AFP)',
+        name: 'AFP (Avtalefestet pensjon)',
         data: [
           150000, 200000, 350000, 350000, 350000, 350000, 350000, 350000,
           350000,
@@ -25,7 +25,7 @@ describe('TabellVisning-utils', () => {
       },
       {
         type: 'column',
-        name: 'Pensjonsavtaler (arbeidsgiver)',
+        name: 'Pensjonsavtaler (arbeidsgivere m.m.)',
         data: [
           180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000,
           380000,
@@ -53,7 +53,7 @@ describe('TabellVisning-utils', () => {
       const result = formatSeriesToTableData([], [...alderArray])
       expect(result).toHaveLength(alderArray.length)
       expect(result[0].alder).toBe('62 år')
-      expect(result[alderArray.length - 1].alder).toBe('70+ (livsvarig)')
+      expect(result[alderArray.length - 1].alder).toBe('70+ år (livsvarig)')
       expect(result).toMatchSnapshot()
     })
 

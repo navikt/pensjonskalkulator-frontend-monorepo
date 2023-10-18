@@ -31,7 +31,7 @@ describe('TidligstMuligUttaksalder', () => {
 
     expect(
       screen.getByText(
-        'For å starte uttak mellom 62 og 67 år må opptjeningen være høy nok. Tidspunktet er et estimat.'
+        'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.'
       )
     ).toBeInTheDocument()
   })

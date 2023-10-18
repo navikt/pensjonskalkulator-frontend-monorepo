@@ -71,7 +71,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         screen.queryByTestId('pensjonsavtaler-table')
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByText('Alle avtaler i privat sektor er hentet fra ', {
+        screen.queryByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).not.toBeInTheDocument()
@@ -147,7 +147,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         screen.queryByTestId('pensjonsavtaler-table')
       ).not.toBeInTheDocument()
       expect(
-        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
+        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()
@@ -202,7 +202,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       ).toBeVisible()
       expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
       expect(
-        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
+        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()
@@ -243,7 +243,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         await user.click(buttons[0])
       })
       expect(
-        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
+        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()

@@ -66,9 +66,6 @@ export function Samtykke({
           className={styles.readmore}
           header={<FormattedMessage id="stegvisning.samtykke.readmore_title" />}
         >
-          <FormattedMessage id="stegvisning.samtykke.readmore_ingress" />
-          <br />
-          <br />
           <FormattedMessage id="stegvisning.samtykke.readmore_list_title" />
           <ul className={styles.list}>
             <li>
@@ -81,6 +78,8 @@ export function Samtykke({
               <FormattedMessage id="stegvisning.samtykke.readmore_list_item3" />
             </li>
           </ul>
+
+          <FormattedMessage id="stegvisning.samtykke.readmore_ingress" />
         </ReadMore>
 
         <RadioGroup

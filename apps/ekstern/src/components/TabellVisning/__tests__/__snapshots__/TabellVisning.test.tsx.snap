@@ -70,9 +70,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Inntekt
-              <br />
-              (lønn m.m.)
+              Pensjonsgivende inntekt
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
@@ -845,7 +843,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ (livsvarig)
+              77+ år (livsvarig)
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1085,7 +1083,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ (livsvarig)
+              77+ år (livsvarig)
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -1174,9 +1172,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Inntekt
-              <br />
-              (lønn m.m.)
+              Pensjonsgivende inntekt
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
@@ -1949,7 +1945,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ (livsvarig)
+              77+ år (livsvarig)
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2189,7 +2185,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ (livsvarig)
+              77+ år (livsvarig)
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2278,21 +2274,19 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Inntekt
-              <br />
-              (lønn m.m.)
+              Pensjonsgivende inntekt
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Avtalefestet pensjon (AFP)
+              AFP (Avtalefestet pensjon)
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Pensjonsavtaler (arbeidsgiver)
+              Pensjonsavtaler (arbeidsgivere m.m.)
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
@@ -2391,7 +2385,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       200 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2497,7 +2491,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       350 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2603,7 +2597,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2709,7 +2703,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2815,7 +2809,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2921,7 +2915,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3027,7 +3021,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3133,7 +3127,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3193,7 +3187,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ (livsvarig)
+              77+ år (livsvarig)
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -3239,7 +3233,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3529,7 +3523,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ (livsvarig)
+              77+ år (livsvarig)
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3624,21 +3618,19 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Inntekt
-              <br />
-              (lønn m.m.)
+              Pensjonsgivende inntekt
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Avtalefestet pensjon (AFP)
+              AFP (Avtalefestet pensjon)
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Pensjonsavtaler (arbeidsgiver)
+              Pensjonsavtaler (arbeidsgivere m.m.)
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
@@ -3737,7 +3729,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       200 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3843,7 +3835,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       350 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3949,7 +3941,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4055,7 +4047,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4161,7 +4153,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4267,7 +4259,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4373,7 +4365,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4479,7 +4471,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4539,7 +4531,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ (livsvarig)
+              77+ år (livsvarig)
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -4585,7 +4577,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgiver)
+                      Pensjonsavtaler (arbeidsgivere m.m.)
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4875,7 +4867,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ (livsvarig)
+              77+ år (livsvarig)
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"

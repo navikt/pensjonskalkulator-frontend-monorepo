@@ -11,14 +11,12 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       stegvisning.offentligtp.title
     </h2>
     <p
-      class="navds-body-long navds-body-long--medium navds-typo--spacing"
+      class="navds-body-long navds-body-long--medium"
     >
-      stegvisning.offentligtp.ingress_1
-    </p>
-    <p
-      class="_lastIngress_f5c4aa navds-body-long navds-body-long--medium"
-    >
-      stegvisning.offentligtp.ingress_2
+      Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn tjenestepensjonen din. Du kan sjekke dine avtaler hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).
+      <br />
+      <br />
+      Gå videre for å beregne alderspensjon fra NAV og se pensjonsavtaler i privat sektor.
     </p>
     <button
       class="_button_f5c4aa navds-button navds-button--primary navds-button--medium"

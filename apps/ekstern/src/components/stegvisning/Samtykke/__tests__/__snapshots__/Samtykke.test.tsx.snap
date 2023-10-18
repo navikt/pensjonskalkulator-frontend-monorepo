@@ -51,9 +51,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         >
-          stegvisning.samtykke.readmore_ingress
-          <br />
-          <br />
           stegvisning.samtykke.readmore_list_title
           <ul
             class="_list_5b4738"
@@ -68,6 +65,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
               stegvisning.samtykke.readmore_list_item3
             </li>
           </ul>
+          stegvisning.samtykke.readmore_ingress
         </div>
       </div>
       <fieldset

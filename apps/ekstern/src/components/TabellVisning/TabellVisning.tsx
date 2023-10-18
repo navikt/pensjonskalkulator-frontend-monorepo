@@ -52,9 +52,7 @@ export function TabellVisning({
               scope="col"
               className={clsx(styles.detailsItemRight, styles.tableDesktopOnly)}
             >
-              Inntekt
-              <br />
-              (lønn m.m.)
+              Pensjonsgivende inntekt
             </Table.HeaderCell>
             {showAfp && (
               <Table.HeaderCell
@@ -64,7 +62,7 @@ export function TabellVisning({
                   styles.tableDesktopOnly
                 )}
               >
-                Avtalefestet pensjon (AFP)
+                AFP (Avtalefestet pensjon)
               </Table.HeaderCell>
             )}
             {showPensjonsavtaler && (
@@ -75,7 +73,7 @@ export function TabellVisning({
                   styles.tableDesktopOnly
                 )}
               >
-                Pensjonsavtaler (arbeidsgiver)
+                Pensjonsavtaler (arbeidsgivere m.m.)
               </Table.HeaderCell>
             )}
             <Table.HeaderCell

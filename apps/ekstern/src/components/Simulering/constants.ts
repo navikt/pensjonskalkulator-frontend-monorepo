@@ -17,19 +17,19 @@ export const SERIES_DEFAULT = {
   SERIE_INNTEKT: {
     type: 'column',
     pointWidth: COLUMN_WIDTH,
-    name: 'Inntekt (lønn m.m.)',
+    name: 'Pensjonsgivende inntekt',
     color: SERIES_COLORS.SERIE_COLOR_INNTEKT,
   },
   SERIE_TP: {
     type: 'column',
     pointWidth: COLUMN_WIDTH,
-    name: 'Pensjonsavtaler (arbeidsgiver)',
+    name: 'Pensjonsavtaler (arbeidsgivere m.m.)',
     color: SERIES_COLORS.SERIE_COLOR_TP,
   },
   SERIE_AFP: {
     type: 'column',
     pointWidth: COLUMN_WIDTH,
-    name: 'Avtalefestet pensjon (AFP)',
+    name: 'AFP (Avtalefestet pensjon)',
     color: SERIES_COLORS.SERIE_COLOR_AFP,
   },
   SERIE_ALDERSPENSJON: {

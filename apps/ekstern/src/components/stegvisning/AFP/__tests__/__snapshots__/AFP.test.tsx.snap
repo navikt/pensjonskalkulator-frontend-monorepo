@@ -51,7 +51,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         >
-          stegvisning.afp.readmore_list_title
+          stegvisning.afp.readmore_privat_list_title
           <ul
             class="_list_10a2c6"
           >
@@ -132,7 +132,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         >
-          stegvisning.afp.readmore_list_title
+          stegvisning.afp.readmore_offentlig_list_title
           <ul
             class="_list_10a2c6"
           >
@@ -357,7 +357,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
         >
-          stegvisning.afp.readmore_list_title
+          stegvisning.afp.readmore_privat_list_title
           <ul
             class="_list_10a2c6"
           >
@@ -438,7 +438,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
         >
-          stegvisning.afp.readmore_list_title
+          stegvisning.afp.readmore_offentlig_list_title
           <ul
             class="_list_10a2c6"
           >
@@ -662,7 +662,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
         >
-          stegvisning.afp.readmore_list_title
+          stegvisning.afp.readmore_privat_list_title
           <ul
             class="_list_10a2c6"
           >
@@ -743,7 +743,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           aria-hidden="false"
           class="navds-read-more__content navds-body-long navds-body-long--medium"
         >
-          stegvisning.afp.readmore_list_title
+          stegvisning.afp.readmore_offentlig_list_title
           <ul
             class="_list_10a2c6"
           >
