@@ -136,7 +136,7 @@ describe('Step 3', () => {
       ).toBeVisible()
       expect(
         await screen.findByText(
-          'Vi kan dessverre ikke hente inn avtaler om tjenestepensjon fra offentlig sektor',
+          'Gå videre for å beregne alderspensjon fra NAV',
           { exact: false }
         )
       ).toBeVisible()

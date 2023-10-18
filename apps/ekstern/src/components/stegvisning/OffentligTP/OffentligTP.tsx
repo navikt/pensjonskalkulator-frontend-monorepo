@@ -5,6 +5,7 @@ import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { wrapLogger } from '@/utils/logging'
+import { formatMessageValues } from '@/utils/translations'
 
 import styles from './OffentligTP.module.scss'
 
@@ -32,13 +33,14 @@ export function OffentligTP({
       <Heading level="2" size="medium" spacing>
         <FormattedMessage id="stegvisning.offentligtp.title" />
       </Heading>
-      <BodyLong spacing>
-        <FormattedMessage id="stegvisning.offentligtp.ingress_1" />
+      <BodyLong>
+        <FormattedMessage
+          id="stegvisning.offentligtp.ingress"
+          values={{
+            ...formatMessageValues,
+          }}
+        />
       </BodyLong>
-      <BodyLong className={styles.lastIngress}>
-        <FormattedMessage id="stegvisning.offentligtp.ingress_2" />
-      </BodyLong>
-
       <Button type="submit" className={styles.button} onClick={onNext}>
         <FormattedMessage id="stegvisning.neste" />
       </Button>

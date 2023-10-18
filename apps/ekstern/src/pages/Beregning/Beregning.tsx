@@ -176,7 +176,7 @@ export function Beregning() {
                     startAar < 67 &&
                     `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAar} år. Prøv en høyere alder.`}
                   {isError &&
-                    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'}
+                    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.'}
                 </Alert>
               </>
             ) : (

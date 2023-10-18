@@ -194,7 +194,7 @@ describe('Beregning', () => {
       await waitFor(async () => {
         expect(
           await screen.findByText(
-            'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå'
+            'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.'
           )
         ).toBeVisible()
       })

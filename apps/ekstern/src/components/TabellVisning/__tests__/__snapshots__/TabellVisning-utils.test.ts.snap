@@ -6,15 +6,15 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "62 år",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 100000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 150000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 180000,
       },
       {
@@ -28,15 +28,15 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "63 år",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 175000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 200000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 250000,
       },
       {
@@ -50,15 +50,15 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "64 år",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 380000,
       },
       {
@@ -72,15 +72,15 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "65 år",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 380000,
       },
       {
@@ -94,15 +94,15 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "66 år",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 380000,
       },
       {
@@ -116,15 +116,15 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "67 år",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 380000,
       },
       {
@@ -138,15 +138,15 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "68 år",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 380000,
       },
       {
@@ -160,15 +160,15 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "68 år",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 380000,
       },
       {
@@ -179,18 +179,18 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 1350000,
   },
   {
-    "alder": "70+ (livsvarig)",
+    "alder": "70+ år (livsvarig)",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "Pensjonsgivende inntekt",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "AFP (Avtalefestet pensjon)",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
         "subSum": 380000,
       },
       {
@@ -246,7 +246,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 0,
   },
   {
-    "alder": "70+ (livsvarig)",
+    "alder": "70+ år (livsvarig)",
     "detaljer": [],
     "sum": 0,
   },
