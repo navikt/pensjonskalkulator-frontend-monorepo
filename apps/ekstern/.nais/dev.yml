@@ -37,7 +37,7 @@ spec:
       autoLogin: true
       autoLoginIgnorePaths:
         - /internal/ping
-        - /pensjon/kalkulator/
+        - /pensjon/kalkulator
         - /pensjon/kalkulator/login
         - /pensjon/kalkulator/assets/*
         - /pensjon/kalkulator/api/status

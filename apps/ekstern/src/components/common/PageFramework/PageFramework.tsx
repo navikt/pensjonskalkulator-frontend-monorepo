@@ -48,8 +48,7 @@ export const PageFramework: React.FC<
 
   React.useEffect(() => {
     if (!isLoggedIn && shouldCheckAuthentication) {
-      navigate(paths.login)
-      dispatch(apiSlice.util.resetApiState())
+      window.open('/oauth2/login?redirect=%2Fpensjon%2Fkalkulator')
     }
   }, [isLoggedIn])
 
