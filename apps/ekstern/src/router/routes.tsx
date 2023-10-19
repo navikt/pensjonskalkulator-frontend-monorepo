@@ -19,6 +19,7 @@ import { StepFeil } from '@/pages/StepFeil/'
 // import { HOST_BASEURL } from '@/paths'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
+import { HOST_BASEURL } from '@/paths'
 
 export const BASE_PATH = '/pensjon/kalkulator'
 
@@ -57,22 +58,20 @@ export const paths = {
   personopplysninger: '/personopplysninger',
 } as const
 
-// export const authentificationGuard = async () => {
-// TODO flytte focus logikk fra PageFramweork her
-//   try {
-//     const res = await fetch(`${HOST_BASEURL}/oauth2/session`)
-//     if (!res.ok) {
-//       throw Error('Ikke pålogget')
-//     }
-//   } catch (error) {
-//     console.log('>>>> authentificationGuard redirect to login')
-//     return redirect(paths.login)
-//   }
-//   return null
-// }
+export const authentificationGuard = async () => {
+  try {
+    const res = await fetch(`${HOST_BASEURL}/oauth2/session`)
+    if (!res.ok) {
+      throw Error('Ikke pålogget')
+    }
+  } catch (error) {
+    window.open('/oauth2/login?redirect=%2Fpensjon%2Fkalkulator')
+  }
+  return null
+}
 
 const directAccessGuard = async () => {
-  // await authentificationGuard()
+  await authentificationGuard()
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (
     store.getState().api.queries === undefined ||
@@ -97,28 +96,33 @@ export const routes: RouteObject[] = [
         element: <Navigate to={paths.login} replace />,
       },
       {
+        loader: authentificationGuard,
         path: paths.start,
         element: <Step0 />,
       },
       {
+        loader: authentificationGuard,
         path: paths.henvisningUfoeretrygdGjenlevendepensjon,
         element: <HenvisningUfoeretrygdGjenlevendepensjon />,
       },
       {
+        loader: authentificationGuard,
         path: paths.henvisning1963,
         element: <Henvisning1963 />,
       },
       {
+        loader: authentificationGuard,
         path: paths.utenlandsopphold,
         element: <Step1 />,
       },
       {
+        loader: authentificationGuard,
         path: paths.utenlandsoppholdFeil,
         element: <Step1Feil />,
       },
       {
-        path: paths.samtykke,
         loader: directAccessGuard,
+        path: paths.samtykke,
         element: <Step2 />,
       },
       {
@@ -142,10 +146,12 @@ export const routes: RouteObject[] = [
         element: <StepFeil />,
       },
       {
+        loader: authentificationGuard,
         path: paths.forbehold,
         element: <Forbehold />,
       },
       {
+        loader: authentificationGuard,
         path: paths.personopplysninger,
         element: <Personopplysninger />,
       },
@@ -163,7 +169,11 @@ export const routes: RouteObject[] = [
   },
   {
     element: (
-      <PageFramework shouldShowLogo hasWhiteBg isAuthenticated={false}>
+      <PageFramework
+        shouldShowLogo
+        hasWhiteBg
+        shouldCheckAuthentication={false}
+      >
         <Outlet />
       </PageFramework>
     ),
