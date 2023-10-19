@@ -29,8 +29,6 @@ export const PageFramework: React.FC<
   shouldCheckAuthentication = true,
 }) => {
   const intl = useIntl()
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
 
   const { pathname } = useLocation()
 
@@ -48,7 +46,9 @@ export const PageFramework: React.FC<
 
   React.useEffect(() => {
     if (!isLoggedIn && shouldCheckAuthentication) {
-      window.open('/oauth2/login?redirect=%2Fpensjon%2Fkalkulator')
+      window.open(
+        `${HOST_BASEURL}/oauth2/login?redirect=%2Fpensjon%2Fkalkulator`
+      )
     }
   }, [isLoggedIn])
 

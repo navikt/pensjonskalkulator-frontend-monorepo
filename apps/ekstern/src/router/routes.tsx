@@ -65,7 +65,7 @@ export const authentificationGuard = async () => {
       throw Error('Ikke pålogget')
     }
   } catch (error) {
-    window.open('/oauth2/login?redirect=%2Fpensjon%2Fkalkulator')
+    window.open(`${HOST_BASEURL}/oauth2/login?redirect=%2Fpensjon%2Fkalkulator`)
   }
   return null
 }
