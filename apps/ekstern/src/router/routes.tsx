@@ -57,21 +57,22 @@ export const paths = {
   personopplysninger: '/personopplysninger',
 } as const
 
-export const authentificationGuard = async () => {
-  try {
-    const res = await fetch(`${HOST_BASEURL}/oauth2/session`)
-    if (!res.ok) {
-      throw Error('Ikke pålogget')
-    }
-  } catch (error) {
-    console.log('>>>> authentificationGuard redirect to login')
-    return redirect(paths.login)
-  }
-  return null
-}
+// export const authentificationGuard = async () => {
+// TODO flytte focus logikk fra PageFramweork her
+//   try {
+//     const res = await fetch(`${HOST_BASEURL}/oauth2/session`)
+//     if (!res.ok) {
+//       throw Error('Ikke pålogget')
+//     }
+//   } catch (error) {
+//     console.log('>>>> authentificationGuard redirect to login')
+//     return redirect(paths.login)
+//   }
+//   return null
+// }
 
 const directAccessGuard = async () => {
-  await authentificationGuard()
+  // await authentificationGuard()
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (
     store.getState().api.queries === undefined ||
@@ -97,17 +98,14 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.start,
-        loader: authentificationGuard,
         element: <Step0 />,
       },
       {
         path: paths.henvisningUfoeretrygdGjenlevendepensjon,
-        loader: authentificationGuard,
         element: <HenvisningUfoeretrygdGjenlevendepensjon />,
       },
       {
         path: paths.henvisning1963,
-        loader: authentificationGuard,
         element: <Henvisning1963 />,
       },
       {
@@ -117,7 +115,6 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.utenlandsoppholdFeil,
-        loader: authentificationGuard,
         element: <Step1Feil />,
       },
       {
@@ -147,12 +144,10 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.forbehold,
-        loader: authentificationGuard,
         element: <Forbehold />,
       },
       {
         path: paths.personopplysninger,
-        loader: authentificationGuard,
         element: <Personopplysninger />,
       },
     ],
