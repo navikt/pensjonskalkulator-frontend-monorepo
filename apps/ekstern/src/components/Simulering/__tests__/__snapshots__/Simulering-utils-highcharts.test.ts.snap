@@ -111,17 +111,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartO
           },
         },
         "condition": {
-          "maxWidth": 772,
-        },
-      },
-      {
-        "chartOptions": {
-          "legend": {
-            "itemDistance": 15,
-          },
-        },
-        "condition": {
-          "maxWidth": 480,
+          "callback": [Function],
         },
       },
     ],

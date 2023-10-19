@@ -22,7 +22,7 @@ exports[`Simulering > Gitt at brukeren IKKE samtykker > Når brukeren ikke velge
   <g
     class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-1"
     data-z-index="1"
-    transform="translate(33,-5)"
+    transform="translate(45,-5)"
   >
     <rect
       class="highcharts-point"
@@ -61,7 +61,7 @@ exports[`Simulering > Gitt at brukeren IKKE samtykker > Når brukeren velger AFP
   <g
     class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-1"
     data-z-index="1"
-    transform="translate(33,-5)"
+    transform="translate(45,-5)"
   >
     <rect
       class="highcharts-point"
@@ -78,7 +78,7 @@ exports[`Simulering > Gitt at brukeren IKKE samtykker > Når brukeren velger AFP
   <g
     class="highcharts-legend-item highcharts-column-series highcharts-color-undefined highcharts-series-2"
     data-z-index="1"
-    transform="translate(66,-5)"
+    transform="translate(90,-5)"
   >
     <rect
       class="highcharts-point"
