@@ -50,7 +50,7 @@ export function StepFeil() {
       <Card.Content
         isLoading={isInntektLoading || isPersonLoading}
         text={{
-          loading: 'loading.person',
+          loading: 'pageframework.loading',
           header: 'error.global.title',
           ingress: 'error.global.ingress',
           primaryButton: 'error.global.button',

@@ -134,7 +134,9 @@ export function Beregning() {
       <Loader
         data-testid="uttaksalder-loader"
         size="3xlarge"
-        title="Et øyeblikk, vi henter tidligste mulige uttaksalder"
+        title={intl.formatMessage({
+          id: 'beregning.loading',
+        })}
       />
     )
   }

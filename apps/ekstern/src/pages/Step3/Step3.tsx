@@ -43,7 +43,7 @@ export function Step3() {
           <Loader
             data-testid="loader"
             size="3xlarge"
-            title="Et øyeblikk, vi henter informasjon om din offentlig tjenestepensjon"
+            title={intl.formatMessage({ id: 'pageframework.loading' })}
           />
         }
       >

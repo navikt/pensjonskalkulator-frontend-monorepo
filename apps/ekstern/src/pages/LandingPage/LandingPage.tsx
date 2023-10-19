@@ -37,7 +37,9 @@ export function LandingPage() {
   )
 
   if (isLoading) {
-    return <Loader />
+    return (
+      <Loader title={intl.formatMessage({ id: 'pageframework.loading' })} />
+    )
   }
 
   const gaaTilDetaljertKalkulator = () => {
