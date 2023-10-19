@@ -16,6 +16,7 @@ import { step3loader } from '@/pages/Step3/utils'
 import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
 import { StepFeil } from '@/pages/StepFeil/'
+import { HOST_BASEURL } from '@/paths'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
 
@@ -56,7 +57,21 @@ export const paths = {
   personopplysninger: '/personopplysninger',
 } as const
 
+export const authentificationGuard = async () => {
+  try {
+    const res = await fetch(`${HOST_BASEURL}/oauth2/session`)
+    if (!res.ok) {
+      throw Error('Ikke pålogget')
+    }
+  } catch (error) {
+    return redirect(paths.login)
+  }
+
+  return null
+}
+
 const directAccessGuard = async () => {
+  await authentificationGuard()
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (
     store.getState().api.queries === undefined ||
@@ -78,26 +93,31 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: paths.root,
-        element: <Navigate to={paths.start} replace />,
+        element: <Navigate to={paths.login} replace />,
       },
       {
         path: paths.start,
+        loader: authentificationGuard,
         element: <Step0 />,
       },
       {
         path: paths.henvisningUfoeretrygdGjenlevendepensjon,
+        loader: authentificationGuard,
         element: <HenvisningUfoeretrygdGjenlevendepensjon />,
       },
       {
         path: paths.henvisning1963,
+        loader: authentificationGuard,
         element: <Henvisning1963 />,
       },
       {
         path: paths.utenlandsopphold,
+        loader: authentificationGuard,
         element: <Step1 />,
       },
       {
         path: paths.utenlandsoppholdFeil,
+        loader: authentificationGuard,
         element: <Step1Feil />,
       },
       {
@@ -127,10 +147,12 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.forbehold,
+        loader: authentificationGuard,
         element: <Forbehold />,
       },
       {
         path: paths.personopplysninger,
+        loader: authentificationGuard,
         element: <Personopplysninger />,
       },
     ],

@@ -1,15 +1,15 @@
 import React, { PropsWithChildren } from 'react'
 import { useIntl } from 'react-intl'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation /* , useNavigate */ } from 'react-router-dom'
 
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import KalkulatorLogo from '../../../assets/kalkulator.svg'
 import { HOST_BASEURL } from '@/paths'
-import { paths } from '@/router'
-import { apiSlice } from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
+// import { paths } from '@/router'
+// import { apiSlice } from '@/state/api/apiSlice'
+// import { useAppDispatch } from '@/state/hooks'
 import useRequest from '@/utils/useRequest'
 
 import styles from './PageFramework.module.scss'
@@ -19,6 +19,7 @@ export const PageFramework: React.FC<
     isFullWidth?: boolean
     hasWhiteBg?: boolean
     shouldShowLogo?: boolean
+
     isAuthenticated?: boolean
   }
 > = ({
@@ -26,15 +27,15 @@ export const PageFramework: React.FC<
   isFullWidth,
   hasWhiteBg = false,
   shouldShowLogo = false,
-  isAuthenticated = true,
+  // isAuthenticated = true,
 }) => {
   const intl = useIntl()
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  // const navigate = useNavigate()
+  // const dispatch = useAppDispatch()
 
   const { pathname } = useLocation()
 
-  const { isLoading, status, reload } = useRequest<null>(
+  const { isLoading, status /* , reload*/ } = useRequest<null>(
     `${HOST_BASEURL}/oauth2/session`
   )
 
@@ -42,22 +43,24 @@ export const PageFramework: React.FC<
     window.scrollTo(0, 0)
   }, [pathname])
 
-  const isLoggedIn = React.useMemo(() => {
+  // const isLoggedIn =
+  React.useMemo(() => {
     return status === 200 || isLoading
   }, [status, isLoading])
 
-  React.useEffect(() => {
-    if (!isLoggedIn && isAuthenticated) {
-      navigate(paths.login)
-      dispatch(apiSlice.util.resetApiState())
-    }
-  }, [isLoggedIn])
+  // React.useEffect(() => {
+  //   if (!isLoggedIn && isAuthenticated) {
+  //     navigate(paths.login)
+  //     dispatch(apiSlice.util.resetApiState())
+  //   }
+  // }, [isLoggedIn])
 
   React.useEffect(() => {
     const onFocus = () => {
       /* c8 ignore next 3 */
       if (!isLoading) {
-        reload()
+        console.log('>>> RELOAD')
+        // reload()
       }
     }
 

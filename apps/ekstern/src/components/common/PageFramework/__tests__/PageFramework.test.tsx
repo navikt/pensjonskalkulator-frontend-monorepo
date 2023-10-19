@@ -53,32 +53,32 @@ describe('PageFramework', () => {
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
   })
 
-  it('sjekker auth når siden kommer i fokus', () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
+  // it('sjekker auth når siden kommer i fokus', () => {
+  //   const navigateMock = vi.fn()
+  //   vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+  //     () => navigateMock
+  //   )
 
-    const reloadMock = vi.fn()
+  //   const reloadMock = vi.fn()
 
-    const spy = vi.spyOn(useRequest, 'default')
-    spy.mockReturnValue({
-      status: 401,
-      reload: reloadMock,
-      isLoading: false,
-      loadingState: 'ERROR',
-      data: null,
-      hasError: false,
-      errorData: null,
-    })
+  //   const spy = vi.spyOn(useRequest, 'default')
+  //   spy.mockReturnValue({
+  //     status: 401,
+  //     reload: reloadMock,
+  //     isLoading: false,
+  //     loadingState: 'ERROR',
+  //     data: null,
+  //     hasError: false,
+  //     errorData: null,
+  //   })
 
-    render(
-      <PageFramework isAuthenticated>
-        <TestComponent />
-      </PageFramework>
-    )
+  //   render(
+  //     <PageFramework isAuthenticated>
+  //       <TestComponent />
+  //     </PageFramework>
+  //   )
 
-    window.dispatchEvent(new Event('focus'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.login)
-  })
+  //   window.dispatchEvent(new Event('focus'))
+  //   expect(navigateMock).toHaveBeenCalledWith(paths.login)
+  // })
 })

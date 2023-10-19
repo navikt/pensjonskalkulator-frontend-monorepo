@@ -49,14 +49,14 @@ describe('routes', () => {
   })
 
   describe(`${BASE_PATH}${paths.root}`, () => {
-    it('redirigerer til /start', async () => {
+    it('redirigerer til /login', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.root}`],
       })
       render(<RouterProvider router={router} />, { hasRouter: false })
       expect(
-        await screen.findByText('stegvisning.start.title Aprikos!')
+        await screen.findByText('landingsside.for.deg.foedt.foer.1963')
       ).toBeVisible()
     })
   })
