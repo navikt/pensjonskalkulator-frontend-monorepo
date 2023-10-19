@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Samtykke } from '..'
 import { RootState } from '@/state/store'
-import { act, screen, render, waitFor, userEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - Samtykke', () => {
   const onCancelMock = vi.fn()
@@ -77,9 +77,7 @@ describe('stegvisning - Samtykke', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.neste'))
-    })
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(
@@ -88,17 +86,13 @@ describe('stegvisning - Samtykke', () => {
       expect(onNextMock).not.toHaveBeenCalled()
     })
 
-    await act(async () => {
-      await user.click(radioButtons[0])
-    })
+    await user.click(radioButtons[0])
 
     expect(
       screen.queryByText('stegvisning.samtykke.validation_error')
     ).not.toBeInTheDocument()
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.neste'))
-    })
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
@@ -121,9 +115,7 @@ describe('stegvisning - Samtykke', () => {
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[0]).toBeChecked()
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.tilbake'))
-    })
+    await user.click(screen.getByText('stegvisning.tilbake'))
 
     waitFor(() => {
       expect(onPreviousMock).toHaveBeenCalled()
@@ -141,9 +133,7 @@ describe('stegvisning - Samtykke', () => {
       />
     )
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.avbryt'))
-    })
+    await user.click(screen.getByText('stegvisning.avbryt'))
 
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()

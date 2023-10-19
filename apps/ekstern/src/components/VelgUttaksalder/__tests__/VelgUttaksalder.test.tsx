@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { VelgUttaksalder } from '../VelgUttaksalder'
-import { act, render, screen, userEvent } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 describe('VelgUttaksalder', () => {
   const realInnerWidth = window.innerWidth
@@ -55,9 +55,7 @@ describe('VelgUttaksalder', () => {
       expect(await screen.findAllByRole('button')).toHaveLength(10)
       expect(result.asFragment()).toMatchSnapshot()
 
-      await act(async () => {
-        await user.click(screen.getByText('Vis flere aldere'))
-      })
+      await user.click(screen.getByText('Vis flere aldere'))
 
       expect(await screen.findAllByRole('button')).toHaveLength(15)
       expect(await screen.findByText('Vis færre aldere')).toBeVisible()
@@ -80,9 +78,8 @@ describe('VelgUttaksalder', () => {
 
       const { rerender } = render(<VelgUttaksalder {...getProps()} />)
 
-      await act(async () => {
-        await user.click(screen.getByText('65 år', { exact: false }))
-      })
+      await user.click(screen.getByText('65 år', { exact: false }))
+
       expect(window.HTMLElement.prototype.scrollIntoView).toHaveBeenCalled()
 
       rerender(<VelgUttaksalder {...getProps()} />)
@@ -90,15 +87,13 @@ describe('VelgUttaksalder', () => {
         '65 år'
       )
 
-      await act(async () => {
-        await user.click(screen.getByText('Vis flere aldere'))
-      })
+      await user.click(screen.getByText('Vis flere aldere'))
+
       rerender(<VelgUttaksalder {...getProps()} />)
       expect(screen.getByText('72 år', { exact: false })).toBeVisible()
 
-      await act(async () => {
-        await user.click(screen.getByText('72 år', { exact: false }))
-      })
+      await user.click(screen.getByText('72 år', { exact: false }))
+
       rerender(<VelgUttaksalder {...getProps()} />)
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
         '72 år'

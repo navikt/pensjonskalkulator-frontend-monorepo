@@ -9,7 +9,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, userEvent } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 describe('GrunnlagPensjonsavtaler', () => {
   const fakeInntektApiCall = {
@@ -57,9 +57,9 @@ describe('GrunnlagPensjonsavtaler', () => {
         await screen.findByText('grunnlag.pensjonsavtaler.title.error.samtykke')
       ).toBeVisible()
       const buttons = screen.getAllByRole('button')
-      await act(async () => {
-        await user.click(buttons[0])
-      })
+
+      await user.click(buttons[0])
+
       expect(
         await screen.findAllByText(
           'grunnlag.pensjonsavtaler.ingress.error.samtykke',
@@ -71,17 +71,17 @@ describe('GrunnlagPensjonsavtaler', () => {
         screen.queryByTestId('pensjonsavtaler-table')
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByText('Alle avtaler i privat sektor er hentet fra ', {
+        screen.queryByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).not.toBeInTheDocument()
-      await act(async () => {
-        await user.click(
-          await screen.findByText(
-            'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1'
-          )
+
+      await user.click(
+        await screen.findByText(
+          'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1'
         )
-      })
+      )
+
       expect(navigateMock).toHaveBeenCalledWith(paths.start)
       expect(store.getState().userInput.samtykke).toBe(null)
     })
@@ -147,7 +147,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         screen.queryByTestId('pensjonsavtaler-table')
       ).not.toBeInTheDocument()
       expect(
-        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
+        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()
@@ -202,7 +202,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       ).toBeVisible()
       expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
       expect(
-        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
+        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()
@@ -239,11 +239,11 @@ describe('GrunnlagPensjonsavtaler', () => {
         screen.queryByTestId('pensjonsavtaler-table')
       ).not.toBeInTheDocument()
       const buttons = screen.getAllByRole('button')
-      await act(async () => {
-        await user.click(buttons[0])
-      })
+
+      await user.click(buttons[0])
+
       expect(
-        await screen.findByText('Alle avtaler i privat sektor er hentet fra ', {
+        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()

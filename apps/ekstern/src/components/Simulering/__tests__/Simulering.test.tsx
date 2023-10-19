@@ -217,13 +217,13 @@ describe('Simulering', () => {
       const legendItems = (
         legendContainer[0] as HTMLElement
       ).getElementsByClassName('highcharts-legend-item')
-      expect(await screen.findByText('Inntekt (lønn m.m.)')).toBeVisible()
+      expect(await screen.findByText('Pensjonsgivende inntekt')).toBeVisible()
       expect(await screen.findByText('Alderspensjon (NAV)')).toBeVisible()
       expect(
-        await screen.findByText('Pensjonsavtaler (arbeidsgiver)')
+        await screen.findByText('Pensjonsavtaler (arbeidsgivere m.m.)')
       ).toBeVisible()
       expect(
-        screen.queryByText('Avtalefestet pensjon (AFP)')
+        screen.queryByText('AFP (Avtalefestet pensjon)')
       ).not.toBeInTheDocument()
       expect(legendItems).toHaveLength(3)
     })
@@ -415,9 +415,7 @@ describe('Simulering', () => {
         ).toBeVisible()
       })
       const button = await screen.findByText('pensjonsavtalene dine')
-      await act(async () => {
-        await user.click(button)
-      })
+      await user.click(button)
       expect(scrollIntoViewMock).toHaveBeenCalled()
       expect(toggleOpenMock).toHaveBeenCalled()
     })

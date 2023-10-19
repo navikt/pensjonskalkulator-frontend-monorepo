@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { AFP } from '..'
 import { RootState } from '@/state/store'
-import { act, screen, render, waitFor, userEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - AFP', () => {
   const onCancelMock = vi.fn()
@@ -24,14 +24,10 @@ describe('stegvisning - AFP', () => {
       'stegvisning.afp.title'
     )
 
-    await act(async () => {
-      await user.click(
-        screen.getByText('stegvisning.afp.readmore_privat_title')
-      )
-      await user.click(
-        screen.getByText('stegvisning.afp.readmore_offentlig_title')
-      )
-    })
+    await user.click(screen.getByText('stegvisning.afp.readmore_privat_title'))
+    await user.click(
+      screen.getByText('stegvisning.afp.readmore_offentlig_title')
+    )
 
     expect(result.asFragment()).toMatchSnapshot()
     expect(
@@ -97,9 +93,7 @@ describe('stegvisning - AFP', () => {
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
 
-    await act(async () => {
-      await user.click(radioButtons[0])
-    })
+    await user.click(radioButtons[0])
 
     expect(
       screen.queryByText('stegvisning.afp.alert_ja_offentlig')
@@ -108,9 +102,7 @@ describe('stegvisning - AFP', () => {
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
 
-    await act(async () => {
-      await user.click(radioButtons[1])
-    })
+    await user.click(radioButtons[1])
 
     expect(
       screen.queryByText('stegvisning.afp.alert_ja_offentlig')
@@ -119,9 +111,7 @@ describe('stegvisning - AFP', () => {
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
 
-    await act(async () => {
-      await user.click(radioButtons[2])
-    })
+    await user.click(radioButtons[2])
 
     expect(
       screen.queryByText('stegvisning.afp.alert_ja_offentlig')
@@ -130,9 +120,7 @@ describe('stegvisning - AFP', () => {
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
 
-    await act(async () => {
-      await user.click(radioButtons[3])
-    })
+    await user.click(radioButtons[3])
 
     expect(
       screen.queryByText('stegvisning.afp.alert_ja_offentlig')
@@ -155,9 +143,7 @@ describe('stegvisning - AFP', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.neste'))
-    })
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(
@@ -166,17 +152,13 @@ describe('stegvisning - AFP', () => {
       expect(onNextMock).not.toHaveBeenCalled()
     })
 
-    await act(async () => {
-      await user.click(radioButtons[0])
-    })
+    await user.click(radioButtons[0])
 
     expect(
       screen.queryByText('stegvisning.afp.validation_error')
     ).not.toBeInTheDocument()
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.neste'))
-    })
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
@@ -196,10 +178,9 @@ describe('stegvisning - AFP', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
     expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-    await act(async () => {
-      await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.beregn'))
-    })
+
+    await user.click(radioButtons[0])
+    await user.click(screen.getByText('stegvisning.beregn'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
@@ -221,9 +202,7 @@ describe('stegvisning - AFP', () => {
       }
     )
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.tilbake'))
-    })
+    await user.click(screen.getByText('stegvisning.tilbake'))
 
     expect(onPreviousMock).toHaveBeenCalled()
   })
@@ -240,9 +219,7 @@ describe('stegvisning - AFP', () => {
       />
     )
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.avbryt'))
-    })
+    await user.click(screen.getByText('stegvisning.avbryt'))
 
     expect(onCancelMock).toHaveBeenCalled()
   })

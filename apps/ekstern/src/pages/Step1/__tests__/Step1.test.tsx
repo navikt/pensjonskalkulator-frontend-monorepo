@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Step1 } from '..'
 import { paths } from '@/router'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { act, screen, render, userEvent } from '@/test-utils'
+import { screen, render, userEvent } from '@/test-utils'
 
 describe('Step 1', () => {
   it('har riktig sidetittel', () => {
@@ -22,10 +22,8 @@ describe('Step 1', () => {
     render(<Step1 />, {})
     const radioButtons = screen.getAllByRole('radio')
 
-    await act(async () => {
-      await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.neste'))
-    })
+    await user.click(radioButtons[0])
+    await user.click(screen.getByText('stegvisning.neste'))
 
     expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsoppholdFeil)
   })
@@ -39,10 +37,8 @@ describe('Step 1', () => {
     const { store } = render(<Step1 />, {})
     const radioButtons = screen.getAllByRole('radio')
 
-    await act(async () => {
-      await user.click(radioButtons[1])
-      await user.click(screen.getByText('stegvisning.neste'))
-    })
+    await user.click(radioButtons[1])
+    await user.click(screen.getByText('stegvisning.neste'))
 
     expect(store.getState().userInput.utenlandsopphold).toBe(false)
     expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
@@ -60,15 +56,12 @@ describe('Step 1', () => {
       },
     })
     const radioButtons = screen.getAllByRole('radio')
-    await act(async () => {
-      await user.click(radioButtons[0])
-    })
+
+    await user.click(radioButtons[0])
 
     expect(radioButtons[0]).toBeChecked()
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.tilbake'))
-    })
+    await user.click(screen.getByText('stegvisning.tilbake'))
 
     expect(store.getState().userInput.utenlandsopphold).toBeNull()
     expect(navigateMock).toHaveBeenCalledWith(paths.start)
@@ -88,9 +81,7 @@ describe('Step 1', () => {
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[1]).toBeChecked()
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.avbryt'))
-    })
+    await user.click(screen.getByText('stegvisning.avbryt'))
 
     expect(store.getState().userInput.utenlandsopphold).toBeNull()
     expect(navigateMock).toHaveBeenCalledWith(paths.login)

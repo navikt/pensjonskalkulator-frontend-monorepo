@@ -72,7 +72,7 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
             <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
           }
         >
-          <FormattedMessage id="stegvisning.afp.readmore_list_title" />
+          <FormattedMessage id="stegvisning.afp.readmore_privat_list_title" />
           <ul className={styles.list}>
             <li>
               <FormattedMessage id="stegvisning.afp.readmore_privat_list_item1" />
@@ -98,7 +98,7 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
             <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
           }
         >
-          <FormattedMessage id="stegvisning.afp.readmore_list_title" />
+          <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_title" />
           <ul className={styles.list}>
             <li>
               <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />

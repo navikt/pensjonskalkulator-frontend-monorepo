@@ -21,7 +21,7 @@ export function formatSeriesToTableData(
     let sum = 0
     const detaljer: TableDataRowDetaljer[] = []
     const alder = `${aarArray[i]} ${
-      aarArray[i].includes('+') ? '(livsvarig)' : 'år'
+      aarArray[i].includes('+') ? 'år (livsvarig)' : 'år'
     }`
 
     for (const obj of series) {
