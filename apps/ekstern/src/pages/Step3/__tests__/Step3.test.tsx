@@ -9,7 +9,7 @@ import { BASE_PATH, paths } from '@/router'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
-import { act, screen, render, waitFor, userEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 const initialGetState = store.getState
 
@@ -64,9 +64,9 @@ describe('Step 3', () => {
       expect(
         await screen.findByText('stegvisning.offentligtp.title')
       ).toBeVisible()
-      await act(async () => {
-        await user.click(await screen.findByText('stegvisning.neste'))
-      })
+
+      await user.click(await screen.findByText('stegvisning.neste'))
+
       expect(navigateMock).toHaveBeenCalledWith(paths.afp)
     })
 
@@ -86,9 +86,8 @@ describe('Step 3', () => {
       expect(
         await screen.findByText('stegvisning.offentligtp.title')
       ).toBeVisible()
-      await act(async () => {
-        await user.click(await screen.findByText('stegvisning.tilbake'))
-      })
+
+      await user.click(await screen.findByText('stegvisning.tilbake'))
 
       expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
     })
@@ -113,9 +112,9 @@ describe('Step 3', () => {
       expect(
         await screen.findByText('stegvisning.offentligtp.title')
       ).toBeVisible()
-      await act(async () => {
-        await user.click(await screen.findByText('stegvisning.avbryt'))
-      })
+
+      await user.click(await screen.findByText('stegvisning.avbryt'))
+
       expect(navigateMock).toHaveBeenCalledWith(paths.login)
       expect(flushMock).toHaveBeenCalled()
     })
@@ -163,9 +162,9 @@ describe('Step 3', () => {
         screen.queryByText('stegvisning.offentligtp.title')
       ).not.toBeInTheDocument()
       const button = await screen.findByText('stegvisning.neste')
-      await act(async () => {
-        await user.click(button)
-      })
+
+      await user.click(button)
+
       expect(navigateMock).toHaveBeenCalledWith(paths.afp)
     })
 
@@ -187,9 +186,9 @@ describe('Step 3', () => {
         screen.queryByText('stegvisning.offentligtp.title')
       ).not.toBeInTheDocument()
       const button = await screen.findByText('stegvisning.tilbake')
-      await act(async () => {
-        await user.click(button)
-      })
+
+      await user.click(button)
+
       expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
     })
   })

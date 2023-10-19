@@ -1,7 +1,7 @@
 import { describe, it, vi } from 'vitest'
 
 import { Alert } from '..'
-import { act, render, screen, userEvent } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 
 describe('Alert', () => {
   it('rendrer riktig med default verdier', () => {
@@ -22,9 +22,7 @@ describe('Alert', () => {
     )
 
     expect(screen.getByTestId('alert')).toBeVisible()
-    await act(async () => {
-      await user.click(screen.getByText('Prøv på nytt'))
-    })
+    await user.click(screen.getByText('Prøv på nytt'))
     expect(asFragment()).toMatchSnapshot()
     expect(onRetryMock).toHaveBeenCalled
   })

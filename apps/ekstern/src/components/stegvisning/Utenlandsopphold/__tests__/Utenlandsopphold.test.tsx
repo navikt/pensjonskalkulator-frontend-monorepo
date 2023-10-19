@@ -2,7 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Utenlandsopphold } from '..'
 import { RootState } from '@/state/store'
-import { act, screen, render, waitFor, userEvent } from '@/test-utils'
+import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - Utenlandsopphold', () => {
   const onCancelMock = vi.fn()
@@ -78,9 +78,7 @@ describe('stegvisning - Utenlandsopphold', () => {
       />
     )
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.neste'))
-    })
+    await user.click(screen.getByText('stegvisning.neste'))
 
     expect(
       await screen.findByText('stegvisning.utenlandsopphold.validation_error')
@@ -89,17 +87,13 @@ describe('stegvisning - Utenlandsopphold', () => {
 
     const radioButtons = screen.getAllByRole('radio')
 
-    await act(async () => {
-      await user.click(radioButtons[1])
-    })
+    await user.click(radioButtons[1])
 
     expect(
       screen.queryByText('stegvisning.utenlandsopphold.validation_error')
     ).not.toBeInTheDocument()
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.neste'))
-    })
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
@@ -122,9 +116,7 @@ describe('stegvisning - Utenlandsopphold', () => {
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[1]).toBeChecked()
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.tilbake'))
-    })
+    await user.click(screen.getByText('stegvisning.tilbake'))
 
     waitFor(() => {
       expect(onPreviousMock).toHaveBeenCalled()
@@ -142,9 +134,7 @@ describe('stegvisning - Utenlandsopphold', () => {
       />
     )
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.avbryt'))
-    })
+    await user.click(screen.getByText('stegvisning.avbryt'))
 
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()

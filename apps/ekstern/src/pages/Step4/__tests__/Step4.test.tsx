@@ -8,7 +8,7 @@ import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { act, screen, render, userEvent, waitFor } from '@/test-utils'
+import { screen, render, userEvent, waitFor } from '@/test-utils'
 
 describe('Step 4', () => {
   it('har riktig sidetittel', () => {
@@ -67,13 +67,13 @@ describe('Step 4', () => {
       store.dispatch(apiSlice.endpoints.getPerson.initiate())
 
       const radioButtons = await screen.findAllByRole('radio')
-      await act(async () => {
-        await user.click(radioButtons[0])
-      })
+
+      await user.click(radioButtons[0])
+
       expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-      await act(async () => {
-        await user.click(screen.getByText('stegvisning.beregn'))
-      })
+
+      await user.click(screen.getByText('stegvisning.beregn'))
+
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
 
       expect(nesteSideMock).toHaveBeenCalledWith(true, false)
@@ -106,10 +106,10 @@ describe('Step 4', () => {
       store.dispatch(apiSlice.endpoints.getPerson.initiate())
       expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
       const radioButtons = screen.getAllByRole('radio')
-      await act(async () => {
-        await user.click(radioButtons[0])
-        await user.click(screen.getByText('stegvisning.neste'))
-      })
+
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
+
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(nesteSideMock).toHaveBeenCalledWith(false, false)
       expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
@@ -132,10 +132,10 @@ describe('Step 4', () => {
       })
 
       const radioButtons = await screen.findAllByRole('radio')
-      await act(async () => {
-        await user.click(radioButtons[0])
-        await user.click(screen.getByText('stegvisning.neste'))
-      })
+
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
+
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(nesteSideMock).toHaveBeenCalledWith(null, false)
       expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
@@ -159,10 +159,10 @@ describe('Step 4', () => {
       store.dispatch(apiSlice.endpoints.getPerson.initiate())
 
       const radioButtons = await screen.findAllByRole('radio')
-      await act(async () => {
-        await user.click(radioButtons[0])
-        await user.click(screen.getByText('stegvisning.neste'))
-      })
+
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
+
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
       expect(nesteSideMock).toHaveBeenCalledWith(false, true)
       expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
@@ -216,9 +216,8 @@ describe('Step 4', () => {
       },
     })
 
-    await act(async () => {
-      await user.click(screen.getByText('stegvisning.avbryt'))
-    })
+    await user.click(screen.getByText('stegvisning.avbryt'))
+
     expect(navigateMock).toHaveBeenCalledWith(paths.login)
     expect(store.getState().userInput.samtykke).toBe(null)
     expect(store.getState().userInput.afp).toBe(null)

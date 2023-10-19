@@ -294,11 +294,15 @@ describe('routes', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      expect(
-        await screen.findByText(
-          'Et øyeblikk, vi henter tidligste mulige uttaksalder'
-        )
-      ).toBeInTheDocument()
+
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('Når vil du ta ut alderspensjon?')
+        ).toBeInTheDocument()
+      })
     })
   })
 

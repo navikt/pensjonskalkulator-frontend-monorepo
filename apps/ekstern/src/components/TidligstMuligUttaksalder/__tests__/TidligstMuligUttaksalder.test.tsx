@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
-import { act, render, screen, waitFor, userEvent } from '@/test-utils'
+import { render, screen, waitFor, userEvent } from '@/test-utils'
 
 describe('TidligstMuligUttaksalder', () => {
   it('rendrer slik den skal med riktig tekst og hjelpeknapp basert på uttaksalder, og uten AFP merlding når brukeren har ikke valgt AFP', async () => {
@@ -25,9 +25,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).toBeInTheDocument()
     })
 
-    await act(async () => {
-      await user.click(screen.getByRole('button'))
-    })
+    await user.click(screen.getByRole('button'))
 
     expect(
       screen.getByText(

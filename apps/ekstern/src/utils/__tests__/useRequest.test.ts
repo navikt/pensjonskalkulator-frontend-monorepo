@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import useRequest from '../useRequest'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { API_BASEURL } from '@/paths'
-import { renderHook, waitFor, act } from '@/test-utils'
+import { act, renderHook, waitFor } from '@/test-utils'
 
 describe('useRequest', () => {
   it('henter data feiler', async () => {

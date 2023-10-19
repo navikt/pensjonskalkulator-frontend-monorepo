@@ -10,7 +10,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
   const fakeApiCalls = {
@@ -117,9 +117,9 @@ describe('Beregning', () => {
         ).not.toBeInTheDocument()
       })
       const button = await screen.findByText('68 år')
-      await act(async () => {
-        user.click(button)
-      })
+
+      await user.click(button)
+
       await waitFor(() => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
@@ -131,9 +131,7 @@ describe('Beregning', () => {
         ).toBeVisible()
       })
       // Nødvendig for at animasjonen rekker å bli ferdig
-      await act(async () => {
-        await new Promise((r) => setTimeout(r, 500))
-      })
+      await new Promise((r) => setTimeout(r, 500))
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
@@ -146,9 +144,9 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       const { container } = render(<Beregning />)
       const button = await screen.findByText('68 år')
-      await act(async () => {
-        user.click(button)
-      })
+
+      await user.click(button)
+
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
         '68 år'
       )
@@ -166,9 +164,7 @@ describe('Beregning', () => {
         ).toBeVisible()
       })
       // Nødvendig for at animasjonen rekker å bli ferdig
-      await act(async () => {
-        await new Promise((r) => setTimeout(r, 500))
-      })
+      await new Promise((r) => setTimeout(r, 500))
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
@@ -187,9 +183,9 @@ describe('Beregning', () => {
       render(<Beregning />)
 
       const button = await screen.findByText('68 år')
-      await act(async () => {
-        user.click(button)
-      })
+
+      await user.click(button)
+
       expect(initiateMock).toHaveBeenCalledTimes(1)
       await waitFor(async () => {
         expect(
@@ -203,9 +199,9 @@ describe('Beregning', () => {
       ).not.toBeInTheDocument()
 
       const proevPaaNyttbutton = await screen.findByText('Prøv på nytt')
-      await act(async () => {
-        await user.click(proevPaaNyttbutton)
-      })
+
+      await user.click(proevPaaNyttbutton)
+
       expect(initiateMock).toHaveBeenCalledTimes(2)
       expect(
         screen.queryByText('Vis tabell av beregningen')
@@ -232,9 +228,9 @@ describe('Beregning', () => {
         hasRouter: false,
       })
       const button = await screen.findByText('68 år')
-      await act(async () => {
-        user.click(button)
-      })
+
+      await user.click(button)
+
       expect(await screen.findByText('error.global.title')).toBeVisible()
       expect(await screen.findByText('error.global.ingress')).toBeVisible()
 
@@ -275,9 +271,9 @@ describe('Beregning', () => {
         ).not.toBeInTheDocument()
       })
       const button = await screen.findByText('62 år')
-      await act(async () => {
-        user.click(button)
-      })
+
+      await user.click(button)
+
       expect(
         await screen.findByText(
           'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'

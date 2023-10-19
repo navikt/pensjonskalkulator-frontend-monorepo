@@ -415,9 +415,7 @@ describe('Simulering', () => {
         ).toBeVisible()
       })
       const button = await screen.findByText('pensjonsavtalene dine')
-      await act(async () => {
-        await user.click(button)
-      })
+      await user.click(button)
       expect(scrollIntoViewMock).toHaveBeenCalled()
       expect(toggleOpenMock).toHaveBeenCalled()
     })
