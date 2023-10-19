@@ -7,12 +7,10 @@ import {
 } from '@reduxjs/toolkit/query/react'
 
 import { paths } from '@/router'
-import { authentificationGuard } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 
 export const step3loader = async () => {
-  await authentificationGuard()
   const harSamtykket = store.getState().userInput.samtykke
 
   // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til start steget
