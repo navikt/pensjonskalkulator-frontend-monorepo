@@ -64,9 +64,9 @@ export const authentificationGuard = async () => {
       throw Error('Ikke pålogget')
     }
   } catch (error) {
+    console.log('>>>> authentificationGuard redirect to login')
     return redirect(paths.login)
   }
-
   return null
 }
 

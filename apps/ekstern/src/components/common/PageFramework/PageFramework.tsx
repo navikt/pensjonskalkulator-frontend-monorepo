@@ -59,7 +59,7 @@ export const PageFramework: React.FC<
     const onFocus = () => {
       /* c8 ignore next 3 */
       if (!isLoading) {
-        console.log('>>> RELOAD')
+        console.log('>>> PageFramework RELOAD')
         // reload()
       }
     }
