@@ -16,7 +16,7 @@ import { step3loader } from '@/pages/Step3/utils'
 import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
 import { StepFeil } from '@/pages/StepFeil/'
-import { HOST_BASEURL } from '@/paths'
+// import { HOST_BASEURL } from '@/paths'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
 
@@ -110,7 +110,6 @@ export const routes: RouteObject[] = [
       },
       {
         path: paths.utenlandsopphold,
-        loader: authentificationGuard,
         element: <Step1 />,
       },
       {

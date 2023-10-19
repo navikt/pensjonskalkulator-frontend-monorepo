@@ -1,12 +1,12 @@
-import * as ReactRouterUtils from 'react-router'
+// import * as ReactRouterUtils from 'react-router'
 import { Link } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
 import { PageFramework } from '..'
-import { paths } from '@/router'
+// import { paths } from '@/router'
 import { render, screen, userEvent } from '@/test-utils'
-import * as useRequest from '@/utils/useRequest'
+// import * as useRequest from '@/utils/useRequest'
 
 function TestComponent() {
   return <Link to="/something-else">Klikk</Link>
