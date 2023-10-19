@@ -71,7 +71,11 @@ export function Step0() {
   if (isPersonFetching || isInntektFetching || isSakFetching) {
     return (
       <div style={{ width: '100%' }}>
-        <Loader size="3xlarge" title="venter..." isCentered />
+        <Loader
+          size="3xlarge"
+          title={intl.formatMessage({ id: 'pageframework.loading' })}
+          isCentered
+        />
       </div>
     )
   }

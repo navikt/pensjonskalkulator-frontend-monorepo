@@ -16,7 +16,6 @@ export function Loader(props: Props) {
       className={clsx(className, {
         [styles.loader__isCentered]: isCentered,
       })}
-      title="Laster..."
       {...rest}
     />
   )

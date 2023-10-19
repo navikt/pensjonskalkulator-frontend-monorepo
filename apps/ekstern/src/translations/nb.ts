@@ -22,7 +22,7 @@ const translations = {
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'application.global.external_link': 'åpner i en ny fane',
   'pageframework.title': 'Pensjonskalkulator',
-  'loading.person': 'Henter personopplysninger',
+  'pageframework.loading': 'Vent litt mens vi henter informasjon.',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
   'error.global.button': 'Avbryt',
@@ -103,7 +103,6 @@ const translations = {
     'sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning, og viser at du kan ha rettigheter, uten å hente avtalene.',
   'stegvisning.samtykke.readmore_list_item3':
     'gjelder samtykket kun for denne beregningen.',
-
   'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtaler?',
   'stegvisning.samtykke.radio_ja': 'Ja',
   'stegvisning.samtykke.radio_nei': 'Nei, fortsett uten',
@@ -115,7 +114,6 @@ const translations = {
     'Henter informasjon om medlemskap til offentlig tjenestepensjon',
   'stegvisning.offentligtp.ingress':
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn tjenestepensjonen din. Du kan sjekke dine avtaler hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).{br}{br}Gå videre for å beregne alderspensjon fra NAV og se pensjonsavtaler i privat sektor.',
-
   'stegvisning.offentligtp.error.title':
     'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor',
   'stegvisning.offentligtp.error.ingress':
@@ -161,6 +159,7 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
