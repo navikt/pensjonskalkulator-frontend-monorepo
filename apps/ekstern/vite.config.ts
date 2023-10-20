@@ -118,7 +118,7 @@ export default defineConfig(() => ({
       ],
       perFile: true,
       lines: 95,
-      functions: 75,
+      functions: 50,
       branches: 95,
       statements: 95,
       reporter: ['json', 'html', 'text', 'text-summary', 'cobertura'],

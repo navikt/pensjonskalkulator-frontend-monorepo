@@ -3,7 +3,8 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, vi } from 'vitest'
 
 import { BASE_PATH, paths, routes } from '..'
-import { mockResponse } from '@/mocks/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -49,25 +50,49 @@ describe('routes', () => {
   })
 
   describe(`${BASE_PATH}${paths.root}`, () => {
-    it('redirigerer til /start', async () => {
+    it('redirigerer til /login', async () => {
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.root}`],
       })
       render(<RouterProvider router={router} />, { hasRouter: false })
       expect(
-        await screen.findByText('stegvisning.start.title Aprikos!')
+        await screen.findByText('landingsside.for.deg.foedt.foer.1963')
       ).toBeVisible()
     })
   })
 
   describe(`${BASE_PATH}${paths.start}`, () => {
+    it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
+      const open = vi.fn()
+      vi.stubGlobal('open', open)
+      mockErrorResponse('/oauth2/session', {
+        baseUrl: `${HOST_BASEURL}`,
+      })
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await waitFor(() => {
+        expect(open).toHaveBeenCalledWith(
+          'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+          '_self'
+        )
+      })
+    })
     it('viser Steg 1', async () => {
+      mockResponse('/oauth2/session', {
+        baseUrl: `${HOST_BASEURL}`,
+      })
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, { hasRouter: false })
+
       expect(
         await screen.findByText('stegvisning.start.title Aprikos!')
       ).toBeVisible()

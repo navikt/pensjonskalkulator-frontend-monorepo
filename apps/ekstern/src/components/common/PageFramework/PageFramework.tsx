@@ -1,15 +1,12 @@
 import React, { PropsWithChildren } from 'react'
 import { useIntl } from 'react-intl'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import KalkulatorLogo from '../../../assets/kalkulator.svg'
 import { HOST_BASEURL } from '@/paths'
-import { paths } from '@/router'
-import { apiSlice } from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
 import useRequest from '@/utils/useRequest'
 
 import styles from './PageFramework.module.scss'
@@ -19,18 +16,16 @@ export const PageFramework: React.FC<
     isFullWidth?: boolean
     hasWhiteBg?: boolean
     shouldShowLogo?: boolean
-    isAuthenticated?: boolean
+    shouldCheckAuthentication?: boolean
   }
 > = ({
   children,
   isFullWidth,
   hasWhiteBg = false,
   shouldShowLogo = false,
-  isAuthenticated = true,
+  shouldCheckAuthentication = true,
 }) => {
   const intl = useIntl()
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
 
   const { pathname } = useLocation()
 
@@ -47,9 +42,13 @@ export const PageFramework: React.FC<
   }, [status, isLoading])
 
   React.useEffect(() => {
-    if (!isLoggedIn && isAuthenticated) {
-      navigate(paths.login)
-      dispatch(apiSlice.util.resetApiState())
+    if (!isLoggedIn && shouldCheckAuthentication) {
+      window.open(
+        `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
+          window.location.pathname
+        )}`,
+        '_self'
+      )
     }
   }, [isLoggedIn])
 
@@ -60,9 +59,7 @@ export const PageFramework: React.FC<
         reload()
       }
     }
-
     window.addEventListener('focus', onFocus)
-
     return () => {
       window.removeEventListener('focus', onFocus)
     }

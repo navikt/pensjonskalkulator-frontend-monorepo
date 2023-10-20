@@ -1,10 +1,8 @@
-import * as ReactRouterUtils from 'react-router'
 import { Link } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
 import { PageFramework } from '..'
-import { paths } from '@/router'
 import { render, screen, userEvent } from '@/test-utils'
 import * as useRequest from '@/utils/useRequest'
 
@@ -53,18 +51,14 @@ describe('PageFramework', () => {
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
   })
 
-  it('sjekker auth når siden kommer i fokus', () => {
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-
-    const reloadMock = vi.fn()
+  it('sjekker auth når siden laster', () => {
+    const open = vi.fn()
+    vi.stubGlobal('open', open)
 
     const spy = vi.spyOn(useRequest, 'default')
     spy.mockReturnValue({
       status: 401,
-      reload: reloadMock,
+      reload: vi.fn(),
       isLoading: false,
       loadingState: 'ERROR',
       data: null,
@@ -73,12 +67,15 @@ describe('PageFramework', () => {
     })
 
     render(
-      <PageFramework isAuthenticated>
+      <PageFramework shouldCheckAuthentication>
         <TestComponent />
       </PageFramework>
     )
 
     window.dispatchEvent(new Event('focus'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.login)
+    expect(open).toHaveBeenCalledWith(
+      'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+      '_self'
+    )
   })
 })

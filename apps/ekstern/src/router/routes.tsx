@@ -16,6 +16,7 @@ import { step3loader } from '@/pages/Step3/utils'
 import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
 import { StepFeil } from '@/pages/StepFeil/'
+import { HOST_BASEURL } from '@/paths'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
 
@@ -56,6 +57,23 @@ export const paths = {
   personopplysninger: '/personopplysninger',
 } as const
 
+export const authentificationGuard = async () => {
+  try {
+    const res = await fetch(`${HOST_BASEURL}/oauth2/session`)
+    if (!res.ok) {
+      throw Error('Ikke pålogget')
+    }
+  } catch (error) {
+    window.open(
+      `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
+        window.location.pathname
+      )}`,
+      '_self'
+    )
+  }
+  return null
+}
+
 const directAccessGuard = async () => {
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (
@@ -78,31 +96,36 @@ export const routes: RouteObject[] = [
     children: [
       {
         path: paths.root,
-        element: <Navigate to={paths.start} replace />,
+        element: <Navigate to={paths.login} replace />,
       },
       {
+        loader: authentificationGuard,
         path: paths.start,
         element: <Step0 />,
       },
       {
+        loader: authentificationGuard,
         path: paths.henvisningUfoeretrygdGjenlevendepensjon,
         element: <HenvisningUfoeretrygdGjenlevendepensjon />,
       },
       {
+        loader: authentificationGuard,
         path: paths.henvisning1963,
         element: <Henvisning1963 />,
       },
       {
+        loader: authentificationGuard,
         path: paths.utenlandsopphold,
         element: <Step1 />,
       },
       {
+        loader: authentificationGuard,
         path: paths.utenlandsoppholdFeil,
         element: <Step1Feil />,
       },
       {
-        path: paths.samtykke,
         loader: directAccessGuard,
+        path: paths.samtykke,
         element: <Step2 />,
       },
       {
@@ -126,10 +149,12 @@ export const routes: RouteObject[] = [
         element: <StepFeil />,
       },
       {
+        loader: authentificationGuard,
         path: paths.forbehold,
         element: <Forbehold />,
       },
       {
+        loader: authentificationGuard,
         path: paths.personopplysninger,
         element: <Personopplysninger />,
       },
@@ -147,7 +172,11 @@ export const routes: RouteObject[] = [
   },
   {
     element: (
-      <PageFramework shouldShowLogo hasWhiteBg isAuthenticated={false}>
+      <PageFramework
+        shouldShowLogo
+        hasWhiteBg
+        shouldCheckAuthentication={false}
+      >
         <Outlet />
       </PageFramework>
     ),
