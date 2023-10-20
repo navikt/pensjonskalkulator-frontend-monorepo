@@ -47,7 +47,8 @@ export const PageFramework: React.FC<
   React.useEffect(() => {
     if (!isLoggedIn && shouldCheckAuthentication) {
       window.open(
-        `${HOST_BASEURL}/oauth2/login?redirect=%2Fpensjon%2Fkalkulator`
+        `${HOST_BASEURL}/oauth2/login?redirect=%2Fpensjon%2Fkalkulator`,
+        '_self'
       )
     }
   }, [isLoggedIn])
