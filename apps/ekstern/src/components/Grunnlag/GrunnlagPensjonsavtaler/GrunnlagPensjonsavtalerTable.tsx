@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyShort } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { formatAsDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/currency'
 import { capitalize } from '@/utils/string'
 
 import { groupPensjonsavtalerByType, getMaanedString } from './utils'
@@ -107,7 +107,7 @@ export const GrunnlagPensjonsavtalerTable = (props: IProps) => {
                             styles.tabellCell__Right
                           )}
                         >
-                          {`${formatAsDecimal(
+                          {`${formatWithoutDecimal(
                             utbetalingsperiode.aarligUtbetaling
                           )} kr`}
                         </td>

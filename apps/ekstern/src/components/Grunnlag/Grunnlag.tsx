@@ -9,7 +9,7 @@ import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
 import { formatAfp } from '@/utils/afp'
-import { formatAsDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/currency'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { formatMessageValues } from '@/utils/translations'
 
@@ -111,7 +111,7 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
               })}
               headerValue={
                 inntekt.beloep
-                  ? `${formatAsDecimal(inntekt.beloep)} kr`
+                  ? `${formatWithoutDecimal(inntekt.beloep)} kr`
                   : intl.formatMessage({
                       id: 'grunnlag.inntekt.title.error',
                     })
