@@ -10,7 +10,7 @@ import {
   TooltipPositionerPointObject,
 } from 'highcharts'
 
-import { formatAsDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/currency'
 import { cleanAndAddEventListener } from '@/utils/events'
 
 import {
@@ -53,7 +53,7 @@ export type HighchartsScrollingHTMLDivElement = HTMLDivElement & {
 export function labelFormatterDesktop(this: AxisLabelsFormatterContextObject) {
   const sum =
     typeof this.value === 'number' ? this.value : parseInt(this.value, 10)
-  return formatAsDecimal(sum)
+  return formatWithoutDecimal(sum)
 }
 
 export function labelFormatterMobile(this: AxisLabelsFormatterContextObject) {
@@ -162,7 +162,7 @@ export function tooltipFormatter(
         `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${point.series.color}"></span>${point.series.name}</td>` +
         `<td class="${styles.tooltipTableCell} ${
           styles.tooltipTableCell__right
-        }">${formatAsDecimal(point.y)} kr</td>` +
+        }">${formatWithoutDecimal(point.y)} kr</td>` +
         `</tr>`
     }
   })
@@ -174,7 +174,7 @@ export function tooltipFormatter(
     }">${getTooltipTitle(hasInntekt, hasPensjon)} ${context.x} år</th>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__right
-    }">${formatAsDecimal(points?.[0].total)} kr</th>` +
+    }">${formatWithoutDecimal(points?.[0].total)} kr</th>` +
     `</tr></thead><tbody>`
 
   const footerFormat = '</tbody></table>'
