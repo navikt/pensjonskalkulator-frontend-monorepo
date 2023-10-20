@@ -16,7 +16,6 @@ import { step3loader } from '@/pages/Step3/utils'
 import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
 import { StepFeil } from '@/pages/StepFeil/'
-// import { HOST_BASEURL } from '@/paths'
 import { HOST_BASEURL } from '@/paths'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
@@ -76,7 +75,6 @@ export const authentificationGuard = async () => {
 }
 
 const directAccessGuard = async () => {
-  await authentificationGuard()
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (
     store.getState().api.queries === undefined ||
