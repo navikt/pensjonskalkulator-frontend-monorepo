@@ -1,15 +1,12 @@
 import React, { PropsWithChildren } from 'react'
 import { useIntl } from 'react-intl'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import KalkulatorLogo from '../../../assets/kalkulator.svg'
 import { HOST_BASEURL } from '@/paths'
-import { paths } from '@/router'
-import { apiSlice } from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
 import useRequest from '@/utils/useRequest'
 
 import styles from './PageFramework.module.scss'
@@ -47,7 +44,9 @@ export const PageFramework: React.FC<
   React.useEffect(() => {
     if (!isLoggedIn && shouldCheckAuthentication) {
       window.open(
-        `${HOST_BASEURL}/oauth2/login?redirect=%2Fpensjon%2Fkalkulator`,
+        `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
+          window.location.pathname
+        )}`,
         '_self'
       )
     }

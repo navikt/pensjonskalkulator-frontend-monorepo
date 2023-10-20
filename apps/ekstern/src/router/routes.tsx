@@ -17,9 +17,9 @@ import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
 import { StepFeil } from '@/pages/StepFeil/'
 // import { HOST_BASEURL } from '@/paths'
+import { HOST_BASEURL } from '@/paths'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import { store } from '@/state/store'
-import { HOST_BASEURL } from '@/paths'
 
 export const BASE_PATH = '/pensjon/kalkulator'
 
@@ -66,7 +66,9 @@ export const authentificationGuard = async () => {
     }
   } catch (error) {
     window.open(
-      `${HOST_BASEURL}/oauth2/login?redirect=%2Fpensjon%2Fkalkulator`,
+      `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
+        window.location.pathname
+      )}`,
       '_self'
     )
   }
