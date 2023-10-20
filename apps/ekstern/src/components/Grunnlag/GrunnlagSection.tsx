@@ -23,11 +23,7 @@ export const GrunnlagSection = React.forwardRef(
 
     const { ref: accordionContextRef, toggleOpen } =
       React.useContext(AccordionContext)
-    const renderedValue = isLoading ? (
-      <Loader data-testid={`${headerTitle}-loader`} />
-    ) : (
-      headerValue
-    )
+
     return (
       <>
         <Accordion.Header data-testid="accordion-header" onClick={toggleOpen}>
@@ -37,9 +33,16 @@ export const GrunnlagSection = React.forwardRef(
           >
             {headerTitle}
           </span>
-          {renderedValue && (
+          {isLoading ? (
             <>
-              : <span className={styles.header}>{renderedValue}</span>
+              :{' '}
+              <span className={styles.header}>
+                <Loader data-testid={`${headerTitle}-loader`} />
+              </span>
+            </>
+          ) : (
+            <>
+              : <span className={styles.header}>{headerValue}</span>
             </>
           )}
         </Accordion.Header>
