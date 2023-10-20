@@ -59,9 +59,7 @@ export const PageFramework: React.FC<
         reload()
       }
     }
-
     window.addEventListener('focus', onFocus)
-
     return () => {
       window.removeEventListener('focus', onFocus)
     }
