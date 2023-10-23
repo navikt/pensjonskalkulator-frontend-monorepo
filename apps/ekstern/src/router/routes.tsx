@@ -1,9 +1,6 @@
 import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
-import {
-  PageFramework,
-  FrameComponent,
-} from '@/components/common/PageFramework'
+import { PageFramework } from '@/components/common/PageFramework'
 import Henvisning1963 from '@/components/Henvisning1963'
 import HenvisningUfoeretrygdGjenlevendepensjon from '@/components/HenvisningUfoeretrygdGjenlevendepensjon'
 import { Beregning } from '@/pages/Beregning'
@@ -65,16 +62,26 @@ export const paths = {
 export const routes: RouteObject[] = [
   {
     loader: authenticationGuard,
-    path: paths.login,
     element: (
       <PageFramework
         shouldShowLogo
         hasWhiteBg
         shouldRedirectNonAuthenticated={false}
       >
-        <LandingPage />
+        <Outlet />
       </PageFramework>
     ),
+    ErrorBoundary: RouteErrorBoundary,
+    children: [
+      {
+        path: paths.root,
+        element: <Navigate to={paths.login} replace />,
+      },
+      {
+        path: paths.login,
+        element: <LandingPage />,
+      },
+    ],
   },
   {
     loader: authenticationGuard,
@@ -85,10 +92,6 @@ export const routes: RouteObject[] = [
     ),
     ErrorBoundary: RouteErrorBoundary,
     children: [
-      {
-        path: paths.root,
-        element: <Navigate to={paths.login} replace />,
-      },
       {
         path: paths.start,
         element: <Step0 />,
@@ -145,13 +148,19 @@ export const routes: RouteObject[] = [
     ],
   },
   {
-    loader: directAccessGuard,
-    path: paths.beregning,
+    loader: authenticationGuard,
     element: (
-      <FrameComponent isFullWidth>
-        <Beregning />
-      </FrameComponent>
+      <PageFramework isFullWidth>
+        <Outlet />
+      </PageFramework>
     ),
     ErrorBoundary: RouteErrorBoundary,
+    children: [
+      {
+        loader: directAccessGuard,
+        path: paths.beregning,
+        element: <Beregning />,
+      },
+    ],
   },
 ]
