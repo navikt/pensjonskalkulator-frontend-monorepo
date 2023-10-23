@@ -4,12 +4,12 @@ import { Link as ReactRouterLink } from 'react-router-dom'
 import { BodyLong, Link, List, VStack } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
-import { PageFramework } from '@/components/common/PageFramework'
+import { FrameComponent } from '@/components/common/PageFramework'
 import { externalUrls, paths } from '@/router'
 
 export function ErrorPage404() {
   return (
-    <PageFramework>
+    <FrameComponent>
       <Card data-testid="error-page-404" hasLargePadding>
         <Card.Content
           text={{
@@ -40,6 +40,6 @@ export function ErrorPage404() {
           </>
         </Card.Content>
       </Card>
-    </PageFramework>
+    </FrameComponent>
   )
 }

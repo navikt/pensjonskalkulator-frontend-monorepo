@@ -1,101 +1,82 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import { useIntl } from 'react-intl'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Await } from 'react-router-dom'
 
-import { Heading } from '@navikt/ds-react'
-import clsx from 'clsx'
-
-import KalkulatorLogo from '../../../assets/kalkulator.svg'
+import { Loader } from '@/components/common/Loader'
 import { HOST_BASEURL } from '@/paths'
-import useRequest from '@/utils/useRequest'
+import { useDeferAuthenticationAccessData } from '@/router/loaders'
 
-import styles from './PageFramework.module.scss'
+import { FrameComponent } from './FrameComponent'
 
-export const PageFramework: React.FC<
-  PropsWithChildren & {
-    isFullWidth?: boolean
-    hasWhiteBg?: boolean
-    shouldShowLogo?: boolean
-    shouldCheckAuthentication?: boolean
-  }
-> = ({
-  children,
-  isFullWidth,
-  hasWhiteBg = false,
-  shouldShowLogo = false,
-  shouldCheckAuthentication = true,
-}) => {
+function RedirectElement() {
+  React.useEffect(() => {
+    window.open(
+      `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
+        window.location.pathname
+      )}`,
+      '_self'
+    )
+  }, [])
+  return <span data-testid="redirect-element"></span>
+}
+export const PageFramework: React.FC<{
+  isFullWidth?: boolean
+  hasWhiteBg?: boolean
+  shouldShowLogo?: boolean
+  shouldRedirectNonAuthenticated?: boolean
+  children?: JSX.Element
+}> = (props) => {
+  const { shouldRedirectNonAuthenticated = true, children, ...rest } = props
   const intl = useIntl()
-
   const { pathname } = useLocation()
-
-  const { isLoading, status, reload } = useRequest<null>(
-    `${HOST_BASEURL}/oauth2/session`
-  )
+  const loaderData = useDeferAuthenticationAccessData()
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
 
-  const isLoggedIn = React.useMemo(() => {
-    return status === 200 || isLoading
-  }, [status, isLoading])
-
-  React.useEffect(() => {
-    if (!isLoggedIn && shouldCheckAuthentication) {
-      window.open(
-        `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
-          window.location.pathname
-        )}`,
-        '_self'
-      )
-    }
-  }, [isLoggedIn])
-
-  React.useEffect(() => {
-    const onFocus = () => {
-      /* c8 ignore next 3 */
-      if (!isLoading) {
-        reload()
-      }
-    }
-    window.addEventListener('focus', onFocus)
-    return () => {
-      window.removeEventListener('focus', onFocus)
-    }
-  }, [isLoading])
+  // React.useEffect(() => {
+  //   const onFocus = () => {
+  //     /* c8 ignore next 3 */
+  //     if (!isLoading) {
+  //       reload()
+  //     }
+  //   }
+  //   window.addEventListener('focus', onFocus)
+  //   return () => {
+  //     window.removeEventListener('focus', onFocus)
+  //   }
+  // }, [isLoading])
 
   return (
-    <main
-      className={clsx(styles.main, {
-        [styles.main__white]: hasWhiteBg,
-      })}
-    >
-      <div
-        className={clsx(styles.content, {
-          [styles.content__isFramed]: !isFullWidth,
-        })}
+    <>
+      <React.Suspense
+        fallback={
+          <Loader
+            data-testid="pageframework-loader"
+            size="3xlarge"
+            title={intl.formatMessage({ id: 'pageframework.loading' })}
+          />
+        }
       >
-        <div className={styles.headerGroup}>
-          <div
-            className={clsx(styles.headerGroupTitle, {
-              [styles.headerGroupTitle__isFramed]: !isFullWidth,
-            })}
-          >
-            {shouldShowLogo && (
-              <img
-                className={styles.headerGroupTitle__logo}
-                src={KalkulatorLogo}
-                alt=""
-              />
-            )}
-            <Heading size="large" level="1">
-              {intl.formatMessage({ id: 'pageframework.title' })}
-            </Heading>
-          </div>
-        </div>
-        {children}
-      </div>
-    </main>
+        <Await
+          resolve={loaderData.oauth2Query}
+          errorElement={<RedirectElement />}
+        >
+          {(oauth2Query: Response) => {
+            return shouldRedirectNonAuthenticated && !oauth2Query.ok ? (
+              <RedirectElement />
+            ) : (
+              <FrameComponent {...rest}>
+                {children &&
+                  React.cloneElement(children, {
+                    isLoggedIn: oauth2Query.ok,
+                  })}
+              </FrameComponent>
+            )
+          }}
+        </Await>
+      </React.Suspense>
+    </>
   )
 }

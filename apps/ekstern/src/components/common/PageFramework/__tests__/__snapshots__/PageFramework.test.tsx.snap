@@ -1,53 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PageFramework > rendrer slik den skal i full width 1`] = `
-<DocumentFragment>
-  <main
-    class="_main_58a32b"
-  >
-    <div
-      class="_content_58a32b"
-    >
-      <div
-        class="_headerGroup_58a32b"
-      >
-        <div
-          class="_headerGroupTitle_58a32b"
-        >
-          <h1
-            class="navds-heading navds-heading--large"
-          >
-            pageframework.title
-          </h1>
-        </div>
-      </div>
-    </div>
-  </main>
-</DocumentFragment>
-`;
+exports[`PageFramework > scroller på toppen av siden når en route endrer seg 1`] = `<DocumentFragment />`;
 
-exports[`PageFramework > rendrer slik den skal, med main tag og Heading på riktig nivå 1`] = `
-<DocumentFragment>
-  <main
-    class="_main_58a32b"
-  >
-    <div
-      class="_content_58a32b _content__isFramed_58a32b"
-    >
-      <div
-        class="_headerGroup_58a32b"
-      >
-        <div
-          class="_headerGroupTitle_58a32b _headerGroupTitle__isFramed_58a32b"
-        >
-          <h1
-            class="navds-heading navds-heading--large"
-          >
-            pageframework.title
-          </h1>
-        </div>
-      </div>
-    </div>
-  </main>
-</DocumentFragment>
-`;
+exports[`PageFramework > scroller på toppen av siden når en route endrer seg 2`] = `<DocumentFragment />`;

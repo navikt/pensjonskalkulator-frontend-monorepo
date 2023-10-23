@@ -9,38 +9,23 @@ import {
   Heading,
   HStack,
   Link,
-  Loader,
   VStack,
 } from '@navikt/ds-react'
 
-import { HOST_BASEURL } from '@/paths'
 import { BASE_PATH, externalUrls, paths } from '@/router'
-import useRequest from '@/utils/useRequest'
 
 import styles from './LandingPage.module.scss'
 
-export function LandingPage() {
+export const LandingPage: React.FC<{ isLoggedIn?: boolean }> = ({
+  isLoggedIn,
+}) => {
   const intl = useIntl()
-  const { isLoading, status } = useRequest<null>(
-    `${HOST_BASEURL}/oauth2/session`
-  )
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title',
     })
   }, [])
-
-  const isLoggedIn = React.useMemo(
-    () => !isLoading && status === 200,
-    [isLoading, status]
-  )
-
-  if (isLoading) {
-    return (
-      <Loader title={intl.formatMessage({ id: 'pageframework.loading' })} />
-    )
-  }
 
   const gaaTilDetaljertKalkulator = () => {
     window.open(externalUrls.detaljertKalkulator, '_self')

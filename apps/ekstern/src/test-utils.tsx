@@ -1,11 +1,16 @@
 import React, { PropsWithChildren } from 'react'
 import { IntlProvider } from 'react-intl'
 import { Provider } from 'react-redux'
-import { MemoryRouter } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  MemoryRouter,
+  RouterProvider,
+} from 'react-router-dom'
 
 import { PreloadedState, createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
+import { authenticationGuard } from '@/router/loaders'
 import { getTranslation_test } from '@/utils/__tests__/test-translations'
 
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
@@ -21,6 +26,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>
   store?: AppStore
   hasRouter?: boolean
+  hasLogin?: boolean
 }
 
 export const swallowErrors = (testFn: () => void) => {
@@ -66,14 +72,29 @@ export function renderWithProviders(
     preloadedState = {},
     store = setupStore(preloadedState, true),
     hasRouter = true,
+    hasLogin = false,
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
   function Wrapper({ children }: PropsWithChildren<unknown>): JSX.Element {
+    const router = createBrowserRouter([
+      {
+        loader: authenticationGuard,
+        path: '/',
+        element: children,
+      },
+    ])
+
+    const childrenWithRouter = hasLogin ? (
+      <RouterProvider router={router} />
+    ) : (
+      <MemoryRouter>{children}</MemoryRouter>
+    )
+
     return (
       <Provider store={store}>
         <IntlProvider locale="nb" messages={generateMockedTranslations()}>
-          {hasRouter ? <MemoryRouter>{children}</MemoryRouter> : children}
+          {hasRouter ? childrenWithRouter : children}
         </IntlProvider>
       </Provider>
     )

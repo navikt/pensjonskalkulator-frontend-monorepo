@@ -6,16 +6,18 @@ import { Card } from '@/components/common/Card'
 import { Loader } from '@/components/common/Loader'
 import { OffentligTP } from '@/components/stegvisning/OffentligTP'
 import { paths } from '@/router'
+import {
+  TpoMedlemskapQuery,
+  useTpoMedlemskapAccessData,
+} from '@/router/loaders'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-
-import { TpoMedlemskapQuery, useStep3LoaderData } from './utils'
 
 export function Step3() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const loaderData = useStep3LoaderData()
+  const loaderData = useTpoMedlemskapAccessData()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
