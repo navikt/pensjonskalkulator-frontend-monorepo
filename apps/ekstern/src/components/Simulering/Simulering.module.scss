@@ -9,8 +9,11 @@
 }
 
 .buttonRow {
-  margin-top: -0.125rem;
   display: flex;
+
+  &__visible {
+    height: 2rem;
+  }
 
   &Element {
     flex-grow: 1;
