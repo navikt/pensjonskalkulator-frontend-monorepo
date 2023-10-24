@@ -8,6 +8,7 @@ import {
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
 import { BodyLong, Button, Link } from '@navikt/ds-react'
+import clsx from 'clsx'
 import Highcharts, {
   SeriesColumnOptions,
   SeriesOptionsType,
@@ -207,7 +208,12 @@ export function Simulering(props: {
       </div>
 
       {showButtonsAndTable && (
-        <div className={styles.buttonRow}>
+        <div
+          className={clsx(styles.buttonRow, {
+            [styles.buttonRow__visible]:
+              showVisFaerreAarButton || showVisFlereAarButton,
+          })}
+        >
           <div className={styles.buttonRowElement}>
             {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
             {showVisFaerreAarButton && (
