@@ -72,6 +72,7 @@ export const LandingPage: React.FC<{ isLoggedIn?: boolean }> = ({
             </BodyLong>
             <div>
               <Button
+                className={styles.button}
                 data-testid="landingside-first-button"
                 variant="secondary"
                 onClick={gaaTilDetaljertKalkulator}
@@ -122,23 +123,24 @@ export const LandingPage: React.FC<{ isLoggedIn?: boolean }> = ({
                   })}
                 </li>
               </ul>
+
+              <HStack gap="4">
+                <Button
+                  data-testid="landingside-detaljert-kalkulator-button"
+                  variant="secondary"
+                  onClick={gaaTilDetaljertKalkulator}
+                >
+                  {detaljertKalkulatorButtonText}
+                </Button>
+                <Button
+                  data-testid="landingside-enkel-kalkulator-button"
+                  variant="secondary"
+                  onClick={gaaTilEnkelKalkulator}
+                >
+                  {enkelKalkulatorButtonText}
+                </Button>
+              </HStack>
             </div>
-            <HStack gap="4">
-              <Button
-                data-testid="landingside-detaljert-kalkulator-button"
-                variant="secondary"
-                onClick={gaaTilDetaljertKalkulator}
-              >
-                {detaljertKalkulatorButtonText}
-              </Button>
-              <Button
-                data-testid="landingside-enkel-kalkulator-button"
-                variant="secondary"
-                onClick={gaaTilEnkelKalkulator}
-              >
-                {enkelKalkulatorButtonText}
-              </Button>
-            </HStack>
           </VStack>
         </section>
 
@@ -158,6 +160,7 @@ export const LandingPage: React.FC<{ isLoggedIn?: boolean }> = ({
 
               <div>
                 <Button
+                  className={styles.button}
                   data-testid="landingside-uinnlogget-kalkulator-button"
                   variant="secondary"
                   onClick={gaaTilUinnloggetKalkulator}
@@ -170,23 +173,23 @@ export const LandingPage: React.FC<{ isLoggedIn?: boolean }> = ({
             </VStack>
           </section>
         )}
-        <Link
-          className={styles.link}
-          as={ReactRouterLink}
-          to={paths.personopplysninger}
-          target="_blank"
-          inlineText
-        >
-          <FormattedMessage id="landingsside.link.personopplysninger" />
-          <ExternalLinkIcon
-            title={intl.formatMessage({
-              id: 'application.global.external_link',
-            })}
-            width="1.25rem"
-            height="1.25rem"
-          />
-        </Link>
       </VStack>
+      <Link
+        className={styles.link}
+        as={ReactRouterLink}
+        to={paths.personopplysninger}
+        target="_blank"
+        inlineText
+      >
+        <FormattedMessage id="landingsside.link.personopplysninger" />
+        <ExternalLinkIcon
+          title={intl.formatMessage({
+            id: 'application.global.external_link',
+          })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
     </div>
   )
 }
