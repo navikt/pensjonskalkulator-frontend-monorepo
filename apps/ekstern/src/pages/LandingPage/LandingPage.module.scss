@@ -9,9 +9,13 @@
   }
 }
 
+.button {
+  margin-top: var(--a-spacing-2);
+}
+
 .link {
   display: block;
-  margin-top: var(--a-spacing-8);
+  margin: var(--a-spacing-8) 0;
 
   @media (min-width: $a-breakpoint-md) {
     margin-top: 0;
