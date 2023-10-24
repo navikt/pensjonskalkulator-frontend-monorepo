@@ -105,6 +105,7 @@ export const routes: RouteObject[] = [
         element: <Henvisning1963 />,
       },
       {
+        loader: directAccessGuard,
         path: paths.utenlandsopphold,
         element: <Step1 />,
       },
