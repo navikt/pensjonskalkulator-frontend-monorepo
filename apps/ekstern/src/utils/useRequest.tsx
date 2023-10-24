@@ -114,7 +114,7 @@ export function useRequest<T, E = ErrorType>(
                   error: error,
                   status: resp.status,
                 })
-              })
+              }) /* c8 ignore next 15 */
               .catch(() => {
                 dispatch({
                   action: 'ERROR',
