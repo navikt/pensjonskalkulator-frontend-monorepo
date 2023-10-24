@@ -4,6 +4,7 @@ import { useLocation, Await } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { HOST_BASEURL } from '@/paths'
+import { LoginContext } from '@/router/loaders'
 import { useDeferAuthenticationAccessData } from '@/router/loaders'
 
 import { FrameComponent } from './FrameComponent'
@@ -70,7 +71,9 @@ export const PageFramework: React.FC<{
               <FrameComponent {...rest}>
                 {children &&
                   React.cloneElement(children, {
-                    isLoggedIn: oauth2Query.ok,
+                    context: {
+                      isLoggedIn: oauth2Query.ok,
+                    } satisfies LoginContext,
                   })}
               </FrameComponent>
             )

@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Link as ReactRouterLink } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
@@ -13,13 +14,13 @@ import {
 } from '@navikt/ds-react'
 
 import { BASE_PATH, externalUrls, paths } from '@/router'
+import { LoginContext } from '@/router/loaders'
 
 import styles from './LandingPage.module.scss'
 
-export const LandingPage: React.FC<{ isLoggedIn?: boolean }> = ({
-  isLoggedIn,
-}) => {
+export const LandingPage = () => {
   const intl = useIntl()
+  const { isLoggedIn } = useOutletContext<LoginContext>()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({

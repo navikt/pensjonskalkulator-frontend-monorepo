@@ -56,7 +56,6 @@ export const FrameComponent: React.FC<{
             </Heading>
           </div>
         </div>
-
         {children}
       </div>
     </main>

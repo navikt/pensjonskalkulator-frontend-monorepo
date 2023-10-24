@@ -1,17 +1,48 @@
+// import * as ReactRouterUtils from 'react-router-dom'
+
 import { describe, it, vi } from 'vitest'
 
 import { LandingPage } from '..'
 import { externalUrls } from '@/router'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  RenderRouteWithOutletContext,
+} from '@/test-utils'
+
+// vi.mock('react-router-dom', () => {
+//   return {
+//     __esModule: true, //    <----- this __esModule: true is important
+//     ...vi.importActual('react-router-dom'),
+//   }
+// })
 
 describe('LandingPage', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+    vi.resetAllMocks()
+  })
+
   it('har riktig sidetittel', () => {
-    render(<LandingPage />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
+    // render(<LandingPage />, { hasRouter: false })
     expect(document.title).toBe('application.title')
   })
 
   it('rendrer innlogget side', async () => {
-    const { asFragment } = render(<LandingPage isLoggedIn />)
+    const { asFragment } = render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
 
     await waitFor(() => {
       expect(
@@ -23,7 +54,12 @@ describe('LandingPage', () => {
   })
 
   it('rendrer utlogget side', async () => {
-    const { asFragment } = render(<LandingPage isLoggedIn={false} />)
+    const { asFragment } = render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
 
     await waitFor(() => {
       expect(
@@ -45,7 +81,12 @@ describe('LandingPage', () => {
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(<LandingPage isLoggedIn />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
     await waitFor(() => {
       expect(screen.getByTestId('landingside-first-button')).toBeDefined()
     })
@@ -63,7 +104,13 @@ describe('LandingPage', () => {
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(<LandingPage isLoggedIn />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
+
     await waitFor(() => {
       expect(
         screen.getByTestId('landingside-detaljert-kalkulator-button')
@@ -83,7 +130,13 @@ describe('LandingPage', () => {
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(<LandingPage isLoggedIn={false} />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
+
     await waitFor(async () => {
       await user.click(
         screen.getByTestId('landingside-enkel-kalkulator-button')
@@ -99,7 +152,12 @@ describe('LandingPage', () => {
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(<LandingPage isLoggedIn={false} />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
 
     await waitFor(() => {
       expect(

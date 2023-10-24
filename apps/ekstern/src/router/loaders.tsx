@@ -11,6 +11,10 @@ import { paths } from '@/router'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 
+export interface LoginContext {
+  isLoggedIn: boolean
+}
+
 export function useDeferAuthenticationAccessData<
   TReturnedValue extends ReturnType<typeof authenticationDeferredLoader>,
 >() {

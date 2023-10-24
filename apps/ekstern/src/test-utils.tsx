@@ -5,12 +5,15 @@ import {
   createBrowserRouter,
   MemoryRouter,
   RouterProvider,
+  Routes,
+  Route,
+  Outlet,
 } from 'react-router-dom'
 
 import { PreloadedState, createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
-import { authenticationGuard } from '@/router/loaders'
+import { authenticationGuard, LoginContext } from '@/router/loaders'
 import { getTranslation_test } from '@/utils/__tests__/test-translations'
 
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'
@@ -41,6 +44,26 @@ export const swallowErrorsAsync = async (testFn: () => Promise<void>) => {
   console.error = () => {}
   await testFn()
   console.error = cache
+}
+
+interface RenderRouteWithOutletContextProps<T = LoginContext> {
+  context: T
+  children: React.ReactNode
+}
+
+export const RenderRouteWithOutletContext = <T,>({
+  context,
+  children,
+}: RenderRouteWithOutletContextProps<T>) => {
+  return (
+    <MemoryRouter>
+      <Routes>
+        <Route path="/" element={<Outlet context={context as T} />}>
+          <Route index element={children} />
+        </Route>
+      </Routes>
+    </MemoryRouter>
+  )
 }
 
 function generateMockedTranslations() {
