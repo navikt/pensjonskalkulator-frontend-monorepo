@@ -89,7 +89,7 @@ const translations = {
     'Du kan dessverre ikke bruke enkel kalkulator',
   'stegvisning.utenlandsopphold.error.button.primary': 'Detaljert kalkulator',
   'stegvisning.utenlandsopphold.error.ingress':
-    'Fordi du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert kalkulator. ',
+    'Siden du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert kalkulator. ',
   'stegvisning.samtykke.title': 'Pensjonen din',
   'stegvisning.samtykke.ingress':
     'I kalkulatoren kan du se alderspensjon fra folketrygden (NAV) og eventuell avtalefestet pensjon (AFP) i privat sektor. For å vise andre pensjonsavtaler og tjenestepensjon fra arbeidsgivere må vi ha ditt samtykke til å hente pensjonsavtalene dine.',
@@ -213,7 +213,7 @@ const translations = {
   'grunnlag.pensjonsavtaler.ingress':
     'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikke ansvarlig for beløpene som er oppgitt. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekk aktuell tjenestepensjonsordning.',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress':
-    'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon.',
+    'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1':
     'Start en ny beregning',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_2':

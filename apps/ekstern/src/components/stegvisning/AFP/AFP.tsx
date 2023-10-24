@@ -66,6 +66,27 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage id="stegvisning.afp.ingress" />
         </BodyLong>
         <ReadMore
+          name="Avtalefestet pensjon i offentlig sektor"
+          className={styles.readmoreOffentlig}
+          header={
+            <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
+          }
+        >
+          <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_title" />
+          <ul className={styles.list}>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
+            </li>
+          </ul>
+          <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
+        </ReadMore>
+        <ReadMore
           name="Avtalefestet pensjon i privat sektor"
           className={styles.readmorePrivat}
           header={
@@ -90,27 +111,6 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
               ...formatMessageValues,
             }}
           />
-        </ReadMore>
-        <ReadMore
-          name="Avtalefestet pensjon i offentlig sektor"
-          className={styles.readmoreOffentlig}
-          header={
-            <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_title" />
-          <ul className={styles.list}>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
-            </li>
-          </ul>
-          <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
         </ReadMore>
         <RadioGroup
           className={styles.radiogroup}

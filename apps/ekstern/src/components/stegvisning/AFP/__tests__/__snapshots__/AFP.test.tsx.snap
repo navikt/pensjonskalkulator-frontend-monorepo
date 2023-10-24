@@ -17,6 +17,58 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
         stegvisning.afp.ingress
       </p>
       <div
+        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6"
+      >
+        <button
+          aria-expanded="false"
+          class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_offentlig_title
+          </span>
+        </button>
+        <div
+          aria-hidden="true"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+        >
+          stegvisning.afp.readmore_offentlig_list_title
+          <ul
+            class="_list_10a2c6"
+          >
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item3
+            </li>
+          </ul>
+          stegvisning.afp.readmore_offentlig_ingress
+        </div>
+      </div>
+      <div
         class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6"
       >
         <button
@@ -73,7 +125,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           >
             AFP i privat sektor på afp.no
             <svg
-              aria-labelledby="title-ra"
+              aria-labelledby="title-rb"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -83,7 +135,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-ra"
+                id="title-rb"
               >
                 åpner i en ny fane
               </title>
@@ -95,58 +147,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
               />
             </svg>
           </a>
-        </div>
-      </div>
-      <div
-        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6"
-      >
-        <button
-          aria-expanded="false"
-          class="navds-read-more__button navds-body-short"
-          data-testid="readmore"
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            class="navds-read-more__expand-icon"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <span>
-            stegvisning.afp.readmore_offentlig_title
-          </span>
-        </button>
-        <div
-          aria-hidden="true"
-          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
-        >
-          stegvisning.afp.readmore_offentlig_list_title
-          <ul
-            class="_list_10a2c6"
-          >
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item1
-            </li>
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item2
-            </li>
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item3
-            </li>
-          </ul>
-          stegvisning.afp.readmore_offentlig_ingress
         </div>
       </div>
       <fieldset
@@ -323,6 +323,58 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
         stegvisning.afp.ingress
       </p>
       <div
+        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6 navds-read-more--open"
+      >
+        <button
+          aria-expanded="true"
+          class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_offentlig_title
+          </span>
+        </button>
+        <div
+          aria-hidden="false"
+          class="navds-read-more__content navds-body-long navds-body-long--medium"
+        >
+          stegvisning.afp.readmore_offentlig_list_title
+          <ul
+            class="_list_10a2c6"
+          >
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item3
+            </li>
+          </ul>
+          stegvisning.afp.readmore_offentlig_ingress
+        </div>
+      </div>
+      <div
         class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6 navds-read-more--open"
       >
         <button
@@ -379,7 +431,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
           >
             AFP i privat sektor på afp.no
             <svg
-              aria-labelledby="title-r1"
+              aria-labelledby="title-r2"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -389,7 +441,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-r1"
+                id="title-r2"
               >
                 åpner i en ny fane
               </title>
@@ -401,58 +453,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
               />
             </svg>
           </a>
-        </div>
-      </div>
-      <div
-        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6 navds-read-more--open"
-      >
-        <button
-          aria-expanded="true"
-          class="navds-read-more__button navds-body-short"
-          data-testid="readmore"
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            class="navds-read-more__expand-icon"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <span>
-            stegvisning.afp.readmore_offentlig_title
-          </span>
-        </button>
-        <div
-          aria-hidden="false"
-          class="navds-read-more__content navds-body-long navds-body-long--medium"
-        >
-          stegvisning.afp.readmore_offentlig_list_title
-          <ul
-            class="_list_10a2c6"
-          >
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item1
-            </li>
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item2
-            </li>
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item3
-            </li>
-          </ul>
-          stegvisning.afp.readmore_offentlig_ingress
         </div>
       </div>
       <fieldset
@@ -628,6 +628,58 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
         stegvisning.afp.ingress
       </p>
       <div
+        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6 navds-read-more--open"
+      >
+        <button
+          aria-expanded="true"
+          class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.afp.readmore_offentlig_title
+          </span>
+        </button>
+        <div
+          aria-hidden="false"
+          class="navds-read-more__content navds-body-long navds-body-long--medium"
+        >
+          stegvisning.afp.readmore_offentlig_list_title
+          <ul
+            class="_list_10a2c6"
+          >
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item1
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item2
+            </li>
+            <li>
+              stegvisning.afp.readmore_offentlig_list_item3
+            </li>
+          </ul>
+          stegvisning.afp.readmore_offentlig_ingress
+        </div>
+      </div>
+      <div
         class="navds-read-more navds-read-more--medium _readmorePrivat_10a2c6 navds-read-more--open"
       >
         <button
@@ -684,7 +736,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
           >
             AFP i privat sektor på afp.no
             <svg
-              aria-labelledby="title-r1"
+              aria-labelledby="title-r2"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -694,7 +746,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-r1"
+                id="title-r2"
               >
                 åpner i en ny fane
               </title>
@@ -706,58 +758,6 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
               />
             </svg>
           </a>
-        </div>
-      </div>
-      <div
-        class="navds-read-more navds-read-more--medium _readmoreOffentlig_10a2c6 navds-read-more--open"
-      >
-        <button
-          aria-expanded="true"
-          class="navds-read-more__button navds-body-short"
-          data-testid="readmore"
-          type="button"
-        >
-          <svg
-            aria-hidden="true"
-            class="navds-read-more__expand-icon"
-            fill="none"
-            focusable="false"
-            height="1em"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-          <span>
-            stegvisning.afp.readmore_offentlig_title
-          </span>
-        </button>
-        <div
-          aria-hidden="false"
-          class="navds-read-more__content navds-body-long navds-body-long--medium"
-        >
-          stegvisning.afp.readmore_offentlig_list_title
-          <ul
-            class="_list_10a2c6"
-          >
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item1
-            </li>
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item2
-            </li>
-            <li>
-              stegvisning.afp.readmore_offentlig_list_item3
-            </li>
-          </ul>
-          stegvisning.afp.readmore_offentlig_ingress
         </div>
       </div>
       <fieldset
