@@ -1,13 +1,91 @@
 import { describe, it, vi } from 'vitest'
 
-import { tpoMedlemskapAccessGuard } from '../loaders'
+import {
+  directAccessGuard,
+  authenticationGuard,
+  tpoMedlemskapAccessGuard,
+} from '../loaders'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import { waitFor } from '@/test-utils'
 
-// TODO skrive tester for de andre loaders
+const fakeApiCalls = {
+  queries: {
+    ['tulleQuery(undefined)']: {
+      status: 'fulfilled',
+      endpointName: 'getPerson',
+      requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+      startedTimeStamp: 1688046411971,
+      data: {
+        fornavn: 'Aprikos',
+        sivilstand: 'UGIFT',
+        foedselsdato: '1963-04-30',
+      },
+      fulfilledTimeStamp: 1688046412103,
+    },
+  },
+}
+
 describe('Loaders', () => {
-  describe('Loaders', () => {
+  describe('directAccessGuard', () => {
+    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          queries: {},
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await directAccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+    })
+    it('returnerer null når minst ett api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await directAccessGuard()
+      expect(returnedFromLoader).toBeNull()
+    })
+  })
+
+  describe('authenticationGuard', () => {
+    it('kaller /oauth2/session', async () => {
+      const initiateMock = vi.spyOn(global, 'fetch')
+      await authenticationGuard()
+      expect(initiateMock).toHaveBeenCalledWith(
+        'http://localhost:8088/pensjon/kalkulator/oauth2/session'
+      )
+    })
+
+    it('Når en uventet feil oppstår mens /oauth2/session kalles, redirigerer til id-porten', async () => {
+      const open = vi.fn()
+      vi.stubGlobal('open', open)
+
+      vi.spyOn(global, 'fetch').mockImplementationOnce(() => {
+        throw new Error()
+      })
+
+      await waitFor(async () => {
+        await authenticationGuard()
+      })
+
+      expect(open).toHaveBeenCalledWith(
+        'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+        '_self'
+      )
+    })
+  })
+
+  describe('tpoMedlemskapAccessGuard', () => {
     it('kaller redirect til /start location når samtykke er null', async () => {
       const mockedState = {
         userInput: { ...userInputInitialState, samtykke: null },

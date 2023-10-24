@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Loaders > Loaders > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
+exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
 Response {
   "size": 0,
   "timeout": 0,
@@ -25,7 +25,7 @@ Response {
 }
 `;
 
-exports[`Loaders > Loaders > kaller redirect til /start location når samtykke er null 1`] = `
+exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /start location når samtykke er null 1`] = `
 Response {
   "size": 0,
   "timeout": 0,
@@ -50,7 +50,7 @@ Response {
 }
 `;
 
-exports[`Loaders > Loaders > kaller tp-registret når samtykke er oppgitt til true 1`] = `
+exports[`Loaders > tpoMedlemskapAccessGuard > kaller tp-registret når samtykke er oppgitt til true 1`] = `
 DeferredData {
   "abortPromise": Promise {},
   "controller": AbortController {

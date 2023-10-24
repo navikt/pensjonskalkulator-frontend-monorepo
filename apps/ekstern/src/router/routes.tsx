@@ -81,6 +81,10 @@ export const routes: RouteObject[] = [
         path: paths.login,
         element: <LandingPage />,
       },
+      {
+        path: paths.personopplysninger,
+        element: <Personopplysninger />,
+      },
     ],
   },
   {
@@ -141,10 +145,6 @@ export const routes: RouteObject[] = [
       {
         path: paths.forbehold,
         element: <Forbehold />,
-      },
-      {
-        path: paths.personopplysninger,
-        element: <Personopplysninger />,
       },
     ],
   },

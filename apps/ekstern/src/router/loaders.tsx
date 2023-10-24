@@ -34,6 +34,7 @@ export function authenticationDeferredLoader<
 export const authenticationGuard = async () => {
   try {
     const res = fetch(`${HOST_BASEURL}/oauth2/session`)
+
     return defer({
       oauth2Query: res,
     })
