@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import { SeriesColumnOptions } from 'highcharts'
 
 import { ReadMore } from '../common/ReadMore'
-import { formatAsDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/currency'
 
 import { useTableData } from './hooks'
 
@@ -92,7 +92,7 @@ export function TabellVisning({
                   <React.Fragment key={j}>
                     <dt>{name}</dt>
                     <dd className={styles.detailsItemRight}>
-                      {formatAsDecimal(subSum)}
+                      {formatWithoutDecimal(subSum)}
                     </dd>
                   </React.Fragment>
                 ))}
@@ -106,7 +106,7 @@ export function TabellVisning({
               >
                 <Table.DataCell>{alder}</Table.DataCell>
                 <Table.DataCell className={styles.detailsItemRight}>
-                  {formatAsDecimal(sum)}
+                  {formatWithoutDecimal(sum)}
                 </Table.DataCell>
               </Table.ExpandableRow>
             )
@@ -123,11 +123,11 @@ export function TabellVisning({
                     styles.detailsItemBold
                   )}
                 >
-                  {sum > 0 ? `${formatAsDecimal(sum)} kr` : ''}
+                  {sum > 0 ? `${formatWithoutDecimal(sum)} kr` : ''}
                 </Table.DataCell>
                 {detaljer.map(({ subSum }, j) => (
                   <Table.DataCell key={j} className={styles.detailsItemRight}>
-                    {subSum > 0 ? `${formatAsDecimal(subSum)} kr` : ''}
+                    {subSum > 0 ? `${formatWithoutDecimal(subSum)} kr` : ''}
                   </Table.DataCell>
                 ))}
               </Table.Row>

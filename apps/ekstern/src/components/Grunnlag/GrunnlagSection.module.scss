@@ -1,6 +1,11 @@
 .header {
   font-weight: normal;
   white-space: nowrap;
+  position: relative;
+
+  & svg {
+    top: 5px;
+  }
 }
 
 .content {
