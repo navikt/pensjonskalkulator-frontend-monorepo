@@ -26,7 +26,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
           </p>
           <div>
             <button
-              class="navds-button navds-button--secondary navds-button--medium"
+              class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
               data-testid="landingside-first-button"
             >
               <span
@@ -73,64 +73,64 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                 landingsside.liste.4
               </li>
             </ul>
-          </div>
-          <div
-            class="navds-stack navds-hstack"
-            style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
-          >
-            <button
-              class="navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-detaljert-kalkulator-button"
+            <div
+              class="navds-stack navds-hstack"
+              style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
             >
-              <span
-                class="navds-label"
+              <button
+                class="navds-button navds-button--secondary navds-button--medium"
+                data-testid="landingside-detaljert-kalkulator-button"
               >
-                landingsside.button.detaljert_kalkulator
-              </span>
-            </button>
-            <button
-              class="navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-enkel-kalkulator-button"
-            >
-              <span
-                class="navds-label"
+                <span
+                  class="navds-label"
+                >
+                  landingsside.button.detaljert_kalkulator
+                </span>
+              </button>
+              <button
+                class="navds-button navds-button--secondary navds-button--medium"
+                data-testid="landingside-enkel-kalkulator-button"
               >
-                landingsside.button.enkel_kalkulator
-              </span>
-            </button>
+                <span
+                  class="navds-label"
+                >
+                  landingsside.button.enkel_kalkulator
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
-      <a
-        class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
-        href="/personopplysninger"
-        target="_blank"
-      >
-        landingsside.link.personopplysninger
-        <svg
-          aria-labelledby="title-r2"
-          fill="none"
-          focusable="false"
-          height="1.25rem"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1.25rem"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title
-            id="title-r2"
-          >
-            application.global.external_link
-          </title>
-          <path
-            clip-rule="evenodd"
-            d="M11.75 4a.75.75 0 0 1 .75-.75H20a.748.748 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1-.75-.75ZM5 8.75a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25h10a.25.25 0 0 0 .25-.25v-7a.75.75 0 0 1 1.5 0v7A1.75 1.75 0 0 1 15 20.75H5A1.75 1.75 0 0 1 3.25 19V9c0-.966.784-1.75 1.75-1.75h7a.75.75 0 0 1 0 1.5H5Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </a>
     </div>
+    <a
+      class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
+      href="/personopplysninger"
+      target="_blank"
+    >
+      landingsside.link.personopplysninger
+      <svg
+        aria-labelledby="title-r2"
+        fill="none"
+        focusable="false"
+        height="1.25rem"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1.25rem"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="title-r2"
+        >
+          application.global.external_link
+        </title>
+        <path
+          clip-rule="evenodd"
+          d="M11.75 4a.75.75 0 0 1 .75-.75H20a.748.748 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1-.75-.75ZM5 8.75a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25h10a.25.25 0 0 0 .25-.25v-7a.75.75 0 0 1 1.5 0v7A1.75 1.75 0 0 1 15 20.75H5A1.75 1.75 0 0 1 3.25 19V9c0-.966.784-1.75 1.75-1.75h7a.75.75 0 0 1 0 1.5H5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </a>
   </div>
 </DocumentFragment>
 `;
@@ -161,7 +161,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           </p>
           <div>
             <button
-              class="navds-button navds-button--secondary navds-button--medium"
+              class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
               data-testid="landingside-first-button"
             >
               <span
@@ -208,31 +208,31 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                 landingsside.liste.4
               </li>
             </ul>
-          </div>
-          <div
-            class="navds-stack navds-hstack"
-            style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
-          >
-            <button
-              class="navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-detaljert-kalkulator-button"
+            <div
+              class="navds-stack navds-hstack"
+              style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
             >
-              <span
-                class="navds-label"
+              <button
+                class="navds-button navds-button--secondary navds-button--medium"
+                data-testid="landingside-detaljert-kalkulator-button"
               >
-                landingsside.button.detaljert_kalkulator_utlogget
-              </span>
-            </button>
-            <button
-              class="navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-enkel-kalkulator-button"
-            >
-              <span
-                class="navds-label"
+                <span
+                  class="navds-label"
+                >
+                  landingsside.button.detaljert_kalkulator_utlogget
+                </span>
+              </button>
+              <button
+                class="navds-button navds-button--secondary navds-button--medium"
+                data-testid="landingside-enkel-kalkulator-button"
               >
-                landingsside.button.enkel_kalkulator_utlogget
-              </span>
-            </button>
+                <span
+                  class="navds-label"
+                >
+                  landingsside.button.enkel_kalkulator_utlogget
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -253,7 +253,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           </p>
           <div>
             <button
-              class="navds-button navds-button--secondary navds-button--medium"
+              class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
               data-testid="landingside-uinnlogget-kalkulator-button"
             >
               <span
@@ -265,36 +265,36 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           </div>
         </div>
       </section>
-      <a
-        class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
-        href="/personopplysninger"
-        target="_blank"
-      >
-        landingsside.link.personopplysninger
-        <svg
-          aria-labelledby="title-r4"
-          fill="none"
-          focusable="false"
-          height="1.25rem"
-          role="img"
-          viewBox="0 0 24 24"
-          width="1.25rem"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <title
-            id="title-r4"
-          >
-            application.global.external_link
-          </title>
-          <path
-            clip-rule="evenodd"
-            d="M11.75 4a.75.75 0 0 1 .75-.75H20a.748.748 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1-.75-.75ZM5 8.75a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25h10a.25.25 0 0 0 .25-.25v-7a.75.75 0 0 1 1.5 0v7A1.75 1.75 0 0 1 15 20.75H5A1.75 1.75 0 0 1 3.25 19V9c0-.966.784-1.75 1.75-1.75h7a.75.75 0 0 1 0 1.5H5Z"
-            fill="currentColor"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </a>
     </div>
+    <a
+      class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
+      href="/personopplysninger"
+      target="_blank"
+    >
+      landingsside.link.personopplysninger
+      <svg
+        aria-labelledby="title-r4"
+        fill="none"
+        focusable="false"
+        height="1.25rem"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1.25rem"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title
+          id="title-r4"
+        >
+          application.global.external_link
+        </title>
+        <path
+          clip-rule="evenodd"
+          d="M11.75 4a.75.75 0 0 1 .75-.75H20a.748.748 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1-.75-.75ZM5 8.75a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25h10a.25.25 0 0 0 .25-.25v-7a.75.75 0 0 1 1.5 0v7A1.75 1.75 0 0 1 15 20.75H5A1.75 1.75 0 0 1 3.25 19V9c0-.966.784-1.75 1.75-1.75h7a.75.75 0 0 1 0 1.5H5Z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </a>
   </div>
 </DocumentFragment>
 `;
