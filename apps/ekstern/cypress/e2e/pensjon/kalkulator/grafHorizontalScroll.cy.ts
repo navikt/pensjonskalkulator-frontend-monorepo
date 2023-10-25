@@ -1,7 +1,7 @@
 describe('Graf Horizontal scroll', () => {
   context('Gitt at grafen rendres på desktop', () => {
     it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {
-      cy.visit('/pensjon/kalkulator/')
+      cy.visit('/pensjon/kalkulator/start')
       cy.fillOutStegvisning({ samtykke: false })
       cy.window().its('router').invoke('navigate', '/beregning')
 
@@ -11,7 +11,7 @@ describe('Graf Horizontal scroll', () => {
     })
 
     it('Brukeren kan se og bruke navigasjonsknappene når det er flere søyler enn skjermens bredde', () => {
-      cy.visit('/pensjon/kalkulator/')
+      cy.visit('/pensjon/kalkulator/start')
       cy.fillOutStegvisning({ samtykke: false })
       cy.window().its('router').invoke('navigate', '/beregning')
 
