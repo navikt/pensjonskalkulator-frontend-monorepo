@@ -1,6 +1,6 @@
 export enum PensjonsavtaleKategori {
-  NONE = 'ukjent',
-  UNKNOWN = 'ukjent',
+  NONE = 'andre avtaler',
+  UNKNOWN = 'andre avtaler',
   PRIVAT_TJENESTEPENSJON = 'privat tjenestepensjon',
   OFFENTLIG_TJENESTEPENSJON = 'offentlig tjenestepensjon',
   INDIVIDUELL_ORDNING = 'individuell ordning',
