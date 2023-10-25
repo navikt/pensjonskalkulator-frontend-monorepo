@@ -10,6 +10,7 @@ type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'button klikk', { tekst: string }>
   | AmplitudeEvent<'chip valgt', { tekst: string; data: string }>
   | AmplitudeEvent<'chip avvalgt', { tekst: string; data: string }>
+  | AmplitudeEvent<'graf tooltip åpnet', { data: string }>
 
 export const logger =
   getAmplitudeInstance<IExtendedAmpltitudeEvents>('dekoratoren')

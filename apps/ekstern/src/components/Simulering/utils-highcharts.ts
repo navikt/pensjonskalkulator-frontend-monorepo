@@ -27,6 +27,7 @@ import {
 } from './utils'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
+import { logger } from '@/utils/logging'
 
 export type ExtendedAxis = Axis & {
   height: number
@@ -63,6 +64,9 @@ export function labelFormatterMobile(this: AxisLabelsFormatterContextObject) {
 }
 
 export function onPointClick(this: Point): void {
+  logger('graf tooltip åpnet', {
+    data: this.category as string,
+  })
   this.series.chart.tooltip.update({
     enabled: true,
   })
