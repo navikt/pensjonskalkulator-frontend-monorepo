@@ -8,6 +8,10 @@
     composes: innerframe__largePadding from '../../../scss/modules/frame.module.scss';
   }
 
+  &__noPadding {
+    composes: innerframe__noPadding from '../../../scss/modules/frame.module.scss';
+  }
+
   &__marginBotton {
     /* important er nødvendig for å overskrive innerframe compose */
     margin-bottom: var(--a-spacing-10) !important;
