@@ -1,5 +1,85 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PageFramework > scroller på toppen av siden når en route endrer seg 1`] = `<DocumentFragment />`;
+exports[`PageFramework > rendrer slik den skal i full width 1`] = `
+<DocumentFragment>
+  <main
+    class="_main_55ef1a"
+  >
+    <div
+      class="_content_55ef1a"
+    >
+      <div
+        class="_headerGroup_55ef1a"
+      >
+        <div
+          class="_headerGroupTitle_55ef1a"
+        >
+          <h1
+            class="navds-heading navds-heading--large"
+          >
+            pageframework.title
+          </h1>
+        </div>
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;
 
-exports[`PageFramework > scroller på toppen av siden når en route endrer seg 2`] = `<DocumentFragment />`;
+exports[`PageFramework > rendrer slik den skal med logo 1`] = `
+<DocumentFragment>
+  <main
+    class="_main_55ef1a"
+  >
+    <div
+      class="_content_55ef1a _content__isFramed_55ef1a"
+    >
+      <div
+        class="_headerGroup_55ef1a"
+      >
+        <div
+          class="_headerGroupTitle_55ef1a _headerGroupTitle__isFramed_55ef1a"
+        >
+          <img
+            alt=""
+            class="_headerGroupTitle__logo_55ef1a"
+            data-testid="framework-logo"
+            src="/pensjon/kalkulator/src/assets/kalkulator.svg"
+          />
+          <h1
+            class="navds-heading navds-heading--large"
+          >
+            pageframework.title
+          </h1>
+        </div>
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;
+
+exports[`PageFramework > rendrer slik den skal, med main tag og Heading på riktig nivå 1`] = `
+<DocumentFragment>
+  <main
+    class="_main_55ef1a"
+  >
+    <div
+      class="_content_55ef1a _content__isFramed_55ef1a"
+    >
+      <div
+        class="_headerGroup_55ef1a"
+      >
+        <div
+          class="_headerGroupTitle_55ef1a _headerGroupTitle__isFramed_55ef1a"
+        >
+          <h1
+            class="navds-heading navds-heading--large"
+          >
+            pageframework.title
+          </h1>
+        </div>
+      </div>
+    </div>
+  </main>
+</DocumentFragment>
+`;

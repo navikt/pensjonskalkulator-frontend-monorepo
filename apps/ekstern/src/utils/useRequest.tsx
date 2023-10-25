@@ -36,6 +36,7 @@ type ReducerType<T, E> = React.Reducer<IRequestState<T, E>, Action<T, E>>
 
 type ErrorType = { error: string } & string
 
+// Ikke i bruk per dags dato, men spares som util til senere
 export function useRequest<T, E = ErrorType>(
   request: Partial<RequestInfo> | URL
 ) {

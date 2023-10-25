@@ -7,6 +7,7 @@ import { HOST_BASEURL } from '@/paths'
 import { LoginContext } from '@/router/loaders'
 import { useDeferAuthenticationAccessData } from '@/router/loaders'
 
+import { CheckLoginOnFocus } from './CheckLoginOnFocus'
 import { FrameComponent } from './FrameComponent'
 
 function RedirectElement() {
@@ -20,6 +21,7 @@ function RedirectElement() {
   }, [])
   return <span data-testid="redirect-element"></span>
 }
+
 export const PageFramework: React.FC<{
   isFullWidth?: boolean
   hasWhiteBg?: boolean
@@ -35,19 +37,6 @@ export const PageFramework: React.FC<{
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
-
-  // React.useEffect(() => {
-  //   const onFocus = () => {
-  //     /* c8 ignore next 3 */
-  //     if (!isLoading) {
-  //       reload()
-  //     }
-  //   }
-  //   window.addEventListener('focus', onFocus)
-  //   return () => {
-  //     window.removeEventListener('focus', onFocus)
-  //   }
-  // }, [isLoading])
 
   return (
     <>
@@ -68,14 +57,18 @@ export const PageFramework: React.FC<{
             return shouldRedirectNonAuthenticated && !oauth2Query.ok ? (
               <RedirectElement />
             ) : (
-              <FrameComponent {...rest}>
-                {children &&
-                  React.cloneElement(children, {
-                    context: {
-                      isLoggedIn: oauth2Query.ok,
-                    } satisfies LoginContext,
-                  })}
-              </FrameComponent>
+              <CheckLoginOnFocus
+                shouldRedirectNonAuthenticated={shouldRedirectNonAuthenticated}
+              >
+                <FrameComponent {...rest}>
+                  {children &&
+                    React.cloneElement(children, {
+                      context: {
+                        isLoggedIn: oauth2Query.ok,
+                      } satisfies LoginContext,
+                    })}
+                </FrameComponent>
+              </CheckLoginOnFocus>
             )
           }}
         </Await>

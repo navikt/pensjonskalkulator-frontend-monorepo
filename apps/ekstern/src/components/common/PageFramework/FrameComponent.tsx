@@ -46,6 +46,7 @@ export const FrameComponent: React.FC<{
           >
             {shouldShowLogo && (
               <img
+                data-testid="framework-logo"
                 className={styles.headerGroupTitle__logo}
                 src={KalkulatorLogo}
                 alt=""

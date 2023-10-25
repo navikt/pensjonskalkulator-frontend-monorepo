@@ -39,6 +39,7 @@ spec:
         - /internal/ping
         - /pensjon/kalkulator
         - /pensjon/kalkulator/login
+        - /pensjon/kalkulator/personopplysninger
         - /pensjon/kalkulator/assets/*
         - /pensjon/kalkulator/api/status
         - /pensjon/kalkulator/api/feature/*
