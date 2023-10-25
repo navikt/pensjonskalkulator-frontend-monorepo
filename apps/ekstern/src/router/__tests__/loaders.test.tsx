@@ -65,24 +65,6 @@ describe('Loaders', () => {
         'http://localhost:8088/pensjon/kalkulator/oauth2/session'
       )
     })
-
-    it('Når en uventet feil oppstår mens /oauth2/session kalles, redirigerer til id-porten', async () => {
-      const open = vi.fn()
-      vi.stubGlobal('open', open)
-
-      vi.spyOn(global, 'fetch').mockImplementationOnce(() => {
-        throw new Error()
-      })
-
-      await waitFor(async () => {
-        await authenticationGuard()
-      })
-
-      expect(open).toHaveBeenCalledWith(
-        'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-        '_self'
-      )
-    })
   })
 
   describe('tpoMedlemskapAccessGuard', () => {

@@ -36,20 +36,10 @@ export function authenticationDeferredLoader<
 }
 
 export const authenticationGuard = async () => {
-  try {
-    const res = fetch(`${HOST_BASEURL}/oauth2/session`)
-
-    return defer({
-      oauth2Query: res,
-    })
-  } catch (error) {
-    window.open(
-      `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
-        window.location.pathname
-      )}`,
-      '_self'
-    )
-  }
+  const res = fetch(`${HOST_BASEURL}/oauth2/session`)
+  return defer({
+    oauth2Query: res,
+  })
 }
 
 export const directAccessGuard = async () => {
