@@ -7,9 +7,9 @@ import { HOST_BASEURL } from '@/paths'
 import { LoginContext } from '@/router/loaders'
 import { useDeferAuthenticationAccessData } from '@/router/loaders'
 
+import { CheckLoginOnFocus } from './CheckLoginOnFocus'
 import { FrameComponent } from './FrameComponent'
 
-// TODO skrive tester
 function RedirectElement() {
   React.useEffect(() => {
     window.open(
@@ -20,32 +20,6 @@ function RedirectElement() {
     )
   }, [])
   return <span data-testid="redirect-element"></span>
-}
-
-// TODO skrive tester
-const CheckLoginOnFocus: React.FC<{
-  shouldRedirectNonAuthenticated: boolean
-  children: JSX.Element
-}> = ({ shouldRedirectNonAuthenticated, children }) => {
-  React.useEffect(() => {
-    const onFocus = async () => {
-      /* c8 ignore next 3 */
-      const res = await fetch(`${HOST_BASEURL}/oauth2/session`)
-      if (shouldRedirectNonAuthenticated && !res.ok) {
-        window.open(
-          `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
-            window.location.pathname
-          )}`,
-          '_self'
-        )
-      }
-    }
-    window.addEventListener('focus', onFocus)
-    return () => {
-      window.removeEventListener('focus', onFocus)
-    }
-  }, [])
-  return children
 }
 
 export const PageFramework: React.FC<{

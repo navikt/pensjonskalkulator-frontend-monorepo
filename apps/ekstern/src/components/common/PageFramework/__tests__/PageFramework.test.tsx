@@ -18,25 +18,37 @@ describe('PageFramework', () => {
 
   it('rendrer slik den skal, med main tag og Heading på riktig nivå', async () => {
     const { asFragment } = render(<PageFramework />, { hasLogin: true })
-
-    waitFor(async () => {
-      expect(
-        await screen.findByRole('heading', { level: 1 })
-      ).toHaveTextContent('pageframework.title')
-      expect(asFragment()).toMatchSnapshot()
+    await waitFor(async () => {
+      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+        'pageframework.title'
+      )
     })
+    expect(asFragment()).toMatchSnapshot()
   })
 
-  it('rendrer slik den skal i full width', () => {
-    const { asFragment } = render(<PageFramework isFullWidth />, {
+  it('rendrer slik den skal i full width', async () => {
+    const { asFragment } = render(
+      <PageFramework isFullWidth shouldShowLogo={false} />,
+      {
+        hasLogin: true,
+      }
+    )
+    await waitFor(async () => {
+      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+        'pageframework.title'
+      )
+    })
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('rendrer slik den skal med logo', async () => {
+    const { asFragment } = render(<PageFramework shouldShowLogo={true} />, {
       hasLogin: true,
     })
-    waitFor(async () => {
-      expect(
-        await screen.findByRole('heading', { level: 1 })
-      ).toHaveTextContent('pageframework.title')
-      expect(asFragment()).toMatchSnapshot()
+    await waitFor(async () => {
+      expect(screen.getByTestId('framework-logo')).toBeInTheDocument()
     })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('scroller på toppen av siden når en route endrer seg', async () => {
@@ -82,18 +94,4 @@ describe('PageFramework', () => {
       '_self'
     )
   })
-
-  // it('sjekker igjen om brukeren er authenticated ved focus', () => {
-  // const spy = vi.spyOn(useRequest, 'default')
-  // spy.mockReturnValue({
-  //   status: 401,
-  //   reload: vi.fn(),
-  //   isLoading: false,
-  //   loadingState: 'ERROR',
-  //   data: null,
-  //   hasError: false,
-  //   errorData: null,
-  // })
-  //   // window.dispatchEvent(new Event('focus'))
-  // })
 })
