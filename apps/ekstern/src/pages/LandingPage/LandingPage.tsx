@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { Link as ReactRouterLink } from 'react-router-dom'
+import { useOutletContext } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
@@ -9,38 +10,23 @@ import {
   Heading,
   HStack,
   Link,
-  Loader,
   VStack,
 } from '@navikt/ds-react'
 
-import { HOST_BASEURL } from '@/paths'
 import { BASE_PATH, externalUrls, paths } from '@/router'
-import useRequest from '@/utils/useRequest'
+import { LoginContext } from '@/router/loaders'
 
 import styles from './LandingPage.module.scss'
 
-export function LandingPage() {
+export const LandingPage = () => {
   const intl = useIntl()
-  const { isLoading, status } = useRequest<null>(
-    `${HOST_BASEURL}/oauth2/session`
-  )
+  const { isLoggedIn } = useOutletContext<LoginContext>()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title',
     })
   }, [])
-
-  const isLoggedIn = React.useMemo(
-    () => !isLoading && status === 200,
-    [isLoading, status]
-  )
-
-  if (isLoading) {
-    return (
-      <Loader title={intl.formatMessage({ id: 'pageframework.loading' })} />
-    )
-  }
 
   const gaaTilDetaljertKalkulator = () => {
     window.open(externalUrls.detaljertKalkulator, '_self')

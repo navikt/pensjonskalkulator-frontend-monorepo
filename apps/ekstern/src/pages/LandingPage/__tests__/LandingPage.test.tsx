@@ -1,22 +1,48 @@
+// import * as ReactRouterUtils from 'react-router-dom'
+
 import { describe, it, vi } from 'vitest'
 
 import { LandingPage } from '..'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { HOST_BASEURL } from '@/paths'
 import { externalUrls } from '@/router'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import {
+  render,
+  screen,
+  userEvent,
+  waitFor,
+  RenderRouteWithOutletContext,
+} from '@/test-utils'
+
+// vi.mock('react-router-dom', () => {
+//   return {
+//     __esModule: true, //    <----- this __esModule: true is important
+//     ...vi.importActual('react-router-dom'),
+//   }
+// })
 
 describe('LandingPage', () => {
+  afterEach(() => {
+    vi.clearAllMocks()
+    vi.resetAllMocks()
+  })
+
   it('har riktig sidetittel', () => {
-    render(<LandingPage />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
+    // render(<LandingPage />, { hasRouter: false })
     expect(document.title).toBe('application.title')
   })
 
   it('rendrer innlogget side', async () => {
-    mockResponse('/oauth2/session', {
-      baseUrl: `${HOST_BASEURL}`,
-    })
-    const { asFragment } = render(<LandingPage />)
+    const { asFragment } = render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
 
     await waitFor(() => {
       expect(
@@ -28,10 +54,12 @@ describe('LandingPage', () => {
   })
 
   it('rendrer utlogget side', async () => {
-    mockErrorResponse('/oauth2/session', {
-      baseUrl: `${HOST_BASEURL}`,
-    })
-    const { asFragment } = render(<LandingPage />)
+    const { asFragment } = render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
 
     await waitFor(() => {
       expect(
@@ -49,14 +77,16 @@ describe('LandingPage', () => {
 
   it('går til detaljert kalkulator når brukeren klikker på den øverste knappen', async () => {
     const user = userEvent.setup()
-    mockResponse('/oauth2/session', {
-      baseUrl: `${HOST_BASEURL}`,
-    })
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(<LandingPage />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
     await waitFor(() => {
       expect(screen.getByTestId('landingside-first-button')).toBeDefined()
     })
@@ -70,14 +100,17 @@ describe('LandingPage', () => {
 
   it('går til detaljert kalkulator når brukeren klikker på detaljert kalkulator knappen', async () => {
     const user = userEvent.setup()
-    mockResponse('/oauth2/session', {
-      baseUrl: `${HOST_BASEURL}`,
-    })
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(<LandingPage />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
+
     await waitFor(() => {
       expect(
         screen.getByTestId('landingside-detaljert-kalkulator-button')
@@ -93,14 +126,17 @@ describe('LandingPage', () => {
 
   it('går til enkel kalkulator når brukeren klikker på enkel kalkulator knappen', async () => {
     const user = userEvent.setup()
-    mockErrorResponse('/oauth2/session', {
-      baseUrl: `${HOST_BASEURL}`,
-    })
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(<LandingPage />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
+
     await waitFor(async () => {
       await user.click(
         screen.getByTestId('landingside-enkel-kalkulator-button')
@@ -112,14 +148,16 @@ describe('LandingPage', () => {
 
   it('går til uinnlogget kalkulator når brukeren klikker på uinnlogget kalkulator knappen', async () => {
     const user = userEvent.setup()
-    mockErrorResponse('/oauth2/session', {
-      baseUrl: `${HOST_BASEURL}`,
-    })
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(<LandingPage />)
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
 
     await waitFor(() => {
       expect(

@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 
-import { API_PATH } from '@/paths'
+import { API_PATH, HOST_BASEURL } from '@/paths'
 
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
@@ -12,6 +12,10 @@ import unleashDisableSpraakvelgerResponse from './data/unleash-disable-spraakvel
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
 export const getHandlers = (baseUrl: string = API_PATH) => [
+  rest.get(`${HOST_BASEURL}/oauth2/session`, (_req, res, ctx) => {
+    return res(ctx.status(200), ctx.delay(TEST_DELAY))
+  }),
+
   rest.get(`${baseUrl}/inntekt`, (_req, res, ctx) => {
     return res(
       ctx.status(200),

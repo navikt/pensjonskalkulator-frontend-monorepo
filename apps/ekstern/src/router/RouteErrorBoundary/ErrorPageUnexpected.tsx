@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 import { Card } from '@/components/common/Card'
-import { PageFramework } from '@/components/common/PageFramework'
+import { FrameComponent } from '@/components/common/PageFramework'
 import { paths } from '@/router'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -16,7 +16,7 @@ export function ErrorPageUnexpected() {
   }
 
   return (
-    <PageFramework>
+    <FrameComponent>
       <Card data-testid="error-page-unexpected" hasLargePadding>
         <Card.Content
           text={{
@@ -27,6 +27,6 @@ export function ErrorPageUnexpected() {
           onPrimaryButtonClick={onCancel}
         />
       </Card>
-    </PageFramework>
+    </FrameComponent>
   )
 }

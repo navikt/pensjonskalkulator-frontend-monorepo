@@ -28,6 +28,7 @@ const fakeApiCalls = {
     },
   },
 }
+// TODO restrukturere tester per "ingen krav på login", "krav på login"
 // TODO mangler tester for henvisning etter start, utenlandsopphold, utenlandsoppholdFeil og stepFeil
 describe('routes', () => {
   afterEach(() => {

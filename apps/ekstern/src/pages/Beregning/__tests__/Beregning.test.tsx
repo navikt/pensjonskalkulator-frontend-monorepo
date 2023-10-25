@@ -248,7 +248,7 @@ describe('Beregning', () => {
       mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
       })
-      render(<Beregning />, {
+      const { asFragment } = render(<Beregning />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -262,14 +262,17 @@ describe('Beregning', () => {
           },
         },
       })
+
       await waitFor(async () => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
         ).not.toBeInTheDocument()
-        expect(
-          screen.queryByTestId('tidligst-mulig-uttak')
-        ).not.toBeInTheDocument()
       })
+
+      expect(
+        screen.queryByTestId('tidligst-mulig-uttak')
+      ).not.toBeInTheDocument()
+
       const button = await screen.findByText('62 år')
 
       await user.click(button)
