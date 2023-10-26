@@ -12,6 +12,7 @@ import {
 
 import { formatWithoutDecimal } from '@/utils/currency'
 import { cleanAndAddEventListener } from '@/utils/events'
+import { logger } from '@/utils/logging'
 
 import {
   highchartsScrollingSelector,
@@ -27,7 +28,6 @@ import {
 } from './utils'
 
 import globalClassNames from './Pensjonssimulering.module.scss'
-import { logger } from '@/utils/logging'
 
 export type ExtendedAxis = Axis & {
   height: number

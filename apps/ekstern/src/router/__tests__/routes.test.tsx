@@ -8,7 +8,7 @@ import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { act, render, screen, swallowErrors, waitFor } from '@/test-utils'
+import { render, screen, swallowErrors, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
 

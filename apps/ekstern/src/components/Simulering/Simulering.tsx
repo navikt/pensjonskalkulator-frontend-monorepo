@@ -31,6 +31,7 @@ import {
   selectSivilstand,
   selectAfp,
 } from '@/state/userInput/selectors'
+import { wrapLogger } from '@/utils/logging'
 
 import { SERIES_DEFAULT } from './constants'
 import {
@@ -45,7 +46,6 @@ import {
 import { getChartOptions, onPointUnclick } from './utils-highcharts'
 
 import styles from './Simulering.module.scss'
-import { wrapLogger } from '@/utils/logging'
 
 export function Simulering(props: {
   isLoading: boolean
