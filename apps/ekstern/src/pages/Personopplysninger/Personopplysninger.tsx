@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Box } from '@navikt/ds-react'
 import { BodyLong, Heading } from '@navikt/ds-react'
 
-import { Card } from '@/components/common/Card'
 import { formatMessageValues } from '@/utils/translations'
+
+import styles from './Personopplysninger.module.scss'
 
 export function Personopplysninger() {
   const intl = useIntl()
@@ -17,8 +17,7 @@ export function Personopplysninger() {
   }, [])
 
   return (
-    <Card hasNoPadding hasMargin>
-      <Box padding="3"></Box>
+    <div className={styles.personopplysninger}>
       <Heading level="2" size="medium" spacing>
         <FormattedMessage id="personopplysninger.header" />
       </Heading>
@@ -150,6 +149,6 @@ export function Personopplysninger() {
           />
         </BodyLong>
       </section>
-    </Card>
+    </div>
   )
 }

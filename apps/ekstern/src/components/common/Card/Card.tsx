@@ -12,7 +12,6 @@ export interface CardComponent extends React.FC<CardProps> {
 
 type CardProps = React.HTMLAttributes<HTMLElement> & {
   hasLargePadding?: boolean
-  hasNoPadding?: boolean
   hasMargin?: boolean
 }
 
@@ -20,7 +19,6 @@ export const Card = (({
   className,
   children,
   hasLargePadding,
-  hasNoPadding,
   hasMargin,
   ...elementProps
 }) => {
@@ -30,7 +28,6 @@ export const Card = (({
         styles.section,
         {
           [styles.section__largePadding]: hasLargePadding,
-          [styles.section__noPadding]: hasNoPadding,
           [styles.section__marginBotton]: hasMargin,
         },
         className
