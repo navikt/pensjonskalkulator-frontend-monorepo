@@ -29,7 +29,7 @@ spec:
     timeout: 1
   frontend:
     generatedConfig:
-      mountPath: /usr/share/nginx/html/assets/nais.js
+      mountPath: /usr/share/nginx/html/nais.js
   idporten:
     enabled: true
     sidecar:

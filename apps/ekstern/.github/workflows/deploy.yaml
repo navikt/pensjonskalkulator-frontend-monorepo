@@ -1,7 +1,6 @@
 name: Build and deploy
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -10,6 +9,12 @@ on:
       - 'CODEOWNERS'
       - 'LICENSE.md'
       - 'README.md'
+  workflow_dispatch:
+    inputs:
+      prod:
+        description: Deploy to production
+        type: boolean
+        required: false
 
 jobs:
   build:
@@ -41,8 +46,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Build application
-        env:
-          FARO_TELEMETRY_URL: 'https://telemetry.ekstern.dev.nav.no/collect'
         run: npm run build
 
       - name: Save build folder
@@ -151,11 +154,14 @@ jobs:
           name: videos
           path: cypress/videos
 
-  deploy-to-dev:
+  deploy-dev:
     name: Deploy to dev-gcp
+    needs: [ run-unit-tests, run-integration-tests ]
     permissions: write-all
     runs-on: ubuntu-latest
-    needs: [ run-unit-tests, run-integration-tests ]
+    if: |
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && github.ref != 'refs/heads/main')
     env:
       IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend:${{ github.sha }}
     steps:
@@ -192,4 +198,51 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/dev.yml
+          RESOURCE: .nais/deploy-dev.yml
+
+  deploy-prod:
+    name: Deploy to prod-gcp
+    needs: [ run-unit-tests, run-integration-tests ]
+    permissions: write-all
+    runs-on: ubuntu-latest
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.prod == 'true'
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend:${{ github.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Build Docker image prod-gcp
+        run: |
+          docker build -f .docker/Dockerfile -t ${IMAGE} .
+
+      - name: Log in to the container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: .docker/Dockerfile
+          push: true
+          tags: ${{ env.IMAGE }}
+
+      - name: Deploy to prod-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/deploy-prod.yml
