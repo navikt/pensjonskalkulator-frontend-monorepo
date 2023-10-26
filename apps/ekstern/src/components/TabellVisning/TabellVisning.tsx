@@ -6,6 +6,7 @@ import { SeriesColumnOptions } from 'highcharts'
 
 import { ReadMore } from '../common/ReadMore'
 import { formatWithoutDecimal } from '@/utils/currency'
+import { logger } from '@/utils/logging'
 
 import { useTableData } from './hooks'
 
@@ -17,6 +18,20 @@ interface Props {
 }
 
 import styles from './TabellVisning.module.scss'
+
+const logOnExpandOpenAndClose = (alder: string) => (open: boolean) => {
+  if (open) {
+    logger('table expand åpnet', {
+      tekst: 'detaljert beregning',
+      data: alder,
+    })
+  } else {
+    logger('table expand lukket', {
+      tekst: 'detaljert beregning',
+      data: alder,
+    })
+  }
+}
 
 export function TabellVisning({
   series,
@@ -103,6 +118,7 @@ export function TabellVisning({
                 key={i}
                 content={detaljerGrid}
                 expandOnRowClick
+                onOpenChange={logOnExpandOpenAndClose(alder)}
               >
                 <Table.DataCell>{alder}</Table.DataCell>
                 <Table.DataCell className={styles.detailsItemRight}>
