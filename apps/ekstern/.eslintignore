@@ -12,5 +12,4 @@ tsconfig.node.json
 src/style.d.ts
 mockServiceWorker.js
 cypress
-nais.js
 

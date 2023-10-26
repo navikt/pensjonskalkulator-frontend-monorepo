@@ -1,6 +1,6 @@
 import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk'
 
-import nais from '../nais.js'
+import nais from '../public/nais.js'
 
 export const initializeLogs = () =>
   initializeFaro({

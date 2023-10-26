@@ -21,7 +21,7 @@
     }
   },
   "include": ["src", "api/server.cjs"],
-  "exclude": ["cypress", "nais.js"],
+  "exclude": ["cypress"],
   "references": [
     {
       "path": "./tsconfig.node.json"
