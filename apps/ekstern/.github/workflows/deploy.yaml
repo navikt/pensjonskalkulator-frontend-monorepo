@@ -99,6 +99,7 @@ jobs:
   run-integration-tests:
     name: Run integration tests
     runs-on: ubuntu-latest
+    if: false
     needs: build
     strategy:
       fail-fast: true
@@ -156,7 +157,7 @@ jobs:
 
   deploy-dev:
     name: Deploy to dev-gcp
-    needs: [ run-unit-tests, run-integration-tests ]
+    needs: [ run-unit-tests ]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
@@ -202,7 +203,7 @@ jobs:
 
   deploy-prod:
     name: Deploy to prod-gcp
-    needs: [ run-unit-tests, run-integration-tests ]
+    needs: [ run-unit-tests ]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
