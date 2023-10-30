@@ -13,4 +13,5 @@ src/style.d.ts
 mockServiceWorker.js
 cypress
 src/nais.js
+public/src/nais.js
 
