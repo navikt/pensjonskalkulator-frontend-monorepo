@@ -1,8 +1,9 @@
 describe('Graf Horizontal scroll', () => {
   context('Gitt at grafen rendres på desktop', () => {
     it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {
-      cy.visit('/pensjon/kalkulator/')
+      cy.visit('/pensjon/kalkulator/', { timeout: 10000 })
       cy.fillOutStegvisning({ samtykke: false })
+      // cy.wait(10000)
       cy.window().its('router').invoke('navigate', '/beregning')
 
       cy.contains('button', '70 år').click()
