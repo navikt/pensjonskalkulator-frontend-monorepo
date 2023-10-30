@@ -11,7 +11,7 @@ function TestComponent() {
   const intl = useIntl()
   return (
     <div data-testid="test-component">
-      {intl.formatMessage({ id: 'application.title' })}
+      {intl.formatMessage({ id: 'pageframework.title' })}
     </div>
   )
 }
