@@ -1,6 +1,13 @@
 import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk'
 
 import nais from './nais.js'
+// const nais = {
+//   telemetryCollectorURL: 'http://localhost:12347/collect',
+//   app: {
+//     name: 'pensjonskalkulator-frontend',
+//     version: 'dev',
+//   },
+// }
 
 export const initializeLogs = () =>
   initializeFaro({
