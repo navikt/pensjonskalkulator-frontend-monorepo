@@ -34,15 +34,15 @@ describe('Step 2', () => {
 
   describe('Gitt at brukeren svarer Nei på spørsmål om samtykke', async () => {
     it('nullstiller api storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke) og kaller feature toggle, person og inntekt på nytt. Navigerer videre til riktig side når brukerenklikker på Neste', async () => {
-      const fakeApiCalls = {
+      const fakeApiCall = {
         queries: {
-          ['tulleQuerySomKreverSamtykke(undefined)']: {
+          ['getTpoMedlemskap(undefined)']: {
             status: 'fulfilled',
-            endpointName: 'tulleQuerySomKreverSamtykke',
+            endpointName: 'getTpoMedlemskap',
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              harTjenestepensjonsforhold: true,
+              harTjenestepensjonsforhold: 'false',
             },
             fulfilledTimeStamp: 1688046412103,
           },
@@ -71,7 +71,7 @@ describe('Step 2', () => {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          api: { ...fakeApiCalls },
+          api: { ...fakeApiCall },
           userInput: {
             ...userInputInitialState,
             samtykke: true,

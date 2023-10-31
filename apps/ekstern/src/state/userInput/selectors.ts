@@ -17,6 +17,14 @@ export const selectAfp = (state: RootState): AfpRadio | null =>
 export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
   state.userInput.samboer
 
+export const selectHarHentetTpoMedlemskap = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return !apiSlice.endpoints.getTpoMedlemskap.select(undefined)(state)
+      ?.isUninitialized
+  }
+)
+
 export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {

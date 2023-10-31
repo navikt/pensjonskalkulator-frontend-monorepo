@@ -6,7 +6,8 @@ import { Link } from '@navikt/ds-react'
 import { getCookie, getTranslations } from '@/context/LanguageProvider/utils'
 import { externalUrls } from '@/router'
 
-const locale = getCookie('decorator-language')
+/* c8 ignore next 1 */
+const locale = getCookie('decorator-language') || 'nb'
 const cache = createIntlCache()
 const intl = createIntl(
   {

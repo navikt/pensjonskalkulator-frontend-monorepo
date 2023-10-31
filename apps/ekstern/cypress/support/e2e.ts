@@ -4,6 +4,46 @@ import { userInputActions } from '../../src/state/userInput/userInputReducer'
 
 beforeEach(() => {
   cy.intercept(
+    'GET',
+    'https://dekoratoren.ekstern.dev.nav.no/api/driftsmeldinger',
+    {
+      statusCode: 200,
+      body: [],
+    }
+  )
+  cy.intercept(
+    'GET',
+    'https://www.ekstern.dev.nav.no/person/nav-dekoratoren-api/auth',
+    {
+      statusCode: 200,
+    }
+  )
+  cy.intercept('GET', 'https://login.ekstern.dev.nav.no/oauth2/session', {
+    statusCode: 200,
+  })
+  cy.intercept('GET', 'https://dekoratoren.ekstern.dev.nav.no/api/meny', {
+    statusCode: 200,
+  })
+  cy.intercept('GET', 'https://dekoratoren.ekstern.dev.nav.no/api/ta', {
+    statusCode: 200,
+  })
+  cy.intercept('POST', 'https://amplitude.nav.no/collect-auto', {
+    statusCode: 200,
+  })
+
+  cy.intercept('GET', '/pensjon/kalkulator/oauth2/session', {
+    statusCode: 200,
+  })
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.disable-spraakvelger',
+    },
+    { fixture: 'disable-spraakvelger.json' }
+  )
+
+  cy.intercept(
     { method: 'GET', url: '/pensjon/kalkulator/api/person' },
     { fixture: 'person.json' }
   )

@@ -20,7 +20,7 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
       const keys = Object.keys(grouped)
       expect(keys).toHaveLength(4)
       expect(keys).toEqual([
-        'ukjent',
+        'andre avtaler',
         'privat tjenestepensjon',
         'offentlig tjenestepensjon',
         'individuell ordning',

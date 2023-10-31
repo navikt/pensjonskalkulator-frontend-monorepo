@@ -248,7 +248,7 @@ describe('Beregning', () => {
       mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
       })
-      const { asFragment } = render(<Beregning />, {
+      render(<Beregning />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore

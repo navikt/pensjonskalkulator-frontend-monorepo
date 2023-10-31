@@ -1,5 +1,5 @@
-apiVersion: "nais.io/v1alpha1"
-kind: "Application"
+apiVersion: nais.io/v1alpha1
+kind: Application
 metadata:
   name: pensjonskalkulator-frontend
   namespace: pensjonskalkulator
@@ -10,11 +10,11 @@ metadata:
 spec:
   image: "{{ image }}"
   ingresses:
-    - https://www.ekstern.dev.nav.no/pensjon/kalkulator
+    - https://www.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
-    max: 2
+    max: 4
   liveness:
     path: /internal/health/liveness
     initialDelay: 20
@@ -29,7 +29,7 @@ spec:
     timeout: 1
   frontend:
     generatedConfig:
-      mountPath: /usr/share/nginx/html/assets/nais.js
+      mountPath: /usr/share/nginx/html/src/nais.js
   idporten:
     enabled: true
     sidecar:
@@ -39,14 +39,17 @@ spec:
         - /internal/ping
         - /pensjon/kalkulator
         - /pensjon/kalkulator/login
-        - /pensjon/kalkulator/personopplysninger
         - /pensjon/kalkulator/assets/*
         - /pensjon/kalkulator/api/status
         - /pensjon/kalkulator/api/feature/*
+        - /pensjon/kalkulator/personopplysninger
+        - /pensjon/kalkulator/src/*
   accessPolicy:
     outbound:
       rules:
         - application: pensjonskalkulator-backend
+      external:
+        - host: www.nav.no
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"
