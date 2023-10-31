@@ -6,7 +6,10 @@ import { Samtykke, SamtykkeRadio } from '@/components/stegvisning/Samtykke'
 import { paths } from '@/router'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamtykke } from '@/state/userInput/selectors'
+import {
+  selectSamtykke,
+  selectHarHentetTpoMedlemskap,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step2() {
@@ -14,6 +17,7 @@ export function Step2() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
+  const shouldFlush = useAppSelector(selectHarHentetTpoMedlemskap)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -24,7 +28,7 @@ export function Step2() {
   const onNext = (samtykkeData: SamtykkeRadio) => {
     const samtykke = samtykkeData === 'ja'
     dispatch(userInputActions.setSamtykke(samtykke))
-    if (!samtykke) {
+    if (shouldFlush && !samtykke) {
       dispatch(apiSlice.util.resetApiState())
       dispatch(apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate())
       dispatch(apiSlice.endpoints.getPerson.initiate())

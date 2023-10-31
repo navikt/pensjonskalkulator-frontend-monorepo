@@ -31,6 +31,7 @@ import {
   selectSivilstand,
   selectAfp,
 } from '@/state/userInput/selectors'
+import { wrapLogger } from '@/utils/logging'
 
 import { SERIES_DEFAULT } from './constants'
 import {
@@ -222,7 +223,9 @@ export function Simulering(props: {
                 iconPosition="left"
                 size="xsmall"
                 variant="tertiary"
-                onClick={onVisFaerreAarClick}
+                onClick={wrapLogger('button klikk', { tekst: 'Vis færre år' })(
+                  onVisFaerreAarClick
+                )}
               >
                 <FormattedMessage id="beregning.button.faerre_aar" />
               </Button>
@@ -238,7 +241,9 @@ export function Simulering(props: {
                 iconPosition="right"
                 size="xsmall"
                 variant="tertiary"
-                onClick={onVisFlereAarClick}
+                onClick={wrapLogger('button klikk', { tekst: 'Vis flere år' })(
+                  onVisFlereAarClick
+                )}
               >
                 <FormattedMessage id="beregning.button.flere_aar" />
               </Button>

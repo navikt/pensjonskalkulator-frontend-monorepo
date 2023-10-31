@@ -1,6 +1,7 @@
 FROM nginxinc/nginx-unprivileged
 
 ENV NGINX_ENVSUBST_OUTPUT_DIR /tmp
+ENV TZ="Europe/Oslo"
 
 COPY .nginx/nginx-conf-overwrite.conf /etc/nginx/conf.d/default.conf
 

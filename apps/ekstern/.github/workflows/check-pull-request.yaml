@@ -32,8 +32,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Build application
-        env:
-          FARO_TELEMETRY_URL: 'https://telemetry.ekstern.dev.nav.no/collect'
         run: npm run build
 
       - name: Save build folder

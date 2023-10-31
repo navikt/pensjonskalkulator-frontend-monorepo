@@ -3,6 +3,7 @@ import { describe, it } from 'vitest'
 
 import { TabellVisning } from '../TabellVisning'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
+import * as loggerUtils from '@/utils/logging'
 
 describe('TabellVisning', () => {
   const series: SeriesColumnOptions[] = [
@@ -94,6 +95,35 @@ describe('TabellVisning', () => {
       expect(screen.getByText('200 000')).toBeInTheDocument()
 
       expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  it('logger når en rad i tabellen åpnes og lukkes', async () => {
+    const user = userEvent.setup()
+    const loggerSpy = vi.spyOn(loggerUtils, 'logger')
+    render(
+      <TabellVisning
+        series={series}
+        aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
+        showAfp={true}
+        showPensjonsavtaler={true}
+      />
+    )
+    await user.click(screen.getByText('Vis tabell av beregningen'))
+
+    const buttons = screen.getAllByRole('button')
+    await user.click(buttons[1])
+
+    expect(loggerSpy).toHaveBeenNthCalledWith(2, 'table expand åpnet', {
+      data: '69 år',
+      tekst: 'detaljert beregning',
+    })
+
+    await user.click(buttons[1])
+
+    expect(loggerSpy).toHaveBeenNthCalledWith(3, 'table expand lukket', {
+      data: '69 år',
+      tekst: 'detaljert beregning',
     })
   })
 })

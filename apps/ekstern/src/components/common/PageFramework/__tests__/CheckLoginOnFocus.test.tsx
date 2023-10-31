@@ -1,4 +1,4 @@
-import { render as cleanRender, screen, waitFor } from '@testing-library/react'
+import { render as cleanRender, waitFor } from '@testing-library/react'
 import { describe, it, vi } from 'vitest'
 
 import { CheckLoginOnFocus } from '../CheckLoginOnFocus'

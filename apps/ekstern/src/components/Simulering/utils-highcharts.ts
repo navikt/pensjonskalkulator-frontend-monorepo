@@ -12,6 +12,7 @@ import {
 
 import { formatWithoutDecimal } from '@/utils/currency'
 import { cleanAndAddEventListener } from '@/utils/events'
+import { logger } from '@/utils/logging'
 
 import {
   highchartsScrollingSelector,
@@ -63,6 +64,9 @@ export function labelFormatterMobile(this: AxisLabelsFormatterContextObject) {
 }
 
 export function onPointClick(this: Point): void {
+  logger('graf tooltip åpnet', {
+    data: this.category as string,
+  })
   this.series.chart.tooltip.update({
     enabled: true,
   })

@@ -109,6 +109,10 @@ export const routes: RouteObject[] = [
         element: <Henvisning1963 />,
       },
       {
+        path: paths.forbehold,
+        element: <Forbehold />,
+      },
+      {
         loader: directAccessGuard,
         path: paths.utenlandsopphold,
         element: <Step1 />,
@@ -141,10 +145,6 @@ export const routes: RouteObject[] = [
         loader: directAccessGuard,
         path: paths.uventetFeil,
         element: <StepFeil />,
-      },
-      {
-        path: paths.forbehold,
-        element: <Forbehold />,
       },
     ],
   },
