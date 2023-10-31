@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw'
+import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
 import { API_BASEURL } from '@/paths'
@@ -7,12 +7,6 @@ import { getHandlers } from './handlers'
 
 const handlers = getHandlers(API_BASEURL)
 export const server = setupServer(...handlers)
-
-// server.events.on('request:start', ({ request }) => {
-//   console.log('MSW intercepted:', request.method, request.url)
-//   // http://localhost:8088/pensjon/kalkulator/api/v1/pensjonsavtaler
-//   // http://localhost:8088/pensjon/kalkulator/api/v1/pensjonsavtaler
-// })
 
 type MockResponseOptions = {
   status?: number
@@ -38,9 +32,13 @@ export const mockResponse = (
   const options = { ...defaultResponseOptions, ...inputOptions }
 
   server.use(
-    http[options.method](`${options.baseUrl}${path}`, async ({ request }) => {
-      await request.json()
-      return HttpResponse.json(options.json)
+    rest[options.method](`${options.baseUrl}${path}`, (_req, res, ctx) => {
+      return res(
+        ctx.status(options.status),
+        !options.noData && options.text
+          ? ctx.text(options.text)
+          : ctx.json(options.json)
+      )
     })
   )
 }
@@ -62,16 +60,5 @@ export const mockErrorResponse = (
     ...inputOptions,
   }
 
-  server.use(
-    http[options.method](`${options.baseUrl}${path}`, async () => {
-      return new HttpResponse(
-        !options.noData && options.text
-          ? options.text
-          : JSON.stringify(options.json),
-        {
-          status: options.status,
-        }
-      )
-    })
-  )
+  mockResponse(path, options)
 }
