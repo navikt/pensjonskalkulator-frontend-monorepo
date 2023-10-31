@@ -60,7 +60,6 @@ describe('userInput selectors', () => {
     expect(selectSamboerFraBrukerInput(state)).toBe(true)
   })
 
-  //
   describe('selectHarHentetTpoMedlemskap', () => {
     it('returnerer false når /tpo-medlemskap har ikke blitt hentet', () => {
       const state: RootState = {
