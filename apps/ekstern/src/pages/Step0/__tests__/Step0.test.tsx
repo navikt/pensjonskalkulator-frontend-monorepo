@@ -14,6 +14,11 @@ describe('Step 0', () => {
     expect(document.title).toBe('application.title.stegvisning.step0')
   })
 
+  it('viser loader mens person og inntekt fetches', () => {
+    render(<Step0 />)
+    expect(screen.getByTestId('step0-loader')).toBeVisible()
+  })
+
   it('henter personopplysninger og viser hilsen med fornavnet til brukeren', async () => {
     render(<Step0 />)
     await waitFor(() => {

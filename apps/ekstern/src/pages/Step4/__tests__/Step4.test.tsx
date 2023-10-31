@@ -16,6 +16,11 @@ describe('Step 4', () => {
     expect(document.title).toBe('application.title.stegvisning.step4')
   })
 
+  it('viser loader mens person og inntekt fetches', () => {
+    render(<Step4 />)
+    expect(screen.getByTestId('step4-loader')).toBeVisible()
+  })
+
   it('rendrer Step 4 slik den skal når brukeren har svart nei på spørsmålet om samtykke,', async () => {
     render(<Step4 />, {
       preloadedState: {
@@ -102,8 +107,9 @@ describe('Step 4', () => {
           userInput: { ...userInputInitialState, samtykke: true },
         },
       })
-      // Simulerer at /person har vært kalt i et tidligere steg
-      store.dispatch(apiSlice.endpoints.getPerson.initiate())
+      await waitFor(async () => {
+        expect(screen.queryByTestId('step4-loader')).not.toBeInTheDocument()
+      })
       expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
       const radioButtons = screen.getAllByRole('radio')
 
@@ -214,6 +220,10 @@ describe('Step 4', () => {
       preloadedState: {
         userInput: { ...userInputInitialState, samtykke: true, afp: 'nei' },
       },
+    })
+
+    await waitFor(async () => {
+      expect(screen.queryByTestId('step4-loader')).not.toBeInTheDocument()
     })
 
     await user.click(screen.getByText('stegvisning.avbryt'))

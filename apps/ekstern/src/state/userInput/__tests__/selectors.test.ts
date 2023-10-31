@@ -4,6 +4,7 @@ import {
   selectAfp,
   selectSivilstand,
   selectSamboerFraBrukerInput,
+  selectHarHentetTpoMedlemskap,
   selectSamboerFraSivilstand,
   selectSamboer,
   selectInntekt,
@@ -57,6 +58,41 @@ describe('userInput selectors', () => {
       },
     }
     expect(selectSamboerFraBrukerInput(state)).toBe(true)
+  })
+
+  //
+  describe('selectHarHentetTpoMedlemskap', () => {
+    it('returnerer false når /tpo-medlemskap har ikke blitt hentet', () => {
+      const state: RootState = {
+        ...initialState,
+      }
+      expect(selectHarHentetTpoMedlemskap(state)).toBeFalsy()
+    })
+    it('returnerer true når /tpo-medlemskap har blitt hentet', () => {
+      const fakeApiCall = {
+        queries: {
+          ['getTpoMedlemskap(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getTpoMedlemskap',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              harTjenestepensjonsforhold: 'false',
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+      }
+      expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
+    })
   })
 
   describe('selectSivilstand', () => {
