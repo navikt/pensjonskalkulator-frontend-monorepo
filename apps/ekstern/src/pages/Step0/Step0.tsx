@@ -72,6 +72,7 @@ export function Step0() {
     return (
       <div style={{ width: '100%' }}>
         <Loader
+          data-testid="step0-loader"
           size="3xlarge"
           title={intl.formatMessage({ id: 'pageframework.loading' })}
           isCentered
