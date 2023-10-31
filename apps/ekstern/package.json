@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "start": "vite",
+    "start:production": "vite --mode production",
     "prebuild": "npm run eslint:check && npm run prettier:check && npm run stylelint:check",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --mode staging",
+    "build:production": "tsc && vite build --mode production",
     "preview": "vite preview",
     "test": "vitest run --coverage",
     "test:update": "vitest run -u --coverage",
