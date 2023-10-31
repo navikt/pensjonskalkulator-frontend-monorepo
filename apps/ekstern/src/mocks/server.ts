@@ -17,24 +17,22 @@ type MockResponseOptions = {
   noData?: boolean
 }
 
-const defaultResponseOptions: Required<MockResponseOptions> = {
-  status: 200,
-  json: { data: 'OK' },
-  method: 'get',
-  baseUrl: `${API_BASEURL}`,
-  text: '',
-  noData: false,
-}
-
 export const mockResponse = (
   path: string,
   inputOptions: MockResponseOptions = {}
 ) => {
+  const defaultResponseOptions: Required<MockResponseOptions> = {
+    status: 200,
+    json: { data: 'OK' },
+    method: 'get',
+    baseUrl: `${API_BASEURL}`,
+    text: '',
+    noData: false,
+  }
   const options = { ...defaultResponseOptions, ...inputOptions }
-  const parsedPath = `${options.baseUrl}${path}`
 
   server.use(
-    rest[options.method](parsedPath, (_req, res, ctx) => {
+    rest[options.method](`${options.baseUrl}${path}`, (_req, res, ctx) => {
       return res(
         ctx.status(options.status),
         !options.noData && options.text
@@ -45,22 +43,22 @@ export const mockResponse = (
   )
 }
 
-const defaultErrorResponseOptions: Required<MockResponseOptions> = {
-  status: 500,
-  json: { data: "Beep boop I'm an error!" },
-  text: '',
-  method: 'get',
-  noData: false,
-  baseUrl: `${API_BASEURL}`,
-}
-
 export const mockErrorResponse = (
   path: string,
   inputOptions: MockResponseOptions = {}
 ) => {
+  const defaultErrorResponseOptions: Required<MockResponseOptions> = {
+    status: 500,
+    json: { data: "Beep boop I'm an error!" },
+    text: '',
+    method: 'get',
+    noData: false,
+    baseUrl: `${API_BASEURL}`,
+  }
   const options = {
     ...defaultErrorResponseOptions,
     ...inputOptions,
   }
+
   mockResponse(path, options)
 }
