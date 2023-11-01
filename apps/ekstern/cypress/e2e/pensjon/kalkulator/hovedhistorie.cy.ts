@@ -57,32 +57,67 @@ describe('Hovedhistorie', () => {
       })
     })
   })
-  describe('Gitt at brukeren er pålogget', () => {
-    describe('Som bruker som har logget inn på kalkulatoren, ', () => {
+
+  describe('Som bruker som har logget inn på kalkulatoren, ', () => {
+    beforeEach(() => {
+      cy.visit('/pensjon/kalkulator/')
+      cy.wait('@getDecoratorPersonAuth')
+      cy.wait('@getDecoratorLoginAuth')
+      cy.wait('@getAuthSession')
+    })
+    it('forventer jeg å kunne navigere til en startside som ønsker meg velkommen.', () => {
+      cy.contains('button', 'Detaljert kalkulator').should('exist')
+      cy.contains('button', 'Enkel kalkulator').click()
+      cy.contains('Hei Aprikos!')
+    })
+    describe('Når jeg navigerer til /start, ', () => {
       beforeEach(() => {
-        cy.visit('/pensjon/kalkulator/')
-        cy.wait('@getDecoratorPersonAuth')
-        cy.wait('@getDecoratorLoginAuth')
-        cy.wait('@getAuthSession')
-      })
-      it('forventer jeg å få en startside som ønsker meg velkommen.', () => {
-        cy.contains('button', 'Detaljert kalkulator').should('exist')
-        cy.contains('button', 'Enkel kalkulator').click()
-        cy.contains('Hei Aprikos!')
+        cy.visit('/pensjon/kalkulator/start')
       })
       it('ønsker jeg informasjon om hvilke personopplysninger som brukes i kalkulatoren.', () => {
-        cy.visit('/pensjon/kalkulator/start')
         cy.contains('a', 'Personopplysninger som brukes i enkel kalkulator')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/personopplysninger')
       })
       it('ønsker jeg å kunne starte kalkulatoren eller avbryte beregningen.', () => {
-        cy.visit('/pensjon/kalkulator/start')
         cy.contains('button', 'Kom i gang').click()
         cy.location('href').should(
           'include',
           '/pensjon/kalkulator/utenlandsopphold'
         )
+        cy.go('back')
+        cy.contains('button', 'Avbryt').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/login')
+      })
+    })
+    describe('Når jeg navigerer til /utenlandsopphold, ', () => {
+      beforeEach(() => {
+        cy.visit('/pensjon/kalkulator/start')
+        cy.wait('@getPerson')
+        cy.contains('button', 'Kom i gang').click()
+      })
+      it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge ', () => {
+        cy.contains('h2', 'Utenlandsopphold').should('exist')
+        cy.contains(
+          'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?'
+        ).should('exist')
+      })
+      it('forventer å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {
+        cy.contains('button', 'Neste').click()
+        cy.contains(
+          'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
+        ).should('exist')
+      })
+      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avrbyte beregningen', () => {
+        cy.contains('button', 'Tilbake').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/start')
+        cy.go('back')
+        cy.contains('button', 'Avbryt').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/login')
+      })
+      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen', () => {
+        cy.contains('button', 'Tilbake').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/start')
         cy.go('back')
         cy.contains('button', 'Avbryt').click()
         cy.location('href').should('include', '/pensjon/kalkulator/login')
