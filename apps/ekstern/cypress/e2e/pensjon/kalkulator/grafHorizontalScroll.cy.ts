@@ -2,21 +2,33 @@ describe('Graf Horizontal scroll', () => {
   context('Gitt at grafen rendres på desktop', () => {
     it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {
       cy.visit('/pensjon/kalkulator/start')
+      cy.wait('@getDecoratorPersonAuth')
+      cy.wait('@getDecoratorLoginAuth')
+      cy.wait('@getAuthSession')
+
       cy.fillOutStegvisning({ samtykke: false })
       cy.window().its('router').invoke('navigate', '/beregning')
+      cy.wait('@fetchTidligsteUttaksalder')
 
       cy.contains('button', '70 år').click()
+      cy.wait('@fetchAlderspensjon')
       cy.contains('button', 'Færre år').should('not.exist')
       cy.contains('button', 'Flere år').should('not.exist')
     })
 
     it('Brukeren kan se og bruke navigasjonsknappene når det er flere søyler enn skjermens bredde', () => {
       cy.visit('/pensjon/kalkulator/start')
+      cy.wait('@getDecoratorPersonAuth')
+      cy.wait('@getDecoratorLoginAuth')
+      cy.wait('@getAuthSession')
+
       cy.fillOutStegvisning({ samtykke: false })
       cy.window().its('router').invoke('navigate', '/beregning')
+      cy.wait('@fetchTidligsteUttaksalder')
 
       cy.viewport('iphone-xr')
       cy.contains('button', '67 år').click()
+      cy.wait('@fetchAlderspensjon')
       cy.contains('button', 'Færre år').should('not.exist')
       cy.contains('button', 'Flere år').should('exist')
 
