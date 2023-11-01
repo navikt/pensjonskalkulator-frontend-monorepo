@@ -58,7 +58,6 @@
     "@vitest/ui": "^0.34.6",
     "amplitude-js": "^8.21.9",
     "axe-core": "^4.6.3",
-    "cross-fetch": "^4.0.0",
     "cypress": "^13.3.3",
     "cypress-axe": "^1.4.0",
     "eslint": "^8.51.0",

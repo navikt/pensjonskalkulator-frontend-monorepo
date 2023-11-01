@@ -119,7 +119,7 @@ export function useRequest<T, E = ErrorType>(
               .catch(() => {
                 dispatch({
                   action: 'ERROR',
-                  error: undefined as E,
+                  error: resp.statusText as E,
                   status: resp.status,
                 })
               })

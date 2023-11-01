@@ -3,14 +3,14 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
-import { mockErrorResponse } from '@/mocks/server'
+import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
   const fakeApiCalls = {
@@ -213,7 +213,8 @@ describe('Beregning', () => {
       console.error = () => {}
 
       const user = userEvent.setup()
-      mockErrorResponse('/v1/alderspensjon/simulering', {
+      // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
+      mockResponse('/v1/alderspensjon/simulering', {
         status: 503,
         method: 'post',
       })

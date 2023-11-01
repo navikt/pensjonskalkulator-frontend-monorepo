@@ -1,5 +1,4 @@
 import '@testing-library/jest-dom'
-import { fetch, Headers, Request, Response } from 'cross-fetch'
 import { useSerialIds } from 'highcharts'
 import { vi } from 'vitest'
 
@@ -7,10 +6,6 @@ import { mockResponse, server } from '@/mocks/server'
 
 import { HOST_BASEURL } from './paths'
 
-global.fetch = fetch
-global.Request = Request
-global.Response = Response
-global.Headers = Headers
 global.scrollTo = () => vi.fn()
 
 window.matchMedia =
@@ -58,11 +53,10 @@ beforeAll(async () => {
     useSerialIds(true)
   }
 })
-
 beforeEach(() => {
   mockResponse('/oauth2/session', {
     baseUrl: `${HOST_BASEURL}`,
   })
 })
-afterAll(() => server.close())
 afterEach(() => server.resetHandlers())
+afterAll(() => server.close())

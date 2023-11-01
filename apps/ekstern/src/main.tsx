@@ -23,7 +23,9 @@ if (!root) {
 if (process.env.NODE_ENV === 'development') {
   const msw = await import('./mocks/browser')
   await msw.worker.start({ onUnhandledRequest: 'bypass' })
-  msw.worker.printHandlers()
+  msw.worker.listHandlers().forEach((handler) => {
+    console.log(handler.info.header)
+  })
 }
 
 const router = createBrowserRouter(routes, {

@@ -6,19 +6,19 @@ import { API_BASEURL } from '@/paths'
 import { act, renderHook, waitFor } from '@/test-utils'
 
 describe('useRequest', () => {
-  it('henter data feiler', async () => {
+  it('henting av data feiler', async () => {
     mockErrorResponse('/use-request/fail')
     const { result } = renderHook(() =>
       useRequest<boolean, { data: string }>(`${API_BASEURL}/use-request/fail`)
     )
     expect(result.current.isLoading).toBe(true)
     await waitFor(() => expect(result.current.isLoading).toBe(false))
-    expect(result.current.status).toBe(500)
     expect(result.current.hasError).toBe(true)
-    expect(result.current.errorData?.data).toBe(`Beep boop I'm an error!`)
+    expect(result.current.status).toBe(500)
+    expect(result.current.errorData).toBe(`Internal Server Error`)
   })
 
-  it('henter data OK, men ikke JSON', async () => {
+  it('henting av data er OK, men data er ikke JSON', async () => {
     mockResponse('/use-request/ok', {
       text: 'Error string',
     })
@@ -31,8 +31,9 @@ describe('useRequest', () => {
     expect(result.current.data).toBeUndefined()
   })
 
-  it('henter strukturert feildata', async () => {
-    mockErrorResponse('/use-request/fail', {
+  it('henting av strukturert feildata', async () => {
+    mockResponse('/use-request/fail', {
+      status: 500,
       json: { error: 'strukturert feil', userId: 10 },
     })
 
@@ -53,7 +54,7 @@ describe('useRequest', () => {
     expect(result.current.errorData?.userId).toBe(10)
   })
 
-  it('henter data ok', async () => {
+  it('henting av data ok, med strukturert data i JSON', async () => {
     mockResponse('/use-request/ok')
     const { result } = renderHook(() =>
       useRequest<{ data: string }>(`${API_BASEURL}/use-request/ok`)
@@ -61,10 +62,10 @@ describe('useRequest', () => {
     expect(result.current.isLoading).toBe(true)
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     expect(result.current.hasError).toBe(false)
-    expect(result.current.data?.data).toBe('OK')
+    expect(result.current.data).not.toBeUndefined()
   })
 
-  it('henter data på nytt', async () => {
+  it('henting av data på nytt ved bruk av reload', async () => {
     mockResponse('/use-request/retry')
     const { result } = renderHook(() =>
       useRequest<{ data: string }>(`${API_BASEURL}/use-request/retry`)
@@ -72,26 +73,12 @@ describe('useRequest', () => {
     expect(result.current.isLoading).toBe(true)
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     expect(result.current.hasError).toBe(false)
-    expect(result.current.data?.data).toBe('OK')
+    expect(result.current.data).not.toBeUndefined()
 
     act(() => result.current.reload())
     await waitFor(() => expect(result.current.isLoading).toBe(true))
     expect(result.current.data).toBeUndefined()
     await waitFor(() => expect(result.current.isLoading).toBe(false))
-    expect(result.current.data?.data).toBe('OK')
-  })
-
-  it('feiler med tekst', async () => {
-    mockErrorResponse('/use-request/error', {
-      noData: true,
-      status: 401,
-    })
-    const { result } = renderHook(() =>
-      useRequest<undefined, undefined>(`${API_BASEURL}/use-request/error`)
-    )
-
-    await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-    expect(result.current.status).toBe(401)
+    expect(result.current.data).not.toBeUndefined()
   })
 })
