@@ -67,6 +67,11 @@ beforeEach(() => {
   ).as('getInntekt')
 
   cy.intercept(
+    { method: 'GET', url: '/pensjon/kalkulator/api/tpo-medlemskap' },
+    { fixture: 'tpo-medlemskap.json' }
+  ).as('getTpoMedlemskap')
+
+  cy.intercept(
     { method: 'POST', url: '/pensjon/kalkulator/api/v1/tidligste-uttaksalder' },
     { fixture: 'tidligste-uttaksalder.json' }
   ).as('fetchTidligsteUttaksalder')

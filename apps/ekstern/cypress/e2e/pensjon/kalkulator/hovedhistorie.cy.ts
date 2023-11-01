@@ -11,7 +11,7 @@ describe('Hovedhistorie', () => {
     })
   })
 
-  describe('Gitt at brukeren ikke er pålogget', () => {
+  describe('Gitt at jeg som bruker ikke er pålogget,', () => {
     beforeEach(() => {
       cy.intercept('GET', '/pensjon/kalkulator/oauth2/session', {
         statusCode: 401,
@@ -22,8 +22,8 @@ describe('Hovedhistorie', () => {
       cy.wait('@getAuthSession')
     })
 
-    describe('Hvis jeg som bruker ikke er i målgruppen for ny kalkulator eller ikke bør bruke kalkulatoren,', () => {
-      it('forventer jeg tilgang til detaljert kalkulator og uinnlogget kalkulator. ', () => {
+    describe('Hvis jeg ikke er i målgruppen for ny kalkulator eller ikke bør bruke kalkulatoren,', () => {
+      it('forventer jeg tilgang til detaljert kalkulator og uinnlogget kalkulator.', () => {
         Cypress.on('uncaught:exception', (err) => {
           // prevents Cypress from failing when catching errors in uinnlogget kalkulator
           return false
@@ -48,7 +48,7 @@ describe('Hovedhistorie', () => {
           .and('include', '/pensjon/kalkulator/personopplysninger')
       })
 
-      it('forventer jeg å kunne logge inn med ID-porten', () => {
+      it('forventer jeg å kunne logge inn med ID-porten.', () => {
         cy.contains('button', 'Logg inn i enkel kalkulator').click()
         cy.location('href').should(
           'eq',
@@ -58,7 +58,7 @@ describe('Hovedhistorie', () => {
     })
   })
 
-  describe('Som bruker som har logget inn på kalkulatoren, ', () => {
+  describe('Som bruker som har logget inn på kalkulatoren,', () => {
     beforeEach(() => {
       cy.visit('/pensjon/kalkulator/')
       cy.wait('@getDecoratorPersonAuth')
@@ -70,7 +70,7 @@ describe('Hovedhistorie', () => {
       cy.contains('button', 'Enkel kalkulator').click()
       cy.contains('Hei Aprikos!')
     })
-    describe('Når jeg navigerer til /start, ', () => {
+    describe('Når jeg navigerer til /start,', () => {
       beforeEach(() => {
         cy.visit('/pensjon/kalkulator/start')
       })
@@ -90,13 +90,13 @@ describe('Hovedhistorie', () => {
         cy.location('href').should('include', '/pensjon/kalkulator/login')
       })
     })
-    describe('Når jeg navigerer til /utenlandsopphold, ', () => {
+    describe('Når jeg navigerer til /utenlandsopphold,', () => {
       beforeEach(() => {
         cy.visit('/pensjon/kalkulator/start')
         cy.wait('@getPerson')
         cy.contains('button', 'Kom i gang').click()
       })
-      it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge ', () => {
+      it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge.', () => {
         cy.contains('h2', 'Utenlandsopphold').should('exist')
         cy.contains(
           'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?'
@@ -108,16 +108,63 @@ describe('Hovedhistorie', () => {
           'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
         ).should('exist')
       })
-      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avrbyte beregningen', () => {
+      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
         cy.contains('button', 'Tilbake').click()
         cy.location('href').should('include', '/pensjon/kalkulator/start')
         cy.go('back')
         cy.contains('button', 'Avbryt').click()
         cy.location('href').should('include', '/pensjon/kalkulator/login')
       })
-      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen', () => {
+    })
+    describe('Gitt at jeg som bruker svarer nei på bodd/jobbet mer enn 5 år utenfor Norge og navigerer til /utenlandsopphold, ', () => {
+      beforeEach(() => {
+        cy.visit('/pensjon/kalkulator/start')
+        cy.wait('@getPerson')
+        cy.contains('button', 'Kom i gang').click()
+        cy.get('[type="radio"]').last().check()
+        cy.contains('button', 'Neste').click()
+      })
+      it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
+        cy.contains('h2', 'Pensjonen din').should('exist')
+        cy.contains('Skal vi hente dine pensjonsavtaler?').should('exist')
+      })
+      it('forventer å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
+        cy.contains('button', 'Neste').click()
+        cy.contains(
+          'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
+        ).should('exist')
+      })
+      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
         cy.contains('button', 'Tilbake').click()
-        cy.location('href').should('include', '/pensjon/kalkulator/start')
+        cy.location('href').should(
+          'include',
+          '/pensjon/kalkulator/utenlandsopphold'
+        )
+        cy.go('back')
+        cy.contains('button', 'Avbryt').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/login')
+      })
+    })
+    describe('Gitt at jeg som bruker har samtykket til innhenting av avtaler og har TP tilhørighet,', () => {
+      beforeEach(() => {
+        cy.visit('/pensjon/kalkulator/start')
+        cy.wait('@getPerson')
+        cy.contains('button', 'Kom i gang').click()
+        cy.get('[type="radio"]').last().check()
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').first().check()
+        cy.contains('button', 'Neste').click()
+        cy.wait('@getTpoMedlemskap')
+      })
+      it('forventer jeg å få informasjon om jeg er eller har vært medlem av en offentlig tjenestepensjonsordning.', () => {
+        cy.contains(
+          'h2',
+          'Du kan ha rett til offentlig tjenestepensjon'
+        ).should('exist')
+      })
+      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
+        cy.contains('button', 'Tilbake').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/samtykke')
         cy.go('back')
         cy.contains('button', 'Avbryt').click()
         cy.location('href').should('include', '/pensjon/kalkulator/login')
