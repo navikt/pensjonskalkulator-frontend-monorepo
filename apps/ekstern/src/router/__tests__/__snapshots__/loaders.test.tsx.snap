@@ -2,50 +2,92 @@
 
 exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
 Response {
-  "size": 0,
-  "timeout": 0,
-  Symbol(Body internals): {
-    "body": null,
-    "disturbed": false,
-    "error": null,
+  Symbol(realm): {
+    "settingsObject": {},
   },
-  Symbol(Response internals): {
-    "counter": undefined,
-    "headers": Headers {
-      Symbol(map): {
-        "Location": [
-          "/afp",
-        ],
+  Symbol(state): {
+    "aborted": false,
+    "cacheState": "",
+    "headersList": HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "location",
+          "value": "/afp",
+        },
       },
+      Symbol(headers map sorted): null,
     },
+    "rangeRequested": false,
+    "requestIncludesCredentials": false,
     "status": 302,
-    "statusText": "Found",
-    "url": undefined,
+    "statusText": "",
+    "timingAllowPassed": false,
+    "timingInfo": null,
+    "type": "default",
+    "urlList": [],
+  },
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "location",
+          "value": "/afp",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
   },
 }
 `;
 
 exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /start location når samtykke er null 1`] = `
 Response {
-  "size": 0,
-  "timeout": 0,
-  Symbol(Body internals): {
-    "body": null,
-    "disturbed": false,
-    "error": null,
+  Symbol(realm): {
+    "settingsObject": {},
   },
-  Symbol(Response internals): {
-    "counter": undefined,
-    "headers": Headers {
-      Symbol(map): {
-        "Location": [
-          "/start",
-        ],
+  Symbol(state): {
+    "aborted": false,
+    "cacheState": "",
+    "headersList": HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "location",
+          "value": "/start",
+        },
       },
+      Symbol(headers map sorted): null,
     },
+    "rangeRequested": false,
+    "requestIncludesCredentials": false,
     "status": 302,
-    "statusText": "Found",
-    "url": undefined,
+    "statusText": "",
+    "timingAllowPassed": false,
+    "timingInfo": null,
+    "type": "default",
+    "urlList": [],
+  },
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "location",
+          "value": "/start",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
   },
 }
 `;

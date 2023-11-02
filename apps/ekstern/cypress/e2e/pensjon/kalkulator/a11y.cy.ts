@@ -1,6 +1,9 @@
 describe('Pensjonskalkulator', () => {
   it('rendrer stegsvisning og resultatsside a11y-feil', () => {
     cy.visit('/pensjon/kalkulator/start')
+    cy.wait('@getDecoratorPersonAuth')
+    cy.wait('@getDecoratorLoginAuth')
+    cy.wait('@getAuthSession')
 
     // Sjekker Steg 1
     cy.contains('Hei Aprikos!')
@@ -41,10 +44,12 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Beregn pensjon').click()
 
     // Sjekker Beregning
+    cy.wait('@fetchTidligsteUttaksalder')
     cy.contains(
       'Din opptjening i folketrygden gjør at du tidligst kan ta ut alderspensjon når du er'
     )
     cy.contains('button', '63 år').click()
+    cy.wait('@fetchAlderspensjon')
     cy.contains('button', 'Tidligst mulig uttak').click()
     cy.contains('button', 'Uttaksgrad').click()
     cy.contains('button', 'Inntekt').click()

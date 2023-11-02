@@ -1,6 +1,10 @@
-import { rest } from 'msw'
+import { delay, http, HttpResponse } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
+import {
+  AlderspensjonRequestBody,
+  PensjonsavtalerRequestBody,
+} from '@/state/api/apiSlice.types'
 
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
@@ -12,73 +16,67 @@ import unleashDisableSpraakvelgerResponse from './data/unleash-disable-spraakvel
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
 export const getHandlers = (baseUrl: string = API_PATH) => [
-  rest.get(`${HOST_BASEURL}/oauth2/session`, (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.delay(TEST_DELAY))
+  http.get(`${HOST_BASEURL}/oauth2/session`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json({ data: 'OK' })
   }),
 
-  rest.get(`${baseUrl}/inntekt`, (_req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json(inntektResponse),
-      ctx.delay(TEST_DELAY)
-    )
+  http.get(`${baseUrl}/inntekt`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(inntektResponse)
   }),
 
-  rest.get(`${baseUrl}/person`, (_req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(personResponse), ctx.delay(TEST_DELAY))
+  http.get(`${baseUrl}/person`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(personResponse)
   }),
 
-  rest.get(`${baseUrl}/tpo-medlemskap`, (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json(tpoMedlemskapResponse),
-      ctx.delay(TEST_DELAY)
-    )
+  http.get(`${baseUrl}/tpo-medlemskap`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(tpoMedlemskapResponse)
   }),
 
-  rest.post(`${baseUrl}/v1/tidligste-uttaksalder`, (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json(tidligstemuligeuttaksalderResponse),
-      ctx.delay(TEST_DELAY)
-    )
+  http.post(`${baseUrl}/v1/tidligste-uttaksalder`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(tidligstemuligeuttaksalderResponse)
   }),
 
-  rest.get(`${baseUrl}/sak-status`, (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json(sakStatusReponse),
-      ctx.delay(TEST_DELAY)
-    )
+  http.get(`${baseUrl}/sak-status`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(sakStatusReponse)
   }),
 
-  rest.post(`${baseUrl}/v1/pensjonsavtaler`, async (req, res, ctx) => {
-    const body = await req.json()
-    const aar = body.uttaksperioder[0]?.startAlder.aar
+  http.post(`${baseUrl}/v1/pensjonsavtaler`, async ({ request }) => {
+    await delay(TEST_DELAY)
+    const body = await request.json()
+    const aar = (body as PensjonsavtalerRequestBody).uttaksperioder[0]
+      ?.startAlder.aar
     const data = await import(`./data/pensjonsavtaler/${aar}.json`)
-    return res(ctx.status(200), ctx.json(data), ctx.delay(TEST_DELAY))
+
+    return HttpResponse.json(data)
   }),
 
-  rest.post(`${baseUrl}/v1/alderspensjon/simulering`, async (req, res, ctx) => {
-    const body = await req.json()
+  http.post(`${baseUrl}/v1/alderspensjon/simulering`, async ({ request }) => {
+    await delay(TEST_DELAY)
+    const body = await request.json()
     const data = await import(
-      `./data/alderspensjon/${body.foersteUttaksalder.aar}.json`
+      `./data/alderspensjon/${
+        (body as AlderspensjonRequestBody).foersteUttaksalder.aar
+      }.json`
     )
-    return res(ctx.status(200), ctx.json(data), ctx.delay(TEST_DELAY))
+    return HttpResponse.json(data)
   }),
 
-  rest.get(
+  http.get(
     `${baseUrl}/feature/pensjonskalkulator.disable-spraakvelger`,
-    (req, res, ctx) => {
-      return res(
-        ctx.status(200),
-        ctx.json(unleashDisableSpraakvelgerResponse),
-        ctx.delay(TEST_DELAY)
-      )
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(unleashDisableSpraakvelgerResponse)
     }
   ),
 
-  rest.post('http://localhost:12347/collect', (req, res, ctx) => {
-    return res(ctx.status(200))
+  http.post('http://localhost:12347/collect', async ({ request }) => {
+    await request.json()
+    return HttpResponse.json({ data: 'OK' })
   }),
 ]

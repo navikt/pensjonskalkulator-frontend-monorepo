@@ -1,4 +1,4 @@
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 
 import { API_BASEURL } from '@/paths'
@@ -14,31 +14,24 @@ type MockResponseOptions = {
   text?: string
   method?: 'post' | 'get'
   baseUrl?: string
-  noData?: boolean
 }
 
 export const mockResponse = (
   path: string,
   inputOptions: MockResponseOptions = {}
 ) => {
-  const defaultResponseOptions: Required<MockResponseOptions> = {
-    status: 200,
-    json: { data: 'OK' },
-    method: 'get',
-    baseUrl: `${API_BASEURL}`,
-    text: '',
-    noData: false,
-  }
-  const options = { ...defaultResponseOptions, ...inputOptions }
+  const method = inputOptions.method ?? 'get'
+  const baseUrl = inputOptions.baseUrl ?? API_BASEURL
+  const status = inputOptions.status ?? 200
 
   server.use(
-    rest[options.method](`${options.baseUrl}${path}`, (_req, res, ctx) => {
-      return res(
-        ctx.status(options.status),
-        !options.noData && options.text
-          ? ctx.text(options.text)
-          : ctx.json(options.json)
-      )
+    http[method](`${baseUrl}${path}`, async () => {
+      if (inputOptions.text) {
+        return HttpResponse.text(inputOptions.text, { status })
+      } else {
+        const json = inputOptions.json ?? { data: 'ok' }
+        return HttpResponse.json(json, { status })
+      }
     })
   )
 }
@@ -47,18 +40,13 @@ export const mockErrorResponse = (
   path: string,
   inputOptions: MockResponseOptions = {}
 ) => {
-  const defaultErrorResponseOptions: Required<MockResponseOptions> = {
-    status: 500,
-    json: { data: "Beep boop I'm an error!" },
-    text: '',
-    method: 'get',
-    noData: false,
-    baseUrl: `${API_BASEURL}`,
-  }
-  const options = {
-    ...defaultErrorResponseOptions,
-    ...inputOptions,
-  }
+  const method = inputOptions.method ?? 'get'
+  const baseUrl = inputOptions.baseUrl ?? API_BASEURL
+  const status = inputOptions.status ?? 500
 
-  mockResponse(path, options)
+  server.use(
+    http[method](`${baseUrl}${path}`, async () => {
+      return HttpResponse.text('lorem ipsum dolor sit amet', { status })
+    })
+  )
 }
