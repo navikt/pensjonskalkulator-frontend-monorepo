@@ -90,10 +90,18 @@ beforeEach(() => {
   ).as('fetchAlderspensjon')
 })
 
-Cypress.Commands.add('fillOutStegvisning', (args) => {
-  const { samtykke, afp = 'vet_ikke', samboer = true } = args
+Cypress.Commands.add('login', () => {
+  cy.visit('/pensjon/kalkulator/')
+  cy.wait('@getDecoratorPersonAuth')
+  cy.wait('@getDecoratorLoginAuth')
+  cy.wait('@getAuthSession')
+  cy.contains('button', 'Enkel kalkulator').click()
   cy.wait('@getPerson')
   cy.wait('@getInntekt')
+})
+
+Cypress.Commands.add('fillOutStegvisning', (args) => {
+  const { samtykke, afp = 'vet_ikke', samboer = true } = args
   cy.window()
     .its('store')
     .invoke('dispatch', userInputActions.setSamtykke(samtykke))
@@ -101,4 +109,5 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
   cy.window()
     .its('store')
     .invoke('dispatch', userInputActions.setSamboer(samboer))
+  cy.window().its('router').invoke('navigate', '/beregning')
 })

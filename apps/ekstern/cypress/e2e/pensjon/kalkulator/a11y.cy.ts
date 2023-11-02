@@ -1,9 +1,6 @@
 describe('Pensjonskalkulator', () => {
   it('rendrer stegsvisning og resultatsside a11y-feil', () => {
-    cy.visit('/pensjon/kalkulator/start')
-    cy.wait('@getDecoratorPersonAuth')
-    cy.wait('@getDecoratorLoginAuth')
-    cy.wait('@getAuthSession')
+    cy.login()
 
     // Sjekker Steg 1
     cy.contains('Hei Aprikos!')

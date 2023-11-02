@@ -13,6 +13,12 @@ declare global {
         afp?: AfpRadio
         samboer?: boolean
       }): Chainable<void>
+      /**
+       * Custom command for å fille ut verdier i storen for å simulere svarene i stegvisning.
+       *
+       * @example cy.login()
+       */
+      login(): Chainable<void>
     }
   }
 }

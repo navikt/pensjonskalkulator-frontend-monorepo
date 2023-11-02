@@ -1,13 +1,11 @@
 describe('Graf Horizontal scroll', () => {
   context('Gitt at grafen rendres på desktop', () => {
-    it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {
-      cy.visit('/pensjon/kalkulator/start')
-      cy.wait('@getDecoratorPersonAuth')
-      cy.wait('@getDecoratorLoginAuth')
-      cy.wait('@getAuthSession')
-
+    beforeEach(() => {
+      cy.login()
       cy.fillOutStegvisning({ samtykke: false })
-      cy.window().its('router').invoke('navigate', '/beregning')
+    })
+
+    it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {
       cy.wait('@fetchTidligsteUttaksalder')
 
       cy.contains('button', '70 år').click()
@@ -17,13 +15,6 @@ describe('Graf Horizontal scroll', () => {
     })
 
     it('Brukeren kan se og bruke navigasjonsknappene når det er flere søyler enn skjermens bredde', () => {
-      cy.visit('/pensjon/kalkulator/start')
-      cy.wait('@getDecoratorPersonAuth')
-      cy.wait('@getDecoratorLoginAuth')
-      cy.wait('@getAuthSession')
-
-      cy.fillOutStegvisning({ samtykke: false })
-      cy.window().its('router').invoke('navigate', '/beregning')
       cy.wait('@fetchTidligsteUttaksalder')
 
       cy.viewport('iphone-xr')
