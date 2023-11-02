@@ -21,9 +21,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker Steg 3
-    cy.contains(
-      'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor'
-    )
+    cy.contains('Du kan ha rett til offentlig tjenestepensjon')
     cy.checkA11y()
     cy.contains('button', 'Neste').click()
 

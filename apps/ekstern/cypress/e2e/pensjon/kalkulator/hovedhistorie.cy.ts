@@ -282,6 +282,22 @@ describe('Hovedhistorie', () => {
         cy.get('[data-testid="uttaksalder-loader"]').should('exist')
       })
     })
+
+    describe('Når jeg er kommet til beregningssiden,', () => {
+      beforeEach(() => {
+        cy.login()
+        cy.fillOutStegvisning({ samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+      })
+      it('ønsker jeg informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
+        cy.get(
+          'Din opptjening i folketrygden gjør at du tidligst kan ta ut alderspensjon når du er'
+        ).should('exist')
+        cy.get('62 år og 10 måneder').should('exist')
+      })
+      // it('må jeg kunne trykke på «?» for informasjon om at det kreves høy nok opptjening for å starte uttak mellom 62 og 67 år.', () => {})
+      // it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år (første mulige) og 75 år.', () => {})
+    })
   })
 })
 
