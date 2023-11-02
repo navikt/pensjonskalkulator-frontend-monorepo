@@ -301,7 +301,94 @@ describe('Hovedhistorie', () => {
           'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.'
         ).should('exist')
       })
-      // it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år (første mulige) og 75 år.', () => {})
+      it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år og 10 md. (første mulige) og 75 år.', () => {
+        cy.get('.VelgUttaksalder--wrapper button').should('have.length', 14)
+        cy.contains('button', '62 år og 10 md.').should('exist')
+        cy.contains('button', '75 år').should('exist')
+      })
+    })
+
+    describe('Når jeg velger hvilken alder jeg ønsker beregning fra,', () => {
+      beforeEach(() => {
+        cy.login()
+        cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+      })
+
+      it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt, AFP, Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt. Jeg forventer å kunne velge ny uttaksalder for å sammenligne hvordan pensjon blir ved ulike uttaksaldre.', () => {
+        cy.contains('button', '62 år og 10 md.').click()
+        cy.contains('Beregning').should('exist')
+        cy.contains('Pensjonsgivende inntekt').should('exist')
+        cy.contains('AFP (Avtalefestet pensjon)').should('exist')
+        cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
+        cy.contains('Alderspensjon (NAV)').should('exist')
+        cy.contains('Tusen kroner').should('exist')
+        cy.contains('61').should('exist')
+        cy.contains('87+').should('exist')
+        cy.contains('button', '70 år').click()
+        cy.contains('61').should('not.exist')
+        cy.contains('69').should('exist')
+        cy.contains('87+').should('exist')
+      })
+
+      it('forventer jeg å få informasjon om grunnlaget for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
+        cy.contains('button', '70').click()
+        cy.contains('Grunnlaget for beregningen').should('exist')
+        cy.contains('Tidligst mulig uttak:').click()
+        cy.contains('Uttaksgrad:').click()
+        cy.contains('Inntekt:').click()
+        cy.contains('Sivilstand:').click()
+        cy.contains('Opphold i Norge:').click()
+        cy.contains('AFP:').click()
+        cy.contains('Pensjonsavtaler:').click()
+      })
+
+      it('forventer jeg å kunne lese enkle forbehold, og få lenke til utfyllende forbehold.', () => {
+        cy.contains('button', '70').click()
+        cy.contains('Forbehold').should('exist')
+        cy.contains('a', 'Alle forbehold')
+          .should('have.attr', 'href')
+          .and('include', '/pensjon/kalkulator/forbehold')
+        cy.contains('a', 'detaljert kalkulator')
+          .should('have.attr', 'href')
+          .and('include', 'https://www.intern.dev.nav.no/pselv/simulering.jsf')
+      })
+
+      it('ønsker jeg å kunne starte ny beregning, eller avbryte beregningen.', () => {
+        cy.contains('button', '62 år og 10 md.').click()
+        cy.contains('button', 'Tilbake til start').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/start')
+        cy.fillOutStegvisning({ samtykke: false })
+        cy.contains('button', 'Avbryt').click()
+        cy.location('href').should('include', '/pensjon/kalkulator/login')
+      })
+    })
+
+    describe('Når jeg foretrekker tabell frem for graf,', () => {
+      beforeEach(() => {
+        cy.login()
+        cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+      })
+
+      it('ønsker jeg få resultatet presentert i både graf og tabell, og mulighet til å lukke/åpne tabellen.', () => {
+        cy.contains('button', '70').click()
+        cy.contains('Beregning').should('exist')
+        cy.contains('Vis tabell av beregningen').click({ force: true })
+        cy.contains('Lukk tabell av beregningen').should('exist')
+        cy.contains('Alder').should('exist')
+        cy.contains('Sum (kr)').should('exist')
+        cy.get('.navds-table__toggle-expand-button')
+          .first()
+          .click({ force: true })
+        cy.contains('0').should('exist')
+        cy.contains('dt', 'Pensjonsgivende inntekt').should('exist')
+        cy.contains('dt', 'AFP (Avtalefestet pensjon)').should('exist')
+        cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
+          'exist'
+        )
+        cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+      })
     })
   })
 })
