@@ -1,9 +1,6 @@
 describe('Pensjonskalkulator', () => {
   it('rendrer stegsvisning og resultatsside a11y-feil', () => {
-    cy.visit('/pensjon/kalkulator/start')
-    cy.wait('@getDecoratorPersonAuth')
-    cy.wait('@getDecoratorLoginAuth')
-    cy.wait('@getAuthSession')
+    cy.login()
 
     // Sjekker Steg 1
     cy.contains('Hei Aprikos!')
@@ -24,9 +21,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker Steg 3
-    cy.contains(
-      'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor'
-    )
+    cy.contains('Du kan ha rett til offentlig tjenestepensjon')
     cy.checkA11y()
     cy.contains('button', 'Neste').click()
 
