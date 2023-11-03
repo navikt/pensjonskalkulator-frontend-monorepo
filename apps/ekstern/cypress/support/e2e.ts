@@ -52,14 +52,6 @@ beforeEach(() => {
     { fixture: 'decorator-features.json' }
   ).as('getDecoratorEnvFeatures')
 
-  cy.intercept(
-    'GET',
-    'https://dekoratoren.ekstern.dev.nav.no/api/features?feature=dekoratoren.skjermdeling&feature=dekoratoren.chatbotscript',
-    {
-      statusCode: 200,
-    }
-  ).as('getDecoratorChatbot')
-
   cy.intercept('POST', 'https://amplitude.nav.no/collect-auto', {
     statusCode: 200,
   }).as('amplitudeCollect')
