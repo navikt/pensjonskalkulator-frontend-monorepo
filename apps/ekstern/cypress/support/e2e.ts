@@ -28,9 +28,29 @@ beforeEach(() => {
     statusCode: 200,
   }).as('getDecoratorMeny')
 
-  cy.intercept('GET', 'https://dekoratoren.ekstern.dev.nav.no/api/ta', {
-    statusCode: 200,
-  }).as('getDecoratorTa')
+  cy.intercept(
+    {
+      method: 'GET',
+      url: 'https://dekoratoren.ekstern.dev.nav.no/api/ta',
+    },
+    { fixture: 'decorator-ta.json' }
+  ).as('getDecoratorTa')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: 'https://dekoratoren.ekstern.dev.nav.no/api/features?feature=dekoratoren.skjermdeling&feature=dekoratoren.chatbotscript',
+    },
+    { fixture: 'decorator-features.json' }
+  ).as('getDecoratorFeatures')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: 'https://dekoratoren.ekstern.dev.nav.no/env?chatbot=false&redirectToUrl=https://www.ekstern.dev.nav.no/pensjon/kalkulator/start',
+    },
+    { fixture: 'decorator-features.json' }
+  ).as('getDecoratorEnvFeatures')
 
   cy.intercept(
     'GET',
