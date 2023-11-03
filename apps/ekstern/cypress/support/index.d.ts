@@ -14,7 +14,7 @@ declare global {
         samboer?: boolean
       }): Chainable<void>
       /**
-       * Custom command for å fille ut verdier i storen for å simulere svarene i stegvisning.
+       * Custom command for å logge inn og navigere til /start
        *
        * @example cy.login()
        */
