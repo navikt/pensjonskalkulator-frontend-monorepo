@@ -13,6 +13,12 @@ declare global {
         afp?: AfpRadio
         samboer?: boolean
       }): Chainable<void>
+      /**
+       * Custom command for å logge inn og navigere til /start
+       *
+       * @example cy.login()
+       */
+      login(): Chainable<void>
     }
   }
 }
