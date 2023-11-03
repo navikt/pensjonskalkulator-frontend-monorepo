@@ -1,9 +1,9 @@
 describe('Henvisning, 5år eller mer i utlandet', () => {
-  describe('Når jeg som bruker som har bodd 5 år eller mer i utlandet logger inn,', () => {
+  describe('Når jeg som bruker som har bodd 5 år eller mer i utlandet ønsker å bruke enkel kalkulator,', () => {
     beforeEach(() => {
       cy.login()
     })
-    it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte. ', () => {
+    it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
       cy.contains('button', 'Kom i gang').click()
       cy.contains('h2', 'Utenlandsopphold').should('exist')
       cy.contains(
