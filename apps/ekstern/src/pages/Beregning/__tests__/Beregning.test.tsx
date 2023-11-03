@@ -10,7 +10,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
   const fakeApiCalls = {
