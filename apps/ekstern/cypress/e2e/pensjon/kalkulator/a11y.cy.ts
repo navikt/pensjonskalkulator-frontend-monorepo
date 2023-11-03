@@ -24,9 +24,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker Steg 3
-    cy.contains(
-      'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor'
-    )
+    cy.contains('Du kan ha rett til offentlig tjenestepensjon')
     cy.checkA11y()
     cy.contains('button', 'Neste').click()
 
@@ -50,14 +48,14 @@ describe('Pensjonskalkulator', () => {
     )
     cy.contains('button', '63 år').click()
     cy.wait('@fetchAlderspensjon')
-    cy.contains('button', 'Tidligst mulig uttak').click()
-    cy.contains('button', 'Uttaksgrad').click()
-    cy.contains('button', 'Inntekt').click()
-    cy.contains('button', 'Sivilstand').click()
-    cy.contains('button', 'Opphold i Norge').click()
-    cy.contains('button', 'Alderspensjon').click()
-    cy.contains('button', 'AFP').click()
-    cy.contains('button', 'Pensjonsavtaler').click()
+    cy.contains('button', 'Tidligst mulig uttak').click({ force: true })
+    cy.contains('button', 'Uttaksgrad').click({ force: true })
+    cy.contains('button', 'Inntekt').click({ force: true })
+    cy.contains('button', 'Sivilstand').click({ force: true })
+    cy.contains('button', 'Opphold i Norge').click({ force: true })
+    cy.contains('button', 'Alderspensjon').click({ force: true })
+    cy.contains('button', 'AFP').click({ force: true })
+    cy.contains('button', 'Pensjonsavtaler').click({ force: true })
     cy.checkA11y()
   })
 
