@@ -5,4 +5,5 @@ dist/*
 coverage
 *.scss.d.ts
 src/style.d.ts
+src/types/schema.d.ts
 *.snap
