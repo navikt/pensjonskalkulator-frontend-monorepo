@@ -1,5 +1,5 @@
-describe('Henvisning, gjenlevendepensjon ', () => {
-  describe('Når jeg som bruker som har gjenlevendepensjon logger inn,', () => {
+describe('Henvisning, gjenlevendepensjon/uføretrygd', () => {
+  describe('Når jeg som bruker som får gjenlevendepensjon eller uføretrygd logger inn,', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'GET', url: '/pensjon/kalkulator/api/sak-status' },
