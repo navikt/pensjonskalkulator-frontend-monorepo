@@ -1,71 +1,38 @@
-declare type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
+import { components } from './schema'
 
-declare type Alder = {
-  aar: number
-  maaneder: number
-}
+declare global {
+  type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
+  type Alder = components['schemas']['Alder']
 
-declare type Pensjonsberegning = {
-  beloep: number
-  alder: number
-}
+  type UnleashToggle = components['schemas']['EnablementDto']
 
-declare type Utbetalingsperiode = {
-  startAlder: Alder
-  sluttAlder?: Alder
-  aarligUtbetaling: number
-  grad: number
-}
+  // /person
+  type Person = components['schemas']['PersonDto']
+  type Sivilstand = components['schemas']['PersonDto']['sivilstand']
+  // TODO fikse i utvidetSivilstand, da alle tydeligvis kan ha SAMBOER?
+  type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 
-declare type Pensjonsavtale = {
-  key: number
-  produktbetegnelse: string
-  kategori: PensjonsavtaleKategori
-  startAar: number
-  sluttAar?: number
-  utbetalingsperioder: Utbetalingsperiode[]
-}
+  // /inntekt
+  type Inntekt = components['schemas']['InntektDto']
 
-declare type UtilgjengeligeSelskap = {
-  navn: string
-  heltUtilgjengelig: boolean
-}
+  // /sak-status
+  type SakStatus = components['schemas']['SakDto']
 
-declare type Sivilstand =
-  | 'UOPPGITT'
-  | 'UGIFT'
-  | 'GIFT'
-  | 'ENKE_ELLER_ENKEMANN'
-  | 'SKILT'
-  | 'SEPARERT'
-  | 'REGISTRERT_PARTNER'
-  | 'SEPARERT_PARTNER'
-  | 'SKILT_PARTNER'
-  | 'GJENLEVENDE_PARTNER'
+  // /pensjonsavtaler
+  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeDto']
+  type Pensjonsavtale = components['schemas']['PensjonsavtaleDto'] & {
+    key?: number
+  }
+  type PensjonsavtaleKategori =
+    components['schemas']['PensjonsavtaleDto']['kategori']
+  type UtilgjengeligeSelskap = components['schemas']['SelskapDto']
 
-declare type UtvidetSivilstand = Sivilstand | 'SAMBOER'
+  // / alderspensjon
+  declare type Pensjonsberegning = {
+    beloep: number
+    alder: number
+  }
 
-declare type Step = '0' | '1' | '2' | '3'
-
-declare type Person = {
-  fornavn: string
-  sivilstand: Sivilstand
-  foedselsdato: string
-}
-
-declare type Inntekt = {
-  beloep: number
-  aar: number
-}
-
-declare type TpoMedlemskap = {
-  harTjenestepensjonsforhold: boolean
-}
-
-declare type UnleashToggle = {
-  enabled: boolean
-}
-
-declare type SakStatus = {
-  harUfoeretrygdEllerGjenlevendeytelse: boolean
+  // /tpo-medlemskap
+  type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
 }

@@ -7,16 +7,18 @@ export const formatSivilstand = (
   showSamboerskap?: { harSamboer: boolean }
 ): string => {
   const sivilstandMap: Record<Sivilstand, string> = {
-    GIFT: 'Gift',
+    UNKNOWN: 'Ugift',
+    UOPPGITT: 'Ugift',
     UGIFT: 'Ugift',
-    REGISTRERT_PARTNER: 'Registrert partner',
+    GIFT: 'Gift',
     ENKE_ELLER_ENKEMANN: 'Enke/enkemann',
     SKILT: 'Skilt',
     SEPARERT: 'Separert',
+    REGISTRERT_PARTNER: 'Registrert partner',
     SEPARERT_PARTNER: 'Separert partner',
     SKILT_PARTNER: 'Skilt partner',
     GJENLEVENDE_PARTNER: 'Gjenlevende partner',
-    UOPPGITT: 'Ugift',
+    SAMBOER: 'Samboer',
   }
 
   const formatertSivilstand = sivilstandMap[sivilstand]
