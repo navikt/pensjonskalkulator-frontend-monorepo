@@ -12,7 +12,7 @@ describe('AFP offentlig', () => {
         cy.contains('button', 'Neste').click()
       })
 
-      it('forventer jeg informasjon om at NAV ikke kan beregne AFP Offentlig. Og jeg kan gå videre', () => {
+      it('forventer jeg informasjon om at NAV ikke kan beregne AFP Offentlig. Og jeg kan gå videre.', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('Ja, i offentlig sektor').should('exist')
         cy.contains('Ja, i privat sektor').should('exist')
@@ -25,6 +25,7 @@ describe('AFP offentlig', () => {
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
+
       it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
         cy.contains('button', 'Tilbake').click()
         cy.location('href').should(
@@ -45,7 +46,7 @@ describe('AFP offentlig', () => {
       })
 
       describe('Når jeg er kommet til beregningssiden og får senere enn 62 år på tidligst mulig uttak,', () => {
-        it('ønsker jeg tilleggsinformasjon om at rett til AFP gjøre at tidligst mulig uttak er tidligere ', () => {
+        it('ønsker jeg tilleggsinformasjon om at rett til AFP gjøre at tidligst mulig uttak er tidligere.', () => {
           cy.contains(
             'Din opptjening i folketrygden gjør at du tidligst kan ta'
           ).should('exist')
