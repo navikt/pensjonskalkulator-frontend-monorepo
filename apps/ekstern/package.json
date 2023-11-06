@@ -60,7 +60,7 @@
     "axe-core": "^4.6.3",
     "cypress": "^13.4.0",
     "cypress-axe": "^1.4.0",
-    "eslint": "^8.52.0",
+    "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-react-typescript": "^1.0.10",
     "eslint-plugin-import": "^2.29.0",
