@@ -2,8 +2,8 @@ import 'cypress-axe'
 
 import { userInputActions } from '../../src/state/userInput/userInputReducer'
 
-console.log('CYPRESS ENV: ', Cypress.env())
-console.log(`https://login${Cypress.env('NAV_URL')}/oauth2/session`)
+cy.task('log', `CYPRESS ENV: ${Cypress.env()}`)
+
 beforeEach(() => {
   cy.intercept('GET', `${Cypress.env('DECORATOR_URL')}/api/driftsmeldinger`, {
     statusCode: 200,
