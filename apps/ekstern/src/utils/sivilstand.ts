@@ -18,7 +18,6 @@ export const formatSivilstand = (
     SEPARERT_PARTNER: 'Separert partner',
     SKILT_PARTNER: 'Skilt partner',
     GJENLEVENDE_PARTNER: 'Gjenlevende partner',
-    SAMBOER: 'Samboer',
   }
 
   const formatertSivilstand = sivilstandMap[sivilstand]

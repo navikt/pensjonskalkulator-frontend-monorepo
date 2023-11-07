@@ -15,6 +15,7 @@ export interface paths {
     put?: never
     /**
      * Første mulige uttaksalder
+     *
      * @description Finn første mulige uttaksalder for innlogget bruker. Feltet 'harEps' brukes til å angi om brukeren har ektefelle/partner/samboer eller ei
      */
     post: operations['finnTidligsteUttaksalderV1']
@@ -35,6 +36,7 @@ export interface paths {
     put?: never
     /**
      * Hent pensjonsavtaler
+     *
      * @description Henter pensjonsavtalene til den innloggede brukeren. I request må verdi av 'maaneder' være 0..11.
      */
     post: operations['fetchAvtalerV1']
@@ -55,6 +57,7 @@ export interface paths {
     put?: never
     /**
      * Simuler alderspensjon
+     *
      * @description Lag en prognose for framtidig alderspensjon. Feltet 'epsHarInntektOver2G' brukes til å angi om ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet eller ei.
      */
     post: operations['simulerAlderspensjon']
@@ -75,9 +78,31 @@ export interface paths {
     put?: never
     /**
      * Har løpende uføretrygd
+     *
      * @description Hvorvidt den innloggede brukeren har løpende uføretrygd
      */
     post: operations['harUfoeretrygd']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/v1/person': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Hent personinformasjon
+     *
+     * @description Henter personinformasjon om den innloggede brukeren
+     */
+    get: operations['person']
+    put?: never
+    post?: never
     delete?: never
     options?: never
     head?: never
@@ -93,6 +118,7 @@ export interface paths {
     }
     /**
      * Har offentlig tjenestepensjonsforhold
+     *
      * @description Hvorvidt den innloggede brukeren har offentlig tjenestepensjonsforhold
      */
     get: operations['harTjenestepensjonsforhold']
@@ -113,6 +139,7 @@ export interface paths {
     }
     /**
      * Sjekk status
+     *
      * @description Hent status for applikasjonens helsetilstand
      */
     get: operations['status']
@@ -133,6 +160,7 @@ export interface paths {
     }
     /**
      * Har uføretrygd/gjenlevendeytelse
+     *
      * @description Hvorvidt den innloggede brukeren har løpende uføretrygd eller gjenlevendeytelse
      */
     get: operations['harRelevantSak']
@@ -152,10 +180,11 @@ export interface paths {
       cookie?: never
     }
     /**
-     * Hent personinformasjon
+     * Hent personinformasjon V0
+     *
      * @description Henter personinformasjon om den innloggede brukeren
      */
-    get: operations['person']
+    get: operations['personV0']
     put?: never
     post?: never
     delete?: never
@@ -173,6 +202,7 @@ export interface paths {
     }
     /**
      * Siste pensjonsgivende inntekt
+     *
      * @description Henter den innloggede brukerens sist skattelignede pensjonsgivende inntekt
      */
     get: operations['sistePensjonsgivendeInntekt']
@@ -193,6 +223,7 @@ export interface paths {
     }
     /**
      * Hent grunnbeløp
+     *
      * @description Hent grunnbeløpet i folketrygden (G) for nåværende tidspunkt
      */
     get: operations['getGrunnbeloep']
@@ -213,6 +244,7 @@ export interface paths {
     }
     /**
      * Hvorvidt en gitt funksjonsbryter er skrudd på
+     *
      * @description Hent status for en gitt funksjonsbryter (hvorvidt funksjonen er skrudd på)
      */
     get: operations['isEnabled']
@@ -359,6 +391,17 @@ export interface components {
         | 'GJENLEVENDE_PARTNER'
         | 'SAMBOER'
     }
+    PensjonsberegningDto: {
+      /** Format: int32 */
+      alder: number
+      /** Format: int32 */
+      beloep: number
+    }
+    SimuleringsresultatDto: {
+      alderspensjon: components['schemas']['PensjonsberegningDto'][]
+      afpPrivat: components['schemas']['PensjonsberegningDto'][]
+      vilkaarErOppfylt: boolean
+    }
     UfoerepensjonSpecDto: {
       /** Format: date */
       fom: string
@@ -366,18 +409,39 @@ export interface components {
     UfoerepensjonDto: {
       harUfoerepensjon: boolean
     }
-    TjenestepensjonsforholdDto: {
-      harTjenestepensjonsforhold: boolean
-    }
-    SakDto: {
-      harUfoeretrygdEllerGjenlevendeytelse: boolean
-    }
-    PersonDto: {
+    ApiPersonDto: {
       fornavn: string
       /** Format: date */
       foedselsdato: string
       /** @enum {string} */
       sivilstand:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+    }
+    TjenestepensjonsforholdDto: {
+      harTjenestepensjonsforhold: boolean
+    }
+    ApiStatusDto: {
+      status: string
+    }
+    SakDto: {
+      harUfoeretrygdEllerGjenlevendeytelse: boolean
+    }
+    PersonDto: {
+      fornavn?: string
+      /** Format: date */
+      foedselsdato?: string
+      /** @enum {string} */
+      sivilstand?:
         | 'UNKNOWN'
         | 'UOPPGITT'
         | 'UGIFT'
@@ -498,7 +562,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          '*/*': unknown
+          '*/*': components['schemas']['SimuleringsresultatDto']
         }
       }
       /** @description Simulering kunne ikke utføres av tekniske årsaker */
@@ -545,6 +609,37 @@ export interface operations {
       }
     }
   }
+  person: {
+    parameters: {
+      query?: {
+        spec?: components['schemas']['UttaksalderIngressSpecDto']
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Henting av personinformasjon utført. I resultatet er verdi av 'maaneder' 0..11. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['ApiPersonDto']
+        }
+      }
+      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
   harTjenestepensjonsforhold: {
     parameters: {
       query?: never
@@ -580,7 +675,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          '*/*': string
+          '*/*': components['schemas']['ApiStatusDto']
         }
       }
     }
@@ -614,7 +709,7 @@ export interface operations {
       }
     }
   }
-  person: {
+  personV0: {
     parameters: {
       query?: {
         spec?: components['schemas']['UttaksalderIngressSpecDto']

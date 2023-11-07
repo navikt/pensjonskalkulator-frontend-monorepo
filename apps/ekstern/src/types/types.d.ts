@@ -7,8 +7,8 @@ declare global {
   type UnleashToggle = components['schemas']['EnablementDto']
 
   // /person
-  type Person = components['schemas']['PersonDto']
-  type Sivilstand = components['schemas']['PersonDto']['sivilstand']
+  type Person = components['schemas']['ApiPersonDto']
+  type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
   // TODO fikse i utvidetSivilstand, da alle tydeligvis kan ha SAMBOER?
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 

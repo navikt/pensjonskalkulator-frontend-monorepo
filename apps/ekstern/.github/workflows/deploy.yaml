@@ -46,7 +46,10 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Fetch openapi backend types
-        run: npx openapi-typescript ${{ github.event.inputs.prod  == 'true' && 'https://pensjonskalkulator-backend.intern.nav.no/v3/api-docs/api' || 'https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/api'  }}  -o ./src/types/schema.d.ts 
+        run: npm run openapi-typescript ${{ github.event.inputs.prod  == 'true' && 'https://pensjonskalkulator-backend.intern.nav.no/v3/api-docs/api' || 'https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/api'  }}  -o ./src/types/schema.d.ts 
+        
+      - name: Fetch openapi backend types
+        run: npm run format:types
         
       - name: Build staging application
         if: github.event.inputs.prod  != 'true'

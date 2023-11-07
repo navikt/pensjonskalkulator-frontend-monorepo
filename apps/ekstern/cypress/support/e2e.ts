@@ -77,7 +77,7 @@ beforeEach(() => {
   ).as('getSakStatus')
 
   cy.intercept(
-    { method: 'GET', url: '/pensjon/kalkulator/api/person' },
+    { method: 'GET', url: '/pensjon/kalkulator/api/v1/person' },
     { fixture: 'person.json' }
   ).as('getPerson')
 

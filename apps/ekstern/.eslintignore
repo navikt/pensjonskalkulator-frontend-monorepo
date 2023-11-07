@@ -10,7 +10,6 @@ tsconfig.json
 tsconfig.node.json
 *.scss.d.ts
 src/style.d.ts
-src/types/schema.d.ts
 /cypress.config.ts
 mockServiceWorker.js
 cypress

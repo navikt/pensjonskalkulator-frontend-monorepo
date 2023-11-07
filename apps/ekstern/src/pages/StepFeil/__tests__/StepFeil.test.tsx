@@ -45,7 +45,7 @@ describe('Step Feil', () => {
 
   it('kaller /person på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden', async () => {
     const user = userEvent.setup()
-    mockErrorResponse('/person')
+    mockErrorResponse('/v1/person')
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -61,7 +61,7 @@ describe('Step Feil', () => {
   })
 
   it('kaller /inntekt på nytt (gitt at nytt kall er vellykket), evaluerer samboerskapet og navigerer videre til riktig side', async () => {
-    mockResponse('/person', {
+    mockResponse('/v1/person', {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: 'UGIFT', foedselsdato: '1963-04-30' },
     })
@@ -80,7 +80,7 @@ describe('Step Feil', () => {
   })
 
   it('kaller /person på nytt (gitt at nytt kall er vellykket), evaluerer samboerskapet og navigerer videre til riktig side', async () => {
-    mockResponse('/person', {
+    mockResponse('/v1/person', {
       status: 200,
       json: { fornavn: 'Ola', sivilstand: 'GIFT', foedselsdato: '1963-04-30' },
     })
