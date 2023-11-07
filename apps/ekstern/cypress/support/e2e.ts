@@ -5,33 +5,29 @@ import { userInputActions } from '../../src/state/userInput/userInputReducer'
 beforeEach(() => {
   cy.intercept(
     'GET',
-    'https://dekoratoren.ekstern.dev.nav.no/api/driftsmeldinger',
-    {
-      statusCode: 200,
-      body: [],
-    }
-  ).as('getDecoratorDriftsmeldinger')
-
-  cy.intercept(
-    'GET',
-    'https://www.ekstern.dev.nav.no/person/nav-dekoratoren-api/auth',
+    `https://www.ekstern.dev.nav.no/person/nav-dekoratoren-api/auth`,
     {
       statusCode: 200,
     }
   ).as('getDecoratorPersonAuth')
 
-  cy.intercept('GET', 'https://login.ekstern.dev.nav.no/oauth2/session', {
+  cy.intercept('GET', `https://login.ekstern.dev.nav.no/oauth2/session`, {
     statusCode: 200,
   }).as('getDecoratorLoginAuth')
 
-  cy.intercept('GET', 'https://dekoratoren.ekstern.dev.nav.no/api/meny', {
+  cy.intercept('GET', `${Cypress.env('DECORATOR_URL')}/api/driftsmeldinger`, {
+    statusCode: 200,
+    body: [],
+  }).as('getDecoratorDriftsmeldinger')
+
+  cy.intercept('GET', `${Cypress.env('DECORATOR_URL')}/api/meny`, {
     statusCode: 200,
   }).as('getDecoratorMeny')
 
   cy.intercept(
     {
       method: 'GET',
-      url: 'https://dekoratoren.ekstern.dev.nav.no/api/ta',
+      url: `${Cypress.env('DECORATOR_URL')}/api/ta`,
     },
     { fixture: 'decorator-ta.json' }
   ).as('getDecoratorTa')
@@ -39,7 +35,9 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: 'https://dekoratoren.ekstern.dev.nav.no/api/features?feature=dekoratoren.skjermdeling&feature=dekoratoren.chatbotscript',
+      url: `${Cypress.env(
+        'DECORATOR_URL'
+      )}/api/features?feature=dekoratoren.skjermdeling&feature=dekoratoren.chatbotscript`,
     },
     { fixture: 'decorator-features.json' }
   ).as('getDecoratorFeatures')
@@ -47,7 +45,9 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: 'https://dekoratoren.ekstern.dev.nav.no/env?chatbot=false&redirectToUrl=https://www.ekstern.dev.nav.no/pensjon/kalkulator/start',
+      url: `${Cypress.env(
+        'DECORATOR_URL'
+      )}/env?chatbot=false&redirectToUrl=https://www.ekstern.dev.nav.no/pensjon/kalkulator/start`,
     },
     { fixture: 'decorator-features.json' }
   ).as('getDecoratorEnvFeatures')
