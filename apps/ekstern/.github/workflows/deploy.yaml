@@ -149,8 +149,13 @@ jobs:
         if: steps.cache-cypress.outputs.cache-hit != 'true'
         run: npx cypress install
 
-      - name: Run integration tests
-        run: npm run cy:test
+      - name: Run integration tests on staging application
+        if: github.event.inputs.prod  != 'true'
+        run: npm run cytest
+
+      - name: Run integration tests on production application
+        if: github.event.inputs.prod  == 'true'
+        run: npm run cytest:production
 
       - name: Archive Cypress artifacts
         uses: actions/upload-artifact@v3

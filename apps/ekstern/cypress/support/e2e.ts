@@ -2,8 +2,6 @@ import 'cypress-axe'
 
 import { userInputActions } from '../../src/state/userInput/userInputReducer'
 
-cy.task('log', `CYPRESS ENV: ${Cypress.env()}`)
-
 beforeEach(() => {
   cy.intercept('GET', `${Cypress.env('DECORATOR_URL')}/api/driftsmeldinger`, {
     statusCode: 200,
