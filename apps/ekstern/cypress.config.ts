@@ -1,6 +1,9 @@
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
+  env: {
+    DECORATOR_URL: 'https://dekoratoren.ekstern.dev.nav.no',
+  },
   e2e: {
     baseUrl: 'http://localhost:4173',
     setupNodeEvents(on) {
@@ -12,6 +15,12 @@ export default defineConfig({
           launchOptions.args.push('--force-prefers-reduced-motion')
         }
         return launchOptions
+      })
+      on('task', {
+        log(message) {
+          console.log(message)
+          return null
+        },
       })
     },
   },
