@@ -146,10 +146,13 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Install cypress
-        if: steps.cache-cypress.outputs.cache-hit != 'true'
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true' &&
+          github.event.inputs.prod != 'true'
         run: npx cypress install
 
       - name: Run integration tests
+        if: github.event.inputs.prod  != 'true'
         run: npm run cy:test
 
       - name: Archive Cypress artifacts
