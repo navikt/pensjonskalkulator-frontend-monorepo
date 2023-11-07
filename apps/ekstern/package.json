@@ -76,7 +76,7 @@
     "postcss-modules-scope": "^3.0.0",
     "postcss-modules-values": "^4.0.0",
     "prettier": "^3.0.3",
-    "react-intl": "6.5.1",
+    "react-intl": "6.5.2",
     "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.69.5",
     "start-server-and-test": "^2.0.2",
