@@ -16,7 +16,7 @@
     "test:ui": "vitest --ui",
     "cy:open": "cypress open",
     "cy:test": "start-server-and-test preview http://localhost:4173/pensjon/kalkulator 'ELECTRON_EXTRA_LAUNCH_ARGS=\"--force-prefers-reduced-motion\" cypress run'",
-    "cy:test:production": "start-server-and-test preview http://localhost:4173/pensjon/kalkulator 'ELECTRON_EXTRA_LAUNCH_ARGS=\"--force-prefers-reduced-motion\" cypress run --env DECORATOR_URL=https://www.nav.no/dekoratoren,NAV_URL=.nav.no'",
+    "cy:test:production": "start-server-and-test preview http://localhost:4173/pensjon/kalkulator 'ELECTRON_EXTRA_LAUNCH_ARGS=\"--force-prefers-reduced-motion\" cypress run --env DECORATOR_URL=https://www.nav.no/dekoratoren'",
     "eslint:check": "eslint ./src",
     "eslint:fix": "eslint ./src --fix",
     "stylelint:check": "stylelint 'src/**/*.{css,scss}'",
