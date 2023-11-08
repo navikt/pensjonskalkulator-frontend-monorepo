@@ -46,7 +46,7 @@ describe('AFP offentlig', () => {
       })
 
       describe('Når jeg er kommet til beregningssiden og får senere enn 62 år på tidligst mulig uttak,', () => {
-        it('ønsker jeg tilleggsinformasjon om at rett til AFP gjøre at tidligst mulig uttak er tidligere.', () => {
+        it('ønsker jeg tilleggsinformasjon om at rett til AFP gjør at tidligst mulig uttak er tidligere.', () => {
           cy.contains(
             'Din opptjening i folketrygden gjør at du tidligst kan ta'
           ).should('exist')
