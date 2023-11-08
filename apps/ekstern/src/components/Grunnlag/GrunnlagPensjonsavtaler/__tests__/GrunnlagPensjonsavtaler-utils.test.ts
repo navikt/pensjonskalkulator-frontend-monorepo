@@ -31,12 +31,10 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
 
     it('grupperer pensjonsavtaler på avtaletype', () => {
       const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
-
-      expect(grouped.NONE).toHaveLength(1)
-      expect(grouped.UNKNOWN).toHaveLength(1)
-      expect(grouped.OFFENTLIG_TJENESTEPENSJON).toHaveLength(1)
-      expect(grouped.PRIVAT_TJENESTEPENSJON).toHaveLength(2)
-      expect(grouped.INDIVIDUELL_ORDNING).toHaveLength(2)
+      expect(grouped['andre avtaler']).toHaveLength(1)
+      expect(grouped['individuell ordning']).toHaveLength(2)
+      expect(grouped['offentlig tjenestepensjon']).toHaveLength(1)
+      expect(grouped['privat tjenestepensjon']).toHaveLength(2)
     })
   })
 
