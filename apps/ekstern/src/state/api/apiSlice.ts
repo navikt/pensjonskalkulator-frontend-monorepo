@@ -10,13 +10,6 @@ import {
   isSakStatus,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
-import {
-  PensjonsavtalerResponseBody,
-  PensjonsavtalerRequestBody,
-  AlderspensjonRequestBody,
-  AlderspensjonResponseBody,
-  TidligsteUttaksalderRequestBody,
-} from '@/state/api/apiSlice.types'
 
 export const apiSlice = createApi({
   reducerPath: 'api',

@@ -1,10 +1,6 @@
 import { delay, http, HttpResponse } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
-import {
-  AlderspensjonRequestBody,
-  PensjonsavtalerRequestBody,
-} from '@/state/api/apiSlice.types'
 
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }

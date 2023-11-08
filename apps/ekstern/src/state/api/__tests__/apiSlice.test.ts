@@ -3,7 +3,6 @@ import { setupStore } from '@/state/store'
 import { apiSlice } from '@/state/api/apiSlice'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { swallowErrorsAsync } from '@/test-utils'
-import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
 
 const inntektResponse = require('../../../mocks/data/inntekt.json')
 const personResponse = require('../../../mocks/data/person.json')
@@ -181,6 +180,7 @@ describe('apiSlice', () => {
 
   describe('pensjonsavtaler', () => {
     const dummyRequestBody = {
+      aarligInntektFoerUttak: 500000,
       uttaksperioder: [
         {
           startAlder: { aar: 67, maaneder: 0 },

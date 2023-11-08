@@ -3,13 +3,11 @@ import { components } from './schema'
 declare global {
   type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
   type Alder = components['schemas']['Alder']
-
   type UnleashToggle = components['schemas']['EnablementDto']
 
   // /person
   type Person = components['schemas']['ApiPersonDto']
   type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
-  // TODO fikse i utvidetSivilstand, da alle tydeligvis kan ha SAMBOER?
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 
   // /inntekt
@@ -18,7 +16,17 @@ declare global {
   // /sak-status
   type SakStatus = components['schemas']['SakDto']
 
+  // /tpo-medlemskap
+  type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
+
+  // /tidligste-uttaksalder
+  type TidligsteUttaksalderRequestBody =
+    components['schemas']['UttaksalderIngressSpecDto']
+
   // /pensjonsavtaler
+  type PensjonsavtalerRequestBody =
+    components['schemas']['PensjonsavtaleIngressSpecDto']
+  type PensjonsavtalerResponseBody = components['schemas']['PensjonsavtalerDto']
   type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeDto']
   type Pensjonsavtale = components['schemas']['PensjonsavtaleDto'] & {
     key?: number
@@ -28,11 +36,13 @@ declare global {
   type UtilgjengeligeSelskap = components['schemas']['SelskapDto']
 
   // / alderspensjon
-  declare type Pensjonsberegning = {
+  type AlderspensjonRequestBody = components['schemas']['SimuleringSpecDto']
+  type AlderspensjonResponseBody =
+    components['schemas']['SimuleringsresultatDto']
+  type Simuleringstype =
+    components['schemas']['SimuleringSpecDto']['simuleringstype']
+  type Pensjonsberegning = {
     beloep: number
     alder: number
   }
-
-  // /tpo-medlemskap
-  type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
 }
