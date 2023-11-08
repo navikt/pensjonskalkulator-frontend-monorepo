@@ -3,7 +3,6 @@ import { setupStore } from '@/state/store'
 import { apiSlice } from '@/state/api/apiSlice'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { swallowErrorsAsync } from '@/test-utils'
-import { AlderspensjonRequestBody } from '@/state/api/apiSlice.types'
 
 const inntektResponse = require('../../../mocks/data/inntekt.json')
 const personResponse = require('../../../mocks/data/person.json')
@@ -82,7 +81,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = await setupStore({}, true)
-      mockErrorResponse('/person')
+      mockErrorResponse('/v1/person')
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
         .then((result: FetchBaseQueryError) => {
@@ -93,7 +92,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = await setupStore({}, true)
-      mockResponse('/person', {
+      mockResponse('/v1/person', {
         status: 200,
         json: { sivilstand: 'SIRKUSKLOVN' },
       })
@@ -181,6 +180,7 @@ describe('apiSlice', () => {
 
   describe('pensjonsavtaler', () => {
     const dummyRequestBody = {
+      aarligInntektFoerUttak: 500000,
       uttaksperioder: [
         {
           startAlder: { aar: 67, maaneder: 0 },

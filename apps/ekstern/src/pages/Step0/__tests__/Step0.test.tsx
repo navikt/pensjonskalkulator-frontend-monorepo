@@ -27,7 +27,7 @@ describe('Step 0', () => {
   })
 
   it('rendrer hilsen uten fornavn når henting av personopplysninger feiler', async () => {
-    mockErrorResponse('/person')
+    mockErrorResponse('/v1/person')
     render(<Step0 />)
     await waitFor(() => {
       expect(screen.getByText('stegvisning.start.title!')).toBeVisible()
@@ -48,7 +48,7 @@ describe('Step 0', () => {
   })
 
   it('nullstiller cachen for /person kall når brukeren klikker på Neste og at kallet har feilet', async () => {
-    mockErrorResponse('/person')
+    mockErrorResponse('/v1/person')
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -109,7 +109,7 @@ describe('Step 0', () => {
   })
 
   it('redirigerer til feilside dersom bruker er født før 1963', async () => {
-    mockResponse('/person', {
+    mockResponse('/v1/person', {
       json: {
         fornavn: 'Test',
         sivilstand: 'UGIFT',

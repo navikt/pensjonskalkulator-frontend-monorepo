@@ -2,13 +2,15 @@ import { vi } from 'vitest'
 
 import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' assert { type: 'json' }
 import { groupPensjonsavtalerByType, getMaanedString } from '../utils'
-import { PensjonsavtaleKategori } from '@/types/enums'
 
 describe('GrunnlagPensjonsavtaler-utils', () => {
-  const avtalerWithKeys = pensjonsavtalerData.avtaler.map((avtale, index) => ({
-    ...avtale,
-    key: index,
-  }))
+  const avtalerWithKeys = pensjonsavtalerData.avtaler.map(
+    (avtale, index) =>
+      ({
+        ...avtale,
+        key: index,
+      }) as Pensjonsavtale
+  )
 
   describe('groupPensjonsavtalerByType', () => {
     it('returnerer tomt object når det ikke er noe pensjonsvtaler å grupperer', () => {
@@ -29,18 +31,10 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
 
     it('grupperer pensjonsavtaler på avtaletype', () => {
       const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
-
-      expect(grouped[PensjonsavtaleKategori.NONE]).toHaveLength(1)
-      expect(grouped[PensjonsavtaleKategori.UNKNOWN]).toHaveLength(1)
-      expect(
-        grouped[PensjonsavtaleKategori.OFFENTLIG_TJENESTEPENSJON]
-      ).toHaveLength(1)
-      expect(
-        grouped[PensjonsavtaleKategori.PRIVAT_TJENESTEPENSJON]
-      ).toHaveLength(2)
-      expect(grouped[PensjonsavtaleKategori.INDIVIDUELL_ORDNING]).toHaveLength(
-        2
-      )
+      expect(grouped['andre avtaler']).toHaveLength(1)
+      expect(grouped['individuell ordning']).toHaveLength(2)
+      expect(grouped['offentlig tjenestepensjon']).toHaveLength(1)
+      expect(grouped['privat tjenestepensjon']).toHaveLength(2)
     })
   })
 

@@ -6,6 +6,9 @@
   "scripts": {
     "start": "vite",
     "start:production": "vite --mode production",
+    "fetch-dev-types": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/api -o ./src/types/schema.d.ts",
+    "postfetch-dev-types": "npm run format:types",
+    "format:types": "prettier --write ./src/types/schema.d.ts && eslint ./src/types/schema.d.ts --fix",
     "prebuild": "npm run eslint:check && npm run prettier:check && npm run stylelint:check",
     "build": "tsc && vite build --mode staging",
     "build:production": "tsc && vite build --mode production",
@@ -70,6 +73,7 @@
     "lint-staged": "^15.0.2",
     "msw": "^2.0.3",
     "node-sass": "^9.0.0",
+    "openapi-typescript": "^7.0.0-next.2",
     "postcss": "^8.4.31",
     "postcss-modules-extract-imports": "^3.0.0",
     "postcss-modules-local-by-default": "^4.0.3",

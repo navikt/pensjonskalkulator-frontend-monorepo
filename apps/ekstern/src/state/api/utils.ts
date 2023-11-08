@@ -1,7 +1,3 @@
-import {
-  PensjonsavtalerRequestBody,
-  AlderspensjonRequestBody,
-} from '@/state/api/apiSlice.types'
 import { checkHarSamboer } from '@/utils/sivilstand'
 import { format, parseISO } from 'date-fns'
 

@@ -1,24 +1,17 @@
-import { PensjonsavtaleKategori } from '@/types/enums'
-
-type PensjonsavtaleRecord = {
-  [key in PensjonsavtaleKategori]?: Pensjonsavtale[]
-}
+import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
 export const groupPensjonsavtalerByType = (
   pensjonsavtaler: Pensjonsavtale[]
-): PensjonsavtaleRecord => {
-  const record: PensjonsavtaleRecord = {}
+): Record<string, Pensjonsavtale[]> => {
+  const record: Record<string, Pensjonsavtale[]> = {}
 
   for (const avtale of pensjonsavtaler) {
-    const avtalekategori =
-      PensjonsavtaleKategori[
-        avtale.kategori as keyof typeof PensjonsavtaleKategori
-      ]
+    const avtaleString = pensjonsavtalerKategoriMapObj[avtale.kategori]
 
-    if (!Array.isArray(record[avtalekategori])) {
-      record[avtalekategori] = [avtale]
+    if (!Array.isArray(record[avtaleString])) {
+      record[avtaleString] = [avtale]
     } else {
-      record[avtalekategori]?.push(avtale)
+      record[avtaleString]?.push(avtale)
     }
   }
   return record

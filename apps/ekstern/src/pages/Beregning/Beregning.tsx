@@ -20,10 +20,6 @@ import {
   useGetPersonQuery,
   useTidligsteUttaksalderQuery,
 } from '@/state/api/apiSlice'
-import {
-  AlderspensjonRequestBody,
-  TidligsteUttaksalderRequestBody,
-} from '@/state/api/apiSlice.types'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
