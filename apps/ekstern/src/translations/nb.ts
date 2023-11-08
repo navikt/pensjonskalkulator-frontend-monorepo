@@ -21,6 +21,7 @@ const translations = {
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'application.global.external_link': 'åpner i en ny fane',
+  'application.global.retry': 'Prøv på nytt',
   'pageframework.title': 'Pensjonskalkulator',
   'pageframework.loading': 'Vent litt mens vi henter informasjon.',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
@@ -168,6 +169,10 @@ const translations = {
     'Vi klarte ikke å hente alle <link>pensjonsavtalene dine</link>',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
+  'beregning.serie.inntekt.name': 'Pensjonsgivende inntekt',
+  'beregning.serie.tp.name': 'Pensjonsavtaler (arbeidsgivere m.m.)',
+  'beregning.serie.afp.name': 'AFP (Avtalefestet pensjon)',
+  'beregning.serie.alderspensjon.name': 'Alderspensjon (NAV)',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.tidligstmuliguttak.title': 'Tidligst mulig uttak',
@@ -190,9 +195,11 @@ const translations = {
   'grunnlag.sivilstand.ingress':
     'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen. <garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title': 'Opphold i Norge',
+  'grunnlag.opphold.value': 'Minst 40 år',
   'grunnlag.opphold.ingress':
     'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. ',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
+  'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':
     'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil din alderspensjon øke.{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
@@ -235,7 +242,6 @@ const translations = {
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er en foreløpig beregning av hva du kan forvente deg i pensjon. ',
-
   'grunnlag.forbehold.ingress_2':
     'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   'forbehold.title': 'Forbehold',
@@ -316,7 +322,6 @@ const translations = {
     'Vi sjekker også om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du er eller har vært medlem, informerer vi deg om at du kan ha rettigheter, men henter ikke inn avtalene.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
     'Vi henter inn disse opplysningene for at du skal få oversikt over din samlede pensjon.',
-
   'personopplysninger.section.lagring.heading': 'Lagring',
   'personopplysninger.section.lagring.text':
     'Det er mellomlagring i pensjonskalkulatoren for å gjøre en beregning av pensjonen din. Når du avslutter beregningen eller logger ut, slettes mellomlagringen. Beregningen din blir ikke lagret eller arkivert hos NAV.',

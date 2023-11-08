@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import { ArrowCirclepathIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button } from '@navikt/ds-react'
@@ -25,7 +26,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
             onClick={onRetry}
             icon={<ArrowCirclepathIcon aria-hidden />}
           >
-            Prøv på nytt
+            <FormattedMessage id="application.global.retry" />
           </Button>
         )}
       </div>

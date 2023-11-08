@@ -156,7 +156,9 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
               headerTitle={intl.formatMessage({
                 id: 'grunnlag.opphold.title',
               })}
-              headerValue="Minst 40 år"
+              headerValue={intl.formatMessage({
+                id: 'grunnlag.opphold.value',
+              })}
             >
               <BodyLong>
                 <FormattedMessage
@@ -173,7 +175,9 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
               headerTitle={intl.formatMessage({
                 id: 'grunnlag.alderspensjon.title',
               })}
-              headerValue="Folketrygden (NAV)"
+              headerValue={intl.formatMessage({
+                id: 'grunnlag.alderspensjon.value',
+              })}
             >
               <BodyLong>
                 <FormattedMessage

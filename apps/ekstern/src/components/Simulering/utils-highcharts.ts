@@ -156,6 +156,7 @@ export function tooltipFormatter(
 
   points.forEach(function (point) {
     if (point.y && point.y > 0) {
+      // TODO PEK-222 se om denne logikken fortsatt stemmer
       if (point.series.name === SERIES_DEFAULT.SERIE_INNTEKT.name) {
         hasInntekt = true
       } else {
@@ -185,7 +186,7 @@ export function tooltipFormatter(
   return `${headerFormat}${pointsFormat}${footerFormat}${tooltipConnectingLine}`
 }
 
-// TODO utvide med react-intl
+// TODO PEK-222 utvide med react-intl
 export const getChartOptions = (
   styles: Partial<typeof globalClassNames>,
   showRightButton: React.Dispatch<React.SetStateAction<boolean>>,
@@ -245,7 +246,7 @@ export const getChartOptions = (
       },
     },
     title: {
-      text: `Beregning`,
+      text: `Beregning`, // TODO-PEK-222
       align: 'left',
       margin: 40,
       y: 20,
@@ -269,7 +270,7 @@ export const getChartOptions = (
         y: 20,
       },
       title: {
-        text: 'Årlig inntekt og pensjon etter uttak',
+        text: 'Årlig inntekt og pensjon etter uttak', // TODO-PEK-222
         align: 'high',
         y: -5,
         style: {
@@ -286,7 +287,7 @@ export const getChartOptions = (
       allowDecimals: false,
       min: 0,
       title: {
-        text: 'Kroner',
+        text: 'Kroner', // TODO-PEK-222
         align: 'high',
         rotation: 0,
         textAlign: 'left',
@@ -422,7 +423,7 @@ export const getChartOptions = (
             yAxis: {
               offset: 28,
               title: {
-                text: 'Tusen kroner',
+                text: 'Tusen kroner', // TODO-PEK-222
                 margin: -75,
                 x: -73,
                 y: -22,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
   ChevronLeftCircleIcon,
@@ -54,6 +54,7 @@ export function Simulering(props: {
   showAfp: boolean
   showButtonsAndTable?: boolean
 }) {
+  const intl = useIntl()
   const { isLoading, inntekt, alderspensjon, showAfp, showButtonsAndTable } =
     props
   const harSamtykket = useAppSelector(selectSamtykke)
@@ -155,6 +156,7 @@ export function Simulering(props: {
         series: [
           {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
+            name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
             data: processInntektArray(
               inntekt.beloep,
               XAxis.length,
@@ -165,6 +167,9 @@ export function Simulering(props: {
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_AFP,
+                  name: intl.formatMessage({
+                    id: SERIES_DEFAULT.SERIE_AFP.name,
+                  }),
                   /* c8 ignore next 1 */
                   data: processPensjonsberegningArray(
                     alderspensjon.afpPrivat,
@@ -177,6 +182,9 @@ export function Simulering(props: {
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_TP,
+                  name: intl.formatMessage({
+                    id: SERIES_DEFAULT.SERIE_TP.name,
+                  }),
                   /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
                     startAar - 1,
@@ -188,6 +196,9 @@ export function Simulering(props: {
             : []),
           {
             ...SERIES_DEFAULT.SERIE_ALDERSPENSJON,
+            name: intl.formatMessage({
+              id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
+            }),
             data: processPensjonsberegningArray(
               alderspensjon.alderspensjon,
               XAxis.length
