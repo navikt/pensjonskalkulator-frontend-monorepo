@@ -37,7 +37,7 @@ const translations = {
   'error.404.button.link_2': 'Les om pensjon',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
-    'Du må bruke vår detaljerte kalkulator for å beregne din pensjon.',
+    'Du må bruke vår detaljerte kalkulator. Den gir deg en beregning av alderspensjon fra folketrygden (NAV), avtalefestet pensjon (AFP) og pensjonsavtaler (arbeidsgivere og sparing).',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'Du kan velge mellom enkel eller detaljert kalkulator. Enkel kalkulator passer for deg som vil ha en rask oversikt. Detaljert kalkulator passer for deg som vil ha en mer spesifisert beregning. ',
