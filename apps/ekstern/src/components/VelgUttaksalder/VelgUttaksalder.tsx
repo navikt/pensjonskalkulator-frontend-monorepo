@@ -1,4 +1,5 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import { Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -42,7 +43,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
       <div className={styles.wrapperCard}>
         <span ref={pinRef} className={styles.pin}></span>
         <Heading size="xsmall" level="2">
-          Når vil du ta ut alderspensjon?
+          <FormattedMessage id="velguttaksalder.title" />
         </Heading>
         <Chips
           className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}

@@ -169,7 +169,12 @@ const translations = {
     'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.',
   'tidligsteuttaksalder.info_afp':
     'Din AFP kan gjøre at tidspunktet blir tidligere',
+  'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
+  'beregning.error':
+    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
+  'beregning.lav_opptjening':
+    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
   'beregning.aar': 'år',
   'beregning.aar_livsvarig': 'år (livsvarig)',
   'beregning.button.faerre_aar': 'Færre år',
@@ -180,6 +185,7 @@ const translations = {
     'Vi klarte ikke å hente alle <link>pensjonsavtalene dine</link>',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
+  'beregning.title': 'Beregning',
   'beregning.highcharts.title': 'Beregning',
   'beregning.highcharts.xaxis': 'Årlig inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',

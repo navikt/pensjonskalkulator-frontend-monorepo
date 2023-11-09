@@ -705,7 +705,7 @@ describe('routes', () => {
             screen.queryByTestId('uttaksalder-loader')
           ).not.toBeInTheDocument()
           expect(
-            await screen.findByText('Når vil du ta ut alderspensjon?')
+            await screen.findByText('velguttaksalder.title')
           ).toBeInTheDocument()
         })
       })

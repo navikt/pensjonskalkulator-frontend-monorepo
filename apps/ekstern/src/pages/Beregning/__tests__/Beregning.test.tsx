@@ -188,15 +188,9 @@ describe('Beregning', () => {
 
       expect(initiateMock).toHaveBeenCalledTimes(1)
       await waitFor(async () => {
-        expect(
-          await screen.findByText(
-            'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.'
-          )
-        ).toBeVisible()
+        expect(await screen.findByText('beregning.error')).toBeVisible()
       })
-      expect(
-        screen.queryByText('Grunnlaget for beregningen')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
 
       const proevPaaNyttbutton = await screen.findByText(
         'application.global.retry'
@@ -283,9 +277,7 @@ describe('Beregning', () => {
           'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'
         )
       ).toBeVisible()
-      expect(
-        screen.queryByText('Grunnlaget for beregningen')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
   })
