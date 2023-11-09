@@ -75,7 +75,12 @@ export function Simulering(props: {
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
   const [chartOptions, setChartOptions] = React.useState<Highcharts.Options>(
-    getChartOptions(styles, setShowVisFlereAarButton, setShowVisFaerreAarButton)
+    getChartOptions(
+      styles,
+      setShowVisFlereAarButton,
+      setShowVisFaerreAarButton,
+      intl
+    )
   )
   const [isPensjonsavtaleFlagVisible, setIsPensjonsavtaleFlagVisible] =
     React.useState<boolean>(false)

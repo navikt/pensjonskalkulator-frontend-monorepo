@@ -198,7 +198,9 @@ describe('Beregning', () => {
         screen.queryByText('Grunnlaget for beregningen')
       ).not.toBeInTheDocument()
 
-      const proevPaaNyttbutton = await screen.findByText('Prøv på nytt')
+      const proevPaaNyttbutton = await screen.findByText(
+        'application.global.retry'
+      )
 
       await user.click(proevPaaNyttbutton)
 

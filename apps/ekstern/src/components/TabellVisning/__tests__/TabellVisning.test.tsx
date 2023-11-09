@@ -9,22 +9,22 @@ describe('TabellVisning', () => {
   const series: SeriesColumnOptions[] = [
     {
       type: 'column',
-      name: 'Pensjonsgivende inntekt',
+      name: 'beregning.highcharts.serie.inntekt.name',
       data: [100000, 175000, 0, 0, 0, 0, 0, 0, 0],
     },
     {
       type: 'column',
-      name: 'Alderspensjon (NAV)',
+      name: 'beregning.highcharts.serie.alderspensjon.name',
       data: [200000, 350000, 400000, 400000, 400000, 400000, 400000, 400000, 0],
     },
     {
       type: 'column',
-      name: 'Pensjonsavtaler (arbeidsgivere m.m.)',
+      name: 'beregning.highcharts.serie.tp.name',
       data: [180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000, 0],
     },
     {
       type: 'column',
-      name: 'AFP',
+      name: 'beregning.highcharts.serie.AFP.name',
       data: [18000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 0],
     },
   ]

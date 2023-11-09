@@ -34,7 +34,7 @@ exports[`Alert > rendrer riktig når onRetry er oppgitt 1`] = `
       <span
         class="navds-label navds-label--small"
       >
-        Prøv på nytt
+        application.global.retry
       </span>
       <span
         class="navds-button__icon"

@@ -9,7 +9,7 @@ describe('TabellVisning-utils', () => {
     const series: SeriesColumnOptions[] = [
       {
         type: 'column',
-        name: 'Pensjonsgivende inntekt',
+        name: 'beregning.highcharts.serie.inntekt.name',
         data: [
           100000, 175000, 220000, 220000, 220000, 220000, 220000, 220000,
           220000,
@@ -17,7 +17,7 @@ describe('TabellVisning-utils', () => {
       },
       {
         type: 'column',
-        name: 'AFP (Avtalefestet pensjon)',
+        name: 'beregning.highcharts.serie.afp.name',
         data: [
           150000, 200000, 350000, 350000, 350000, 350000, 350000, 350000,
           350000,
@@ -25,7 +25,7 @@ describe('TabellVisning-utils', () => {
       },
       {
         type: 'column',
-        name: 'Pensjonsavtaler (arbeidsgivere m.m.)',
+        name: 'beregning.highcharts.serie.tp.name',
         data: [
           180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000,
           380000,
@@ -33,7 +33,7 @@ describe('TabellVisning-utils', () => {
       },
       {
         type: 'column',
-        name: 'Alderspensjon (NAV)',
+        name: 'beregning.highcharts.serie.alderspensjon.name',
         data: [
           200000, 350000, 400000, 400000, 400000, 400000, 400000, 400000,
           400000,

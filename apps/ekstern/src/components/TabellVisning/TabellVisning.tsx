@@ -1,4 +1,5 @@
 import React from 'react'
+import { FormattedMessage } from 'react-intl'
 
 import { Table } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -67,7 +68,7 @@ export function TabellVisning({
               scope="col"
               className={clsx(styles.detailsItemRight, styles.tableDesktopOnly)}
             >
-              Pensjonsgivende inntekt
+              <FormattedMessage id="beregning.highcharts.serie.inntekt.name" />
             </Table.HeaderCell>
             {showAfp && (
               <Table.HeaderCell
@@ -77,7 +78,7 @@ export function TabellVisning({
                   styles.tableDesktopOnly
                 )}
               >
-                AFP (Avtalefestet pensjon)
+                <FormattedMessage id="beregning.highcharts.serie.afp.name" />
               </Table.HeaderCell>
             )}
             {showPensjonsavtaler && (
@@ -88,14 +89,14 @@ export function TabellVisning({
                   styles.tableDesktopOnly
                 )}
               >
-                Pensjonsavtaler (arbeidsgivere m.m.)
+                <FormattedMessage id="beregning.highcharts.serie.tp.name" />
               </Table.HeaderCell>
             )}
             <Table.HeaderCell
               scope="col"
               className={clsx(styles.detailsItemRight, styles.tableDesktopOnly)}
             >
-              Alderspensjon (NAV)
+              <FormattedMessage id="beregning.highcharts.serie.alderspensjon.name" />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

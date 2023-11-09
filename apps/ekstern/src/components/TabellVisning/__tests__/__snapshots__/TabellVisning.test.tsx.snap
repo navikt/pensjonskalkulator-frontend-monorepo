@@ -70,13 +70,13 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Pensjonsgivende inntekt
+              beregning.highcharts.serie.inntekt.name
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Alderspensjon (NAV)
+              beregning.highcharts.serie.alderspensjon.name
             </th>
           </tr>
         </thead>
@@ -153,7 +153,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -161,7 +161,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       100 000
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -243,7 +243,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -251,7 +251,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       175 000
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -333,7 +333,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -341,7 +341,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -423,7 +423,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -431,7 +431,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -513,7 +513,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -521,7 +521,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -603,7 +603,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -611,7 +611,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -693,7 +693,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -701,7 +701,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -783,7 +783,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -791,7 +791,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -873,7 +873,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -881,7 +881,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1172,13 +1172,13 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Pensjonsgivende inntekt
+              beregning.highcharts.serie.inntekt.name
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Alderspensjon (NAV)
+              beregning.highcharts.serie.alderspensjon.name
             </th>
           </tr>
         </thead>
@@ -1255,7 +1255,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1263,7 +1263,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       100 000
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1345,7 +1345,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1353,7 +1353,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       175 000
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1435,7 +1435,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1443,7 +1443,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1525,7 +1525,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1533,7 +1533,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1615,7 +1615,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1623,7 +1623,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1705,7 +1705,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1713,7 +1713,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1795,7 +1795,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1803,7 +1803,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1885,7 +1885,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1893,7 +1893,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1975,7 +1975,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -1983,7 +1983,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2274,25 +2274,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Pensjonsgivende inntekt
+              beregning.highcharts.serie.inntekt.name
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              AFP (Avtalefestet pensjon)
+              beregning.highcharts.serie.afp.name
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Pensjonsavtaler (arbeidsgivere m.m.)
+              beregning.highcharts.serie.tp.name
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Alderspensjon (NAV)
+              beregning.highcharts.serie.alderspensjon.name
             </th>
           </tr>
         </thead>
@@ -2369,7 +2369,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2377,7 +2377,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       100 000
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2385,7 +2385,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       200 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2393,7 +2393,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       180 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2475,7 +2475,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2483,7 +2483,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       175 000
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2491,7 +2491,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       350 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2499,7 +2499,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       250 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2581,7 +2581,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2589,7 +2589,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2597,7 +2597,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2605,7 +2605,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2687,7 +2687,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2695,7 +2695,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2703,7 +2703,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2711,7 +2711,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2793,7 +2793,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2801,7 +2801,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2809,7 +2809,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2817,7 +2817,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2899,7 +2899,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2907,7 +2907,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2915,7 +2915,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -2923,7 +2923,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3005,7 +3005,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3013,7 +3013,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3021,7 +3021,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3029,7 +3029,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3111,7 +3111,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3119,7 +3119,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3127,7 +3127,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3135,7 +3135,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3217,7 +3217,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3225,7 +3225,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3233,7 +3233,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3241,7 +3241,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3618,25 +3618,25 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Pensjonsgivende inntekt
+              beregning.highcharts.serie.inntekt.name
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              AFP (Avtalefestet pensjon)
+              beregning.highcharts.serie.afp.name
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Pensjonsavtaler (arbeidsgivere m.m.)
+              beregning.highcharts.serie.tp.name
             </th>
             <th
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36 _tableDesktopOnly_15ff36"
               scope="col"
             >
-              Alderspensjon (NAV)
+              beregning.highcharts.serie.alderspensjon.name
             </th>
           </tr>
         </thead>
@@ -3713,7 +3713,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3721,7 +3721,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       100 000
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3729,7 +3729,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       200 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3737,7 +3737,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       180 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3819,7 +3819,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3827,7 +3827,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       175 000
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3835,7 +3835,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       350 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3843,7 +3843,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       250 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3925,7 +3925,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3933,7 +3933,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3941,7 +3941,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -3949,7 +3949,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4031,7 +4031,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4039,7 +4039,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4047,7 +4047,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4055,7 +4055,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4137,7 +4137,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4145,7 +4145,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4153,7 +4153,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4161,7 +4161,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4243,7 +4243,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4251,7 +4251,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4259,7 +4259,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4267,7 +4267,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4349,7 +4349,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4357,7 +4357,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4365,7 +4365,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4373,7 +4373,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4455,7 +4455,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4463,7 +4463,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4471,7 +4471,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       400 000
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4479,7 +4479,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       380 000
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4561,7 +4561,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                     class="_details_15ff36"
                   >
                     <dt>
-                      Pensjonsgivende inntekt
+                      beregning.highcharts.serie.inntekt.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4569,7 +4569,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Alderspensjon (NAV)
+                      beregning.highcharts.serie.alderspensjon.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4577,7 +4577,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      Pensjonsavtaler (arbeidsgivere m.m.)
+                      beregning.highcharts.serie.tp.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"
@@ -4585,7 +4585,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
                       0
                     </dd>
                     <dt>
-                      AFP
+                      beregning.highcharts.serie.AFP.name
                     </dt>
                     <dd
                       class="_detailsItemRight_15ff36"

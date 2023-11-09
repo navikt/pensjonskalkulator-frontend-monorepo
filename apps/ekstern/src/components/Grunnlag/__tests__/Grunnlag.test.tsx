@@ -258,7 +258,7 @@ describe('Grunnlag', () => {
       const user = userEvent.setup()
       render(<Grunnlag inntekt={{ beloep: 500000, aar: 2021 }} />)
       expect(screen.getByText('grunnlag.opphold.title')).toBeVisible()
-      expect(screen.getByText('Minst 40 år')).toBeVisible()
+      expect(screen.getByText('grunnlag.opphold.value')).toBeVisible()
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[4])
@@ -277,7 +277,7 @@ describe('Grunnlag', () => {
       const user = userEvent.setup()
       render(<Grunnlag inntekt={{ beloep: 500000, aar: 2021 }} />)
       expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
-      expect(screen.getByText('Folketrygden (NAV)')).toBeVisible()
+      expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[5])

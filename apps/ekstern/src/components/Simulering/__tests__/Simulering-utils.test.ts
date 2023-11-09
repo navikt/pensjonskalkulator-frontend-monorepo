@@ -1,3 +1,5 @@
+import { IntlShape } from 'react-intl'
+
 import { Chart } from 'highcharts'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -34,6 +36,7 @@ describe('Simulering-utils', () => {
       sluttMaaned = 11,
       grad = 100,
     } = args
+
     return {
       key: 0,
       produktbetegnelse: 'Egen Sparing',
@@ -649,19 +652,29 @@ describe('Simulering-utils', () => {
   })
 
   describe('getTooltipTitle', () => {
+    const intlMock = {
+      formatMessage: (s: { id: string }) => s.id,
+    } as unknown as IntlShape
+
     it('returnerer riktig streng for inntekt uten pensjon', () => {
-      expect(getTooltipTitle(true, false)).toEqual('Inntekt når du er')
+      expect(getTooltipTitle('67', true, false, intlMock)).toEqual(
+        'beregning.highcharts.tooltip.inntekt 67 beregning.highcharts.tooltip.aar'
+      )
     })
     it('returnerer riktig streng for pensjon uten inntekt', () => {
-      expect(getTooltipTitle(false, true)).toEqual('Pensjon når du er')
+      expect(getTooltipTitle('67', false, true, intlMock)).toEqual(
+        'beregning.highcharts.tooltip.pensjon 67 beregning.highcharts.tooltip.aar'
+      )
     })
     it('returnerer riktig streng for pensjon og inntekt', () => {
-      expect(getTooltipTitle(true, true)).toEqual(
-        'Inntekt og pensjon når du er'
+      expect(getTooltipTitle('67', true, true, intlMock)).toEqual(
+        'beregning.highcharts.tooltip.inntekt_og_pensjon 67 beregning.highcharts.tooltip.aar'
       )
     })
     it('returnerer streng for pensjon som fallback', () => {
-      expect(getTooltipTitle(false, false)).toEqual('Pensjon når du er')
+      expect(getTooltipTitle('67', false, false, intlMock)).toEqual(
+        'beregning.highcharts.tooltip.pensjon 67 beregning.highcharts.tooltip.aar'
+      )
     })
   })
 

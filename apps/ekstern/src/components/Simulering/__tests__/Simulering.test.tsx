@@ -217,13 +217,17 @@ describe('Simulering', () => {
       const legendItems = (
         legendContainer[0] as HTMLElement
       ).getElementsByClassName('highcharts-legend-item')
-      expect(await screen.findByText('Pensjonsgivende inntekt')).toBeVisible()
-      expect(await screen.findByText('Alderspensjon (NAV)')).toBeVisible()
       expect(
-        await screen.findByText('Pensjonsavtaler (arbeidsgivere m.m.)')
+        await screen.findByText('beregning.highcharts.serie.inntekt.name')
       ).toBeVisible()
       expect(
-        screen.queryByText('AFP (Avtalefestet pensjon)')
+        await screen.findByText('beregning.highcharts.serie.alderspensjon.name')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('beregning.highcharts.serie.tp.name')
+      ).toBeVisible()
+      expect(
+        screen.queryByText('beregning.highcharts.serie.afp.name')
       ).not.toBeInTheDocument()
       expect(legendItems).toHaveLength(3)
     })
@@ -364,7 +368,9 @@ describe('Simulering', () => {
         }
       )
       await waitFor(async () => {
-        expect(await screen.findByText('Beregning')).toBeVisible()
+        expect(
+          await screen.findByText('beregning.highcharts.title')
+        ).toBeVisible()
         expect(
           await screen.findByText('beregning.pensjonsavtaler.info')
         ).toBeVisible()

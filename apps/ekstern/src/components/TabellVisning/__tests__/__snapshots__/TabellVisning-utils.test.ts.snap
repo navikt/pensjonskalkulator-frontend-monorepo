@@ -6,19 +6,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "62 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 100000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 150000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 180000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 200000,
       },
     ],
@@ -28,19 +28,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "63 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 175000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 200000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 250000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 350000,
       },
     ],
@@ -50,19 +50,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "64 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
@@ -72,19 +72,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "65 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
@@ -94,19 +94,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "66 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
@@ -116,19 +116,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "67 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
@@ -138,19 +138,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "68 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
@@ -160,19 +160,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "68 år",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
@@ -182,19 +182,19 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "alder": "70+ år (livsvarig)",
     "detaljer": [
       {
-        "name": "Pensjonsgivende inntekt",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "AFP (Avtalefestet pensjon)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgivere m.m.)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],

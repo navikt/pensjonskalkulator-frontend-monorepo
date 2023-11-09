@@ -17,25 +17,25 @@ export const SERIES_DEFAULT = {
   SERIE_INNTEKT: {
     type: 'column',
     pointWidth: COLUMN_WIDTH,
-    name: 'beregning.serie.inntekt.name',
+    name: 'beregning.highcharts.serie.inntekt.name',
     color: SERIES_COLORS.SERIE_COLOR_INNTEKT,
   },
   SERIE_TP: {
     type: 'column',
     pointWidth: COLUMN_WIDTH,
-    name: 'beregning.serie.tp.name',
+    name: 'beregning.highcharts.serie.tp.name',
     color: SERIES_COLORS.SERIE_COLOR_TP,
   },
   SERIE_AFP: {
     type: 'column',
     pointWidth: COLUMN_WIDTH,
-    name: 'beregning.serie.afp.name',
+    name: 'beregning.highcharts.serie.afp.name',
     color: SERIES_COLORS.SERIE_COLOR_AFP,
   },
   SERIE_ALDERSPENSJON: {
     type: 'column',
     pointWidth: COLUMN_WIDTH,
-    name: 'beregning.serie.alderspensjon.name',
+    name: 'beregning.highcharts.serie.alderspensjon.name',
     color: SERIES_COLORS.SERIE_COLOR_ALDERSPENSJON,
   },
 }
