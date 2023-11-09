@@ -116,7 +116,7 @@ describe('Beregning', () => {
           screen.queryByTestId('tidligst-mulig-uttak')
         ).not.toBeInTheDocument()
       })
-      const button = await screen.findByText('68 år')
+      const button = await screen.findByText('68 alder.aar')
 
       await user.click(button)
 
@@ -143,12 +143,12 @@ describe('Beregning', () => {
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
       const { container } = render(<Beregning />)
-      const button = await screen.findByText('68 år')
+      const button = await screen.findByText('68 alder.aar')
 
       await user.click(button)
 
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-        '68 år'
+        '68 alder.aar'
       )
       expect(
         container.getElementsByClassName('highcharts-loading')
@@ -182,7 +182,7 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       render(<Beregning />)
 
-      const button = await screen.findByText('68 år')
+      const button = await screen.findByText('68 alder.aar')
 
       await user.click(button)
 
@@ -222,7 +222,7 @@ describe('Beregning', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      const button = await screen.findByText('68 år')
+      const button = await screen.findByText('68 alder.aar')
 
       await user.click(button)
 
@@ -250,7 +250,7 @@ describe('Beregning', () => {
           api: { ...fakeApiCalls },
           userInput: {
             ...userInputInitialState,
-            formatertUttaksalder: '68 år og 5 måneder',
+            formatertUttaksalder: '68 alder.aar string.og 5 string.maaneder',
             samtykke: true,
             samboer: false,
             currentSimulation: currentSimulation,
@@ -268,7 +268,7 @@ describe('Beregning', () => {
         screen.queryByTestId('tidligst-mulig-uttak')
       ).not.toBeInTheDocument()
 
-      const button = await screen.findByText('62 år')
+      const button = await screen.findByText('62 alder.aar')
 
       await user.click(button)
 

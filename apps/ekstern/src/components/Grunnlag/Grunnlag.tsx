@@ -29,12 +29,17 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
   const afp = useAppSelector(selectAfp)
   const harSamboer = useAppSelector(selectSamboer)
 
-  const formatertAfp = React.useMemo(() => formatAfp(afp ?? 'vet_ikke'), [afp])
+  const formatertAfp = React.useMemo(
+    () => formatAfp(intl, afp ?? 'vet_ikke'),
+    [afp]
+  )
 
   const formatertSivilstand = React.useMemo(
     () =>
       person
-        ? formatSivilstand(person.sivilstand, { harSamboer: !!harSamboer })
+        ? formatSivilstand(intl, person.sivilstand, {
+            harSamboer: !!harSamboer,
+          })
         : '',
 
     [person]
@@ -59,7 +64,9 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
               })}
               headerValue={
                 tidligstMuligUttak
-                  ? formatUttaksalder(tidligstMuligUttak, { compact: true })
+                  ? formatUttaksalder(intl, tidligstMuligUttak, {
+                      compact: true,
+                    })
                   : intl.formatMessage({
                       id: 'grunnlag.tidligstmuliguttak.title.error',
                     })

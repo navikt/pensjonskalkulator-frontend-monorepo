@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -20,12 +20,13 @@ interface Props {
 export const VelgUttaksalder: React.FC<Props> = ({
   tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
 }) => {
+  const intl = useIntl()
   const dispatch = useAppDispatch()
   const pinRef = React.useRef<HTMLDivElement>(null)
   const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
 
   const formaterteAldere = React.useMemo(
-    () => getFormaterteAldere(tidligstMuligUttak),
+    () => getFormaterteAldere(intl, tidligstMuligUttak),
     [tidligstMuligUttak]
   )
 

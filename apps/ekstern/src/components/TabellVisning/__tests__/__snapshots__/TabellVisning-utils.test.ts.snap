@@ -3,7 +3,7 @@
 exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med riktig struktur og detaljer når begge arrayeme haer data 1`] = `
 [
   {
-    "alder": "62 beregning.aar",
+    "alder": "62 alder.aar",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -25,7 +25,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 630000,
   },
   {
-    "alder": "63 beregning.aar",
+    "alder": "63 alder.aar",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -47,7 +47,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 975000,
   },
   {
-    "alder": "64 beregning.aar",
+    "alder": "64 alder.aar",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -69,7 +69,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 1350000,
   },
   {
-    "alder": "65 beregning.aar",
+    "alder": "65 alder.aar",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -91,7 +91,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 1350000,
   },
   {
-    "alder": "66 beregning.aar",
+    "alder": "66 alder.aar",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -113,7 +113,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 1350000,
   },
   {
-    "alder": "67 beregning.aar",
+    "alder": "67 alder.aar",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -135,7 +135,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 1350000,
   },
   {
-    "alder": "68 beregning.aar",
+    "alder": "68 alder.aar",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -157,7 +157,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 1350000,
   },
   {
-    "alder": "68 beregning.aar",
+    "alder": "68 alder.aar",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -179,7 +179,7 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
     "sum": 1350000,
   },
   {
-    "alder": "70+ beregning.aar_livsvarig",
+    "alder": "70+ alder.aar_livsvarig",
     "detaljer": [
       {
         "name": "beregning.highcharts.serie.inntekt.name",
@@ -206,47 +206,47 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
 exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med riktig struktur og headere når alder array ikke er tomt 1`] = `
 [
   {
-    "alder": "62 beregning.aar",
+    "alder": "62 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "63 beregning.aar",
+    "alder": "63 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "64 beregning.aar",
+    "alder": "64 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "65 beregning.aar",
+    "alder": "65 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "66 beregning.aar",
+    "alder": "66 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "67 beregning.aar",
+    "alder": "67 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "68 beregning.aar",
+    "alder": "68 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "68 beregning.aar",
+    "alder": "68 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "70+ beregning.aar_livsvarig",
+    "alder": "70+ alder.aar_livsvarig",
     "detaljer": [],
     "sum": 0,
   },

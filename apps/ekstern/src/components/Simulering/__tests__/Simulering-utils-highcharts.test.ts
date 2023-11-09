@@ -188,7 +188,7 @@ describe('Simulering-utils-highcharts', () => {
       )
       expect(tooltipMarkup).toContain('800 000 kr')
       expect(tooltipMarkup).toContain(
-        `beregning.highcharts.tooltip.inntekt_og_pensjon 65 beregning.aar`
+        `beregning.highcharts.tooltip.inntekt_og_pensjon 65 alder.aar`
       )
       expect(tooltipMarkup).toContain(SERIES_DEFAULT.SERIE_INNTEKT.name)
       expect(tooltipMarkup).toContain(SERIES_DEFAULT.SERIE_ALDERSPENSJON.name)

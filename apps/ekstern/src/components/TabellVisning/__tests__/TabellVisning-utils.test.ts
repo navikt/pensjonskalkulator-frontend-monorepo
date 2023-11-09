@@ -57,9 +57,9 @@ describe('TabellVisning-utils', () => {
     it('returnerer et array med riktig struktur og headere når alder array ikke er tomt', () => {
       const result = formatSeriesToTableData(intlMock, [], [...alderArray])
       expect(result).toHaveLength(alderArray.length)
-      expect(result[0].alder).toBe('62 beregning.aar')
+      expect(result[0].alder).toBe('62 alder.aar')
       expect(result[alderArray.length - 1].alder).toBe(
-        '70+ beregning.aar_livsvarig'
+        '70+ alder.aar_livsvarig'
       )
       expect(result).toMatchSnapshot()
     })

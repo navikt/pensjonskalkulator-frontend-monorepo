@@ -20,7 +20,9 @@ describe('TidligstMuligUttaksalder', () => {
           { exact: false }
         )
       ).toBeInTheDocument()
-      expect(screen.getByText('62 år og 9 måneder')).toBeInTheDocument()
+      expect(
+        screen.getByText('62 alder.aar string.og 9 alder.maaneder')
+      ).toBeInTheDocument()
       expect(
         screen.getByText('tidligsteuttaksalder.ingress_2')
       ).toBeInTheDocument()

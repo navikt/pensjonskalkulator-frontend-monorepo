@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { InformationSquareFillIcon } from '@navikt/aksel-icons'
 import { BodyLong, HelpText } from '@navikt/ds-react'
@@ -19,6 +19,7 @@ interface Props {
 
 export const TidligstMuligUttaksalder: React.FC<Props> = memo(
   ({ tidligstMuligUttak, hasAfpOffentlig }) => {
+    const intl = useIntl()
     return (
       <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
         <div className={styles.wrapperCard}>
@@ -36,7 +37,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
               />
             </BodyLong>
             <span className={styles.highlighted}>
-              {formatUttaksalder(tidligstMuligUttak)}
+              {formatUttaksalder(intl, tidligstMuligUttak)}
               <HelpText wrapperClassName={styles.helptext}>
                 <FormattedMessage
                   id="tidligsteuttaksalder.help"

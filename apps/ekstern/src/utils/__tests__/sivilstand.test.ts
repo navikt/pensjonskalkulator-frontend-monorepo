@@ -1,3 +1,5 @@
+import { IntlShape } from 'react-intl'
+
 import { checkHarSamboer, formatSivilstand } from '@/utils/sivilstand'
 
 describe('sivilstand-utils', () => {
@@ -19,56 +21,77 @@ describe('sivilstand-utils', () => {
   })
 
   describe('formatSivilstand', () => {
+    const intlMock = {
+      formatMessage: (s: { id: string }) => s.id,
+    } as unknown as IntlShape
     describe('returnerer riktig formatert sivilstand', () => {
       test.each([
-        ['UOPPGITT', 'Ugift'],
-        ['UGIFT', 'Ugift'],
-        ['GIFT', 'Gift'],
-        ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann'],
-        ['SKILT', 'Skilt'],
-        ['SEPARERT', 'Separert'],
-        ['REGISTRERT_PARTNER', 'Registrert partner'],
-        ['SEPARERT_PARTNER', 'Separert partner'],
-        ['SKILT_PARTNER', 'Skilt partner'],
-        ['GJENLEVENDE_PARTNER', 'Gjenlevende partner'],
+        ['UOPPGITT', 'sivilstand.ugift'],
+        ['UGIFT', 'sivilstand.ugift'],
+        ['GIFT', 'sivilstand.gift'],
+        ['ENKE_ELLER_ENKEMANN', 'sivilstand.enke_enkemann'],
+        ['SKILT', 'sivilstand.skilt'],
+        ['SEPARERT', 'sivilstand.separert'],
+        ['REGISTRERT_PARTNER', 'sivilstand.registrert_partner'],
+        ['SEPARERT_PARTNER', 'sivilstand.separert_partner'],
+        ['SKILT_PARTNER', 'sivilstand.skilt_partner'],
+        ['GJENLEVENDE_PARTNER', 'sivilstand.gjenlevende_partner'],
       ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
-        const sivilstand = formatSivilstand(a as Sivilstand)
+        const sivilstand = formatSivilstand(intlMock, a as Sivilstand)
         expect(sivilstand).toEqual(expected)
       })
     })
 
-    describe('returnerer riktig formatert sivilstand med samboerskap', () => {
+    describe('returnerer riktig formatert sivilstand sivilstand.med_samboerskap', () => {
       test.each([
-        ['UOPPGITT', 'Ugift, med samboer'],
-        ['UGIFT', 'Ugift, med samboer'],
-        ['GIFT', 'Gift'],
-        ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann, med samboer'],
-        ['SKILT', 'Skilt, med samboer'],
-        ['SEPARERT', 'Separert, med samboer'],
-        ['REGISTRERT_PARTNER', 'Registrert partner'],
-        ['SEPARERT_PARTNER', 'Separert partner, med samboer'],
-        ['SKILT_PARTNER', 'Skilt partner, med samboer'],
-        ['GJENLEVENDE_PARTNER', 'Gjenlevende partner, med samboer'],
+        ['UOPPGITT', 'sivilstand.ugift, sivilstand.med_samboer'],
+        ['UGIFT', 'sivilstand.ugift, sivilstand.med_samboer'],
+        ['GIFT', 'sivilstand.gift'],
+        [
+          'ENKE_ELLER_ENKEMANN',
+          'sivilstand.enke_enkemann, sivilstand.med_samboer',
+        ],
+        ['SKILT', 'sivilstand.skilt, sivilstand.med_samboer'],
+        ['SEPARERT', 'sivilstand.separert, sivilstand.med_samboer'],
+        ['REGISTRERT_PARTNER', 'sivilstand.registrert_partner'],
+        [
+          'SEPARERT_PARTNER',
+          'sivilstand.separert_partner, sivilstand.med_samboer',
+        ],
+        ['SKILT_PARTNER', 'sivilstand.skilt_partner, sivilstand.med_samboer'],
+        [
+          'GJENLEVENDE_PARTNER',
+          'sivilstand.gjenlevende_partner, sivilstand.med_samboer',
+        ],
       ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
-        const sivilstand = formatSivilstand(a as Sivilstand, {
+        const sivilstand = formatSivilstand(intlMock, a as Sivilstand, {
           harSamboer: true,
         })
         expect(sivilstand).toEqual(expected)
       })
 
       test.each([
-        ['UOPPGITT', 'Ugift, uten samboer'],
-        ['UGIFT', 'Ugift, uten samboer'],
-        ['GIFT', 'Gift'],
-        ['ENKE_ELLER_ENKEMANN', 'Enke/enkemann, uten samboer'],
-        ['SKILT', 'Skilt, uten samboer'],
-        ['SEPARERT', 'Separert, uten samboer'],
-        ['REGISTRERT_PARTNER', 'Registrert partner'],
-        ['SEPARERT_PARTNER', 'Separert partner, uten samboer'],
-        ['SKILT_PARTNER', 'Skilt partner, uten samboer'],
-        ['GJENLEVENDE_PARTNER', 'Gjenlevende partner, uten samboer'],
+        ['UOPPGITT', 'sivilstand.ugift, sivilstand.uten_samboer'],
+        ['UGIFT', 'sivilstand.ugift, sivilstand.uten_samboer'],
+        ['GIFT', 'sivilstand.gift'],
+        [
+          'ENKE_ELLER_ENKEMANN',
+          'sivilstand.enke_enkemann, sivilstand.uten_samboer',
+        ],
+        ['SKILT', 'sivilstand.skilt, sivilstand.uten_samboer'],
+        ['SEPARERT', 'sivilstand.separert, sivilstand.uten_samboer'],
+        ['REGISTRERT_PARTNER', 'sivilstand.registrert_partner'],
+        [
+          'SEPARERT_PARTNER',
+          'sivilstand.separert_partner, sivilstand.uten_samboer',
+        ],
+        ['SKILT_PARTNER', 'sivilstand.skilt_partner, sivilstand.uten_samboer'],
+        [
+          'GJENLEVENDE_PARTNER',
+          'sivilstand.gjenlevende_partner, sivilstand.uten_samboer',
+        ],
       ])('viser riktig tekst når sivilstand er: %s', async (a, expected) => {
-        const sivilstand = formatSivilstand(a as Sivilstand, {
+        const sivilstand = formatSivilstand(intlMock, a as Sivilstand, {
           harSamboer: false,
         })
         expect(sivilstand).toEqual(expected)

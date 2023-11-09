@@ -16,7 +16,7 @@ describe('VelgUttaksalder', () => {
 
   it('oppdaterer valgt knapp og kaller setValgtUttaksalder når brukeren velger en alder', async () => {
     const user = userEvent.setup()
-    let valgtUttaksalder = '63 år'
+    let valgtUttaksalder = '63 alder.aar'
     const valgtUttaksalderHandler = (alder: string) => {
       valgtUttaksalder = alder
     }
@@ -29,23 +29,23 @@ describe('VelgUttaksalder', () => {
 
     const { rerender } = render(<VelgUttaksalder {...getProps()} />)
 
-    await user.click(screen.getByText('65 år', { exact: false }))
+    await user.click(screen.getByText('65 alder.aar', { exact: false }))
 
     expect(window.HTMLElement.prototype.scrollIntoView).toHaveBeenCalled()
 
     rerender(<VelgUttaksalder {...getProps()} />)
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '65 år'
+      '65 alder.aar'
     )
 
     rerender(<VelgUttaksalder {...getProps()} />)
-    expect(screen.getByText('72 år', { exact: false })).toBeVisible()
+    expect(screen.getByText('72 alder.aar', { exact: false })).toBeVisible()
 
-    await user.click(screen.getByText('72 år', { exact: false }))
+    await user.click(screen.getByText('72 alder.aar', { exact: false }))
 
     rerender(<VelgUttaksalder {...getProps()} />)
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '72 år'
+      '72 alder.aar'
     )
   })
 })

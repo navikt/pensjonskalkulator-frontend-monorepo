@@ -161,6 +161,27 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'string.og': 'og',
+  'alder.md': 'md.',
+  'alder.maaned': 'måned',
+  'alder.maaneder': 'måneder',
+  'alder.aar': 'år',
+  'alder.aar_livsvarig': 'år (livsvarig)',
+  'afp.offentlig': 'Offentlig',
+  'afp.privat': 'Privat',
+  'afp.nei': 'Nei',
+  'afp.vet_ikke': 'Vet ikke',
+  'sivilstand.gift': 'Gift',
+  'sivilstand.ugift': 'Ugift',
+  'sivilstand.registrert_partner': 'Registrert partner',
+  'sivilstand.enke_enkemann': 'Enke/enkemann',
+  'sivilstand.skilt': 'Skilt',
+  'sivilstand.separert': 'Separert',
+  'sivilstand.separert_partner': 'Separert partner',
+  'sivilstand.skilt_partner': 'Skjilt partner',
+  'sivilstand.gjenlevende_partner': 'Gjenlevende partner',
+  'sivilstand.med_samboer': 'med samboer',
+  'sivilstand.uten_samboer': 'uten samboer',
   'tidligsteuttaksalder.ingress_1':
     'Din opptjening i folketrygden gjør at du tidligst kan ta {br}ut alderspensjon når du er ',
   'tidligsteuttaksalder.ingress_2':
@@ -175,8 +196,6 @@ const translations = {
     'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
   'beregning.lav_opptjening':
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
-  'beregning.aar': 'år',
-  'beregning.aar_livsvarig': 'år (livsvarig)',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':

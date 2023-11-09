@@ -25,8 +25,8 @@ export function formatSeriesToTableData(
     const detaljer: TableDataRowDetaljer[] = []
     const alder = `${aarArray[i]} ${
       aarArray[i].includes('+')
-        ? intl.formatMessage({ id: 'beregning.aar_livsvarig' })
-        : intl.formatMessage({ id: 'beregning.aar' })
+        ? intl.formatMessage({ id: 'alder.aar_livsvarig' })
+        : intl.formatMessage({ id: 'alder.aar' })
     }`
 
     for (const obj of series) {

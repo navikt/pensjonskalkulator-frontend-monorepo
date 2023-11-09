@@ -30,7 +30,7 @@ export function Sivilstand({
   const [validationError, setValidationError] = useState<string>('')
 
   const formatertSivilstand = useMemo(
-    () => formatSivilstand(sivilstand).toLowerCase(),
+    () => formatSivilstand(intl, sivilstand).toLowerCase(),
     [sivilstand]
   )
 

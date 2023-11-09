@@ -41,7 +41,7 @@ describe('Grunnlag', () => {
       expect(
         screen.getByText('grunnlag.tidligstmuliguttak.title')
       ).toBeVisible()
-      expect(await screen.findByText('67 år')).toBeVisible()
+      expect(await screen.findByText('67 alder.aar')).toBeVisible()
       expect(
         screen.queryByText('grunnlag.tidligstmuliguttak.title.error')
       ).not.toBeInTheDocument()
@@ -175,7 +175,7 @@ describe('Grunnlag', () => {
       })
       await waitFor(async () => {
         expect(screen.getByText('grunnlag.sivilstand.title')).toBeVisible()
-        expect(await screen.findByText('Gift')).toBeVisible()
+        expect(await screen.findByText('sivilstand.gift')).toBeVisible()
         expect(
           screen.queryByText('grunnlag.sivilstand.title.error')
         ).not.toBeInTheDocument()
@@ -215,7 +215,9 @@ describe('Grunnlag', () => {
         expect(
           screen.queryByText('grunnlag.sivilstand.title.error')
         ).not.toBeInTheDocument()
-        expect(await screen.findByText('Ugift, uten samboer')).toBeVisible()
+        expect(
+          await screen.findByText('sivilstand.ugift, sivilstand.uten_samboer')
+        ).toBeVisible()
       })
       const buttons = screen.getAllByRole('button')
 
@@ -302,7 +304,7 @@ describe('Grunnlag', () => {
         },
       })
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
-      expect(screen.getByText('Offentlig')).toBeVisible()
+      expect(screen.getByText('afp.offentlig')).toBeVisible()
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[6])
@@ -323,7 +325,7 @@ describe('Grunnlag', () => {
         },
       })
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
-      expect(screen.getByText('Privat')).toBeVisible()
+      expect(screen.getByText('afp.privat')).toBeVisible()
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[6])
@@ -347,7 +349,7 @@ describe('Grunnlag', () => {
         },
       })
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
-      expect(screen.getByText('Nei')).toBeVisible()
+      expect(screen.getByText('afp.nei')).toBeVisible()
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[6])
@@ -366,7 +368,7 @@ describe('Grunnlag', () => {
         },
       })
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
-      expect(screen.getByText('Vet ikke')).toBeVisible()
+      expect(screen.getByText('afp.vet_ikke')).toBeVisible()
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[6])
