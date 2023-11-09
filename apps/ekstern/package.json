@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@formatjs/intl-datetimeformat": "^6.11.2",
-    "@formatjs/intl-numberformat": "^8.8.0",
+    "@formatjs/intl-numberformat": "^8.8.1",
     "@grafana/faro-web-sdk": "^1.2.3",
     "@grafana/faro-web-tracing": "^1.2.4",
     "@navikt/aksel-icons": "^5.9.1",
