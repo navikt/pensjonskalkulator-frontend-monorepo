@@ -159,12 +159,6 @@ export function tooltipFormatter(
 
   points.forEach(function (point) {
     if (point.y && point.y > 0) {
-      console.log(
-        '>>> tooltipFormatter',
-        point.series.name,
-        SERIES_DEFAULT.SERIE_INNTEKT.name
-      )
-      // TODO PEK-222 se om denne logikken fortsatt stemmer
       if (point.series.name === SERIES_DEFAULT.SERIE_INNTEKT.name) {
         hasInntekt = true
       } else {
@@ -199,7 +193,6 @@ export function tooltipFormatter(
   return `${headerFormat}${pointsFormat}${footerFormat}${tooltipConnectingLine}`
 }
 
-// TODO PEK-222 utvide med react-intl
 export const getChartOptions = (
   styles: Partial<typeof globalClassNames>,
   showRightButton: React.Dispatch<React.SetStateAction<boolean>>,

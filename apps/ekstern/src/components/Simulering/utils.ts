@@ -168,19 +168,19 @@ export function getTooltipTitle(
     return `${intl.formatMessage({
       id: 'beregning.highcharts.tooltip.inntekt_og_pensjon',
     })} ${antallAar} ${intl.formatMessage({
-      id: 'beregning.highcharts.tooltip.aar',
+      id: 'beregning.aar',
     })}`
   } else if (hasInntekt && !hasPensjon) {
     return `${intl.formatMessage({
       id: 'beregning.highcharts.tooltip.inntekt',
     })} ${antallAar} ${intl.formatMessage({
-      id: 'beregning.highcharts.tooltip.aar',
+      id: 'beregning.aar',
     })}`
   } else {
     return `${intl.formatMessage({
       id: 'beregning.highcharts.tooltip.pensjon',
     })} ${antallAar} ${intl.formatMessage({
-      id: 'beregning.highcharts.tooltip.aar',
+      id: 'beregning.aar',
     })}`
   }
 }

@@ -30,7 +30,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
         />
       </svg>
       <span>
-        Lukk tabell av beregningen
+        beregning.tabell.lukk
       </span>
     </button>
     <div
@@ -59,7 +59,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
               scope="col"
             >
-              Sum
+              beregning.tabell.sum
               <span
                 class="_tableMobileOnly_15ff36"
               >
@@ -123,7 +123,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              69 år
+              69 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -213,7 +213,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              70 år
+              70 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -303,7 +303,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              71 år
+              71 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -393,7 +393,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              72 år
+              72 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -483,7 +483,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              73 år
+              73 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -573,7 +573,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              74 år
+              74 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -663,7 +663,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              75 år
+              75 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -753,7 +753,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              76 år
+              76 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -843,7 +843,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ år (livsvarig)
+              77+ beregning.aar_livsvarig
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -903,7 +903,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              69 år
+              69 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -927,7 +927,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              70 år
+              70 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -951,7 +951,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              71 år
+              71 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -973,7 +973,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              72 år
+              72 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -995,7 +995,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              73 år
+              73 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -1017,7 +1017,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              74 år
+              74 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -1039,7 +1039,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              75 år
+              75 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -1061,7 +1061,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              76 år
+              76 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -1083,7 +1083,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ år (livsvarig)
+              77+ beregning.aar_livsvarig
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -1132,7 +1132,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
         />
       </svg>
       <span>
-        Lukk tabell av beregningen
+        beregning.tabell.lukk
       </span>
     </button>
     <div
@@ -1161,7 +1161,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
               scope="col"
             >
-              Sum
+              beregning.tabell.sum
               <span
                 class="_tableMobileOnly_15ff36"
               >
@@ -1225,7 +1225,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              69 år
+              69 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1315,7 +1315,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              70 år
+              70 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1405,7 +1405,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              71 år
+              71 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1495,7 +1495,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              72 år
+              72 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1585,7 +1585,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              73 år
+              73 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1675,7 +1675,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              74 år
+              74 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1765,7 +1765,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              75 år
+              75 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1855,7 +1855,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              76 år
+              76 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -1945,7 +1945,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ år (livsvarig)
+              77+ beregning.aar_livsvarig
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2005,7 +2005,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              69 år
+              69 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2029,7 +2029,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              70 år
+              70 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2053,7 +2053,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              71 år
+              71 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2075,7 +2075,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              72 år
+              72 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2097,7 +2097,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              73 år
+              73 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2119,7 +2119,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              74 år
+              74 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2141,7 +2141,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              75 år
+              75 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2163,7 +2163,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              76 år
+              76 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2185,7 +2185,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ år (livsvarig)
+              77+ beregning.aar_livsvarig
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -2234,7 +2234,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
         />
       </svg>
       <span>
-        Lukk tabell av beregningen
+        beregning.tabell.lukk
       </span>
     </button>
     <div
@@ -2263,7 +2263,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
               scope="col"
             >
-              Sum
+              beregning.tabell.sum
               <span
                 class="_tableMobileOnly_15ff36"
               >
@@ -2339,7 +2339,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              69 år
+              69 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2445,7 +2445,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              70 år
+              70 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2551,7 +2551,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              71 år
+              71 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2657,7 +2657,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              72 år
+              72 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2763,7 +2763,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              73 år
+              73 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2869,7 +2869,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              74 år
+              74 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -2975,7 +2975,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              75 år
+              75 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -3081,7 +3081,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              76 år
+              76 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -3187,7 +3187,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ år (livsvarig)
+              77+ beregning.aar_livsvarig
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -3263,7 +3263,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              69 år
+              69 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3297,7 +3297,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              70 år
+              70 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3331,7 +3331,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              71 år
+              71 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3363,7 +3363,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              72 år
+              72 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3395,7 +3395,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              73 år
+              73 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3427,7 +3427,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              74 år
+              74 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3459,7 +3459,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              75 år
+              75 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3491,7 +3491,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              76 år
+              76 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3523,7 +3523,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ år (livsvarig)
+              77+ beregning.aar_livsvarig
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -3578,7 +3578,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
         />
       </svg>
       <span>
-        Lukk tabell av beregningen
+        beregning.tabell.lukk
       </span>
     </button>
     <div
@@ -3607,7 +3607,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
               class="navds-table__header-cell navds-label _detailsItemRight_15ff36"
               scope="col"
             >
-              Sum
+              beregning.tabell.sum
               <span
                 class="_tableMobileOnly_15ff36"
               >
@@ -3683,7 +3683,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              69 år
+              69 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -3789,7 +3789,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              70 år
+              70 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -3895,7 +3895,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              71 år
+              71 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -4001,7 +4001,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              72 år
+              72 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -4107,7 +4107,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              73 år
+              73 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -4213,7 +4213,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              74 år
+              74 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -4319,7 +4319,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              75 år
+              75 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -4425,7 +4425,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              76 år
+              76 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -4531,7 +4531,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ år (livsvarig)
+              77+ beregning.aar_livsvarig
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 navds-body-short navds-body-short--medium"
@@ -4607,7 +4607,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              69 år
+              69 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -4641,7 +4641,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              70 år
+              70 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -4675,7 +4675,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              71 år
+              71 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -4707,7 +4707,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              72 år
+              72 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -4739,7 +4739,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              73 år
+              73 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -4771,7 +4771,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              74 år
+              74 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -4803,7 +4803,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              75 år
+              75 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -4835,7 +4835,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              76 år
+              76 beregning.aar
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
@@ -4867,7 +4867,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             <td
               class="navds-table__data-cell navds-body-short navds-body-short--medium"
             >
-              77+ år (livsvarig)
+              77+ beregning.aar_livsvarig
             </td>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"

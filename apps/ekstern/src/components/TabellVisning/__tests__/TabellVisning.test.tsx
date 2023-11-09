@@ -37,12 +37,12 @@ describe('TabellVisning', () => {
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
       />
     )
-    expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+    expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
 
-    await user.click(screen.getByText('Vis tabell av beregningen'))
+    await user.click(screen.getByText('beregning.tabell.vis'))
 
     await waitFor(async () => {
-      expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
+      expect(screen.getByText('beregning.tabell.lukk')).toBeVisible()
       expect(screen.getAllByRole('row').length).toBe(19)
       expect(screen.getAllByRole('cell').length).toBe(63)
       expect(screen.getAllByRole('button')).toHaveLength(10)
@@ -70,12 +70,12 @@ describe('TabellVisning', () => {
         showPensjonsavtaler={true}
       />
     )
-    expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+    expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
 
-    await user.click(screen.getByText('Vis tabell av beregningen'))
+    await user.click(screen.getByText('beregning.tabell.vis'))
 
     await waitFor(async () => {
-      expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
+      expect(screen.getByText('beregning.tabell.lukk')).toBeVisible()
       expect(screen.getAllByRole('row').length).toBe(19)
       expect(screen.getAllByRole('cell').length).toBe(81)
       expect(screen.getAllByRole('button')).toHaveLength(10)
@@ -109,20 +109,20 @@ describe('TabellVisning', () => {
         showPensjonsavtaler={true}
       />
     )
-    await user.click(screen.getByText('Vis tabell av beregningen'))
+    await user.click(screen.getByText('beregning.tabell.vis'))
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[1])
 
     expect(loggerSpy).toHaveBeenNthCalledWith(2, 'table expand åpnet', {
-      data: '69 år',
+      data: '69 beregning.aar',
       tekst: 'detaljert beregning',
     })
 
     await user.click(buttons[1])
 
     expect(loggerSpy).toHaveBeenNthCalledWith(3, 'table expand lukket', {
-      data: '69 år',
+      data: '69 beregning.aar',
       tekst: 'detaljert beregning',
     })
   })

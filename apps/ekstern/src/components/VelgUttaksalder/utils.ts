@@ -7,6 +7,7 @@ export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
   maaneder: 0,
 }
 
+// TODO PEK-222
 export const formatUttaksalder = (
   { aar, maaneder }: Alder,
   options: { compact: boolean } = { compact: false }

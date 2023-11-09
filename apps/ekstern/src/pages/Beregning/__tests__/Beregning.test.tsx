@@ -135,7 +135,7 @@ describe('Beregning', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
-      expect(await screen.findByText('Vis tabell av beregningen')).toBeVisible()
+      expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
     })
   })
 
@@ -168,7 +168,7 @@ describe('Beregning', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
-      expect(await screen.findByText('Vis tabell av beregningen')).toBeVisible()
+      expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
     })
 
     it('viser feilmelding og skjuler Grunnlag og tabell når simuleringen feiler med mulighet til å prøve på nytt', async () => {
@@ -205,9 +205,7 @@ describe('Beregning', () => {
       await user.click(proevPaaNyttbutton)
 
       expect(initiateMock).toHaveBeenCalledTimes(2)
-      expect(
-        screen.queryByText('Vis tabell av beregningen')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
 
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
@@ -288,9 +286,7 @@ describe('Beregning', () => {
       expect(
         screen.queryByText('Grunnlaget for beregningen')
       ).not.toBeInTheDocument()
-      expect(
-        screen.queryByText('Vis tabell av beregningen')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
   })
 })

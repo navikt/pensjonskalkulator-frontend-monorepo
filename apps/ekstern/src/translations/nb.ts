@@ -161,6 +161,8 @@ const translations = {
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
+  'beregning.aar': 'år',
+  'beregning.aar_livsvarig': 'år (livsvarig)',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
@@ -181,7 +183,9 @@ const translations = {
   'beregning.highcharts.tooltip.pensjon': 'Pensjon når du er',
   'beregning.highcharts.tooltip.inntekt_og_pensjon':
     'Inntekt og pensjon når du er',
-  'beregning.highcharts.tooltip.aar': 'år',
+  'beregning.tabell.lukk': 'Lukk tabell av beregningen',
+  'beregning.tabell.vis': 'Vis tabell av beregningen',
+  'beregning.tabell.sum': 'Sum',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.tidligstmuliguttak.title': 'Tidligst mulig uttak',

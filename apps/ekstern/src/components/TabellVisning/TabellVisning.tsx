@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Table } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -40,6 +40,7 @@ export function TabellVisning({
   showAfp = false,
   showPensjonsavtaler = false,
 }: Props) {
+  const intl = useIntl()
   const tableData = useTableData(series, aarArray)
   const [isVisTabellOpen, setVisTabellOpen] = React.useState<boolean>(false)
   return (
@@ -47,8 +48,8 @@ export function TabellVisning({
       name="Tabell av beregningen"
       header={
         isVisTabellOpen
-          ? 'Lukk tabell av beregningen'
-          : 'Vis tabell av beregningen'
+          ? intl.formatMessage({ id: 'beregning.tabell.lukk' })
+          : intl.formatMessage({ id: 'beregning.tabell.vis' })
       }
       className={styles.visTabell}
       open={isVisTabellOpen}
@@ -62,7 +63,8 @@ export function TabellVisning({
             <Table.HeaderCell className={styles.tableMobileOnly} />
             <Table.HeaderCell scope="col">Alder</Table.HeaderCell>
             <Table.HeaderCell scope="col" className={styles.detailsItemRight}>
-              Sum<span className={styles.tableMobileOnly}> (kr)</span>
+              <FormattedMessage id="beregning.tabell.sum" />
+              <span className={styles.tableMobileOnly}> (kr)</span>
             </Table.HeaderCell>
             <Table.HeaderCell
               scope="col"

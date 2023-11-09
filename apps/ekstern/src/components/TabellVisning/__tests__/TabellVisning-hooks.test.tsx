@@ -2,16 +2,23 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { useTableData } from '../hooks'
 import * as MyModule from '../utils'
-import { renderHook } from '@/test-utils'
+import { render } from '@/test-utils'
+
+function TestComponent() {
+  useTableData([], ['62', '63', '64'])
+
+  return <button>Klikk</button>
+}
 
 describe('TabellVisning-hooks', () => {
   describe('useTableData', () => {
-    it('formaterer array', () => {
+    it('formaterer array', async () => {
       const formatSeriesToTableDataMock = vi.spyOn(
         MyModule,
         'formatSeriesToTableData'
       )
-      renderHook(() => useTableData([], ['62', '63', '64']))
+      render(<TestComponent />)
+
       expect(formatSeriesToTableDataMock).toHaveBeenCalled()
     })
   })

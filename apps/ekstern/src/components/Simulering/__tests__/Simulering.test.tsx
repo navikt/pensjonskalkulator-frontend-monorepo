@@ -499,6 +499,6 @@ describe('Simulering', () => {
         },
       }
     )
-    expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+    expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
   })
 })

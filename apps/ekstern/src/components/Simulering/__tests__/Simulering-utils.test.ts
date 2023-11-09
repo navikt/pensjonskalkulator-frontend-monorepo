@@ -658,22 +658,22 @@ describe('Simulering-utils', () => {
 
     it('returnerer riktig streng for inntekt uten pensjon', () => {
       expect(getTooltipTitle('67', true, false, intlMock)).toEqual(
-        'beregning.highcharts.tooltip.inntekt 67 beregning.highcharts.tooltip.aar'
+        'beregning.highcharts.tooltip.inntekt 67 beregning.aar'
       )
     })
     it('returnerer riktig streng for pensjon uten inntekt', () => {
       expect(getTooltipTitle('67', false, true, intlMock)).toEqual(
-        'beregning.highcharts.tooltip.pensjon 67 beregning.highcharts.tooltip.aar'
+        'beregning.highcharts.tooltip.pensjon 67 beregning.aar'
       )
     })
     it('returnerer riktig streng for pensjon og inntekt', () => {
       expect(getTooltipTitle('67', true, true, intlMock)).toEqual(
-        'beregning.highcharts.tooltip.inntekt_og_pensjon 67 beregning.highcharts.tooltip.aar'
+        'beregning.highcharts.tooltip.inntekt_og_pensjon 67 beregning.aar'
       )
     })
     it('returnerer streng for pensjon som fallback', () => {
       expect(getTooltipTitle('67', false, false, intlMock)).toEqual(
-        'beregning.highcharts.tooltip.pensjon 67 beregning.highcharts.tooltip.aar'
+        'beregning.highcharts.tooltip.pensjon 67 beregning.aar'
       )
     })
   })
