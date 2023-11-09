@@ -71,6 +71,7 @@ const translations = {
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
+  'stegvisning.tilbake_start': 'Tilbake til start',
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
@@ -160,6 +161,14 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'tidligsteuttaksalder.ingress_1':
+    'Din opptjening i folketrygden gjør at du tidligst kan ta {br}ut alderspensjon når du er ',
+  'tidligsteuttaksalder.ingress_2':
+    'Jo lenger du venter, desto mer får du i året.',
+  'tidligsteuttaksalder.help':
+    'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.',
+  'tidligsteuttaksalder.info_afp':
+    'Din AFP kan gjøre at tidspunktet blir tidligere',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
   'beregning.aar': 'år',
   'beregning.aar_livsvarig': 'år (livsvarig)',

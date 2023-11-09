@@ -1,3 +1,4 @@
+import { FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@navikt/ds-react'
@@ -33,7 +34,7 @@ export function TilbakeEllerAvslutt() {
             onResetClick
           )}
         >
-          Tilbake til start
+          <FormattedMessage id="stegvisning.tilbake_start" />
         </Button>
         <Button
           variant="tertiary"
@@ -42,7 +43,7 @@ export function TilbakeEllerAvslutt() {
             onCancelClick
           )}
         >
-          Avbryt
+          <FormattedMessage id="stegvisning.avbryt" />
         </Button>
       </div>
     </section>

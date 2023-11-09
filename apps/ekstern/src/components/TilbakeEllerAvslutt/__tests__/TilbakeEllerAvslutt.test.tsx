@@ -26,7 +26,7 @@ describe('TilbakeEllerAvslutt', () => {
       },
     })
 
-    await user.click(screen.getByText('Tilbake til start'))
+    await user.click(screen.getByText('stegvisning.tilbake_start'))
     expect(navigateMock).toHaveBeenCalledWith(paths.start)
     expect(store.getState().userInput.samtykke).toBe(null)
   })
@@ -43,7 +43,7 @@ describe('TilbakeEllerAvslutt', () => {
       },
     })
 
-    await user.click(screen.getByText('Avbryt'))
+    await user.click(screen.getByText('stegvisning.avbryt'))
     expect(navigateMock).toHaveBeenCalledWith(paths.login)
     expect(store.getState().userInput.samtykke).toBe(null)
   })
