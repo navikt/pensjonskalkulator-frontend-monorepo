@@ -1,4 +1,4 @@
-import { PensjonsavtaleKategori } from '@/types/enums'
+import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
 export const isInntekt = (data?: any): data is Inntekt => {
   if (
@@ -69,13 +69,12 @@ export const isPensjonsavtale = (data?: any): data is Pensjonsavtale => {
     typeof data.startAar !== 'number'
   const harFeilSluttAar =
     data.sluttAar !== undefined && typeof data.sluttAar !== 'number'
-
   return (
     !Array.isArray(data) &&
     data.produktbetegnelse &&
     typeof data.produktbetegnelse === 'string' &&
     data.kategori &&
-    isSomeEnumKey(PensjonsavtaleKategori)(data.kategori) &&
+    isSomeEnumKey(pensjonsavtalerKategoriMapObj)(data.kategori) &&
     Array.isArray(data.utbetalingsperioder) &&
     !harFeilUtbetalingsperiode &&
     !harFeilStartAar &&

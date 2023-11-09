@@ -10,20 +10,21 @@ export const formatSivilstand = (
   showSamboerskap?: { harSamboer: boolean }
 ): string => {
   const sivilstandMap: Record<Sivilstand, string> = {
-    GIFT: intl.formatMessage({ id: 'sivilstand.gift' }),
+    UNKNOWN: intl.formatMessage({ id: 'sivilstand.ugift' }),
+    UOPPGITT: intl.formatMessage({ id: 'sivilstand.ugift' }),
     UGIFT: intl.formatMessage({ id: 'sivilstand.ugift' }),
-    REGISTRERT_PARTNER: intl.formatMessage({
-      id: 'sivilstand.registrert_partner',
-    }),
+    GIFT: intl.formatMessage({ id: 'sivilstand.gift' }),
     ENKE_ELLER_ENKEMANN: intl.formatMessage({ id: 'sivilstand.enke_enkemann' }),
     SKILT: intl.formatMessage({ id: 'sivilstand.skilt' }),
     SEPARERT: intl.formatMessage({ id: 'sivilstand.separert' }),
+    REGISTRERT_PARTNER: intl.formatMessage({
+      id: 'sivilstand.registrert_partner',
+    }),
     SEPARERT_PARTNER: intl.formatMessage({ id: 'sivilstand.separert_partner' }),
     SKILT_PARTNER: intl.formatMessage({ id: 'sivilstand.skilt_partner' }),
     GJENLEVENDE_PARTNER: intl.formatMessage({
       id: 'sivilstand.gjenlevende_partner',
     }),
-    UOPPGITT: intl.formatMessage({ id: 'sivilstand.ugift' }),
   }
 
   const formatertSivilstand = sivilstandMap[sivilstand]

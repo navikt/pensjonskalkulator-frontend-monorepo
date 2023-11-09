@@ -2,7 +2,7 @@ describe('Henvisning, født før 1963', () => {
   describe('Når jeg som bruker født før 1963 logger inn,', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/person' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v1/person' },
         {
           fornavn: 'Aprikos',
           sivilstand: 'UGIFT',

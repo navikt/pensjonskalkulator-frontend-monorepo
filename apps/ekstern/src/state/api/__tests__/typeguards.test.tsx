@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { PensjonsavtaleKategori } from '@/types/enums'
+import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
 import {
   isInntekt,
@@ -380,11 +380,11 @@ describe('Typeguards', () => {
 
   describe('isSomeEnumKey', () => {
     it('returnerer false når typen ikke er riktig', () => {
-      expect(isSomeEnumKey(PensjonsavtaleKategori)('RANDOM')).toBeFalsy()
+      expect(isSomeEnumKey(pensjonsavtalerKategoriMapObj)('RANDOM')).toBeFalsy()
     })
     it('returnerer true når typen er riktig', () => {
       expect(
-        isSomeEnumKey(PensjonsavtaleKategori)('INDIVIDUELL_ORDNING')
+        isSomeEnumKey(pensjonsavtalerKategoriMapObj)('INDIVIDUELL_ORDNING')
       ).toBeTruthy()
     })
   })

@@ -19,10 +19,6 @@ import HighchartsReact from 'highcharts-react-official'
 import { AccordionContext } from '@/components/common/AccordionItem'
 import { TabellVisning } from '@/components/TabellVisning'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
-import {
-  AlderspensjonResponseBody,
-  PensjonsavtalerRequestBody,
-} from '@/state/api/apiSlice.types'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {

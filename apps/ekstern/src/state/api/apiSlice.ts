@@ -10,13 +10,6 @@ import {
   isSakStatus,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
-import {
-  PensjonsavtalerResponseBody,
-  PensjonsavtalerRequestBody,
-  AlderspensjonRequestBody,
-  AlderspensjonResponseBody,
-  TidligsteUttaksalderRequestBody,
-} from '@/state/api/apiSlice.types'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -36,7 +29,7 @@ export const apiSlice = createApi({
       },
     }),
     getPerson: builder.query<Person, void>({
-      query: () => '/person',
+      query: () => '/v1/person',
       providesTags: ['Person'],
       transformResponse: (response) => {
         if (!isPerson(response)) {
