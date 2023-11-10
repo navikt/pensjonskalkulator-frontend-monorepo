@@ -178,7 +178,7 @@ const translations = {
   'sivilstand.skilt': 'Skilt',
   'sivilstand.separert': 'Separert',
   'sivilstand.separert_partner': 'Separert partner',
-  'sivilstand.skilt_partner': 'Skjilt partner',
+  'sivilstand.skilt_partner': 'Skilt partner',
   'sivilstand.gjenlevende_partner': 'Gjenlevende partner',
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
