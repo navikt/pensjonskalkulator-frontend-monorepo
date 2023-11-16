@@ -238,6 +238,10 @@
   .highcharts-scrollable-mask {
     filter: drop-shadow(-5px 0 3px rgb(255 255 255 / 25%));
   }
+
+  .highcharts-root path:hover {
+    cursor: pointer;
+  }
 }
 
 @keyframes lds-ring {
