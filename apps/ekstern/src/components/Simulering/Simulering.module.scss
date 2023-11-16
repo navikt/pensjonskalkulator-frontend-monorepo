@@ -169,11 +169,18 @@
     }
 
     &Cell {
+      width: 70%;
+      white-space: break-spaces;
       font-family: var(--a-font-family);
       font-size: var(--a-font-size-small);
       vertical-align: middle;
       padding: 0.188rem 0;
       line-height: 1;
+
+      @media (width >= 400px) {
+        width: auto;
+        white-space: unset;
+      }
 
       &__right {
         font-weight: var(--a-font-weight-bold);
