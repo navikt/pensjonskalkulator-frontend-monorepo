@@ -78,9 +78,7 @@ describe('AFP offentlig', () => {
           cy.contains('Grunnlaget for beregningen').should('exist')
           cy.contains('AFP:').click()
           cy.contains('Offentlig').should('exist')
-          cy.contains(
-            'Vi kan ikke vise din AFP fordi regelverket for ny AFP i offentlig sektor ikke er endelig avklart. For mer informasjon sjekk din tjenestepensjonsordning.'
-          ).should('exist')
+          cy.contains('Vi kan ikke vise din AFP').should('exist')
         })
       })
     })

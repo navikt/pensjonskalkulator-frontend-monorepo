@@ -72,8 +72,8 @@ export function Utenlandsopphold({
             harUtenlandsopphold
               ? 'ja'
               : harUtenlandsopphold === false
-              ? 'nei'
-              : null
+                ? 'nei'
+                : null
           }
           onChange={handleRadioChange}
           error={validationError}

@@ -76,7 +76,7 @@ export const generateAlderspensjonRequestBody = (args: {
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand
         : harSamboer
-        ? 'SAMBOER'
-        : 'UGIFT',
+          ? 'SAMBOER'
+          : 'UGIFT',
   }
 }
