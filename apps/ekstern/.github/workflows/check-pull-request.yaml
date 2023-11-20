@@ -52,10 +52,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js v19.6.0
+      - name: Use Node.js v20.9.0
         uses: actions/setup-node@v4
         with:
-          node-version: '19.6.0'
+          node-version: '20.9.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
@@ -92,10 +92,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js v19.6.0
+      - name: Use Node.js v20.9.0
         uses: actions/setup-node@v4
         with:
-          node-version: '19.6.0'
+          node-version: '20.9.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
