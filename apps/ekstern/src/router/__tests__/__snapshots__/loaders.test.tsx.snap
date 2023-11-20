@@ -1,14 +1,14 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
-Response {
+_Response {
   Symbol(realm): {
     "settingsObject": {},
   },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
-    "headersList": HeadersList {
+    "headersList": _HeadersList {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
@@ -27,8 +27,8 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {
-    Symbol(headers list): HeadersList {
+  Symbol(headers): _Headers {
+    Symbol(headers list): _HeadersList {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
@@ -47,14 +47,14 @@ Response {
 `;
 
 exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /start location når samtykke er null 1`] = `
-Response {
+_Response {
   Symbol(realm): {
     "settingsObject": {},
   },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
-    "headersList": HeadersList {
+    "headersList": _HeadersList {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
@@ -73,8 +73,8 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {
-    Symbol(headers list): HeadersList {
+  Symbol(headers): _Headers {
+    Symbol(headers list): _HeadersList {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
