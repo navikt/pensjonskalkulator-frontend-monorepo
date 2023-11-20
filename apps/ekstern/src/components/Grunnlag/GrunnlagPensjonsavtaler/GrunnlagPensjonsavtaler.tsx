@@ -87,16 +87,16 @@ export const GrunnlagPensjonsavtaler = () => {
                 id: 'grunnlag.pensjonsavtaler.title.error.samtykke',
               })
             : isError
-            ? intl.formatMessage({
-                id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler',
-              })
-            : `${pensjonsavtaler?.avtaler.length} ${
-                pensjonsavtaler?.partialResponse
-                  ? intl.formatMessage({
-                      id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
-                    })
-                  : ''
-              }`
+              ? intl.formatMessage({
+                  id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler',
+                })
+              : `${pensjonsavtaler?.avtaler.length} ${
+                  pensjonsavtaler?.partialResponse
+                    ? intl.formatMessage({
+                        id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
+                      })
+                    : ''
+                }`
         }
         isLoading={isLoading}
       >
