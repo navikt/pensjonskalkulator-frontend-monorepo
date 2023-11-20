@@ -51,6 +51,9 @@ jobs:
       - name: Fetch openapi backend types
         run: npm run format:types
 
+      - name: Rebuild node-sass
+        run: npm rebuild node-sass
+        
       - name: Build staging application
         if: github.event.inputs.prod != 'true'
         run: npm run build
