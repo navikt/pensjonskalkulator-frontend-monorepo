@@ -20,7 +20,7 @@ describe('Henvisning, født før 1963', () => {
         'exist'
       )
       cy.contains('button', 'Detaljert kalkulator').click()
-      cy.origin('https://idporten.difi.no', () => {
+      cy.origin('https://login.idporten.no', () => {
         cy.get('h1').contains('Velg elektronisk ID')
       })
       cy.visit('/pensjon/kalkulator/start')

@@ -31,7 +31,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Logg inn i enkel kalkulator').should('exist')
         cy.contains('button', 'Logg inn i detaljert kalkulator').click()
 
-        cy.origin('https://idporten.difi.no', () => {
+        cy.origin('https://login.idporten.no', () => {
           cy.get('h1').contains('Velg elektronisk ID')
         })
         // Denne må deaktiveres foreløpig på grunn av OWASP CSRFGuard JavaScript was included from within an unauthorized domain!

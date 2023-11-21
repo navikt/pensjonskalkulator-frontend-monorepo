@@ -26,7 +26,7 @@ describe('Henvisning, 5år eller mer i utlandet', () => {
       cy.get('[type="radio"]').first().check()
       cy.contains('button', 'Neste').click()
       cy.contains('button', 'Detaljert kalkulator').click()
-      cy.origin('https://idporten.difi.no', () => {
+      cy.origin('https://login.idporten.no', () => {
         cy.get('h1').contains('Velg elektronisk ID')
       })
     })

@@ -24,10 +24,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js v19.6.0
+      - name: Use Node.js v20.9.0
         uses: actions/setup-node@v4
         with:
-          node-version: '19.6.0'
+          node-version: '20.9.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
@@ -50,6 +50,9 @@ jobs:
 
       - name: Fetch openapi backend types
         run: npm run format:types
+
+      - name: Rebuild node-sass
+        run: npm rebuild node-sass
 
       - name: Build staging application
         if: github.event.inputs.prod != 'true'
@@ -77,10 +80,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js v19.6.0
+      - name: Use Node.js v20.9.0
         uses: actions/setup-node@v4
         with:
-          node-version: '19.6.0'
+          node-version: '20.9.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
@@ -97,6 +100,9 @@ jobs:
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Rebuild node-sass
+        run: npm rebuild node-sass
 
       - name: Run unit tests
         run: npm run test
@@ -117,10 +123,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js v19.6.0
+      - name: Use Node.js v20.9.0
         uses: actions/setup-node@v4
         with:
-          node-version: '19.6.0'
+          node-version: '20.9.0'
           registry-url: 'https://npm.pkg.github.com'
 
       - name: Cache node modules
@@ -156,6 +162,9 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true' &&
           github.event.inputs.prod != 'true'
         run: npx cypress install
+        
+      - name: Rebuild node-sass
+        run: npm rebuild node-sass
 
       - name: Run integration tests on staging application
         if: github.event.inputs.prod  != 'true'
