@@ -30,9 +30,6 @@ jobs:
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-
-      - name: Rebuild node-sass
-        run: npm rebuild node-sass
         
       - name: Build application
         run: npm run build
@@ -75,9 +72,6 @@ jobs:
         run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-      
-      - name: Rebuild node-sass
-        run: npm rebuild node-sass
 
       - name: Run unit tests
         run: npm run test
@@ -135,9 +129,6 @@ jobs:
       - name: Install cypress
         if: steps.cache-cypress.outputs.cache-hit != 'true'
         run: npx cypress install
-
-      - name: Rebuild node-sass
-        run: npm rebuild node-sass
         
       - name: Run integration tests
         run: npm run cy:test
