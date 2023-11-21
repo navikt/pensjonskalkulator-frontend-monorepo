@@ -7,7 +7,7 @@ import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, Button, Link } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 import Highcharts, {
   SeriesColumnOptions,
@@ -212,9 +212,9 @@ export function Simulering(props: {
 
   return (
     <section className={styles.section}>
-      <h3 className="sr-only">
+      <Heading level="3" size="medium" visuallyHidden>
         <FormattedMessage id="beregning.highcharts.title" />
-      </h3>
+      </Heading>
       <div aria-hidden="true">
         <HighchartsReact
           ref={chartRef}
