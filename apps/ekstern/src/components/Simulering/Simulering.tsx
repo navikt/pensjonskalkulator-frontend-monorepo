@@ -212,6 +212,9 @@ export function Simulering(props: {
 
   return (
     <section className={styles.section}>
+      <h3 className="sr-only">
+        <FormattedMessage id="beregning.highcharts.title" />
+      </h3>
       <div aria-hidden="true">
         <HighchartsReact
           ref={chartRef}

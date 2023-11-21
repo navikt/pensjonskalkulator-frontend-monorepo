@@ -369,9 +369,6 @@ describe('Simulering', () => {
       )
       await waitFor(async () => {
         expect(
-          await screen.findByText('beregning.highcharts.title')
-        ).toBeVisible()
-        expect(
           await screen.findByText('beregning.pensjonsavtaler.info')
         ).toBeVisible()
       })
