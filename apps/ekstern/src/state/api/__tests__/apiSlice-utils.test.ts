@@ -50,8 +50,11 @@ describe('apiSlice - utils', () => {
       expect(
         unformatUttaksalder('random string without number (feil)')
       ).toEqual({ aar: 0, maaneder: 0 })
-      expect(unformatUttaksalder('67 år')).toEqual({ aar: 67, maaneder: 0 })
-      expect(unformatUttaksalder('62 år 5 måneder')).toEqual({
+      expect(unformatUttaksalder('67 alder.aar')).toEqual({
+        aar: 67,
+        maaneder: 0,
+      })
+      expect(unformatUttaksalder('62 alder.aar og 5 alder.maaneder')).toEqual({
         aar: 62,
         maaneder: 5,
       })

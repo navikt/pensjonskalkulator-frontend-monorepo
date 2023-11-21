@@ -301,10 +301,12 @@ describe('userInput selectors', () => {
       ...initialState,
       userInput: {
         ...initialState.userInput,
-        formatertUttaksalder: '62 år og 5 måneder',
+        formatertUttaksalder: '62 alder.aar string.og 5 alder.maaneder',
       },
     }
-    expect(selectFormatertUttaksalder(state)).toBe('62 år og 5 måneder')
+    expect(selectFormatertUttaksalder(state)).toBe(
+      '62 alder.aar string.og 5 alder.maaneder'
+    )
   })
 
   it('selectCurrentSimulation', () => {

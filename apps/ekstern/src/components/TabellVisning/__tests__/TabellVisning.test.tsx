@@ -9,22 +9,22 @@ describe('TabellVisning', () => {
   const series: SeriesColumnOptions[] = [
     {
       type: 'column',
-      name: 'Pensjonsgivende inntekt',
+      name: 'beregning.highcharts.serie.inntekt.name',
       data: [100000, 175000, 0, 0, 0, 0, 0, 0, 0],
     },
     {
       type: 'column',
-      name: 'Alderspensjon (NAV)',
+      name: 'beregning.highcharts.serie.alderspensjon.name',
       data: [200000, 350000, 400000, 400000, 400000, 400000, 400000, 400000, 0],
     },
     {
       type: 'column',
-      name: 'Pensjonsavtaler (arbeidsgivere m.m.)',
+      name: 'beregning.highcharts.serie.tp.name',
       data: [180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000, 0],
     },
     {
       type: 'column',
-      name: 'AFP',
+      name: 'beregning.highcharts.serie.AFP.name',
       data: [18000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 0],
     },
   ]
@@ -37,12 +37,12 @@ describe('TabellVisning', () => {
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
       />
     )
-    expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+    expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
 
-    await user.click(screen.getByText('Vis tabell av beregningen'))
+    await user.click(screen.getByText('beregning.tabell.vis'))
 
     await waitFor(async () => {
-      expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
+      expect(screen.getByText('beregning.tabell.lukk')).toBeVisible()
       expect(screen.getAllByRole('row').length).toBe(19)
       expect(screen.getAllByRole('cell').length).toBe(63)
       expect(screen.getAllByRole('button')).toHaveLength(10)
@@ -70,12 +70,12 @@ describe('TabellVisning', () => {
         showPensjonsavtaler={true}
       />
     )
-    expect(screen.getByText('Vis tabell av beregningen')).toBeVisible()
+    expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
 
-    await user.click(screen.getByText('Vis tabell av beregningen'))
+    await user.click(screen.getByText('beregning.tabell.vis'))
 
     await waitFor(async () => {
-      expect(screen.getByText('Lukk tabell av beregningen')).toBeVisible()
+      expect(screen.getByText('beregning.tabell.lukk')).toBeVisible()
       expect(screen.getAllByRole('row').length).toBe(19)
       expect(screen.getAllByRole('cell').length).toBe(81)
       expect(screen.getAllByRole('button')).toHaveLength(10)
@@ -109,20 +109,20 @@ describe('TabellVisning', () => {
         showPensjonsavtaler={true}
       />
     )
-    await user.click(screen.getByText('Vis tabell av beregningen'))
+    await user.click(screen.getByText('beregning.tabell.vis'))
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[1])
 
     expect(loggerSpy).toHaveBeenNthCalledWith(2, 'table expand åpnet', {
-      data: '69 år',
+      data: '69 alder.aar',
       tekst: 'detaljert beregning',
     })
 
     await user.click(buttons[1])
 
     expect(loggerSpy).toHaveBeenNthCalledWith(3, 'table expand lukket', {
-      data: '69 år',
+      data: '69 alder.aar',
       tekst: 'detaljert beregning',
     })
   })

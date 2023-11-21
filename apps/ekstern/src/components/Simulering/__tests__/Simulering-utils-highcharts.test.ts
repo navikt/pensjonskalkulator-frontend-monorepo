@@ -1,3 +1,5 @@
+import { IntlShape } from 'react-intl'
+
 import {
   AxisLabelsFormatterContextObject,
   TooltipFormatterContextObject,
@@ -23,7 +25,7 @@ import { getChartMock } from './chart-mock'
 
 import globalClassNames from './Simulering.module.scss'
 
-describe('Simulering-highcarts-utils', () => {
+describe('Simulering-utils-highcharts', () => {
   describe('labelFormatterMobile', () => {
     it('returnerer riktig streng når verdien er under 1000', () => {
       const a = labelFormatterMobile.bind({
@@ -179,11 +181,14 @@ describe('Simulering-highcarts-utils', () => {
       }
       const tooltipMarkup = tooltipFormatter(
         context as unknown as TooltipFormatterContextObject,
-        stylesMock
+        stylesMock,
+        {
+          formatMessage: (s: { id: string }) => s.id,
+        } as unknown as IntlShape
       )
       expect(tooltipMarkup).toContain('800 000 kr')
       expect(tooltipMarkup).toContain(
-        `Inntekt og pensjon når du er ${alder} år`
+        `beregning.highcharts.tooltip.inntekt_og_pensjon 65 alder.aar`
       )
       expect(tooltipMarkup).toContain(SERIES_DEFAULT.SERIE_INNTEKT.name)
       expect(tooltipMarkup).toContain(SERIES_DEFAULT.SERIE_ALDERSPENSJON.name)
@@ -202,7 +207,10 @@ describe('Simulering-highcarts-utils', () => {
 
       const tooltipMarkupAfterScroll = tooltipFormatter(
         context as unknown as TooltipFormatterContextObject,
-        stylesMock
+        stylesMock,
+        {
+          formatMessage: (s: { id: string }) => s.id,
+        } as unknown as IntlShape
       )
       expect(tooltipMarkupAfterScroll).toMatchSnapshot()
       expect(tooltipMarkupAfterScroll).toContain(
@@ -371,7 +379,10 @@ describe('Simulering-highcarts-utils', () => {
         const options = getChartOptions(
           {} as Partial<typeof globalClassNames>,
           vi.fn(),
-          vi.fn()
+          vi.fn(),
+          {
+            formatMessage: (s: { id: string }) => s.id,
+          } as unknown as IntlShape
         )
         expect(options).toMatchSnapshot()
       })

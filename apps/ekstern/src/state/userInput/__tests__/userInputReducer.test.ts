@@ -56,12 +56,14 @@ describe('userInputSlice', () => {
     it('setFormatertUttaksalder', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
-        userInputActions.setFormatertUttaksalder('65 år og 4 måneder')
+        userInputActions.setFormatertUttaksalder(
+          '65 alder.aar string.og 4 alder.maaneder'
+        )
       )
 
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
-        formatertUttaksalder: '65 år og 4 måneder',
+        formatertUttaksalder: '65 alder.aar string.og 4 alder.maaneder',
       })
     })
 

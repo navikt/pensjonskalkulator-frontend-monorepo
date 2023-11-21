@@ -21,6 +21,7 @@ const translations = {
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'application.global.external_link': 'åpner i en ny fane',
+  'application.global.retry': 'Prøv på nytt',
   'pageframework.title': 'Pensjonskalkulator',
   'pageframework.loading': 'Vent litt mens vi henter informasjon.',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
@@ -70,6 +71,7 @@ const translations = {
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
+  'stegvisning.tilbake_start': 'Tilbake til start',
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
@@ -159,7 +161,41 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'string.og': 'og',
+  'alder.md': 'md.',
+  'alder.maaned': 'måned',
+  'alder.maaneder': 'måneder',
+  'alder.aar': 'år',
+  'alder.aar_livsvarig': 'år (livsvarig)',
+  'afp.offentlig': 'Offentlig',
+  'afp.privat': 'Privat',
+  'afp.nei': 'Nei',
+  'afp.vet_ikke': 'Vet ikke',
+  'sivilstand.gift': 'Gift',
+  'sivilstand.ugift': 'Ugift',
+  'sivilstand.registrert_partner': 'Registrert partner',
+  'sivilstand.enke_enkemann': 'Enke/enkemann',
+  'sivilstand.skilt': 'Skilt',
+  'sivilstand.separert': 'Separert',
+  'sivilstand.separert_partner': 'Separert partner',
+  'sivilstand.skilt_partner': 'Skilt partner',
+  'sivilstand.gjenlevende_partner': 'Gjenlevende partner',
+  'sivilstand.med_samboer': 'med samboer',
+  'sivilstand.uten_samboer': 'uten samboer',
+  'tidligsteuttaksalder.ingress_1':
+    'Din opptjening i folketrygden gjør at du tidligst kan ta {br}ut alderspensjon når du er ',
+  'tidligsteuttaksalder.ingress_2':
+    'Jo lenger du venter, desto mer får du i året.',
+  'tidligsteuttaksalder.help':
+    'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.',
+  'tidligsteuttaksalder.info_afp':
+    'Din AFP kan gjøre at tidspunktet blir tidligere',
+  'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
+  'beregning.error':
+    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
+  'beregning.lav_opptjening':
+    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
@@ -168,6 +204,22 @@ const translations = {
     'Vi klarte ikke å hente alle <link>pensjonsavtalene dine</link>',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
+  'beregning.title': 'Beregning',
+  'beregning.highcharts.title': 'Beregning',
+  'beregning.highcharts.xaxis': 'Årlig inntekt og pensjon etter uttak',
+  'beregning.highcharts.yaxis': 'Kroner',
+  'beregning.highcharts.yaxis.mobile': 'Tusen kroner',
+  'beregning.highcharts.serie.inntekt.name': 'Pensjonsgivende inntekt',
+  'beregning.highcharts.serie.tp.name': 'Pensjonsavtaler (arbeidsgivere m.m.)',
+  'beregning.highcharts.serie.afp.name': 'AFP (Avtalefestet pensjon)',
+  'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (NAV)',
+  'beregning.highcharts.tooltip.inntekt': 'Inntekt når du er',
+  'beregning.highcharts.tooltip.pensjon': 'Pensjon når du er',
+  'beregning.highcharts.tooltip.inntekt_og_pensjon':
+    'Inntekt og pensjon når du er',
+  'beregning.tabell.lukk': 'Lukk tabell av beregningen',
+  'beregning.tabell.vis': 'Vis tabell av beregningen',
+  'beregning.tabell.sum': 'Sum',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.tidligstmuliguttak.title': 'Tidligst mulig uttak',
@@ -190,9 +242,11 @@ const translations = {
   'grunnlag.sivilstand.ingress':
     'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen. {br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title': 'Opphold i Norge',
+  'grunnlag.opphold.value': 'Minst 40 år',
   'grunnlag.opphold.ingress':
     'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. ',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
+  'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':
     'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
@@ -235,7 +289,6 @@ const translations = {
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er en foreløpig beregning av hva du kan forvente deg i pensjon. ',
-
   'grunnlag.forbehold.ingress_2':
     'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   'forbehold.title': 'Forbehold',
@@ -316,7 +369,6 @@ const translations = {
     'Vi sjekker også om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du er eller har vært medlem, informerer vi deg om at du kan ha rettigheter, men henter ikke inn avtalene.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
     'Vi henter inn disse opplysningene for at du skal få oversikt over din samlede pensjon.',
-
   'personopplysninger.section.lagring.heading': 'Lagring',
   'personopplysninger.section.lagring.text':
     'Det er mellomlagring i pensjonskalkulatoren for å gjøre en beregning av pensjonen din. Når du avslutter beregningen eller logger ut, slettes mellomlagringen. Beregningen din blir ikke lagret eller arkivert hos NAV.',

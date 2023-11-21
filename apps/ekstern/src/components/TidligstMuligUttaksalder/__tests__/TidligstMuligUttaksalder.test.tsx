@@ -16,22 +16,21 @@ describe('TidligstMuligUttaksalder', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Din opptjening i folketrygden gjør at du tidligst kan ta ut alderspensjon når du er'
+          'Din opptjening i folketrygden gjør at du tidligst kan ta',
+          { exact: false }
         )
       ).toBeInTheDocument()
-      expect(screen.getByText('62 år og 9 måneder')).toBeInTheDocument()
       expect(
-        screen.getByText('Jo lenger du venter, desto mer får du i året.')
+        screen.getByText('62 alder.aar string.og 9 alder.maaneder')
+      ).toBeInTheDocument()
+      expect(
+        screen.getByText('tidligsteuttaksalder.ingress_2')
       ).toBeInTheDocument()
     })
 
     await user.click(screen.getByRole('button'))
 
-    expect(
-      screen.getByText(
-        'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.'
-      )
-    ).toBeInTheDocument()
+    expect(screen.getByText('tidligsteuttaksalder.help')).toBeInTheDocument()
   })
   it('viser AFP melding hvis brukeren har AFP offentlig og tidligstMuligUttak etter 62', async () => {
     render(
@@ -43,12 +42,13 @@ describe('TidligstMuligUttaksalder', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Din opptjening i folketrygden gjør at du tidligst kan ta ut alderspensjon når du er'
+          'Din opptjening i folketrygden gjør at du tidligst kan ta',
+          { exact: false }
         )
       ).toBeInTheDocument()
 
       expect(
-        screen.getByText('Din AFP kan gjøre at tidspunktet blir tidligere')
+        screen.getByText('tidligsteuttaksalder.info_afp')
       ).toBeInTheDocument()
     })
   })
@@ -62,11 +62,12 @@ describe('TidligstMuligUttaksalder', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Din opptjening i folketrygden gjør at du tidligst kan ta ut alderspensjon når du er'
+          'Din opptjening i folketrygden gjør at du tidligst kan ta',
+          { exact: false }
         )
       ).toBeInTheDocument()
       expect(
-        screen.queryByText('Din AFP kan gjøre at tidspunktet blir tidligere')
+        screen.queryByText('tidligsteuttaksalder.info_afp')
       ).not.toBeInTheDocument()
     })
   })

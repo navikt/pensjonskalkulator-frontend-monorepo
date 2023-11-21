@@ -14,7 +14,7 @@ exports[`TilbakeEllerAvslutt > rendrer med riktig tekst og knapper 1`] = `
         <span
           class="navds-label"
         >
-          Tilbake til start
+          stegvisning.tilbake_start
         </span>
       </button>
       <button
@@ -23,7 +23,7 @@ exports[`TilbakeEllerAvslutt > rendrer med riktig tekst og knapper 1`] = `
         <span
           class="navds-label"
         >
-          Avbryt
+          stegvisning.avbryt
         </span>
       </button>
     </div>

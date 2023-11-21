@@ -1,20 +1,22 @@
-export const formatAfp = (afp: AfpRadio): string => {
+import { IntlShape } from 'react-intl'
+
+export const formatAfp = (intl: IntlShape, afp: AfpRadio): string => {
   switch (afp) {
     case 'ja_offentlig': {
-      return 'Offentlig'
+      return intl.formatMessage({ id: 'afp.offentlig' })
     }
     case 'ja_privat': {
-      return 'Privat'
+      return intl.formatMessage({ id: 'afp.privat' })
     }
     case 'vet_ikke': {
-      return 'Vet ikke'
+      return intl.formatMessage({ id: 'afp.vet_ikke' })
     }
     case 'nei': {
-      return 'Nei'
+      return intl.formatMessage({ id: 'afp.nei' })
     }
 
     default: {
-      return 'Vet ikke'
+      return intl.formatMessage({ id: 'afp.vet_ikke' })
     }
   }
 }

@@ -116,7 +116,7 @@ describe('Beregning', () => {
           screen.queryByTestId('tidligst-mulig-uttak')
         ).not.toBeInTheDocument()
       })
-      const button = await screen.findByText('68 år')
+      const button = await screen.findByText('68 alder.aar')
 
       await user.click(button)
 
@@ -135,7 +135,7 @@ describe('Beregning', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
-      expect(await screen.findByText('Vis tabell av beregningen')).toBeVisible()
+      expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
     })
   })
 
@@ -143,12 +143,12 @@ describe('Beregning', () => {
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
       const { container } = render(<Beregning />)
-      const button = await screen.findByText('68 år')
+      const button = await screen.findByText('68 alder.aar')
 
       await user.click(button)
 
       expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-        '68 år'
+        '68 alder.aar'
       )
       expect(
         container.getElementsByClassName('highcharts-loading')
@@ -168,7 +168,7 @@ describe('Beregning', () => {
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
-      expect(await screen.findByText('Vis tabell av beregningen')).toBeVisible()
+      expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
     })
 
     it('viser feilmelding og skjuler Grunnlag og tabell når simuleringen feiler med mulighet til å prøve på nytt', async () => {
@@ -182,30 +182,24 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       render(<Beregning />)
 
-      const button = await screen.findByText('68 år')
+      const button = await screen.findByText('68 alder.aar')
 
       await user.click(button)
 
       expect(initiateMock).toHaveBeenCalledTimes(1)
       await waitFor(async () => {
-        expect(
-          await screen.findByText(
-            'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.'
-          )
-        ).toBeVisible()
+        expect(await screen.findByText('beregning.error')).toBeVisible()
       })
-      expect(
-        screen.queryByText('Grunnlaget for beregningen')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
 
-      const proevPaaNyttbutton = await screen.findByText('Prøv på nytt')
+      const proevPaaNyttbutton = await screen.findByText(
+        'application.global.retry'
+      )
 
       await user.click(proevPaaNyttbutton)
 
       expect(initiateMock).toHaveBeenCalledTimes(2)
-      expect(
-        screen.queryByText('Vis tabell av beregningen')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
 
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
@@ -228,7 +222,7 @@ describe('Beregning', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      const button = await screen.findByText('68 år')
+      const button = await screen.findByText('68 alder.aar')
 
       await user.click(button)
 
@@ -256,7 +250,7 @@ describe('Beregning', () => {
           api: { ...fakeApiCalls },
           userInput: {
             ...userInputInitialState,
-            formatertUttaksalder: '68 år og 5 måneder',
+            formatertUttaksalder: '68 alder.aar string.og 5 string.maaneder',
             samtykke: true,
             samboer: false,
             currentSimulation: currentSimulation,
@@ -274,7 +268,7 @@ describe('Beregning', () => {
         screen.queryByTestId('tidligst-mulig-uttak')
       ).not.toBeInTheDocument()
 
-      const button = await screen.findByText('62 år')
+      const button = await screen.findByText('62 alder.aar')
 
       await user.click(button)
 
@@ -283,12 +277,8 @@ describe('Beregning', () => {
           'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'
         )
       ).toBeVisible()
-      expect(
-        screen.queryByText('Grunnlaget for beregningen')
-      ).not.toBeInTheDocument()
-      expect(
-        screen.queryByText('Vis tabell av beregningen')
-      ).not.toBeInTheDocument()
+      expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
+      expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
   })
 })

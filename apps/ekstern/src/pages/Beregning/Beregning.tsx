@@ -1,5 +1,5 @@
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -165,16 +165,19 @@ export function Beregning() {
             (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
               <>
                 <Heading level="2" size="small">
-                  Beregning
+                  <FormattedMessage id="beregning.title" />
                 </Heading>
                 <Alert onRetry={isError ? onRetry : undefined}>
                   {alderspensjon &&
                     !alderspensjon?.vilkaarErOppfylt &&
                     startAar &&
-                    startAar < 67 &&
-                    `Du har ikke høy nok opptjening til å kunne starte uttak ved ${startAar} år. Prøv en høyere alder.`}
-                  {isError &&
-                    'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.'}
+                    startAar < 67 && (
+                      <FormattedMessage
+                        id="beregning.lav_opptjening"
+                        values={{ startAar }}
+                      />
+                    )}
+                  {isError && <FormattedMessage id="beregning.error" />}
                 </Alert>
               </>
             ) : (

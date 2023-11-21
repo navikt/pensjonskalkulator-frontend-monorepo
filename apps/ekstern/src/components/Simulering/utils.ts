@@ -1,3 +1,5 @@
+import { IntlShape } from 'react-intl'
+
 import { Chart, Point, Series } from 'highcharts'
 
 import {
@@ -157,15 +159,29 @@ export const generateXAxis = (
 }
 
 export function getTooltipTitle(
+  antallAar: string,
   hasInntekt: boolean,
-  hasPensjon: boolean
+  hasPensjon: boolean,
+  intl: IntlShape
 ): string {
   if (hasInntekt && hasPensjon) {
-    return 'Inntekt og pensjon når du er'
+    return `${intl.formatMessage({
+      id: 'beregning.highcharts.tooltip.inntekt_og_pensjon',
+    })} ${antallAar} ${intl.formatMessage({
+      id: 'alder.aar',
+    })}`
   } else if (hasInntekt && !hasPensjon) {
-    return 'Inntekt når du er'
+    return `${intl.formatMessage({
+      id: 'beregning.highcharts.tooltip.inntekt',
+    })} ${antallAar} ${intl.formatMessage({
+      id: 'alder.aar',
+    })}`
   } else {
-    return 'Pensjon når du er'
+    return `${intl.formatMessage({
+      id: 'beregning.highcharts.tooltip.pensjon',
+    })} ${antallAar} ${intl.formatMessage({
+      id: 'alder.aar',
+    })}`
   }
 }
 

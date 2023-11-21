@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartOptions > returnerer riktig default options 1`] = `
+exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChartOptions > returnerer riktig default options 1`] = `
 {
   "chart": {
     "animation": false,
@@ -104,7 +104,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartO
               "style": {
                 "fontSize": "var(--a-font-size-small)",
               },
-              "text": "Tusen kroner",
+              "text": "beregning.highcharts.yaxis.mobile",
               "x": -73,
               "y": -22,
             },
@@ -125,7 +125,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartO
       "fontSize": "20px",
       "fontWeight": "bold",
     },
-    "text": "Beregning",
+    "text": "beregning.highcharts.title",
     "y": 20,
   },
   "tooltip": {
@@ -158,7 +158,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartO
         "fontFamily": "var(--a-font-family)",
         "fontSize": "var(--a-font-size-medium)",
       },
-      "text": "Årlig inntekt og pensjon etter uttak",
+      "text": "beregning.highcharts.xaxis",
       "y": -5,
     },
   },
@@ -189,7 +189,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartO
         "fontSize": "var(--a-font-size-medium)",
         "zIndex": 0,
       },
-      "text": "Kroner",
+      "text": "beregning.highcharts.yaxis",
       "textAlign": "left",
       "x": -44,
       "y": -20,
@@ -198,7 +198,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > getChartO
 }
 `;
 
-exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > onPointClick > onPointUnclick > kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor en chart point 1`] = `
+exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > onPointClick > onPointUnclick > kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor en chart point 1`] = `
 [
   <text
     style="font-weight: normal;"
@@ -212,7 +212,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > onPointCl
 ]
 `;
 
-exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > onPointClick > onPointUnclick > kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor plot area og at tooltip er skjult 1`] = `
+exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > onPointClick > onPointUnclick > kaller resetColumnColors og nullstiller fargen på alle kolonnene når brukeren klikker utenfor plot area og at tooltip er skjult 1`] = `
 [
   <text
     style="font-weight: normal;"
@@ -226,7 +226,7 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > onPointCl
 ]
 `;
 
-exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > onPointClick > oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis 1`] = `
+exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > onPointClick > oppdaterer fargen på kolonnen som er valgt og de som ikke er det samt label i xAxis 1`] = `
 [
   <text
     style="font-weight: bold;"
@@ -240,6 +240,6 @@ exports[`Simulering-highcarts-utils > onPointClick og onPointUnclick > onPointCl
 ]
 `;
 
-exports[`Simulering-highcarts-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 1`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Inntekt og pensjon når du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Pensjonsgivende inntekt</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Pensjonsgivende inntekt</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 135px; left: 34px; height: 34px\\"></div>"`;
+exports[`Simulering-utils-highcharts > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 1`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">beregning.highcharts.tooltip.inntekt_og_pensjon 65 alder.aar</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>beregning.highcharts.serie.inntekt.name</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>beregning.highcharts.serie.alderspensjon.name</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>beregning.highcharts.serie.inntekt.name</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>beregning.highcharts.serie.alderspensjon.name</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 135px; left: 34px; height: 34px\\"></div>"`;
 
-exports[`Simulering-highcarts-utils > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 2`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">Inntekt og pensjon når du er 65 år</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Pensjonsgivende inntekt</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>Pensjonsgivende inntekt</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>Alderspensjon (NAV)</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 135px; left: -16px; height: 34px\\"></div>"`;
+exports[`Simulering-utils-highcharts > tooltipFormatter > returnerer formatert tooltip med riktig data og stiler for begge serier 2`] = `"<table class=\\"tooltipTable\\"><thead><tr><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__left\\">beregning.highcharts.tooltip.inntekt_og_pensjon 65 alder.aar</th><th class=\\"tooltipTableHeaderCell tooltipTableHeaderCell__right\\">800 000 kr</th></tr></thead><tbody><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>beregning.highcharts.serie.inntekt.name</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>beregning.highcharts.serie.alderspensjon.name</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:lime\\"></span>beregning.highcharts.serie.inntekt.name</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">200 000 kr</td></tr><tr><td class=\\"tooltipTableCell\\"><span class=\\"tooltipTableCellDot\\" style=\\"backgroundColor:salmon\\"></span>beregning.highcharts.serie.alderspensjon.name</td><td class=\\"tooltipTableCell tooltipTableCell__right\\">350 000 kr</td></tr></tbody></table><div class=\\"tooltipLine\\" style=\\"top: 135px; left: -16px; height: 34px\\"></div>"`;

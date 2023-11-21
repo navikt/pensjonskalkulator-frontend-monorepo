@@ -1,4 +1,5 @@
 import React from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -19,12 +20,13 @@ interface Props {
 export const VelgUttaksalder: React.FC<Props> = ({
   tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
 }) => {
+  const intl = useIntl()
   const dispatch = useAppDispatch()
   const pinRef = React.useRef<HTMLDivElement>(null)
   const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
 
   const formaterteAldere = React.useMemo(
-    () => getFormaterteAldere(tidligstMuligUttak),
+    () => getFormaterteAldere(intl, tidligstMuligUttak),
     [tidligstMuligUttak]
   )
 
@@ -42,7 +44,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
       <div className={styles.wrapperCard}>
         <span ref={pinRef} className={styles.pin}></span>
         <Heading size="xsmall" level="2">
-          Når vil du ta ut alderspensjon?
+          <FormattedMessage id="velguttaksalder.title" />
         </Heading>
         <Chips
           className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}

@@ -48,13 +48,15 @@ describe('uttaksalderListener', () => {
   describe('Gitt at formatertUttaksalder oppdateres,', () => {
     it('oppdaterer currentSimulation', async () => {
       store.dispatch(
-        userInputActions.setFormatertUttaksalder('66 år og 5 måneder')
+        userInputActions.setFormatertUttaksalder(
+          '66 alder.aar string.og 5 alder.maaneder'
+        )
       )
       const currentSimulation = selectCurrentSimulation(store.getState())
       expect(currentSimulation.startAar).toBe(66)
       expect(currentSimulation.startMaaned).toBe(5)
 
-      store.dispatch(userInputActions.setFormatertUttaksalder('67 år'))
+      store.dispatch(userInputActions.setFormatertUttaksalder('67 alder.aar'))
       const currentSimulationUpdated = selectCurrentSimulation(store.getState())
       expect(currentSimulationUpdated.startAar).toBe(67)
       expect(currentSimulationUpdated.startMaaned).toBe(0)

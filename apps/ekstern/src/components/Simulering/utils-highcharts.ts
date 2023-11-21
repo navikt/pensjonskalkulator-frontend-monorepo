@@ -1,3 +1,5 @@
+import { IntlShape } from 'react-intl'
+
 import {
   AxisLabelsFormatterContextObject,
   Axis,
@@ -117,7 +119,8 @@ export function onPointUnclick(
 
 export function tooltipFormatter(
   context: TooltipFormatterContextObject,
-  styles: Partial<typeof globalClassNames>
+  styles: Partial<typeof globalClassNames>,
+  intl: IntlShape
 ): string {
   const series = context.points?.[0].series as Series
   const chart = series.chart as Chart
@@ -175,7 +178,12 @@ export function tooltipFormatter(
     `<table class="${styles.tooltipTable}"><thead><tr>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__left
-    }">${getTooltipTitle(hasInntekt, hasPensjon)} ${context.x} år</th>` +
+    }">${getTooltipTitle(
+      context.x as string,
+      hasInntekt,
+      hasPensjon,
+      intl
+    )}</th>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__right
     }">${formatWithoutDecimal(points?.[0].total)} kr</th>` +
@@ -185,11 +193,11 @@ export function tooltipFormatter(
   return `${headerFormat}${pointsFormat}${footerFormat}${tooltipConnectingLine}`
 }
 
-// TODO utvide med react-intl
 export const getChartOptions = (
   styles: Partial<typeof globalClassNames>,
   showRightButton: React.Dispatch<React.SetStateAction<boolean>>,
-  showLeftButton: React.Dispatch<React.SetStateAction<boolean>>
+  showLeftButton: React.Dispatch<React.SetStateAction<boolean>>,
+  intl: IntlShape
 ): Options => {
   return {
     chart: {
@@ -245,7 +253,7 @@ export const getChartOptions = (
       },
     },
     title: {
-      text: `Beregning`,
+      text: intl.formatMessage({ id: 'beregning.highcharts.title' }),
       align: 'left',
       margin: 40,
       y: 20,
@@ -269,7 +277,7 @@ export const getChartOptions = (
         y: 20,
       },
       title: {
-        text: 'Årlig inntekt og pensjon etter uttak',
+        text: intl.formatMessage({ id: 'beregning.highcharts.xaxis' }),
         align: 'high',
         y: -5,
         style: {
@@ -286,7 +294,7 @@ export const getChartOptions = (
       allowDecimals: false,
       min: 0,
       title: {
-        text: 'Kroner',
+        text: intl.formatMessage({ id: 'beregning.highcharts.yaxis' }),
         align: 'high',
         rotation: 0,
         textAlign: 'left',
@@ -321,7 +329,7 @@ export const getChartOptions = (
       followTouchMove: false,
       // /* c8 ignore next 20 */
       formatter: function (this: TooltipFormatterContextObject) {
-        return tooltipFormatter(this, styles)
+        return tooltipFormatter(this, styles, intl)
       },
       positioner: function (
         labelWidth: number,
@@ -422,7 +430,9 @@ export const getChartOptions = (
             yAxis: {
               offset: 28,
               title: {
-                text: 'Tusen kroner',
+                text: intl.formatMessage({
+                  id: 'beregning.highcharts.yaxis.mobile',
+                }),
                 margin: -75,
                 x: -73,
                 y: -22,

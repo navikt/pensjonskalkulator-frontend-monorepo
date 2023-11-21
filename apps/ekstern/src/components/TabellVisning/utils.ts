@@ -1,3 +1,5 @@
+import { IntlShape } from 'react-intl'
+
 import { SeriesColumnOptions } from 'highcharts'
 
 export type TableDataRowDetaljer = { name: string; subSum: number }
@@ -9,6 +11,7 @@ export type TableDataRow = {
 }
 
 export function formatSeriesToTableData(
+  intl: IntlShape,
   series: SeriesColumnOptions[],
   aarArray?: string[]
 ): TableDataRow[] {
@@ -21,7 +24,9 @@ export function formatSeriesToTableData(
     let sum = 0
     const detaljer: TableDataRowDetaljer[] = []
     const alder = `${aarArray[i]} ${
-      aarArray[i].includes('+') ? 'år (livsvarig)' : 'år'
+      aarArray[i].includes('+')
+        ? intl.formatMessage({ id: 'alder.aar_livsvarig' })
+        : intl.formatMessage({ id: 'alder.aar' })
     }`
 
     for (const obj of series) {
