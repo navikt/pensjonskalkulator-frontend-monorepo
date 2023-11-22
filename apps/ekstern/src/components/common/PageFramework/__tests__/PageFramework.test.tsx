@@ -16,7 +16,7 @@ describe('PageFramework', () => {
     window.scrollTo = () => vi.fn()
   })
 
-  it('rendrer slik den skal, med main tag og Heading på riktig nivå', async () => {
+  it('rendrer slik den skal, med wrapper og Heading på riktig nivå', async () => {
     const { asFragment } = render(<PageFramework />, { hasLogin: true })
     await waitFor(async () => {
       expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
