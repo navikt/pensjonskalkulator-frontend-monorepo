@@ -135,7 +135,7 @@ export function TabellVisning({
           {tableData.map(({ alder, sum, detaljer }, i) => {
             return (
               <Table.Row key={i}>
-                <Table.DataCell>{alder}</Table.DataCell>
+                <Table.HeaderCell>{alder}</Table.HeaderCell>
                 <Table.DataCell
                   className={clsx(
                     styles.detailsItemRight,

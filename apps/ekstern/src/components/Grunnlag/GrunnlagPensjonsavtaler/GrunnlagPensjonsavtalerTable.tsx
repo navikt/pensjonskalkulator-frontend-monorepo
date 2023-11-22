@@ -67,7 +67,7 @@ export const GrunnlagPensjonsavtalerTable = (props: IProps) => {
           ([avtaleType, avtaler], i) => (
             <React.Fragment key={`table-left-${avtaleType}`}>
               <tr>
-                <td colSpan={2}>
+                <th colSpan={2}>
                   <BodyShort
                     className={clsx(styles.tabellMellomtittel, {
                       [styles.tabellMellomtittel__First]: i < 1,
@@ -75,16 +75,16 @@ export const GrunnlagPensjonsavtalerTable = (props: IProps) => {
                   >
                     {capitalize(avtaleType)}
                   </BodyShort>
-                </td>
+                </th>
               </tr>
               {avtaler.map((avtale) => (
                 <React.Fragment key={`table-right-${avtale.key}`}>
                   <tr>
-                    <td colSpan={2}>
+                    <th colSpan={2}>
                       <BodyShort className={styles.tabellSubtittel}>
                         {avtale.produktbetegnelse}
                       </BodyShort>
-                    </td>
+                    </th>
                   </tr>
                   {avtale.utbetalingsperioder.map((utbetalingsperiode) => {
                     return (

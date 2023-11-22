@@ -7,6 +7,7 @@
   padding: 0;
 
   &Mellomtittel {
+    text-align: left;
     padding-top: var(--a-spacing-6);
     font-weight: var(--a-font-weight-bold);
 
@@ -16,6 +17,7 @@
   }
 
   &Subtittel {
+    text-align: left;
     padding-top: var(--a-spacing-2);
     line-height: var(--a-font-line-height-heading-medium);
   }

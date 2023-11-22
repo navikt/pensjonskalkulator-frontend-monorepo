@@ -900,11 +900,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               69 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -924,11 +924,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               70 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -948,11 +948,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               71 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -970,11 +970,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               72 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -992,11 +992,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               73 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -1014,11 +1014,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               74 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -1036,11 +1036,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               75 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -1058,11 +1058,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               76 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -1080,11 +1080,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               77+ alder.aar_livsvarig
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             />
@@ -2002,11 +2002,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               69 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -2026,11 +2026,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               70 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -2050,11 +2050,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               71 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -2072,11 +2072,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               72 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -2094,11 +2094,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               73 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -2116,11 +2116,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               74 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -2138,11 +2138,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               75 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -2160,11 +2160,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               76 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -2182,11 +2182,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 2 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               77+ alder.aar_livsvarig
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             />
@@ -3260,11 +3260,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               69 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -3294,11 +3294,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               70 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -3328,11 +3328,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               71 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -3360,11 +3360,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               72 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -3392,11 +3392,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               73 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -3424,11 +3424,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               74 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -3456,11 +3456,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               75 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -3488,11 +3488,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               76 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -3520,11 +3520,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               77+ alder.aar_livsvarig
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             />
@@ -4604,11 +4604,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               69 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -4638,11 +4638,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               70 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -4672,11 +4672,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               71 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -4704,11 +4704,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               72 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -4736,11 +4736,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               73 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -4768,11 +4768,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               74 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -4800,11 +4800,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               75 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -4832,11 +4832,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               76 alder.aar
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             >
@@ -4864,11 +4864,11 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
           <tr
             class="navds-table__row navds-table__row--shade-on-hover"
           >
-            <td
-              class="navds-table__data-cell navds-body-short navds-body-short--medium"
+            <th
+              class="navds-table__header-cell navds-label"
             >
               77+ alder.aar_livsvarig
-            </td>
+            </th>
             <td
               class="navds-table__data-cell _detailsItemRight_15ff36 _detailsItemBold_15ff36 navds-body-short navds-body-short--medium"
             />
