@@ -28,7 +28,7 @@ export const FrameComponent: React.FC<{
   }, [pathname])
 
   return (
-    <main
+    <div
       className={clsx(styles.main, {
         [styles.main__white]: hasWhiteBg,
       })}
@@ -59,6 +59,6 @@ export const FrameComponent: React.FC<{
         </div>
         {children}
       </div>
-    </main>
+    </div>
   )
 }

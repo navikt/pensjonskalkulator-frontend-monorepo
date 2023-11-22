@@ -2,7 +2,7 @@
 
 exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
 <DocumentFragment>
-  <main
+  <div
     class="_main_55ef1a"
   >
     <div
@@ -123,6 +123,6 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
         </div>
       </section>
     </div>
-  </main>
+  </div>
 </DocumentFragment>
 `;
