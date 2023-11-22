@@ -44,7 +44,7 @@ describe('TabellVisning', () => {
     await waitFor(async () => {
       expect(screen.getByText('beregning.tabell.lukk')).toBeVisible()
       expect(screen.getAllByRole('row').length).toBe(19)
-      expect(screen.getAllByRole('cell').length).toBe(63)
+      expect(screen.getAllByRole('cell').length).toBe(54)
       expect(screen.getAllByRole('button')).toHaveLength(10)
       expect(screen.getByText('300 000')).toBeInTheDocument()
       expect(asFragment()).toMatchSnapshot()
@@ -77,7 +77,7 @@ describe('TabellVisning', () => {
     await waitFor(async () => {
       expect(screen.getByText('beregning.tabell.lukk')).toBeVisible()
       expect(screen.getAllByRole('row').length).toBe(19)
-      expect(screen.getAllByRole('cell').length).toBe(81)
+      expect(screen.getAllByRole('cell').length).toBe(72)
       expect(screen.getAllByRole('button')).toHaveLength(10)
       expect(screen.getByText('498 000')).toBeInTheDocument()
       expect(asFragment()).toMatchSnapshot()
