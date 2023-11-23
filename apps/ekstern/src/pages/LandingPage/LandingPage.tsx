@@ -13,7 +13,7 @@ import {
   VStack,
 } from '@navikt/ds-react'
 
-import { BASE_PATH, externalUrls, paths } from '@/router'
+import { BASE_PATH, externalUrls, paths } from '@/router/constants'
 import { LoginContext } from '@/router/loaders'
 
 import styles from './LandingPage.module.scss'

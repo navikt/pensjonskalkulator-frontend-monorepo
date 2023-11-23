@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { AFP } from '@/components/stegvisning/AFP'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import {
   useGetInntektQuery,
   useGetPersonQuery,

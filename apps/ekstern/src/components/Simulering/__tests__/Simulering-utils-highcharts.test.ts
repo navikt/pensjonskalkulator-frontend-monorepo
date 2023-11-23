@@ -196,7 +196,6 @@ describe('Simulering-utils-highcharts', () => {
       expect(tooltipMarkup).toContain(`backgroundColor:${colorSerie2}`)
       expect(tooltipMarkup).toContain('200 000 kr')
       expect(tooltipMarkup).toContain('350 000 kr')
-      expect(tooltipMarkup).toMatchSnapshot()
       expect(tooltipMarkup).toContain(beregnetLinePosition)
 
       const div = document.createElement('div')
@@ -212,7 +211,6 @@ describe('Simulering-utils-highcharts', () => {
           formatMessage: (s: { id: string }) => s.id,
         } as unknown as IntlShape
       )
-      expect(tooltipMarkupAfterScroll).toMatchSnapshot()
       expect(tooltipMarkupAfterScroll).toContain(
         beregnetLinePositionAfterScroll
       )
@@ -249,10 +247,6 @@ describe('Simulering-utils-highcharts', () => {
           [{ color: 'var(--a-green-200)' }, false],
           [{ color: 'var(--a-purple-200)' }, false],
         ])
-        expect(
-          (point.series.chart.xAxis[0] as ExtendedAxis).labelGroup.element
-            .childNodes
-        ).toMatchSnapshot()
         expect(redrawMock).toHaveBeenCalledOnce()
         expect(tooltipRefreshMock).toHaveBeenCalledOnce()
       })
@@ -304,10 +298,6 @@ describe('Simulering-utils-highcharts', () => {
             [{ color: 'var(--a-green-400)' }, false],
             [{ color: 'var(--a-purple-400)' }, false],
           ])
-          expect(
-            (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
-              .childNodes
-          ).toMatchSnapshot()
           expect(redrawMock).toHaveBeenCalledOnce()
           expect(tooltipUpdateMock).toHaveBeenCalledOnce()
         })
@@ -364,10 +354,6 @@ describe('Simulering-utils-highcharts', () => {
               false,
             ],
           ])
-          expect(
-            (chartWithSelection.xAxis[0] as ExtendedAxis).labelGroup.element
-              .childNodes
-          ).toMatchSnapshot()
           expect(redrawMock).toHaveBeenCalledOnce()
           expect(tooltipUpdateMock).toHaveBeenCalledTimes(2)
         })

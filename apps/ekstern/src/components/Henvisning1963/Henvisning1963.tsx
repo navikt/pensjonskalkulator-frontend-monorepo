@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { Card } from '../common/Card'
-import { externalUrls, paths } from '@/router'
+import { externalUrls, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { wrapLogger } from '@/utils/logging'

@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { GrunnlagPensjonsavtaler } from '../GrunnlagPensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import {
   userInputInitialState,
   Simulation,

@@ -5,7 +5,7 @@ import { BodyLong, Link, List, VStack } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework'
-import { externalUrls, paths } from '@/router'
+import { externalUrls, paths } from '@/router/constants'
 
 export function ErrorPage404() {
   return (

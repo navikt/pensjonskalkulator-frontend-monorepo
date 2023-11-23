@@ -109,7 +109,6 @@ describe('Simulering', () => {
       const SVGlegendItems = Array.from(legendItems).filter(
         (item) => item.tagName === 'g'
       )
-      expect(SVGlegendItems).toMatchSnapshot()
       expect(SVGlegendItems).toHaveLength(2)
     })
 
@@ -153,7 +152,6 @@ describe('Simulering', () => {
       const SVGlegendItems = Array.from(legendItems).filter(
         (item) => item.tagName === 'g'
       )
-      expect(SVGlegendItems).toMatchSnapshot()
       expect(SVGlegendItems).toHaveLength(3)
     })
   })

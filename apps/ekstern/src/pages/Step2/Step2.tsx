@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { Samtykke, SamtykkeRadio } from '@/components/stegvisning/Samtykke'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {

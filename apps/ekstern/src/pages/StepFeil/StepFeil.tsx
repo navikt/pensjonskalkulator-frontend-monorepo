@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { getNesteSide } from '../Step4/utils'
 import { Card } from '@/components/common/Card'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { useGetInntektQuery, useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'

@@ -4,7 +4,7 @@ import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Link } from '@navikt/ds-react'
 
 import { getCookie, getTranslations } from '@/context/LanguageProvider/utils'
-import { externalUrls } from '@/router'
+import { externalUrls } from '@/router/constants'
 
 /* c8 ignore next 1 */
 const locale = getCookie('decorator-language') || 'nb'

@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest'
 
 import { getNesteSide } from '../utils'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 
 describe('Step 4 - utils', () => {
   describe('getNesteSide', () => {

@@ -4,7 +4,7 @@ import { Link as ReactRouterLink } from 'react-router-dom'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Heading, Link } from '@navikt/ds-react'
 
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { formatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagForbehold.module.scss'

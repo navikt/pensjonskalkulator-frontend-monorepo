@@ -6,7 +6,7 @@ import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { wrapLogger } from '@/utils/logging'
 
 import styles from './Start.module.scss'
