@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Henvisning1963 } from '../Henvisning1963'
-import { externalUrls, paths } from '@/router'
+import { externalUrls, paths } from '@/router/constants'
 import { render, screen, userEvent } from '@/test-utils'
 
 const navigateMock = vi.fn()

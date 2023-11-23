@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@navikt/ds-react'
 
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { wrapLogger } from '@/utils/logging'

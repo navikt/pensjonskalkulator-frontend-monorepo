@@ -1,10 +1,11 @@
 import * as ReactRouterUtils from 'react-router'
 
+import { Accordion } from '@navikt/ds-react'
 import { describe, it, vi } from 'vitest'
 
 import { GrunnlagPensjonsavtaler } from '../GrunnlagPensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import {
   userInputInitialState,
   Simulation,
@@ -42,14 +43,19 @@ describe('GrunnlagPensjonsavtaler', () => {
         () => navigateMock
       )
 
-      const { store } = render(<GrunnlagPensjonsavtaler />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
-          userInput: { ...userInputInitialState, samtykke: false },
-        },
-      })
+      const { store } = render(
+        <Accordion>
+          <GrunnlagPensjonsavtaler />
+        </Accordion>,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: { ...fakeInntektApiCall },
+            userInput: { ...userInputInitialState, samtykke: false },
+          },
+        }
+      )
       expect(
         await screen.findByText('grunnlag.pensjonsavtaler.title')
       ).toBeVisible()
@@ -89,18 +95,23 @@ describe('GrunnlagPensjonsavtaler', () => {
 
   describe('Gitt at brukeren har samtykket', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
-      render(<GrunnlagPensjonsavtaler />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: currentSimulation,
+      render(
+        <Accordion>
+          <GrunnlagPensjonsavtaler />
+        </Accordion>,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: { ...fakeInntektApiCall },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              currentSimulation: currentSimulation,
+            },
           },
-        },
-      })
+        }
+      )
       expect(
         screen.queryByText(
           'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon',
@@ -121,18 +132,23 @@ describe('GrunnlagPensjonsavtaler', () => {
       mockErrorResponse('/v1/pensjonsavtaler', {
         method: 'post',
       })
-      render(<GrunnlagPensjonsavtaler />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: currentSimulation,
+      render(
+        <Accordion>
+          <GrunnlagPensjonsavtaler />
+        </Accordion>,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: { ...fakeInntektApiCall },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              currentSimulation: currentSimulation,
+            },
           },
-        },
-      })
+        }
+      )
       expect(
         await screen.findByText(
           'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler'
@@ -177,18 +193,23 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(<GrunnlagPensjonsavtaler />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: currentSimulation,
+      render(
+        <Accordion>
+          <GrunnlagPensjonsavtaler />
+        </Accordion>,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: { ...fakeInntektApiCall },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              currentSimulation: currentSimulation,
+            },
           },
-        },
-      })
+        }
+      )
       expect(
         await screen.findByText(
           'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
@@ -218,18 +239,23 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(<GrunnlagPensjonsavtaler />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: currentSimulation,
+      render(
+        <Accordion>
+          <GrunnlagPensjonsavtaler />
+        </Accordion>,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: { ...fakeInntektApiCall },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              currentSimulation: currentSimulation,
+            },
           },
-        },
-      })
+        }
+      )
       expect(screen.getByText('grunnlag.pensjonsavtaler.title')).toBeVisible()
       expect(await screen.findByText('0', { exact: false })).toBeVisible()
       expect(

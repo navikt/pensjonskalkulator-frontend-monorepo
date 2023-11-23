@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { describe, expect, it } from 'vitest'
 
 import { formatMessageValues } from '../translations'
-import { externalUrls } from '@/router'
+import { externalUrls } from '@/router/constants'
 import { render, screen } from '@/test-utils'
 
 describe('translations-utils', () => {

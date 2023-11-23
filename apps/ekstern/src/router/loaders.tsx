@@ -7,7 +7,7 @@ import {
 } from '@reduxjs/toolkit/query/react'
 
 import { HOST_BASEURL } from '@/paths'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 

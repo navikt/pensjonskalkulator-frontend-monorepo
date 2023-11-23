@@ -5,7 +5,7 @@ import { useNavigate, Await } from 'react-router-dom'
 import { Card } from '@/components/common/Card'
 import { Loader } from '@/components/common/Loader'
 import { OffentligTP } from '@/components/stegvisning/OffentligTP'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import {
   TpoMedlemskapQuery,
   useTpoMedlemskapAccessData,

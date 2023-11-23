@@ -1,0 +1,36 @@
+export const BASE_PATH = '/pensjon/kalkulator'
+
+export const externalUrls = {
+  dinPensjon: 'https://nav.no/pensjon',
+  dinPensjonBeholdning: 'https://www.nav.no/pensjon/opptjening/nb/',
+  detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
+  alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
+  afp: 'https://www.afp.no',
+  garantipensjon: 'https://www.nav.no/minstepensjon',
+  norskPensjon: 'https://norskpensjon.no/',
+  uinnloggetKalkulator:
+    'https://www.nav.no/pselv/simulering/forenkletsimulering.jsf',
+  personvernerklaering:
+    'https://www.nav.no/personvernerklaering#dine-rettigheter',
+  personvernerklaeringKontaktOss:
+    'https://www.nav.no/personvernerklaering#kontakt-nav',
+}
+
+export const paths = {
+  root: '/',
+  login: '/login',
+  henvisningUfoeretrygdGjenlevendepensjon:
+    '/henvisning-ufoeretrygd-gjenlevendepensjon',
+  henvisning1963: '/henvisning-1963',
+  start: '/start',
+  samtykke: '/samtykke',
+  utenlandsopphold: '/utenlandsopphold',
+  utenlandsoppholdFeil: '/henvisning-utland',
+  offentligTp: '/offentlig-tp',
+  afp: '/afp',
+  sivilstand: '/sivilstand',
+  uventetFeil: '/uventet-feil',
+  beregning: '/beregning',
+  forbehold: '/forbehold',
+  personopplysninger: '/personopplysninger',
+} as const

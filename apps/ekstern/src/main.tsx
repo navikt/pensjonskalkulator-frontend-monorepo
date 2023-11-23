@@ -6,7 +6,8 @@ import ReactDOM from 'react-dom/client'
 
 import { LanguageProvider } from '@/context/LanguageProvider'
 import { initializeLogs } from '@/faro'
-import { BASE_PATH, routes } from '@/router'
+import { BASE_PATH } from '@/router/constants'
+import { routes } from '@/router/routes'
 
 import { store } from './state/store'
 

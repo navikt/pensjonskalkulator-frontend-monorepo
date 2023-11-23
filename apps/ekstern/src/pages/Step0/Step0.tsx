@@ -6,7 +6,7 @@ import { lastDayOfYear, isBefore } from 'date-fns'
 
 import { Loader } from '@/components/common/Loader'
 import { Start } from '@/components/stegvisning/Start'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import {
   useGetPersonQuery,

@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Step0 } from '..'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 

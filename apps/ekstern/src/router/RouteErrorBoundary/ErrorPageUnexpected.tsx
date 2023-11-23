@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 

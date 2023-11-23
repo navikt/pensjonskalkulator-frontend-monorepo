@@ -1,4 +1,4 @@
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 
 export function getNesteSide(
   harSamboer: boolean | null,

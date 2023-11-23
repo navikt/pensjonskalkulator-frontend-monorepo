@@ -6,7 +6,7 @@ import {
   UtenlandsoppholdRadio,
   Utenlandsopphold,
 } from '@/components/stegvisning/Utenlandsopphold'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectUtenlandsopphold } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'

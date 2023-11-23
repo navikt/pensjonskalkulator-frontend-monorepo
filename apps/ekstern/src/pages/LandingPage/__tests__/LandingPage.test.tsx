@@ -3,7 +3,7 @@
 import { describe, it, vi } from 'vitest'
 
 import { LandingPage } from '..'
-import { externalUrls } from '@/router'
+import { externalUrls } from '@/router/constants'
 import {
   render,
   screen,

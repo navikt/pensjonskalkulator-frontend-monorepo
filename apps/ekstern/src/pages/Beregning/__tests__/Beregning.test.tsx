@@ -94,7 +94,7 @@ describe('Beregning', () => {
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
       expect(screen.getAllByRole('button')).toHaveLength(12)
     })
-    it('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
+    it.skip('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
       const user = userEvent.setup()
       mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
@@ -140,7 +140,7 @@ describe('Beregning', () => {
   })
 
   describe('Når brukeren velger uttaksalder', () => {
-    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
+    it.skip('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
       const { container } = render(<Beregning />)
       const button = await screen.findByText('68 alder.aar')

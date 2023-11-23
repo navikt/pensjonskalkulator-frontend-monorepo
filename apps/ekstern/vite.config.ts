@@ -46,20 +46,22 @@ export default defineConfig(() => ({
   plugins: [
     tsconfigPaths(),
     react(),
-    eslint(),
-    stylelint({ fix: true }),
-    sassDts({
-      global: {
-        generate: true,
-        outputFilePath: path.resolve(__dirname, './src/style.d.ts'),
-      },
-    }),
-    visualizer({
-      open: true,
-      gzipSize: true,
-      brotliSize: true,
-      filename: 'analice.html',
-    }),
+    process.env.NODE_ENV !== 'test' && eslint(),
+    process.env.NODE_ENV !== 'test' && stylelint({ fix: true }),
+    process.env.NODE_ENV !== 'test' &&
+      sassDts({
+        global: {
+          generate: true,
+          outputFilePath: path.resolve(__dirname, './src/style.d.ts'),
+        },
+      }),
+    process.env.NODE_ENV !== 'test' &&
+      visualizer({
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+        filename: 'analice.html',
+      }),
   ],
   server: {
     proxy: {
@@ -95,6 +97,7 @@ export default defineConfig(() => ({
     },
   },
   test: {
+    cache: false,
     environment: 'jsdom',
     globals: true,
     setupFiles: 'src/test-setup.ts',

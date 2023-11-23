@@ -6,7 +6,7 @@ import {
   Sivilstand,
   SivilstandRadio,
 } from '@/components/stegvisning/Sivilstand'
-import { paths } from '@/router'
+import { paths } from '@/router/constants'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectSamboerFraBrukerInput } from '@/state/userInput/selectors'

@@ -14,7 +14,7 @@
     "build:production": "tsc && vite build --mode production",
     "preview": "vite preview",
     "test": "vitest run --coverage",
-    "test:update": "vitest run -u --coverage",
+    "test:update": "vitest run -u",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "cy:open": "cypress open",

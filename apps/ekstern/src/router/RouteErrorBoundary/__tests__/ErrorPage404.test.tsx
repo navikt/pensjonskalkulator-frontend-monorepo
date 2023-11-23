@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { ErrorPage404 } from '../ErrorPage404'
-import { externalUrls, paths } from '@/router'
+import { externalUrls, paths } from '@/router/constants'
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('ErrorPage404', () => {
