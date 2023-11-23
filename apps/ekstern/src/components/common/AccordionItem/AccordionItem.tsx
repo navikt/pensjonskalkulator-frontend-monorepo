@@ -22,7 +22,7 @@ export const AccordionContext = React.createContext<AccordionContextType>({
   ref: undefined,
   isOpen: false,
   /* c8 ignore next 1 - Treffer aldri siden Aksel vil kaste feil dersom Accordion.Item ikke er i en Accordion */
-  toggleOpen: () => console.warn('Context not initialized'),
+  toggleOpen: () => console.warn('AccordionContext not initialized'),
 })
 
 const logIsOpen = (name: string, isOpen: boolean) => {

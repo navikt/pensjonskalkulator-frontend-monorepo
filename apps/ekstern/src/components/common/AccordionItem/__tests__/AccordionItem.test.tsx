@@ -1,3 +1,5 @@
+import { Accordion } from '@navikt/ds-react'
+
 import { AccordionItem } from '../AccordionItem'
 import { GrunnlagSection } from '@/components/Grunnlag/GrunnlagSection'
 import { render, screen, userEvent } from '@/test-utils'
@@ -12,11 +14,13 @@ describe('AccordionItem', () => {
     it('åpne, lukke og logg', async () => {
       const user = userEvent.setup()
       render(
-        <AccordionItem name="log-data">
-          <GrunnlagSection headerTitle="SectionHeader" headerValue="">
-            <p>Test</p>
-          </GrunnlagSection>
-        </AccordionItem>
+        <Accordion>
+          <AccordionItem name="log-data">
+            <GrunnlagSection headerTitle="SectionHeader" headerValue="">
+              <p>Test</p>
+            </GrunnlagSection>
+          </AccordionItem>
+        </Accordion>
       )
 
       await user.click(screen.getByTestId('accordion-header'))
@@ -43,11 +47,13 @@ describe('AccordionItem', () => {
       let isOpen = false
       const toggleOpen = () => (isOpen = !isOpen)
       render(
-        <AccordionItem name="test" isOpen={isOpen} onClick={toggleOpen}>
-          <GrunnlagSection headerTitle="SectionHeader" headerValue="">
-            <p>Test</p>
-          </GrunnlagSection>
-        </AccordionItem>
+        <Accordion>
+          <AccordionItem name="test" isOpen={isOpen} onClick={toggleOpen}>
+            <GrunnlagSection headerTitle="SectionHeader" headerValue="">
+              <p>Test</p>
+            </GrunnlagSection>
+          </AccordionItem>
+        </Accordion>
       )
 
       await user.click(screen.getByTestId('accordion-header'))
@@ -64,11 +70,13 @@ describe('AccordionItem', () => {
       let isOpen = true
       const toggleOpen = () => (isOpen = !isOpen)
       render(
-        <AccordionItem name="test" isOpen={isOpen} onClick={toggleOpen}>
-          <GrunnlagSection headerTitle="SectionHeader" headerValue="">
-            <p>Test</p>
-          </GrunnlagSection>
-        </AccordionItem>
+        <Accordion>
+          <AccordionItem name="test" isOpen={isOpen} onClick={toggleOpen}>
+            <GrunnlagSection headerTitle="SectionHeader" headerValue="">
+              <p>Test</p>
+            </GrunnlagSection>
+          </AccordionItem>
+        </Accordion>
       )
 
       await user.click(screen.getByTestId('accordion-header'))
