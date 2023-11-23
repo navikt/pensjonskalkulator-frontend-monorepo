@@ -3,8 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step1Feil } from '..'
-import { externalUrls } from '@/router'
-import { paths } from '@/router/routes'
+import { externalUrls, paths } from '@/router'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 

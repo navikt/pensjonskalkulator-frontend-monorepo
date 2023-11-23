@@ -1,1 +1,2 @@
-export { externalUrls, paths, routes, BASE_PATH } from './routes'
+export { routes } from './routes'
+export { externalUrls, paths, BASE_PATH } from './constants'

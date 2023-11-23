@@ -158,13 +158,14 @@ describe('apiSlice - utils', () => {
           harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
-      it('returnerer riktig forventetInntekt', () => {
-        expect(
-          generateAlderspensjonRequestBody({
-            ...requestBody,
-          })?.forventetInntekt
-        ).toEqual(500000)
-      })
+    })
+
+    it('returnerer riktig forventetInntekt', () => {
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+        })?.forventetInntekt
+      ).toEqual(500000)
     })
 
     it('returnerer riktig uttaksalder', () => {
