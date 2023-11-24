@@ -53,14 +53,18 @@ describe('routes', () => {
       })
     })
 
-    describe.skip(`${BASE_PATH}${paths.login}`, () => {
+    describe(`${BASE_PATH}${paths.login}`, () => {
       it('viser landingssiden med lenke til pålogging (stegvisning start)', async () => {
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.login}`],
         })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-        expect(router.state.location.pathname).toBe(`${BASE_PATH}/login`)
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('landingsside.for.deg.foedt.foer.1963')
+        ).toBeVisible()
       })
     })
 

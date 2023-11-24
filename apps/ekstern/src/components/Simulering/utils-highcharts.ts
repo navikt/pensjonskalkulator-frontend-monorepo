@@ -226,7 +226,7 @@ export const getChartOptions = (
               })
             } else {
               // Denne setTimeout er nødvendig fordi highcharts tegner scroll container litt etter render callback og har ikke noe eget flag for den
-              setTimeout(() => {
+              const timeout = setTimeout(() => {
                 const elementScrollWidth = el.scrollWidth
                 const elementWidth = el.offsetWidth
                 showRightButton(elementScrollWidth > elementWidth)
@@ -241,6 +241,8 @@ export const getChartOptions = (
                   showRightButton,
                   showLeftButton,
                 }
+                // Dette er meningsløst for koden som kjører i browser'en, men ser ut til å spare vitest for hanging processes
+                clearTimeout(timeout)
               }, 50)
             }
           } else {

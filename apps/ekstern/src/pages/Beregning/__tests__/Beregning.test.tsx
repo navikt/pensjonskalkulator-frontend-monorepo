@@ -1,5 +1,6 @@
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
+import { act } from 'react-dom/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
@@ -94,7 +95,7 @@ describe('Beregning', () => {
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
       expect(screen.getAllByRole('button')).toHaveLength(12)
     })
-    it.skip('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
+    it('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
       const user = userEvent.setup()
       mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
@@ -131,7 +132,11 @@ describe('Beregning', () => {
         ).toBeVisible()
       })
       // Nødvendig for at animasjonen rekker å bli ferdig
-      await new Promise((r) => setTimeout(r, 500))
+      await act(async () => {
+        await new Promise((r) => {
+          setTimeout(r, 500)
+        })
+      })
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
@@ -140,7 +145,7 @@ describe('Beregning', () => {
   })
 
   describe('Når brukeren velger uttaksalder', () => {
-    it.skip('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
+    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
       const { container } = render(<Beregning />)
       const button = await screen.findByText('68 alder.aar')
@@ -164,7 +169,12 @@ describe('Beregning', () => {
         ).toBeVisible()
       })
       // Nødvendig for at animasjonen rekker å bli ferdig
-      await new Promise((r) => setTimeout(r, 500))
+      await act(async () => {
+        await new Promise((r) => {
+          setTimeout(r, 500)
+        })
+      })
+
       expect(
         container.getElementsByClassName('highcharts-container').length
       ).toBe(1)
