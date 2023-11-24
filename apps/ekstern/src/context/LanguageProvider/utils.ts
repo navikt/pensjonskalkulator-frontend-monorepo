@@ -1,7 +1,8 @@
+import { DecoratorLocale } from '@navikt/nav-dekoratoren-moduler'
+
 import { getTranslation_en } from '@/translations/en'
 import { getTranslation_nb } from '@/translations/nb'
 import { getTranslation_nn } from '@/translations/nn'
-
 export function setCookie(
   name: string,
   value: string,
@@ -34,4 +35,12 @@ export function getTranslations(locale: string): Record<string, string> {
     messages = { ...messages, ...getTranslation_nn() }
   }
   return messages
+}
+
+export function updateLanguage(
+  languageLocale: DecoratorLocale,
+  setLanguageCookie: React.Dispatch<React.SetStateAction<DecoratorLocale>>
+) {
+  setLanguageCookie(languageLocale)
+  document.documentElement.setAttribute('lang', languageLocale)
 }

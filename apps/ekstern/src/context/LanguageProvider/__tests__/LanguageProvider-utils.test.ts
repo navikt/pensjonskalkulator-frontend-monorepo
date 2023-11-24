@@ -1,7 +1,7 @@
 import * as enMessagesModule from '../../../translations/en'
 import * as nbMessagesModule from '../../../translations/nb'
 import * as nnMessagesModule from '../../../translations/nn'
-import { getCookie, setCookie, getTranslations } from '../utils'
+import { getCookie, setCookie, getTranslations, updateLanguage } from '../utils'
 
 describe('LanguageProvider-utils', () => {
   afterEach(() => {
@@ -110,6 +110,16 @@ describe('LanguageProvider-utils', () => {
       expect(unknownTranslations['application.title']).toBe(
         'Pensjonskalkulator – Pensjon'
       )
+    })
+  })
+
+  describe('updateLanguage', () => {
+    it('setter cookie med riktig value', () => {
+      const setLanguageCookieMock = vi.fn()
+      expect(document.documentElement.lang).toBe('')
+      updateLanguage('en', setLanguageCookieMock)
+      expect(setLanguageCookieMock).toHaveBeenCalledWith('en')
+      expect(document.documentElement.lang).toBe('en')
     })
   })
 })
