@@ -18,7 +18,7 @@ import '@formatjs/intl-datetimeformat/locale-data/en'
 import '@formatjs/intl-datetimeformat/locale-data/nb'
 import '@formatjs/intl-datetimeformat/locale-data/nn'
 
-import { getCookie, setCookie, getTranslations } from './utils'
+import { getCookie, getTranslations, updateLanguage, setCookie } from './utils'
 
 interface Props {
   children: ReactNode
@@ -34,7 +34,7 @@ export function LanguageProvider({ children }: Props) {
   /* c8 ignore next 3 */
   onLanguageSelect((language) => {
     setCookie('decorator-language', language.locale)
-    setLanguageCookie(language.locale)
+    updateLanguage(language.locale, setLanguageCookie)
   })
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export function LanguageProvider({ children }: Props) {
       const previousLanguage = getCookie('decorator-language')
 
       if (previousLanguage) {
-        setLanguageCookie(previousLanguage as DecoratorLocale)
+        updateLanguage(previousLanguage as DecoratorLocale, setLanguageCookie)
       }
     }
   }, [isSuccess])
