@@ -66,21 +66,6 @@
   margin-top: -4px;
 }
 
-.info {
-  display: flex;
-  padding-top: var(--a-spacing-3);
-
-  &Icon {
-    flex-basis: 1.5rem;
-    color: var(--a-lightblue-800);
-    margin-right: var(--a-spacing-2);
-    align-self: baseline;
-  }
-
-  &Text {
-    font-size: var(--a-font-size-medium);
-    flex-basis: 100%;
-    margin: 0;
-    line-height: var(--a-font-line-height-large);
-  }
+.alert {
+  margin-bottom: var(--a-spacing-2);
 }

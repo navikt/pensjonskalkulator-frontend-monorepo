@@ -51,9 +51,9 @@ describe('AFP offentlig', () => {
             'Din opptjening i folketrygden gjør at du tidligst kan ta'
           ).should('exist')
           cy.contains('62 år og 10 måneder').should('exist')
-          cy.contains('Din AFP kan gjøre at tidspunktet blir tidligere').should(
-            'exist'
-          )
+          cy.contains(
+            'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til offentlig AFP.'
+          ).should('exist')
         })
       })
       describe('Når jeg er kommet til beregningssiden og velger hvilken alder jeg ønsker beregning fra,', () => {

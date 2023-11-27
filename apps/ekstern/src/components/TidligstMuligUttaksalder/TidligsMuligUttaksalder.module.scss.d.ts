@@ -8,8 +8,6 @@ declare const classNames: typeof globalClassNames & {
   readonly highlighted: 'highlighted'
   readonly ingress__isInline: 'ingress__isInline'
   readonly helptext: 'helptext'
-  readonly info: 'info'
-  readonly infoIcon: 'infoIcon'
-  readonly infoText: 'infoText'
+  readonly alert: 'alert'
 }
 export = classNames
