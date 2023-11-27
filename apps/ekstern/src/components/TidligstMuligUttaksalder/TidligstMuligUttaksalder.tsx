@@ -1,8 +1,7 @@
 import { memo } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { InformationSquareFillIcon } from '@navikt/aksel-icons'
-import { BodyLong, HelpText } from '@navikt/ds-react'
+import { Alert, BodyLong, HelpText } from '@navikt/ds-react'
 
 import Piggybank from '../../assets/piggybank.svg'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
@@ -47,6 +46,21 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
                 />
               </HelpText>
             </span>
+            {hasAfpOffentlig && isUttaksalderOver62(tidligstMuligUttak) && (
+              <Alert
+                className={styles.alert}
+                size="small"
+                variant="info"
+                aria-live="polite"
+              >
+                <FormattedMessage
+                  id="tidligsteuttaksalder.info_afp"
+                  values={{
+                    ...formatMessageValues,
+                  }}
+                />
+              </Alert>
+            )}
             <BodyLong size="large" className={styles.ingress}>
               <FormattedMessage
                 id="tidligsteuttaksalder.ingress_2"
@@ -55,23 +69,6 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
                 }}
               />
             </BodyLong>
-            {hasAfpOffentlig && isUttaksalderOver62(tidligstMuligUttak) && (
-              <div className={styles.info}>
-                <InformationSquareFillIcon
-                  className={styles.infoIcon}
-                  fontSize="1.5rem"
-                  aria-hidden
-                />
-                <p className={styles.infoText}>
-                  <FormattedMessage
-                    id="tidligsteuttaksalder.info_afp"
-                    values={{
-                      ...formatMessageValues,
-                    }}
-                  />
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </div>
