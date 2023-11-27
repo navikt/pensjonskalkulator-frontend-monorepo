@@ -157,9 +157,12 @@ export function tooltipFormatter(
   let hasPensjon = false
   let pointsFormat = ''
 
+  const inntektSerieName = intl.formatMessage({
+    id: SERIES_DEFAULT.SERIE_INNTEKT.name,
+  })
   points.forEach(function (point) {
     if (point.y && point.y > 0) {
-      if (point.series.name === SERIES_DEFAULT.SERIE_INNTEKT.name) {
+      if (point.series.name === inntektSerieName) {
         hasInntekt = true
       } else {
         hasPensjon = true
