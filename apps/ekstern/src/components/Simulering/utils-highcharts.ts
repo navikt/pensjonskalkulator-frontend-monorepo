@@ -212,21 +212,21 @@ export const getChartOptions = (
       },
       events: {
         render(this) {
-          const highchartsScrollingElement = document.querySelector(
-            highchartsScrollingSelector
-          )
-          if (highchartsScrollingElement) {
-            const el =
-              highchartsScrollingElement as HighchartsScrollingHTMLDivElement
-            const scrollPosition = el.scrollLeft
-            if (el.handleButtonVisibility !== undefined) {
-              handleChartScroll({ currentTarget: el } as unknown as Event, {
-                chart: this,
-                scrollPosition,
-              })
-            } else {
-              // Denne setTimeout er nødvendig fordi highcharts tegner scroll container litt etter render callback og har ikke noe eget flag for den
-              const timeout = setTimeout(() => {
+          // Denne setTimeout er nødvendig fordi highcharts tegner scroll container litt etter render callback og har ikke noe eget flag for den
+          const timeout = setTimeout(() => {
+            const highchartsScrollingElement = document.querySelector(
+              highchartsScrollingSelector
+            )
+            if (highchartsScrollingElement) {
+              const el =
+                highchartsScrollingElement as HighchartsScrollingHTMLDivElement
+              const scrollPosition = el.scrollLeft
+              if (el.handleButtonVisibility !== undefined) {
+                handleChartScroll({ currentTarget: el } as unknown as Event, {
+                  chart: this,
+                  scrollPosition,
+                })
+              } else {
                 const elementScrollWidth = el.scrollWidth
                 const elementWidth = el.offsetWidth
                 showRightButton(elementScrollWidth > elementWidth)
@@ -241,16 +241,17 @@ export const getChartOptions = (
                   showRightButton,
                   showLeftButton,
                 }
-                // Dette er meningsløst for koden som kjører i browser'en, men ser ut til å spare vitest for hanging processes
-                clearTimeout(timeout)
-              }, 50)
+              }
+            } else {
+              showRightButton(false)
+              showLeftButton(false)
             }
-          } else {
-            showRightButton(false)
-            showLeftButton(false)
-          }
-          const el1 = document.querySelector('[data-highcharts-chart]')
-          el1?.setAttribute('data-testid', 'highcharts-done-drawing')
+            const el1 = document.querySelector('[data-highcharts-chart]')
+            el1?.setAttribute('data-testid', 'highcharts-done-drawing')
+            // Dette er meningsløst for koden som kjører i browser'en, men ser ut til å spare vitest for hanging processes
+
+            clearTimeout(timeout)
+          }, 50)
         },
       },
     },
@@ -326,6 +327,7 @@ export const getChartOptions = (
       enabled: false,
     },
     tooltip: {
+      outside: false,
       className: styles.tooltip,
       animation: false,
       followTouchMove: false,
