@@ -41,7 +41,11 @@ export function OffentligTP({
           }}
         />
       </BodyLong>
-      <Button type="submit" className={styles.button} onClick={onNext}>
+      <Button
+        type="submit"
+        className={styles.button}
+        onClick={wrapLogger('button klikk', { tekst: 'Neste' })(onNext)}
+      >
         <FormattedMessage id="stegvisning.neste" />
       </Button>
       <Button

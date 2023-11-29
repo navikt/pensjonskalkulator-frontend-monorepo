@@ -45,6 +45,9 @@ export function Utenlandsopphold({
         tekst: 'Utenlandsopphold',
         valg: utenlandsoppholdData,
       })
+      logger('button klikk', {
+        tekst: 'Neste',
+      })
       onNext(utenlandsoppholdData)
     }
   }

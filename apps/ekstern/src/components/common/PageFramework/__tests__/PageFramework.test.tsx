@@ -77,8 +77,7 @@ describe('PageFramework', () => {
       baseUrl: `${HOST_BASEURL}`,
     })
 
-    const open = vi.fn()
-    vi.stubGlobal('open', open)
+    const windowSpy = vi.spyOn(window, 'open')
 
     render(
       <PageFramework shouldRedirectNonAuthenticated>
@@ -89,7 +88,7 @@ describe('PageFramework', () => {
     await Promise.resolve()
 
     expect(await screen.findByTestId('redirect-element')).toBeVisible()
-    expect(open).toHaveBeenCalledWith(
+    expect(windowSpy).toHaveBeenCalledWith(
       'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
       '_self'
     )

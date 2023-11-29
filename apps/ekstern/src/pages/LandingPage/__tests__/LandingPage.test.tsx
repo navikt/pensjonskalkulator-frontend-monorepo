@@ -12,13 +12,6 @@ import {
   RenderRouteWithOutletContext,
 } from '@/test-utils'
 
-// vi.mock('react-router-dom', () => {
-//   return {
-//     __esModule: true, //    <----- this __esModule: true is important
-//     ...vi.importActual('react-router-dom'),
-//   }
-// })
-
 describe('LandingPage', () => {
   afterEach(() => {
     vi.clearAllMocks()

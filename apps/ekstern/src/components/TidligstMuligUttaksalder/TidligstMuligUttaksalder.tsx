@@ -1,10 +1,11 @@
-import { memo } from 'react'
+import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert, BodyLong, HelpText } from '@navikt/ds-react'
 
 import Piggybank from '../../assets/piggybank.svg'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
+import { logger } from '@/utils/logging'
 import { formatMessageValues } from '@/utils/translations'
 
 import { isUttaksalderOver62 } from './utils'
@@ -16,9 +17,20 @@ interface Props {
   hasAfpOffentlig: boolean
 }
 
-export const TidligstMuligUttaksalder: React.FC<Props> = memo(
+export const TidligstMuligUttaksalder: React.FC<Props> = React.memo(
   ({ tidligstMuligUttak, hasAfpOffentlig }) => {
     const intl = useIntl()
+    const [hasHelpTextBeenClicked, setHasHelpTextBeenClicked] =
+      React.useState(false)
+    const logHelpTextClick = () => {
+      if (!hasHelpTextBeenClicked) {
+        logger('help text åpnet', {
+          tekst: 'Tidligst mulig uttak',
+        })
+      }
+      setHasHelpTextBeenClicked(true)
+    }
+
     return (
       <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
         <div className={styles.wrapperCard}>
@@ -37,7 +49,10 @@ export const TidligstMuligUttaksalder: React.FC<Props> = memo(
             </BodyLong>
             <span className={styles.highlighted}>
               {formatUttaksalder(intl, tidligstMuligUttak)}
-              <HelpText wrapperClassName={styles.helptext}>
+              <HelpText
+                onClick={logHelpTextClick}
+                wrapperClassName={styles.helptext}
+              >
                 <FormattedMessage
                   id="tidligsteuttaksalder.help"
                   values={{

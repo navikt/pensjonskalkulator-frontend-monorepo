@@ -6,6 +6,8 @@ import { Link } from '@navikt/ds-react'
 import { getCookie, getTranslations } from '@/context/LanguageProvider/utils'
 import { externalUrls } from '@/router/constants'
 
+import { logOpenLink } from './logging'
+
 /* c8 ignore next 1 */
 const locale = getCookie('decorator-language') || 'nb'
 const cache = createIntlCache()
@@ -20,7 +22,12 @@ const intl = createIntl(
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const formatMessageValues: Record<string, any> = {
   detaljertKalkulatorLink: (chunks: string) => (
-    <Link href={externalUrls.detaljertKalkulator} target="_blank" inlineText>
+    <Link
+      onClick={logOpenLink}
+      href={externalUrls.detaljertKalkulator}
+      target="_blank"
+      inlineText
+    >
       {chunks}
       <ExternalLinkIcon
         title={intl.formatMessage({ id: 'application.global.external_link' })}
@@ -30,7 +37,12 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   dinPensjonLink: (chunks: string) => (
-    <Link href={externalUrls.dinPensjon} target="_blank" inlineText>
+    <Link
+      onClick={logOpenLink}
+      href={externalUrls.dinPensjon}
+      target="_blank"
+      inlineText
+    >
       {chunks}
       title={intl.formatMessage({ id: 'application.global.external_link' })}
       <ExternalLinkIcon
@@ -41,7 +53,12 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   dinPensjonBeholdningLink: (chunks: string) => (
-    <Link href={externalUrls.dinPensjonBeholdning} target="_blank" inlineText>
+    <Link
+      onClick={logOpenLink}
+      href={externalUrls.dinPensjonBeholdning}
+      target="_blank"
+      inlineText
+    >
       {chunks}
       <ExternalLinkIcon
         title={intl.formatMessage({ id: 'application.global.external_link' })}
@@ -51,7 +68,12 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   alderspensjonsreglerLink: (chunks: string) => (
-    <Link href={externalUrls.alderspensjonsregler} target="_blank" inlineText>
+    <Link
+      onClick={logOpenLink}
+      href={externalUrls.alderspensjonsregler}
+      target="_blank"
+      inlineText
+    >
       {chunks}
       <ExternalLinkIcon
         title={intl.formatMessage({ id: 'application.global.external_link' })}
@@ -61,7 +83,12 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   garantiPensjonLink: (chunks: string) => (
-    <Link href={externalUrls.garantipensjon} target="_blank" inlineText>
+    <Link
+      onClick={logOpenLink}
+      href={externalUrls.garantipensjon}
+      target="_blank"
+      inlineText
+    >
       {chunks}
       <ExternalLinkIcon
         title={intl.formatMessage({ id: 'application.global.external_link' })}
@@ -71,7 +98,12 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   afpLink: (chunks: string) => (
-    <Link href={externalUrls.afp} target="_blank" inlineText>
+    <Link
+      onClick={logOpenLink}
+      href={externalUrls.afp}
+      target="_blank"
+      inlineText
+    >
       {chunks}
       <ExternalLinkIcon
         title={intl.formatMessage({ id: 'application.global.external_link' })}
@@ -81,7 +113,12 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   norskPensjonLink: (chunks: string) => (
-    <Link href={externalUrls.norskPensjon} target="_blank" inlineText>
+    <Link
+      onClick={logOpenLink}
+      href={externalUrls.norskPensjon}
+      target="_blank"
+      inlineText
+    >
       {chunks}
       <ExternalLinkIcon
         title={intl.formatMessage({ id: 'application.global.external_link' })}
@@ -91,7 +128,12 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   navPersonvernerklaeringLink: (chunks: string) => (
-    <Link href={externalUrls.personvernerklaering} target="_blank" inlineText>
+    <Link
+      onClick={logOpenLink}
+      href={externalUrls.personvernerklaering}
+      target="_blank"
+      inlineText
+    >
       {chunks}
       <ExternalLinkIcon
         title={intl.formatMessage({ id: 'application.global.external_link' })}
@@ -102,6 +144,7 @@ export const formatMessageValues: Record<string, any> = {
   ),
   navPersonvernerklaeringKontaktOss: (chunks: string) => (
     <Link
+      onClick={logOpenLink}
       href={externalUrls.personvernerklaeringKontaktOss}
       target="_blank"
       inlineText

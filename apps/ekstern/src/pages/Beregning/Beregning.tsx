@@ -28,6 +28,7 @@ import {
   selectCurrentSimulation,
   selectFormatertUttaksalder,
 } from '@/state/userInput/selectors'
+import { logger } from '@/utils/logging'
 
 import styles from './Beregning.module.scss'
 
@@ -125,6 +126,16 @@ export function Beregning() {
     }
   }
 
+  React.useEffect(() => {
+    if (isAlderValgt) {
+      if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
+        logger('alert', { teskt: 'Beregning: Ikke høy nok opptjening' })
+      } else if (isError) {
+        logger('alert', { teskt: 'Beregning: Klarte ikke beregne pensjon' })
+      }
+    }
+  }, [isAlderValgt, isError, alderspensjon])
+
   if (isTidligstMuligUttaksalderLoading) {
     return (
       <Loader
@@ -160,23 +171,18 @@ export function Beregning() {
           <div
             className={`${styles.container} ${styles.container__hasPadding}`}
           >
-            {isError ||
-            isInntektError ||
-            (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
+            {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
               <>
                 <Heading level="2" size="small">
                   <FormattedMessage id="beregning.title" />
                 </Heading>
                 <Alert onRetry={isError ? onRetry : undefined}>
-                  {alderspensjon &&
-                    !alderspensjon?.vilkaarErOppfylt &&
-                    startAar &&
-                    startAar < 67 && (
-                      <FormattedMessage
-                        id="beregning.lav_opptjening"
-                        values={{ startAar }}
-                      />
-                    )}
+                  {startAar && startAar < 67 && (
+                    <FormattedMessage
+                      id="beregning.lav_opptjening"
+                      values={{ startAar }}
+                    />
+                  )}
                   {isError && <FormattedMessage id="beregning.error" />}
                 </Alert>
               </>

@@ -51,6 +51,9 @@ export function Sivilstand({
         tekst: 'Samboer',
         valg: sivilstandData,
       })
+      logger('button klikk', {
+        tekst: 'Neste',
+      })
       onNext(sivilstandData)
     }
   }

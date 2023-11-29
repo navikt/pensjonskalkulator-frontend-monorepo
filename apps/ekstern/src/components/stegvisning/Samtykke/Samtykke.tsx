@@ -44,6 +44,9 @@ export function Samtykke({
         tekst: 'Samtykke',
         valg: samtykkeData,
       })
+      logger('button klikk', {
+        tekst: 'Neste',
+      })
       onNext(samtykkeData)
     }
   }

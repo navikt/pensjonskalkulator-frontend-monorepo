@@ -7,7 +7,7 @@ import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
-import { wrapLogger } from '@/utils/logging'
+import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 import styles from './Start.module.scss'
 
@@ -34,7 +34,13 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           <BodyLong size="large">
             <FormattedMessage id="stegvisning.start.ingress" />
           </BodyLong>
-          <Button type="submit" className={styles.button} onClick={onNext}>
+          <Button
+            type="submit"
+            className={styles.button}
+            onClick={wrapLogger('button klikk', { tekst: 'Kom i gang' })(
+              onNext
+            )}
+          >
             <FormattedMessage id="stegvisning.start.button" />
           </Button>
           <Button
@@ -47,6 +53,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
         </div>
       </div>
       <Link
+        onClick={logOpenLink}
         className={styles.link}
         as={ReactRouterLink}
         to={paths.personopplysninger}

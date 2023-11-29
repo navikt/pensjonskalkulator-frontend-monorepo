@@ -17,6 +17,7 @@ import { BASE_PATH, externalUrls, paths } from '@/router/constants'
 import { LoginContext } from '@/router/loaders'
 
 import styles from './LandingPage.module.scss'
+import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 export const LandingPage = () => {
   const intl = useIntl()
@@ -129,14 +130,18 @@ export const LandingPage = () => {
                 <Button
                   data-testid="landingside-detaljert-kalkulator-button"
                   variant="secondary"
-                  onClick={gaaTilDetaljertKalkulator}
+                  onClick={wrapLogger('button klikk', {
+                    tekst: 'Detaljert kalkulator',
+                  })(gaaTilDetaljertKalkulator)}
                 >
                   {detaljertKalkulatorButtonText}
                 </Button>
                 <Button
                   data-testid="landingside-enkel-kalkulator-button"
                   variant="secondary"
-                  onClick={gaaTilEnkelKalkulator}
+                  onClick={wrapLogger('button klikk', {
+                    tekst: 'Enkel kalkulator',
+                  })(gaaTilEnkelKalkulator)}
                 >
                   {enkelKalkulatorButtonText}
                 </Button>
@@ -164,7 +169,9 @@ export const LandingPage = () => {
                   className={styles.button}
                   data-testid="landingside-uinnlogget-kalkulator-button"
                   variant="secondary"
-                  onClick={gaaTilUinnloggetKalkulator}
+                  onClick={wrapLogger('button klikk', {
+                    tekst: 'Uinnlogget kalkulator',
+                  })(gaaTilUinnloggetKalkulator)}
                 >
                   {intl.formatMessage({
                     id: 'landingsside.button.uinnlogget_kalkulator',
@@ -176,6 +183,7 @@ export const LandingPage = () => {
         )}
       </VStack>
       <Link
+        onClick={logOpenLink}
         className={styles.link}
         as={ReactRouterLink}
         to={paths.personopplysninger}

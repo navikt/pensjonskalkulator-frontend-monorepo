@@ -147,3 +147,7 @@ export const isSomeEnumKey =
   (token: unknown): token is T[keyof T] => {
     return Object.keys(e).includes(token as string)
   }
+
+export const isAnchorTag = (target?: any): target is HTMLAnchorElement => {
+  return target && target?.tagName === 'A' && target?.href
+}

@@ -1,4 +1,5 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent } from 'react'
+import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import {
@@ -27,8 +28,8 @@ interface Props {
 
 export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
-  const [validationError, setValidationError] = useState<string>('')
-  const [showAlert, setShowAlert] = useState<AfpRadio | ''>('')
+  const [validationError, setValidationError] = React.useState<string>('')
+  const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -47,9 +48,24 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
         tekst: 'Rett til AFP',
         valg: afpData,
       })
+      logger('button klikk', {
+        tekst: 'Neste',
+      })
       onNext(afpData)
     }
   }
+
+  React.useEffect(() => {
+    if (showAlert === 'ja_offentlig') {
+      logger('alert', {
+        tekst: 'Rett til AFP: Offentlig sektor',
+      })
+    } else if (showAlert === 'vet_ikke') {
+      logger('alert', {
+        tekst: 'Rett til AFP: Vet ikke',
+      })
+    }
+  }, [showAlert])
 
   const handleRadioChange = (value: AfpRadio): void => {
     setShowAlert(value)
