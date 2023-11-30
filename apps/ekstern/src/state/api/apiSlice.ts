@@ -127,6 +127,19 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getHighchartsAccessibilityPluginFeatureToggle: builder.query<
+      UnleashToggle,
+      void
+    >({
+      query: () =>
+        '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
     getSakStatus: builder.query<SakStatus, void>({
       query: () => '/sak-status',
       transformResponse: (response: any) => {
@@ -148,4 +161,5 @@ export const {
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
+  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
 } = apiSlice

@@ -19,6 +19,7 @@ import HighchartsReact from 'highcharts-react-official'
 
 import { AccordionContext } from '@/components/common/AccordionItem'
 import { TabellVisning } from '@/components/TabellVisning'
+import { useGetHighchartsAccessibilityPluginFeatureToggleQuery } from '@/state/api/apiSlice'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -43,8 +44,6 @@ import {
 import { getChartOptions, onPointUnclick } from './utils-highcharts'
 
 import styles from './Simulering.module.scss'
-
-HighchartsAccessibility(Highcharts)
 
 export function Simulering(props: {
   isLoading: boolean
@@ -71,6 +70,8 @@ export function Simulering(props: {
     toggleOpen: togglePensjonsavtalerAccordionItem,
   } = React.useContext(AccordionContext)
   const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
+  const { data: highchartsAccessibilityFeatureToggle, isSuccess } =
+    useGetHighchartsAccessibilityPluginFeatureToggleQuery()
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
   const [chartOptions, setChartOptions] = React.useState<Highcharts.Options>(
@@ -105,6 +106,13 @@ export function Simulering(props: {
     return () =>
       document.removeEventListener('click', onPointUnclickEventHandler)
   }, [])
+
+  /* c8 ignore next 5 */
+  React.useEffect(() => {
+    if (isSuccess && highchartsAccessibilityFeatureToggle.enabled) {
+      HighchartsAccessibility(Highcharts)
+    }
+  }, [isSuccess])
 
   // Hent pensjonsavtaler
   React.useEffect(() => {
@@ -218,7 +226,9 @@ export function Simulering(props: {
       <Heading level="3" size="medium" visuallyHidden>
         <FormattedMessage id="beregning.highcharts.title" />
       </Heading>
-      <div aria-hidden="true">
+      <div
+        aria-hidden={isSuccess && !highchartsAccessibilityFeatureToggle.enabled}
+      >
         <HighchartsReact
           ref={chartRef}
           highcharts={Highcharts}

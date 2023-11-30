@@ -11,7 +11,8 @@ const tidligsteUttaksalderResponse = require('../../../mocks/data/tidligsteUttak
 const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler/67.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
 const sakStatusResponse = require('../../../mocks/data/sak-status.json')
-const unleashResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
+const spraakvelgerToggleResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
+const highchartsAccessibilityPluginResponse = require('../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json')
 
 // TODO: fikse bedre typing ved dispatch
 describe('apiSlice', () => {
@@ -387,7 +388,7 @@ describe('apiSlice', () => {
         )
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(unleashResponse)
+          expect(result.data).toMatchObject(spraakvelgerToggleResponse)
         })
     })
 
@@ -416,6 +417,61 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch<any>(
             apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate()
+          )
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
+  describe('getHighchartsAccessibilityPluginFeatureToggle', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = setupStore({}, true)
+      return storeRef
+        .dispatch<any>(
+          apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
+        )
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(
+            highchartsAccessibilityPluginResponse
+          )
+        })
+    })
+
+    it('returnerer undefined ved feilende query', async () => {
+      const storeRef = setupStore({}, true)
+      mockErrorResponse(
+        '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin'
+      )
+      return storeRef
+        .dispatch<any>(
+          apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
+        )
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
+    })
+
+    it('kaster feil ved uventet format på responsen', async () => {
+      const storeRef = await setupStore({}, true)
+
+      mockResponse(
+        '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
+        {
+          status: 200,
+          json: { lorem: 'ipsum' },
+        }
+      )
+
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(
+            apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
           )
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)

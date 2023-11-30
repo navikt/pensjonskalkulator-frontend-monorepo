@@ -23,7 +23,12 @@ if (!root) {
 
 if (process.env.NODE_ENV === 'development') {
   const msw = await import('./mocks/browser')
-  await msw.worker.start({ onUnhandledRequest: 'bypass' })
+  await msw.worker.start({
+    serviceWorker: {
+      url: '/pensjon/kalkulator/mockServiceWorker.js',
+    },
+    onUnhandledRequest: 'bypass',
+  })
   msw.worker.listHandlers().forEach((handler) => {
     console.log(handler.info.header)
   })

@@ -36,6 +36,9 @@ export function Step0() {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.step0',
     })
+    dispatch(
+      apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
+    )
   }, [])
 
   React.useEffect(() => {
