@@ -189,7 +189,7 @@ const translations = {
   'tidligsteuttaksalder.help':
     'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.',
   'tidligsteuttaksalder.info_afp':
-    'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til offentlig AFP.',
+    'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til AFP i offentlig sektor.',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
   'beregning.error':

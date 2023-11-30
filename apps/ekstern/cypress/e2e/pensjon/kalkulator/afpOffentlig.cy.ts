@@ -52,7 +52,7 @@ describe('AFP offentlig', () => {
           ).should('exist')
           cy.contains('62 år og 10 måneder').should('exist')
           cy.contains(
-            'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til offentlig AFP.'
+            'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til AFP i offentlig sektor.'
           ).should('exist')
         })
       })
