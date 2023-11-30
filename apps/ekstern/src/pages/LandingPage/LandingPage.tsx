@@ -15,9 +15,9 @@ import {
 
 import { BASE_PATH, externalUrls, paths } from '@/router/constants'
 import { LoginContext } from '@/router/loaders'
+import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 import styles from './LandingPage.module.scss'
-import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 export const LandingPage = () => {
   const intl = useIntl()
