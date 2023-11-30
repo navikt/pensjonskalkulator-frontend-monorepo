@@ -50,7 +50,7 @@ export function Beregning() {
   }
 
   const { data: person } = useGetPersonQuery()
-  const { data: inntekt, isError: isInntektError } = useGetInntektQuery()
+  const { data: inntekt } = useGetInntektQuery()
   const afp = useAppSelector(selectAfp)
   const { startAar, startMaaned, uttaksgrad } = useAppSelector(
     selectCurrentSimulation
