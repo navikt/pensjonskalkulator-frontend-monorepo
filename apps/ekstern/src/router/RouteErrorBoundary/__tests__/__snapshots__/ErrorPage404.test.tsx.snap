@@ -1,0 +1,128 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
+<DocumentFragment>
+  <div
+    class="_main_55ef1a"
+  >
+    <div
+      class="_content_55ef1a _content__isFramed_55ef1a"
+    >
+      <div
+        class="_headerGroup_55ef1a"
+      >
+        <div
+          class="_headerGroupTitle_55ef1a _headerGroupTitle__isFramed_55ef1a"
+        >
+          <h1
+            class="navds-heading navds-heading--large"
+          >
+            pageframework.title
+          </h1>
+        </div>
+      </div>
+      <section
+        class="_section_67454f _section__largePadding_67454f"
+        data-testid="error-page-404"
+      >
+        <h2
+          class="navds-heading navds-heading--medium navds-typo--spacing"
+        >
+          error.404.title
+        </h2>
+        <div
+          class="navds-list navds-list--medium"
+        >
+          <ul>
+            <li
+              class="navds-list__item"
+            >
+              <div
+                class="navds-list__item-marker--bullet"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  focusable="false"
+                  height="6"
+                  role="img"
+                  viewBox="0 0 6 6"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    fill="currentColor"
+                    height="6"
+                    rx="3"
+                    width="6"
+                  />
+                </svg>
+              </div>
+              <div
+                class="navds-list__item-content navds-body-short navds-body-short--medium"
+              >
+                <p
+                  class="navds-body-long navds-body-long--medium"
+                >
+                  error.404.list_item1
+                </p>
+              </div>
+            </li>
+            <li
+              class="navds-list__item"
+            >
+              <div
+                class="navds-list__item-marker--bullet"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  focusable="false"
+                  height="6"
+                  role="img"
+                  viewBox="0 0 6 6"
+                  width="6"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    fill="currentColor"
+                    height="6"
+                    rx="3"
+                    width="6"
+                  />
+                </svg>
+              </div>
+              <div
+                class="navds-list__item-content navds-body-short navds-body-short--medium"
+              >
+                <p
+                  class="navds-body-long navds-body-long--medium"
+                >
+                  error.404.list_item2
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div
+          class="navds-stack navds-vstack"
+          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column;"
+        >
+          <a
+            class="navds-link navds-link--action"
+            href="/login"
+          >
+            error.404.button.link_1
+          </a>
+          <a
+            class="navds-link navds-link--action"
+            href="https://nav.no/pensjon"
+          >
+            error.404.button.link_2
+          </a>
+        </div>
+      </section>
+    </div>
+  </div>
+</DocumentFragment>
+`;

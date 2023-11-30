@@ -1,0 +1,282 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.gitignore'
+      - 'CODEOWNERS'
+      - 'LICENSE.md'
+      - 'README.md'
+  workflow_dispatch:
+    inputs:
+      prod:
+        description: Deploy to production
+        type: boolean
+        required: false
+
+jobs:
+  build:
+    name: Build application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v20.9.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.9.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Fetch openapi backend types
+        run: npx openapi-typescript ${{ github.event.inputs.prod == 'true' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/api' || 'https://www.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/api' }} -o ./src/types/schema.d.ts
+
+      - name: Fetch openapi backend types
+        run: npm run format:types
+
+      - name: Rebuild node-sass
+        run: npm rebuild node-sass
+
+      - name: Build staging application
+        if: github.event.inputs.prod != 'true'
+        run: npm run build
+
+      - name: Build production application
+        if: github.event.inputs.prod == 'true'
+        run: npm run build:production
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
+          if-no-files-found: error
+          retention-days: 1
+
+  run-unit-tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v20.9.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.9.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Rebuild node-sass
+        run: npm rebuild node-sass
+
+      - name: Run unit tests
+        run: npm run test
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage
+
+  run-integration-tests:
+    name: Run integration tests
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      fail-fast: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v20.9.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.9.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Cache Cypress binary
+        id: cache-cypress
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Install cypress
+        if: |
+          steps.cache-cypress.outputs.cache-hit != 'true' &&
+          github.event.inputs.prod != 'true'
+        run: npx cypress install
+        
+      - name: Rebuild node-sass
+        run: npm rebuild node-sass
+
+      - name: Run integration tests on staging application
+        if: github.event.inputs.prod  != 'true'
+        run: npm run cy:test
+
+      - name: Run integration tests on production application
+        if: github.event.inputs.prod  == 'true'
+        run: npm run cy:test:production
+
+      - name: Archive Cypress artifacts
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: videos
+          path: cypress/videos
+
+  deploy-dev:
+    name: Deploy to dev-gcp
+    needs: [run-unit-tests, run-integration-tests]
+    permissions: write-all
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch'
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend:${{ github.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Build Docker image dev-gcp
+        run: |
+          docker build -f .docker/Dockerfile -t ${IMAGE} .
+
+      - name: Log in to the container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: .docker/Dockerfile
+          push: true
+          tags: ${{ env.IMAGE }}
+
+      - name: Deploy to dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/deploy-dev.yml
+
+      - name: Deploy veiledning to dev-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/deploy-veiledning-dev.yml
+
+  deploy-prod:
+    name: Deploy to prod-gcp
+    needs: [run-unit-tests, run-integration-tests]
+    permissions: write-all
+    runs-on: ubuntu-latest
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.prod == 'true'
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend:${{ github.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download the build folders
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+
+      - name: Build Docker image prod-gcp
+        run: |
+          docker build -f .docker/Dockerfile -t ${IMAGE} .
+
+      - name: Log in to the container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: .docker/Dockerfile
+          push: true
+          tags: ${{ env.IMAGE }}
+
+      - name: Deploy to prod-gcp
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/deploy-prod.yml

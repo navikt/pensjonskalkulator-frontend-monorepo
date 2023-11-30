@@ -15,12 +15,13 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["cypress", "cypress-axe"],
+    "types": ["node", "vite/client", "vitest/globals"],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "api/server.cjs", "cypress", "cypress.config.ts"],
+  "include": ["src", "api/server.cjs"],
+  "exclude": ["cypress", "src/nais.js"],
   "references": [
     {
       "path": "./tsconfig.node.json"

@@ -1,0 +1,74 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Step 3 - utils > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
+Response {
+  "size": 0,
+  "timeout": 0,
+  Symbol(Body internals): {
+    "body": null,
+    "disturbed": false,
+    "error": null,
+  },
+  Symbol(Response internals): {
+    "counter": undefined,
+    "headers": Headers {
+      Symbol(map): {
+        "Location": [
+          "/afp",
+        ],
+      },
+    },
+    "status": 302,
+    "statusText": "Found",
+    "url": undefined,
+  },
+}
+`;
+
+exports[`Step 3 - utils > kaller redirect til /start location når samtykke er null 1`] = `
+Response {
+  "size": 0,
+  "timeout": 0,
+  Symbol(Body internals): {
+    "body": null,
+    "disturbed": false,
+    "error": null,
+  },
+  Symbol(Response internals): {
+    "counter": undefined,
+    "headers": Headers {
+      Symbol(map): {
+        "Location": [
+          "/start",
+        ],
+      },
+    },
+    "status": 302,
+    "statusText": "Found",
+    "url": undefined,
+  },
+}
+`;
+
+exports[`Step 3 - utils > kaller tp-registret når samtykke er oppgitt til true 1`] = `
+DeferredData {
+  "abortPromise": Promise {},
+  "controller": AbortController {
+    Symbol(SameObject caches): {
+      "signal": AbortSignal {},
+    },
+  },
+  "data": {
+    "getTpoMedlemskapQuery": Promise {},
+  },
+  "deferredKeys": [
+    "getTpoMedlemskapQuery",
+  ],
+  "init": {},
+  "pendingKeysSet": Set {
+    "getTpoMedlemskapQuery",
+  },
+  "subscribers": Set {},
+  "unlistenAbortSignal": [Function],
+}
+`;

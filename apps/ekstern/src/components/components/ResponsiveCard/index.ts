@@ -1,1 +1,0 @@
-export { ResponsiveCard } from './ResponsiveCard'

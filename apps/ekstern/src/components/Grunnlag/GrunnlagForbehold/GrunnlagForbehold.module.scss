@@ -1,0 +1,17 @@
+@import '../../../scss/variables';
+
+.section {
+  margin-bottom: var(--a-spacing-12);
+
+  @media (min-width: $a-breakpoint-lg) {
+    max-width: $container-max-width;
+  }
+}
+
+.heading {
+  margin-bottom: var(--a-spacing-2);
+}
+
+.text {
+  margin-bottom: var(--a-spacing-2);
+}

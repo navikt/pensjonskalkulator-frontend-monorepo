@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`store > returnerer store med riktig slices og default state 1`] = `
 {
@@ -21,12 +21,15 @@ exports[`store > returnerer store med riktig slices og default state 1`] = `
   "userInput": {
     "afp": null,
     "currentSimulation": {
-      "inntekt": null,
-      "uttaksalder": null,
-      "uttaksgrad": null,
+      "aarligInntekt": 0,
+      "startAar": null,
+      "startMaaned": null,
+      "uttaksgrad": 100,
     },
+    "formatertUttaksalder": null,
     "samboer": null,
     "samtykke": null,
+    "utenlandsopphold": null,
   },
 }
 `;

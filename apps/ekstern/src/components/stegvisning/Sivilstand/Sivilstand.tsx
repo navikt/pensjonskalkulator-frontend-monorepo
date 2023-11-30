@@ -1,13 +1,16 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Ingress, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/common/Card'
+import { logger, wrapLogger } from '@/utils/logging'
+import { formatSivilstand } from '@/utils/sivilstand'
 
 import styles from './Sivilstand.module.scss'
 
 interface Props {
+  sivilstand: Sivilstand
   harSamboer: boolean | null
   onCancel: () => void
   onPrevious: () => void
@@ -17,20 +20,25 @@ interface Props {
 export type SivilstandRadio = 'ja' | 'nei'
 
 export function Sivilstand({
+  sivilstand,
   harSamboer,
   onCancel,
   onPrevious,
   onNext,
 }: Props) {
   const intl = useIntl()
-
   const [validationError, setValidationError] = useState<string>('')
+
+  const formatertSivilstand = useMemo(
+    () => formatSivilstand(intl, sivilstand).toLowerCase(),
+    [sivilstand]
+  )
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const sivilstandData = data.get('sivilstand')
+    const sivilstandData = data.get('sivilstand') as SivilstandRadio | undefined
 
     if (!sivilstandData) {
       setValidationError(
@@ -39,7 +47,14 @@ export function Sivilstand({
         })
       )
     } else {
-      onNext(sivilstandData as SivilstandRadio)
+      logger('radiogroup valgt', {
+        tekst: 'Samboer',
+        valg: sivilstandData,
+      })
+      logger('button klikk', {
+        tekst: 'Neste',
+      })
+      onNext(sivilstandData)
     }
   }
 
@@ -48,15 +63,16 @@ export function Sivilstand({
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
-        <Heading size="large" level="2" spacing>
+    <Card hasLargePadding hasMargin>
+      <form onSubmit={onSubmit}>
+        <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.sivilstand.title" />
         </Heading>
-        <Ingress className={styles.ingress}>
-          <FormattedMessage id="stegvisning.sivilstand.ingress" />
-        </Ingress>
-
+        <BodyLong size="large" className={styles.ingress}>
+          <FormattedMessage id="stegvisning.sivilstand.ingress_1" />
+          {formatertSivilstand}
+          <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
+        </BodyLong>
         <RadioGroup
           legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
           name="sivilstand"
@@ -64,6 +80,7 @@ export function Sivilstand({
           defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
           onChange={handleRadioChange}
           error={validationError}
+          role="radiogroup"
           aria-required="true"
         >
           <Radio value="ja">
@@ -73,7 +90,6 @@ export function Sivilstand({
             <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
           </Radio>
         </RadioGroup>
-
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.beregn" />
         </Button>
@@ -81,7 +97,7 @@ export function Sivilstand({
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={onPrevious}
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
@@ -89,11 +105,11 @@ export function Sivilstand({
           type="button"
           className={styles.button}
           variant="tertiary"
-          onClick={onCancel}
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </ResponsiveCard>
-    </form>
+      </form>
+    </Card>
   )
 }

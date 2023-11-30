@@ -1,16 +1,11 @@
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import {
-  Ingress,
-  Button,
-  Heading,
-  Radio,
-  RadioGroup,
-  ReadMore,
-} from '@navikt/ds-react'
+import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/common/Card'
+import { ReadMore } from '@/components/common/ReadMore/ReadMore'
+import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './Samtykke.module.scss'
 
@@ -30,14 +25,13 @@ export function Samtykke({
   onNext,
 }: Props) {
   const intl = useIntl()
-
   const [validationError, setValidationError] = useState<string>('')
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const samtykkeData = data.get('samtykke')
+    const samtykkeData = data.get('samtykke') as SamtykkeRadio | undefined
 
     if (!samtykkeData) {
       setValidationError(
@@ -46,7 +40,14 @@ export function Samtykke({
         })
       )
     } else {
-      onNext(samtykkeData as SamtykkeRadio)
+      logger('radiogroup valgt', {
+        tekst: 'Samtykke',
+        valg: samtykkeData,
+      })
+      logger('button klikk', {
+        tekst: 'Neste',
+      })
+      onNext(samtykkeData)
     }
   }
 
@@ -55,21 +56,19 @@ export function Samtykke({
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
-        <Heading size="large" level="2" spacing>
+    <Card hasLargePadding hasMargin>
+      <form onSubmit={onSubmit}>
+        <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.samtykke.title" />
         </Heading>
-        <Ingress>
+        <BodyLong size="large">
           <FormattedMessage id="stegvisning.samtykke.ingress" />
-        </Ingress>
+        </BodyLong>
         <ReadMore
+          name="Disse opplysningene henter vi"
           className={styles.readmore}
           header={<FormattedMessage id="stegvisning.samtykke.readmore_title" />}
         >
-          <FormattedMessage id="stegvisning.samtykke.readmore_ingress" />
-          <br />
-          <br />
           <FormattedMessage id="stegvisning.samtykke.readmore_list_title" />
           <ul className={styles.list}>
             <li>
@@ -82,6 +81,8 @@ export function Samtykke({
               <FormattedMessage id="stegvisning.samtykke.readmore_list_item3" />
             </li>
           </ul>
+
+          <FormattedMessage id="stegvisning.samtykke.readmore_ingress" />
         </ReadMore>
 
         <RadioGroup
@@ -93,6 +94,7 @@ export function Samtykke({
           }
           onChange={handleRadioChange}
           error={validationError}
+          role="radiogroup"
           aria-required="true"
         >
           <Radio value="ja">
@@ -110,7 +112,7 @@ export function Samtykke({
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={onPrevious}
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
@@ -118,11 +120,11 @@ export function Samtykke({
           type="button"
           className={styles.button}
           variant="tertiary"
-          onClick={onCancel}
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </ResponsiveCard>
-    </form>
+      </form>
+    </Card>
   )
 }

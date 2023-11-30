@@ -1,57 +1,48 @@
-declare type Uttaksalder = {
-  aar: number
-  maaned: number
-  uttaksdato: string
-}
+import { components } from './schema'
 
-declare type Pensjonsberegning = {
-  belop: number
-  alder: number
-}
+declare global {
+  type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
+  type Alder = components['schemas']['Alder']
+  type UnleashToggle = components['schemas']['EnablementDto']
 
-declare type Pensjonsavtale = {
-  produktbetegnelse: string
-  kategori: PensjonsavtaleKategori
-  startAlder: number
-  startMaaned: number
-  utbetalingsperiode: {
-    startAlder: number
-    startMaaned: number
-    sluttAlder?: number
-    sluttMaaned?: number
-    aarligUtbetaling: number
-    grad: number
+  // /person
+  type Person = components['schemas']['ApiPersonDto']
+  type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
+  type UtvidetSivilstand = Sivilstand | 'SAMBOER'
+
+  // /inntekt
+  type Inntekt = components['schemas']['InntektDto']
+
+  // /sak-status
+  type SakStatus = components['schemas']['SakDto']
+
+  // /tpo-medlemskap
+  type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
+
+  // /tidligste-uttaksalder
+  type TidligsteUttaksalderRequestBody =
+    components['schemas']['UttaksalderIngressSpecDto']
+
+  // /pensjonsavtaler
+  type PensjonsavtalerRequestBody =
+    components['schemas']['PensjonsavtaleIngressSpecDto']
+  type PensjonsavtalerResponseBody = components['schemas']['PensjonsavtalerDto']
+  type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeDto']
+  type Pensjonsavtale = components['schemas']['PensjonsavtaleDto'] & {
+    key?: number
   }
-}
+  type PensjonsavtaleKategori =
+    components['schemas']['PensjonsavtaleDto']['kategori']
+  type UtilgjengeligeSelskap = components['schemas']['SelskapDto']
 
-declare type UtilgjengeligeSelskap = {
-  navn: string
-  heltUtilgjengelig: boolean
-}
-
-declare type Sivilstand =
-  | 'UOPPGITT'
-  | 'UGIFT'
-  | 'GIFT'
-  | 'ENKE_ELLER_ENKEMANN'
-  | 'SKILT'
-  | 'SEPARERT'
-  | 'REGISTRERT_PARTNER'
-  | 'SEPARERT_PARTNER'
-  | 'SKILT_PARTNER'
-  | 'GJENLEVENDE_PARTNER'
-
-declare type Step = '0' | '1' | '2' | '3'
-
-declare type Person = {
-  fornavn: string
-  sivilstand: Sivilstand
-}
-
-declare type TpoMedlemskap = {
-  harTjenestepensjonsforhold: boolean
-}
-
-declare type UnleashToggle = {
-  enabled: boolean
+  // / alderspensjon
+  type AlderspensjonRequestBody = components['schemas']['SimuleringSpecDto']
+  type AlderspensjonResponseBody =
+    components['schemas']['SimuleringsresultatDto']
+  type Simuleringstype =
+    components['schemas']['SimuleringSpecDto']['simuleringstype']
+  type Pensjonsberegning = {
+    beloep: number
+    alder: number
+  }
 }

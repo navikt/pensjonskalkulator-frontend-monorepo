@@ -1,89 +1,68 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 
-import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
-import { Button, Chips, Heading } from '@navikt/ds-react'
+import { Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { getFormaterteAldere } from './utils'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
+import { logger } from '@/utils/logging'
+
+import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
 
 import styles from './VelgUttaksalder.module.scss'
 
 interface Props {
-  tidligstMuligUttak: Uttaksalder
-  valgtUttaksalder?: string
-  setValgtUttaksalder: (alder: string) => void
-  defaultAntallSynligeAldere?: number
-  visFlereAldereLabelClose?: string
-  visFlereAldereLabelOpen?: string
+  tidligstMuligUttak?: Alder
 }
 
 export const VelgUttaksalder: React.FC<Props> = ({
-  tidligstMuligUttak,
-  valgtUttaksalder,
-  setValgtUttaksalder,
-  defaultAntallSynligeAldere = 9,
-  visFlereAldereLabelClose = 'Vis flere aldere',
-  visFlereAldereLabelOpen = 'Vis færre aldere',
+  tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
 }) => {
-  const pinRef = useRef<HTMLDivElement>(null)
-  const formaterteAldere = useMemo(
-    () => getFormaterteAldere(tidligstMuligUttak),
+  const intl = useIntl()
+  const dispatch = useAppDispatch()
+  const pinRef = React.useRef<HTMLDivElement>(null)
+  const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
+
+  const formaterteAldere = React.useMemo(
+    () => getFormaterteAldere(intl, tidligstMuligUttak),
     [tidligstMuligUttak]
   )
-  const [isFlereAldereOpen, setIsFlereAldereOpen] = useState<boolean>(false)
 
-  const onAlderClick = (alderChip: string) => {
-    setValgtUttaksalder(alderChip)
+  const onAlderClick = (alder: string) => {
+    logger('chip valgt', {
+      tekst: 'Velg uttaksalder alder',
+      data: alder,
+    })
+    dispatch(userInputActions.setFormatertUttaksalder(alder))
     pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (
     <div className={styles.wrapper}>
-      <span ref={pinRef} className={styles.pin}></span>
-      <Heading size="xsmall" level="2">
-        Når vil du ta ut alderspensjon?
-      </Heading>
-      <Chips className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}>
-        {formaterteAldere
-          .slice(
-            0,
-            isFlereAldereOpen
-              ? formaterteAldere.length
-              : defaultAntallSynligeAldere
-          )
-          .map((alderChip) => (
-            <Chips.Toggle
-              selected={valgtUttaksalder === alderChip}
-              checkmark={false}
-              key={alderChip}
-              onClick={() => onAlderClick(alderChip)}
-            >
-              {alderChip}
-            </Chips.Toggle>
-          ))}
-      </Chips>
-      {formaterteAldere.length > defaultAntallSynligeAldere && (
-        <Button
-          className={styles.visFlereAldere}
-          icon={
-            isFlereAldereOpen ? (
-              <ChevronUpIcon aria-hidden />
-            ) : (
-              <ChevronDownIcon aria-hidden />
-            )
-          }
-          iconPosition="left"
-          size="xsmall"
-          variant="tertiary"
-          onClick={() => {
-            setIsFlereAldereOpen((prevState) => !prevState)
-          }}
+      <div className={styles.wrapperCard}>
+        <span ref={pinRef} className={styles.pin}></span>
+        <Heading size="xsmall" level="2">
+          <FormattedMessage id="velguttaksalder.title" />
+        </Heading>
+        <Chips
+          className={clsx(styles.chipsWrapper, styles.chipsWrapper__hasGap)}
         >
-          {isFlereAldereOpen
-            ? visFlereAldereLabelOpen
-            : visFlereAldereLabelClose}
-        </Button>
-      )}
+          {formaterteAldere
+            .slice(0, formaterteAldere.length)
+            .map((alderChip) => (
+              <Chips.Toggle
+                selected={formatertUttaksalder === alderChip}
+                checkmark={false}
+                key={alderChip}
+                onClick={() => onAlderClick(alderChip)}
+              >
+                {alderChip}
+              </Chips.Toggle>
+            ))}
+        </Chips>
+      </div>
     </div>
   )
 }

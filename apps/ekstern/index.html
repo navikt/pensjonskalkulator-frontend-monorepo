@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nb">
   <head>
     <meta charset="UTF-8" />
@@ -11,17 +11,18 @@
       crossorigin
     />
     <link href="%VITE_DECORATOR_URL%/css/client.css" rel="stylesheet" />
-    <title>Pensjonskalkulator - Frontend DEV</title>
+    <title>Pensjonskalkulator - Pensjon</title>
     <style>
       #root {
-        background-color: var(--a-gray-200);
-        min-height: 65vh;
+        min-height: 55vh;
       }
     </style>
   </head>
   <body>
     <div id="decorator-header"></div>
-    <div id="root"></div>
+    <main id="maincontent" tabindex="-1">
+      <div id="root"></div>
+    </main>
     <div id="decorator-footer"></div>
     <div
       id="decorator-env"

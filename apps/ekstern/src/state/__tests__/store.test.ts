@@ -12,13 +12,16 @@ describe('store', () => {
 
   it('returnerer store med riktig state når setupStore kalles med parameter', () => {
     const state: UserInputState = {
+      utenlandsopphold: true,
       samtykke: true,
       afp: null,
       samboer: null,
+      formatertUttaksalder: null,
       currentSimulation: {
-        inntekt: 500000,
-        uttaksalder: null,
-        uttaksgrad: null,
+        startAar: null,
+        startMaaned: null,
+        aarligInntekt: 500000,
+        uttaksgrad: 0,
       },
     }
 

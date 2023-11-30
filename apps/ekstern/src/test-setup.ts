@@ -1,14 +1,11 @@
 import '@testing-library/jest-dom'
-import { fetch, Headers, Request, Response } from 'cross-fetch'
 import { useSerialIds } from 'highcharts'
 import { vi } from 'vitest'
 
-import { server } from '@/mocks/server'
+import { mockResponse, server } from '@/mocks/server'
 
-global.fetch = fetch
-global.Request = Request
-global.Response = Response
-global.Headers = Headers
+import { HOST_BASEURL } from './paths'
+
 global.scrollTo = () => vi.fn()
 
 window.matchMedia =
@@ -29,13 +26,37 @@ window.ResizeObserver =
     unobserve: vi.fn(),
   }))
 
+Object.defineProperty(window.document, 'cookie', {
+  writable: true,
+  value: 'decorator-language=nb',
+})
+
 window.HTMLElement.prototype.scrollIntoView = vi.fn()
 
-beforeAll(() => {
+vi.mock(
+  '@navikt/nav-dekoratoren-moduler',
+  async (): Promise<typeof import('@navikt/nav-dekoratoren-moduler')> => {
+    const mod = await vi.importActual<{
+      default: typeof import('@navikt/nav-dekoratoren-moduler')
+    }>('@navikt/nav-dekoratoren-moduler')
+
+    return {
+      ...mod.default,
+      getAmplitudeInstance: () => vi.fn(),
+    }
+  }
+)
+
+beforeAll(async () => {
   server.listen({ onUnhandledRequest: 'error' })
   if (process.env.NODE_ENV === 'test') {
     useSerialIds(true)
   }
 })
-afterAll(() => server.close())
+beforeEach(() => {
+  mockResponse('/oauth2/session', {
+    baseUrl: `${HOST_BASEURL}`,
+  })
+})
 afterEach(() => server.resetHandlers())
+afterAll(() => server.close())

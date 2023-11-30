@@ -1,18 +1,18 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er oppgitt 1`] = `
 <DocumentFragment>
-  <form>
-    <section
-      class="_section_645946 _section__largePadding_645946"
-    >
+  <section
+    class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
+  >
+    <form>
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="navds-heading navds-heading--medium navds-typo--spacing"
       >
         stegvisning.samtykke.title
       </h2>
       <p
-        class="navds-ingress"
+        class="navds-body-long navds-body-long--large"
       >
         stegvisning.samtykke.ingress
       </p>
@@ -22,6 +22,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         <button
           aria-expanded="false"
           class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
           type="button"
         >
           <svg
@@ -48,11 +49,8 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         </button>
         <div
           aria-hidden="true"
-          class="navds-read-more__content navds-read-more__content--closed navds-body-long"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         >
-          stegvisning.samtykke.readmore_ingress
-          <br />
-          <br />
           stegvisning.samtykke.readmore_list_title
           <ul
             class="_list_5b4738"
@@ -67,11 +65,13 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
               stegvisning.samtykke.readmore_list_item3
             </li>
           </ul>
+          stegvisning.samtykke.readmore_ingress
         </div>
       </div>
       <fieldset
         aria-required="true"
         class="_radiogroup_5b4738 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        role="radiogroup"
       >
         <legend
           class="navds-fieldset__legend navds-label"
@@ -99,7 +99,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.samtykke.radio_ja
                 </span>
@@ -124,7 +124,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.samtykke.radio_nei
                 </span>
@@ -144,7 +144,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="submit"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.neste
@@ -155,7 +154,6 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.tilbake
@@ -166,13 +164,12 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.avbryt
         </span>
       </button>
-    </section>
-  </form>
+    </form>
+  </section>
 </DocumentFragment>
 `;

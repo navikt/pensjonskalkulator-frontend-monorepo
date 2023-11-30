@@ -1,31 +1,28 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
 <DocumentFragment>
   <section
-    class="_section_645946 _section__largePadding_645946"
+    class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
   >
     <h2
-      class="navds-heading navds-heading--large navds-typo--spacing"
+      class="navds-heading navds-heading--medium navds-typo--spacing"
     >
       stegvisning.offentligtp.title
     </h2>
     <p
-      class="navds-body-long navds-typo--spacing"
+      class="navds-body-long navds-body-long--medium"
     >
-      stegvisning.offentligtp.ingress_1
-    </p>
-    <p
-      class="_lastIngress_f5c4aa navds-body-long"
-    >
-      stegvisning.offentligtp.ingress_2
+      Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn tjenestepensjonen din. Du kan sjekke dine avtaler hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).
+      <br />
+      <br />
+      Gå videre for å beregne alderspensjon fra NAV og se pensjonsavtaler i privat sektor.
     </p>
     <button
       class="_button_f5c4aa navds-button navds-button--primary navds-button--medium"
       type="submit"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.neste
@@ -36,7 +33,6 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       type="button"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.tilbake
@@ -47,7 +43,6 @@ exports[`stegvisning - OffentligTP > rendrer slik den skal 1`] = `
       type="button"
     >
       <span
-        aria-live="polite"
         class="navds-label"
       >
         stegvisning.avbryt

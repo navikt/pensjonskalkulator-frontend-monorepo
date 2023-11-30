@@ -1,31 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { AfpRadio } from '@/components/stegvisning/AFP'
-
 export interface Simulation {
-  inntekt?: number | null
-  uttaksalder?: number | null
+  startAar: number | null
+  startMaaned: number | null
   uttaksgrad?: number | null
-  something?: string
-  somethingElse?: string
-  hasSomething?: boolean
+  aarligInntekt: number | null
 }
 
 export interface UserInputState {
+  utenlandsopphold: boolean | null
   samtykke: boolean | null
   afp: AfpRadio | null
   samboer: boolean | null
-  currentSimulation?: Simulation
+  formatertUttaksalder: string | null
+  currentSimulation: Simulation
 }
 
 export const userInputInitialState: UserInputState = {
+  utenlandsopphold: null,
   samtykke: null,
   afp: null,
   samboer: null,
+  formatertUttaksalder: null,
   currentSimulation: {
-    inntekt: null,
-    uttaksalder: null,
-    uttaksgrad: null,
+    startAar: null,
+    startMaaned: null,
+    uttaksgrad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
+    aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon
   },
 }
 
@@ -33,6 +34,9 @@ export const userInputSlice = createSlice({
   name: 'userInputSlice',
   initialState: userInputInitialState,
   reducers: {
+    setUtenlandsopphold: (state, action: PayloadAction<boolean>) => {
+      state.utenlandsopphold = action.payload
+    },
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
     },
@@ -42,16 +46,29 @@ export const userInputSlice = createSlice({
     setSamboer: (state, action: PayloadAction<boolean>) => {
       state.samboer = action.payload
     },
+    setFormatertUttaksalder: (state, action: PayloadAction<string>) => {
+      state.formatertUttaksalder = action.payload
+    },
+    updateCurrentSimulation: (
+      state,
+      action: PayloadAction<{
+        startAar?: number
+        startMaaned?: number
+      }>
+    ) => {
+      state.currentSimulation = {
+        ...state.currentSimulation,
+        ...action.payload,
+      }
+    },
     flush: (state) => {
+      state.utenlandsopphold = null
       state.samtykke = null
       state.afp = null
       state.samboer = null
-    },
-    setSomething: (state, action: PayloadAction<string>) => {
-      state.currentSimulation = {
-        ...state.currentSimulation,
-        something: action.payload,
-      }
+      state.formatertUttaksalder = null
+      state.currentSimulation.startAar = null
+      state.currentSimulation.startMaaned = null
     },
   },
 })

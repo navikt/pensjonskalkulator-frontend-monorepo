@@ -3,7 +3,9 @@ import { FormattedMessage } from 'react-intl'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/common/Card'
+import { wrapLogger } from '@/utils/logging'
+import { formatMessageValues } from '@/utils/translations'
 
 import styles from './OffentligTP.module.scss'
 
@@ -27,25 +29,30 @@ export function OffentligTP({
   }, [shouldJumpOverStep])
 
   return (
-    <ResponsiveCard hasLargePadding>
-      <Heading size="large" level="2" spacing>
+    <Card hasLargePadding hasMargin>
+      <Heading level="2" size="medium" spacing>
         <FormattedMessage id="stegvisning.offentligtp.title" />
       </Heading>
-      <BodyLong spacing>
-        <FormattedMessage id="stegvisning.offentligtp.ingress_1" />
+      <BodyLong>
+        <FormattedMessage
+          id="stegvisning.offentligtp.ingress"
+          values={{
+            ...formatMessageValues,
+          }}
+        />
       </BodyLong>
-      <BodyLong className={styles.lastIngress}>
-        <FormattedMessage id="stegvisning.offentligtp.ingress_2" />
-      </BodyLong>
-
-      <Button type="submit" className={styles.button} onClick={onNext}>
+      <Button
+        type="submit"
+        className={styles.button}
+        onClick={wrapLogger('button klikk', { tekst: 'Neste' })(onNext)}
+      >
         <FormattedMessage id="stegvisning.neste" />
       </Button>
       <Button
         type="button"
         className={styles.button}
         variant="secondary"
-        onClick={onPrevious}
+        onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
       >
         <FormattedMessage id="stegvisning.tilbake" />
       </Button>
@@ -53,10 +60,10 @@ export function OffentligTP({
         type="button"
         className={styles.button}
         variant="tertiary"
-        onClick={onCancel}
+        onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
       >
         <FormattedMessage id="stegvisning.avbryt" />
       </Button>
-    </ResponsiveCard>
+    </Card>
   )
 }

@@ -1,0 +1,8 @@
+@import '../../../scss/variables';
+
+.loader {
+  &__isCentered {
+    display: block;
+    margin: var(--a-spacing-6) auto;
+  }
+}

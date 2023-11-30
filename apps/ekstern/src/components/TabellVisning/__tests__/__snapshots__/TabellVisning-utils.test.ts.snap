@@ -1,200 +1,200 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med riktig struktur og detaljer når begge arrayeme haer data 1`] = `
 [
   {
-    "alder": "62 år",
+    "alder": "62 alder.aar",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 100000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 150000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 180000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 200000,
       },
     ],
     "sum": 630000,
   },
   {
-    "alder": "63 år",
+    "alder": "63 alder.aar",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 175000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 200000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 250000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 350000,
       },
     ],
     "sum": 975000,
   },
   {
-    "alder": "64 år",
+    "alder": "64 alder.aar",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
     "sum": 1350000,
   },
   {
-    "alder": "65 år",
+    "alder": "65 alder.aar",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
     "sum": 1350000,
   },
   {
-    "alder": "66 år",
+    "alder": "66 alder.aar",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
     "sum": 1350000,
   },
   {
-    "alder": "67 år",
+    "alder": "67 alder.aar",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
     "sum": 1350000,
   },
   {
-    "alder": "68 år",
+    "alder": "68 alder.aar",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
     "sum": 1350000,
   },
   {
-    "alder": "68 år",
+    "alder": "68 alder.aar",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
     "sum": 1350000,
   },
   {
-    "alder": "70+ (livsvarig)",
+    "alder": "70+ alder.aar_livsvarig",
     "detaljer": [
       {
-        "name": "Inntekt (lønn m.m.)",
+        "name": "beregning.highcharts.serie.inntekt.name",
         "subSum": 220000,
       },
       {
-        "name": "Avtalefestet pensjon (AFP)",
+        "name": "beregning.highcharts.serie.afp.name",
         "subSum": 350000,
       },
       {
-        "name": "Pensjonsavtaler (arbeidsgiver)",
+        "name": "beregning.highcharts.serie.tp.name",
         "subSum": 380000,
       },
       {
-        "name": "Alderspensjon (NAV)",
+        "name": "beregning.highcharts.serie.alderspensjon.name",
         "subSum": 400000,
       },
     ],
@@ -206,47 +206,47 @@ exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med
 exports[`TabellVisning-utils > formatSeriesToTableData > returnerer et array med riktig struktur og headere når alder array ikke er tomt 1`] = `
 [
   {
-    "alder": "62 år",
+    "alder": "62 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "63 år",
+    "alder": "63 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "64 år",
+    "alder": "64 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "65 år",
+    "alder": "65 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "66 år",
+    "alder": "66 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "67 år",
+    "alder": "67 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "68 år",
+    "alder": "68 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "68 år",
+    "alder": "68 alder.aar",
     "detaljer": [],
     "sum": 0,
   },
   {
-    "alder": "70+ (livsvarig)",
+    "alder": "70+ alder.aar_livsvarig",
     "detaljer": [],
     "sum": 0,
   },

@@ -1,5 +1,25 @@
 @import '../../scss/variables';
 
+.visTabell {
+  width: 100%;
+
+  button {
+    margin: 0 auto;
+
+    @media (min-width: $a-breakpoint-md) {
+      margin: 0;
+    }
+  }
+
+  :global {
+    .navds-read-more__content {
+      border-left: 0;
+      margin-left: 0;
+      padding-left: 0;
+    }
+  }
+}
+
 .table {
   :global {
     .navds-table__expanded-row-content {
@@ -8,6 +28,22 @@
 
     .navds-table__expandable-row--open td:last-child {
       font-weight: var(--a-font-weight-bold);
+    }
+  }
+
+  @media (min-width: $a-breakpoint-lg) {
+    table-layout: fixed;
+  }
+
+  &MobileOnly {
+    @media (min-width: $a-breakpoint-lg) {
+      display: none !important;
+    }
+  }
+
+  &DesktopOnly {
+    @media (max-width: $a-breakpoint-lg-down) {
+      display: none !important;
     }
   }
 }
@@ -24,6 +60,10 @@
     &Right {
       text-align: right;
       margin-inline-start: var(--a-spacing-4);
+    }
+
+    &Bold {
+      font-weight: var(--a-font-weight-bold);
     }
   }
 

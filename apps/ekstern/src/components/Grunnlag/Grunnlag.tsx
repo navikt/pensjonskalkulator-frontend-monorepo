@@ -1,101 +1,222 @@
+import React from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
+
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
-import { AFP } from './sections/AFP'
-import { Alderspensjon } from './sections/Alderspensjon'
-import { Inntekt } from './sections/Inntekt'
-import { Pensjonsavtaler } from './sections/Pensjonsavtaler'
-import { Sivilstand } from './sections/Sivilstand'
-import { TidligstMuligUttak } from './sections/TidligstMuligUttak'
-import { Utenlandsopphold } from './sections/Utenlandsopphold'
-import { Uttaksgrad } from './sections/Uttaksgrad'
+import { AccordionItem } from '@/components/common/AccordionItem'
+import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
+import { useAppSelector } from '@/state/hooks'
+import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
+import { formatAfp } from '@/utils/afp'
+import { formatWithoutDecimal } from '@/utils/currency'
+import { formatSivilstand } from '@/utils/sivilstand'
+import { formatMessageValues } from '@/utils/translations'
+
+import { GrunnlagForbehold } from './GrunnlagForbehold'
+import { GrunnlagPensjonsavtaler } from './GrunnlagPensjonsavtaler'
+import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
-
-const useInntekt = (): number => {
-  return 543031
-}
-
-const useAlderspensjon = (): number => {
-  return 204573
-}
-
-const useUttaksgrad = (): number => {
-  return 100
-}
-
 interface Props {
-  tidligstMuligUttak: Uttaksalder
+  inntekt: Inntekt
+  tidligstMuligUttak?: Alder
 }
 
-export function Grunnlag({ tidligstMuligUttak }: Props) {
-  const inntekt = useInntekt()
-  const alderspensjon = useAlderspensjon()
-  const uttaksgrad = useUttaksgrad()
-  const pensjonsavtaler: Pensjonsavtale[] = [
-    {
-      produktbetegnelse: 'Nordea Liv',
-      kategori: 'PRIVAT_TP',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 231_298,
-        grad: 100,
-      },
-    },
-    {
-      produktbetegnelse: 'Storebrand',
-      kategori: 'PRIVAT_TP',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 39_582,
-        grad: 100,
-      },
-    },
-    {
-      produktbetegnelse: 'DNB',
-      kategori: 'FRIPOLISE',
-      startAlder: 67,
-      startMaaned: 0,
-      utbetalingsperiode: {
-        startAlder: 67,
-        startMaaned: 0,
-        sluttAlder: 77,
-        sluttMaaned: 0,
-        aarligUtbetaling: 103_264,
-        grad: 100,
-      },
-    },
-  ]
+export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
+  const intl = useIntl()
+  const { data: person, isSuccess } = useGetPersonQuery()
+  const afp = useAppSelector(selectAfp)
+  const harSamboer = useAppSelector(selectSamboer)
+
+  const formatertAfp = React.useMemo(
+    () => formatAfp(intl, afp ?? 'vet_ikke'),
+    [afp]
+  )
+
+  const formatertSivilstand = React.useMemo(
+    () =>
+      person
+        ? formatSivilstand(intl, person.sivilstand, {
+            harSamboer: !!harSamboer,
+          })
+        : '',
+
+    [person]
+  )
 
   return (
-    <section className={styles.section}>
-      <div className={styles.description}>
-        <Heading level="2" size="medium">
-          Grunnlaget for prognosen
-        </Heading>
-        <BodyLong>
-          Alle summer er oppgitt i dagens kroneverdi før skatt.
-        </BodyLong>
-      </div>
-      <Accordion>
-        <TidligstMuligUttak uttaksalder={tidligstMuligUttak} />
-        <Uttaksgrad uttaksgrad={uttaksgrad} />
-        <Inntekt inntekt={inntekt} />
-        <Sivilstand />
-        <Utenlandsopphold />
-        <Alderspensjon alderspensjon={alderspensjon} />
-        <AFP />
-        <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
-      </Accordion>
-    </section>
+    <>
+      <section className={styles.section}>
+        <div className={styles.description}>
+          <Heading level="2" size="medium">
+            <FormattedMessage id="grunnlag.title" />
+          </Heading>
+          <BodyLong>
+            <FormattedMessage id="grunnlag.ingress" />
+          </BodyLong>
+        </div>
+        <Accordion>
+          <AccordionItem name="Grunnlag: Tidligst mulig uttak">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.tidligstmuliguttak.title',
+              })}
+              headerValue={
+                tidligstMuligUttak
+                  ? formatUttaksalder(intl, tidligstMuligUttak, {
+                      compact: true,
+                    })
+                  : intl.formatMessage({
+                      id: 'grunnlag.tidligstmuliguttak.title.error',
+                    })
+              }
+            >
+              <>
+                {!tidligstMuligUttak && (
+                  <BodyLong>
+                    <FormattedMessage
+                      id="grunnlag.tidligstmuliguttak.ingress.error"
+                      values={{
+                        ...formatMessageValues,
+                      }}
+                    />
+                  </BodyLong>
+                )}
+                <BodyLong>
+                  <FormattedMessage
+                    id="grunnlag.tidligstmuliguttak.ingress"
+                    values={{
+                      ...formatMessageValues,
+                    }}
+                  />
+                </BodyLong>
+              </>
+            </GrunnlagSection>
+          </AccordionItem>
+          <AccordionItem name="Grunnlag: Uttaksgrad">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.uttaksgrad.title',
+              })}
+              headerValue="100 %"
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.uttaksgrad.ingress"
+                  values={{
+                    ...formatMessageValues,
+                  }}
+                />
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+          <AccordionItem name="Grunnlag: Inntekt">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.inntekt.title',
+              })}
+              headerValue={
+                inntekt.beloep
+                  ? `${formatWithoutDecimal(inntekt.beloep)} kr`
+                  : intl.formatMessage({
+                      id: 'grunnlag.inntekt.title.error',
+                    })
+              }
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id={`grunnlag.inntekt.ingress${inntekt.aar ? '' : '.error'}`}
+                  values={{
+                    ...formatMessageValues,
+                    aarsinntekt: inntekt.aar,
+                  }}
+                />
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+          <AccordionItem name="Gunnlag: Sivilstand">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.sivilstand.title',
+              })}
+              headerValue={
+                isSuccess
+                  ? formatertSivilstand
+                  : intl.formatMessage({
+                      id: 'grunnlag.sivilstand.title.error',
+                    })
+              }
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.sivilstand.ingress"
+                  values={{
+                    ...formatMessageValues,
+                  }}
+                />
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+          <AccordionItem name="Grunnlag: Utenlandsopphold">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.opphold.title',
+              })}
+              headerValue={intl.formatMessage({
+                id: 'grunnlag.opphold.value',
+              })}
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.opphold.ingress"
+                  values={{
+                    ...formatMessageValues,
+                  }}
+                />
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+          <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.alderspensjon.title',
+              })}
+              headerValue={intl.formatMessage({
+                id: 'grunnlag.alderspensjon.value',
+              })}
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.alderspensjon.ingress"
+                  values={{
+                    ...formatMessageValues,
+                  }}
+                />
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+          <AccordionItem name="Grunnlag: AFP">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.afp.title',
+              })}
+              headerValue={formatertAfp}
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id={`grunnlag.afp.ingress.${afp}`}
+                  values={{
+                    ...formatMessageValues,
+                  }}
+                />
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+          <GrunnlagPensjonsavtaler />
+        </Accordion>
+      </section>
+      <GrunnlagForbehold />
+    </>
   )
 }

@@ -1,90 +1,44 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
+  isInntekt,
   isPensjonsberegningArray,
   isPerson,
   isPensjonsavtale,
   isTpoMedlemskap,
   isUnleashToggle,
-  isUttaksalder,
+  isAlder,
+  isSakStatus,
 } from './typeguards'
-import { API_BASEURL } from '@/api/paths'
-import {
-  PensjonsavtalerResponseBody,
-  PensjonsavtalerRequestBody,
-  AlderspensjonRequestBody,
-  AlderspensjonResponseBody,
-  UttaksalderRequestBody,
-} from '@/state/api/apiSlice.types'
+import { API_BASEURL } from '@/paths'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
   }),
+  tagTypes: ['Person', 'Inntekt', 'Alderspensjon'],
   endpoints: (builder) => ({
-    pensjonsavtaler: builder.query<
-      Pensjonsavtale[],
-      PensjonsavtalerRequestBody
-    >({
-      query: (body) => ({
-        url: '/pensjonsavtaler',
-        method: 'POST',
-        body,
-      }),
-      transformResponse: (response: PensjonsavtalerResponseBody) => {
-        if (response.avtaler && Array.isArray(response.avtaler)) {
-          response.avtaler.forEach((avtale) => {
-            if (!isPensjonsavtale(avtale)) {
-              throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
-              // return undefined;
-            }
-          })
-        } else {
-          throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
-        }
-        return response.avtaler
-      },
-    }),
-    tidligsteUttaksalder: builder.query<
-      Uttaksalder,
-      UttaksalderRequestBody | void
-    >({
-      query: (body) => ({
-        url: '/tidligste-uttaksalder',
-        method: 'POST',
-        body,
-      }),
-      transformResponse: (response: Uttaksalder) => {
-        if (!isUttaksalder(response)) {
-          throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
+    getInntekt: builder.query<Inntekt, void>({
+      query: () => '/inntekt',
+      providesTags: ['Inntekt'],
+      transformResponse: (response) => {
+        if (!isInntekt(response)) {
+          throw new Error(`Mottok ugyldig inntekt: ${response}`)
         }
         return response
       },
     }),
-    alderspensjon: builder.query<Pensjonsberegning[], AlderspensjonRequestBody>(
-      {
-        query: (body) => ({
-          url: '/alderspensjon/simulering',
-          method: 'POST',
-          body,
-        }),
-        transformResponse: (response: AlderspensjonResponseBody) => {
-          if (!isPensjonsberegningArray(response?.pensjon)) {
-            throw new Error(
-              `Mottok ugyldig alderspensjon: ${response?.pensjon}`
-            )
-          }
-          return response.pensjon
-        },
-      }
-    ),
     getPerson: builder.query<Person, void>({
-      query: () => '/person',
+      query: () => '/v1/person',
+      providesTags: ['Person'],
       transformResponse: (response) => {
         if (!isPerson(response)) {
           throw new Error(`Mottok ugyldig person: ${response}`)
         }
-        return response
+        return {
+          ...response,
+          foedselsdato: response.foedselsdato,
+        }
       },
     }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
@@ -96,6 +50,74 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    tidligsteUttaksalder: builder.query<
+      Alder,
+      TidligsteUttaksalderRequestBody | void
+    >({
+      query: (body) => ({
+        url: '/v1/tidligste-uttaksalder',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: Alder) => {
+        if (!isAlder(response)) {
+          throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
+        }
+        return response
+      },
+    }),
+    pensjonsavtaler: builder.query<
+      { avtaler: Pensjonsavtale[]; partialResponse: boolean },
+      PensjonsavtalerRequestBody
+    >({
+      query: (body) => ({
+        url: '/v1/pensjonsavtaler',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: PensjonsavtalerResponseBody) => {
+        if (
+          !response.avtaler ||
+          !Array.isArray(response.avtaler) ||
+          response.avtaler.some((avtale) => !isPensjonsavtale(avtale))
+        ) {
+          throw new Error(`Mottok ugyldig pensjonsavtale: ${response}`)
+        }
+        const avtalerWithKeys = response.avtaler.map((avtale, index) => ({
+          ...avtale,
+          key: index,
+        }))
+
+        return {
+          avtaler: avtalerWithKeys,
+          partialResponse: response.utilgjengeligeSelskap.length > 0,
+        }
+      },
+    }),
+
+    alderspensjon: builder.query<
+      AlderspensjonResponseBody,
+      AlderspensjonRequestBody
+    >({
+      query: (body) => ({
+        url: '/v1/alderspensjon/simulering',
+        method: 'POST',
+        body,
+      }),
+      providesTags: ['Alderspensjon'],
+      transformResponse: (response: AlderspensjonResponseBody) => {
+        if (
+          !isPensjonsberegningArray(response?.alderspensjon) ||
+          !isPensjonsberegningArray(response?.afpPrivat)
+        ) {
+          throw new Error(
+            `Mottok ugyldig alderspensjon: ${response?.alderspensjon}`
+          )
+        }
+        return response
+      },
+    }),
+
     getSpraakvelgerFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.disable-spraakvelger',
       transformResponse: (response: UnleashToggle) => {
@@ -105,14 +127,25 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getSakStatus: builder.query<SakStatus, void>({
+      query: () => '/sak-status',
+      transformResponse: (response: any) => {
+        if (!isSakStatus(response)) {
+          throw new Error(`Mottok ugyldig sak response:`, response)
+        }
+        return response
+      },
+    }),
   }),
 })
 
 export const {
+  useGetInntektQuery,
+  useGetPersonQuery,
+  useGetSakStatusQuery,
+  useGetTpoMedlemskapQuery,
   useTidligsteUttaksalderQuery,
   useAlderspensjonQuery,
-  useGetPersonQuery,
   usePensjonsavtalerQuery,
-  useGetTpoMedlemskapQuery,
   useGetSpraakvelgerFeatureToggleQuery,
 } = apiSlice

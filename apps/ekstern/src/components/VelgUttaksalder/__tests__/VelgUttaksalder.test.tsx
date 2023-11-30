@@ -1,81 +1,51 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { VelgUttaksalder } from '../VelgUttaksalder'
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('VelgUttaksalder', () => {
-  const uttaksalder: Uttaksalder = {
+  const uttaksalder: Alder = {
     aar: 62,
-    maaned: 10,
-    uttaksdato: '2031-11-01',
+    maaneder: 10,
   }
 
-  it('viser ikke Vis flere aldere knapp når alle mulige aldere allerede vises', async () => {
-    render(
-      <VelgUttaksalder
-        tidligstMuligUttak={{
-          aar: 67,
-          maaned: 1,
-          uttaksdato: '2031-11-01',
-        }}
-        setValgtUttaksalder={vi.fn()}
-      />
-    )
-
-    expect(await screen.findAllByRole('button')).toHaveLength(9)
-    expect(screen.queryByText('Vis flere aldere')).not.toBeInTheDocument()
-  })
-
-  it('viser riktig label, ikon og antall knapper når brukeren ønsker å se flere aldere', async () => {
-    const user = userEvent.setup()
-    const result = render(
-      <VelgUttaksalder
-        tidligstMuligUttak={uttaksalder}
-        setValgtUttaksalder={vi.fn()}
-      />
-    )
-
-    expect(await screen.findAllByRole('button')).toHaveLength(10)
-    expect(result.asFragment()).toMatchSnapshot()
-
-    await user.click(screen.getByText('Vis flere aldere'))
-
-    expect(await screen.findAllByRole('button')).toHaveLength(15)
-    expect(await screen.findByText('Vis færre aldere')).toBeVisible()
-
-    expect(result.asFragment()).toMatchSnapshot()
+  it('viser riktige aldere når uttaksalder ikke er angitt', async () => {
+    render(<VelgUttaksalder tidligstMuligUttak={undefined} />)
+    expect(await screen.findAllByRole('button')).toHaveLength(14)
   })
 
   it('oppdaterer valgt knapp og kaller setValgtUttaksalder når brukeren velger en alder', async () => {
-    let valgtUttaksalder = '63 år'
-    const setValgtUttaksalder = (alder: string) => {
+    const user = userEvent.setup()
+    let valgtUttaksalder = '63 alder.aar'
+    const valgtUttaksalderHandler = (alder: string) => {
       valgtUttaksalder = alder
     }
 
     const getProps = () => ({
       tidligstMuligUttak: uttaksalder,
       valgtUttaksalder,
-      setValgtUttaksalder,
+      valgtUttaksalderHandler,
     })
 
     const { rerender } = render(<VelgUttaksalder {...getProps()} />)
 
-    await userEvent.click(screen.getByText('65 år', { exact: false }))
+    await user.click(screen.getByText('65 alder.aar', { exact: false }))
+
     expect(window.HTMLElement.prototype.scrollIntoView).toHaveBeenCalled()
 
     rerender(<VelgUttaksalder {...getProps()} />)
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '65 år'
+      '65 alder.aar'
     )
 
-    await userEvent.click(screen.getByText('Vis flere aldere'))
     rerender(<VelgUttaksalder {...getProps()} />)
-    expect(screen.getByText('72 år', { exact: false })).toBeVisible()
+    expect(screen.getByText('72 alder.aar', { exact: false })).toBeVisible()
 
-    await userEvent.click(screen.getByText('72 år', { exact: false }))
+    await user.click(screen.getByText('72 alder.aar', { exact: false }))
+
     rerender(<VelgUttaksalder {...getProps()} />)
     expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-      '72 år'
+      '72 alder.aar'
     )
   })
 })

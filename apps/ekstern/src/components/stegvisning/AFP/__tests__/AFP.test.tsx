@@ -13,6 +13,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     const result = render(
       <AFP
+        isLastStep={false}
         afp={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -30,8 +31,10 @@ describe('stegvisning - AFP', () => {
 
     expect(result.asFragment()).toMatchSnapshot()
     expect(
-      screen.getByRole('link', { name: 'AFP i privat sektor på afp.no' })
-    ).toHaveAttribute('href', 'stegvisning.afp.readmore_privat_url')
+      screen.getByRole('link', {
+        name: 'AFP i privat sektor på afp.no åpner i en ny fane',
+      })
+    ).toHaveAttribute('href', 'https://www.afp.no')
 
     const radioButtons = screen.getAllByRole('radio')
     await waitFor(() => {
@@ -47,6 +50,7 @@ describe('stegvisning - AFP', () => {
   it('rendrer slik den skal når afp er oppgitt', async () => {
     const result = render(
       <AFP
+        isLastStep={false}
         afp="nei"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -71,6 +75,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     render(
       <AFP
+        isLastStep={false}
         afp={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -129,6 +134,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     render(
       <AFP
+        isLastStep={false}
         afp={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -159,10 +165,33 @@ describe('stegvisning - AFP', () => {
     })
   })
 
+  it('kaller onNext når det er siste steg og at brukeren klikker på Beregn', async () => {
+    const user = userEvent.setup()
+    render(
+      <AFP
+        isLastStep={true}
+        afp={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    const radioButtons = screen.getAllByRole('radio')
+    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
+
+    await user.click(radioButtons[0])
+    await user.click(screen.getByText('stegvisning.beregn'))
+
+    waitFor(() => {
+      expect(onNextMock).toHaveBeenCalled()
+    })
+  })
+
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
     render(
       <AFP
+        isLastStep={false}
         afp="ja_privat"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -174,6 +203,7 @@ describe('stegvisning - AFP', () => {
     )
 
     await user.click(screen.getByText('stegvisning.tilbake'))
+
     expect(onPreviousMock).toHaveBeenCalled()
   })
 
@@ -181,6 +211,7 @@ describe('stegvisning - AFP', () => {
     const user = userEvent.setup()
     render(
       <AFP
+        isLastStep={false}
         afp="ja_privat"
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -189,6 +220,7 @@ describe('stegvisning - AFP', () => {
     )
 
     await user.click(screen.getByText('stegvisning.avbryt'))
+
     expect(onCancelMock).toHaveBeenCalled()
   })
 })

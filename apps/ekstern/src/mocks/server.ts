@@ -1,7 +1,7 @@
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 
-import { API_BASEURL } from '@/api/paths'
+import { API_BASEURL } from '@/paths'
 
 import { getHandlers } from './handlers'
 
@@ -11,34 +11,42 @@ export const server = setupServer(...handlers)
 type MockResponseOptions = {
   status?: number
   json?: ReturnType<typeof JSON.parse>
+  text?: string
   method?: 'post' | 'get'
+  baseUrl?: string
 }
 
 export const mockResponse = (
   path: string,
-  options: MockResponseOptions = {
-    status: 200,
-    json: 'OK',
-    method: 'get',
-  }
+  inputOptions: MockResponseOptions = {}
 ) => {
+  const method = inputOptions.method ?? 'get'
+  const baseUrl = inputOptions.baseUrl ?? API_BASEURL
+  const status = inputOptions.status ?? 200
+
   server.use(
-    rest[options?.method ?? 'get'](`${API_BASEURL}${path}`, (req, res, ctx) => {
-      return res(ctx.status(options.status ?? 200), ctx.json(options.json))
+    http[method](`${baseUrl}${path}`, async () => {
+      if (inputOptions.text) {
+        return HttpResponse.text(inputOptions.text, { status })
+      } else {
+        const json = inputOptions.json ?? { data: 'ok' }
+        return HttpResponse.json(json, { status })
+      }
     })
   )
 }
 
 export const mockErrorResponse = (
   path: string,
-  options: MockResponseOptions = {
-    status: 500,
-    json: "Beep boop I'm an error!",
-    method: 'get',
-  }
+  inputOptions: MockResponseOptions = {}
 ) => {
-  mockResponse(path, {
-    ...options,
-    status: options.status ?? 500,
-  })
+  const method = inputOptions.method ?? 'get'
+  const baseUrl = inputOptions.baseUrl ?? API_BASEURL
+  const status = inputOptions.status ?? 500
+
+  server.use(
+    http[method](`${baseUrl}${path}`, async () => {
+      return HttpResponse.text('lorem ipsum dolor sit amet', { status })
+    })
+  )
 }

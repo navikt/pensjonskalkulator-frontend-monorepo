@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`TilbakeEllerAvslutt > rendrer med riktig tekst og knapper 1`] = `
 <DocumentFragment>
@@ -12,20 +12,18 @@ exports[`TilbakeEllerAvslutt > rendrer med riktig tekst og knapper 1`] = `
         class="_button_095025 navds-button navds-button--secondary navds-button--medium"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
-          Tilbake til start
+          stegvisning.tilbake_start
         </span>
       </button>
       <button
         class="_button_095025 _button__avbryt_095025 navds-button navds-button--tertiary navds-button--medium"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
-          Avbryt
+          stegvisning.avbryt
         </span>
       </button>
     </div>

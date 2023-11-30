@@ -4,13 +4,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import ReactDOM from 'react-dom/client'
 
-import { LanguageProvider } from '@/containers/LanguageProvider'
-import { initializeLogs } from '@/observability/faro'
-import { BASE_PATH, routes } from '@/routes'
+import { LanguageProvider } from '@/context/LanguageProvider'
+import { initializeLogs } from '@/faro'
+import { BASE_PATH } from '@/router/constants'
+import { routes } from '@/router/routes'
 
 import { store } from './state/store'
 
 import './scss/designsystem.scss'
+
+import '@/utils/logging'
 
 const root = document.getElementById('root')
 
@@ -21,7 +24,9 @@ if (!root) {
 if (process.env.NODE_ENV === 'development') {
   const msw = await import('./mocks/browser')
   await msw.worker.start({ onUnhandledRequest: 'bypass' })
-  msw.worker.printHandlers()
+  msw.worker.listHandlers().forEach((handler) => {
+    console.log(handler.info.header)
+  })
 }
 
 const router = createBrowserRouter(routes, {

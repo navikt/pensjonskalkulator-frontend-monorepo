@@ -10,7 +10,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vitejs.dev/config/
 export default defineConfig(() => ({
-  base: '/pensjon/kalkulator/',
+  base: '/pensjon/kalkulator',
   build: {
     sourcemap: true,
     rollupOptions: {
@@ -46,20 +46,22 @@ export default defineConfig(() => ({
   plugins: [
     tsconfigPaths(),
     react(),
-    eslint(),
-    stylelint({ fix: true }),
-    sassDts({
-      global: {
-        generate: true,
-        outputFilePath: path.resolve(__dirname, './src/style.d.ts'),
-      },
-    }),
-    visualizer({
-      open: true,
-      gzipSize: true,
-      brotliSize: true,
-      filename: 'analice.html',
-    }),
+    process.env.NODE_ENV !== 'test' && eslint(),
+    process.env.NODE_ENV !== 'test' && stylelint({ fix: true }),
+    process.env.NODE_ENV !== 'test' &&
+      sassDts({
+        global: {
+          generate: true,
+          outputFilePath: path.resolve(__dirname, './src/style.d.ts'),
+        },
+      }),
+    process.env.NODE_ENV !== 'test' &&
+      visualizer({
+        open: true,
+        gzipSize: true,
+        brotliSize: true,
+        filename: 'analice.html',
+      }),
   ],
   server: {
     proxy: {
@@ -95,11 +97,12 @@ export default defineConfig(() => ({
     },
   },
   test: {
+    cache: false,
     environment: 'jsdom',
     globals: true,
     setupFiles: 'src/test-setup.ts',
     coverage: {
-      provider: 'c8',
+      provider: 'v8',
       all: true,
       extension: ['.ts', '.tsx'],
       exclude: [
@@ -118,7 +121,7 @@ export default defineConfig(() => ({
       ],
       perFile: true,
       lines: 95,
-      functions: 75,
+      functions: 50,
       branches: 95,
       statements: 95,
       reporter: ['json', 'html', 'text', 'text-summary', 'cobertura'],

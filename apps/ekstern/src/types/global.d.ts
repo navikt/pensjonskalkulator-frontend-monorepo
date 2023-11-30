@@ -9,6 +9,7 @@ declare global {
     Cypress: unknown
     router: Router
     store: AppStore
+    reload?: function
   }
 }
 

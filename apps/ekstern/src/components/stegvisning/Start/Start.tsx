@@ -1,9 +1,13 @@
 import { useIntl, FormattedMessage } from 'react-intl'
+import { Link as ReactRouterLink } from 'react-router-dom'
 
-import { Ingress, Button, Heading } from '@navikt/ds-react'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 
 import FridaPortrett from '../../../assets/frida.svg'
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/common/Card'
+import { paths } from '@/router/constants'
+import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 import styles from './Start.module.scss'
 
@@ -18,32 +22,53 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
   const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
 
   return (
-    <ResponsiveCard hasLargePadding>
+    <Card hasLargePadding hasMargin>
       <div className={styles.wrapper}>
-        <img
-          className={styles.image}
-          src={FridaPortrett}
-          alt={intl.formatMessage({
-            id: 'stegvisning.start.bildetekst',
-          })}
-        />
+        <img className={styles.image} src={FridaPortrett} alt="" />
         <div className={styles.wrapperText}>
-          <Heading size="large" level="2" spacing>
+          <Heading level="2" size="medium" spacing>
             {`${intl.formatMessage({
               id: 'stegvisning.start.title',
             })}${fornavnString}`}
           </Heading>
-          <Ingress>
+          <BodyLong size="large">
             <FormattedMessage id="stegvisning.start.ingress" />
-          </Ingress>
-          <Button type="submit" className={styles.button} onClick={onNext}>
-            <FormattedMessage id="stegvisning.start.start" />
+          </BodyLong>
+          <Button
+            type="submit"
+            className={styles.button}
+            onClick={wrapLogger('button klikk', { tekst: 'Kom i gang' })(
+              onNext
+            )}
+          >
+            <FormattedMessage id="stegvisning.start.button" />
           </Button>
-          <Button type="button" variant="tertiary" onClick={onCancel}>
+          <Button
+            type="button"
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
             <FormattedMessage id="stegvisning.avbryt" />
           </Button>
         </div>
       </div>
-    </ResponsiveCard>
+      <Link
+        onClick={logOpenLink}
+        className={styles.link}
+        as={ReactRouterLink}
+        to={paths.personopplysninger}
+        target="_blank"
+        inlineText
+      >
+        <FormattedMessage id="stegvisning.start.link" />
+        <ExternalLinkIcon
+          title={intl.formatMessage({
+            id: 'application.global.external_link',
+          })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    </Card>
   )
 }

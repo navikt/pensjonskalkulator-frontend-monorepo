@@ -1,42 +1,41 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent } from 'react'
+import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
   Alert,
+  BodyLong,
   Button,
   Heading,
-  Ingress,
-  Link,
   Radio,
   RadioGroup,
-  ReadMore,
 } from '@navikt/ds-react'
 
-import { ResponsiveCard } from '@/components/components/ResponsiveCard'
+import { Card } from '@/components/common/Card'
+import { ReadMore } from '@/components/common/ReadMore'
+import { logger, wrapLogger } from '@/utils/logging'
+import { formatMessageValues } from '@/utils/translations'
 
 import styles from './AFP.module.scss'
 
 interface Props {
+  isLastStep: boolean
   afp: AfpRadio | null
   onCancel: () => void
   onPrevious: () => void
   onNext: (afpData: AfpRadio) => void
 }
 
-export type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
-
-export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
+export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
-
-  const [validationError, setValidationError] = useState<string>('')
-  const [showAlert, setShowAlert] = useState<AfpRadio | ''>('')
+  const [validationError, setValidationError] = React.useState<string>('')
+  const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const afpData = data.get('afp')
+    const afpData = data.get('afp') as AfpRadio | undefined
 
     if (!afpData) {
       setValidationError(
@@ -45,9 +44,28 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
         })
       )
     } else {
-      onNext(afpData as AfpRadio)
+      logger('radiogroup valgt', {
+        tekst: 'Rett til AFP',
+        valg: afpData,
+      })
+      logger('button klikk', {
+        tekst: 'Neste',
+      })
+      onNext(afpData)
     }
   }
+
+  React.useEffect(() => {
+    if (showAlert === 'ja_offentlig') {
+      logger('alert', {
+        tekst: 'Rett til AFP: Offentlig sektor',
+      })
+    } else if (showAlert === 'vet_ikke') {
+      logger('alert', {
+        tekst: 'Rett til AFP: Vet ikke',
+      })
+    }
+  }, [showAlert])
 
   const handleRadioChange = (value: AfpRadio): void => {
     setShowAlert(value)
@@ -55,21 +73,43 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <ResponsiveCard hasLargePadding>
-        <Heading size="large" level="2" spacing>
+    <Card hasLargePadding hasMargin>
+      <form onSubmit={onSubmit}>
+        <Heading level="2" size="medium" spacing>
           <FormattedMessage id="stegvisning.afp.title" />
         </Heading>
-        <Ingress>
+        <BodyLong size="large">
           <FormattedMessage id="stegvisning.afp.ingress" />
-        </Ingress>
+        </BodyLong>
         <ReadMore
+          name="Avtalefestet pensjon i offentlig sektor"
+          className={styles.readmoreOffentlig}
+          header={
+            <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
+          }
+        >
+          <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_title" />
+          <ul className={styles.list}>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
+            </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
+            </li>
+          </ul>
+          <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
+        </ReadMore>
+        <ReadMore
+          name="Avtalefestet pensjon i privat sektor"
           className={styles.readmorePrivat}
           header={
             <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
           }
         >
-          <FormattedMessage id="stegvisning.afp.readmore_list_title" />
+          <FormattedMessage id="stegvisning.afp.readmore_privat_list_title" />
           <ul className={styles.list}>
             <li>
               <FormattedMessage id="stegvisning.afp.readmore_privat_list_item1" />
@@ -84,39 +124,9 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage
             id="stegvisning.afp.readmore_privat_link"
             values={{
-              link: (chunks) => (
-                <Link
-                  href={intl.formatMessage({
-                    id: 'stegvisning.afp.readmore_privat_url',
-                  })}
-                  target="_blank"
-                >
-                  {chunks}
-                  <ExternalLinkIcon width="1.25rem" height="1.25rem" />
-                </Link>
-              ),
+              ...formatMessageValues,
             }}
           />
-        </ReadMore>
-        <ReadMore
-          className={styles.readmoreOffentlig}
-          header={
-            <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.afp.readmore_list_title" />
-          <ul className={styles.list}>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
-            </li>
-          </ul>
-          <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
         </ReadMore>
         <RadioGroup
           className={styles.radiogroup}
@@ -125,13 +135,14 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           defaultValue={afp}
           onChange={handleRadioChange}
           error={validationError}
+          role="radiogroup"
           aria-required="true"
         >
           <Radio value="ja_offentlig">
             <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
           </Radio>
           {showAlert === 'ja_offentlig' && (
-            <Alert className={styles.alert} variant="info">
+            <Alert className={styles.alert} variant="info" aria-live="polite">
               <FormattedMessage id="stegvisning.afp.alert_ja_offentlig" />
             </Alert>
           )}
@@ -145,20 +156,21 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
             <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
           </Radio>
           {showAlert === 'vet_ikke' && (
-            <Alert className={styles.alert} variant="info">
+            <Alert className={styles.alert} variant="info" aria-live="polite">
               <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
             </Alert>
           )}
         </RadioGroup>
-
         <Button type="submit" className={styles.button}>
-          <FormattedMessage id="stegvisning.neste" />
+          <FormattedMessage
+            id={isLastStep ? 'stegvisning.beregn' : 'stegvisning.neste'}
+          />
         </Button>
         <Button
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={onPrevious}
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
@@ -166,11 +178,11 @@ export function AFP({ afp, onCancel, onPrevious, onNext }: Props) {
           type="button"
           className={styles.button}
           variant="tertiary"
-          onClick={onCancel}
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
         >
           <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-      </ResponsiveCard>
-    </form>
+      </form>
+    </Card>
   )
 }

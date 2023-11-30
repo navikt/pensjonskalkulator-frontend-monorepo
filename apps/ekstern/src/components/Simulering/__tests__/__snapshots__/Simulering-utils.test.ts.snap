@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Simulering-utils > getChartDefaults > enrer riktig defaults avhengig av aldere som sendes inn 1`] = `
+{
+  "chart": {
+    "scrollablePlotArea": {
+      "minWidth": 0,
+      "scrollPositionX": 0,
+    },
+    "type": "column",
+  },
+  "xAxis": {
+    "categories": [],
+  },
+}
+`;
+
+exports[`Simulering-utils > getChartDefaults > enrer riktig defaults avhengig av aldere som sendes inn 2`] = `
+{
+  "chart": {
+    "scrollablePlotArea": {
+      "minWidth": 160,
+      "scrollPositionX": 0,
+    },
+    "type": "column",
+  },
+  "xAxis": {
+    "categories": [
+      "62",
+      "63",
+      "64",
+      "65",
+    ],
+  },
+}
+`;

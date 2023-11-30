@@ -1,24 +1,25 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke er oppgitt 1`] = `
 <DocumentFragment>
-  <form>
-    <section
-      class="_section_645946 _section__largePadding_645946"
-    >
+  <section
+    class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
+  >
+    <form>
       <h2
-        class="navds-heading navds-heading--large navds-typo--spacing"
+        class="navds-heading navds-heading--medium navds-typo--spacing"
       >
         stegvisning.sivilstand.title
       </h2>
       <p
-        class="_ingress_885e37 navds-ingress"
+        class="_ingress_885e37 navds-body-long navds-body-long--large"
       >
-        stegvisning.sivilstand.ingress
+        stegvisning.sivilstand.ingress_1sivilstand.ugiftstegvisning.sivilstand.ingress_2
       </p>
       <fieldset
         aria-required="true"
         class="_radiogroup_885e37 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        role="radiogroup"
       >
         <legend
           class="navds-fieldset__legend navds-label"
@@ -46,7 +47,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.sivilstand.radio_ja
                 </span>
@@ -71,7 +72,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
                 class="navds-radio__content"
               >
                 <span
-                  class="navds-body-short"
+                  class="navds-body-short navds-body-short--medium"
                 >
                   stegvisning.sivilstand.radio_nei
                 </span>
@@ -91,7 +92,6 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         type="submit"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.beregn
@@ -102,7 +102,6 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.tilbake
@@ -113,13 +112,12 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         type="button"
       >
         <span
-          aria-live="polite"
           class="navds-label"
         >
           stegvisning.avbryt
         </span>
       </button>
-    </section>
-  </form>
+    </form>
+  </section>
 </DocumentFragment>
 `;
