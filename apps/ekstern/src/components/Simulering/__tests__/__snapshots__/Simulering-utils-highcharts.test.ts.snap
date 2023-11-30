@@ -134,6 +134,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     "followTouchMove": false,
     "formatter": [Function],
     "hideDelay": 9000000000,
+    "outside": false,
     "padding": 0,
     "positioner": [Function],
     "shadow": false,

@@ -15,6 +15,9 @@ declare const classNames: typeof globalClassNames & {
   readonly tooltip: 'tooltip'
   readonly tooltipTable: 'tooltipTable'
   readonly tooltipLine: 'tooltipLine'
+  readonly 'highcharts-scrolling-parent': 'highcharts-scrolling-parent'
+  readonly 'highcharts-axis-labels': 'highcharts-axis-labels'
+  readonly 'highcharts-yaxis-labels': 'highcharts-yaxis-labels'
   readonly tooltipTableHeaderCell: 'tooltipTableHeaderCell'
   readonly tooltipTableCell: 'tooltipTableCell'
   readonly tooltipTableHeaderCell__left: 'tooltipTableHeaderCell__left'
@@ -24,7 +27,9 @@ declare const classNames: typeof globalClassNames & {
   readonly 'highcharts-loading': 'highcharts-loading'
   readonly 'highcharts-loading-inner': 'highcharts-loading-inner'
   readonly 'highcharts-tooltip-container': 'highcharts-tooltip-container'
+  readonly 'highcharts-container': 'highcharts-container'
   readonly 'highcharts-scrollable-mask': 'highcharts-scrollable-mask'
   readonly 'highcharts-root': 'highcharts-root'
+  readonly 'highcharts-background': 'highcharts-background'
 }
 export = classNames
