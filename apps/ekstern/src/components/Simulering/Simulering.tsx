@@ -109,8 +109,16 @@ export function Simulering(props: {
 
   /* c8 ignore next 5 */
   React.useEffect(() => {
+    debugger
+    console.log(
+      '>>> UseEffect isSuccess',
+      isSuccess,
+      highchartsAccessibilityFeatureToggle
+    )
+
     if (isSuccess && highchartsAccessibilityFeatureToggle.enabled) {
       HighchartsAccessibility(Highcharts)
+      console.log('>>> UseEffect loading HighchartsAccessibility')
     }
   }, [isSuccess])
 
