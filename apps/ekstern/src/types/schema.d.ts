@@ -18,7 +18,7 @@ export interface paths {
      *
      * @description Finn første mulige uttaksalder for innlogget bruker. Feltet 'harEps' brukes til å angi om brukeren har ektefelle/partner/samboer eller ei
      */
-    post: operations['finnTidligsteUttaksalderV1']
+    post: operations['finnTidligsteUttaksalder']
     delete?: never
     options?: never
     head?: never
@@ -39,7 +39,7 @@ export interface paths {
      *
      * @description Henter pensjonsavtalene til den innloggede brukeren. I request må verdi av 'maaneder' være 0..11.
      */
-    post: operations['fetchAvtalerV1']
+    post: operations['fetchAvtaler']
     delete?: never
     options?: never
     head?: never
@@ -164,27 +164,6 @@ export interface paths {
      * @description Hvorvidt den innloggede brukeren har løpende uføretrygd eller gjenlevendeytelse
      */
     get: operations['harRelevantSak']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/person': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Hent personinformasjon V0
-     *
-     * @description Henter personinformasjon om den innloggede brukeren
-     */
-    get: operations['personV0']
     put?: never
     post?: never
     delete?: never
@@ -436,25 +415,6 @@ export interface components {
     SakDto: {
       harUfoeretrygdEllerGjenlevendeytelse: boolean
     }
-    PersonDto: {
-      fornavn?: string
-      /** Format: date */
-      foedselsdato?: string
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-    }
     InntektDto: {
       /** Format: int32 */
       beloep: number
@@ -477,7 +437,7 @@ export interface components {
 }
 export type $defs = Record<string, never>
 export interface operations {
-  finnTidligsteUttaksalderV1: {
+  finnTidligsteUttaksalder: {
     parameters: {
       query?: never
       header?: never
@@ -510,7 +470,7 @@ export interface operations {
       }
     }
   }
-  fetchAvtalerV1: {
+  fetchAvtaler: {
     parameters: {
       query?: never
       header?: never
@@ -699,37 +659,6 @@ export interface operations {
         }
       }
       /** @description Sjekking av saker kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': unknown
-        }
-      }
-    }
-  }
-  personV0: {
-    parameters: {
-      query?: {
-        spec?: components['schemas']['UttaksalderIngressSpecDto']
-      }
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Henting av personinformasjon utført. I resultatet er verdi av 'maaneder' 0..11. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['PersonDto']
-        }
-      }
-      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown
