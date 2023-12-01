@@ -7,7 +7,8 @@ import personResponse from './data/person.json' assert { type: 'json' }
 import sakStatusReponse from './data/sak-status.json' assert { type: 'json' }
 import tidligstemuligeuttaksalderResponse from './data/tidligsteUttaksalder.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
-import unleashDisableSpraakvelgerResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
+import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
+import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
@@ -67,7 +68,15 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     `${baseUrl}/feature/pensjonskalkulator.disable-spraakvelger`,
     async () => {
       await delay(TEST_DELAY)
-      return HttpResponse.json(unleashDisableSpraakvelgerResponse)
+      return HttpResponse.json(disableSpraakvelgerToggleResponse)
+    }
+  ),
+
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
     }
   ),
 

@@ -17,7 +17,7 @@ export default defineConfig(() => ({
       external: ['./nais.js'],
       output: {
         manualChunks: {
-          highcharts: ['highcharts'],
+          highcharts: ['highcharts', 'highcharts/modules/accessibility'],
           ['react-redux']: [
             'react',
             'react-dom',

@@ -362,6 +362,10 @@ export const getChartOptions = (
       useHTML: true,
     },
     legend: {
+      accessibility: {
+        enabled: true,
+        keyboardNavigation: { enabled: false },
+      },
       useHTML: true,
       x: 0,
       y: -25,
@@ -471,6 +475,9 @@ export const getChartOptions = (
           },
         },
       ],
+    },
+    accessibility: {
+      description: 'Interaktiv graf, tabell følger etter',
     },
   }
 }
