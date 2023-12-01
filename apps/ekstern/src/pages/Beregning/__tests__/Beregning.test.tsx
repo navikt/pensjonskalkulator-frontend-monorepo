@@ -152,9 +152,9 @@ describe('Beregning', () => {
 
       await user.click(button)
 
-      expect(screen.getByRole('button', { pressed: true })).toHaveTextContent(
-        '68 alder.aar'
-      )
+      expect(
+        screen.getAllByRole('button', { pressed: true })[0]
+      ).toHaveTextContent('68 alder.aar')
       expect(
         container.getElementsByClassName('highcharts-loading')
       ).toHaveLength(1)
