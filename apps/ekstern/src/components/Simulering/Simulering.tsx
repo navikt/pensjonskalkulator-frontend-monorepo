@@ -98,7 +98,11 @@ export function Simulering(props: {
   )
 
   React.useEffect(() => {
-    /* c8 ignore next 3 */
+    /* c8 ignore next 6 */
+    if (isSuccess && highchartsAccessibilityFeatureToggle.enabled) {
+      HighchartsAccessibility(Highcharts)
+      console.log('>>> UseEffect loading HighchartsAccessibility')
+    }
     function onPointUnclickEventHandler(e: Event) {
       onPointUnclick(e, chartRef.current?.chart)
     }
@@ -106,21 +110,6 @@ export function Simulering(props: {
     return () =>
       document.removeEventListener('click', onPointUnclickEventHandler)
   }, [])
-
-  /* c8 ignore next 5 */
-  React.useEffect(() => {
-    debugger
-    console.log(
-      '>>> UseEffect isSuccess',
-      isSuccess,
-      highchartsAccessibilityFeatureToggle
-    )
-
-    if (isSuccess && highchartsAccessibilityFeatureToggle.enabled) {
-      HighchartsAccessibility(Highcharts)
-      console.log('>>> UseEffect loading HighchartsAccessibility')
-    }
-  }, [isSuccess])
 
   // Hent pensjonsavtaler
   React.useEffect(() => {
