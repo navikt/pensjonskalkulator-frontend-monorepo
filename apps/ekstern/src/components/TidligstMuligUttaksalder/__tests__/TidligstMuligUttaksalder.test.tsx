@@ -2,11 +2,7 @@ import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
 import { render, screen, waitFor, userEvent } from '@/test-utils'
-import {
-  logOpenLinkSpy,
-  loggerSpy,
-  loggerTeardown,
-} from '@/utils/__tests__/logging-stub'
+import { loggerSpy, loggerTeardown } from '@/utils/__tests__/logging-stub'
 
 describe('TidligstMuligUttaksalder', () => {
   afterEach(() => {
