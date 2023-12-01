@@ -477,7 +477,7 @@ export const getChartOptions = (
       ],
     },
     accessibility: {
-      description: 'Interaktiv graff, tabell følger etter',
+      description: 'Interaktiv graf, tabell følger etter',
     },
   }
 }
