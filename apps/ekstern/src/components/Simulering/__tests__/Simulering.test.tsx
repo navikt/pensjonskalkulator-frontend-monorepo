@@ -23,6 +23,7 @@ describe('Simulering', () => {
   afterEach(() => {
     vi.clearAllMocks()
   })
+
   describe('Gitt at brukeren IKKE samtykker', () => {
     it('Når alderspensjon laster så vises det en spinner', async () => {
       const { container } = render(
@@ -476,7 +477,7 @@ describe('Simulering', () => {
     })
   })
 
-  it('viser tabell', async () => {
+  it('viser tabell og skjuler grafen for skjermlesere', async () => {
     render(
       <Simulering
         isLoading={false}
@@ -495,5 +496,32 @@ describe('Simulering', () => {
       }
     )
     expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
+    expect(
+      screen.getByTestId('highcharts-aria-wrapper').getAttribute('aria-hidden')
+    ).toBe('true')
+  })
+
+  it('setter aria-hidden attrbute iht hasHighchartsAccessibilityPlugin property', async () => {
+    render(
+      <Simulering
+        isLoading={false}
+        hasHighchartsAccessibilityPlugin={true}
+        showAfp={true}
+        showButtonsAndTable={true}
+        inntekt={inntekt}
+      />,
+      {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: { ...currentSimulation },
+          },
+        },
+      }
+    )
+    expect(
+      screen.getByTestId('highcharts-aria-wrapper').getAttribute('aria-hidden')
+    ).toBe('false')
   })
 })

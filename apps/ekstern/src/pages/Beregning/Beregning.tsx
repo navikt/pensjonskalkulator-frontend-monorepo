@@ -68,7 +68,6 @@ export function Beregning() {
     /* c8 ignore next 3 */
     if (isSuccess && highchartsAccessibilityFeatureToggle.enabled) {
       HighchartsAccessibility(Highcharts)
-      console.log('>>> UseEffect loading HighchartsAccessibility')
     }
     document.title = intl.formatMessage({
       id: 'application.title.beregning',

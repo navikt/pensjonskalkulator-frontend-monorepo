@@ -223,7 +223,10 @@ export function Simulering(props: {
       <Heading level="3" size="medium" visuallyHidden>
         <FormattedMessage id="beregning.highcharts.title" />
       </Heading>
-      <div aria-hidden={!hasHighchartsAccessibilityPlugin}>
+      <div
+        data-testid="highcharts-aria-wrapper"
+        aria-hidden={!hasHighchartsAccessibilityPlugin}
+      >
         <HighchartsReact
           ref={chartRef}
           highcharts={Highcharts}
