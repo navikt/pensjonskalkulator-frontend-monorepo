@@ -74,7 +74,7 @@
     "msw": "^2.0.10",
     "node-sass": "^9.0.0",
     "openapi-typescript": "^7.0.0-next.5",
-    "postcss": "^8.4.31",
+    "postcss": "^8.4.32",
     "postcss-modules-extract-imports": "^3.0.0",
     "postcss-modules-local-by-default": "^4.0.3",
     "postcss-modules-scope": "^3.0.0",
