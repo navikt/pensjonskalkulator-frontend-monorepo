@@ -70,6 +70,9 @@ export const GrunnlagPensjonsavtaler = () => {
     navigate(paths.start)
   }
 
+  const isPartialWith0Avtaler =
+    pensjonsavtaler?.partialResponse && pensjonsavtaler?.avtaler.length === 0
+
   return (
     <AccordionItem
       name="Grunnlag: Pensjonsavtaler"
@@ -86,7 +89,7 @@ export const GrunnlagPensjonsavtaler = () => {
             ? intl.formatMessage({
                 id: 'grunnlag.pensjonsavtaler.title.error.samtykke',
               })
-            : isError
+            : isError || isPartialWith0Avtaler
               ? intl.formatMessage({
                   id: 'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler',
                 })
@@ -152,7 +155,7 @@ export const GrunnlagPensjonsavtaler = () => {
               <BodyLong className={styles.infoText}>
                 <FormattedMessage
                   id={
-                    isError
+                    isError || isPartialWith0Avtaler
                       ? 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
                       : 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
                   }

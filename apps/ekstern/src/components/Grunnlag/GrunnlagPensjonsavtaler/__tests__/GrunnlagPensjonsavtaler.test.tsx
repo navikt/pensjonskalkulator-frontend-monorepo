@@ -229,6 +229,63 @@ describe('GrunnlagPensjonsavtaler', () => {
       ).toBeVisible()
     })
 
+    it('Når pensjonsavtaler har delvis svar og ingen avtaler, viser riktig header og melding, og viser ingress og tabell', async () => {
+      mockResponse('/v1/pensjonsavtaler', {
+        status: 200,
+        json: {
+          avtaler: [],
+          utilgjengeligeSelskap: ['Something'],
+        },
+        method: 'post',
+      })
+      render(
+        <Accordion>
+          <GrunnlagPensjonsavtaler />
+        </Accordion>,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: { ...fakeInntektApiCall },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              currentSimulation: currentSimulation,
+            },
+          },
+        }
+      )
+      expect(
+        await screen.findByText(
+          'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler'
+        )
+      ).toBeVisible()
+      expect(
+        await screen.queryByText(
+          'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
+          { exact: false }
+        )
+      ).not.toBeInTheDocument()
+      expect(
+        await screen.findByText(
+          'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
+        )
+      ).toBeVisible()
+      expect(
+        await screen.queryByText(
+          'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+        )
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByTestId('pensjonsavtaler-table')
+      ).not.toBeInTheDocument()
+      expect(
+        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
+          exact: false,
+        })
+      ).toBeVisible()
+    })
+
     it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
       const user = userEvent.setup()
       mockResponse('/v1/pensjonsavtaler', {

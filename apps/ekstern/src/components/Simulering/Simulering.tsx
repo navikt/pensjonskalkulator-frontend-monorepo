@@ -289,7 +289,9 @@ export function Simulering(props: {
           <BodyLong className={styles.errorText}>
             <FormattedMessage
               id={
-                isPensjonsavtalerError
+                isPensjonsavtalerError ||
+                (pensjonsavtaler?.partialResponse &&
+                  pensjonsavtaler.avtaler.length === 0)
                   ? 'beregning.pensjonsavtaler.error'
                   : 'beregning.pensjonsavtaler.error.partial'
               }
