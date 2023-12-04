@@ -4,6 +4,8 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
+import Highcharts from 'highcharts'
+import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
 import { AccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
@@ -20,6 +22,7 @@ import {
   useGetPersonQuery,
   useTidligsteUttaksalderQuery,
 } from '@/state/api/apiSlice'
+import { useGetHighchartsAccessibilityPluginFeatureToggleQuery } from '@/state/api/apiSlice'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -48,6 +51,8 @@ export function Beregning() {
   const togglePensjonsavtalerAccordionItem = () => {
     setIslePensjonsavtalerAccordionItem((prevState) => !prevState)
   }
+  const { data: highchartsAccessibilityFeatureToggle, isSuccess } =
+    useGetHighchartsAccessibilityPluginFeatureToggleQuery()
 
   const { data: person } = useGetPersonQuery()
   const { data: inntekt } = useGetInntektQuery()
@@ -60,6 +65,11 @@ export function Beregning() {
   const dispatch = useAppDispatch()
 
   React.useEffect(() => {
+    /* c8 ignore next 3 */
+    if (isSuccess && highchartsAccessibilityFeatureToggle.enabled) {
+      HighchartsAccessibility(Highcharts)
+      console.log('>>> UseEffect loading HighchartsAccessibility')
+    }
     document.title = intl.formatMessage({
       id: 'application.title.beregning',
     })
@@ -200,6 +210,9 @@ export function Beregning() {
                   }
                   <Simulering
                     isLoading={isFetching}
+                    hasHighchartsAccessibilityPlugin={
+                      isSuccess && highchartsAccessibilityFeatureToggle.enabled
+                    }
                     inntekt={inntekt as Inntekt}
                     alderspensjon={alderspensjon}
                     showAfp={afp === 'ja_privat'}

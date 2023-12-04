@@ -14,12 +14,10 @@ import Highcharts, {
   SeriesOptionsType,
   XAxisOptions,
 } from 'highcharts'
-import HighchartsAccessibility from 'highcharts/modules/accessibility'
 import HighchartsReact from 'highcharts-react-official'
 
 import { AccordionContext } from '@/components/common/AccordionItem'
 import { TabellVisning } from '@/components/TabellVisning'
-import { useGetHighchartsAccessibilityPluginFeatureToggleQuery } from '@/state/api/apiSlice'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -47,14 +45,21 @@ import styles from './Simulering.module.scss'
 
 export function Simulering(props: {
   isLoading: boolean
+  hasHighchartsAccessibilityPlugin?: boolean
   inntekt: Inntekt
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
   showButtonsAndTable?: boolean
 }) {
   const intl = useIntl()
-  const { isLoading, inntekt, alderspensjon, showAfp, showButtonsAndTable } =
-    props
+  const {
+    isLoading,
+    hasHighchartsAccessibilityPlugin,
+    inntekt,
+    alderspensjon,
+    showAfp,
+    showButtonsAndTable,
+  } = props
   const harSamtykket = useAppSelector(selectSamtykke)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
@@ -70,8 +75,7 @@ export function Simulering(props: {
     toggleOpen: togglePensjonsavtalerAccordionItem,
   } = React.useContext(AccordionContext)
   const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
-  const { data: highchartsAccessibilityFeatureToggle, isSuccess } =
-    useGetHighchartsAccessibilityPluginFeatureToggleQuery()
+
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
   const [chartOptions, setChartOptions] = React.useState<Highcharts.Options>(
@@ -98,11 +102,7 @@ export function Simulering(props: {
   )
 
   React.useEffect(() => {
-    /* c8 ignore next 6 */
-    if (isSuccess && highchartsAccessibilityFeatureToggle.enabled) {
-      HighchartsAccessibility(Highcharts)
-      console.log('>>> UseEffect loading HighchartsAccessibility')
-    }
+    /* c8 ignore next 3 */
     function onPointUnclickEventHandler(e: Event) {
       onPointUnclick(e, chartRef.current?.chart)
     }
@@ -223,9 +223,7 @@ export function Simulering(props: {
       <Heading level="3" size="medium" visuallyHidden>
         <FormattedMessage id="beregning.highcharts.title" />
       </Heading>
-      <div
-        aria-hidden={isSuccess && !highchartsAccessibilityFeatureToggle.enabled}
-      >
+      <div aria-hidden={!hasHighchartsAccessibilityPlugin}>
         <HighchartsReact
           ref={chartRef}
           highcharts={Highcharts}
