@@ -428,7 +428,20 @@ describe('Simulering', () => {
       mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
-          avtaler: [],
+          avtaler: [
+            {
+              produktbetegnelse: 'Oslo Pensjonsforsikring (livsvarig eksempel)',
+              kategori: 'OFFENTLIG_TJENESTEPENSJON',
+              startAar: 69,
+              utbetalingsperioder: [
+                {
+                  startAlder: { aar: 69, maaneder: 0 },
+                  aarligUtbetaling: 175000,
+                  grad: 100,
+                },
+              ],
+            },
+          ],
           utilgjengeligeSelskap: ['Something'],
         },
         method: 'post',
@@ -464,6 +477,60 @@ describe('Simulering', () => {
       await waitFor(async () => {
         expect(
           await screen.findByText('Vi klarte ikke å hente alle', {
+            exact: false,
+          })
+        ).toBeVisible()
+      })
+      const button = await screen.findByText('pensjonsavtalene dine')
+      await act(async () => {
+        await user.click(button)
+      })
+      expect(scrollIntoViewMock).toHaveBeenCalled()
+      expect(toggleOpenMock).toHaveBeenCalled()
+    })
+
+    it('Når brukeren har samtykket, har ingen pensjonsavtale men har utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
+      const scrollIntoViewMock = vi.fn()
+      const user = userEvent.setup()
+      mockResponse('/v1/pensjonsavtaler', {
+        status: 200,
+        json: {
+          avtaler: [],
+          utilgjengeligeSelskap: ['Something'],
+        },
+        method: 'post',
+      })
+      const refMock = { current: { scrollIntoView: scrollIntoViewMock } }
+      const toggleOpenMock = vi.fn()
+      render(
+        <AccordionContext.Provider
+          value={{
+            ref: refMock as unknown as React.RefObject<HTMLSpanElement>,
+            isOpen: false,
+            toggleOpen: toggleOpenMock,
+          }}
+        >
+          <Simulering
+            isLoading={false}
+            showAfp={false}
+            showButtonsAndTable={false}
+            inntekt={inntekt}
+          />
+        </AccordionContext.Provider>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'nei',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      await waitFor(async () => {
+        expect(
+          await screen.findByText('Vi klarte ikke å hente', {
             exact: false,
           })
         ).toBeVisible()
