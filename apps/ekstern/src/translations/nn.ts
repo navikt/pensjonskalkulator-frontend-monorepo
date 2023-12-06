@@ -99,7 +99,7 @@ const translations = {
     'sjekkar vi om du er eller har vore medlem i offentleg tenestepensjonsordning, og viser at du kan ha rettar, utan å hente avtalane. ',
   'stegvisning.samtykke.readmore_list_item3':
     'gjeld samtykket kun for denne utrekninga.',
-  'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtaler?',
+  'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtalar?', // TODO har endret til avtalar med "a" for å være konsekvent
   'stegvisning.samtykke.radio_ja': 'Ja',
   'stegvisning.samtykke.radio_nei': 'Nei, hald fram utan',
   'stegvisning.samtykke.validation_error':
@@ -311,7 +311,7 @@ const translations = {
   'forbehold.saeralder.title': 'Særalderspensjon',
   'forbehold.saeralder.ingress':
     'Har du særalderspensjon frå ei tenestepensjonsordning, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Årsaka til det er at denne kalkulatoren vil bruke di siste registrerte pensjonsgjevande inntekt frem til tidspunktet for uttak. Utrekninga kan difor vise feil beløp.',
-  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar', // TODO Usikker her står det pensjonsavtaler med "e" i oversettelsen
+  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar', // TODO har endret til avtalar med "a" for å være konsekvent
   'forbehold.pensjonsavtaler.ingress':
     'Om du har gjeve samtykke til det, hentar vi inn opplysningar om kva du vil få i pensjon frå offentlege og private pensjonsordningar. NAV har ikkje ansvar for beløpa som vert viste. Beløpa er meint for å gje omtrentleg oversikt over din totale pensjon.{br}{br}Privat tenestepensjon og individuelle rettar vert innhenta via Norsk Pensjon.{br}{br}NAV har for tida ikkje høve til å hente informasjon frå offentlege tenestepensjonsordningar. Dette skuldast at reglane for ny offentleg AFP ikkje er endeleg vedteke, i tillegg til nye samordningsreglar for offentleg tenestepensjon. Ta kontakt med di pensjonsordning om du treng informasjon om tenestepensjonen din.{br}{br}Ynskjer du meir detaljar om dine pensjonsavtalar, må du sjekke direkte med den enkelte pensjonsordninga.',
   'personopplysninger.header':
@@ -325,11 +325,11 @@ const translations = {
   'personopplysninger.section.hvordan_brukes.header':
     'Korleis behandlar vi personopplysningar?',
   'personopplysninger.section.hvordan_brukes.1':
-    'NAV hentar inn og gjer ut personopplysningar kun når vi har lovhjemmel til det. Treng vi fleire opplysningar, ber vi om samtykke frå deg til å innhente eller utlevere opplysningane. Vi bruker kun opplysningane til det du samtykker til. Samtykket er frivillisamg. Du får informasjon undervegs om opplysningane vi henter inn frå andre, som f.eks. Folkeregisteret og pensjonsleverandørar.',
+    'NAV hentar inn og gjer ut personopplysningar kun når vi har lovhjemmel til det. Treng vi fleire opplysningar, ber vi om samtykke frå deg til å innhente eller utlevere opplysningane. Vi bruker kun opplysningane til det du samtykker til. Samtykket er frivillig. Du får informasjon undervegs om opplysningane vi henter inn frå andre, som f.eks. Folkeregisteret og pensjonsleverandørar.',
   'personopplysninger.section.hvordan_brukes.2':
     'Vi lagrar ikkje utrekningane du dine, og heller ikkje personopplysningane som vert brukt i denne samanhengen. ',
   'personopplysninger.section.hvordan_brukes.3':
-    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlovea kapittel 20 Alderspensjon og Art 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.', // TODO Her er det et forslag til vurdering i word dokumentet
+    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlova kapittel 20 Alderspensjon og Art. 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.', // TODO Her er det et forslag til vurdering i word dokumentet
   'personopplysninger.section.hvilke_opplysninger.header':
     'Personopplysningar som vert brukt',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
@@ -357,7 +357,7 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
     'Opplysningar som vi hentar viss du samtykker (GDPR Art 6 (1) a, Samtykke).',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.1':
-    'Frå Norsk Pensjon hentar vi pensjonsavtalar frå privat sektor, som teenestepensjon frå arbeidsgjevar (innskots-, ytings- eller hybridpensjon), fripolisar og enkelte avtalar om pensjonssparing.',
+    'Frå Norsk Pensjon hentar vi pensjonsavtalar frå privat sektor, som tenestepensjon frå arbeidsgjevar (innskots-, ytings- eller hybridpensjon), fripolisar og enkelte avtalar om pensjonssparing.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.2':
     'Vi sjekkar og om du er eller har vore medlem i offentleg tenestepensjonsordning. Er du, eller har du vore medlem, informerer vi deg om at du kan ha rett til tenestepensjon, men hentar ikkje inn avtalane.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
