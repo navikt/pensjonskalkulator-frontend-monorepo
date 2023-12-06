@@ -311,7 +311,7 @@ const translations = {
   'forbehold.saeralder.title': 'Særalderspensjon',
   'forbehold.saeralder.ingress':
     'Har du særalderspensjon frå ei tenestepensjonsordning, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Årsaka til det er at denne kalkulatoren vil bruke di siste registrerte pensjonsgjevande inntekt frem til tidspunktet for uttak. Utrekninga kan difor vise feil beløp.',
-  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar', // Usikker her står det pensjonsavtaler med "e" i oversettelsen
+  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar', // TODO Usikker her står det pensjonsavtaler med "e" i oversettelsen
   'forbehold.pensjonsavtaler.ingress':
     'Om du har gjeve samtykke til det, hentar vi inn opplysningar om kva du vil få i pensjon frå offentlege og private pensjonsordningar. NAV har ikkje ansvar for beløpa som vert viste. Beløpa er meint for å gje omtrentleg oversikt over din totale pensjon.{br}{br}Privat tenestepensjon og individuelle rettar vert innhenta via Norsk Pensjon.{br}{br}NAV har for tida ikkje høve til å hente informasjon frå offentlege tenestepensjonsordningar. Dette skuldast at reglane for ny offentleg AFP ikkje er endeleg vedteke, i tillegg til nye samordningsreglar for offentleg tenestepensjon. Ta kontakt med di pensjonsordning om du treng informasjon om tenestepensjonen din.{br}{br}Ynskjer du meir detaljar om dine pensjonsavtalar, må du sjekke direkte med den enkelte pensjonsordninga.',
   'personopplysninger.header':
@@ -329,7 +329,7 @@ const translations = {
   'personopplysninger.section.hvordan_brukes.2':
     'Vi lagrar ikkje utrekningane du dine, og heller ikkje personopplysningane som vert brukt i denne samanhengen. ',
   'personopplysninger.section.hvordan_brukes.3':
-    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlovea kapittel 20 Alderspensjon og Art 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.', // Her er det et forslag til vurdering i word dokumentet
+    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlovea kapittel 20 Alderspensjon og Art 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.', // TODO Her er det et forslag til vurdering i word dokumentet
   'personopplysninger.section.hvilke_opplysninger.header':
     'Personopplysningar som vert brukt',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
