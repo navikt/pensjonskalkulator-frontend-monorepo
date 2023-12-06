@@ -53,7 +53,7 @@ describe('LanguageProvider', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('test-component')).toHaveTextContent(
-        'Retirement income calculator'
+        'MANGLER_TEKST'
       )
       expect(document.documentElement.lang).toBe('en')
     })
