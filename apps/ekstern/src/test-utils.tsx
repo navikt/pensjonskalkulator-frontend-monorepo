@@ -10,7 +10,7 @@ import {
   Outlet,
 } from 'react-router-dom'
 
-import { PreloadedState, createListenerMiddleware } from '@reduxjs/toolkit'
+import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
 import { authenticationGuard, LoginContext } from '@/router/loaders'
@@ -26,7 +26,7 @@ import {
 import { getTranslation_nb } from './translations/nb'
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
-  preloadedState?: PreloadedState<RootState>
+  preloadedState?: Partial<RootState>
   store?: AppStore
   hasRouter?: boolean
   hasLogin?: boolean

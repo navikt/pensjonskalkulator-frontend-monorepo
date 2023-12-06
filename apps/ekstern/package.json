@@ -37,14 +37,14 @@
     "@navikt/ds-css": "^5.11.4",
     "@navikt/ds-react": "^5.11.4",
     "@navikt/ds-tokens": "^5.10.3",
-    "@reduxjs/toolkit": "^1.9.7",
+    "@reduxjs/toolkit": "^2.0.1",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
     "highcharts": "^11.2.0",
     "highcharts-react-official": "^3.2.1",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
-    "react-redux": "^8.1.3",
+    "react-redux": "^9.0.2",
     "react-router-dom": "^6.20.1"
   },
   "devDependencies": {
