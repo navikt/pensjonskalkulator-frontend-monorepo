@@ -47,16 +47,12 @@ describe('LanguageProvider-utils', () => {
       expect(nbTranslationsKeys).toHaveLength(forventetLength)
 
       const enTranslations = getTranslations('en')
-      expect(enTranslations['pageframework.title']).toBe(
-        'Retirement income calculator'
-      )
+      expect(enTranslations['pageframework.title']).toBe('MANGLER_TEKST')
       const enTranslationsKeys = Object.keys(enTranslations)
       expect(enTranslationsKeys).toHaveLength(forventetLength)
 
       const nnTranslations = getTranslations('nn')
-      expect(nnTranslations['pageframework.title']).toBe(
-        'Pensjonskalkulator (nynorsk)'
-      )
+      expect(nnTranslations['pageframework.title']).toBe('MANGLER_TEKST')
       const nnTranslationsKeys = Object.keys(nnTranslations)
       expect(nnTranslationsKeys).toHaveLength(forventetLength)
     })

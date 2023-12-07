@@ -36,7 +36,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     },
     "itemMarginBottom": 5,
     "itemStyle": {
-      "color": "#000000",
+      "color": "var(--a-grayalpha-900)",
       "cursor": "default",
       "fontFamily": "var(--a-font-family)",
       "fontSize": "14px",
@@ -165,6 +165,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     "title": {
       "align": "high",
       "style": {
+        "color": "var(--a-grayalpha-700)",
         "fontFamily": "var(--a-font-family)",
         "fontSize": "var(--a-font-size-medium)",
       },
