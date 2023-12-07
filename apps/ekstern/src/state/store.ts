@@ -5,11 +5,11 @@ import {
   ListenerEffectAPI,
   TypedStartListening,
   TypedAddListener,
-  PreloadedState,
 } from '@reduxjs/toolkit'
 
 import { apiSlice } from './api/apiSlice'
 import { createUttaksalderListener } from './listeners/uttaksalderListener'
+import { userInputInitialState } from './userInput/userInputReducer'
 import userInputReducer from './userInput/userInputReducer'
 
 const listenerMiddleware = createListenerMiddleware()
@@ -19,13 +19,15 @@ export const rootReducer = combineReducers({
   userInput: userInputReducer,
 })
 
-export function setupStore(
-  preloadedState?: PreloadedState<RootState>,
-  isDev = false
-) {
+export const initialState = {
+  api: {},
+  userInput: userInputInitialState,
+} as RootState
+
+export function setupStore(preloadedState?: Partial<RootState>, isDev = false) {
   return configureStore({
     reducer: rootReducer,
-    preloadedState,
+    preloadedState: preloadedState ? preloadedState : initialState,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware(
         isDev ? { immutableCheck: false, serializableCheck: false } : {}

@@ -25,7 +25,7 @@ describe('store', () => {
       },
     }
 
-    const store = setupStore({ api: undefined, userInput: state }, true)
+    const store = setupStore({ userInput: state }, true)
     const initialState = store.getState()
 
     expect(initialState.userInput).toMatchObject(state)

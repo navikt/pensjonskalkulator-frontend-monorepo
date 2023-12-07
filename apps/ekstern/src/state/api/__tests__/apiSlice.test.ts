@@ -29,7 +29,7 @@ describe('apiSlice', () => {
 
   describe('getInntekt', () => {
     it('returnerer data ved vellykket query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getInntekt.initiate())
         .then((result: FetchBaseQueryError) => {
@@ -39,7 +39,7 @@ describe('apiSlice', () => {
     })
 
     it('returnerer undefined ved feilende query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockErrorResponse('/inntekt')
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getInntekt.initiate())
@@ -50,7 +50,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockResponse('/inntekt', {
         status: 200,
         json: { aar: '532' },
@@ -69,7 +69,7 @@ describe('apiSlice', () => {
 
   describe('getPerson', () => {
     it('returnerer data ved vellykket query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
         .then((result: FetchBaseQueryError) => {
@@ -82,7 +82,7 @@ describe('apiSlice', () => {
     })
 
     it('returnerer undefined ved feilende query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockErrorResponse('/v1/person')
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
@@ -93,7 +93,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockResponse('/v1/person', {
         status: 200,
         json: { sivilstand: 'SIRKUSKLOVN' },
@@ -112,7 +112,7 @@ describe('apiSlice', () => {
 
   describe('getSakStatus', () => {
     it('returnerer data ved vellykket query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
         .then((result: FetchBaseQueryError) => {
@@ -122,7 +122,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uforventet format på data', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
 
       mockResponse('/sak-status', {
         json: {
@@ -142,7 +142,7 @@ describe('apiSlice', () => {
 
   describe('getTpoMedlemskap', () => {
     it('returnerer data ved vellykket query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getTpoMedlemskap.initiate())
         .then((result: FetchBaseQueryError) => {
@@ -152,7 +152,7 @@ describe('apiSlice', () => {
     })
 
     it('returnerer undefined ved feilende query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockErrorResponse('/tpo-medlemskap')
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getTpoMedlemskap.initiate())
@@ -163,7 +163,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockResponse('/tpo-medlemskap', {
         status: 200,
         json: { lorem: 'ipsum' },
@@ -194,7 +194,7 @@ describe('apiSlice', () => {
     }
 
     it('returnerer riktig data og flag ved vellykket query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(
           apiSlice.endpoints.pensjonsavtaler.initiate(dummyRequestBody)
@@ -233,7 +233,7 @@ describe('apiSlice', () => {
         },
         method: 'post',
       })
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(
           apiSlice.endpoints.pensjonsavtaler.initiate(dummyRequestBody)
@@ -250,7 +250,7 @@ describe('apiSlice', () => {
     })
 
     it('returnerer undefined ved feilende query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockErrorResponse('/v1/pensjonsavtaler', {
         method: 'post',
       })
@@ -265,7 +265,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
@@ -287,7 +287,7 @@ describe('apiSlice', () => {
 
   describe('tidligsteUttaksalder', () => {
     it('returnerer data ved successfull query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(apiSlice.endpoints.tidligsteUttaksalder.initiate())
         .then((result: FetchBaseQueryError) => {
@@ -297,7 +297,7 @@ describe('apiSlice', () => {
     })
 
     it('returnerer undefined ved feilende query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockErrorResponse('/v1/tidligste-uttaksalder', {
         status: 500,
         method: 'post',
@@ -311,7 +311,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockResponse('/v1/tidligste-uttaksalder', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
@@ -339,7 +339,7 @@ describe('apiSlice', () => {
       epsHarInntektOver2G: true,
     }
     it('returnerer data ved vellykket query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
         .then((result: FetchBaseQueryError) => {
@@ -349,7 +349,7 @@ describe('apiSlice', () => {
     })
 
     it('returnerer undefined ved feilende query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockErrorResponse('/v1/alderspensjon/simulering', {
         method: 'post',
       })
@@ -362,7 +362,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockResponse('/v1/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
@@ -382,7 +382,7 @@ describe('apiSlice', () => {
 
   describe('getSpraakvelgerFeatureToggle', () => {
     it('returnerer data ved vellykket query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(
           apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate()
@@ -394,7 +394,7 @@ describe('apiSlice', () => {
     })
 
     it('returnerer undefined ved feilende query', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockErrorResponse('/feature/pensjonskalkulator.disable-spraakvelger')
       return storeRef
         .dispatch<any>(
@@ -407,7 +407,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
 
       mockResponse('/feature/pensjonskalkulator.disable-spraakvelger', {
         status: 200,
@@ -430,7 +430,7 @@ describe('apiSlice', () => {
 
   describe('getHighchartsAccessibilityPluginFeatureToggle', () => {
     it('returnerer data ved vellykket query', async () => {
-      const storeRef = setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       return storeRef
         .dispatch<any>(
           apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
@@ -444,7 +444,7 @@ describe('apiSlice', () => {
     })
 
     it('returnerer undefined ved feilende query', async () => {
-      const storeRef = setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
       mockErrorResponse(
         '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin'
       )
@@ -459,7 +459,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore(undefined, true)
 
       mockResponse(
         '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',

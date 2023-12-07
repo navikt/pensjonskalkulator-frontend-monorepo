@@ -8,6 +8,11 @@ beforeEach(() => {
     `https://www.ekstern.dev.nav.no/person/nav-dekoratoren-api/auth`,
     {
       statusCode: 200,
+      body: {
+        authenticated: true,
+        name: 'Aprikos Nordmann',
+        securityLevel: '4',
+      },
     }
   ).as('getDecoratorPersonAuth')
 
@@ -20,9 +25,13 @@ beforeEach(() => {
     body: [],
   }).as('getDecoratorDriftsmeldinger')
 
-  cy.intercept('GET', `${Cypress.env('DECORATOR_URL')}/api/meny`, {
-    statusCode: 200,
-  }).as('getDecoratorMeny')
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `${Cypress.env('DECORATOR_URL')}/api/meny`,
+    },
+    { fixture: 'decorator-meny.json' }
+  ).as('getDecoratorMeny')
 
   cy.intercept(
     {
@@ -47,7 +56,7 @@ beforeEach(() => {
         'DECORATOR_URL'
       )}/env?chatbot=false&redirectToUrl=https://www.ekstern.dev.nav.no/pensjon/kalkulator/start`,
     },
-    { fixture: 'decorator-features.json' }
+    { fixture: 'decorator-env-features.json' }
   ).as('getDecoratorEnvFeatures')
 
   cy.intercept('POST', 'https://amplitude.nav.no/collect-auto', {

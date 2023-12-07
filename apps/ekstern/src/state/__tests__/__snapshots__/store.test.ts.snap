@@ -5,6 +5,7 @@ exports[`store > returnerer store med riktig slices og default state 1`] = `
   "api": {
     "config": {
       "focused": true,
+      "invalidationBehavior": "delayed",
       "keepUnusedDataFor": 60,
       "middlewareRegistered": false,
       "online": true,

@@ -25,7 +25,7 @@ describe('LanguageProvider', () => {
     })
   })
   it('gir tilgang til react-intl translations', async () => {
-    const storeRef = setupStore({}, true)
+    const storeRef = setupStore(undefined, true)
     render(
       <Provider store={storeRef}>
         <LanguageProvider>
@@ -41,7 +41,7 @@ describe('LanguageProvider', () => {
   })
 
   it('bruker locale fra cookie når den er tilgjengelig', async () => {
-    const storeRef = setupStore({}, true)
+    const storeRef = setupStore(undefined, true)
     document.cookie = 'decorator-language=en'
     render(
       <Provider store={storeRef}>
@@ -60,7 +60,7 @@ describe('LanguageProvider', () => {
   })
 
   it('bruker norsk bokmål uansett når kall til feature toggle feiler', async () => {
-    const storeRef = setupStore({}, true)
+    const storeRef = setupStore(undefined, true)
     document.cookie = 'decorator-language=en'
     mockErrorResponse('/feature/pensjonskalkulator.disable-spraakvelger')
 
