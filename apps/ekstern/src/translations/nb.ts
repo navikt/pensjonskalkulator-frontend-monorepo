@@ -244,7 +244,7 @@ const translations = {
   'grunnlag.opphold.title': 'Opphold i Norge',
   'grunnlag.opphold.value': 'Minst 40 år',
   'grunnlag.opphold.ingress':
-    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. ',
+    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':
@@ -306,7 +306,7 @@ const translations = {
   'forbehold.afp_privat.title': 'AFP Privat',
   'forbehold.afp_privat.ingress':
     'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP, men forutsetter at du har rett til pensjonen du har valgt å beregne.{br}{br}AFP i privat sektor kan påvirke hva som er ditt tidligste mulige uttakstidspunkt for alderspensjon. Om du har beregnet med AFP, og det viser seg at du på tidspunktet for uttak av alderspensjon ikke fyller vilkårene for AFP, kan det påvirke om du kan ta ut alderspensjon før 67 år.   ',
-  'forbehold.afp_offentlig.title': 'AFP Offentlig ',
+  'forbehold.afp_offentlig.title': 'AFP Offentlig',
   'forbehold.afp_offentlig.ingress':
     'NAV har for tiden ikke mulighet til å hente informasjon om AFP fra offentlige tjenestepensjonsordninger.{br}{br}AFP i offentlig sektor kan gi lavere første mulige uttaksalder på alderspensjon, men alderspensjon kan likevel aldri startes tidligere enn måneden etter fylte 62 år.{br}{br}Hvis du ønsker mer informasjon om din AFP i offentlig sektor må du sjekke direkte med din tjenestepensjonsordning.  ',
   'forbehold.uforetrygd.title': 'Uføretrygd',
