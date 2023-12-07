@@ -43,7 +43,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains(
       'Din opptjening i folketrygden gjør at du tidligst kan ta ut alderspensjon når du er'
     )
-    cy.contains('button', '67 år').click()
+    cy.contains('button', '70 år').click()
     cy.wait('@fetchAlderspensjon')
     cy.contains('button', 'Tidligst mulig uttak').click({ force: true })
     cy.contains('button', 'Uttaksgrad').click({ force: true })

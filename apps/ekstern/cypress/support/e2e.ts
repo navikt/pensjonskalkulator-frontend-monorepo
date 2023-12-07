@@ -35,9 +35,7 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: `${Cypress.env(
-        'DECORATOR_URL'
-      )}/api/features?feature=dekoratoren.skjermdeling&feature=dekoratoren.chatbotscript`,
+      url: `${Cypress.env('DECORATOR_URL')}/api/features?*`,
     },
     { fixture: 'decorator-features.json' }
   ).as('getDecoratorFeatures')
@@ -67,6 +65,14 @@ beforeEach(() => {
     },
     { fixture: 'disable-spraakvelger.json' }
   ).as('getFeatureToggleSpraakvelger')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
+    },
+    { fixture: 'disable-spraakvelger.json' }
+  ).as('getFeatureToggleHighcharts')
 
   cy.intercept(
     {
