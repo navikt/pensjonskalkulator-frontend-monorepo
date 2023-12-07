@@ -22,7 +22,10 @@ import {
   useGetPersonQuery,
   useTidligsteUttaksalderQuery,
 } from '@/state/api/apiSlice'
-import { useGetHighchartsAccessibilityPluginFeatureToggleQuery } from '@/state/api/apiSlice'
+import {
+  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
+  useGetDetaljertFaneFeatureToggleQuery,
+} from '@/state/api/apiSlice'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -51,8 +54,10 @@ export function Beregning() {
   const togglePensjonsavtalerAccordionItem = () => {
     setIslePensjonsavtalerAccordionItem((prevState) => !prevState)
   }
-  const { data: highchartsAccessibilityFeatureToggle, isSuccess } =
+  const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
+  const { data: detaljertFaneFeatureToggle } =
+    useGetDetaljertFaneFeatureToggleQuery()
 
   const { data: person } = useGetPersonQuery()
   const { data: inntekt } = useGetInntektQuery()
@@ -66,7 +71,7 @@ export function Beregning() {
 
   React.useEffect(() => {
     /* c8 ignore next 3 */
-    if (isSuccess && highchartsAccessibilityFeatureToggle.enabled) {
+    if (highchartsAccessibilityFeatureToggle?.enabled) {
       HighchartsAccessibility(Highcharts)
     }
     document.title = intl.formatMessage({
@@ -159,6 +164,9 @@ export function Beregning() {
 
   return (
     <>
+      {detaljertFaneFeatureToggle?.enabled && (
+        <p>TODO - placeholder til detaljert fane</p>
+      )}
       {!isTidligstMuligUttaksalderError && tidligstMuligUttak && (
         <div className={styles.container}>
           <TidligstMuligUttaksalder
@@ -210,7 +218,7 @@ export function Beregning() {
                   <Simulering
                     isLoading={isFetching}
                     hasHighchartsAccessibilityPlugin={
-                      isSuccess && highchartsAccessibilityFeatureToggle.enabled
+                      highchartsAccessibilityFeatureToggle?.enabled
                     }
                     inntekt={inntekt as Inntekt}
                     alderspensjon={alderspensjon}

@@ -8,6 +8,7 @@ import sakStatusReponse from './data/sak-status.json' assert { type: 'json' }
 import tidligstemuligeuttaksalderResponse from './data/tidligsteUttaksalder.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
+import detaljertFaneToggleResponse from './data/unleash-enable-detaljert-fane.json' assert { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
@@ -77,6 +78,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
+    }
+  ),
+
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.enable-detaljert-fane`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(detaljertFaneToggleResponse)
     }
   ),
 
