@@ -17,7 +17,7 @@ export default defineConfig(() => ({
       external: ['./nais.js'],
       output: {
         manualChunks: {
-          highcharts: ['highcharts', 'highcharts/modules/accessibility'],
+          ['highcharts']: ['highcharts', 'highcharts/modules/accessibility'],
           ['react-redux']: [
             'react',
             'react-dom',
@@ -27,6 +27,8 @@ export default defineConfig(() => ({
             '@reduxjs/toolkit',
             'react-router-dom',
           ],
+          ['designsystem']: ['@navikt/ds-react'],
+          ['faro']: ['@grafana/faro-web-sdk'],
           ['intl']: [
             'react-intl',
             'intl-messageformat',
