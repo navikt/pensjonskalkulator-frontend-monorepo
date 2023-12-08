@@ -80,7 +80,7 @@ export function Step4() {
 
   return (
     <AFP
-      isLastStep={nesteSide === paths.beregning}
+      isLastStep={nesteSide === paths.beregningEnkel}
       afp={previousAfp}
       onCancel={onCancel}
       onPrevious={onPrevious}

@@ -94,7 +94,7 @@ describe('Step Feil', () => {
     await waitFor(() => {
       expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
       expect(nesteSideMock).toHaveBeenCalledWith(true)
-      expect(navigateMock).toHaveBeenCalledWith(paths.beregning)
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
   })
 

@@ -82,7 +82,7 @@ describe('Step 4', () => {
       expect(store.getState().userInput.afp).toBe('ja_offentlig')
 
       expect(nesteSideMock).toHaveBeenCalledWith(true, false)
-      expect(navigateMock).toHaveBeenCalledWith(paths.beregning)
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
   })
   describe('Gitt at brukeren er UGIFT (og har dermed muligens en samboer)', () => {

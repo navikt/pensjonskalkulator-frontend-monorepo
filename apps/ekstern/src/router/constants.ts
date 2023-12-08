@@ -30,7 +30,8 @@ export const paths = {
   afp: '/afp',
   sivilstand: '/sivilstand',
   uventetFeil: '/uventet-feil',
-  beregning: '/beregning',
+  beregningEnkel: '/beregning',
+  beregningDetaljert: '/beregning-detaljert',
   forbehold: '/forbehold',
   personopplysninger: '/personopplysninger',
 } as const

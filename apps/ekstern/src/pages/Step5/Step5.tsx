@@ -36,7 +36,7 @@ export function Step5() {
 
   const onNext = (sivilstandData: SivilstandRadio): void => {
     dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
-    navigate(paths.beregning)
+    navigate(paths.beregningEnkel)
   }
   return (
     <>

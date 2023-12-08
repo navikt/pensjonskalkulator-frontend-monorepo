@@ -652,7 +652,7 @@ describe('routes', () => {
       })
     })
 
-    describe(`${BASE_PATH}${paths.beregning}`, () => {
+    describe(`${BASE_PATH}${paths.beregningEnkel}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
@@ -661,7 +661,7 @@ describe('routes', () => {
         })
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.beregning}`],
+          initialEntries: [`${BASE_PATH}${paths.beregningEnkel}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -680,7 +680,7 @@ describe('routes', () => {
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.beregning}`],
+          initialEntries: [`${BASE_PATH}${paths.beregningEnkel}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -699,7 +699,7 @@ describe('routes', () => {
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.beregning}`],
+          initialEntries: [`${BASE_PATH}${paths.beregningEnkel}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -711,6 +711,67 @@ describe('routes', () => {
           ).not.toBeInTheDocument()
           expect(
             await screen.findByText('velguttaksalder.title')
+          ).toBeInTheDocument()
+        })
+      })
+    })
+
+    describe(`${BASE_PATH}${paths.beregningDetaljert}`, () => {
+      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
+        const open = vi.fn()
+        vi.stubGlobal('open', open)
+        mockErrorResponse('/oauth2/session', {
+          baseUrl: `${HOST_BASEURL}`,
+        })
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.beregningDetaljert}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        await waitFor(() => {
+          expect(open).toHaveBeenCalledWith(
+            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+            '_self'
+          )
+        })
+      })
+      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+        store.getState = vi.fn().mockImplementation(() => ({
+          api: {},
+          userInput: { ...userInputInitialState },
+        }))
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.beregningDetaljert}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('stegvisning.start.button')
+        ).toBeInTheDocument()
+      })
+
+      it('viser beregningen når brukeren kommer til steget gjennom stegvisningen', async () => {
+        store.getState = vi.fn().mockImplementation(() => ({
+          api: {
+            ...fakeApiCalls,
+          },
+          userInput: { ...userInputInitialState, samtykke: true },
+        }))
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.beregningDetaljert}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+
+        await waitFor(async () => {
+          expect(
+            await screen.findByText('detaljert visning')
           ).toBeInTheDocument()
         })
       })

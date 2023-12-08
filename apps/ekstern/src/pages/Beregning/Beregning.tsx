@@ -1,7 +1,8 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
-import { Heading } from '@navikt/ds-react'
+import { Heading, ToggleGroup } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 import Highcharts from 'highcharts'
@@ -15,6 +16,7 @@ import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
+import { paths } from '@/router/constants'
 import {
   apiSlice,
   useAlderspensjonQuery,
@@ -38,7 +40,14 @@ import { logger } from '@/utils/logging'
 
 import styles from './Beregning.module.scss'
 
-export function Beregning() {
+type BeregningVisning = 'enkel' | 'detaljert'
+interface Props {
+  visning: BeregningVisning
+}
+
+export const Beregning: React.FC<Props> = ({ visning }) => {
+  const navigate = useNavigate()
+
   const isAlderValgt = useAppSelector(selectFormatertUttaksalder) !== null
   const harSamboer = useAppSelector(selectSamboer)
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
@@ -163,85 +172,108 @@ export function Beregning() {
   }
 
   return (
-    <>
+    <div className={styles.beregning}>
       {detaljertFaneFeatureToggle?.enabled && (
-        <p>TODO - placeholder til detaljert fane</p>
-      )}
-      {!isTidligstMuligUttaksalderError && tidligstMuligUttak && (
         <div className={styles.container}>
-          <TidligstMuligUttaksalder
-            tidligstMuligUttak={tidligstMuligUttak}
-            hasAfpOffentlig={afp === 'ja_offentlig'}
-          />
+          <div className={styles.toggle}>
+            <ToggleGroup
+              defaultValue={visning}
+              variant="neutral"
+              onChange={(v) => {
+                navigate(
+                  v === 'enkel'
+                    ? paths.beregningEnkel
+                    : paths.beregningDetaljert
+                )
+              }}
+            >
+              <ToggleGroup.Item value="enkel">Enkel</ToggleGroup.Item>
+              <ToggleGroup.Item value="detaljert">Detaljert</ToggleGroup.Item>
+            </ToggleGroup>
+          </div>
         </div>
       )}
-      <div
-        className={clsx(styles.background, styles.background__hasMargin, {
-          [styles.background__white]: isAlderValgt,
-        })}
-      >
-        <div className={styles.container}>
-          <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
-        </div>
-
-        {isAlderValgt && (
+      {visning === 'enkel' && (
+        <>
+          {!isTidligstMuligUttaksalderError && tidligstMuligUttak && (
+            <div className={styles.container}>
+              <TidligstMuligUttaksalder
+                tidligstMuligUttak={tidligstMuligUttak}
+                hasAfpOffentlig={afp === 'ja_offentlig'}
+              />
+            </div>
+          )}
           <div
-            className={`${styles.container} ${styles.container__hasPadding}`}
+            className={clsx(styles.background, styles.background__hasMargin, {
+              [styles.background__white]: isAlderValgt,
+            })}
           >
-            {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
-              <>
-                <Heading level="2" size="small">
-                  <FormattedMessage id="beregning.title" />
-                </Heading>
-                <Alert onRetry={isError ? onRetry : undefined}>
-                  {startAar && startAar < 67 && (
-                    <FormattedMessage
-                      id="beregning.lav_opptjening"
-                      values={{ startAar }}
-                    />
-                  )}
-                  {isError && <FormattedMessage id="beregning.error" />}
-                </Alert>
-              </>
-            ) : (
-              <>
-                <AccordionContext.Provider
-                  value={{
-                    ref: grunnlagPensjonsavtalerRef,
-                    isOpen: isPensjonsavtalerAccordionItemOpen,
-                    toggleOpen: togglePensjonsavtalerAccordionItem,
-                  }}
-                >
-                  {
-                    // Inntekt kan ikke være undefined her fordi feil fanges på Steg 1 allerede
-                  }
-                  <Simulering
-                    isLoading={isFetching}
-                    hasHighchartsAccessibilityPlugin={
-                      highchartsAccessibilityFeatureToggle?.enabled
-                    }
-                    inntekt={inntekt as Inntekt}
-                    alderspensjon={alderspensjon}
-                    showAfp={afp === 'ja_privat'}
-                    showButtonsAndTable={
-                      !isError && alderspensjon?.vilkaarErOppfylt
-                    }
-                  />
-                  <Grunnlag
-                    inntekt={inntekt as Inntekt}
-                    tidligstMuligUttak={tidligstMuligUttak}
-                  />
-                </AccordionContext.Provider>
-              </>
+            <div className={styles.container}>
+              <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
+            </div>
+
+            {isAlderValgt && (
+              <div
+                className={`${styles.container} ${styles.container__hasPadding}`}
+              >
+                {isError ||
+                (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
+                  <>
+                    <Heading level="2" size="small">
+                      <FormattedMessage id="beregning.title" />
+                    </Heading>
+                    <Alert onRetry={isError ? onRetry : undefined}>
+                      {startAar && startAar < 67 && (
+                        <FormattedMessage
+                          id="beregning.lav_opptjening"
+                          values={{ startAar }}
+                        />
+                      )}
+                      {isError && <FormattedMessage id="beregning.error" />}
+                    </Alert>
+                  </>
+                ) : (
+                  <>
+                    <AccordionContext.Provider
+                      value={{
+                        ref: grunnlagPensjonsavtalerRef,
+                        isOpen: isPensjonsavtalerAccordionItemOpen,
+                        toggleOpen: togglePensjonsavtalerAccordionItem,
+                      }}
+                    >
+                      {
+                        // Inntekt kan ikke være undefined her fordi feil fanges på Steg 1 allerede
+                      }
+                      <Simulering
+                        isLoading={isFetching}
+                        hasHighchartsAccessibilityPlugin={
+                          highchartsAccessibilityFeatureToggle?.enabled
+                        }
+                        inntekt={inntekt as Inntekt}
+                        alderspensjon={alderspensjon}
+                        showAfp={afp === 'ja_privat'}
+                        showButtonsAndTable={
+                          !isError && alderspensjon?.vilkaarErOppfylt
+                        }
+                      />
+                      <Grunnlag
+                        inntekt={inntekt as Inntekt}
+                        tidligstMuligUttak={tidligstMuligUttak}
+                      />
+                    </AccordionContext.Provider>
+                  </>
+                )}
+              </div>
             )}
           </div>
-        )}
-      </div>
+        </>
+      )}
+      {visning === 'detaljert' && <p>detaljert visning</p>}
       <div className={`${styles.background} ${styles.background__lightblue}`}>
         <div className={styles.container}>
           <TilbakeEllerAvslutt />
         </div>
       </div>
-    </>
+    </div>
   )
 }

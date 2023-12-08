@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom'
 import { describe, it, vi } from 'vitest'
 
 import { PageFramework } from '..'
+import { mockResponse } from '@/mocks/server'
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
+import { apiSlice } from '@/state/api/apiSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 function TestComponent() {
@@ -26,7 +28,77 @@ describe('PageFramework', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('rendrer slik den skal i full width', async () => {
+  it('rendrer slik den skal med hvit bakgrunn', async () => {
+    const { asFragment } = render(<PageFramework hasWhiteBg />, {
+      hasLogin: true,
+    })
+    await waitFor(async () => {
+      expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+        'pageframework.title'
+      )
+    })
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  describe('Når feature-toggle for detaljert fane skrues av og på', () => {
+    it('rendrer med hvit bakgrunn når feature toggle er på og hasToggleBg er true', async () => {
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      const { store, asFragment } = render(<PageFramework hasToggleBg />, {
+        hasLogin: true,
+      })
+      store.dispatch(
+        apiSlice.endpoints.getDetaljertFaneFeatureToggle.initiate()
+      )
+
+      await waitFor(async () => {
+        expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+          'pageframework.title'
+        )
+      })
+      expect(asFragment()).toMatchSnapshot()
+    })
+    it('rendrer uten hvit bakgrunn når feature toggle er på og hasToggleBg er false', async () => {
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      const { store, asFragment } = render(<PageFramework />, {
+        hasLogin: true,
+      })
+      store.dispatch(
+        apiSlice.endpoints.getDetaljertFaneFeatureToggle.initiate()
+      )
+      await waitFor(async () => {
+        expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+          'pageframework.title'
+        )
+      })
+      expect(asFragment()).toMatchSnapshot()
+    })
+    it('rendrer uten hvit bakgrunn når feature toggle er av', async () => {
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: false },
+      })
+      const { store, asFragment } = render(<PageFramework hasToggleBg />, {
+        hasLogin: true,
+      })
+      store.dispatch(
+        apiSlice.endpoints.getDetaljertFaneFeatureToggle.initiate()
+      )
+      await waitFor(async () => {
+        expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+          'pageframework.title'
+        )
+      })
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  it('rendrer slik den skal i full bredde', async () => {
     const { asFragment } = render(
       <PageFramework isFullWidth shouldShowLogo={false} />,
       {
