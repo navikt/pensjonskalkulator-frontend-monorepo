@@ -47,7 +47,7 @@ describe('Step 5', () => {
       await user.click(radioButtons[0])
       await user.click(screen.getByText('stegvisning.beregn'))
       expect(store.getState().userInput.samboer).toBe(true)
-      expect(navigateMock).toHaveBeenCalledWith(paths.beregning)
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
   })
 

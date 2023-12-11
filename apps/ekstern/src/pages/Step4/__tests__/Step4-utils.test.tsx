@@ -19,8 +19,8 @@ describe('Step 4 - utils', () => {
         expect(getNesteSide(false, false)).toBe(paths.sivilstand)
       })
       it('returnerer path til beregning steget når brukeren har samboer', () => {
-        expect(getNesteSide(true)).toBe(paths.beregning)
-        expect(getNesteSide(true, false)).toBe(paths.beregning)
+        expect(getNesteSide(true)).toBe(paths.beregningEnkel)
+        expect(getNesteSide(true, false)).toBe(paths.beregningEnkel)
       })
     })
   })

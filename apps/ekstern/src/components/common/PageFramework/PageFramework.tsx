@@ -25,6 +25,7 @@ function RedirectElement() {
 export const PageFramework: React.FC<{
   isFullWidth?: boolean
   hasWhiteBg?: boolean
+  hasToggleBg?: boolean
   shouldShowLogo?: boolean
   shouldRedirectNonAuthenticated?: boolean
   children?: JSX.Element

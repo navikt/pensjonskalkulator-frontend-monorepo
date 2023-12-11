@@ -7,5 +7,5 @@ export function getNesteSide(
   if (isInntektError || harSamboer === null) {
     return paths.uventetFeil
   }
-  return harSamboer ? paths.beregning : paths.sivilstand
+  return harSamboer ? paths.beregningEnkel : paths.sivilstand
 }

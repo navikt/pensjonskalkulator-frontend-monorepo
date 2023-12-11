@@ -115,7 +115,7 @@ export const routes: RouteObject[] = [
   {
     loader: authenticationGuard,
     element: (
-      <PageFramework isFullWidth>
+      <PageFramework isFullWidth hasToggleBg>
         <Outlet />
       </PageFramework>
     ),
@@ -123,8 +123,13 @@ export const routes: RouteObject[] = [
     children: [
       {
         loader: directAccessGuard,
-        path: paths.beregning,
-        element: <Beregning />,
+        path: paths.beregningEnkel,
+        element: <Beregning visning="enkel" />,
+      },
+      {
+        loader: directAccessGuard,
+        path: paths.beregningDetaljert,
+        element: <Beregning visning="detaljert" />,
       },
     ],
   },
