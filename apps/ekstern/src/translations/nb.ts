@@ -234,9 +234,18 @@ const translations = {
   'grunnlag.inntekt.title': 'Inntekt',
   'grunnlag.inntekt.title.error': 'Ingen registrert',
   'grunnlag.inntekt.ingress':
-    'Beløpet er din siste pensjonsgivende årsinntekt (fra {aarsinntekt}) fra Skatteetaten. Inntekten blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon. Ønsker du å endre fremtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+    'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon.{br}{br}{beloep} kr er din siste pensjonsgivende årsinntekt (fra {aar}) fra Skatteetaten.',
   'grunnlag.inntekt.ingress.error':
-    'Du er ikke registrert med pensjonsgivende inntekt. Derfor blir 0 kr brukt som din fremtidige inntekt frem til du starter uttak av pensjon. Hvis du får inntekt vil alderspensjonen bli høyere. Ønsker du å endre fremtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+    'Du er ikke registrert med pensjonsgivende inntekt. Derfor blir 0 kr brukt som din fremtidige inntekt frem til du starter uttak av pensjon. Hvis du får inntekt vil alderspensjonen bli høyere.',
+  'grunnlag.inntekt.link': 'Hva er pensjonsgivende inntekt?',
+  'grunnlag.inntekt.button': 'Endre inntekt',
+  'grunnlag.inntekt.modal.title': 'Pensjonsgivende inntekt',
+  'grunnlag.inntekt.modal.textfield.label':
+    'Hva forventer du å ha i årlig inntekt frem til du tar ut pensjon?',
+  'grunnlag.inntekt.modal.textfield.description': 'Dagens kroneverdi før skatt',
+  'grunnlag.inntekt.modal.textfield.validation_error':
+    'Fyll ut et beløp eller velg avbryt hvis du ikke vil endre inntekten din.',
+  'grunnlag.inntekt.modal.button': 'Oppdater inntekt',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':

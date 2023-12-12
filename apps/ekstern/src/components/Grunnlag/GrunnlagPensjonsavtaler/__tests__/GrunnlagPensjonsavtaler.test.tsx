@@ -33,7 +33,7 @@ describe('GrunnlagPensjonsavtaler', () => {
     startAar: 67,
     startMaaned: 1,
     uttaksgrad: 100,
-    aarligInntekt: 0,
+    aarligInntektFoerUttak: 0,
   }
   describe('Gitt at brukeren ikke har samtykket', () => {
     it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress og tabell', async () => {

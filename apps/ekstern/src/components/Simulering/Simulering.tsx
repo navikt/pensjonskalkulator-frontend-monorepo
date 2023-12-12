@@ -46,7 +46,7 @@ import styles from './Simulering.module.scss'
 export function Simulering(props: {
   isLoading: boolean
   hasHighchartsAccessibilityPlugin?: boolean
-  inntekt: Inntekt
+  aarligInntektFoerUttak: number
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
   showButtonsAndTable?: boolean
@@ -55,7 +55,7 @@ export function Simulering(props: {
   const {
     isLoading,
     hasHighchartsAccessibilityPlugin,
-    inntekt,
+    aarligInntektFoerUttak,
     alderspensjon,
     showAfp,
     showButtonsAndTable,
@@ -115,7 +115,7 @@ export function Simulering(props: {
   React.useEffect(() => {
     if (harSamtykket && startAar) {
       const requestBody = generatePensjonsavtalerRequestBody(
-        inntekt?.beloep,
+        aarligInntektFoerUttak,
         afp,
         {
           aar: startAar,
@@ -167,7 +167,7 @@ export function Simulering(props: {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
             name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
             data: processInntektArray(
-              inntekt.beloep,
+              aarligInntektFoerUttak,
               XAxis.length,
               startMaaned
             ),

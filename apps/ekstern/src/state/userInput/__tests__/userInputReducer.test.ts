@@ -67,23 +67,42 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('updateCurrentSimulation', () => {
-      const updatedState = userInputSlice(
-        userInputInitialState,
-        userInputActions.updateCurrentSimulation({
-          startAar: 65,
-          startMaaned: 4,
-        })
-      )
+    describe('updateCurrentSimulation', () => {
+      it('oppdaterer startAar og startMaaned uavhengig av de andre verdiene', () => {
+        const updatedState = userInputSlice(
+          userInputInitialState,
+          userInputActions.updateCurrentSimulation({
+            startAar: 65,
+            startMaaned: 4,
+          })
+        )
 
-      expect(updatedState).toStrictEqual({
-        ...userInputInitialState,
-        currentSimulation: {
-          startAar: 65,
-          startMaaned: 4,
-          uttaksgrad: 100,
-          aarligInntekt: 0,
-        },
+        expect(updatedState).toStrictEqual({
+          ...userInputInitialState,
+          currentSimulation: {
+            startAar: 65,
+            startMaaned: 4,
+            aarligInntektFoerUttak: null,
+          },
+        })
+      })
+
+      it('oppdaterer aarligInntektFoerUttak og startMaaned uavhengig av de andre verdiene', () => {
+        const updatedState = userInputSlice(
+          userInputInitialState,
+          userInputActions.updateCurrentSimulation({
+            aarligInntektFoerUttak: 500000,
+          })
+        )
+
+        expect(updatedState).toStrictEqual({
+          ...userInputInitialState,
+          currentSimulation: {
+            startAar: null,
+            startMaaned: null,
+            aarligInntektFoerUttak: 500000,
+          },
+        })
       })
     })
 
@@ -98,8 +117,7 @@ describe('userInputSlice', () => {
           currentSimulation: {
             startAar: 66,
             startMaaned: 4,
-            uttaksgrad: 100,
-            aarligInntekt: 0,
+            aarligInntektFoerUttak: null,
           },
         },
         userInputActions.flush()

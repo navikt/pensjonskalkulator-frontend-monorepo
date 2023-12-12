@@ -18,7 +18,7 @@ import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
-  selectInntekt,
+  selectAarligInntektFoerUttak,
   selectAfp,
   selectSivilstand,
   selectCurrentSimulation,
@@ -34,7 +34,7 @@ export const GrunnlagPensjonsavtaler = () => {
   const intl = useIntl()
   const harSamtykket = useAppSelector(selectSamtykke)
   const sivilstand = useAppSelector(selectSivilstand)
-  const inntekt = useAppSelector(selectInntekt)
+  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const afp = useAppSelector(selectAfp)
   const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
   const {
@@ -49,7 +49,7 @@ export const GrunnlagPensjonsavtaler = () => {
     isSuccess,
   } = usePensjonsavtalerQuery(
     generatePensjonsavtalerRequestBody(
-      inntekt ? inntekt.beloep : 0,
+      aarligInntektFoerUttak ?? 0,
       afp,
       {
         aar: startAar as number,
@@ -58,7 +58,7 @@ export const GrunnlagPensjonsavtaler = () => {
       sivilstand
     ),
     {
-      skip: !harSamtykket || !startAar || !inntekt,
+      skip: !harSamtykket || !startAar,
     }
   )
   const navigate = useNavigate()

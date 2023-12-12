@@ -1,0 +1,11 @@
+@import '../../../scss/variables.scss';
+
+.link {
+  display: block;
+  margin-top: var(--a-spacing-4);
+}
+
+.button {
+  padding-top: var(--a-spacing-6);
+  padding-left: 0;
+}

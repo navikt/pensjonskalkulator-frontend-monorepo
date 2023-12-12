@@ -7,7 +7,7 @@ import * as Step4Utils from '../../Step4/utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { screen, render, userEvent, waitFor } from '@/test-utils'
+import { act, screen, render, userEvent, waitFor } from '@/test-utils'
 import * as sivilstandUtils from '@/utils/sivilstand'
 
 describe('Step Feil', () => {
@@ -26,7 +26,7 @@ describe('Step Feil', () => {
     })
   })
 
-  it('kaller /inntekt på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden', async () => {
+  it('kaller /inntekt på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden til brukeren klikker avbryt', async () => {
     const user = userEvent.setup()
     mockErrorResponse('/inntekt')
     const navigateMock = vi.fn()
@@ -34,16 +34,16 @@ describe('Step Feil', () => {
       () => navigateMock
     )
     render(<StepFeil />)
-    user.click(await screen.findByText('error.global.button'))
+    await user.click(await screen.findByText('error.global.button'))
     await waitFor(() => {
-      expect(navigateMock).not.toHaveBeenCalled()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'error.global.title'
       )
+      expect(navigateMock).toHaveBeenCalledWith('/login')
     })
   })
 
-  it('kaller /person på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden', async () => {
+  it('kaller /person på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden til brukeren klikker avbryt', async () => {
     const user = userEvent.setup()
     mockErrorResponse('/v1/person')
     const navigateMock = vi.fn()
@@ -51,12 +51,14 @@ describe('Step Feil', () => {
       () => navigateMock
     )
     render(<StepFeil />)
-    user.click(await screen.findByText('error.global.button'))
+
+    await user.click(await screen.findByText('error.global.button'))
+
     await waitFor(() => {
-      expect(navigateMock).not.toHaveBeenCalled()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'error.global.title'
       )
+      expect(navigateMock).toHaveBeenCalledWith('/login')
     })
   })
 

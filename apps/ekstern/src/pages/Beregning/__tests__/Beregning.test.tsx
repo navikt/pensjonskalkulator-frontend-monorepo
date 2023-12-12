@@ -228,7 +228,7 @@ describe('Beregning', () => {
 
         await user.click(proevPaaNyttbutton)
 
-        expect(initiateMock).toHaveBeenCalledTimes(2)
+        expect(initiateMock).toHaveBeenCalledTimes(3)
         expect(
           screen.queryByText('beregning.tabell.vis')
         ).not.toBeInTheDocument()
@@ -269,7 +269,7 @@ describe('Beregning', () => {
           startAar: 68,
           startMaaned: 5,
           uttaksgrad: 100,
-          aarligInntekt: 0,
+          aarligInntektFoerUttak: 0,
         }
         const user = userEvent.setup()
         mockErrorResponse('/v1/tidligste-uttaksalder', {

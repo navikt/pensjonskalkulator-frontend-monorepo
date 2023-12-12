@@ -226,10 +226,19 @@ const translations = {
     'Denne utrekninga syner 100 % uttak av alderspensjon. I detaljert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
   'grunnlag.inntekt.title': 'Inntekt',
   'grunnlag.inntekt.title.error': 'Ingen registrert',
+  // TODO - utdatert tekst
   'grunnlag.inntekt.ingress':
     'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+  // TODO - utdatert tekst
   'grunnlag.inntekt.ingress.error':
     'Du er ikkje registrert med pensjonsgjevande inntekt. Difor vert 0 kroner brukt som di framtidige inntekt fram til du startar uttak av pensjon. Får du inntekt vert alderspensjonen høgare. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+  'grunnlag.inntekt.link': 'MANGLER_TEKST',
+  'grunnlag.inntekt.button': 'MANGLER_TEKST',
+  'grunnlag.inntekt.modal.title': 'MANGLER_TEKST',
+  'grunnlag.inntekt.modal.textfield.label': 'MANGLER_TEKST',
+  'grunnlag.inntekt.modal.textfield.description': 'MANGLER_TEKST',
+  'grunnlag.inntekt.modal.textfield.validation_error': 'MANGLER_TEKST',
+  'grunnlag.inntekt.modal.button': 'MANGLER_TEKST',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikkje hentast',
   'grunnlag.sivilstand.ingress':
