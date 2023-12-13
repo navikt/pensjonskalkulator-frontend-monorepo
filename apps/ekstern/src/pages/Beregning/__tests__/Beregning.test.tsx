@@ -7,10 +7,7 @@ import { Beregning } from '../Beregning'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import {
-  userInputInitialState,
-  Simulation,
-} from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
@@ -264,14 +261,18 @@ describe('Beregning', () => {
         console.error = cache
       })
 
-      it('viser feilmelding og skjuler Grunnlag når tidligste-uttaksalder har feilet og brukeren prøver å simulere med for lav uttaksalder', async () => {
-        const currentSimulation: Simulation = {
-          startAar: 68,
-          startMaaned: 5,
-          uttaksgrad: 100,
-          aarligInntektFoerUttak: 0,
-        }
+      it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav og skjuler Grunnlag', async () => {
         const user = userEvent.setup()
+        mockResponse('/v1/alderspensjon/simulering', {
+          status: 200,
+          method: 'post',
+          json: [
+            {
+              alderspensjon: [],
+              vilkaarErOppfylt: false,
+            },
+          ],
+        })
         mockErrorResponse('/v1/tidligste-uttaksalder', {
           method: 'post',
         })
@@ -282,10 +283,15 @@ describe('Beregning', () => {
             api: { ...fakeApiCalls },
             userInput: {
               ...userInputInitialState,
-              formatertUttaksalder: '68 alder.aar string.og 5 string.maaneder',
+              formatertUttaksalder: '63 alder.aar',
               samtykke: true,
               samboer: false,
-              currentSimulation: currentSimulation,
+              currentSimulation: {
+                startAar: 63,
+                startMaaned: 0,
+                uttaksgrad: 100,
+                aarligInntektFoerUttak: 0,
+              },
             },
           },
         })
@@ -296,17 +302,14 @@ describe('Beregning', () => {
           ).not.toBeInTheDocument()
         })
 
-        expect(
-          screen.queryByTestId('tidligst-mulig-uttak')
-        ).not.toBeInTheDocument()
-
-        const button = await screen.findByText('62 alder.aar')
+        const button = await screen.findByText('63 alder.aar')
 
         await user.click(button)
 
         expect(
           await screen.findByText(
-            'Du har ikke høy nok opptjening til å kunne starte uttak ved 62 år. Prøv en høyere alder.'
+            'Du har ikke høy nok opptjening til å kunne starte uttak ved 63 år. Prøv en høyere alder.',
+            { exact: false }
           )
         ).toBeVisible()
         expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()

@@ -14,7 +14,7 @@ import { act, render, screen, waitFor, userEvent } from '@/test-utils'
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
     startAar: 67,
-    startMaaned: 5,
+    startMaaned: 0,
     uttaksgrad: 100,
     aarligInntektFoerUttak: 0,
   }
@@ -194,7 +194,7 @@ describe('Simulering', () => {
           sivilstand: undefined,
           uttaksperioder: [
             {
-              startAlder: { aar: 67, maaneder: 5 },
+              startAlder: { aar: 67, maaneder: 0 },
               aarligInntekt: 0,
               grad: 100,
             },
@@ -323,7 +323,8 @@ describe('Simulering', () => {
       expect(legendItems).toHaveLength(2)
     })
 
-    it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler ', async () => {
+    it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
+      const user = userEvent.setup()
       mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
@@ -347,6 +348,7 @@ describe('Simulering', () => {
         },
         method: 'post',
       })
+
       render(
         <Simulering
           isLoading={false}
@@ -368,6 +370,7 @@ describe('Simulering', () => {
           },
         }
       )
+
       await waitFor(async () => {
         expect(
           await screen.findByText('beregning.pensjonsavtaler.info')
