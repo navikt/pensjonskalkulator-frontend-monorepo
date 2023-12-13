@@ -22,6 +22,7 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatWithoutDecimal } from '@/utils/currency'
+import { logger } from '@/utils/logging'
 import { formatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagInntekt.module.scss'
@@ -48,6 +49,19 @@ export const GrunnlagInntekt = () => {
     setValidationError('')
   }
 
+  const openInfoModal = () => {
+    logger('modal åpnet', {
+      tekst: 'info om pensjonsgivende inntekt',
+    })
+    infoModalRef.current?.showModal()
+  }
+  const openInntektModal = () => {
+    logger('modal åpnet', {
+      tekst: 'endring av pensjonsgivende inntekt',
+    })
+    inntektModalRef.current?.showModal()
+  }
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
@@ -65,19 +79,14 @@ export const GrunnlagInntekt = () => {
         })
       )
     } else {
-      // TODO Amplitude logging
-      // logger('radiogroup valgt', {
-      //   tekst: 'Samtykke',
-      //   valg: samtykkeData,
-      // })
-      // logger('button klikk', {
-      //   tekst: 'Neste',
-      // })
       dispatch(
         userInputActions.updateCurrentSimulation({
           aarligInntektFoerUttak: parseInt(inntektData, 10),
         })
       )
+      logger('button klikk', {
+        tekst: 'endrer pensjonsgivende inntekt',
+      })
       /* c8 ignore next 3 */
       if (inntektModalRef.current?.open) {
         inntektModalRef.current?.close()
@@ -238,7 +247,7 @@ export const GrunnlagInntekt = () => {
               <br />
               <Link
                 className={styles.link}
-                onClick={() => infoModalRef.current?.showModal()}
+                onClick={openInfoModal}
                 target="_blank"
                 inlineText
               >
@@ -250,7 +259,7 @@ export const GrunnlagInntekt = () => {
               className={styles.button}
               variant="tertiary"
               icon={<PencilIcon aria-hidden />}
-              onClick={() => inntektModalRef.current?.showModal()}
+              onClick={openInntektModal}
             >
               {intl.formatMessage({
                 id: 'grunnlag.inntekt.button',
