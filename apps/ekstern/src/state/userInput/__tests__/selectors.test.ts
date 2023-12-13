@@ -301,7 +301,7 @@ describe('userInput selectors', () => {
         },
       },
     }
-    it('returnerer inntekt basert på svaret som brukeren har oppgitt, som obverskriver opprinnelig inntekt hentet fra Skatteetaten', () => {
+    it('returnerer inntekt basert på svaret som brukeren har oppgitt, som overskriver opprinnelig inntekt hentet fra Skatteetaten', () => {
       const state: RootState = {
         ...initialState,
         /* eslint-disable @typescript-eslint/ban-ts-comment */
