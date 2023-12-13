@@ -94,6 +94,7 @@ export function onPointClick(this: Point): void {
     if (index === pointIndex) {
       label.style.fontWeight = 'bold'
       label.style.color = 'var(--a-grayalpha-900)'
+      label.style.fill = 'var(--a-grayalpha-900)'
     } else {
       label.style.fontWeight = 'normal'
     }
