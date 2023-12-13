@@ -2,7 +2,14 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon } from '@navikt/aksel-icons'
-import { BodyLong, Button, Link, Modal, TextField } from '@navikt/ds-react'
+import {
+  BodyLong,
+  Button,
+  Label,
+  Link,
+  Modal,
+  TextField,
+} from '@navikt/ds-react'
 
 import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
@@ -22,7 +29,8 @@ import styles from './GrunnlagInntekt.module.scss'
 export const GrunnlagInntekt = () => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-  const modalRef = React.useRef<HTMLDialogElement>(null)
+  const infoModalRef = React.useRef<HTMLDialogElement>(null)
+  const inntektModalRef = React.useRef<HTMLDialogElement>(null)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const aarligInntektFoerUttakFraBrukerInput = useAppSelector(
     selectAarligInntektFoerUttakFraBrukerInput
@@ -53,7 +61,7 @@ export const GrunnlagInntekt = () => {
     ) {
       setValidationError(
         intl.formatMessage({
-          id: 'grunnlag.inntekt.modal.textfield.validation_error',
+          id: 'grunnlag.inntekt.inntektmodal.textfield.validation_error',
         })
       )
     } else {
@@ -71,15 +79,15 @@ export const GrunnlagInntekt = () => {
         })
       )
       /* c8 ignore next 3 */
-      if (modalRef.current?.open) {
-        modalRef.current?.close()
+      if (inntektModalRef.current?.open) {
+        inntektModalRef.current?.close()
       }
     }
   }
 
   const onCancel = (): void => {
     setValidationError('')
-    modalRef.current?.close()
+    inntektModalRef.current?.close()
   }
 
   const isInntektGreaterThanZero =
@@ -91,11 +99,70 @@ export const GrunnlagInntekt = () => {
   return (
     <>
       <Modal
-        ref={modalRef}
+        ref={infoModalRef}
+        className={styles.modal}
         header={{
-          heading: intl.formatMessage({ id: 'grunnlag.inntekt.modal.title' }),
+          heading: intl.formatMessage({
+            id: 'grunnlag.inntekt.infomodal.title',
+          }),
         }}
-        width={400}
+      >
+        <Modal.Body>
+          <Label as="h2">
+            <FormattedMessage id="grunnlag.inntekt.infomodal.subtitle" />
+          </Label>
+          <ul>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item1" />
+            </li>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item2" />
+            </li>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item3" />
+            </li>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item4" />
+            </li>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item5" />
+            </li>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item6" />
+            </li>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item7" />
+            </li>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item8" />
+            </li>
+            <li>
+              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item9" />
+            </li>
+          </ul>
+          <BodyLong>
+            <FormattedMessage
+              id="grunnlag.inntekt.infomodal.ingress"
+              values={{
+                ...formatMessageValues,
+              }}
+            />
+          </BodyLong>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button type="button" onClick={() => infoModalRef.current?.close()}>
+            {intl.formatMessage({ id: 'grunnlag.inntekt.infomodal.lukk' })}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        ref={inntektModalRef}
+        className={styles.modal}
+        header={{
+          heading: intl.formatMessage({
+            id: 'grunnlag.inntekt.inntektmodal.title',
+          }),
+        }}
       >
         <Modal.Body>
           <form id="oppdatere-inntekt" method="dialog" onSubmit={onSubmit}>
@@ -104,10 +171,10 @@ export const GrunnlagInntekt = () => {
               type="number"
               name="inntekt"
               label={intl.formatMessage({
-                id: 'grunnlag.inntekt.modal.textfield.label',
+                id: 'grunnlag.inntekt.inntektmodal.textfield.label',
               })}
               description={intl.formatMessage({
-                id: 'grunnlag.inntekt.modal.textfield.description',
+                id: 'grunnlag.inntekt.inntektmodal.textfield.description',
               })}
               error={validationError}
               onChange={handleTextfieldChange}
@@ -118,7 +185,7 @@ export const GrunnlagInntekt = () => {
         <Modal.Footer>
           <Button form="oppdatere-inntekt">
             {intl.formatMessage({
-              id: 'grunnlag.inntekt.modal.button',
+              id: 'grunnlag.inntekt.inntektmodal.button',
             })}
           </Button>
           <Button type="button" variant="secondary" onClick={onCancel}>
@@ -171,7 +238,7 @@ export const GrunnlagInntekt = () => {
               <br />
               <Link
                 className={styles.link}
-                onClick={console.log}
+                onClick={() => infoModalRef.current?.showModal()}
                 target="_blank"
                 inlineText
               >
@@ -183,7 +250,7 @@ export const GrunnlagInntekt = () => {
               className={styles.button}
               variant="tertiary"
               icon={<PencilIcon aria-hidden />}
-              onClick={() => modalRef.current?.showModal()}
+              onClick={() => inntektModalRef.current?.showModal()}
             >
               {intl.formatMessage({
                 id: 'grunnlag.inntekt.button',

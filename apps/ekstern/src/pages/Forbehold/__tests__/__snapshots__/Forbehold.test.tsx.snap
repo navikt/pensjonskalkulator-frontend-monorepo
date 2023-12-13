@@ -30,36 +30,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
       <p
         class="navds-body-long navds-body-long--medium navds-typo--spacing"
       >
-        I beregningen benytter vi den siste registrerte pensjonsgivende årsinntekten som NAV har mottatt fra Skatteetaten. Inntekten blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon. Hvis du ønsker å endre fremtidig inntekt, må du benytte 
-        <a
-          class="navds-link navds-link--action navds-link--inline-text"
-          href="https://www.nav.no/pselv/simulering.jsf"
-          target="_blank"
-        >
-          detaljert kalkulator
-          <svg
-            aria-labelledby="title-r5"
-            fill="none"
-            focusable="false"
-            height="1.25rem"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1.25rem"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title
-              id="title-r5"
-            >
-              åpner i en ny fane
-            </title>
-            <path
-              clip-rule="evenodd"
-              d="M11.75 4a.75.75 0 0 1 .75-.75H20a.748.748 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1-.75-.75ZM5 8.75a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25h10a.25.25 0 0 0 .25-.25v-7a.75.75 0 0 1 1.5 0v7A1.75 1.75 0 0 1 15 20.75H5A1.75 1.75 0 0 1 3.25 19V9c0-.966.784-1.75 1.75-1.75h7a.75.75 0 0 1 0 1.5H5Z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </a>
+        forbehold.inntekt.ingress
       </p>
     </section>
     <section>
@@ -82,7 +53,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         >
           detaljert kalkulator
           <svg
-            aria-labelledby="title-r6"
+            aria-labelledby="title-r4"
             fill="none"
             focusable="false"
             height="1.25rem"
@@ -92,7 +63,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r6"
+              id="title-r4"
             >
               åpner i en ny fane
             </title>
@@ -172,7 +143,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         >
           detaljert kalkulator
           <svg
-            aria-labelledby="title-r7"
+            aria-labelledby="title-r5"
             fill="none"
             focusable="false"
             height="1.25rem"
@@ -182,7 +153,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r7"
+              id="title-r5"
             >
               åpner i en ny fane
             </title>
@@ -214,7 +185,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         >
           detaljert kalkulator
           <svg
-            aria-labelledby="title-r8"
+            aria-labelledby="title-r6"
             fill="none"
             focusable="false"
             height="1.25rem"
@@ -224,7 +195,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r8"
+              id="title-r6"
             >
               åpner i en ny fane
             </title>
@@ -256,7 +227,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         >
           detaljert kalkulator
           <svg
-            aria-labelledby="title-r9"
+            aria-labelledby="title-r7"
             fill="none"
             focusable="false"
             height="1.25rem"
@@ -266,7 +237,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r9"
+              id="title-r7"
             >
               åpner i en ny fane
             </title>

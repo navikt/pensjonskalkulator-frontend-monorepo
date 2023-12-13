@@ -25,15 +25,17 @@ describe('GrunnlagInntekt', () => {
 
     it('brukeren kan overskrive den og input valideres', async () => {
       await user.click(screen.getByText('grunnlag.inntekt.button'))
-      await user.click(screen.getByText('grunnlag.inntekt.modal.button'))
+      await user.click(screen.getByText('grunnlag.inntekt.inntektmodal.button'))
       expect(
         await screen.findByText(
-          'grunnlag.inntekt.modal.textfield.validation_error'
+          'grunnlag.inntekt.inntektmodal.textfield.validation_error'
         )
       ).toBeInTheDocument()
       await user.type(screen.getByTestId('inntekt-textfield'), '123000')
       expect(
-        screen.queryByText('grunnlag.inntekt.modal.textfield.validation_error')
+        screen.queryByText(
+          'grunnlag.inntekt.inntektmodal.textfield.validation_error'
+        )
       ).not.toBeInTheDocument()
     })
 
@@ -97,7 +99,7 @@ describe('GrunnlagInntekt', () => {
 
       await user.click(screen.getByText('grunnlag.inntekt.button'))
       await user.type(screen.getByTestId('inntekt-textfield'), '123000')
-      await user.click(screen.getByText('grunnlag.inntekt.modal.button'))
+      await user.click(screen.getByText('grunnlag.inntekt.inntektmodal.button'))
 
       expect(screen.getByText('123 000 kr')).toBeVisible()
       expect(
@@ -113,5 +115,22 @@ describe('GrunnlagInntekt', () => {
         )
       ).toBeVisible()
     })
+  })
+
+  it('brukeren kan åpne modal for å lese mer om pensjonsgivende inntekt', async () => {
+    const user = userEvent.setup()
+    render(<GrunnlagInntekt />)
+
+    const buttons = screen.getAllByRole('button')
+    await user.click(buttons[2])
+    await user.click(screen.getByText('grunnlag.inntekt.link'))
+    expect(screen.getByText('grunnlag.inntekt.infomodal.title')).toBeVisible()
+    expect(
+      screen.getByText('grunnlag.inntekt.infomodal.subtitle')
+    ).toBeVisible()
+    await user.click(screen.getByText('grunnlag.inntekt.infomodal.lukk'))
+    expect(
+      screen.queryByText('grunnlag.inntekt.infomodal.title')
+    ).not.toBeVisible()
   })
 })

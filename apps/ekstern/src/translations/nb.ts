@@ -41,15 +41,13 @@ const translations = {
     'Du må bruke vår detaljerte kalkulator. Den gir deg en beregning av alderspensjon fra folketrygden (NAV), avtalefestet pensjon (AFP) og pensjonsavtaler (arbeidsgivere og sparing).',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
   'landingsside.velge_mellom_detaljert_og_enkel':
-    'Du kan velge mellom enkel eller detaljert kalkulator. Enkel kalkulator passer for deg som vil ha en rask oversikt. Detaljert kalkulator passer for deg som vil ha en mer spesifisert beregning. ',
+    'Du kan velge mellom enkel eller detaljert kalkulator. I enkel kalkulator får du oversikt over alderspensjon fra NAV, AFP i privat sektor og tjenestepensjon fra privat sektor. Detaljert kalkulator gir deg en mer spesifisert beregning.',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
     'Enkel kalkulator er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
   'landingsside.liste.1':
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
   'landingsside.liste.2': 'mottar uføretrygd eller gjenlevendepensjon',
-  'landingsside.liste.3':
-    'har hatt betydelig endring i inntekt de siste 2 årene',
-  'landingsside.liste.4': 'har særaldersgrense',
+  'landingsside.liste.3': 'har særaldersgrense',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
@@ -239,13 +237,32 @@ const translations = {
     'Du er ikke registrert med pensjonsgivende inntekt. Derfor blir 0 kr brukt som din fremtidige inntekt frem til du starter uttak av pensjon. Hvis du får inntekt vil alderspensjonen bli høyere.',
   'grunnlag.inntekt.link': 'Hva er pensjonsgivende inntekt?',
   'grunnlag.inntekt.button': 'Endre inntekt',
-  'grunnlag.inntekt.modal.title': 'Pensjonsgivende inntekt',
-  'grunnlag.inntekt.modal.textfield.label':
+  'grunnlag.inntekt.infomodal.title': 'Hva er pensjonsgivende inntekt?',
+  'grunnlag.inntekt.infomodal.subtitle':
+    'Dette regnes som pensjonsgivende inntekt:',
+  'grunnlag.inntekt.infomodal.list_item1': 'all lønnsinntekt for lønnstakere',
+  'grunnlag.inntekt.infomodal.list_item2':
+    'personinntekt fra næring for selvstendige',
+  'grunnlag.inntekt.infomodal.list_item3': 'foreldrepenger',
+  'grunnlag.inntekt.infomodal.list_item4': 'sykepenger',
+  'grunnlag.inntekt.infomodal.list_item5': 'dagpenger',
+  'grunnlag.inntekt.infomodal.list_item6': 'arbeidsavklaringspenger',
+  'grunnlag.inntekt.infomodal.list_item7': 'omsorgsstønad',
+  'grunnlag.inntekt.infomodal.list_item8':
+    'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
+  'grunnlag.inntekt.infomodal.list_item9':
+    'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
+  'grunnlag.inntekt.infomodal.ingress':
+    'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.',
+  'grunnlag.inntekt.infomodal.lukk': 'Lukk',
+  'grunnlag.inntekt.inntektmodal.title': 'Pensjonsgivende inntekt',
+  'grunnlag.inntekt.inntektmodal.textfield.label':
     'Hva forventer du å ha i årlig inntekt frem til du tar ut pensjon?',
-  'grunnlag.inntekt.modal.textfield.description': 'Dagens kroneverdi før skatt',
-  'grunnlag.inntekt.modal.textfield.validation_error':
+  'grunnlag.inntekt.inntektmodal.textfield.description':
+    'Dagens kroneverdi før skatt',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error':
     'Fyll ut et beløp eller velg avbryt hvis du ikke vil endre inntekten din.',
-  'grunnlag.inntekt.modal.button': 'Oppdater inntekt',
+  'grunnlag.inntekt.inntektmodal.button': 'Oppdater inntekt',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
@@ -305,7 +322,7 @@ const translations = {
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Dersom du fortsetter i jobb etter uttak av alderspensjon, vil alderspensjon fortsette å øke etter hvert som ny opptjening legges til. Du kan tjene opp til alderspensjon til og med året du fyller 75 år.',
   'forbehold.inntekt.title': 'Inntekt',
   'forbehold.inntekt.ingress':
-    'I beregningen benytter vi den siste registrerte pensjonsgivende årsinntekten som NAV har mottatt fra Skatteetaten. Inntekten blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon. Hvis du ønsker å endre fremtidig inntekt, må du benytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+    'I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som NAV har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du selv endrer inntekten i kalkulatoren.',
   'forbehold.utenlandsopphold.title': 'Utenlandsopphold',
   'forbehold.utenlandsopphold.ingress':
     'Kalkulatoren forutsetter at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon.{br}{br}Hvis du har mindre enn 40 års trygdetid kan det påvirke hvor mye du får i alderspensjon, og når du kan ta ut alderspensjon. I denne utgaven av kalkulatoren kan du foreløpig ikke registrere opphold utenfor Norge. For å få beregnet alderspensjonen din så riktig som mulig, må du derfor benytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>.',
@@ -361,7 +378,7 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
     'Din pensjonsopptjening hentes fra pensjonsopptjeningsregisteret hos NAV, som er basert på innrapporterte inntekter fra Skatteetaten, og ev. opptjening fra dagpenger, førstegangstjeneste, omsorgsopptjening og opptjening fra uføretrygd.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
-    'Din siste pensjonsgivende årsinntekt (og årstall) fra Skatteetaten brukes som inntekt frem til uttak av pensjon. Den inngår i pensjonsbeholdningen for beregning av alderspensjonen din.',
+    'Din siste pensjonsgivende årsinntekt (og årstall) fra Skatteetaten brukes som inntekt frem til uttak av pensjon. Den inngår i pensjonsbeholdningen for beregning av alderspensjonen din. Endrer du fremtidig inntekt, blir din fremtidige pensjonsbeholdning basert på den.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
     'Din sivilstand kan påvirke pensjonens størrelse. Opplysninger om sivilstanden din hentes fra Folkeregisteret. Hvis du er registrert som ugift, separert, skilt eller enke/enkemann, spør vi deg om du har samboer. Endringer du gjør, gjelder kun for den beregningen og lagres ikke hos NAV eller Folkeregisteret.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
