@@ -14,42 +14,34 @@ interface Props {
   children: JSX.Element
 }
 
-export const GrunnlagSection = React.forwardRef(
-  (
-    { headerTitle, headerValue, isLoading, children }: Props,
-    ref: React.ForwardedRef<HTMLSpanElement>
-  ) => {
-    const forwardedRef = ref
+export const GrunnlagSection = ({
+  headerTitle,
+  headerValue,
+  isLoading,
+  children,
+}: Props) => {
+  const { toggleOpen } = React.useContext(AccordionContext)
 
-    const { ref: accordionContextRef, toggleOpen } =
-      React.useContext(AccordionContext)
-
-    return (
-      <>
-        <Accordion.Header data-testid="accordion-header" onClick={toggleOpen}>
-          <span
-            ref={forwardedRef ?? accordionContextRef}
-            data-testid="accordion-ref"
-          >
-            {headerTitle}
-          </span>
-          {isLoading ? (
-            <>
-              :{' '}
-              <span className={styles.header}>
-                <Loader data-testid={`${headerTitle}-loader`} />
-              </span>
-            </>
-          ) : (
-            <>
-              : <span className={styles.header}>{headerValue}</span>
-            </>
-          )}
-        </Accordion.Header>
-        <Accordion.Content className={styles.content}>
-          {children}
-        </Accordion.Content>
-      </>
-    )
-  }
-)
+  return (
+    <>
+      <Accordion.Header data-testid="accordion-header" onClick={toggleOpen}>
+        <span data-testid="accordion-ref">{headerTitle}</span>
+        {isLoading ? (
+          <>
+            :{' '}
+            <span className={styles.header}>
+              <Loader data-testid={`${headerTitle}-loader`} />
+            </span>
+          </>
+        ) : (
+          <>
+            : <span className={styles.header}>{headerValue}</span>
+          </>
+        )}
+      </Accordion.Header>
+      <Accordion.Content className={styles.content}>
+        {children}
+      </Accordion.Content>
+    </>
+  )
+}
