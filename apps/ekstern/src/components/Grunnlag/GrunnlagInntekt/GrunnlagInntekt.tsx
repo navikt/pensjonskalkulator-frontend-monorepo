@@ -59,13 +59,13 @@ export const GrunnlagInntekt = () => {
 
   const openInfoModal = () => {
     logger('modal åpnet', {
-      tekst: 'info om pensjonsgivende inntekt',
+      tekst: 'Grunnlag: info om pensjonsgivende inntekt',
     })
     infoModalRef.current?.showModal()
   }
   const openInntektModal = () => {
     logger('modal åpnet', {
-      tekst: 'endring av pensjonsgivende inntekt',
+      tekst: 'Grunnlag: endring av pensjonsgivende inntekt',
     })
     inntektModalRef.current?.showModal()
   }
@@ -259,6 +259,7 @@ export const GrunnlagInntekt = () => {
               )}
               <br />
               <Link
+                href="#"
                 className={styles.link}
                 onClick={openInfoModal}
                 target="_blank"
