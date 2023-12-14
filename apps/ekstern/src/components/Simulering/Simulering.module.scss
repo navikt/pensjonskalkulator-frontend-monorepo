@@ -300,6 +300,10 @@
     fill: transparent;
   }
 
+  .highcharts-legend {
+    pointer-events: none;
+  }
+
   .highcharts-legend-item:hover {
     color: var(--a-grayalpha-900) !important;
   }

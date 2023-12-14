@@ -31,5 +31,7 @@ declare const classNames: typeof globalClassNames & {
   readonly 'highcharts-scrollable-mask': 'highcharts-scrollable-mask'
   readonly 'highcharts-root': 'highcharts-root'
   readonly 'highcharts-background': 'highcharts-background'
+  readonly 'highcharts-legend': 'highcharts-legend'
+  readonly 'highcharts-legend-item': 'highcharts-legend-item'
 }
 export = classNames
