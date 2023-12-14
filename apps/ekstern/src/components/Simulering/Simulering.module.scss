@@ -299,6 +299,10 @@
   .highcharts-background {
     fill: transparent;
   }
+
+  .highcharts-legend-item:hover {
+    color: var(--a-grayalpha-900) !important;
+  }
 }
 
 @keyframes lds-ring {
