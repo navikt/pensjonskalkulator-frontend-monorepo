@@ -264,7 +264,8 @@ const translations = {
     'Fyll ut et beløp eller velg avbryt hvis du ikke vil endre inntekten din.',
   'grunnlag.inntekt.inntektmodal.textfield.validation_error.type':
     'Du må skrive hele tall for å oppgi inntekt.',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error.max': 'lorem ipsum',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.max':
+    'Beløpet kan ikke overskride 100 000 000 kroner.',
   'grunnlag.inntekt.inntektmodal.button': 'Oppdater inntekt',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
