@@ -260,8 +260,11 @@ const translations = {
     'Hva forventer du å ha i årlig inntekt frem til du tar ut pensjon?',
   'grunnlag.inntekt.inntektmodal.textfield.description':
     'Dagens kroneverdi før skatt',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error':
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.required':
     'Fyll ut et beløp eller velg avbryt hvis du ikke vil endre inntekten din.',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.type':
+    'Du må skrive hele tall for å oppgi inntekt.',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.max': 'lorem ipsum',
   'grunnlag.inntekt.inntektmodal.button': 'Oppdater inntekt',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',

@@ -25,6 +25,8 @@ import { formatWithoutDecimal } from '@/utils/currency'
 import { logger } from '@/utils/logging'
 import { formatMessageValues } from '@/utils/translations'
 
+import { validateInntektInput } from './utils'
+
 import styles from './GrunnlagInntekt.module.scss'
 
 export const GrunnlagInntekt = () => {
@@ -38,6 +40,9 @@ export const GrunnlagInntekt = () => {
   )
   const { data: aarligInntektFoerUttakFraSkatt } = useGetInntektQuery()
   const [validationError, setValidationError] = React.useState<string>('')
+  const [oppdatertInntekt, setOppdatertInntekt] = React.useState<string>(
+    aarligInntektFoerUttakFraBrukerInput?.toString() ?? ''
+  )
 
   const {
     ref: grunnlagInntektRef,
@@ -45,7 +50,10 @@ export const GrunnlagInntekt = () => {
     toggleOpen: toggleInntektAccordionItem,
   } = React.useContext(AccordionContext)
 
-  const handleTextfieldChange = (): void => {
+  const handleTextfieldChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setOppdatertInntekt(e.target.value)
     setValidationError('')
   }
 
@@ -62,26 +70,24 @@ export const GrunnlagInntekt = () => {
     inntektModalRef.current?.showModal()
   }
 
+  const updateValidationErrorMessage = (id: string) => {
+    setValidationError(
+      intl.formatMessage({
+        id,
+      })
+    )
+  }
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
     const inntektData = data.get('inntekt') as string | undefined
 
-    if (
-      inntektData === undefined ||
-      inntektData === '' ||
-      isNaN(inntektData as unknown as number)
-    ) {
-      setValidationError(
-        intl.formatMessage({
-          id: 'grunnlag.inntekt.inntektmodal.textfield.validation_error',
-        })
-      )
-    } else {
+    if (validateInntektInput(inntektData, updateValidationErrorMessage)) {
       dispatch(
         userInputActions.updateCurrentSimulation({
-          aarligInntektFoerUttak: parseInt(inntektData, 10),
+          aarligInntektFoerUttak: parseInt(inntektData as string, 10),
         })
       )
       logger('button klikk', {
@@ -89,14 +95,18 @@ export const GrunnlagInntekt = () => {
       })
       /* c8 ignore next 3 */
       if (inntektModalRef.current?.open) {
+        setOppdatertInntekt('')
         inntektModalRef.current?.close()
       }
     }
   }
 
   const onCancel = (): void => {
+    setOppdatertInntekt('')
     setValidationError('')
-    inntektModalRef.current?.close()
+    if (inntektModalRef.current?.open) {
+      inntektModalRef.current?.close()
+    }
   }
 
   const isInntektGreaterThanZero =
@@ -109,12 +119,12 @@ export const GrunnlagInntekt = () => {
     <>
       <Modal
         ref={infoModalRef}
-        className={styles.modal}
         header={{
           heading: intl.formatMessage({
             id: 'grunnlag.inntekt.infomodal.title',
           }),
         }}
+        width="medium"
       >
         <Modal.Body>
           <Label as="h2">
@@ -166,18 +176,20 @@ export const GrunnlagInntekt = () => {
       </Modal>
       <Modal
         ref={inntektModalRef}
-        className={styles.modal}
         header={{
           heading: intl.formatMessage({
             id: 'grunnlag.inntekt.inntektmodal.title',
           }),
         }}
+        onClose={onCancel}
+        width="small"
       >
         <Modal.Body>
           <form id="oppdatere-inntekt" method="dialog" onSubmit={onSubmit}>
             <TextField
               data-testid="inntekt-textfield"
-              type="number"
+              type="text"
+              inputMode="numeric"
               name="inntekt"
               label={intl.formatMessage({
                 id: 'grunnlag.inntekt.inntektmodal.textfield.label',
@@ -187,7 +199,8 @@ export const GrunnlagInntekt = () => {
               })}
               error={validationError}
               onChange={handleTextfieldChange}
-              defaultValue={aarligInntektFoerUttakFraBrukerInput?.toString()}
+              value={oppdatertInntekt}
+              max={5}
             />
           </form>
         </Modal.Body>

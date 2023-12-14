@@ -1,17 +1,10 @@
 @import '../../../scss/variables.scss';
 
-.modal {
-  @media (max-width: $a-breakpoint-sm-down) {
-    margin: auto var(--a-spacing-4);
-  }
-}
-
 .link {
   display: block;
   margin-top: var(--a-spacing-4);
 }
 
 .button {
-  padding-top: var(--a-spacing-6);
-  padding-left: 0;
+  margin-top: var(--a-spacing-6);
 }

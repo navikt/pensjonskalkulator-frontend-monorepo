@@ -28,7 +28,7 @@ describe('GrunnlagInntekt', () => {
       await user.click(screen.getByText('grunnlag.inntekt.inntektmodal.button'))
       expect(
         await screen.findByText(
-          'grunnlag.inntekt.inntektmodal.textfield.validation_error'
+          'grunnlag.inntekt.inntektmodal.textfield.validation_error.required'
         )
       ).toBeInTheDocument()
       await user.type(screen.getByTestId('inntekt-textfield'), '123000')
@@ -39,7 +39,7 @@ describe('GrunnlagInntekt', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('brukeren kan gå ut av modulen og la inntekt uendret ', async () => {
+    it('brukeren kan gå ut av modulen og la inntekt uendret', async () => {
       await user.click(screen.getByText('grunnlag.inntekt.button'))
       await user.click(screen.getByText('stegvisning.avbryt'))
       expect(screen.getByText('521 338 kr')).toBeVisible()

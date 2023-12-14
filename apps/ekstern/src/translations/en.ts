@@ -189,7 +189,12 @@ const translations = {
   'grunnlag.inntekt.inntektmodal.title': 'MANGLER_TEKST',
   'grunnlag.inntekt.inntektmodal.textfield.label': 'MANGLER_TEKST',
   'grunnlag.inntekt.inntektmodal.textfield.description': 'MANGLER_TEKST',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error': 'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.required':
+    'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.type':
+    'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.max':
+    'MANGLER_TEKST',
   'grunnlag.inntekt.inntektmodal.button': 'MANGLER_TEKST',
   'grunnlag.sivilstand.title': 'MANGLER_TEKST',
   'grunnlag.sivilstand.title.error': 'MANGLER_TEKST',
