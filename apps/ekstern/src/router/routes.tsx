@@ -129,7 +129,7 @@ export const routes: RouteObject[] = [
       {
         loader: directAccessGuard,
         path: paths.beregningDetaljert,
-        element: <Beregning visning="detaljert" />,
+        element: <Beregning visning="avansert" />,
       },
     ],
   },
