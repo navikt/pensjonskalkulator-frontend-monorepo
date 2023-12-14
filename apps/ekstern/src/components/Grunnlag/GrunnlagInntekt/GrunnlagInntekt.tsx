@@ -57,7 +57,10 @@ export const GrunnlagInntekt = () => {
     setValidationError('')
   }
 
-  const openInfoModal = () => {
+  const openInfoModal = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e?.preventDefault()
     logger('modal åpnet', {
       tekst: 'Grunnlag: info om pensjonsgivende inntekt',
     })
@@ -262,7 +265,6 @@ export const GrunnlagInntekt = () => {
                 href="#"
                 className={styles.link}
                 onClick={openInfoModal}
-                target="_blank"
                 inlineText
               >
                 <FormattedMessage id="grunnlag.inntekt.link" />
