@@ -36,7 +36,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     },
     "itemMarginBottom": 5,
     "itemStyle": {
-      "color": "var(--a-grayalpha-900)",
+      "color": "var(--a-gray-900)",
       "cursor": "default",
       "fontFamily": "var(--a-font-family)",
       "fontSize": "14px",

@@ -93,8 +93,8 @@ export function onPointClick(this: Point): void {
   ) {
     if (index === pointIndex) {
       label.style.fontWeight = 'bold'
-      label.style.color = 'var(--a-grayalpha-900)'
-      label.style.fill = 'var(--a-grayalpha-900)'
+      label.style.color = 'var(--a-gray-900)'
+      label.style.fill = 'var(--a-gray-900)'
     } else {
       label.style.fontWeight = 'normal'
     }
@@ -380,7 +380,7 @@ export const getChartOptions = (
       itemDistance: 24,
       itemStyle: {
         fontFamily: 'var(--a-font-family)',
-        color: 'var(--a-grayalpha-900)',
+        color: 'var(--a-gray-900)',
         fontWeight: 'regular',
         fontSize: '14px',
         cursor: 'default',
