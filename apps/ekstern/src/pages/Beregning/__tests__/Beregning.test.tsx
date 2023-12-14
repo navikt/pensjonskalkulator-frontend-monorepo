@@ -322,12 +322,12 @@ describe('Beregning', () => {
       })
     })
   })
-  describe('Gitt at pensjonskalkulator er i "detaljert" visning', () => {
+  describe('Gitt at pensjonskalkulator er i "avansert" visning', () => {
     it('vises det riktig innhold', async () => {
-      render(<Beregning visning="detaljert" />)
+      render(<Beregning visning="avansert" />)
       // TODO PEK-245 - skal vi ha ulik doument.title ?
       // expect(document.title).toBe('application.title.beregning')
-      expect(await screen.findByText('detaljert visning')).toBeInTheDocument()
+      expect(await screen.findByText('avansert visning')).toBeInTheDocument()
     })
   })
 })
