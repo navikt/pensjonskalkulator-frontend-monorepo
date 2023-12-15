@@ -180,14 +180,18 @@ const translations = {
   'sivilstand.gjenlevende_partner': 'Gjenlevende partner',
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
+  'tidligsteuttaksalder.ingress':
+    'Din opptjening i folketrygden gjør at du tidligst kan ta ut 100% alderspensjon når du er ',
+  'tidligsteuttaksalder.readmore_title': 'Om tidspunkter for uttak',
+  'tidligsteuttaksalder.readmore_ingress': 'Lorem ipsum',
+  'tidligsteuttaksalder.info_afp':
+    'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til AFP i offentlig sektor.',
   'tidligsteuttaksalder.ingress_1':
     'Din opptjening i folketrygden gjør at du tidligst kan ta {br}ut alderspensjon når du er ',
   'tidligsteuttaksalder.ingress_2':
     'Jo lenger du venter, desto mer får du i året.',
   'tidligsteuttaksalder.help':
     'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.',
-  'tidligsteuttaksalder.info_afp':
-    'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til AFP i offentlig sektor.',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
   'beregning.error':
