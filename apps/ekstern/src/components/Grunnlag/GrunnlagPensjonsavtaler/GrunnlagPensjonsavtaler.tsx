@@ -11,6 +11,7 @@ import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
+import { AccordionContext } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
@@ -36,6 +37,11 @@ export const GrunnlagPensjonsavtaler = () => {
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const afp = useAppSelector(selectAfp)
   const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
+  const {
+    ref: grunnlagPensjonsavtalerRef,
+    isOpen: isPensjonsavtalerAccordionItemOpen,
+    toggleOpen: togglePensjonsavtalerAccordionItem,
+  } = React.useContext(AccordionContext)
   const {
     data: pensjonsavtaler,
     isLoading,
@@ -68,8 +74,13 @@ export const GrunnlagPensjonsavtaler = () => {
     pensjonsavtaler?.partialResponse && pensjonsavtaler?.avtaler.length === 0
 
   return (
-    <AccordionItem name="Grunnlag: Pensjonsavtaler">
+    <AccordionItem
+      name="Grunnlag: Pensjonsavtaler"
+      isOpen={isPensjonsavtalerAccordionItemOpen}
+      onClick={togglePensjonsavtalerAccordionItem}
+    >
       <GrunnlagSection
+        ref={grunnlagPensjonsavtalerRef}
         headerTitle={intl.formatMessage({
           id: 'grunnlag.pensjonsavtaler.title',
         })}
