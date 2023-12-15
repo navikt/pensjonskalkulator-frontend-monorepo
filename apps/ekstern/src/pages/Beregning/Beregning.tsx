@@ -40,7 +40,7 @@ import { logger } from '@/utils/logging'
 
 import styles from './Beregning.module.scss'
 
-type BeregningVisning = 'enkel' | 'detaljert'
+type BeregningVisning = 'enkel' | 'avansert'
 interface Props {
   visning: BeregningVisning
 }
@@ -196,7 +196,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
               }}
             >
               <ToggleGroup.Item value="enkel">Enkel</ToggleGroup.Item>
-              <ToggleGroup.Item value="detaljert">Detaljert</ToggleGroup.Item>
+              <ToggleGroup.Item value="avansert">Avansert</ToggleGroup.Item>
             </ToggleGroup>
           </div>
         </div>
@@ -270,7 +270,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           </div>
         </>
       )}
-      {visning === 'detaljert' && <p>detaljert visning</p>}
+      {visning === 'avansert' && <p>avansert visning</p>}
       <div className={`${styles.background} ${styles.background__lightblue}`}>
         <div className={styles.container}>
           <TilbakeEllerAvslutt />
