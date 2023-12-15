@@ -324,7 +324,6 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
-      const user = userEvent.setup()
       mockResponse('/v1/pensjonsavtaler', {
         status: 200,
         json: {
