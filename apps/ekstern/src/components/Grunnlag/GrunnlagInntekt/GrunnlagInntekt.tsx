@@ -13,7 +13,6 @@ import {
 
 import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
-import { AccordionContext } from '@/components/common/AccordionItem'
 import { useGetInntektQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -43,12 +42,6 @@ export const GrunnlagInntekt = () => {
   const [oppdatertInntekt, setOppdatertInntekt] = React.useState<string>(
     aarligInntektFoerUttakFraBrukerInput?.toString() ?? ''
   )
-
-  const {
-    ref: grunnlagInntektRef,
-    isOpen: isInntektAccordionItemOpen,
-    toggleOpen: toggleInntektAccordionItem,
-  } = React.useContext(AccordionContext)
 
   const handleTextfieldChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -221,13 +214,8 @@ export const GrunnlagInntekt = () => {
         </Modal.Footer>
       </Modal>
 
-      <AccordionItem
-        name="Grunnlag: Inntekt"
-        isOpen={isInntektAccordionItemOpen}
-        onClick={toggleInntektAccordionItem}
-      >
+      <AccordionItem name="Grunnlag: Inntekt">
         <GrunnlagSection
-          ref={grunnlagInntektRef}
           headerTitle={intl.formatMessage({
             id: 'grunnlag.inntekt.title',
           })}

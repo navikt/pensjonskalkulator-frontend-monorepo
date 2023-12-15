@@ -16,7 +16,7 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-import { AccordionContext } from '@/components/common/AccordionItem'
+import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { TabellVisning } from '@/components/TabellVisning'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
@@ -73,7 +73,7 @@ export function Simulering(props: {
     ref: grunnlagPensjonsavtalerRef,
     isOpen: isPensjonsavtalerAccordionItemOpen,
     toggleOpen: togglePensjonsavtalerAccordionItem,
-  } = React.useContext(AccordionContext)
+  } = React.useContext(PensjonsavtalerAccordionContext)
   const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =

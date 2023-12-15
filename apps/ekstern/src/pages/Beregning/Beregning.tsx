@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
-import { AccordionContext } from '@/components/common/AccordionItem'
+import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { Grunnlag } from '@/components/Grunnlag'
@@ -242,7 +242,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
                   </>
                 ) : (
                   <>
-                    <AccordionContext.Provider
+                    <PensjonsavtalerAccordionContext.Provider
                       value={{
                         ref: grunnlagPensjonsavtalerRef,
                         isOpen: isPensjonsavtalerAccordionItemOpen,
@@ -262,7 +262,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
                         }
                       />
                       <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
-                    </AccordionContext.Provider>
+                    </PensjonsavtalerAccordionContext.Provider>
                   </>
                 )}
               </div>

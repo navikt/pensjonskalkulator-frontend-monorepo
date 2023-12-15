@@ -10,8 +10,10 @@ import { BodyLong, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
-import { AccordionItem } from '@/components/common/AccordionItem'
-import { AccordionContext } from '@/components/common/AccordionItem'
+import {
+  AccordionItem,
+  AccordionContext as PensjonsavtalerAccordionContext,
+} from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
@@ -41,7 +43,7 @@ export const GrunnlagPensjonsavtaler = () => {
     ref: grunnlagPensjonsavtalerRef,
     isOpen: isPensjonsavtalerAccordionItemOpen,
     toggleOpen: togglePensjonsavtalerAccordionItem,
-  } = React.useContext(AccordionContext)
+  } = React.useContext(PensjonsavtalerAccordionContext)
   const {
     data: pensjonsavtaler,
     isLoading,
