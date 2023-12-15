@@ -10,15 +10,17 @@ import { BodyLong, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { GrunnlagSection } from '../GrunnlagSection'
-import { AccordionItem } from '@/components/common/AccordionItem'
-import { AccordionContext } from '@/components/common/AccordionItem'
+import {
+  AccordionItem,
+  AccordionContext as PensjonsavtalerAccordionContext,
+} from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
-  selectInntekt,
+  selectAarligInntektFoerUttak,
   selectAfp,
   selectSivilstand,
   selectCurrentSimulation,
@@ -34,14 +36,14 @@ export const GrunnlagPensjonsavtaler = () => {
   const intl = useIntl()
   const harSamtykket = useAppSelector(selectSamtykke)
   const sivilstand = useAppSelector(selectSivilstand)
-  const inntekt = useAppSelector(selectInntekt)
+  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const afp = useAppSelector(selectAfp)
   const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
   const {
     ref: grunnlagPensjonsavtalerRef,
     isOpen: isPensjonsavtalerAccordionItemOpen,
     toggleOpen: togglePensjonsavtalerAccordionItem,
-  } = React.useContext(AccordionContext)
+  } = React.useContext(PensjonsavtalerAccordionContext)
   const {
     data: pensjonsavtaler,
     isLoading,
@@ -49,7 +51,7 @@ export const GrunnlagPensjonsavtaler = () => {
     isSuccess,
   } = usePensjonsavtalerQuery(
     generatePensjonsavtalerRequestBody(
-      inntekt ? inntekt.beloep : 0,
+      aarligInntektFoerUttak ?? 0,
       afp,
       {
         aar: startAar as number,
@@ -58,7 +60,7 @@ export const GrunnlagPensjonsavtaler = () => {
       sivilstand
     ),
     {
-      skip: !harSamtykket || !startAar || !inntekt,
+      skip: !harSamtykket || !startAar,
     }
   )
   const navigate = useNavigate()

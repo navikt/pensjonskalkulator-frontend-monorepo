@@ -66,13 +66,13 @@ describe('apiSlice - utils', () => {
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
-      inntekt: { beloep: 500000, aar: 2021 },
+      aarligInntektFoerUttak: 500000,
       foedselsdato: '1963-04-30',
       startAlder: 68,
       startMaaned: 3,
       uttaksgrad: 100,
     }
-    it('returnerer undefined når foedselsdato, startAlder, startMaaned, eller uttaksgrad er null', () => {
+    it('returnerer undefined når foedselsdato, startAlder, eller startMaaned er null', () => {
       expect(
         generateAlderspensjonRequestBody({ ...requestBody, foedselsdato: null })
       ).toEqual(undefined)
@@ -87,15 +87,6 @@ describe('apiSlice - utils', () => {
       ).toEqual(undefined)
       expect(
         generateAlderspensjonRequestBody({ ...requestBody, startMaaned: null })
-      ).toEqual(undefined)
-      expect(
-        generateAlderspensjonRequestBody({ ...requestBody, uttaksgrad: null })
-      ).toEqual(undefined)
-      expect(
-        generateAlderspensjonRequestBody({
-          ...requestBody,
-          uttaksgrad: undefined,
-        })
       ).toEqual(undefined)
     })
     it('returnerer riktig simuleringstype', () => {

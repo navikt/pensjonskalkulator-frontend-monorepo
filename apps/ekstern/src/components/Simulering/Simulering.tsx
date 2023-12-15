@@ -16,7 +16,7 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-import { AccordionContext } from '@/components/common/AccordionItem'
+import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { TabellVisning } from '@/components/TabellVisning'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
@@ -46,7 +46,7 @@ import styles from './Simulering.module.scss'
 export function Simulering(props: {
   isLoading: boolean
   hasHighchartsAccessibilityPlugin?: boolean
-  inntekt: Inntekt
+  aarligInntektFoerUttak: number
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
   showButtonsAndTable?: boolean
@@ -55,7 +55,7 @@ export function Simulering(props: {
   const {
     isLoading,
     hasHighchartsAccessibilityPlugin,
-    inntekt,
+    aarligInntektFoerUttak,
     alderspensjon,
     showAfp,
     showButtonsAndTable,
@@ -73,7 +73,7 @@ export function Simulering(props: {
     ref: grunnlagPensjonsavtalerRef,
     isOpen: isPensjonsavtalerAccordionItemOpen,
     toggleOpen: togglePensjonsavtalerAccordionItem,
-  } = React.useContext(AccordionContext)
+  } = React.useContext(PensjonsavtalerAccordionContext)
   const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
@@ -115,7 +115,7 @@ export function Simulering(props: {
   React.useEffect(() => {
     if (harSamtykket && startAar) {
       const requestBody = generatePensjonsavtalerRequestBody(
-        inntekt?.beloep,
+        aarligInntektFoerUttak,
         afp,
         {
           aar: startAar,
@@ -167,7 +167,7 @@ export function Simulering(props: {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
             name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
             data: processInntektArray(
-              inntekt.beloep,
+              aarligInntektFoerUttak,
               XAxis.length,
               startMaaned
             ),

@@ -9,22 +9,22 @@ import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
 import { formatAfp } from '@/utils/afp'
-import { formatWithoutDecimal } from '@/utils/currency'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { formatMessageValues } from '@/utils/translations'
 
 import { GrunnlagForbehold } from './GrunnlagForbehold'
+import { GrunnlagInntekt } from './GrunnlagInntekt'
 import { GrunnlagPensjonsavtaler } from './GrunnlagPensjonsavtaler'
 import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
 interface Props {
-  inntekt: Inntekt
   tidligstMuligUttak?: Alder
 }
 
-export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
+export const Grunnlag: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const intl = useIntl()
+
   const { data: person, isSuccess } = useGetPersonQuery()
   const afp = useAppSelector(selectAfp)
   const harSamboer = useAppSelector(selectSamboer)
@@ -111,30 +111,7 @@ export const Grunnlag: React.FC<Props> = ({ inntekt, tidligstMuligUttak }) => {
               </BodyLong>
             </GrunnlagSection>
           </AccordionItem>
-          <AccordionItem name="Grunnlag: Inntekt">
-            <GrunnlagSection
-              headerTitle={intl.formatMessage({
-                id: 'grunnlag.inntekt.title',
-              })}
-              headerValue={
-                inntekt.beloep
-                  ? `${formatWithoutDecimal(inntekt.beloep)} kr`
-                  : intl.formatMessage({
-                      id: 'grunnlag.inntekt.title.error',
-                    })
-              }
-            >
-              <BodyLong>
-                <FormattedMessage
-                  id={`grunnlag.inntekt.ingress${inntekt.aar ? '' : '.error'}`}
-                  values={{
-                    ...formatMessageValues,
-                    aarsinntekt: inntekt.aar,
-                  }}
-                />
-              </BodyLong>
-            </GrunnlagSection>
-          </AccordionItem>
+          <GrunnlagInntekt />
           <AccordionItem name="Gunnlag: Sivilstand">
             <GrunnlagSection
               headerTitle={intl.formatMessage({

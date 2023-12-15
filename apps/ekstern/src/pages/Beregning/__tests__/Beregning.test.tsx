@@ -7,10 +7,7 @@ import { Beregning } from '../Beregning'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import {
-  userInputInitialState,
-  Simulation,
-} from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
@@ -228,7 +225,7 @@ describe('Beregning', () => {
 
         await user.click(proevPaaNyttbutton)
 
-        expect(initiateMock).toHaveBeenCalledTimes(2)
+        expect(initiateMock).toHaveBeenCalledTimes(3)
         expect(
           screen.queryByText('beregning.tabell.vis')
         ).not.toBeInTheDocument()
@@ -264,7 +261,7 @@ describe('Beregning', () => {
         console.error = cache
       })
 
-      it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav', async () => {
+      it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav og skjuler Grunnlag', async () => {
         const user = userEvent.setup()
         mockResponse('/v1/alderspensjon/simulering', {
           status: 200,
@@ -293,7 +290,7 @@ describe('Beregning', () => {
                 startAar: 63,
                 startMaaned: 0,
                 uttaksgrad: 100,
-                aarligInntekt: 0,
+                aarligInntektFoerUttak: 0,
               },
             },
           },
@@ -322,12 +319,12 @@ describe('Beregning', () => {
       })
     })
   })
-  describe('Gitt at pensjonskalkulator er i "detaljert" visning', () => {
+  describe('Gitt at pensjonskalkulator er i "avansert" visning', () => {
     it('vises det riktig innhold', async () => {
-      render(<Beregning visning="detaljert" />)
+      render(<Beregning visning="avansert" />)
       // TODO PEK-245 - skal vi ha ulik doument.title ?
       // expect(document.title).toBe('application.title.beregning')
-      expect(await screen.findByText('detaljert visning')).toBeInTheDocument()
+      expect(await screen.findByText('avansert visning')).toBeInTheDocument()
     })
   })
 })

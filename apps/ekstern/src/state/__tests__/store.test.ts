@@ -20,7 +20,7 @@ describe('store', () => {
       currentSimulation: {
         startAar: null,
         startMaaned: null,
-        aarligInntekt: 500000,
+        aarligInntektFoerUttak: 500000,
         uttaksgrad: 0,
       },
     }

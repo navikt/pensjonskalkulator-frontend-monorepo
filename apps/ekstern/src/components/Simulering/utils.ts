@@ -240,14 +240,16 @@ export const getNormalColor = (previousColor: string): string => {
 }
 
 export function resetColumnColors(chart: Chart): void {
-  chart.series.forEach(function (serie: Series) {
-    serie.data.forEach(function (point: Point) {
-      const color = getNormalColor(point.color as string)
-      if (point.color !== color) {
-        point.update({ color: getNormalColor(point.color as string) }, false)
-      }
+  if (chart.series) {
+    chart.series.forEach(function (serie: Series) {
+      serie.data.forEach(function (point: Point) {
+        const color = getNormalColor(point.color as string)
+        if (point.color !== color) {
+          point.update({ color: getNormalColor(point.color as string) }, false)
+        }
+      })
     })
-  })
+  }
 
   if ((chart.xAxis[0] as ExtendedAxis).labelGroup) {
     ;(chart.xAxis[0] as ExtendedAxis).labelGroup.element.childNodes.forEach(
