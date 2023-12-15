@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
-import { AccordionContext } from '@/components/common/AccordionItem'
+import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { Grunnlag } from '@/components/Grunnlag'
@@ -20,7 +20,6 @@ import { paths } from '@/router/constants'
 import {
   apiSlice,
   useAlderspensjonQuery,
-  useGetInntektQuery,
   useGetPersonQuery,
   useTidligsteUttaksalderQuery,
 } from '@/state/api/apiSlice'
@@ -35,6 +34,7 @@ import {
   selectSamboer,
   selectCurrentSimulation,
   selectFormatertUttaksalder,
+  selectAarligInntektFoerUttak,
 } from '@/state/userInput/selectors'
 import { logger } from '@/utils/logging'
 
@@ -69,8 +69,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     useGetDetaljertFaneFeatureToggleQuery()
 
   const { data: person } = useGetPersonQuery()
-  const { data: inntekt } = useGetInntektQuery()
   const afp = useAppSelector(selectAfp)
+  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const { startAar, startMaaned, uttaksgrad } = useAppSelector(
     selectCurrentSimulation
   )
@@ -93,24 +93,32 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       afp,
       sivilstand: person?.sivilstand,
       harSamboer,
-      inntekt,
       foedselsdato: person?.foedselsdato,
+      aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
       startAlder: startAar,
-      startMaaned: startMaaned,
-      uttaksgrad: uttaksgrad,
+      startMaaned,
+      uttaksgrad,
     })
     setAlderspensjonRequestBody(requestBody)
-  }, [afp, person, inntekt, harSamboer, startAar, startMaaned, uttaksgrad])
+  }, [
+    afp,
+    person,
+    aarligInntektFoerUttak,
+    harSamboer,
+    startAar,
+    startMaaned,
+    uttaksgrad,
+  ])
 
   React.useEffect(() => {
     setTidligsteUttaksalderRequestBody({
       sivilstand: person?.sivilstand,
       harEps: harSamboer !== null ? harSamboer : undefined,
-      sisteInntekt: inntekt?.beloep,
+      sisteInntekt: aarligInntektFoerUttak ?? 0,
       simuleringstype:
         afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     })
-  }, [afp, person, inntekt, harSamboer])
+  }, [afp, person, aarligInntektFoerUttak, harSamboer])
 
   // Hent tidligst mulig uttaksalder
   const {
@@ -234,33 +242,27 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
                   </>
                 ) : (
                   <>
-                    <AccordionContext.Provider
+                    <PensjonsavtalerAccordionContext.Provider
                       value={{
                         ref: grunnlagPensjonsavtalerRef,
                         isOpen: isPensjonsavtalerAccordionItemOpen,
                         toggleOpen: togglePensjonsavtalerAccordionItem,
                       }}
                     >
-                      {
-                        // Inntekt kan ikke være undefined her fordi feil fanges på Steg 1 allerede
-                      }
                       <Simulering
                         isLoading={isFetching}
                         hasHighchartsAccessibilityPlugin={
                           highchartsAccessibilityFeatureToggle?.enabled
                         }
-                        inntekt={inntekt as Inntekt}
+                        aarligInntektFoerUttak={aarligInntektFoerUttak ?? 0}
                         alderspensjon={alderspensjon}
                         showAfp={afp === 'ja_privat'}
                         showButtonsAndTable={
                           !isError && alderspensjon?.vilkaarErOppfylt
                         }
                       />
-                      <Grunnlag
-                        inntekt={inntekt as Inntekt}
-                        tidligstMuligUttak={tidligstMuligUttak}
-                      />
-                    </AccordionContext.Provider>
+                      <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+                    </PensjonsavtalerAccordionContext.Provider>
                   </>
                 )}
               </div>

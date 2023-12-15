@@ -4,17 +4,26 @@ import {
   selectAfp,
   selectSivilstand,
   selectSamboerFraBrukerInput,
-  selectHarHentetTpoMedlemskap,
   selectSamboerFraSivilstand,
   selectSamboer,
-  selectInntekt,
+  selectAarligInntektFoerUttakFraBrukerInput,
+  selectAarligInntektFoerUttakFraSkatt,
+  selectAarligInntektFoerUttak,
   selectFormatertUttaksalder,
   selectCurrentSimulation,
+  selectHarHentetTpoMedlemskap,
 } from '../selectors'
 import { store, RootState } from '@/state/store'
 
 describe('userInput selectors', () => {
   const initialState = store.getState()
+
+  const currentSimulation = {
+    startAar: 62,
+    startMaaned: 5,
+    uttaksgrad: 100,
+    aarligInntektFoerUttak: 0,
+  }
 
   it('selectUtenlandsopphold', () => {
     const state: RootState = {
@@ -58,40 +67,6 @@ describe('userInput selectors', () => {
       },
     }
     expect(selectSamboerFraBrukerInput(state)).toBe(true)
-  })
-
-  describe('selectHarHentetTpoMedlemskap', () => {
-    it('returnerer false når /tpo-medlemskap har ikke blitt hentet', () => {
-      const state: RootState = {
-        ...initialState,
-      }
-      expect(selectHarHentetTpoMedlemskap(state)).toBeFalsy()
-    })
-    it('returnerer true når /tpo-medlemskap har blitt hentet', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getTpoMedlemskap(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getTpoMedlemskap',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              harTjenestepensjonsforhold: 'false',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
-      const state: RootState = {
-        ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
-        api: {
-          ...fakeApiCall,
-        },
-      }
-      expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
-    })
   })
 
   describe('selectSivilstand', () => {
@@ -258,12 +233,26 @@ describe('userInput selectors', () => {
     })
   })
 
-  describe('selectInntekt', () => {
+  it('selectAarligInntektFoerUttakFraBrukerInput', () => {
+    const state: RootState = {
+      ...initialState,
+      userInput: {
+        ...initialState.userInput,
+        currentSimulation: {
+          ...currentSimulation,
+          aarligInntektFoerUttak: 512000,
+        },
+      },
+    }
+    expect(selectAarligInntektFoerUttakFraBrukerInput(state)).toBe(512000)
+  })
+
+  describe('selectAarligInntektFoerUttakFraSkatt', () => {
     it('returnerer undefined når /inntekt har ikke blitt kalt eller har feilet', () => {
       const state: RootState = {
         ...initialState,
       }
-      expect(selectInntekt(state)).toBe(undefined)
+      expect(selectAarligInntektFoerUttakFraSkatt(state)).toBe(undefined)
     })
     it('returnerer riktig beløp når queryen er vellykket', () => {
       const fakeApiCall = {
@@ -290,9 +279,64 @@ describe('userInput selectors', () => {
           ...fakeApiCall,
         },
       }
-      const inntekt = selectInntekt(state) as Inntekt
+      const inntekt = selectAarligInntektFoerUttakFraSkatt(state) as Inntekt
       expect(inntekt.beloep).toBe(500000)
       expect(inntekt.aar).toBe(2021)
+    })
+  })
+
+  describe('selectAarligInntektFoerUttak', () => {
+    const fakeApiCall = {
+      queries: {
+        ['getInntekt(undefined)']: {
+          status: 'fulfilled',
+          endpointName: 'getPerson',
+          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+          startedTimeStamp: 1688046411971,
+          data: {
+            beloep: 500000,
+            aar: 2021,
+          },
+          fulfilledTimeStamp: 1688046412103,
+        },
+      },
+    }
+    it('returnerer inntekt basert på svaret som brukeren har oppgitt, som overskriver opprinnelig inntekt hentet fra Skatteetaten', () => {
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+        userInput: {
+          ...initialState.userInput,
+          currentSimulation: {
+            ...currentSimulation,
+            aarligInntektFoerUttak: 350000,
+          },
+        },
+      }
+      expect(selectAarligInntektFoerUttak(state)).toBe(350000)
+    })
+
+    it('returnerer inntekt fra Skatteetaten, når brukeren ikke har overskrevet den', () => {
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+        userInput: {
+          ...initialState.userInput,
+          currentSimulation: {
+            ...currentSimulation,
+            aarligInntektFoerUttak: null,
+          },
+        },
+      }
+      expect(selectAarligInntektFoerUttak(state)).toBe(500000)
     })
   })
 
@@ -310,12 +354,6 @@ describe('userInput selectors', () => {
   })
 
   it('selectCurrentSimulation', () => {
-    const currentSimulation = {
-      startAar: 62,
-      startMaaned: 5,
-      uttaksgrad: 100,
-      aarligInntekt: 0,
-    }
     const state: RootState = {
       ...initialState,
       userInput: {
@@ -324,5 +362,39 @@ describe('userInput selectors', () => {
       },
     }
     expect(selectCurrentSimulation(state)).toEqual(currentSimulation)
+  })
+
+  describe('selectHarHentetTpoMedlemskap', () => {
+    it('returnerer false når /tpo-medlemskap har ikke blitt hentet', () => {
+      const state: RootState = {
+        ...initialState,
+      }
+      expect(selectHarHentetTpoMedlemskap(state)).toBeFalsy()
+    })
+    it('returnerer true når /tpo-medlemskap har blitt hentet', () => {
+      const fakeApiCall = {
+        queries: {
+          ['getTpoMedlemskap(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getTpoMedlemskap',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              harTjenestepensjonsforhold: 'false',
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+      }
+      expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
+    })
   })
 })

@@ -2,13 +2,13 @@ import { checkHarSamboer } from '@/utils/sivilstand'
 import { format, parseISO } from 'date-fns'
 
 export const generatePensjonsavtalerRequestBody = (
-  inntekt: number,
+  aarligInntektFoerUttak: number,
   afp: AfpRadio | null,
   uttaksalder: Alder,
   sivilstand?: Sivilstand
 ): PensjonsavtalerRequestBody => {
   return {
-    aarligInntektFoerUttak: inntekt,
+    aarligInntektFoerUttak,
     uttaksperioder: [
       {
         startAlder: {
@@ -40,23 +40,22 @@ export const generateAlderspensjonRequestBody = (args: {
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
-  inntekt?: Inntekt
+  aarligInntektFoerUttak: number
   startAlder: number | null
   startMaaned: number | null
-  uttaksgrad: number | null | undefined
+  uttaksgrad: number | undefined
 }): AlderspensjonRequestBody | undefined => {
   const {
     afp,
     sivilstand,
     harSamboer,
     foedselsdato,
-    inntekt,
+    aarligInntektFoerUttak,
     startAlder,
     startMaaned,
-    uttaksgrad,
   } = args
 
-  if (!foedselsdato || !startAlder || startMaaned === null || !uttaksgrad) {
+  if (!foedselsdato || !startAlder || startMaaned === null) {
     return undefined
   }
 
@@ -64,13 +63,13 @@ export const generateAlderspensjonRequestBody = (args: {
     simuleringstype:
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
 
-    uttaksgrad,
+    uttaksgrad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
     foersteUttaksalder: {
       aar: startAlder,
       maaneder: startMaaned,
     },
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
-    forventetInntekt: inntekt?.beloep, // hvis tomt, henter backend fra pensjonsopptjeningsregisteret POPP.
+    forventetInntekt: aarligInntektFoerUttak,
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)

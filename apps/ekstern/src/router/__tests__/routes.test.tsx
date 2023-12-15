@@ -29,7 +29,7 @@ const fakeApiCalls = {
     },
   },
 }
-// TODO mangler tester for henvisning etter start, utenlandsopphold, utenlandsoppholdFeil og stepFeil
+
 describe('routes', () => {
   afterEach(() => {
     store.dispatch(apiSlice.util.resetApiState())

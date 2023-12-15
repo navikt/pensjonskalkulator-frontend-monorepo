@@ -17,14 +17,6 @@ export const selectAfp = (state: RootState): AfpRadio | null =>
 export const selectSamboerFraBrukerInput = (state: RootState): boolean | null =>
   state.userInput.samboer
 
-export const selectHarHentetTpoMedlemskap = createSelector(
-  [(state) => state, (_, params = undefined) => params],
-  (state) => {
-    return !apiSlice.endpoints.getTpoMedlemskap.select(undefined)(state)
-      ?.isUninitialized
-  }
-)
-
 export const selectSivilstand = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
@@ -50,15 +42,38 @@ export const selectSamboer = (state: RootState): boolean | null => {
   return samboerSkapFraBrukerInput
 }
 
-export const selectInntekt = createSelector(
+export const selectAarligInntektFoerUttakFraBrukerInput = (
+  state: RootState
+): number | null => state.userInput.currentSimulation.aarligInntektFoerUttak
+
+export const selectAarligInntektFoerUttakFraSkatt = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
     return apiSlice.endpoints.getInntekt.select(undefined)(state)?.data
   }
 )
 
+export const selectAarligInntektFoerUttak = (
+  state: RootState
+): number | null | undefined => {
+  const aarligInntektFoerUttakFraBrukerInput =
+    selectAarligInntektFoerUttakFraBrukerInput(state)
+  if (aarligInntektFoerUttakFraBrukerInput === null) {
+    return selectAarligInntektFoerUttakFraSkatt(state, undefined)?.beloep
+  }
+  return aarligInntektFoerUttakFraBrukerInput
+}
+
 export const selectFormatertUttaksalder = (state: RootState): string | null =>
   state.userInput.formatertUttaksalder
 
 export const selectCurrentSimulation = (state: RootState): Simulation =>
   state.userInput.currentSimulation
+
+export const selectHarHentetTpoMedlemskap = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return !apiSlice.endpoints.getTpoMedlemskap.select(undefined)(state)
+      ?.isUninitialized
+  }
+)

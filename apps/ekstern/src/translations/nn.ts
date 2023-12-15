@@ -33,6 +33,7 @@ const translations = {
   'landingsside.du.maa.bruke.detaljert':
     'Du må bruke vår detaljerte kalkulator. Der får du rekna ut alderspensjonen frå folketrygda (NAV), avtalfesta pensjon (AFP) og pensjonsavtalar (arbeidsgjevarar og sparing)',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller seinare',
+  // TODO utdatert tekst
   'landingsside.velge_mellom_detaljert_og_enkel':
     'Du kan velgje mellom enkel eller detaljert kalkulator. Enkel kalkulator passar for deg som vil ha eit rask oversyn. Detaljert kalkulator passar for deg som vil ha ei meir spesifisert utrekning.',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
@@ -40,9 +41,7 @@ const translations = {
   'landingsside.liste.1':
     'har budd eller arbeidd utanfor Noreg i meir enn fem år etter fylte 16 år',
   'landingsside.liste.2': 'har uføretrygd eller attlevandepensjon',
-  'landingsside.liste.3':
-    'har hatt vesentleg endring i inntekta dei siste to åra',
-  'landingsside.liste.4': 'har særaldersgrense',
+  'landingsside.liste.3': 'har særaldersgrense',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
@@ -226,10 +225,37 @@ const translations = {
     'Denne utrekninga syner 100 % uttak av alderspensjon. I detaljert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
   'grunnlag.inntekt.title': 'Inntekt',
   'grunnlag.inntekt.title.error': 'Ingen registrert',
+  // TODO - utdatert tekst
   'grunnlag.inntekt.ingress':
     'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+  // TODO - utdatert tekst
   'grunnlag.inntekt.ingress.error':
     'Du er ikkje registrert med pensjonsgjevande inntekt. Difor vert 0 kroner brukt som di framtidige inntekt fram til du startar uttak av pensjon. Får du inntekt vert alderspensjonen høgare. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+  'grunnlag.inntekt.link': 'MANGLER_TEKST',
+  'grunnlag.inntekt.button': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.title': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.subtitle': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item1': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item2': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item3': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item4': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item5': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item6': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item7': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item8': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.list_item9': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.ingress': 'MANGLER_TEKST',
+  'grunnlag.inntekt.infomodal.lukk': 'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.title': 'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.textfield.label': 'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.textfield.description': 'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.required':
+    'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.type':
+    'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.textfield.validation_error.max':
+    'MANGLER_TEKST',
+  'grunnlag.inntekt.inntektmodal.button': 'MANGLER_TEKST',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikkje hentast',
   'grunnlag.sivilstand.ingress':
@@ -288,6 +314,7 @@ const translations = {
   'forbehold.intro':
     'Pensjonen er rekna ut med dei opplysningane vi har om deg, i tillegg til dei opplysningane du har gjeve sjølve på tidspunktet for utrekninga. Utrekninga er eit førebels svar på kvor mykje du kan vente å få i pensjon. Beløpa er i dagens kroneverdi før skatt. Vi har brukt dagens satsar for garantipensjon. Satsane vert reguleret kvart år og vert ikkje fastsatt før dei skal brukast. Framtidige reguleringar kan medføra endringar for kor tid du tidlegast kan starte uttak av alderspensjon.{br}{br}Er det lenge til du skal ta ut pensjon, tilrår vi at du tek ei ny utrekning i pensjonskalkulatoren når du nærmar deg alderen for oppstart av pensjon. Det vil blant anna kunne skje endringar i oppteninga di og i regelverket.{br}{br}Pensjonsgjevande inntekt er gjeldande i utrekning av alderspensjon frå januar året etter at ho er fastsett av Skatteetaten. Alderspensjonen vil difor normalt auke som fylgje av ny opptjening de to første åra etter uttak. Held du fram i jobb etter uttak av alderspensjon, vil alderspensjonen fortsetje å auke etter kvart som ny opptening vert lagt til. Du kan tene opp til alderspensjon til og med det året du fyller 75 år.',
   'forbehold.inntekt.title': 'Inntekt',
+  // TODO utdatert tekst
   'forbehold.inntekt.ingress':
     'I utrekninga brukar vi den siste registrerte pensjonsgjevande årsinntekta som NAV har fått frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt frem til du startar uttak av alderspensjon. Ynskjer du å endre fremtidig inntekt, må du nytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>.',
   'forbehold.utenlandsopphold.title': 'Utanlandsopphold',
@@ -344,6 +371,7 @@ const translations = {
     'Du oppgir den alderen (år og ev. månad) du ynskjer for uttak av pensjon for at vi skal kunne rekne ut alderspensjonen din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
     'Di pensjonsopptening vert henta frå pensjonsoppteningsregisteret hos NAV. Registeret er basert på innrapporterte inntekter frå Skatteetaten, og ev. opptening frå dagpengar, førstegongsteneste, omsorgsopptening og opptening frå uføretrygd.',
+  // TODO utdatert tekst
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
     'Di siste pensjonsgjevende årsinntekt (og årstall) frå Skatteetaten vert brukt som inntekt fram til uttak av pensjon. Ho inngår i pensjonsbehaldninga for utrekning av alderspensjonen din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
