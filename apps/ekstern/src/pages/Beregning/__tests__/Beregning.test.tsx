@@ -7,10 +7,7 @@ import { Beregning } from '../Beregning'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
-import {
-  userInputInitialState,
-  Simulation,
-} from '@/state/userInput/userInputReducer'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
