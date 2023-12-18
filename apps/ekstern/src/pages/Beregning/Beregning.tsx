@@ -13,7 +13,10 @@ import { Alert } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Simulering } from '@/components/Simulering'
-import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
+import {
+  TidligstMuligUttaksalder,
+  TidligstMuligUttaksalderAvansertToggle,
+} from '@/components/TidligstMuligUttaksalder'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import { paths } from '@/router/constants'
@@ -182,8 +185,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   return (
     <div className={styles.beregning}>
       {detaljertFaneFeatureToggle?.enabled && (
-        <div className={styles.container}>
-          <div className={styles.toggle}>
+        <div className={styles.toggle}>
+          <div className={styles.container}>
             <ToggleGroup
               defaultValue={visning}
               variant="neutral"
@@ -205,16 +208,29 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         <>
           {!isTidligstMuligUttaksalderError && tidligstMuligUttak && (
             <div className={styles.container}>
-              <TidligstMuligUttaksalder
-                tidligstMuligUttak={tidligstMuligUttak}
-                hasAfpOffentlig={afp === 'ja_offentlig'}
-              />
+              {detaljertFaneFeatureToggle?.enabled ? (
+                <TidligstMuligUttaksalderAvansertToggle
+                  tidligstMuligUttak={tidligstMuligUttak}
+                  hasAfpOffentlig={afp === 'ja_offentlig'}
+                />
+              ) : (
+                <TidligstMuligUttaksalder
+                  tidligstMuligUttak={tidligstMuligUttak}
+                  hasAfpOffentlig={afp === 'ja_offentlig'}
+                />
+              )}
             </div>
           )}
           <div
-            className={clsx(styles.background, styles.background__hasMargin, {
-              [styles.background__white]: isAlderValgt,
-            })}
+            className={clsx(
+              styles.background,
+              styles.background__hasMinheight,
+              {
+                [styles.background__hasMargin]:
+                  !detaljertFaneFeatureToggle?.enabled,
+                [styles.background__white]: isAlderValgt,
+              }
+            )}
           >
             <div className={styles.container}>
               <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
