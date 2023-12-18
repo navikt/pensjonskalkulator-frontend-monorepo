@@ -10,7 +10,7 @@ export const validateInntektInput = (
     )
     return isValid
   }
-  const s = inntektInput.replaceAll(' ', '')
+  const s = inntektInput.replace(/ /g, '')
 
   if (isNaN(s as unknown as number) || !/^[0-9]+$/.test(s)) {
     isValid = false
