@@ -18,7 +18,10 @@ import HighchartsReact from 'highcharts-react-official'
 
 import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { TabellVisning } from '@/components/TabellVisning'
-import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
+import {
+  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
+  usePensjonsavtalerQuery,
+} from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {
@@ -45,7 +48,6 @@ import styles from './Simulering.module.scss'
 
 export function Simulering(props: {
   isLoading: boolean
-  hasHighchartsAccessibilityPlugin?: boolean
   aarligInntektFoerUttak: number
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
@@ -54,7 +56,6 @@ export function Simulering(props: {
   const intl = useIntl()
   const {
     isLoading,
-    hasHighchartsAccessibilityPlugin,
     aarligInntektFoerUttak,
     alderspensjon,
     showAfp,
@@ -63,8 +64,10 @@ export function Simulering(props: {
   const harSamtykket = useAppSelector(selectSamtykke)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
-  const [XAxis, setXAxis] = React.useState<string[]>([])
+  const { data: highchartsAccessibilityFeatureToggle } =
+    useGetHighchartsAccessibilityPluginFeatureToggleQuery()
 
+  const [XAxis, setXAxis] = React.useState<string[]>([])
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
     React.useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
@@ -225,7 +228,7 @@ export function Simulering(props: {
       </Heading>
       <div
         data-testid="highcharts-aria-wrapper"
-        aria-hidden={!hasHighchartsAccessibilityPlugin}
+        aria-hidden={!highchartsAccessibilityFeatureToggle?.enabled}
       >
         <HighchartsReact
           ref={chartRef}

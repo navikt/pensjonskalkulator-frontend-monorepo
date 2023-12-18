@@ -1,0 +1,30 @@
+@import '../../scss/variables';
+
+.container {
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &__hasPadding {
+    composes: frame__hasPadding from '../../scss/modules/frame.module.scss';
+  }
+}
+
+.background {
+  width: 100%;
+  left: 0;
+  right: 0;
+
+  &__hasMargin {
+    margin-top: var(--a-spacing-4);
+  }
+
+  &__hasMinheight {
+    @media (min-width: $a-breakpoint-md) {
+      min-height: 33vh;
+    }
+  }
+
+  &__white {
+    background-color: var(--a-white);
+    transition: background-color 0.15s ease;
+  }
+}
