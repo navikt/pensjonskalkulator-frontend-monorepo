@@ -21,7 +21,7 @@ describe('GrunnlagInntekt-utils', () => {
       )
     })
 
-    it('returnerer false med riktig feilmelding når input er noe annet enn tall mellom 0-9', async () => {
+    it('returnerer false med riktig feilmelding når input er noe annet enn tall mellom 0-9 med/uten mellomrom', async () => {
       expect(
         validateInntektInput('qwerty', updateValidationErrorMessageMock)
       ).toBeFalsy()
@@ -58,10 +58,16 @@ describe('GrunnlagInntekt-utils', () => {
         validateInntektInput('500000', updateValidationErrorMessageMock)
       ).toBeTruthy()
       expect(
+        validateInntektInput('500 000', updateValidationErrorMessageMock)
+      ).toBeTruthy()
+      expect(
         validateInntektInput('0', updateValidationErrorMessageMock)
       ).toBeTruthy()
       expect(
         validateInntektInput('100000000', updateValidationErrorMessageMock)
+      ).toBeTruthy()
+      expect(
+        validateInntektInput('100 000 000', updateValidationErrorMessageMock)
       ).toBeTruthy()
       expect(updateValidationErrorMessageMock).not.toHaveBeenCalled()
     })

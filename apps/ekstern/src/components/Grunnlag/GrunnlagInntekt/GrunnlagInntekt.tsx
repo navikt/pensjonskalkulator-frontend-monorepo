@@ -79,11 +79,15 @@ export const GrunnlagInntekt = () => {
 
     const data = new FormData(e.currentTarget)
     const inntektData = data.get('inntekt') as string | undefined
+    console.log('>>> data', inntektData)
 
     if (validateInntektInput(inntektData, updateValidationErrorMessage)) {
       dispatch(
         userInputActions.updateCurrentSimulation({
-          aarligInntektFoerUttak: parseInt(inntektData as string, 10),
+          aarligInntektFoerUttak: parseInt(
+            (inntektData as string).replace(/ /g, ''),
+            10
+          ),
         })
       )
       logger('button klikk', {

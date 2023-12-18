@@ -1,14 +1,18 @@
 export const validateInntektInput = (
-  s: string | undefined,
+  inntektInput: string | undefined,
   updateValidationErrorMessage: (s: string) => void
 ) => {
   let isValid = true
-  if (s === undefined || s === '') {
+  if (inntektInput === undefined || inntektInput === '') {
     isValid = false
     updateValidationErrorMessage(
       'grunnlag.inntekt.inntektmodal.textfield.validation_error.required'
     )
-  } else if (isNaN(s as unknown as number) || !/^[0-9]+$/.test(s)) {
+    return isValid
+  }
+  const s = inntektInput.replace(/ /g, '')
+
+  if (isNaN(s as unknown as number) || !/^[0-9]+$/.test(s)) {
     isValid = false
     updateValidationErrorMessage(
       'grunnlag.inntekt.inntektmodal.textfield.validation_error.type'
