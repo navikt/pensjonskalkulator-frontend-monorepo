@@ -72,6 +72,7 @@ export const userInputSlice = createSlice({
       state.formatertUttaksalder = null
       state.currentSimulation.startAar = null
       state.currentSimulation.startMaaned = null
+      state.currentSimulation.aarligInntektFoerUttak = null
     },
   },
 })
