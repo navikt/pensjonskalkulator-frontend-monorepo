@@ -182,7 +182,8 @@ const translations = {
     ' Jo lenger du ventar, dess meir får du i året.',
   'tidligsteuttaksalder.1964.ingress_2': 'MANGLER_TEKST',
   'tidligsteuttaksalder.readmore_title': 'MANGLER_TEKST',
-  'tidligsteuttaksalder.readmore_ingress': 'MANGLER_TEKST',
+  'tidligsteuttaksalder.readmore_ingress.enkelt': 'MANGLER_TEKST',
+  'tidligsteuttaksalder.readmore_ingress.avansert': 'MANGLER_TEKST',
   'tidligsteuttaksalder.info_afp':
     'Din AFP kan gjere at tidspunktet vert tidlegare', // TODO utdatert tekst
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',

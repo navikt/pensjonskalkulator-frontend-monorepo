@@ -12,6 +12,7 @@
 
     @media (min-width: $a-breakpoint-lg) {
       max-width: $container-max-width;
+      padding: var(--a-spacing-6) 0;
     }
   }
 }

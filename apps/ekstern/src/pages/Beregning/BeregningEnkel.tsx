@@ -15,7 +15,6 @@ import {
   useGetPersonQuery,
   apiSlice,
   useAlderspensjonQuery,
-  useGetDetaljertFaneFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -50,8 +49,6 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   )
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
-  const { data: detaljertFaneFeatureToggle } =
-    useGetDetaljertFaneFeatureToggleQuery()
 
   React.useEffect(() => {
     const requestBody = generateAlderspensjonRequestBody({
@@ -137,19 +134,14 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
           />
         </div>
       )}
-      <div
-        className={clsx(styles.background, styles.background__hasMinheight, {
-          [styles.background__hasMargin]: !detaljertFaneFeatureToggle?.enabled,
-          [styles.background__white]: isAlderValgt,
-        })}
-      >
+      <div className={clsx(styles.background, styles.background__white)}>
         <div className={styles.container}>
           <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
         </div>
 
         {isAlderValgt && (
           <div
-            className={`${styles.container} ${styles.container__hasPadding}`}
+            className={`${styles.container} ${styles.container__hasMobilePadding}`}
           >
             {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
               <>

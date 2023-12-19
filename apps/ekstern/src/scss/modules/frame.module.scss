@@ -6,6 +6,14 @@
   max-width: var(--a-breakpoint-lg);
   margin: 0 auto;
 
+  &__hasMobilePadding {
+    padding: 0 var(--a-spacing-6);
+
+    @media (min-width: $a-breakpoint-lg) {
+      padding: 0;
+    }
+  }
+
   &__hasPadding {
     padding: 0 var(--a-spacing-6);
   }
