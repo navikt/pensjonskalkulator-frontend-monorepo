@@ -117,7 +117,7 @@ describe('userInputSlice', () => {
           currentSimulation: {
             startAar: 66,
             startMaaned: 4,
-            aarligInntektFoerUttak: null,
+            aarligInntektFoerUttak: 300000,
           },
         },
         userInputActions.flush()
