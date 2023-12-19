@@ -4,7 +4,7 @@ import { isFoedtFoer1963, isFoedtFoer1964 } from '../alder'
 
 describe('alder-utils', () => {
   describe('isFoedtFoer1963', () => {
-    it.skip('returnerer false når datoen er ugydlig', () => {
+    it('returnerer false når datoen er ugydlig', () => {
       expect(isFoedtFoer1963('')).toBeFalsy()
       expect(isFoedtFoer1963(' ')).toBeFalsy()
       expect(isFoedtFoer1963('tullball')).toBeFalsy()
@@ -21,7 +21,7 @@ describe('alder-utils', () => {
     })
   })
   describe('isFoedtFoer1964', () => {
-    it.skip('returnerer false når datoen er ugydlig', () => {
+    it('returnerer false når datoen er ugydlig', () => {
       expect(isFoedtFoer1964('')).toBeFalsy()
       expect(isFoedtFoer1964(' ')).toBeFalsy()
       expect(isFoedtFoer1964('tullball')).toBeFalsy()

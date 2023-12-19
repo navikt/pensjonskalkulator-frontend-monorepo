@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
 
 import { AccordionItem } from '@/components/common/AccordionItem'
-import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
@@ -18,11 +17,8 @@ import { GrunnlagPensjonsavtaler } from './GrunnlagPensjonsavtaler'
 import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
-interface Props {
-  tidligstMuligUttak?: Alder
-}
 
-export const Grunnlag: React.FC<Props> = ({ tidligstMuligUttak }) => {
+export const Grunnlag: React.FC = () => {
   const intl = useIntl()
 
   const { data: person, isSuccess } = useGetPersonQuery()
@@ -57,43 +53,6 @@ export const Grunnlag: React.FC<Props> = ({ tidligstMuligUttak }) => {
           </BodyLong>
         </div>
         <Accordion>
-          <AccordionItem name="Grunnlag: Tidligst mulig uttak">
-            <GrunnlagSection
-              headerTitle={intl.formatMessage({
-                id: 'grunnlag.tidligstmuliguttak.title',
-              })}
-              headerValue={
-                tidligstMuligUttak
-                  ? formatUttaksalder(intl, tidligstMuligUttak, {
-                      compact: true,
-                    })
-                  : intl.formatMessage({
-                      id: 'grunnlag.tidligstmuliguttak.title.error',
-                    })
-              }
-            >
-              <>
-                {!tidligstMuligUttak && (
-                  <BodyLong>
-                    <FormattedMessage
-                      id="grunnlag.tidligstmuliguttak.ingress.error"
-                      values={{
-                        ...formatMessageValues,
-                      }}
-                    />
-                  </BodyLong>
-                )}
-                <BodyLong>
-                  <FormattedMessage
-                    id="grunnlag.tidligstmuliguttak.ingress"
-                    values={{
-                      ...formatMessageValues,
-                    }}
-                  />
-                </BodyLong>
-              </>
-            </GrunnlagSection>
-          </AccordionItem>
           <AccordionItem name="Grunnlag: Uttaksgrad">
             <GrunnlagSection
               headerTitle={intl.formatMessage({

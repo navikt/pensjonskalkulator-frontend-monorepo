@@ -216,12 +216,6 @@ const translations = {
   'beregning.tabell.sum': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
-  'grunnlag.tidligstmuliguttak.title': 'Tidlegast mogeleg uttak',
-  'grunnlag.tidligstmuliguttak.title.error': 'Ikkje funne',
-  'grunnlag.tidligstmuliguttak.ingress':
-    'For å starte uttak mellom 62 og 67 år må oppteninga di vere høg nok. Tidspunktet er eit estimat på når du tidlegast kan ta ut 100 % alderspensjon. I detaljert kalkulator kan du sjekke om du kan ta ut alderspensjon tidligare med lågare uttaksgrad.{br}{br}Når du vel uttaksalder, gjeld utrekninga frå kalendermånaden etter. I detaljert kalkulator kan du velja uttaksalder i år og månad.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
-  'grunnlag.tidligstmuliguttak.ingress.error':
-    'Vi klarte ikkje å finne tidspunkt for kor tid du tidlegast kan ta ut alderspensjon. Prøv igjen seinare.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.ingress':
     'Denne utrekninga syner 100 % uttak av alderspensjon. I detaljert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',

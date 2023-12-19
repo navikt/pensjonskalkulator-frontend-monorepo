@@ -184,7 +184,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
                       !isError && alderspensjon?.vilkaarErOppfylt
                     }
                   />
-                  <Grunnlag tidligstMuligUttak={tidligstMuligUttak} />
+                  <Grunnlag />
                 </PensjonsavtalerAccordionContext.Provider>
               </>
             )}
