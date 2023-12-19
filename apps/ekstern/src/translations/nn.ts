@@ -175,16 +175,14 @@ const translations = {
   'sivilstand.gjenlevende_partner': 'Attlevande partnar',
   'sivilstand.med_samboer': 'MANGLER_TEKST',
   'sivilstand.uten_samboer': 'MANGLER_TEKST',
-  'tidligsteuttaksalder.ingress':
-    'Di opptening i folketrygda gjer at du tidlegast kan ta ut 100% alderspensjon når du er ',
+  'tidligsteuttaksalder.1963.ingress_1':
+    'Di opptening gjer at du tidlegast kan ta ut 100% alderspensjon når du er ',
+  'tidligsteuttaksalder.1964.ingress_1': 'MANGLER_TEKST',
+  'tidligsteuttaksalder.1963.ingress_2':
+    ' Jo lenger du ventar, dess meir får du i året.',
+  'tidligsteuttaksalder.1964.ingress_2': 'MANGLER_TEKST',
   'tidligsteuttaksalder.readmore_title': 'MANGLER_TEKST',
   'tidligsteuttaksalder.readmore_ingress': 'MANGLER_TEKST',
-  'tidligsteuttaksalder.ingress_1':
-    'Di opptening i folketrygda gjer at du tidlegast kan ta {br}ut alderspensjon når du er ',
-  'tidligsteuttaksalder.ingress_2':
-    'Jo lenger du ventar, dess meir får du i året.',
-  'tidligsteuttaksalder.help':
-    'For å starte uttak mellom 62 og 67 år må oppteninga di vere høg nok. Tidspunktet er eit estimat.',
   'tidligsteuttaksalder.info_afp':
     'Din AFP kan gjere at tidspunktet vert tidlegare', // TODO utdatert tekst
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',

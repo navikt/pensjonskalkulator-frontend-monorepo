@@ -9,10 +9,7 @@ import { AccordionContext as PensjonsavtalerAccordionContext } from '@/component
 import { Alert } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Simulering } from '@/components/Simulering'
-import {
-  TidligstMuligUttaksalder,
-  TidligstMuligUttaksalderAvansertToggle,
-} from '@/components/TidligstMuligUttaksalder'
+import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import {
   useGetPersonQuery,
@@ -29,6 +26,7 @@ import {
   selectFormatertUttaksalder,
   selectAarligInntektFoerUttak,
 } from '@/state/userInput/selectors'
+import { isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 interface Props {
@@ -45,7 +43,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const isAlderValgt = useAppSelector(selectFormatertUttaksalder) !== null
-  const { data: person } = useGetPersonQuery()
+  const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
   const { startAar, startMaaned, uttaksgrad } = useAppSelector(
     selectCurrentSimulation
@@ -106,6 +104,10 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
     }
   }, [error])
 
+  const show1963Text = React.useMemo(() => {
+    return isPersonSuccess && isFoedtFoer1964(person?.foedselsdato)
+  }, [person])
+
   const [
     isPensjonsavtalerAccordionItemOpen,
     setIslePensjonsavtalerAccordionItem,
@@ -128,17 +130,11 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
     <>
       {tidligstMuligUttak && (
         <div className={styles.container}>
-          {detaljertFaneFeatureToggle?.enabled ? (
-            <TidligstMuligUttaksalderAvansertToggle
-              tidligstMuligUttak={tidligstMuligUttak}
-              hasAfpOffentlig={afp === 'ja_offentlig'}
-            />
-          ) : (
-            <TidligstMuligUttaksalder
-              tidligstMuligUttak={tidligstMuligUttak}
-              hasAfpOffentlig={afp === 'ja_offentlig'}
-            />
-          )}
+          <TidligstMuligUttaksalder
+            tidligstMuligUttak={tidligstMuligUttak}
+            hasAfpOffentlig={afp === 'ja_offentlig'}
+            show1963Text={show1963Text}
+          />
         </div>
       )}
       <div

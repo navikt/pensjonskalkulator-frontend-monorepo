@@ -180,18 +180,19 @@ const translations = {
   'sivilstand.gjenlevende_partner': 'Gjenlevende partner',
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
-  'tidligsteuttaksalder.ingress':
-    'Din opptjening i folketrygden gjør at du tidligst kan ta ut 100% alderspensjon når du er ',
-  'tidligsteuttaksalder.readmore_title': 'Om tidspunkter for uttak',
-  'tidligsteuttaksalder.readmore_ingress': 'Lorem ipsum',
+  'tidligsteuttaksalder.1963.ingress_1':
+    'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er ',
+  'tidligsteuttaksalder.1964.ingress_1':
+    'Din opptjening gjør at du etter dagens regler tidligst kan ta ut 100 % alderspensjon når du er ',
+  'tidligsteuttaksalder.1963.ingress_2':
+    ' Jo lenger du venter, desto mer får du i året.',
+  'tidligsteuttaksalder.1964.ingress_2':
+    ' Foreslåtte lovendringer kan øke pensjonsalderen.',
+  'tidligsteuttaksalder.readmore_title': 'Om pensjonsalder',
+  'tidligsteuttaksalder.readmore_ingress':
+    'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 100 %.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'tidligsteuttaksalder.info_afp':
-    'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til AFP i offentlig sektor.',
-  'tidligsteuttaksalder.ingress_1':
-    'Din opptjening i folketrygden gjør at du tidligst kan ta {br}ut alderspensjon når du er ',
-  'tidligsteuttaksalder.ingress_2':
-    'Jo lenger du venter, desto mer får du i året.',
-  'tidligsteuttaksalder.help':
-    'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.',
+    'Har du AFP i offentlig sektor, kan du trolig ta ut alderspensjon tidligere enn hvis du ikke har AFP.',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
   'beregning.error':

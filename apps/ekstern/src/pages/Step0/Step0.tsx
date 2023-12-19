@@ -2,8 +2,6 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { lastDayOfYear, isBefore } from 'date-fns'
-
 import { Loader } from '@/components/common/Loader'
 import { Start } from '@/components/stegvisning/Start'
 import { paths } from '@/router/constants'
@@ -14,6 +12,7 @@ import {
   useGetInntektQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
+import { isFoedtFoer1963 } from '@/utils/alder'
 
 export function Step0() {
   const intl = useIntl()
@@ -49,11 +48,7 @@ export function Step0() {
   }, [isSakFetching, sak, navigate])
 
   React.useEffect(() => {
-    const LAST_DAY_1962 = lastDayOfYear(new Date(1962, 1, 1))
-    if (
-      isPersonSuccess &&
-      isBefore(new Date(person.foedselsdato), LAST_DAY_1962)
-    ) {
+    if (isPersonSuccess && isFoedtFoer1963(person.foedselsdato)) {
       navigate(paths.henvisning1963)
     }
   }, [isPersonSuccess, person, navigate])
