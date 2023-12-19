@@ -572,12 +572,19 @@ describe('Simulering', () => {
     ).toBe('true')
   })
 
-  it('setter aria-hidden attrbute iht hasHighchartsAccessibilityPlugin property', async () => {
+  it('setter aria-hidden attribute iht feature toggle', async () => {
+    mockResponse(
+      '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
+      {
+        status: 200,
+        json: { enabled: true },
+      }
+    )
+
     render(
       <Simulering
         isLoading={false}
         aarligInntektFoerUttak={0}
-        hasHighchartsAccessibilityPlugin={true}
         showAfp={true}
         showButtonsAndTable={true}
       />,
@@ -591,8 +598,11 @@ describe('Simulering', () => {
         },
       }
     )
-    expect(
-      screen.getByTestId('highcharts-aria-wrapper').getAttribute('aria-hidden')
-    ).toBe('false')
+    waitFor(async () => {
+      const highchartsWrapper = await screen.findByTestId(
+        'highcharts-aria-wrapper'
+      )
+      expect(highchartsWrapper.getAttribute('aria-hidden')).toBe('false')
+    })
   })
 })
