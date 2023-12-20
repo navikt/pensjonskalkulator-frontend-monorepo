@@ -13,7 +13,7 @@ import { isUttaksalderOver62 } from './utils'
 import styles from './TidligstMuligUttaksalder.module.scss'
 
 interface Props {
-  tidligstMuligUttak: Alder
+  tidligstMuligUttak?: Alder
   hasAfpOffentlig: boolean
   show1963Text: boolean
 }
@@ -30,43 +30,56 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
   return (
     <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
       <div className={styles.wrapperCard} aria-live="polite">
-        <BodyLong size="medium" className={`${styles.ingress}`}>
-          <FormattedMessage
-            id={`tidligsteuttaksalder.${
-              show1963Text ? '1963' : '1964'
-            }.ingress_1`}
-            values={{
-              ...formatMessageValues,
-            }}
-          />
-        </BodyLong>
-        <BodyLong size="medium" className={styles.highlighted}>
-          {formatUttaksalder(intl, tidligstMuligUttak)}.
-        </BodyLong>
-        <BodyLong size="medium" className={`${styles.ingress}`}>
-          <FormattedMessage
-            id={`tidligsteuttaksalder.${
-              show1963Text ? '1963' : '1964'
-            }.ingress_2`}
-            values={{
-              ...formatMessageValues,
-            }}
-          />
-        </BodyLong>
-        {hasAfpOffentlig && isUttaksalderOver62(tidligstMuligUttak) && (
-          <Alert
-            className={styles.alert}
-            size="small"
-            variant="info"
-            aria-live="polite"
-          >
+        {tidligstMuligUttak ? (
+          <>
+            <BodyLong size="medium" className={`${styles.ingress}`}>
+              <FormattedMessage
+                id={`tidligsteuttaksalder.${
+                  show1963Text ? '1963' : '1964'
+                }.ingress_1`}
+                values={{
+                  ...formatMessageValues,
+                }}
+              />
+            </BodyLong>
+            <BodyLong size="medium" className={styles.highlighted}>
+              {formatUttaksalder(intl, tidligstMuligUttak)}.
+            </BodyLong>
+            <BodyLong size="medium" className={`${styles.ingress}`}>
+              <FormattedMessage
+                id={`tidligsteuttaksalder.${
+                  show1963Text ? '1963' : '1964'
+                }.ingress_2`}
+                values={{
+                  ...formatMessageValues,
+                }}
+              />
+            </BodyLong>
+            {hasAfpOffentlig && isUttaksalderOver62(tidligstMuligUttak) && (
+              <Alert
+                className={styles.alert}
+                size="small"
+                variant="info"
+                aria-live="polite"
+              >
+                <FormattedMessage
+                  id="tidligsteuttaksalder.info_afp"
+                  values={{
+                    ...formatMessageValues,
+                  }}
+                />
+              </Alert>
+            )}
+          </>
+        ) : (
+          <BodyLong size="medium" className={`${styles.ingress}`}>
             <FormattedMessage
-              id="tidligsteuttaksalder.info_afp"
+              id="tidligsteuttaksalder.error"
               values={{
                 ...formatMessageValues,
               }}
             />
-          </Alert>
+          </BodyLong>
         )}
         <ReadMore
           name="Om tidspunkter for uttak"

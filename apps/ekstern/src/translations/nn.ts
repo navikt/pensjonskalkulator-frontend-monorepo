@@ -186,6 +186,8 @@ const translations = {
   'tidligsteuttaksalder.readmore_ingress.avansert': 'MANGLER_TEKST',
   'tidligsteuttaksalder.info_afp':
     'Din AFP kan gjere at tidspunktet vert tidlegare', // TODO utdatert tekst
+  'tidligsteuttaksalder.error':
+    'Vi klarte ikkje å finne tidspunkt for kor tid du tidlegast kan ta ut alderspensjon. Prøv igjen seinare.',
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',
   'beregning.loading': 'MANGLER_TEKST',
   'beregning.error':

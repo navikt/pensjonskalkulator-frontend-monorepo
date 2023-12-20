@@ -108,7 +108,7 @@ describe('Beregning', () => {
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
       expect(screen.getAllByRole('button')).toHaveLength(12)
     })
-    it('når kallet feiler, viser ikke info om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
+    it('når kallet feiler, viser det feilmelding om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
       const user = userEvent.setup()
       mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
@@ -125,10 +125,10 @@ describe('Beregning', () => {
           },
         },
       })
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
-          screen.queryByTestId('tidligst-mulig-uttak')
-        ).not.toBeInTheDocument()
+          await screen.findByText('tidligsteuttaksalder.error')
+        ).toBeInTheDocument()
       })
       const button = await screen.findByText('68 alder.aar')
 

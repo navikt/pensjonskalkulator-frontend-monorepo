@@ -125,15 +125,14 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
 
   return (
     <>
-      {tidligstMuligUttak && (
-        <div className={styles.container}>
-          <TidligstMuligUttaksalder
-            tidligstMuligUttak={tidligstMuligUttak}
-            hasAfpOffentlig={afp === 'ja_offentlig'}
-            show1963Text={show1963Text}
-          />
-        </div>
-      )}
+      <div className={styles.container}>
+        <TidligstMuligUttaksalder
+          tidligstMuligUttak={tidligstMuligUttak}
+          hasAfpOffentlig={afp === 'ja_offentlig'}
+          show1963Text={show1963Text}
+        />
+      </div>
+
       <div className={clsx(styles.background, styles.background__white)}>
         <div className={styles.container}>
           <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />

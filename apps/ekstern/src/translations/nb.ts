@@ -195,6 +195,8 @@ const translations = {
     'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 100 %.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'tidligsteuttaksalder.info_afp':
     'Har du AFP i offentlig sektor, kan du trolig ta ut alderspensjon tidligere enn hvis du ikke har AFP.',
+  'tidligsteuttaksalder.error':
+    'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon. Prøv igjen senere.',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
   'beregning.error':

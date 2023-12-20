@@ -126,4 +126,20 @@ describe('TidligstMuligUttaksalder', () => {
       ).toBeInTheDocument()
     })
   })
+
+  it('viser feilmelding og readmore når tidligstMuligUttak ikke kunne hentes', async () => {
+    render(
+      <TidligstMuligUttaksalder
+        tidligstMuligUttak={undefined}
+        hasAfpOffentlig={false}
+        show1963Text={false}
+      />
+    )
+    await waitFor(() => {
+      expect(screen.getByText('tidligsteuttaksalder.error')).toBeInTheDocument()
+      expect(
+        screen.getByText('tidligsteuttaksalder.readmore_title')
+      ).toBeInTheDocument()
+    })
+  })
 })

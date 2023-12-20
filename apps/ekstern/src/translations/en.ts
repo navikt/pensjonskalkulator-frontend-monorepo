@@ -139,6 +139,7 @@ const translations = {
   'tidligsteuttaksalder.readmore_ingress.enkelt': 'MANGLER_TEKST',
   'tidligsteuttaksalder.readmore_ingress.avansert': 'MANGLER_TEKST',
   'tidligsteuttaksalder.info_afp': 'MANGLER_TEKST',
+  'tidligsteuttaksalder.error': 'MANGLER_TEKST',
   'velguttaksalder.title': 'MANGLER_TEKST',
   'beregning.loading': 'MANGLER_TEKST',
   'beregning.error': 'MANGLER_TEKST',
