@@ -75,7 +75,7 @@ describe('Uten samtykke', () => {
 
         it('ønsker jeg å kunne starte ny beregning, eller avbryte beregningen.', () => {
           cy.contains('button', '62 år og 10 md.').click()
-          cy.contains('button', 'Tilbake til start').click()
+          cy.contains('button', 'Tilbake til start').click({ force: true })
           cy.location('href').should('include', '/pensjon/kalkulator/start')
           cy.fillOutStegvisning({ samtykke: false })
           cy.contains('button', 'Avbryt').click()

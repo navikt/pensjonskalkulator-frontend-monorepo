@@ -3,6 +3,11 @@
 .section {
   composes: fadein from '../../scss/modules/fadein.module.scss';
   composes: innerframe from '../../scss/modules/frame.module.scss';
+
+  @media (min-width: $a-breakpoint-lg) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
 
 .innerwrapper {

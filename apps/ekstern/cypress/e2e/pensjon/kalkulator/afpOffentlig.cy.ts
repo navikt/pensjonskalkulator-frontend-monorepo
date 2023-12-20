@@ -48,11 +48,11 @@ describe('AFP offentlig', () => {
       describe('Når jeg er kommet til beregningssiden og får senere enn 62 år på tidligst mulig uttak,', () => {
         it('ønsker jeg tilleggsinformasjon om at rett til AFP gjør at tidligst mulig uttak er tidligere.', () => {
           cy.contains(
-            'Din opptjening i folketrygden gjør at du tidligst kan ta'
+            'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
           ).should('exist')
           cy.contains('62 år og 10 måneder').should('exist')
           cy.contains(
-            'Du kan trolig ta ut alderspensjon tidligere hvis du har rett til AFP i offentlig sektor.'
+            'Har du AFP i offentlig sektor, kan du trolig ta ut alderspensjon tidligere enn hvis du ikke har AFP.'
           ).should('exist')
         })
       })

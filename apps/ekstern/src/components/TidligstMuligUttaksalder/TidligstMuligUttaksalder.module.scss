@@ -15,11 +15,21 @@
 
 .ingress {
   display: inline;
+
+  @media (min-width: $a-breakpoint-lg) {
+    font-size: var(--a-font-size-xlarge);
+    line-height: var(--a-font-line-height-xlarge);
+  }
 }
 
 .highlighted {
   display: inline;
   font-weight: var(--a-font-weight-bold);
+
+  @media (min-width: $a-breakpoint-lg) {
+    font-size: var(--a-font-size-xlarge);
+    line-height: var(--a-font-line-height-xlarge);
+  }
 }
 
 .readmore {
@@ -27,5 +37,6 @@
 }
 
 .alert {
+  margin-top: var(--a-spacing-2);
   margin-bottom: var(--a-spacing-2);
 }

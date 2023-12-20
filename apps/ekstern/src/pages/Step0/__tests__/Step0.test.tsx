@@ -122,7 +122,6 @@ describe('Step 0', () => {
     )
     render(<Step0 />)
 
-    // expect(navigateMock).toHaveBeenCalledWith(paths.henvisning1963)
     await waitFor(async () => {
       expect(navigateMock).toHaveBeenCalledWith(paths.henvisning1963)
     })
@@ -140,7 +139,6 @@ describe('Step 0', () => {
     )
     render(<Step0 />)
 
-    // expect(navigateMock).toHaveBeenCalledWith(paths.henvisning1963)
     await waitFor(async () => {
       expect(navigateMock).toHaveBeenCalledWith(
         paths.henvisningUfoeretrygdGjenlevendepensjon

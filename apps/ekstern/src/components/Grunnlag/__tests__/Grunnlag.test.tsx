@@ -1,7 +1,4 @@
-import { vi } from 'vitest'
-
 import { Grunnlag } from '@/components/Grunnlag'
-import * as velgUttaksalderUtils from '@/components/VelgUttaksalder/utils'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
@@ -11,9 +8,6 @@ describe('Grunnlag', () => {
     render(<Grunnlag />)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
-    expect(
-      await screen.findByText('grunnlag.tidligstmuliguttak.title')
-    ).toBeVisible()
     expect(await screen.findByText('grunnlag.uttaksgrad.title')).toBeVisible()
     expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
     expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
@@ -26,64 +20,6 @@ describe('Grunnlag', () => {
       await screen.findByText('grunnlag.pensjonsavtaler.title')
     ).toBeVisible()
     expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
-  })
-
-  describe('Grunnlag - tidligst mulig uttak', () => {
-    it('viser riktig tittel med formatert alder og tekst', async () => {
-      const user = userEvent.setup()
-      const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
-      render(<Grunnlag tidligstMuligUttak={{ aar: 67, maaneder: 0 }} />)
-      expect(
-        screen.getByText('grunnlag.tidligstmuliguttak.title')
-      ).toBeVisible()
-      expect(await screen.findByText('67 alder.aar')).toBeVisible()
-      expect(
-        screen.queryByText('grunnlag.tidligstmuliguttak.title.error')
-      ).not.toBeInTheDocument()
-      expect(formatMock).toHaveBeenCalled()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[0])
-
-      expect(
-        await screen.findByText(
-          'For å starte uttak mellom 62 og 67 år må opptjeningen din',
-          { exact: false }
-        )
-      ).toBeVisible()
-      expect(
-        screen.queryByText('grunnlag.tidligstmuliguttak.ingress.error')
-      ).not.toBeInTheDocument()
-    })
-
-    it('rendrer riktig når tidligst mulig uttaksalder ikke kunne hentes', async () => {
-      const user = userEvent.setup()
-      const formatMock = vi.spyOn(velgUttaksalderUtils, 'formatUttaksalder')
-      render(<Grunnlag />)
-      expect(
-        screen.getByText('grunnlag.tidligstmuliguttak.title')
-      ).toBeVisible()
-      expect(
-        await screen.findByText('grunnlag.tidligstmuliguttak.title.error')
-      ).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[0])
-
-      expect(
-        await screen.findByText(
-          'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon',
-          { exact: false }
-        )
-      ).toBeVisible()
-      expect(
-        await screen.findByText(
-          'For å starte uttak mellom 62 og 67 år må opptjeningen din',
-          { exact: false }
-        )
-      ).toBeVisible()
-      expect(formatMock).not.toHaveBeenCalled()
-    })
   })
 
   describe('Grunnlag - uttaksgrad', () => {

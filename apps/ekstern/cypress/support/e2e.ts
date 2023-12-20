@@ -72,7 +72,7 @@ beforeEach(() => {
       method: 'GET',
       url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.disable-spraakvelger',
     },
-    { fixture: 'disable-spraakvelger.json' }
+    { fixture: 'toggle-disable-spraakvelger.json' }
   ).as('getFeatureToggleSpraakvelger')
 
   cy.intercept(
@@ -80,7 +80,15 @@ beforeEach(() => {
       method: 'GET',
       url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
     },
-    { fixture: 'disable-spraakvelger.json' }
+    { fixture: 'toggle-enable-highcharts-accessibility-plugin.json' }
+  ).as('getFeatureToggleHighcharts')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-detaljert-fane',
+    },
+    { fixture: 'toggle-enable-detaljert-fane.json' }
   ).as('getFeatureToggleHighcharts')
 
   cy.intercept(

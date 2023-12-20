@@ -158,5 +158,7 @@ export const formatMessageValues: Record<string, any> = {
     </Link>
   ),
   br: <br />,
+  // TODO utvide test
+  strong: (chunks: string) => <strong>{chunks}</strong>,
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */

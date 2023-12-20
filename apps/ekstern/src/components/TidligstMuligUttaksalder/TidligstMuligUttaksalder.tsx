@@ -1,92 +1,88 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Alert, BodyLong, HelpText } from '@navikt/ds-react'
+import { Alert, BodyLong } from '@navikt/ds-react'
 
-import Piggybank from '../../assets/piggybank.svg'
+import { ReadMore } from '@/components/common/ReadMore'
 import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
-import { logger } from '@/utils/logging'
+import { useGetDetaljertFaneFeatureToggleQuery } from '@/state/api/apiSlice'
 import { formatMessageValues } from '@/utils/translations'
 
 import { isUttaksalderOver62 } from './utils'
 
-import styles from './TidligsMuligUttaksalder.module.scss'
+import styles from './TidligstMuligUttaksalder.module.scss'
 
 interface Props {
   tidligstMuligUttak: Alder
   hasAfpOffentlig: boolean
+  show1963Text: boolean
 }
 
-export const TidligstMuligUttaksalder: React.FC<Props> = React.memo(
-  ({ tidligstMuligUttak, hasAfpOffentlig }) => {
-    const intl = useIntl()
-    const [hasHelpTextBeenClicked, setHasHelpTextBeenClicked] =
-      React.useState(false)
-    const logHelpTextClick = () => {
-      if (!hasHelpTextBeenClicked) {
-        logger('help text åpnet', {
-          tekst: 'Tidligst mulig uttak',
-        })
-      }
-      setHasHelpTextBeenClicked(true)
-    }
+export const TidligstMuligUttaksalder: React.FC<Props> = ({
+  tidligstMuligUttak,
+  hasAfpOffentlig,
+  show1963Text,
+}) => {
+  const intl = useIntl()
+  const { data: detaljertFaneFeatureToggle } =
+    useGetDetaljertFaneFeatureToggleQuery()
 
-    return (
-      <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
-        <div className={styles.wrapperCard}>
-          <img className={styles.wrapperImage} src={Piggybank} alt="" />
-          <div className={styles.wrapperText} aria-live="polite">
-            <BodyLong
-              size="large"
-              className={`${styles.ingress} ${styles.ingress__isInline}`}
-            >
-              <FormattedMessage
-                id="tidligsteuttaksalder.ingress_1"
-                values={{
-                  ...formatMessageValues,
-                }}
-              />
-            </BodyLong>
-            <span className={styles.highlighted}>
-              {formatUttaksalder(intl, tidligstMuligUttak)}
-              <HelpText
-                onClick={logHelpTextClick}
-                wrapperClassName={styles.helptext}
-              >
-                <FormattedMessage
-                  id="tidligsteuttaksalder.help"
-                  values={{
-                    ...formatMessageValues,
-                  }}
-                />
-              </HelpText>
-            </span>
-            {hasAfpOffentlig && isUttaksalderOver62(tidligstMuligUttak) && (
-              <Alert
-                className={styles.alert}
-                size="small"
-                variant="info"
-                aria-live="polite"
-              >
-                <FormattedMessage
-                  id="tidligsteuttaksalder.info_afp"
-                  values={{
-                    ...formatMessageValues,
-                  }}
-                />
-              </Alert>
-            )}
-            <BodyLong size="large" className={styles.ingress}>
-              <FormattedMessage
-                id="tidligsteuttaksalder.ingress_2"
-                values={{
-                  ...formatMessageValues,
-                }}
-              />
-            </BodyLong>
-          </div>
-        </div>
+  return (
+    <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
+      <div className={styles.wrapperCard} aria-live="polite">
+        <BodyLong size="medium" className={`${styles.ingress}`}>
+          <FormattedMessage
+            id={`tidligsteuttaksalder.${
+              show1963Text ? '1963' : '1964'
+            }.ingress_1`}
+            values={{
+              ...formatMessageValues,
+            }}
+          />
+        </BodyLong>
+        <BodyLong size="medium" className={styles.highlighted}>
+          {formatUttaksalder(intl, tidligstMuligUttak)}.
+        </BodyLong>
+        <BodyLong size="medium" className={`${styles.ingress}`}>
+          <FormattedMessage
+            id={`tidligsteuttaksalder.${
+              show1963Text ? '1963' : '1964'
+            }.ingress_2`}
+            values={{
+              ...formatMessageValues,
+            }}
+          />
+        </BodyLong>
+        {hasAfpOffentlig && isUttaksalderOver62(tidligstMuligUttak) && (
+          <Alert
+            className={styles.alert}
+            size="small"
+            variant="info"
+            aria-live="polite"
+          >
+            <FormattedMessage
+              id="tidligsteuttaksalder.info_afp"
+              values={{
+                ...formatMessageValues,
+              }}
+            />
+          </Alert>
+        )}
+        <ReadMore
+          name="Om tidspunkter for uttak"
+          className={styles.readmore}
+          header={<FormattedMessage id="tidligsteuttaksalder.readmore_title" />}
+        >
+          <FormattedMessage
+            id={`tidligsteuttaksalder.readmore_ingress.${
+              detaljertFaneFeatureToggle?.enabled ? 'avansert' : 'enkelt'
+            }`}
+            values={{
+              ...formatMessageValues,
+            }}
+          />
+        </ReadMore>
       </div>
-    )
-  }
-)
+    </div>
+  )
+}
