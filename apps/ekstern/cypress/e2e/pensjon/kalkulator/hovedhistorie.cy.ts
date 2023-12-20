@@ -284,24 +284,51 @@ describe('Hovedhistorie', () => {
     })
 
     describe('Når jeg er kommet til beregningssiden,', () => {
-      beforeEach(() => {
+      it('ønsker jeg som er født i 1963 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.login()
         cy.fillOutStegvisning({ samtykke: false })
         cy.wait('@fetchTidligsteUttaksalder')
-      })
-      it('ønsker jeg informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.contains(
           'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
+        cy.contains('Jo lenger du venter, desto mer får du i året.').should(
+          'exist'
+        )
       })
-      it('må jeg kunne trykke på «?» for informasjon om at det kreves høy nok opptjening for å starte uttak mellom 62 og 67 år.', () => {
-        cy.get('.navds-help-text__button').click()
+      it('ønsker jeg som er født fom. 1964 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
+        cy.intercept(
+          { method: 'GET', url: '/pensjon/kalkulator/api/v1/person' },
+          {
+            fornavn: 'Aprikos',
+            sivilstand: 'UGIFT',
+            foedselsdato: '1964-04-30',
+          }
+        ).as('getPerson')
+        cy.login()
+        cy.fillOutStegvisning({ samtykke: false })
+        cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
-          'For å starte uttak mellom 62 og 67 år må opptjeningen din være høy nok. Tidspunktet er et estimat.'
+          'Din opptjening gjør at du etter dagens regler tidligst kan ta ut 100 % alderspensjon når du er'
+        ).should('exist')
+        cy.contains('62 år og 10 måneder').should('exist')
+        cy.contains('Foreslåtte lovendringer kan øke pensjonsalderen.').should(
+          'exist'
+        )
+      })
+      it('må jeg kunne trykke på Readmore for å få mer informasjon om pensjonsalder', () => {
+        cy.login()
+        cy.fillOutStegvisning({ samtykke: false })
+        cy.wait('@fetchTidligsteUttaksalder')
+        cy.contains('Om pensjonsalder').click()
+        cy.contains(
+          'Den oppgitte alderen er et estimat etter dagens regler'
         ).should('exist')
       })
       it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år og 10 md. (første mulige) og 75 år.', () => {
+        cy.login()
+        cy.fillOutStegvisning({ samtykke: false })
+        cy.wait('@fetchTidligsteUttaksalder')
         cy.get('.VelgUttaksalder--wrapper button').should('have.length', 14)
         cy.contains('button', '62 år og 10 md.').should('exist')
         cy.contains('button', '75 år').should('exist')
@@ -334,12 +361,12 @@ describe('Hovedhistorie', () => {
       it('forventer jeg å få informasjon om grunnlaget for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
         cy.contains('button', '70').click()
         cy.contains('Grunnlaget for beregningen').should('exist')
-        cy.contains('Uttaksgrad:').click()
-        cy.contains('Inntekt:').click()
-        cy.contains('Sivilstand:').click()
-        cy.contains('Opphold i Norge:').click()
-        cy.contains('AFP:').click()
-        cy.contains('Pensjonsavtaler:').click()
+        cy.contains('Uttaksgrad:').click({ force: true })
+        cy.contains('Inntekt:').click({ force: true })
+        cy.contains('Sivilstand:').click({ force: true })
+        cy.contains('Opphold i Norge:').click({ force: true })
+        cy.contains('AFP:').click({ force: true })
+        cy.contains('Pensjonsavtaler:').click({ force: true })
       })
 
       it('forventer jeg å kunne lese enkle forbehold, og få lenke til utfyllende forbehold.', () => {
@@ -358,7 +385,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Tilbake til start').click({ force: true })
         cy.location('href').should('include', '/pensjon/kalkulator/start')
         cy.fillOutStegvisning({ samtykke: false })
-        cy.contains('button', 'Avbryt').click()
+        cy.contains('button', 'Avbryt').click({ force: true })
         cy.location('href').should('include', '/pensjon/kalkulator/login')
       })
     })
