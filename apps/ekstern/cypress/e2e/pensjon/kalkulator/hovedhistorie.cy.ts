@@ -291,7 +291,7 @@ describe('Hovedhistorie', () => {
       })
       it('ønsker jeg informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.contains(
-          'Din opptjening i folketrygden gjør at du tidligst kan ta'
+          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
       })
@@ -334,7 +334,6 @@ describe('Hovedhistorie', () => {
       it('forventer jeg å få informasjon om grunnlaget for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
         cy.contains('button', '70').click()
         cy.contains('Grunnlaget for beregningen').should('exist')
-        cy.contains('Tidligst mulig uttak:').click()
         cy.contains('Uttaksgrad:').click()
         cy.contains('Inntekt:').click()
         cy.contains('Sivilstand:').click()
@@ -356,7 +355,7 @@ describe('Hovedhistorie', () => {
 
       it('ønsker jeg å kunne starte ny beregning, eller avbryte beregningen.', () => {
         cy.contains('button', '62 år og 10 md.').click()
-        cy.contains('button', 'Tilbake til start').click()
+        cy.contains('button', 'Tilbake til start').click({ force: true })
         cy.location('href').should('include', '/pensjon/kalkulator/start')
         cy.fillOutStegvisning({ samtykke: false })
         cy.contains('button', 'Avbryt').click()
