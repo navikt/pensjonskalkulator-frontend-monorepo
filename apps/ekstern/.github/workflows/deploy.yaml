@@ -187,8 +187,9 @@ jobs:
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
-      github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch'
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true'
     env:
       IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend:${{ github.sha }}
     steps:
