@@ -77,7 +77,7 @@
     "postcss": "^8.4.32",
     "postcss-modules-extract-imports": "^3.0.0",
     "postcss-modules-local-by-default": "^4.0.3",
-    "postcss-modules-scope": "^3.0.0",
+    "postcss-modules-scope": "^3.1.0",
     "postcss-modules-values": "^4.0.0",
     "prettier": "^3.1.1",
     "react-intl": "6.5.5",
