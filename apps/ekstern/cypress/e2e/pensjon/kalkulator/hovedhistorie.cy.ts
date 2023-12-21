@@ -397,7 +397,7 @@ describe('Hovedhistorie', () => {
         cy.wait('@fetchTidligsteUttaksalder')
       })
 
-      it('ønsker jeg få resultatet presentert i både graf og tabell, og mulighet til å lukke/åpne tabellen.', () => {
+      it('ønsker jeg å få resultatet presentert i både graf og tabell, og mulighet til å lukke/åpne tabellen.', () => {
         cy.contains('button', '70').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Vis tabell av beregningen').click({ force: true })
@@ -414,6 +414,103 @@ describe('Hovedhistorie', () => {
           'exist'
         )
         cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+      })
+    })
+
+    describe('Når jeg endrer fremtidig inntekt,', () => {
+      beforeEach(() => {
+        cy.login()
+        cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+      })
+
+      it('ønsker jeg at tidligste uttakstidspunkt oppdateres og at knapper jeg kan trykke på for å velge uttakstidspunkt tilpasses oppdatert uttakstidspunkt.', () => {
+        cy.contains('button', '70').click()
+        cy.get('.highcharts-series-group .highcharts-series-0 path')
+          .first()
+          .click()
+        cy.contains('Pensjonsgivende inntekt').should('exist')
+        cy.contains('521 338 kr').should('exist')
+        cy.contains('Inntekt: 521 338 kr').should('exist')
+        cy.contains(
+          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er 62 år og 10 måneder'
+        ).should('exist')
+
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v1/tidligste-uttaksalder',
+          },
+          {
+            aar: 67,
+            maaneder: 0,
+          }
+        ).as('fetchTidligsteUttaksalder')
+        cy.contains('button', 'Inntekt').click()
+        cy.contains('button', 'Endre inntekt').click()
+        cy.get('[data-testid="inntekt-textfield"]').type('0')
+        cy.contains('button', 'Oppdater inntekt').click()
+        cy.get('62 år og 10 måneder').should('not.exist')
+        cy.contains(
+          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er 67 år.'
+        ).should('exist')
+      })
+
+      it('ønsker jeg å få resultatet oppdatert i graf og tabell og å kunne endre inntekt flere ganger for å sammenligne pensjon ved ulike inntekter.', () => {
+        cy.contains('button', '70').click()
+        cy.get('.highcharts-series-group .highcharts-series-0 path')
+          .first()
+          .click()
+        cy.contains('Pensjonsgivende inntekt').should('exist')
+        cy.contains('521 338 kr').should('exist')
+        cy.contains('Inntekt: 521 338 kr').should('exist')
+        cy.contains('button', 'Inntekt').click()
+
+        cy.contains('button', 'Endre inntekt').click()
+        cy.get('[data-testid="inntekt-textfield"]').type('100000')
+        cy.contains('button', 'Oppdater inntekt').click()
+        cy.contains('Inntekt: 100 000 kr').should('exist')
+        cy.get('.highcharts-series-group .highcharts-series-0 path')
+          .first()
+          .click()
+        cy.contains('Pensjonsgivende inntekt').should('exist')
+        cy.contains('100 000 kr').should('exist')
+        cy.contains('Vis tabell av beregningen').click({ force: true })
+        cy.get('.TabellVisning--table tbody tr').first().click()
+        cy.contains('Pensjonsgivende inntekt').should('exist')
+        cy.contains('100 000').should('exist')
+
+        cy.contains('button', 'Endre inntekt').click()
+        cy.get('[data-testid="inntekt-textfield"]').type('800000')
+        cy.contains('button', 'Oppdater inntekt').click()
+        cy.contains('Inntekt: 800 000 kr').should('exist')
+        cy.get('.highcharts-series-group .highcharts-series-0 path')
+          .first()
+          .click()
+        cy.contains('Pensjonsgivende inntekt').should('exist')
+        cy.contains('800 000 kr').should('exist')
+      })
+
+      it('ønsker jeg å kunne starte på nytt og at inntekt da er tilbake til siste årsinntekt.', () => {
+        cy.contains('button', '70').click()
+        cy.get('.highcharts-series-group .highcharts-series-0 path')
+          .first()
+          .click()
+        cy.contains('Pensjonsgivende inntekt').should('exist')
+        cy.contains('521 338 kr').should('exist')
+        cy.contains('Inntekt: 521 338 kr').should('exist')
+        cy.contains('button', 'Inntekt').click()
+
+        cy.contains('button', 'Endre inntekt').click()
+        cy.get('[data-testid="inntekt-textfield"]').type('100000')
+        cy.contains('button', 'Oppdater inntekt').click()
+        cy.contains('Inntekt: 100 000 kr').should('exist')
+
+        cy.contains('button', 'Tilbake').click()
+        cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+        cy.contains('button', '70').click()
+        cy.contains('Inntekt: 521 338 kr').should('exist')
       })
     })
   })
