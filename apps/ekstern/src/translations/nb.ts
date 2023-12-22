@@ -198,6 +198,8 @@ const translations = {
   'tidligsteuttaksalder.error':
     'Vi klarte ikke å finne tidspunkt for når du tidligst kan ta ut alderspensjon. Prøv igjen senere.',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
+  'beregning.toggle.enkel': 'Enkel',
+  'beregning.toggle.avansert': 'Avansert',
   'beregning.loading': 'Vent litt mens vi beregner pensjonen din.',
   'beregning.error':
     'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',

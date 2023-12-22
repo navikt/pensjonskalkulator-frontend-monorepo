@@ -5,6 +5,7 @@ import { Beregning } from '../Beregning'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Beregning', () => {
@@ -52,6 +53,35 @@ describe('Beregning', () => {
       })
       render(<Beregning visning="enkel" />)
       expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+    })
+
+    it('når brukeren har gjort en simulering og bytter fane, nullstiller det pågående simulering', async () => {
+      const user = userEvent.setup()
+      const flushCurrentSimulationMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushCurrentSimulation'
+      )
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      render(<Beregning visning="enkel" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: {
+              startAar: 70,
+              startMaaned: 4,
+              aarligInntektFoerUttak: 300000,
+            },
+          },
+        },
+      })
+
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByText('beregning.toggle.avansert'))
+      expect(flushCurrentSimulationMock).toHaveBeenCalled()
     })
   })
 

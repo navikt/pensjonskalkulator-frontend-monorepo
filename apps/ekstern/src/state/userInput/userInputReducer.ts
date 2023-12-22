@@ -74,6 +74,11 @@ export const userInputSlice = createSlice({
       state.currentSimulation.startMaaned = null
       state.currentSimulation.aarligInntektFoerUttak = null
     },
+    flushCurrentSimulation: (state) => {
+      state.currentSimulation.startAar = null
+      state.currentSimulation.startMaaned = null
+      state.currentSimulation.aarligInntektFoerUttak = null
+    },
   },
 })
 
