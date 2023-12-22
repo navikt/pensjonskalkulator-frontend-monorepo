@@ -115,7 +115,7 @@ export const routes: RouteObject[] = [
   {
     loader: authenticationGuard,
     element: (
-      <PageFramework isFullWidth hasToggleBg>
+      <PageFramework isFullWidth hasWhiteBg>
         <Outlet />
       </PageFramework>
     ),
