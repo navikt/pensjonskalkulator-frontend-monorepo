@@ -6,7 +6,7 @@ exports[`store > returnerer store med riktig slices og default state 1`] = `
     "config": {
       "focused": true,
       "invalidationBehavior": "delayed",
-      "keepUnusedDataFor": 60,
+      "keepUnusedDataFor": 3600,
       "middlewareRegistered": false,
       "online": true,
       "reducerPath": "api",
