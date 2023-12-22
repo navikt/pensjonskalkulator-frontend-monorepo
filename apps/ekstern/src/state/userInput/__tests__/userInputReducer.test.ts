@@ -143,7 +143,7 @@ describe('userInputSlice', () => {
             aarligInntektFoerUttak: 300000,
           },
         },
-        userInputActions.flush()
+        userInputActions.flushCurrentSimulation()
       )
 
       expect(updatedState).toStrictEqual({

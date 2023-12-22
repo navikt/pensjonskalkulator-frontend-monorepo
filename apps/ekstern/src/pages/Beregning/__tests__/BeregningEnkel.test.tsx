@@ -95,8 +95,8 @@ describe('BeregningEnkel', () => {
         expect(initiateMock).toHaveBeenCalledTimes(1)
         await waitFor(async () => {
           expect(await screen.findByText('beregning.error')).toBeVisible()
+          expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
         })
-        expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
 
         const proevPaaNyttbutton = await screen.findByText(
           'application.global.retry'

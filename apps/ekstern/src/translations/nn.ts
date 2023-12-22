@@ -230,31 +230,6 @@ const translations = {
   // TODO - utdatert tekst
   'grunnlag.inntekt.ingress.error':
     'Du er ikkje registrert med pensjonsgjevande inntekt. Difor vert 0 kroner brukt som di framtidige inntekt fram til du startar uttak av pensjon. Får du inntekt vert alderspensjonen høgare. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
-  'grunnlag.inntekt.link': 'MANGLER_TEKST',
-  'grunnlag.inntekt.button': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.title': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.subtitle': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item1': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item2': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item3': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item4': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item5': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item6': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item7': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item8': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.list_item9': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.ingress': 'MANGLER_TEKST',
-  'grunnlag.inntekt.infomodal.lukk': 'MANGLER_TEKST',
-  'grunnlag.inntekt.inntektmodal.title': 'MANGLER_TEKST',
-  'grunnlag.inntekt.inntektmodal.textfield.label': 'MANGLER_TEKST',
-  'grunnlag.inntekt.inntektmodal.textfield.description': 'MANGLER_TEKST',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error.required':
-    'MANGLER_TEKST',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error.type':
-    'MANGLER_TEKST',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error.max':
-    'MANGLER_TEKST',
-  'grunnlag.inntekt.inntektmodal.button': 'MANGLER_TEKST',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikkje hentast',
   'grunnlag.sivilstand.ingress':
@@ -309,6 +284,30 @@ const translations = {
     'Pensjonen er rekna ut med opplysningane vi har om deg og opplysningane du har lagt inn. Utrekninga er gjort med gjeldande regelverk. Dette er ei førebels utrekning av kva du kan vente å få i pensjon. ',
   'grunnlag.forbehold.ingress_2':
     'Denne kalkulatoren er under utvikling og har avgrensa funksjonalitet. Du kan gjere meir spesifisert utrekning i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+  'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.textfield.validation_error.required':
+    'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.textfield.validation_error.type':
+    'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.textfield.validation_error.max': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.button': 'MANGLER_TEKST',
+  'inntekt.info_modal.open.link': 'MANGLER_TEKST',
+  'inntekt.info_modal.title': 'MANGLER_TEKST',
+  'inntekt.info_modal.subtitle': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item1': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item2': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item3': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item4': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item5': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item6': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item7': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item8': 'MANGLER_TEKST',
+  'inntekt.info_modal.list_item9': 'MANGLER_TEKST',
+  'inntekt.info_modal.ingress': 'MANGLER_TEKST',
+  'inntekt.info_modal.lukk': 'MANGLER_TEKST',
   'forbehold.title': 'Atterhald',
   'forbehold.intro':
     'Pensjonen er rekna ut med dei opplysningane vi har om deg, i tillegg til dei opplysningane du har gjeve sjølve på tidspunktet for utrekninga. Utrekninga er eit førebels svar på kvor mykje du kan vente å få i pensjon. Beløpa er i dagens kroneverdi før skatt. Vi har brukt dagens satsar for garantipensjon. Satsane vert reguleret kvart år og vert ikkje fastsatt før dei skal brukast. Framtidige reguleringar kan medføra endringar for kor tid du tidlegast kan starte uttak av alderspensjon.{br}{br}Er det lenge til du skal ta ut pensjon, tilrår vi at du tek ei ny utrekning i pensjonskalkulatoren når du nærmar deg alderen for oppstart av pensjon. Det vil blant anna kunne skje endringar i oppteninga di og i regelverket.{br}{br}Pensjonsgjevande inntekt er gjeldande i utrekning av alderspensjon frå januar året etter at ho er fastsett av Skatteetaten. Alderspensjonen vil difor normalt auke som fylgje av ny opptjening de to første åra etter uttak. Held du fram i jobb etter uttak av alderspensjon, vil alderspensjonen fortsetje å auke etter kvart som ny opptening vert lagt til. Du kan tene opp til alderspensjon til og med det året du fyller 75 år.',

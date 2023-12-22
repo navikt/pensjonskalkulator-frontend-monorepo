@@ -242,38 +242,6 @@ const translations = {
     'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon.{br}{br}{beloep} kr er din siste pensjonsgivende årsinntekt (fra {aar}) fra Skatteetaten.',
   'grunnlag.inntekt.ingress.error':
     'Du er ikke registrert med pensjonsgivende inntekt. Derfor blir 0 kr brukt som din fremtidige inntekt frem til du starter uttak av pensjon. Hvis du får inntekt vil alderspensjonen bli høyere.',
-  'grunnlag.inntekt.link': 'Hva er pensjonsgivende inntekt?',
-  'grunnlag.inntekt.button': 'Endre inntekt',
-  'grunnlag.inntekt.infomodal.title': 'Hva er pensjonsgivende inntekt?',
-  'grunnlag.inntekt.infomodal.subtitle':
-    'Dette regnes som pensjonsgivende inntekt:',
-  'grunnlag.inntekt.infomodal.list_item1': 'all lønnsinntekt for lønnstakere',
-  'grunnlag.inntekt.infomodal.list_item2':
-    'personinntekt fra næring for selvstendige',
-  'grunnlag.inntekt.infomodal.list_item3': 'foreldrepenger',
-  'grunnlag.inntekt.infomodal.list_item4': 'sykepenger',
-  'grunnlag.inntekt.infomodal.list_item5': 'dagpenger',
-  'grunnlag.inntekt.infomodal.list_item6': 'arbeidsavklaringspenger',
-  'grunnlag.inntekt.infomodal.list_item7': 'omsorgsstønad',
-  'grunnlag.inntekt.infomodal.list_item8':
-    'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
-  'grunnlag.inntekt.infomodal.list_item9':
-    'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
-  'grunnlag.inntekt.infomodal.ingress':
-    'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.',
-  'grunnlag.inntekt.infomodal.lukk': 'Lukk',
-  'grunnlag.inntekt.inntektmodal.title': 'Pensjonsgivende inntekt',
-  'grunnlag.inntekt.inntektmodal.textfield.label':
-    'Hva forventer du å ha i årlig inntekt frem til du tar ut pensjon?',
-  'grunnlag.inntekt.inntektmodal.textfield.description':
-    'Dagens kroneverdi før skatt',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error.required':
-    'Fyll ut et beløp eller velg avbryt hvis du ikke vil endre inntekten din.',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error.type':
-    'Du må skrive hele tall for å oppgi inntekt.',
-  'grunnlag.inntekt.inntektmodal.textfield.validation_error.max':
-    'Beløpet kan ikke overskride 100 000 000 kroner.',
-  'grunnlag.inntekt.inntektmodal.button': 'Oppdater inntekt',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
@@ -328,6 +296,36 @@ const translations = {
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er en foreløpig beregning av hva du kan forvente deg i pensjon. ',
   'grunnlag.forbehold.ingress_2':
     'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+  'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
+  'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
+  'inntekt.endre_inntekt_modal.textfield.label':
+    'Hva forventer du å ha i årlig inntekt frem til du tar ut pensjon?',
+  'inntekt.endre_inntekt_modal.textfield.description':
+    'Dagens kroneverdi før skatt',
+  'inntekt.endre_inntekt_modal.textfield.validation_error.required':
+    'Fyll ut et beløp eller velg avbryt hvis du ikke vil endre inntekten din.',
+  'inntekt.endre_inntekt_modal.textfield.validation_error.type':
+    'Du må skrive hele tall for å oppgi inntekt.',
+  'inntekt.endre_inntekt_modal.textfield.validation_error.max':
+    'Beløpet kan ikke overskride 100 000 000 kroner.',
+  'inntekt.endre_inntekt_modal.button': 'Oppdater inntekt',
+  'inntekt.info_modal.open.link': 'Hva er pensjonsgivende inntekt?',
+  'inntekt.info_modal.title': 'Hva er pensjonsgivende inntekt?',
+  'inntekt.info_modal.subtitle': 'Dette regnes som pensjonsgivende inntekt:',
+  'inntekt.info_modal.list_item1': 'all lønnsinntekt for lønnstakere',
+  'inntekt.info_modal.list_item2': 'personinntekt fra næring for selvstendige',
+  'inntekt.info_modal.list_item3': 'foreldrepenger',
+  'inntekt.info_modal.list_item4': 'sykepenger',
+  'inntekt.info_modal.list_item5': 'dagpenger',
+  'inntekt.info_modal.list_item6': 'arbeidsavklaringspenger',
+  'inntekt.info_modal.list_item7': 'omsorgsstønad',
+  'inntekt.info_modal.list_item8':
+    'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
+  'inntekt.info_modal.list_item9':
+    'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
+  'inntekt.info_modal.ingress':
+    'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.',
+  'inntekt.info_modal.lukk': 'Lukk',
   'forbehold.title': 'Forbehold',
   'forbehold.intro':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Dersom du fortsetter i jobb etter uttak av alderspensjon, vil alderspensjon fortsette å øke etter hvert som ny opptjening legges til. Du kan tjene opp til alderspensjon til og med året du fyller 75 år.',

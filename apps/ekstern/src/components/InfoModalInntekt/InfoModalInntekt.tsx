@@ -29,47 +29,47 @@ export const InfoModalInntekt = () => {
         ref={infoModalRef}
         header={{
           heading: intl.formatMessage({
-            id: 'grunnlag.inntekt.infomodal.title',
+            id: 'inntekt.info_modal.title',
           }),
         }}
         width="medium"
       >
         <Modal.Body>
           <Label as="h2">
-            <FormattedMessage id="grunnlag.inntekt.infomodal.subtitle" />
+            <FormattedMessage id="inntekt.info_modal.subtitle" />
           </Label>
           <ul>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item1" />
+              <FormattedMessage id="inntekt.info_modal.list_item1" />
             </li>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item2" />
+              <FormattedMessage id="inntekt.info_modal.list_item2" />
             </li>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item3" />
+              <FormattedMessage id="inntekt.info_modal.list_item3" />
             </li>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item4" />
+              <FormattedMessage id="inntekt.info_modal.list_item4" />
             </li>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item5" />
+              <FormattedMessage id="inntekt.info_modal.list_item5" />
             </li>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item6" />
+              <FormattedMessage id="inntekt.info_modal.list_item6" />
             </li>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item7" />
+              <FormattedMessage id="inntekt.info_modal.list_item7" />
             </li>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item8" />
+              <FormattedMessage id="inntekt.info_modal.list_item8" />
             </li>
             <li>
-              <FormattedMessage id="grunnlag.inntekt.infomodal.list_item9" />
+              <FormattedMessage id="inntekt.info_modal.list_item9" />
             </li>
           </ul>
           <BodyLong>
             <FormattedMessage
-              id="grunnlag.inntekt.infomodal.ingress"
+              id="inntekt.info_modal.ingress"
               values={{
                 ...formatMessageValues,
               }}
@@ -78,13 +78,13 @@ export const InfoModalInntekt = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button type="button" onClick={() => infoModalRef.current?.close()}>
-            {intl.formatMessage({ id: 'grunnlag.inntekt.infomodal.lukk' })}
+            {intl.formatMessage({ id: 'inntekt.info_modal.lukk' })}
           </Button>
         </Modal.Footer>
       </Modal>
 
       <Link href="#" className={styles.link} onClick={openInfoModal} inlineText>
-        <FormattedMessage id="grunnlag.inntekt.link" />
+        <FormattedMessage id="inntekt.info_modal.open.link" />
       </Link>
     </>
   )

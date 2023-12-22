@@ -38,7 +38,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
 
   const openInntektModal = () => {
     logger('modal åpnet', {
-      tekst: 'Grunnlag: endring av pensjonsgivende inntekt',
+      tekst: 'Modal: Endring av pensjonsgivende inntekt',
     })
     inntektModalRef.current?.showModal()
   }
@@ -91,7 +91,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
         ref={inntektModalRef}
         header={{
           heading: intl.formatMessage({
-            id: 'grunnlag.inntekt.inntektmodal.title',
+            id: 'inntekt.endre_inntekt_modal.title',
           }),
         }}
         onClose={onCancel}
@@ -105,10 +105,10 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
               inputMode="numeric"
               name="inntekt"
               label={intl.formatMessage({
-                id: 'grunnlag.inntekt.inntektmodal.textfield.label',
+                id: 'inntekt.endre_inntekt_modal.textfield.label',
               })}
               description={intl.formatMessage({
-                id: 'grunnlag.inntekt.inntektmodal.textfield.description',
+                id: 'inntekt.endre_inntekt_modal.textfield.description',
               })}
               error={validationError}
               onChange={handleTextfieldChange}
@@ -120,7 +120,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
         <Modal.Footer>
           <Button form="oppdatere-inntekt">
             {intl.formatMessage({
-              id: 'grunnlag.inntekt.inntektmodal.button',
+              id: 'inntekt.endre_inntekt_modal.button',
             })}
           </Button>
           <Button type="button" variant="secondary" onClick={onCancel}>
@@ -138,7 +138,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
         onClick={openInntektModal}
       >
         {intl.formatMessage({
-          id: buttonLabel ?? 'grunnlag.inntekt.button',
+          id: buttonLabel ?? 'inntekt.endre_inntekt_modal.open.button',
         })}
       </Button>
     </>

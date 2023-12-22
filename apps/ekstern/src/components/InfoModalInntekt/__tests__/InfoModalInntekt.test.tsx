@@ -6,18 +6,11 @@ describe('InfoModalInntekt', () => {
     it('brukeren kan åpne modal for å lese mer om pensjonsgivende inntekt', async () => {
       const user = userEvent.setup()
       render(<InfoModalInntekt />)
-
-      const buttons = screen.getAllByRole('button')
-      await user.click(buttons[2])
-      await user.click(screen.getByText('grunnlag.inntekt.link'))
-      expect(screen.getByText('grunnlag.inntekt.infomodal.title')).toBeVisible()
-      expect(
-        screen.getByText('grunnlag.inntekt.infomodal.subtitle')
-      ).toBeVisible()
-      await user.click(screen.getByText('grunnlag.inntekt.infomodal.lukk'))
-      expect(
-        screen.queryByText('grunnlag.inntekt.infomodal.title')
-      ).not.toBeVisible()
+      await user.click(screen.getByText('inntekt.info_modal.open.link'))
+      expect(screen.getByText('inntekt.info_modal.title')).toBeVisible()
+      expect(screen.getByText('inntekt.info_modal.subtitle')).toBeVisible()
+      await user.click(screen.getByText('inntekt.info_modal.lukk'))
+      expect(screen.queryByText('inntekt.info_modal.title')).not.toBeVisible()
     })
   })
 })

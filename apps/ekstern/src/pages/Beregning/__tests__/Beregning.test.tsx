@@ -198,7 +198,9 @@ describe('Beregning', () => {
   describe('Gitt at pensjonskalkulator er i "avansert" visning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="avansert" />)
-      expect(await screen.findByText('avansert visning')).toBeInTheDocument()
+      expect(
+        await screen.findByText('Pensjonsgivende inntekt frem til pensjon')
+      ).toBeInTheDocument()
     })
   })
 })

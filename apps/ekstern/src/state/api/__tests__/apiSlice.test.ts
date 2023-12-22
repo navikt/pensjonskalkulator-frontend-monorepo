@@ -510,7 +510,7 @@ describe('apiSlice', () => {
     })
 
     it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = await setupStore({}, true)
+      const storeRef = setupStore({}, true)
 
       mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
         status: 200,

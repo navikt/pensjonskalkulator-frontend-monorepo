@@ -16,6 +16,8 @@ import {
 import { formatWithoutDecimal } from '@/utils/currency'
 import { formatMessageValues } from '@/utils/translations'
 
+import styles from './GrunnlagInntekt.module.scss'
+
 export const GrunnlagInntekt = () => {
   const intl = useIntl()
 
@@ -71,7 +73,7 @@ export const GrunnlagInntekt = () => {
               <InfoModalInntekt />
             </BodyLong>
 
-            <EndreInntekt className={StyleSheet.button} />
+            <EndreInntekt className={styles.button} />
           </>
         </GrunnlagSection>
       </AccordionItem>
