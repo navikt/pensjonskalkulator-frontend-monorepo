@@ -1,0 +1,44 @@
+@import '../../scss/variables';
+
+.container {
+  composes: frame from '../../scss/modules/frame.module.scss';
+  background-color: var(--a-white);
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--a-spacing-4) !important;
+  padding-bottom: var(--a-spacing-6) !important;
+
+  &__hasMobilePadding {
+    composes: frame__hasMobilePadding from '../../scss/modules/frame.module.scss';
+  }
+}
+
+.separator {
+  border: 0;
+  border-top: 1px solid var(--a-gray-600);
+  height: 1px;
+  width: 100%;
+  background-color: transparent;
+  margin: var(--a-spacing-8) 0;
+}
+
+.description {
+  display: inline-block;
+  color: var(--a-text-subtle);
+  font-size: var(--a-font-size-large);
+  font-weight: var(--a-font-weight-regular);
+  letter-spacing: 0;
+  line-height: var(--a-font-line-height-large);
+
+  &Text {
+    margin-top: -1.5rem;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  button {
+    margin-left: 0.25rem;
+    margin-top: -0.15rem;
+    vertical-align: middle;
+  }
+}

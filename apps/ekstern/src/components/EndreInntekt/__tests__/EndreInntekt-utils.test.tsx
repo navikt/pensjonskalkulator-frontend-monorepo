@@ -1,6 +1,6 @@
 import { validateInntektInput } from '../utils'
 
-describe('GrunnlagInntekt-utils', () => {
+describe('EndreInntekt-utils', () => {
   describe('validateInntektInput', () => {
     afterEach(() => {
       vi.clearAllMocks()

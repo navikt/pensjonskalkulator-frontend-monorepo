@@ -1,0 +1,54 @@
+@import '../../scss/variables';
+
+.container {
+  composes: frame from '../../scss/modules/frame.module.scss';
+
+  &__hasMobilePadding {
+    composes: frame__hasMobilePadding from '../../scss/modules/frame.module.scss';
+  }
+}
+
+.card {
+  composes: innerframe from '../../scss/modules/frame.module.scss';
+  composes: whitesection from '../../scss/modules/fadein.module.scss';
+  border-radius: var(--a-border-radius-medium);
+  margin-top: var(--a-spacing-4) !important;
+  margin-bottom: var(--a-spacing-4) !important;
+  box-shadow: var(--a-shadow-xsmall);
+  display: flex;
+
+  &Left {
+    background-color: pink;
+
+    // flex-basis: 1;
+    flex-grow: 1;
+  }
+
+  &Right {
+    background-color: yellow;
+
+    //  flex-basis: 1;
+    flex-grow: 1;
+  }
+
+  // &__largePadding {
+  //   composes: innerframe__largePadding from '../../../scss/modules/frame.module.scss';
+  // }
+
+  // &__marginBotton {
+  //   /* important er nødvendig for å overskrive innerframe compose */
+  //   margin-bottom: var(--a-spacing-10) !important;
+  // }
+}
+
+.background {
+  display: inline-block;
+  width: 100%;
+  left: 0;
+  right: 0;
+
+  &__white {
+    background-color: var(--a-white);
+    transition: background-color 0.15s ease;
+  }
+}
