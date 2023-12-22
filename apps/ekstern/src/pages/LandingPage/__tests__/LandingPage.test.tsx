@@ -25,7 +25,6 @@ describe('LandingPage', () => {
       </RenderRouteWithOutletContext>,
       { hasRouter: false }
     )
-    // render(<LandingPage />, { hasRouter: false })
     expect(document.title).toBe('application.title')
   })
 
@@ -66,29 +65,6 @@ describe('LandingPage', () => {
 
       expect(asFragment()).toMatchSnapshot()
     })
-  })
-
-  it('går til detaljert kalkulator når brukeren klikker på den øverste knappen', async () => {
-    const user = userEvent.setup()
-
-    const open = vi.fn()
-    vi.stubGlobal('open', open)
-
-    render(
-      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
-        <LandingPage />
-      </RenderRouteWithOutletContext>,
-      { hasRouter: false }
-    )
-    await waitFor(() => {
-      expect(screen.getByTestId('landingside-first-button')).toBeDefined()
-    })
-
-    await user.click(
-      screen.getByTestId('landingside-detaljert-kalkulator-button')
-    )
-
-    expect(open).toHaveBeenCalledWith(externalUrls.detaljertKalkulator, '_self')
   })
 
   it('går til detaljert kalkulator når brukeren klikker på detaljert kalkulator knappen', async () => {
@@ -137,6 +113,31 @@ describe('LandingPage', () => {
     })
 
     expect(open).toHaveBeenCalledWith('/pensjon/kalkulator/start', '_self')
+  })
+
+  it('går til detaljert kalkulator når brukeren klikker på knappen i det andre avsnittet', async () => {
+    const user = userEvent.setup()
+
+    const open = vi.fn()
+    vi.stubGlobal('open', open)
+
+    render(
+      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
+        <LandingPage />
+      </RenderRouteWithOutletContext>,
+      { hasRouter: false }
+    )
+    await waitFor(() => {
+      expect(
+        screen.getByTestId('landingside-detaljert-kalkulator-second-button')
+      ).toBeDefined()
+    })
+
+    await user.click(
+      screen.getByTestId('landingside-detaljert-kalkulator-second-button')
+    )
+
+    expect(open).toHaveBeenCalledWith(externalUrls.detaljertKalkulator, '_self')
   })
 
   it('går til uinnlogget kalkulator når brukeren klikker på uinnlogget kalkulator knappen', async () => {

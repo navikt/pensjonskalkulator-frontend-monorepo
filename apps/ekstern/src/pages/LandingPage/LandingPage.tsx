@@ -61,31 +61,6 @@ export const LandingPage = () => {
     <div className={styles.landingPage}>
       <VStack gap="10">
         <section>
-          <VStack gap="2">
-            <Heading size="medium" level="2">
-              {intl.formatMessage({
-                id: 'landingsside.for.deg.foedt.foer.1963',
-              })}
-            </Heading>
-            <BodyLong>
-              {intl.formatMessage({
-                id: 'landingsside.du.maa.bruke.detaljert',
-              })}
-            </BodyLong>
-            <div>
-              <Button
-                className={styles.button}
-                data-testid="landingside-first-button"
-                variant="secondary"
-                onClick={gaaTilDetaljertKalkulator}
-              >
-                {detaljertKalkulatorButtonText}
-              </Button>
-            </div>
-          </VStack>
-        </section>
-
-        <section>
           <VStack gap="4">
             <Heading size="medium" level="2">
               {intl.formatMessage({
@@ -141,6 +116,30 @@ export const LandingPage = () => {
                   {enkelKalkulatorButtonText}
                 </Button>
               </HStack>
+            </div>
+          </VStack>
+        </section>
+        <section>
+          <VStack gap="2">
+            <Heading size="medium" level="2">
+              {intl.formatMessage({
+                id: 'landingsside.for.deg.foedt.foer.1963',
+              })}
+            </Heading>
+            <BodyLong>
+              {intl.formatMessage({
+                id: 'landingsside.du.maa.bruke.detaljert',
+              })}
+            </BodyLong>
+            <div>
+              <Button
+                className={styles.button}
+                data-testid="landingside-detaljert-kalkulator-second-button"
+                variant="secondary"
+                onClick={gaaTilDetaljertKalkulator}
+              >
+                {detaljertKalkulatorButtonText}
+              </Button>
             </div>
           </VStack>
         </section>
