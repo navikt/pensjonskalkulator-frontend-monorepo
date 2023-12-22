@@ -17,6 +17,7 @@ export const apiSlice = createApi({
     baseUrl: API_BASEURL,
   }),
   tagTypes: ['Person', 'Inntekt', 'Alderspensjon'],
+  keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
       query: () => '/inntekt',

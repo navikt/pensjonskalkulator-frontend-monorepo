@@ -6,6 +6,10 @@
   &__hasMobilePadding {
     composes: frame__hasMobilePadding from '../../scss/modules/frame.module.scss';
   }
+
+  &__hasTopMargin {
+    margin-top: var(--a-spacing-4) !important;
+  }
 }
 
 .card {
@@ -16,29 +20,33 @@
   margin-bottom: var(--a-spacing-4) !important;
   box-shadow: var(--a-shadow-xsmall);
   display: flex;
+  padding: 0 var(--a-spacing-4) !important;
 
   &Left {
-    background-color: pink;
+    padding-right: var(--a-spacing-4);
 
-    // flex-basis: 1;
-    flex-grow: 1;
+    &List {
+      font-size: var(--a-font-size-small);
+      color: var(--a-gray-600);
+    }
+
+    &ListTitle {
+      font-weight: var(--a-font-weight-bold);
+    }
+
+    &ListDescription {
+      margin-left: 0;
+      margin-bottom: var(--a-spacing-2);
+    }
   }
 
   &Right {
-    background-color: yellow;
+    align-self: center;
 
-    //  flex-basis: 1;
-    flex-grow: 1;
+    &Button {
+      white-space: nowrap;
+    }
   }
-
-  // &__largePadding {
-  //   composes: innerframe__largePadding from '../../../scss/modules/frame.module.scss';
-  // }
-
-  // &__marginBotton {
-  //   /* important er nødvendig for å overskrive innerframe compose */
-  //   margin-bottom: var(--a-spacing-10) !important;
-  // }
 }
 
 .background {

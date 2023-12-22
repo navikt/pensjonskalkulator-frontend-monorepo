@@ -137,6 +137,7 @@ describe('userInputSlice', () => {
           samtykke: true,
           afp: 'ja_offentlig',
           samboer: false,
+          formatertUttaksalder: '66 alder.aar string.og 4 alder.maaneder',
           currentSimulation: {
             startAar: 66,
             startMaaned: 4,

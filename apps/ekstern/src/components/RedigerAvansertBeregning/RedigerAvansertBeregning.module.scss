@@ -31,7 +31,7 @@
   line-height: var(--a-font-line-height-large);
 
   &Text {
-    margin-top: -1.5rem;
+    margin-top: -0.5rem;
     display: inline-block;
     vertical-align: middle;
   }
@@ -41,4 +41,17 @@
     margin-top: -0.15rem;
     vertical-align: middle;
   }
+}
+
+.ingress {
+  display: inline;
+
+  @media (min-width: $a-breakpoint-lg) {
+    font-size: var(--a-font-size-xlarge);
+    line-height: var(--a-font-line-height-xlarge);
+  }
+}
+
+.button {
+  margin-top: var(--a-spacing-6);
 }

@@ -70,8 +70,8 @@ export const GrunnlagInntekt = () => {
                 />
               )}
               <br />
-              <InfoModalInntekt />
             </BodyLong>
+            <InfoModalInntekt />
 
             <EndreInntekt className={styles.button} />
           </>

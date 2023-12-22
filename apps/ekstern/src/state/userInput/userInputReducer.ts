@@ -22,10 +22,10 @@ export const userInputInitialState: UserInputState = {
   samtykke: null,
   afp: null,
   samboer: null,
-  formatertUttaksalder: null,
+  formatertUttaksalder: null, // TODO vurdere om formatertUttaksalder bør flyttes inn i currentSimulation
   currentSimulation: {
-    startAar: null,
-    startMaaned: null,
+    startAar: null, // (!) Obs - denne oppdateres automatisk basert på formatertUttaksalder - se uttaksalderListener
+    startMaaned: null, // (!) Obs - denne oppdateres automatisk basert på formatertUttaksalder - se uttaksalderListener
     aarligInntektFoerUttak: null,
     // uttaksgrad: 100,
     // aarligInntekt: 0,
@@ -75,6 +75,7 @@ export const userInputSlice = createSlice({
       state.currentSimulation.aarligInntektFoerUttak = null
     },
     flushCurrentSimulation: (state) => {
+      state.formatertUttaksalder = null
       state.currentSimulation.startAar = null
       state.currentSimulation.startMaaned = null
       state.currentSimulation.aarligInntektFoerUttak = null

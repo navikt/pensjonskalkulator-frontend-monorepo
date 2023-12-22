@@ -25,6 +25,7 @@ import {
   selectFormatertUttaksalder,
   selectAarligInntektFoerUttak,
 } from '@/state/userInput/selectors'
+import { formatWithoutDecimal } from '@/utils/currency'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningAvansert.module.scss'
@@ -40,12 +41,14 @@ export const BeregningAvansert: React.FC = () => {
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const isAlderValgt = useAppSelector(selectFormatertUttaksalder) !== null
+
+  const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
   const { data: person } = useGetPersonQuery()
 
   const { startAar, startMaaned, uttaksgrad } = useAppSelector(
     selectCurrentSimulation
   )
+
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
 
@@ -85,14 +88,14 @@ export const BeregningAvansert: React.FC = () => {
   )
 
   React.useEffect(() => {
-    if (isAlderValgt) {
+    if (formatertUttaksalder) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
         logger('alert', { teskt: 'Beregning: Ikke høy nok opptjening' })
       } else if (isError) {
         logger('alert', { teskt: 'Beregning: Klarte ikke beregne pensjon' })
       }
     }
-  }, [isAlderValgt, isError, alderspensjon])
+  }, [formatertUttaksalder, isError, alderspensjon])
 
   React.useEffect(() => {
     if (error && (error as FetchBaseQueryError).status === 503) {
@@ -127,17 +130,40 @@ export const BeregningAvansert: React.FC = () => {
           }}
         />
       )}
+      {
+        // TODO flytte dette til en ny komponent ResultatKort
+      }
       {modus === 'resultat' && (
         <div
           className={`${styles.container} ${styles.container__hasMobilePadding}`}
         >
           <div className={styles.card}>
             <div className={styles.cardLeft}>
-              <p>avansert visning</p>
+              <dl className={styles.cardLeftList}>
+                <dt className={styles.cardLeftListTitle}>
+                  Frem til uttak av pensjon
+                </dt>
+                <dd className={styles.cardLeftListDescription}>
+                  Inntekt: {formatWithoutDecimal(aarligInntektFoerUttak)} kr/år
+                  før skatt
+                </dd>
+                <dt className={styles.cardLeftListTitle}>
+                  Fra {formatertUttaksalder} til livsarig.
+                </dt>
+                <dd className={styles.cardLeftListDescription}>
+                  Alderspensjon 100 %<br />
+                  Inntekt: {formatWithoutDecimal(aarligInntektFoerUttak)} kr/år
+                  før skatt
+                </dd>
+                <dt className={styles.cardLeftListTitle}>avansert visning</dt>
+                <dd className={styles.cardLeftListDescription}>
+                  Lorem ipsum dolor sit amet
+                </dd>
+              </dl>
             </div>
             <div className={styles.cardRight}>
               <Button
-                // className={styles.button}
+                className={styles.cardRightButton}
                 variant="tertiary"
                 icon={<PencilIcon aria-hidden />}
                 onClick={() => {
@@ -154,13 +180,9 @@ export const BeregningAvansert: React.FC = () => {
       )}
 
       <div className={clsx(styles.background, styles.background__white)}>
-        <div className={styles.container}>
-          {/* <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} /> */}
-        </div>
-
         {modus === 'resultat' && (
           <div
-            className={`${styles.container} ${styles.container__hasMobilePadding}`}
+            className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
           >
             {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
               <>

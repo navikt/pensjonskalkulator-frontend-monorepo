@@ -5,5 +5,7 @@ declare const classNames: typeof globalClassNames & {
   readonly separator: "separator";
   readonly description: "description";
   readonly descriptionText: "descriptionText";
+  readonly ingress: "ingress";
+  readonly button: "button";
 };
 export = classNames;
