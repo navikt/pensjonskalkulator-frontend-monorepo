@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { BodyLong, Button, Label, Loader } from '@navikt/ds-react'
+import { BodyLong, Button, Label } from '@navikt/ds-react'
 
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoModalInntekt } from '@/components/InfoModalInntekt'
@@ -49,7 +49,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   // Hent tidligst mulig uttaksalder
   const {
     data: tidligstMuligUttak,
-    isLoading: isTidligstMuligUttaksalderLoading,
+    isSuccess: isTidligstMuligUttaksalderSuccess,
     isError: isTidligstMuligUttaksalderError,
   } = useTidligsteUttaksalderQuery(tidligsteUttaksalderRequestBody, {
     skip: !tidligsteUttaksalderRequestBody,
@@ -66,26 +66,13 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     // TODO validering
     if (avansertBeregningValgtUttaksalderData) {
       dispatch(
-        userInputActions.setFormatertUttaksalder(
+        userInputActions.setCurrentSimulationFormatertUttaksalder(
           avansertBeregningValgtUttaksalderData
         )
       )
     }
 
     onSubmitSuccess()
-  }
-
-  if (isTidligstMuligUttaksalderLoading) {
-    // TODO skal loader vises her, og med hvilken tekst, og hva gjør vi om henting av tidligst mulig uttaksalder feiler
-    return (
-      <Loader
-        data-testid="uttaksalder-loader"
-        size="3xlarge"
-        title={intl.formatMessage({
-          id: 'beregning.loading',
-        })}
-      />
-    )
   }
 
   return (
@@ -113,6 +100,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
       </div>
       <hr className={styles.separator} />
       <div>
+        {
+          // TODO under avklaring - hvordan skal feil ved henting av tidligste uttaksalder vises?
+        }
         {isTidligstMuligUttaksalderError && (
           <BodyLong size="medium" className={`${styles.ingress}`}>
             <FormattedMessage
@@ -123,7 +113,12 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             />
           </BodyLong>
         )}
-        <TemporaryAlderVelgerAvansert tidligstMuligUttak={tidligstMuligUttak} />
+
+        {isTidligstMuligUttaksalderSuccess && tidligstMuligUttak && (
+          <TemporaryAlderVelgerAvansert
+            tidligstMuligUttak={tidligstMuligUttak}
+          />
+        )}
       </div>
       <div>
         <Button form="avansert-beregning" className={styles.button}>

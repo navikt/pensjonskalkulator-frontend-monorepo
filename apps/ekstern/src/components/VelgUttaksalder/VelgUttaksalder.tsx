@@ -35,7 +35,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
       tekst: 'Velg uttaksalder alder',
       data: alder,
     })
-    dispatch(userInputActions.setFormatertUttaksalder(alder))
+    dispatch(userInputActions.setCurrentSimulationFormatertUttaksalder(alder))
     pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 

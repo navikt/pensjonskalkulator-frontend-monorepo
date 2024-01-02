@@ -59,12 +59,9 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
 
     if (validateInntektInput(inntektData, updateValidationErrorMessage)) {
       dispatch(
-        userInputActions.updateCurrentSimulation({
-          aarligInntektFoerUttak: parseInt(
-            (inntektData as string).replace(/ /g, ''),
-            10
-          ),
-        })
+        userInputActions.setCurrentSimulationAarligInntektFoerUttak(
+          parseInt((inntektData as string).replace(/ /g, ''), 10)
+        )
       )
       logger('button klikk', {
         tekst: 'endrer pensjonsgivende inntekt',

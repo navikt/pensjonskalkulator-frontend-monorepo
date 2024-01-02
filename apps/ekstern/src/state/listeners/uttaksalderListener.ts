@@ -9,30 +9,34 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
  * 1. unformat uttaksalder
  * 2. oppdater current simulation med riktig aar og maaneder
  *
- * @param payload - formatertUttaksalder satt av setFormatertUttaksalder
+ * @param payload - formatertUttaksalder satt av setCurrentSimulationFormatertUttaksalder
  * @param { dispatch, getState getOriginalState, condition } - fra AppListenerEffectAPI
  */
 async function onSetFormatertUttaksalder(
-  { payload }: ReturnType<typeof userInputActions.setFormatertUttaksalder>,
+  {
+    payload,
+  }: ReturnType<
+    typeof userInputActions.setCurrentSimulationFormatertUttaksalder
+  >,
   { dispatch /* , getState*/ }: AppListenerEffectAPI
 ) {
   const uttaksalder = unformatUttaksalder(payload)
 
   dispatch(
-    userInputActions.updateCurrentSimulation({
+    userInputActions.syncCurrentSimulationStartAarOgMaaned({
       startAar: uttaksalder.aar,
       startMaaned: uttaksalder.maaneder,
     })
   )
 }
 
-// Vil kalle onSetFormatertUttaksalder hver gang setFormatertUttaksalder kjører
+// Vil kalle onSetFormatertUttaksalder hver gang setCurrentSimulationFormatertUttaksalder kjører
 export function createUttaksalderListener(
   startListening: AppStartListening
 ): Unsubscribe {
   const subscriptions = [
     startListening({
-      actionCreator: userInputActions.setFormatertUttaksalder,
+      actionCreator: userInputActions.setCurrentSimulationFormatertUttaksalder,
       effect: onSetFormatertUttaksalder,
     }),
   ]

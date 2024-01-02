@@ -161,10 +161,11 @@ describe('BeregningEnkel', () => {
             api: { ...fakeApiCalls },
             userInput: {
               ...userInputInitialState,
-              formatertUttaksalder: '63 alder.aar',
+
               samtykke: true,
               samboer: false,
               currentSimulation: {
+                formatertUttaksalder: '63 alder.aar',
                 startAar: 63,
                 startMaaned: 0,
                 uttaksgrad: 100,

@@ -11,7 +11,7 @@ import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
 import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
 
 interface Props {
-  tidligstMuligUttak?: Alder
+  tidligstMuligUttak: Alder
 }
 
 export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
@@ -35,11 +35,15 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
           intl,
           tidligstMuligUttak
         )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`}
-        value={formatertUttaksalder ?? undefined}
+        defaultValue={formatertUttaksalder ? formatertUttaksalder : undefined}
       >
         <option>Velg alder</option>
         {formaterteAldere.slice(0, formaterteAldere.length).map((alderChip) => (
-          <option key={alderChip} value={alderChip}>
+          <option
+            key={alderChip}
+            value={alderChip}
+            // selected={formatertUttaksalder === alderChip}
+          >
             {alderChip}
           </option>
         ))}

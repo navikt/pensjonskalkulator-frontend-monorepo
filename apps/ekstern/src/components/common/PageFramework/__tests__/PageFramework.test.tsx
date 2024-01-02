@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom'
 import { describe, it, vi } from 'vitest'
 
 import { PageFramework } from '..'
-import { mockResponse } from '@/mocks/server'
 import { mockErrorResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
-import { apiSlice } from '@/state/api/apiSlice'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 function TestComponent() {
