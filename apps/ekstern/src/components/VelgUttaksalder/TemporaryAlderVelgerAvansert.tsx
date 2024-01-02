@@ -35,15 +35,11 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
           intl,
           tidligstMuligUttak
         )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`}
-        defaultValue={formatertUttaksalder ? formatertUttaksalder : undefined}
+        defaultValue={formatertUttaksalder ?? undefined}
       >
         <option>Velg alder</option>
         {formaterteAldere.slice(0, formaterteAldere.length).map((alderChip) => (
-          <option
-            key={alderChip}
-            value={alderChip}
-            // selected={formatertUttaksalder === alderChip}
-          >
+          <option key={alderChip} value={alderChip}>
             {alderChip}
           </option>
         ))}
