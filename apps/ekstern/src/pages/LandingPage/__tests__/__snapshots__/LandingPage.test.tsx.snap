@@ -12,35 +12,6 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
       <section>
         <div
           class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
-        >
-          <h2
-            class="navds-heading navds-heading--medium"
-          >
-            landingsside.for.deg.foedt.foer.1963
-          </h2>
-          <p
-            class="navds-body-long navds-body-long--medium"
-          >
-            landingsside.du.maa.bruke.detaljert
-          </p>
-          <div>
-            <button
-              class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-first-button"
-            >
-              <span
-                class="navds-label"
-              >
-                landingsside.button.detaljert_kalkulator
-              </span>
-            </button>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div
-          class="navds-stack navds-vstack"
           style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column;"
         >
           <h2
@@ -98,6 +69,35 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
           </div>
         </div>
       </section>
+      <section>
+        <div
+          class="navds-stack navds-vstack"
+          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
+        >
+          <h2
+            class="navds-heading navds-heading--medium"
+          >
+            landingsside.for.deg.foedt.foer.1963
+          </h2>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.du.maa.bruke.detaljert
+          </p>
+          <div>
+            <button
+              class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
+              data-testid="landingside-detaljert-kalkulator-second-button"
+            >
+              <span
+                class="navds-label"
+              >
+                landingsside.button.detaljert_kalkulator
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
     <a
       class="navds-link _link_6ae597 navds-link--action navds-link--inline-text"
@@ -141,35 +141,6 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
       class="navds-stack navds-vstack"
       style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10); --__ac-stack-direction-xs: column;"
     >
-      <section>
-        <div
-          class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
-        >
-          <h2
-            class="navds-heading navds-heading--medium"
-          >
-            landingsside.for.deg.foedt.foer.1963
-          </h2>
-          <p
-            class="navds-body-long navds-body-long--medium"
-          >
-            landingsside.du.maa.bruke.detaljert
-          </p>
-          <div>
-            <button
-              class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
-              data-testid="landingside-first-button"
-            >
-              <span
-                class="navds-label"
-              >
-                landingsside.button.detaljert_kalkulator_utlogget
-              </span>
-            </button>
-          </div>
-        </div>
-      </section>
       <section>
         <div
           class="navds-stack navds-vstack"
@@ -227,6 +198,35 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                 </span>
               </button>
             </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div
+          class="navds-stack navds-vstack"
+          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
+        >
+          <h2
+            class="navds-heading navds-heading--medium"
+          >
+            landingsside.for.deg.foedt.foer.1963
+          </h2>
+          <p
+            class="navds-body-long navds-body-long--medium"
+          >
+            landingsside.du.maa.bruke.detaljert
+          </p>
+          <div>
+            <button
+              class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
+              data-testid="landingside-detaljert-kalkulator-second-button"
+            >
+              <span
+                class="navds-label"
+              >
+                landingsside.button.detaljert_kalkulator_utlogget
+              </span>
+            </button>
           </div>
         </div>
       </section>

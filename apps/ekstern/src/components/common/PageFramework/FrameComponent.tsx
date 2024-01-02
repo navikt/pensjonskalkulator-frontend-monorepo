@@ -6,27 +6,22 @@ import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import KalkulatorLogo from '../../../assets/kalkulator.svg'
-import { useGetDetaljertFaneFeatureToggleQuery } from '@/state/api/apiSlice'
 
 import styles from './FrameComponent.module.scss'
 
 export const FrameComponent: React.FC<{
   isFullWidth?: boolean
   hasWhiteBg?: boolean
-  hasToggleBg?: boolean
   shouldShowLogo?: boolean
   children?: JSX.Element
 }> = ({
   isFullWidth,
   hasWhiteBg = false,
-  hasToggleBg = false,
   shouldShowLogo = false,
   children,
 }) => {
   const intl = useIntl()
   const { pathname } = useLocation()
-  const { data: detaljertFaneFeatureToggle } =
-    useGetDetaljertFaneFeatureToggleQuery()
 
   React.useEffect(() => {
     window.scrollTo(0, 0)
@@ -35,8 +30,7 @@ export const FrameComponent: React.FC<{
   return (
     <div
       className={clsx(styles.main, {
-        [styles.main__white]:
-          hasWhiteBg || (hasToggleBg && detaljertFaneFeatureToggle?.enabled),
+        [styles.main__white]: hasWhiteBg,
       })}
     >
       <div
