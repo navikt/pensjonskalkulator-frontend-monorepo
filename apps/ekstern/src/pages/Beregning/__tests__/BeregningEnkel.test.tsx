@@ -95,8 +95,8 @@ describe('BeregningEnkel', () => {
         expect(initiateMock).toHaveBeenCalledTimes(1)
         await waitFor(async () => {
           expect(await screen.findByText('beregning.error')).toBeVisible()
+          expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
         })
-        expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
 
         const proevPaaNyttbutton = await screen.findByText(
           'application.global.retry'
@@ -145,12 +145,11 @@ describe('BeregningEnkel', () => {
         mockResponse('/v1/alderspensjon/simulering', {
           status: 200,
           method: 'post',
-          json: [
-            {
-              alderspensjon: [],
-              vilkaarErOppfylt: false,
-            },
-          ],
+          json: {
+            alderspensjon: [],
+            afpPrivat: [],
+            vilkaarErOppfylt: false,
+          },
         })
         mockErrorResponse('/v1/tidligste-uttaksalder', {
           method: 'post',

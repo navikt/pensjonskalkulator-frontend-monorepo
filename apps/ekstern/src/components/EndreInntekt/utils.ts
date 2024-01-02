@@ -6,7 +6,7 @@ export const validateInntektInput = (
   if (inntektInput === undefined || inntektInput === '') {
     isValid = false
     updateValidationErrorMessage(
-      'grunnlag.inntekt.inntektmodal.textfield.validation_error.required'
+      'inntekt.endre_inntekt_modal.textfield.validation_error.required'
     )
     return isValid
   }
@@ -15,12 +15,12 @@ export const validateInntektInput = (
   if (isNaN(s as unknown as number) || !/^[0-9]+$/.test(s)) {
     isValid = false
     updateValidationErrorMessage(
-      'grunnlag.inntekt.inntektmodal.textfield.validation_error.type'
+      'inntekt.endre_inntekt_modal.textfield.validation_error.type'
     )
   } else if (parseInt(s as string, 10) > 100000000) {
     isValid = false
     updateValidationErrorMessage(
-      'grunnlag.inntekt.inntektmodal.textfield.validation_error.max'
+      'inntekt.endre_inntekt_modal.textfield.validation_error.max'
     )
   }
   return isValid

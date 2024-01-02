@@ -7,7 +7,7 @@ import * as Step4Utils from '../../Step4/utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { act, screen, render, userEvent, waitFor } from '@/test-utils'
+import { screen, render, userEvent, waitFor } from '@/test-utils'
 import * as sivilstandUtils from '@/utils/sivilstand'
 
 describe('Step Feil', () => {

@@ -14,6 +14,7 @@ import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetDetaljertFaneFeatureToggleQuery,
 } from '@/state/api/apiSlice'
+import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -21,6 +22,7 @@ import {
   selectSivilstand,
   selectAarligInntektFoerUttak,
 } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
@@ -33,8 +35,9 @@ interface Props {
 }
 
 export const Beregning: React.FC<Props> = ({ visning }) => {
-  const navigate = useNavigate()
   const intl = useIntl()
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const harSamboer = useAppSelector(selectSamboer)
   const sivilstand = useAppSelector(selectSivilstand)
@@ -78,6 +81,11 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     })
   }, [afp, sivilstand, aarligInntektFoerUttak, harSamboer])
 
+  const onToggleChange = (v: string) => {
+    navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningDetaljert)
+    dispatch(userInputActions.flushCurrentSimulation())
+  }
+
   if (isTidligstMuligUttaksalderLoading) {
     return (
       <Loader
@@ -98,16 +106,18 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
             <ToggleGroup
               defaultValue={visning}
               variant="neutral"
-              onChange={(v) => {
-                navigate(
-                  v === 'enkel'
-                    ? paths.beregningEnkel
-                    : paths.beregningDetaljert
-                )
-              }}
+              onChange={onToggleChange}
             >
-              <ToggleGroup.Item value="enkel">Enkel</ToggleGroup.Item>
-              <ToggleGroup.Item value="avansert">Avansert</ToggleGroup.Item>
+              <ToggleGroup.Item value="enkel">
+                {intl.formatMessage({
+                  id: 'beregning.toggle.enkel',
+                })}
+              </ToggleGroup.Item>
+              <ToggleGroup.Item value="avansert">
+                {intl.formatMessage({
+                  id: 'beregning.toggle.avansert',
+                })}
+              </ToggleGroup.Item>
             </ToggleGroup>
           </div>
         </div>

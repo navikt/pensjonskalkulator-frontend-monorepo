@@ -1,6 +1,6 @@
 import { validateInntektInput } from '../utils'
 
-describe('GrunnlagInntekt-utils', () => {
+describe('EndreInntekt-utils', () => {
   describe('validateInntektInput', () => {
     afterEach(() => {
       vi.clearAllMocks()
@@ -17,7 +17,7 @@ describe('GrunnlagInntekt-utils', () => {
       ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         2,
-        'grunnlag.inntekt.inntektmodal.textfield.validation_error.required'
+        'inntekt.endre_inntekt_modal.textfield.validation_error.required'
       )
     })
 
@@ -39,7 +39,7 @@ describe('GrunnlagInntekt-utils', () => {
       ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         5,
-        'grunnlag.inntekt.inntektmodal.textfield.validation_error.type'
+        'inntekt.endre_inntekt_modal.textfield.validation_error.type'
       )
     })
 
@@ -49,7 +49,7 @@ describe('GrunnlagInntekt-utils', () => {
       ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         1,
-        'grunnlag.inntekt.inntektmodal.textfield.validation_error.max'
+        'inntekt.endre_inntekt_modal.textfield.validation_error.max'
       )
     })
 

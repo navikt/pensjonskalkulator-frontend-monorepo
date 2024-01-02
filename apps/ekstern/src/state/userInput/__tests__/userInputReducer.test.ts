@@ -114,6 +114,7 @@ describe('userInputSlice', () => {
           samtykke: true,
           afp: 'ja_offentlig',
           samboer: false,
+          formatertUttaksalder: '63 alder.aar',
           currentSimulation: {
             startAar: 66,
             startMaaned: 4,
@@ -125,6 +126,33 @@ describe('userInputSlice', () => {
 
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
+      })
+    })
+
+    it('flushCurrentSimulation', () => {
+      const updatedState = userInputSlice(
+        {
+          ...userInputInitialState,
+          utenlandsopphold: true,
+          samtykke: true,
+          afp: 'ja_offentlig',
+          samboer: false,
+          formatertUttaksalder: '66 alder.aar string.og 4 alder.maaneder',
+          currentSimulation: {
+            startAar: 66,
+            startMaaned: 4,
+            aarligInntektFoerUttak: 300000,
+          },
+        },
+        userInputActions.flushCurrentSimulation()
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        utenlandsopphold: true,
+        samtykke: true,
+        afp: 'ja_offentlig',
+        samboer: false,
       })
     })
   })
