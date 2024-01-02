@@ -189,6 +189,8 @@ const translations = {
   'tidligsteuttaksalder.error':
     'Vi klarte ikkje å finne tidspunkt for kor tid du tidlegast kan ta ut alderspensjon. Prøv igjen seinare.',
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',
+  'beregning.toggle.enkel': 'MANGLER_TEKST',
+  'beregning.toggle.avansert': 'MANGLER_TEKST',
   'beregning.loading': 'MANGLER_TEKST',
   'beregning.error':
     'Vi klarte dessverre ikkje å rekne ut pensjonen din akkurat nå.',
@@ -217,6 +219,8 @@ const translations = {
   'beregning.tabell.lukk': 'MANGLER_TEKST',
   'beregning.tabell.vis': 'MANGLER_TEKST',
   'beregning.tabell.sum': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.button': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt.button': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
