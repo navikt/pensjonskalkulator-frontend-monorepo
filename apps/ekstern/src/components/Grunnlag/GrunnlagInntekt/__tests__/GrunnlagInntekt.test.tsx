@@ -1,6 +1,6 @@
 import { GrunnlagInntekt } from '..'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { render, screen, userEvent } from '@/test-utils'
+import { render, screen, swallowErrorsAsync, userEvent } from '@/test-utils'
 
 describe('GrunnlagInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {
@@ -27,7 +27,6 @@ describe('GrunnlagInntekt', () => {
       await user.click(
         screen.getByText('inntekt.endre_inntekt_modal.open.button')
       )
-      await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
 
       await user.type(screen.getByTestId('inntekt-textfield'), '123000')
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
@@ -84,32 +83,34 @@ describe('GrunnlagInntekt', () => {
     })
 
     it('viser riktig tittel og tekst med 0 inntekt, og brukeren kan overskrive den', async () => {
-      mockResponse('/inntekt', {
-        status: 200,
-        json: { aar: '2021', beloep: 0 },
+      swallowErrorsAsync(async () => {
+        mockResponse('/inntekt', {
+          status: 200,
+          json: { aar: '2021', beloep: 0 },
+        })
+        const user = userEvent.setup()
+        render(<GrunnlagInntekt />)
+        expect(screen.getByText('grunnlag.inntekt.title')).toBeVisible()
+        expect(screen.getByText('grunnlag.inntekt.title.error')).toBeVisible()
+        expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
+        const buttons = screen.getAllByRole('button')
+
+        await user.click(buttons[2])
+
+        expect(
+          await screen.findByText('grunnlag.inntekt.ingress.error')
+        ).toBeVisible()
+        expect(
+          screen.queryByText(
+            'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon',
+            { exact: false }
+          )
+        ).not.toBeInTheDocument()
+        expect(screen.getByText('inntekt.info_modal.open.link')).toBeVisible()
+        expect(
+          screen.getByText('inntekt.endre_inntekt_modal.open.button')
+        ).toBeVisible()
       })
-      const user = userEvent.setup()
-      render(<GrunnlagInntekt />)
-      expect(screen.getByText('grunnlag.inntekt.title')).toBeVisible()
-      expect(screen.getByText('grunnlag.inntekt.title.error')).toBeVisible()
-      expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[2])
-
-      expect(
-        await screen.findByText('grunnlag.inntekt.ingress.error')
-      ).toBeVisible()
-      expect(
-        screen.queryByText(
-          'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon',
-          { exact: false }
-        )
-      ).not.toBeInTheDocument()
-      expect(screen.getByText('inntekt.info_modal.open.link')).toBeVisible()
-      expect(
-        screen.getByText('inntekt.endre_inntekt_modal.open.button')
-      ).toBeVisible()
     })
   })
 

@@ -145,12 +145,11 @@ describe('BeregningEnkel', () => {
         mockResponse('/v1/alderspensjon/simulering', {
           status: 200,
           method: 'post',
-          json: [
-            {
-              alderspensjon: [],
-              vilkaarErOppfylt: false,
-            },
-          ],
+          json: {
+            alderspensjon: [],
+            afpPrivat: [],
+            vilkaarErOppfylt: false,
+          },
         })
         mockErrorResponse('/v1/tidligste-uttaksalder', {
           method: 'post',
