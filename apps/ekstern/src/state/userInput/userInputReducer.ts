@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface Simulation {
-  startAar: number | null
-  startMaaned: number | null
+  formatertUttaksalder: string | null // valgt uttaksalder - string i format "YY alder.aar string.og M alder.maaneder"
+  startAar: number | null // (!) Obs READONLY - heltall - denne oppdateres automatisk basert på formatertUttaksalder - se uttaksalderListener
+  startMaaned: number | null // (!) Obs READONLY - heltall mellom 0-11 - denne oppdateres automatisk basert på formatertUttaksalder - se uttaksalderListener
   aarligInntektFoerUttak: number | null // inntekt før uttak av pensjon - overskriver beløp fra Skatteetaten
-  uttaksgrad?: number // optional: ikke i bruk - hardkodet til 100 fordi brukeren ikke kan velge gradert pensjon
-  aarligInntekt?: number // optional: ikke i bruk - hardkodet til 0 fordi brukeren ikke kan legge til inntekt vsa. pensjon
+  uttaksgrad?: number // optional: ikke i bruk - hardkodet til 100 videre i koden fordi brukeren ikke kan velge gradert pensjon
+  aarligInntekt?: number // optional: ikke i bruk - hardkodet til 0 videre i koden fordi brukeren ikke kan legge til inntekt vsa. pensjon
 }
 
 export interface UserInputState {
@@ -13,7 +14,6 @@ export interface UserInputState {
   samtykke: boolean | null
   afp: AfpRadio | null
   samboer: boolean | null
-  formatertUttaksalder: string | null
   currentSimulation: Simulation
 }
 
@@ -22,10 +22,10 @@ export const userInputInitialState: UserInputState = {
   samtykke: null,
   afp: null,
   samboer: null,
-  formatertUttaksalder: null, // TODO vurdere om formatertUttaksalder bør flyttes inn i currentSimulation
   currentSimulation: {
-    startAar: null, // (!) Obs - denne oppdateres automatisk basert på formatertUttaksalder - se uttaksalderListener
-    startMaaned: null, // (!) Obs - denne oppdateres automatisk basert på formatertUttaksalder - se uttaksalderListener
+    formatertUttaksalder: null,
+    startAar: null,
+    startMaaned: null,
     aarligInntektFoerUttak: null,
     // uttaksgrad: 100,
     // aarligInntekt: 0,
@@ -48,15 +48,23 @@ export const userInputSlice = createSlice({
     setSamboer: (state, action: PayloadAction<boolean>) => {
       state.samboer = action.payload
     },
-    setFormatertUttaksalder: (state, action: PayloadAction<string>) => {
-      state.formatertUttaksalder = action.payload
+    setCurrentSimulationFormatertUttaksalder: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      state.currentSimulation.formatertUttaksalder = action.payload
     },
-    updateCurrentSimulation: (
+    setCurrentSimulationAarligInntektFoerUttak: (
+      state,
+      action: PayloadAction<number>
+    ) => {
+      state.currentSimulation.aarligInntektFoerUttak = action.payload
+    },
+    syncCurrentSimulationStartAarOgMaaned: (
       state,
       action: PayloadAction<{
         startAar?: number
         startMaaned?: number
-        aarligInntektFoerUttak?: number
       }>
     ) => {
       state.currentSimulation = {
@@ -69,16 +77,10 @@ export const userInputSlice = createSlice({
       state.samtykke = null
       state.afp = null
       state.samboer = null
-      state.formatertUttaksalder = null
-      state.currentSimulation.startAar = null
-      state.currentSimulation.startMaaned = null
-      state.currentSimulation.aarligInntektFoerUttak = null
+      state.currentSimulation = { ...userInputInitialState.currentSimulation }
     },
     flushCurrentSimulation: (state) => {
-      state.formatertUttaksalder = null
-      state.currentSimulation.startAar = null
-      state.currentSimulation.startMaaned = null
-      state.currentSimulation.aarligInntektFoerUttak = null
+      state.currentSimulation = { ...userInputInitialState.currentSimulation }
     },
   },
 })

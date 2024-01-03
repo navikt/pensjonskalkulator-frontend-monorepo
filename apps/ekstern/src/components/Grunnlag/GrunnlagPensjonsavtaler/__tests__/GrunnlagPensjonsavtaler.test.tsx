@@ -30,6 +30,7 @@ describe('GrunnlagPensjonsavtaler', () => {
   }
 
   const currentSimulation: Simulation = {
+    formatertUttaksalder: '67 alder.aar string.og 1 alder.maaned',
     startAar: 67,
     startMaaned: 1,
     uttaksgrad: 100,

@@ -65,7 +65,7 @@ export const selectAarligInntektFoerUttak = (
 }
 
 export const selectFormatertUttaksalder = (state: RootState): string | null =>
-  state.userInput.formatertUttaksalder
+  state.userInput.currentSimulation.formatertUttaksalder
 
 export const selectCurrentSimulation = (state: RootState): Simulation =>
   state.userInput.currentSimulation

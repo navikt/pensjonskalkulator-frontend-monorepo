@@ -71,6 +71,7 @@ describe('Beregning', () => {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: {
+              formatertUttaksalder: '70 alder.aar string.og 4 alder.maaned',
               startAar: 70,
               startMaaned: 4,
               aarligInntektFoerUttak: 300000,

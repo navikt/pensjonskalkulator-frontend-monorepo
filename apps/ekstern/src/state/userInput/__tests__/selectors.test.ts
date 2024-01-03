@@ -19,6 +19,7 @@ describe('userInput selectors', () => {
   const initialState = store.getState()
 
   const currentSimulation = {
+    formatertUttaksalder: '62 alder.aar string.og 5 alder.maaneder',
     startAar: 62,
     startMaaned: 5,
     uttaksgrad: 100,
@@ -345,7 +346,9 @@ describe('userInput selectors', () => {
       ...initialState,
       userInput: {
         ...initialState.userInput,
-        formatertUttaksalder: '62 alder.aar string.og 5 alder.maaneder',
+        currentSimulation: {
+          ...currentSimulation,
+        },
       },
     }
     expect(selectFormatertUttaksalder(state)).toBe(
