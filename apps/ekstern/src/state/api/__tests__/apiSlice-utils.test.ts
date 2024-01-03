@@ -1,6 +1,5 @@
 import {
   generatePensjonsavtalerRequestBody,
-  unformatUttaksalder,
   generateAlderspensjonRequestBody,
 } from '../utils'
 
@@ -42,21 +41,6 @@ describe('apiSlice - utils', () => {
         uttaksperioder: [
           { startAlder: { aar: 62, maaneder: 4 }, grad: 100, aarligInntekt: 0 },
         ],
-      })
-    })
-  })
-  describe('unformatUttaksalder', () => {
-    it('returnerer riktig aar og maaned', () => {
-      expect(
-        unformatUttaksalder('random string without number (feil)')
-      ).toEqual({ aar: 0, maaneder: 0 })
-      expect(unformatUttaksalder('67 alder.aar')).toEqual({
-        aar: 67,
-        maaneder: 0,
-      })
-      expect(unformatUttaksalder('62 alder.aar og 5 alder.maaneder')).toEqual({
-        aar: 62,
-        maaneder: 5,
       })
     })
   })

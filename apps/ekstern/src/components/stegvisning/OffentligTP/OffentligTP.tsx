@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
-import { FormattedMessage } from 'react-intl'
+import React from 'react'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { wrapLogger } from '@/utils/logging'
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './OffentligTP.module.scss'
 
@@ -22,7 +22,9 @@ export function OffentligTP({
   onNext,
   shouldJumpOverStep,
 }: Props) {
-  useEffect(() => {
+  const intl = useIntl()
+
+  React.useEffect(() => {
     if (shouldJumpOverStep) {
       onNext()
     }
@@ -37,7 +39,7 @@ export function OffentligTP({
         <FormattedMessage
           id="stegvisning.offentligtp.ingress"
           values={{
-            ...formatMessageValues,
+            ...getFormatMessageValues(intl),
           }}
         />
       </BodyLong>

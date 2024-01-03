@@ -1,0 +1,1 @@
+export { ResultatkortAvansertBeregning } from './ResultatkortAvansertBeregning'

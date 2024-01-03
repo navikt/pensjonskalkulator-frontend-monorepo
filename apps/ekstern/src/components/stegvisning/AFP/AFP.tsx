@@ -14,7 +14,7 @@ import {
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { logger, wrapLogger } from '@/utils/logging'
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './AFP.module.scss'
 
@@ -124,7 +124,7 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage
             id="stegvisning.afp.readmore_privat_link"
             values={{
-              ...formatMessageValues,
+              ...getFormatMessageValues(intl),
             }}
           />
         </ReadMore>

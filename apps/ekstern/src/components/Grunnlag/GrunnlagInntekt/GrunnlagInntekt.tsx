@@ -14,7 +14,7 @@ import {
   selectAarligInntektFoerUttakFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { formatWithoutDecimal } from '@/utils/currency'
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagInntekt.module.scss'
 
@@ -54,7 +54,7 @@ export const GrunnlagInntekt = () => {
                 <FormattedMessage
                   id="grunnlag.inntekt.ingress"
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                     beloep: formatWithoutDecimal(
                       aarligInntektFoerUttakFraSkatt?.beloep
                     ),
@@ -65,7 +65,7 @@ export const GrunnlagInntekt = () => {
                 <FormattedMessage
                   id="grunnlag.inntekt.ingress.error"
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               )}

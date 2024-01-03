@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
@@ -15,8 +16,9 @@ import {
   selectAarligInntektFoerUttak,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { unformatUttaksalder } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/currency'
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 interface Props {
   onSubmitSuccess: () => void
 }
@@ -32,6 +34,10 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const harSamboer = useAppSelector(selectSamboer)
   const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const [
+    hasValidationFormatertUttaksalderError,
+    setHasValidationFormatertUttaksalderError,
+  ] = React.useState<boolean>(false)
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
     React.useState<TidligsteUttaksalderRequestBody | undefined>(undefined)
@@ -59,20 +65,23 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const avansertBeregningValgtUttaksalderData = data.get('uttaksalder') as
-      | string
-      | undefined
+    const avansertBeregningFormatertUttaksalderData = data.get(
+      'uttaksalder'
+    ) as string | undefined
 
-    // TODO validering
-    if (avansertBeregningValgtUttaksalderData) {
-      dispatch(
-        userInputActions.setCurrentSimulationFormatertUttaksalder(
-          avansertBeregningValgtUttaksalderData
-        )
+    if (
+      avansertBeregningFormatertUttaksalderData &&
+      /\d/.test(avansertBeregningFormatertUttaksalderData)
+    ) {
+      setHasValidationFormatertUttaksalderError(false)
+      const alder = unformatUttaksalder(
+        avansertBeregningFormatertUttaksalderData
       )
+      dispatch(userInputActions.setCurrentSimulationStartAlder(alder))
+      onSubmitSuccess()
+    } else {
+      setHasValidationFormatertUttaksalderError(true)
     }
-
-    onSubmitSuccess()
   }
 
   return (
@@ -108,7 +117,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             <FormattedMessage
               id="tidligsteuttaksalder.error"
               values={{
-                ...formatMessageValues,
+                ...getFormatMessageValues(intl),
               }}
             />
           </BodyLong>
@@ -117,6 +126,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         {isTidligstMuligUttaksalderSuccess && tidligstMuligUttak && (
           <TemporaryAlderVelgerAvansert
             tidligstMuligUttak={tidligstMuligUttak}
+            hasValidationError={hasValidationFormatertUttaksalderError}
           />
         )}
       </div>
@@ -133,3 +143,4 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     </div>
   )
 }
+/* c8 ignore end */

@@ -3,7 +3,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { BodyLong, Heading } from '@navikt/ds-react'
 
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './Personopplysninger.module.scss'
 
@@ -129,7 +129,7 @@ export function Personopplysninger() {
           <FormattedMessage
             id="personopplysninger.section.informasjon_om_rettighetene.text"
             values={{
-              ...formatMessageValues,
+              ...getFormatMessageValues(intl),
             }}
           />
         </BodyLong>
@@ -144,7 +144,7 @@ export function Personopplysninger() {
           <FormattedMessage
             id="personopplysninger.section.spoersmaal.text"
             values={{
-              ...formatMessageValues,
+              ...getFormatMessageValues(intl),
             }}
           />
         </BodyLong>
