@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@navikt/nav-dekoratoren-moduler": "^2.1.5",
-    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/jest-dom": "^6.1.6",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.4.3",
     "@types/amplitude-js": "^8.16.5",
