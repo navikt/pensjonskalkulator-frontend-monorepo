@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong, Button, Label, Link, Modal } from '@navikt/ds-react'
 
 import { logger } from '@/utils/logging'
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './InfoModalInntekt.module.scss'
 
@@ -71,7 +71,7 @@ export const InfoModalInntekt = () => {
             <FormattedMessage
               id="inntekt.info_modal.ingress"
               values={{
-                ...formatMessageValues,
+                ...getFormatMessageValues(intl),
               }}
             />
           </BodyLong>

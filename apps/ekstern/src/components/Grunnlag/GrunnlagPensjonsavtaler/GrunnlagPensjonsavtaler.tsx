@@ -26,7 +26,7 @@ import {
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import { GrunnlagPensjonsavtalerTable } from './GrunnlagPensjonsavtalerTable'
 
@@ -38,29 +38,38 @@ export const GrunnlagPensjonsavtaler = () => {
   const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const afp = useAppSelector(selectAfp)
-  const { startAar, startMaaned } = useAppSelector(selectCurrentSimulation)
+  const { startAlder } = useAppSelector(selectCurrentSimulation)
   const {
     ref: grunnlagPensjonsavtalerRef,
     isOpen: isPensjonsavtalerAccordionItemOpen,
     toggleOpen: togglePensjonsavtalerAccordionItem,
   } = React.useContext(PensjonsavtalerAccordionContext)
+
+  const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
+    React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
+
+  // Hent pensjonsavtaler
+  React.useEffect(() => {
+    if (harSamtykket && startAlder) {
+      const requestBody = generatePensjonsavtalerRequestBody(
+        aarligInntektFoerUttak ?? 0,
+        afp,
+        startAlder,
+        sivilstand
+      )
+      setPensjonsavtalerRequestBody(requestBody)
+    }
+  }, [harSamtykket, startAlder])
+
   const {
     data: pensjonsavtaler,
     isLoading,
     isError,
     isSuccess,
   } = usePensjonsavtalerQuery(
-    generatePensjonsavtalerRequestBody(
-      aarligInntektFoerUttak ?? 0,
-      afp,
-      {
-        aar: startAar as number,
-        maaneder: startMaaned ?? 0,
-      },
-      sivilstand
-    ),
+    pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
     {
-      skip: !harSamtykket || !startAar,
+      skip: !pensjonsavtalerRequestBody || !harSamtykket || !startAlder,
     }
   )
   const navigate = useNavigate()
@@ -117,7 +126,7 @@ export const GrunnlagPensjonsavtaler = () => {
               <FormattedMessage
                 id="grunnlag.pensjonsavtaler.ingress.error.samtykke_link_2"
                 values={{
-                  ...formatMessageValues,
+                  ...getFormatMessageValues(intl),
                 }}
               />
             </BodyLong>
@@ -172,7 +181,7 @@ export const GrunnlagPensjonsavtaler = () => {
               <FormattedMessage
                 id="grunnlag.pensjonsavtaler.ingress"
                 values={{
-                  ...formatMessageValues,
+                  ...getFormatMessageValues(intl),
                 }}
               />
             </BodyLong>

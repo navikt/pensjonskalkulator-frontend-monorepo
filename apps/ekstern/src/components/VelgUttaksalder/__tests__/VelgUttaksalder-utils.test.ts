@@ -2,12 +2,14 @@ import { IntlShape } from 'react-intl'
 
 import { describe, expect, it } from 'vitest'
 
-import { formatUttaksalder, getFormaterteAldere } from '../utils'
+import { getFormaterteAldere } from '../utils'
+import { formatUttaksalder } from '@/utils/alder'
 
 describe('VelgUttaksalder-utils', () => {
   const intlMock = {
     formatMessage: (s: { id: string }) => s.id,
   } as unknown as IntlShape
+
   describe('getFormaterteAldere', () => {
     it('returnerer array med én verdi når start og slutt er like', () => {
       const start = { aar: 64, maaneder: 3 }
@@ -65,36 +67,6 @@ describe('VelgUttaksalder-utils', () => {
         '74 alder.aar',
         '75 alder.aar',
       ])
-    })
-  })
-
-  describe('formatUttaksalder', () => {
-    it('returnerer riktig streng med år og måned', () => {
-      expect(
-        formatUttaksalder(intlMock, {
-          aar: 62,
-          maaneder: 3,
-        })
-      ).toBe('62 alder.aar string.og 3 alder.maaneder')
-    })
-    it('returnerer riktig streng med år og uten måned', () => {
-      expect(
-        formatUttaksalder(intlMock, {
-          aar: 62,
-          maaneder: 0,
-        })
-      ).toBe('62 alder.aar')
-      expect(
-        formatUttaksalder(intlMock, {
-          aar: 62,
-          maaneder: 1,
-        })
-      ).toBe('62 alder.aar string.og 1 alder.maaned')
-    })
-    it('returnerer riktig streng med år og kompakt måned', () => {
-      expect(
-        formatUttaksalder(intlMock, { aar: 62, maaneder: 3 }, { compact: true })
-      ).toBe('62 alder.aar string.og 3 alder.md')
     })
   })
 })

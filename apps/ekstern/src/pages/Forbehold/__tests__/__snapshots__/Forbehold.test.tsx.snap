@@ -65,7 +65,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             <title
               id="title-r4"
             >
-              åpner i en ny fane
+              application.global.external_link
             </title>
             <path
               clip-rule="evenodd"
@@ -155,7 +155,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             <title
               id="title-r5"
             >
-              åpner i en ny fane
+              application.global.external_link
             </title>
             <path
               clip-rule="evenodd"
@@ -197,7 +197,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             <title
               id="title-r6"
             >
-              åpner i en ny fane
+              application.global.external_link
             </title>
             <path
               clip-rule="evenodd"
@@ -239,7 +239,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             <title
               id="title-r7"
             >
-              åpner i en ny fane
+              application.global.external_link
             </title>
             <path
               clip-rule="evenodd"

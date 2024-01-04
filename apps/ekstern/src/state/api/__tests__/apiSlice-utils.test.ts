@@ -1,6 +1,5 @@
 import {
   generatePensjonsavtalerRequestBody,
-  unformatUttaksalder,
   generateAlderspensjonRequestBody,
 } from '../utils'
 
@@ -45,21 +44,6 @@ describe('apiSlice - utils', () => {
       })
     })
   })
-  describe('unformatUttaksalder', () => {
-    it('returnerer riktig aar og maaned', () => {
-      expect(
-        unformatUttaksalder('random string without number (feil)')
-      ).toEqual({ aar: 0, maaneder: 0 })
-      expect(unformatUttaksalder('67 alder.aar')).toEqual({
-        aar: 67,
-        maaneder: 0,
-      })
-      expect(unformatUttaksalder('62 alder.aar og 5 alder.maaneder')).toEqual({
-        aar: 62,
-        maaneder: 5,
-      })
-    })
-  })
 
   describe('generateAlderspensjonRequestBody', () => {
     const requestBody = {
@@ -68,11 +52,10 @@ describe('apiSlice - utils', () => {
       harSamboer: false,
       aarligInntektFoerUttak: 500000,
       foedselsdato: '1963-04-30',
-      startAlder: 68,
-      startMaaned: 3,
+      startAlder: { aar: 68, maaneder: 3 },
       uttaksgrad: 100,
     }
-    it('returnerer undefined når foedselsdato, startAlder, eller startMaaned er null', () => {
+    it('returnerer undefined når foedselsdato, eller startAlder er null', () => {
       expect(
         generateAlderspensjonRequestBody({ ...requestBody, foedselsdato: null })
       ).toEqual(undefined)
@@ -84,9 +67,6 @@ describe('apiSlice - utils', () => {
       ).toEqual(undefined)
       expect(
         generateAlderspensjonRequestBody({ ...requestBody, startAlder: null })
-      ).toEqual(undefined)
-      expect(
-        generateAlderspensjonRequestBody({ ...requestBody, startMaaned: null })
       ).toEqual(undefined)
     })
     it('returnerer riktig simuleringstype', () => {
@@ -171,7 +151,7 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          startMaaned: 0,
+          startAlder: { aar: 68, maaneder: 0 },
         })?.foersteUttaksalder
       ).toEqual({
         aar: 68,

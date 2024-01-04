@@ -14,17 +14,11 @@ describe('VelgUttaksalder', () => {
     expect(await screen.findAllByRole('button')).toHaveLength(14)
   })
 
-  it('oppdaterer valgt knapp og kaller setValgtUttaksalder når brukeren velger en alder', async () => {
+  it('oppdaterer valgt knapp når brukeren velger en alder', async () => {
     const user = userEvent.setup()
-    let valgtUttaksalder = '63 alder.aar'
-    const valgtUttaksalderHandler = (alder: string) => {
-      valgtUttaksalder = alder
-    }
 
     const getProps = () => ({
       tidligstMuligUttak: uttaksalder,
-      valgtUttaksalder,
-      valgtUttaksalderHandler,
     })
 
     const { rerender } = render(<VelgUttaksalder {...getProps()} />)

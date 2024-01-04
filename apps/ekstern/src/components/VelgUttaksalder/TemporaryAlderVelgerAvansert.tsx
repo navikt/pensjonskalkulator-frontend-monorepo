@@ -4,21 +4,32 @@ import { useIntl } from 'react-intl'
 
 import { Select } from '@navikt/ds-react'
 
-import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 import { useAppSelector } from '@/state/hooks'
-import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
+import { selectFormatertUttaksalderReadOnly } from '@/state/userInput/selectors'
+import { formatUttaksalder } from '@/utils/alder'
 
 import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
 
 interface Props {
   tidligstMuligUttak: Alder
+  hasValidationError?: boolean
 }
 
 export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
   tidligstMuligUttak = { ...DEFAULT_TIDLIGST_UTTAKSALDER },
+  hasValidationError,
 }) => {
   const intl = useIntl()
-  const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
+  const formatertUttaksalderReadOnly = useAppSelector(
+    selectFormatertUttaksalderReadOnly
+  )
+
+  const [showValidationError, setShowValidationError] =
+    React.useState<boolean>(true)
+
+  React.useEffect(() => {
+    setShowValidationError(true)
+  }, [hasValidationError])
 
   const formaterteAldere = React.useMemo(
     () => getFormaterteAldere(intl, tidligstMuligUttak),
@@ -35,7 +46,15 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
           intl,
           tidligstMuligUttak
         )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`}
-        defaultValue={formatertUttaksalder ?? undefined}
+        defaultValue={formatertUttaksalderReadOnly ?? undefined}
+        error={
+          hasValidationError && showValidationError
+            ? 'VALIDATION ERROR'
+            : undefined
+        }
+        onChange={(prevShowValidationError) =>
+          setShowValidationError(!prevShowValidationError)
+        }
       >
         <option>Velg alder</option>
         {formaterteAldere.slice(0, formaterteAldere.length).map((alderChip) => (

@@ -22,7 +22,6 @@ import {
   selectAfp,
   selectSamboer,
   selectCurrentSimulation,
-  selectFormatertUttaksalder,
   selectAarligInntektFoerUttak,
 } from '@/state/userInput/selectors'
 import { isFoedtFoer1964 } from '@/utils/alder'
@@ -41,36 +40,25 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const isAlderValgt = useAppSelector(selectFormatertUttaksalder) !== null
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
-  const { startAar, startMaaned, uttaksgrad } = useAppSelector(
-    selectCurrentSimulation
-  )
+  const { startAlder } = useAppSelector(selectCurrentSimulation)
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
 
   React.useEffect(() => {
-    const requestBody = generateAlderspensjonRequestBody({
-      afp,
-      sivilstand: person?.sivilstand,
-      harSamboer,
-      foedselsdato: person?.foedselsdato,
-      aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
-      startAlder: startAar,
-      startMaaned,
-      uttaksgrad,
-    })
-    setAlderspensjonRequestBody(requestBody)
-  }, [
-    afp,
-    person,
-    aarligInntektFoerUttak,
-    harSamboer,
-    startAar,
-    startMaaned,
-    uttaksgrad,
-  ])
+    if (startAlder) {
+      const requestBody = generateAlderspensjonRequestBody({
+        afp,
+        sivilstand: person?.sivilstand,
+        harSamboer,
+        foedselsdato: person?.foedselsdato,
+        aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
+        startAlder,
+      })
+      setAlderspensjonRequestBody(requestBody)
+    }
+  }, [afp, person, aarligInntektFoerUttak, harSamboer, startAlder])
 
   // Hent alderspensjon + AFP
   const {
@@ -86,14 +74,14 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   )
 
   React.useEffect(() => {
-    if (isAlderValgt) {
+    if (startAlder !== null) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
         logger('alert', { teskt: 'Beregning: Ikke høy nok opptjening' })
       } else if (isError) {
         logger('alert', { teskt: 'Beregning: Klarte ikke beregne pensjon' })
       }
     }
-  }, [isAlderValgt, isError, alderspensjon])
+  }, [startAlder, isError, alderspensjon])
 
   React.useEffect(() => {
     if (error && (error as FetchBaseQueryError).status === 503) {
@@ -138,7 +126,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
           <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
         </div>
 
-        {isAlderValgt && (
+        {startAlder !== null && (
           <div
             className={`${styles.container} ${styles.container__hasMobilePadding}`}
           >
@@ -148,10 +136,10 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
                   <FormattedMessage id="beregning.title" />
                 </Heading>
                 <Alert onRetry={isError ? onRetry : undefined}>
-                  {startAar && startAar < 67 && (
+                  {startAlder && startAlder.aar < 67 && (
                     <FormattedMessage
                       id="beregning.lav_opptjening"
-                      values={{ startAar }}
+                      values={{ startAar: startAlder.aar }}
                     />
                   )}
                   {isError && <FormattedMessage id="beregning.error" />}

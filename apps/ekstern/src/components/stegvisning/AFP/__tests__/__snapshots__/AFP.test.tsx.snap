@@ -137,7 +137,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
               <title
                 id="title-rb"
               >
-                åpner i en ny fane
+                application.global.external_link
               </title>
               <path
                 clip-rule="evenodd"
@@ -443,7 +443,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
               <title
                 id="title-r2"
               >
-                åpner i en ny fane
+                application.global.external_link
               </title>
               <path
                 clip-rule="evenodd"
@@ -748,7 +748,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
               <title
                 id="title-r2"
               >
-                åpner i en ny fane
+                application.global.external_link
               </title>
               <path
                 clip-rule="evenodd"

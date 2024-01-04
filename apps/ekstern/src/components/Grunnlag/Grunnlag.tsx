@@ -9,7 +9,7 @@ import { useAppSelector } from '@/state/hooks'
 import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
 import { formatAfp } from '@/utils/afp'
 import { formatSivilstand } from '@/utils/sivilstand'
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import { GrunnlagForbehold } from './GrunnlagForbehold'
 import { GrunnlagInntekt } from './GrunnlagInntekt'
@@ -64,7 +64,7 @@ export const Grunnlag: React.FC = () => {
                 <FormattedMessage
                   id="grunnlag.uttaksgrad.ingress"
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               </BodyLong>
@@ -88,7 +88,7 @@ export const Grunnlag: React.FC = () => {
                 <FormattedMessage
                   id="grunnlag.sivilstand.ingress"
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               </BodyLong>
@@ -107,7 +107,7 @@ export const Grunnlag: React.FC = () => {
                 <FormattedMessage
                   id="grunnlag.opphold.ingress"
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               </BodyLong>
@@ -126,7 +126,7 @@ export const Grunnlag: React.FC = () => {
                 <FormattedMessage
                   id="grunnlag.alderspensjon.ingress"
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               </BodyLong>
@@ -143,7 +143,7 @@ export const Grunnlag: React.FC = () => {
                 <FormattedMessage
                   id={`grunnlag.afp.ingress.${afp}`}
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               </BodyLong>

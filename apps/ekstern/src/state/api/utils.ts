@@ -4,7 +4,7 @@ import { format, parseISO } from 'date-fns'
 export const generatePensjonsavtalerRequestBody = (
   aarligInntektFoerUttak: number,
   afp: AfpRadio | null,
-  uttaksalder: Alder,
+  uttaksalder: Alder | null,
   sivilstand?: Sivilstand
 ): PensjonsavtalerRequestBody => {
   return {
@@ -12,8 +12,9 @@ export const generatePensjonsavtalerRequestBody = (
     uttaksperioder: [
       {
         startAlder: {
-          aar: uttaksalder.aar,
-          maaneder: uttaksalder.maaneder > 0 ? uttaksalder.maaneder : 0,
+          aar: uttaksalder?.aar ?? 0,
+          maaneder:
+            uttaksalder && uttaksalder.maaneder > 0 ? uttaksalder.maaneder : 0,
         },
         grad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
         aarligInntekt: 0, // Hardkodet til 0 for nå - brukeren kan ikke legge til inntekt vsa. pensjon
@@ -28,22 +29,13 @@ export const generatePensjonsavtalerRequestBody = (
   }
 }
 
-export const unformatUttaksalder = (alderChip: string): Alder => {
-  const uttaksalder = alderChip.match(/[-+]?[0-9]*\.?[0-9]+/g)
-  const aar = uttaksalder?.[0] ? parseInt(uttaksalder?.[0], 10) : 0
-  const maaneder = uttaksalder?.[1] ? parseInt(uttaksalder?.[1], 10) : 0
-  return { aar, maaneder }
-}
-
 export const generateAlderspensjonRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
   aarligInntektFoerUttak: number
-  startAlder: number | null
-  startMaaned: number | null
-  uttaksgrad: number | undefined
+  startAlder: Alder | null
 }): AlderspensjonRequestBody | undefined => {
   const {
     afp,
@@ -52,10 +44,9 @@ export const generateAlderspensjonRequestBody = (args: {
     foedselsdato,
     aarligInntektFoerUttak,
     startAlder,
-    startMaaned,
   } = args
 
-  if (!foedselsdato || !startAlder || startMaaned === null) {
+  if (!foedselsdato || !startAlder) {
     return undefined
   }
 
@@ -63,10 +54,10 @@ export const generateAlderspensjonRequestBody = (args: {
     simuleringstype:
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
 
-    uttaksgrad: 100, // Hardkodet til 100 for nå - brukeren kan ikke velge gradert pensjon
+    uttaksgrad: 100, // Hardkodet til 100 - brukeren kan ikke velge gradert pensjon
     foersteUttaksalder: {
-      aar: startAlder,
-      maaneder: startMaaned,
+      aar: startAlder.aar,
+      maaneder: startAlder.maaneder,
     },
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     forventetInntekt: aarligInntektFoerUttak,

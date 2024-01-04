@@ -9,20 +9,20 @@ import {
   selectAarligInntektFoerUttakFraBrukerInput,
   selectAarligInntektFoerUttakFraSkatt,
   selectAarligInntektFoerUttak,
-  selectFormatertUttaksalder,
+  selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
   selectHarHentetTpoMedlemskap,
 } from '../selectors'
 import { store, RootState } from '@/state/store'
+import { Simulation } from '@/state/userInput/userInputReducer'
 
 describe('userInput selectors', () => {
   const initialState = store.getState()
 
-  const currentSimulation = {
-    formatertUttaksalder: '62 alder.aar string.og 5 alder.maaneder',
-    startAar: 62,
-    startMaaned: 5,
-    uttaksgrad: 100,
+  const currentSimulation: Simulation = {
+    uttaksperioder: [],
+    formatertUttaksalderReadOnly: '62 alder.aar string.og 5 alder.maaneder',
+    startAlder: { aar: 62, maaneder: 5 },
     aarligInntektFoerUttak: 0,
   }
 
@@ -351,7 +351,7 @@ describe('userInput selectors', () => {
         },
       },
     }
-    expect(selectFormatertUttaksalder(state)).toBe(
+    expect(selectFormatertUttaksalderReadOnly(state)).toBe(
       '62 alder.aar string.og 5 alder.maaneder'
     )
   })

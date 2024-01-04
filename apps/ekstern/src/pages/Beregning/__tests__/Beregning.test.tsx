@@ -36,6 +36,7 @@ describe('Beregning', () => {
       },
     },
   }
+
   describe('Gitt at feature-toggle for detaljert fane skrues av og på', () => {
     it('vises det toggle mellom "enkel" og "detaljert" visning', () => {
       mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
@@ -71,9 +72,10 @@ describe('Beregning', () => {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: {
-              formatertUttaksalder: '70 alder.aar string.og 4 alder.maaned',
-              startAar: 70,
-              startMaaned: 4,
+              uttaksperioder: [],
+              formatertUttaksalderReadOnly:
+                '70 alder.aar string.og 4 alder.maaned',
+              startAlder: { aar: 70, maaneder: 4 },
               aarligInntektFoerUttak: 300000,
             },
           },
@@ -196,6 +198,7 @@ describe('Beregning', () => {
       ).toBeInTheDocument()
     })
   })
+
   describe('Gitt at pensjonskalkulator er i "avansert" visning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="avansert" />)
@@ -204,6 +207,14 @@ describe('Beregning', () => {
           await screen.findByText('Pensjonsgivende inntekt frem til pensjon')
         ).toBeInTheDocument()
       })
+    })
+  })
+
+  it('gir mulighet til å avbryte og starte ny beregning ', () => {
+    render(<Beregning visning="enkel" />)
+    waitFor(async () => {
+      expect(screen.getByText('stegvisning.avbryt')).toBeVisible()
+      expect(screen.getByText('stegvisning.tilbake_start')).toBeVisible()
     })
   })
 })
