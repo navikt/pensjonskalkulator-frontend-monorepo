@@ -88,6 +88,36 @@ describe('userInputSlice', () => {
       })
     })
 
+    it('setCurrentSimulationUttaksperioder', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setCurrentSimulationUttaksperioder([
+          { startAlder: { aar: 67, maaneder: 3 }, grad: 20 },
+        ])
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          uttaksperioder: [{ startAlder: { aar: 67, maaneder: 3 }, grad: 20 }],
+        },
+      })
+
+      const updatedState2 = userInputSlice(
+        updatedState,
+        userInputActions.setCurrentSimulationUttaksperioder([])
+      )
+
+      expect(updatedState2).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          uttaksperioder: [],
+        },
+      })
+    })
+
     it('syncCurrentSimulationFormatertUttaksalderReadOnly', () => {
       const updatedState = userInputSlice(
         userInputInitialState,

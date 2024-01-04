@@ -69,6 +69,12 @@ export const userInputSlice = createSlice({
     ) => {
       state.currentSimulation.aarligInntektFoerUttak = action.payload
     },
+    setCurrentSimulationUttaksperioder: (
+      state,
+      action: PayloadAction<Uttaksperiode[]>
+    ) => {
+      state.currentSimulation.uttaksperioder = action.payload
+    },
     syncCurrentSimulationFormatertUttaksalderReadOnly: (
       state,
       action: PayloadAction<string>
