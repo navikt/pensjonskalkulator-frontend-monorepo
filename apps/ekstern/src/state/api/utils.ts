@@ -35,8 +35,7 @@ export const generateAlderspensjonRequestBody = (args: {
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
   aarligInntektFoerUttak: number
-  startAlder: number | null
-  startMaaned: number | null
+  startAlder: Alder | null
 }): AlderspensjonRequestBody | undefined => {
   const {
     afp,
@@ -45,10 +44,9 @@ export const generateAlderspensjonRequestBody = (args: {
     foedselsdato,
     aarligInntektFoerUttak,
     startAlder,
-    startMaaned,
   } = args
 
-  if (!foedselsdato || !startAlder || startMaaned === null) {
+  if (!foedselsdato || !startAlder) {
     return undefined
   }
 
@@ -58,8 +56,8 @@ export const generateAlderspensjonRequestBody = (args: {
 
     uttaksgrad: 100, // Hardkodet til 100 - brukeren kan ikke velge gradert pensjon
     foersteUttaksalder: {
-      aar: startAlder,
-      maaneder: startMaaned,
+      aar: startAlder.aar,
+      maaneder: startAlder.maaneder,
     },
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     forventetInntekt: aarligInntektFoerUttak,
