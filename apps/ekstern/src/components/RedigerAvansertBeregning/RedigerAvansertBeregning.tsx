@@ -163,7 +163,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         {uttaksperiode?.grad && (
           <div>
             <TemporaryAlderVelgerAvansert
-              defaultValue={uttaksperiode.startAlder ?? undefined}
+              defaultValue={uttaksperiode?.startAlder ?? undefined}
               grad={uttaksperiode.grad}
               hasValidationError={
                 validationErrors['uttaksalder-gradert-pensjon']

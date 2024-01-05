@@ -35,6 +35,11 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
     React.useState<TidligsteUttaksalderRequestBody | undefined>(undefined)
+  const [value, setValue] = React.useState<string | undefined>(
+    defaultValue
+      ? formatUttaksalder(intl, defaultValue, { compact: true })
+      : undefined
+  )
 
   React.useEffect(() => {
     setTidligsteUttaksalderRequestBody({
@@ -61,6 +66,12 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
   React.useEffect(() => {
     setShowValidationError(true)
   }, [hasValidationError])
+
+  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setValue(e.target.value)
+    ;(prevShowValidationError: boolean) =>
+      setShowValidationError(!prevShowValidationError)
+  }
 
   const formaterteAldere = React.useMemo(
     () =>
@@ -104,17 +115,13 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
               )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`
             : ''
         }
-        defaultValue={
-          defaultValue ? formatUttaksalder(intl, defaultValue) : undefined
-        }
+        value={value}
         error={
           hasValidationError && showValidationError
             ? 'VALIDATION ERROR'
             : undefined
         }
-        onChange={(prevShowValidationError) =>
-          setShowValidationError(!prevShowValidationError)
-        }
+        onChange={onChange}
       >
         <option>Velg alder</option>
         {formaterteAldere.slice(0, formaterteAldere.length).map((alderChip) => (
