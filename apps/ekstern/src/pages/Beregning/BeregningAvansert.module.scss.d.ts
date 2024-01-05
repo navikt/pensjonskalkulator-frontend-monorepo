@@ -4,6 +4,6 @@ declare const classNames: typeof globalClassNames & {
   readonly container__hasMobilePadding: "container__hasMobilePadding";
   readonly container__hasTopMargin: "container__hasTopMargin";
   readonly background: "background";
-  readonly background__white: "background__white";
+  readonly background__lightgray: "background__lightgray";
 };
 export = classNames;
