@@ -18,8 +18,7 @@
   left: 0;
   right: 0;
 
-  &__white {
-    background-color: var(--a-white);
-    transition: background-color 0.15s ease;
+  &__lightgray {
+    background-color: var(--a-gray-100);
   }
 }

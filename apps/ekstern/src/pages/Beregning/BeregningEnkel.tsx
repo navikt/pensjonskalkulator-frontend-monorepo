@@ -113,63 +113,63 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
 
   return (
     <>
-      <div className={styles.container}>
-        <TidligstMuligUttaksalder
-          tidligstMuligUttak={tidligstMuligUttak}
-          hasAfpOffentlig={afp === 'ja_offentlig'}
-          show1963Text={show1963Text}
-        />
-      </div>
-
-      <div className={clsx(styles.background, styles.background__white)}>
+      <div className={clsx(styles.background, styles.background__lightgray)}>
         <div className={styles.container}>
-          <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
+          <TidligstMuligUttaksalder
+            tidligstMuligUttak={tidligstMuligUttak}
+            hasAfpOffentlig={afp === 'ja_offentlig'}
+            show1963Text={show1963Text}
+          />
         </div>
-
-        {startAlder !== null && (
-          <div
-            className={`${styles.container} ${styles.container__hasMobilePadding}`}
-          >
-            {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
-              <>
-                <Heading level="2" size="small">
-                  <FormattedMessage id="beregning.title" />
-                </Heading>
-                <Alert onRetry={isError ? onRetry : undefined}>
-                  {startAlder && startAlder.aar < 67 && (
-                    <FormattedMessage
-                      id="beregning.lav_opptjening"
-                      values={{ startAar: startAlder.aar }}
-                    />
-                  )}
-                  {isError && <FormattedMessage id="beregning.error" />}
-                </Alert>
-              </>
-            ) : (
-              <>
-                <PensjonsavtalerAccordionContext.Provider
-                  value={{
-                    ref: grunnlagPensjonsavtalerRef,
-                    isOpen: isPensjonsavtalerAccordionItemOpen,
-                    toggleOpen: togglePensjonsavtalerAccordionItem,
-                  }}
-                >
-                  <Simulering
-                    isLoading={isFetching}
-                    aarligInntektFoerUttak={aarligInntektFoerUttak ?? 0}
-                    alderspensjon={alderspensjon}
-                    showAfp={afp === 'ja_privat'}
-                    showButtonsAndTable={
-                      !isError && alderspensjon?.vilkaarErOppfylt
-                    }
-                  />
-                  <Grunnlag />
-                </PensjonsavtalerAccordionContext.Provider>
-              </>
-            )}
-          </div>
-        )}
       </div>
+
+      <div className={styles.container}>
+        <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
+      </div>
+
+      {startAlder !== null && (
+        <div
+          className={`${styles.container} ${styles.container__hasMobilePadding}`}
+        >
+          {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
+            <>
+              <Heading level="2" size="small">
+                <FormattedMessage id="beregning.title" />
+              </Heading>
+              <Alert onRetry={isError ? onRetry : undefined}>
+                {startAlder && startAlder.aar < 67 && (
+                  <FormattedMessage
+                    id="beregning.lav_opptjening"
+                    values={{ startAar: startAlder.aar }}
+                  />
+                )}
+                {isError && <FormattedMessage id="beregning.error" />}
+              </Alert>
+            </>
+          ) : (
+            <>
+              <PensjonsavtalerAccordionContext.Provider
+                value={{
+                  ref: grunnlagPensjonsavtalerRef,
+                  isOpen: isPensjonsavtalerAccordionItemOpen,
+                  toggleOpen: togglePensjonsavtalerAccordionItem,
+                }}
+              >
+                <Simulering
+                  isLoading={isFetching}
+                  aarligInntektFoerUttak={aarligInntektFoerUttak ?? 0}
+                  alderspensjon={alderspensjon}
+                  showAfp={afp === 'ja_privat'}
+                  showButtonsAndTable={
+                    !isError && alderspensjon?.vilkaarErOppfylt
+                  }
+                />
+                <Grunnlag />
+              </PensjonsavtalerAccordionContext.Provider>
+            </>
+          )}
+        </div>
+      )}
     </>
   )
 }
