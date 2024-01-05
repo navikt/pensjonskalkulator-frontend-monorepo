@@ -114,71 +114,81 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     <div
       className={`${styles.container} ${styles.container__hasMobilePadding}`}
     >
-      <form id="avansert-beregning" method="dialog" onSubmit={onSubmit}></form>
-      <div>
-        <Label>Pensjonsgivende inntekt frem til pensjon</Label>
-        <div className={styles.description}>
-          <span className={styles.descriptionText}>
-            {`${formatWithoutDecimal(
-              aarligInntektFoerUttak
-            )} kr per år før skatt`}
-          </span>
+      <div className={styles.form}>
+        <form
+          id="avansert-beregning"
+          method="dialog"
+          onSubmit={onSubmit}
+        ></form>
+        <div>
+          <Label className={styles.label}>
+            Pensjonsgivende inntekt frem til pensjon
+          </Label>
+          <div className={styles.description}>
+            <span className={styles.descriptionText}>
+              {`${formatWithoutDecimal(
+                aarligInntektFoerUttak
+              )} kr per år før skatt`}
+            </span>
 
-          <EndreInntekt buttonLabel="beregning.avansert.rediger.inntekt.button" />
+            <EndreInntekt buttonLabel="beregning.avansert.rediger.inntekt.button" />
+          </div>
+          <InfoModalInntekt />
         </div>
-        <InfoModalInntekt />
-      </div>
-      <hr className={styles.separator} />
-      <div>
-        <Select
-          form="avansert-beregning"
-          name="uttaksgrad"
-          label="Hvor mye alderspensjon vil du ta ut?"
-          description="Velg uttaksgrad"
-          defaultValue={
-            uttaksperioder.length > 0 && uttaksperioder[0].grad
-              ? `${uttaksperioder[0].grad} %`
-              : '100 %'
-          }
-          onChange={onUttaksgradChange}
-          error={validationErrors.uttaksgrad ? 'VALIDATION ERROR' : undefined}
-        >
-          <option>Velg uttaksgrad</option>
-          {formaterteUttaksgrad.map((grad) => (
-            <option key={grad} value={grad}>
-              {grad}
-            </option>
-          ))}
-        </Select>
-      </div>
-      <hr className={styles.separator} />
+        <hr className={styles.separator} />
+        <div>
+          <Select
+            form="avansert-beregning"
+            name="uttaksgrad"
+            label="Hvor mye alderspensjon vil du ta ut?"
+            description="Velg uttaksgrad"
+            defaultValue={
+              uttaksperioder.length > 0 && uttaksperioder[0].grad
+                ? `${uttaksperioder[0].grad} %`
+                : '100 %'
+            }
+            onChange={onUttaksgradChange}
+            error={validationErrors.uttaksgrad ? 'VALIDATION ERROR' : undefined}
+          >
+            <option>Velg uttaksgrad</option>
+            {formaterteUttaksgrad.map((grad) => (
+              <option key={grad} value={grad}>
+                {grad}
+              </option>
+            ))}
+          </Select>
+        </div>
+        <hr className={styles.separator} />
 
-      {uttaksperiode?.grad && (
+        {uttaksperiode?.grad && (
+          <div>
+            <TemporaryAlderVelgerAvansert
+              defaultValue={uttaksperiode.startAlder ?? undefined}
+              grad={uttaksperiode.grad}
+              hasValidationError={
+                validationErrors['uttaksalder-gradert-pensjon']
+              }
+            />
+            <hr className={styles.separator} />
+          </div>
+        )}
         <div>
           <TemporaryAlderVelgerAvansert
-            defaultValue={uttaksperiode.startAlder ?? undefined}
-            grad={uttaksperiode.grad}
-            hasValidationError={validationErrors['uttaksalder-gradert-pensjon']}
+            defaultValue={startAlder ?? undefined}
+            grad={100}
+            hasValidationError={validationErrors['uttaksalder-hele-pensjon']}
           />
-          <hr className={styles.separator} />
         </div>
-      )}
-      <div>
-        <TemporaryAlderVelgerAvansert
-          defaultValue={startAlder ?? undefined}
-          grad={100}
-          hasValidationError={validationErrors['uttaksalder-hele-pensjon']}
-        />
-      </div>
-      <div>
-        <Button form="avansert-beregning" className={styles.button}>
-          {intl.formatMessage({
-            id: 'stegvisning.beregn',
-          })}
-        </Button>
-        {/* <Button type="button" variant="secondary" onClick={() => {}}>
+        <div>
+          <Button form="avansert-beregning" className={styles.button}>
+            {intl.formatMessage({
+              id: 'stegvisning.beregn',
+            })}
+          </Button>
+          {/* <Button type="button" variant="secondary" onClick={() => {}}>
           NULLSTILL
         </Button> */}
+        </div>
       </div>
     </div>
   )

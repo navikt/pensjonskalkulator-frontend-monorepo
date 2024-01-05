@@ -8,7 +8,6 @@ import { Button } from '@navikt/ds-react'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttak,
-  selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder } from '@/utils/alder'
@@ -24,9 +23,6 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
 }) => {
   const intl = useIntl()
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const formatertUttaksalderReadOnly = useAppSelector(
-    selectFormatertUttaksalderReadOnly
-  )
 
   const { startAlder, uttaksperioder, aarligInntektVedSidenAvPensjon } =
     useAppSelector(selectCurrentSimulation)
@@ -56,24 +52,32 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                       {intl.formatMessage({
                         id: 'beregning.avansert.resultatkort.fra',
                       })}
-                      {formatUttaksalder(intl, {
-                        aar: startAlderGradertPensjon.aar,
-                        maaneder: startAlderGradertPensjon.maaneder,
-                      })}
+                      {formatUttaksalder(
+                        intl,
+                        {
+                          aar: startAlderGradertPensjon.aar,
+                          maaneder: startAlderGradertPensjon.maaneder,
+                        },
+                        { compact: true }
+                      )}
                       {intl.formatMessage({
                         id: 'beregning.avansert.resultatkort.til',
                       })}
 
-                      {formatUttaksalder(intl, {
-                        aar:
-                          startAlder.maaneder > 0
-                            ? startAlder.aar
-                            : startAlder.aar - 1,
-                        maaneder:
-                          startAlder.maaneder > 0
-                            ? startAlder.maaneder - 1
-                            : 11,
-                      })}
+                      {formatUttaksalder(
+                        intl,
+                        {
+                          aar:
+                            startAlder.maaneder > 0
+                              ? startAlder.aar
+                              : startAlder.aar - 1,
+                          maaneder:
+                            startAlder.maaneder > 0
+                              ? startAlder.maaneder - 1
+                              : 11,
+                        },
+                        { compact: true }
+                      )}
                     </dt>
                     <dd className={styles.cardLeftListDescription}>
                       {grad && (
@@ -104,7 +108,15 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.fra',
             })}
-            {formatertUttaksalderReadOnly}
+            {startAlder &&
+              formatUttaksalder(
+                intl,
+                {
+                  aar: startAlder.aar,
+                  maaneder: startAlder.maaneder,
+                },
+                { compact: true }
+              )}
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.til',
             })}
