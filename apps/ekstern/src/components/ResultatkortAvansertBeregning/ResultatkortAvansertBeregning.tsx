@@ -27,11 +27,9 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
   const formatertUttaksalderReadOnly = useAppSelector(
     selectFormatertUttaksalderReadOnly
   )
-  const {
-    uttaksperioder,
-    aarligInntektVedSidenAvPensjon:
-      aarligInntektVedSidenAv100ProsentAlderspensjon,
-  } = useAppSelector(selectCurrentSimulation)
+
+  const { startAlder, uttaksperioder, aarligInntektVedSidenAvPensjon } =
+    useAppSelector(selectCurrentSimulation)
 
   return (
     <div className={styles.card}>
@@ -49,49 +47,59 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
               id: 'beregning.avansert.resultatkort.inntekt_2',
             })}
           </dd>
-          {uttaksperioder.map(({ startAlder, grad, aarligInntekt }) => {
-            if (startAlder !== null)
-              return (
-                <>
-                  <dt className={styles.cardLeftListTitle}>
-                    {intl.formatMessage({
-                      id: 'beregning.avansert.resultatkort.fra',
-                    })}
-                    {formatUttaksalder(intl, {
-                      aar: startAlder.aar,
-                      maaneder: startAlder.maaneder,
-                    })}
-                    {intl.formatMessage({
-                      id: 'beregning.avansert.resultatkort.til',
-                    })}
-                    {intl.formatMessage({
-                      id: 'beregning.avansert.resultatkort.livsvarig',
-                    })}
-                  </dt>
-                  <dd className={styles.cardLeftListDescription}>
-                    {grad && (
-                      <>
-                        {intl.formatMessage({
-                          id: 'beregning.avansert.resultatkort.alderspensjon',
-                        })}
-                        {grad} %<br />
-                      </>
-                    )}
-                    {aarligInntekt && (
-                      <>
-                        {intl.formatMessage({
-                          id: 'beregning.avansert.resultatkort.inntekt_1',
-                        })}
-                        {formatWithoutDecimal(aarligInntekt)}
-                        {intl.formatMessage({
-                          id: 'beregning.avansert.resultatkort.inntekt_2',
-                        })}
-                      </>
-                    )}
-                  </dd>
-                </>
-              )
-          })}
+          {uttaksperioder.map(
+            ({ startAlder: startAlderGradertPensjon, grad, aarligInntekt }) => {
+              if (startAlder && startAlderGradertPensjon)
+                return (
+                  <>
+                    <dt className={styles.cardLeftListTitle}>
+                      {intl.formatMessage({
+                        id: 'beregning.avansert.resultatkort.fra',
+                      })}
+                      {formatUttaksalder(intl, {
+                        aar: startAlderGradertPensjon.aar,
+                        maaneder: startAlderGradertPensjon.maaneder,
+                      })}
+                      {intl.formatMessage({
+                        id: 'beregning.avansert.resultatkort.til',
+                      })}
+
+                      {formatUttaksalder(intl, {
+                        aar:
+                          startAlder.maaneder > 0
+                            ? startAlder.aar
+                            : startAlder.aar - 1,
+                        maaneder:
+                          startAlder.maaneder > 0
+                            ? startAlder.maaneder - 1
+                            : 11,
+                      })}
+                    </dt>
+                    <dd className={styles.cardLeftListDescription}>
+                      {grad && (
+                        <>
+                          {intl.formatMessage({
+                            id: 'beregning.avansert.resultatkort.alderspensjon',
+                          })}
+                          {grad} %<br />
+                        </>
+                      )}
+                      {aarligInntekt && (
+                        <>
+                          {intl.formatMessage({
+                            id: 'beregning.avansert.resultatkort.inntekt_1',
+                          })}
+                          {formatWithoutDecimal(aarligInntekt)}
+                          {intl.formatMessage({
+                            id: 'beregning.avansert.resultatkort.inntekt_2',
+                          })}
+                        </>
+                      )}
+                    </dd>
+                  </>
+                )
+            }
+          )}
           <dt className={styles.cardLeftListTitle}>
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.fra',
@@ -109,15 +117,13 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
               id: 'beregning.avansert.resultatkort.alderspensjon',
             })}
             100 %
-            {aarligInntektVedSidenAv100ProsentAlderspensjon && (
+            {aarligInntektVedSidenAvPensjon && (
               <>
                 <br />
                 {intl.formatMessage({
                   id: 'beregning.avansert.resultatkort.inntekt_1',
                 })}
-                {formatWithoutDecimal(
-                  aarligInntektVedSidenAv100ProsentAlderspensjon
-                )}
+                {formatWithoutDecimal(aarligInntektVedSidenAvPensjon)}
                 {intl.formatMessage({
                   id: 'beregning.avansert.resultatkort.inntekt_2',
                 })}
