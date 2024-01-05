@@ -58,8 +58,7 @@ export const BeregningAvansert: React.FC = () => {
         harSamboer,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
-        startAlder: startAlder.aar,
-        startMaaned: startAlder.maaneder,
+        startAlder,
       })
       setAlderspensjonRequestBody(requestBody)
     }
