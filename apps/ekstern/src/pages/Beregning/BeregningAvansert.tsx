@@ -52,6 +52,7 @@ export const BeregningAvansert: React.FC = () => {
 
   React.useEffect(() => {
     if (startAlder) {
+      // TODO denne må kunne ta høyde for uttaksperioder og inntekt ved siden av alderspensjon
       const requestBody = generateAlderspensjonRequestBody({
         afp,
         sivilstand: person?.sivilstand,

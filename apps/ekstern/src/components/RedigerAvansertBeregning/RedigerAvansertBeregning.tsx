@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl'
 import { Button, Label, Select } from '@navikt/ds-react'
 
 import { EndreInntekt } from '@/components/EndreInntekt'
+import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
 import { InfoModalInntekt } from '@/components/InfoModalInntekt'
 import { TemporaryAlderVelgerAvansert } from '@/components/VelgUttaksalder/TemporaryAlderVelgerAvansert'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -31,7 +32,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const intl = useIntl()
   const dispatch = useAppDispatch()
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const { startAlder, uttaksperioder } = useAppSelector(selectCurrentSimulation)
+  const { startAlder, uttaksperioder, formatertUttaksalderReadOnly } =
+    useAppSelector(selectCurrentSimulation)
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, boolean>
   >({
@@ -39,13 +41,16 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     'uttaksalder-hele-pensjon': false,
     'uttaksalder-gradert-pensjon': false,
   })
+  const [temporaryStartAlder, setTemporaryStartAlder] = React.useState<string>(
+    formatertUttaksalderReadOnly ?? ''
+  )
   const [uttaksperiode, setUttaksperiode] = React.useState<
     Partial<Uttaksperiode> | undefined
   >(uttaksperioder[0])
 
   const formaterteUttaksgrad = ['20 %', '40 %', '50 %', '60 %', '80 %', '100 %']
 
-  const onUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValidationErrors((prevState) => {
       return {
         ...prevState,
@@ -147,7 +152,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
                 ? `${uttaksperioder[0].grad} %`
                 : '100 %'
             }
-            onChange={onUttaksgradChange}
+            onChange={handleUttaksgradChange}
             error={validationErrors.uttaksgrad ? 'VALIDATION ERROR' : undefined}
           >
             <option>Velg uttaksgrad</option>
@@ -177,7 +182,13 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             defaultValue={startAlder ?? undefined}
             grad={100}
             hasValidationError={validationErrors['uttaksalder-hele-pensjon']}
+            onChangeCallback={(s) => {
+              setTemporaryStartAlder(s)
+            }}
           />
+        </div>
+        <div>
+          <EndreInntektVsaPensjon temporaryStartAlder={temporaryStartAlder} />
         </div>
         <div>
           <Button form="avansert-beregning" className={styles.button}>
