@@ -42,7 +42,7 @@ describe('LanguageProvider-utils', () => {
       ).length
 
       const nbTranslations = getTranslations('nb')
-      expect(nbTranslations['pageframework.title']).toBe('Pensjonskalkulator')
+      expect(nbTranslations['pageframework.title']).toBe('Pensjonskalkulator NY')
       const nbTranslationsKeys = Object.keys(nbTranslations)
       expect(nbTranslationsKeys).toHaveLength(forventetLength)
 
