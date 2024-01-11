@@ -165,10 +165,10 @@ describe('BeregningEnkel', () => {
               samtykke: true,
               samboer: false,
               currentSimulation: {
-                uttaksperioder: [],
                 formatertUttaksalderReadOnly: '63 alder.aar',
                 startAlder: { aar: 63, maaneder: 0 },
                 aarligInntektFoerUttak: 0,
+                gradertUttaksperiode: null,
               },
             },
           },

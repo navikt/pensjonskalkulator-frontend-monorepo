@@ -20,10 +20,10 @@ describe('userInput selectors', () => {
   const initialState = store.getState()
 
   const currentSimulation: Simulation = {
-    uttaksperioder: [],
     formatertUttaksalderReadOnly: '62 alder.aar string.og 5 alder.maaneder',
     startAlder: { aar: 62, maaneder: 5 },
     aarligInntektFoerUttak: 0,
+    gradertUttaksperiode: null,
   }
 
   it('selectUtenlandsopphold', () => {

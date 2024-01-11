@@ -17,10 +17,10 @@ describe('store', () => {
       afp: null,
       samboer: null,
       currentSimulation: {
-        uttaksperioder: [],
         formatertUttaksalderReadOnly: null,
         startAlder: null,
         aarligInntektFoerUttak: 500000,
+        gradertUttaksperiode: null,
       },
     }
 

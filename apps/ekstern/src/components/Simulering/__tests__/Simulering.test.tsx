@@ -13,10 +13,10 @@ import { act, render, screen, waitFor, userEvent } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
-    uttaksperioder: [],
     formatertUttaksalderReadOnly: '67 år string.og 0 alder.maaned',
     startAlder: { aar: 67, maaneder: 0 },
     aarligInntektFoerUttak: 0,
+    gradertUttaksperiode: null,
   }
 
   afterEach(() => {

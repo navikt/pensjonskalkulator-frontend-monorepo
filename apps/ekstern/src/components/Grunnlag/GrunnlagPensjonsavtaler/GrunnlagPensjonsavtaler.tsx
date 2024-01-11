@@ -54,7 +54,7 @@ export const GrunnlagPensjonsavtaler = () => {
       const requestBody = generatePensjonsavtalerRequestBody(
         aarligInntektFoerUttak ?? 0,
         afp,
-        startAlder,
+        { uttaksalder: startAlder },
         sivilstand
       )
       setPensjonsavtalerRequestBody(requestBody)
