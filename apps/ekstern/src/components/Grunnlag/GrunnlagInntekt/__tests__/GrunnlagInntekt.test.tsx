@@ -1,6 +1,12 @@
 import { GrunnlagInntekt } from '..'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { render, screen, swallowErrorsAsync, userEvent } from '@/test-utils'
+import {
+  render,
+  screen,
+  swallowErrorsAsync,
+  userEvent,
+  waitFor,
+} from '@/test-utils'
 
 describe('GrunnlagInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {
@@ -15,7 +21,7 @@ describe('GrunnlagInntekt', () => {
 
     it('viser riktig tittel med formatert inntekt og tekst', async () => {
       expect(
-        screen.getByText(
+        await screen.findByText(
           'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon',
           { exact: false }
         )
@@ -25,13 +31,15 @@ describe('GrunnlagInntekt', () => {
 
     it('brukeren kan overskrive den', async () => {
       await user.click(
-        screen.getByText('inntekt.endre_inntekt_modal.open.button')
+        await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
 
-      await user.type(screen.getByTestId('inntekt-textfield'), '123000')
-      await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
+      await user.type(await screen.findByTestId('inntekt-textfield'), '123000')
+      await user.click(
+        await screen.findByText('inntekt.endre_inntekt_modal.button')
+      )
 
-      expect(screen.getByText('123 000 kr')).toBeVisible()
+      expect(await screen.findByText('123 000 kr')).toBeVisible()
       expect(
         screen.queryByText('grunnlag.inntekt.title.error')
       ).not.toBeInTheDocument()
@@ -39,7 +47,7 @@ describe('GrunnlagInntekt', () => {
         screen.queryByText('grunnlag.inntekt.ingress.error')
       ).not.toBeInTheDocument()
       expect(
-        screen.getByText(
+        await screen.findByText(
           'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon',
           { exact: false }
         )
@@ -48,10 +56,10 @@ describe('GrunnlagInntekt', () => {
 
     it('brukeren kan gå ut av modulen og la inntekt uendret', async () => {
       await user.click(
-        screen.getByText('inntekt.endre_inntekt_modal.open.button')
+        await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
-      await user.click(screen.getByText('stegvisning.avbryt'))
-      expect(screen.getByText('521 338 kr')).toBeVisible()
+      await user.click(await screen.findByText('stegvisning.avbryt'))
+      expect(await screen.findByText('521 338 kr')).toBeVisible()
     })
   })
 
@@ -60,11 +68,13 @@ describe('GrunnlagInntekt', () => {
       mockErrorResponse('/inntekt')
       const user = userEvent.setup()
       render(<GrunnlagInntekt />)
-      expect(screen.getByText('grunnlag.inntekt.title')).toBeVisible()
-      expect(screen.getByText('grunnlag.inntekt.title.error')).toBeVisible()
+      expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.inntekt.title.error')
+      ).toBeVisible()
       expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
-      const buttons = screen.getAllByRole('button')
 
+      const buttons = await screen.findAllByRole('button')
       await user.click(buttons[2])
 
       expect(
@@ -76,41 +86,50 @@ describe('GrunnlagInntekt', () => {
           { exact: false }
         )
       ).not.toBeInTheDocument()
-      expect(screen.getByText('inntekt.info_modal.open.link')).toBeVisible()
       expect(
-        screen.getByText('inntekt.endre_inntekt_modal.open.button')
+        await screen.findByText('inntekt.info_modal.open.link')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       ).toBeVisible()
     })
 
     it('viser riktig tittel og tekst med 0 inntekt, og brukeren kan overskrive den', async () => {
+      const user = userEvent.setup()
       swallowErrorsAsync(async () => {
         mockResponse('/inntekt', {
           status: 200,
           json: { aar: '2021', beloep: 0 },
         })
-        const user = userEvent.setup()
+
         render(<GrunnlagInntekt />)
-        expect(screen.getByText('grunnlag.inntekt.title')).toBeVisible()
-        expect(screen.getByText('grunnlag.inntekt.title.error')).toBeVisible()
-        expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
-        const buttons = screen.getAllByRole('button')
+      })
+      expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.inntekt.title.error')
+      ).toBeVisible()
+      expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
+      const buttons = screen.getAllByRole('button')
 
-        await user.click(buttons[2])
+      await user.click(buttons[2])
 
-        expect(
-          await screen.findByText('grunnlag.inntekt.ingress.error')
-        ).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.inntekt.ingress.error')
+      ).toBeVisible()
+      waitFor(() => {
         expect(
           screen.queryByText(
             'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon',
             { exact: false }
           )
         ).not.toBeInTheDocument()
-        expect(screen.getByText('inntekt.info_modal.open.link')).toBeVisible()
-        expect(
-          screen.getByText('inntekt.endre_inntekt_modal.open.button')
-        ).toBeVisible()
       })
+      expect(
+        await screen.findByText('inntekt.info_modal.open.link')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('inntekt.endre_inntekt_modal.open.button')
+      ).toBeVisible()
     })
   })
 
@@ -120,10 +139,10 @@ describe('GrunnlagInntekt', () => {
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[2])
-    await user.click(screen.getByText('inntekt.info_modal.open.link'))
-    expect(screen.getByText('inntekt.info_modal.title')).toBeVisible()
-    expect(screen.getByText('inntekt.info_modal.subtitle')).toBeVisible()
-    await user.click(screen.getByText('inntekt.info_modal.lukk'))
+    await user.click(await screen.findByText('inntekt.info_modal.open.link'))
+    expect(await screen.findByText('inntekt.info_modal.title')).toBeVisible()
+    expect(await screen.findByText('inntekt.info_modal.subtitle')).toBeVisible()
+    await user.click(await screen.findByText('inntekt.info_modal.lukk'))
     expect(screen.queryByText('inntekt.info_modal.title')).not.toBeVisible()
   })
 })

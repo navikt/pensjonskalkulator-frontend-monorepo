@@ -40,15 +40,13 @@ describe('Step 5', () => {
         userInput: { ...userInputInitialState, samtykke: true },
       },
     })
-    await waitFor(async () => {
-      const radioButtons = screen.getAllByRole('radio')
-      expect(radioButtons[0]).not.toBeChecked()
-      expect(radioButtons[1]).not.toBeChecked()
-      await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.beregn'))
-      expect(store.getState().userInput.samboer).toBe(true)
-      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
-    })
+    const radioButtons = await screen.findAllByRole('radio')
+    expect(radioButtons[0]).not.toBeChecked()
+    expect(radioButtons[1]).not.toBeChecked()
+    await user.click(radioButtons[0])
+    await user.click(screen.getByText('stegvisning.beregn'))
+    expect(store.getState().userInput.samboer).toBe(true)
+    expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
   })
 
   it('sender tilbake til steg 4 når brukeren klikker på Tilbake', async () => {
