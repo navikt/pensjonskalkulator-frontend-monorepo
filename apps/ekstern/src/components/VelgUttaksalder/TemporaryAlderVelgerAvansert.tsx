@@ -20,12 +20,14 @@ interface Props {
   grad: number
   defaultValue?: Alder
   hasValidationError?: boolean
+  onChangeCallback?: (s: string) => void
 }
 
 export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
   grad,
   defaultValue,
   hasValidationError,
+  onChangeCallback,
 }) => {
   const intl = useIntl()
   const afp = useAppSelector(selectAfp)
@@ -71,6 +73,7 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
     setValue(e.target.value)
     ;(prevShowValidationError: boolean) =>
       setShowValidationError(!prevShowValidationError)
+    onChangeCallback && onChangeCallback(e.target.value)
   }
 
   const formaterteAldere = React.useMemo(

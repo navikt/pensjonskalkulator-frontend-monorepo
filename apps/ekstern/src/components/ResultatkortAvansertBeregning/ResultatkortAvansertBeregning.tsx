@@ -50,7 +50,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                   <>
                     <dt className={styles.cardLeftListTitle}>
                       {intl.formatMessage({
-                        id: 'beregning.avansert.resultatkort.fra',
+                        id: 'beregning.avansert.resultatkort.Fra',
                       })}
                       {formatUttaksalder(
                         intl,
@@ -106,7 +106,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
           )}
           <dt className={styles.cardLeftListTitle}>
             {intl.formatMessage({
-              id: 'beregning.avansert.resultatkort.fra',
+              id: 'beregning.avansert.resultatkort.Fra',
             })}
             {startAlder &&
               formatUttaksalder(

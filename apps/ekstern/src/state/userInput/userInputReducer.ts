@@ -69,6 +69,12 @@ export const userInputSlice = createSlice({
     ) => {
       state.currentSimulation.aarligInntektFoerUttak = action.payload
     },
+    setCurrentSimulationAarligInntektVsaPensjon: (
+      state,
+      action: PayloadAction<number | undefined>
+    ) => {
+      state.currentSimulation.aarligInntektVedSidenAvPensjon = action.payload
+    },
     setCurrentSimulationUttaksperioder: (
       state,
       action: PayloadAction<Uttaksperiode[]>

@@ -234,7 +234,8 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_1': 'Inntekt: ',
   'beregning.avansert.resultatkort.inntekt_2': ' kr/år før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
-  'beregning.avansert.resultatkort.fra': 'Fra ',
+  'beregning.avansert.resultatkort.Fra': 'Fra ',
+  'beregning.avansert.resultatkort.fra': 'fra ',
   'beregning.avansert.resultatkort.til': ' til ',
   'beregning.avansert.resultatkort.livsvarig': 'livsvarig',
   'beregning.avansert.rediger.inntekt.button': 'Endre',
@@ -316,6 +317,20 @@ const translations = {
   'inntekt.endre_inntekt_modal.textfield.validation_error.max':
     'Beløpet kan ikke overskride 100 000 000 kroner.',
   'inntekt.endre_inntekt_modal.button': 'Oppdater inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.label':
+    'Forventet årsinntekt mens du tar ut 100 % alderspensjon',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2':
+    'Du kan tjene så mye som du vil samtidig som du tar ut 100 % alderspensjon',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
+    'Legg til inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre': 'Endre inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.slette': 'Slett inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'Pensjonsgivende inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label':
+    'Hva er din forventede årsinntekt mens du tar ut 100 % alderspensjon?',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
+    'Dagens kroneverdi før skatt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button': 'Oppdater inntekt',
   'inntekt.info_modal.open.link': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_modal.title': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_modal.subtitle': 'Dette regnes som pensjonsgivende inntekt:',

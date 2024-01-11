@@ -88,6 +88,21 @@ describe('userInputSlice', () => {
       })
     })
 
+    it('setCurrentSimulationAarligInntektVsaPensjon', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setCurrentSimulationAarligInntektVsaPensjon(800000)
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          aarligInntektVedSidenAvPensjon: 800000,
+        },
+      })
+    })
+
     it('setCurrentSimulationUttaksperioder', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
