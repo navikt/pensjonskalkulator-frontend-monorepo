@@ -244,12 +244,14 @@ const translations = {
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.ingress':
     'Denne beregningen viser 100 % uttak av alderspensjon. I detaljert kalkulator kan du beregne alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
-  'grunnlag.inntekt.title': 'Inntekt',
-  'grunnlag.inntekt.title.error': 'Ingen registrert',
+  'grunnlag.inntekt.title': 'Inntekt frem til uttak',
+  'grunnlag.inntekt.ingress.uendret_inntekt':
+    'Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. ',
+  'grunnlag.inntekt.ingress.endret_inntekt':
+    'Kalkulatoren bruker årsinntekten du har oppgitt som fremtidig inntekt.',
   'grunnlag.inntekt.ingress':
-    'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon.{br}{br}{beloep} kr er din siste pensjonsgivende årsinntekt (fra {aar}) fra Skatteetaten.',
-  'grunnlag.inntekt.ingress.error':
-    'Du er ikke registrert med pensjonsgivende inntekt. Derfor blir 0 kr brukt som din fremtidige inntekt frem til du starter uttak av pensjon. Hvis du får inntekt vil alderspensjonen bli høyere.',
+    'Din siste pensjonsgivende inntekt fra Skatteetaten er {beloep} kr fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>din pensjonsopptjening</dinPensjonBeholdningLink>',
+
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
