@@ -1,6 +1,5 @@
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
-import { act } from 'react-dom/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningEnkel } from '../BeregningEnkel'
@@ -63,7 +62,7 @@ describe('BeregningEnkel', () => {
 
     it('viser feilmelding og skjuler Grunnlag og tabell og gir mulighet til å prøve på nytt, gitt at beregning av alderspensjon har feilet', async () => {
       const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        apiSliceUtils.apiSlice.endpoints.alderspensjonEnkel,
         'initiate'
       )
       mockErrorResponse('/v1/alderspensjon/simulering', {
@@ -153,10 +152,10 @@ describe('BeregningEnkel', () => {
             samtykke: true,
             samboer: false,
             currentSimulation: {
-              uttaksperioder: [],
               formatertUttaksalderReadOnly: '63 alder.aar',
               startAlder: { aar: 63, maaneder: 0 },
               aarligInntektFoerUttak: 0,
+              gradertUttaksperiode: null,
             },
           },
         },

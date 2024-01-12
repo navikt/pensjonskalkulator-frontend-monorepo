@@ -65,10 +65,10 @@ describe('userInputSlice', () => {
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
-          uttaksperioder: [],
           formatertUttaksalderReadOnly: null,
           startAlder: { aar: 65, maaneder: 4 },
           aarligInntektFoerUttak: null,
+          gradertUttaksperiode: null,
         },
       })
     })
@@ -98,37 +98,43 @@ describe('userInputSlice', () => {
         ...userInputInitialState,
         currentSimulation: {
           ...userInputInitialState.currentSimulation,
-          aarligInntektVedSidenAvPensjon: 800000,
+          aarligInntektVsaPensjon: 800000,
         },
       })
     })
 
-    it('setCurrentSimulationUttaksperioder', () => {
+    it('setCurrentSimulationGradertuttaksperiode', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
-        userInputActions.setCurrentSimulationUttaksperioder([
-          { startAlder: { aar: 67, maaneder: 3 }, grad: 20 },
-        ])
+        userInputActions.setCurrentSimulationGradertuttaksperiode({
+          uttaksalder: { aar: 67, maaneder: 3 },
+          grad: 20,
+          aarligInntektVsaPensjon: 150000,
+        })
       )
 
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
           ...userInputInitialState.currentSimulation,
-          uttaksperioder: [{ startAlder: { aar: 67, maaneder: 3 }, grad: 20 }],
+          gradertUttaksperiode: {
+            uttaksalder: { aar: 67, maaneder: 3 },
+            grad: 20,
+            aarligInntektVsaPensjon: 150000,
+          },
         },
       })
 
       const updatedState2 = userInputSlice(
         updatedState,
-        userInputActions.setCurrentSimulationUttaksperioder([])
+        userInputActions.setCurrentSimulationGradertuttaksperiode(null)
       )
 
       expect(updatedState2).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
           ...userInputInitialState.currentSimulation,
-          uttaksperioder: [],
+          gradertUttaksperiode: null,
         },
       })
     })
@@ -160,11 +166,11 @@ describe('userInputSlice', () => {
           afp: 'ja_offentlig',
           samboer: false,
           currentSimulation: {
-            uttaksperioder: [],
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             startAlder: { aar: 66, maaneder: 4 },
             aarligInntektFoerUttak: 300000,
+            gradertUttaksperiode: null,
           },
         },
         userInputActions.flush()
@@ -185,11 +191,11 @@ describe('userInputSlice', () => {
           samboer: false,
 
           currentSimulation: {
-            uttaksperioder: [],
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             startAlder: { aar: 66, maaneder: 4 },
             aarligInntektFoerUttak: 300000,
+            gradertUttaksperiode: null,
           },
         },
         userInputActions.flushCurrentSimulation()

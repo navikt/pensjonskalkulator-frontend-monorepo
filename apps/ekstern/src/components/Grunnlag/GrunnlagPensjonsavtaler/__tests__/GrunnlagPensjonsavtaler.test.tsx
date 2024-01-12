@@ -30,10 +30,10 @@ describe('GrunnlagPensjonsavtaler', () => {
   }
 
   const currentSimulation: Simulation = {
-    uttaksperioder: [],
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
     startAlder: { aar: 67, maaneder: 1 },
     aarligInntektFoerUttak: 0,
+    gradertUttaksperiode: null,
   }
   describe('Gitt at brukeren ikke har samtykket', () => {
     it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress og tabell', async () => {
