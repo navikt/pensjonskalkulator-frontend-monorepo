@@ -250,7 +250,7 @@ const translations = {
   'grunnlag.inntekt.ingress.endret_inntekt':
     'Kalkulatoren bruker årsinntekten du har oppgitt som fremtidig inntekt.',
   'grunnlag.inntekt.ingress':
-    'Din siste pensjonsgivende inntekt fra Skatteetaten er {beloep} kr fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>din pensjonsopptjening</dinPensjonBeholdningLink>',
+    'Din siste pensjonsgivende inntekt fra Skatteetaten er {beloep} kr fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
 
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
