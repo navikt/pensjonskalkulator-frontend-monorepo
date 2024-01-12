@@ -51,16 +51,17 @@ export const userInputSlice = createSlice({
     setSamboer: (state, action: PayloadAction<boolean>) => {
       state.samboer = action.payload
     },
+    // TODO utvide test til å støtte null
     setCurrentSimulationStartAlder: (
       state,
       action: PayloadAction<{
         aar: number
         maaneder: number
-      }>
+      } | null>
     ) => {
       state.currentSimulation = {
         ...state.currentSimulation,
-        startAlder: { ...action.payload },
+        startAlder: action.payload ? { ...action.payload } : null,
       }
     },
     setCurrentSimulationAarligInntektFoerUttak: (

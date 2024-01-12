@@ -1,12 +1,12 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { Heading } from '@navikt/ds-react'
+import { Alert, Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
 import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
-import { Alert } from '@/components/common/Alert'
+import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
@@ -110,9 +110,24 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
       )
     }
   }
+  const dismissAlert = () => {
+    // TODO
+  }
 
   return (
     <>
+      {
+        // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder ikke er valgt (betyr at de ble nettopp resetet)
+      }
+      <Alert
+        className={styles.alert}
+        variant="info"
+        closeButton={true}
+        onClose={dismissAlert}
+      >
+        Fordi du har endret inntekten din...
+      </Alert>
+
       <div className={clsx(styles.background, styles.background__lightgray)}>
         <div className={styles.container}>
           <TidligstMuligUttaksalder
@@ -136,7 +151,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />
               </Heading>
-              <Alert onRetry={isError ? onRetry : undefined}>
+              <AlertDashBorder onRetry={isError ? onRetry : undefined}>
                 {startAlder && startAlder.aar < 67 && (
                   <FormattedMessage
                     id="beregning.lav_opptjening"
@@ -144,7 +159,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
                   />
                 )}
                 {isError && <FormattedMessage id="beregning.error" />}
-              </Alert>
+              </AlertDashBorder>
             </>
           ) : (
             <>
