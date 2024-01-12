@@ -138,7 +138,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
           closeButton={true}
           onClose={dismissAlert}
         >
-          TODO legge tekst i translations - Fordi du har endret inntekten din...
+          <FormattedMessage id="beregning.alert.inntekt" />
         </Alert>
       )}
 

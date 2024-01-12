@@ -214,6 +214,8 @@ const translations = {
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
   'beregning.title': 'Beregning',
+  'beregning.alert.inntekt':
+    'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
   'beregning.highcharts.title': 'Beregning',
   'beregning.highcharts.xaxis': 'Årlig inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',

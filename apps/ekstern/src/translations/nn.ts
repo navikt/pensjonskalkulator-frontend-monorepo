@@ -212,6 +212,7 @@ const translations = {
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'Utrekning',
+  'beregning.alert.inntekt': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'Utrekning',
   'beregning.highcharts.xaxis': 'Årleg inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',
