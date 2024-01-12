@@ -23,6 +23,7 @@ import {
   selectSamboer,
   selectCurrentSimulation,
   selectAarligInntektFoerUttak,
+  selectAarligInntektFoerUttakFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -40,11 +41,23 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakFraBrukerInput = useAppSelector(
+    selectAarligInntektFoerUttakFraBrukerInput
+  )
+
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
   const { startAlder } = useAppSelector(selectCurrentSimulation)
   const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
     React.useState<AlderspensjonEnkelRequestBody | undefined>(undefined)
+  const [showInntektAlert, setShowInntektAlert] = React.useState<boolean>(false)
+
+  React.useEffect(() => {
+    // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder er null (betyr at de ble nettopp nullstilt fra GrunnlagInntekt)
+    setShowInntektAlert(
+      !!aarligInntektFoerUttakFraBrukerInput && startAlder === null
+    )
+  }, [aarligInntektFoerUttakFraBrukerInput, startAlder])
 
   React.useEffect(() => {
     if (startAlder) {
@@ -113,22 +126,21 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
     }
   }
   const dismissAlert = () => {
-    // TODO
+    setShowInntektAlert(false)
   }
 
   return (
     <>
-      {
-        // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder ikke er valgt (betyr at de ble nettopp resetet)
-      }
-      <Alert
-        className={styles.alert}
-        variant="info"
-        closeButton={true}
-        onClose={dismissAlert}
-      >
-        Fordi du har endret inntekten din...
-      </Alert>
+      {showInntektAlert && (
+        <Alert
+          className={styles.alert}
+          variant="info"
+          closeButton={true}
+          onClose={dismissAlert}
+        >
+          TODO legge tekst i translations - Fordi du har endret inntekten din...
+        </Alert>
+      )}
 
       <div className={clsx(styles.background, styles.background__lightgray)}>
         <div className={styles.container}>
