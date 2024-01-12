@@ -20,11 +20,9 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         externalUrls.detaljertKalkulator
@@ -42,11 +40,9 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         'https://nav.no/pensjon'
@@ -64,11 +60,9 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         'https://www.nav.no/pensjon/opptjening/nb/'
@@ -86,11 +80,9 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         'https://www.nav.no/alderspensjon#beregning'
@@ -108,11 +100,9 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         'https://www.nav.no/minstepensjon'
@@ -130,11 +120,9 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         'https://www.nav.no/minstepensjon'
@@ -152,11 +140,9 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         'https://www.afp.no'
@@ -174,11 +160,9 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         'https://norskpensjon.no/'
@@ -196,12 +180,10 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
 
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
 
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
@@ -221,12 +203,10 @@ describe('translations-utils', () => {
         />
       )
       expect(
-        screen.queryByText('lorem ipsum dolor', { exact: false })
+        screen.getByText('lorem ipsum dolor', { exact: false })
       ).toBeInTheDocument()
 
-      expect(
-        screen.queryByText('my link', { exact: false })
-      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
 
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',

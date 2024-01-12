@@ -261,7 +261,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         )
       ).toBeVisible()
       expect(
-        await screen.queryByText(
+        screen.queryByText(
           'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
           { exact: false }
         )
@@ -272,7 +272,7 @@ describe('GrunnlagPensjonsavtaler', () => {
         )
       ).toBeVisible()
       expect(
-        await screen.queryByText(
+        screen.queryByText(
           'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
         )
       ).not.toBeInTheDocument()

@@ -2,7 +2,7 @@ import { SeriesColumnOptions } from 'highcharts'
 import { describe, it } from 'vitest'
 
 import { TabellVisning } from '../TabellVisning'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
 describe('TabellVisning', () => {
@@ -37,27 +37,21 @@ describe('TabellVisning', () => {
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
       />
     )
-    expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
 
-    await user.click(screen.getByText('beregning.tabell.vis'))
+    await user.click(await screen.findByText('beregning.tabell.vis'))
+    expect(await screen.findByText('beregning.tabell.lukk')).toBeVisible()
+    expect(await screen.findAllByRole('button')).toHaveLength(10)
+    expect(await screen.findByText('300 000')).toBeInTheDocument()
+    expect(await screen.findAllByRole('row')).toHaveLength(19)
+    expect(await screen.findAllByRole('cell')).toHaveLength(54)
+    expect(asFragment()).toMatchSnapshot()
 
-    await waitFor(async () => {
-      expect(screen.getByText('beregning.tabell.lukk')).toBeVisible()
-      expect(screen.getAllByRole('row').length).toBe(19)
-      expect(screen.getAllByRole('cell').length).toBe(54)
-      expect(screen.getAllByRole('button')).toHaveLength(10)
-      expect(screen.getByText('300 000')).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
-    })
-
-    const buttons = screen.getAllByRole('button')
+    const buttons = await screen.findAllByRole('button')
     await user.click(buttons[1])
-    await waitFor(() => {
-      expect(screen.getAllByRole('term')).toHaveLength(2)
-      expect(screen.getByText('100 000')).toBeInTheDocument()
-      expect(screen.getByText('200 000')).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
-    })
+    expect(await screen.findAllByRole('term')).toHaveLength(2)
+    expect(await screen.findByText('100 000')).toBeInTheDocument()
+    expect(await screen.findByText('200 000')).toBeInTheDocument()
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('rendrer riktig formatert tabell med detaljer når 4 serier er oppgitt og showAfp og showPensjonsavtaler er true', async () => {
@@ -70,32 +64,27 @@ describe('TabellVisning', () => {
         showPensjonsavtaler={true}
       />
     )
-    expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
+    expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
 
-    await user.click(screen.getByText('beregning.tabell.vis'))
+    await user.click(await screen.findByText('beregning.tabell.vis'))
 
-    await waitFor(async () => {
-      expect(screen.getByText('beregning.tabell.lukk')).toBeVisible()
-      expect(screen.getAllByRole('row').length).toBe(19)
-      expect(screen.getAllByRole('cell').length).toBe(72)
-      expect(screen.getAllByRole('button')).toHaveLength(10)
-      expect(screen.getByText('498 000')).toBeInTheDocument()
-      expect(asFragment()).toMatchSnapshot()
-    })
+    expect(await screen.findByText('beregning.tabell.lukk')).toBeVisible()
+    expect(await screen.findAllByRole('row')).toHaveLength(19)
+    expect(await screen.findAllByRole('cell')).toHaveLength(72)
+    expect(await screen.findAllByRole('button')).toHaveLength(10)
+    expect(await screen.findByText('498 000')).toBeInTheDocument()
+    expect(asFragment()).toMatchSnapshot()
 
     const buttons = screen.getAllByRole('button')
-
     await user.click(buttons[1])
 
-    await waitFor(() => {
-      expect(screen.getAllByRole('term')).toHaveLength(4)
-      expect(screen.getByText('100 000')).toBeInTheDocument()
-      expect(screen.getByText('180 000')).toBeInTheDocument()
-      expect(screen.getByText('18 000')).toBeInTheDocument()
-      expect(screen.getByText('200 000')).toBeInTheDocument()
+    expect(await screen.findAllByRole('term')).toHaveLength(4)
+    expect(await screen.findByText('100 000')).toBeInTheDocument()
+    expect(await screen.findByText('180 000')).toBeInTheDocument()
+    expect(await screen.findByText('18 000')).toBeInTheDocument()
+    expect(await screen.findByText('200 000')).toBeInTheDocument()
 
-      expect(asFragment()).toMatchSnapshot()
-    })
+    expect(asFragment()).toMatchSnapshot()
   })
 
   it('logger når en rad i tabellen åpnes og lukkes', async () => {
@@ -109,9 +98,9 @@ describe('TabellVisning', () => {
         showPensjonsavtaler={true}
       />
     )
-    await user.click(screen.getByText('beregning.tabell.vis'))
+    await user.click(await screen.findByText('beregning.tabell.vis'))
 
-    const buttons = screen.getAllByRole('button')
+    const buttons = await screen.findAllByRole('button')
     await user.click(buttons[1])
 
     expect(loggerSpy).toHaveBeenNthCalledWith(2, 'table expand åpnet', {
