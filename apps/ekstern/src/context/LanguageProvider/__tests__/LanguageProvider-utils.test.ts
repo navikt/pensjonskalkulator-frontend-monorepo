@@ -52,7 +52,7 @@ describe('LanguageProvider-utils', () => {
       expect(enTranslationsKeys).toHaveLength(forventetLength)
 
       const nnTranslations = getTranslations('nn')
-      expect(nnTranslations['pageframework.title']).toBe('MANGLER_TEKST')
+      expect(nnTranslations['pageframework.title']).toBe('Pensjonskalkulator')
       const nnTranslationsKeys = Object.keys(nnTranslations)
       expect(nnTranslationsKeys).toHaveLength(forventetLength)
     })
