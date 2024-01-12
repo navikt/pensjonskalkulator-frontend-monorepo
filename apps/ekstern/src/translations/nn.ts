@@ -1,18 +1,25 @@
 const translations = {
   'application.title': 'Pensjonskalkulator - Pensjon',
   'application.title.stegvisning.step0': 'Start - Pensjonskalkulator',
-  'application.title.stegvisning.step1': 'Utanlandsopphald - Pensjonskalkulator',
-  'application.title.stegvisning.step1.feil': 'Tilvisning utland - Pensjonskalkulator',
+  'application.title.stegvisning.step1':
+    'Utanlandsopphald - Pensjonskalkulator',
+  'application.title.stegvisning.step1.feil':
+    'Tilvisning utland - Pensjonskalkulator',
   'application.title.stegvisning.step2': 'Samtykke - Penjonskalkulator',
-  'application.title.stegvisning.step3': 'Offentleg tenestepensjon - Pensjonskalkulator',
+  'application.title.stegvisning.step3':
+    'Offentleg tenestepensjon - Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP -Pensjonskalkulator',
   'application.title.stegvisning.step5': 'Sivilstand - Pensjonskalkulator',
-  'application.title.stegvisning.uventet_feil': 'Uventa feil - Pensjonskalkulator',
+  'application.title.stegvisning.uventet_feil':
+    'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
   'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
-  'application.title.henvisning_1963': 'Tilvisning født før 1963 - Pensjonskalkulator',
-  'application.title.henvisning_ufoere_gjenlevende': 'Tilvisning uføretrygd og attlevandepensjon - Pensjonskalkulator',
-  'application.title.personopplysninger': 'Personopplysningar i enkel kalkulator Pensjonskalkulator',
+  'application.title.henvisning_1963':
+    'Tilvisning født før 1963 - Pensjonskalkulator',
+  'application.title.henvisning_ufoere_gjenlevende':
+    'Tilvisning uføretrygd og attlevandepensjon - Pensjonskalkulator',
+  'application.title.personopplysninger':
+    'Personopplysningar i enkel kalkulator Pensjonskalkulator',
   'application.global.external_link': 'opnar i ei ny fane',
   'application.global.retry': 'Prøv på nytt',
   'pageframework.title': 'Pensjonskalkulator',
@@ -97,14 +104,15 @@ const translations = {
     'sjekkar vi om du er eller har vore medlem i offentleg tenestepensjonsordning, og viser at du kan ha rettar, utan å hente avtalane. ',
   'stegvisning.samtykke.readmore_list_item3':
     'gjeld samtykket kun for denne utrekninga.',
-  'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtalar?', 
+  'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtalar?',
   'stegvisning.samtykke.radio_ja': 'Ja',
   'stegvisning.samtykke.radio_nei': 'Nei, hald fram utan',
   'stegvisning.samtykke.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtalar.',
   'stegvisning.offentligtp.title':
     'Du kan ha rett til offentleg tenestepensjon',
-  'stegvisning.offentligtp.loading': 'Hentar informasjon om medlemskap til offentleg tenestepensjon',
+  'stegvisning.offentligtp.loading':
+    'Hentar informasjon om medlemskap til offentleg tenestepensjon',
   'stegvisning.offentligtp.ingress':
     'Du er eller har vore tilsett i offentleg sektor, men vi kan dessverre ikkje hente inn tenestepensjonen din. Du kan sjekke dine avtalar hos aktuell tenestepensjonsordning (til dømes Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).{br}{br}Gå vidare for utrekning av alderspensjon frå NAV og sjå pensjonsavtalar i privat sektor.',
   'stegvisning.offentligtp.error.title':
@@ -184,7 +192,7 @@ const translations = {
   'tidligsteuttaksalder.readmore_ingress.enkelt': 'MANGLER_TEKST',
   'tidligsteuttaksalder.readmore_ingress.avansert': 'MANGLER_TEKST',
   'tidligsteuttaksalder.info_afp':
-    'Du kan truleg ta ut alderspensjon tidlegare viss du har rett til AFP i offentleg sektor.', 
+    'Du kan truleg ta ut alderspensjon tidlegare viss du har rett til AFP i offentleg sektor.',
   'tidligsteuttaksalder.error':
     'Vi klarte ikkje å finne tidspunkt for kor tid du tidlegast kan ta ut alderspensjon. Prøv igjen seinare.',
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',
@@ -209,12 +217,14 @@ const translations = {
   'beregning.highcharts.yaxis': 'Kroner',
   'beregning.highcharts.yaxis.mobile': 'Tusen kroner',
   'beregning.highcharts.serie.inntekt.name': 'Pensjonsgjevande inntekt',
-  'beregning.highcharts.serie.tp.name': 'Pensjonsavtalar (arbeidsgjevarar m.m.)',
+  'beregning.highcharts.serie.tp.name':
+    'Pensjonsavtalar (arbeidsgjevarar m.m.)',
   'beregning.highcharts.serie.afp.name': 'AFP (Avtalefesta pensjon)',
   'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (NAV)',
   'beregning.highcharts.tooltip.inntekt': 'Inntekt når du er',
   'beregning.highcharts.tooltip.pensjon': 'Pensjon når du er',
-  'beregning.highcharts.tooltip.inntekt_og_pensjon': 'Inntekt og pensjon når du er',
+  'beregning.highcharts.tooltip.inntekt_og_pensjon':
+    'Inntekt og pensjon når du er',
   'beregning.tabell.lukk': 'Lukk tabell av utrekninga',
   'beregning.tabell.vis': 'Vis tabell av utrekninga',
   'beregning.tabell.sum': 'Sum',
@@ -357,7 +367,7 @@ const translations = {
   'forbehold.saeralder.title': 'Særalderspensjon',
   'forbehold.saeralder.ingress':
     'Har du særalderspensjon frå ei tenestepensjonsordning, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Årsaka til det er at denne kalkulatoren vil bruke di siste registrerte pensjonsgjevande inntekt frem til tidspunktet for uttak. Utrekninga kan difor vise feil beløp.',
-  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar', 
+  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har gjeve samtykke til det, hentar vi inn opplysningar om kva du vil få i pensjon frå offentlege og private pensjonsordningar. NAV har ikkje ansvar for beløpa som vert viste. Beløpa er meint for å gje omtrentleg oversikt over din totale pensjon.{br}{br}Privat tenestepensjon og individuelle rettar vert innhenta via Norsk Pensjon.{br}{br}NAV har for tida ikkje høve til å hente informasjon frå offentlege tenestepensjonsordningar. Dette skuldast at reglane for ny offentleg AFP ikkje er endeleg vedteke, i tillegg til nye samordningsreglar for offentleg tenestepensjon. Ta kontakt med di pensjonsordning om du treng informasjon om tenestepensjonen din.{br}{br}Ynskjer du meir detaljar om dine pensjonsavtalar, må du sjekke direkte med den enkelte pensjonsordninga.',
   'personopplysninger.header':
