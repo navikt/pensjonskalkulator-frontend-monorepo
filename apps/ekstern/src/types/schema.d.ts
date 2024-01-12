@@ -277,7 +277,7 @@ export interface components {
       uttaksalder: components['schemas']['AlderIngressDto']
       /** Format: int32 */
       aarligInntektVsaPensjon: number
-      inntektTomAlder: components['schemas']['AlderIngressDto']
+      inntektTomAlder?: components['schemas']['AlderIngressDto']
     }
     SimuleringIngressSpecDto: {
       /** @enum {string} */

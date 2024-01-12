@@ -132,7 +132,6 @@ export function Simulering(props: {
         afp,
         {
           uttaksalder: startAlder,
-          inntektTomAlder: { aar: 0, maaneder: 0 }, // TODO dette parametret skal muligens ikke sendes her
           aarligInntektVsaPensjon: aarligInntektVsaPensjon ?? 0,
         },
         sivilstand,
