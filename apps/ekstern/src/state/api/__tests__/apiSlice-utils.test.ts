@@ -10,7 +10,6 @@ describe('apiSlice - utils', () => {
       expect(
         generatePensjonsavtalerRequestBody(500000, 'vet_ikke', {
           uttaksalder: { aar: 67, maaneder: 0 },
-          inntektTomAlder: { aar: 0, maaneder: 0 },
           aarligInntektVsaPensjon: 0,
         })
       ).toEqual({
@@ -34,7 +33,6 @@ describe('apiSlice - utils', () => {
           'ja_privat',
           {
             uttaksalder: { aar: 62, maaneder: 4 },
-            inntektTomAlder: { aar: 0, maaneder: 0 },
             aarligInntektVsaPensjon: 99000,
           },
           'GIFT'
@@ -60,7 +58,7 @@ describe('apiSlice - utils', () => {
           'ja_privat',
           {
             uttaksalder: { aar: 67, maaneder: 0 },
-            inntektTomAlder: { aar: 0, maaneder: 0 },
+
             aarligInntektVsaPensjon: 99000,
           },
           'GIFT',
@@ -332,8 +330,8 @@ describe('apiSlice - utils', () => {
       expect(heltUttak?.aarligInntektVsaPensjon).toEqual(99000)
       expect(heltUttak?.uttaksalder.aar).toEqual(68)
       expect(heltUttak?.uttaksalder.maaneder).toEqual(3)
-      expect(heltUttak?.inntektTomAlder.aar).toEqual(75)
-      expect(heltUttak?.inntektTomAlder.maaneder).toEqual(0)
+      expect(heltUttak?.inntektTomAlder?.aar).toEqual(75)
+      expect(heltUttak?.inntektTomAlder?.maaneder).toEqual(0)
     })
 
     it('formaterer streng dato korrekt', () => {

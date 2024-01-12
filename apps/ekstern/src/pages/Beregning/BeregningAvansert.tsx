@@ -67,7 +67,6 @@ export const BeregningAvansert: React.FC = () => {
           : undefined,
         heltUttak: startAlder && {
           uttaksalder: startAlder,
-          inntektTomAlder: { aar: 0, maaneder: 0 }, // TODO skal denen være optional?
           aarligInntektVsaPensjon: aarligInntektVsaPensjon ?? 0,
         },
       })

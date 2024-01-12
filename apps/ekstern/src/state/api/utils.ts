@@ -88,10 +88,10 @@ export const generateAlderspensjonRequestBody = (args: {
     gradertUttak,
     heltUttak: {
       ...heltUttak,
-      inntektTomAlder: {
-        aar: 75, // TODO hardkodet for nå - må legge til felt for sluttdato - hvordan velger man livsvarig, kan denne være optional?
-        maaneder: 0,
-      },
+      // inntektTomAlder: {
+      //   aar: 75, // TODO hardkodet for nå - må legge til felt for sluttdato - hvordan velger man livsvarig, kan denne være optional?
+      //   maaneder: 0,
+      // },
     },
   }
 }
