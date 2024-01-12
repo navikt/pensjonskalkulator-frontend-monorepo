@@ -85,6 +85,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r4"
               class="navds-radio__input"
               id="radio-r3"
               name="samtykke"
@@ -99,7 +100,9 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r4"
                 >
                   stegvisning.samtykke.radio_ja
                 </span>
@@ -110,21 +113,24 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r7"
               class="navds-radio__input"
-              id="radio-r4"
+              id="radio-r6"
               name="samtykke"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r4"
+              for="radio-r6"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r7"
                 >
                   stegvisning.samtykke.radio_nei
                 </span>

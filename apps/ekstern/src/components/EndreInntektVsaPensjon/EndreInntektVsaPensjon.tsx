@@ -24,13 +24,11 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   const dispatch = useAppDispatch()
 
   const inntektVsaPensjonModalRef = React.useRef<HTMLDialogElement>(null)
-  const { aarligInntektVedSidenAvPensjon } = useAppSelector(
-    selectCurrentSimulation
-  )
+  const { aarligInntektVsaPensjon } = useAppSelector(selectCurrentSimulation)
 
   const [validationError, setValidationError] = React.useState<string>('')
   const [inntektVsaPensjon, setInntektVsaPensjon] = React.useState<string>(
-    aarligInntektVedSidenAvPensjon?.toString() ?? ''
+    aarligInntektVsaPensjon?.toString() ?? ''
   )
 
   const handleTextfieldChange = (
@@ -133,13 +131,13 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </Modal.Footer>
       </Modal>
       <hr className={styles.separator} />
-      {aarligInntektVedSidenAvPensjon ? (
+      {aarligInntektVsaPensjon ? (
         <>
           <Label>
             <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.label" />
           </Label>
           <p>{`${formatWithoutDecimal(
-            aarligInntektVedSidenAvPensjon
+            aarligInntektVsaPensjon
           )} kr ${intl.formatMessage({
             id: 'beregning.avansert.resultatkort.fra',
           })} ${

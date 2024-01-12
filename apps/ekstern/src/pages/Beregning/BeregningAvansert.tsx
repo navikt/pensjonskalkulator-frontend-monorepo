@@ -45,21 +45,31 @@ export const BeregningAvansert: React.FC = () => {
   )
   const { data: person } = useGetPersonQuery()
 
-  const { startAlder } = useAppSelector(selectCurrentSimulation)
+  const { startAlder, aarligInntektVsaPensjon, gradertUttaksperiode } =
+    useAppSelector(selectCurrentSimulation)
 
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
 
   React.useEffect(() => {
     if (startAlder) {
-      // TODO denne må kunne ta høyde for uttaksperioder og inntekt ved siden av alderspensjon
+      // TODO denne må kunne ta høyde for inntekt vsa gradert pensjon, og sluttdato for inntekt vsa helpensjon
       const requestBody = generateAlderspensjonRequestBody({
         afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
-        startAlder,
+        gradertUttak: gradertUttaksperiode
+          ? {
+              ...gradertUttaksperiode,
+            }
+          : undefined,
+        heltUttak: startAlder && {
+          uttaksalder: startAlder,
+          inntektTomAlder: { aar: 0, maaneder: 0 }, // TODO skal denen være optional?
+          aarligInntektVsaPensjon: aarligInntektVsaPensjon ?? 0,
+        },
       })
       setAlderspensjonRequestBody(requestBody)
     }

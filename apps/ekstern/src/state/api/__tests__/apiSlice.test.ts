@@ -330,52 +330,107 @@ describe('apiSlice', () => {
   })
 
   describe('alderspensjon', () => {
-    const body: AlderspensjonRequestBody = {
-      simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
-      uttaksgrad: 100,
-      foedselsdato: '1963-04-30',
-      foersteUttaksalder: { aar: 67, maaneder: 8 },
-      sivilstand: 'UGIFT',
-      epsHarInntektOver2G: true,
-    }
-    it('returnerer data ved vellykket query', async () => {
-      const storeRef = setupStore(undefined, true)
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(alderspensjonResponse)
-        })
-    })
-
-    it('returnerer undefined ved feilende query', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v1/alderspensjon/simulering', {
-        method: 'post',
-      })
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('rejected')
-          expect(result.data).toBe(undefined)
-        })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v1/alderspensjon/simulering', {
-        status: 200,
-        json: [{ 'tullete svar': 'lorem' }],
-        method: 'post',
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
+    describe('enkel', () => {
+      const body: AlderspensjonEnkelRequestBody = {
+        simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
+        uttaksgrad: 100,
+        foedselsdato: '1963-04-30',
+        foersteUttaksalder: { aar: 67, maaneder: 8 },
+        sivilstand: 'UGIFT',
+        epsHarInntektOver2G: true,
+      }
+      it('returnerer data ved vellykket query', async () => {
+        const storeRef = setupStore(undefined, true)
+        return storeRef
+          .dispatch<any>(apiSlice.endpoints.alderspensjonEnkel.initiate(body))
           .then((result: FetchBaseQueryError) => {
-            expect(result).toThrow(Error)
+            expect(result.status).toBe('fulfilled')
+            expect(result.data).toMatchObject(alderspensjonResponse)
+          })
+      })
+
+      it('returnerer undefined ved feilende query', async () => {
+        const storeRef = setupStore(undefined, true)
+        mockErrorResponse('/v1/alderspensjon/simulering', {
+          method: 'post',
+        })
+        return storeRef
+          .dispatch<any>(apiSlice.endpoints.alderspensjonEnkel.initiate(body))
+          .then((result: FetchBaseQueryError) => {
             expect(result.status).toBe('rejected')
             expect(result.data).toBe(undefined)
           })
+      })
+
+      it('kaster feil ved uventet format på responsen', async () => {
+        const storeRef = setupStore(undefined, true)
+        mockResponse('/v1/alderspensjon/simulering', {
+          status: 200,
+          json: [{ 'tullete svar': 'lorem' }],
+          method: 'post',
+        })
+        await swallowErrorsAsync(async () => {
+          await storeRef
+            .dispatch<any>(apiSlice.endpoints.alderspensjonEnkel.initiate(body))
+            .then((result: FetchBaseQueryError) => {
+              expect(result).toThrow(Error)
+              expect(result.status).toBe('rejected')
+              expect(result.data).toBe(undefined)
+            })
+        })
+      })
+    })
+    describe('avansert', () => {
+      const body: AlderspensjonRequestBody = {
+        simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
+        foedselsdato: '1963-04-30',
+        sivilstand: 'UGIFT',
+        epsHarInntektOver2G: true,
+        heltUttak: {
+          uttaksalder: { aar: 67, maaneder: 8 },
+          inntektTomAlder: { aar: 0, maaneder: 0 }, // TODO bør kunne være undefined?
+          aarligInntektVsaPensjon: 0,
+        },
+      }
+      it('returnerer data ved vellykket query', async () => {
+        const storeRef = setupStore(undefined, true)
+        return storeRef
+          .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
+          .then((result: FetchBaseQueryError) => {
+            expect(result.status).toBe('fulfilled')
+            expect(result.data).toMatchObject(alderspensjonResponse)
+          })
+      })
+
+      it('returnerer undefined ved feilende query', async () => {
+        const storeRef = setupStore(undefined, true)
+        mockErrorResponse('/v2/alderspensjon/simulering', {
+          method: 'post',
+        })
+        return storeRef
+          .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
+          .then((result: FetchBaseQueryError) => {
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+
+      it('kaster feil ved uventet format på responsen', async () => {
+        const storeRef = setupStore(undefined, true)
+        mockResponse('/v2/alderspensjon/simulering', {
+          status: 200,
+          json: [{ 'tullete svar': 'lorem' }],
+          method: 'post',
+        })
+        await swallowErrorsAsync(async () => {
+          await storeRef
+            .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
+            .then((result: FetchBaseQueryError) => {
+              expect(result).toThrow(Error)
+              expect(result.status).toBe('rejected')
+              expect(result.data).toBe(undefined)
+            })
+        })
       })
     })
   })

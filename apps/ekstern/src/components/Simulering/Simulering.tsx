@@ -77,7 +77,8 @@ export function Simulering(props: {
     isOpen: isPensjonsavtalerAccordionItemOpen,
     toggleOpen: togglePensjonsavtalerAccordionItem,
   } = React.useContext(PensjonsavtalerAccordionContext)
-  const { startAlder } = useAppSelector(selectCurrentSimulation)
+  const { startAlder, aarligInntektVsaPensjon, gradertUttaksperiode } =
+    useAppSelector(selectCurrentSimulation)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
@@ -117,14 +118,25 @@ export function Simulering(props: {
   // Hent pensjonsavtaler
   React.useEffect(() => {
     if (harSamtykket && startAlder) {
+      const optionalGradertUttakObj = gradertUttaksperiode
+        ? {
+            uttaksalder: gradertUttaksperiode.uttaksalder,
+            grad: gradertUttaksperiode.grad,
+            aarligInntektVsaPensjon:
+              gradertUttaksperiode.aarligInntektVsaPensjon,
+          }
+        : undefined
+
       const requestBody = generatePensjonsavtalerRequestBody(
         aarligInntektFoerUttak,
         afp,
         {
-          aar: startAlder.aar,
-          maaneder: startAlder.maaneder,
+          uttaksalder: startAlder,
+          inntektTomAlder: { aar: 0, maaneder: 0 }, // TODO dette parametret skal muligens ikke sendes her
+          aarligInntektVsaPensjon: aarligInntektVsaPensjon ?? 0,
         },
-        sivilstand
+        sivilstand,
+        optionalGradertUttakObj
       )
       setPensjonsavtalerRequestBody(requestBody)
     }

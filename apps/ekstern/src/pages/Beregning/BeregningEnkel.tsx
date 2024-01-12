@@ -14,9 +14,9 @@ import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import {
   useGetPersonQuery,
   apiSlice,
-  useAlderspensjonQuery,
+  useAlderspensjonEnkelQuery,
 } from '@/state/api/apiSlice'
-import { generateAlderspensjonRequestBody } from '@/state/api/utils'
+import { generateAlderspensjonEnkelRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -43,12 +43,12 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
   const { startAlder } = useAppSelector(selectCurrentSimulation)
-  const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
-    React.useState<AlderspensjonRequestBody | undefined>(undefined)
+  const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
+    React.useState<AlderspensjonEnkelRequestBody | undefined>(undefined)
 
   React.useEffect(() => {
     if (startAlder) {
-      const requestBody = generateAlderspensjonRequestBody({
+      const requestBody = generateAlderspensjonEnkelRequestBody({
         afp,
         sivilstand: person?.sivilstand,
         harSamboer,
@@ -56,7 +56,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
         aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
         startAlder,
       })
-      setAlderspensjonRequestBody(requestBody)
+      setAlderspensjonEnkelRequestBody(requestBody)
     }
   }, [afp, person, aarligInntektFoerUttak, harSamboer, startAlder])
 
@@ -66,10 +66,10 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
     isFetching,
     isError,
     error,
-  } = useAlderspensjonQuery(
-    alderspensjonRequestBody as AlderspensjonRequestBody,
+  } = useAlderspensjonEnkelQuery(
+    alderspensjonEnkelRequestBody as AlderspensjonEnkelRequestBody,
     {
-      skip: !alderspensjonRequestBody,
+      skip: !alderspensjonEnkelRequestBody,
     }
   )
 
@@ -104,9 +104,11 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
 
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
-    if (alderspensjonRequestBody) {
+    if (alderspensjonEnkelRequestBody) {
       dispatch(
-        apiSlice.endpoints.alderspensjon.initiate(alderspensjonRequestBody)
+        apiSlice.endpoints.alderspensjonEnkel.initiate(
+          alderspensjonEnkelRequestBody
+        )
       )
     }
   }

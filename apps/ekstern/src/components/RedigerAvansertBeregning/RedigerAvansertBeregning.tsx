@@ -13,7 +13,6 @@ import {
   selectCurrentSimulation,
   selectAarligInntektFoerUttak,
 } from '@/state/userInput/selectors'
-import { Uttaksperiode } from '@/state/userInput/userInputReducer'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { unformatUttaksalder } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/currency'
@@ -32,7 +31,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const intl = useIntl()
   const dispatch = useAppDispatch()
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const { startAlder, uttaksperioder, formatertUttaksalderReadOnly } =
+  const { startAlder, gradertUttaksperiode, formatertUttaksalderReadOnly } =
     useAppSelector(selectCurrentSimulation)
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, boolean>
@@ -44,9 +43,10 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const [temporaryStartAlder, setTemporaryStartAlder] = React.useState<string>(
     formatertUttaksalderReadOnly ?? ''
   )
-  const [uttaksperiode, setUttaksperiode] = React.useState<
-    Partial<Uttaksperiode> | undefined
-  >(uttaksperioder[0])
+  const [temporaryGradertUttaksperiode, setTemporaryGradertUttaksperiode] =
+    React.useState<Partial<GradertUttaksperiode> | undefined>(
+      gradertUttaksperiode ?? undefined
+    )
 
   const formaterteUttaksgrad = ['20 %', '40 %', '50 %', '60 %', '80 %', '100 %']
 
@@ -62,7 +62,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
       ? parseInt(e.target.value.match(/\d+/)?.[0] as string, 10)
       : 100
 
-    setUttaksperiode(
+    setTemporaryGradertUttaksperiode(
       avansertBeregningFormatertUttaksgradAsNumber !== 100
         ? {
             grad: avansertBeregningFormatertUttaksgradAsNumber,
@@ -92,22 +92,23 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         )
       )
       if (avansertBeregningFormatertUttaksgrad === '100 %') {
-        dispatch(userInputActions.setCurrentSimulationUttaksperioder([]))
+        dispatch(
+          userInputActions.setCurrentSimulationGradertuttaksperiode(null)
+        )
       } else {
         dispatch(
-          userInputActions.setCurrentSimulationUttaksperioder([
-            {
-              startAlder: unformatUttaksalder(
-                avansertBeregningFormatertUttaksalderGradertPensjonData as string
-              ),
-              grad: parseInt(
-                (avansertBeregningFormatertUttaksgrad as string).match(
-                  /\d+/
-                )?.[0] as string,
-                10
-              ),
-            },
-          ])
+          userInputActions.setCurrentSimulationGradertuttaksperiode({
+            uttaksalder: unformatUttaksalder(
+              avansertBeregningFormatertUttaksalderGradertPensjonData as string
+            ),
+            grad: parseInt(
+              (avansertBeregningFormatertUttaksgrad as string).match(
+                /\d+/
+              )?.[0] as string,
+              10
+            ),
+            aarligInntektVsaPensjon: 0, // TODO legge til felt for inntekt vsa gradert pensjon og lagre verdi
+          })
         )
       }
 
@@ -148,8 +149,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             label="Hvor mye alderspensjon vil du ta ut?"
             description="Velg uttaksgrad"
             defaultValue={
-              uttaksperioder.length > 0 && uttaksperioder[0].grad
-                ? `${uttaksperioder[0].grad} %`
+              temporaryGradertUttaksperiode?.grad
+                ? `${temporaryGradertUttaksperiode.grad} %`
                 : '100 %'
             }
             onChange={handleUttaksgradChange}
@@ -165,11 +166,13 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         </div>
         <hr className={styles.separator} />
 
-        {uttaksperiode?.grad && (
+        {temporaryGradertUttaksperiode?.grad && (
           <div>
             <TemporaryAlderVelgerAvansert
-              defaultValue={uttaksperiode?.startAlder ?? undefined}
-              grad={uttaksperiode.grad}
+              defaultValue={
+                temporaryGradertUttaksperiode?.uttaksalder ?? undefined
+              }
+              grad={temporaryGradertUttaksperiode.grad}
               hasValidationError={
                 validationErrors['uttaksalder-gradert-pensjon']
               }

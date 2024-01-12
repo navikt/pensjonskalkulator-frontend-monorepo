@@ -1,17 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface Uttaksperiode {
-  startAlder: Alder | null // valgt uttaksalder for perioden (alder perioden gjelder FRA) - aar heltall, maaneder heltall mellom 0-11
-  grad: number // optional: grad av alderspensjon i perioden
-  aarligInntekt?: number // optional: inntekt ved siden av pensjon i perioden
-}
-
 export interface Simulation {
-  uttaksperioder: Uttaksperiode[]
   formatertUttaksalderReadOnly: string | null // (!) Obs READONLY - string i format "YY alder.aar string.og M alder.maaneder" - oppdateres automatisk basert på startAlder - se uttaksalderListener
   startAlder: Alder | null // valgt uttaksalder for 100% alderspensjon (alder perioden gjelder FRA) - aar heltall, maaneder heltall mellom 0-11
   aarligInntektFoerUttak: number | null // inntekt før uttak av pensjon - heltall beløp i nok - overskriver beløp fra Skatteetaten
-  aarligInntektVedSidenAvPensjon?: number // optional: heltall beløp i nok - inntekt vsa. pensjon
+  aarligInntektVsaPensjon?: number // optional: heltall beløp i nok - inntekt vsa. pensjon
+  gradertUttaksperiode: GradertUttaksperiode | null
 }
 
 export interface UserInputState {
@@ -28,10 +22,10 @@ export const userInputInitialState: UserInputState = {
   afp: null,
   samboer: null,
   currentSimulation: {
-    uttaksperioder: [],
     formatertUttaksalderReadOnly: null,
     startAlder: null,
     aarligInntektFoerUttak: null,
+    gradertUttaksperiode: null,
   },
 }
 
@@ -74,13 +68,13 @@ export const userInputSlice = createSlice({
       state,
       action: PayloadAction<number | undefined>
     ) => {
-      state.currentSimulation.aarligInntektVedSidenAvPensjon = action.payload
+      state.currentSimulation.aarligInntektVsaPensjon = action.payload
     },
-    setCurrentSimulationUttaksperioder: (
+    setCurrentSimulationGradertuttaksperiode: (
       state,
-      action: PayloadAction<Uttaksperiode[]>
+      action: PayloadAction<GradertUttaksperiode | null>
     ) => {
-      state.currentSimulation.uttaksperioder = action.payload
+      state.currentSimulation.gradertUttaksperiode = action.payload
     },
     syncCurrentSimulationFormatertUttaksalderReadOnly: (
       state,

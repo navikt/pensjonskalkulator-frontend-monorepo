@@ -33,6 +33,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r3"
               class="navds-radio__input"
               id="radio-r2"
               name="sivilstand"
@@ -47,7 +48,9 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r3"
                 >
                   stegvisning.sivilstand.radio_ja
                 </span>
@@ -58,21 +61,24 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r6"
               class="navds-radio__input"
-              id="radio-r3"
+              id="radio-r5"
               name="sivilstand"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r3"
+              for="radio-r5"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r6"
                 >
                   stegvisning.sivilstand.radio_nei
                 </span>
