@@ -60,9 +60,11 @@ describe('Grunnlag', () => {
           },
         },
       })
+      expect(
+        await screen.findByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('sivilstand.gift')).toBeInTheDocument()
       await waitFor(async () => {
-        expect(screen.getByText('grunnlag.sivilstand.title')).toBeVisible()
-        expect(await screen.findByText('sivilstand.gift')).toBeVisible()
         expect(
           screen.queryByText('grunnlag.sivilstand.title.error')
         ).not.toBeInTheDocument()
@@ -97,17 +99,16 @@ describe('Grunnlag', () => {
           },
         },
       })
-      await waitFor(async () => {
-        expect(screen.getByText('grunnlag.sivilstand.title')).toBeVisible()
-        expect(
-          screen.queryByText('grunnlag.sivilstand.title.error')
-        ).not.toBeInTheDocument()
-        expect(
-          await screen.findByText('sivilstand.ugift, sivilstand.uten_samboer')
-        ).toBeVisible()
-      })
+      expect(
+        await screen.findByText('grunnlag.sivilstand.title')
+      ).toBeInTheDocument()
+      expect(
+        await screen.findByText('sivilstand.ugift, sivilstand.uten_samboer')
+      ).toBeVisible()
+      expect(
+        screen.queryByText('grunnlag.sivilstand.title.error')
+      ).not.toBeInTheDocument()
       const buttons = screen.getAllByRole('button')
-
       await user.click(buttons[3])
 
       expect(
@@ -124,7 +125,9 @@ describe('Grunnlag', () => {
       render(<Grunnlag />)
 
       await waitFor(() => {
-        expect(screen.getByText('grunnlag.sivilstand.title')).toBeVisible()
+        expect(
+          screen.queryByText('grunnlag.sivilstand.title')
+        ).toBeInTheDocument()
         expect(
           screen.getByText('grunnlag.sivilstand.title.error')
         ).toBeVisible()

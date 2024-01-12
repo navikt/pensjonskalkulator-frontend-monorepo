@@ -36,7 +36,7 @@ describe('stegvisning - AFP', () => {
       })
     ).toHaveAttribute('href', 'https://www.afp.no')
 
-    const radioButtons = screen.getAllByRole('radio')
+    const radioButtons = await screen.findAllByRole('radio')
     await waitFor(() => {
       expect(radioButtons).toHaveLength(4)
       expect(radioButtons[0]).not.toBeChecked()
@@ -96,7 +96,7 @@ describe('stegvisning - AFP', () => {
     await user.click(radioButtons[0])
 
     expect(
-      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
+      screen.getByText('stegvisning.afp.alert_ja_offentlig')
     ).toBeInTheDocument()
     expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
