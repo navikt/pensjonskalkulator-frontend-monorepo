@@ -267,17 +267,17 @@ export interface components {
       maaneder: number
     }
     SimuleringGradertUttakIngressDto: {
-      uttaksalder: components['schemas']['AlderIngressDto']
       /** Format: int32 */
       grad: number
+      uttaksalder: components['schemas']['AlderIngressDto']
       /** Format: int32 */
       aarligInntektVsaPensjon?: number
     }
     SimuleringHeltUttakIngressDto: {
       uttaksalder: components['schemas']['AlderIngressDto']
-      inntektTomAlder?: components['schemas']['AlderIngressDto']
       /** Format: int32 */
-      aarligInntektVsaPensjon?: number
+      aarligInntektVsaPensjon: number
+      inntektTomAlder: components['schemas']['AlderIngressDto']
     }
     SimuleringIngressSpecDto: {
       /** @enum {string} */
@@ -286,7 +286,7 @@ export interface components {
       foedselsdato: string
       epsHarInntektOver2G: boolean
       /** Format: int32 */
-      aarligInntekt?: number
+      forventetInntekt?: number
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'
@@ -302,7 +302,7 @@ export interface components {
         | 'GJENLEVENDE_PARTNER'
         | 'SAMBOER'
       gradertUttak?: components['schemas']['SimuleringGradertUttakIngressDto']
-      heltUttak: components['schemas']['SimuleringHelttUttakIngressDto']
+      heltUttak: components['schemas']['SimuleringHeltUttakIngressDto']
     }
     PensjonsberegningDto: {
       /** Format: int32 */
@@ -317,9 +317,9 @@ export interface components {
     }
     UttaksalderGradertUttakIngressDto: {
       /** Format: int32 */
-      uttaksgrad: number
+      grad: number
       /** Format: int32 */
-      inntektUnderGradertUttak?: number
+      aarligInntektVsaPensjon?: number
       heltUttakAlder: components['schemas']['AlderIngressDto']
       /** Format: date */
       foedselsdato: string

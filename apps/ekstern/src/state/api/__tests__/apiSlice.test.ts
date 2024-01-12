@@ -388,6 +388,8 @@ describe('apiSlice', () => {
         epsHarInntektOver2G: true,
         heltUttak: {
           uttaksalder: { aar: 67, maaneder: 8 },
+          inntektTomAlder: { aar: 0, maaneder: 0 }, // TODO bør kunne være undefined?
+          aarligInntektVsaPensjon: 0,
         },
       }
       it('returnerer data ved vellykket query', async () => {

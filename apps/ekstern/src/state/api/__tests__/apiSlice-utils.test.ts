@@ -10,6 +10,8 @@ describe('apiSlice - utils', () => {
       expect(
         generatePensjonsavtalerRequestBody(500000, 'vet_ikke', {
           uttaksalder: { aar: 67, maaneder: 0 },
+          inntektTomAlder: { aar: 0, maaneder: 0 },
+          aarligInntektVsaPensjon: 0,
         })
       ).toEqual({
         aarligInntektFoerUttak: 500000,
@@ -32,6 +34,7 @@ describe('apiSlice - utils', () => {
           'ja_privat',
           {
             uttaksalder: { aar: 62, maaneder: 4 },
+            inntektTomAlder: { aar: 0, maaneder: 0 },
             aarligInntektVsaPensjon: 99000,
           },
           'GIFT'
@@ -57,6 +60,7 @@ describe('apiSlice - utils', () => {
           'ja_privat',
           {
             uttaksalder: { aar: 67, maaneder: 0 },
+            inntektTomAlder: { aar: 0, maaneder: 0 },
             aarligInntektVsaPensjon: 99000,
           },
           'GIFT',

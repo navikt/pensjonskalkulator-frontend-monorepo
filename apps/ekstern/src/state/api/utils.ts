@@ -78,7 +78,7 @@ export const generateAlderspensjonRequestBody = (args: {
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    aarligInntekt: aarligInntektFoerUttak,
+    forventetInntekt: aarligInntektFoerUttak,
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand

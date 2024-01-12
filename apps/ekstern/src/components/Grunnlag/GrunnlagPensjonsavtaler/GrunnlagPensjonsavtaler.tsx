@@ -38,7 +38,9 @@ export const GrunnlagPensjonsavtaler = () => {
   const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const afp = useAppSelector(selectAfp)
-  const { startAlder } = useAppSelector(selectCurrentSimulation)
+  const { startAlder, aarligInntektVsaPensjon } = useAppSelector(
+    selectCurrentSimulation
+  )
   const {
     ref: grunnlagPensjonsavtalerRef,
     isOpen: isPensjonsavtalerAccordionItemOpen,
@@ -54,7 +56,11 @@ export const GrunnlagPensjonsavtaler = () => {
       const requestBody = generatePensjonsavtalerRequestBody(
         aarligInntektFoerUttak ?? 0,
         afp,
-        { uttaksalder: startAlder },
+        {
+          uttaksalder: startAlder,
+          inntektTomAlder: { aar: 0, maaneder: 0 }, // TODO dette parametret skal muligens ikke sendes her
+          aarligInntektVsaPensjon: aarligInntektVsaPensjon ?? 0,
+        },
         sivilstand
       )
       setPensjonsavtalerRequestBody(requestBody)
