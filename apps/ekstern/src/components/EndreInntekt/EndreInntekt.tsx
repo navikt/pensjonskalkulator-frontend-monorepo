@@ -130,7 +130,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
 
       <Button
         className={className ? className : ''}
-        variant="tertiary"
+        variant="secondary"
         icon={<PencilIcon aria-hidden />}
         onClick={openInntektModal}
       >

@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
