@@ -16,12 +16,12 @@ describe('GrunnlagInntekt', () => {
 
     it('viser riktig tittel med formatert inntekt og tekst', async () => {
       expect(
-        screen.getByText('runnlag.inntekt.ingress.uendret_inntekt', {
+        await screen.findByText('grunnlag.inntekt.ingress.uendret_inntekt', {
           exact: false,
         })
       ).toBeVisible()
       expect(
-        screen.getByText(
+        await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',
           { exact: false }
         )
@@ -31,20 +31,22 @@ describe('GrunnlagInntekt', () => {
 
     it('brukeren kan overskrive den, og det vises riktig tittel med formatert inntekt og tekst', async () => {
       await user.click(
-        screen.getByText('inntekt.endre_inntekt_modal.open.button')
+        await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
 
-      await user.type(screen.getByTestId('inntekt-textfield'), '123000')
-      await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
+      await user.type(await screen.findByTestId('inntekt-textfield'), '123000')
+      await user.click(
+        await screen.findByText('inntekt.endre_inntekt_modal.button')
+      )
 
-      expect(screen.getByText('123 000 kr')).toBeVisible()
+      expect(await screen.findByText('123 000 kr')).toBeVisible()
       expect(
-        screen.getByText('runnlag.inntekt.ingress.endret_inntekt', {
+        await screen.findByText('grunnlag.inntekt.ingress.endret_inntekt', {
           exact: false,
         })
       ).toBeVisible()
       expect(
-        screen.getByText(
+        await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',
           { exact: false }
         )
@@ -53,17 +55,17 @@ describe('GrunnlagInntekt', () => {
 
     it('brukeren kan gå ut av modulen og la inntekt uendret', async () => {
       await user.click(
-        screen.getByText('inntekt.endre_inntekt_modal.open.button')
+        await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
-      await user.click(screen.getByText('stegvisning.avbryt'))
+      await user.click(await screen.findByText('stegvisning.avbryt'))
       expect(screen.getByText('521 338 kr')).toBeVisible()
       expect(
-        screen.getByText('runnlag.inntekt.ingress.uendret_inntekt', {
+        await screen.findByText('grunnlag.inntekt.ingress.uendret_inntekt', {
           exact: false,
         })
       ).toBeVisible()
       expect(
-        screen.getByText(
+        await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',
           { exact: false }
         )
@@ -92,13 +94,15 @@ describe('GrunnlagInntekt', () => {
       ).toBeVisible()
 
       await user.click(
-        screen.getByText('inntekt.endre_inntekt_modal.open.button')
+        await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
 
       await user.type(screen.getByTestId('inntekt-textfield'), '123000')
-      await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
+      await user.click(
+        await screen.findByText('inntekt.endre_inntekt_modal.button')
+      )
 
-      expect(screen.getByText('123 000 kr')).toBeVisible()
+      expect(await screen.findByText('123 000 kr')).toBeVisible()
       expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
 
       expect(
@@ -107,14 +111,19 @@ describe('GrunnlagInntekt', () => {
         })
       ).toBeVisible()
       expect(
-        screen.getByText(
+        await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',
           { exact: false }
         )
       ).toBeVisible()
-      expect(screen.getByText('inntekt.info_modal.open.link')).toBeVisible()
       expect(
-        screen.getByText('inntekt.endre_inntekt_modal.open.button')
+        await screen.findByText('inntekt.info_modal.open.link')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('inntekt.info_modal.open.link')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       ).toBeVisible()
     })
   })
@@ -125,10 +134,10 @@ describe('GrunnlagInntekt', () => {
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[2])
-    await user.click(screen.getByText('inntekt.info_modal.open.link'))
-    expect(screen.getByText('inntekt.info_modal.title')).toBeVisible()
-    expect(screen.getByText('inntekt.info_modal.subtitle')).toBeVisible()
-    await user.click(screen.getByText('inntekt.info_modal.lukk'))
+    await user.click(await screen.findByText('inntekt.info_modal.open.link'))
+    expect(await screen.findByText('inntekt.info_modal.title')).toBeVisible()
+    expect(await screen.findByText('inntekt.info_modal.subtitle')).toBeVisible()
+    await user.click(await screen.findByText('inntekt.info_modal.lukk'))
     expect(screen.queryByText('inntekt.info_modal.title')).not.toBeVisible()
   })
 })

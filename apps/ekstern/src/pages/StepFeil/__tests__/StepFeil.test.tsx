@@ -95,9 +95,11 @@ describe('Step Feil', () => {
     render(<StepFeil />)
     await waitFor(() => {
       expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
-      expect(nesteSideMock).toHaveBeenCalledWith(true)
-      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
+    await waitFor(() => {
+      expect(nesteSideMock).toHaveBeenCalledWith(true)
+    })
+    expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
   })
 
   it('redirigerer til landingssiden når brukeren klikker på knappen', async () => {

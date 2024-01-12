@@ -33,6 +33,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r3"
               class="navds-radio__input"
               id="radio-r2"
               name="utenlandsopphold"
@@ -47,7 +48,9 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r3"
                 >
                   stegvisning.utenlandsopphold.radio_ja
                 </span>
@@ -58,21 +61,24 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r6"
               class="navds-radio__input"
-              id="radio-r3"
+              id="radio-r5"
               name="utenlandsopphold"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r3"
+              for="radio-r5"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r6"
                 >
                   stegvisning.utenlandsopphold.radio_nei
                 </span>

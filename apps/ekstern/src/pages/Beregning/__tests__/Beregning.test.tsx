@@ -1,4 +1,3 @@
-import { act } from 'react-dom/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
@@ -7,6 +6,8 @@ import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+const alderspensjonResponse = require('../../../mocks/data/alderspensjon/68.json')
 
 describe('Beregning', () => {
   const fakeApiCalls = {
@@ -129,6 +130,7 @@ describe('Beregning', () => {
         }
       )
     })
+
     it('viser loading og deretter riktig header, tekst og knapper', async () => {
       render(<Beregning visning="enkel" />)
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
@@ -141,12 +143,19 @@ describe('Beregning', () => {
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
       expect(screen.getAllByRole('button')).toHaveLength(12)
     })
-    it('når kallet feiler, viser det feilmelding om tidligst mulig uttaksalder og resten av siden er som vanlig', async () => {
-      const user = userEvent.setup()
+
+    it('når kallet til tidligst mulig uttak feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
       mockErrorResponse('/v1/tidligste-uttaksalder', {
         method: 'post',
       })
-      const { container } = render(<Beregning visning="enkel" />, {
+      mockResponse('/v1/alderspensjon/simulering', {
+        status: 200,
+        method: 'post',
+        json: {
+          ...alderspensjonResponse,
+        },
+      })
+      render(<Beregning visning="enkel" />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -158,35 +167,13 @@ describe('Beregning', () => {
           },
         },
       })
-      await waitFor(async () => {
-        expect(
-          await screen.findByText('tidligsteuttaksalder.error')
-        ).toBeInTheDocument()
-      })
-      const button = await screen.findByText('68 alder.aar')
 
-      await user.click(button)
-
-      await waitFor(() => {
-        expect(
-          screen.queryByTestId('uttaksalder-loader')
-        ).not.toBeInTheDocument()
-      })
-      await waitFor(async () => {
-        expect(
-          await screen.findByTestId('highcharts-done-drawing')
-        ).toBeVisible()
-      })
-      // Nødvendig for at animasjonen rekker å bli ferdig
-      await act(async () => {
-        await new Promise((r) => {
-          setTimeout(r, 500)
-        })
-      })
       expect(
-        container.getElementsByClassName('highcharts-container').length
-      ).toBe(1)
-      expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
+        await screen.findByText('tidligsteuttaksalder.error')
+      ).toBeInTheDocument()
+
+      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+      expect(screen.getAllByRole('button')).toHaveLength(17)
     })
   })
 
@@ -202,19 +189,16 @@ describe('Beregning', () => {
   describe('Gitt at pensjonskalkulator er i "avansert" visning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="avansert" />)
-      waitFor(async () => {
-        expect(
-          await screen.findByText('Pensjonsgivende inntekt frem til pensjon')
-        ).toBeInTheDocument()
-      })
+      expect(
+        await screen.findByText('Pensjonsgivende inntekt frem til pensjon')
+      ).toBeInTheDocument()
     })
   })
 
-  it('gir mulighet til å avbryte og starte ny beregning ', () => {
+  it('gir mulighet til å avbryte og starte ny beregning ', async () => {
     render(<Beregning visning="enkel" />)
-    waitFor(async () => {
-      expect(screen.getByText('stegvisning.avbryt')).toBeVisible()
-      expect(screen.getByText('stegvisning.tilbake_start')).toBeVisible()
-    })
+
+    expect(await screen.findByText('stegvisning.avbryt')).toBeVisible()
+    expect(await screen.findByText('stegvisning.tilbake_start')).toBeVisible()
   })
 })
