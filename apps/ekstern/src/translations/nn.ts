@@ -327,7 +327,8 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.button': 'Oppdater inntekt',
   'inntekt.info_modal.open.link': 'Kva er pensjonsgjevande inntekt?',
   'inntekt.info_modal.title': 'Kva er pensjonsgjevande inntekt?',
-  'inntekt.info_modal.subtitle': 'Dette vert rekna som pensjonsgjevande inntekt',
+  'inntekt.info_modal.subtitle':
+    'Dette vert rekna som pensjonsgjevande inntekt',
   'inntekt.info_modal.list_item1': 'All lønsinntekt for lønstakarar',
   'inntekt.info_modal.list_item2': 'Personinntekt frå næring frå sjølvstendige',
   'inntekt.info_modal.list_item3': 'Foreldrepengar',
@@ -335,9 +336,12 @@ const translations = {
   'inntekt.info_modal.list_item5': 'Dagpengar',
   'inntekt.info_modal.list_item6': 'Arbeidsavklaringspengar',
   'inntekt.info_modal.list_item7': 'Omsorgsstønad',
-  'inntekt.info_modal.list_item8': 'Fosterheimsgodtgjersle (den delen som utgjer arbeidsgodtgjersle)',
-  'inntekt.info_modal.list_item9': 'Førstegongsteneste (viss påbegynt tidlegast i 2010)',
-  'inntekt.info_modal.ingress': 'Pensjonsgjvande inntekt verkar inn på retten til storleiken på alderspensjonen og andre pensjonsytingar. Pensjonsgjevande inntekt vert rekna ut av Skatteetaten.{br}{br}Uføretrygd gjer opptening til alderspensjon, men vert ikkje rekna som pensjonsgjevande inntekt.',
+  'inntekt.info_modal.list_item8':
+    'Fosterheimsgodtgjersle (den delen som utgjer arbeidsgodtgjersle)',
+  'inntekt.info_modal.list_item9':
+    'Førstegongsteneste (viss påbegynt tidlegast i 2010)',
+  'inntekt.info_modal.ingress':
+    'Pensjonsgjvande inntekt verkar inn på retten til storleiken på alderspensjonen og andre pensjonsytingar. Pensjonsgjevande inntekt vert rekna ut av Skatteetaten.{br}{br}Uføretrygd gjer opptening til alderspensjon, men vert ikkje rekna som pensjonsgjevande inntekt.',
   'inntekt.info_modal.lukk': 'Lukk',
   'forbehold.title': 'Atterhald',
   'forbehold.intro':
@@ -384,7 +388,7 @@ const translations = {
   'personopplysninger.section.hvordan_brukes.2':
     'Vi lagrar ikkje utrekningane du dine, og heller ikkje personopplysningane som vert brukt i denne samanhengen. ',
   'personopplysninger.section.hvordan_brukes.3':
-    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlova kapittel 20 Alderspensjon og Art. 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.', 
+    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlova kapittel 20 Alderspensjon og Art. 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.',
   'personopplysninger.section.hvilke_opplysninger.header':
     'Personopplysningar som vert brukt',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
