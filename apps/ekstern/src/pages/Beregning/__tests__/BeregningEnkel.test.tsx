@@ -180,7 +180,7 @@ describe('BeregningEnkel', () => {
     })
   })
 
-  describe('Når brukeren har oppdatert inntektet sitt og at uttaksalder er nullstil', () => {
+  describe('Når brukeren har oppdatert inntekten sin og at uttaksalder er nullstilt', () => {
     it('viser det en info-alertboks som forsvinner ved å velge en ny alder', async () => {
       const user = userEvent.setup()
       render(<BeregningEnkel />, {
