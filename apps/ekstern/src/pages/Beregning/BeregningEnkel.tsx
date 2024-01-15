@@ -1,12 +1,12 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { Heading } from '@navikt/ds-react'
+import { Alert, Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
 import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
-import { Alert } from '@/components/common/Alert'
+import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
@@ -23,6 +23,7 @@ import {
   selectSamboer,
   selectCurrentSimulation,
   selectAarligInntektFoerUttak,
+  selectAarligInntektFoerUttakFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -40,11 +41,23 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakFraBrukerInput = useAppSelector(
+    selectAarligInntektFoerUttakFraBrukerInput
+  )
+
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
   const { startAlder } = useAppSelector(selectCurrentSimulation)
   const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
     React.useState<AlderspensjonEnkelRequestBody | undefined>(undefined)
+  const [showInntektAlert, setShowInntektAlert] = React.useState<boolean>(false)
+
+  React.useEffect(() => {
+    // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder er null (betyr at de ble nettopp nullstilt fra GrunnlagInntekt)
+    setShowInntektAlert(
+      !!aarligInntektFoerUttakFraBrukerInput && startAlder === null
+    )
+  }, [aarligInntektFoerUttakFraBrukerInput, startAlder])
 
   React.useEffect(() => {
     if (startAlder) {
@@ -112,9 +125,24 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
       )
     }
   }
+  const dismissAlert = () => {
+    setShowInntektAlert(false)
+  }
 
   return (
     <>
+      {showInntektAlert && (
+        <Alert
+          data-testid="alert-inntekt"
+          className={styles.alert}
+          variant="info"
+          closeButton={true}
+          onClose={dismissAlert}
+        >
+          <FormattedMessage id="beregning.alert.inntekt" />
+        </Alert>
+      )}
+
       <div className={clsx(styles.background, styles.background__lightgray)}>
         <div className={styles.container}>
           <TidligstMuligUttaksalder
@@ -138,7 +166,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />
               </Heading>
-              <Alert onRetry={isError ? onRetry : undefined}>
+              <AlertDashBorder onRetry={isError ? onRetry : undefined}>
                 {startAlder && startAlder.aar < 67 && (
                   <FormattedMessage
                     id="beregning.lav_opptjening"
@@ -146,7 +174,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
                   />
                 )}
                 {isError && <FormattedMessage id="beregning.error" />}
-              </Alert>
+              </AlertDashBorder>
             </>
           ) : (
             <>
