@@ -5,6 +5,7 @@ import { PencilIcon, TrashIcon } from '@navikt/aksel-icons'
 import { Button, Label, Modal, TextField } from '@navikt/ds-react'
 
 import { validateInntektInput } from '../EndreInntekt/utils'
+// import { TemporaryAlderVelgerAvansert } from '@/components/VelgUttaksalder/TemporaryAlderVelgerAvansert'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -24,17 +25,16 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   const dispatch = useAppDispatch()
 
   const inntektVsaPensjonModalRef = React.useRef<HTMLDialogElement>(null)
-  const { aarligInntektVsaPensjon } = useAppSelector(selectCurrentSimulation)
+  const { aarligInntektVsaHelPensjon } = useAppSelector(selectCurrentSimulation)
 
   const [validationError, setValidationError] = React.useState<string>('')
-  const [inntektVsaPensjon, setInntektVsaPensjon] = React.useState<string>(
-    aarligInntektVsaPensjon?.toString() ?? ''
-  )
+  const [inntektBeloepVsaPensjon, setInntektBeloepVsaPensjon] =
+    React.useState<string>(aarligInntektVsaHelPensjon?.beloep?.toString() ?? '')
 
   const handleTextfieldChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setInntektVsaPensjon(e.target.value)
+    setInntektBeloepVsaPensjon(e.target.value)
     setValidationError('')
   }
 
@@ -54,25 +54,31 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   }
 
   const validateInntektVsaPensjon = (): void => {
-    if (validateInntektInput(inntektVsaPensjon, updateValidationErrorMessage)) {
+    if (
+      validateInntektInput(
+        inntektBeloepVsaPensjon,
+        updateValidationErrorMessage
+      )
+    ) {
       dispatch(
-        userInputActions.setCurrentSimulationAarligInntektVsaPensjon(
-          parseInt(inntektVsaPensjon.replace(/ /g, ''), 10)
-        )
+        userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon({
+          beloep: parseInt(inntektBeloepVsaPensjon.replace(/ /g, ''), 10),
+          sluttAlder: { aar: 0, maaneder: 0 },
+        })
       )
       // logger('button klikk', {
       //   tekst: 'endrer pensjonsgivende inntekt',
       // })
       /* c8 ignore next 3 */
       if (inntektVsaPensjonModalRef.current?.open) {
-        setInntektVsaPensjon('')
+        setInntektBeloepVsaPensjon('')
         inntektVsaPensjonModalRef.current?.close()
       }
     }
   }
 
   const onCancel = (): void => {
-    setInntektVsaPensjon('')
+    setInntektBeloepVsaPensjon('')
     setValidationError('')
     if (inntektVsaPensjonModalRef.current?.open) {
       inntektVsaPensjonModalRef.current?.close()
@@ -80,10 +86,10 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   }
 
   const onDelete = (): void => {
-    setInntektVsaPensjon('')
+    setInntektBeloepVsaPensjon('')
     setValidationError('')
     dispatch(
-      userInputActions.setCurrentSimulationAarligInntektVsaPensjon(undefined)
+      userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(undefined)
     )
   }
 
@@ -113,9 +119,16 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             })}
             error={validationError}
             onChange={handleTextfieldChange}
-            value={inntektVsaPensjon}
+            value={inntektBeloepVsaPensjon}
             max={5}
           />
+          {/* <TemporaryAlderVelgerAvansert
+            defaultValue={
+              temporaryGradertUttaksperiode?.uttaksalder ?? undefined
+            }
+            grad={temporaryGradertUttaksperiode.grad}
+            hasValidationError={validationErrors['uttaksalder-gradert-pensjon']}
+          /> */}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={validateInntektVsaPensjon}>
@@ -131,13 +144,13 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </Modal.Footer>
       </Modal>
       <hr className={styles.separator} />
-      {aarligInntektVsaPensjon ? (
+      {aarligInntektVsaHelPensjon ? (
         <>
           <Label>
             <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.label" />
           </Label>
           <p>{`${formatWithoutDecimal(
-            aarligInntektVsaPensjon
+            aarligInntektVsaHelPensjon.beloep
           )} kr ${intl.formatMessage({
             id: 'beregning.avansert.resultatkort.fra',
           })} ${

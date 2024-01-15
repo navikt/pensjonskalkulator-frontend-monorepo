@@ -31,7 +31,7 @@ describe('GrunnlagPensjonsavtaler', () => {
 
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
-    startAlder: { aar: 67, maaneder: 1 },
+    uttaksalder: { aar: 67, maaneder: 1 },
     aarligInntektFoerUttak: 0,
     gradertUttaksperiode: null,
   }

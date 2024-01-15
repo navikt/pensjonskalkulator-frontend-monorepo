@@ -75,7 +75,7 @@ describe('Beregning', () => {
             currentSimulation: {
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
-              startAlder: { aar: 70, maaneder: 4 },
+              uttaksalder: { aar: 70, maaneder: 4 },
               aarligInntektFoerUttak: 300000,
               gradertUttaksperiode: null,
             },
@@ -141,7 +141,7 @@ describe('Beregning', () => {
       })
       expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(12)
+      expect(screen.getAllByRole('button')).toHaveLength(13)
     })
 
     it('når kallet til tidligst mulig uttak feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
@@ -173,7 +173,7 @@ describe('Beregning', () => {
       ).toBeInTheDocument()
 
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(17)
+      expect(screen.getAllByRole('button')).toHaveLength(18)
     })
   })
 

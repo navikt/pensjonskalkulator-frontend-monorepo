@@ -31,7 +31,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const intl = useIntl()
   const dispatch = useAppDispatch()
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const { startAlder, gradertUttaksperiode, formatertUttaksalderReadOnly } =
+  const { uttaksalder, gradertUttaksperiode, formatertUttaksalderReadOnly } =
     useAppSelector(selectCurrentSimulation)
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, boolean>
@@ -85,7 +85,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
 
     if (validateInput(data, setValidationErrors)) {
       dispatch(
-        userInputActions.setCurrentSimulationStartAlder(
+        userInputActions.setCurrentSimulationUttaksalder(
           unformatUttaksalder(
             avansertBeregningFormatertUttaksalderHelePensjonData as string
           )
@@ -182,7 +182,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         )}
         <div>
           <TemporaryAlderVelgerAvansert
-            defaultValue={startAlder ?? undefined}
+            defaultValue={uttaksalder ?? undefined}
             grad={100}
             hasValidationError={validationErrors['uttaksalder-hele-pensjon']}
             onChangeCallback={(s) => {

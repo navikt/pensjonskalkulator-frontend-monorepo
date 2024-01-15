@@ -96,7 +96,7 @@ describe('apiSlice - utils', () => {
       harSamboer: false,
       aarligInntektFoerUttak: 500000,
       foedselsdato: '1963-04-30',
-      startAlder: { aar: 68, maaneder: 3 },
+      uttaksalder: { aar: 68, maaneder: 3 },
       uttaksgrad: 100,
     }
     it('returnerer undefined når foedselsdato, eller startAlder er null', () => {
@@ -115,7 +115,7 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          startAlder: null,
+          uttaksalder: null,
         })
       ).toEqual(undefined)
     })
@@ -201,7 +201,7 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-          startAlder: { aar: 68, maaneder: 0 },
+          uttaksalder: { aar: 68, maaneder: 0 },
         })?.foersteUttaksalder
       ).toEqual({
         aar: 68,

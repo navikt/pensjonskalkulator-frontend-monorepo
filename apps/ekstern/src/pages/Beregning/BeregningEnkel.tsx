@@ -1,12 +1,12 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
-import { Heading } from '@navikt/ds-react'
+import { Alert, Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
 import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
-import { Alert } from '@/components/common/Alert'
+import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
@@ -42,23 +42,23 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
-  const { startAlder } = useAppSelector(selectCurrentSimulation)
+  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
     React.useState<AlderspensjonEnkelRequestBody | undefined>(undefined)
 
   React.useEffect(() => {
-    if (startAlder) {
+    if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
         afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
-        startAlder,
+        uttaksalder,
       })
       setAlderspensjonEnkelRequestBody(requestBody)
     }
-  }, [afp, person, aarligInntektFoerUttak, harSamboer, startAlder])
+  }, [afp, person, aarligInntektFoerUttak, harSamboer, uttaksalder])
 
   // Hent alderspensjon + AFP
   const {
@@ -74,14 +74,14 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   )
 
   React.useEffect(() => {
-    if (startAlder !== null) {
+    if (uttaksalder !== null) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
         logger('alert', { teskt: 'Beregning: Ikke høy nok opptjening' })
       } else if (isError) {
         logger('alert', { teskt: 'Beregning: Klarte ikke beregne pensjon' })
       }
     }
-  }, [startAlder, isError, alderspensjon])
+  }, [uttaksalder, isError, alderspensjon])
 
   React.useEffect(() => {
     if (error && (error as FetchBaseQueryError).status === 503) {
@@ -112,9 +112,24 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
       )
     }
   }
+  const dismissAlert = () => {
+    // TODO
+  }
 
   return (
     <>
+      {
+        // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder ikke er valgt (betyr at de ble nettopp resetet)
+      }
+      <Alert
+        className={styles.alert}
+        variant="info"
+        closeButton={true}
+        onClose={dismissAlert}
+      >
+        Fordi du har endret inntekten din...
+      </Alert>
+
       <div className={clsx(styles.background, styles.background__lightgray)}>
         <div className={styles.container}>
           <TidligstMuligUttaksalder
@@ -129,7 +144,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
         <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
       </div>
 
-      {startAlder !== null && (
+      {uttaksalder !== null && (
         <div
           className={`${styles.container} ${styles.container__hasMobilePadding}`}
         >
@@ -138,15 +153,15 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />
               </Heading>
-              <Alert onRetry={isError ? onRetry : undefined}>
-                {startAlder && startAlder.aar < 67 && (
+              <AlertDashBorder onRetry={isError ? onRetry : undefined}>
+                {uttaksalder && uttaksalder.aar < 67 && (
                   <FormattedMessage
                     id="beregning.lav_opptjening"
-                    values={{ startAar: startAlder.aar }}
+                    values={{ startAar: uttaksalder.aar }}
                   />
                 )}
                 {isError && <FormattedMessage id="beregning.error" />}
-              </Alert>
+              </AlertDashBorder>
             </>
           ) : (
             <>

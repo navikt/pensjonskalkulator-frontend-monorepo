@@ -38,7 +38,7 @@ export const GrunnlagPensjonsavtaler = () => {
   const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
   const afp = useAppSelector(selectAfp)
-  const { startAlder, aarligInntektVsaPensjon } = useAppSelector(
+  const { uttaksalder, aarligInntektVsaHelPensjon } = useAppSelector(
     selectCurrentSimulation
   )
   const {
@@ -52,19 +52,19 @@ export const GrunnlagPensjonsavtaler = () => {
 
   // Hent pensjonsavtaler
   React.useEffect(() => {
-    if (harSamtykket && startAlder) {
+    if (harSamtykket && uttaksalder) {
       const requestBody = generatePensjonsavtalerRequestBody(
         aarligInntektFoerUttak ?? 0,
         afp,
         {
-          uttaksalder: startAlder,
-          aarligInntektVsaPensjon: aarligInntektVsaPensjon ?? 0,
+          uttaksalder,
+          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon?.beloep ?? 0,
         },
         sivilstand
       )
       setPensjonsavtalerRequestBody(requestBody)
     }
-  }, [harSamtykket, startAlder])
+  }, [harSamtykket, uttaksalder])
 
   const {
     data: pensjonsavtaler,
@@ -74,7 +74,7 @@ export const GrunnlagPensjonsavtaler = () => {
   } = usePensjonsavtalerQuery(
     pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
     {
-      skip: !pensjonsavtalerRequestBody || !harSamtykket || !startAlder,
+      skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
     }
   )
   const navigate = useNavigate()

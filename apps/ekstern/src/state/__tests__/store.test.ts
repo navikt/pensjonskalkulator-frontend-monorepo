@@ -18,7 +18,7 @@ describe('store', () => {
       samboer: null,
       currentSimulation: {
         formatertUttaksalderReadOnly: null,
-        startAlder: null,
+        uttaksalder: null,
         aarligInntektFoerUttak: 500000,
         gradertUttaksperiode: null,
       },

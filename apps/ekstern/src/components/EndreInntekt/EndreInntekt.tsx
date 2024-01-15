@@ -63,6 +63,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
           parseInt((inntektData as string).replace(/ /g, ''), 10)
         )
       )
+      dispatch(userInputActions.setCurrentSimulationUttaksalder(null))
       logger('button klikk', {
         tekst: 'endrer pensjonsgivende inntekt',
       })

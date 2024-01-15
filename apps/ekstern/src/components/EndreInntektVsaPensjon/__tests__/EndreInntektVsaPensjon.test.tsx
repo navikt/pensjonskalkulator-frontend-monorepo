@@ -9,7 +9,7 @@ describe('EndreInntektVsaPensjon', async () => {
     const { store } = render(<EndreInntektVsaPensjon />)
 
     expect(
-      selectCurrentSimulation(store.getState()).aarligInntektVsaPensjon
+      selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
     ).toBe(undefined)
     expect(
       screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2')
@@ -29,7 +29,8 @@ describe('EndreInntektVsaPensjon', async () => {
       screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.button')
     )
     expect(
-      selectCurrentSimulation(store.getState()).aarligInntektVsaPensjon
+      selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
+        ?.beloep
     ).toBe(123000)
 
     expect(
@@ -68,8 +69,11 @@ describe('EndreInntektVsaPensjon', async () => {
             ...userInputInitialState,
             currentSimulation: {
               ...userInputInitialState.currentSimulation,
-              aarligInntektVsaPensjon: 123000,
-              startAlder: { aar: 67, maaneder: 3 },
+              aarligInntektVsaHelPensjon: {
+                beloep: 123000,
+                sluttAlder: { aar: 0, maaneder: 0 }, // TODO
+              },
+              uttaksalder: { aar: 67, maaneder: 3 },
               formatertUttaksalderReadOnly: '67 år og 3 md.',
             },
           },
@@ -102,7 +106,8 @@ describe('EndreInntektVsaPensjon', async () => {
     )
 
     expect(
-      selectCurrentSimulation(store.getState()).aarligInntektVsaPensjon
+      selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
+        ?.beloep
     ).toBe(99000)
     expect(
       screen.getByText(

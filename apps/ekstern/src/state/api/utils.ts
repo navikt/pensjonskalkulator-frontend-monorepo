@@ -41,7 +41,7 @@ export const generatePensjonsavtalerRequestBody = (
         aarligInntekt: heltUttak.aarligInntektVsaPensjon ?? 0,
       },
     ],
-    antallInntektsaarEtterUttak: 0, // TODO legge til logikk for beregning av antall år etter uttak
+    antallInntektsaarEtterUttak: heltUttak.inntektTomAlder ? 0 : 0, // TODO PEK-247 legge til logikk for beregning av antall år etter uttak basert på heltUttak.inntektTomAlder
     harAfp: afp === 'ja_privat',
     // harEpsPensjon: Bruker kan angi om E/P/S har pensjon (støttes i detaljert kalkulator) – her bruker backend hardkodet false i MVP
     // harEpsPensjonsgivendeInntektOver2G: Bruker kan angi om E/P/S har inntekt >2G (støttes i detaljert kalkulator) – her bruker backend true i MVP hvis samboer/gift
@@ -102,7 +102,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
   aarligInntektFoerUttak: number
-  startAlder: Alder | null
+  uttaksalder: Alder | null
 }): AlderspensjonEnkelRequestBody | undefined => {
   const {
     afp,
@@ -110,10 +110,10 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     harSamboer,
     foedselsdato,
     aarligInntektFoerUttak,
-    startAlder,
+    uttaksalder,
   } = args
 
-  if (!foedselsdato || !startAlder) {
+  if (!foedselsdato || !uttaksalder) {
     return undefined
   }
 
@@ -123,8 +123,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
 
     uttaksgrad: 100, // Hardkodet til 100 - brukeren kan ikke velge gradert pensjon
     foersteUttaksalder: {
-      aar: startAlder.aar,
-      maaneder: startAlder.maaneder,
+      ...uttaksalder,
     },
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     forventetInntekt: aarligInntektFoerUttak,

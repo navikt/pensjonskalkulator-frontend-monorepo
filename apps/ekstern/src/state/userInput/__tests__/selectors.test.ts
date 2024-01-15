@@ -21,7 +21,7 @@ describe('userInput selectors', () => {
 
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '62 alder.aar string.og 5 alder.maaneder',
-    startAlder: { aar: 62, maaneder: 5 },
+    uttaksalder: { aar: 62, maaneder: 5 },
     aarligInntektFoerUttak: 0,
     gradertUttaksperiode: null,
   }
