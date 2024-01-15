@@ -7,14 +7,14 @@ import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoModalInntekt } from '@/components/InfoModalInntekt'
-import { useGetInntektQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttak,
+  selectAarligInntektFoerUttakFraSkatt,
   selectAarligInntektFoerUttakFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { formatWithoutDecimal } from '@/utils/currency'
-import { formatMessageValues } from '@/utils/translations'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagInntekt.module.scss'
 
@@ -22,16 +22,12 @@ export const GrunnlagInntekt = () => {
   const intl = useIntl()
 
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakFraSkatt = useAppSelector(
+    selectAarligInntektFoerUttakFraSkatt
+  )
   const aarligInntektFoerUttakFraBrukerInput = useAppSelector(
     selectAarligInntektFoerUttakFraBrukerInput
   )
-  const { data: aarligInntektFoerUttakFraSkatt } = useGetInntektQuery()
-
-  const isInntektGreaterThanZero =
-    aarligInntektFoerUttakFraBrukerInput !== null ||
-    (aarligInntektFoerUttakFraBrukerInput === null &&
-      aarligInntektFoerUttakFraSkatt &&
-      aarligInntektFoerUttakFraSkatt.beloep > 0)
 
   return (
     <>
@@ -40,35 +36,38 @@ export const GrunnlagInntekt = () => {
           headerTitle={intl.formatMessage({
             id: 'grunnlag.inntekt.title',
           })}
-          headerValue={
-            isInntektGreaterThanZero
-              ? `${formatWithoutDecimal(aarligInntektFoerUttak)} kr`
-              : intl.formatMessage({
-                  id: 'grunnlag.inntekt.title.error',
-                })
-          }
+          headerValue={`${formatWithoutDecimal(
+            aarligInntektFoerUttak ?? 0
+          )} kr`}
         >
           <>
             <BodyLong>
-              {isInntektGreaterThanZero ? (
+              {aarligInntektFoerUttakFraBrukerInput !== null ? (
                 <FormattedMessage
-                  id="grunnlag.inntekt.ingress"
+                  id="grunnlag.inntekt.ingress.endret_inntekt"
                   values={{
-                    ...formatMessageValues,
-                    beloep: formatWithoutDecimal(
-                      aarligInntektFoerUttakFraSkatt?.beloep
-                    ),
-                    aar: aarligInntektFoerUttakFraSkatt?.aar,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               ) : (
                 <FormattedMessage
-                  id="grunnlag.inntekt.ingress.error"
+                  id="grunnlag.inntekt.ingress.uendret_inntekt"
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               )}
+              <br /> <br />
+              <FormattedMessage
+                id="grunnlag.inntekt.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                  beloep: formatWithoutDecimal(
+                    aarligInntektFoerUttakFraSkatt?.beloep
+                  ),
+                  aar: aarligInntektFoerUttakFraSkatt?.aar,
+                }}
+              />
               <br />
             </BodyLong>
             <InfoModalInntekt />

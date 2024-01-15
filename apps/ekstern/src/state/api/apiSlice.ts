@@ -96,12 +96,35 @@ export const apiSlice = createApi({
       },
     }),
 
+    alderspensjonEnkel: builder.query<
+      AlderspensjonResponseBody,
+      AlderspensjonEnkelRequestBody
+    >({
+      query: (body) => ({
+        url: '/v1/alderspensjon/simulering',
+        method: 'POST',
+        body,
+      }),
+      providesTags: ['Alderspensjon'],
+      transformResponse: (response: AlderspensjonResponseBody) => {
+        if (
+          !isPensjonsberegningArray(response?.alderspensjon) ||
+          !isPensjonsberegningArray(response?.afpPrivat)
+        ) {
+          throw new Error(
+            `Mottok ugyldig alderspensjon: ${response?.alderspensjon}`
+          )
+        }
+        return response
+      },
+    }),
+
     alderspensjon: builder.query<
       AlderspensjonResponseBody,
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v1/alderspensjon/simulering',
+        url: '/v2/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -168,6 +191,7 @@ export const {
   useGetSakStatusQuery,
   useGetTpoMedlemskapQuery,
   useTidligsteUttaksalderQuery,
+  useAlderspensjonEnkelQuery,
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,

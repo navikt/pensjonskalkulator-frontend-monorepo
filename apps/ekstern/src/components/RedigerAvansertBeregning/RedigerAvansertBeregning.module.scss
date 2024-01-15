@@ -13,6 +13,10 @@
   }
 }
 
+.form {
+  max-width: $container-max-width;
+}
+
 .separator {
   border: 0;
   border-top: 1px solid var(--a-gray-600);
@@ -20,6 +24,10 @@
   width: 100%;
   background-color: transparent;
   margin: var(--a-spacing-8) 0;
+}
+
+.label {
+  display: block;
 }
 
 .description {

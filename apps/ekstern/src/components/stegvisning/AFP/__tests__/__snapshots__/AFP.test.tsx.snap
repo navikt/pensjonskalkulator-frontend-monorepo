@@ -125,7 +125,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           >
             AFP i privat sektor på afp.no
             <svg
-              aria-labelledby="title-rb"
+              aria-labelledby="title-rj"
               fill="none"
               focusable="false"
               height="1.25rem"
@@ -135,9 +135,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
               xmlns="http://www.w3.org/2000/svg"
             >
               <title
-                id="title-rb"
+                id="title-rj"
               >
-                åpner i en ny fane
+                application.global.external_link
               </title>
               <path
                 clip-rule="evenodd"
@@ -166,21 +166,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="rn"
               class="navds-radio__input"
-              id="radio-re"
+              id="radio-rm"
               name="afp"
               type="radio"
               value="ja_offentlig"
             />
             <label
               class="navds-radio__label"
-              for="radio-re"
+              for="radio-rm"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="rn"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -191,21 +194,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="rq"
               class="navds-radio__input"
-              id="radio-rf"
+              id="radio-rp"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-rf"
+              for="radio-rp"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="rq"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -216,22 +222,25 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="rt"
               checked=""
               class="navds-radio__input"
-              id="radio-rg"
+              id="radio-rs"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-rg"
+              for="radio-rs"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="rt"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -242,21 +251,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r10"
               class="navds-radio__input"
-              id="radio-rh"
+              id="radio-rv"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-rh"
+              for="radio-rv"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r10"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>
@@ -268,7 +280,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-rd"
+          id="fieldset-error-rl"
         />
       </fieldset>
       <button
@@ -443,7 +455,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
               <title
                 id="title-r2"
               >
-                åpner i en ny fane
+                application.global.external_link
               </title>
               <path
                 clip-rule="evenodd"
@@ -472,6 +484,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r6"
               class="navds-radio__input"
               id="radio-r5"
               name="afp"
@@ -486,7 +499,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r6"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -497,21 +512,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r9"
               class="navds-radio__input"
-              id="radio-r6"
+              id="radio-r8"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-r6"
+              for="radio-r8"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r9"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -522,21 +540,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="rc"
               class="navds-radio__input"
-              id="radio-r7"
+              id="radio-rb"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r7"
+              for="radio-rb"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="rc"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -547,21 +568,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="rf"
               class="navds-radio__input"
-              id="radio-r8"
+              id="radio-re"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-r8"
+              for="radio-re"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="rf"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>
@@ -748,7 +772,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
               <title
                 id="title-r2"
               >
-                åpner i en ny fane
+                application.global.external_link
               </title>
               <path
                 clip-rule="evenodd"
@@ -777,6 +801,7 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r6"
               class="navds-radio__input"
               id="radio-r5"
               name="afp"
@@ -791,7 +816,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r6"
                 >
                   stegvisning.afp.radio_ja_offentlig
                 </span>
@@ -802,21 +829,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="r9"
               class="navds-radio__input"
-              id="radio-r6"
+              id="radio-r8"
               name="afp"
               type="radio"
               value="ja_privat"
             />
             <label
               class="navds-radio__label"
-              for="radio-r6"
+              for="radio-r8"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="r9"
                 >
                   stegvisning.afp.radio_ja_privat
                 </span>
@@ -827,21 +857,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="rc"
               class="navds-radio__input"
-              id="radio-r7"
+              id="radio-rb"
               name="afp"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r7"
+              for="radio-rb"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="rc"
                 >
                   stegvisning.afp.radio_nei
                 </span>
@@ -852,21 +885,24 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             class="navds-radio navds-radio--medium"
           >
             <input
+              aria-labelledby="rf"
               class="navds-radio__input"
-              id="radio-r8"
+              id="radio-re"
               name="afp"
               type="radio"
               value="vet_ikke"
             />
             <label
               class="navds-radio__label"
-              for="radio-r8"
+              for="radio-re"
             >
               <span
                 class="navds-radio__content"
               >
                 <span
+                  aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
+                  id="rf"
                 >
                   stegvisning.afp.radio_vet_ikke
                 </span>

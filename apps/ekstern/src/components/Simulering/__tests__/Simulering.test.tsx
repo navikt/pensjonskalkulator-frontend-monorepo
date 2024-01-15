@@ -13,11 +13,10 @@ import { act, render, screen, waitFor, userEvent } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
-    formatertUttaksalder: '67 alder.aar string.og 0 alder.maaned',
-    startAar: 67,
-    startMaaned: 0,
-    uttaksgrad: 100,
+    formatertUttaksalderReadOnly: '67 år string.og 0 alder.maaned',
+    startAlder: { aar: 67, maaneder: 0 },
     aarligInntektFoerUttak: 0,
+    gradertUttaksperiode: null,
   }
 
   afterEach(() => {
@@ -45,11 +44,7 @@ describe('Simulering', () => {
         }
       )
 
-      await waitFor(async () => {
-        expect(
-          await screen.findByTestId('highcharts-done-drawing')
-        ).toBeVisible()
-      })
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
 
       // Nødvendig for at animasjonen rekker å bli ferdig
       await act(async () => {
@@ -88,11 +83,7 @@ describe('Simulering', () => {
         }
       )
 
-      await waitFor(async () => {
-        expect(
-          await screen.findByTestId('highcharts-done-drawing')
-        ).toBeVisible()
-      })
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
       expect(usePensjonsavtalerQueryMock.mock.calls[0][1]).toEqual({
         skip: true,
       })
@@ -134,11 +125,7 @@ describe('Simulering', () => {
         }
       )
 
-      await waitFor(async () => {
-        expect(
-          await screen.findByTestId('highcharts-done-drawing')
-        ).toBeVisible()
-      })
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
       // Nødvendig for at animasjonen rekker å bli ferdig
       await act(async () => {
         await new Promise((r) => setTimeout(r, 500))
@@ -182,11 +169,7 @@ describe('Simulering', () => {
           },
         }
       )
-      await waitFor(async () => {
-        expect(
-          await screen.findByTestId('highcharts-done-drawing')
-        ).toBeVisible()
-      })
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
       expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
         {
           aarligInntektFoerUttak: 500000,
@@ -216,19 +199,19 @@ describe('Simulering', () => {
       const legendItems = (
         legendContainer[0] as HTMLElement
       ).getElementsByClassName('highcharts-legend-item')
-      expect(
-        await screen.findByText('beregning.highcharts.serie.inntekt.name')
-      ).toBeVisible()
-      expect(
-        await screen.findByText('beregning.highcharts.serie.alderspensjon.name')
-      ).toBeVisible()
-      expect(
-        await screen.findByText('beregning.highcharts.serie.tp.name')
-      ).toBeVisible()
+      expect(legendItems).toHaveLength(3)
       expect(
         screen.queryByText('beregning.highcharts.serie.afp.name')
       ).not.toBeInTheDocument()
-      expect(legendItems).toHaveLength(3)
+      expect(
+        screen.getByText('beregning.highcharts.serie.inntekt.name')
+      ).toBeVisible()
+      expect(
+        screen.getByText('beregning.highcharts.serie.alderspensjon.name')
+      ).toBeVisible()
+      expect(
+        screen.getByText('beregning.highcharts.serie.tp.name')
+      ).toBeVisible()
     })
 
     it('Når brukeren velger AFP-privat, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
@@ -252,11 +235,7 @@ describe('Simulering', () => {
         }
       )
 
-      await waitFor(async () => {
-        expect(
-          await screen.findByTestId('highcharts-done-drawing')
-        ).toBeVisible()
-      })
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
       // Nødvendig for at animasjonen rekker å bli ferdig
       await act(async () => {
         await new Promise((r) => setTimeout(r, 500))
@@ -371,11 +350,9 @@ describe('Simulering', () => {
         }
       )
 
-      await waitFor(async () => {
-        expect(
-          await screen.findByText('beregning.pensjonsavtaler.info')
-        ).toBeVisible()
-      })
+      expect(
+        await screen.findByText('beregning.pensjonsavtaler.info')
+      ).toBeVisible()
     })
 
     it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding som sender til Grunnlag', async () => {
@@ -414,13 +391,11 @@ describe('Simulering', () => {
           },
         }
       )
-      await waitFor(async () => {
-        expect(
-          await screen.findByText('Vi klarte ikke å hente', {
-            exact: false,
-          })
-        ).toBeVisible()
-      })
+      expect(
+        await screen.findByText('Vi klarte ikke å hente', {
+          exact: false,
+        })
+      ).toBeVisible()
       const button = await screen.findByText('pensjonsavtalene dine')
       await user.click(button)
       expect(scrollIntoViewMock).toHaveBeenCalled()
@@ -479,13 +454,11 @@ describe('Simulering', () => {
           },
         }
       )
-      await waitFor(async () => {
-        expect(
-          await screen.findByText('Vi klarte ikke å hente alle', {
-            exact: false,
-          })
-        ).toBeVisible()
-      })
+      expect(
+        await screen.findByText('Vi klarte ikke å hente alle', {
+          exact: false,
+        })
+      ).toBeVisible()
       const button = await screen.findByText('pensjonsavtalene dine')
       await act(async () => {
         await user.click(button)
@@ -533,13 +506,11 @@ describe('Simulering', () => {
           },
         }
       )
-      await waitFor(async () => {
-        expect(
-          await screen.findByText('Vi klarte ikke å hente', {
-            exact: false,
-          })
-        ).toBeVisible()
-      })
+      expect(
+        await screen.findByText('Vi klarte ikke å hente', {
+          exact: false,
+        })
+      ).toBeVisible()
       const button = await screen.findByText('pensjonsavtalene dine')
       await act(async () => {
         await user.click(button)
@@ -567,10 +538,11 @@ describe('Simulering', () => {
         },
       }
     )
-    expect(screen.getByText('beregning.tabell.vis')).toBeVisible()
-    expect(
-      screen.getByTestId('highcharts-aria-wrapper').getAttribute('aria-hidden')
-    ).toBe('true')
+    expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
+    const highChartsWrapper = await screen.findByTestId(
+      'highcharts-aria-wrapper'
+    )
+    expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
   })
 
   it('setter aria-hidden attribute iht feature toggle', async () => {

@@ -214,6 +214,8 @@ const translations = {
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
   'beregning.title': 'Beregning',
+  'beregning.alert.inntekt':
+    'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
   'beregning.highcharts.title': 'Beregning',
   'beregning.highcharts.xaxis': 'Årlig inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',
@@ -230,18 +232,28 @@ const translations = {
   'beregning.tabell.vis': 'Vis tabell av beregningen',
   'beregning.tabell.sum': 'Sum',
   'beregning.avansert.resultatkort.button': 'Endre valg',
+  'beregning.avansert.resultatkort.frem_til_uttak': 'Frem til uttak av pensjon',
+  'beregning.avansert.resultatkort.inntekt_1': 'Inntekt: ',
+  'beregning.avansert.resultatkort.inntekt_2': ' kr/år før skatt',
+  'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
+  'beregning.avansert.resultatkort.Fra': 'Fra ',
+  'beregning.avansert.resultatkort.fra': 'fra ',
+  'beregning.avansert.resultatkort.til': ' til ',
+  'beregning.avansert.resultatkort.livsvarig': 'livsvarig',
   'beregning.avansert.rediger.inntekt.button': 'Endre',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.ingress':
     'Denne beregningen viser 100 % uttak av alderspensjon. I detaljert kalkulator kan du beregne alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
-  'grunnlag.inntekt.title': 'Inntekt',
-  'grunnlag.inntekt.title.error': 'Ingen registrert',
+  'grunnlag.inntekt.title': 'Inntekt frem til uttak',
+  'grunnlag.inntekt.ingress.uendret_inntekt':
+    'Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. ',
+  'grunnlag.inntekt.ingress.endret_inntekt':
+    'Kalkulatoren bruker årsinntekten du har oppgitt som fremtidig inntekt.',
   'grunnlag.inntekt.ingress':
-    'Beløpet blir brukt som din fremtidige inntekt frem til du starter uttak av pensjon.{br}{br}{beloep} kr er din siste pensjonsgivende årsinntekt (fra {aar}) fra Skatteetaten.',
-  'grunnlag.inntekt.ingress.error':
-    'Du er ikke registrert med pensjonsgivende inntekt. Derfor blir 0 kr brukt som din fremtidige inntekt frem til du starter uttak av pensjon. Hvis du får inntekt vil alderspensjonen bli høyere.',
+    'Din siste pensjonsgivende inntekt fra Skatteetaten er {beloep} kr fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
+
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
@@ -309,6 +321,20 @@ const translations = {
   'inntekt.endre_inntekt_modal.textfield.validation_error.max':
     'Beløpet kan ikke overskride 100 000 000 kroner.',
   'inntekt.endre_inntekt_modal.button': 'Oppdater inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.label':
+    'Forventet årsinntekt mens du tar ut 100 % alderspensjon',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2':
+    'Du kan tjene så mye som du vil samtidig som du tar ut 100 % alderspensjon',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
+    'Legg til inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre': 'Endre inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.slette': 'Slett inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'Pensjonsgivende inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label':
+    'Hva er din forventede årsinntekt mens du tar ut 100 % alderspensjon?',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
+    'Dagens kroneverdi før skatt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button': 'Oppdater inntekt',
   'inntekt.info_modal.open.link': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_modal.title': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_modal.subtitle': 'Dette regnes som pensjonsgivende inntekt:',

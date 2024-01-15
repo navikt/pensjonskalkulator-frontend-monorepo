@@ -53,19 +53,22 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('setCurrentSimulationFormatertUttaksalder', () => {
+    it('setCurrentSimulationStartAlder', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
-        userInputActions.setCurrentSimulationFormatertUttaksalder(
-          '65 alder.aar string.og 4 alder.maaneder'
-        )
+        userInputActions.setCurrentSimulationStartAlder({
+          aar: 65,
+          maaneder: 4,
+        })
       )
 
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
-          ...userInputInitialState.currentSimulation,
-          formatertUttaksalder: '65 alder.aar string.og 4 alder.maaneder',
+          formatertUttaksalderReadOnly: null,
+          startAlder: { aar: 65, maaneder: 4 },
+          aarligInntektFoerUttak: null,
+          gradertUttaksperiode: null,
         },
       })
     })
@@ -85,25 +88,81 @@ describe('userInputSlice', () => {
       })
     })
 
-    describe('syncCurrentSimulationStartAarOgMaaned', () => {
-      it('oppdaterer startAar og startMaaned uavhengig av de andre verdiene', () => {
-        const updatedState = userInputSlice(
-          userInputInitialState,
-          userInputActions.syncCurrentSimulationStartAarOgMaaned({
-            startAar: 65,
-            startMaaned: 4,
-          })
-        )
+    it('setCurrentSimulationAarligInntektVsaPensjon', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setCurrentSimulationAarligInntektVsaPensjon(800000)
+      )
 
-        expect(updatedState).toStrictEqual({
-          ...userInputInitialState,
-          currentSimulation: {
-            formatertUttaksalder: null,
-            startAar: 65,
-            startMaaned: 4,
-            aarligInntektFoerUttak: null,
-          },
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          aarligInntektVsaPensjon: 800000,
+        },
+      })
+    })
+
+    it('setCurrentSimulationGradertuttaksperiode', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setCurrentSimulationGradertuttaksperiode({
+          uttaksalder: { aar: 67, maaneder: 3 },
+          grad: 20,
+          aarligInntektVsaPensjon: 150000,
         })
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          gradertUttaksperiode: {
+            uttaksalder: { aar: 67, maaneder: 3 },
+            grad: 20,
+            aarligInntektVsaPensjon: 150000,
+          },
+        },
+      })
+
+      const updatedState2 = userInputSlice(
+        updatedState,
+        userInputActions.setCurrentSimulationGradertuttaksperiode(null)
+      )
+
+      expect(updatedState2).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          gradertUttaksperiode: null,
+        },
+      })
+    })
+
+    it('syncCurrentSimulationFormatertUttaksalderReadOnly', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.syncCurrentSimulationFormatertUttaksalderReadOnly(
+          '66 alder.aar string.og 4 alder.maaneder'
+        )
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          formatertUttaksalderReadOnly:
+            '66 alder.aar string.og 4 alder.maaneder',
+        },
+      })
+
+      const nullstiltState = userInputSlice(
+        userInputInitialState,
+        userInputActions.syncCurrentSimulationFormatertUttaksalderReadOnly(null)
+      )
+
+      expect(nullstiltState).toStrictEqual({
+        ...userInputInitialState,
       })
     })
 
@@ -115,12 +174,12 @@ describe('userInputSlice', () => {
           samtykke: true,
           afp: 'ja_offentlig',
           samboer: false,
-
           currentSimulation: {
-            formatertUttaksalder: '66 alder.aar string.og 4 alder.maaneder',
-            startAar: 66,
-            startMaaned: 4,
+            formatertUttaksalderReadOnly:
+              '66 alder.aar string.og 4 alder.maaneder',
+            startAlder: { aar: 66, maaneder: 4 },
             aarligInntektFoerUttak: 300000,
+            gradertUttaksperiode: null,
           },
         },
         userInputActions.flush()
@@ -141,10 +200,11 @@ describe('userInputSlice', () => {
           samboer: false,
 
           currentSimulation: {
-            formatertUttaksalder: '66 alder.aar string.og 4 alder.maaneder',
-            startAar: 66,
-            startMaaned: 4,
+            formatertUttaksalderReadOnly:
+              '66 alder.aar string.og 4 alder.maaneder',
+            startAlder: { aar: 66, maaneder: 4 },
             aarligInntektFoerUttak: 300000,
+            gradertUttaksperiode: null,
           },
         },
         userInputActions.flushCurrentSimulation()

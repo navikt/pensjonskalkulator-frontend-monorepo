@@ -8,7 +8,10 @@ import { vi } from 'vitest'
 import { createUttaksalderListener } from '../uttaksalderListener'
 import { apiSlice } from '@/state/api/apiSlice'
 import { AppStartListening, rootReducer } from '@/state/store'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import {
+  selectCurrentSimulation,
+  selectFormatertUttaksalderReadOnly,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 describe('uttaksalderListener', () => {
@@ -45,25 +48,32 @@ describe('uttaksalderListener', () => {
     unsubscribe?.()
   })
 
-  describe('Gitt at formatertUttaksalder oppdateres,', () => {
+  describe('Gitt at startAlder oppdateres,', () => {
     it('oppdaterer currentSimulation', async () => {
       store.dispatch(
-        userInputActions.setCurrentSimulationFormatertUttaksalder(
-          '66 alder.aar string.og 5 alder.maaneder'
-        )
+        userInputActions.setCurrentSimulationStartAlder({
+          aar: 66,
+          maaneder: 5,
+        })
       )
-      const currentSimulation = selectCurrentSimulation(store.getState())
-      expect(currentSimulation.startAar).toBe(66)
-      expect(currentSimulation.startMaaned).toBe(5)
+
+      expect(
+        selectCurrentSimulation(store.getState()).formatertUttaksalderReadOnly
+      ).toBe('66 år og 5 måneder')
+      expect(selectFormatertUttaksalderReadOnly(store.getState())).toBe(
+        '66 år og 5 måneder'
+      )
 
       store.dispatch(
-        userInputActions.setCurrentSimulationFormatertUttaksalder(
-          '67 alder.aar'
-        )
+        userInputActions.setCurrentSimulationStartAlder({
+          aar: 67,
+          maaneder: 0,
+        })
       )
-      const currentSimulationUpdated = selectCurrentSimulation(store.getState())
-      expect(currentSimulationUpdated.startAar).toBe(67)
-      expect(currentSimulationUpdated.startMaaned).toBe(0)
+      expect(
+        selectCurrentSimulation(store.getState()).formatertUttaksalderReadOnly
+      ).toBe('67 år')
+      expect(selectFormatertUttaksalderReadOnly(store.getState())).toBe('67 år')
     })
   })
 })

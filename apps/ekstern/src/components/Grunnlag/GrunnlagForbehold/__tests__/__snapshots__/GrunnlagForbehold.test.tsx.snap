@@ -65,7 +65,7 @@ exports[`GrunnlagForbehold > rendrer riktig 1`] = `
           <title
             id="title-r1"
           >
-            åpner i en ny fane
+            application.global.external_link
           </title>
           <path
             clip-rule="evenodd"

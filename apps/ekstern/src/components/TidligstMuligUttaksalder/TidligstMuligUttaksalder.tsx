@@ -4,9 +4,9 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Alert, BodyLong } from '@navikt/ds-react'
 
 import { ReadMore } from '@/components/common/ReadMore'
-import { formatUttaksalder } from '@/components/VelgUttaksalder/utils'
 import { useGetDetaljertFaneFeatureToggleQuery } from '@/state/api/apiSlice'
-import { formatMessageValues } from '@/utils/translations'
+import { formatUttaksalder } from '@/utils/alder'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import { isUttaksalderOver62 } from './utils'
 
@@ -38,7 +38,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                   show1963Text ? '1963' : '1964'
                 }.ingress_1`}
                 values={{
-                  ...formatMessageValues,
+                  ...getFormatMessageValues(intl),
                 }}
               />
             </BodyLong>
@@ -51,7 +51,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                   show1963Text ? '1963' : '1964'
                 }.ingress_2`}
                 values={{
-                  ...formatMessageValues,
+                  ...getFormatMessageValues(intl),
                 }}
               />
             </BodyLong>
@@ -65,7 +65,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                 <FormattedMessage
                   id="tidligsteuttaksalder.info_afp"
                   values={{
-                    ...formatMessageValues,
+                    ...getFormatMessageValues(intl),
                   }}
                 />
               </Alert>
@@ -76,7 +76,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
             <FormattedMessage
               id="tidligsteuttaksalder.error"
               values={{
-                ...formatMessageValues,
+                ...getFormatMessageValues(intl),
               }}
             />
           </BodyLong>
@@ -91,7 +91,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
               detaljertFaneFeatureToggle?.enabled ? 'avansert' : 'enkelt'
             }`}
             values={{
-              ...formatMessageValues,
+              ...getFormatMessageValues(intl),
             }}
           />
         </ReadMore>

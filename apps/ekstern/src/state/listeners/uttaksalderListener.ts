@@ -1,32 +1,42 @@
+import { createIntl, createIntlCache } from 'react-intl'
+
 import { Unsubscribe } from '@reduxjs/toolkit'
 
-import { unformatUttaksalder } from '@/state/api/utils'
+import { getCookie, getTranslations } from '@/context/LanguageProvider/utils'
 import { AppListenerEffectAPI, AppStartListening } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { formatUttaksalder } from '@/utils/alder'
 
 /**
- * onSetFormatertUttaksalder
- * 1. unformat uttaksalder
- * 2. oppdater current simulation med riktig aar og maaneder
+ * onSetCurrentSimulationStartAlder
+ * 1. formaterer uttaksalder
+ * 2. oppdaterer current simulation med formatert uttaksalder
  *
- * @param payload - formatertUttaksalder satt av setCurrentSimulationFormatertUttaksalder
+ * @param payload - alder satt av setCurrentSimulationStartAlder
  * @param { dispatch, getState getOriginalState, condition } - fra AppListenerEffectAPI
  */
-async function onSetFormatertUttaksalder(
+async function onSetCurrentSimulationStartAlder(
   {
     payload,
-  }: ReturnType<
-    typeof userInputActions.setCurrentSimulationFormatertUttaksalder
-  >,
+  }: ReturnType<typeof userInputActions.setCurrentSimulationStartAlder>,
   { dispatch /* , getState*/ }: AppListenerEffectAPI
 ) {
-  const uttaksalder = unformatUttaksalder(payload)
+  /* c8 ignore next 1 */
+  const locale = getCookie('decorator-language') || 'nb'
+  const cache = createIntlCache()
+  const intl = createIntl(
+    {
+      locale,
+      messages: getTranslations(locale),
+    },
+    cache
+  )
+  const formatertUttaksalder = payload ? formatUttaksalder(intl, payload) : null
 
   dispatch(
-    userInputActions.syncCurrentSimulationStartAarOgMaaned({
-      startAar: uttaksalder.aar,
-      startMaaned: uttaksalder.maaneder,
-    })
+    userInputActions.syncCurrentSimulationFormatertUttaksalderReadOnly(
+      formatertUttaksalder
+    )
   )
 }
 
@@ -36,8 +46,8 @@ export function createUttaksalderListener(
 ): Unsubscribe {
   const subscriptions = [
     startListening({
-      actionCreator: userInputActions.setCurrentSimulationFormatertUttaksalder,
-      effect: onSetFormatertUttaksalder,
+      actionCreator: userInputActions.setCurrentSimulationStartAlder,
+      effect: onSetCurrentSimulationStartAlder,
     }),
   ]
 

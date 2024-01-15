@@ -3,6 +3,7 @@ import {
   selectAarligInntektFoerUttak,
   selectAarligInntektFoerUttakFraSkatt,
   selectAarligInntektFoerUttakFraBrukerInput,
+  selectFormatertUttaksalderReadOnly,
 } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
@@ -10,6 +11,12 @@ import { render, screen, userEvent } from '@/test-utils'
 describe('EndreInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {
     it('brukeren kan overskrive den', async () => {
+      const scrollToMock = vi.fn()
+      Object.defineProperty(global.window, 'scrollTo', {
+        value: scrollToMock,
+        writable: true,
+      })
+
       const user = userEvent.setup()
 
       const fakeInntektApiCall = {
@@ -57,6 +64,8 @@ describe('EndreInntekt', () => {
       expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
         123000
       )
+      expect(selectFormatertUttaksalderReadOnly(store.getState())).toBe(null)
+      expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
 
     it('brukeren kan ikke skrive ugyldig inntekt', async () => {
@@ -194,6 +203,7 @@ describe('EndreInntekt', () => {
       expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
         123000
       )
+      expect(selectFormatertUttaksalderReadOnly(store.getState())).toBe(null)
     })
   })
 })

@@ -1,22 +1,29 @@
 const translations = {
-  'application.title': 'MANGLER_TEKST',
-  'application.title.stegvisning.step0': 'MANGLER_TEKST',
-  'application.title.stegvisning.step1': 'MANGLER_TEKST',
-  'application.title.stegvisning.step1.feil': 'MANGLER_TEKST',
-  'application.title.stegvisning.step2': 'MANGLER_TEKST',
-  'application.title.stegvisning.step3': 'MANGLER_TEKST',
-  'application.title.stegvisning.step4': 'MANGLER_TEKST',
-  'application.title.stegvisning.step5': 'MANGLER_TEKST',
-  'application.title.stegvisning.uventet_feil': 'MANGLER_TEKST',
-  'application.title.beregning': 'MANGLER_TEKST',
-  'application.title.forbehold': 'MANGLER_TEKST',
-  'application.title.henvisning_1963': 'MANGLER_TEKST',
-  'application.title.henvisning_ufoere_gjenlevende': 'MANGLER_TEKST',
-  'application.title.personopplysninger': 'MANGLER_TEKST',
-  'application.global.external_link': 'MANGLER_TEKST',
+  'application.title': 'Pensjonskalkulator - Pensjon',
+  'application.title.stegvisning.step0': 'Start - Pensjonskalkulator',
+  'application.title.stegvisning.step1':
+    'Utanlandsopphald - Pensjonskalkulator',
+  'application.title.stegvisning.step1.feil':
+    'Tilvisning utland - Pensjonskalkulator',
+  'application.title.stegvisning.step2': 'Samtykke - Penjonskalkulator',
+  'application.title.stegvisning.step3':
+    'Offentleg tenestepensjon - Pensjonskalkulator',
+  'application.title.stegvisning.step4': 'AFP -Pensjonskalkulator',
+  'application.title.stegvisning.step5': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.uventet_feil':
+    'Uventa feil - Pensjonskalkulator',
+  'application.title.beregning': 'Utrekning - Pensjonskalkulator',
+  'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
+  'application.title.henvisning_1963':
+    'Tilvisning født før 1963 - Pensjonskalkulator',
+  'application.title.henvisning_ufoere_gjenlevende':
+    'Tilvisning uføretrygd og attlevandepensjon - Pensjonskalkulator',
+  'application.title.personopplysninger':
+    'Personopplysningar i enkel kalkulator Pensjonskalkulator',
+  'application.global.external_link': 'opnar i ei ny fane',
   'application.global.retry': 'Prøv på nytt',
-  'pageframework.title': 'MANGLER_TEKST',
-  'pageframework.loading': 'MANGLER_TEKST',
+  'pageframework.title': 'Pensjonskalkulator',
+  'pageframework.loading': 'Vent litt medan vi hentar informasjon',
   'error.global.title': 'Oops! Det har oppstått ein uventa feil.',
   'error.global.ingress': 'Vi jobbar med å rette feilen. Prøv igjen seinare.',
   'error.global.button': 'Avbryt',
@@ -31,9 +38,8 @@ const translations = {
   'error.404.button.link_2': 'Les om pensjon',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
-    'Du må bruke vår detaljerte kalkulator. Der får du rekna ut alderspensjonen frå folketrygda (NAV), avtalfesta pensjon (AFP) og pensjonsavtalar (arbeidsgjevarar og sparing)',
+    'Du må bruke vår detaljerte kalkulator. Der får du rekna ut alderspensjonen frå folketrygda (NAV), avtalefesta pensjon (AFP) og pensjonsavtalar (arbeidsgjevarar og sparing)',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller seinare',
-  // TODO utdatert tekst
   'landingsside.velge_mellom_detaljert_og_enkel':
     'Du kan velgje mellom enkel eller detaljert kalkulator. Enkel kalkulator passar for deg som vil ha eit rask oversyn. Detaljert kalkulator passar for deg som vil ha ei meir spesifisert utrekning.',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
@@ -98,21 +104,22 @@ const translations = {
     'sjekkar vi om du er eller har vore medlem i offentleg tenestepensjonsordning, og viser at du kan ha rettar, utan å hente avtalane. ',
   'stegvisning.samtykke.readmore_list_item3':
     'gjeld samtykket kun for denne utrekninga.',
-  'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtalar?', // TODO har endret til avtalar med "a" for å være konsekvent
+  'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtalar?',
   'stegvisning.samtykke.radio_ja': 'Ja',
   'stegvisning.samtykke.radio_nei': 'Nei, hald fram utan',
   'stegvisning.samtykke.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtalar.',
   'stegvisning.offentligtp.title':
     'Du kan ha rett til offentleg tenestepensjon',
-  'stegvisning.offentligtp.loading': 'MANGLER_TEKST',
+  'stegvisning.offentligtp.loading':
+    'Hentar informasjon om medlemskap til offentleg tenestepensjon',
   'stegvisning.offentligtp.ingress':
     'Du er eller har vore tilsett i offentleg sektor, men vi kan dessverre ikkje hente inn tenestepensjonen din. Du kan sjekke dine avtalar hos aktuell tenestepensjonsordning (til dømes Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).{br}{br}Gå vidare for utrekning av alderspensjon frå NAV og sjå pensjonsavtalar i privat sektor.',
   'stegvisning.offentligtp.error.title':
     'Vi klarte ikkje å sjekke om du har pensjonsavtalar frå offentleg sektor',
   'stegvisning.offentligtp.error.ingress':
     'Gå vidare for utrekning av alderspensjon frå NAV og pensjonsavtalar frå privat sektor.{br}{br}Har du vore eller er tilsett i offentleg sektor, kan du sjekke tenestepensjonsavtalane dine hos aktuell tenestepensjonsordning (til dømes Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'stegvisning.afp.title': 'Avtalefestet pensjon',
+  'stegvisning.afp.title': 'Avtalefesta pensjon',
   'stegvisning.afp.ingress':
     'For å få avtalefesta pensjon (AFP) må arbeidsgjevaren din ha ein slik avtale og du må kvalifisere til å få den.',
   'stegvisning.afp.readmore_privat_title':
@@ -137,7 +144,7 @@ const translations = {
     'Sjekk kva som gjeld deg hos di tenestepensjonsordning.',
   'stegvisning.afp.radio_label': 'Har du rett til AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Ja, i offentleg sektor',
-  'stegvisning.afp.radio_ja_privat': '•	Ja, i privat sektor',
+  'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
   'stegvisning.afp.radio_nei': 'Nei',
   'stegvisning.afp.radio_vet_ikke': 'Veit ikkje',
   'stegvisning.afp.alert_ja_offentlig':
@@ -159,7 +166,7 @@ const translations = {
   'alder.maaned': 'måned',
   'alder.maaneder': 'månedar',
   'alder.aar': 'år',
-  'alder.aar_livsvarig': 'MANGLER_TEKST',
+  'alder.aar_livsvarig': 'år (livsvarig)',
   'afp.offentlig': 'Offentleg',
   'afp.privat': 'Privat',
   'afp.nei': 'Nei',
@@ -173,8 +180,8 @@ const translations = {
   'sivilstand.separert_partner': 'Separert partnar',
   'sivilstand.skilt_partner': 'Skild partnar',
   'sivilstand.gjenlevende_partner': 'Attlevande partnar',
-  'sivilstand.med_samboer': 'MANGLER_TEKST',
-  'sivilstand.uten_samboer': 'MANGLER_TEKST',
+  'sivilstand.med_samboer': 'med sambuar',
+  'sivilstand.uten_samboer': 'utan sambuar',
   'tidligsteuttaksalder.1963.ingress_1':
     'Di opptening gjer at du tidlegast kan ta ut 100 % alderspensjon når du er ',
   'tidligsteuttaksalder.1964.ingress_1': 'MANGLER_TEKST',
@@ -185,55 +192,65 @@ const translations = {
   'tidligsteuttaksalder.readmore_ingress.enkelt': 'MANGLER_TEKST',
   'tidligsteuttaksalder.readmore_ingress.avansert': 'MANGLER_TEKST',
   'tidligsteuttaksalder.info_afp':
-    'Din AFP kan gjere at tidspunktet vert tidlegare', // TODO utdatert tekst
+    'Du kan truleg ta ut alderspensjon tidlegare viss du har rett til AFP i offentleg sektor.',
   'tidligsteuttaksalder.error':
     'Vi klarte ikkje å finne tidspunkt for kor tid du tidlegast kan ta ut alderspensjon. Prøv igjen seinare.',
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',
-  'beregning.loading': 'MANGLER_TEKST',
+  'beregning.loading': 'Vent litt medan vi reknar ut pensjonen din',
   'beregning.error':
     'Vi klarte dessverre ikkje å rekne ut pensjonen din akkurat nå.',
   'beregning.lav_opptjening':
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
-  'beregning.button.faerre_aar': 'MANGLER_TEKST',
-  'beregning.button.flere_aar': 'MANGLER_TEKST',
+  'beregning.button.faerre_aar': 'Færre år',
+  'beregning.button.flere_aar': 'Fleire år',
   'beregning.pensjonsavtaler.error':
     'Vi klarte ikkje å hente <link>pensjonsavtalene dine</link>',
   'beregning.pensjonsavtaler.error.partial':
     'Vi klarte ikkje å hente alle <link>pensjonsavtalene dine</link>',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
-  'beregning.title': 'MANGLER_TEKST',
-  'beregning.highcharts.title': 'MANGLER_TEKST',
-  'beregning.highcharts.xaxis': 'MANGLER_TEKST',
-  'beregning.highcharts.yaxis': 'MANGLER_TEKST',
-  'beregning.highcharts.yaxis.mobile': 'MANGLER_TEKST',
-  'beregning.highcharts.serie.inntekt.name': 'MANGLER_TEKST',
-  'beregning.highcharts.serie.tp.name': 'MANGLER_TEKST',
-  'beregning.highcharts.serie.afp.name': 'MANGLER_TEKST',
-  'beregning.highcharts.serie.alderspensjon.name': 'MANGLER_TEKST',
-  'beregning.highcharts.tooltip.inntekt': 'MANGLER_TEKST',
-  'beregning.highcharts.tooltip.pensjon': 'MANGLER_TEKST',
-  'beregning.highcharts.tooltip.inntekt_og_pensjon': 'MANGLER_TEKST',
-  'beregning.tabell.lukk': 'MANGLER_TEKST',
-  'beregning.tabell.vis': 'MANGLER_TEKST',
-  'beregning.tabell.sum': 'MANGLER_TEKST',
+  'beregning.title': 'Utrekning',
+  'beregning.alert.inntekt': 'MANGLER_TEKST',
+  'beregning.highcharts.title': 'Utrekning',
+  'beregning.highcharts.xaxis': 'Årleg inntekt og pensjon etter uttak',
+  'beregning.highcharts.yaxis': 'Kroner',
+  'beregning.highcharts.yaxis.mobile': 'Tusen kroner',
+  'beregning.highcharts.serie.inntekt.name': 'Pensjonsgjevande inntekt',
+  'beregning.highcharts.serie.tp.name':
+    'Pensjonsavtalar (arbeidsgjevarar m.m.)',
+  'beregning.highcharts.serie.afp.name': 'AFP (Avtalefesta pensjon)',
+  'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (NAV)',
+  'beregning.highcharts.tooltip.inntekt': 'Inntekt når du er',
+  'beregning.highcharts.tooltip.pensjon': 'Pensjon når du er',
+  'beregning.highcharts.tooltip.inntekt_og_pensjon':
+    'Inntekt og pensjon når du er',
+  'beregning.tabell.lukk': 'Lukk tabell av utrekninga',
+  'beregning.tabell.vis': 'Vis tabell av utrekninga',
+  'beregning.tabell.sum': 'Sum',
   'beregning.avansert.resultatkort.button': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.frem_til_uttak': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.inntekt_1': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.inntekt_2': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.alderspensjon': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.Fra': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.fra': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.til': 'MANGLER_TEKST',
+  'beregning.avansert.resultatkort.livsvarig': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt.button': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.ingress':
     'Denne utrekninga syner 100 % uttak av alderspensjon. I detaljert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
-  'grunnlag.inntekt.title': 'Inntekt',
-  'grunnlag.inntekt.title.error': 'Ingen registrert',
+  'grunnlag.inntekt.title': 'Inntekt', // TODO utdatert tekst
   // TODO - utdatert tekst
   'grunnlag.inntekt.ingress':
     'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   // TODO - utdatert tekst
-  'grunnlag.inntekt.ingress.error':
-    'Du er ikkje registrert med pensjonsgjevande inntekt. Difor vert 0 kroner brukt som di framtidige inntekt fram til du startar uttak av pensjon. Får du inntekt vert alderspensjonen høgare. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+  'grunnlag.inntekt.ingress.uendret_inntekt': 'MANGLER_TEKST',
+  'grunnlag.inntekt.ingress.endret_inntekt': 'MANGLER_TEKST',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikkje hentast',
   'grunnlag.sivilstand.ingress':
@@ -260,7 +277,7 @@ const translations = {
   'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikkje innhenta',
   'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikkje hentast',
   'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial':
-    'MANGLER_TEKST',
+    'Avtalar manglar',
   'grunnlag.pensjonsavtaler.ingress':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress':
@@ -275,13 +292,13 @@ const translations = {
     'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
   'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
   'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtalar',
-  'grunnlag.pensjonsavtaler.tabell.title.right': 'MANGLER_TEKST',
-  'grunnlag.pensjonsavtaler.fra_og_med': 'MANGLER_TEKST',
-  'grunnlag.pensjonsavtaler.til_og_med': 'MANGLER_TEKST',
-  'grunnlag.pensjonsavtaler.og': 'MANGLER_TEKST',
-  'grunnlag.pensjonsavtaler.aar': 'MANGLER_TEKST',
-  'grunnlag.pensjonsavtaler.md': 'MANGLER_TEKST',
-  'grunnlag.pensjonsavtaler.livsvarig': 'MANGLER_TEKST',
+  'grunnlag.pensjonsavtaler.tabell.title.right': 'Årleg beløp',
+  'grunnlag.pensjonsavtaler.fra_og_med': 'Frå og med',
+  'grunnlag.pensjonsavtaler.til_og_med': 'til og med',
+  'grunnlag.pensjonsavtaler.og': 'og',
+  'grunnlag.pensjonsavtaler.aar': 'år',
+  'grunnlag.pensjonsavtaler.md': 'md',
+  'grunnlag.pensjonsavtaler.livsvarig': 'Livsvarig frå og med',
   'grunnlag.forbehold.title': 'Atterhald',
   'grunnlag.forbehold.link': 'Alle atterhald',
   'grunnlag.forbehold.ingress_1':
@@ -298,28 +315,42 @@ const translations = {
     'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.validation_error.max': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.button': 'MANGLER_TEKST',
-  'inntekt.info_modal.open.link': 'MANGLER_TEKST',
-  'inntekt.info_modal.title': 'MANGLER_TEKST',
-  'inntekt.info_modal.subtitle': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item1': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item2': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item3': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item4': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item5': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item6': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item7': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item8': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item9': 'MANGLER_TEKST',
-  'inntekt.info_modal.ingress': 'MANGLER_TEKST',
-  'inntekt.info_modal.lukk': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.label': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
+    'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.slette': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
+    'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button': 'Oppdater inntekt',
+  'inntekt.info_modal.open.link': 'Kva er pensjonsgjevande inntekt?',
+  'inntekt.info_modal.title': 'Kva er pensjonsgjevande inntekt?',
+  'inntekt.info_modal.subtitle':
+    'Dette vert rekna som pensjonsgjevande inntekt',
+  'inntekt.info_modal.list_item1': 'All lønsinntekt for lønstakarar',
+  'inntekt.info_modal.list_item2': 'Personinntekt frå næring frå sjølvstendige',
+  'inntekt.info_modal.list_item3': 'Foreldrepengar',
+  'inntekt.info_modal.list_item4': 'Sjukepengar',
+  'inntekt.info_modal.list_item5': 'Dagpengar',
+  'inntekt.info_modal.list_item6': 'Arbeidsavklaringspengar',
+  'inntekt.info_modal.list_item7': 'Omsorgsstønad',
+  'inntekt.info_modal.list_item8':
+    'Fosterheimsgodtgjersle (den delen som utgjer arbeidsgodtgjersle)',
+  'inntekt.info_modal.list_item9':
+    'Førstegongsteneste (viss påbegynt tidlegast i 2010)',
+  'inntekt.info_modal.ingress':
+    'Pensjonsgjvande inntekt verkar inn på retten til storleiken på alderspensjonen og andre pensjonsytingar. Pensjonsgjevande inntekt vert rekna ut av Skatteetaten.{br}{br}Uføretrygd gjer opptening til alderspensjon, men vert ikkje rekna som pensjonsgjevande inntekt.',
+  'inntekt.info_modal.lukk': 'Lukk',
   'forbehold.title': 'Atterhald',
   'forbehold.intro':
     'Pensjonen er rekna ut med dei opplysningane vi har om deg, i tillegg til dei opplysningane du har gjeve sjølve på tidspunktet for utrekninga. Utrekninga er eit førebels svar på kvor mykje du kan vente å få i pensjon. Beløpa er i dagens kroneverdi før skatt. Vi har brukt dagens satsar for garantipensjon. Satsane vert reguleret kvart år og vert ikkje fastsatt før dei skal brukast. Framtidige reguleringar kan medføra endringar for kor tid du tidlegast kan starte uttak av alderspensjon.{br}{br}Er det lenge til du skal ta ut pensjon, tilrår vi at du tek ei ny utrekning i pensjonskalkulatoren når du nærmar deg alderen for oppstart av pensjon. Det vil blant anna kunne skje endringar i oppteninga di og i regelverket.{br}{br}Pensjonsgjevande inntekt er gjeldande i utrekning av alderspensjon frå januar året etter at ho er fastsett av Skatteetaten. Alderspensjonen vil difor normalt auke som fylgje av ny opptjening de to første åra etter uttak. Held du fram i jobb etter uttak av alderspensjon, vil alderspensjonen fortsetje å auke etter kvart som ny opptening vert lagt til. Du kan tene opp til alderspensjon til og med det året du fyller 75 år.',
   'forbehold.inntekt.title': 'Inntekt',
-  // TODO utdatert tekst
   'forbehold.inntekt.ingress':
-    'I utrekninga brukar vi den siste registrerte pensjonsgjevande årsinntekta som NAV har fått frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt frem til du startar uttak av alderspensjon. Ynskjer du å endre fremtidig inntekt, må du nytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>.',
-  'forbehold.utenlandsopphold.title': 'Utanlandsopphold',
+    'I utrekninga brukar vi den siste registrerte pensjonsgjevande årsinntekta som NAV har fått frå Skatteetaten. Ho vert brukt som di framtidige inntekt fram til du startar uttak av alderspensjon, med mindre du sjølve endrar beløpet i kalkulatoren.',
+  'forbehold.utenlandsopphold.title': 'Utanlandsopphald',
   'forbehold.utenlandsopphold.ingress':
     'Kalkulatoren tek atterhald om at du på tidspunktet for uttak av alderspensjon har budd i Noreg i minst 40 år frå du fylte 16 år og fram til du tek ut pensjon.{br}{br}Har du mindre enn 40 års trygdetid kan det verka inn på kor mykje du får i alderspensjon, og kor tid du kan ta ut alderspensjon. I denne utgåva av kalkulatoren kan du foreløpig ikkje registrere opphald utenfor Noreg. For å få rekne ut alderspensjonen din så riktig som mogeleg, må du nytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>.',
   'forbehold.sivilstand.title': 'Sivilstand',
@@ -340,7 +371,7 @@ const translations = {
   'forbehold.saeralder.title': 'Særalderspensjon',
   'forbehold.saeralder.ingress':
     'Har du særalderspensjon frå ei tenestepensjonsordning, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Årsaka til det er at denne kalkulatoren vil bruke di siste registrerte pensjonsgjevande inntekt frem til tidspunktet for uttak. Utrekninga kan difor vise feil beløp.',
-  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar', // TODO har endret til avtalar med "a" for å være konsekvent
+  'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har gjeve samtykke til det, hentar vi inn opplysningar om kva du vil få i pensjon frå offentlege og private pensjonsordningar. NAV har ikkje ansvar for beløpa som vert viste. Beløpa er meint for å gje omtrentleg oversikt over din totale pensjon.{br}{br}Privat tenestepensjon og individuelle rettar vert innhenta via Norsk Pensjon.{br}{br}NAV har for tida ikkje høve til å hente informasjon frå offentlege tenestepensjonsordningar. Dette skuldast at reglane for ny offentleg AFP ikkje er endeleg vedteke, i tillegg til nye samordningsreglar for offentleg tenestepensjon. Ta kontakt med di pensjonsordning om du treng informasjon om tenestepensjonen din.{br}{br}Ynskjer du meir detaljar om dine pensjonsavtalar, må du sjekke direkte med den enkelte pensjonsordninga.',
   'personopplysninger.header':
@@ -358,7 +389,7 @@ const translations = {
   'personopplysninger.section.hvordan_brukes.2':
     'Vi lagrar ikkje utrekningane du dine, og heller ikkje personopplysningane som vert brukt i denne samanhengen. ',
   'personopplysninger.section.hvordan_brukes.3':
-    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlova kapittel 20 Alderspensjon og Art. 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.', // TODO Her er det et forslag til vurdering i word dokumentet
+    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlova kapittel 20 Alderspensjon og Art. 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.',
   'personopplysninger.section.hvilke_opplysninger.header':
     'Personopplysningar som vert brukt',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
@@ -373,9 +404,8 @@ const translations = {
     'Du oppgir den alderen (år og ev. månad) du ynskjer for uttak av pensjon for at vi skal kunne rekne ut alderspensjonen din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
     'Di pensjonsopptening vert henta frå pensjonsoppteningsregisteret hos NAV. Registeret er basert på innrapporterte inntekter frå Skatteetaten, og ev. opptening frå dagpengar, førstegongsteneste, omsorgsopptening og opptening frå uføretrygd.',
-  // TODO utdatert tekst
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
-    'Di siste pensjonsgjevende årsinntekt (og årstall) frå Skatteetaten vert brukt som inntekt fram til uttak av pensjon. Ho inngår i pensjonsbehaldninga for utrekning av alderspensjonen din.',
+    'Di siste pensjonsgjevende årsinntekt (og årstall) frå Skatteetaten vert brukt som inntekt fram til uttak av pensjon. Ho inngår i pensjonsbehaldninga for utrekning av alderspensjonen din. Forandrar du framtidig inntekt, vert og den framtidige pensjonsbehandlinga di endra.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
     'Din sivilstand kan verka inn på kor stor pensjonen vert. Opplysningar om sivilstanden din vert henta frå Folkeregisteret. Er du registrert som ugift, separert, skilt eller enke/enkemann, spør vi deg om du har sambuar. Informasjon du legg inn i her, gjeld kun for denne utrekninga og vert ikkje lagra hos NAV eller Folkeregisteret.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':

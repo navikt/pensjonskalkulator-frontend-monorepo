@@ -1,6 +1,6 @@
 import {
   generatePensjonsavtalerRequestBody,
-  unformatUttaksalder,
+  generateAlderspensjonEnkelRequestBody,
   generateAlderspensjonRequestBody,
 } from '../utils'
 
@@ -9,8 +9,8 @@ describe('apiSlice - utils', () => {
     it('returnerer riktig requestBody når maaneder er 0 og sivilstand undefined', () => {
       expect(
         generatePensjonsavtalerRequestBody(500000, 'vet_ikke', {
-          aar: 67,
-          maaneder: 0,
+          uttaksalder: { aar: 67, maaneder: 0 },
+          aarligInntektVsaPensjon: 0,
         })
       ).toEqual({
         aarligInntektFoerUttak: 500000,
@@ -31,7 +31,10 @@ describe('apiSlice - utils', () => {
         generatePensjonsavtalerRequestBody(
           500000,
           'ja_privat',
-          { aar: 62, maaneder: 4 },
+          {
+            uttaksalder: { aar: 62, maaneder: 4 },
+            aarligInntektVsaPensjon: 99000,
+          },
           'GIFT'
         )
       ).toEqual({
@@ -40,24 +43,176 @@ describe('apiSlice - utils', () => {
         harAfp: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
-          { startAlder: { aar: 62, maaneder: 4 }, grad: 100, aarligInntekt: 0 },
+          {
+            startAlder: { aar: 62, maaneder: 4 },
+            grad: 100,
+            aarligInntekt: 99000,
+          },
+        ],
+      })
+    })
+    it('returnerer riktig requestBodymed gradert periode', () => {
+      expect(
+        generatePensjonsavtalerRequestBody(
+          500000,
+          'ja_privat',
+          {
+            uttaksalder: { aar: 67, maaneder: 0 },
+
+            aarligInntektVsaPensjon: 99000,
+          },
+          'GIFT',
+          {
+            uttaksalder: { aar: 62, maaneder: 4 },
+            grad: 20,
+            aarligInntektVsaPensjon: 123000,
+          }
+        )
+      ).toEqual({
+        aarligInntektFoerUttak: 500000,
+        antallInntektsaarEtterUttak: 0,
+        harAfp: true,
+        sivilstand: 'GIFT',
+        uttaksperioder: [
+          {
+            startAlder: { aar: 62, maaneder: 4 },
+            grad: 20,
+            aarligInntekt: 123000,
+          },
+          {
+            startAlder: { aar: 67, maaneder: 0 },
+            grad: 100,
+            aarligInntekt: 99000,
+          },
         ],
       })
     })
   })
-  describe('unformatUttaksalder', () => {
-    it('returnerer riktig aar og maaned', () => {
+
+  describe('generateAlderspensjonEnkelRequestBody', () => {
+    const requestBody = {
+      afp: 'ja_privat' as AfpRadio,
+      sivilstand: 'GIFT' as Sivilstand,
+      harSamboer: false,
+      aarligInntektFoerUttak: 500000,
+      foedselsdato: '1963-04-30',
+      startAlder: { aar: 68, maaneder: 3 },
+      uttaksgrad: 100,
+    }
+    it('returnerer undefined når foedselsdato, eller startAlder er null', () => {
       expect(
-        unformatUttaksalder('random string without number (feil)')
-      ).toEqual({ aar: 0, maaneder: 0 })
-      expect(unformatUttaksalder('67 alder.aar')).toEqual({
-        aar: 67,
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          foedselsdato: null,
+        })
+      ).toEqual(undefined)
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          foedselsdato: undefined,
+        })
+      ).toEqual(undefined)
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          startAlder: null,
+        })
+      ).toEqual(undefined)
+    })
+    it('returnerer riktig simuleringstype', () => {
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON_MED_AFP_PRIVAT')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          afp: 'nei',
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          afp: null,
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+    })
+
+    it('returnerer riktig uttaksgrad', () => {
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+        })?.uttaksgrad
+      ).toEqual(100)
+    })
+    it('returnerer riktig sivilstand', () => {
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+        })?.sivilstand
+      ).toEqual('GIFT')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          sivilstand: null,
+        })?.sivilstand
+      ).toEqual('UGIFT')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          sivilstand: null,
+          harSamboer: true,
+        })?.sivilstand
+      ).toEqual('SAMBOER')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          sivilstand: 'UGIFT' as Sivilstand,
+        })?.sivilstand
+      ).toEqual('UGIFT')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          sivilstand: 'UGIFT' as Sivilstand,
+          harSamboer: true,
+        })?.sivilstand
+      ).toEqual('SAMBOER')
+    })
+
+    it('returnerer riktig forventetInntekt', () => {
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+        })?.forventetInntekt
+      ).toEqual(500000)
+    })
+
+    it('returnerer riktig uttaksalder', () => {
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+        })?.foersteUttaksalder
+      ).toEqual({
+        aar: 68,
+        maaneder: 3,
+      })
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          startAlder: { aar: 68, maaneder: 0 },
+        })?.foersteUttaksalder
+      ).toEqual({
+        aar: 68,
         maaneder: 0,
       })
-      expect(unformatUttaksalder('62 alder.aar og 5 alder.maaneder')).toEqual({
-        aar: 62,
-        maaneder: 5,
-      })
+    })
+
+    it('formaterer streng dato korrekt', () => {
+      expect(
+        generateAlderspensjonEnkelRequestBody(requestBody)?.foedselsdato
+      ).toBe('1963-04-30')
     })
   })
 
@@ -68,13 +223,21 @@ describe('apiSlice - utils', () => {
       harSamboer: false,
       aarligInntektFoerUttak: 500000,
       foedselsdato: '1963-04-30',
-      startAlder: 68,
-      startMaaned: 3,
-      uttaksgrad: 100,
+      heltUttak: {
+        uttaksalder: { aar: 68, maaneder: 3 },
+        aarligInntektVsaPensjon: 99000,
+        inntektTomAlder: {
+          aar: 75,
+          maaneder: 0,
+        },
+      },
     }
-    it('returnerer undefined når foedselsdato, startAlder, eller startMaaned er null', () => {
+    it('returnerer undefined når foedselsdato, eller heltUttak er null/undefined', () => {
       expect(
-        generateAlderspensjonRequestBody({ ...requestBody, foedselsdato: null })
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          foedselsdato: null,
+        })
       ).toEqual(undefined)
       expect(
         generateAlderspensjonRequestBody({
@@ -83,12 +246,13 @@ describe('apiSlice - utils', () => {
         })
       ).toEqual(undefined)
       expect(
-        generateAlderspensjonRequestBody({ ...requestBody, startAlder: null })
-      ).toEqual(undefined)
-      expect(
-        generateAlderspensjonRequestBody({ ...requestBody, startMaaned: null })
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          heltUttak: undefined,
+        })
       ).toEqual(undefined)
     })
+
     it('returnerer riktig simuleringstype', () => {
       expect(
         generateAlderspensjonRequestBody({
@@ -101,7 +265,6 @@ describe('apiSlice - utils', () => {
           afp: 'nei',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
-
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
@@ -110,13 +273,6 @@ describe('apiSlice - utils', () => {
       ).toEqual('ALDERSPENSJON')
     })
 
-    it('returnerer riktig uttaksgrad', () => {
-      expect(
-        generateAlderspensjonRequestBody({
-          ...requestBody,
-        })?.uttaksgrad
-      ).toEqual(100)
-    })
     it('returnerer riktig sivilstand', () => {
       expect(
         generateAlderspensjonRequestBody({
@@ -151,32 +307,31 @@ describe('apiSlice - utils', () => {
       ).toEqual('SAMBOER')
     })
 
-    it('returnerer riktig forventetInntekt', () => {
-      expect(
-        generateAlderspensjonRequestBody({
-          ...requestBody,
-        })?.forventetInntekt
-      ).toEqual(500000)
+    it('returnerer riktig gradertUttak', () => {
+      const gradertUttak = generateAlderspensjonRequestBody({
+        ...requestBody,
+        gradertUttak: {
+          uttaksalder: { aar: 67, maaneder: 3 },
+          grad: 20,
+          aarligInntektVsaPensjon: 123000,
+        },
+      })?.gradertUttak
+      expect(gradertUttak?.grad).toEqual(20)
+      expect(gradertUttak?.aarligInntektVsaPensjon).toEqual(123000)
+      expect(gradertUttak?.uttaksalder.aar).toEqual(67)
+      expect(gradertUttak?.uttaksalder.maaneder).toEqual(3)
     })
 
-    it('returnerer riktig uttaksalder', () => {
-      expect(
-        generateAlderspensjonRequestBody({
-          ...requestBody,
-        })?.foersteUttaksalder
-      ).toEqual({
-        aar: 68,
-        maaneder: 3,
-      })
-      expect(
-        generateAlderspensjonRequestBody({
-          ...requestBody,
-          startMaaned: 0,
-        })?.foersteUttaksalder
-      ).toEqual({
-        aar: 68,
-        maaneder: 0,
-      })
+    it('returnerer riktig heltUttak', () => {
+      const heltUttak = generateAlderspensjonRequestBody({
+        ...requestBody,
+      })?.heltUttak
+
+      expect(heltUttak?.aarligInntektVsaPensjon).toEqual(99000)
+      expect(heltUttak?.uttaksalder.aar).toEqual(68)
+      expect(heltUttak?.uttaksalder.maaneder).toEqual(3)
+      expect(heltUttak?.inntektTomAlder?.aar).toEqual(75)
+      expect(heltUttak?.inntektTomAlder?.maaneder).toEqual(0)
     })
 
     it('formaterer streng dato korrekt', () => {

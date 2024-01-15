@@ -4,6 +4,27 @@
  */
 
 export interface paths {
+  '/api/v2/alderspensjon/simulering': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Simuler alderspensjon
+     *
+     * @description Lag en prognose for framtidig alderspensjon. Feltet 'epsHarInntektOver2G' brukes til å angi om ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet eller ei.
+     */
+    post: operations['simulerAlderspensjon']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v1/tidligste-uttaksalder': {
     parameters: {
       query?: never
@@ -56,11 +77,11 @@ export interface paths {
     get?: never
     put?: never
     /**
-     * Simuler alderspensjon
+     * Simuler hel alderspensjon
      *
-     * @description Lag en prognose for framtidig alderspensjon. Feltet 'epsHarInntektOver2G' brukes til å angi om ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet eller ei.
+     * @description Lag en prognose for framtidig alderspensjon med 100 % uttak. Feltet 'epsHarInntektOver2G' brukes til å angi om ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet eller ei.
      */
-    post: operations['simulerAlderspensjon']
+    post: operations['simulerAlderspensjonV1']
     delete?: never
     options?: never
     head?: never
@@ -239,6 +260,70 @@ export interface paths {
 export type webhooks = Record<string, never>
 export interface components {
   schemas: {
+    AlderIngressDto: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    SimuleringGradertUttakIngressDto: {
+      /** Format: int32 */
+      grad: number
+      uttaksalder: components['schemas']['AlderIngressDto']
+      /** Format: int32 */
+      aarligInntektVsaPensjon?: number
+    }
+    SimuleringHeltUttakIngressDto: {
+      uttaksalder: components['schemas']['AlderIngressDto']
+      /** Format: int32 */
+      aarligInntektVsaPensjon: number
+      inntektTomAlder?: components['schemas']['AlderIngressDto']
+    }
+    SimuleringIngressSpecDto: {
+      /** @enum {string} */
+      simuleringstype: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
+      /** Format: date */
+      foedselsdato: string
+      epsHarInntektOver2G: boolean
+      /** Format: int32 */
+      forventetInntekt?: number
+      /** @enum {string} */
+      sivilstand?:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+        | 'SAMBOER'
+      gradertUttak?: components['schemas']['SimuleringGradertUttakIngressDto']
+      heltUttak: components['schemas']['SimuleringHeltUttakIngressDto']
+    }
+    PensjonsberegningDto: {
+      /** Format: int32 */
+      alder: number
+      /** Format: int32 */
+      beloep: number
+    }
+    SimuleringsresultatDto: {
+      alderspensjon: components['schemas']['PensjonsberegningDto'][]
+      afpPrivat: components['schemas']['PensjonsberegningDto'][]
+      vilkaarErOppfylt: boolean
+    }
+    UttaksalderGradertUttakIngressDto: {
+      /** Format: int32 */
+      grad: number
+      /** Format: int32 */
+      aarligInntektVsaPensjon?: number
+      heltUttakAlder: components['schemas']['AlderIngressDto']
+      /** Format: date */
+      foedselsdato: string
+    }
     UttaksalderIngressSpecDto: {
       /** @enum {string} */
       sivilstand?:
@@ -259,6 +344,7 @@ export interface components {
       sisteInntekt?: number
       /** @enum {string} */
       simuleringstype?: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
+      gradertUttak?: components['schemas']['UttaksalderGradertUttakIngressDto']
     }
     AlderDto: {
       /** Format: int32 */
@@ -338,18 +424,12 @@ export interface components {
       /** Format: int32 */
       grad: number
     }
-    SimuleringAlderDto: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
     SimuleringSpecDto: {
       /** @enum {string} */
       simuleringstype: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
       /** Format: int32 */
       uttaksgrad: number
-      foersteUttaksalder: components['schemas']['SimuleringAlderDto']
+      foersteUttaksalder: components['schemas']['AlderIngressDto']
       /** Format: date */
       foedselsdato: string
       epsHarInntektOver2G: boolean
@@ -369,17 +449,6 @@ export interface components {
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
         | 'SAMBOER'
-    }
-    PensjonsberegningDto: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-    }
-    SimuleringsresultatDto: {
-      alderspensjon: components['schemas']['PensjonsberegningDto'][]
-      afpPrivat: components['schemas']['PensjonsberegningDto'][]
-      vilkaarErOppfylt: boolean
     }
     UfoerepensjonSpecDto: {
       /** Format: date */
@@ -437,6 +506,39 @@ export interface components {
 }
 export type $defs = Record<string, never>
 export interface operations {
+  simulerAlderspensjon: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['SimuleringIngressSpecDto']
+      }
+    }
+    responses: {
+      /** @description Simulering utført (men dersom vilkår ikke oppfylt vil responsen ikke inneholde pensjonsbeløp). */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['SimuleringsresultatDto']
+        }
+      }
+      /** @description Simulering kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
   finnTidligsteUttaksalder: {
     parameters: {
       query?: never
@@ -444,7 +546,7 @@ export interface operations {
       path?: never
       cookie?: never
     }
-    requestBody?: {
+    requestBody: {
       content: {
         'application/json': components['schemas']['UttaksalderIngressSpecDto']
       }
@@ -503,7 +605,7 @@ export interface operations {
       }
     }
   }
-  simulerAlderspensjon: {
+  simulerAlderspensjonV1: {
     parameters: {
       query?: never
       header?: never

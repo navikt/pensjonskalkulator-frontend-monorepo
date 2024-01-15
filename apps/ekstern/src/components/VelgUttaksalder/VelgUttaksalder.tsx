@@ -5,8 +5,9 @@ import { Chips, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectFormatertUttaksalder } from '@/state/userInput/selectors'
+import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { unformatUttaksalder } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
@@ -23,19 +24,21 @@ export const VelgUttaksalder: React.FC<Props> = ({
   const intl = useIntl()
   const dispatch = useAppDispatch()
   const pinRef = React.useRef<HTMLDivElement>(null)
-  const formatertUttaksalder = useAppSelector(selectFormatertUttaksalder)
+
+  const { startAlder } = useAppSelector(selectCurrentSimulation)
 
   const formaterteAldere = React.useMemo(
     () => getFormaterteAldere(intl, tidligstMuligUttak),
     [tidligstMuligUttak]
   )
 
-  const onAlderClick = (alder: string) => {
+  const onAlderClick = (formatertAlder: string) => {
     logger('chip valgt', {
       tekst: 'Velg uttaksalder alder',
-      data: alder,
+      data: formatertAlder,
     })
-    dispatch(userInputActions.setCurrentSimulationFormatertUttaksalder(alder))
+    const alder = unformatUttaksalder(formatertAlder)
+    dispatch(userInputActions.setCurrentSimulationStartAlder(alder))
     pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
@@ -51,16 +54,21 @@ export const VelgUttaksalder: React.FC<Props> = ({
         >
           {formaterteAldere
             .slice(0, formaterteAldere.length)
-            .map((alderChip) => (
-              <Chips.Toggle
-                selected={formatertUttaksalder === alderChip}
-                checkmark={false}
-                key={alderChip}
-                onClick={() => onAlderClick(alderChip)}
-              >
-                {alderChip}
-              </Chips.Toggle>
-            ))}
+            .map((alderChip) => {
+              const { aar, maaneder } = unformatUttaksalder(alderChip)
+              return (
+                <Chips.Toggle
+                  selected={
+                    startAlder?.aar === aar && startAlder?.maaneder === maaneder
+                  }
+                  checkmark={false}
+                  key={alderChip}
+                  onClick={() => onAlderClick(alderChip)}
+                >
+                  {alderChip}
+                </Chips.Toggle>
+              )
+            })}
         </Chips>
       </div>
     </div>
