@@ -179,4 +179,59 @@ describe('BeregningEnkel', () => {
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
   })
+
+  describe('Når brukeren har oppdatert inntektet sitt og at uttaksalder er nullstil', () => {
+    it('viser det en info-alertboks som forsvinner ved å velge en ny alder', async () => {
+      const user = userEvent.setup()
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
+          userInput: {
+            ...userInputInitialState,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              aarligInntektFoerUttak: 100000,
+            },
+          },
+        },
+      })
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+      })
+
+      const alertBoks = await screen.findByTestId('alert-inntekt')
+      expect(alertBoks).toBeVisible()
+
+      await user.click(await screen.findByText('63 alder.aar'))
+      expect(alertBoks).not.toBeVisible()
+    })
+
+    it('viser det en info-alertboks som forsvinner ved å klikke på lukke knappen', async () => {
+      const user = userEvent.setup()
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
+          userInput: {
+            ...userInputInitialState,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              aarligInntektFoerUttak: 100000,
+            },
+          },
+        },
+      })
+      const alertBoks = await screen.findByTestId('alert-inntekt')
+      const alertButtonBoks = alertBoks.querySelector('button')
+      expect(alertBoks).toBeVisible()
+      expect(alertButtonBoks).toBeInTheDocument()
+      await user.click(alertButtonBoks as HTMLButtonElement)
+      expect(alertBoks).not.toBeVisible()
+    })
+  })
 })

@@ -133,6 +133,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
     <>
       {showInntektAlert && (
         <Alert
+          data-testid="alert-inntekt"
           className={styles.alert}
           variant="info"
           closeButton={true}
