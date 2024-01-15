@@ -170,6 +170,15 @@ describe('userInputSlice', () => {
             '66 alder.aar string.og 4 alder.maaneder',
         },
       })
+
+      const nullstiltState = userInputSlice(
+        userInputInitialState,
+        userInputActions.syncCurrentSimulationFormatertUttaksalderReadOnly(null)
+      )
+
+      expect(nullstiltState).toStrictEqual({
+        ...userInputInitialState,
+      })
     })
 
     it('flush', () => {

@@ -144,7 +144,7 @@ const translations = {
     'Sjekk kva som gjeld deg hos di tenestepensjonsordning.',
   'stegvisning.afp.radio_label': 'Har du rett til AFP?',
   'stegvisning.afp.radio_ja_offentlig': 'Ja, i offentleg sektor',
-  'stegvisning.afp.radio_ja_privat': '•	Ja, i privat sektor',
+  'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
   'stegvisning.afp.radio_nei': 'Nei',
   'stegvisning.afp.radio_vet_ikke': 'Veit ikkje',
   'stegvisning.afp.alert_ja_offentlig':
@@ -212,6 +212,7 @@ const translations = {
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'Utrekning',
+  'beregning.alert.inntekt': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'Utrekning',
   'beregning.highcharts.xaxis': 'Årleg inntekt og pensjon etter uttak',
   'beregning.highcharts.yaxis': 'Kroner',
@@ -324,28 +325,31 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'MANGLER_TEKST',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.button': 'MANGLER_TEKST',
-  'inntekt.info_modal.open.link': 'MANGLER_TEKST',
-  'inntekt.info_modal.title': 'MANGLER_TEKST',
-  'inntekt.info_modal.subtitle': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item1': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item2': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item3': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item4': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item5': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item6': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item7': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item8': 'MANGLER_TEKST',
-  'inntekt.info_modal.list_item9': 'MANGLER_TEKST',
-  'inntekt.info_modal.ingress': 'MANGLER_TEKST',
-  'inntekt.info_modal.lukk': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button': 'Oppdater inntekt',
+  'inntekt.info_modal.open.link': 'Kva er pensjonsgjevande inntekt?',
+  'inntekt.info_modal.title': 'Kva er pensjonsgjevande inntekt?',
+  'inntekt.info_modal.subtitle':
+    'Dette vert rekna som pensjonsgjevande inntekt',
+  'inntekt.info_modal.list_item1': 'All lønsinntekt for lønstakarar',
+  'inntekt.info_modal.list_item2': 'Personinntekt frå næring frå sjølvstendige',
+  'inntekt.info_modal.list_item3': 'Foreldrepengar',
+  'inntekt.info_modal.list_item4': 'Sjukepengar',
+  'inntekt.info_modal.list_item5': 'Dagpengar',
+  'inntekt.info_modal.list_item6': 'Arbeidsavklaringspengar',
+  'inntekt.info_modal.list_item7': 'Omsorgsstønad',
+  'inntekt.info_modal.list_item8':
+    'Fosterheimsgodtgjersle (den delen som utgjer arbeidsgodtgjersle)',
+  'inntekt.info_modal.list_item9':
+    'Førstegongsteneste (viss påbegynt tidlegast i 2010)',
+  'inntekt.info_modal.ingress':
+    'Pensjonsgjvande inntekt verkar inn på retten til storleiken på alderspensjonen og andre pensjonsytingar. Pensjonsgjevande inntekt vert rekna ut av Skatteetaten.{br}{br}Uføretrygd gjer opptening til alderspensjon, men vert ikkje rekna som pensjonsgjevande inntekt.',
+  'inntekt.info_modal.lukk': 'Lukk',
   'forbehold.title': 'Atterhald',
   'forbehold.intro':
     'Pensjonen er rekna ut med dei opplysningane vi har om deg, i tillegg til dei opplysningane du har gjeve sjølve på tidspunktet for utrekninga. Utrekninga er eit førebels svar på kvor mykje du kan vente å få i pensjon. Beløpa er i dagens kroneverdi før skatt. Vi har brukt dagens satsar for garantipensjon. Satsane vert reguleret kvart år og vert ikkje fastsatt før dei skal brukast. Framtidige reguleringar kan medføra endringar for kor tid du tidlegast kan starte uttak av alderspensjon.{br}{br}Er det lenge til du skal ta ut pensjon, tilrår vi at du tek ei ny utrekning i pensjonskalkulatoren når du nærmar deg alderen for oppstart av pensjon. Det vil blant anna kunne skje endringar i oppteninga di og i regelverket.{br}{br}Pensjonsgjevande inntekt er gjeldande i utrekning av alderspensjon frå januar året etter at ho er fastsett av Skatteetaten. Alderspensjonen vil difor normalt auke som fylgje av ny opptjening de to første åra etter uttak. Held du fram i jobb etter uttak av alderspensjon, vil alderspensjonen fortsetje å auke etter kvart som ny opptening vert lagt til. Du kan tene opp til alderspensjon til og med det året du fyller 75 år.',
   'forbehold.inntekt.title': 'Inntekt',
-  // TODO utdatert tekst
   'forbehold.inntekt.ingress':
-    'I utrekninga brukar vi den siste registrerte pensjonsgjevande årsinntekta som NAV har fått frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt frem til du startar uttak av alderspensjon. Ynskjer du å endre fremtidig inntekt, må du nytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>.',
+    'I utrekninga brukar vi den siste registrerte pensjonsgjevande årsinntekta som NAV har fått frå Skatteetaten. Ho vert brukt som di framtidige inntekt fram til du startar uttak av alderspensjon, med mindre du sjølve endrar beløpet i kalkulatoren.',
   'forbehold.utenlandsopphold.title': 'Utanlandsopphald',
   'forbehold.utenlandsopphold.ingress':
     'Kalkulatoren tek atterhald om at du på tidspunktet for uttak av alderspensjon har budd i Noreg i minst 40 år frå du fylte 16 år og fram til du tek ut pensjon.{br}{br}Har du mindre enn 40 års trygdetid kan det verka inn på kor mykje du får i alderspensjon, og kor tid du kan ta ut alderspensjon. I denne utgåva av kalkulatoren kan du foreløpig ikkje registrere opphald utenfor Noreg. For å få rekne ut alderspensjonen din så riktig som mogeleg, må du nytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>.',
@@ -385,7 +389,7 @@ const translations = {
   'personopplysninger.section.hvordan_brukes.2':
     'Vi lagrar ikkje utrekningane du dine, og heller ikkje personopplysningane som vert brukt i denne samanhengen. ',
   'personopplysninger.section.hvordan_brukes.3':
-    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlova kapittel 20 Alderspensjon og Art. 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.', // TODO Her er det et forslag til vurdering i word dokumentet
+    'Behandlingsgrunnlaget for behandlinga simulering av pensjon er Art. 6 (1) c Rettsleg forplikting, Forvaltningslova § 11, Folketrygdlova kapittel 20 Alderspensjon og Art. 6 (1) a, Samtykke. NAV er behandlingsansvarlig for behandlinga som vert gjort i pensjonskalkulatoren.',
   'personopplysninger.section.hvilke_opplysninger.header':
     'Personopplysningar som vert brukt',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.header':
@@ -400,9 +404,8 @@ const translations = {
     'Du oppgir den alderen (år og ev. månad) du ynskjer for uttak av pensjon for at vi skal kunne rekne ut alderspensjonen din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.5':
     'Di pensjonsopptening vert henta frå pensjonsoppteningsregisteret hos NAV. Registeret er basert på innrapporterte inntekter frå Skatteetaten, og ev. opptening frå dagpengar, førstegongsteneste, omsorgsopptening og opptening frå uføretrygd.',
-  // TODO utdatert tekst
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.6':
-    'Di siste pensjonsgjevende årsinntekt (og årstall) frå Skatteetaten vert brukt som inntekt fram til uttak av pensjon. Ho inngår i pensjonsbehaldninga for utrekning av alderspensjonen din.',
+    'Di siste pensjonsgjevende årsinntekt (og årstall) frå Skatteetaten vert brukt som inntekt fram til uttak av pensjon. Ho inngår i pensjonsbehaldninga for utrekning av alderspensjonen din. Forandrar du framtidig inntekt, vert og den framtidige pensjonsbehandlinga di endra.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
     'Din sivilstand kan verka inn på kor stor pensjonen vert. Opplysningar om sivilstanden din vert henta frå Folkeregisteret. Er du registrert som ugift, separert, skilt eller enke/enkemann, spør vi deg om du har sambuar. Informasjon du legg inn i her, gjeld kun for denne utrekninga og vert ikkje lagra hos NAV eller Folkeregisteret.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':

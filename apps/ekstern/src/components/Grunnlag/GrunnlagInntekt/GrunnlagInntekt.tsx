@@ -68,7 +68,6 @@ export const GrunnlagInntekt = () => {
                   aar: aarligInntektFoerUttakFraSkatt?.aar,
                 }}
               />
-              )
               <br />
             </BodyLong>
             <InfoModalInntekt />

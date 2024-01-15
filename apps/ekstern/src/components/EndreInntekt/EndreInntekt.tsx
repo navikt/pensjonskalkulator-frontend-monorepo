@@ -67,6 +67,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
       logger('button klikk', {
         tekst: 'endrer pensjonsgivende inntekt',
       })
+      window.scrollTo(0, 0)
       /* c8 ignore next 3 */
       if (inntektModalRef.current?.open) {
         setOppdatertInntekt('')

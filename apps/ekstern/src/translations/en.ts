@@ -152,6 +152,7 @@ const translations = {
   'beregning.pensjonsavtaler.error.partial': 'MANGLER_TEKST',
   'beregning.pensjonsavtaler.info': 'MANGLER_TEKST',
   'beregning.title': 'MANGLER_TEKST',
+  'beregning.alert.inntekt': 'MANGLER_TEKST',
   'beregning.highcharts.title': 'MANGLER_TEKST',
   'beregning.highcharts.xaxis': 'MANGLER_TEKST',
   'beregning.highcharts.yaxis': 'MANGLER_TEKST',
