@@ -132,15 +132,17 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   return (
     <>
       {showInntektAlert && (
-        <Alert
-          data-testid="alert-inntekt"
-          className={styles.alert}
-          variant="info"
-          closeButton={true}
-          onClose={dismissAlert}
-        >
-          <FormattedMessage id="beregning.alert.inntekt" />
-        </Alert>
+        <div className={styles.container}>
+          <Alert
+            data-testid="alert-inntekt"
+            className={styles.alert}
+            variant="info"
+            closeButton={true}
+            onClose={dismissAlert}
+          >
+            <FormattedMessage id="beregning.alert.inntekt" />
+          </Alert>
+        </div>
       )}
 
       <div className={clsx(styles.background, styles.background__lightgray)}>

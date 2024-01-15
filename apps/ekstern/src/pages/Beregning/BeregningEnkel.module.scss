@@ -10,6 +10,11 @@
 
 .alert {
   margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
+
+  @media (min-width: $a-breakpoint-lg) {
+    margin: 0 0 var(--a-spacing-6) 0;
+    max-width: $container-max-width;
+  }
 }
 
 .background {
