@@ -31,7 +31,7 @@ async function onSetCurrentSimulationStartAlder(
     },
     cache
   )
-  const formatertUttaksalder = formatUttaksalder(intl, payload)
+  const formatertUttaksalder = payload ? formatUttaksalder(intl, payload) : null
 
   dispatch(
     userInputActions.syncCurrentSimulationFormatertUttaksalderReadOnly(

@@ -78,7 +78,7 @@ export const userInputSlice = createSlice({
     },
     syncCurrentSimulationFormatertUttaksalderReadOnly: (
       state,
-      action: PayloadAction<string>
+      action: PayloadAction<string | null>
     ) => {
       state.currentSimulation = {
         ...state.currentSimulation,
