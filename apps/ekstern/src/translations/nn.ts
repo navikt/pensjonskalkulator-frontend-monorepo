@@ -309,6 +309,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':
     'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.validation_error.type':

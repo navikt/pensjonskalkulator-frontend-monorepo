@@ -1,8 +1,8 @@
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon } from '@navikt/aksel-icons'
-import { Button, Modal, TextField } from '@navikt/ds-react'
+import { BodyShort, Button, Modal, TextField, VStack } from '@navikt/ds-react'
 
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectAarligInntektFoerUttakFraBrukerInput } from '@/state/userInput/selectors'
@@ -98,22 +98,27 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
       >
         <Modal.Body>
           <form id="oppdatere-inntekt" method="dialog" onSubmit={onSubmit}>
-            <TextField
-              data-testid="inntekt-textfield"
-              type="text"
-              inputMode="numeric"
-              name="inntekt"
-              label={intl.formatMessage({
-                id: 'inntekt.endre_inntekt_modal.textfield.label',
-              })}
-              description={intl.formatMessage({
-                id: 'inntekt.endre_inntekt_modal.textfield.description',
-              })}
-              error={validationError}
-              onChange={handleTextfieldChange}
-              value={oppdatertInntekt}
-              max={5}
-            />
+            <VStack gap="4">
+              <TextField
+                data-testid="inntekt-textfield"
+                type="text"
+                inputMode="numeric"
+                name="inntekt"
+                label={intl.formatMessage({
+                  id: 'inntekt.endre_inntekt_modal.textfield.label',
+                })}
+                description={intl.formatMessage({
+                  id: 'inntekt.endre_inntekt_modal.textfield.description',
+                })}
+                error={validationError}
+                onChange={handleTextfieldChange}
+                value={oppdatertInntekt}
+                max={5}
+              />
+              <BodyShort>
+                <FormattedMessage id="inntekt.endre_inntekt_modal.paragraph" />
+              </BodyShort>
+            </VStack>
           </form>
         </Modal.Body>
         <Modal.Footer>
