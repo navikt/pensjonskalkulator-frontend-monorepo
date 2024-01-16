@@ -25,7 +25,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
   const dispatch = useAppDispatch()
   const pinRef = React.useRef<HTMLDivElement>(null)
 
-  const { startAlder } = useAppSelector(selectCurrentSimulation)
+  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
 
   const formaterteAldere = React.useMemo(
     () => getFormaterteAldere(intl, tidligstMuligUttak),
@@ -38,7 +38,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
       data: formatertAlder,
     })
     const alder = unformatUttaksalder(formatertAlder)
-    dispatch(userInputActions.setCurrentSimulationStartAlder(alder))
+    dispatch(userInputActions.setCurrentSimulationUttaksalder(alder))
     pinRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
@@ -59,7 +59,8 @@ export const VelgUttaksalder: React.FC<Props> = ({
               return (
                 <Chips.Toggle
                   selected={
-                    startAlder?.aar === aar && startAlder?.maaneder === maaneder
+                    uttaksalder?.aar === aar &&
+                    uttaksalder?.maaneder === maaneder
                   }
                   checkmark={false}
                   key={alderChip}

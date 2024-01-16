@@ -75,7 +75,7 @@ describe('Beregning', () => {
             currentSimulation: {
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
-              startAlder: { aar: 70, maaneder: 4 },
+              uttaksalder: { aar: 70, maaneder: 4 },
               aarligInntektFoerUttak: 300000,
               gradertUttaksperiode: null,
             },

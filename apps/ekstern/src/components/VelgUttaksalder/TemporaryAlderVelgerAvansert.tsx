@@ -12,22 +12,28 @@ import {
   selectSivilstand,
   selectAarligInntektFoerUttak,
 } from '@/state/userInput/selectors'
-import { formatUttaksalder } from '@/utils/alder'
+import { formatUttaksalder, unformatUttaksalder } from '@/utils/alder'
 
 import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
 
 interface Props {
-  grad: number
-  defaultValue?: Alder
+  name: string
+  label: string
+  description?: string
+  defaultValue?: Alder | null
+  value?: Alder | null // controlled component
   hasValidationError?: boolean
-  onChangeCallback?: (s: string) => void
+  onChange?: (alder: Alder | undefined) => void
 }
 
 export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
-  grad,
+  name,
+  label,
+  description,
   defaultValue,
+  value,
   hasValidationError,
-  onChangeCallback,
+  onChange,
 }) => {
   const intl = useIntl()
   const afp = useAppSelector(selectAfp)
@@ -37,10 +43,8 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
     React.useState<TidligsteUttaksalderRequestBody | undefined>(undefined)
-  const [value, setValue] = React.useState<string | undefined>(
-    defaultValue
-      ? formatUttaksalder(intl, defaultValue, { compact: true })
-      : undefined
+  const [localValue, setLocalValue] = React.useState<string>(
+    defaultValue ? formatUttaksalder(intl, defaultValue, { compact: true }) : ''
   )
 
   React.useEffect(() => {
@@ -52,6 +56,14 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
         afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     })
   }, [afp, sivilstand, aarligInntektFoerUttak, harSamboer])
+
+  React.useEffect(() => {
+    if (value !== undefined) {
+      setLocalValue(
+        value !== null ? formatUttaksalder(intl, value, { compact: true }) : ''
+      )
+    }
+  }, [value])
 
   // Hent tidligst mulig uttaksalder
   const {
@@ -69,11 +81,15 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
     setShowValidationError(true)
   }, [hasValidationError])
 
-  const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(e.target.value)
+  const onLocalChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     ;(prevShowValidationError: boolean) =>
       setShowValidationError(!prevShowValidationError)
-    onChangeCallback && onChangeCallback(e.target.value)
+    if (value === undefined) {
+      setLocalValue(e.target.value)
+    }
+    if (onChange) {
+      onChange(e.target.value ? unformatUttaksalder(e.target.value) : undefined)
+    }
   }
 
   const formaterteAldere = React.useMemo(
@@ -105,26 +121,33 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
         )} */
       }
       <Select
+        data-testid={`temporaryAlderVelger-${name}`}
         form="avansert-beregning"
-        name={`uttaksalder-${
-          grad === 100 ? 'hele-pensjon' : 'gradert-pensjon'
-        }`}
-        label={`Når vil du ta ut ${grad} % alderspensjon`}
+        name={name}
+        label={label}
         description={
-          isSuccess && tidligstMuligUttak
-            ? `Du kan tidligst ta ut ${grad} % alderspensjon når du er ${formatUttaksalder(
-                intl,
-                tidligstMuligUttak
-              )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`
-            : ''
+          description !== undefined
+            ? description
+            : isSuccess && tidligstMuligUttak
+              ? `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
+                  intl,
+                  tidligstMuligUttak
+                )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`
+              : ''
         }
-        value={value}
+        value={
+          value !== undefined
+            ? value !== null
+              ? formatUttaksalder(intl, value, { compact: true })
+              : ''
+            : localValue
+        }
         error={
           hasValidationError && showValidationError
             ? 'VALIDATION ERROR'
             : undefined
         }
-        onChange={onChange}
+        onChange={onLocalChange}
       >
         <option>Velg alder</option>
         {formaterteAldere.slice(0, formaterteAldere.length).map((alderChip) => (

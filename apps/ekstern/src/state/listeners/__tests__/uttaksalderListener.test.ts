@@ -48,10 +48,10 @@ describe('uttaksalderListener', () => {
     unsubscribe?.()
   })
 
-  describe('Gitt at startAlder oppdateres,', () => {
+  describe('Gitt at uttaksalder oppdateres,', () => {
     it('oppdaterer currentSimulation', async () => {
       store.dispatch(
-        userInputActions.setCurrentSimulationStartAlder({
+        userInputActions.setCurrentSimulationUttaksalder({
           aar: 66,
           maaneder: 5,
         })
@@ -65,7 +65,7 @@ describe('uttaksalderListener', () => {
       )
 
       store.dispatch(
-        userInputActions.setCurrentSimulationStartAlder({
+        userInputActions.setCurrentSimulationUttaksalder({
           aar: 67,
           maaneder: 0,
         })

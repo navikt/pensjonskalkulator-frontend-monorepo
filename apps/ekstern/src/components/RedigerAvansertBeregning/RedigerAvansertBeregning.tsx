@@ -31,8 +31,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const intl = useIntl()
   const dispatch = useAppDispatch()
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const { startAlder, gradertUttaksperiode, formatertUttaksalderReadOnly } =
-    useAppSelector(selectCurrentSimulation)
+  const { uttaksalder, gradertUttaksperiode } = useAppSelector(
+    selectCurrentSimulation
+  )
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, boolean>
   >({
@@ -40,9 +41,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     'uttaksalder-hele-pensjon': false,
     'uttaksalder-gradert-pensjon': false,
   })
-  const [temporaryStartAlder, setTemporaryStartAlder] = React.useState<string>(
-    formatertUttaksalderReadOnly ?? ''
-  )
+  const [temporaryStartAlder, setTemporaryStartAlder] = React.useState<
+    Alder | undefined
+  >(uttaksalder !== null ? uttaksalder : undefined)
   const [temporaryGradertUttaksperiode, setTemporaryGradertUttaksperiode] =
     React.useState<Partial<GradertUttaksperiode> | undefined>(
       gradertUttaksperiode ?? undefined
@@ -63,7 +64,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
       : 100
 
     setTemporaryGradertUttaksperiode(
-      avansertBeregningFormatertUttaksgradAsNumber !== 100
+      !isNaN(avansertBeregningFormatertUttaksgradAsNumber) &&
+        avansertBeregningFormatertUttaksgradAsNumber !== 100
         ? {
             grad: avansertBeregningFormatertUttaksgradAsNumber,
           }
@@ -85,7 +87,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
 
     if (validateInput(data, setValidationErrors)) {
       dispatch(
-        userInputActions.setCurrentSimulationStartAlder(
+        userInputActions.setCurrentSimulationUttaksalder(
           unformatUttaksalder(
             avansertBeregningFormatertUttaksalderHelePensjonData as string
           )
@@ -166,13 +168,15 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         </div>
         <hr className={styles.separator} />
 
-        {temporaryGradertUttaksperiode?.grad && (
+        {temporaryGradertUttaksperiode && (
           <div>
             <TemporaryAlderVelgerAvansert
+              name="uttaksalder-gradert-pensjon"
+              label={`Når vil du ta ut ${temporaryGradertUttaksperiode.grad} % alderspensjon`}
+              description="TODO under avklaring"
               defaultValue={
                 temporaryGradertUttaksperiode?.uttaksalder ?? undefined
               }
-              grad={temporaryGradertUttaksperiode.grad}
               hasValidationError={
                 validationErrors['uttaksalder-gradert-pensjon']
               }
@@ -182,16 +186,17 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         )}
         <div>
           <TemporaryAlderVelgerAvansert
-            defaultValue={startAlder ?? undefined}
-            grad={100}
+            name="uttaksalder-hele-pensjon"
+            label="Når vil du ta ut 100 % alderspensjon"
+            defaultValue={uttaksalder ?? undefined}
             hasValidationError={validationErrors['uttaksalder-hele-pensjon']}
-            onChangeCallback={(s) => {
-              setTemporaryStartAlder(s)
+            onChange={(alder) => {
+              setTemporaryStartAlder(alder)
             }}
           />
         </div>
         <div>
-          <EndreInntektVsaPensjon temporaryStartAlder={temporaryStartAlder} />
+          <EndreInntektVsaPensjon temporaryUttaksalder={temporaryStartAlder} />
         </div>
         <div>
           <Button form="avansert-beregning" className={styles.button}>

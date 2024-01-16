@@ -77,7 +77,7 @@ export function Simulering(props: {
     isOpen: isPensjonsavtalerAccordionItemOpen,
     toggleOpen: togglePensjonsavtalerAccordionItem,
   } = React.useContext(PensjonsavtalerAccordionContext)
-  const { startAlder, aarligInntektVsaPensjon, gradertUttaksperiode } =
+  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
@@ -101,7 +101,7 @@ export function Simulering(props: {
   } = usePensjonsavtalerQuery(
     pensjonsavtalerRequestBody as PensjonsavtalerRequestBody,
     {
-      skip: !pensjonsavtalerRequestBody || !harSamtykket || !startAlder,
+      skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
     }
   )
 
@@ -117,7 +117,7 @@ export function Simulering(props: {
 
   // Hent pensjonsavtaler
   React.useEffect(() => {
-    if (harSamtykket && startAlder) {
+    if (harSamtykket && uttaksalder) {
       const optionalGradertUttakObj = gradertUttaksperiode
         ? {
             uttaksalder: gradertUttaksperiode.uttaksalder,
@@ -131,15 +131,15 @@ export function Simulering(props: {
         aarligInntektFoerUttak,
         afp,
         {
-          uttaksalder: startAlder,
-          aarligInntektVsaPensjon: aarligInntektVsaPensjon ?? 0,
+          uttaksalder,
+          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon?.beloep ?? 0,
         },
         sivilstand,
         optionalGradertUttakObj
       )
       setPensjonsavtalerRequestBody(requestBody)
     }
-  }, [harSamtykket, startAlder])
+  }, [harSamtykket, uttaksalder])
 
   React.useEffect(() => {
     if (chartRef.current) {
@@ -156,16 +156,16 @@ export function Simulering(props: {
   // Calculates the length of the x-axis, once at first and every time uttakalder or pensjonsavtaler is updated
   React.useEffect(() => {
     // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler
-    if (startAlder && !isLoading && isPensjonsavtalerLoading) {
+    if (uttaksalder && !isLoading && isPensjonsavtalerLoading) {
       setXAxis(
-        generateXAxis(startAlder.aar, [], setIsPensjonsavtaleFlagVisible)
+        generateXAxis(uttaksalder.aar, [], setIsPensjonsavtaleFlagVisible)
       )
     }
     // recalculates correclty when alderspensjon AND pensjonsavtaler are done loading
-    if (startAlder && !isLoading && !isPensjonsavtalerLoading) {
+    if (uttaksalder && !isLoading && !isPensjonsavtalerLoading) {
       setXAxis(
         generateXAxis(
-          startAlder.aar,
+          uttaksalder.aar,
           pensjonsavtaler?.avtaler ?? [],
           setIsPensjonsavtaleFlagVisible
         )
@@ -175,7 +175,7 @@ export function Simulering(props: {
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
-    if (startAlder && alderspensjon) {
+    if (uttaksalder && alderspensjon) {
       setChartOptions({
         ...getChartDefaults(XAxis),
         series: [
@@ -185,7 +185,7 @@ export function Simulering(props: {
             data: processInntektArray(
               aarligInntektFoerUttak,
               XAxis.length,
-              startAlder.maaneder
+              uttaksalder.maaneder
             ),
           } as SeriesOptionsType,
           ...(showAfp
@@ -212,7 +212,7 @@ export function Simulering(props: {
                   }),
                   /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
-                    startAlder.aar - 1,
+                    uttaksalder.aar - 1,
                     XAxis.length,
                     pensjonsavtaler?.avtaler
                   ),

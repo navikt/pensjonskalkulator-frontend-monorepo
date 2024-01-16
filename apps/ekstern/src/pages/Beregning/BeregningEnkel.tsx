@@ -47,7 +47,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
 
-  const { startAlder } = useAppSelector(selectCurrentSimulation)
+  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
     React.useState<AlderspensjonEnkelRequestBody | undefined>(undefined)
   const [showInntektAlert, setShowInntektAlert] = React.useState<boolean>(false)
@@ -55,23 +55,23 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   React.useEffect(() => {
     // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder er null (betyr at de ble nettopp nullstilt fra GrunnlagInntekt)
     setShowInntektAlert(
-      !!aarligInntektFoerUttakFraBrukerInput && startAlder === null
+      !!aarligInntektFoerUttakFraBrukerInput && uttaksalder === null
     )
-  }, [aarligInntektFoerUttakFraBrukerInput, startAlder])
+  }, [aarligInntektFoerUttakFraBrukerInput, uttaksalder])
 
   React.useEffect(() => {
-    if (startAlder) {
+    if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
         afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
-        startAlder,
+        uttaksalder,
       })
       setAlderspensjonEnkelRequestBody(requestBody)
     }
-  }, [afp, person, aarligInntektFoerUttak, harSamboer, startAlder])
+  }, [afp, person, aarligInntektFoerUttak, harSamboer, uttaksalder])
 
   // Hent alderspensjon + AFP
   const {
@@ -87,14 +87,14 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   )
 
   React.useEffect(() => {
-    if (startAlder !== null) {
+    if (uttaksalder !== null) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
         logger('alert', { teskt: 'Beregning: Ikke høy nok opptjening' })
       } else if (isError) {
         logger('alert', { teskt: 'Beregning: Klarte ikke beregne pensjon' })
       }
     }
-  }, [startAlder, isError, alderspensjon])
+  }, [uttaksalder, isError, alderspensjon])
 
   React.useEffect(() => {
     if (error && (error as FetchBaseQueryError).status === 503) {
@@ -159,7 +159,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
         <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
       </div>
 
-      {startAlder !== null && (
+      {uttaksalder !== null && (
         <div
           className={`${styles.container} ${styles.container__hasMobilePadding}`}
         >
@@ -169,10 +169,10 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
               <AlertDashBorder onRetry={isError ? onRetry : undefined}>
-                {startAlder && startAlder.aar < 67 && (
+                {uttaksalder && uttaksalder.aar < 67 && (
                   <FormattedMessage
                     id="beregning.lav_opptjening"
-                    values={{ startAar: startAlder.aar }}
+                    values={{ startAar: uttaksalder.aar }}
                   />
                 )}
                 {isError && <FormattedMessage id="beregning.error" />}

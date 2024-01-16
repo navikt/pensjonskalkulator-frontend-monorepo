@@ -241,12 +241,15 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
     'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre': 'MANGLER_TEKST',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.slette': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'MANGLER_TEKST',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.button': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error':
+    'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'MANGLER_TEKST',
   'inntekt.info_modal.open.link': 'MANGLER_TEKST',
   'inntekt.info_modal.title': 'MANGLER_TEKST',
   'inntekt.info_modal.subtitle': 'MANGLER_TEKST',

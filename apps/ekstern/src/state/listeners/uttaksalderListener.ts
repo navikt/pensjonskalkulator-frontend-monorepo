@@ -12,13 +12,13 @@ import { formatUttaksalder } from '@/utils/alder'
  * 1. formaterer uttaksalder
  * 2. oppdaterer current simulation med formatert uttaksalder
  *
- * @param payload - alder satt av setCurrentSimulationStartAlder
+ * @param payload - alder satt av setCurrentSimulationUttaksalder
  * @param { dispatch, getState getOriginalState, condition } - fra AppListenerEffectAPI
  */
 async function onSetCurrentSimulationStartAlder(
   {
     payload,
-  }: ReturnType<typeof userInputActions.setCurrentSimulationStartAlder>,
+  }: ReturnType<typeof userInputActions.setCurrentSimulationUttaksalder>,
   { dispatch /* , getState*/ }: AppListenerEffectAPI
 ) {
   /* c8 ignore next 1 */
@@ -46,7 +46,7 @@ export function createUttaksalderListener(
 ): Unsubscribe {
   const subscriptions = [
     startListening({
-      actionCreator: userInputActions.setCurrentSimulationStartAlder,
+      actionCreator: userInputActions.setCurrentSimulationUttaksalder,
       effect: onSetCurrentSimulationStartAlder,
     }),
   ]

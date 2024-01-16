@@ -1,10 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface Simulation {
-  formatertUttaksalderReadOnly: string | null // (!) Obs READONLY - string i format "YY alder.aar string.og M alder.maaneder" - oppdateres automatisk basert på startAlder - se uttaksalderListener
-  startAlder: Alder | null // valgt uttaksalder for 100% alderspensjon (alder perioden gjelder FRA) - aar heltall, maaneder heltall mellom 0-11
+  formatertUttaksalderReadOnly: string | null // (!) Obs READONLY - string i format "YY alder.aar string.og M alder.maaneder" - oppdateres automatisk basert på uttaksalder - se uttaksalderListener
+  uttaksalder: Alder | null // valgt uttaksalder for 100% alderspensjon (alder perioden gjelder FRA) - aar heltall, maaneder heltall mellom 0-11
   aarligInntektFoerUttak: number | null // inntekt før uttak av pensjon - heltall beløp i nok - overskriver beløp fra Skatteetaten
-  aarligInntektVsaPensjon?: number // optional: heltall beløp i nok - inntekt vsa. pensjon
+  aarligInntektVsaHelPensjon?: {
+    // optional
+    beloep: number // heltall beløp i nok - inntekt vsa. pensjon
+    sluttAlder: Alder // alder inntekt vsa. pensjon tar slutt
+  }
   gradertUttaksperiode: GradertUttaksperiode | null
 }
 
@@ -23,7 +27,7 @@ export const userInputInitialState: UserInputState = {
   samboer: null,
   currentSimulation: {
     formatertUttaksalderReadOnly: null,
-    startAlder: null,
+    uttaksalder: null,
     aarligInntektFoerUttak: null,
     gradertUttaksperiode: null,
   },
@@ -45,8 +49,7 @@ export const userInputSlice = createSlice({
     setSamboer: (state, action: PayloadAction<boolean>) => {
       state.samboer = action.payload
     },
-    // TODO utvide test til å støtte null
-    setCurrentSimulationStartAlder: (
+    setCurrentSimulationUttaksalder: (
       state,
       action: PayloadAction<{
         aar: number
@@ -55,7 +58,7 @@ export const userInputSlice = createSlice({
     ) => {
       state.currentSimulation = {
         ...state.currentSimulation,
-        startAlder: action.payload ? { ...action.payload } : null,
+        uttaksalder: action.payload ? { ...action.payload } : null,
       }
     },
     setCurrentSimulationAarligInntektFoerUttak: (
@@ -64,11 +67,11 @@ export const userInputSlice = createSlice({
     ) => {
       state.currentSimulation.aarligInntektFoerUttak = action.payload
     },
-    setCurrentSimulationAarligInntektVsaPensjon: (
+    setCurrentSimulationAarligInntektVsaHelPensjon: (
       state,
-      action: PayloadAction<number | undefined>
+      action: PayloadAction<{ beloep: number; sluttAlder: Alder } | undefined>
     ) => {
-      state.currentSimulation.aarligInntektVsaPensjon = action.payload
+      state.currentSimulation.aarligInntektVsaHelPensjon = action.payload
     },
     setCurrentSimulationGradertuttaksperiode: (
       state,

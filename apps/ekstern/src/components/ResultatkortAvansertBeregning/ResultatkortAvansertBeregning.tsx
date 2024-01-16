@@ -24,7 +24,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
   const intl = useIntl()
   const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
 
-  const { startAlder, aarligInntektVsaPensjon, gradertUttaksperiode } =
+  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
 
   return (
@@ -43,7 +43,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
               id: 'beregning.avansert.resultatkort.inntekt_2',
             })}
           </dd>
-          {startAlder && gradertUttaksperiode?.uttaksalder && (
+          {uttaksalder && gradertUttaksperiode?.uttaksalder && (
             <>
               <dt className={styles.cardLeftListTitle}>
                 {intl.formatMessage({
@@ -65,11 +65,11 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                   intl,
                   {
                     aar:
-                      startAlder.maaneder > 0
-                        ? startAlder.aar
-                        : startAlder.aar - 1,
+                      uttaksalder.maaneder > 0
+                        ? uttaksalder.aar
+                        : uttaksalder.aar - 1,
                     maaneder:
-                      startAlder.maaneder > 0 ? startAlder.maaneder - 1 : 11,
+                      uttaksalder.maaneder > 0 ? uttaksalder.maaneder - 1 : 11,
                   },
                   { compact: true }
                 )}
@@ -104,12 +104,11 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.Fra',
             })}
-            {startAlder &&
+            {uttaksalder &&
               formatUttaksalder(
                 intl,
                 {
-                  aar: startAlder.aar,
-                  maaneder: startAlder.maaneder,
+                  ...uttaksalder,
                 },
                 { compact: true }
               )}
@@ -125,16 +124,24 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
               id: 'beregning.avansert.resultatkort.alderspensjon',
             })}
             100 %
-            {aarligInntektVsaPensjon && (
+            {aarligInntektVsaHelPensjon && (
               <>
                 <br />
                 {intl.formatMessage({
                   id: 'beregning.avansert.resultatkort.inntekt_1',
                 })}
-                {formatWithoutDecimal(aarligInntektVsaPensjon)}
+                {formatWithoutDecimal(aarligInntektVsaHelPensjon?.beloep)}
                 {intl.formatMessage({
                   id: 'beregning.avansert.resultatkort.inntekt_2',
                 })}
+                {intl.formatMessage({
+                  id: 'beregning.avansert.resultatkort.til',
+                })}
+                {formatUttaksalder(
+                  intl,
+                  aarligInntektVsaHelPensjon?.sluttAlder,
+                  { compact: true }
+                )}
               </>
             )}
           </dd>

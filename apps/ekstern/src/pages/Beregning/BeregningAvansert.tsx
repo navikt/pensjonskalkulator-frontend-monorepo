@@ -45,14 +45,14 @@ export const BeregningAvansert: React.FC = () => {
   )
   const { data: person } = useGetPersonQuery()
 
-  const { startAlder, aarligInntektVsaPensjon, gradertUttaksperiode } =
+  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
 
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
 
   React.useEffect(() => {
-    if (startAlder) {
+    if (uttaksalder) {
       // TODO denne må kunne ta høyde for inntekt vsa gradert pensjon, og sluttdato for inntekt vsa helpensjon
       const requestBody = generateAlderspensjonRequestBody({
         afp,
@@ -65,14 +65,15 @@ export const BeregningAvansert: React.FC = () => {
               ...gradertUttaksperiode,
             }
           : undefined,
-        heltUttak: startAlder && {
-          uttaksalder: startAlder,
-          aarligInntektVsaPensjon: aarligInntektVsaPensjon ?? 0,
+        heltUttak: uttaksalder && {
+          uttaksalder,
+          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon?.beloep ?? 0,
+          inntektTomAlder: aarligInntektVsaHelPensjon?.sluttAlder,
         },
       })
       setAlderspensjonRequestBody(requestBody)
     }
-  }, [afp, person, aarligInntektFoerUttak, harSamboer, startAlder])
+  }, [afp, person, aarligInntektFoerUttak, harSamboer, uttaksalder])
 
   // Hent alderspensjon + AFP
   const {
@@ -138,7 +139,7 @@ export const BeregningAvansert: React.FC = () => {
             <ResultatkortAvansertBeregning
               onButtonClick={() => setModus('redigering')}
             />
-          </div>{' '}
+          </div>
         </div>
       )}
 
@@ -152,10 +153,10 @@ export const BeregningAvansert: React.FC = () => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
               <Alert onRetry={isError ? onRetry : undefined}>
-                {startAlder && startAlder.aar < 67 && (
+                {uttaksalder && uttaksalder.aar < 67 && (
                   <FormattedMessage
                     id="beregning.lav_opptjening"
-                    values={{ startAar: startAlder.aar }}
+                    values={{ startAar: uttaksalder.aar }}
                   />
                 )}
                 {isError && <FormattedMessage id="beregning.error" />}
