@@ -29,7 +29,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@formatjs/intl-datetimeformat": "^6.12.0",
+    "@formatjs/intl-datetimeformat": "^6.12.1",
     "@formatjs/intl-numberformat": "^8.9.1",
     "@grafana/faro-web-sdk": "^1.3.4",
     "@grafana/faro-web-tracing": "^1.3.6",
