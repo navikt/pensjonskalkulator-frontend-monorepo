@@ -53,7 +53,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   }
 
   const alderVelgerChange = (alder: Alder | undefined): void => {
-    setSluttAlder(alder)
+    setSluttAlder(alder ?? null)
     setValidationErrors((prevState) => {
       return {
         ...prevState,
