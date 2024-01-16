@@ -102,7 +102,7 @@ describe('userInputSlice', () => {
         userInputInitialState,
         userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon({
           beloep: 800000,
-          sluttAlder: { aar: 0, maaneder: 0 },
+          sluttAlder: { aar: 75, maaneder: 0 },
         })
       )
 
@@ -112,7 +112,7 @@ describe('userInputSlice', () => {
           ...userInputInitialState.currentSimulation,
           aarligInntektVsaHelPensjon: {
             beloep: 800000,
-            sluttAlder: { aar: 0, maaneder: 0 },
+            sluttAlder: { aar: 75, maaneder: 0 },
           },
         },
       })

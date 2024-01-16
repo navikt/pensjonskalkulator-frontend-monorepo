@@ -68,6 +68,7 @@ export const BeregningAvansert: React.FC = () => {
         heltUttak: uttaksalder && {
           uttaksalder,
           aarligInntektVsaPensjon: aarligInntektVsaHelPensjon?.beloep ?? 0,
+          inntektTomAlder: aarligInntektVsaHelPensjon?.sluttAlder,
         },
       })
       setAlderspensjonRequestBody(requestBody)

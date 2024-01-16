@@ -55,9 +55,9 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   React.useEffect(() => {
     // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder er null (betyr at de ble nettopp nullstilt fra GrunnlagInntekt)
     setShowInntektAlert(
-      !!aarligInntektFoerUttakFraBrukerInput && startAlder === null
+      !!aarligInntektFoerUttakFraBrukerInput && uttaksalder === null
     )
-  }, [aarligInntektFoerUttakFraBrukerInput, startAlder])
+  }, [aarligInntektFoerUttakFraBrukerInput, uttaksalder])
 
   React.useEffect(() => {
     if (uttaksalder) {

@@ -141,7 +141,7 @@ describe('Beregning', () => {
       })
       expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(13)
+      expect(screen.getAllByRole('button')).toHaveLength(12)
     })
 
     it('når kallet til tidligst mulig uttak feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
@@ -173,7 +173,7 @@ describe('Beregning', () => {
       ).toBeInTheDocument()
 
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(18)
+      expect(screen.getAllByRole('button')).toHaveLength(17)
     })
   })
 

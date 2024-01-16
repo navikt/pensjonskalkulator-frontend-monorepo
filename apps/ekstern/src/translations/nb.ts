@@ -327,14 +327,19 @@ const translations = {
     'Du kan tjene så mye som du vil samtidig som du tar ut 100 % alderspensjon',
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
     'Legg til inntekt',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre': 'Endre inntekt',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.slette': 'Slett inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre':
+    'Oppdater inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette': 'Slett inntekt',
+
   'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label':
     'Hva er din forventede årsinntekt mens du tar ut 100 % alderspensjon?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'Dagens kroneverdi før skatt',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.button': 'Oppdater inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error':
+    'VALIDATION ERROR',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'Legg til inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
   'inntekt.info_modal.open.link': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_modal.title': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_modal.subtitle': 'Dette regnes som pensjonsgivende inntekt:',

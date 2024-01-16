@@ -134,6 +134,14 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                 {intl.formatMessage({
                   id: 'beregning.avansert.resultatkort.inntekt_2',
                 })}
+                {intl.formatMessage({
+                  id: 'beregning.avansert.resultatkort.til',
+                })}
+                {formatUttaksalder(
+                  intl,
+                  aarligInntektVsaHelPensjon?.sluttAlder,
+                  { compact: true }
+                )}
               </>
             )}
           </dd>
