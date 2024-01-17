@@ -1,11 +1,9 @@
 import globalClassNames from "../../style.d";
 declare const classNames: typeof globalClassNames & {
   readonly card: "card";
-  readonly cardLeft: "cardLeft";
-  readonly cardLeftList: "cardLeftList";
-  readonly cardLeftListTitle: "cardLeftListTitle";
-  readonly cardLeftListDescription: "cardLeftListDescription";
-  readonly cardRight: "cardRight";
-  readonly cardRightButton: "cardRightButton";
+  readonly list: "list";
+  readonly listTitle: "listTitle";
+  readonly listDescription: "listDescription";
+  readonly button: "button";
 };
 export = classNames;

@@ -237,13 +237,13 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           <p>{`${formatWithoutDecimal(
             aarligInntektVsaHelPensjon.beloep
           )} kr ${intl.formatMessage({
-            id: 'beregning.avansert.resultatkort.fra',
+            id: 'beregning.fra',
           })} ${
             temporaryUttaksalder
               ? formatUttaksalder(intl, temporaryUttaksalder)
               : 'PLACEHOLDER'
           } ${intl.formatMessage({
-            id: 'beregning.avansert.resultatkort.til',
+            id: 'beregning.til',
           })} ${formatUttaksalder(
             intl,
             aarligInntektVsaHelPensjon.sluttAlder

@@ -1,7 +1,7 @@
 import { EndreInntektVsaPensjon } from '..'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent, fireEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent, fireEvent } from '@/test-utils'
 
 // TODO mangler test for validering
 describe('EndreInntektVsaPensjon', async () => {
