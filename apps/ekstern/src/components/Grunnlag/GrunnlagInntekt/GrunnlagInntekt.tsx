@@ -13,7 +13,7 @@ import {
   selectAarligInntektFoerUttakFraSkatt,
   selectAarligInntektFoerUttakFraBrukerInput,
 } from '@/state/userInput/selectors'
-import { formatWithoutDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagInntekt.module.scss'
