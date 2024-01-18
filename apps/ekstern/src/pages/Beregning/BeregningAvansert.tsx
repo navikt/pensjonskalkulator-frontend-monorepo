@@ -3,7 +3,6 @@ import { FormattedMessage } from 'react-intl'
 
 import { Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import clsx from 'clsx'
 
 import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
@@ -132,17 +131,6 @@ export const BeregningAvansert: React.FC = () => {
           }}
         />
       )}
-      {modus === 'resultat' && (
-        <div className={clsx(styles.background, styles.background__lightgray)}>
-          <div
-            className={`${styles.container} ${styles.container__hasMobilePadding}`}
-          >
-            <ResultatkortAvansertBeregning
-              onButtonClick={() => setModus('redigering')}
-            />
-          </div>
-        </div>
-      )}
 
       {modus === 'resultat' && (
         <div
@@ -182,6 +170,9 @@ export const BeregningAvansert: React.FC = () => {
                   showButtonsAndTable={
                     !isError && alderspensjon?.vilkaarErOppfylt
                   }
+                />
+                <ResultatkortAvansertBeregning
+                  onButtonClick={() => setModus('redigering')}
                 />
                 <Grunnlag />
               </PensjonsavtalerAccordionContext.Provider>

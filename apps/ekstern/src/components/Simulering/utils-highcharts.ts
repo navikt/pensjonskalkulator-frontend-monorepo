@@ -93,8 +93,8 @@ export function onPointClick(this: Point): void {
   ) {
     if (index === pointIndex) {
       label.style.fontWeight = 'bold'
-      label.style.color = 'var(--a-gray-900)'
-      label.style.fill = 'var(--a-gray-900)'
+      label.style.color = 'var(--a-text-default)'
+      label.style.fill = 'var(--a-text-default)'
     } else {
       label.style.fontWeight = 'normal'
     }
@@ -280,7 +280,7 @@ export const getChartOptions = (
         style: {
           fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
-          color: 'var(--a-grayalpha-700)',
+          color: 'var(--a-text-subtle)',
         },
         y: 20,
       },
@@ -291,10 +291,10 @@ export const getChartOptions = (
         style: {
           fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
-          color: 'var(--a-grayalpha-700)',
+          color: 'var(--a-text-subtle)',
         },
       },
-      lineColor: 'var(--a-grayalpha-700)',
+      lineColor: 'var(--a-text-subtle)',
     },
     yAxis: {
       offset: 10,
@@ -322,7 +322,7 @@ export const getChartOptions = (
         style: {
           fontFamily: 'var(--a-font-family)',
           fontSize: 'var(--a-font-size-medium)',
-          color: 'var(--a-grayalpha-700)',
+          color: 'var(--a-text-subtle)',
           paddingRight: 'var(--a-spacing-3)',
         },
         x: -55,
@@ -380,7 +380,7 @@ export const getChartOptions = (
       itemDistance: 24,
       itemStyle: {
         fontFamily: 'var(--a-font-family)',
-        color: 'var(--a-gray-900)',
+        color: 'var(--a-text-default)',
         fontWeight: 'regular',
         fontSize: '14px',
         cursor: 'default',

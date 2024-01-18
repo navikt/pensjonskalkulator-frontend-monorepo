@@ -7,6 +7,7 @@ import {
   unformatUttaksalder,
   isFoedtFoer1963,
   isFoedtFoer1964,
+  transformUttaksalderToDate,
 } from '../alder'
 
 describe('alder-utils', () => {
@@ -92,6 +93,24 @@ describe('alder-utils', () => {
       expect(isFoedtFoer1964('1963-12-31')).toBeTruthy()
       expect(isFoedtFoer1964('1960-04-30')).toBeTruthy()
       expect(isFoedtFoer1964('1945-12-04')).toBeTruthy()
+    })
+  })
+
+  describe('transformUttaksalderToDate', () => {
+    it('returnerer riktig dato', () => {
+      const foedselsdato = '1970-04-15'
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 0 }, foedselsdato)
+      ).toBe('01.05.2040')
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 7 }, foedselsdato)
+      ).toBe('01.12.2040')
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 8 }, foedselsdato)
+      ).toBe('01.01.2041')
+      expect(
+        transformUttaksalderToDate({ aar: 70, maaneder: 11 }, foedselsdato)
+      ).toBe('01.04.2041')
     })
   })
 })

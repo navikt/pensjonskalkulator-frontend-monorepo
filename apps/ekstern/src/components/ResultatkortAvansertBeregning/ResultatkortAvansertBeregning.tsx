@@ -3,14 +3,15 @@ import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { PencilIcon } from '@navikt/aksel-icons'
-import { Button } from '@navikt/ds-react'
+import { Button, ExpansionCard } from '@navikt/ds-react'
 
+import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectaarligInntektFoerUttakBeloep,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
-import { formatUttaksalder } from '@/utils/alder'
+import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
 interface Props {
   onButtonClick: () => void
@@ -25,18 +26,32 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectaarligInntektFoerUttakBeloep
   )
+  const { data: person } = useGetPersonQuery()
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
 
   return (
-    <div className={styles.card}>
-      <div className={styles.cardLeft}>
-        <dl className={styles.cardLeftList}>
-          <dt className={styles.cardLeftListTitle}>
+    <ExpansionCard
+      className={styles.card}
+      aria-label={intl.formatMessage({
+        id: 'beregning.avansert.resultatkort.aria',
+      })}
+    >
+      <ExpansionCard.Header>
+        <ExpansionCard.Title>
+          <FormattedMessage id="beregning.avansert.resultatkort.tittel" />
+        </ExpansionCard.Title>
+        <ExpansionCard.Description>
+          <FormattedMessage id="beregning.avansert.resultatkort.description" />
+        </ExpansionCard.Description>
+      </ExpansionCard.Header>
+      <ExpansionCard.Content>
+        <dl className={styles.list}>
+          <dt className={styles.listTitle}>
             <FormattedMessage id="beregning.avansert.resultatkort.frem_til_uttak" />
           </dt>
-          <dd className={styles.cardLeftListDescription}>
+          <dd className={styles.listDescription}>
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_1',
             })}
@@ -47,10 +62,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
           </dd>
           {uttaksalder && gradertUttaksperiode?.uttaksalder && (
             <>
-              <dt className={styles.cardLeftListTitle}>
-                {intl.formatMessage({
-                  id: 'beregning.avansert.resultatkort.Fra',
-                })}
+              <dt className={styles.listTitle}>
                 {formatUttaksalder(
                   intl,
                   {
@@ -59,24 +71,12 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                   },
                   { compact: true }
                 )}
-                {intl.formatMessage({
-                  id: 'beregning.avansert.resultatkort.til',
-                })}
-
-                {formatUttaksalder(
-                  intl,
-                  {
-                    aar:
-                      uttaksalder.maaneder > 0
-                        ? uttaksalder.aar
-                        : uttaksalder.aar - 1,
-                    maaneder:
-                      uttaksalder.maaneder > 0 ? uttaksalder.maaneder - 1 : 11,
-                  },
-                  { compact: true }
-                )}
+                {` (${transformUttaksalderToDate(
+                  gradertUttaksperiode.uttaksalder,
+                  person?.foedselsdato as string
+                )})`}
               </dt>
-              <dd className={styles.cardLeftListDescription}>
+              <dd className={styles.listDescription}>
                 {gradertUttaksperiode.grad && (
                   <>
                     {intl.formatMessage({
@@ -102,26 +102,22 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
             </>
           )}
 
-          <dt className={styles.cardLeftListTitle}>
-            {intl.formatMessage({
-              id: 'beregning.avansert.resultatkort.Fra',
-            })}
-            {uttaksalder &&
-              formatUttaksalder(
+          <dt className={styles.listTitle}>
+            {uttaksalder && (
+              <>{`${formatUttaksalder(
                 intl,
                 {
                   ...uttaksalder,
                 },
                 { compact: true }
               )}
-            {intl.formatMessage({
-              id: 'beregning.avansert.resultatkort.til',
-            })}
-            {intl.formatMessage({
-              id: 'beregning.avansert.resultatkort.livsvarig',
-            })}
+                  (${transformUttaksalderToDate(
+                    uttaksalder,
+                    person?.foedselsdato as string
+                  )})`}</>
+            )}
           </dt>
-          <dd className={styles.cardLeftListDescription}>
+          <dd className={styles.listDescription}>
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.alderspensjon',
             })}
@@ -132,26 +128,28 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                 {intl.formatMessage({
                   id: 'beregning.avansert.resultatkort.inntekt_1',
                 })}
-                {formatWithoutDecimal(aarligInntektVsaHelPensjon?.beloep)}
                 {intl.formatMessage({
-                  id: 'beregning.avansert.resultatkort.inntekt_2',
-                })}
-                {intl.formatMessage({
-                  id: 'beregning.avansert.resultatkort.til',
+                  id: 'beregning.tom',
                 })}
                 {formatUttaksalder(
                   intl,
                   aarligInntektVsaHelPensjon?.sluttAlder,
-                  { compact: true }
+                  {
+                    compact: true,
+                  }
                 )}
+                {': '}
+                {formatWithoutDecimal(aarligInntektVsaHelPensjon?.beloep)}
+                {intl.formatMessage({
+                  id: 'beregning.avansert.resultatkort.inntekt_2',
+                })}
               </>
             )}
           </dd>
         </dl>
-      </div>
-      <div className={styles.cardRight}>
+
         <Button
-          className={styles.cardRightButton}
+          className={styles.button}
           variant="tertiary"
           icon={<PencilIcon aria-hidden />}
           onClick={onButtonClick}
@@ -160,8 +158,8 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
             id: 'beregning.avansert.resultatkort.button',
           })}
         </Button>
-      </div>
-    </div>
+      </ExpansionCard.Content>
+    </ExpansionCard>
   )
 }
 /* c8 ignore end */
