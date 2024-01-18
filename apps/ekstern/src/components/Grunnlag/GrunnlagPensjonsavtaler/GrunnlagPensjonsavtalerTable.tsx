@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyShort } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { formatWithoutDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/inntekt'
 import { capitalize } from '@/utils/string'
 
 import { groupPensjonsavtalerByType, getMaanedString } from './utils'

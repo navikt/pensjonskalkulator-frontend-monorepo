@@ -64,3 +64,32 @@ export const transformUttaksalderToDate = (
 
   return format(startOfMonth(calculatedDate), 'dd.MM.yyyy')
 }
+
+// TODO vurdere etter utvikling av AgePicker om dette kan finpusses og gjenbrukes av RedigerAvansertBeregning
+export const validateAlder = (
+  alder: Alder | null,
+  updateValidationErrorMessage: (s: string) => void
+) => {
+  let isValid = true
+  if (alder === undefined || !alder) {
+    isValid = false
+    updateValidationErrorMessage(
+      'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error'
+    )
+    return isValid
+  }
+  if (
+    alder.aar < 62 ||
+    alder.aar > 75 ||
+    alder.maaneder < 0 ||
+    alder.maaneder > 11
+  ) {
+    isValid = false
+    updateValidationErrorMessage(
+      'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error'
+    )
+    return isValid
+  }
+
+  return isValid
+}

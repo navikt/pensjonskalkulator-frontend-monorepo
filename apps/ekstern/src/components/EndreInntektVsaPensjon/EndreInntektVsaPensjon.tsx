@@ -4,13 +4,12 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { PencilIcon, TrashIcon } from '@navikt/aksel-icons'
 import { Button, Label, Modal, TextField } from '@navikt/ds-react'
 
-import { validateInntektInput } from '../EndreInntekt/utils'
 import { TemporaryAlderVelgerAvansert } from '@/components/VelgUttaksalder/TemporaryAlderVelgerAvansert'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { formatUttaksalder } from '@/utils/alder'
-import { formatWithoutDecimal } from '@/utils/currency'
+import { formatUttaksalder, validateAlder } from '@/utils/alder'
+import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 
 import styles from './EndreInntektVsaPensjon.module.scss'
 
@@ -18,7 +17,7 @@ interface Props {
   temporaryUttaksalder?: Alder
 }
 
-// TODO logger
+// TODO legge til Amplitude logging
 export const EndreInntektVsaPensjon: React.FC<Props> = ({
   temporaryUttaksalder,
 }) => {
@@ -87,42 +86,13 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
     })
   }
 
-  // TODO flytte til alder utils? Kan evt. gjenbrukes av /src/components/RedigerAvansertBeregning/utils.ts
-  const validateSluttAlder = (
-    alder: Alder | null,
-    updateValidationErrorMessage: (s: string) => void
-  ) => {
-    let isValid = true
-    if (alder === undefined || !alder) {
-      isValid = false
-      updateValidationErrorMessage(
-        'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error'
-      )
-      return isValid
-    }
-    if (
-      alder.aar < 62 ||
-      alder.aar > 75 ||
-      alder.maaneder < 0 ||
-      alder.maaneder > 11
-    ) {
-      isValid = false
-      updateValidationErrorMessage(
-        'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error'
-      )
-      return isValid
-    }
-
-    return isValid
-  }
-
   const validateInntektVsaPensjon = (): void => {
     if (
-      validateInntektInput(
+      validateInntekt(
         inntektBeloepVsaPensjon,
         updateValidationErrorInputTextMessage
       ) &&
-      validateSluttAlder(sluttAlder, updateValidationAlderVelgerTextMessage)
+      validateAlder(sluttAlder, updateValidationAlderVelgerTextMessage)
     ) {
       dispatch(
         userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon({
