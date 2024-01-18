@@ -109,7 +109,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               )?.[0] as string,
               10
             ),
-            aarligInntektVsaPensjon: 0, // TODO legge til felt for inntekt vsa gradert pensjon og lagre verdi
+            aarligInntekt: 0, // TODO legge til felt for inntekt vsa gradert pensjon og lagre verdi
           })
         )
       }

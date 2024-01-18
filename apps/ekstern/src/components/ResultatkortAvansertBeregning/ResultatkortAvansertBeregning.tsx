@@ -83,14 +83,12 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                     {gradertUttaksperiode.grad} %<br />
                   </>
                 )}
-                {gradertUttaksperiode.aarligInntektVsaPensjon && (
+                {gradertUttaksperiode.aarligInntekt && (
                   <>
                     {intl.formatMessage({
                       id: 'beregning.avansert.resultatkort.inntekt_1',
                     })}
-                    {formatWithoutDecimal(
-                      gradertUttaksperiode.aarligInntektVsaPensjon
-                    )}
+                    {formatWithoutDecimal(gradertUttaksperiode.aarligInntekt)}
                     {intl.formatMessage({
                       id: 'beregning.avansert.resultatkort.inntekt_2',
                     })}

@@ -53,15 +53,15 @@ export const GrunnlagPensjonsavtaler = () => {
   // Hent pensjonsavtaler
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {
-      const requestBody = generatePensjonsavtalerRequestBody(
-        aarligInntektFoerUttak ?? 0,
+      const requestBody = generatePensjonsavtalerRequestBody({
+        aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
         afp,
-        {
+        sivilstand,
+        heltUttak: {
           uttaksalder,
-          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon?.beloep ?? 0,
+          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
-        sivilstand
-      )
+      })
       setPensjonsavtalerRequestBody(requestBody)
     }
   }, [harSamtykket, uttaksalder])

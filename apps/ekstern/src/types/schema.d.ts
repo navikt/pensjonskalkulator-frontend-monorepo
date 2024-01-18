@@ -271,13 +271,15 @@ export interface components {
       grad: number
       uttaksalder: components['schemas']['AlderIngressDto']
       /** Format: int32 */
-      aarligInntektVsaPensjon?: number
+      aarligInntekt?: number
     }
     SimuleringHeltUttakIngressDto: {
       uttaksalder: components['schemas']['AlderIngressDto']
       /** Format: int32 */
-      aarligInntektVsaPensjon: number
-      inntektTomAlder?: components['schemas']['AlderIngressDto']
+      aarligInntektVsaPensjon?: {
+        beloep: number
+        sluttAlder: components['schemas']['AlderIngressDto']
+      }
     }
     SimuleringIngressSpecDto: {
       /** @enum {string} */
@@ -319,10 +321,7 @@ export interface components {
       /** Format: int32 */
       grad: number
       /** Format: int32 */
-      aarligInntektVsaPensjon?: number
-      heltUttakAlder: components['schemas']['AlderIngressDto']
-      /** Format: date */
-      foedselsdato: string
+      aarligInntekt?: number
     }
     UttaksalderIngressSpecDto: {
       /** @enum {string} */
@@ -341,10 +340,11 @@ export interface components {
         | 'SAMBOER'
       harEps?: boolean
       /** Format: int32 */
-      sisteInntekt?: number
+      aarligInntekt?: number
       /** @enum {string} */
       simuleringstype?: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
       gradertUttak?: components['schemas']['UttaksalderGradertUttakIngressDto']
+      heltUttak?: components['schemas']['SimuleringHeltUttakIngressDto']
     }
     AlderDto: {
       /** Format: int32 */
@@ -362,8 +362,6 @@ export interface components {
       /** Format: int32 */
       aarligInntektFoerUttak: number
       uttaksperioder: components['schemas']['UttaksperiodeIngressSpecDto'][]
-      /** Format: int32 */
-      antallInntektsaarEtterUttak: number
       harAfp?: boolean
       harEpsPensjon?: boolean
       harEpsPensjonsgivendeInntektOver2G?: boolean
@@ -389,7 +387,10 @@ export interface components {
       /** Format: int32 */
       grad: number
       /** Format: int32 */
-      aarligInntekt: number
+      aarligInntektVsaPensjon?: {
+        beloep: number
+        sluttAlder: components['schemas']['AlderIngressDto']
+      }
     }
     PensjonsavtaleDto: {
       produktbetegnelse: string

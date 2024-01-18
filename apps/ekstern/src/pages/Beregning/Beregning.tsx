@@ -14,6 +14,7 @@ import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetDetaljertFaneFeatureToggleQuery,
 } from '@/state/api/apiSlice'
+import { generateTidligsteHelUttaksalderRequestBody } from '@/state/api/utils'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import {
@@ -72,13 +73,13 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }, [])
 
   React.useEffect(() => {
-    setTidligsteUttaksalderRequestBody({
+    const requestBody = generateTidligsteHelUttaksalderRequestBody({
+      afp,
       sivilstand: sivilstand,
-      harEps: harSamboer !== null ? harSamboer : undefined,
-      sisteInntekt: aarligInntektFoerUttak ?? 0,
-      simuleringstype:
-        afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+      harSamboer,
+      aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
     })
+    setTidligsteUttaksalderRequestBody(requestBody)
   }, [afp, sivilstand, aarligInntektFoerUttak, harSamboer])
 
   const onToggleChange = (v: string) => {

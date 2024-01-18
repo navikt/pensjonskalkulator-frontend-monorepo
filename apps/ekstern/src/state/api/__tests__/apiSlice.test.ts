@@ -187,10 +187,12 @@ describe('apiSlice', () => {
         {
           startAlder: { aar: 67, maaneder: 0 },
           grad: 100,
-          aarligInntekt: 500000,
+          aarligInntektVsaPensjon: {
+            beloep: 500000,
+            sluttAlder: { aar: 75, maaneder: 0 },
+          },
         },
       ],
-      antallInntektsaarEtterUttak: 0,
     }
 
     it('returnerer riktig data og flag ved vellykket query', async () => {
@@ -388,8 +390,11 @@ describe('apiSlice', () => {
         epsHarInntektOver2G: true,
         heltUttak: {
           uttaksalder: { aar: 67, maaneder: 8 },
-          // inntektTomAlder: { aar: 0, maaneder: 0 }, // TODO
-          aarligInntektVsaPensjon: 0,
+          aarligInntektVsaPensjon: {
+            // TODO
+            beloep: 0,
+            sluttAlder: { aar: 75, maaneder: 0 },
+          },
         },
       }
       it('returnerer data ved vellykket query', async () => {

@@ -113,11 +113,14 @@ describe('Beregning', () => {
           },
         },
       })
+
       expect(initiateMock).toHaveBeenCalledWith(
         {
+          aarligInntekt: 500000,
+          gradertUttak: undefined,
+          heltUttak: undefined,
           harEps: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
-          sisteInntekt: 500000,
           sivilstand: 'UGIFT',
         },
         {

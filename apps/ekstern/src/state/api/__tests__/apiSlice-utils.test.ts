@@ -8,81 +8,93 @@ describe('apiSlice - utils', () => {
   describe('generatePensjonsavtalerRequestBody', () => {
     it('returnerer riktig requestBody når maaneder er 0 og sivilstand undefined', () => {
       expect(
-        generatePensjonsavtalerRequestBody(500000, 'vet_ikke', {
-          uttaksalder: { aar: 67, maaneder: 0 },
-          aarligInntektVsaPensjon: 0,
+        generatePensjonsavtalerRequestBody({
+          aarligInntektFoerUttak: 500000,
+          afp: 'vet_ikke',
+          heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
         })
       ).toEqual({
         aarligInntektFoerUttak: 500000,
-        antallInntektsaarEtterUttak: 0,
         harAfp: false,
         sivilstand: undefined,
         uttaksperioder: [
           {
             startAlder: { aar: 67, maaneder: 0 },
             grad: 100,
-            aarligInntekt: 0,
+            aarligInntektVsaPensjon: undefined,
           },
         ],
       })
     })
     it('returnerer riktig requestBody når uttaksalder består av både år og måned', () => {
       expect(
-        generatePensjonsavtalerRequestBody(
-          500000,
-          'ja_privat',
-          {
+        generatePensjonsavtalerRequestBody({
+          aarligInntektFoerUttak: 500000,
+          afp: 'ja_privat',
+          sivilstand: 'GIFT',
+          heltUttak: {
             uttaksalder: { aar: 62, maaneder: 4 },
-            aarligInntektVsaPensjon: 99000,
+            aarligInntektVsaPensjon: {
+              beloep: 99000,
+              sluttAlder: { aar: 75, maaneder: 0 },
+            },
           },
-          'GIFT'
-        )
+        })
       ).toEqual({
         aarligInntektFoerUttak: 500000,
-        antallInntektsaarEtterUttak: 0,
         harAfp: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
             startAlder: { aar: 62, maaneder: 4 },
             grad: 100,
-            aarligInntekt: 99000,
+            aarligInntektVsaPensjon: {
+              beloep: 99000,
+              sluttAlder: { aar: 75, maaneder: 0 },
+            },
           },
         ],
       })
     })
     it('returnerer riktig requestBodymed gradert periode', () => {
       expect(
-        generatePensjonsavtalerRequestBody(
-          500000,
-          'ja_privat',
-          {
+        generatePensjonsavtalerRequestBody({
+          aarligInntektFoerUttak: 500000,
+          afp: 'ja_privat',
+          sivilstand: 'GIFT',
+          heltUttak: {
             uttaksalder: { aar: 67, maaneder: 0 },
-
-            aarligInntektVsaPensjon: 99000,
+            aarligInntektVsaPensjon: {
+              beloep: 99000,
+              sluttAlder: { aar: 75, maaneder: 0 },
+            },
           },
-          'GIFT',
-          {
+          gradertUttak: {
             uttaksalder: { aar: 62, maaneder: 4 },
             grad: 20,
-            aarligInntektVsaPensjon: 123000,
-          }
-        )
+            aarligInntekt: 123000,
+          },
+        })
       ).toEqual({
         aarligInntektFoerUttak: 500000,
-        antallInntektsaarEtterUttak: 0,
         harAfp: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
           {
             startAlder: { aar: 62, maaneder: 4 },
             grad: 20,
-            aarligInntekt: 123000,
+            aarligInntektVsaPensjon: {
+              beloep: 123000,
+              sluttAlder: { aar: 67, maaneder: 0 },
+            },
           },
           {
             startAlder: { aar: 67, maaneder: 0 },
             grad: 100,
-            aarligInntekt: 99000,
+            aarligInntektVsaPensjon: {
+              beloep: 99000,
+              sluttAlder: { aar: 75, maaneder: 0 },
+            },
           },
         ],
       })
@@ -225,10 +237,9 @@ describe('apiSlice - utils', () => {
       foedselsdato: '1963-04-30',
       heltUttak: {
         uttaksalder: { aar: 68, maaneder: 3 },
-        aarligInntektVsaPensjon: 99000,
-        inntektTomAlder: {
-          aar: 75,
-          maaneder: 0,
+        aarligInntektVsaPensjon: {
+          beloep: 99000,
+          sluttAlder: { aar: 75, maaneder: 0 },
         },
       },
     }
@@ -313,11 +324,11 @@ describe('apiSlice - utils', () => {
         gradertUttak: {
           uttaksalder: { aar: 67, maaneder: 3 },
           grad: 20,
-          aarligInntektVsaPensjon: 123000,
+          aarligInntekt: 123000,
         },
       })?.gradertUttak
       expect(gradertUttak?.grad).toEqual(20)
-      expect(gradertUttak?.aarligInntektVsaPensjon).toEqual(123000)
+      expect(gradertUttak?.aarligInntekt).toEqual(123000)
       expect(gradertUttak?.uttaksalder.aar).toEqual(67)
       expect(gradertUttak?.uttaksalder.maaneder).toEqual(3)
     })
@@ -327,11 +338,11 @@ describe('apiSlice - utils', () => {
         ...requestBody,
       })?.heltUttak
 
-      expect(heltUttak?.aarligInntektVsaPensjon).toEqual(99000)
       expect(heltUttak?.uttaksalder.aar).toEqual(68)
       expect(heltUttak?.uttaksalder.maaneder).toEqual(3)
-      expect(heltUttak?.inntektTomAlder?.aar).toEqual(75)
-      expect(heltUttak?.inntektTomAlder?.maaneder).toEqual(0)
+      expect(heltUttak?.aarligInntektVsaPensjon?.beloep).toEqual(99000)
+      expect(heltUttak?.aarligInntektVsaPensjon?.sluttAlder.aar).toEqual(75)
+      expect(heltUttak?.aarligInntektVsaPensjon?.sluttAlder.maaneder).toEqual(0)
     })
 
     it('formaterer streng dato korrekt', () => {

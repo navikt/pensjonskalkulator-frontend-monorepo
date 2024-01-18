@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl'
 import { Select } from '@navikt/ds-react'
 
 import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
+import { generateTidligsteHelUttaksalderRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -48,13 +49,13 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
   )
 
   React.useEffect(() => {
-    setTidligsteUttaksalderRequestBody({
+    const requestBody = generateTidligsteHelUttaksalderRequestBody({
+      afp,
       sivilstand: sivilstand,
-      harEps: harSamboer !== null ? harSamboer : undefined,
-      sisteInntekt: aarligInntektFoerUttak ?? 0,
-      simuleringstype:
-        afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+      harSamboer,
+      aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
     })
+    setTidligsteUttaksalderRequestBody(requestBody)
   }, [afp, sivilstand, aarligInntektFoerUttak, harSamboer])
 
   React.useEffect(() => {

@@ -173,13 +173,12 @@ describe('Simulering', () => {
       expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
         {
           aarligInntektFoerUttak: 500000,
-          antallInntektsaarEtterUttak: 0,
           harAfp: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
               startAlder: { aar: 67, maaneder: 0 },
-              aarligInntekt: 0,
+              aarligInntektVsaPensjon: undefined,
               grad: 100,
             },
           ],

@@ -124,7 +124,7 @@ describe('userInputSlice', () => {
         userInputActions.setCurrentSimulationGradertuttaksperiode({
           uttaksalder: { aar: 67, maaneder: 3 },
           grad: 20,
-          aarligInntektVsaPensjon: 150000,
+          aarligInntekt: 150000,
         })
       )
 
@@ -135,7 +135,7 @@ describe('userInputSlice', () => {
           gradertUttaksperiode: {
             uttaksalder: { aar: 67, maaneder: 3 },
             grad: 20,
-            aarligInntektVsaPensjon: 150000,
+            aarligInntekt: 150000,
           },
         },
       })
