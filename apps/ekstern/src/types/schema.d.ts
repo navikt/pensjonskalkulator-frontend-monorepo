@@ -130,7 +130,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v2/pensjonsavtaler': {
+  '/api/v1/pensjonsavtaler': {
     parameters: {
       query?: never
       header?: never
@@ -354,7 +354,7 @@ export interface components {
       /** Format: int32 */
       grad: number
       /** Format: int32 */
-      aarligInntektVsaPensjonBeloep?: number
+      aarligInntekt?: number
     }
     UttaksalderHeltUttakIngressDtoV2: {
       uttaksalder: components['schemas']['UttaksalderAlderDto']
@@ -379,7 +379,7 @@ export interface components {
         | 'SAMBOER'
       harEps?: boolean
       /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
+      aarligInntekt?: number
       gradertUttak?: components['schemas']['UttaksalderGradertUttakIngressDtoV2']
       heltUttak: components['schemas']['UttaksalderHeltUttakIngressDtoV2']
     }
@@ -400,21 +400,21 @@ export interface components {
       /** Format: int32 */
       maaneder: number
     }
-    AvtaleAlderDtoV2: {
+    IngressPensjonsavtaleAlderV2: {
       /** Format: int32 */
       aar: number
       /** Format: int32 */
       maaneder: number
     }
-    AvtaleInntektDtoV2: {
+    IngressPensjonsavtaleInntektV2: {
       /** Format: int32 */
       beloep: number
-      sluttAlder?: components['schemas']['AvtaleAlderDtoV2']
+      sluttAlder?: components['schemas']['IngressPensjonsavtaleAlderV2']
     }
-    PensjonsavtaleIngressSpecDtoV2: {
+    IngressPensjonsavtaleSpecV2: {
       /** Format: int32 */
       aarligInntektFoerUttakBeloep: number
-      uttaksperioder: components['schemas']['UttaksperiodeIngressSpecDtoV2'][]
+      uttaksperioder: components['schemas']['IngressPensjonsavtaleUttaksperiodeV2'][]
       harAfp?: boolean
       harEpsPensjon?: boolean
       harEpsPensjonsgivendeInntektOver2G?: boolean
@@ -435,11 +435,11 @@ export interface components {
         | 'GJENLEVENDE_PARTNER'
         | 'SAMBOER'
     }
-    UttaksperiodeIngressSpecDtoV2: {
+    IngressPensjonsavtaleUttaksperiodeV2: {
       startAlder: components['schemas']['Alder']
       /** Format: int32 */
       grad: number
-      aarligInntektVsaPensjon?: components['schemas']['AvtaleInntektDtoV2']
+      aarligInntektVsaPensjon?: components['schemas']['IngressPensjonsavtaleInntektV2']
     }
     PensjonsavtaleDto: {
       produktbetegnelse: string
@@ -474,31 +474,36 @@ export interface components {
       /** Format: int32 */
       grad: number
     }
-    SimuleringAlderDto: {
+    IngressSimuleringAlderV2: {
       /** Format: int32 */
       aar: number
       /** Format: int32 */
       maaneder: number
     }
-    SimuleringGradertUttakIngressDtoV2: {
+    IngressSimuleringGradertUttakV2: {
       /** Format: int32 */
       grad: number
-      uttaksalder: components['schemas']['SimuleringAlderDto']
+      uttaksalder: components['schemas']['IngressSimuleringAlderV2']
       /** Format: int32 */
       aarligInntektVsaPensjonBeloep?: number
     }
-    SimuleringHeltUttakIngressDtoV2: {
-      uttaksalder: components['schemas']['SimuleringAlderDto']
-      aarligInntektVsaPensjon?: components['schemas']['SimuleringInntektDtoV2']
+    IngressSimuleringHeltUttakV2: {
+      uttaksalder: components['schemas']['IngressSimuleringAlderV2']
+      aarligInntektVsaPensjon?: components['schemas']['IngressSimuleringInntektV2']
     }
-    SimuleringIngressSpecDtoV2: {
+    IngressSimuleringInntektV2: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder: components['schemas']['IngressSimuleringAlderV2']
+    }
+    IngressSimuleringSpecV2: {
       /** @enum {string} */
       simuleringstype: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
       /** Format: date */
       foedselsdato: string
       epsHarInntektOver2G: boolean
       /** Format: int32 */
-      forventetInntekt?: number
+      aarligInntektFoerUttakBeloep?: number
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'
@@ -513,13 +518,8 @@ export interface components {
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
         | 'SAMBOER'
-      gradertUttak?: components['schemas']['SimuleringGradertUttakIngressDtoV2']
-      heltUttak: components['schemas']['SimuleringHeltUttakIngressDtoV2']
-    }
-    SimuleringInntektDtoV2: {
-      /** Format: int32 */
-      beloep: number
-      sluttAlder: components['schemas']['SimuleringAlderDto']
+      gradertUttak?: components['schemas']['IngressSimuleringGradertUttakV2']
+      heltUttak: components['schemas']['IngressSimuleringHeltUttakV2']
     }
     PensjonsberegningDto: {
       /** Format: int32 */
@@ -563,10 +563,16 @@ export interface components {
       simuleringstype?: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
       gradertUttak?: components['schemas']['UttaksalderGradertUttakIngressDto']
     }
+    IngressUttaksalderAlderV1: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
     IngressUttaksalderInntektV1: {
       /** Format: int32 */
       beloep: number
-      sluttAlder?: components['schemas']['UttaksalderAlderDto']
+      sluttAlder?: components['schemas']['IngressUttaksalderAlderV1']
     }
     IngressUttaksalderSpecForHeltUttakV1: {
       /** @enum {string} */
@@ -597,8 +603,8 @@ export interface components {
       aarligInntektVsaPensjonBeloep?: number
     }
     IngressUttaksalderHeltUttakV1: {
-      uttaksalder: components['schemas']['UttaksalderAlderDto']
-      aarligInntektVsaPensjon: components['schemas']['UttaksalderInntektDtoV2']
+      uttaksalder: components['schemas']['IngressUttaksalderAlderV1']
+      aarligInntektVsaPensjon: components['schemas']['IngressUttaksalderInntektV1']
     }
     IngressUttaksalderSpecForGradertUttakV1: {
       /** @enum {string} */
@@ -625,7 +631,7 @@ export interface components {
     }
     PensjonsavtaleIngressSpecDto: {
       /** Format: int32 */
-      aarligInntektFoerUttakBeloep: number
+      aarligInntektFoerUttak: number
       uttaksperioder: components['schemas']['UttaksperiodeIngressSpecDto'][]
       /** Format: int32 */
       antallInntektsaarEtterUttak: number
@@ -654,14 +660,14 @@ export interface components {
       /** Format: int32 */
       grad: number
       /** Format: int32 */
-      aarligInntektVsaPensjonBeloep: number
+      aarligInntekt: number
     }
     SimuleringSpecDto: {
       /** @enum {string} */
       simuleringstype: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
       /** Format: int32 */
       uttaksgrad: number
-      foersteUttaksalder: components['schemas']['SimuleringAlderDto']
+      foersteUttaksalder: components['schemas']['IngressSimuleringAlderV2']
       /** Format: date */
       foedselsdato: string
       epsHarInntektOver2G: boolean
@@ -780,7 +786,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['PensjonsavtaleIngressSpecDtoV2']
+        'application/json': components['schemas']['IngressPensjonsavtaleSpecV2']
       }
     }
     responses: {
@@ -813,7 +819,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['SimuleringIngressSpecDtoV2']
+        'application/json': components['schemas']['IngressSimuleringSpecV2']
       }
     }
     responses: {
