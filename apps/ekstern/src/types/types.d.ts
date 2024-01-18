@@ -20,12 +20,14 @@ declare global {
   type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
 
   // /tidligste-uttaksalder
-  type TidligsteUttaksalderRequestBody =
-    components['schemas']['UttaksalderIngressSpecDto']
+  type TidligsteHelUttaksalderRequestBody =
+    components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
+  type TidligsteGradertUttaksalderRequestBody =
+    components['schemas']['IngressUttaksalderSpecForGradertUttakV1']
 
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =
-    components['schemas']['PensjonsavtaleIngressSpecDto']
+    components['schemas']['PensjonsavtaleIngressSpecDtoV2']
   type PensjonsavtalerResponseBody = components['schemas']['PensjonsavtalerDto']
   type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeDto']
   type Pensjonsavtale = components['schemas']['PensjonsavtaleDto'] & {
@@ -44,9 +46,9 @@ declare global {
     components['schemas']['SimuleringsresultatDto']
 
   type HeltUttaksperiode =
-    components['schemas']['SimuleringHeltUttakIngressDto']
+    components['schemas']['SimuleringHeltUttakIngressDtoV2']
   type GradertUttaksperiode =
-    components['schemas']['SimuleringGradertUttakIngressDto']
+    components['schemas']['SimuleringGradertUttakIngressDtoV2']
 
   type Simuleringstype =
     components['schemas']['SimuleringSpecDto']['simuleringstype']

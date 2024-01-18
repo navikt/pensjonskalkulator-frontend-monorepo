@@ -5,7 +5,8 @@ import { API_PATH, HOST_BASEURL } from '@/paths'
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
 import sakStatusReponse from './data/sak-status.json' assert { type: 'json' }
-import tidligstemuligeuttaksalderResponse from './data/tidligsteUttaksalder.json' assert { type: 'json' }
+import tidligsteGradertUttaksalderResponse from './data/tidligsteGradertUttaksalder.json' assert { type: 'json' }
+import tidligsteHelUttaksalderResponse from './data/tidligsteHelUttaksalder.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
 import detaljertFaneToggleResponse from './data/unleash-enable-detaljert-fane.json' assert { type: 'json' }
@@ -34,9 +35,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(tpoMedlemskapResponse)
   }),
 
-  http.post(`${baseUrl}/v1/tidligste-uttaksalder`, async () => {
+  http.post(`${baseUrl}/v1/tidligste-hel-uttaksalder`, async () => {
     await delay(TEST_DELAY)
-    return HttpResponse.json(tidligstemuligeuttaksalderResponse)
+    return HttpResponse.json(tidligsteHelUttaksalderResponse)
+  }),
+
+  http.post(`${baseUrl}/v1/tidligste-gradert-uttaksalder`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(tidligsteGradertUttaksalderResponse)
   }),
 
   http.get(`${baseUrl}/sak-status`, async () => {
@@ -44,7 +50,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(sakStatusReponse)
   }),
 
-  http.post(`${baseUrl}/v1/pensjonsavtaler`, async ({ request }) => {
+  http.post(`${baseUrl}/v2/pensjonsavtaler`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as PensjonsavtalerRequestBody).uttaksperioder[0]

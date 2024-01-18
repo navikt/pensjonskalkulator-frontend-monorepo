@@ -1,8 +1,8 @@
 import { EndreInntekt } from '..'
 import {
-  selectAarligInntektFoerUttak,
-  selectAarligInntektFoerUttakFraSkatt,
-  selectAarligInntektFoerUttakFraBrukerInput,
+  selectaarligInntektFoerUttakBeloep,
+  selectaarligInntektFoerUttakBeloepFraSkatt,
+  selectaarligInntektFoerUttakBeloepFraBrukerInput,
   selectFormatertUttaksalderReadOnly,
 } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -42,10 +42,10 @@ describe('EndreInntekt', () => {
           userInput: { ...userInputInitialState, samtykke: false },
         },
       })
-      expect(selectAarligInntektFoerUttak(store.getState())).toBe(521338)
-      expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
-        null
-      )
+      expect(selectaarligInntektFoerUttakBeloep(store.getState())).toBe(521338)
+      expect(
+        selectaarligInntektFoerUttakBeloepFraBrukerInput(store.getState())
+      ).toBe(null)
 
       await user.click(
         screen.getByText('inntekt.endre_inntekt_modal.open.button')
@@ -58,12 +58,12 @@ describe('EndreInntekt', () => {
       ).not.toBeInTheDocument()
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
       expect(
-        selectAarligInntektFoerUttakFraSkatt(store.getState())?.beloep
+        selectaarligInntektFoerUttakBeloepFraSkatt(store.getState())?.beloep
       ).toBe(521338)
-      expect(selectAarligInntektFoerUttak(store.getState())).toBe(123000)
-      expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
-        123000
-      )
+      expect(selectaarligInntektFoerUttakBeloep(store.getState())).toBe(123000)
+      expect(
+        selectaarligInntektFoerUttakBeloepFraBrukerInput(store.getState())
+      ).toBe(123000)
       expect(selectFormatertUttaksalderReadOnly(store.getState())).toBe(null)
       expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
@@ -94,10 +94,10 @@ describe('EndreInntekt', () => {
           userInput: { ...userInputInitialState, samtykke: false },
         },
       })
-      expect(selectAarligInntektFoerUttak(store.getState())).toBe(521338)
-      expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
-        null
-      )
+      expect(selectaarligInntektFoerUttakBeloep(store.getState())).toBe(521338)
+      expect(
+        selectaarligInntektFoerUttakBeloepFraBrukerInput(store.getState())
+      ).toBe(null)
 
       await user.click(
         screen.getByText('inntekt.endre_inntekt_modal.open.button')
@@ -142,19 +142,19 @@ describe('EndreInntekt', () => {
           userInput: { ...userInputInitialState, samtykke: false },
         },
       })
-      expect(selectAarligInntektFoerUttak(store.getState())).toBe(521338)
-      expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
-        null
-      )
+      expect(selectaarligInntektFoerUttakBeloep(store.getState())).toBe(521338)
+      expect(
+        selectaarligInntektFoerUttakBeloepFraBrukerInput(store.getState())
+      ).toBe(null)
 
       await user.click(
         screen.getByText('inntekt.endre_inntekt_modal.open.button')
       )
       await user.click(screen.getByText('stegvisning.avbryt'))
-      expect(selectAarligInntektFoerUttak(store.getState())).toBe(521338)
-      expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
-        null
-      )
+      expect(selectaarligInntektFoerUttakBeloep(store.getState())).toBe(521338)
+      expect(
+        selectaarligInntektFoerUttakBeloepFraBrukerInput(store.getState())
+      ).toBe(null)
     })
   })
 
@@ -185,10 +185,10 @@ describe('EndreInntekt', () => {
         },
       })
 
-      expect(selectAarligInntektFoerUttak(store.getState())).toBe(0)
-      expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
-        null
-      )
+      expect(selectaarligInntektFoerUttakBeloep(store.getState())).toBe(0)
+      expect(
+        selectaarligInntektFoerUttakBeloepFraBrukerInput(store.getState())
+      ).toBe(null)
 
       await user.click(
         screen.getByText('inntekt.endre_inntekt_modal.open.button')
@@ -197,12 +197,12 @@ describe('EndreInntekt', () => {
 
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
       expect(
-        selectAarligInntektFoerUttakFraSkatt(store.getState())?.beloep
+        selectaarligInntektFoerUttakBeloepFraSkatt(store.getState())?.beloep
       ).toBe(0)
-      expect(selectAarligInntektFoerUttak(store.getState())).toBe(123000)
-      expect(selectAarligInntektFoerUttakFraBrukerInput(store.getState())).toBe(
-        123000
-      )
+      expect(selectaarligInntektFoerUttakBeloep(store.getState())).toBe(123000)
+      expect(
+        selectaarligInntektFoerUttakBeloepFraBrukerInput(store.getState())
+      ).toBe(123000)
       expect(selectFormatertUttaksalderReadOnly(store.getState())).toBe(null)
     })
   })

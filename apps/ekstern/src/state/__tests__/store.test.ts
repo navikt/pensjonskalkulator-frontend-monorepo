@@ -19,7 +19,7 @@ describe('store', () => {
       currentSimulation: {
         formatertUttaksalderReadOnly: null,
         uttaksalder: null,
-        aarligInntektFoerUttak: 500000,
+        aarligInntektFoerUttakBeloep: 500000,
         gradertUttaksperiode: null,
       },
     }

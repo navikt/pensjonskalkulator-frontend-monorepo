@@ -23,7 +23,7 @@ import {
   selectSamboer,
   selectCurrentSimulation,
   selectFormatertUttaksalderReadOnly,
-  selectAarligInntektFoerUttak,
+  selectaarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { logger } from '@/utils/logging'
 
@@ -38,7 +38,9 @@ export const BeregningAvansert: React.FC = () => {
   const grunnlagPensjonsavtalerRef = React.useRef<HTMLSpanElement>(null)
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectaarligInntektFoerUttakBeloep
+  )
 
   const formatertUttaksalderReadOnly = useAppSelector(
     selectFormatertUttaksalderReadOnly
@@ -59,7 +61,7 @@ export const BeregningAvansert: React.FC = () => {
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
-        aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
         gradertUttak: gradertUttaksperiode
           ? {
               ...gradertUttaksperiode,
@@ -72,7 +74,7 @@ export const BeregningAvansert: React.FC = () => {
       })
       setAlderspensjonRequestBody(requestBody)
     }
-  }, [afp, person, aarligInntektFoerUttak, harSamboer, uttaksalder])
+  }, [afp, person, aarligInntektFoerUttakBeloep, harSamboer, uttaksalder])
 
   // Hent alderspensjon + AFP
   const {
@@ -172,7 +174,9 @@ export const BeregningAvansert: React.FC = () => {
               >
                 <Simulering
                   isLoading={isFetching}
-                  aarligInntektFoerUttak={aarligInntektFoerUttak ?? 0}
+                  aarligInntektFoerUttakBeloep={
+                    aarligInntektFoerUttakBeloep ?? 0
+                  }
                   alderspensjon={alderspensjon}
                   showAfp={afp === 'ja_privat'}
                   showButtonsAndTable={

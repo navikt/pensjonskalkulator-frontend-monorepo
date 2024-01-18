@@ -9,9 +9,9 @@ import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoModalInntekt } from '@/components/InfoModalInntekt'
 import { useAppSelector } from '@/state/hooks'
 import {
-  selectAarligInntektFoerUttak,
-  selectAarligInntektFoerUttakFraSkatt,
-  selectAarligInntektFoerUttakFraBrukerInput,
+  selectaarligInntektFoerUttakBeloep,
+  selectaarligInntektFoerUttakBeloepFraSkatt,
+  selectaarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { formatWithoutDecimal } from '@/utils/currency'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -21,12 +21,14 @@ import styles from './GrunnlagInntekt.module.scss'
 export const GrunnlagInntekt = () => {
   const intl = useIntl()
 
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const aarligInntektFoerUttakFraSkatt = useAppSelector(
-    selectAarligInntektFoerUttakFraSkatt
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectaarligInntektFoerUttakBeloep
   )
-  const aarligInntektFoerUttakFraBrukerInput = useAppSelector(
-    selectAarligInntektFoerUttakFraBrukerInput
+  const aarligInntektFoerUttakBeloepFraSkatt = useAppSelector(
+    selectaarligInntektFoerUttakBeloepFraSkatt
+  )
+  const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
+    selectaarligInntektFoerUttakBeloepFraBrukerInput
   )
 
   return (
@@ -37,12 +39,12 @@ export const GrunnlagInntekt = () => {
             id: 'grunnlag.inntekt.title',
           })}
           headerValue={`${formatWithoutDecimal(
-            aarligInntektFoerUttak ?? 0
+            aarligInntektFoerUttakBeloep ?? 0
           )} kr`}
         >
           <>
             <BodyLong>
-              {aarligInntektFoerUttakFraBrukerInput !== null ? (
+              {aarligInntektFoerUttakBeloepFraBrukerInput !== null ? (
                 <FormattedMessage
                   id="grunnlag.inntekt.ingress.endret_inntekt"
                   values={{
@@ -63,9 +65,9 @@ export const GrunnlagInntekt = () => {
                 values={{
                   ...getFormatMessageValues(intl),
                   beloep: formatWithoutDecimal(
-                    aarligInntektFoerUttakFraSkatt?.beloep
+                    aarligInntektFoerUttakBeloepFraSkatt?.beloep
                   ),
-                  aar: aarligInntektFoerUttakFraSkatt?.aar,
+                  aar: aarligInntektFoerUttakBeloepFraSkatt?.aar,
                 }}
               />
               <br />

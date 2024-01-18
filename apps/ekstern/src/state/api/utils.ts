@@ -6,24 +6,29 @@ export const generateTidligsteHelUttaksalderRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
-  aarligInntektFoerUttak: number
-  gradertUttak?: Omit<GradertUttaksperiode, 'uttaksperiode'>
-}): TidligsteUttaksalderRequestBody | undefined => {
-  const { afp, sivilstand, harSamboer, aarligInntektFoerUttak, gradertUttak } =
-    args
+  aarligInntektFoerUttakBeloep: number
+  aarligInntektVsaPensjon?: { beloep: number; sluttAlder: Alder }
+}): TidligsteHelUttaksalderRequestBody | undefined => {
+  const {
+    afp,
+    sivilstand,
+    harSamboer,
+    aarligInntektFoerUttakBeloep,
+    aarligInntektVsaPensjon,
+  } = args
 
   return {
     simuleringstype:
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     harEps: harSamboer !== null ? harSamboer : false, // TODO sjekke med Espen om det er riktig
-    aarligInntekt: aarligInntektFoerUttak,
+    aarligInntektFoerUttakBeloep,
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand
         : harSamboer
           ? 'SAMBOER'
           : 'UGIFT',
-    gradertUttak,
+    aarligInntektVsaPensjon,
   }
 }
 
@@ -32,14 +37,14 @@ export const generateTidligsteHelUttaksalderRequestBody = (args: {
 //   afp: AfpRadio | null
 //   sivilstand?: Sivilstand | null | undefined
 //   harSamboer: boolean | null
-//   aarligInntektFoerUttak: number
+//   aarligInntektFoerUttakBeloep: number
 //   gradertUttak: Omit<GradertUttaksperiode, 'uttaksperiode'>
-// }): TidligsteUttaksalderRequestBody | undefined => {
+// }): TidligsteGradertUttaksalderRequestBody | undefined => {
 //   const {
 //     afp,
 //     sivilstand,
 //     harSamboer,
-//     aarligInntektFoerUttak,
+//     aarligInntektFoerUttakBeloep,
 //     gradertUttak,
 //   } = args
 
@@ -47,7 +52,7 @@ export const generateTidligsteHelUttaksalderRequestBody = (args: {
 //     simuleringstype:
 //       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
 //     harEps: harSamboer !== null ? harSamboer : false, // TODO sjekke med Espen om det er riktig
-//     aarligInntekt: aarligInntektFoerUttak,
+//     aarligInntekt: aarligInntektFoerUttakBeloep,
 //     sivilstand:
 //       sivilstand && checkHarSamboer(sivilstand)
 //         ? sivilstand
@@ -63,7 +68,7 @@ export const generateAlderspensjonRequestBody = (args: {
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
-  aarligInntektFoerUttak: number
+  aarligInntektFoerUttakBeloep: number
   gradertUttak?: GradertUttaksperiode
   heltUttak?: HeltUttaksperiode
 }): AlderspensjonRequestBody | undefined => {
@@ -72,7 +77,7 @@ export const generateAlderspensjonRequestBody = (args: {
     sivilstand,
     harSamboer,
     foedselsdato,
-    aarligInntektFoerUttak,
+    aarligInntektFoerUttakBeloep,
     gradertUttak,
     heltUttak,
   } = args
@@ -86,7 +91,7 @@ export const generateAlderspensjonRequestBody = (args: {
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    forventetInntekt: aarligInntektFoerUttak,
+    forventetInntekt: aarligInntektFoerUttakBeloep,
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand
@@ -105,7 +110,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
-  aarligInntektFoerUttak: number
+  aarligInntektFoerUttakBeloep: number
   uttaksalder: Alder | null
 }): AlderspensjonEnkelRequestBody | undefined => {
   const {
@@ -113,7 +118,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     sivilstand,
     harSamboer,
     foedselsdato,
-    aarligInntektFoerUttak,
+    aarligInntektFoerUttakBeloep,
     uttaksalder,
   } = args
 
@@ -130,7 +135,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       ...uttaksalder,
     },
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
-    forventetInntekt: aarligInntektFoerUttak,
+    forventetInntekt: aarligInntektFoerUttakBeloep,
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
@@ -142,16 +147,21 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
 }
 
 export const generatePensjonsavtalerRequestBody = (args: {
-  aarligInntektFoerUttak: number
+  aarligInntektFoerUttakBeloep: number
   afp: AfpRadio | null
   sivilstand?: Sivilstand
   heltUttak: HeltUttaksperiode
   gradertUttak?: GradertUttaksperiode
 }): PensjonsavtalerRequestBody => {
-  const { aarligInntektFoerUttak, afp, sivilstand, heltUttak, gradertUttak } =
-    args
+  const {
+    aarligInntektFoerUttakBeloep,
+    afp,
+    sivilstand,
+    heltUttak,
+    gradertUttak,
+  } = args
   return {
-    aarligInntektFoerUttak,
+    aarligInntektFoerUttakBeloep,
     uttaksperioder: [
       ...(gradertUttak
         ? [
@@ -164,12 +174,13 @@ export const generatePensjonsavtalerRequestBody = (args: {
                     : 0,
               },
               grad: gradertUttak.grad,
-              aarligInntektVsaPensjon: gradertUttak.aarligInntekt
-                ? {
-                    beloep: gradertUttak.aarligInntekt,
-                    sluttAlder: heltUttak.uttaksalder,
-                  }
-                : undefined,
+              aarligInntektVsaPensjon:
+                gradertUttak.aarligInntektVsaPensjonBeloep
+                  ? {
+                      beloep: gradertUttak.aarligInntektVsaPensjonBeloep,
+                      sluttAlder: heltUttak.uttaksalder,
+                    }
+                  : undefined,
             },
           ]
         : []),

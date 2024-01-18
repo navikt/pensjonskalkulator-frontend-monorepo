@@ -9,12 +9,12 @@ describe('apiSlice - utils', () => {
     it('returnerer riktig requestBody når maaneder er 0 og sivilstand undefined', () => {
       expect(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttak: 500000,
+          aarligInntektFoerUttakBeloep: 500000,
           afp: 'vet_ikke',
           heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
         })
       ).toEqual({
-        aarligInntektFoerUttak: 500000,
+        aarligInntektFoerUttakBeloep: 500000,
         harAfp: false,
         sivilstand: undefined,
         uttaksperioder: [
@@ -29,7 +29,7 @@ describe('apiSlice - utils', () => {
     it('returnerer riktig requestBody når uttaksalder består av både år og måned', () => {
       expect(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttak: 500000,
+          aarligInntektFoerUttakBeloep: 500000,
           afp: 'ja_privat',
           sivilstand: 'GIFT',
           heltUttak: {
@@ -41,7 +41,7 @@ describe('apiSlice - utils', () => {
           },
         })
       ).toEqual({
-        aarligInntektFoerUttak: 500000,
+        aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
@@ -59,7 +59,7 @@ describe('apiSlice - utils', () => {
     it('returnerer riktig requestBodymed gradert periode', () => {
       expect(
         generatePensjonsavtalerRequestBody({
-          aarligInntektFoerUttak: 500000,
+          aarligInntektFoerUttakBeloep: 500000,
           afp: 'ja_privat',
           sivilstand: 'GIFT',
           heltUttak: {
@@ -72,11 +72,11 @@ describe('apiSlice - utils', () => {
           gradertUttak: {
             uttaksalder: { aar: 62, maaneder: 4 },
             grad: 20,
-            aarligInntekt: 123000,
+            aarligInntektVsaPensjonBeloep: 123000,
           },
         })
       ).toEqual({
-        aarligInntektFoerUttak: 500000,
+        aarligInntektFoerUttakBeloep: 500000,
         harAfp: true,
         sivilstand: 'GIFT',
         uttaksperioder: [
@@ -106,7 +106,7 @@ describe('apiSlice - utils', () => {
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
-      aarligInntektFoerUttak: 500000,
+      aarligInntektFoerUttakBeloep: 500000,
       foedselsdato: '1963-04-30',
       uttaksalder: { aar: 68, maaneder: 3 },
       uttaksgrad: 100,
@@ -233,7 +233,7 @@ describe('apiSlice - utils', () => {
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
-      aarligInntektFoerUttak: 500000,
+      aarligInntektFoerUttakBeloep: 500000,
       foedselsdato: '1963-04-30',
       heltUttak: {
         uttaksalder: { aar: 68, maaneder: 3 },
@@ -324,11 +324,11 @@ describe('apiSlice - utils', () => {
         gradertUttak: {
           uttaksalder: { aar: 67, maaneder: 3 },
           grad: 20,
-          aarligInntekt: 123000,
+          aarligInntektVsaPensjonBeloep: 123000,
         },
       })?.gradertUttak
       expect(gradertUttak?.grad).toEqual(20)
-      expect(gradertUttak?.aarligInntekt).toEqual(123000)
+      expect(gradertUttak?.aarligInntektVsaPensjonBeloep).toEqual(123000)
       expect(gradertUttak?.uttaksalder.aar).toEqual(67)
       expect(gradertUttak?.uttaksalder.maaneder).toEqual(3)
     })

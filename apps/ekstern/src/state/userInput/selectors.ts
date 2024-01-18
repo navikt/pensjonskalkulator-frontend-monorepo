@@ -42,26 +42,27 @@ export const selectSamboer = (state: RootState): boolean | null => {
   return samboerSkapFraBrukerInput
 }
 
-export const selectAarligInntektFoerUttakFraBrukerInput = (
+export const selectaarligInntektFoerUttakBeloepFraBrukerInput = (
   state: RootState
-): number | null => state.userInput.currentSimulation.aarligInntektFoerUttak
+): number | null =>
+  state.userInput.currentSimulation.aarligInntektFoerUttakBeloep
 
-export const selectAarligInntektFoerUttakFraSkatt = createSelector(
+export const selectaarligInntektFoerUttakBeloepFraSkatt = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
     return apiSlice.endpoints.getInntekt.select(undefined)(state)?.data
   }
 )
 
-export const selectAarligInntektFoerUttak = (
+export const selectaarligInntektFoerUttakBeloep = (
   state: RootState
 ): number | null | undefined => {
-  const aarligInntektFoerUttakFraBrukerInput =
-    selectAarligInntektFoerUttakFraBrukerInput(state)
-  if (aarligInntektFoerUttakFraBrukerInput === null) {
-    return selectAarligInntektFoerUttakFraSkatt(state, undefined)?.beloep
+  const aarligInntektFoerUttakBeloepFraBrukerInput =
+    selectaarligInntektFoerUttakBeloepFraBrukerInput(state)
+  if (aarligInntektFoerUttakBeloepFraBrukerInput === null) {
+    return selectaarligInntektFoerUttakBeloepFraSkatt(state, undefined)?.beloep
   }
-  return aarligInntektFoerUttakFraBrukerInput
+  return aarligInntektFoerUttakBeloepFraBrukerInput
 }
 
 export const selectFormatertUttaksalderReadOnly = (

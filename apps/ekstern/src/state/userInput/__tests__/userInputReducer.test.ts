@@ -67,7 +67,7 @@ describe('userInputSlice', () => {
         currentSimulation: {
           formatertUttaksalderReadOnly: null,
           uttaksalder: { aar: 65, maaneder: 4 },
-          aarligInntektFoerUttak: null,
+          aarligInntektFoerUttakBeloep: null,
           gradertUttaksperiode: null,
         },
       })
@@ -82,17 +82,19 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('setCurrentSimulationAarligInntektFoerUttak', () => {
+    it('setCurrentSimulationaarligInntektFoerUttakBeloep', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
-        userInputActions.setCurrentSimulationAarligInntektFoerUttak(800000)
+        userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
+          800000
+        )
       )
 
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
           ...userInputInitialState.currentSimulation,
-          aarligInntektFoerUttak: 800000,
+          aarligInntektFoerUttakBeloep: 800000,
         },
       })
     })
@@ -124,7 +126,7 @@ describe('userInputSlice', () => {
         userInputActions.setCurrentSimulationGradertuttaksperiode({
           uttaksalder: { aar: 67, maaneder: 3 },
           grad: 20,
-          aarligInntekt: 150000,
+          aarligInntektVsaPensjonBeloep: 150000,
         })
       )
 
@@ -135,7 +137,7 @@ describe('userInputSlice', () => {
           gradertUttaksperiode: {
             uttaksalder: { aar: 67, maaneder: 3 },
             grad: 20,
-            aarligInntekt: 150000,
+            aarligInntektVsaPensjonBeloep: 150000,
           },
         },
       })
@@ -193,7 +195,7 @@ describe('userInputSlice', () => {
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             uttaksalder: { aar: 66, maaneder: 4 },
-            aarligInntektFoerUttak: 300000,
+            aarligInntektFoerUttakBeloep: 300000,
             gradertUttaksperiode: null,
           },
         },
@@ -218,7 +220,7 @@ describe('userInputSlice', () => {
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             uttaksalder: { aar: 66, maaneder: 4 },
-            aarligInntektFoerUttak: 300000,
+            aarligInntektFoerUttakBeloep: 300000,
             gradertUttaksperiode: null,
           },
         },

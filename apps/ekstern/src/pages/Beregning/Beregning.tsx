@@ -9,7 +9,7 @@ import HighchartsAccessibility from 'highcharts/modules/accessibility'
 import { Loader } from '@/components/common/Loader'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { paths } from '@/router/constants'
-import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
+import { useTidligsteHelUttaksalderQuery } from '@/state/api/apiSlice'
 import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetDetaljertFaneFeatureToggleQuery,
@@ -21,7 +21,7 @@ import {
   selectAfp,
   selectSamboer,
   selectSivilstand,
-  selectAarligInntektFoerUttak,
+  selectaarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -43,10 +43,12 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const harSamboer = useAppSelector(selectSamboer)
   const sivilstand = useAppSelector(selectSivilstand)
   const afp = useAppSelector(selectAfp)
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectaarligInntektFoerUttakBeloep
+  )
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
-    React.useState<TidligsteUttaksalderRequestBody | undefined>(undefined)
+    React.useState<TidligsteHelUttaksalderRequestBody | undefined>(undefined)
 
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
@@ -58,7 +60,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     data: tidligstMuligUttak,
     isLoading: isTidligstMuligUttaksalderLoading,
     isError: isTidligstMuligUttaksalderError,
-  } = useTidligsteUttaksalderQuery(tidligsteUttaksalderRequestBody, {
+  } = useTidligsteHelUttaksalderQuery(tidligsteUttaksalderRequestBody, {
     skip: !tidligsteUttaksalderRequestBody,
   })
 
@@ -77,10 +79,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       afp,
       sivilstand: sivilstand,
       harSamboer,
-      aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
+      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
     })
     setTidligsteUttaksalderRequestBody(requestBody)
-  }, [afp, sivilstand, aarligInntektFoerUttak, harSamboer])
+  }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
   const onToggleChange = (v: string) => {
     navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningDetaljert)

@@ -11,7 +11,7 @@ import { TemporaryAlderVelgerAvansert } from '@/components/VelgUttaksalder/Tempo
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
-  selectAarligInntektFoerUttak,
+  selectaarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { unformatUttaksalder } from '@/utils/alder'
@@ -30,7 +30,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
 }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectaarligInntektFoerUttakBeloep
+  )
   const { uttaksalder, gradertUttaksperiode } = useAppSelector(
     selectCurrentSimulation
   )
@@ -109,7 +111,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               )?.[0] as string,
               10
             ),
-            aarligInntekt: 0, // TODO legge til felt for inntekt vsa gradert pensjon og lagre verdi
+            aarligInntektVsaPensjonBeloep: 0, // TODO lagre verdi fra inntekt vsa gradert pensjon
           })
         )
       }
@@ -135,7 +137,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
           <div className={styles.description}>
             <span className={styles.descriptionText}>
               {`${formatWithoutDecimal(
-                aarligInntektFoerUttak
+                aarligInntektFoerUttakBeloep
               )} kr per år før skatt`}
             </span>
 

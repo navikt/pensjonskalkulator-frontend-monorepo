@@ -115,19 +115,22 @@ beforeEach(() => {
   ).as('getTpoMedlemskap')
 
   cy.intercept(
-    { method: 'POST', url: '/pensjon/kalkulator/api/v1/tidligste-uttaksalder' },
+    {
+      method: 'POST',
+      url: '/pensjon/kalkulator/api/v1/tidligste-hel-uttaksalder',
+    },
     { fixture: 'tidligste-uttaksalder.json' }
   ).as('fetchTidligsteUttaksalder')
 
   cy.intercept(
-    { method: 'POST', url: '/pensjon/kalkulator/api/v1/pensjonsavtaler' },
+    { method: 'POST', url: '/pensjon/kalkulator/api/v2/pensjonsavtaler' },
     { fixture: 'pensjonsavtaler.json' }
   ).as('fetchPensjonsavtaler')
 
   cy.intercept(
     {
       method: 'POST',
-      url: '/pensjon/kalkulator/api/v1/alderspensjon/simulering',
+      url: '/pensjon/kalkulator/api/v2/alderspensjon/simulering',
     },
     { fixture: 'alderspensjon.json' }
   ).as('fetchAlderspensjon')

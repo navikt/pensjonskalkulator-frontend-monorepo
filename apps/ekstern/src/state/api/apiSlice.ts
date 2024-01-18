@@ -51,12 +51,28 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    tidligsteUttaksalder: builder.query<
+    tidligsteHelUttaksalder: builder.query<
       Alder,
-      TidligsteUttaksalderRequestBody | void
+      TidligsteHelUttaksalderRequestBody | void
     >({
       query: (body) => ({
-        url: '/v1/tidligste-uttaksalder',
+        url: '/v1/tidligste-hel-uttaksalder',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: Alder) => {
+        if (!isAlder(response)) {
+          throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
+        }
+        return response
+      },
+    }),
+    tidligsteGradertUttaksalder: builder.query<
+      Alder,
+      TidligsteGradertUttaksalderRequestBody | void
+    >({
+      query: (body) => ({
+        url: '/v1/tidligste-gradert-uttaksalder',
         method: 'POST',
         body,
       }),
@@ -72,7 +88,7 @@ export const apiSlice = createApi({
       PensjonsavtalerRequestBody
     >({
       query: (body) => ({
-        url: '/v1/pensjonsavtaler',
+        url: '/v2/pensjonsavtaler',
         method: 'POST',
         body,
       }),
@@ -190,7 +206,8 @@ export const {
   useGetPersonQuery,
   useGetSakStatusQuery,
   useGetTpoMedlemskapQuery,
-  useTidligsteUttaksalderQuery,
+  useTidligsteHelUttaksalderQuery,
+  useTidligsteGradertUttaksalderQuery,
   useAlderspensjonEnkelQuery,
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,

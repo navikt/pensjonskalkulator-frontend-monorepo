@@ -7,7 +7,7 @@ import { Button } from '@navikt/ds-react'
 
 import { useAppSelector } from '@/state/hooks'
 import {
-  selectAarligInntektFoerUttak,
+  selectaarligInntektFoerUttakBeloep,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder } from '@/utils/alder'
@@ -22,7 +22,9 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
   onButtonClick,
 }) => {
   const intl = useIntl()
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectaarligInntektFoerUttakBeloep
+  )
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
@@ -38,7 +40,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_1',
             })}
-            {formatWithoutDecimal(aarligInntektFoerUttak)}
+            {formatWithoutDecimal(aarligInntektFoerUttakBeloep)}
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_2',
             })}
@@ -83,12 +85,14 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                     {gradertUttaksperiode.grad} %<br />
                   </>
                 )}
-                {gradertUttaksperiode.aarligInntekt && (
+                {gradertUttaksperiode.aarligInntektVsaPensjonBeloep && (
                   <>
                     {intl.formatMessage({
                       id: 'beregning.avansert.resultatkort.inntekt_1',
                     })}
-                    {formatWithoutDecimal(gradertUttaksperiode.aarligInntekt)}
+                    {formatWithoutDecimal(
+                      gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+                    )}
                     {intl.formatMessage({
                       id: 'beregning.avansert.resultatkort.inntekt_2',
                     })}

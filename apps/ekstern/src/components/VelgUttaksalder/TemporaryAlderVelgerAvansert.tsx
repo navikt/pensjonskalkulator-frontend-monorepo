@@ -4,14 +4,14 @@ import { useIntl } from 'react-intl'
 
 import { Select } from '@navikt/ds-react'
 
-import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
+import { useTidligsteHelUttaksalderQuery } from '@/state/api/apiSlice'
 import { generateTidligsteHelUttaksalderRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
   selectSamboer,
   selectSivilstand,
-  selectAarligInntektFoerUttak,
+  selectaarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, unformatUttaksalder } from '@/utils/alder'
 
@@ -40,10 +40,12 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
   const afp = useAppSelector(selectAfp)
   const harSamboer = useAppSelector(selectSamboer)
   const sivilstand = useAppSelector(selectSivilstand)
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectaarligInntektFoerUttakBeloep
+  )
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
-    React.useState<TidligsteUttaksalderRequestBody | undefined>(undefined)
+    React.useState<TidligsteHelUttaksalderRequestBody | undefined>(undefined)
   const [localValue, setLocalValue] = React.useState<string>(
     defaultValue ? formatUttaksalder(intl, defaultValue, { compact: true }) : ''
   )
@@ -53,10 +55,10 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
       afp,
       sivilstand: sivilstand,
       harSamboer,
-      aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
+      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
     })
     setTidligsteUttaksalderRequestBody(requestBody)
-  }, [afp, sivilstand, aarligInntektFoerUttak, harSamboer])
+  }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
   React.useEffect(() => {
     if (value !== undefined) {
@@ -71,7 +73,7 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
     data: tidligstMuligUttak,
     isLoading,
     isSuccess,
-  } = useTidligsteUttaksalderQuery(tidligsteUttaksalderRequestBody, {
+  } = useTidligsteHelUttaksalderQuery(tidligsteUttaksalderRequestBody, {
     skip: !tidligsteUttaksalderRequestBody,
   })
 
