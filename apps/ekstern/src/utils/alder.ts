@@ -1,6 +1,6 @@
 import { IntlShape } from 'react-intl'
 
-import { isBefore, isSameDay } from 'date-fns'
+import { format, isBefore, isSameDay, startOfMonth } from 'date-fns'
 
 export const formatUttaksalder = (
   intl: IntlShape,
@@ -45,6 +45,24 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
     isBefore(new Date(foedselsdato), LAST_DAY_1963) ||
     isSameDay(new Date(foedselsdato), LAST_DAY_1963)
   )
+}
+
+export const transformUttaksalderToDate = (
+  alder: Alder,
+  foedselsdato: string
+) => {
+  const foedselsdatoDate = new Date(foedselsdato)
+  const antallMaaneder = foedselsdatoDate.getMonth() + alder.maaneder + 1
+  const oppdatertAar =
+    foedselsdatoDate.getFullYear() + alder.aar + Math.floor(antallMaaneder / 12)
+
+  const calculatedDate = new Date(
+    oppdatertAar,
+    antallMaaneder % 12,
+    foedselsdatoDate.getDate()
+  )
+
+  return format(startOfMonth(calculatedDate), 'dd.MM.yyyy')
 }
 
 // TODO vurdere etter utvikling av AgePicker om dette kan finpusses og gjenbrukes av RedigerAvansertBeregning

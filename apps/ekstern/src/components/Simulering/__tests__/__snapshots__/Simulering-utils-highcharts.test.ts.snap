@@ -36,7 +36,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     },
     "itemMarginBottom": 5,
     "itemStyle": {
-      "color": "var(--a-gray-900)",
+      "color": "var(--a-text-default)",
       "cursor": "default",
       "fontFamily": "var(--a-font-family)",
       "fontSize": "14px",
@@ -155,17 +155,17 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
     "labels": {
       "formatter": [Function],
       "style": {
-        "color": "var(--a-grayalpha-700)",
+        "color": "var(--a-text-subtle)",
         "fontFamily": "var(--a-font-family)",
         "fontSize": "var(--a-font-size-medium)",
       },
       "y": 20,
     },
-    "lineColor": "var(--a-grayalpha-700)",
+    "lineColor": "var(--a-text-subtle)",
     "title": {
       "align": "high",
       "style": {
-        "color": "var(--a-grayalpha-700)",
+        "color": "var(--a-text-subtle)",
         "fontFamily": "var(--a-font-family)",
         "fontSize": "var(--a-font-size-medium)",
       },
@@ -180,7 +180,7 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
       "align": "left",
       "formatter": [Function],
       "style": {
-        "color": "var(--a-grayalpha-700)",
+        "color": "var(--a-text-subtle)",
         "fontFamily": "var(--a-font-family)",
         "fontSize": "var(--a-font-size-medium)",
         "paddingRight": "var(--a-spacing-3)",

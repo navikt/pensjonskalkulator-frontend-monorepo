@@ -1,7 +1,7 @@
 import { EndreInntektVsaPensjon } from '..'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent, fireEvent, waitFor } from '@/test-utils'
+import { render, screen, userEvent, fireEvent } from '@/test-utils'
 
 // TODO mangler test for validering
 describe('EndreInntektVsaPensjon', async () => {
@@ -48,7 +48,7 @@ describe('EndreInntektVsaPensjon', async () => {
       ).toBeInTheDocument()
       expect(
         screen.getByText(
-          '123 000 kr beregning.avansert.resultatkort.fra PLACEHOLDER beregning.avansert.resultatkort.til 70 alder.aar.',
+          '123 000 kr beregning.fra PLACEHOLDER beregning.til 70 alder.aar.',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -157,7 +157,7 @@ describe('EndreInntektVsaPensjon', async () => {
 
       expect(
         screen.getByText(
-          '123 000 kr beregning.avansert.resultatkort.fra 67 alder.aar string.og 3 alder.maaneder beregning.avansert.resultatkort.til 70 alder.aar.',
+          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -187,7 +187,7 @@ describe('EndreInntektVsaPensjon', async () => {
       ).toBe(99000)
       expect(
         screen.getByText(
-          '99 000 kr beregning.avansert.resultatkort.fra 67 alder.aar string.og 3 alder.maaneder beregning.avansert.resultatkort.til 75 alder.aar.',
+          '99 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 75 alder.aar.',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -253,7 +253,7 @@ describe('EndreInntektVsaPensjon', async () => {
 
       expect(
         screen.getByText(
-          '123 000 kr beregning.avansert.resultatkort.fra 67 alder.aar string.og 3 alder.maaneder beregning.avansert.resultatkort.til 70 alder.aar.',
+          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -281,7 +281,7 @@ describe('EndreInntektVsaPensjon', async () => {
       ).toBe(123000)
       expect(
         screen.getByText(
-          '123 000 kr beregning.avansert.resultatkort.fra 67 alder.aar string.og 3 alder.maaneder beregning.avansert.resultatkort.til 70 alder.aar.',
+          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',
           { exact: false }
         )
       ).toBeInTheDocument()
