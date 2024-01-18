@@ -2,7 +2,7 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
 
-import { Button, Label, Select } from '@navikt/ds-react'
+import { Button, Label, Select, TextField } from '@navikt/ds-react'
 
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
@@ -15,9 +15,9 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { unformatUttaksalder } from '@/utils/alder'
-import { formatWithoutDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/inntekt'
 
-import { validateInput } from './utils'
+import { validateAvansertBeregningSkjema } from './utils'
 
 interface Props {
   onSubmitSuccess: () => void
@@ -37,11 +37,12 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     selectCurrentSimulation
   )
   const [validationErrors, setValidationErrors] = React.useState<
-    Record<string, boolean>
+    Record<string, string>
   >({
-    uttaksgrad: false,
-    'uttaksalder-hele-pensjon': false,
-    'uttaksalder-gradert-pensjon': false,
+    uttaksgrad: '',
+    'uttaksalder-hele-pensjon': '',
+    'uttaksalder-gradert-pensjon': '',
+    'inntekt-vsa-gradert-pensjon': '',
   })
   const [temporaryStartAlder, setTemporaryStartAlder] = React.useState<
     Alder | undefined
@@ -50,6 +51,12 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     React.useState<Partial<GradertUttaksperiode> | undefined>(
       gradertUttaksperiode ?? undefined
     )
+  const [
+    temporaryInntektVsaGradertPensjon,
+    setTemporaryInntektVsaGradertPensjon,
+  ] = React.useState<string>(
+    gradertUttaksperiode?.aarligInntektVsaPensjon?.toString() ?? ''
+  )
 
   const formaterteUttaksgrad = ['20 %', '40 %', '50 %', '60 %', '80 %', '100 %']
 
@@ -57,8 +64,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     setValidationErrors((prevState) => {
       return {
         ...prevState,
-        uttaksgrad: false,
-        'uttaksalder-gradert-pensjon': false,
+        uttaksgrad: '',
+        'uttaksalder-gradert-pensjon': '',
       }
     })
     const avansertBeregningFormatertUttaksgradAsNumber = e.target.value
@@ -75,6 +82,18 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     )
   }
 
+  const handleInntektVsaGradertPensjonChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setTemporaryInntektVsaGradertPensjon(e.target.value)
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        'inntekt-vsa-gradert-pensjon': '',
+      }
+    })
+  }
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
@@ -86,8 +105,11 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
       'uttaksalder-hele-pensjon'
     )
     const avansertBeregningFormatertUttaksgrad = data.get('uttaksgrad')
+    const avansertBeregningInntektVsaGradertPensjon = data.get(
+      'inntekt-vsa-gradert-pensjon'
+    )
 
-    if (validateInput(data, setValidationErrors)) {
+    if (validateAvansertBeregningSkjema(data, setValidationErrors)) {
       dispatch(
         userInputActions.setCurrentSimulationUttaksalder(
           unformatUttaksalder(
@@ -100,6 +122,10 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
           userInputActions.setCurrentSimulationGradertuttaksperiode(null)
         )
       } else {
+        const aarligInntektVsaPensjon = parseInt(
+          avansertBeregningInntektVsaGradertPensjon as string,
+          10
+        )
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode({
             uttaksalder: unformatUttaksalder(
@@ -112,6 +138,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               10
             ),
             aarligInntektVsaPensjonBeloep: 0, // TODO lagre verdi fra inntekt vsa gradert pensjon
+            aarligInntektVsaPensjon: !isNaN(aarligInntektVsaPensjon)
+              ? aarligInntektVsaPensjon
+              : 0,
           })
         )
       }
@@ -173,6 +202,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         {temporaryGradertUttaksperiode && (
           <div>
             <TemporaryAlderVelgerAvansert
+              form="avansert-beregning"
               name="uttaksalder-gradert-pensjon"
               label={`Når vil du ta ut ${temporaryGradertUttaksperiode.grad} % alderspensjon`}
               description="TODO under avklaring"
@@ -180,18 +210,42 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
                 temporaryGradertUttaksperiode?.uttaksalder ?? undefined
               }
               hasValidationError={
-                validationErrors['uttaksalder-gradert-pensjon']
+                validationErrors['uttaksalder-gradert-pensjon'] !== ''
               }
+            />
+            <TextField
+              form="avansert-beregning"
+              data-testid="inntekt-vsa-gradert-pensjon-textfield"
+              type="text"
+              inputMode="numeric"
+              name="inntekt-vsa-gradert-pensjon"
+              label={`Hva er din forventede årsinntekt mens du tar ut ${temporaryGradertUttaksperiode.grad} % alderspensjon? (Valgfritt)`}
+              description={intl.formatMessage({
+                id: 'inntekt.endre_inntekt_modal.textfield.description',
+              })}
+              error={
+                validationErrors['inntekt-vsa-gradert-pensjon']
+                  ? intl.formatMessage({
+                      id: validationErrors['inntekt-vsa-gradert-pensjon'],
+                    })
+                  : ''
+              }
+              onChange={handleInntektVsaGradertPensjonChange}
+              value={temporaryInntektVsaGradertPensjon}
+              max={5}
             />
             <hr className={styles.separator} />
           </div>
         )}
         <div>
           <TemporaryAlderVelgerAvansert
+            form="avansert-beregning"
             name="uttaksalder-hele-pensjon"
             label="Når vil du ta ut 100 % alderspensjon"
             defaultValue={uttaksalder ?? undefined}
-            hasValidationError={validationErrors['uttaksalder-hele-pensjon']}
+            hasValidationError={
+              validationErrors['uttaksalder-hele-pensjon'] !== ''
+            }
             onChange={(alder) => {
               setTemporaryStartAlder(alder)
             }}

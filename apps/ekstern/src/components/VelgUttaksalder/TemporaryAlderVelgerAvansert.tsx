@@ -18,6 +18,7 @@ import { formatUttaksalder, unformatUttaksalder } from '@/utils/alder'
 import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
 
 interface Props {
+  form?: string
   name: string
   label: string
   description?: string
@@ -28,6 +29,7 @@ interface Props {
 }
 
 export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
+  form,
   name,
   label,
   description,
@@ -125,7 +127,7 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
       }
       <Select
         data-testid={`temporaryAlderVelger-${name}`}
-        form="avansert-beregning"
+        form={form}
         name={name}
         label={label}
         description={

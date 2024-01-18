@@ -1,8 +1,10 @@
+import { validateInntekt } from '@/utils/inntekt'
+
 // TODO skrive tester
-export const validateInput = (
+export const validateAvansertBeregningSkjema = (
   inputData: FormData,
   updateValidationErrorMessage: React.Dispatch<
-    React.SetStateAction<Record<string, boolean>>
+    React.SetStateAction<Record<string, string>>
   >
 ) => {
   const uttaksgradData = inputData.get('uttaksgrad')
@@ -13,6 +15,9 @@ export const validateInput = (
   const avansertBeregningFormatertUttaksalderGradertPensjonData = inputData.get(
     'uttaksalder-gradert-pensjon'
   )
+  const avansertBeregningInntektVsaGradertPensjon = inputData.get(
+    'inntekt-vsa-gradert-pensjon'
+  )
 
   let isValid = true
 
@@ -20,8 +25,23 @@ export const validateInput = (
   if (!uttaksgradData || /^[^0-9]+$/.test(uttaksgradData as string)) {
     isValid = false
     updateValidationErrorMessage((prevState) => {
-      return { ...prevState, uttaksgrad: true }
+      return { ...prevState, uttaksgrad: 'VALIDATION ERROR UTTAKSGRAD' }
     })
+  }
+
+  // Sjekker at inntekt vsa gradert pensjon er enten tom eller fylt ut med en gyldig string
+  if (
+    !validateInntekt(
+      avansertBeregningInntektVsaGradertPensjon as string,
+      (s: string) => {
+        updateValidationErrorMessage((prevState) => {
+          return { ...prevState, 'inntekt-vsa-gradert-pensjon': s }
+        })
+      },
+      false
+    )
+  ) {
+    isValid = false
   }
 
   // Sjekker at uttaksalder for hele pensjon er fylt ut med en alder
@@ -33,7 +53,10 @@ export const validateInput = (
   ) {
     isValid = false
     updateValidationErrorMessage((prevState) => {
-      return { ...prevState, 'uttaksalder-hele-pensjon': true }
+      return {
+        ...prevState,
+        'uttaksalder-hele-pensjon': 'VALIDATION ERROR UTTAKSALDER HEL PENSJON',
+      }
     })
   }
 
@@ -47,7 +70,11 @@ export const validateInput = (
   ) {
     isValid = false
     updateValidationErrorMessage((prevState) => {
-      return { ...prevState, 'uttaksalder-gradert-pensjon': true }
+      return {
+        ...prevState,
+        'uttaksalder-gradert-pensjon':
+          'VALIDATION ERROR UTTAKSALDER GRADERT PENSJON',
+      }
     })
   }
 

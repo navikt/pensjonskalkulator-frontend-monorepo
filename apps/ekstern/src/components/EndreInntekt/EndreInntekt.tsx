@@ -7,9 +7,8 @@ import { BodyShort, Button, Modal, TextField, VStack } from '@navikt/ds-react'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectaarligInntektFoerUttakBeloepFraBrukerInput } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
-
-import { validateInntektInput } from './utils'
 
 interface Props {
   className?: string
@@ -57,7 +56,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
     const data = new FormData(e.currentTarget)
     const inntektData = data.get('inntekt') as string | undefined
 
-    if (validateInntektInput(inntektData, updateValidationErrorMessage)) {
+    if (validateInntekt(inntektData, updateValidationErrorMessage)) {
       dispatch(
         userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
           parseInt((inntektData as string).replace(/ /g, ''), 10)

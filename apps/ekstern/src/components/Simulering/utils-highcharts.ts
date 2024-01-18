@@ -12,8 +12,8 @@ import {
   TooltipPositionerPointObject,
 } from 'highcharts'
 
-import { formatWithoutDecimal } from '@/utils/currency'
 import { cleanAndAddEventListener } from '@/utils/events'
+import { formatWithoutDecimal } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
 import {
