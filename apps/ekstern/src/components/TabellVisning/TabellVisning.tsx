@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { SeriesColumnOptions } from 'highcharts'
 
 import { ReadMore } from '../common/ReadMore'
-import { formatWithoutDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
 import { useTableData } from './hooks'

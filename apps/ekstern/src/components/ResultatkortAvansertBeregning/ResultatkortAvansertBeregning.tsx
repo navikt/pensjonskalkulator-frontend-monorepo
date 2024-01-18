@@ -11,7 +11,7 @@ import {
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder } from '@/utils/alder'
-import { formatWithoutDecimal } from '@/utils/currency'
+import { formatWithoutDecimal } from '@/utils/inntekt'
 interface Props {
   onButtonClick: () => void
 }
