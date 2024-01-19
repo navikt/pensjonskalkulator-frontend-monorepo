@@ -140,13 +140,6 @@ describe('apiSlice - utils', () => {
       ).toEqual('ALDERSPENSJON')
     })
 
-    it('returnerer riktig uttaksgrad', () => {
-      expect(
-        generateAlderspensjonEnkelRequestBody({
-          ...requestBody,
-        })?.uttaksgrad
-      ).toEqual(100)
-    })
     it('returnerer riktig sivilstand', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
@@ -185,7 +178,7 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-        })?.forventetInntekt
+        })?.aarligInntektFoerUttakBeloep
       ).toEqual(500000)
     })
 
@@ -193,7 +186,7 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
-        })?.foersteUttaksalder
+        })?.heltUttak.uttaksalder
       ).toEqual({
         aar: 68,
         maaneder: 3,
@@ -202,7 +195,7 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
           uttaksalder: { aar: 68, maaneder: 0 },
-        })?.foersteUttaksalder
+        })?.heltUttak.uttaksalder
       ).toEqual({
         aar: 68,
         maaneder: 0,

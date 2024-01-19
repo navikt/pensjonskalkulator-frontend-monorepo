@@ -54,17 +54,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v1/alderspensjon/simulering`, async ({ request }) => {
-    await delay(TEST_DELAY)
-    const body = await request.json()
-    const data = await import(
-      `./data/alderspensjon/${
-        (body as AlderspensjonEnkelRequestBody).foersteUttaksalder.aar
-      }.json`
-    )
-    return HttpResponse.json(data)
-  }),
-
   http.post(`${baseUrl}/v2/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()

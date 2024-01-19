@@ -62,10 +62,10 @@ describe('BeregningEnkel', () => {
 
     it('viser feilmelding og skjuler Grunnlag og tabell og gir mulighet til å prøve på nytt, gitt at beregning av alderspensjon har feilet', async () => {
       const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.alderspensjonEnkel,
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
-      mockErrorResponse('/v1/alderspensjon/simulering', {
+      mockErrorResponse('/v2/alderspensjon/simulering', {
         method: 'post',
       })
       const user = userEvent.setup()
@@ -105,7 +105,7 @@ describe('BeregningEnkel', () => {
 
       const user = userEvent.setup()
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-      mockResponse('/v1/alderspensjon/simulering', {
+      mockResponse('/v2/alderspensjon/simulering', {
         status: 503,
         method: 'post',
       })
@@ -130,7 +130,7 @@ describe('BeregningEnkel', () => {
 
     it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav og skjuler Grunnlag', async () => {
       const user = userEvent.setup()
-      mockResponse('/v1/alderspensjon/simulering', {
+      mockResponse('/v2/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
