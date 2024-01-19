@@ -672,7 +672,7 @@ export interface components {
       foedselsdato: string
       epsHarInntektOver2G: boolean
       /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
+      forventetInntekt?: number
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'

@@ -130,7 +130,6 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     simuleringstype:
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
-    forventetInntekt: aarligInntektFoerUttakBeloep,
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep,
     sivilstand:
@@ -141,7 +140,6 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
           : 'UGIFT',
     heltUttak: {
       uttaksalder,
-      aarligInntektVsaPensjon: 0,
     },
   }
 }
