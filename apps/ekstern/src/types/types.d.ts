@@ -27,7 +27,7 @@ declare global {
 
   // /pensjonsavtaler
   type PensjonsavtalerRequestBody =
-    components['schemas']['PensjonsavtaleIngressSpecDtoV2']
+    components['schemas']['IngressPensjonsavtaleSpecV2']
   type PensjonsavtalerResponseBody = components['schemas']['PensjonsavtalerDto']
   type Utbetalingsperiode = components['schemas']['UtbetalingsperiodeDto']
   type Pensjonsavtale = components['schemas']['PensjonsavtaleDto'] & {

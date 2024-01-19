@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite",
     "start:production": "vite --mode production",
-    "fetch-dev-types": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/api -o ./src/types/schema.d.ts",
+    "fetch-dev-types": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/Current%20API -o ./src/types/schema.d.ts",
     "postfetch-dev-types": "npm run format:types",
     "format:types": "prettier --write ./src/types/schema.d.ts && eslint ./src/types/schema.d.ts --fix",
     "prebuild": "npm run eslint:check && npm run prettier:check && npm run stylelint:check",
