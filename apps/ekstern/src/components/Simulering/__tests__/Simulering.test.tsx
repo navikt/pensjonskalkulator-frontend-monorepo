@@ -15,7 +15,7 @@ describe('Simulering', () => {
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '67 år string.og 0 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 0 },
-    aarligInntektFoerUttak: 0,
+    aarligInntektFoerUttakBeloep: 0,
     gradertUttaksperiode: null,
   }
 
@@ -28,7 +28,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={true}
-          aarligInntektFoerUttak={0}
+          aarligInntektFoerUttakBeloep={0}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -67,7 +67,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttak={500000}
+          aarligInntektFoerUttakBeloep={500000}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -108,7 +108,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttak={500000}
+          aarligInntektFoerUttakBeloep={500000}
           alderspensjon={alderspensjonData}
           showAfp={true}
           showButtonsAndTable={true}
@@ -153,7 +153,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttak={500000}
+          aarligInntektFoerUttakBeloep={500000}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -172,14 +172,13 @@ describe('Simulering', () => {
       expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
       expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
         {
-          aarligInntektFoerUttak: 500000,
-          antallInntektsaarEtterUttak: 0,
+          aarligInntektFoerUttakBeloep: 500000,
           harAfp: false,
           sivilstand: undefined,
           uttaksperioder: [
             {
               startAlder: { aar: 67, maaneder: 0 },
-              aarligInntekt: 0,
+              aarligInntektVsaPensjon: undefined,
               grad: 100,
             },
           ],
@@ -218,7 +217,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttak={500000}
+          aarligInntektFoerUttakBeloep={500000}
           alderspensjon={alderspensjonData}
           showAfp={true}
           showButtonsAndTable={true}
@@ -253,7 +252,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler', async () => {
-      mockResponse('/v1/pensjonsavtaler', {
+      mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -265,7 +264,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttak={500000}
+          aarligInntektFoerUttakBeloep={500000}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={true}
@@ -304,7 +303,7 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
-      mockResponse('/v1/pensjonsavtaler', {
+      mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -331,7 +330,7 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttak={0}
+          aarligInntektFoerUttakBeloep={0}
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={true}
@@ -343,7 +342,7 @@ describe('Simulering', () => {
               samtykke: true,
               currentSimulation: {
                 ...currentSimulation,
-                aarligInntektFoerUttak: 500000,
+                aarligInntektFoerUttakBeloep: 500000,
               },
             },
           },
@@ -358,7 +357,7 @@ describe('Simulering', () => {
     it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding som sender til Grunnlag', async () => {
       const scrollIntoViewMock = vi.fn()
       const user = userEvent.setup()
-      mockErrorResponse('/v1/pensjonsavtaler', {
+      mockErrorResponse('/v2/pensjonsavtaler', {
         status: 500,
         json: "Beep boop I'm an error!",
         method: 'post',
@@ -375,7 +374,7 @@ describe('Simulering', () => {
         >
           <Simulering
             isLoading={false}
-            aarligInntektFoerUttak={0}
+            aarligInntektFoerUttakBeloep={0}
             showAfp={false}
             showButtonsAndTable={false}
           />
@@ -405,7 +404,7 @@ describe('Simulering', () => {
     it('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
       const scrollIntoViewMock = vi.fn()
       const user = userEvent.setup()
-      mockResponse('/v1/pensjonsavtaler', {
+      mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -438,7 +437,7 @@ describe('Simulering', () => {
         >
           <Simulering
             isLoading={false}
-            aarligInntektFoerUttak={0}
+            aarligInntektFoerUttakBeloep={0}
             showAfp={false}
             showButtonsAndTable={false}
           />
@@ -470,7 +469,7 @@ describe('Simulering', () => {
     it('Når brukeren har samtykket, har ingen pensjonsavtale men har utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
       const scrollIntoViewMock = vi.fn()
       const user = userEvent.setup()
-      mockResponse('/v1/pensjonsavtaler', {
+      mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -490,7 +489,7 @@ describe('Simulering', () => {
         >
           <Simulering
             isLoading={false}
-            aarligInntektFoerUttak={0}
+            aarligInntektFoerUttakBeloep={0}
             showAfp={false}
             showButtonsAndTable={false}
           />
@@ -526,7 +525,7 @@ describe('Simulering', () => {
         isLoading={false}
         showAfp={true}
         showButtonsAndTable={true}
-        aarligInntektFoerUttak={500000}
+        aarligInntektFoerUttakBeloep={500000}
       />,
       {
         preloadedState: {
@@ -557,7 +556,7 @@ describe('Simulering', () => {
     render(
       <Simulering
         isLoading={false}
-        aarligInntektFoerUttak={0}
+        aarligInntektFoerUttakBeloep={0}
         showAfp={true}
         showButtonsAndTable={true}
       />,

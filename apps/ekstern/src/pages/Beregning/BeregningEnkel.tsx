@@ -22,8 +22,8 @@ import {
   selectAfp,
   selectSamboer,
   selectCurrentSimulation,
-  selectAarligInntektFoerUttak,
-  selectAarligInntektFoerUttakFraBrukerInput,
+  selectAarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -40,9 +40,11 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const grunnlagPensjonsavtalerRef = React.useRef<HTMLSpanElement>(null)
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
-  const aarligInntektFoerUttakFraBrukerInput = useAppSelector(
-    selectAarligInntektFoerUttakFraBrukerInput
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectAarligInntektFoerUttakBeloep
+  )
+  const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
+    selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
@@ -55,9 +57,9 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   React.useEffect(() => {
     // Show alert når: inntekt fra bruker er ikke null (det betyr at brukeren har endret den) og at startAlder er null (betyr at de ble nettopp nullstilt fra GrunnlagInntekt)
     setShowInntektAlert(
-      !!aarligInntektFoerUttakFraBrukerInput && uttaksalder === null
+      !!aarligInntektFoerUttakBeloepFraBrukerInput && uttaksalder === null
     )
-  }, [aarligInntektFoerUttakFraBrukerInput, uttaksalder])
+  }, [aarligInntektFoerUttakBeloepFraBrukerInput, uttaksalder])
 
   React.useEffect(() => {
     if (uttaksalder) {
@@ -66,12 +68,12 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
-        aarligInntektFoerUttak: aarligInntektFoerUttak ?? 0,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
         uttaksalder,
       })
       setAlderspensjonEnkelRequestBody(requestBody)
     }
-  }, [afp, person, aarligInntektFoerUttak, harSamboer, uttaksalder])
+  }, [afp, person, aarligInntektFoerUttakBeloep, harSamboer, uttaksalder])
 
   // Hent alderspensjon + AFP
   const {
@@ -187,7 +189,9 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
               >
                 <Simulering
                   isLoading={isFetching}
-                  aarligInntektFoerUttak={aarligInntektFoerUttak ?? 0}
+                  aarligInntektFoerUttakBeloep={
+                    aarligInntektFoerUttakBeloep ?? 0
+                  }
                   alderspensjon={alderspensjon}
                   showAfp={afp === 'ja_privat'}
                   showButtonsAndTable={

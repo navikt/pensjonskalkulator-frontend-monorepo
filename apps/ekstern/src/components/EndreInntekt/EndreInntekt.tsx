@@ -5,7 +5,7 @@ import { PencilIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Modal, TextField, VStack } from '@navikt/ds-react'
 
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectAarligInntektFoerUttakFraBrukerInput } from '@/state/userInput/selectors'
+import { selectAarligInntektFoerUttakBeloepFraBrukerInput } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
@@ -19,13 +19,13 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
   const dispatch = useAppDispatch()
 
   const inntektModalRef = React.useRef<HTMLDialogElement>(null)
-  const aarligInntektFoerUttakFraBrukerInput = useAppSelector(
-    selectAarligInntektFoerUttakFraBrukerInput
+  const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
+    selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
 
   const [validationError, setValidationError] = React.useState<string>('')
   const [oppdatertInntekt, setOppdatertInntekt] = React.useState<string>(
-    aarligInntektFoerUttakFraBrukerInput?.toString() ?? ''
+    aarligInntektFoerUttakBeloepFraBrukerInput?.toString() ?? ''
   )
 
   const handleTextfieldChange = (
@@ -58,7 +58,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
       dispatch(
-        userInputActions.setCurrentSimulationAarligInntektFoerUttak(
+        userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
           parseInt((inntektData as string).replace(/ /g, ''), 10)
         )
       )

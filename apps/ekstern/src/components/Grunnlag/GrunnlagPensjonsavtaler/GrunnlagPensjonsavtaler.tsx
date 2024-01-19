@@ -20,7 +20,7 @@ import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
-  selectAarligInntektFoerUttak,
+  selectAarligInntektFoerUttakBeloep,
   selectAfp,
   selectSivilstand,
   selectCurrentSimulation,
@@ -36,7 +36,9 @@ export const GrunnlagPensjonsavtaler = () => {
   const intl = useIntl()
   const harSamtykket = useAppSelector(selectSamtykke)
   const sivilstand = useAppSelector(selectSivilstand)
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectAarligInntektFoerUttakBeloep
+  )
   const afp = useAppSelector(selectAfp)
   const { uttaksalder, aarligInntektVsaHelPensjon } = useAppSelector(
     selectCurrentSimulation
@@ -53,15 +55,15 @@ export const GrunnlagPensjonsavtaler = () => {
   // Hent pensjonsavtaler
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {
-      const requestBody = generatePensjonsavtalerRequestBody(
-        aarligInntektFoerUttak ?? 0,
+      const requestBody = generatePensjonsavtalerRequestBody({
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
         afp,
-        {
+        sivilstand,
+        heltUttak: {
           uttaksalder,
-          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon?.beloep ?? 0,
+          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
-        sivilstand
-      )
+      })
       setPensjonsavtalerRequestBody(requestBody)
     }
   }, [harSamtykket, uttaksalder])

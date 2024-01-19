@@ -139,7 +139,7 @@ describe('BeregningEnkel', () => {
           vilkaarErOppfylt: false,
         },
       })
-      mockErrorResponse('/v1/tidligste-uttaksalder', {
+      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
         method: 'post',
       })
       render(<BeregningEnkel />, {
@@ -154,7 +154,7 @@ describe('BeregningEnkel', () => {
             currentSimulation: {
               formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
-              aarligInntektFoerUttak: 0,
+              aarligInntektFoerUttakBeloep: 0,
               gradertUttaksperiode: null,
             },
           },
@@ -192,7 +192,7 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             currentSimulation: {
               ...userInputInitialState.currentSimulation,
-              aarligInntektFoerUttak: 100000,
+              aarligInntektFoerUttakBeloep: 100000,
             },
           },
         },
@@ -221,7 +221,7 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             currentSimulation: {
               ...userInputInitialState.currentSimulation,
-              aarligInntektFoerUttak: 100000,
+              aarligInntektFoerUttakBeloep: 100000,
             },
           },
         },

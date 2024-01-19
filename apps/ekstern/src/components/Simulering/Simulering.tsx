@@ -48,7 +48,7 @@ import styles from './Simulering.module.scss'
 
 export function Simulering(props: {
   isLoading: boolean
-  aarligInntektFoerUttak: number
+  aarligInntektFoerUttakBeloep: number
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
   showButtonsAndTable?: boolean
@@ -56,7 +56,7 @@ export function Simulering(props: {
   const intl = useIntl()
   const {
     isLoading,
-    aarligInntektFoerUttak,
+    aarligInntektFoerUttakBeloep,
     alderspensjon,
     showAfp,
     showButtonsAndTable,
@@ -118,25 +118,16 @@ export function Simulering(props: {
   // Hent pensjonsavtaler
   React.useEffect(() => {
     if (harSamtykket && uttaksalder) {
-      const optionalGradertUttakObj = gradertUttaksperiode
-        ? {
-            uttaksalder: gradertUttaksperiode.uttaksalder,
-            grad: gradertUttaksperiode.grad,
-            aarligInntektVsaPensjon:
-              gradertUttaksperiode.aarligInntektVsaPensjon,
-          }
-        : undefined
-
-      const requestBody = generatePensjonsavtalerRequestBody(
-        aarligInntektFoerUttak,
+      const requestBody = generatePensjonsavtalerRequestBody({
+        aarligInntektFoerUttakBeloep,
         afp,
-        {
-          uttaksalder,
-          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon?.beloep ?? 0,
-        },
         sivilstand,
-        optionalGradertUttakObj
-      )
+        heltUttak: {
+          uttaksalder,
+          aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
+        },
+        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+      })
       setPensjonsavtalerRequestBody(requestBody)
     }
   }, [harSamtykket, uttaksalder])
@@ -183,7 +174,7 @@ export function Simulering(props: {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
             name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
             data: processInntektArray(
-              aarligInntektFoerUttak,
+              aarligInntektFoerUttakBeloep,
               XAxis.length,
               uttaksalder.maaneder
             ),

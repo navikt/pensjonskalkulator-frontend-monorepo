@@ -9,18 +9,19 @@ import HighchartsAccessibility from 'highcharts/modules/accessibility'
 import { Loader } from '@/components/common/Loader'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { paths } from '@/router/constants'
-import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
+import { useTidligsteHelUttaksalderQuery } from '@/state/api/apiSlice'
 import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetDetaljertFaneFeatureToggleQuery,
 } from '@/state/api/apiSlice'
+import { generateTidligsteHelUttaksalderRequestBody } from '@/state/api/utils'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
   selectSamboer,
   selectSivilstand,
-  selectAarligInntektFoerUttak,
+  selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -42,10 +43,12 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const harSamboer = useAppSelector(selectSamboer)
   const sivilstand = useAppSelector(selectSivilstand)
   const afp = useAppSelector(selectAfp)
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectAarligInntektFoerUttakBeloep
+  )
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
-    React.useState<TidligsteUttaksalderRequestBody | undefined>(undefined)
+    React.useState<TidligsteHelUttaksalderRequestBody | undefined>(undefined)
 
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
@@ -57,7 +60,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     data: tidligstMuligUttak,
     isLoading: isTidligstMuligUttaksalderLoading,
     isError: isTidligstMuligUttaksalderError,
-  } = useTidligsteUttaksalderQuery(tidligsteUttaksalderRequestBody, {
+  } = useTidligsteHelUttaksalderQuery(tidligsteUttaksalderRequestBody, {
     skip: !tidligsteUttaksalderRequestBody,
   })
 
@@ -72,14 +75,14 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }, [])
 
   React.useEffect(() => {
-    setTidligsteUttaksalderRequestBody({
+    const requestBody = generateTidligsteHelUttaksalderRequestBody({
+      afp,
       sivilstand: sivilstand,
-      harEps: harSamboer !== null ? harSamboer : undefined,
-      sisteInntekt: aarligInntektFoerUttak ?? 0,
-      simuleringstype:
-        afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+      harSamboer,
+      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
     })
-  }, [afp, sivilstand, aarligInntektFoerUttak, harSamboer])
+    setTidligsteUttaksalderRequestBody(requestBody)
+  }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
   const onToggleChange = (v: string) => {
     navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningDetaljert)

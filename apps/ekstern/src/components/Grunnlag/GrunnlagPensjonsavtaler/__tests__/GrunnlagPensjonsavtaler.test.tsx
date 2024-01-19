@@ -32,7 +32,7 @@ describe('GrunnlagPensjonsavtaler', () => {
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 1 },
-    aarligInntektFoerUttak: 0,
+    aarligInntektFoerUttakBeloep: 0,
     gradertUttaksperiode: null,
   }
   describe('Gitt at brukeren ikke har samtykket', () => {
@@ -129,7 +129,7 @@ describe('GrunnlagPensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {
-      mockErrorResponse('/v1/pensjonsavtaler', {
+      mockErrorResponse('/v2/pensjonsavtaler', {
         method: 'post',
       })
       render(
@@ -170,7 +170,7 @@ describe('GrunnlagPensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress og tabell', async () => {
-      mockResponse('/v1/pensjonsavtaler', {
+      mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [
@@ -230,7 +230,7 @@ describe('GrunnlagPensjonsavtaler', () => {
     })
 
     it('Når pensjonsavtaler har delvis svar og ingen avtaler, viser riktig header og melding, og viser ingress og tabell', async () => {
-      mockResponse('/v1/pensjonsavtaler', {
+      mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],
@@ -288,7 +288,7 @@ describe('GrunnlagPensjonsavtaler', () => {
 
     it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
       const user = userEvent.setup()
-      mockResponse('/v1/pensjonsavtaler', {
+      mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
           avtaler: [],

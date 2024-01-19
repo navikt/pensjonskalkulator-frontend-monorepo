@@ -8,7 +8,7 @@ import { Button, ExpansionCard } from '@navikt/ds-react'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import {
-  selectAarligInntektFoerUttak,
+  selectAarligInntektFoerUttakBeloep,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
@@ -23,8 +23,10 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
   onButtonClick,
 }) => {
   const intl = useIntl()
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectAarligInntektFoerUttakBeloep
+  )
   const { data: person } = useGetPersonQuery()
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
@@ -53,7 +55,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_1',
             })}
-            {formatWithoutDecimal(aarligInntektFoerUttak)}
+            {formatWithoutDecimal(aarligInntektFoerUttakBeloep)}
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_2',
             })}
@@ -83,13 +85,13 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                     {gradertUttaksperiode.grad} %<br />
                   </>
                 )}
-                {gradertUttaksperiode.aarligInntektVsaPensjon && (
+                {gradertUttaksperiode.aarligInntektVsaPensjonBeloep && (
                   <>
                     {intl.formatMessage({
                       id: 'beregning.avansert.resultatkort.inntekt_1',
                     })}
                     {formatWithoutDecimal(
-                      gradertUttaksperiode.aarligInntektVsaPensjon
+                      gradertUttaksperiode.aarligInntektVsaPensjonBeloep
                     )}
                     {intl.formatMessage({
                       id: 'beregning.avansert.resultatkort.inntekt_2',

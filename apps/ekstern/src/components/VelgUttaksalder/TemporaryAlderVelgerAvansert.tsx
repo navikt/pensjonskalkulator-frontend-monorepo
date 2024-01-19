@@ -4,13 +4,14 @@ import { useIntl } from 'react-intl'
 
 import { Select } from '@navikt/ds-react'
 
-import { useTidligsteUttaksalderQuery } from '@/state/api/apiSlice'
+import { useTidligsteHelUttaksalderQuery } from '@/state/api/apiSlice'
+import { generateTidligsteHelUttaksalderRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
   selectSamboer,
   selectSivilstand,
-  selectAarligInntektFoerUttak,
+  selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, unformatUttaksalder } from '@/utils/alder'
 
@@ -41,23 +42,25 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
   const afp = useAppSelector(selectAfp)
   const harSamboer = useAppSelector(selectSamboer)
   const sivilstand = useAppSelector(selectSivilstand)
-  const aarligInntektFoerUttak = useAppSelector(selectAarligInntektFoerUttak)
+  const aarligInntektFoerUttakBeloep = useAppSelector(
+    selectAarligInntektFoerUttakBeloep
+  )
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
-    React.useState<TidligsteUttaksalderRequestBody | undefined>(undefined)
+    React.useState<TidligsteHelUttaksalderRequestBody | undefined>(undefined)
   const [localValue, setLocalValue] = React.useState<string>(
     defaultValue ? formatUttaksalder(intl, defaultValue, { compact: true }) : ''
   )
 
   React.useEffect(() => {
-    setTidligsteUttaksalderRequestBody({
+    const requestBody = generateTidligsteHelUttaksalderRequestBody({
+      afp,
       sivilstand: sivilstand,
-      harEps: harSamboer !== null ? harSamboer : undefined,
-      sisteInntekt: aarligInntektFoerUttak ?? 0,
-      simuleringstype:
-        afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+      harSamboer,
+      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
     })
-  }, [afp, sivilstand, aarligInntektFoerUttak, harSamboer])
+    setTidligsteUttaksalderRequestBody(requestBody)
+  }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
   React.useEffect(() => {
     if (value !== undefined) {
@@ -72,7 +75,7 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
     data: tidligstMuligUttak,
     isLoading,
     isSuccess,
-  } = useTidligsteUttaksalderQuery(tidligsteUttaksalderRequestBody, {
+  } = useTidligsteHelUttaksalderQuery(tidligsteUttaksalderRequestBody, {
     skip: !tidligsteUttaksalderRequestBody,
   })
 

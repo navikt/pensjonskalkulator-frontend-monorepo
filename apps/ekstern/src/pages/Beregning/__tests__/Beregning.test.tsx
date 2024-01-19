@@ -76,7 +76,7 @@ describe('Beregning', () => {
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
-              aarligInntektFoerUttak: 300000,
+              aarligInntektFoerUttakBeloep: 300000,
               gradertUttaksperiode: null,
             },
           },
@@ -97,7 +97,7 @@ describe('Beregning', () => {
   describe('Når tidligst mulig uttaksalder hentes', () => {
     it('kalles endepunktet med riktig request body', async () => {
       const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.tidligsteUttaksalder,
+        apiSliceUtils.apiSlice.endpoints.tidligsteHelUttaksalder,
         'initiate'
       )
       render(<Beregning visning="enkel" />, {
@@ -113,11 +113,14 @@ describe('Beregning', () => {
           },
         },
       })
+
       expect(initiateMock).toHaveBeenCalledWith(
         {
+          aarligInntektFoerUttakBeloep: 500000,
+          aarligInntektVsaPensjon: undefined,
+
           harEps: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
-          sisteInntekt: 500000,
           sivilstand: 'UGIFT',
         },
         {
@@ -145,7 +148,7 @@ describe('Beregning', () => {
     })
 
     it('når kallet til tidligst mulig uttak feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
-      mockErrorResponse('/v1/tidligste-uttaksalder', {
+      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
         method: 'post',
       })
       mockResponse('/v2/alderspensjon/simulering', {
