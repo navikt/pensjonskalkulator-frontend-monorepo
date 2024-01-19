@@ -43,9 +43,10 @@ declare global {
   type AlderspensjonResponseBody =
     components['schemas']['SimuleringsresultatDto']
 
-  type HeltUttaksperiode = components['schemas']['IngressSimuleringHeltUttakV2']
+  type HeltUttaksperiode =
+    components['schemas']['SimuleringHeltUttakIngressDtoV2']
   type GradertUttaksperiode =
-    components['schemas']['IngressSimuleringGradertUttakV2']
+    components['schemas']['SimuleringGradertUttakIngressDtoV2']
 
   type Simuleringstype =
     components['schemas']['IngressSimuleringSpecV2']['simuleringstype']
