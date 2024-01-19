@@ -11,7 +11,7 @@ import {
   selectAfp,
   selectSamboer,
   selectSivilstand,
-  selectaarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, unformatUttaksalder } from '@/utils/alder'
 
@@ -43,7 +43,7 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
   const harSamboer = useAppSelector(selectSamboer)
   const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectaarligInntektFoerUttakBeloep
+    selectAarligInntektFoerUttakBeloep
   )
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =

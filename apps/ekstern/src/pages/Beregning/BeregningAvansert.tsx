@@ -22,7 +22,7 @@ import {
   selectSamboer,
   selectCurrentSimulation,
   selectFormatertUttaksalderReadOnly,
-  selectaarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { logger } from '@/utils/logging'
 
@@ -38,7 +38,7 @@ export const BeregningAvansert: React.FC = () => {
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectaarligInntektFoerUttakBeloep
+    selectAarligInntektFoerUttakBeloep
   )
 
   const formatertUttaksalderReadOnly = useAppSelector(

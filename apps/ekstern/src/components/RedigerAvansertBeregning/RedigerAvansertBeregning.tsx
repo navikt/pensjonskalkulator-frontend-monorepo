@@ -11,7 +11,7 @@ import { TemporaryAlderVelgerAvansert } from '@/components/VelgUttaksalder/Tempo
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
-  selectaarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { unformatUttaksalder } from '@/utils/alder'
@@ -31,7 +31,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const intl = useIntl()
   const dispatch = useAppDispatch()
   const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectaarligInntektFoerUttakBeloep
+    selectAarligInntektFoerUttakBeloep
   )
   const { uttaksalder, gradertUttaksperiode } = useAppSelector(
     selectCurrentSimulation

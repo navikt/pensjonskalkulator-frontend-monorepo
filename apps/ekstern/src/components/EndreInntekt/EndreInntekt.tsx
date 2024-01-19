@@ -5,7 +5,7 @@ import { PencilIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Modal, TextField, VStack } from '@navikt/ds-react'
 
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectaarligInntektFoerUttakBeloepFraBrukerInput } from '@/state/userInput/selectors'
+import { selectAarligInntektFoerUttakBeloepFraBrukerInput } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
@@ -20,7 +20,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
 
   const inntektModalRef = React.useRef<HTMLDialogElement>(null)
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
-    selectaarligInntektFoerUttakBeloepFraBrukerInput
+    selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
 
   const [validationError, setValidationError] = React.useState<string>('')

@@ -42,25 +42,25 @@ export const selectSamboer = (state: RootState): boolean | null => {
   return samboerSkapFraBrukerInput
 }
 
-export const selectaarligInntektFoerUttakBeloepFraBrukerInput = (
+export const selectAarligInntektFoerUttakBeloepFraBrukerInput = (
   state: RootState
 ): number | null =>
   state.userInput.currentSimulation.aarligInntektFoerUttakBeloep
 
-export const selectaarligInntektFoerUttakBeloepFraSkatt = createSelector(
+export const selectAarligInntektFoerUttakBeloepFraSkatt = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
     return apiSlice.endpoints.getInntekt.select(undefined)(state)?.data
   }
 )
 
-export const selectaarligInntektFoerUttakBeloep = (
+export const selectAarligInntektFoerUttakBeloep = (
   state: RootState
 ): number | null | undefined => {
   const aarligInntektFoerUttakBeloepFraBrukerInput =
-    selectaarligInntektFoerUttakBeloepFraBrukerInput(state)
+    selectAarligInntektFoerUttakBeloepFraBrukerInput(state)
   if (aarligInntektFoerUttakBeloepFraBrukerInput === null) {
-    return selectaarligInntektFoerUttakBeloepFraSkatt(state, undefined)?.beloep
+    return selectAarligInntektFoerUttakBeloepFraSkatt(state, undefined)?.beloep
   }
   return aarligInntektFoerUttakBeloepFraBrukerInput
 }

@@ -22,8 +22,8 @@ import {
   selectAfp,
   selectSamboer,
   selectCurrentSimulation,
-  selectaarligInntektFoerUttakBeloep,
-  selectaarligInntektFoerUttakBeloepFraBrukerInput,
+  selectAarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -41,10 +41,10 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectaarligInntektFoerUttakBeloep
+    selectAarligInntektFoerUttakBeloep
   )
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
-    selectaarligInntektFoerUttakBeloepFraBrukerInput
+    selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()

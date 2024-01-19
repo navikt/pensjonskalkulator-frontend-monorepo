@@ -9,9 +9,9 @@ import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoModalInntekt } from '@/components/InfoModalInntekt'
 import { useAppSelector } from '@/state/hooks'
 import {
-  selectaarligInntektFoerUttakBeloep,
-  selectaarligInntektFoerUttakBeloepFraSkatt,
-  selectaarligInntektFoerUttakBeloepFraBrukerInput,
+  selectAarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloepFraSkatt,
+  selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -22,13 +22,13 @@ export const GrunnlagInntekt = () => {
   const intl = useIntl()
 
   const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectaarligInntektFoerUttakBeloep
+    selectAarligInntektFoerUttakBeloep
   )
   const aarligInntektFoerUttakBeloepFraSkatt = useAppSelector(
-    selectaarligInntektFoerUttakBeloepFraSkatt
+    selectAarligInntektFoerUttakBeloepFraSkatt
   )
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
-    selectaarligInntektFoerUttakBeloepFraBrukerInput
+    selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
 
   return (

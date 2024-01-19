@@ -8,7 +8,7 @@ import { Button, ExpansionCard } from '@navikt/ds-react'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import {
-  selectaarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloep,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
@@ -24,7 +24,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
 }) => {
   const intl = useIntl()
   const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectaarligInntektFoerUttakBeloep
+    selectAarligInntektFoerUttakBeloep
   )
   const { data: person } = useGetPersonQuery()
 

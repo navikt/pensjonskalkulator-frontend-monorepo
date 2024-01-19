@@ -6,9 +6,9 @@ import {
   selectSamboerFraBrukerInput,
   selectSamboerFraSivilstand,
   selectSamboer,
-  selectaarligInntektFoerUttakBeloepFraBrukerInput,
-  selectaarligInntektFoerUttakBeloepFraSkatt,
-  selectaarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloepFraBrukerInput,
+  selectAarligInntektFoerUttakBeloepFraSkatt,
+  selectAarligInntektFoerUttakBeloep,
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
   selectHarHentetTpoMedlemskap,
@@ -234,7 +234,7 @@ describe('userInput selectors', () => {
     })
   })
 
-  it('selectaarligInntektFoerUttakBeloepFraBrukerInput', () => {
+  it('selectAarligInntektFoerUttakBeloepFraBrukerInput', () => {
     const state: RootState = {
       ...initialState,
       userInput: {
@@ -245,15 +245,15 @@ describe('userInput selectors', () => {
         },
       },
     }
-    expect(selectaarligInntektFoerUttakBeloepFraBrukerInput(state)).toBe(512000)
+    expect(selectAarligInntektFoerUttakBeloepFraBrukerInput(state)).toBe(512000)
   })
 
-  describe('selectaarligInntektFoerUttakBeloepFraSkatt', () => {
+  describe('selectAarligInntektFoerUttakBeloepFraSkatt', () => {
     it('returnerer undefined når /inntekt har ikke blitt kalt eller har feilet', () => {
       const state: RootState = {
         ...initialState,
       }
-      expect(selectaarligInntektFoerUttakBeloepFraSkatt(state)).toBe(undefined)
+      expect(selectAarligInntektFoerUttakBeloepFraSkatt(state)).toBe(undefined)
     })
     it('returnerer riktig beløp når queryen er vellykket', () => {
       const fakeApiCall = {
@@ -280,7 +280,7 @@ describe('userInput selectors', () => {
           ...fakeApiCall,
         },
       }
-      const inntekt = selectaarligInntektFoerUttakBeloepFraSkatt(
+      const inntekt = selectAarligInntektFoerUttakBeloepFraSkatt(
         state
       ) as Inntekt
       expect(inntekt.beloep).toBe(500000)
@@ -288,7 +288,7 @@ describe('userInput selectors', () => {
     })
   })
 
-  describe('selectaarligInntektFoerUttakBeloep', () => {
+  describe('selectAarligInntektFoerUttakBeloep', () => {
     const fakeApiCall = {
       queries: {
         ['getInntekt(undefined)']: {
@@ -320,7 +320,7 @@ describe('userInput selectors', () => {
           },
         },
       }
-      expect(selectaarligInntektFoerUttakBeloep(state)).toBe(350000)
+      expect(selectAarligInntektFoerUttakBeloep(state)).toBe(350000)
     })
 
     it('returnerer inntekt fra Skatteetaten, når brukeren ikke har overskrevet den', () => {
@@ -339,7 +339,7 @@ describe('userInput selectors', () => {
           },
         },
       }
-      expect(selectaarligInntektFoerUttakBeloep(state)).toBe(500000)
+      expect(selectAarligInntektFoerUttakBeloep(state)).toBe(500000)
     })
   })
 

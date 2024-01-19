@@ -21,7 +21,7 @@ import {
   selectAfp,
   selectSamboer,
   selectSivilstand,
-  selectaarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -44,7 +44,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const sivilstand = useAppSelector(selectSivilstand)
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectaarligInntektFoerUttakBeloep
+    selectAarligInntektFoerUttakBeloep
   )
 
   const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
