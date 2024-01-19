@@ -151,7 +151,7 @@ describe('Beregning', () => {
       mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
         method: 'post',
       })
-      mockResponse('/v1/alderspensjon/simulering', {
+      mockResponse('/v2/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {

@@ -14,7 +14,7 @@ import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import {
   useGetPersonQuery,
   apiSlice,
-  useAlderspensjonEnkelQuery,
+  useAlderspensjonQuery,
 } from '@/state/api/apiSlice'
 import { generateAlderspensjonEnkelRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -51,7 +51,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
 
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
-    React.useState<AlderspensjonEnkelRequestBody | undefined>(undefined)
+    React.useState<AlderspensjonRequestBody | undefined>(undefined)
   const [showInntektAlert, setShowInntektAlert] = React.useState<boolean>(false)
 
   React.useEffect(() => {
@@ -81,8 +81,8 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
     isFetching,
     isError,
     error,
-  } = useAlderspensjonEnkelQuery(
-    alderspensjonEnkelRequestBody as AlderspensjonEnkelRequestBody,
+  } = useAlderspensjonQuery(
+    alderspensjonEnkelRequestBody as AlderspensjonRequestBody,
     {
       skip: !alderspensjonEnkelRequestBody,
     }
@@ -121,9 +121,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
     if (alderspensjonEnkelRequestBody) {
       dispatch(
-        apiSlice.endpoints.alderspensjonEnkel.initiate(
-          alderspensjonEnkelRequestBody
-        )
+        apiSlice.endpoints.alderspensjon.initiate(alderspensjonEnkelRequestBody)
       )
     }
   }

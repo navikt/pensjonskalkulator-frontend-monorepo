@@ -38,8 +38,6 @@ declare global {
   type UtilgjengeligeSelskap = components['schemas']['SelskapDto']
 
   // / alderspensjon
-  type AlderspensjonEnkelRequestBody =
-    components['schemas']['SimuleringSpecDto']
   type AlderspensjonRequestBody =
     components['schemas']['SimuleringIngressSpecDto']
   type AlderspensjonResponseBody =

@@ -394,12 +394,6 @@ export interface components {
       /** Format: int32 */
       maaneder: number
     }
-    Alder: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
     IngressPensjonsavtaleAlderV2: {
       /** Format: int32 */
       aar: number
@@ -436,10 +430,16 @@ export interface components {
         | 'SAMBOER'
     }
     IngressPensjonsavtaleUttaksperiodeV2: {
-      startAlder: components['schemas']['Alder']
+      startAlder: components['schemas']['IngressPensjonsavtaleAlderV2']
       /** Format: int32 */
       grad: number
       aarligInntektVsaPensjon?: components['schemas']['IngressPensjonsavtaleInntektV2']
+    }
+    Alder: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
     }
     PensjonsavtaleDto: {
       produktbetegnelse: string
@@ -672,7 +672,7 @@ export interface components {
       foedselsdato: string
       epsHarInntektOver2G: boolean
       /** Format: int32 */
-      forventetInntekt?: number
+      aarligInntektFoerUttakBeloep?: number
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'

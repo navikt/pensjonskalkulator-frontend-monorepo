@@ -130,7 +130,7 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'POST',
-      url: '/pensjon/kalkulator/api/v1/alderspensjon/simulering',
+      url: '/pensjon/kalkulator/api/v2/alderspensjon/simulering',
     },
     { fixture: 'alderspensjon.json' }
   ).as('fetchAlderspensjon')
