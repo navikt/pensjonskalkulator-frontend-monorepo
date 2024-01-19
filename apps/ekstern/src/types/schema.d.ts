@@ -604,7 +604,7 @@ export interface components {
     }
     IngressUttaksalderHeltUttakV1: {
       uttaksalder: components['schemas']['IngressUttaksalderAlderV1']
-      aarligInntektVsaPensjon: components['schemas']['IngressUttaksalderInntektV1']
+      aarligInntektVsaPensjon?: components['schemas']['IngressUttaksalderInntektV1']
     }
     IngressUttaksalderSpecForGradertUttakV1: {
       /** @enum {string} */
