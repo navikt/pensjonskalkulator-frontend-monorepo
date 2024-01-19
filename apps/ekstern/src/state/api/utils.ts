@@ -32,36 +32,39 @@ export const generateTidligsteHelUttaksalderRequestBody = (args: {
   }
 }
 
-// TODO denne skal aktiveres ifbm tidligste uttaksalder for avansert fane
-// export const generateTidligsteGradertUttaksalderRequestBody = (args: {
-//   afp: AfpRadio | null
-//   sivilstand?: Sivilstand | null | undefined
-//   harSamboer: boolean | null
-//   aarligInntektFoerUttakBeloep: number
-//   gradertUttak: Omit<GradertUttaksperiode, 'uttaksperiode'>
-// }): TidligsteGradertUttaksalderRequestBody | undefined => {
-//   const {
-//     afp,
-//     sivilstand,
-//     harSamboer,
-//     aarligInntektFoerUttakBeloep,
-//     gradertUttak,
-//   } = args
+// TODO skrive tester
+export const generateTidligsteGradertUttaksalderRequestBody = (args: {
+  afp: AfpRadio | null
+  sivilstand?: Sivilstand | null | undefined
+  harSamboer: boolean | null
+  aarligInntektFoerUttakBeloep: number
+  gradertUttak: Omit<GradertUttaksperiode, 'uttaksalder'>
+  heltUttak: HeltUttaksperiode
+}): TidligsteGradertUttaksalderRequestBody | undefined => {
+  const {
+    afp,
+    sivilstand,
+    harSamboer,
+    aarligInntektFoerUttakBeloep,
+    gradertUttak,
+    heltUttak,
+  } = args
 
-//   return {
-//     simuleringstype:
-//       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
-//     harEps: harSamboer !== null ? harSamboer : false, // TODO sjekke med Espen om det er riktig
-//     aarligInntekt: aarligInntektFoerUttakBeloep,
-//     sivilstand:
-//       sivilstand && checkHarSamboer(sivilstand)
-//         ? sivilstand
-//         : harSamboer
-//           ? 'SAMBOER'
-//           : 'UGIFT',
-//     gradertUttak,
-//   }
-// }
+  return {
+    simuleringstype:
+      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+    harEps: harSamboer !== null ? harSamboer : false, // TODO sjekke med Espen om det er riktig
+    aarligInntektFoerUttakBeloep,
+    sivilstand:
+      sivilstand && checkHarSamboer(sivilstand)
+        ? sivilstand
+        : harSamboer
+          ? 'SAMBOER'
+          : 'UGIFT',
+    gradertUttak,
+    heltUttak,
+  }
+}
 
 export const generateAlderspensjonRequestBody = (args: {
   afp: AfpRadio | null

@@ -28,7 +28,8 @@ export const VelgUttaksalder: React.FC<Props> = ({
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
 
   const formaterteAldere = React.useMemo(
-    () => getFormaterteAldere(intl, tidligstMuligUttak),
+    () =>
+      getFormaterteAldere(intl, tidligstMuligUttak, { aar: 75, maaneder: 0 }),
     [tidligstMuligUttak]
   )
 
