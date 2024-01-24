@@ -44,7 +44,7 @@ spec:
         - /pensjon/kalkulator/api/status
         - /pensjon/kalkulator/api/feature/*
         - /pensjon/kalkulator/src/*
-        - /pensjon/kalkulator/v3/api-docs/Current%20API
+        - /pensjon/kalkulator/v3/api-docs/Current/API
   accessPolicy:
     outbound:
       rules:
