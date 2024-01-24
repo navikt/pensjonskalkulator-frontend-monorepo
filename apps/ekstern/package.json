@@ -73,7 +73,7 @@
     "lint-staged": "^15.2.0",
     "msw": "^2.1.4",
     "node-sass": "^9.0.0",
-    "openapi-typescript": "^7.0.0-next.5",
+    "openapi-typescript": "^7.0.0-next.7",
     "postcss": "^8.4.33",
     "postcss-modules-extract-imports": "^3.0.0",
     "postcss-modules-local-by-default": "^4.0.4",
