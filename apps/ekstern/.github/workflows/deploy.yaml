@@ -32,7 +32,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -45,10 +45,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: Fetch openapi backend types
-        run: npx openapi-typescript ${{ github.event.inputs.prod == 'true' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/api' || 'https://www.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/api' }} -o ./src/types/schema.d.ts
+      - name: Fetch openapi backend types 
+        run: npx openapi-typescript ${{ github.event.inputs.prod == 'true' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://www.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }} -o ./src/types/schema.d.ts
 
-      - name: Fetch openapi backend types
+      - name: Format backend scheme
         run: npm run format:types
 
       - name: Rebuild node-sass
@@ -88,7 +88,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -131,7 +131,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -140,7 +140,7 @@ jobs:
 
       - name: Cache Cypress binary
         id: cache-cypress
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('**/package.json') }}
