@@ -1,12 +1,10 @@
 @import '../../scss/variables';
 
-.separator {
-  border: 0;
-  border-top: 1px solid var(--a-gray-600);
-  height: 1px;
+.spacer {
+  height: var(--a-spacing-4);
   width: 100%;
   background-color: transparent;
-  margin: var(--a-spacing-8) 0;
+  margin: 0 0 var(--a-spacing-4) 0;
 }
 
 .button {

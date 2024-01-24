@@ -139,6 +139,26 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
 
   React.useEffect(() => {
     // TODO refactor flytte dette til en util function?
+    if (
+      tidligstHelUttaksalder &&
+      (tidligstHelUttaksalder.aar !== 62 ||
+        tidligstHelUttaksalder.maaneder !== 0)
+    ) {
+      if (!temporaryGradertUttaksperiode) {
+        setAgePickerHelDescription(
+          `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
+            intl,
+            tidligstHelUttaksalder
+          )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`
+        )
+      } else {
+        setAgePickerHelDescription(
+          'Med gradert uttak, kan kalkulatoren tidligst beregne 100 % alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut 100 % tidligere.'
+        )
+      }
+    }
+
+    // TODO viser vi at det feilet?
     if (isTidligstHelUttaksalderError) {
       setAgePickerHelDescription(
         intl.formatMessage(
@@ -150,38 +170,12 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
           }
         )
       )
-    } else if (tidligstHelUttaksalder) {
-      if (!temporaryGradertUttaksperiode) {
-        setAgePickerHelDescription(
-          `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
-            intl,
-            tidligstHelUttaksalder
-          )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`
-        )
-      } else if (
-        tidligstHelUttaksalder?.aar !== 62 ||
-        tidligstHelUttaksalder?.maaneder !== 0
-      ) {
-        setAgePickerHelDescription(
-          'Med gradert uttak, kan kalkulatoren tidligst beregne 100 % alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut 100 % tidligere.'
-        )
-      }
     }
   }, [
     tidligstHelUttaksalder,
     isTidligstHelUttaksalderError,
     temporaryGradertUttaksperiode,
   ])
-
-  React.useEffect(() => {
-    if (
-      temporaryGradertUttaksperiode &&
-      (tidligstHelUttaksalder?.aar !== 62 ||
-        tidligstHelUttaksalder?.maaneder !== 0)
-    ) {
-      setTemporaryHelUttaksalder({ aar: 67, maaneder: 0 })
-    }
-  }, [temporaryGradertUttaksperiode, tidligstHelUttaksalder])
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValidationErrors((prevState) => {
@@ -323,7 +317,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             ))}
           </Select>
         </div>
-        <hr className={styles.separator} />
+
+        <div className={styles.spacer} />
 
         {temporaryGradertUttaksperiode && (
           <div>
@@ -350,6 +345,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
                 validationErrors['uttaksalder-gradert-pensjon'] !== ''
               }
             />
+            <div className={styles.spacer} />
             <TextField
               form="avansert-beregning"
               data-testid="inntekt-vsa-gradert-pensjon-textfield"
@@ -374,7 +370,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               }
               max={5}
             />
-            <hr className={styles.separator} />
+            <div className={styles.spacer} />
           </div>
         )}
         <div>
