@@ -1,7 +1,6 @@
 import { checkHarSamboer } from '@/utils/sivilstand'
 import { format, parseISO } from 'date-fns'
 
-// TODO skrive tester
 export const generateTidligsteHelUttaksalderRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
@@ -32,7 +31,6 @@ export const generateTidligsteHelUttaksalderRequestBody = (args: {
   }
 }
 
-// TODO skrive tester
 export const generateTidligsteGradertUttaksalderRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
