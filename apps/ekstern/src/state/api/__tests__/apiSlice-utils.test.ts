@@ -40,7 +40,7 @@ describe('apiSlice - utils', () => {
         generateTidligsteHelUttaksalderRequestBody({
           ...requestBody,
         })?.harEps
-      ).toBeFalsy
+      ).toBeUndefined()
       expect(
         generateTidligsteHelUttaksalderRequestBody({
           ...requestBody,
@@ -150,7 +150,7 @@ describe('apiSlice - utils', () => {
         generateTidligsteGradertUttaksalderRequestBody({
           ...requestBody,
         })?.harEps
-      ).toBeFalsy
+      ).toBeUndefined()
       expect(
         generateTidligsteGradertUttaksalderRequestBody({
           ...requestBody,

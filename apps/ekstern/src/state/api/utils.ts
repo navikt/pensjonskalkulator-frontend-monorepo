@@ -19,7 +19,7 @@ export const generateTidligsteHelUttaksalderRequestBody = (args: {
   return {
     simuleringstype:
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
-    harEps: harSamboer !== null ? harSamboer : false, // TODO sjekke med Espen om det er riktig
+    harEps: harSamboer !== null ? harSamboer : undefined,
     aarligInntektFoerUttakBeloep,
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
@@ -51,7 +51,7 @@ export const generateTidligsteGradertUttaksalderRequestBody = (args: {
   return {
     simuleringstype:
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
-    harEps: harSamboer !== null ? harSamboer : false, // TODO sjekke med Espen om det er riktig
+    harEps: harSamboer !== null ? harSamboer : undefined,
     aarligInntektFoerUttakBeloep,
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
