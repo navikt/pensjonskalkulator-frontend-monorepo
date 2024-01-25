@@ -4,18 +4,13 @@ import { useIntl } from 'react-intl'
 
 import { Select } from '@navikt/ds-react'
 
-import { useTidligsteHelUttaksalderQuery } from '@/state/api/apiSlice'
-import { generateTidligsteHelUttaksalderRequestBody } from '@/state/api/utils'
-import { useAppSelector } from '@/state/hooks'
-import {
-  selectAfp,
-  selectSamboer,
-  selectSivilstand,
-  selectAarligInntektFoerUttakBeloep,
-} from '@/state/userInput/selectors'
 import { formatUttaksalder, unformatUttaksalder } from '@/utils/alder'
 
-import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
+import {
+  DEFAULT_TIDLIGST_UTTAKSALDER,
+  DEFAULT_SENEST_UTTAKSALDER,
+  getFormaterteAldere,
+} from './utils'
 
 interface Props {
   form?: string
@@ -24,6 +19,8 @@ interface Props {
   description?: string
   defaultValue?: Alder | null
   value?: Alder | null // controlled component
+  minAlder?: Alder
+  maxAlder?: Alder
   hasValidationError?: boolean
   onChange?: (alder: Alder | undefined) => void
 }
@@ -35,32 +32,16 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
   description,
   defaultValue,
   value,
+  minAlder,
+  maxAlder,
   hasValidationError,
   onChange,
 }) => {
   const intl = useIntl()
-  const afp = useAppSelector(selectAfp)
-  const harSamboer = useAppSelector(selectSamboer)
-  const sivilstand = useAppSelector(selectSivilstand)
-  const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectAarligInntektFoerUttakBeloep
-  )
 
-  const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
-    React.useState<TidligsteHelUttaksalderRequestBody | undefined>(undefined)
   const [localValue, setLocalValue] = React.useState<string>(
     defaultValue ? formatUttaksalder(intl, defaultValue, { compact: true }) : ''
   )
-
-  React.useEffect(() => {
-    const requestBody = generateTidligsteHelUttaksalderRequestBody({
-      afp,
-      sivilstand: sivilstand,
-      harSamboer,
-      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
-    })
-    setTidligsteUttaksalderRequestBody(requestBody)
-  }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
   React.useEffect(() => {
     if (value !== undefined) {
@@ -69,15 +50,6 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
       )
     }
   }, [value])
-
-  // Hent tidligst mulig uttaksalder
-  const {
-    data: tidligstMuligUttak,
-    isLoading,
-    isSuccess,
-  } = useTidligsteHelUttaksalderQuery(tidligsteUttaksalderRequestBody, {
-    skip: !tidligsteUttaksalderRequestBody,
-  })
 
   const [showValidationError, setShowValidationError] =
     React.useState<boolean>(true)
@@ -101,45 +73,20 @@ export const TemporaryAlderVelgerAvansert: React.FC<Props> = ({
     () =>
       getFormaterteAldere(
         intl,
-        isSuccess ? tidligstMuligUttak : { ...DEFAULT_TIDLIGST_UTTAKSALDER }
+        minAlder ?? { ...DEFAULT_TIDLIGST_UTTAKSALDER },
+        maxAlder ?? { ...DEFAULT_SENEST_UTTAKSALDER }
       ),
-    [tidligstMuligUttak]
+    [minAlder, maxAlder]
   )
-
-  if (isLoading) {
-    return 'LOADING'
-  }
 
   return (
     <div>
-      {
-        // TODO under avklaring - hvordan skal feil ved henting av tidligste uttaksalder vises?
-        /* {isTidligstMuligUttaksalderError && (
-          <BodyLong size="medium" className={`${styles.ingress}`}>
-            <FormattedMessage
-              id="tidligsteuttaksalder.error"
-              values={{
-                ...getFormatMessageValues(intl),
-              }}
-            />
-          </BodyLong>
-        )} */
-      }
       <Select
         data-testid={`temporaryAlderVelger-${name}`}
         form={form}
         name={name}
         label={label}
-        description={
-          description !== undefined
-            ? description
-            : isSuccess && tidligstMuligUttak
-              ? `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
-                  intl,
-                  tidligstMuligUttak
-                )}. Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.`
-              : ''
-        }
+        description={description !== undefined ? description : ''}
         value={
           value !== undefined
             ? value !== null

@@ -35,11 +35,11 @@ export const selectSamboerFraSivilstand = createSelector(
 )
 
 export const selectSamboer = (state: RootState): boolean | null => {
-  const samboerSkapFraBrukerInput = selectSamboerFraBrukerInput(state)
-  if (samboerSkapFraBrukerInput === null) {
+  const samboerskapFraBrukerInput = selectSamboerFraBrukerInput(state)
+  if (samboerskapFraBrukerInput === null) {
     return selectSamboerFraSivilstand(state, undefined)
   }
-  return samboerSkapFraBrukerInput
+  return samboerskapFraBrukerInput
 }
 
 export const selectAarligInntektFoerUttakBeloepFraBrukerInput = (

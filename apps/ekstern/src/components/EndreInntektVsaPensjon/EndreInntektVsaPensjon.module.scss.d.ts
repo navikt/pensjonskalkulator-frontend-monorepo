@@ -1,6 +1,6 @@
 import globalClassNames from "../../style.d";
 declare const classNames: typeof globalClassNames & {
-  readonly separator: "separator";
+  readonly spacer: "spacer";
   readonly button: "button";
 };
 export = classNames;

@@ -170,7 +170,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             value={inntektBeloepVsaPensjon}
             max={5}
           />
-
+          <div className={styles.spacer} />
           <TemporaryAlderVelgerAvansert
             name="sluttalder-inntekt-vsa-pensjon"
             label="Til hvilken alder forventer du å ha inntekten?"
@@ -198,7 +198,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           </Button>
         </Modal.Footer>
       </Modal>
-      <hr className={styles.separator} />
+      <div className={styles.spacer} />
       {aarligInntektVsaHelPensjon ? (
         <>
           <Label>
