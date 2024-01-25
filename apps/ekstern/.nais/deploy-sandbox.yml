@@ -10,7 +10,7 @@ metadata:
 spec:
   image: "{{ image }}"
   ingresses:
-    - https://www.sandbox.ekstern.dev.nav.no/pensjon/kalkulator
+    - https://www.pensjonskalkulator-frontend-sandbox.ekstern.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
