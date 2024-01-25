@@ -148,11 +148,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
           `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
             intl,
             tidligstHelUttaksalder
-          )}. ${
-            !isTidligsteUttaksalder62
-              ? 'Vil du ta ut pensjon tidligere, må du velge lavere uttaksgrad.'
-              : ''
-          }`
+          )}.`
         )
       } else {
         if (!isTidligsteUttaksalder62) {
