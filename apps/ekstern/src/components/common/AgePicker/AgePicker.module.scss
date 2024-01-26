@@ -1,0 +1,29 @@
+@import '../../../scss/variables';
+
+.wrapper {
+  padding-bottom: var(--a-spacing-4);
+}
+
+.description {
+  padding-bottom: var(--a-spacing-4);
+}
+
+.select {
+  &Wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: var(--a-spacing-4);
+
+    label {
+      font-size: var(--a-font-size-medium);
+    }
+  }
+
+  &Aar {
+    width: 6rem;
+  }
+
+  &Maaned {
+    width: 9rem;
+  }
+}

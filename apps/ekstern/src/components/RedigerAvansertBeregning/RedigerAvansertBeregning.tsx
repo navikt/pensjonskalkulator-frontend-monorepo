@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl'
 
 import { Button, Label, Select, TextField } from '@navikt/ds-react'
 
+import { AgePicker } from '@/components/common/AgePicker'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
 import { InfoModalInntekt } from '@/components/InfoModalInntekt'
@@ -378,6 +379,10 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
           </div>
         )}
         <div>
+          <AgePicker
+            label="Når vil du ta ut 100 % alderspensjon"
+            description={agePickerHelDescription}
+          />
           <TemporaryAlderVelgerAvansert
             form="avansert-beregning"
             name="uttaksalder-hele-pensjon"
