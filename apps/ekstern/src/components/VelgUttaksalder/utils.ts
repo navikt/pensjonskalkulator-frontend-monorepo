@@ -8,7 +8,7 @@ export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
 }
 export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
   aar: 75,
-  maaneder: 11,
+  maaneder: 0,
 }
 
 export const getFormaterteAldere = (

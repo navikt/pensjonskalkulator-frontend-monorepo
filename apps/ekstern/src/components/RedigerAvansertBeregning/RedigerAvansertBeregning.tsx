@@ -348,6 +348,14 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               hasValidationError={
                 validationErrors['uttaksalder-gradert-pensjon'] !== ''
               }
+              onChange={() => {
+                setValidationErrors((prevState) => {
+                  return {
+                    ...prevState,
+                    'uttaksalder-gradert-pensjon': '',
+                  }
+                })
+              }}
             />
             <div className={styles.spacer} />
             <TextField
@@ -369,8 +377,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               }
               onChange={handleInntektVsaGradertPensjonChange}
               value={
-                temporaryGradertUttaksperiode.aarligInntektVsaPensjonBeloep?.toString() ??
-                ''
+                temporaryGradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+                  ? temporaryGradertUttaksperiode.aarligInntektVsaPensjonBeloep?.toString()
+                  : undefined
               }
               max={5}
             />
@@ -395,6 +404,12 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               validationErrors['uttaksalder-hele-pensjon'] !== ''
             }
             onChange={(alder) => {
+              setValidationErrors((prevState) => {
+                return {
+                  ...prevState,
+                  'uttaksalder-hele-pensjon': '',
+                }
+              })
               setTemporaryHelUttaksalder(alder)
             }}
           />
