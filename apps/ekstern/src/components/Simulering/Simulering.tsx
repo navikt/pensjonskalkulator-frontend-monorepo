@@ -146,17 +146,19 @@ export function Simulering(props: {
 
   // Calculates the length of the x-axis, once at first and every time uttakalder or pensjonsavtaler is updated
   React.useEffect(() => {
+    const startAar = gradertUttaksperiode
+      ? gradertUttaksperiode.uttaksalder.aar
+      : uttaksalder?.aar
+
     // recalculates temporary without pensjonsavtaler when alderspensjon is ready but not pensjonsavtaler
-    if (uttaksalder && !isLoading && isPensjonsavtalerLoading) {
-      setXAxis(
-        generateXAxis(uttaksalder.aar, [], setIsPensjonsavtaleFlagVisible)
-      )
+    if (startAar && !isLoading && isPensjonsavtalerLoading) {
+      setXAxis(generateXAxis(startAar, [], setIsPensjonsavtaleFlagVisible))
     }
     // recalculates correclty when alderspensjon AND pensjonsavtaler are done loading
-    if (uttaksalder && !isLoading && !isPensjonsavtalerLoading) {
+    if (startAar && !isLoading && !isPensjonsavtalerLoading) {
       setXAxis(
         generateXAxis(
-          uttaksalder.aar,
+          startAar,
           pensjonsavtaler?.avtaler ?? [],
           setIsPensjonsavtaleFlagVisible
         )
@@ -166,7 +168,14 @@ export function Simulering(props: {
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
-    if (uttaksalder && alderspensjon) {
+    const startAar = gradertUttaksperiode
+      ? gradertUttaksperiode.uttaksalder.aar
+      : uttaksalder?.aar
+    const startMaaned = gradertUttaksperiode
+      ? gradertUttaksperiode.uttaksalder.maaneder
+      : uttaksalder?.maaneder
+
+    if (startAar && startMaaned !== undefined && alderspensjon) {
       setChartOptions({
         ...getChartDefaults(XAxis),
         series: [
@@ -176,7 +185,7 @@ export function Simulering(props: {
             data: processInntektArray(
               aarligInntektFoerUttakBeloep,
               XAxis.length,
-              uttaksalder.maaneder
+              startMaaned
             ),
           } as SeriesOptionsType,
           ...(showAfp
@@ -203,7 +212,7 @@ export function Simulering(props: {
                   }),
                   /* c8 ignore next 1 */
                   data: processPensjonsavtalerArray(
-                    uttaksalder.aar - 1,
+                    startAar - 1,
                     XAxis.length,
                     pensjonsavtaler?.avtaler
                   ),
