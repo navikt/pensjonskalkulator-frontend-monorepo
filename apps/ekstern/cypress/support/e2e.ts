@@ -5,7 +5,7 @@ import { userInputActions } from '../../src/state/userInput/userInputReducer'
 beforeEach(() => {
   cy.intercept(
     'GET',
-    `https://www.ekstern.dev.nav.no/person/nav-dekoratoren-api/auth`,
+    `https://staging.ekstern.dev.nav.no/person/nav-dekoratoren-api/auth`,
     {
       statusCode: 200,
       body: {
@@ -54,7 +54,7 @@ beforeEach(() => {
       method: 'GET',
       url: `${Cypress.env(
         'DECORATOR_URL'
-      )}/env?chatbot=false&redirectToUrl=https://www.ekstern.dev.nav.no/pensjon/kalkulator/start`,
+      )}/env?chatbot=false&redirectToUrl=https://staging.ekstern.dev.nav.no/pensjon/kalkulator/start`,
     },
     { fixture: 'decorator-env-features.json' }
   ).as('getDecoratorEnvFeatures')
