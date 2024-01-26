@@ -22,7 +22,7 @@ async function onSetCurrentSimulationStartAlder(
   { dispatch /* , getState*/ }: AppListenerEffectAPI
 ) {
   /* c8 ignore next 1 */
-  const locale = getCookie('decorator-language') || 'nb'
+  const locale = (getCookie('decorator-language') as Locales) || 'nb'
   const cache = createIntlCache()
   const intl = createIntl(
     {

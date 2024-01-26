@@ -9,9 +9,12 @@ export const validateAvansertBeregningSkjema = (
 ) => {
   const uttaksgradData = inputData.get('uttaksgrad')
 
-  const avansertBeregningFormatertUttaksalderHelePensjonData = inputData.get(
-    'uttaksalder-hele-pensjon'
+  const avansertBeregningFormatertUttaksalderAarHelePensjonData = inputData.get(
+    'uttaksalder-hele-pensjon-aar'
   )
+  const avansertBeregningFormatertUttaksalderMaanederHelePensjonData =
+    inputData.get('uttaksalder-hele-pensjon-maaneder')
+
   const avansertBeregningFormatertUttaksalderGradertPensjonData = inputData.get(
     'uttaksalder-gradert-pensjon'
   )
@@ -45,10 +48,18 @@ export const validateAvansertBeregningSkjema = (
   }
 
   // Sjekker at uttaksalder for hele pensjon er fylt ut med en alder
+  // Sørger for at aar er definert og består av 2 digits og ingen bokstav
+  // Sørger for at maaneder ikke er null eller undefined og består at tall mellom 0 og 11
   if (
-    !avansertBeregningFormatertUttaksalderHelePensjonData ||
-    /^[^0-9]+$/.test(
-      avansertBeregningFormatertUttaksalderHelePensjonData as string
+    !avansertBeregningFormatertUttaksalderAarHelePensjonData ||
+    avansertBeregningFormatertUttaksalderMaanederHelePensjonData === null ||
+    avansertBeregningFormatertUttaksalderMaanederHelePensjonData ===
+      undefined ||
+    !/^\d{2}$/.test(
+      avansertBeregningFormatertUttaksalderAarHelePensjonData as string
+    ) ||
+    !/^([0-9]|10|11)$/.test(
+      avansertBeregningFormatertUttaksalderMaanederHelePensjonData as string
     )
   ) {
     isValid = false

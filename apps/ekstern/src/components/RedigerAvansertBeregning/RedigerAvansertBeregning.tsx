@@ -53,7 +53,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     selectAarligInntektFoerUttakBeloep
   )
   const [temporaryHelUttaksalder, setTemporaryHelUttaksalder] = React.useState<
-    Alder | undefined
+    Partial<Alder> | undefined
   >(uttaksalder !== null ? uttaksalder : undefined)
   const [temporaryGradertUttaksperiode, setTemporaryGradertUttaksperiode] =
     React.useState<Partial<GradertUttaksperiode> | undefined>(
@@ -104,9 +104,11 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
           harSamboer,
           aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
           heltUttak: {
-            uttaksalder: temporaryHelUttaksalder
-              ? temporaryHelUttaksalder
-              : { aar: 67, maaneder: 0 },
+            uttaksalder:
+              temporaryHelUttaksalder?.aar &&
+              temporaryHelUttaksalder?.maaneder !== undefined
+                ? (temporaryHelUttaksalder as Alder)
+                : { aar: 67, maaneder: 0 },
             aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
           },
           gradertUttak: {
@@ -224,9 +226,11 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     const avansertBeregningFormatertUttaksalderGradertPensjonData = data.get(
       'uttaksalder-gradert-pensjon'
     )
-    const avansertBeregningFormatertUttaksalderHelePensjonData = data.get(
-      'uttaksalder-hele-pensjon'
+    const avansertBeregningFormatertUttaksalderAarHelePensjonData = data.get(
+      'uttaksalder-hele-pensjon-aar'
     )
+    const avansertBeregningFormatertUttaksalderMaanederHelePensjonData =
+      data.get('uttaksalder-hele-pensjon-maaneder')
     const avansertBeregningFormatertUttaksgrad = data.get('uttaksgrad')
     const avansertBeregningInntektVsaGradertPensjon = data.get(
       'inntekt-vsa-gradert-pensjon'
@@ -234,11 +238,16 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
 
     if (validateAvansertBeregningSkjema(data, setValidationErrors)) {
       dispatch(
-        userInputActions.setCurrentSimulationUttaksalder(
-          unformatUttaksalder(
-            avansertBeregningFormatertUttaksalderHelePensjonData as string
-          )
-        )
+        userInputActions.setCurrentSimulationUttaksalder({
+          aar: parseInt(
+            avansertBeregningFormatertUttaksalderAarHelePensjonData as string,
+            10
+          ),
+          maaneder: parseInt(
+            avansertBeregningFormatertUttaksalderMaanederHelePensjonData as string,
+            10
+          ),
+        })
       )
       if (avansertBeregningFormatertUttaksgrad === '100 %') {
         dispatch(
@@ -380,10 +389,23 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         )}
         <div>
           <AgePicker
+            form="avansert-beregning"
+            name="uttaksalder-hele-pensjon"
             label="Når vil du ta ut 100 % alderspensjon"
             description={agePickerHelDescription}
+            value={temporaryHelUttaksalder}
+            minAlder={
+              temporaryGradertUttaksperiode &&
+              (tidligstHelUttaksalder?.aar !== 62 ||
+                tidligstHelUttaksalder?.maaneder !== 0)
+                ? { aar: 67, maaneder: 0 }
+                : tidligstHelUttaksalder
+            }
+            onChange={(alder) => {
+              setTemporaryHelUttaksalder(alder)
+            }}
           />
-          <TemporaryAlderVelgerAvansert
+          {/* <TemporaryAlderVelgerAvansert
             form="avansert-beregning"
             name="uttaksalder-hele-pensjon"
             label="Når vil du ta ut 100 % alderspensjon"
@@ -402,7 +424,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             onChange={(alder) => {
               setTemporaryHelUttaksalder(alder)
             }}
-          />
+          /> */}
         </div>
         <div>
           <EndreInntektVsaPensjon

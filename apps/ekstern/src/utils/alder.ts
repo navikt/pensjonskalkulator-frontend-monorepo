@@ -1,6 +1,16 @@
 import { IntlShape } from 'react-intl'
 
 import { format, isBefore, isSameDay, startOfMonth } from 'date-fns'
+import { nb, nn, enGB } from 'date-fns/locale'
+
+export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
+  aar: 62,
+  maaneder: 0,
+}
+export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
+  aar: 75,
+  maaneder: 0,
+}
 
 export const formatUttaksalder = (
   intl: IntlShape,
@@ -65,7 +75,27 @@ export const transformUttaksalderToDate = (
   return format(startOfMonth(calculatedDate), 'dd.MM.yyyy')
 }
 
-// TODO vurdere etter utvikling av AgePicker om dette kan finpusses og gjenbrukes av RedigerAvansertBeregning
+// TODO PEK-279 skrive tester
+export const transformMaanedToDate = (
+  maaneder: number,
+  foedselsdato: string,
+  locale: Locales
+) => {
+  const foedselsdatoDate = new Date(foedselsdato)
+  const antallMaaneder = foedselsdatoDate.getMonth() + maaneder + 1
+
+  const calculatedDate = new Date(
+    foedselsdatoDate.getFullYear(),
+    antallMaaneder % 12,
+    foedselsdatoDate.getDate()
+  )
+
+  return format(startOfMonth(calculatedDate), 'LLL', {
+    locale: locale === 'en' ? enGB : locale === 'nn' ? nn : nb,
+  })
+}
+
+// TODO PEK-279 vurdere etter utvikling av AgePicker om dette kan finpusses og gjenbrukes av RedigerAvansertBeregning
 export const validateAlder = (
   alder: Alder | null,
   updateValidationErrorMessage: (s: string) => void

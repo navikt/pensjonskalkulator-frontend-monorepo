@@ -14,7 +14,7 @@ import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 import styles from './EndreInntektVsaPensjon.module.scss'
 
 interface Props {
-  temporaryUttaksalder?: Alder
+  temporaryUttaksalder?: Partial<Alder>
 }
 
 // TODO legge til Amplitude logging
@@ -209,8 +209,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           )} kr ${intl.formatMessage({
             id: 'beregning.fra',
           })} ${
-            temporaryUttaksalder
-              ? formatUttaksalder(intl, temporaryUttaksalder)
+            temporaryUttaksalder?.aar &&
+            temporaryUttaksalder.maaneder !== undefined
+              ? formatUttaksalder(intl, temporaryUttaksalder as Alder)
               : 'PLACEHOLDER'
           } ${intl.formatMessage({
             id: 'beregning.til',

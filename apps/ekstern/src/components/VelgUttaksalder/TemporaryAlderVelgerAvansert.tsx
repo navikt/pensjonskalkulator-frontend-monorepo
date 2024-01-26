@@ -4,13 +4,14 @@ import { useIntl } from 'react-intl'
 
 import { Select } from '@navikt/ds-react'
 
-import { formatUttaksalder, unformatUttaksalder } from '@/utils/alder'
-
 import {
+  formatUttaksalder,
+  unformatUttaksalder,
   DEFAULT_TIDLIGST_UTTAKSALDER,
   DEFAULT_SENEST_UTTAKSALDER,
-  getFormaterteAldere,
-} from './utils'
+} from '@/utils/alder'
+
+import { getFormaterteAldere } from './utils'
 
 interface Props {
   form?: string

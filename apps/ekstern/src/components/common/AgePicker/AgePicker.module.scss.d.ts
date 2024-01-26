@@ -5,5 +5,6 @@ declare const classNames: typeof globalClassNames & {
   readonly selectWrapper: "selectWrapper";
   readonly selectAar: "selectAar";
   readonly selectMaaned: "selectMaaned";
+  readonly date: "date";
 };
 export = classNames;

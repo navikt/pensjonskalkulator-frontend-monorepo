@@ -1,23 +1,96 @@
 import React, { forwardRef } from 'react'
+import { useIntl } from 'react-intl'
 
 import { BodyShort, Label, Select } from '@navikt/ds-react'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
+import {
+  formatUttaksalder,
+  transformUttaksalderToDate,
+  transformMaanedToDate,
+  DEFAULT_TIDLIGST_UTTAKSALDER,
+  DEFAULT_SENEST_UTTAKSALDER,
+} from '@/utils/alder'
 
-export interface AgePickerProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface AgePickerProps {
+  form?: string
+  name: string
   label: string
   description?: string
+  value?: Partial<Alder>
+  minAlder?: Alder
+  maxAlder?: Alder
   info?: string
-  form?: string
-  // children: React.ReactNode
+  onChange?: (alder: Partial<Alder> | undefined) => void
 }
 
 import styles from './AgePicker.module.scss'
 
 export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
-  ({ label, description, info, form, ...rest }, ref) => {
+  (
+    {
+      name,
+      form,
+      label,
+      description,
+      value,
+      minAlder,
+      maxAlder,
+      info,
+      onChange,
+    },
+    ref
+  ) => {
+    const intl = useIntl()
+
+    const { data: person, isSuccess } = useGetPersonQuery()
+
+    const [valgtAlder, setValgtAlder] = React.useState<Partial<Alder>>(
+      value ? value : { aar: undefined, maaneder: undefined }
+    )
+
+    const yearsArray = React.useMemo(() => {
+      const arr = []
+      const minYear = minAlder ? minAlder.aar : DEFAULT_TIDLIGST_UTTAKSALDER.aar
+      const maxYear = maxAlder ? maxAlder.aar : DEFAULT_SENEST_UTTAKSALDER.aar
+
+      for (let i = minYear; i <= maxYear; i++) {
+        arr.push(i)
+      }
+      return arr
+    }, [minAlder, maxAlder])
+
+    const monthsArray = React.useMemo(() => {
+      const arr = []
+      for (let i = 0; i <= 11; i++) {
+        arr.push(i)
+      }
+      return arr
+    }, [])
+
+    const transformertDate = React.useMemo(() => {
+      if (
+        isSuccess &&
+        person.foedselsdato &&
+        valgtAlder.aar &&
+        valgtAlder.maaneder !== undefined
+      ) {
+        return transformUttaksalderToDate(
+          valgtAlder as Alder,
+          person.foedselsdato
+        )
+      } else {
+        return ''
+      }
+    }, [valgtAlder, isSuccess])
+
     return (
-      <div className={styles.wrapper}>
+      <div
+        ref={ref}
+        data-testid={`age-picker-${name}`}
+        className={styles.wrapper}
+      >
         <Label>{label}</Label>
         {description && (
           <BodyShort
@@ -30,37 +103,64 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
         )}
 
         <div className={styles.selectWrapper}>
-          <Select form={form} label="Velg år" className={styles.selectAar}>
-            <option value="62">62</option>
-            <option value="63">63</option>
-            <option value="64">64</option>
+          <Select
+            data-testid={`age-picker-${name}-aar`}
+            form={form}
+            name={`${name}-aar`}
+            label="Velg år"
+            className={styles.selectAar}
+            value={valgtAlder.aar}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              const aar = e.target.value
+                ? parseInt(e.target.value, 10)
+                : undefined
+              setValgtAlder((prevState) => {
+                return {
+                  ...prevState,
+                  aar,
+                }
+              })
+              onChange && onChange({ aar, maaneder: valgtAlder.maaneder })
+            }}
+          >
+            {yearsArray.map((year) => {
+              return (
+                <option key={year} value={year}>
+                  {formatUttaksalder(intl, { aar: year, maaneder: 0 })}
+                </option>
+              )
+            })}
           </Select>
           <Select
+            data-testid={`age-picker-${name}-maaneder`}
             form={form}
+            name={`${name}-maaneder`}
             label="Velg måned"
             className={styles.selectMaaned}
+            value={valgtAlder.maaneder}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              const maaneder = e.target.value
+                ? parseInt(e.target.value, 10)
+                : undefined
+              setValgtAlder((prevState) => {
+                return {
+                  ...prevState,
+                  maaneder,
+                }
+              })
+              onChange && onChange({ aar: valgtAlder.aar, maaneder })
+            }}
           >
-            <option value="0" disabled>
-              0
-            </option>
-            <option value="1" disabled>
-              1
-            </option>
-            <option value="2" disabled>
-              2
-            </option>
-            <option value="3" disabled>
-              3
-            </option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
+            {monthsArray.map((month) => {
+              return (
+                <option key={month} value={month}>
+                  {`${month} ${intl.formatMessage({ id: 'alder.md' })} (${person?.foedselsdato ? transformMaanedToDate(month, person?.foedselsdato, intl.locale as Locales) : ''})`}
+                </option>
+              )
+            })}
           </Select>
+
+          <span className={styles.date}>{transformertDate}</span>
         </div>
         {info && <AlertDashBorder>{info}</AlertDashBorder>}
       </div>
