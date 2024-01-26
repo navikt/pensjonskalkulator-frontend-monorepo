@@ -142,6 +142,80 @@ describe('Simulering', () => {
       )
       expect(SVGlegendItems).toHaveLength(3)
     })
+
+    it('Når brukeren velger uttaksagrad 67 år, vises årene i grafen fra 66 år til 77+', async () => {
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          aarligInntektFoerUttakBeloep={500000}
+          alderspensjon={alderspensjonData}
+          showAfp={false}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: false,
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+
+      const xAxisLabels = container
+        .getElementsByClassName('highcharts-xaxis-labels')[0]
+        .querySelectorAll('text')
+      expect(xAxisLabels).toHaveLength(13)
+      expect(xAxisLabels[0]).toHaveTextContent('66')
+      expect(xAxisLabels[12]).toHaveTextContent('77+')
+    })
+
+    it('Når brukeren velger gradert pensjon med uttaksgrad 62 år, vises årene i grafen fra 61 år til 77+', async () => {
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          aarligInntektFoerUttakBeloep={500000}
+          alderspensjon={alderspensjonData}
+          showAfp={false}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: false,
+              currentSimulation: {
+                ...currentSimulation,
+                gradertUttaksperiode: {
+                  grad: 40,
+                  uttaksalder: { aar: 62, maaneder: 0 },
+                },
+              },
+            },
+          },
+        }
+      )
+
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+
+      const xAxisLabels = container
+        .getElementsByClassName('highcharts-xaxis-labels')[0]
+        .querySelectorAll('text')
+      expect(xAxisLabels).toHaveLength(18)
+      expect(xAxisLabels[0]).toHaveTextContent('61')
+      expect(xAxisLabels[17]).toHaveTextContent('77+')
+    })
   })
 
   describe('Gitt at brukeren samtykker', () => {
