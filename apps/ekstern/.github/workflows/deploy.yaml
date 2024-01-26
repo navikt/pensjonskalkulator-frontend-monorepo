@@ -182,8 +182,8 @@ jobs:
           name: videos
           path: cypress/videos
 
-  deploy-dev:
-    name: Deploy to dev-gcp
+  deploy-staging:
+    name: Deploy to staging
     needs: [run-unit-tests, run-integration-tests]
     permissions: write-all
     runs-on: ubuntu-latest
@@ -204,7 +204,7 @@ jobs:
           name: dist
           path: dist
 
-      - name: Build Docker image dev-gcp
+      - name: Build Docker image staging
         run: |
           docker build -f .docker/Dockerfile -t ${IMAGE} .
 
@@ -223,19 +223,19 @@ jobs:
           push: true
           tags: ${{ env.IMAGE }}
 
-      - name: Deploy to dev-gcp
+      - name: Deploy to staging
         uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/deploy-dev.yml
+          RESOURCE: .nais/deploy-staging.yml
 
-      - name: Deploy veiledning to dev-gcp
+      - name: Deploy veiledning to staging
         uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: .nais/deploy-veiledning-dev.yml
+          RESOURCE: .nais/deploy-veiledning-staging.yml
 
   deploy-sandbox:
     name: Deploy to sandbox
@@ -300,8 +300,7 @@ jobs:
     if: |
       github.ref == 'refs/heads/main' &&
       github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.prod == 'true' &&
-      github.ref == 'refs/heads/main'
+      github.event.inputs.prod == 'true'
     env:
       IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend:${{ github.sha }}
     steps:
