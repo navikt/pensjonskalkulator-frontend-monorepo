@@ -26,6 +26,32 @@
   &Maaned {
     width: 9rem;
   }
+
+  &__hasError {
+    select {
+      box-shadow: 0 0 0 1px
+        var(--ac-select-error-border, var(--a-surface-danger));
+      border-color: var(--ac-select-error-border, var(--a-surface-danger));
+    }
+  }
+
+  &Error {
+    &Message {
+      display: flex;
+      gap: var(--a-spacing-2);
+      color: var(--a-text-danger);
+      font-size: var(--a-font-size-large);
+      font-weight: var(--a-font-weight-bold);
+      letter-spacing: 0;
+      line-height: var(--a-font-line-height-large);
+      margin: 0;
+      padding-top: var(--a-spacing-2);
+
+      &::before {
+        content: '•';
+      }
+    }
+  }
 }
 
 .date {

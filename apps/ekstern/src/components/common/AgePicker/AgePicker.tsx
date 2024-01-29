@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react'
 import { useIntl } from 'react-intl'
 
 import { BodyShort, Label, Select } from '@navikt/ds-react'
+import clsx from 'clsx'
 
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
@@ -23,6 +24,7 @@ export interface AgePickerProps {
   maxAlder?: Alder
   info?: string
   onChange?: (alder: Partial<Alder> | undefined) => void
+  error?: string
 }
 
 import styles from './AgePicker.module.scss'
@@ -39,6 +41,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       maxAlder,
       info,
       onChange,
+      error,
     },
     ref
   ) => {
@@ -108,7 +111,9 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             form={form}
             name={`${name}-aar`}
             label="Velg år"
-            className={styles.selectAar}
+            className={clsx(styles.selectAar, {
+              [styles.select__hasError]: !!error,
+            })}
             value={valgtAlder.aar}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               const aar = e.target.value
@@ -122,7 +127,12 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
               })
               onChange && onChange({ aar, maaneder: valgtAlder.maaneder })
             }}
+            aria-describedby={error ? `${name}-error` : undefined}
+            aria-invalid={!!error}
           >
+            <option disabled selected value="">
+              {' '}
+            </option>
             {yearsArray.map((year) => {
               return (
                 <option key={year} value={year}>
@@ -136,7 +146,9 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             form={form}
             name={`${name}-maaneder`}
             label="Velg måned"
-            className={styles.selectMaaned}
+            className={clsx(styles.selectMaaned, {
+              [styles.select__hasError]: !!error,
+            })}
             value={valgtAlder.maaneder}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               const maaneder = e.target.value
@@ -150,7 +162,12 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
               })
               onChange && onChange({ aar: valgtAlder.aar, maaneder })
             }}
+            aria-describedby={error ? `${name}-error` : undefined}
+            aria-invalid={!!error}
           >
+            <option disabled selected value="">
+              {' '}
+            </option>
             {monthsArray.map((month) => {
               return (
                 <option key={month} value={month}>
@@ -162,6 +179,15 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
 
           <span className={styles.date}>{transformertDate}</span>
         </div>
+        {error && (
+          <div
+            id={`${name}-error`}
+            aria-relevant="additions removals"
+            aria-live="polite"
+          >
+            <p className={styles.selectErrorMessage}>{error}</p>
+          </div>
+        )}
         {info && <AlertDashBorder>{info}</AlertDashBorder>}
       </div>
     )
