@@ -13,8 +13,8 @@ declare global {
   // /inntekt
   type Inntekt = components['schemas']['InntektDto']
 
-  // /sak-status
-  type SakStatus = components['schemas']['SakDto']
+  // /ekskludert-status
+  type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
 
   // /tpo-medlemskap
   type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
@@ -37,7 +37,7 @@ declare global {
     components['schemas']['PensjonsavtaleDto']['kategori']
   type UtilgjengeligeSelskap = components['schemas']['SelskapDto']
 
-  // / alderspensjon
+  // /simulering/alderspensjon
   type AlderspensjonRequestBody =
     components['schemas']['IngressSimuleringSpecV2']
   type AlderspensjonResponseBody =

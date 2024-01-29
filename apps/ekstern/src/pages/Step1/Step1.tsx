@@ -6,7 +6,7 @@ import {
   UtenlandsoppholdRadio,
   Utenlandsopphold,
 } from '@/components/stegvisning/Utenlandsopphold'
-import { paths } from '@/router/constants'
+import { paths, henvisningUrlParams } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectUtenlandsopphold } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -26,7 +26,7 @@ export function Step1() {
   const onNext = (utenlandsoppholdData: UtenlandsoppholdRadio) => {
     const utenlandsopphold = utenlandsoppholdData === 'ja'
     if (utenlandsopphold) {
-      navigate(paths.utenlandsoppholdFeil)
+      navigate(`${paths.henvisning}/${henvisningUrlParams.utland}`)
     } else {
       dispatch(userInputActions.setUtenlandsopphold(utenlandsopphold))
       navigate(paths.samtykke)

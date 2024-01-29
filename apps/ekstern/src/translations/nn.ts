@@ -3,8 +3,6 @@ const translations = {
   'application.title.stegvisning.step0': 'Start - Pensjonskalkulator',
   'application.title.stegvisning.step1':
     'Utanlandsopphald - Pensjonskalkulator',
-  'application.title.stegvisning.step1.feil':
-    'Tilvisning utland - Pensjonskalkulator',
   'application.title.stegvisning.step2': 'Samtykke - Penjonskalkulator',
   'application.title.stegvisning.step3':
     'Offentleg tenestepensjon - Pensjonskalkulator',
@@ -14,10 +12,15 @@ const translations = {
     'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
   'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
-  'application.title.henvisning_1963':
-    'Tilvisning født før 1963 - Pensjonskalkulator',
-  'application.title.henvisning_ufoere_gjenlevende':
-    'Tilvisning uføretrygd og attlevandepensjon - Pensjonskalkulator',
+  'application.title.henvisning.foedselsdato':
+    'Tilvisning født før 1963 – Pensjonskalkulator',
+  'application.title.henvisning.ufoeretrygd':
+    'Tilvisning uføretrygd – Pensjonskalkulator',
+  'application.title.henvisning.gjenlevende':
+    'Tilvisning attlevandepensjon – Pensjonskalkulator',
+  'application.title.henvisning.apotekerne': 'MANGLER_TEKST',
+  'application.title.henvisning.utland':
+    'Tilvisning utland - Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysningar i enkel kalkulator Pensjonskalkulator',
   'application.global.external_link': 'opnar i ei ny fane',
@@ -60,12 +63,16 @@ const translations = {
     'For deg som ikkje kan logge inn på nav.no. Kalkulatoren hentar ikkje inn og lagrar ikkje  opplysningar om deg. Du må sjølv finne og gje opp alle opplysningane til kalkulatoren, og du får kun svar på kva du kan rekne med å få i alderspensjon frå folketrygda (NAV).',
   'landingsside.link.personopplysninger':
     'Personopplysningar som vert brukt i enkel kalkulator',
-  'henvisning1963.body':
+  'henvisning.detaljert_kalkulator': 'Detaljert kalkulator',
+  'henvisning.foedselsdato.body':
     'Sidan du er født før 1963 må du bruke detaljert kalkulator.',
-  'henvisning1963.detaljert_kalkulator': 'Detaljert kalkulator',
-  'henvisning_ufoere_gjenlevende.detaljert_kalkulator': 'Detaljert kalkulator',
-  'henvisning_ufoere_gjenlevende.body':
-    'Sidan du har uføretrygd eller attlevandepensjon, må du bruke detaljert kalkulator.',
+  'henvisning.ufoeretrygd.body':
+    'Sidan du har uføretrygd må du bruke detaljert kalkulator.',
+  'henvisning.gjenlevende.body':
+    'Sidan du har attlevandepensjon må du bruke detaljert kalkulator.',
+  'henvisning.apotekerne.body': 'MANGLER_TEKST',
+  'henvisning.utland.body':
+    'Sidan du har budd eller jobba utanfor Noreg i meir enn fem år, må du bruke detaljert kalkulator.',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -86,11 +93,6 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har budd eller jobba utanfor Noreg i meir enn fem år etter fylte 16 år.',
-  'stegvisning.utenlandsopphold.error.title':
-    'Du kan dessverre ikkje bruke enkel kalkulator',
-  'stegvisning.utenlandsopphold.error.button.primary': 'Detaljert kalkulator',
-  'stegvisning.utenlandsopphold.error.ingress':
-    'Sidan du har budd eller jobba utanfor Noreg i meir enn fem år, må du bruke detaljert kalkulator.',
   'stegvisning.samtykke.title': 'Pensjonen din',
   'stegvisning.samtykke.ingress':
     'I kalkulatoren får du fram alderspensjon fra folketrygden (NAV) og eventuell avtalefesta pensjon (AFP) i privat sektor. For å vise andre pensjonsavtalar og tenestepensjon frå arbeidsgjevarar, må vi ha ditt samtykke til å hente pensjonsavtalane dine.',

@@ -4,11 +4,11 @@ import { useNavigate } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { Start } from '@/components/stegvisning/Start'
-import { paths } from '@/router/constants'
+import { henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import {
   useGetPersonQuery,
-  useGetSakStatusQuery,
+  useGetEkskludertStatusQuery,
   useGetInntektQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
@@ -19,7 +19,8 @@ export function Step0() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const { isFetching: isSakFetching, data: sak } = useGetSakStatusQuery()
+  const { isFetching: isEkskludertStatusFetching, data: ekskludertStatus } =
+    useGetEkskludertStatusQuery()
 
   const { isError: isInntektError, isFetching: isInntektFetching } =
     useGetInntektQuery()
@@ -42,16 +43,22 @@ export function Step0() {
   }, [])
 
   React.useEffect(() => {
-    if (!isSakFetching && sak?.harUfoeretrygdEllerGjenlevendeytelse) {
-      navigate(paths.henvisningUfoeretrygdGjenlevendepensjon)
-    }
-  }, [isSakFetching, sak, navigate])
-
-  React.useEffect(() => {
     if (isPersonSuccess && isFoedtFoer1963(person.foedselsdato)) {
-      navigate(paths.henvisning1963)
+      navigate(`${paths.henvisning}/${henvisningUrlParams.foedselsdato}`)
     }
   }, [isPersonSuccess, person, navigate])
+
+  React.useEffect(() => {
+    if (!isEkskludertStatusFetching && ekskludertStatus?.ekskludert) {
+      if (ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD') {
+        navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+      } else if (ekskludertStatus.aarsak === 'HAR_GJENLEVENDEYTELSE') {
+        navigate(`${paths.henvisning}/${henvisningUrlParams.gjenlevende}`)
+      } else if (ekskludertStatus.aarsak === 'ER_APOTEKER') {
+        navigate(`${paths.henvisning}/${henvisningUrlParams.apotekerne}`)
+      }
+    }
+  }, [isEkskludertStatusFetching, ekskludertStatus, navigate])
 
   const onCancel = (): void => {
     navigate(paths.login)
@@ -67,7 +74,7 @@ export function Step0() {
     navigate(paths.utenlandsopphold)
   }
 
-  if (isPersonFetching || isInntektFetching || isSakFetching) {
+  if (isPersonFetching || isInntektFetching || isEkskludertStatusFetching) {
     return (
       <div style={{ width: '100%' }}>
         <Loader
