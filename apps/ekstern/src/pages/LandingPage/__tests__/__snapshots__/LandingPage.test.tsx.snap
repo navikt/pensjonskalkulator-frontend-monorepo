@@ -40,9 +40,6 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
               <li>
                 landingsside.liste.3
               </li>
-              <li>
-                landingsside.liste.4
-              </li>
             </ul>
             <div
               class="navds-stack navds-hstack"
@@ -174,9 +171,6 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               </li>
               <li>
                 landingsside.liste.3
-              </li>
-              <li>
-                landingsside.liste.4
               </li>
             </ul>
             <div

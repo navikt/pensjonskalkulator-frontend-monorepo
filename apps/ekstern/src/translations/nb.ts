@@ -52,7 +52,6 @@ const translations = {
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
   'landingsside.liste.2': 'mottar uføretrygd eller gjenlevendepensjon',
   'landingsside.liste.3': 'har særaldersgrense',
-  'landingsside.liste.4': 'har apotekordningen',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',

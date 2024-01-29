@@ -51,7 +51,6 @@ const translations = {
     'har budd eller arbeidd utanfor Noreg i meir enn fem år etter fylte 16 år',
   'landingsside.liste.2': 'har uføretrygd eller attlevandepensjon',
   'landingsside.liste.3': 'har særaldersgrense',
-  'landingsside.liste.4': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
