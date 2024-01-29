@@ -129,6 +129,7 @@ describe('Beregning', () => {
             pollingInterval: 0,
             refetchOnFocus: undefined,
             refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
           },
         }
       )

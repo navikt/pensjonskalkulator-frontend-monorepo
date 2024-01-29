@@ -357,7 +357,6 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
                     'uttaksalder-gradert-pensjon': '',
                   }
                 })
-
                 setTemporaryGradertUttaksperiode((previous) => ({
                   ...previous,
                   uttaksalder: alder,
@@ -385,8 +384,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               }
               onChange={handleInntektVsaGradertPensjonChange}
               value={
-                temporaryGradertUttaksperiode.aarligInntektVsaPensjonBeloep?.toString() ??
-                ''
+                temporaryGradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+                  ? temporaryGradertUttaksperiode.aarligInntektVsaPensjonBeloep?.toString()
+                  : undefined
               }
               max={5}
             />

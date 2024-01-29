@@ -176,8 +176,8 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             label="Til hvilken alder forventer du å ha inntekten?"
             description=""
             value={sluttAlder}
-            // defaultValue={null}
             onChange={alderVelgerChange}
+            maxAlder={{ aar: 75, maaneder: 11 }}
             hasValidationError={
               validationErrors['sluttalder-inntekt-vsa-pensjon'] !== ''
             }
