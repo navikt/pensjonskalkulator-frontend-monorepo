@@ -52,6 +52,7 @@ const translations = {
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
   'landingsside.liste.2': 'mottar uføretrygd eller gjenlevendepensjon',
   'landingsside.liste.3': 'har særaldersgrense',
+  'landingsside.liste.4': 'har apotekordningen',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
@@ -71,7 +72,8 @@ const translations = {
     'Siden du mottar uføretrygd, må du bruke detaljert kalkulator.',
   'henvisning.gjenlevende.body':
     'Siden du mottar gjenlevendepensjon, må du bruke detaljert kalkulator.',
-  'henvisning.apotekerne.body': 'MANGLER_TEKST',
+  'henvisning.apotekerne.body':
+    'Siden du har apotekordningen, må du bruke detaljert kalkulator.',
   'henvisning.utland.body':
     'Siden du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert kalkulator.',
   'stegvisning.neste': 'Neste',

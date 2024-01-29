@@ -94,6 +94,11 @@ export const LandingPage = () => {
                     id: 'landingsside.liste.3',
                   })}
                 </li>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.4',
+                  })}
+                </li>
               </ul>
 
               <HStack gap="4">
