@@ -37,8 +37,8 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       label,
       description,
       value,
-      minAlder,
-      maxAlder,
+      minAlder = { aar: DEFAULT_TIDLIGST_UTTAKSALDER.aar, maaneder: 0 },
+      maxAlder = { aar: DEFAULT_SENEST_UTTAKSALDER.aar, maaneder: 0 },
       info,
       onChange,
       error,
@@ -55,10 +55,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
 
     const yearsArray = React.useMemo(() => {
       const arr = []
-      const minYear = minAlder ? minAlder.aar : DEFAULT_TIDLIGST_UTTAKSALDER.aar
-      const maxYear = maxAlder ? maxAlder.aar : DEFAULT_SENEST_UTTAKSALDER.aar
-
-      for (let i = minYear; i <= maxYear; i++) {
+      for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
         arr.push(i)
       }
       return arr
@@ -170,7 +167,22 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             </option>
             {monthsArray.map((month) => {
               return (
-                <option key={month} value={month}>
+                <option
+                  key={month}
+                  value={month}
+                  disabled={
+                    !!(
+                      valgtAlder?.aar &&
+                      valgtAlder?.aar <= minAlder?.aar &&
+                      month < minAlder?.maaneder
+                    ) ||
+                    !!(
+                      valgtAlder?.aar &&
+                      valgtAlder?.aar >= maxAlder?.aar &&
+                      month > maxAlder?.maaneder
+                    )
+                  }
+                >
                   {`${month} ${intl.formatMessage({ id: 'alder.md' })} (${person?.foedselsdato ? transformMaanedToDate(month, person?.foedselsdato, intl.locale as Locales) : ''})`}
                 </option>
               )
