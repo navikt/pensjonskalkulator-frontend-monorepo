@@ -2,7 +2,6 @@ import { ReactNode, useEffect, useState } from 'react'
 import { IntlProvider } from 'react-intl'
 
 import {
-  DecoratorLocale,
   setAvailableLanguages,
   onLanguageSelect,
 } from '@navikt/nav-dekoratoren-moduler'
@@ -25,7 +24,7 @@ interface Props {
 }
 
 export function LanguageProvider({ children }: Props) {
-  const [languageCookie, setLanguageCookie] = useState<DecoratorLocale>('nb')
+  const [languageCookie, setLanguageCookie] = useState<Locales>('nb')
 
   const { data: disableSpraakvelgerFeatureToggle, isSuccess } =
     useGetSpraakvelgerFeatureToggleQuery()
@@ -34,7 +33,7 @@ export function LanguageProvider({ children }: Props) {
   /* c8 ignore next 3 */
   onLanguageSelect((language) => {
     setCookie('decorator-language', language.locale)
-    updateLanguage(language.locale, setLanguageCookie)
+    updateLanguage(language.locale as Locales, setLanguageCookie)
   })
 
   useEffect(() => {
@@ -57,7 +56,7 @@ export function LanguageProvider({ children }: Props) {
       const previousLanguage = getCookie('decorator-language')
 
       if (previousLanguage) {
-        updateLanguage(previousLanguage as DecoratorLocale, setLanguageCookie)
+        updateLanguage(previousLanguage as Locales, setLanguageCookie)
       }
     }
   }, [isSuccess])

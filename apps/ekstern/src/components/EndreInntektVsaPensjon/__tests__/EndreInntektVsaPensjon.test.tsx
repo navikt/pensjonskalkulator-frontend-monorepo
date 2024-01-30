@@ -27,12 +27,15 @@ describe('EndreInntektVsaPensjon', async () => {
         '123000'
       )
       fireEvent.change(
-        screen.getByTestId(
-          'temporaryAlderVelger-sluttalder-inntekt-vsa-pensjon'
-        ),
-        { target: { value: '70 alder.aar' } }
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar'),
+        { target: { value: '70' } }
       )
-
+      fireEvent.change(
+        screen.getByTestId(
+          'age-picker-sluttalder-inntekt-vsa-pensjon-maaneder'
+        ),
+        { target: { value: '0' } }
+      )
       await user.click(
         screen.getByText(
           'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til'
@@ -86,10 +89,14 @@ describe('EndreInntektVsaPensjon', async () => {
         '123000'
       )
       fireEvent.change(
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar'),
+        { target: { value: '70' } }
+      )
+      fireEvent.change(
         screen.getByTestId(
-          'temporaryAlderVelger-sluttalder-inntekt-vsa-pensjon'
+          'age-picker-sluttalder-inntekt-vsa-pensjon-maaneder'
         ),
-        { target: { value: '70 alder.aar' } }
+        { target: { value: '0' } }
       )
 
       await user.click(screen.getByText('stegvisning.avbryt'))
@@ -117,10 +124,11 @@ describe('EndreInntektVsaPensjon', async () => {
         ''
       )
       expect(
-        screen.getByTestId(
-          'temporaryAlderVelger-sluttalder-inntekt-vsa-pensjon'
-        )
-      ).toHaveValue('Velg alder')
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar')
+      ).toHaveValue('')
+      expect(
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-maaneder')
+      ).toHaveValue('')
     })
   })
   describe('Gitt at brukeren har lagt inn inntekt vsa pensjon', async () => {
@@ -171,10 +179,14 @@ describe('EndreInntektVsaPensjon', async () => {
       await user.clear(input)
       await user.type(input, '99000')
       fireEvent.change(
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar'),
+        { target: { value: '75' } }
+      )
+      fireEvent.change(
         screen.getByTestId(
-          'temporaryAlderVelger-sluttalder-inntekt-vsa-pensjon'
+          'age-picker-sluttalder-inntekt-vsa-pensjon-maaneder'
         ),
-        { target: { value: '75 alder.aar' } }
+        { target: { value: '0' } }
       )
 
       await user.click(
@@ -215,10 +227,11 @@ describe('EndreInntektVsaPensjon', async () => {
         ''
       )
       expect(
-        screen.getByTestId(
-          'temporaryAlderVelger-sluttalder-inntekt-vsa-pensjon'
-        )
-      ).toHaveValue('Velg alder')
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar')
+      ).toHaveValue('')
+      expect(
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-maaneder')
+      ).toHaveValue('')
     })
     it('kan hen avbryte og inntekten settes tilbake', async () => {
       const user = userEvent.setup()
@@ -267,10 +280,14 @@ describe('EndreInntektVsaPensjon', async () => {
       await user.clear(input)
       await user.type(input, '99000')
       fireEvent.change(
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar'),
+        { target: { value: '75' } }
+      )
+      fireEvent.change(
         screen.getByTestId(
-          'temporaryAlderVelger-sluttalder-inntekt-vsa-pensjon'
+          'age-picker-sluttalder-inntekt-vsa-pensjon-maaneder'
         ),
-        { target: { value: '75 alder.aar' } }
+        { target: { value: '0' } }
       )
 
       await user.click(screen.getByText('stegvisning.avbryt'))
@@ -286,10 +303,8 @@ describe('EndreInntektVsaPensjon', async () => {
         )
       ).toBeInTheDocument()
       expect(
-        screen.getByTestId(
-          'temporaryAlderVelger-sluttalder-inntekt-vsa-pensjon'
-        )
-      ).toHaveValue('70 alder.aar')
+        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar')
+      ).toHaveValue('70')
     })
   })
 })

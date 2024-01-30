@@ -98,11 +98,11 @@ describe('LanguageProvider-utils', () => {
     })
 
     it('returnerer nb som default når locale er ukjent', () => {
-      const defaultTranslations = getTranslations('')
+      const defaultTranslations = getTranslations('' as unknown as Locales)
       expect(defaultTranslations['application.title']).toBe(
         'Pensjonskalkulator – Pensjon'
       )
-      const unknownTranslations = getTranslations('abc')
+      const unknownTranslations = getTranslations('abc' as unknown as Locales)
       expect(unknownTranslations['application.title']).toBe(
         'Pensjonskalkulator – Pensjon'
       )

@@ -1,6 +1,12 @@
 import { components } from './schema'
 
 declare global {
+  type RecursivePartial<T> = {
+    [P in keyof T]?: RecursivePartial<T[P]>
+  }
+
+  type Locales = 'nb' | 'nn' | 'en'
+
   type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
   type Alder = components['schemas']['Alder']
   type UnleashToggle = components['schemas']['EnablementDto']

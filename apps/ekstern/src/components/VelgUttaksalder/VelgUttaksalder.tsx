@@ -7,10 +7,13 @@ import clsx from 'clsx'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { unformatUttaksalder } from '@/utils/alder'
+import {
+  unformatUttaksalder,
+  DEFAULT_TIDLIGST_UTTAKSALDER,
+} from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
-import { DEFAULT_TIDLIGST_UTTAKSALDER, getFormaterteAldere } from './utils'
+import { getFormaterteAldere } from './utils'
 
 import styles from './VelgUttaksalder.module.scss'
 
