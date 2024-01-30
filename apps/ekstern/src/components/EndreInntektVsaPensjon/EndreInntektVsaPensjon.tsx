@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { PencilIcon, TrashIcon } from '@navikt/aksel-icons'
 import { Button, Label, Modal, TextField } from '@navikt/ds-react'
 
-import { TemporaryAlderVelgerAvansert } from '@/components/VelgUttaksalder/TemporaryAlderVelgerAvansert'
+import { AgePicker } from '@/components/common/AgePicker'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -29,9 +29,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
 
   const [inntektBeloepVsaPensjon, setInntektBeloepVsaPensjon] =
     React.useState<string>(aarligInntektVsaHelPensjon?.beloep?.toString() ?? '')
-  const [sluttAlder, setSluttAlder] = React.useState<Alder | null>(
-    aarligInntektVsaHelPensjon?.sluttAlder ?? null
-  )
+  const [sluttAlder, setSluttAlder] = React.useState<
+    Partial<Alder> | undefined
+  >(aarligInntektVsaHelPensjon?.sluttAlder)
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, string>
   >({
@@ -47,16 +47,6 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
       return {
         ...prevState,
         'inntekt-vsa-pensjon': '',
-      }
-    })
-  }
-
-  const alderVelgerChange = (alder: Alder | undefined): void => {
-    setSluttAlder(alder ?? null)
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-        'sluttalder-inntekt-vsa-pensjon': '',
       }
     })
   }
@@ -113,7 +103,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         ? aarligInntektVsaHelPensjon?.beloep?.toString()
         : ''
     )
-    setSluttAlder(aarligInntektVsaHelPensjon?.sluttAlder ?? null)
+    setSluttAlder(aarligInntektVsaHelPensjon?.sluttAlder)
     setValidationErrors({
       'inntekt-vsa-pensjon': '',
       'sluttalder-inntekt-vsa-pensjon': '',
@@ -124,11 +114,11 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   }
 
   const onDelete = (): void => {
+    setSluttAlder(undefined)
     dispatch(
       userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(undefined)
     )
     setInntektBeloepVsaPensjon('')
-    setSluttAlder(null)
     setValidationErrors({
       'inntekt-vsa-pensjon': '',
       'sluttalder-inntekt-vsa-pensjon': '',
@@ -171,15 +161,33 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             max={5}
           />
           <div className={styles.spacer} />
-          <TemporaryAlderVelgerAvansert
+          <AgePicker
             name="sluttalder-inntekt-vsa-pensjon"
             label="Til hvilken alder forventer du å ha inntekten?"
             description=""
             value={sluttAlder}
-            onChange={alderVelgerChange}
+            minAlder={
+              temporaryUttaksalder?.aar &&
+              temporaryUttaksalder?.maaneder !== undefined
+                ? (temporaryUttaksalder as Alder)
+                : undefined
+            }
             maxAlder={{ aar: 75, maaneder: 11 }}
-            hasValidationError={
-              validationErrors['sluttalder-inntekt-vsa-pensjon'] !== ''
+            onChange={(alder) => {
+              setValidationErrors((prevState) => {
+                return {
+                  ...prevState,
+                  'sluttalder-inntekt-vsa-pensjon': '',
+                }
+              })
+              setSluttAlder(alder)
+            }}
+            error={
+              validationErrors['sluttalder-inntekt-vsa-pensjon']
+                ? intl.formatMessage({
+                    id: validationErrors['sluttalder-inntekt-vsa-pensjon'],
+                  })
+                : ''
             }
           />
         </Modal.Body>

@@ -53,6 +53,10 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       value ? value : { aar: undefined, maaneder: undefined }
     )
 
+    React.useEffect(() => {
+      setValgtAlder(value ? value : { aar: undefined, maaneder: undefined })
+    }, [value])
+
     const yearsArray = React.useMemo(() => {
       const arr = []
       for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
@@ -111,7 +115,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             className={clsx(styles.selectAar, {
               [styles.select__hasError]: !!error,
             })}
-            value={valgtAlder.aar}
+            value={valgtAlder.aar ? valgtAlder.aar : ''}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               const aar = e.target.value
                 ? parseInt(e.target.value, 10)
@@ -146,7 +150,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             className={clsx(styles.selectMaaned, {
               [styles.select__hasError]: !!error,
             })}
-            value={valgtAlder.maaneder}
+            value={valgtAlder.maaneder ? valgtAlder.maaneder : ''}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               const maaneder = e.target.value
                 ? parseInt(e.target.value, 10)

@@ -1,5 +1,6 @@
 import { validateInntekt } from '@/utils/inntekt'
 
+// TODO se for å gjenbruke valideringsfunksjon i utils/alder.ts
 // TODO skrive tester
 export const validateAvansertBeregningSkjema = (
   inputData: FormData,

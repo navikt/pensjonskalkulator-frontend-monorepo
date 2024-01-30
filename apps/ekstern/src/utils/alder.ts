@@ -96,12 +96,15 @@ export const transformMaanedToDate = (
 }
 
 // TODO PEK-279 vurdere etter utvikling av AgePicker om dette kan finpusses og gjenbrukes av RedigerAvansertBeregning
+// sjekke for null / undefined
+// sjekke om aar er med, men ikke maaneder, og omvendt
+// sende minAlder, maxAlder og sjekke mot dem
 export const validateAlder = (
-  alder: Alder | null,
+  alder: Partial<Alder> | undefined | null,
   updateValidationErrorMessage: (s: string) => void
 ) => {
   let isValid = true
-  if (alder === undefined || !alder) {
+  if (alder === null || alder === undefined || !alder) {
     isValid = false
     updateValidationErrorMessage(
       'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error'
@@ -109,8 +112,10 @@ export const validateAlder = (
     return isValid
   }
   if (
+    !alder.aar ||
     alder.aar < 62 ||
     alder.aar > 75 ||
+    alder.maaneder === undefined ||
     alder.maaneder < 0 ||
     alder.maaneder > 11
   ) {
