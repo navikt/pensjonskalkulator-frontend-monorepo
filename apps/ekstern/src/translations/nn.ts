@@ -13,14 +13,14 @@ const translations = {
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
   'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
   'application.title.henvisning.foedselsdato':
-    'Tilvisning født før 1963 – Pensjonskalkulator',
+    'Tilvising født før 1963 – Pensjonskalkulator',
   'application.title.henvisning.ufoeretrygd':
-    'Tilvisning uføretrygd – Pensjonskalkulator',
+    'Tilvising uføretrygd – Pensjonskalkulator',
   'application.title.henvisning.gjenlevende':
-    'Tilvisning attlevandepensjon – Pensjonskalkulator',
+    'Tilvising attlevandepensjon – Pensjonskalkulator',
   'application.title.henvisning.apotekerne': 'MANGLER_TEKST',
   'application.title.henvisning.utland':
-    'Tilvisning utland - Pensjonskalkulator',
+    'Tilvising utland - Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysningar i enkel kalkulator Pensjonskalkulator',
   'application.global.external_link': 'opnar i ei ny fane',
