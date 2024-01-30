@@ -7,7 +7,7 @@ import {
   isTpoMedlemskap,
   isUnleashToggle,
   isAlder,
-  isSakStatus,
+  isEkskludertStatus,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
 
@@ -40,6 +40,15 @@ export const apiSlice = createApi({
           ...response,
           foedselsdato: response.foedselsdato,
         }
+      },
+    }),
+    getEkskludertStatus: builder.query<EkskludertStatus, void>({
+      query: () => '/v1/ekskludert',
+      transformResponse: (response: any) => {
+        if (!isEkskludertStatus(response)) {
+          throw new Error(`Mottok ugyldig ekskludert response:`, response)
+        }
+        return response
       },
     }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
@@ -166,22 +175,13 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getSakStatus: builder.query<SakStatus, void>({
-      query: () => '/sak-status',
-      transformResponse: (response: any) => {
-        if (!isSakStatus(response)) {
-          throw new Error(`Mottok ugyldig sak response:`, response)
-        }
-        return response
-      },
-    }),
   }),
 })
 
 export const {
   useGetInntektQuery,
   useGetPersonQuery,
-  useGetSakStatusQuery,
+  useGetEkskludertStatusQuery,
   useGetTpoMedlemskapQuery,
   useTidligsteHelUttaksalderQuery,
   useTidligsteGradertUttaksalderQuery,

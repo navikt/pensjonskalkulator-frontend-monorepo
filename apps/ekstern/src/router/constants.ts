@@ -19,13 +19,10 @@ export const externalUrls = {
 export const paths = {
   root: '/',
   login: '/login',
-  henvisningUfoeretrygdGjenlevendepensjon:
-    '/henvisning-ufoeretrygd-gjenlevendepensjon',
-  henvisning1963: '/henvisning-1963',
+  henvisning: '/henvisning',
   start: '/start',
   samtykke: '/samtykke',
   utenlandsopphold: '/utenlandsopphold',
-  utenlandsoppholdFeil: '/henvisning-utland',
   offentligTp: '/offentlig-tp',
   afp: '/afp',
   sivilstand: '/sivilstand',
@@ -34,4 +31,12 @@ export const paths = {
   beregningDetaljert: '/beregning-detaljert',
   forbehold: '/forbehold',
   personopplysninger: '/personopplysninger',
+} as const
+
+export const henvisningUrlParams = {
+  foedselsdato: '1963',
+  ufoeretrygd: 'ufoeretrygd',
+  gjenlevende: 'gjenlevende',
+  apotekerne: 'apotekerne',
+  utland: 'utland',
 } as const
