@@ -9,12 +9,12 @@ import HighchartsAccessibility from 'highcharts/modules/accessibility'
 import { Loader } from '@/components/common/Loader'
 import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
 import { paths } from '@/router/constants'
-import { useTidligsteHelUttaksalderQuery } from '@/state/api/apiSlice'
+import { apiSlice, useTidligstMuligHelUttakQuery } from '@/state/api/apiSlice'
 import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetDetaljertFaneFeatureToggleQuery,
 } from '@/state/api/apiSlice'
-import { generateTidligsteHelUttaksalderRequestBody } from '@/state/api/utils'
+import { generateTidligstMuligHelUttakRequestBody } from '@/state/api/utils'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import {
@@ -47,8 +47,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     selectAarligInntektFoerUttakBeloep
   )
 
-  const [tidligsteUttaksalderRequestBody, setTidligsteUttaksalderRequestBody] =
-    React.useState<TidligsteHelUttaksalderRequestBody | undefined>(undefined)
+  const [
+    tidligstMuligHelUttakRequestBody,
+    setTidligstMuligHelUttakRequestBody,
+  ] = React.useState<TidligstMuligHelUttakRequestBody | undefined>(undefined)
 
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
@@ -58,10 +60,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   // Hent tidligst mulig uttaksalder
   const {
     data: tidligstMuligUttak,
-    isLoading: isTidligstMuligUttaksalderLoading,
-    isError: isTidligstMuligUttaksalderError,
-  } = useTidligsteHelUttaksalderQuery(tidligsteUttaksalderRequestBody, {
-    skip: !tidligsteUttaksalderRequestBody,
+    isLoading: isTidligstMuligUttakLoading,
+    isError: isTidligstMuligUttakError,
+  } = useTidligstMuligHelUttakQuery(tidligstMuligHelUttakRequestBody, {
+    skip: !tidligstMuligHelUttakRequestBody,
   })
 
   React.useEffect(() => {
@@ -75,21 +77,32 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }, [])
 
   React.useEffect(() => {
-    const requestBody = generateTidligsteHelUttaksalderRequestBody({
+    const requestBody = generateTidligstMuligHelUttakRequestBody({
       afp,
       sivilstand: sivilstand,
       harSamboer,
       aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
     })
-    setTidligsteUttaksalderRequestBody(requestBody)
+    setTidligstMuligHelUttakRequestBody(requestBody)
   }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
   const onToggleChange = (v: string) => {
     navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningDetaljert)
     dispatch(userInputActions.flushCurrentSimulation())
+
+    if (isTidligstMuligUttakError) {
+      dispatch(apiSlice.util.invalidateTags(['TidligstMuligHelUttak']))
+      if (tidligstMuligHelUttakRequestBody) {
+        dispatch(
+          apiSlice.endpoints.tidligstMuligHelUttak.initiate(
+            tidligstMuligHelUttakRequestBody
+          )
+        )
+      }
+    }
   }
 
-  if (isTidligstMuligUttaksalderLoading) {
+  if (isTidligstMuligUttakLoading) {
     return (
       <Loader
         data-testid="uttaksalder-loader"
@@ -128,7 +141,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       {visning === 'enkel' && (
         <BeregningEnkel
           tidligstMuligUttak={
-            !isTidligstMuligUttaksalderError ? tidligstMuligUttak : undefined
+            !isTidligstMuligUttakError ? tidligstMuligUttak : undefined
           }
         />
       )}

@@ -150,7 +150,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             className={clsx(styles.selectMaaned, {
               [styles.select__hasError]: !!error,
             })}
-            value={valgtAlder.maaneder ? valgtAlder.maaneder : ''}
+            value={valgtAlder.maaneder !== undefined ? valgtAlder.maaneder : ''}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
               const maaneder = e.target.value
                 ? parseInt(e.target.value, 10)

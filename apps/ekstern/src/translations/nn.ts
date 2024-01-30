@@ -184,19 +184,18 @@ const translations = {
   'sivilstand.gjenlevende_partner': 'Attlevande partnar',
   'sivilstand.med_samboer': 'med sambuar',
   'sivilstand.uten_samboer': 'utan sambuar',
-  'tidligsteuttaksalder.1963.ingress_1':
+  'tidligstmuliguttak.1963.ingress_1':
     'Di opptening gjer at du tidlegast kan ta ut 100 % alderspensjon når du er ',
-  'tidligsteuttaksalder.1964.ingress_1': 'MANGLER_TEKST',
-  'tidligsteuttaksalder.1963.ingress_2':
+  'tidligstmuliguttak.1964.ingress_1': 'MANGLER_TEKST',
+  'tidligstmuliguttak.1963.ingress_2':
     ' Jo lenger du ventar, dess meir får du i året.',
-  'tidligsteuttaksalder.1964.ingress_2': 'MANGLER_TEKST',
-  'tidligsteuttaksalder.readmore_title': 'MANGLER_TEKST',
-  'tidligsteuttaksalder.readmore_ingress.enkelt': 'MANGLER_TEKST',
-  'tidligsteuttaksalder.readmore_ingress.avansert': 'MANGLER_TEKST',
-  'tidligsteuttaksalder.info_afp':
+  'tidligstmuliguttak.1964.ingress_2': 'MANGLER_TEKST',
+  'tidligstmuliguttak.readmore_title': 'MANGLER_TEKST',
+  'tidligstmuliguttak.readmore_ingress.enkelt': 'MANGLER_TEKST',
+  'tidligstmuliguttak.readmore_ingress.avansert': 'MANGLER_TEKST',
+  'tidligstmuliguttak.info_afp':
     'Du kan truleg ta ut alderspensjon tidlegare viss du har rett til AFP i offentleg sektor.',
-  'tidligsteuttaksalder.error':
-    'Vi klarte ikkje å finne tidspunkt for kor tid du tidlegast kan ta ut alderspensjon. Prøv igjen seinare.',
+  'tidligstmuliguttak.error': 'MANGLER_TEKST',
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',

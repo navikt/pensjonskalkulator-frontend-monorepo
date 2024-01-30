@@ -1,13 +1,13 @@
 import { checkHarSamboer } from '@/utils/sivilstand'
 import { format, parseISO } from 'date-fns'
 
-export const generateTidligsteHelUttaksalderRequestBody = (args: {
+export const generateTidligstMuligHelUttakRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: number
   aarligInntektVsaPensjon?: { beloep: number; sluttAlder: Alder }
-}): TidligsteHelUttaksalderRequestBody | undefined => {
+}): TidligstMuligHelUttakRequestBody | undefined => {
   const {
     afp,
     sivilstand,
@@ -31,14 +31,14 @@ export const generateTidligsteHelUttaksalderRequestBody = (args: {
   }
 }
 
-export const generateTidligsteGradertUttaksalderRequestBody = (args: {
+export const generateTidligstMuligGradertUttakRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: number
   gradertUttak: Omit<GradertUttaksperiode, 'uttaksalder'>
   heltUttak: HeltUttaksperiode
-}): TidligsteGradertUttaksalderRequestBody | undefined => {
+}): TidligstMuligGradertUttakRequestBody | undefined => {
   const {
     afp,
     sivilstand,

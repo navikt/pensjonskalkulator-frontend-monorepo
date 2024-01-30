@@ -34,7 +34,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
           <>
             <BodyLong size="medium" className={`${styles.ingress}`}>
               <FormattedMessage
-                id={`tidligsteuttaksalder.${
+                id={`tidligstmuliguttak.${
                   show1963Text ? '1963' : '1964'
                 }.ingress_1`}
                 values={{
@@ -47,7 +47,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
             </BodyLong>
             <BodyLong size="medium" className={`${styles.ingress}`}>
               <FormattedMessage
-                id={`tidligsteuttaksalder.${
+                id={`tidligstmuliguttak.${
                   show1963Text ? '1963' : '1964'
                 }.ingress_2`}
                 values={{
@@ -63,7 +63,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                 aria-live="polite"
               >
                 <FormattedMessage
-                  id="tidligsteuttaksalder.info_afp"
+                  id="tidligstmuliguttak.info_afp"
                   values={{
                     ...getFormatMessageValues(intl),
                   }}
@@ -74,7 +74,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
         ) : (
           <BodyLong size="medium" className={`${styles.ingress}`}>
             <FormattedMessage
-              id="tidligsteuttaksalder.error"
+              id="tidligstmuliguttak.error"
               values={{
                 ...getFormatMessageValues(intl),
               }}
@@ -84,10 +84,10 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
         <ReadMore
           name="Om tidspunkter for uttak"
           className={styles.readmore}
-          header={<FormattedMessage id="tidligsteuttaksalder.readmore_title" />}
+          header={<FormattedMessage id="tidligstmuliguttak.readmore_title" />}
         >
           <FormattedMessage
-            id={`tidligsteuttaksalder.readmore_ingress.${
+            id={`tidligstmuliguttak.readmore_ingress.${
               detaljertFaneFeatureToggle?.enabled ? 'avansert' : 'enkelt'
             }`}
             values={{

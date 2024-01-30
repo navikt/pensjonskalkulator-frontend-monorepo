@@ -1,13 +1,13 @@
 import {
-  generateTidligsteHelUttaksalderRequestBody,
-  generateTidligsteGradertUttaksalderRequestBody,
+  generateTidligstMuligHelUttakRequestBody,
+  generateTidligstMuligGradertUttakRequestBody,
   generateAlderspensjonEnkelRequestBody,
   generateAlderspensjonRequestBody,
   generatePensjonsavtalerRequestBody,
 } from '../utils'
 
 describe('apiSlice - utils', () => {
-  describe('generateTidligsteHelUttaksalderRequestBody', () => {
+  describe('generateTidligstMuligHelUttakRequestBody', () => {
     const requestBody = {
       afp: null,
       harSamboer: null,
@@ -15,20 +15,20 @@ describe('apiSlice - utils', () => {
     }
     it('returnerer riktig simuleringstype', () => {
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
 
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           afp: 'nei',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
 
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           afp: 'ja_privat',
         })?.simuleringstype
@@ -37,12 +37,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig harEps', () => {
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
         })?.harEps
       ).toBeUndefined()
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           harSamboer: true,
         })?.simuleringstype
@@ -51,12 +51,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig aarligInntektFoerUttakBeloep', () => {
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
         })?.aarligInntektFoerUttakBeloep
       ).toBe(0)
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           aarligInntektFoerUttakBeloep: 123456,
         })?.aarligInntektFoerUttakBeloep
@@ -65,31 +65,31 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig sivilstand', () => {
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
         })?.sivilstand
       ).toBe('UGIFT')
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT',
         })?.sivilstand
       ).toEqual('UGIFT')
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           sivilstand: 'GIFT',
         })?.sivilstand
       ).toBe('GIFT')
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           sivilstand: null,
           harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT',
           harSamboer: true,
@@ -99,12 +99,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig aarligInntektVsaPensjon', () => {
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
         })?.aarligInntektVsaPensjon
       ).toBeUndefined()
       expect(
-        generateTidligsteHelUttaksalderRequestBody({
+        generateTidligstMuligHelUttakRequestBody({
           ...requestBody,
           aarligInntektVsaPensjon: {
             beloep: 99000,
@@ -115,7 +115,7 @@ describe('apiSlice - utils', () => {
     })
   })
 
-  describe('generateTidligsteGradertUttaksalderRequestBody', () => {
+  describe('generateTidligstMuligGradertUttakRequestBody', () => {
     const requestBody = {
       afp: null,
       harSamboer: null,
@@ -125,20 +125,20 @@ describe('apiSlice - utils', () => {
     }
     it('returnerer riktig simuleringstype', () => {
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
 
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           afp: 'nei',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
 
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           afp: 'ja_privat',
         })?.simuleringstype
@@ -147,12 +147,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig harEps', () => {
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
         })?.harEps
       ).toBeUndefined()
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           harSamboer: true,
         })?.simuleringstype
@@ -161,12 +161,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig aarligInntektFoerUttakBeloep', () => {
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
         })?.aarligInntektFoerUttakBeloep
       ).toBe(0)
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           aarligInntektFoerUttakBeloep: 123456,
         })?.aarligInntektFoerUttakBeloep
@@ -175,31 +175,31 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig sivilstand', () => {
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
         })?.sivilstand
       ).toBe('UGIFT')
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT',
         })?.sivilstand
       ).toEqual('UGIFT')
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           sivilstand: 'GIFT',
         })?.sivilstand
       ).toBe('GIFT')
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           sivilstand: null,
           harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT',
           harSamboer: true,
@@ -209,12 +209,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig gradertUttak', () => {
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
         })?.gradertUttak
       ).toStrictEqual({ grad: 20 })
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           gradertUttak: { grad: 20, aarligInntektVsaPensjonBeloep: 99000 },
         })?.gradertUttak
@@ -223,12 +223,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig heltUttak', () => {
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
         })?.heltUttak
       ).toStrictEqual({ uttaksalder: { aar: 67, maaneder: 2 } })
       expect(
-        generateTidligsteGradertUttaksalderRequestBody({
+        generateTidligstMuligGradertUttakRequestBody({
           ...requestBody,
           heltUttak: {
             uttaksalder: { aar: 70, maaneder: 6 },

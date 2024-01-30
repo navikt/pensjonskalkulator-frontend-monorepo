@@ -7,8 +7,8 @@ import { swallowErrorsAsync } from '@/test-utils'
 const inntektResponse = require('../../../mocks/data/inntekt.json')
 const personResponse = require('../../../mocks/data/person.json')
 const tpoMedlemskapResponse = require('../../../mocks/data/tpo-medlemskap.json')
-const tidligsteHelUttaksalderResponse = require('../../../mocks/data/tidligsteHelUttaksalder.json')
-const tidligsteGradertUttaksalderResponse = require('../../../mocks/data/tidligsteGradertUttaksalder.json')
+const tidligstMuligHelUttakResponse = require('../../../mocks/data/tidligstMuligHelUttak.json')
+const tidligstMuligGradertUttakResponse = require('../../../mocks/data/tidligstMuligGradertUttak.json')
 const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler/67.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
 const ekskludertStatusResponse = require('../../../mocks/data/ekskludert-status.json')
@@ -22,8 +22,8 @@ describe('apiSlice', () => {
     expect(apiSlice.endpoints).toHaveProperty('getPerson')
     expect(apiSlice.endpoints).toHaveProperty('getTpoMedlemskap')
     expect(apiSlice.endpoints).toHaveProperty('pensjonsavtaler')
-    expect(apiSlice.endpoints).toHaveProperty('tidligsteHelUttaksalder')
-    expect(apiSlice.endpoints).toHaveProperty('tidligsteGradertUttaksalder')
+    expect(apiSlice.endpoints).toHaveProperty('tidligstMuligHelUttak')
+    expect(apiSlice.endpoints).toHaveProperty('tidligstMuligGradertUttak')
     expect(apiSlice.endpoints).toHaveProperty('alderspensjon')
     expect(apiSlice.endpoints).toHaveProperty('getSpraakvelgerFeatureToggle')
   })
@@ -288,14 +288,14 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('tidligsteHelUttaksalder', () => {
+  describe('tidligstMuligHelUttak', () => {
     it('returnerer data ved successfull query', async () => {
       const storeRef = setupStore(undefined, true)
       return storeRef
-        .dispatch<any>(apiSlice.endpoints.tidligsteHelUttaksalder.initiate())
+        .dispatch<any>(apiSlice.endpoints.tidligstMuligHelUttak.initiate())
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(tidligsteHelUttaksalderResponse)
+          expect(result.data).toMatchObject(tidligstMuligHelUttakResponse)
         })
     })
 
@@ -306,7 +306,7 @@ describe('apiSlice', () => {
         method: 'post',
       })
       return storeRef
-        .dispatch<any>(apiSlice.endpoints.tidligsteHelUttaksalder.initiate())
+        .dispatch<any>(apiSlice.endpoints.tidligstMuligHelUttak.initiate())
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('rejected')
           expect(result.data).toBe(undefined)
@@ -322,7 +322,7 @@ describe('apiSlice', () => {
       })
       await swallowErrorsAsync(async () => {
         await storeRef
-          .dispatch<any>(apiSlice.endpoints.tidligsteHelUttaksalder.initiate())
+          .dispatch<any>(apiSlice.endpoints.tidligstMuligHelUttak.initiate())
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)
             expect(result.status).toBe('rejected')
@@ -332,16 +332,14 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('tidligsteGradertUttaksalder', () => {
+  describe('tidligstMuligGradertUttak', () => {
     it('returnerer data ved successfull query', async () => {
       const storeRef = setupStore(undefined, true)
       return storeRef
-        .dispatch<any>(
-          apiSlice.endpoints.tidligsteGradertUttaksalder.initiate()
-        )
+        .dispatch<any>(apiSlice.endpoints.tidligstMuligGradertUttak.initiate())
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(tidligsteGradertUttaksalderResponse)
+          expect(result.data).toMatchObject(tidligstMuligGradertUttakResponse)
         })
     })
 
@@ -352,9 +350,7 @@ describe('apiSlice', () => {
         method: 'post',
       })
       return storeRef
-        .dispatch<any>(
-          apiSlice.endpoints.tidligsteGradertUttaksalder.initiate()
-        )
+        .dispatch<any>(apiSlice.endpoints.tidligstMuligGradertUttak.initiate())
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('rejected')
           expect(result.data).toBe(undefined)
@@ -371,7 +367,7 @@ describe('apiSlice', () => {
       await swallowErrorsAsync(async () => {
         await storeRef
           .dispatch<any>(
-            apiSlice.endpoints.tidligsteGradertUttaksalder.initiate()
+            apiSlice.endpoints.tidligstMuligGradertUttak.initiate()
           )
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)
