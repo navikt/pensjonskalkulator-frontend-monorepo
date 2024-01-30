@@ -4,7 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Step0 } from '..'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { paths } from '@/router/constants'
+import { paths, henvisningUrlParams } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userEvent, render, screen, waitFor } from '@/test-utils'
 
@@ -123,14 +123,17 @@ describe('Step 0', () => {
     render(<Step0 />)
 
     await waitFor(async () => {
-      expect(navigateMock).toHaveBeenCalledWith(paths.henvisning1963)
+      expect(navigateMock).toHaveBeenCalledWith(
+        `${paths.henvisning}/${henvisningUrlParams.foedselsdato}`
+      )
     })
   })
 
-  it('redirigerer til feilside dersom bruker har uføretrygd eller gjenlevendepensjon', async () => {
-    mockResponse('/sak-status', {
+  it('redirigerer til feilside dersom bruker har uføretrygd', async () => {
+    mockResponse('/v1/ekskludert', {
       json: {
-        harUfoeretrygdEllerGjenlevendeytelse: true,
+        ekskludert: true,
+        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
       },
     })
     const navigateMock = vi.fn()
@@ -141,7 +144,47 @@ describe('Step 0', () => {
 
     await waitFor(async () => {
       expect(navigateMock).toHaveBeenCalledWith(
-        paths.henvisningUfoeretrygdGjenlevendepensjon
+        `${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`
+      )
+    })
+  })
+
+  it('redirigerer til feilside dersom bruker har gjenlevendepensjon', async () => {
+    mockResponse('/v1/ekskludert', {
+      json: {
+        ekskludert: true,
+        aarsak: 'HAR_GJENLEVENDEYTELSE',
+      },
+    })
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    render(<Step0 />)
+
+    await waitFor(async () => {
+      expect(navigateMock).toHaveBeenCalledWith(
+        `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+      )
+    })
+  })
+
+  it('redirigerer til feilside dersom bruker har medlemskap til apoterkerne', async () => {
+    mockResponse('/v1/ekskludert', {
+      json: {
+        ekskludert: true,
+        aarsak: 'ER_APOTEKER',
+      },
+    })
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    render(<Step0 />)
+
+    await waitFor(async () => {
+      expect(navigateMock).toHaveBeenCalledWith(
+        `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
       )
     })
   })

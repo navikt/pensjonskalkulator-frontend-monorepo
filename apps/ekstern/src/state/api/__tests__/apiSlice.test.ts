@@ -11,12 +11,11 @@ const tidligsteHelUttaksalderResponse = require('../../../mocks/data/tidligsteHe
 const tidligsteGradertUttaksalderResponse = require('../../../mocks/data/tidligsteGradertUttaksalder.json')
 const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler/67.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
-const sakStatusResponse = require('../../../mocks/data/sak-status.json')
+const ekskludertStatusResponse = require('../../../mocks/data/ekskludert-status.json')
 const spraakvelgerToggleResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
 const highchartsAccessibilityPluginResponse = require('../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json')
 const highchartsDetaljertFaneResponse = require('../../../mocks/data/unleash-enable-detaljert-fane.json')
 
-// TODO: fikse bedre typing ved dispatch
 describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
     expect(apiSlice.endpoints).toHaveProperty('getInntekt')
@@ -112,28 +111,28 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('getSakStatus', () => {
+  describe('getEkskludertStatus', () => {
     it('returnerer data ved vellykket query', async () => {
       const storeRef = setupStore(undefined, true)
       return storeRef
-        .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
+        .dispatch<any>(apiSlice.endpoints.getEkskludertStatus.initiate())
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(sakStatusResponse)
+          expect(result.data).toMatchObject(ekskludertStatusResponse)
         })
     })
 
     it('kaster feil ved uforventet format på data', async () => {
       const storeRef = setupStore(undefined, true)
 
-      mockResponse('/sak-status', {
+      mockResponse('/v1/ekskludert', {
         json: {
           feil: 'format',
         },
       })
       await swallowErrorsAsync(async () => {
         return storeRef
-          .dispatch<any>(apiSlice.endpoints.getSakStatus.initiate())
+          .dispatch<any>(apiSlice.endpoints.getEkskludertStatus.initiate())
           .then((result: FetchBaseQueryError) => {
             expect(result.status).toBe('rejected')
             expect(result.data).toBe(undefined)

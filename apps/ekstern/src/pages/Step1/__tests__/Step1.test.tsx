@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step1 } from '..'
-import { paths } from '@/router/constants'
+import { paths, henvisningUrlParams } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
@@ -25,7 +25,9 @@ describe('Step 1', () => {
     await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
 
-    expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsoppholdFeil)
+    expect(navigateMock).toHaveBeenCalledWith(
+      `${paths.henvisning}/${henvisningUrlParams.utland}`
+    )
   })
 
   it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {

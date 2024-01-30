@@ -123,12 +123,18 @@ export const isUnleashToggle = (data?: any): data is UnleashToggle => {
   )
 }
 
-export const isSakStatus = (data?: any): data is SakStatus => {
+export const isEkskludertStatus = (data?: any): data is EkskludertStatus => {
   return (
     typeof data === 'object' &&
     data !== null &&
     !Array.isArray(data) &&
-    typeof data.harUfoeretrygdEllerGjenlevendeytelse === 'boolean'
+    typeof data.ekskludert === 'boolean' &&
+    [
+      'NONE',
+      'HAR_LOEPENDE_UFOERETRYGD',
+      'HAR_GJENLEVENDEYTELSE',
+      'ER_APOTEKER',
+    ].includes(data?.aarsak)
   )
 }
 

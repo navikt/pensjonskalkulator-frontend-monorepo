@@ -109,6 +109,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v1/ekskludert': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Om personen er ekskludert fra å bruke kalkulatoren
+     *
+     * @description Eksludering kan skyldes løpende uføretrygd, gjenlevendeytelse eller medlemskap i Apotekerforeningen
+     */
+    get: operations['erEkskludertV1']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/tpo-medlemskap': {
     parameters: {
       query?: never
@@ -483,6 +504,15 @@ export interface components {
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
     }
+    EkskluderingStatusV1: {
+      ekskludert: boolean
+      /** @enum {string} */
+      aarsak:
+        | 'NONE'
+        | 'HAR_LOEPENDE_UFOERETRYGD'
+        | 'HAR_GJENLEVENDEYTELSE'
+        | 'ER_APOTEKER'
+    }
     TjenestepensjonsforholdDto: {
       harTjenestepensjonsforhold: boolean
     }
@@ -663,6 +693,35 @@ export interface operations {
         }
       }
       /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  erEkskludertV1: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Sjekking av ekskludering utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['EkskluderingStatusV1']
+        }
+      }
+      /** @description Sjekking av ekskludering kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

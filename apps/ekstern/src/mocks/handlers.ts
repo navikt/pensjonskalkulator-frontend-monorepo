@@ -2,9 +2,9 @@ import { delay, http, HttpResponse } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
 
+import ekskludertStatusResponse from './data/ekskludert-status.json' assert { type: 'json' }
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
-import sakStatusReponse from './data/sak-status.json' assert { type: 'json' }
 import tidligsteGradertUttaksalderResponse from './data/tidligsteGradertUttaksalder.json' assert { type: 'json' }
 import tidligsteHelUttaksalderResponse from './data/tidligsteHelUttaksalder.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
@@ -45,9 +45,9 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(tidligsteGradertUttaksalderResponse)
   }),
 
-  http.get(`${baseUrl}/sak-status`, async () => {
+  http.get(`${baseUrl}/v1/ekskludert`, async () => {
     await delay(TEST_DELAY)
-    return HttpResponse.json(sakStatusReponse)
+    return HttpResponse.json(ekskludertStatusResponse)
   }),
 
   http.post(`${baseUrl}/v2/pensjonsavtaler`, async ({ request }) => {

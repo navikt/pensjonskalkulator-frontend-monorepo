@@ -6,12 +6,14 @@ import {
   isPensjonsavtale,
   isPensjonsberegningArray,
   isPerson,
+  isEkskludertStatus,
   isTpoMedlemskap,
   isUtbetalingsperiode,
   isUnleashToggle,
   isAlder,
   isSomeEnumKey,
 } from '../typeguards'
+import { trackOrSetValue } from '@testing-library/user-event/dist/types/document/trackValue'
 
 describe('Typeguards', () => {
   describe('isInntekt', () => {
@@ -335,6 +337,43 @@ describe('Typeguards', () => {
           maaneder: 2,
         })
       ).toBeFalsy()
+    })
+  })
+
+  describe('isEkskludertStatus', () => {
+    it('returnerer true når input er et EkskludertStatus-objekt', () => {
+      expect(
+        isEkskludertStatus({
+          ekskludert: true,
+          aarsak: 'ER_APOTEKER',
+        })
+      ).toEqual(true)
+    })
+
+    it('returnerer false når input ikke er et EkskludertStatus-objekt', () => {
+      expect(isEkskludertStatus(undefined)).toEqual(false)
+      expect(isEkskludertStatus(null)).toEqual(false)
+      expect(isEkskludertStatus({})).toEqual(false)
+      expect(isEkskludertStatus({ ekskludert: true })).toEqual(false)
+      expect(isEkskludertStatus({ aarsak: 'ER_APOTEKER' })).toEqual(false)
+      expect(
+        isEkskludertStatus({
+          ekskludert: null,
+          aarsak: 'ER_APOTEKER',
+        })
+      ).toEqual(false)
+      expect(
+        isEkskludertStatus({
+          ekskludert: true,
+          aarsak: null,
+        })
+      ).toEqual(false)
+      expect(
+        isEkskludertStatus({
+          ekskludert: true,
+          aarsak: 'abc',
+        })
+      ).toEqual(false)
     })
   })
 

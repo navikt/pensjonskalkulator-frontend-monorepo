@@ -1,14 +1,13 @@
 import { RouteObject, Navigate, Outlet } from 'react-router-dom'
 
 import { PageFramework } from '@/components/common/PageFramework'
-import Henvisning1963 from '@/components/Henvisning1963'
-import HenvisningUfoeretrygdGjenlevendepensjon from '@/components/HenvisningUfoeretrygdGjenlevendepensjon'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
+import { Henvisning } from '@/pages/Henvisning'
 import { LandingPage } from '@/pages/LandingPage'
 import { Personopplysninger } from '@/pages/Personopplysninger'
 import { Step0 } from '@/pages/Step0'
-import { Step1, Step1Feil } from '@/pages/Step1'
+import { Step1 } from '@/pages/Step1'
 import { Step2 } from '@/pages/Step2'
 import { Step3 } from '@/pages/Step3'
 import { Step4 } from '@/pages/Step4'
@@ -65,12 +64,8 @@ export const routes: RouteObject[] = [
         element: <Step0 />,
       },
       {
-        path: paths.henvisningUfoeretrygdGjenlevendepensjon,
-        element: <HenvisningUfoeretrygdGjenlevendepensjon />,
-      },
-      {
-        path: paths.henvisning1963,
-        element: <Henvisning1963 />,
+        path: `${paths.henvisning}/:id`,
+        element: <Henvisning />,
       },
       {
         path: paths.forbehold,
@@ -80,10 +75,6 @@ export const routes: RouteObject[] = [
         loader: directAccessGuard,
         path: paths.utenlandsopphold,
         element: <Step1 />,
-      },
-      {
-        path: paths.utenlandsoppholdFeil,
-        element: <Step1Feil />,
       },
       {
         loader: directAccessGuard,

@@ -94,10 +94,10 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/sak-status',
+      url: '/pensjon/kalkulator/api/v1/ekskludert',
     },
-    { fixture: 'sak-status.json' }
-  ).as('getSakStatus')
+    { fixture: 'ekskludert-status.json' }
+  ).as('getEkskludertStatus')
 
   cy.intercept(
     { method: 'GET', url: '/pensjon/kalkulator/api/v1/person' },
