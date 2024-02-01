@@ -1,13 +1,13 @@
 import { checkHarSamboer } from '@/utils/sivilstand'
 import { format, parseISO } from 'date-fns'
 
-export const generateTidligstMuligHelUttakRequestBody = (args: {
+export const generateTidligstMuligHeltUttakRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: number
   aarligInntektVsaPensjon?: { beloep: number; sluttAlder: Alder }
-}): TidligstMuligHelUttakRequestBody | undefined => {
+}): TidligstMuligHeltUttakRequestBody | undefined => {
   const {
     afp,
     sivilstand,

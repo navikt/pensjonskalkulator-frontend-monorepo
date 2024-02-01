@@ -97,7 +97,7 @@ describe('Beregning', () => {
   describe('Når tidligst mulig uttaksalder hentes', () => {
     it('kalles endepunktet med riktig request body', async () => {
       const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.tidligstMuligHelUttak,
+        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
         'initiate'
       )
       render(<Beregning visning="enkel" />, {

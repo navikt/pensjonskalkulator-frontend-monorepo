@@ -26,7 +26,7 @@ declare global {
   type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
 
   // /tidligste-uttaksalder
-  type TidligstMuligHelUttakRequestBody =
+  type TidligstMuligHeltUttakRequestBody =
     components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
   type TidligstMuligGradertUttakRequestBody =
     components['schemas']['IngressUttaksalderSpecForGradertUttakV1']

@@ -1,5 +1,5 @@
 import {
-  generateTidligstMuligHelUttakRequestBody,
+  generateTidligstMuligHeltUttakRequestBody,
   generateTidligstMuligGradertUttakRequestBody,
   generateAlderspensjonEnkelRequestBody,
   generateAlderspensjonRequestBody,
@@ -7,7 +7,7 @@ import {
 } from '../utils'
 
 describe('apiSlice - utils', () => {
-  describe('generateTidligstMuligHelUttakRequestBody', () => {
+  describe('generateTidligstMuligHeltUttakRequestBody', () => {
     const requestBody = {
       afp: null,
       harSamboer: null,
@@ -15,20 +15,20 @@ describe('apiSlice - utils', () => {
     }
     it('returnerer riktig simuleringstype', () => {
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
 
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           afp: 'nei',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
 
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           afp: 'ja_privat',
         })?.simuleringstype
@@ -37,12 +37,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig harEps', () => {
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
         })?.harEps
       ).toBeUndefined()
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           harSamboer: true,
         })?.simuleringstype
@@ -51,12 +51,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig aarligInntektFoerUttakBeloep', () => {
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
         })?.aarligInntektFoerUttakBeloep
       ).toBe(0)
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           aarligInntektFoerUttakBeloep: 123456,
         })?.aarligInntektFoerUttakBeloep
@@ -65,31 +65,31 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig sivilstand', () => {
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
         })?.sivilstand
       ).toBe('UGIFT')
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT',
         })?.sivilstand
       ).toEqual('UGIFT')
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           sivilstand: 'GIFT',
         })?.sivilstand
       ).toBe('GIFT')
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           sivilstand: null,
           harSamboer: true,
         })?.sivilstand
       ).toEqual('SAMBOER')
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           sivilstand: 'UGIFT',
           harSamboer: true,
@@ -99,12 +99,12 @@ describe('apiSlice - utils', () => {
 
     it('returnerer riktig aarligInntektVsaPensjon', () => {
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
         })?.aarligInntektVsaPensjon
       ).toBeUndefined()
       expect(
-        generateTidligstMuligHelUttakRequestBody({
+        generateTidligstMuligHeltUttakRequestBody({
           ...requestBody,
           aarligInntektVsaPensjon: {
             beloep: 99000,
