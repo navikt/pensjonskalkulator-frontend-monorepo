@@ -120,13 +120,26 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
               const aar = e.target.value
                 ? parseInt(e.target.value, 10)
                 : undefined
+
+              const shouldResetMonth =
+                (aar === minAlder.aar &&
+                  valgtAlder?.maaneder !== undefined &&
+                  valgtAlder?.maaneder < minAlder.maaneder) ||
+                (aar === maxAlder.aar &&
+                  valgtAlder?.maaneder !== undefined &&
+                  valgtAlder?.maaneder > maxAlder.maaneder)
+
               setValgtAlder((prevState) => {
                 return {
-                  ...prevState,
                   aar,
+                  maaneder: shouldResetMonth ? undefined : prevState.maaneder,
                 }
               })
-              onChange && onChange({ aar, maaneder: valgtAlder.maaneder })
+              onChange &&
+                onChange({
+                  aar,
+                  maaneder: shouldResetMonth ? undefined : valgtAlder.maaneder,
+                })
             }}
             aria-describedby={error ? `${name}-error` : undefined}
             aria-invalid={!!error}
@@ -163,6 +176,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
               })
               onChange && onChange({ aar: valgtAlder.aar, maaneder })
             }}
+            disabled={!valgtAlder.aar}
             aria-describedby={error ? `${name}-error` : undefined}
             aria-invalid={!!error}
           >
@@ -170,26 +184,21 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
               {' '}
             </option>
             {monthsArray.map((month) => {
-              return (
-                <option
-                  key={month}
-                  value={month}
-                  disabled={
-                    !!(
-                      valgtAlder?.aar &&
-                      valgtAlder?.aar <= minAlder?.aar &&
-                      month < minAlder?.maaneder
-                    ) ||
-                    !!(
-                      valgtAlder?.aar &&
-                      valgtAlder?.aar >= maxAlder?.aar &&
-                      month > maxAlder?.maaneder
-                    )
-                  }
-                >
-                  {`${month} ${intl.formatMessage({ id: 'alder.md' })} (${person?.foedselsdato ? transformMaanedToDate(month, person?.foedselsdato, intl.locale as Locales) : ''})`}
-                </option>
-              )
+              if (
+                valgtAlder?.aar &&
+                ((valgtAlder?.aar > minAlder?.aar &&
+                  valgtAlder?.aar < maxAlder?.aar) ||
+                  (valgtAlder?.aar === minAlder?.aar &&
+                    month >= minAlder?.maaneder) ||
+                  (valgtAlder?.aar === maxAlder?.aar &&
+                    month <= maxAlder?.maaneder))
+              ) {
+                return (
+                  <option key={month} value={month}>
+                    {`${month} ${intl.formatMessage({ id: 'alder.md' })} (${person?.foedselsdato ? transformMaanedToDate(month, person?.foedselsdato, intl.locale as Locales) : ''})`}
+                  </option>
+                )
+              }
             })}
           </Select>
 

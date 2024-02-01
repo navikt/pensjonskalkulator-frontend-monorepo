@@ -3,6 +3,7 @@ import { describe, it, vi } from 'vitest'
 import { AgePicker } from '..'
 import { render, screen, fireEvent } from '@/test-utils'
 
+// Legger til test med aT SELECT FOR MÅNED ER DISABLED, OG AKTIVERT NÅR ÅR ENDRES. TESTE AT MÅNED NULLSTILLES
 describe('AgePicker', () => {
   it('rendrer riktig default verdier, description og info', () => {
     const { asFragment, container } = render(
@@ -44,8 +45,16 @@ describe('AgePicker', () => {
       const selectMaanederElement = container.querySelector(
         `[name="unique-name-maaneder"]`
       )
+
+      expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(1)
+
+      fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
+        target: { value: '70' },
+      })
+
       const optionMaanederElements =
         selectMaanederElement?.querySelectorAll('option')
+
       expect(optionMaanederElements?.length).toBe(13)
       expect(optionMaanederElements?.[0].value).toBe('')
       expect(optionMaanederElements?.[1].value).toBe('0')
@@ -75,6 +84,13 @@ describe('AgePicker', () => {
       const selectMaanederElement = container.querySelector(
         `[name="unique-name-maaneder"]`
       )
+
+      expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(1)
+
+      fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
+        target: { value: '71' },
+      })
+
       const optionMaanederElements =
         selectMaanederElement?.querySelectorAll('option')
       expect(optionMaanederElements?.length).toBe(13)
@@ -83,8 +99,8 @@ describe('AgePicker', () => {
       expect(optionMaanederElements?.[12].value).toBe('11')
     })
 
-    it('disabler månedene som ikke kan velges basert på min/maxAlder og valgt år', () => {
-      const { container } = render(
+    it('viser bare månedene som kan velges basert på min/maxAlder og valgt år', () => {
+      const { container, asFragment } = render(
         <AgePicker
           name="unique-name"
           label="My Test Age Picker"
@@ -99,32 +115,24 @@ describe('AgePicker', () => {
       const selectMaanederElement = container.querySelector(
         `[name="unique-name-maaneder"]`
       )
-      const optionMaanederElements =
-        selectMaanederElement?.querySelectorAll('option')
-      expect(optionMaanederElements?.length).toBe(13)
-      expect(optionMaanederElements).toMatchSnapshot()
 
       fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
         target: { value: '70' },
       })
 
-      const optionMaanederElementsDisabledMin = Array.from(
-        selectMaanederElement?.querySelectorAll(
-          'option'
-        ) as NodeListOf<HTMLOptionElement>
-      ).filter((option) => option.disabled)
-      expect(optionMaanederElementsDisabledMin?.length).toBe(6)
+      expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(8)
+
+      fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
+        target: { value: '71' },
+      })
+
+      expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(13)
 
       fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
         target: { value: '72' },
       })
 
-      const optionMaanederElementsDisabledMax = Array.from(
-        selectMaanederElement?.querySelectorAll(
-          'option'
-        ) as NodeListOf<HTMLOptionElement>
-      ).filter((option) => option.disabled)
-      expect(optionMaanederElementsDisabledMax?.length).toBe(2)
+      expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(12)
     })
   })
 
@@ -159,19 +167,27 @@ describe('AgePicker', () => {
     ).toBeTruthy()
   })
 
-  it('kaller onChange når option velges i år eller måneder', () => {
+  it('kaller onChange når option velges i år eller måneder, og Select for måneder enables når år er valgt', () => {
     const onChangeMock = vi.fn()
-    render(
+    const { container } = render(
       <AgePicker
         name="unique-name"
         label="My Test Age Picker"
         onChange={onChangeMock}
       />
     )
+
+    expect(
+      container.querySelector(`[name="unique-name-maaneder"]`)
+    ).toBeDisabled()
+
     fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
       target: { value: '72' },
     })
     expect(onChangeMock).toHaveBeenCalledTimes(1)
+    expect(
+      container.querySelector(`[name="unique-name-maaneder"]`)
+    ).not.toBeDisabled()
 
     fireEvent.change(screen.getByTestId('age-picker-unique-name-maaneder'), {
       target: { value: '5' },
