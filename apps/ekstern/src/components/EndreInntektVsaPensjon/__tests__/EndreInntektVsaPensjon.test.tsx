@@ -1,18 +1,20 @@
 import { EndreInntektVsaPensjon } from '..'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
-import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, fireEvent } from '@/test-utils'
 
 // TODO mangler test for validering
 describe('EndreInntektVsaPensjon', async () => {
   describe('Gitt at brukeren ikke har lagt inn inntekt vsa pensjon', async () => {
     it('viser riktig ingress og knapp, og brukeren kan legge til inntekt', async () => {
+      const oppdatereInntektMock = vi.fn()
       const user = userEvent.setup()
-      const { store } = render(<EndreInntektVsaPensjon />)
+      render(
+        <EndreInntektVsaPensjon
+          uttaksperiode={undefined}
+          oppdatereInntekt={oppdatereInntektMock}
+        />
+      )
 
-      expect(
-        selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
-      ).toBe(undefined)
       expect(
         screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2')
       ).toBeInTheDocument()
@@ -41,36 +43,21 @@ describe('EndreInntektVsaPensjon', async () => {
           'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til'
         )
       )
-      expect(
-        selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
-          ?.beloep
-      ).toBe(123000)
-
-      expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
-      ).toBeInTheDocument()
-      expect(
-        screen.getByText(
-          '123 000 kr beregning.fra PLACEHOLDER beregning.til 70 alder.aar.',
-          { exact: false }
-        )
-      ).toBeInTheDocument()
-
-      expect(
-        screen.getByText(
-          'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre'
-        )
-      ).toBeInTheDocument()
-
-      expect(
-        screen.getByText(
-          'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette'
-        )
-      ).toBeInTheDocument()
+      expect(oppdatereInntektMock).toHaveBeenCalledWith({
+        beloep: 123000,
+        sluttAlder: { aar: 70, maaneder: 0 },
+      })
     })
+
     it('kan hen avbryte og inntekt nullstilles', async () => {
+      const oppdatereInntektMock = vi.fn()
       const user = userEvent.setup()
-      const { store } = render(<EndreInntektVsaPensjon />)
+      const { store } = render(
+        <EndreInntektVsaPensjon
+          uttaksperiode={undefined}
+          oppdatereInntekt={oppdatereInntektMock}
+        />
+      )
 
       expect(
         selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
@@ -132,31 +119,20 @@ describe('EndreInntektVsaPensjon', async () => {
     })
   })
   describe('Gitt at brukeren har lagt inn inntekt vsa pensjon', async () => {
-    it('kan hen endre den eller slette den', async () => {
+    it('viser riktig ingress og knapp, og brukeren kan endre inntekt', async () => {
+      const oppdatereInntektMock = vi.fn()
       const user = userEvent.setup()
-      const { store } = render(
+      render(
         <EndreInntektVsaPensjon
-          temporaryUttaksalder={{ aar: 67, maaneder: 3 }}
-        />,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: {},
-            userInput: {
-              ...userInputInitialState,
-              currentSimulation: {
-                ...userInputInitialState.currentSimulation,
-                aarligInntektVsaHelPensjon: {
-                  beloep: 123000,
-                  sluttAlder: { aar: 70, maaneder: 0 },
-                },
-                uttaksalder: { aar: 67, maaneder: 3 },
-                formatertUttaksalderReadOnly: '67 år og 3 md.',
-              },
+          uttaksperiode={{
+            uttaksalder: { aar: 67, maaneder: 3 },
+            aarligInntektVsaPensjon: {
+              beloep: 123000,
+              sluttAlder: { aar: 70, maaneder: 0 },
             },
-          },
-        }
+          }}
+          oppdatereInntekt={oppdatereInntektMock}
+        />
       )
 
       expect(
@@ -193,71 +169,66 @@ describe('EndreInntektVsaPensjon', async () => {
         screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.button.endre')
       )
 
+      expect(oppdatereInntektMock).toHaveBeenCalledWith({
+        beloep: 99000,
+        sluttAlder: { aar: 75, maaneder: 0 },
+      })
+    })
+
+    it('viser riktig ingress og knapp, og brukeren kan slette inntekt', async () => {
+      const oppdatereInntektMock = vi.fn()
+      const user = userEvent.setup()
+      render(
+        <EndreInntektVsaPensjon
+          uttaksperiode={{
+            uttaksalder: { aar: 67, maaneder: 3 },
+            aarligInntektVsaPensjon: {
+              beloep: 123000,
+              sluttAlder: { aar: 70, maaneder: 0 },
+            },
+          }}
+          oppdatereInntekt={oppdatereInntektMock}
+        />
+      )
+
       expect(
-        selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
-          ?.beloep
-      ).toBe(99000)
+        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+      ).toBeInTheDocument()
+
       expect(
         screen.getByText(
-          '99 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 75 alder.aar.',
+          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',
           { exact: false }
         )
       ).toBeInTheDocument()
 
       await user.click(
         screen.getByText(
-          'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette'
+          'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre'
         )
       )
-
-      expect(
-        selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
-      ).toBe(undefined)
-
-      expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2')
-      ).toBeInTheDocument()
 
       await user.click(
         screen.getByText(
-          'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til'
+          'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette'
         )
       )
-      expect(screen.getByTestId('inntekt-vsa-pensjon-textfield')).toHaveValue(
-        ''
-      )
-      expect(
-        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar')
-      ).toHaveValue('')
-      expect(
-        screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-maaneder')
-      ).toHaveValue('')
+      expect(oppdatereInntektMock).toHaveBeenCalledWith(undefined)
     })
     it('kan hen avbryte og inntekten settes tilbake', async () => {
+      const oppdatereInntektMock = vi.fn()
       const user = userEvent.setup()
-      const { store } = render(
+      render(
         <EndreInntektVsaPensjon
-          temporaryUttaksalder={{ aar: 67, maaneder: 3 }}
-        />,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: {},
-            userInput: {
-              ...userInputInitialState,
-              currentSimulation: {
-                ...userInputInitialState.currentSimulation,
-                aarligInntektVsaHelPensjon: {
-                  beloep: 123000,
-                  sluttAlder: { aar: 70, maaneder: 0 },
-                },
-                uttaksalder: { aar: 67, maaneder: 3 },
-                formatertUttaksalderReadOnly: '67 år og 3 md.',
-              },
+          uttaksperiode={{
+            uttaksalder: { aar: 67, maaneder: 3 },
+            aarligInntektVsaPensjon: {
+              beloep: 123000,
+              sluttAlder: { aar: 70, maaneder: 0 },
             },
-          },
-        }
+          }}
+          oppdatereInntekt={oppdatereInntektMock}
+        />
       )
 
       expect(
@@ -292,10 +263,8 @@ describe('EndreInntektVsaPensjon', async () => {
 
       await user.click(screen.getByText('stegvisning.avbryt'))
 
-      expect(
-        selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
-          ?.beloep
-      ).toBe(123000)
+      expect(oppdatereInntektMock).not.toHaveBeenCalledWith()
+
       expect(
         screen.getByText(
           '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',

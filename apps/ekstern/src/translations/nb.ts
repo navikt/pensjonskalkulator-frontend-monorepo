@@ -80,6 +80,7 @@ const translations = {
   'stegvisning.avbryt': 'Avbryt',
   'stegvisning.tilbake_start': 'Tilbake til start',
   'stegvisning.beregn': 'Beregn pensjon',
+  'stegvisning.nullstill': 'Nullstill',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'Velkommen til enkel kalkulator som er under utvikling. For å kunne beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
@@ -240,7 +241,6 @@ const translations = {
   'beregning.tabell.vis': 'Vis tabell av beregningen',
   'beregning.tabell.sum': 'Sum',
   'beregning.avansert.resultatkort.tittel': 'Se og endre dine valg',
-  'beregning.avansert.resultatkort.aria': 'Se og endre dine valg // TODO',
   'beregning.avansert.resultatkort.description':
     'Intekt, uttaksgrad og pensjonsalder',
   'beregning.avansert.resultatkort.button': 'Endre valg',
@@ -255,13 +255,10 @@ const translations = {
   'grunnlag.uttaksgrad.ingress':
     'Denne beregningen viser 100 % uttak av alderspensjon. I detaljert kalkulator kan du beregne alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
   'grunnlag.inntekt.title': 'Inntekt frem til uttak',
-  'grunnlag.inntekt.ingress.uendret_inntekt':
-    'Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. ',
-  'grunnlag.inntekt.ingress.endret_inntekt':
-    'Kalkulatoren bruker årsinntekten du har oppgitt som fremtidig inntekt.',
   'grunnlag.inntekt.ingress':
     'Din siste pensjonsgivende inntekt fra Skatteetaten er {beloep} kr fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
-
+  'grunnlag.inntekt.info_om_inntekt': 'Hva er pensjonsgivende inntekt?',
+  'grunnlag.inntekt.info_om_inntekt.lukk': 'Lukk',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
@@ -350,23 +347,26 @@ const translations = {
     'VALIDATION ERROR',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
-  'inntekt.info_modal.open.link': 'Hva er pensjonsgivende inntekt?',
-  'inntekt.info_modal.title': 'Hva er pensjonsgivende inntekt?',
-  'inntekt.info_modal.subtitle': 'Dette regnes som pensjonsgivende inntekt:',
-  'inntekt.info_modal.list_item1': 'all lønnsinntekt for lønnstakere',
-  'inntekt.info_modal.list_item2': 'personinntekt fra næring for selvstendige',
-  'inntekt.info_modal.list_item3': 'foreldrepenger',
-  'inntekt.info_modal.list_item4': 'sykepenger',
-  'inntekt.info_modal.list_item5': 'dagpenger',
-  'inntekt.info_modal.list_item6': 'arbeidsavklaringspenger',
-  'inntekt.info_modal.list_item7': 'omsorgsstønad',
-  'inntekt.info_modal.list_item8':
+  'inntekt.info_om_inntekt.read_more': 'Om pensjonsgivende inntekt',
+  'inntekt.info_om_inntekt.open.link': 'Hva er pensjonsgivende inntekt?',
+  'inntekt.info_om_inntekt.intro':
+    'Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. Hvis du endrer fremtidig inntekt i kalkulatoren, brukes den i stedet.{br}{br}',
+  'inntekt.info_om_inntekt.subtitle':
+    'Dette regnes som pensjonsgivende inntekt:',
+  'inntekt.info_om_inntekt.list_item1': 'all lønnsinntekt for lønnstakere',
+  'inntekt.info_om_inntekt.list_item2':
+    'personinntekt fra næring for selvstendige',
+  'inntekt.info_om_inntekt.list_item3': 'foreldrepenger',
+  'inntekt.info_om_inntekt.list_item4': 'sykepenger',
+  'inntekt.info_om_inntekt.list_item5': 'dagpenger',
+  'inntekt.info_om_inntekt.list_item6': 'arbeidsavklaringspenger',
+  'inntekt.info_om_inntekt.list_item7': 'omsorgsstønad',
+  'inntekt.info_om_inntekt.list_item8':
     'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
-  'inntekt.info_modal.list_item9':
+  'inntekt.info_om_inntekt.list_item9':
     'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
-  'inntekt.info_modal.ingress':
+  'inntekt.info_om_inntekt.ingress':
     'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.',
-  'inntekt.info_modal.lukk': 'Lukk',
   'forbehold.title': 'Forbehold',
   'forbehold.intro':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Dersom du fortsetter i jobb etter uttak av alderspensjon, vil alderspensjon fortsette å øke etter hvert som ny opptjening legges til. Du kan tjene opp til alderspensjon til og med året du fyller 75 år.',

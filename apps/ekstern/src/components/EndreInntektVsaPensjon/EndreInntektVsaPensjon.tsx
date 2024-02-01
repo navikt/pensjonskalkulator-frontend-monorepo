@@ -5,33 +5,34 @@ import { PencilIcon, TrashIcon } from '@navikt/aksel-icons'
 import { Button, Label, Modal, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
-import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatUttaksalder, validateAlder } from '@/utils/alder'
 import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 
 import styles from './EndreInntektVsaPensjon.module.scss'
 
 interface Props {
-  temporaryUttaksalder?: Partial<Alder>
+  uttaksperiode: RecursivePartial<HeltUttaksperiode> | undefined
+  oppdatereInntekt: (
+    aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
+  ) => void
 }
 
 // TODO legge til Amplitude logging
 export const EndreInntektVsaPensjon: React.FC<Props> = ({
-  temporaryUttaksalder,
+  uttaksperiode,
+  oppdatereInntekt,
 }) => {
   const intl = useIntl()
-  const dispatch = useAppDispatch()
 
   const inntektVsaPensjonModalRef = React.useRef<HTMLDialogElement>(null)
-  const { aarligInntektVsaHelPensjon } = useAppSelector(selectCurrentSimulation)
 
   const [inntektBeloepVsaPensjon, setInntektBeloepVsaPensjon] =
-    React.useState<string>(aarligInntektVsaHelPensjon?.beloep?.toString() ?? '')
+    React.useState<string>(
+      uttaksperiode?.aarligInntektVsaPensjon?.beloep?.toString() ?? ''
+    )
   const [sluttAlder, setSluttAlder] = React.useState<
     Partial<Alder> | undefined
-  >(aarligInntektVsaHelPensjon?.sluttAlder)
+  >(uttaksperiode?.aarligInntektVsaPensjon?.sluttAlder)
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, string>
   >({
@@ -84,12 +85,16 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
       ) &&
       validateAlder(sluttAlder, updateValidationAlderVelgerTextMessage)
     ) {
-      dispatch(
-        userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon({
-          beloep: parseInt(inntektBeloepVsaPensjon.replace(/ /g, ''), 10),
-          sluttAlder: { ...(sluttAlder as Alder) },
-        })
-      )
+      oppdatereInntekt({
+        beloep: parseInt(inntektBeloepVsaPensjon.replace(/ /g, ''), 10),
+        sluttAlder: { ...(sluttAlder as Alder) },
+      })
+      // dispatch(
+      //   userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon({
+      //     beloep: parseInt(inntektBeloepVsaPensjon.replace(/ /g, ''), 10),
+      //     sluttAlder: { ...(sluttAlder as Alder) },
+      //   })
+      // )
       if (inntektVsaPensjonModalRef.current?.open) {
         setInntektBeloepVsaPensjon('')
         inntektVsaPensjonModalRef.current?.close()
@@ -99,11 +104,11 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
 
   const onCancel = (): void => {
     setInntektBeloepVsaPensjon(
-      aarligInntektVsaHelPensjon?.beloep
-        ? aarligInntektVsaHelPensjon?.beloep?.toString()
+      uttaksperiode?.aarligInntektVsaPensjon?.beloep
+        ? uttaksperiode.aarligInntektVsaPensjon?.beloep?.toString()
         : ''
     )
-    setSluttAlder(aarligInntektVsaHelPensjon?.sluttAlder)
+    setSluttAlder(uttaksperiode?.aarligInntektVsaPensjon?.sluttAlder)
     setValidationErrors({
       'inntekt-vsa-pensjon': '',
       'sluttalder-inntekt-vsa-pensjon': '',
@@ -115,14 +120,12 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
 
   const onDelete = (): void => {
     setSluttAlder(undefined)
-    dispatch(
-      userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(undefined)
-    )
     setInntektBeloepVsaPensjon('')
     setValidationErrors({
       'inntekt-vsa-pensjon': '',
       'sluttalder-inntekt-vsa-pensjon': '',
     })
+    oppdatereInntekt(undefined)
   }
 
   return (
@@ -167,9 +170,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             description=""
             value={sluttAlder}
             minAlder={
-              temporaryUttaksalder?.aar &&
-              temporaryUttaksalder?.maaneder !== undefined
-                ? (temporaryUttaksalder as Alder)
+              uttaksperiode?.uttaksalder?.aar &&
+              uttaksperiode?.uttaksalder?.maaneder !== undefined
+                ? (uttaksperiode.uttaksalder as Alder)
                 : undefined
             }
             maxAlder={{ aar: 75, maaneder: 11 }}
@@ -194,7 +197,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         <Modal.Footer>
           <Button onClick={validateInntektVsaPensjon}>
             {intl.formatMessage({
-              id: aarligInntektVsaHelPensjon
+              id: uttaksperiode?.aarligInntektVsaPensjon
                 ? 'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre'
                 : 'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til',
             })}
@@ -207,26 +210,27 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </Modal.Footer>
       </Modal>
       <div className={styles.spacer} />
-      {aarligInntektVsaHelPensjon ? (
+      {uttaksperiode?.aarligInntektVsaPensjon ? (
         <>
           <Label>
             <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.label" />
           </Label>
           <p>{`${formatWithoutDecimal(
-            aarligInntektVsaHelPensjon.beloep
+            uttaksperiode.aarligInntektVsaPensjon.beloep
           )} kr ${intl.formatMessage({
             id: 'beregning.fra',
           })} ${
-            temporaryUttaksalder?.aar &&
-            temporaryUttaksalder.maaneder !== undefined
-              ? formatUttaksalder(intl, temporaryUttaksalder as Alder)
+            uttaksperiode.uttaksalder?.aar &&
+            uttaksperiode.uttaksalder.maaneder !== undefined
+              ? formatUttaksalder(intl, uttaksperiode.uttaksalder as Alder)
               : 'PLACEHOLDER'
           } ${intl.formatMessage({
             id: 'beregning.til',
-          })} ${formatUttaksalder(
-            intl,
-            aarligInntektVsaHelPensjon.sluttAlder
-          )}.`}</p>
+          })} ${
+            sluttAlder?.aar && sluttAlder.maaneder !== undefined
+              ? formatUttaksalder(intl, sluttAlder as Alder)
+              : ''
+          }.`}</p>
           <Button
             className={styles.button}
             variant="tertiary"

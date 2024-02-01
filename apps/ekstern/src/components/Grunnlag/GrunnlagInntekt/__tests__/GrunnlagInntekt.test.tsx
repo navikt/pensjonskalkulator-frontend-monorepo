@@ -16,11 +16,6 @@ describe('GrunnlagInntekt', () => {
 
     it('viser riktig tittel med formatert inntekt og tekst', async () => {
       expect(
-        await screen.findByText('grunnlag.inntekt.ingress.uendret_inntekt', {
-          exact: false,
-        })
-      ).toBeVisible()
-      expect(
         await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',
           { exact: false }
@@ -40,11 +35,7 @@ describe('GrunnlagInntekt', () => {
       )
 
       expect(await screen.findByText('123 000 kr')).toBeVisible()
-      expect(
-        await screen.findByText('grunnlag.inntekt.ingress.endret_inntekt', {
-          exact: false,
-        })
-      ).toBeVisible()
+
       expect(
         await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',
@@ -59,11 +50,6 @@ describe('GrunnlagInntekt', () => {
       )
       await user.click(await screen.findByText('stegvisning.avbryt'))
       expect(screen.getByText('521 338 kr')).toBeVisible()
-      expect(
-        await screen.findByText('grunnlag.inntekt.ingress.uendret_inntekt', {
-          exact: false,
-        })
-      ).toBeVisible()
       expect(
         await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',
@@ -87,12 +73,6 @@ describe('GrunnlagInntekt', () => {
       expect(await screen.findByText('0 kr')).toBeVisible()
       await user.click(await screen.findByTestId('accordion-header'))
 
-      expect(
-        await screen.findByText('grunnlag.inntekt.ingress.uendret_inntekt', {
-          exact: false,
-        })
-      ).toBeVisible()
-
       await user.click(
         await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
@@ -106,21 +86,16 @@ describe('GrunnlagInntekt', () => {
       expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
 
       expect(
-        await screen.findByText('grunnlag.inntekt.ingress.endret_inntekt', {
-          exact: false,
-        })
-      ).toBeVisible()
-      expect(
         await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',
           { exact: false }
         )
       ).toBeVisible()
       expect(
-        await screen.findByText('inntekt.info_modal.open.link')
+        await screen.findByText('inntekt.info_om_inntekt.open.link')
       ).toBeVisible()
       expect(
-        await screen.findByText('inntekt.info_modal.open.link')
+        await screen.findByText('inntekt.info_om_inntekt.open.link')
       ).toBeVisible()
       expect(
         await screen.findByText('inntekt.endre_inntekt_modal.open.button')
@@ -134,10 +109,20 @@ describe('GrunnlagInntekt', () => {
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[2])
-    await user.click(await screen.findByText('inntekt.info_modal.open.link'))
-    expect(await screen.findByText('inntekt.info_modal.title')).toBeVisible()
-    expect(await screen.findByText('inntekt.info_modal.subtitle')).toBeVisible()
-    await user.click(await screen.findByText('inntekt.info_modal.lukk'))
-    expect(screen.queryByText('inntekt.info_modal.title')).not.toBeVisible()
+    await user.click(
+      await screen.findByText('inntekt.info_om_inntekt.open.link')
+    )
+    expect(
+      await screen.findByText('grunnlag.inntekt.info_om_inntekt')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('inntekt.info_om_inntekt.subtitle')
+    ).toBeVisible()
+    await user.click(
+      await screen.findByText('grunnlag.inntekt.info_om_inntekt.lukk')
+    )
+    expect(
+      screen.queryByText('grunnlag.inntekt.info_om_inntekt')
+    ).not.toBeVisible()
   })
 })

@@ -63,7 +63,7 @@ export const userInputSlice = createSlice({
     },
     setCurrentSimulationaarligInntektFoerUttakBeloep: (
       state,
-      action: PayloadAction<number>
+      action: PayloadAction<number | null>
     ) => {
       state.currentSimulation.aarligInntektFoerUttakBeloep = action.payload
     },

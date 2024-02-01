@@ -1,1 +1,0 @@
-export { InfoModalInntekt } from './InfoModalInntekt'

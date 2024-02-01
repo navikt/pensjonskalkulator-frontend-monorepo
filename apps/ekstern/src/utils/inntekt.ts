@@ -38,5 +38,6 @@ export const validateInntekt = (
       'inntekt.endre_inntekt_modal.textfield.validation_error.max'
     )
   }
+  console.log('>>> validateInntekt', isValid, input)
   return isValid
 }

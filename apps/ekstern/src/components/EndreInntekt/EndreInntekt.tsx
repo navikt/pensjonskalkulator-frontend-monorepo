@@ -2,31 +2,51 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon } from '@navikt/aksel-icons'
-import { BodyShort, Button, Modal, TextField, VStack } from '@navikt/ds-react'
+import {
+  BodyLong,
+  BodyShort,
+  Button,
+  Modal,
+  TextField,
+  VStack,
+} from '@navikt/ds-react'
 
-import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectAarligInntektFoerUttakBeloepFraBrukerInput } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
-import { validateInntekt } from '@/utils/inntekt'
+import { useAppSelector } from '@/state/hooks'
+import { selectAarligInntektFoerUttakBeloepFraSkatt } from '@/state/userInput/selectors'
+import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
+import { getFormatMessageValues } from '@/utils/translations'
 
 interface Props {
+  visning: 'enkel' | 'avansert'
   className?: string
   buttonLabel?: string
+  value: number | null
+  onSubmit: (inntekt: number) => void
 }
-export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
+export const EndreInntekt: React.FC<Props> = ({
+  visning,
+  className,
+  buttonLabel,
+  value,
+  onSubmit: onSubmitCallback,
+}) => {
   const intl = useIntl()
-  const dispatch = useAppDispatch()
 
   const inntektModalRef = React.useRef<HTMLDialogElement>(null)
-  const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
-    selectAarligInntektFoerUttakBeloepFraBrukerInput
+
+  const aarligInntektFoerUttakBeloepFraSkatt = useAppSelector(
+    selectAarligInntektFoerUttakBeloepFraSkatt
   )
 
   const [validationError, setValidationError] = React.useState<string>('')
   const [oppdatertInntekt, setOppdatertInntekt] = React.useState<string>(
-    aarligInntektFoerUttakBeloepFraBrukerInput?.toString() ?? ''
+    value ? value.toString() : ''
   )
+
+  React.useEffect(() => {
+    setOppdatertInntekt(value ? value.toString() : '')
+  }, [value])
 
   const handleTextfieldChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -57,12 +77,6 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
     const inntektData = data.get('inntekt') as string | undefined
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
-      dispatch(
-        userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
-          parseInt((inntektData as string).replace(/ /g, ''), 10)
-        )
-      )
-      dispatch(userInputActions.setCurrentSimulationUttaksalder(null))
       logger('button klikk', {
         tekst: 'endrer pensjonsgivende inntekt',
       })
@@ -72,6 +86,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
         setOppdatertInntekt('')
         inntektModalRef.current?.close()
       }
+      onSubmitCallback(parseInt((inntektData as string).replace(/ /g, ''), 10))
     }
   }
 
@@ -96,6 +111,22 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
         width="small"
       >
         <Modal.Body>
+          {visning === 'avansert' && (
+            <BodyLong>
+              <FormattedMessage
+                id="grunnlag.inntekt.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                  beloep: formatWithoutDecimal(
+                    aarligInntektFoerUttakBeloepFraSkatt?.beloep
+                  ),
+                  aar: aarligInntektFoerUttakBeloepFraSkatt?.aar,
+                }}
+              />
+              <br />
+              <br />
+            </BodyLong>
+          )}
           <form id="oppdatere-inntekt" method="dialog" onSubmit={onSubmit}>
             <VStack gap="4">
               <TextField
@@ -114,9 +145,11 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
                 value={oppdatertInntekt}
                 max={5}
               />
-              <BodyShort>
-                <FormattedMessage id="inntekt.endre_inntekt_modal.paragraph" />
-              </BodyShort>
+              {visning === 'enkel' && (
+                <BodyShort>
+                  <FormattedMessage id="inntekt.endre_inntekt_modal.paragraph" />
+                </BodyShort>
+              )}
             </VStack>
           </form>
         </Modal.Body>
@@ -136,7 +169,7 @@ export const EndreInntekt: React.FC<Props> = ({ className, buttonLabel }) => {
 
       <Button
         className={className ? className : ''}
-        variant="secondary"
+        variant="tertiary"
         icon={<PencilIcon aria-hidden />}
         onClick={openInntektModal}
       >
