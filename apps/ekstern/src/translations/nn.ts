@@ -78,6 +78,7 @@ const translations = {
   'stegvisning.avbryt': 'Avbryt',
   'stegvisning.tilbake_start': 'Tilbake til start',
   'stegvisning.beregn': 'Rekne ut pensjon',
+  'stegvisning.nullstill': 'MANGLER_TEKST',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'Velkommen til enkel kalkulator som er under utvikling. For å kunne rekne ut pensjonen din, må du svare på alle spørsmåla som kjem.',
@@ -235,7 +236,6 @@ const translations = {
   'beregning.tabell.vis': 'Vis tabell av utrekninga',
   'beregning.tabell.sum': 'Sum',
   'beregning.avansert.resultatkort.tittel': 'MANGLER_TEKST',
-  'beregning.avansert.resultatkort.aria': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.description': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.button': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.frem_til_uttak': 'MANGLER_TEKST',
@@ -253,8 +253,8 @@ const translations = {
   'grunnlag.inntekt.ingress':
     'Beløpet er di siste pensjonsgjevande årsinntekt (frå {aarsinntekt}) frå Skatteetaten. Inntekta vert brukt som di framtidige inntekt fram til du startar uttak av pensjon. Ynskjer du å endre framtidig inntekt, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   // TODO - utdatert tekst
-  'grunnlag.inntekt.ingress.uendret_inntekt': 'MANGLER_TEKST',
-  'grunnlag.inntekt.ingress.endret_inntekt': 'MANGLER_TEKST',
+  'grunnlag.inntekt.info_om_inntekt': 'Kva er pensjonsgjevande inntekt?',
+  'grunnlag.inntekt.info_om_inntekt.lukk': 'Lukk',
   'grunnlag.sivilstand.title': 'Sivilstand',
   'grunnlag.sivilstand.title.error': 'Kunne ikkje hentast',
   'grunnlag.sivilstand.ingress':
@@ -334,24 +334,24 @@ const translations = {
     'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'MANGLER_TEKST',
-  'inntekt.info_modal.open.link': 'Kva er pensjonsgjevande inntekt?',
-  'inntekt.info_modal.title': 'Kva er pensjonsgjevande inntekt?',
-  'inntekt.info_modal.subtitle':
+  'inntekt.info_om_inntekt.open.link': 'Kva er pensjonsgjevande inntekt?',
+  'inntekt.info_om_inntekt.intro': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.subtitle':
     'Dette vert rekna som pensjonsgjevande inntekt',
-  'inntekt.info_modal.list_item1': 'All lønsinntekt for lønstakarar',
-  'inntekt.info_modal.list_item2': 'Personinntekt frå næring frå sjølvstendige',
-  'inntekt.info_modal.list_item3': 'Foreldrepengar',
-  'inntekt.info_modal.list_item4': 'Sjukepengar',
-  'inntekt.info_modal.list_item5': 'Dagpengar',
-  'inntekt.info_modal.list_item6': 'Arbeidsavklaringspengar',
-  'inntekt.info_modal.list_item7': 'Omsorgsstønad',
-  'inntekt.info_modal.list_item8':
+  'inntekt.info_om_inntekt.list_item1': 'All lønsinntekt for lønstakarar',
+  'inntekt.info_om_inntekt.list_item2':
+    'Personinntekt frå næring frå sjølvstendige',
+  'inntekt.info_om_inntekt.list_item3': 'Foreldrepengar',
+  'inntekt.info_om_inntekt.list_item4': 'Sjukepengar',
+  'inntekt.info_om_inntekt.list_item5': 'Dagpengar',
+  'inntekt.info_om_inntekt.list_item6': 'Arbeidsavklaringspengar',
+  'inntekt.info_om_inntekt.list_item7': 'Omsorgsstønad',
+  'inntekt.info_om_inntekt.list_item8':
     'Fosterheimsgodtgjersle (den delen som utgjer arbeidsgodtgjersle)',
-  'inntekt.info_modal.list_item9':
+  'inntekt.info_om_inntekt.list_item9':
     'Førstegongsteneste (viss påbegynt tidlegast i 2010)',
-  'inntekt.info_modal.ingress':
+  'inntekt.info_om_inntekt.ingress':
     'Pensjonsgjvande inntekt verkar inn på retten til storleiken på alderspensjonen og andre pensjonsytingar. Pensjonsgjevande inntekt vert rekna ut av Skatteetaten.{br}{br}Uføretrygd gjer opptening til alderspensjon, men vert ikkje rekna som pensjonsgjevande inntekt.',
-  'inntekt.info_modal.lukk': 'Lukk',
   'forbehold.title': 'Atterhald',
   'forbehold.intro':
     'Pensjonen er rekna ut med dei opplysningane vi har om deg, i tillegg til dei opplysningane du har gjeve sjølve på tidspunktet for utrekninga. Utrekninga er eit førebels svar på kvor mykje du kan vente å få i pensjon. Beløpa er i dagens kroneverdi før skatt. Vi har brukt dagens satsar for garantipensjon. Satsane vert reguleret kvart år og vert ikkje fastsatt før dei skal brukast. Framtidige reguleringar kan medføra endringar for kor tid du tidlegast kan starte uttak av alderspensjon.{br}{br}Er det lenge til du skal ta ut pensjon, tilrår vi at du tek ei ny utrekning i pensjonskalkulatoren når du nærmar deg alderen for oppstart av pensjon. Det vil blant anna kunne skje endringar i oppteninga di og i regelverket.{br}{br}Pensjonsgjevande inntekt er gjeldande i utrekning av alderspensjon frå januar året etter at ho er fastsett av Skatteetaten. Alderspensjonen vil difor normalt auke som fylgje av ny opptjening de to første åra etter uttak. Held du fram i jobb etter uttak av alderspensjon, vil alderspensjonen fortsetje å auke etter kvart som ny opptening vert lagt til. Du kan tene opp til alderspensjon til og med det året du fyller 75 år.',

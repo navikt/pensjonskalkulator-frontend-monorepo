@@ -48,10 +48,11 @@ declare global {
     components['schemas']['IngressSimuleringSpecV2']
   type AlderspensjonResponseBody =
     components['schemas']['SimuleringsresultatDto']
+  type AarligInntektVsaPensjon =
+    components['schemas']['IngressSimuleringInntektV2']
 
-  type HeltUttaksperiode = components['schemas']['IngressSimuleringHeltUttakV2']
-  type GradertUttaksperiode =
-    components['schemas']['IngressSimuleringGradertUttakV2']
+  type HeltUttak = components['schemas']['IngressSimuleringHeltUttakV2']
+  type GradertUttak = components['schemas']['IngressSimuleringGradertUttakV2']
 
   type Simuleringstype =
     components['schemas']['IngressSimuleringSpecV2']['simuleringstype']

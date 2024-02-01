@@ -9,7 +9,7 @@ export interface Simulation {
     beloep: number // heltall beløp i nok - inntekt vsa. pensjon
     sluttAlder: Alder // alder inntekt vsa. pensjon tar slutt
   }
-  gradertUttaksperiode: GradertUttaksperiode | null
+  gradertUttaksperiode: GradertUttak | null
 }
 
 export interface UserInputState {
@@ -63,7 +63,7 @@ export const userInputSlice = createSlice({
     },
     setCurrentSimulationaarligInntektFoerUttakBeloep: (
       state,
-      action: PayloadAction<number>
+      action: PayloadAction<number | null>
     ) => {
       state.currentSimulation.aarligInntektFoerUttakBeloep = action.payload
     },
@@ -75,7 +75,7 @@ export const userInputSlice = createSlice({
     },
     setCurrentSimulationGradertuttaksperiode: (
       state,
-      action: PayloadAction<GradertUttaksperiode | null>
+      action: PayloadAction<GradertUttak | null>
     ) => {
       state.currentSimulation.gradertUttaksperiode = action.payload
     },

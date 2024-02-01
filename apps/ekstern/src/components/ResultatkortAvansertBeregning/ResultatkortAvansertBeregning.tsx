@@ -35,7 +35,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
     <ExpansionCard
       className={styles.card}
       aria-label={intl.formatMessage({
-        id: 'beregning.avansert.resultatkort.aria',
+        id: 'beregning.avansert.resultatkort',
       })}
     >
       <ExpansionCard.Header>

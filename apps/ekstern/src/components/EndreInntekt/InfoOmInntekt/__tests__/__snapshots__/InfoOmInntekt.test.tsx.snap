@@ -1,0 +1,55 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InfoModalInntekt > viser fast info om inntekt 1`] = `
+<DocumentFragment>
+  <p
+    class="navds-body-long navds-body-long--medium"
+  >
+    Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. Hvis du endrer fremtidig inntekt i kalkulatoren, brukes den i stedet.
+    <br />
+    <br />
+  </p>
+  <h2
+    class="navds-label"
+  >
+    inntekt.info_om_inntekt.subtitle
+  </h2>
+  <ul>
+    <li>
+      inntekt.info_om_inntekt.list_item1
+    </li>
+    <li>
+      inntekt.info_om_inntekt.list_item2
+    </li>
+    <li>
+      inntekt.info_om_inntekt.list_item3
+    </li>
+    <li>
+      inntekt.info_om_inntekt.list_item4
+    </li>
+    <li>
+      inntekt.info_om_inntekt.list_item5
+    </li>
+    <li>
+      inntekt.info_om_inntekt.list_item6
+    </li>
+    <li>
+      inntekt.info_om_inntekt.list_item7
+    </li>
+    <li>
+      inntekt.info_om_inntekt.list_item8
+    </li>
+    <li>
+      inntekt.info_om_inntekt.list_item9
+    </li>
+  </ul>
+  <p
+    class="navds-body-long navds-body-long--medium"
+  >
+    Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.
+    <br />
+    <br />
+    Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.
+  </p>
+</DocumentFragment>
+`;
