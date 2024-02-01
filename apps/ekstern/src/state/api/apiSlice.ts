@@ -16,7 +16,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
   }),
-  tagTypes: ['Person', 'Inntekt', 'Alderspensjon'],
+  tagTypes: ['Person', 'Inntekt', 'Alderspensjon', 'TidligstMuligHeltUttak'],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
@@ -60,15 +60,16 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    tidligsteHelUttaksalder: builder.query<
+    tidligstMuligHeltUttak: builder.query<
       Alder,
-      TidligsteHelUttaksalderRequestBody | void
+      TidligstMuligHeltUttakRequestBody | void
     >({
       query: (body) => ({
         url: '/v1/tidligste-hel-uttaksalder',
         method: 'POST',
         body,
       }),
+      providesTags: ['TidligstMuligHeltUttak'],
       transformResponse: (response: Alder) => {
         if (!isAlder(response)) {
           throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
@@ -76,9 +77,9 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    tidligsteGradertUttaksalder: builder.query<
+    tidligstMuligGradertUttak: builder.query<
       Alder,
-      TidligsteGradertUttaksalderRequestBody | void
+      TidligstMuligGradertUttakRequestBody | void
     >({
       query: (body) => ({
         url: '/v1/tidligste-gradert-uttaksalder',
@@ -183,8 +184,8 @@ export const {
   useGetPersonQuery,
   useGetEkskludertStatusQuery,
   useGetTpoMedlemskapQuery,
-  useTidligsteHelUttaksalderQuery,
-  useTidligsteGradertUttaksalderQuery,
+  useTidligstMuligHeltUttakQuery,
+  useTidligstMuligGradertUttakQuery,
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,

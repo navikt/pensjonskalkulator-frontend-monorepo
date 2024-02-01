@@ -12,6 +12,8 @@ export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
   maaneder: 0,
 }
 
+const MINIMUM_UTTAKSAAR_IFOLGE_LOVEN: number = 62
+
 export const formatUttaksalder = (
   intl: IntlShape,
   { aar, maaneder }: Alder,
@@ -55,6 +57,19 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
     isBefore(new Date(foedselsdato), LAST_DAY_1963) ||
     isSameDay(new Date(foedselsdato), LAST_DAY_1963)
   )
+}
+
+export const isUttaksalderOverMinUttaksaar = (tidligstMuligUttak: Alder) => {
+  if (tidligstMuligUttak.aar > MINIMUM_UTTAKSAAR_IFOLGE_LOVEN) {
+    return true
+  } else if (
+    tidligstMuligUttak.aar === MINIMUM_UTTAKSAAR_IFOLGE_LOVEN &&
+    tidligstMuligUttak.maaneder > 0
+  ) {
+    return true
+  } else {
+    return false
+  }
 }
 
 export const transformUttaksalderToDate = (

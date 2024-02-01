@@ -97,7 +97,7 @@ describe('Beregning', () => {
   describe('Når tidligst mulig uttaksalder hentes', () => {
     it('kalles endepunktet med riktig request body', async () => {
       const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.tidligsteHelUttaksalder,
+        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
         'initiate'
       )
       render(<Beregning visning="enkel" />, {
@@ -173,7 +173,7 @@ describe('Beregning', () => {
       })
 
       expect(
-        await screen.findByText('tidligsteuttaksalder.error')
+        await screen.findByText('tidligstmuliguttak.error')
       ).toBeInTheDocument()
 
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)

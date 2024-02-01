@@ -7,6 +7,7 @@ import {
   unformatUttaksalder,
   isFoedtFoer1963,
   isFoedtFoer1964,
+  isUttaksalderOverMinUttaksaar,
   transformUttaksalderToDate,
 } from '../alder'
 
@@ -78,6 +79,7 @@ describe('alder-utils', () => {
       expect(isFoedtFoer1963('1945-12-04')).toBeTruthy()
     })
   })
+
   describe('isFoedtFoer1964', () => {
     it('returnerer false når datoen er ugydlig', () => {
       expect(isFoedtFoer1964('')).toBeFalsy()
@@ -93,6 +95,33 @@ describe('alder-utils', () => {
       expect(isFoedtFoer1964('1963-12-31')).toBeTruthy()
       expect(isFoedtFoer1964('1960-04-30')).toBeTruthy()
       expect(isFoedtFoer1964('1945-12-04')).toBeTruthy()
+    })
+  })
+
+  describe('isUttaksalderOverMinUttaksaar', () => {
+    it('returnerer false når alderen er lik eller under 62 år', () => {
+      expect(
+        isUttaksalderOverMinUttaksaar({ aar: 61, maaneder: 11 })
+      ).toBeFalsy()
+      expect(
+        isUttaksalderOverMinUttaksaar({ aar: 62, maaneder: 0 })
+      ).toBeFalsy()
+    })
+
+    it('returnerer true når alderen er over 62 år', () => {
+      expect(
+        isUttaksalderOverMinUttaksaar({ aar: 62, maaneder: 1 })
+      ).toBeTruthy()
+
+      expect(
+        isUttaksalderOverMinUttaksaar({ aar: 62, maaneder: 2 })
+      ).toBeTruthy()
+      expect(
+        isUttaksalderOverMinUttaksaar({ aar: 63, maaneder: 0 })
+      ).toBeTruthy()
+      expect(
+        isUttaksalderOverMinUttaksaar({ aar: 70, maaneder: 0 })
+      ).toBeTruthy()
     })
   })
 

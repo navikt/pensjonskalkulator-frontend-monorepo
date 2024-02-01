@@ -9,12 +9,12 @@ import { EndreInntekt } from '@/components/EndreInntekt'
 import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
 import { InfoModalInntekt } from '@/components/InfoModalInntekt'
 import {
-  useTidligsteHelUttaksalderQuery,
-  useTidligsteGradertUttaksalderQuery,
+  useTidligstMuligHeltUttakQuery,
+  useTidligstMuligGradertUttakQuery,
 } from '@/state/api/apiSlice'
 import {
-  generateTidligsteHelUttaksalderRequestBody,
-  generateTidligsteGradertUttaksalderRequestBody,
+  generateTidligstMuligHeltUttakRequestBody,
+  generateTidligstMuligGradertUttakRequestBody,
 } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -25,9 +25,8 @@ import {
   selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { formatUttaksalder } from '@/utils/alder'
+import { formatUttaksalder, isUttaksalderOverMinUttaksaar } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
-import { getFormatMessageValues } from '@/utils/translations'
 
 import { validateAvansertBeregningSkjema } from './utils'
 
@@ -51,9 +50,10 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
-  const [temporaryHelUttaksalder, setTemporaryHelUttaksalder] = React.useState<
-    Partial<Alder> | undefined
-  >(uttaksalder !== null ? uttaksalder : undefined)
+  const [temporaryHeltUttaksalder, setTemporaryHeltUttaksalder] =
+    React.useState<Partial<Alder> | undefined>(
+      uttaksalder !== null ? uttaksalder : undefined
+    )
 
   const [temporaryGradertUttaksperiode, setTemporaryGradertUttaksperiode] =
     React.useState<RecursivePartial<GradertUttaksperiode> | undefined>(
@@ -62,52 +62,55 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
 
   // Hent tidligst hel uttaksalder
   const [
-    tidligsteHelUttaksalderRequestBody,
-    setTidligsteHelUttaksalderRequestBody,
-  ] = React.useState<TidligsteHelUttaksalderRequestBody | undefined>(undefined)
+    tidligstMuligHeltUttakRequestBody,
+    setTidligstMuligHeltUttakRequestBody,
+  ] = React.useState<TidligstMuligHeltUttakRequestBody | undefined>(undefined)
   const {
-    data: tidligstHelUttaksalder,
-    isError: isTidligstHelUttaksalderError,
-  } = useTidligsteHelUttaksalderQuery(tidligsteHelUttaksalderRequestBody, {
-    skip: !tidligsteHelUttaksalderRequestBody,
+    data: tidligstMuligHeltUttak,
+    isError: isTidligstMuligHeltUttakError,
+  } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
+    skip: !tidligstMuligHeltUttakRequestBody,
   })
   // Hent tidligst gradert uttaksalder
   const [
-    tidligsteGradertUttaksalderRequestBody,
-    setTidligsteGradertUttaksalderRequestBody,
-  ] = React.useState<TidligsteGradertUttaksalderRequestBody | undefined>(
+    tidligstMuligGradertUttakRequestBody,
+    setTidligstMuligGradertUttakRequestBody,
+  ] = React.useState<TidligstMuligGradertUttakRequestBody | undefined>(
     undefined
   )
-  const { data: tidligstGradertUttaksalder } =
-    useTidligsteGradertUttaksalderQuery(
-      tidligsteGradertUttaksalderRequestBody,
-      {
-        skip: !tidligsteGradertUttaksalderRequestBody,
-      }
-    )
+  const {
+    data: tidligstMuligGradertUttak,
+    isError: isTidligstMuligGradertUttakError,
+  } = useTidligstMuligGradertUttakQuery(tidligstMuligGradertUttakRequestBody, {
+    skip: !tidligstMuligGradertUttakRequestBody,
+  })
 
   React.useEffect(() => {
-    setTidligsteHelUttaksalderRequestBody(
-      generateTidligsteHelUttaksalderRequestBody({
+    console.log('>>> tidligstMuligHeltUttakRequestBody')
+    const oppdatertHeltUttaksalderRequestBody =
+      generateTidligstMuligHeltUttakRequestBody({
         afp,
         sivilstand: sivilstand,
         harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
       })
-    )
+
+    if (oppdatertHeltUttaksalderRequestBody !== undefined) {
+      setTidligstMuligHeltUttakRequestBody(oppdatertHeltUttaksalderRequestBody)
+    }
 
     if (temporaryGradertUttaksperiode?.grad) {
-      setTidligsteGradertUttaksalderRequestBody(
-        generateTidligsteGradertUttaksalderRequestBody({
+      setTidligstMuligGradertUttakRequestBody(
+        generateTidligstMuligGradertUttakRequestBody({
           afp,
           sivilstand: sivilstand,
           harSamboer,
           aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
           heltUttak: {
             uttaksalder:
-              temporaryHelUttaksalder?.aar &&
-              temporaryHelUttaksalder?.maaneder !== undefined
-                ? (temporaryHelUttaksalder as Alder)
+              temporaryHeltUttaksalder?.aar &&
+              temporaryHeltUttaksalder?.maaneder !== undefined
+                ? (temporaryHeltUttaksalder as Alder)
                 : { aar: 67, maaneder: 0 },
             aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
           },
@@ -125,7 +128,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     aarligInntektFoerUttakBeloep,
     harSamboer,
     temporaryGradertUttaksperiode,
-    temporaryHelUttaksalder,
+    temporaryHeltUttaksalder,
   ])
 
   const [validationErrors, setValidationErrors] = React.useState<
@@ -142,19 +145,16 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
 
   React.useEffect(() => {
     // TODO refactor flytte dette til en util function?
-    if (tidligstHelUttaksalder) {
-      const isTidligsteUttaksalder62 =
-        tidligstHelUttaksalder.aar === 62 &&
-        tidligstHelUttaksalder.maaneder === 0
+    if (tidligstMuligHeltUttak) {
       if (!temporaryGradertUttaksperiode) {
         setAgePickerHelDescription(
           `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
             intl,
-            tidligstHelUttaksalder
+            tidligstMuligHeltUttak
           )}.`
         )
       } else {
-        if (!isTidligsteUttaksalder62) {
+        if (isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)) {
           setAgePickerHelDescription(
             'Med gradert uttak, kan kalkulatoren tidligst beregne 100 % alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut 100 % tidligere.'
           )
@@ -163,23 +163,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         }
       }
     }
-
-    // TODO viser vi at det feilet?
-    if (isTidligstHelUttaksalderError) {
-      setAgePickerHelDescription(
-        intl.formatMessage(
-          {
-            id: 'tidligsteuttaksalder.error',
-          },
-          {
-            ...getFormatMessageValues(intl),
-          }
-        )
-      )
-    }
   }, [
-    tidligstHelUttaksalder,
-    isTidligstHelUttaksalderError,
+    tidligstMuligHeltUttak,
+    isTidligstMuligHeltUttakError,
     temporaryGradertUttaksperiode,
   ])
 
@@ -337,19 +323,20 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               name="uttaksalder-gradert-pensjon"
               label={`Når vil du ta ut ${temporaryGradertUttaksperiode.grad} % alderspensjon`}
               description={
-                tidligstGradertUttaksalder &&
-                (tidligstHelUttaksalder?.aar !== 62 ||
-                  tidligstHelUttaksalder?.maaneder !== 0)
+                tidligstMuligGradertUttak &&
+                !isTidligstMuligGradertUttakError &&
+                tidligstMuligHeltUttak &&
+                isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)
                   ? `Du kan tidligst ta ut ${
                       temporaryGradertUttaksperiode.grad
                     } % alderspensjon når du er ${formatUttaksalder(
                       intl,
-                      tidligstGradertUttaksalder
+                      tidligstMuligGradertUttak
                     )}.`
                   : ''
               }
               value={temporaryGradertUttaksperiode?.uttaksalder}
-              minAlder={tidligstGradertUttaksalder}
+              minAlder={tidligstMuligGradertUttak}
               onChange={(alder) => {
                 setValidationErrors((prevState) => {
                   return {
@@ -399,13 +386,13 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             name="uttaksalder-hele-pensjon"
             label="Når vil du ta ut 100 % alderspensjon"
             description={agePickerHelDescription}
-            value={temporaryHelUttaksalder}
+            value={temporaryHeltUttaksalder}
             minAlder={
               temporaryGradertUttaksperiode &&
-              (tidligstHelUttaksalder?.aar !== 62 ||
-                tidligstHelUttaksalder?.maaneder !== 0)
+              tidligstMuligHeltUttak &&
+              isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)
                 ? { aar: 67, maaneder: 0 }
-                : tidligstHelUttaksalder
+                : tidligstMuligHeltUttak
             }
             onChange={(alder) => {
               setValidationErrors((prevState) => {
@@ -414,14 +401,14 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
                   'uttaksalder-hele-pensjon': '',
                 }
               })
-              setTemporaryHelUttaksalder(alder)
+              setTemporaryHeltUttaksalder(alder)
             }}
             error={validationErrors['uttaksalder-hele-pensjon']}
           />
         </div>
         <div>
           <EndreInntektVsaPensjon
-            temporaryUttaksalder={temporaryHelUttaksalder}
+            temporaryUttaksalder={temporaryHeltUttaksalder}
           />
         </div>
         <div>
