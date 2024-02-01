@@ -11,7 +11,7 @@ import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 import styles from './EndreInntektVsaPensjon.module.scss'
 
 interface Props {
-  uttaksperiode: RecursivePartial<HeltUttaksperiode> | undefined
+  uttaksperiode: RecursivePartial<HeltUttak> | undefined
   oppdatereInntekt: (
     aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
   ) => void
@@ -89,12 +89,6 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         beloep: parseInt(inntektBeloepVsaPensjon.replace(/ /g, ''), 10),
         sluttAlder: { ...(sluttAlder as Alder) },
       })
-      // dispatch(
-      //   userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon({
-      //     beloep: parseInt(inntektBeloepVsaPensjon.replace(/ /g, ''), 10),
-      //     sluttAlder: { ...(sluttAlder as Alder) },
-      //   })
-      // )
       if (inntektVsaPensjonModalRef.current?.open) {
         setInntektBeloepVsaPensjon('')
         inntektVsaPensjonModalRef.current?.close()

@@ -26,9 +26,9 @@ declare global {
   type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
 
   // /tidligste-uttaksalder
-  type TidligsteHelUttaksalderRequestBody =
+  type TidligstMuligHeltUttakRequestBody =
     components['schemas']['IngressUttaksalderSpecForHeltUttakV1']
-  type TidligsteGradertUttaksalderRequestBody =
+  type TidligstMuligGradertUttakRequestBody =
     components['schemas']['IngressUttaksalderSpecForGradertUttakV1']
 
   // /pensjonsavtaler
@@ -51,9 +51,8 @@ declare global {
   type AarligInntektVsaPensjon =
     components['schemas']['IngressSimuleringInntektV2']
 
-  type HeltUttaksperiode = components['schemas']['IngressSimuleringHeltUttakV2']
-  type GradertUttaksperiode =
-    components['schemas']['IngressSimuleringGradertUttakV2']
+  type HeltUttak = components['schemas']['IngressSimuleringHeltUttakV2']
+  type GradertUttak = components['schemas']['IngressSimuleringGradertUttakV2']
 
   type Simuleringstype =
     components['schemas']['IngressSimuleringSpecV2']['simuleringstype']

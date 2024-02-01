@@ -150,6 +150,9 @@ export const BeregningAvansert: React.FC = () => {
                 )}
                 {isError && <FormattedMessage id="beregning.error" />}
               </Alert>
+              <ResultatkortAvansertBeregning
+                onButtonClick={() => setModus('redigering')}
+              />
             </>
           ) : (
             <>

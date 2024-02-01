@@ -11,10 +11,10 @@ export const validateAvansertBeregningSkjema = (
   const uttaksgradData = inputData.get('uttaksgrad')
 
   const avansertBeregningFormatertUttaksalderAarHelPensjonData = inputData.get(
-    'uttaksalder-hele-pensjon-aar'
+    'uttaksalder-hel-pensjon-aar'
   )
   const avansertBeregningFormatertUttaksalderMaanederHelPensjonData =
-    inputData.get('uttaksalder-hele-pensjon-maaneder')
+    inputData.get('uttaksalder-hel-pensjon-maaneder')
 
   const avansertBeregningFormatertUttaksalderAarGradertPensjonData =
     inputData.get('uttaksalder-gradert-pensjon-aar')
@@ -67,7 +67,7 @@ export const validateAvansertBeregningSkjema = (
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
-        'uttaksalder-hele-pensjon': 'VALIDATION ERROR UTTAKSALDER HEL PENSJON',
+        'uttaksalder-hel-pensjon': 'VALIDATION ERROR UTTAKSALDER HEL PENSJON',
       }
     })
   }

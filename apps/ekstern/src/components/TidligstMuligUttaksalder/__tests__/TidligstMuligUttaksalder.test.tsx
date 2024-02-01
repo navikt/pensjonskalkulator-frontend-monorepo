@@ -20,10 +20,10 @@ describe('TidligstMuligUttaksalder', () => {
     )
     await waitFor(() => {
       expect(
-        screen.queryByText('tidligsteuttaksalder.1963.ingress_1')
+        screen.queryByText('tidligstmuliguttak.1963.ingress_1')
       ).not.toBeInTheDocument()
       expect(
-        screen.getByText('tidligsteuttaksalder.1964.ingress_1')
+        screen.getByText('tidligstmuliguttak.1964.ingress_1')
       ).toBeInTheDocument()
       expect(
         screen.getByText('62 alder.aar string.og 9 alder.maaneder', {
@@ -31,13 +31,13 @@ describe('TidligstMuligUttaksalder', () => {
         })
       ).toBeInTheDocument()
       expect(
-        screen.queryByText('tidligsteuttaksalder.1963.ingress_2')
+        screen.queryByText('tidligstmuliguttak.1963.ingress_2')
       ).not.toBeInTheDocument()
       expect(
-        screen.getByText('tidligsteuttaksalder.1964.ingress_2')
+        screen.getByText('tidligstmuliguttak.1964.ingress_2')
       ).toBeInTheDocument()
     })
-    await user.click(screen.getByText('tidligsteuttaksalder.readmore_title'))
+    await user.click(screen.getByText('tidligstmuliguttak.readmore_title'))
     expect(
       screen.getByText(
         'Den oppgitte alderen er et estimat etter dagens regler.',
@@ -56,10 +56,10 @@ describe('TidligstMuligUttaksalder', () => {
     )
     await waitFor(() => {
       expect(
-        screen.getByText('tidligsteuttaksalder.1963.ingress_1')
+        screen.getByText('tidligstmuliguttak.1963.ingress_1')
       ).toBeInTheDocument()
       expect(
-        screen.queryByText('tidligsteuttaksalder.1964.ingress_1')
+        screen.queryByText('tidligstmuliguttak.1964.ingress_1')
       ).not.toBeInTheDocument()
       expect(
         screen.getByText('62 alder.aar string.og 9 alder.maaneder', {
@@ -67,10 +67,10 @@ describe('TidligstMuligUttaksalder', () => {
         })
       ).toBeInTheDocument()
       expect(
-        screen.getByText('tidligsteuttaksalder.1963.ingress_2')
+        screen.getByText('tidligstmuliguttak.1963.ingress_2')
       ).toBeInTheDocument()
       expect(
-        screen.queryByText('tidligsteuttaksalder.1964.ingress_2')
+        screen.queryByText('tidligstmuliguttak.1964.ingress_2')
       ).not.toBeInTheDocument()
     })
   })
@@ -92,7 +92,7 @@ describe('TidligstMuligUttaksalder', () => {
       ).toBeInTheDocument()
 
       expect(
-        screen.queryByText('tidligsteuttaksalder.info_afp')
+        screen.queryByText('tidligstmuliguttak.info_afp')
       ).not.toBeInTheDocument()
     })
   })
@@ -107,7 +107,7 @@ describe('TidligstMuligUttaksalder', () => {
     )
     await waitFor(() => {
       expect(
-        screen.queryByText('tidligsteuttaksalder.info_afp')
+        screen.queryByText('tidligstmuliguttak.info_afp')
       ).not.toBeInTheDocument()
     })
   })
@@ -122,7 +122,7 @@ describe('TidligstMuligUttaksalder', () => {
     )
     await waitFor(() => {
       expect(
-        screen.getByText('tidligsteuttaksalder.info_afp')
+        screen.getByText('tidligstmuliguttak.info_afp')
       ).toBeInTheDocument()
     })
   })
@@ -136,9 +136,9 @@ describe('TidligstMuligUttaksalder', () => {
       />
     )
     await waitFor(() => {
-      expect(screen.getByText('tidligsteuttaksalder.error')).toBeInTheDocument()
+      expect(screen.getByText('tidligstmuliguttak.error')).toBeInTheDocument()
       expect(
-        screen.getByText('tidligsteuttaksalder.readmore_title')
+        screen.getByText('tidligstmuliguttak.readmore_title')
       ).toBeInTheDocument()
     })
   })

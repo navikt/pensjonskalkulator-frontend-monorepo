@@ -60,7 +60,7 @@ export interface paths {
      *
      * @description Finn første mulige uttaksalder for innlogget bruker ved helt (100 %) uttak. Feltet 'harEps' brukes til å angi om brukeren har ektefelle/partner/samboer eller ei
      */
-    post: operations['finnTidligsteHelUttaksalderV1']
+    post: operations['finnTidligsteHeltUttaksalderV1']
     delete?: never
     options?: never
     head?: never
@@ -606,7 +606,7 @@ export interface operations {
       }
     }
   }
-  finnTidligsteHelUttaksalderV1: {
+  finnTidligsteHeltUttaksalderV1: {
     parameters: {
       query?: never
       header?: never

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`InfoModalInntekt > viser fast info ominntekt 1`] = `
+exports[`InfoModalInntekt > viser fast info om inntekt 1`] = `
 <DocumentFragment>
   <p
     class="navds-body-long navds-body-long--medium"

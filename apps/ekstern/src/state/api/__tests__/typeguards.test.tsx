@@ -327,7 +327,7 @@ describe('Typeguards', () => {
         })
       ).toBeTruthy()
     })
-    it('returnerer false når typen er undefined eller at TidligsteMuligeUttaksalder inneholder noe annet enn number', () => {
+    it('returnerer false når typen er undefined eller at Tidligst Mulig Uttak inneholder noe annet enn number', () => {
       expect(isAlder(undefined)).toBeFalsy()
       expect(isAlder([])).toBeFalsy()
       expect(isAlder({})).toBeFalsy()

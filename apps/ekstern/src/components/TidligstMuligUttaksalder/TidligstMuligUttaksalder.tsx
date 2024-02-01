@@ -6,9 +6,8 @@ import { Alert, BodyLong } from '@navikt/ds-react'
 import { ReadMore } from '@/components/common/ReadMore'
 import { useGetDetaljertFaneFeatureToggleQuery } from '@/state/api/apiSlice'
 import { formatUttaksalder } from '@/utils/alder'
+import { isUttaksalderOverMinUttaksaar } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
-
-import { isUttaksalderOver62 } from './utils'
 
 import styles from './TidligstMuligUttaksalder.module.scss'
 
@@ -34,7 +33,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
           <>
             <BodyLong size="medium" className={`${styles.ingress}`}>
               <FormattedMessage
-                id={`tidligsteuttaksalder.${
+                id={`tidligstmuliguttak.${
                   show1963Text ? '1963' : '1964'
                 }.ingress_1`}
                 values={{
@@ -47,7 +46,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
             </BodyLong>
             <BodyLong size="medium" className={`${styles.ingress}`}>
               <FormattedMessage
-                id={`tidligsteuttaksalder.${
+                id={`tidligstmuliguttak.${
                   show1963Text ? '1963' : '1964'
                 }.ingress_2`}
                 values={{
@@ -55,26 +54,27 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                 }}
               />
             </BodyLong>
-            {hasAfpOffentlig && isUttaksalderOver62(tidligstMuligUttak) && (
-              <Alert
-                className={styles.alert}
-                size="small"
-                variant="info"
-                aria-live="polite"
-              >
-                <FormattedMessage
-                  id="tidligsteuttaksalder.info_afp"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </Alert>
-            )}
+            {hasAfpOffentlig &&
+              isUttaksalderOverMinUttaksaar(tidligstMuligUttak) && (
+                <Alert
+                  className={styles.alert}
+                  size="small"
+                  variant="info"
+                  aria-live="polite"
+                >
+                  <FormattedMessage
+                    id="tidligstmuliguttak.info_afp"
+                    values={{
+                      ...getFormatMessageValues(intl),
+                    }}
+                  />
+                </Alert>
+              )}
           </>
         ) : (
           <BodyLong size="medium" className={`${styles.ingress}`}>
             <FormattedMessage
-              id="tidligsteuttaksalder.error"
+              id="tidligstmuliguttak.error"
               values={{
                 ...getFormatMessageValues(intl),
               }}
@@ -84,10 +84,10 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
         <ReadMore
           name="Om tidspunkter for uttak"
           className={styles.readmore}
-          header={<FormattedMessage id="tidligsteuttaksalder.readmore_title" />}
+          header={<FormattedMessage id="tidligstmuliguttak.readmore_title" />}
         >
           <FormattedMessage
-            id={`tidligsteuttaksalder.readmore_ingress.${
+            id={`tidligstmuliguttak.readmore_ingress.${
               detaljertFaneFeatureToggle?.enabled ? 'avansert' : 'enkelt'
             }`}
             values={{

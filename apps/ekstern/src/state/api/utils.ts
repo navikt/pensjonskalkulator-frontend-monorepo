@@ -1,13 +1,13 @@
 import { checkHarSamboer } from '@/utils/sivilstand'
 import { format, parseISO } from 'date-fns'
 
-export const generateTidligsteHelUttaksalderRequestBody = (args: {
+export const generateTidligstMuligHeltUttakRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: number
   aarligInntektVsaPensjon?: { beloep: number; sluttAlder: Alder }
-}): TidligsteHelUttaksalderRequestBody | undefined => {
+}): TidligstMuligHeltUttakRequestBody | undefined => {
   const {
     afp,
     sivilstand,
@@ -31,14 +31,14 @@ export const generateTidligsteHelUttaksalderRequestBody = (args: {
   }
 }
 
-export const generateTidligsteGradertUttaksalderRequestBody = (args: {
+export const generateTidligstMuligGradertUttakRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: number
-  gradertUttak: Omit<GradertUttaksperiode, 'uttaksalder'>
-  heltUttak: HeltUttaksperiode
-}): TidligsteGradertUttaksalderRequestBody | undefined => {
+  gradertUttak: Omit<GradertUttak, 'uttaksalder'>
+  heltUttak: HeltUttak
+}): TidligstMuligGradertUttakRequestBody | undefined => {
   const {
     afp,
     sivilstand,
@@ -70,8 +70,8 @@ export const generateAlderspensjonRequestBody = (args: {
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
   aarligInntektFoerUttakBeloep: number
-  gradertUttak?: GradertUttaksperiode
-  heltUttak?: HeltUttaksperiode
+  gradertUttak?: GradertUttak
+  heltUttak?: HeltUttak
 }): AlderspensjonRequestBody | undefined => {
   const {
     afp,
@@ -149,8 +149,8 @@ export const generatePensjonsavtalerRequestBody = (args: {
   aarligInntektFoerUttakBeloep: number
   afp: AfpRadio | null
   sivilstand?: Sivilstand
-  heltUttak: HeltUttaksperiode
-  gradertUttak?: GradertUttaksperiode
+  heltUttak: HeltUttak
+  gradertUttak?: GradertUttak
 }): PensjonsavtalerRequestBody => {
   const {
     aarligInntektFoerUttakBeloep,
