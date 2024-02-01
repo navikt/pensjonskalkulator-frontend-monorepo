@@ -9,6 +9,8 @@ import {
   isFoedtFoer1964,
   isUttaksalderOverMinUttaksaar,
   transformUttaksalderToDate,
+  transformMaanedToDate,
+  validateAlderFromForm,
 } from '../alder'
 
 describe('alder-utils', () => {
@@ -140,6 +142,124 @@ describe('alder-utils', () => {
       expect(
         transformUttaksalderToDate({ aar: 70, maaneder: 11 }, foedselsdato)
       ).toBe('01.04.2041')
+    })
+  })
+
+  describe('transformMaanedToDate', () => {
+    it('returnerer riktig måned basert på locale', () => {
+      const foedselsdato = '1970-04-15'
+      expect(transformMaanedToDate(0, foedselsdato, 'nb')).toBe('mai')
+      expect(transformMaanedToDate(7, foedselsdato, 'nb')).toBe('des.')
+      expect(transformMaanedToDate(8, foedselsdato, 'nb')).toBe('jan.')
+      expect(transformMaanedToDate(11, foedselsdato, 'nb')).toBe('apr.')
+      expect(transformMaanedToDate(0, foedselsdato, 'en')).toBe('May')
+    })
+  })
+
+  describe('validateAlderFromForm', () => {
+    it('returnerer false og viser riktig feilmelding når alder er null eller undefined ', () => {
+      const updateValidationMessageMock = vi.fn()
+      expect(
+        validateAlderFromForm(undefined, updateValidationMessageMock)
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        1,
+        'agepicker.validation_error.aar'
+      )
+      expect(
+        validateAlderFromForm(null, updateValidationMessageMock)
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        2,
+        'agepicker.validation_error.aar'
+      )
+    })
+
+    it('returnerer false og viser riktig feilmelding når aar mangler, er null, undefined eller er noe annet enn tall to siffer', () => {
+      const updateValidationMessageMock = vi.fn()
+      expect(
+        validateAlderFromForm(
+          { aar: undefined, maaneder: 6 },
+          updateValidationMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        1,
+        'agepicker.validation_error.aar'
+      )
+      expect(
+        validateAlderFromForm(
+          { aar: null, maaneder: 6 },
+          updateValidationMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        2,
+        'agepicker.validation_error.aar'
+      )
+      expect(
+        validateAlderFromForm(
+          { aar: 'ghjk', maaneder: 6 },
+          updateValidationMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        3,
+        'agepicker.validation_error.aar'
+      )
+      expect(
+        validateAlderFromForm(
+          { aar: 999, maaneder: 6 },
+          updateValidationMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        3,
+        'agepicker.validation_error.aar'
+      )
+    })
+    it('returnerer false og viser riktig feilmelding når måned mangler, er null, undefined eller er noe annet enn tall', () => {
+      const updateValidationMessageMock = vi.fn()
+      expect(
+        validateAlderFromForm(
+          { aar: 67, maaneder: undefined },
+          updateValidationMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        1,
+        'agepicker.validation_error.maaneder'
+      )
+      expect(
+        validateAlderFromForm(
+          { aar: 67, maaneder: null },
+          updateValidationMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        2,
+        'agepicker.validation_error.maaneder'
+      )
+      expect(
+        validateAlderFromForm(
+          { aar: 67, maaneder: 'ghjk' },
+          updateValidationMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        3,
+        'agepicker.validation_error.maaneder'
+      )
+      expect(
+        validateAlderFromForm(
+          { aar: 67, maaneder: 999 },
+          updateValidationMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateValidationMessageMock).toHaveBeenNthCalledWith(
+        3,
+        'agepicker.validation_error.maaneder'
+      )
     })
   })
 })

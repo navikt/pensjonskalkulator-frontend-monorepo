@@ -164,6 +164,8 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'agepicker.validation_error.aar': 'Du må velge år og måned',
+  'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',
   'alder.md': 'md.',
   'alder.maaned': 'måned',
@@ -249,6 +251,13 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
   'beregning.avansert.rediger.inntekt.button': 'Endre',
+  'beregning.avansert.rediger.agepicker.validation_error':
+    ' for når du vil ta ut {grad} % alderspensjon.',
+  'beregning.avansert.rediger.gradertuttak.agepicker.label':
+    'Når vil du ta ut {grad} % alderspensjon',
+  'beregning.avansert.rediger.heltuttak.agepicker.label':
+    'Når vil du ta ut 100 % alderspensjon',
+
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
@@ -343,8 +352,6 @@ const translations = {
     'Hva er din forventede årsinntekt mens du tar ut 100 % alderspensjon?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'Dagens kroneverdi før skatt',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error':
-    'VALIDATION ERROR',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
   'inntekt.info_om_inntekt.read_more': 'Om pensjonsgivende inntekt',

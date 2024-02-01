@@ -90,7 +90,6 @@ export const transformUttaksalderToDate = (
   return format(startOfMonth(calculatedDate), 'dd.MM.yyyy')
 }
 
-// TODO PEK-279 skrive tester
 export const transformMaanedToDate = (
   maaneder: number,
   foedselsdato: string,
@@ -110,34 +109,37 @@ export const transformMaanedToDate = (
   })
 }
 
-// TODO PEK-279 vurdere etter utvikling av AgePicker om dette kan finpusses og gjenbrukes av RedigerAvansertBeregning
-// sjekke for null / undefined
-// sjekke om aar er med, men ikke maaneder, og omvendt
-// sende minAlder, maxAlder og sjekke mot dem
-export const validateAlder = (
-  alder: Partial<Alder> | undefined | null,
+export const validateAlderFromForm = (
+  alder:
+    | {
+        aar: FormDataEntryValue | number | undefined | null
+        maaneder: FormDataEntryValue | number | undefined | null
+      }
+    | undefined
+    | null,
   updateValidationErrorMessage: (s: string) => void
 ) => {
   let isValid = true
-  if (alder === null || alder === undefined || !alder) {
-    isValid = false
-    updateValidationErrorMessage(
-      'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error'
-    )
-    return isValid
-  }
+  // Sørger for at aar er definert og består av 2 digits og ingen bokstav
   if (
+    alder === null ||
+    alder === undefined ||
+    !alder ||
     !alder.aar ||
-    alder.aar < 62 ||
-    alder.aar > 75 ||
-    alder.maaneder === undefined ||
-    alder.maaneder < 0 ||
-    alder.maaneder > 11
+    !/^\d{2}$/.test(alder.aar as string)
   ) {
     isValid = false
-    updateValidationErrorMessage(
-      'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error'
-    )
+
+    updateValidationErrorMessage('agepicker.validation_error.aar')
+    return isValid
+  }
+  // Sørger for at maaneder ikke er null eller undefined og består at tall mellom 0 og 11
+  if (
+    alder.maaneder === undefined ||
+    !/^([0-9]|10|11)$/.test(alder.maaneder as string)
+  ) {
+    isValid = false
+    updateValidationErrorMessage('agepicker.validation_error.maaneder')
     return isValid
   }
 

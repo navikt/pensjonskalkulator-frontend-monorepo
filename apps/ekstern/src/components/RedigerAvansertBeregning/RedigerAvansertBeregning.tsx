@@ -30,17 +30,13 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatUttaksalder, isUttaksalderOverMinUttaksaar } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
 
-import { validateAvansertBeregningSkjema } from './utils'
-
-interface Props {
-  onSubmitSuccess: () => void
-}
+import { FORM_NAMES, validateAvansertBeregningSkjema } from './utils'
 
 import styles from './RedigerAvansertBeregning.module.scss'
 
-export const RedigerAvansertBeregning: React.FC<Props> = ({
-  onSubmitSuccess,
-}) => {
+export const RedigerAvansertBeregning: React.FC<{
+  onSubmitSuccess: () => void
+}> = ({ onSubmitSuccess }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
@@ -104,7 +100,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   })
 
   React.useEffect(() => {
-    const oppdatertHeltUttaksalderRequestBody =
+    const oppdatertHeltUttakRequestBody =
       generateTidligstMuligHeltUttakRequestBody({
         afp,
         sivilstand: sivilstand,
@@ -112,8 +108,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
       })
 
-    if (oppdatertHeltUttaksalderRequestBody !== undefined) {
-      setTidligstMuligHeltUttakRequestBody(oppdatertHeltUttaksalderRequestBody)
+    if (oppdatertHeltUttakRequestBody !== undefined) {
+      setTidligstMuligHeltUttakRequestBody(oppdatertHeltUttakRequestBody)
     }
 
     if (temporaryGradertUttak?.grad) {
@@ -155,10 +151,10 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, string>
   >({
-    uttaksgrad: '',
-    'uttaksalder-hel-pensjon': '',
-    'uttaksalder-gradert-pensjon': '',
-    'inntekt-vsa-gradert-pensjon': '',
+    [FORM_NAMES.uttaksgrad]: '',
+    [FORM_NAMES.uttaksalderHeltUttak]: '',
+    [FORM_NAMES.uttaksalderGradertUttak]: '',
+    [FORM_NAMES.inntektVsaGradertUttak]: '',
   })
 
   const [agePickerHelDescription, setAgePickerHelDescription] =
@@ -194,8 +190,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     setValidationErrors((prevState) => {
       return {
         ...prevState,
-        uttaksgrad: '',
-        'uttaksalder-gradert-pensjon': '',
+        [FORM_NAMES.uttaksgrad]: '',
+        [FORM_NAMES.uttaksalderGradertUttak]: '',
       }
     })
     const avansertBeregningFormatertUttaksgradAsNumber = e.target.value
@@ -221,7 +217,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     setValidationErrors((prevState) => {
       return {
         ...prevState,
-        'inntekt-vsa-gradert-pensjon': '',
+        [FORM_NAMES.inntektVsaGradertUttak]: '',
       }
     })
   }
@@ -230,48 +226,59 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const gradertPensjonAarFormData = data.get(
-      'uttaksalder-gradert-pensjon-aar'
+    const gradertUttakAarFormData = data.get(
+      `${FORM_NAMES.uttaksalderGradertUttak}-aar`
     )
-    const gradertPensjonMaanederFormData = data.get(
-      'uttaksalder-gradert-pensjon-maaneder'
+    const gradertUttakMaanederFormData = data.get(
+      `${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+    )
+    const heltUttakAarFormData = data.get(
+      `${FORM_NAMES.uttaksalderHeltUttak}-aar`
+    )
+    const heltUttakMaanederFormData = data.get(
+      `${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+    )
+    const uttaksgradFormData = data.get('uttaksgrad')
+    const inntektVsaGradertPensjonFormData = data.get(
+      FORM_NAMES.inntektVsaGradertUttak
     )
 
-    const helPensjonAarFormData = data.get('uttaksalder-hel-pensjon-aar')
-    const helPensjonMaanederFormData = data.get(
-      'uttaksalder-hel-pensjon-maaneder'
-    )
-    const avansertBeregningFormatertUttaksgrad = data.get('uttaksgrad')
-    const avansertBeregningInntektVsaGradertPensjon = data.get(
-      'inntekt-vsa-gradert-pensjon'
-    )
-
-    if (validateAvansertBeregningSkjema(data, setValidationErrors)) {
+    if (
+      validateAvansertBeregningSkjema(
+        {
+          gradertUttakAarFormData,
+          gradertUttakMaanederFormData,
+          heltUttakAarFormData,
+          heltUttakMaanederFormData,
+          uttaksgradFormData,
+          inntektVsaGradertPensjonFormData,
+        },
+        setValidationErrors
+      )
+    ) {
       dispatch(
         userInputActions.setCurrentSimulationUttaksalder({
-          aar: parseInt(helPensjonAarFormData as string, 10),
-          maaneder: parseInt(helPensjonMaanederFormData as string, 10),
+          aar: parseInt(heltUttakAarFormData as string, 10),
+          maaneder: parseInt(heltUttakMaanederFormData as string, 10),
         })
       )
-      if (avansertBeregningFormatertUttaksgrad === '100 %') {
+      if (uttaksgradFormData === '100 %') {
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode(null)
         )
       } else {
         const aarligInntektVsaGradertPensjon = parseInt(
-          avansertBeregningInntektVsaGradertPensjon as string,
+          inntektVsaGradertPensjonFormData as string,
           10
         )
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode({
             uttaksalder: {
-              aar: parseInt(gradertPensjonAarFormData as string, 10),
-              maaneder: parseInt(gradertPensjonMaanederFormData as string, 10),
+              aar: parseInt(gradertUttakAarFormData as string, 10),
+              maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
             },
             grad: parseInt(
-              (avansertBeregningFormatertUttaksgrad as string).match(
-                /\d+/
-              )?.[0] as string,
+              (uttaksgradFormData as string).match(/\d+/)?.[0] as string,
               10
             ),
             aarligInntektVsaPensjonBeloep: !isNaN(
@@ -304,10 +311,10 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
 
   const resetForm = (): void => {
     setValidationErrors({
-      uttaksgrad: '',
-      'uttaksalder-hel-pensjon': '',
-      'uttaksalder-gradert-pensjon': '',
-      'inntekt-vsa-gradert-pensjon': '',
+      [FORM_NAMES.uttaksgrad]: '',
+      [FORM_NAMES.uttaksalderHeltUttak]: '',
+      [FORM_NAMES.uttaksalderGradertUttak]: '',
+      [FORM_NAMES.inntektVsaGradertUttak]: '',
     })
     setTemporaryOverskrevetInntektFremTilUttak(null)
     setTemporaryGradertUttak(undefined)
@@ -319,11 +326,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
       className={`${styles.container} ${styles.container__hasMobilePadding}`}
     >
       <div className={styles.form}>
-        <form
-          id="avansert-beregning"
-          method="dialog"
-          onSubmit={onSubmit}
-        ></form>
+        <form id={FORM_NAMES.form} method="dialog" onSubmit={onSubmit}></form>
         <div>
           <Label className={styles.label}>
             Pensjonsgivende inntekt frem til pensjon
@@ -359,8 +362,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         <hr className={styles.separator} />
         <div>
           <Select
-            form="avansert-beregning"
-            name="uttaksgrad"
+            form={FORM_NAMES.form}
+            name={FORM_NAMES.uttaksgrad}
             label="Hvor mye alderspensjon vil du ta ut?"
             description="Velg uttaksgrad"
             value={
@@ -385,9 +388,14 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         {temporaryGradertUttak && (
           <div>
             <AgePicker
-              form="avansert-beregning"
-              name="uttaksalder-gradert-pensjon"
-              label={`Når vil du ta ut ${temporaryGradertUttak.grad} % alderspensjon`}
+              form={FORM_NAMES.form}
+              name={FORM_NAMES.uttaksalderGradertUttak}
+              label={intl.formatMessage(
+                {
+                  id: 'beregning.avansert.rediger.heltuttak.agepicker.label',
+                },
+                { grad: temporaryGradertUttak.grad }
+              )}
               description={
                 tidligstMuligGradertUttak &&
                 !isTidligstMuligGradertUttakError &&
@@ -407,7 +415,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
                 setValidationErrors((prevState) => {
                   return {
                     ...prevState,
-                    'uttaksalder-gradert-pensjon': '',
+                    [FORM_NAMES.uttaksalderGradertUttak]: '',
                   }
                 })
                 setTemporaryGradertUttak((previous) => ({
@@ -415,15 +423,27 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
                   uttaksalder: alder,
                 }))
               }}
-              error={validationErrors['uttaksalder-gradert-pensjon']}
+              error={
+                validationErrors['uttaksalder-gradert-pensjon']
+                  ? intl.formatMessage({
+                      id: validationErrors['uttaksalder-gradert-pensjon'],
+                    }) +
+                    intl.formatMessage(
+                      {
+                        id: 'beregning.avansert.rediger.agepicker.validation_error',
+                      },
+                      { grad: temporaryGradertUttak.grad }
+                    )
+                  : ''
+              }
             />
             <div className={styles.spacer} />
             <TextField
-              form="avansert-beregning"
+              form={FORM_NAMES.form}
               data-testid="inntekt-vsa-gradert-pensjon-textfield"
               type="text"
               inputMode="numeric"
-              name="inntekt-vsa-gradert-pensjon"
+              name={FORM_NAMES.inntektVsaGradertUttak}
               label={`Hva er din forventede årsinntekt mens du tar ut ${temporaryGradertUttak.grad} % alderspensjon? (Valgfritt)`}
               description={intl.formatMessage({
                 id: 'inntekt.endre_inntekt_modal.textfield.description',
@@ -448,9 +468,11 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
         )}
         <div>
           <AgePicker
-            form="avansert-beregning"
-            name="uttaksalder-hel-pensjon"
-            label="Når vil du ta ut 100 % alderspensjon"
+            form={FORM_NAMES.form}
+            name={FORM_NAMES.uttaksalderHeltUttak}
+            label={intl.formatMessage({
+              id: 'beregning.avansert.rediger.heltuttak.agepicker.label',
+            })}
             description={agePickerHelDescription}
             value={temporaryHelUttak?.uttaksalder}
             minAlder={
@@ -464,7 +486,8 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               setValidationErrors((prevState) => {
                 return {
                   ...prevState,
-                  'uttaksalder-hel-pensjon': '',
+
+                  [FORM_NAMES.uttaksalderHeltUttak]: '',
                 }
               })
               setTemporaryHelUttak((prevState) => {
@@ -474,7 +497,19 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
                 }
               })
             }}
-            error={validationErrors['uttaksalder-hel-pensjon']}
+            error={
+              validationErrors[FORM_NAMES.uttaksalderHeltUttak]
+                ? intl.formatMessage({
+                    id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
+                  }) +
+                  intl.formatMessage(
+                    {
+                      id: 'beregning.avansert.rediger.agepicker.validation_error',
+                    },
+                    { grad: '100' }
+                  )
+                : ''
+            }
           />
         </div>
         <div>
@@ -493,7 +528,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
           />
         </div>
         <div>
-          <Button form="avansert-beregning" className={styles.button}>
+          <Button form={FORM_NAMES.form} className={styles.button}>
             {intl.formatMessage({
               id: 'stegvisning.beregn',
             })}
