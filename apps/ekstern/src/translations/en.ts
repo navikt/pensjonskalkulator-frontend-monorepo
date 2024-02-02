@@ -181,6 +181,12 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_1': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.inntekt_2': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.alderspensjon': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.pensjonsalder.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.pensjonsalder.intro': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.pensjonsalder.subtitle':
+    'MANGLER_TEKST',
   'grunnlag.title': 'MANGLER_TEKST',
   'grunnlag.ingress': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.title': 'MANGLER_TEKST',

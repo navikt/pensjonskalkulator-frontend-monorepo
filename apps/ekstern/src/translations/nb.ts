@@ -249,8 +249,16 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
+  'beregning.avansert.rediger.read_more.uttaksgrad.body':
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %)',
   'beregning.avansert.rediger.read_more.pensjonsalder.label':
     'Om pensjonsalder',
+  'beregning.avansert.rediger.read_more.pensjonsalder.intro':
+    'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}',
+  'beregning.avansert.rediger.read_more.pensjonsalder.subtitle':
+    'Dagens regler',
+  'beregning.avansert.rediger.read_more.pensjonsalder.body':
+    'Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du i endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut 100 % forskyves.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'beregning.avansert.rediger.inntekt.button': 'Endre',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',

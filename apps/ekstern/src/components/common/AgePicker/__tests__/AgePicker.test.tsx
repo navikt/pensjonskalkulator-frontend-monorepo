@@ -100,7 +100,7 @@ describe('AgePicker', () => {
     })
 
     it('viser bare månedene som kan velges basert på min/maxAlder og valgt år', () => {
-      const { container, asFragment } = render(
+      const { container } = render(
         <AgePicker
           name="unique-name"
           label="My Test Age Picker"

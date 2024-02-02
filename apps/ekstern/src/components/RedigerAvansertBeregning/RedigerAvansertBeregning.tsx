@@ -1,8 +1,8 @@
 /* c8 ignore start */
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 
-import { Button, Label, Select, TextField } from '@navikt/ds-react'
+import { BodyLong, Button, Label, Select, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { ReadMore } from '@/components/common/ReadMore'
@@ -29,7 +29,9 @@ import {
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatUttaksalder, isUttaksalderOverMinUttaksaar } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
+import { getFormatMessageValues } from '@/utils/translations'
 
+import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
 import { validateAvansertBeregningSkjema } from './utils'
 
 interface Props {
@@ -386,7 +388,14 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             id: 'beregning.avansert.rediger.read_more.uttaksgrad.label',
           })}
         >
-          TODO
+          <BodyLong>
+            <FormattedMessage
+              id="beregning.avansert.rediger.read_more.uttaksgrad.body"
+              values={{
+                ...getFormatMessageValues(intl),
+              }}
+            />
+          </BodyLong>
         </ReadMore>
 
         <div className={styles.spacer} />
@@ -426,6 +435,7 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               }}
               error={validationErrors['uttaksalder-gradert-pensjon']}
             />
+            {temporaryGradertUttak?.grad !== 100 && <ReadMoreOmPensjonsalder />}
             <div className={styles.spacer} />
             <TextField
               form="avansert-beregning"
@@ -488,14 +498,9 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
           <div className={styles.spacer__small} />
         </div>
 
-        <ReadMore
-          name="Om pensjonsalder"
-          header={intl.formatMessage({
-            id: 'beregning.avansert.rediger.read_more.pensjonsalder.label',
-          })}
-        >
-          TODO
-        </ReadMore>
+        {(!temporaryGradertUttak ||
+          !temporaryGradertUttak?.grad ||
+          temporaryGradertUttak?.grad === 100) && <ReadMoreOmPensjonsalder />}
 
         {temporaryHelUttak?.uttaksalder?.aar &&
           temporaryHelUttak?.uttaksalder?.maaneder !== undefined && (
