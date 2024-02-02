@@ -113,7 +113,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             name={`${name}-aar`}
             label="Velg år"
             className={clsx(styles.selectAar, {
-              [styles.select__hasError]: !!error,
+              [styles.select__hasError]: !!error && !valgtAlder.aar,
             })}
             value={valgtAlder.aar ? valgtAlder.aar : ''}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -161,7 +161,8 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             name={`${name}-maaneder`}
             label="Velg måned"
             className={clsx(styles.selectMaaned, {
-              [styles.select__hasError]: !!error,
+              [styles.select__hasError]:
+                !!error && valgtAlder.maaneder === undefined,
             })}
             value={valgtAlder.maaneder !== undefined ? valgtAlder.maaneder : ''}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {

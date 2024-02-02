@@ -112,6 +112,8 @@ const translations = {
   'stegvisning.sivilstand.radio_ja': 'MANGLER_TEKST',
   'stegvisning.sivilstand.radio_nei': 'MANGLER_TEKST',
   'stegvisning.sivilstand.validation_error': 'MANGLER_TEKST',
+  'agepicker.validation_error.aar': 'MANGLER_TEKST',
+  'agepicker.validation_error.maaneder': 'MANGLER_TEKST',
   'string.og': 'MANGLER_TEKST',
   'alder.md': 'MANGLER_TEKST',
   'alder.maaned': 'MANGLER_TEKST',
@@ -181,6 +183,9 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_1': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.inntekt_2': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.alderspensjon': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.agepicker.validation_error': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.gradertuttak.agepicker.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.heltuttak.agepicker.label': 'MANGLER_TEKST',
   'grunnlag.title': 'MANGLER_TEKST',
   'grunnlag.ingress': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.title': 'MANGLER_TEKST',
@@ -249,8 +254,6 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
-    'MANGLER_TEKST',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error':
     'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'MANGLER_TEKST',
