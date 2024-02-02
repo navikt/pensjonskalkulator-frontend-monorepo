@@ -5,7 +5,7 @@ import { PencilIcon, TrashIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Label, Modal, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
-import { formatUttaksalder, validateAlder } from '@/utils/alder'
+import { formatUttaksalder, validateAlderFromForm } from '@/utils/alder'
 import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 
 import styles from './EndreInntektVsaPensjon.module.scss'
@@ -78,13 +78,15 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   }
 
   const validateInntektVsaPensjon = (): void => {
-    if (
-      validateInntekt(
-        inntektBeloepVsaPensjon,
-        updateValidationErrorInputTextMessage
-      ) &&
-      validateAlder(sluttAlder, updateValidationAlderVelgerTextMessage)
-    ) {
+    const isInntektValid = validateInntekt(
+      inntektBeloepVsaPensjon,
+      updateValidationErrorInputTextMessage
+    )
+    const isSluttAlderValid = validateAlderFromForm(
+      { aar: sluttAlder?.aar, maaneder: sluttAlder?.maaneder },
+      updateValidationAlderVelgerTextMessage
+    )
+    if (isInntektValid && isSluttAlderValid) {
       oppdatereInntekt({
         beloep: parseInt(inntektBeloepVsaPensjon.replace(/ /g, ''), 10),
         sluttAlder: { ...(sluttAlder as Alder) },

@@ -164,6 +164,8 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
+  'agepicker.validation_error.aar': 'Du må velge år og måned',
+  'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',
   'alder.md': 'md.',
   'alder.maaned': 'måned',
@@ -260,6 +262,13 @@ const translations = {
   'beregning.avansert.rediger.read_more.pensjonsalder.body':
     'Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du i endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut 100 % forskyves.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'beregning.avansert.rediger.inntekt.button': 'Endre',
+  'beregning.avansert.rediger.agepicker.validation_error':
+    ' for når du vil ta ut {grad} % alderspensjon.',
+  'beregning.avansert.rediger.gradertuttak.agepicker.label':
+    'Når vil du ta ut {grad} % alderspensjon',
+  'beregning.avansert.rediger.heltuttak.agepicker.label':
+    'Når vil du ta ut 100 % alderspensjon',
+
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
@@ -354,8 +363,6 @@ const translations = {
     'Hva er din forventede årsinntekt mens du tar ut 100 % alderspensjon?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'Dagens kroneverdi før skatt',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.aldervelger.validation_error':
-    'VALIDATION ERROR',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
   'inntekt.info_om_inntekt.read_more': 'Om pensjonsgivende inntekt',
