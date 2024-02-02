@@ -378,7 +378,16 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
               </option>
             ))}
           </Select>
+          <div className={styles.spacer__small} />
         </div>
+        <ReadMore
+          name="Om uttaksgrad"
+          header={intl.formatMessage({
+            id: 'beregning.avansert.rediger.read_more.uttaksgrad.label',
+          })}
+        >
+          TODO
+        </ReadMore>
 
         <div className={styles.spacer} />
 
@@ -476,22 +485,36 @@ export const RedigerAvansertBeregning: React.FC<Props> = ({
             }}
             error={validationErrors['uttaksalder-hel-pensjon']}
           />
+          <div className={styles.spacer__small} />
         </div>
-        <div>
-          <EndreInntektVsaPensjon
-            uttaksperiode={temporaryHelUttak}
-            oppdatereInntekt={(
-              aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
-            ) => {
-              setTemporaryHelUttak((prevState) => {
-                return {
-                  ...prevState,
-                  aarligInntektVsaPensjon,
-                }
-              })
-            }}
-          />
-        </div>
+
+        <ReadMore
+          name="Om pensjonsalder"
+          header={intl.formatMessage({
+            id: 'beregning.avansert.rediger.read_more.pensjonsalder.label',
+          })}
+        >
+          TODO
+        </ReadMore>
+
+        {temporaryHelUttak?.uttaksalder?.aar &&
+          temporaryHelUttak?.uttaksalder?.maaneder !== undefined && (
+            <div>
+              <EndreInntektVsaPensjon
+                uttaksperiode={temporaryHelUttak}
+                oppdatereInntekt={(
+                  aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
+                ) => {
+                  setTemporaryHelUttak((prevState) => {
+                    return {
+                      ...prevState,
+                      aarligInntektVsaPensjon,
+                    }
+                  })
+                }}
+              />
+            </div>
+          )}
         <div>
           <Button form="avansert-beregning" className={styles.button}>
             {intl.formatMessage({

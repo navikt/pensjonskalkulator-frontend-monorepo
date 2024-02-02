@@ -31,6 +31,11 @@
   width: 100%;
   background-color: transparent;
   margin: 0 0 var(--a-spacing-4) 0;
+
+  &__small {
+    height: var(--a-spacing-1);
+    margin: 0 0 var(--a-spacing-1) 0;
+  }
 }
 
 .label {
@@ -68,5 +73,5 @@
 }
 
 .button {
-  margin-top: var(--a-spacing-6);
+  margin-top: var(--a-spacing-8);
 }

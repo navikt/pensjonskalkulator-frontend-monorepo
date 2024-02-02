@@ -248,6 +248,9 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_1': 'Pensjonsgivende årsinntekt',
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
+  'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
+  'beregning.avansert.rediger.read_more.pensjonsalder.label':
+    'Om pensjonsalder',
   'beregning.avansert.rediger.inntekt.button': 'Endre',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',

@@ -1,10 +1,4 @@
 import { EndreInntekt } from '..'
-import {
-  selectAarligInntektFoerUttakBeloep,
-  selectAarligInntektFoerUttakBeloepFraSkatt,
-  selectAarligInntektFoerUttakBeloepFraBrukerInput,
-  selectFormatertUttaksalderReadOnly,
-} from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
