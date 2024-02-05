@@ -244,11 +244,17 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_1': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.inntekt_2': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.alderspensjon': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.pensjonsalder.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.pensjonsalder.intro': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.pensjonsalder.subtitle':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.pensjonsalder.body': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt.button': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.validation_error': 'MANGLER_TEKST',
   'beregning.avansert.rediger.gradertuttak.agepicker.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.heltuttak.agepicker.label': 'MANGLER_TEKST',
-
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',

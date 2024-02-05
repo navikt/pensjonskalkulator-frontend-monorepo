@@ -3,7 +3,6 @@
 exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
 <DocumentFragment>
   <div
-    class="_wrapper_1edc42"
     data-testid="age-picker-unique-name"
   >
     <label
