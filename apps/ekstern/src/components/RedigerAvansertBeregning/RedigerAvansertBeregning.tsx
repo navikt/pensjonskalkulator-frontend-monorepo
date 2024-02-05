@@ -430,6 +430,17 @@ export const RedigerAvansertBeregning: React.FC<{
                   ...previous,
                   uttaksalder: alder,
                 }))
+                if (
+                  temporaryHelUttak?.uttaksalder &&
+                  (temporaryHelUttak.uttaksalder?.aar ?? 0) * 12 +
+                    (temporaryHelUttak.uttaksalder?.maaneder ?? 0) <=
+                    (alder?.aar ?? 0) * 12 + (alder?.maaneder ?? 0)
+                ) {
+                  setTemporaryHelUttak((previous) => ({
+                    ...previous,
+                    uttaksalder: undefined,
+                  }))
+                }
               }}
               error={
                 validationErrors[FORM_NAMES.uttaksalderGradertUttak]
