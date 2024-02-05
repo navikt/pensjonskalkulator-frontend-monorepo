@@ -32,7 +32,11 @@ import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
-import { FORM_NAMES, validateAvansertBeregningSkjema } from './utils'
+import {
+  FORM_NAMES,
+  validateAvansertBeregningSkjema,
+  getMinAlderTilHeltUttak,
+} from './utils'
 
 import styles from './RedigerAvansertBeregning.module.scss'
 
@@ -75,6 +79,9 @@ export const RedigerAvansertBeregning: React.FC<{
   const [temporaryGradertUttak, setTemporaryGradertUttak] = React.useState<
     RecursivePartial<GradertUttak> | undefined
   >(gradertUttaksperiode ?? undefined)
+
+  const [agePickerHelDescription, setAgePickerHelDescription] =
+    React.useState<string>('')
 
   // Hent tidligst hel uttaksalder
   const [
@@ -159,9 +166,6 @@ export const RedigerAvansertBeregning: React.FC<{
     [FORM_NAMES.inntektVsaGradertUttak]: '',
   })
 
-  const [agePickerHelDescription, setAgePickerHelDescription] =
-    React.useState<string>('')
-
   React.useEffect(() => {
     // TODO refactor flytte dette til en util function?
     if (tidligstMuligHeltUttak) {
@@ -205,6 +209,10 @@ export const RedigerAvansertBeregning: React.FC<{
         avansertBeregningFormatertUttaksgradAsNumber !== 100
         ? { ...previous, grad: avansertBeregningFormatertUttaksgradAsNumber }
         : undefined
+    })
+
+    setTemporaryHelUttak((previous) => {
+      return { ...previous, uttaksalder: undefined }
     })
   }
 
@@ -410,7 +418,7 @@ export const RedigerAvansertBeregning: React.FC<{
               name={FORM_NAMES.uttaksalderGradertUttak}
               label={intl.formatMessage(
                 {
-                  id: 'beregning.avansert.rediger.heltuttak.agepicker.label',
+                  id: 'beregning.avansert.rediger.gradertuttak.agepicker.label',
                 },
                 { grad: temporaryGradertUttak.grad }
               )}
@@ -440,11 +448,22 @@ export const RedigerAvansertBeregning: React.FC<{
                   ...previous,
                   uttaksalder: alder,
                 }))
+                if (
+                  temporaryHelUttak?.uttaksalder &&
+                  (temporaryHelUttak.uttaksalder?.aar ?? 0) * 12 +
+                    (temporaryHelUttak.uttaksalder?.maaneder ?? 0) <=
+                    (alder?.aar ?? 0) * 12 + (alder?.maaneder ?? 0)
+                ) {
+                  setTemporaryHelUttak((previous) => ({
+                    ...previous,
+                    uttaksalder: undefined,
+                  }))
+                }
               }}
               error={
-                validationErrors['uttaksalder-gradert-pensjon']
+                validationErrors[FORM_NAMES.uttaksalderGradertUttak]
                   ? intl.formatMessage({
-                      id: validationErrors['uttaksalder-gradert-pensjon'],
+                      id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
                     }) +
                     intl.formatMessage(
                       {
@@ -494,13 +513,10 @@ export const RedigerAvansertBeregning: React.FC<{
             })}
             description={agePickerHelDescription}
             value={temporaryHelUttak?.uttaksalder}
-            minAlder={
-              temporaryGradertUttak &&
-              tidligstMuligHeltUttak &&
-              isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)
-                ? { aar: 67, maaneder: 0 }
-                : tidligstMuligHeltUttak
-            }
+            minAlder={getMinAlderTilHeltUttak({
+              tidligstMuligHeltUttak,
+              temporaryGradertUttak: temporaryGradertUttak?.uttaksalder,
+            })}
             onChange={(alder) => {
               setValidationErrors((prevState) => {
                 return {
