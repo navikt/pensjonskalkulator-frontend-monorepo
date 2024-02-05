@@ -526,9 +526,22 @@ export const RedigerAvansertBeregning: React.FC<{
                 }
               })
               setTemporaryHelUttak((prevState) => {
+                const sluttAlderMonths =
+                  prevState?.aarligInntektVsaPensjon?.sluttAlder?.aar !==
+                  undefined
+                    ? prevState?.aarligInntektVsaPensjon?.sluttAlder.aar * 12 +
+                      (prevState?.aarligInntektVsaPensjon?.sluttAlder
+                        .maaneder ?? 0)
+                    : 0
+                const shouldDeleteInntektVsaPensjon =
+                  alder?.aar &&
+                  alder?.aar * 12 + (alder?.maaneder ?? 0) >= sluttAlderMonths
                 return {
                   ...prevState,
                   uttaksalder: alder,
+                  aarligInntektVsaPensjon: shouldDeleteInntektVsaPensjon
+                    ? undefined
+                    : { ...prevState?.aarligInntektVsaPensjon },
                 }
               })
             }}
