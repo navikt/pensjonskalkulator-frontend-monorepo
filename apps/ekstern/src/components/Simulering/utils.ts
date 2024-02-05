@@ -29,14 +29,26 @@ export const getChartDefaults = (aarArray: string[]) => {
 }
 
 export const processInntektArray = (
-  beloep: number,
+  inntekt: {
+    inntektFoerUttakBeloep: number
+    inntektVsaGradertUttak?: AarligInntektVsaPensjon
+    inntektVsaHeltUttak?: AarligInntektVsaPensjon
+  },
+
   length: number,
   startMaaned: number | null
 ): number[] => {
+  const {
+    inntektFoerUttakBeloep,
+    inntektVsaGradertUttak,
+    inntektVsaHeltUttak,
+  } = inntekt
+  // [0,0,0,0,0,0]
+  // uttaksalder ->
   const dataArray = new Array(length).fill(0)
-  dataArray[0] = beloep
+  dataArray[0] = inntektFoerUttakBeloep
   if (startMaaned && startMaaned !== 0) {
-    const inntektPrMnd = beloep / 12
+    const inntektPrMnd = inntektFoerUttakBeloep / 12
     dataArray[1] = inntektPrMnd * startMaaned
   }
   return dataArray
