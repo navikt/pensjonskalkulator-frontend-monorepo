@@ -154,7 +154,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       ).toStrictEqual({ aar: 62, maaneder: 0 })
     })
 
-    it('returnerer tidligstMuligHeltUttak når gradert uttak ikker er oppgitt', () => {
+    it('returnerer tidligstMuligHeltUttak når gradert uttak ikke er oppgitt', () => {
       expect(
         getMinAlderTilHeltUttak({
           temporaryGradertUttak: undefined,
