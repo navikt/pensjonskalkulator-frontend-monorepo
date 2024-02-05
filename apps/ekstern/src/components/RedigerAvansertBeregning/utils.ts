@@ -1,4 +1,7 @@
-import { validateAlderFromForm } from '@/utils/alder'
+import {
+  validateAlderFromForm,
+  isUttaksalderOverMinUttaksaar,
+} from '@/utils/alder'
 import { validateInntekt } from '@/utils/inntekt'
 
 export const FORM_NAMES = {
@@ -8,7 +11,7 @@ export const FORM_NAMES = {
   uttaksalderGradertUttak: 'uttaksalder-gradert-uttak',
   inntektVsaGradertUttak: 'inntekt-vsa-gradert-uttak',
 }
-// TODO skrive tester
+
 export const validateAvansertBeregningSkjema = (
   inputData: {
     gradertUttakAarFormData: FormDataEntryValue | null
@@ -22,7 +25,6 @@ export const validateAvansertBeregningSkjema = (
     React.SetStateAction<Record<string, string>>
   >
 ) => {
-  console.log('validateAvansertBeregningSkjema', inputData)
   const {
     gradertUttakAarFormData,
     gradertUttakMaanederFormData,
@@ -99,4 +101,41 @@ export const validateAvansertBeregningSkjema = (
   }
 
   return isValid
+}
+
+/*
+  // Hvis brukeren ikke har valgt noe gradert uttak, er minAlder definert av tidligstMuligHeltUttak
+  // Hvis brukeren har valgt en alder for gradert uttak, vises det den høyeste av disse alternativene:
+  // --> Hvis brukeren har maksimal opptjening (tidligstMuligUttak lik 62 år 0md): gradert uttak + 1 måned
+  // --> Hvis brukeren ikke har maksimal opptjening (tidligstMuligUttak !== 62 år 0md): 67 år og 0 md ( gitt at gradert pensjon ikke er valgt etter 67)
+   */
+export const getMinAlderTilHeltUttak = (args: {
+  temporaryGradertUttak: RecursivePartial<Alder> | undefined
+  tidligstMuligHeltUttak: Alder | undefined
+}): Alder => {
+  const { temporaryGradertUttak, tidligstMuligHeltUttak } = args
+  if (temporaryGradertUttak?.aar) {
+    const temporaryGradertUttakPlus1Maaned =
+      temporaryGradertUttak?.maaneder !== 11
+        ? {
+            aar: temporaryGradertUttak?.aar,
+            maaneder: (temporaryGradertUttak?.maaneder ?? 0) + 1,
+          }
+        : { aar: temporaryGradertUttak?.aar + 1, maaneder: 0 }
+
+    if (tidligstMuligHeltUttak) {
+      return isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak) &&
+        temporaryGradertUttakPlus1Maaned.aar * 12 +
+          temporaryGradertUttakPlus1Maaned.maaneder <=
+          67 * 12
+        ? { aar: 67, maaneder: 0 }
+        : temporaryGradertUttakPlus1Maaned
+    } else {
+      return temporaryGradertUttakPlus1Maaned
+    }
+  } else {
+    return tidligstMuligHeltUttak
+      ? tidligstMuligHeltUttak
+      : { aar: 62, maaneder: 0 }
+  }
 }

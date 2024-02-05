@@ -5,6 +5,7 @@ declare const classNames: typeof globalClassNames & {
   readonly form: "form";
   readonly separator: "separator";
   readonly spacer: "spacer";
+  readonly spacer__small: "spacer__small";
   readonly label: "label";
   readonly description: "description";
   readonly descriptionText: "descriptionText";

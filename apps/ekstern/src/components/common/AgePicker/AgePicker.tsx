@@ -90,11 +90,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
     }, [valgtAlder, isSuccess])
 
     return (
-      <div
-        ref={ref}
-        data-testid={`age-picker-${name}`}
-        className={styles.wrapper}
-      >
+      <div ref={ref} data-testid={`age-picker-${name}`}>
         <Label>{label}</Label>
         {description && (
           <BodyShort
