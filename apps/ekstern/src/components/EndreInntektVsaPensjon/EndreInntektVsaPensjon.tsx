@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon, TrashIcon } from '@navikt/aksel-icons'
-import { Button, Label, Modal, TextField } from '@navikt/ds-react'
+import { BodyShort, Button, Label, Modal, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { formatUttaksalder, validateAlderFromForm } from '@/utils/alder'
@@ -251,9 +251,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </>
       ) : (
         <>
-          <p>
+          <BodyShort className={styles.paragraph}>
             <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2" />
-          </p>
+          </BodyShort>
           <Button variant="secondary" onClick={openInntektVsaPensjonModal}>
             {intl.formatMessage({
               id: 'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til',

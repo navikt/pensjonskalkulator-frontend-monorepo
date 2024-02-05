@@ -1,8 +1,8 @@
 /* c8 ignore start */
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 
-import { Button, Label, Select, TextField } from '@navikt/ds-react'
+import { BodyLong, Button, Label, Select, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { ReadMore } from '@/components/common/ReadMore'
@@ -29,7 +29,9 @@ import {
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatUttaksalder, isUttaksalderOverMinUttaksaar } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
+import { getFormatMessageValues } from '@/utils/translations'
 
+import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
 import {
   FORM_NAMES,
   validateAvansertBeregningSkjema,
@@ -389,7 +391,23 @@ export const RedigerAvansertBeregning: React.FC<{
               </option>
             ))}
           </Select>
+          <div className={styles.spacer__small} />
         </div>
+        <ReadMore
+          name="Om uttaksgrad"
+          header={intl.formatMessage({
+            id: 'beregning.avansert.rediger.read_more.uttaksgrad.label',
+          })}
+        >
+          <BodyLong>
+            <FormattedMessage
+              id="beregning.avansert.rediger.read_more.uttaksgrad.body"
+              values={{
+                ...getFormatMessageValues(intl),
+              }}
+            />
+          </BodyLong>
+        </ReadMore>
 
         <div className={styles.spacer} />
 
@@ -456,6 +474,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   : ''
               }
             />
+            {temporaryGradertUttak?.grad !== 100 && <ReadMoreOmPensjonsalder />}
             <div className={styles.spacer} />
             <TextField
               form={FORM_NAMES.form}
@@ -527,22 +546,31 @@ export const RedigerAvansertBeregning: React.FC<{
                 : ''
             }
           />
+          <div className={styles.spacer__small} />
         </div>
-        <div>
-          <EndreInntektVsaPensjon
-            uttaksperiode={temporaryHelUttak}
-            oppdatereInntekt={(
-              aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
-            ) => {
-              setTemporaryHelUttak((prevState) => {
-                return {
-                  ...prevState,
-                  aarligInntektVsaPensjon,
-                }
-              })
-            }}
-          />
-        </div>
+
+        {(!temporaryGradertUttak ||
+          !temporaryGradertUttak?.grad ||
+          temporaryGradertUttak?.grad === 100) && <ReadMoreOmPensjonsalder />}
+
+        {temporaryHelUttak?.uttaksalder?.aar &&
+          temporaryHelUttak?.uttaksalder?.maaneder !== undefined && (
+            <div>
+              <EndreInntektVsaPensjon
+                uttaksperiode={temporaryHelUttak}
+                oppdatereInntekt={(
+                  aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
+                ) => {
+                  setTemporaryHelUttak((prevState) => {
+                    return {
+                      ...prevState,
+                      aarligInntektVsaPensjon,
+                    }
+                  })
+                }}
+              />
+            </div>
+          )}
         <div>
           <Button form={FORM_NAMES.form} className={styles.button}>
             {intl.formatMessage({
