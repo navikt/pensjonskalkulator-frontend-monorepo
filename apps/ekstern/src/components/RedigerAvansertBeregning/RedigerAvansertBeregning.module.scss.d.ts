@@ -10,7 +10,5 @@ declare const classNames: typeof globalClassNames & {
   readonly description: "description";
   readonly descriptionText: "descriptionText";
   readonly ingress: "ingress";
-  readonly buttonNullstill: "buttonNullstill";
-  readonly buttonAvbryt: "buttonAvbryt";
 };
 export = classNames;

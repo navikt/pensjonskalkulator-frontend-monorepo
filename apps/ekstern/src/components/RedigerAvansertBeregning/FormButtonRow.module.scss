@@ -1,0 +1,19 @@
+@import '../../scss/variables';
+
+.separator {
+  border: 0;
+  height: 1px;
+  width: 100%;
+  background-color: var(--a-gray-600);
+  margin: var(--a-spacing-8) 0;
+}
+
+.button {
+  &Nullstill {
+    margin-left: var(--a-spacing-4);
+  }
+
+  &Avbryt {
+    margin-top: var(--a-spacing-4);
+  }
+}
