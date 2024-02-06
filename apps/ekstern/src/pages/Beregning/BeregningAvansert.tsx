@@ -126,8 +126,9 @@ export const BeregningAvansert: React.FC = () => {
     <>
       {modus === 'redigering' && (
         <RedigerAvansertBeregning
-          onSubmitSuccess={() => {
+          gaaTilResultat={() => {
             setModus('resultat')
+            window.scrollTo(0, 0)
           }}
         />
       )}

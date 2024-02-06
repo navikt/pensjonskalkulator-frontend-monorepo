@@ -41,8 +41,8 @@ import {
 import styles from './RedigerAvansertBeregning.module.scss'
 
 export const RedigerAvansertBeregning: React.FC<{
-  onSubmitSuccess: () => void
-}> = ({ onSubmitSuccess }) => {
+  gaaTilResultat: () => void
+}> = ({ gaaTilResultat }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
@@ -317,7 +317,7 @@ export const RedigerAvansertBeregning: React.FC<{
         )
       )
 
-      onSubmitSuccess()
+      gaaTilResultat()
     }
   }
 
@@ -339,8 +339,7 @@ export const RedigerAvansertBeregning: React.FC<{
       temporaryOverskrevetInntektFremTilUttak !==
         aarligInntektFoerUttakBeloepFraBrukerInput) ||
       (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
-        temporaryOverskrevetInntektFremTilUttak !==
-          aarligInntektFoerUttakBeloep) ||
+        temporaryOverskrevetInntektFremTilUttak !== null) ||
       temporaryGradertUttak?.grad !== gradertUttaksperiode?.grad ||
       JSON.stringify(temporaryGradertUttak?.uttaksalder) !==
         JSON.stringify(gradertUttaksperiode?.uttaksalder) ||
@@ -382,7 +381,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   (aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
                     inntekt !== aarligInntektFoerUttakBeloepFraBrukerInput) ||
                   (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
-                    inntekt !== aarligInntektFoerUttakBeloep)
+                    inntekt !== null)
                 ) {
                   resetForm()
                 }
@@ -615,8 +614,9 @@ export const RedigerAvansertBeregning: React.FC<{
               />
             </div>
           )}
+        <hr className={styles.separator} />
         <div>
-          <Button form={FORM_NAMES.form} className={styles.button}>
+          <Button form={FORM_NAMES.form}>
             {intl.formatMessage({
               id: isFormUnderUpdate
                 ? 'beregning.avansert.button.oppdater'
@@ -627,7 +627,7 @@ export const RedigerAvansertBeregning: React.FC<{
             type="button"
             variant="secondary"
             onClick={resetForm}
-            className={`${styles.button} ${styles.button__last}`}
+            className={styles.buttonNullstill}
           >
             {intl.formatMessage({
               id: 'beregning.avansert.button.nullstill',
@@ -639,7 +639,10 @@ export const RedigerAvansertBeregning: React.FC<{
             <Button
               type="button"
               variant="tertiary"
-              className={`${styles.button} ${styles.button__bottom}`}
+              className={styles.buttonAvbryt}
+              onClick={() => {
+                gaaTilResultat()
+              }}
             >
               {intl.formatMessage({
                 id: 'beregning.avansert.button.avbryt',
