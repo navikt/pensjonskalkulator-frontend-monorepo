@@ -40,6 +40,13 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
     'sluttalder-inntekt-vsa-pensjon': '',
   })
 
+  React.useEffect(() => {
+    if (uttaksperiode?.aarligInntektVsaPensjon === undefined) {
+      setInntektBeloepVsaPensjon('')
+      setSluttAlder(undefined)
+    }
+  }, [uttaksperiode])
+
   const handleTextfieldChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
