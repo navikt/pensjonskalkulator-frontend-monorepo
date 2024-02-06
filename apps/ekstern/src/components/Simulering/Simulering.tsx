@@ -182,11 +182,27 @@ export function Simulering(props: {
           {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
             name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
-            data: processInntektArray(
-              aarligInntektFoerUttakBeloep,
-              XAxis.length,
-              startMaaned
-            ),
+            data: processInntektArray({
+              inntektFoerUttakBeloep: aarligInntektFoerUttakBeloep,
+              gradertUttak:
+                gradertUttaksperiode && uttaksalder
+                  ? {
+                      fra: gradertUttaksperiode?.uttaksalder,
+                      til: uttaksalder,
+                      beloep:
+                        gradertUttaksperiode?.aarligInntektVsaPensjonBeloep,
+                    }
+                  : undefined,
+              heltUttak:
+                uttaksalder && aarligInntektVsaHelPensjon
+                  ? {
+                      fra: uttaksalder,
+                      til: aarligInntektVsaHelPensjon?.sluttAlder,
+                      beloep: aarligInntektVsaHelPensjon.beloep,
+                    }
+                  : undefined,
+              length: XAxis.length,
+            }),
           } as SeriesOptionsType,
           ...(showAfp
             ? [

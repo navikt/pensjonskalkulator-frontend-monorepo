@@ -69,20 +69,106 @@ describe('Simulering-utils', () => {
   })
 
   describe('processInntektArray', () => {
-    it('returnerer et array med en 0 verdi uten å feile hvis input er 0', () => {
-      expect(processInntektArray(0, 0, 0)).toEqual([0])
-      expect(processInntektArray(0, 1, 0)).toEqual([0])
+    describe('Når ingen uttaksperiode er oppgitt', () => {
+      it('returnerer et array med én 0 verdi uten å feile', () => {
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 0,
+            gradertUttak: undefined,
+            heltUttak: undefined,
+            length: 0,
+          })
+        ).toEqual([0])
+      })
+
+      it('returnerer et riktig mappet array med riktig beløp før uttak, og 0 verdi videre', () => {
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 500000,
+            gradertUttak: undefined,
+            heltUttak: undefined,
+            length: 1,
+          })
+        ).toEqual([500000])
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 500000,
+            gradertUttak: undefined,
+            heltUttak: undefined,
+            length: 4,
+          })
+        ).toEqual([500000, 0, 0, 0])
+      })
+    })
+    describe('Når helt uttak er oppgitt', () => {
+      it('returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 500000,
+            gradertUttak: undefined,
+            heltUttak: {
+              fra: { aar: 65, maaneder: 0 },
+              til: { aar: 67, maaneder: 0 },
+              beloep: 300000,
+            },
+            length: 5,
+          })
+        ).toEqual([500000, 300000, 300000, 0, 0])
+
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 500000,
+            gradertUttak: undefined,
+            heltUttak: {
+              fra: { aar: 65, maaneder: 4 },
+              til: { aar: 67, maaneder: 3 },
+              beloep: 300000,
+            },
+            length: 5,
+          })
+        ).toEqual([500000, 366666.6666666666, 300000, 75000, 0])
+      })
     })
 
-    it('returnerer riktig mappet array med beløp og 0 verdi', () => {
-      expect(processInntektArray(500000, 1, 0)).toEqual([500000])
-      expect(processInntektArray(500000, 4, 0)).toEqual([500000, 0, 0, 0])
-    })
+    describe('Når helt uttak og gradert uttak er oppgitt', () => {
+      it('returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 500000,
+            gradertUttak: {
+              fra: { aar: 65, maaneder: 0 },
+              til: { aar: 67, maaneder: 0 },
+              beloep: 300000,
+            },
+            heltUttak: {
+              fra: { aar: 67, maaneder: 0 },
+              til: { aar: 71, maaneder: 0 },
+              beloep: 100000,
+            },
+            length: 8,
+          })
+        ).toEqual([500000, 300000, 300000, 100000, 100000, 100000, 100000, 0])
 
-    it('returnerer riktig mappet array uttak etter mnd ', () => {
-      expect(processInntektArray(1200, 1, 4)).toEqual([1200, 400])
-      expect(processInntektArray(1200, 4, 4)).toEqual([1200, 400, 0, 0])
-      expect(processInntektArray(1200, 2, 4)).toEqual([1200, 400])
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 500000,
+            gradertUttak: {
+              fra: { aar: 65, maaneder: 4 },
+              til: { aar: 67, maaneder: 3 },
+              beloep: 300000,
+            },
+            heltUttak: {
+              fra: { aar: 67, maaneder: 3 },
+              til: { aar: 71, maaneder: 8 },
+              beloep: 100000,
+            },
+            length: 10,
+          })
+        ).toEqual([
+          500000, 366666.6666666666, 300000, 150000, 100000, 100000, 100000,
+          66666.66666666667, 0, 0,
+        ])
+      })
     })
   })
 
