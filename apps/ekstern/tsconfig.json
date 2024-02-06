@@ -17,14 +17,14 @@
     "jsx": "react-jsx",
     "types": ["node", "vite/client", "vitest/globals"],
     "paths": {
-      "@/*": ["./src/*"],
-    },
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src", "api/server.cjs"],
   "exclude": ["cypress", "src/nais.js"],
   "references": [
     {
-      "path": "./tsconfig.node.json",
-    },
-  ],
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
