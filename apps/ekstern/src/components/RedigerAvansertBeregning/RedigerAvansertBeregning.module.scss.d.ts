@@ -11,5 +11,7 @@ declare const classNames: typeof globalClassNames & {
   readonly descriptionText: "descriptionText";
   readonly ingress: "ingress";
   readonly button: "button";
+  readonly button__last: "button__last";
+  readonly button__bottom: "button__bottom";
 };
 export = classNames;

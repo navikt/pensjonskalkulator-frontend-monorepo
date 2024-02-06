@@ -80,7 +80,6 @@ const translations = {
   'stegvisning.avbryt': 'Avbryt',
   'stegvisning.tilbake_start': 'Tilbake til start',
   'stegvisning.beregn': 'Beregn pensjon',
-  'stegvisning.nullstill': 'Nullstill',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'Velkommen til enkel kalkulator som er under utvikling. For å kunne beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
@@ -268,7 +267,10 @@ const translations = {
     'Når vil du ta ut {grad} % alderspensjon',
   'beregning.avansert.rediger.heltuttak.agepicker.label':
     'Når vil du ta ut 100 % alderspensjon',
-
+  'beregning.avansert.button.beregn': 'Beregn pensjon',
+  'beregning.avansert.button.oppdater': 'Oppdater pensjon',
+  'beregning.avansert.button.nullstill': 'Nullstill valg',
+  'beregning.avansert.button.avbryt': 'Avbryt endring',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',

@@ -78,7 +78,6 @@ const translations = {
   'stegvisning.avbryt': 'Avbryt',
   'stegvisning.tilbake_start': 'Tilbake til start',
   'stegvisning.beregn': 'Rekne ut pensjon',
-  'stegvisning.nullstill': 'MANGLER_TEKST',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
     'Velkommen til enkel kalkulator som er under utvikling. For å kunne rekne ut pensjonen din, må du svare på alle spørsmåla som kjem.',
@@ -255,6 +254,10 @@ const translations = {
   'beregning.avansert.rediger.agepicker.validation_error': 'MANGLER_TEKST',
   'beregning.avansert.rediger.gradertuttak.agepicker.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.heltuttak.agepicker.label': 'MANGLER_TEKST',
+  'beregning.avansert.button.beregn': 'MANGLER_TEKST',
+  'beregning.avansert.button.oppdater': 'MANGLER_TEKST',
+  'beregning.avansert.button.nullstill': 'MANGLER_TEKST',
+  'beregning.avansert.button.avbryt': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',

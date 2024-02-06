@@ -74,4 +74,12 @@
 
 .button {
   margin-top: var(--a-spacing-8);
+
+  &__last {
+    margin-left: var(--a-spacing-4);
+  }
+
+  &__bottom {
+    margin-top: var(--a-spacing-4);
+  }
 }

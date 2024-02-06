@@ -67,7 +67,7 @@ export const RedigerAvansertBeregning: React.FC<{
       : null
   )
 
-  const [temporaryHelUttak, setTemporaryHelUttak] = React.useState<
+  const [temporaryHeltUttak, settemporaryHeltUttak] = React.useState<
     RecursivePartial<HeltUttak> | undefined
   >({
     uttaksalder: uttaksalder !== null ? uttaksalder : undefined,
@@ -130,14 +130,14 @@ export const RedigerAvansertBeregning: React.FC<{
           aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
           heltUttak: {
             uttaksalder:
-              temporaryHelUttak?.uttaksalder?.aar &&
-              temporaryHelUttak?.uttaksalder?.maaneder !== undefined
-                ? (temporaryHelUttak?.uttaksalder as Alder)
+              temporaryHeltUttak?.uttaksalder?.aar &&
+              temporaryHeltUttak?.uttaksalder?.maaneder !== undefined
+                ? (temporaryHeltUttak?.uttaksalder as Alder)
                 : { aar: 67, maaneder: 0 },
             aarligInntektVsaPensjon:
-              temporaryHelUttak?.aarligInntektVsaPensjon?.beloep &&
-              temporaryHelUttak?.aarligInntektVsaPensjon?.sluttAlder
-                ? (temporaryHelUttak?.aarligInntektVsaPensjon as AarligInntektVsaPensjon)
+              temporaryHeltUttak?.aarligInntektVsaPensjon?.beloep &&
+              temporaryHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
+                ? (temporaryHeltUttak?.aarligInntektVsaPensjon as AarligInntektVsaPensjon)
                 : undefined,
           },
           gradertUttak: {
@@ -154,7 +154,7 @@ export const RedigerAvansertBeregning: React.FC<{
     aarligInntektFoerUttakBeloep,
     harSamboer,
     temporaryGradertUttak,
-    temporaryHelUttak,
+    temporaryHeltUttak,
   ])
 
   const [validationErrors, setValidationErrors] = React.useState<
@@ -211,7 +211,7 @@ export const RedigerAvansertBeregning: React.FC<{
         : undefined
     })
 
-    setTemporaryHelUttak((previous) => {
+    settemporaryHeltUttak((previous) => {
       return { ...previous, uttaksalder: undefined }
     })
   }
@@ -221,7 +221,9 @@ export const RedigerAvansertBeregning: React.FC<{
   ): void => {
     setTemporaryGradertUttak((previous) => ({
       ...previous,
-      aarligInntektVsaPensjonBeloep: parseInt(e.target.value, 10),
+      aarligInntektVsaPensjonBeloep: e.target.value
+        ? parseInt(e.target.value, 10)
+        : undefined,
     }))
 
     setValidationErrors((prevState) => {
@@ -295,16 +297,16 @@ export const RedigerAvansertBeregning: React.FC<{
               aarligInntektVsaGradertPensjon
             )
               ? aarligInntektVsaGradertPensjon
-              : 0,
+              : undefined,
           })
         )
       }
       dispatch(
         userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
-          temporaryHelUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
-            temporaryHelUttak?.aarligInntektVsaPensjon?.sluttAlder
+          temporaryHeltUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
+            temporaryHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
             ? ({
-                ...temporaryHelUttak?.aarligInntektVsaPensjon,
+                ...temporaryHeltUttak?.aarligInntektVsaPensjon,
               } as AarligInntektVsaPensjon)
             : undefined
         )
@@ -328,8 +330,29 @@ export const RedigerAvansertBeregning: React.FC<{
     })
     setTemporaryOverskrevetInntektFremTilUttak(null)
     setTemporaryGradertUttak(undefined)
-    setTemporaryHelUttak(undefined)
+    settemporaryHeltUttak(undefined)
   }
+
+  const isFormUnderUpdate =
+    uttaksalder &&
+    ((aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
+      temporaryOverskrevetInntektFremTilUttak !==
+        aarligInntektFoerUttakBeloepFraBrukerInput) ||
+      (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
+        temporaryOverskrevetInntektFremTilUttak !==
+          aarligInntektFoerUttakBeloep) ||
+      temporaryGradertUttak?.grad !== gradertUttaksperiode?.grad ||
+      JSON.stringify(temporaryGradertUttak?.uttaksalder) !==
+        JSON.stringify(gradertUttaksperiode?.uttaksalder) ||
+      temporaryGradertUttak?.aarligInntektVsaPensjonBeloep !==
+        gradertUttaksperiode?.aarligInntektVsaPensjonBeloep ||
+      JSON.stringify(temporaryHeltUttak?.uttaksalder) !==
+        JSON.stringify(uttaksalder) ||
+      temporaryHeltUttak?.aarligInntektVsaPensjon?.beloep !==
+        aarligInntektVsaHelPensjon?.beloep ||
+      JSON.stringify(
+        temporaryHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
+      ) !== JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder))
 
   return (
     <div
@@ -355,7 +378,15 @@ export const RedigerAvansertBeregning: React.FC<{
               buttonLabel="beregning.avansert.rediger.inntekt.button"
               value={temporaryOverskrevetInntektFremTilUttak}
               onSubmit={(inntekt) => {
-                resetForm()
+                if (
+                  (aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
+                    inntekt !== aarligInntektFoerUttakBeloepFraBrukerInput) ||
+                  (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
+                    inntekt !== aarligInntektFoerUttakBeloep)
+                ) {
+                  resetForm()
+                }
+
                 setTemporaryOverskrevetInntektFremTilUttak(inntekt)
               }}
             />
@@ -410,7 +441,6 @@ export const RedigerAvansertBeregning: React.FC<{
         </ReadMore>
 
         <div className={styles.spacer} />
-
         {temporaryGradertUttak && (
           <div>
             <AgePicker
@@ -449,12 +479,12 @@ export const RedigerAvansertBeregning: React.FC<{
                   uttaksalder: alder,
                 }))
                 if (
-                  temporaryHelUttak?.uttaksalder &&
-                  (temporaryHelUttak.uttaksalder?.aar ?? 0) * 12 +
-                    (temporaryHelUttak.uttaksalder?.maaneder ?? 0) <=
+                  temporaryHeltUttak?.uttaksalder &&
+                  (temporaryHeltUttak.uttaksalder?.aar ?? 0) * 12 +
+                    (temporaryHeltUttak.uttaksalder?.maaneder ?? 0) <=
                     (alder?.aar ?? 0) * 12 + (alder?.maaneder ?? 0)
                 ) {
-                  setTemporaryHelUttak((previous) => ({
+                  settemporaryHeltUttak((previous) => ({
                     ...previous,
                     uttaksalder: undefined,
                   }))
@@ -512,7 +542,7 @@ export const RedigerAvansertBeregning: React.FC<{
               id: 'beregning.avansert.rediger.heltuttak.agepicker.label',
             })}
             description={agePickerHelDescription}
-            value={temporaryHelUttak?.uttaksalder}
+            value={temporaryHeltUttak?.uttaksalder}
             minAlder={getMinAlderTilHeltUttak({
               tidligstMuligHeltUttak,
               temporaryGradertUttak: temporaryGradertUttak?.uttaksalder,
@@ -525,7 +555,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   [FORM_NAMES.uttaksalderHeltUttak]: '',
                 }
               })
-              setTemporaryHelUttak((prevState) => {
+              settemporaryHeltUttak((prevState) => {
                 const sluttAlderAntallMaaneder =
                   prevState?.aarligInntektVsaPensjon?.sluttAlder?.aar !==
                   undefined
@@ -567,15 +597,15 @@ export const RedigerAvansertBeregning: React.FC<{
           !temporaryGradertUttak?.grad ||
           temporaryGradertUttak?.grad === 100) && <ReadMoreOmPensjonsalder />}
 
-        {temporaryHelUttak?.uttaksalder?.aar &&
-          temporaryHelUttak?.uttaksalder?.maaneder !== undefined && (
+        {temporaryHeltUttak?.uttaksalder?.aar &&
+          temporaryHeltUttak?.uttaksalder?.maaneder !== undefined && (
             <div>
               <EndreInntektVsaPensjon
-                uttaksperiode={temporaryHelUttak}
+                uttaksperiode={temporaryHeltUttak}
                 oppdatereInntekt={(
                   aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
                 ) => {
-                  setTemporaryHelUttak((prevState) => {
+                  settemporaryHeltUttak((prevState) => {
                     return {
                       ...prevState,
                       aarligInntektVsaPensjon,
@@ -588,15 +618,35 @@ export const RedigerAvansertBeregning: React.FC<{
         <div>
           <Button form={FORM_NAMES.form} className={styles.button}>
             {intl.formatMessage({
-              id: 'stegvisning.beregn',
+              id: isFormUnderUpdate
+                ? 'beregning.avansert.button.oppdater'
+                : 'beregning.avansert.button.beregn',
             })}
           </Button>
-          <Button type="button" variant="tertiary" onClick={resetForm}>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={resetForm}
+            className={`${styles.button} ${styles.button__last}`}
+          >
             {intl.formatMessage({
-              id: 'stegvisning.nullstill',
+              id: 'beregning.avansert.button.nullstill',
             })}
           </Button>
         </div>
+        {isFormUnderUpdate && (
+          <div>
+            <Button
+              type="button"
+              variant="tertiary"
+              className={`${styles.button} ${styles.button__bottom}`}
+            >
+              {intl.formatMessage({
+                id: 'beregning.avansert.button.avbryt',
+              })}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )
