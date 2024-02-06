@@ -37,7 +37,7 @@ export const useFormLocalState = (initialValues: {
   >(false)
 
   React.useEffect(() => {
-    const updatedIFormUnderUpdate =
+    const updatedIsFormUnderUpdate =
       uttaksalder &&
       ((aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
         localInntektFremTilUttak !==
@@ -57,8 +57,8 @@ export const useFormLocalState = (initialValues: {
           JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder))
 
     setIsFormUnderUpdate((previous) => {
-      return previous !== updatedIFormUnderUpdate
-        ? updatedIFormUnderUpdate
+      return previous !== updatedIsFormUnderUpdate
+        ? updatedIsFormUnderUpdate
         : previous
     })
   }, [
