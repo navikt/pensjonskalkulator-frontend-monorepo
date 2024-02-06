@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { PencilIcon, TrashIcon } from '@navikt/aksel-icons'
+import { PencilIcon, PlusCircleIcon, TrashIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Label, Modal, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
@@ -261,7 +261,11 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           <BodyShort className={styles.paragraph}>
             <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2" />
           </BodyShort>
-          <Button variant="secondary" onClick={openInntektVsaPensjonModal}>
+          <Button
+            variant="tertiary"
+            icon={<PlusCircleIcon aria-hidden />}
+            onClick={openInntektVsaPensjonModal}
+          >
             {intl.formatMessage({
               id: 'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til',
             })}
