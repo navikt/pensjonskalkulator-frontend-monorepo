@@ -526,7 +526,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 }
               })
               setTemporaryHelUttak((prevState) => {
-                const sluttAlderMonths =
+                const sluttAlderAntallMaaneder =
                   prevState?.aarligInntektVsaPensjon?.sluttAlder?.aar !==
                   undefined
                     ? prevState?.aarligInntektVsaPensjon?.sluttAlder.aar * 12 +
@@ -535,7 +535,8 @@ export const RedigerAvansertBeregning: React.FC<{
                     : 0
                 const shouldDeleteInntektVsaPensjon =
                   alder?.aar &&
-                  alder?.aar * 12 + (alder?.maaneder ?? 0) >= sluttAlderMonths
+                  alder?.aar * 12 + (alder?.maaneder ?? 0) >=
+                    sluttAlderAntallMaaneder
                 return {
                   ...prevState,
                   uttaksalder: alder,
