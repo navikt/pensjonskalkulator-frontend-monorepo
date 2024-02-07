@@ -1,4 +1,3 @@
-/* c8 ignore start */
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
@@ -73,7 +72,7 @@ export const RedigerAvansertBeregning: React.FC<{
     gradertUttaksperiode,
   })
 
-  // TODO REFACTOR flytte denne til en emekl get Function på link linje som AgePicker error?
+  // TODO REFACTOR flytte denne til en emekl get Function på lik linje som AgePicker error?
   const [agePickerHelDescription, setAgePickerHelDescription] =
     React.useState<string>('')
 
@@ -599,4 +598,3 @@ export const RedigerAvansertBeregning: React.FC<{
     </div>
   )
 }
-/* c8 ignore end */
