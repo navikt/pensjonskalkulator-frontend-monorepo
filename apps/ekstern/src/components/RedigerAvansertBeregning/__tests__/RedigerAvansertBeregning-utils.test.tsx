@@ -163,6 +163,15 @@ describe('RedigerAvansertBeregning-utils', () => {
       ).toStrictEqual({ aar: 64, maaneder: 3 })
     })
 
+    it('returnerer localGradertUttak + 1 måned når gradert uttak er oppgitt og tidligstMuligHeltUttak er ukjent', () => {
+      expect(
+        getMinAlderTilHeltUttak({
+          localGradertUttak: { aar: 64, maaneder: 3 },
+          tidligstMuligHeltUttak: undefined,
+        })
+      ).toStrictEqual({ aar: 64, maaneder: 4 })
+    })
+
     it('returnerer localGradertUttak + 1 måned når gradert uttak er oppgitt og brukeren har høy nok opptjening', () => {
       expect(
         getMinAlderTilHeltUttak({

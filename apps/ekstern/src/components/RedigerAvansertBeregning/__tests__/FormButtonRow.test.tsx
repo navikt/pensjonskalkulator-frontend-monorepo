@@ -5,10 +5,10 @@ import { FORM_NAMES } from '../utils'
 import { render, screen, fireEvent } from '@/test-utils'
 
 describe('FormButtonRow', () => {
-  it('Når knapperaden rendres med isFormUnderUpdate false, vises det riktig tekst og avbryt knappen er skjult', () => {
+  it('Når knapperaden rendres med hasUnsavedChanges false, vises det riktig tekst og avbryt knappen er skjult', () => {
     render(
       <FormButtonRow
-        isFormUnderUpdate={false}
+        hasUnsavedChanges={false}
         resetForm={vi.fn()}
         gaaTilResultat={vi.fn()}
       />
@@ -25,10 +25,10 @@ describe('FormButtonRow', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('Når knapperaden rendres med isFormUnderUpdate true, vises det riktig tekst og avbryt knappen er synlig', () => {
+  it('Når knapperaden rendres med hasUnsavedChanges true, vises det riktig tekst og avbryt knappen er synlig', () => {
     render(
       <FormButtonRow
-        isFormUnderUpdate={true}
+        hasUnsavedChanges={true}
         resetForm={vi.fn()}
         gaaTilResultat={vi.fn()}
       />
@@ -49,7 +49,7 @@ describe('FormButtonRow', () => {
       <>
         <form id={FORM_NAMES.form} method="dialog" onSubmit={onSubmitMock}>
           <FormButtonRow
-            isFormUnderUpdate={false}
+            hasUnsavedChanges={false}
             resetForm={vi.fn()}
             gaaTilResultat={vi.fn()}
           />
@@ -65,7 +65,7 @@ describe('FormButtonRow', () => {
     const onResetMock = vi.fn()
     render(
       <FormButtonRow
-        isFormUnderUpdate={false}
+        hasUnsavedChanges={false}
         resetForm={onResetMock}
         gaaTilResultat={vi.fn()}
       />
@@ -79,7 +79,7 @@ describe('FormButtonRow', () => {
     const gaaTilResultatMock = vi.fn()
     render(
       <FormButtonRow
-        isFormUnderUpdate={true}
+        hasUnsavedChanges={true}
         resetForm={vi.fn()}
         gaaTilResultat={gaaTilResultatMock}
       />

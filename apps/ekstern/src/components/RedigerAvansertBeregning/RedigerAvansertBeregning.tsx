@@ -59,7 +59,7 @@ export const RedigerAvansertBeregning: React.FC<{
   )
 
   const [
-    isFormUnderUpdate,
+    hasUnsavedChanges,
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
@@ -534,7 +534,7 @@ export const RedigerAvansertBeregning: React.FC<{
         <FormButtonRow
           resetForm={resetForm}
           gaaTilResultat={gaaTilResultat}
-          isFormUnderUpdate={!!isFormUnderUpdate}
+          hasUnsavedChanges={!!hasUnsavedChanges}
         />
       </div>
     </div>

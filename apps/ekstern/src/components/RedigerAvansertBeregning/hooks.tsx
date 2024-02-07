@@ -37,12 +37,12 @@ export const useFormLocalState = (initialValues: {
     RecursivePartial<GradertUttak> | undefined
   >(gradertUttaksperiode ?? undefined)
 
-  const [isFormUnderUpdate, setIsFormUnderUpdate] = React.useState<
+  const [hasUnsavedChanges, setHasUnsavedChanges] = React.useState<
     boolean | null
   >(false)
 
   React.useEffect(() => {
-    const updatedIsFormUnderUpdate =
+    const updatedHasUnsavedChanges =
       uttaksalder &&
       ((aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
         localInntektFremTilUttak !==
@@ -61,9 +61,9 @@ export const useFormLocalState = (initialValues: {
         JSON.stringify(localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder) !==
           JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder))
 
-    setIsFormUnderUpdate((previous) => {
-      return previous !== updatedIsFormUnderUpdate
-        ? updatedIsFormUnderUpdate
+    setHasUnsavedChanges((previous) => {
+      return previous !== updatedHasUnsavedChanges
+        ? updatedHasUnsavedChanges
         : previous
     })
   }, [
@@ -86,7 +86,7 @@ export const useFormLocalState = (initialValues: {
   )
 
   return [
-    isFormUnderUpdate,
+    hasUnsavedChanges,
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
