@@ -84,12 +84,12 @@ export const RedigerAvansertBeregning: React.FC<{
     localHeltUttak,
   })
 
-  const {
-    data: tidligstMuligHeltUttak,
-    isError: isTidligstMuligHeltUttakError,
-  } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
-    skip: !tidligstMuligHeltUttakRequestBody,
-  })
+  const { data: tidligstMuligHeltUttak } = useTidligstMuligHeltUttakQuery(
+    tidligstMuligHeltUttakRequestBody,
+    {
+      skip: !tidligstMuligHeltUttakRequestBody,
+    }
+  )
 
   const {
     data: tidligstMuligGradertUttak,
@@ -327,7 +327,7 @@ export const RedigerAvansertBeregning: React.FC<{
       : ''
   }
 
-  // TODO flytte denne til en util og bruk memo med array: tidligstMuligHeltUttak, isTidligstMuligHeltUttakError, localGradertUttak
+  // TODO flytte denne til en util og bruk memo med array: tidligstMuligHeltUttak, localGradertUttak
   const getAgePickerHelDescription = (): string | undefined => {
     if (tidligstMuligHeltUttak) {
       if (!localGradertUttak) {
