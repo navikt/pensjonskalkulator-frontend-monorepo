@@ -7,7 +7,6 @@ import { FORM_NAMES } from './utils'
 
 import styles from './FormButtonRow.module.scss'
 
-// TODO REFACTOR - skrive tester
 export const FormButtonRow: React.FC<{
   isFormUnderUpdate: boolean
   resetForm: () => void
