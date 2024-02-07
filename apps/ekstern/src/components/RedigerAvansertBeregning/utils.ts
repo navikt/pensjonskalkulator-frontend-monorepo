@@ -110,28 +110,28 @@ export const validateAvansertBeregningSkjema = (
   // --> Hvis brukeren ikke har maksimal opptjening (tidligstMuligUttak !== 62 år 0md): 67 år og 0 md ( gitt at gradert pensjon ikke er valgt etter 67)
    */
 export const getMinAlderTilHeltUttak = (args: {
-  temporaryGradertUttak: RecursivePartial<Alder> | undefined
+  localGradertUttak: RecursivePartial<Alder> | undefined
   tidligstMuligHeltUttak: Alder | undefined
 }): Alder => {
-  const { temporaryGradertUttak, tidligstMuligHeltUttak } = args
-  if (temporaryGradertUttak?.aar) {
-    const temporaryGradertUttakPlus1Maaned =
-      temporaryGradertUttak?.maaneder !== 11
+  const { localGradertUttak, tidligstMuligHeltUttak } = args
+  if (localGradertUttak?.aar) {
+    const localGradertUttakPlus1Maaned =
+      localGradertUttak?.maaneder !== 11
         ? {
-            aar: temporaryGradertUttak?.aar,
-            maaneder: (temporaryGradertUttak?.maaneder ?? 0) + 1,
+            aar: localGradertUttak?.aar,
+            maaneder: (localGradertUttak?.maaneder ?? 0) + 1,
           }
-        : { aar: temporaryGradertUttak?.aar + 1, maaneder: 0 }
+        : { aar: localGradertUttak?.aar + 1, maaneder: 0 }
 
     if (tidligstMuligHeltUttak) {
       return isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak) &&
-        temporaryGradertUttakPlus1Maaned.aar * 12 +
-          temporaryGradertUttakPlus1Maaned.maaneder <=
+        localGradertUttakPlus1Maaned.aar * 12 +
+          localGradertUttakPlus1Maaned.maaneder <=
           67 * 12
         ? { aar: 67, maaneder: 0 }
-        : temporaryGradertUttakPlus1Maaned
+        : localGradertUttakPlus1Maaned
     } else {
-      return temporaryGradertUttakPlus1Maaned
+      return localGradertUttakPlus1Maaned
     }
   } else {
     return tidligstMuligHeltUttak

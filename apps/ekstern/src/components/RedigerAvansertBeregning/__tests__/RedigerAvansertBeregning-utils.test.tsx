@@ -148,7 +148,7 @@ describe('RedigerAvansertBeregning-utils', () => {
     it('returnerer 62 år og 0 md. når hverken gradert uttak eller tidligst mulig uttak er oppgitt', () => {
       expect(
         getMinAlderTilHeltUttak({
-          temporaryGradertUttak: undefined,
+          localGradertUttak: undefined,
           tidligstMuligHeltUttak: undefined,
         })
       ).toStrictEqual({ aar: 62, maaneder: 0 })
@@ -157,22 +157,22 @@ describe('RedigerAvansertBeregning-utils', () => {
     it('returnerer tidligstMuligHeltUttak når gradert uttak ikke er oppgitt', () => {
       expect(
         getMinAlderTilHeltUttak({
-          temporaryGradertUttak: undefined,
+          localGradertUttak: undefined,
           tidligstMuligHeltUttak: { aar: 64, maaneder: 3 },
         })
       ).toStrictEqual({ aar: 64, maaneder: 3 })
     })
 
-    it('returnerer temporaryGradertUttak + 1 måned når gradert uttak er oppgitt og brukeren har høy nok opptjening', () => {
+    it('returnerer localGradertUttak + 1 måned når gradert uttak er oppgitt og brukeren har høy nok opptjening', () => {
       expect(
         getMinAlderTilHeltUttak({
-          temporaryGradertUttak: { aar: 64, maaneder: 3 },
+          localGradertUttak: { aar: 64, maaneder: 3 },
           tidligstMuligHeltUttak: { aar: 62, maaneder: 0 },
         })
       ).toStrictEqual({ aar: 64, maaneder: 4 })
       expect(
         getMinAlderTilHeltUttak({
-          temporaryGradertUttak: { aar: 64, maaneder: 11 },
+          localGradertUttak: { aar: 64, maaneder: 11 },
           tidligstMuligHeltUttak: { aar: 62, maaneder: 0 },
         })
       ).toStrictEqual({ aar: 65, maaneder: 0 })
@@ -181,16 +181,16 @@ describe('RedigerAvansertBeregning-utils', () => {
     it('returnerer 67 år og 0 md. når gradert uttak er oppgitt og brukeren ikke har høy nok opptjening', () => {
       expect(
         getMinAlderTilHeltUttak({
-          temporaryGradertUttak: { aar: 64, maaneder: 3 },
+          localGradertUttak: { aar: 64, maaneder: 3 },
           tidligstMuligHeltUttak: { aar: 62, maaneder: 1 },
         })
       ).toStrictEqual({ aar: 67, maaneder: 0 })
     })
 
-    it('returnerer temporaryGradertUttak + 1 måned når gradert uttak er oppgitt senere enn 67 år og 0 md., brukeren har høy nok opptjening', () => {
+    it('returnerer localGradertUttak + 1 måned når gradert uttak er oppgitt senere enn 67 år og 0 md., brukeren har høy nok opptjening', () => {
       expect(
         getMinAlderTilHeltUttak({
-          temporaryGradertUttak: { aar: 68, maaneder: 3 },
+          localGradertUttak: { aar: 68, maaneder: 3 },
           tidligstMuligHeltUttak: { aar: 62, maaneder: 0 },
         })
       ).toStrictEqual({ aar: 68, maaneder: 4 })
