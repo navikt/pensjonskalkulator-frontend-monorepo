@@ -243,7 +243,7 @@ const translations = {
   'beregning.tabell.sum': 'Sum',
   'beregning.avansert.resultatkort.tittel': 'Se og endre dine valg',
   'beregning.avansert.resultatkort.description':
-    'Intekt, uttaksgrad og pensjonsalder',
+    'Inntekt, uttaksgrad og pensjonsalder',
   'beregning.avansert.resultatkort.button': 'Endre valg',
   'beregning.avansert.resultatkort.frem_til_uttak': 'Frem til uttak av pensjon',
   'beregning.avansert.resultatkort.inntekt_1': 'Pensjonsgivende årsinntekt',

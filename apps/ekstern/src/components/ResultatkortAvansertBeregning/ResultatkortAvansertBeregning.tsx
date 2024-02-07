@@ -35,9 +35,10 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
     <ExpansionCard
       className={styles.card}
       aria-labelledby="expansion-card-label"
+      size="small"
     >
       <ExpansionCard.Header>
-        <ExpansionCard.Title id="expansion-card-label">
+        <ExpansionCard.Title id="expansion-card-label" size="small">
           <FormattedMessage id="beregning.avansert.resultatkort.tittel" />
         </ExpansionCard.Title>
         <ExpansionCard.Description>
