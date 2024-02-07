@@ -110,7 +110,10 @@ export const RedigerAvansertBeregning: React.FC<{
         afp,
         sivilstand: sivilstand,
         harSamboer,
-        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
+        aarligInntektFoerUttakBeloep:
+          localInntektFremTilUttak !== null
+            ? localInntektFremTilUttak
+            : aarligInntektFoerUttakBeloep ?? 0,
       })
 
     if (oppdatertHeltUttakRequestBody !== undefined) {
@@ -123,7 +126,10 @@ export const RedigerAvansertBeregning: React.FC<{
           afp,
           sivilstand: sivilstand,
           harSamboer,
-          aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
+          aarligInntektFoerUttakBeloep:
+            localInntektFremTilUttak !== null
+              ? localInntektFremTilUttak
+              : aarligInntektFoerUttakBeloep ?? 0,
           heltUttak: {
             uttaksalder:
               localHeltUttak?.uttaksalder?.aar &&
@@ -147,10 +153,10 @@ export const RedigerAvansertBeregning: React.FC<{
   }, [
     afp,
     sivilstand,
-    aarligInntektFoerUttakBeloep,
     harSamboer,
     localGradertUttak,
     localHeltUttak,
+    localInntektFremTilUttak,
   ])
 
   const [validationErrors, setValidationErrors] = React.useState<
