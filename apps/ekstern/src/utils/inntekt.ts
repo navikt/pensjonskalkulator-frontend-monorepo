@@ -1,10 +1,14 @@
-export const formatWithoutDecimal = (amount?: number | null): string => {
-  if (amount === null || amount === undefined) return ''
+export const formatWithoutDecimal = (
+  amount?: number | string | null
+): string => {
+  if (amount === null || amount === undefined || amount === '') return ''
+  const intergerAmount =
+    typeof amount === 'string' ? parseInt(amount, 10) : amount
   return Intl.NumberFormat('nb-NO', {
     style: 'decimal',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(amount)
+  }).format(intergerAmount)
 }
 
 export const validateInntekt = (
