@@ -21,16 +21,38 @@ export const useFormLocalState = (initialValues: {
       : null
   )
   const [localHeltUttak, setHeltUttak] = React.useState<
-    RecursivePartial<HeltUttak> | undefined
+    | (Omit<RecursivePartial<HeltUttak>, 'aarligInntektVsaPensjon'> & {
+        aarligInntektVsaPensjon?: {
+          beloep: string
+          sluttAlder: Alder
+        }
+      })
+    | undefined
   >({
     uttaksalder: uttaksalder !== null ? uttaksalder : undefined,
     aarligInntektVsaPensjon: aarligInntektVsaHelPensjon
-      ? aarligInntektVsaHelPensjon
+      ? {
+          ...aarligInntektVsaHelPensjon,
+          beloep: aarligInntektVsaHelPensjon.beloep.toString(),
+        }
       : undefined,
   })
   const [localGradertUttak, setGradertUttak] = React.useState<
-    RecursivePartial<GradertUttak> | undefined
-  >(gradertUttaksperiode ?? undefined)
+    | (Omit<RecursivePartial<GradertUttak>, 'aarligInntektVsaPensjonBeloep'> & {
+        aarligInntektVsaPensjonBeloep?: string
+      })
+    | undefined
+  >(
+    gradertUttaksperiode
+      ? {
+          ...gradertUttaksperiode,
+          aarligInntektVsaPensjonBeloep:
+            gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+              ? gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString()
+              : undefined,
+        }
+      : undefined
+  )
 
   const [isFormUnderUpdate, setIsFormUnderUpdate] = React.useState<
     boolean | null
@@ -47,11 +69,11 @@ export const useFormLocalState = (initialValues: {
         localGradertUttak?.grad !== gradertUttaksperiode?.grad ||
         JSON.stringify(localGradertUttak?.uttaksalder) !==
           JSON.stringify(gradertUttaksperiode?.uttaksalder) ||
-        localGradertUttak?.aarligInntektVsaPensjonBeloep !==
+        parseInt(localGradertUttak?.aarligInntektVsaPensjonBeloep ?? '', 10) !==
           gradertUttaksperiode?.aarligInntektVsaPensjonBeloep ||
         JSON.stringify(localHeltUttak?.uttaksalder) !==
           JSON.stringify(uttaksalder) ||
-        localHeltUttak?.aarligInntektVsaPensjon?.beloep !==
+        parseInt(localHeltUttak?.aarligInntektVsaPensjon?.beloep ?? '', 10) !==
           aarligInntektVsaHelPensjon?.beloep ||
         JSON.stringify(localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder) !==
           JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder))

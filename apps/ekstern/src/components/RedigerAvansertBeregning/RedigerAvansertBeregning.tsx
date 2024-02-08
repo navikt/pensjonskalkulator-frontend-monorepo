@@ -138,13 +138,21 @@ export const RedigerAvansertBeregning: React.FC<{
             aarligInntektVsaPensjon:
               localHeltUttak?.aarligInntektVsaPensjon?.beloep &&
               localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
-                ? (localHeltUttak?.aarligInntektVsaPensjon as AarligInntektVsaPensjon)
+                ? {
+                    ...localHeltUttak?.aarligInntektVsaPensjon,
+                    beloep: parseInt(
+                      localHeltUttak?.aarligInntektVsaPensjon.beloep,
+                      10
+                    ),
+                  }
                 : undefined,
           },
           gradertUttak: {
             grad: localGradertUttak?.grad,
             aarligInntektVsaPensjonBeloep:
-              localGradertUttak.aarligInntektVsaPensjonBeloep,
+              localGradertUttak.aarligInntektVsaPensjonBeloep
+                ? parseInt(localGradertUttak.aarligInntektVsaPensjonBeloep, 10)
+                : undefined,
           },
         })
       )
@@ -219,7 +227,7 @@ export const RedigerAvansertBeregning: React.FC<{
     setLocalGradertUttak((previous) => ({
       ...previous,
       aarligInntektVsaPensjonBeloep: e.target.value
-        ? parseInt(e.target.value, 10)
+        ? e.target.value
         : undefined,
     }))
 
@@ -275,9 +283,10 @@ export const RedigerAvansertBeregning: React.FC<{
       return {
         ...prevState,
         uttaksalder: alder,
-        aarligInntektVsaPensjon: shouldDeleteInntektVsaPensjon
-          ? undefined
-          : { ...prevState?.aarligInntektVsaPensjon },
+        aarligInntektVsaPensjon:
+          shouldDeleteInntektVsaPensjon || !prevState?.aarligInntektVsaPensjon
+            ? undefined
+            : { ...prevState?.aarligInntektVsaPensjon },
       }
     })
   }
@@ -331,6 +340,7 @@ export const RedigerAvansertBeregning: React.FC<{
           inntektVsaGradertPensjonFormData as string,
           10
         )
+
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode({
             uttaksalder: {
@@ -353,9 +363,13 @@ export const RedigerAvansertBeregning: React.FC<{
         userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
           localHeltUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
             localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
-            ? ({
+            ? {
                 ...localHeltUttak?.aarligInntektVsaPensjon,
-              } as AarligInntektVsaPensjon)
+                beloep: parseInt(
+                  localHeltUttak?.aarligInntektVsaPensjon.beloep,
+                  10
+                ),
+              }
             : undefined
         )
       )
@@ -537,18 +551,14 @@ export const RedigerAvansertBeregning: React.FC<{
                 id: 'inntekt.endre_inntekt_modal.textfield.description',
               })}
               error={
-                validationErrors['inntekt-vsa-gradert-pensjon']
+                validationErrors[FORM_NAMES.inntektVsaGradertUttak]
                   ? intl.formatMessage({
-                      id: validationErrors['inntekt-vsa-gradert-pensjon'],
+                      id: validationErrors[FORM_NAMES.inntektVsaGradertUttak],
                     })
                   : ''
               }
               onChange={handleInntektVsaGradertPensjonChange}
-              value={
-                localGradertUttak?.aarligInntektVsaPensjonBeloep
-                  ? localGradertUttak.aarligInntektVsaPensjonBeloep?.toString()
-                  : undefined
-              }
+              value={localGradertUttak?.aarligInntektVsaPensjonBeloep}
               max={5}
             />
             <div className={styles.spacer} />
@@ -582,9 +592,13 @@ export const RedigerAvansertBeregning: React.FC<{
             <div>
               <EndreInntektVsaPensjon
                 uttaksperiode={localHeltUttak}
-                oppdatereInntekt={(
-                  aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
-                ) => {
+                oppdatereInntekt={(aarligInntektVsaPensjon?: {
+                  beloep: string
+                  sluttAlder: {
+                    aar: number
+                    maaneder: number
+                  }
+                }) => {
                   setLocalHeltUttak((prevState) => {
                     return {
                       ...prevState,

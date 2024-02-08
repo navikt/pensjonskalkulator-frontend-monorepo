@@ -163,8 +163,8 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
-  'agepicker.validation_error.aar': 'Du må velge år og måned',
-  'agepicker.validation_error.maaneder': 'Du må velge måned',
+  'agepicker.validation_error.aar': 'Du må velge år og måned.',
+  'agepicker.validation_error.maaneder': 'Du må velge måned.',
   'string.og': 'og',
   'alder.md': 'md.',
   'alder.maaned': 'måned',
@@ -353,7 +353,7 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.label':
     'Forventet årsinntekt mens du tar ut 100 % alderspensjon',
   'inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2':
-    'Du kan tjene så mye som du vil samtidig som du tar ut 100 % alderspensjon',
+    'Du kan tjene så mye som du vil samtidig som du tar ut 100 % alderspensjon.',
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
     'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre':
