@@ -26,16 +26,38 @@ export const useFormLocalState = (initialValues: {
       : null
   )
   const [localHeltUttak, setHeltUttak] = React.useState<
-    RecursivePartial<HeltUttak> | undefined
+    | (Omit<RecursivePartial<HeltUttak>, 'aarligInntektVsaPensjon'> & {
+        aarligInntektVsaPensjon?: {
+          beloep: string
+          sluttAlder: Alder
+        }
+      })
+    | undefined
   >({
     uttaksalder: uttaksalder !== null ? uttaksalder : undefined,
     aarligInntektVsaPensjon: aarligInntektVsaHelPensjon
-      ? aarligInntektVsaHelPensjon
+      ? {
+          ...aarligInntektVsaHelPensjon,
+          beloep: aarligInntektVsaHelPensjon.beloep.toString(),
+        }
       : undefined,
   })
   const [localGradertUttak, setGradertUttak] = React.useState<
-    RecursivePartial<GradertUttak> | undefined
-  >(gradertUttaksperiode ?? undefined)
+    | (Omit<RecursivePartial<GradertUttak>, 'aarligInntektVsaPensjonBeloep'> & {
+        aarligInntektVsaPensjonBeloep?: string
+      })
+    | undefined
+  >(
+    gradertUttaksperiode
+      ? {
+          ...gradertUttaksperiode,
+          aarligInntektVsaPensjonBeloep:
+            gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+              ? gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString()
+              : undefined,
+        }
+      : undefined
+  )
 
   const [hasUnsavedChanges, setHasUnsavedChanges] = React.useState<
     boolean | null
@@ -52,11 +74,11 @@ export const useFormLocalState = (initialValues: {
         localGradertUttak?.grad !== gradertUttaksperiode?.grad ||
         JSON.stringify(localGradertUttak?.uttaksalder) !==
           JSON.stringify(gradertUttaksperiode?.uttaksalder) ||
-        localGradertUttak?.aarligInntektVsaPensjonBeloep !==
+        parseInt(localGradertUttak?.aarligInntektVsaPensjonBeloep ?? '', 10) !==
           gradertUttaksperiode?.aarligInntektVsaPensjonBeloep ||
         JSON.stringify(localHeltUttak?.uttaksalder) !==
           JSON.stringify(uttaksalder) ||
-        localHeltUttak?.aarligInntektVsaPensjon?.beloep !==
+        parseInt(localHeltUttak?.aarligInntektVsaPensjon?.beloep ?? '', 10) !==
           aarligInntektVsaHelPensjon?.beloep ||
         JSON.stringify(localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder) !==
           JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder))
@@ -100,8 +122,21 @@ export const useTidligstMuligUttakRequestBodyState = (initialValues: {
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: number | null | undefined
   localInntektFremTilUttak: number | null
-  localGradertUttak: RecursivePartial<GradertUttak> | undefined
-  localHeltUttak: RecursivePartial<HeltUttak> | undefined
+  localGradertUttak?: Omit<
+    RecursivePartial<GradertUttak>,
+    'aarligInntektVsaPensjonBeloep'
+  > & {
+    aarligInntektVsaPensjonBeloep?: string
+  }
+  localHeltUttak?: Omit<
+    RecursivePartial<HeltUttak>,
+    'aarligInntektVsaPensjon'
+  > & {
+    aarligInntektVsaPensjon?: {
+      beloep: string
+      sluttAlder: Alder
+    }
+  }
 }) => {
   const {
     afp,
@@ -160,13 +195,27 @@ export const useTidligstMuligUttakRequestBodyState = (initialValues: {
             aarligInntektVsaPensjon:
               localHeltUttak?.aarligInntektVsaPensjon?.beloep &&
               localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
-                ? (localHeltUttak?.aarligInntektVsaPensjon as AarligInntektVsaPensjon)
+                ? {
+                    beloep: parseInt(
+                      localHeltUttak?.aarligInntektVsaPensjon?.beloep as string,
+                      10
+                    ),
+                    sluttAlder: {
+                      ...(localHeltUttak?.aarligInntektVsaPensjon
+                        ?.sluttAlder as Alder),
+                    },
+                  }
                 : undefined,
           },
           gradertUttak: {
             grad: localGradertUttak?.grad,
             aarligInntektVsaPensjonBeloep:
-              localGradertUttak.aarligInntektVsaPensjonBeloep,
+              localGradertUttak.aarligInntektVsaPensjonBeloep
+                ? parseInt(
+                    localGradertUttak.aarligInntektVsaPensjonBeloep as string,
+                    10
+                  )
+                : undefined,
           },
         })
       )

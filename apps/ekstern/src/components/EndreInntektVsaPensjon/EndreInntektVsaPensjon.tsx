@@ -5,16 +5,32 @@ import { PencilIcon, PlusCircleIcon, TrashIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Label, Modal, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
-import { formatUttaksalder, validateAlderFromForm } from '@/utils/alder'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
+import {
+  formatUttaksalder,
+  validateAlderFromForm,
+  transformUttaksalderToDate,
+} from '@/utils/alder'
 import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 
 import styles from './EndreInntektVsaPensjon.module.scss'
 
 interface Props {
-  uttaksperiode: RecursivePartial<HeltUttak> | undefined
-  oppdatereInntekt: (
-    aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
-  ) => void
+  uttaksperiode:
+    | (Omit<RecursivePartial<HeltUttak>, 'aarligInntektVsaPensjon'> & {
+        aarligInntektVsaPensjon?: {
+          beloep: string
+          sluttAlder: Alder
+        }
+      })
+    | undefined
+  oppdatereInntekt: (aarligInntektVsaPensjon?: {
+    beloep: string
+    sluttAlder: {
+      aar: number
+      maaneder: number
+    }
+  }) => void
 }
 
 // TODO legge til Amplitude logging
@@ -26,10 +42,10 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
 
   const inntektVsaPensjonModalRef = React.useRef<HTMLDialogElement>(null)
 
+  const { data: person, isSuccess } = useGetPersonQuery()
+
   const [inntektBeloepVsaPensjon, setInntektBeloepVsaPensjon] =
-    React.useState<string>(
-      uttaksperiode?.aarligInntektVsaPensjon?.beloep?.toString() ?? ''
-    )
+    React.useState<string>(uttaksperiode?.aarligInntektVsaPensjon?.beloep ?? '')
   const [sluttAlder, setSluttAlder] = React.useState<
     Partial<Alder> | undefined
   >(uttaksperiode?.aarligInntektVsaPensjon?.sluttAlder)
@@ -58,6 +74,23 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
       }
     })
   }
+
+  const transformertDate = React.useMemo(() => {
+    if (
+      isSuccess &&
+      person.foedselsdato &&
+      sluttAlder &&
+      sluttAlder.aar &&
+      sluttAlder.maaneder !== undefined
+    ) {
+      return transformUttaksalderToDate(
+        sluttAlder as Alder,
+        person.foedselsdato
+      )
+    } else {
+      return ''
+    }
+  }, [sluttAlder, isSuccess])
 
   const openInntektVsaPensjonModal = () => {
     // logger('modal åpnet', {
@@ -95,7 +128,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
     )
     if (isInntektValid && isSluttAlderValid) {
       oppdatereInntekt({
-        beloep: parseInt(inntektBeloepVsaPensjon.replace(/ /g, ''), 10),
+        beloep: inntektBeloepVsaPensjon.replace(/ /g, ''),
         sluttAlder: { ...(sluttAlder as Alder) },
       })
       if (inntektVsaPensjonModalRef.current?.open) {
@@ -107,9 +140,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
 
   const onCancel = (): void => {
     setInntektBeloepVsaPensjon(
-      uttaksperiode?.aarligInntektVsaPensjon?.beloep
-        ? uttaksperiode.aarligInntektVsaPensjon?.beloep?.toString()
-        : ''
+      uttaksperiode?.aarligInntektVsaPensjon?.beloep ?? ''
     )
     setSluttAlder(uttaksperiode?.aarligInntektVsaPensjon?.sluttAlder)
     setValidationErrors({
@@ -213,27 +244,32 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </Modal.Footer>
       </Modal>
       <div className={styles.spacer} />
-      {uttaksperiode?.aarligInntektVsaPensjon ? (
+      {uttaksperiode?.aarligInntektVsaPensjon &&
+      uttaksperiode.aarligInntektVsaPensjon.beloep ? (
         <>
-          <Label>
+          <Label className={styles.label}>
             <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.label" />
           </Label>
-          <p>{`${formatWithoutDecimal(
+          <BodyShort>{`${formatWithoutDecimal(
             uttaksperiode.aarligInntektVsaPensjon.beloep
           )} kr ${intl.formatMessage({
             id: 'beregning.fra',
           })} ${
             uttaksperiode.uttaksalder?.aar &&
             uttaksperiode.uttaksalder.maaneder !== undefined
-              ? formatUttaksalder(intl, uttaksperiode.uttaksalder as Alder)
-              : 'PLACEHOLDER'
+              ? formatUttaksalder(intl, uttaksperiode.uttaksalder as Alder, {
+                  compact: true,
+                })
+              : ''
           } ${intl.formatMessage({
             id: 'beregning.til',
           })} ${
             sluttAlder?.aar && sluttAlder.maaneder !== undefined
-              ? formatUttaksalder(intl, sluttAlder as Alder)
+              ? formatUttaksalder(intl, sluttAlder as Alder, {
+                  compact: true,
+                })
               : ''
-          }.`}</p>
+          } (${transformertDate})`}</BodyShort>
           <Button
             className={styles.button}
             variant="tertiary"
@@ -244,7 +280,6 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
               id: 'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre',
             })}
           </Button>
-
           <Button
             className={styles.button}
             variant="tertiary"

@@ -137,7 +137,7 @@ export const RedigerAvansertBeregning: React.FC<{
     setLocalGradertUttak((previous) => ({
       ...previous,
       aarligInntektVsaPensjonBeloep: e.target.value
-        ? parseInt(e.target.value, 10)
+        ? e.target.value
         : undefined,
     }))
 
@@ -193,9 +193,10 @@ export const RedigerAvansertBeregning: React.FC<{
       return {
         ...prevState,
         uttaksalder: alder,
-        aarligInntektVsaPensjon: shouldDeleteInntektVsaPensjon
-          ? undefined
-          : { ...prevState?.aarligInntektVsaPensjon },
+        aarligInntektVsaPensjon:
+          shouldDeleteInntektVsaPensjon || !prevState?.aarligInntektVsaPensjon
+            ? undefined
+            : { ...prevState?.aarligInntektVsaPensjon },
       }
     })
   }
@@ -249,6 +250,7 @@ export const RedigerAvansertBeregning: React.FC<{
           inntektVsaGradertPensjonFormData as string,
           10
         )
+
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode({
             uttaksalder: {
@@ -271,9 +273,13 @@ export const RedigerAvansertBeregning: React.FC<{
         userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
           localHeltUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
             localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
-            ? ({
+            ? {
                 ...localHeltUttak?.aarligInntektVsaPensjon,
-              } as AarligInntektVsaPensjon)
+                beloep: parseInt(
+                  localHeltUttak?.aarligInntektVsaPensjon.beloep,
+                  10
+                ),
+              }
             : undefined
         )
       )
@@ -328,7 +334,7 @@ export const RedigerAvansertBeregning: React.FC<{
   }
 
   // TODO flytte denne til en util og bruk memo med array: tidligstMuligHeltUttak, localGradertUttak
-  const getAgePickerHelDescription = (): string | undefined => {
+  const getHeltUttakAgePickerBeskrivelse = (): string | undefined => {
     if (tidligstMuligHeltUttak) {
       if (!localGradertUttak) {
         return `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
@@ -473,18 +479,14 @@ export const RedigerAvansertBeregning: React.FC<{
                 id: 'inntekt.endre_inntekt_modal.textfield.description',
               })}
               error={
-                validationErrors['inntekt-vsa-gradert-pensjon']
+                validationErrors[FORM_NAMES.inntektVsaGradertUttak]
                   ? intl.formatMessage({
-                      id: validationErrors['inntekt-vsa-gradert-pensjon'],
+                      id: validationErrors[FORM_NAMES.inntektVsaGradertUttak],
                     })
                   : ''
               }
               onChange={handleInntektVsaGradertPensjonChange}
-              value={
-                localGradertUttak?.aarligInntektVsaPensjonBeloep
-                  ? localGradertUttak.aarligInntektVsaPensjonBeloep?.toString()
-                  : undefined
-              }
+              value={localGradertUttak?.aarligInntektVsaPensjonBeloep}
               max={5}
             />
             <div className={styles.spacer} />
@@ -497,7 +499,7 @@ export const RedigerAvansertBeregning: React.FC<{
             label={intl.formatMessage({
               id: 'beregning.avansert.rediger.heltuttak.agepicker.label',
             })}
-            description={getAgePickerHelDescription()}
+            description={getHeltUttakAgePickerBeskrivelse()}
             value={localHeltUttak?.uttaksalder}
             minAlder={getMinAlderTilHeltUttak({
               tidligstMuligHeltUttak,
@@ -518,9 +520,13 @@ export const RedigerAvansertBeregning: React.FC<{
             <div>
               <EndreInntektVsaPensjon
                 uttaksperiode={localHeltUttak}
-                oppdatereInntekt={(
-                  aarligInntektVsaPensjon: AarligInntektVsaPensjon | undefined
-                ) => {
+                oppdatereInntekt={(aarligInntektVsaPensjon?: {
+                  beloep: string
+                  sluttAlder: {
+                    aar: number
+                    maaneder: number
+                  }
+                }) => {
                   setLocalHeltUttak((prevState) => {
                     return {
                       ...prevState,

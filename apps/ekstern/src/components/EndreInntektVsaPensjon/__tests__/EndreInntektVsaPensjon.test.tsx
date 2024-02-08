@@ -44,7 +44,7 @@ describe('EndreInntektVsaPensjon', async () => {
         )
       )
       expect(oppdatereInntektMock).toHaveBeenCalledWith({
-        beloep: 123000,
+        beloep: '123000',
         sluttAlder: { aar: 70, maaneder: 0 },
       })
     })
@@ -127,7 +127,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: 123000,
+              beloep: '123000',
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}
@@ -141,7 +141,7 @@ describe('EndreInntektVsaPensjon', async () => {
 
       expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',
+          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -170,7 +170,7 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(oppdatereInntektMock).toHaveBeenCalledWith({
-        beloep: 99000,
+        beloep: '99000',
         sluttAlder: { aar: 75, maaneder: 0 },
       })
     })
@@ -183,7 +183,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: 123000,
+              beloep: '123000',
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}
@@ -197,7 +197,7 @@ describe('EndreInntektVsaPensjon', async () => {
 
       expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',
+          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -223,7 +223,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: 123000,
+              beloep: '123000',
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}
@@ -237,7 +237,7 @@ describe('EndreInntektVsaPensjon', async () => {
 
       expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',
+          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -267,7 +267,7 @@ describe('EndreInntektVsaPensjon', async () => {
 
       expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.maaneder beregning.til 70 alder.aar.',
+          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()

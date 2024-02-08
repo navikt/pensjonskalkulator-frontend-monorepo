@@ -30,6 +30,12 @@ describe('inntekt-utils', () => {
       expect(formatWithoutDecimal(100_000)).toBe('100 000')
       expect(formatWithoutDecimal(9_999_999)).toBe('9 999 999')
     })
+
+    it('returnerer riktig string når amount kommer som string', () => {
+      expect(formatWithoutDecimal('')).toBe('')
+      expect(formatWithoutDecimal('0')).toBe('0')
+      expect(formatWithoutDecimal('123000')).toBe('123 000')
+    })
   })
 
   describe('validateInntekt', () => {
