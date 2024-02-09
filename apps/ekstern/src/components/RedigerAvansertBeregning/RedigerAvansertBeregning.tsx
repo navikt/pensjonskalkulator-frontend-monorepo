@@ -272,13 +272,13 @@ export const RedigerAvansertBeregning: React.FC<{
       dispatch(
         userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
           localHeltUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
-            localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
+            localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.aar &&
+            localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.maaneder !==
+              undefined
             ? {
-                ...localHeltUttak?.aarligInntektVsaPensjon,
-                beloep: parseInt(
-                  localHeltUttak?.aarligInntektVsaPensjon.beloep,
-                  10
-                ),
+                beloep: localHeltUttak?.aarligInntektVsaPensjon?.beloep,
+                sluttAlder: localHeltUttak?.aarligInntektVsaPensjon
+                  ?.sluttAlder as Alder,
               }
             : undefined
         )
@@ -521,7 +521,7 @@ export const RedigerAvansertBeregning: React.FC<{
               <EndreInntektVsaPensjon
                 uttaksperiode={localHeltUttak}
                 oppdatereInntekt={(aarligInntektVsaPensjon?: {
-                  beloep: string
+                  beloep: number
                   sluttAlder: {
                     aar: number
                     maaneder: number

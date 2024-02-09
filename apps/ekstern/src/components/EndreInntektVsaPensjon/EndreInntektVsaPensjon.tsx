@@ -16,16 +16,10 @@ import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 import styles from './EndreInntektVsaPensjon.module.scss'
 
 interface Props {
-  uttaksperiode:
-    | (Omit<RecursivePartial<HeltUttak>, 'aarligInntektVsaPensjon'> & {
-        aarligInntektVsaPensjon?: {
-          beloep: string
-          sluttAlder: Alder
-        }
-      })
-    | undefined
+  uttaksperiode?: RecursivePartial<HeltUttak>
+
   oppdatereInntekt: (aarligInntektVsaPensjon?: {
-    beloep: string
+    beloep: number
     sluttAlder: {
       aar: number
       maaneder: number
@@ -45,7 +39,11 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   const { data: person, isSuccess } = useGetPersonQuery()
 
   const [inntektBeloepVsaPensjon, setInntektBeloepVsaPensjon] =
-    React.useState<string>(uttaksperiode?.aarligInntektVsaPensjon?.beloep ?? '')
+    React.useState<string>(
+      uttaksperiode?.aarligInntektVsaPensjon?.beloep
+        ? uttaksperiode?.aarligInntektVsaPensjon?.beloep.toString()
+        : ''
+    )
   const [sluttAlder, setSluttAlder] = React.useState<
     Partial<Alder> | undefined
   >(uttaksperiode?.aarligInntektVsaPensjon?.sluttAlder)
@@ -128,7 +126,10 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
     )
     if (isInntektValid && isSluttAlderValid) {
       oppdatereInntekt({
-        beloep: inntektBeloepVsaPensjon.replace(/ /g, ''),
+        beloep: parseInt(
+          (inntektBeloepVsaPensjon as string).replace(/ /g, ''),
+          10
+        ),
         sluttAlder: { ...(sluttAlder as Alder) },
       })
       if (inntektVsaPensjonModalRef.current?.open) {
@@ -140,7 +141,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
 
   const onCancel = (): void => {
     setInntektBeloepVsaPensjon(
-      uttaksperiode?.aarligInntektVsaPensjon?.beloep ?? ''
+      uttaksperiode?.aarligInntektVsaPensjon?.beloep
+        ? uttaksperiode?.aarligInntektVsaPensjon?.beloep.toString()
+        : ''
     )
     setSluttAlder(uttaksperiode?.aarligInntektVsaPensjon?.sluttAlder)
     setValidationErrors({

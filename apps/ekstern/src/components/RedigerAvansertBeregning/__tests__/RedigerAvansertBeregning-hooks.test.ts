@@ -58,7 +58,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       expect(result.current[2]).toStrictEqual({
         uttaksalder: { aar: 70, maaneder: 0 },
         aarligInntektVsaPensjon: {
-          beloep: '100000',
+          beloep: 100000,
           sluttAlder: { aar: 75, maaneder: 0 },
         },
       })
@@ -151,7 +151,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
             uttaksalder: { aar: 70, maaneder: 3 },
             aarligInntektVsaPensjon: {
               ...initialProps.aarligInntektVsaHelPensjon,
-              beloep: initialProps.aarligInntektVsaHelPensjon.beloep.toString(),
+              beloep: initialProps.aarligInntektVsaHelPensjon.beloep,
             },
           })
         })
@@ -161,7 +161,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(result.current[2]).toStrictEqual({
           uttaksalder: { aar: 70, maaneder: 3 },
           aarligInntektVsaPensjon: {
-            beloep: '100000',
+            beloep: 100000,
             sluttAlder: { aar: 75, maaneder: 0 },
           },
         })
@@ -181,7 +181,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           setLocalHeltUttak({
             uttaksalder: { ...initialProps.uttaksalder },
             aarligInntektVsaPensjon: {
-              beloep: '90000',
+              beloep: 90000,
               sluttAlder: { aar: 75, maaneder: 0 },
             },
           })
@@ -192,7 +192,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(result.current[2]).toStrictEqual({
           uttaksalder: { aar: 70, maaneder: 0 },
           aarligInntektVsaPensjon: {
-            beloep: '90000',
+            beloep: 90000,
             sluttAlder: { aar: 75, maaneder: 0 },
           },
         })
@@ -212,7 +212,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           setLocalHeltUttak({
             uttaksalder: { ...initialProps.uttaksalder },
             aarligInntektVsaPensjon: {
-              beloep: '100000',
+              beloep: 100000,
               sluttAlder: { aar: 72, maaneder: 0 },
             },
           })
@@ -223,7 +223,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(result.current[2]).toStrictEqual({
           uttaksalder: { aar: 70, maaneder: 0 },
           aarligInntektVsaPensjon: {
-            beloep: '100000',
+            beloep: 100000,
             sluttAlder: { aar: 72, maaneder: 0 },
           },
         })
@@ -269,7 +269,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
             uttaksalder: { ...initialProps.uttaksalder },
             aarligInntektVsaPensjon: {
               ...initialProps.aarligInntektVsaHelPensjon,
-              beloep: initialProps.aarligInntektVsaHelPensjon.beloep.toString(),
+              beloep: initialProps.aarligInntektVsaHelPensjon.beloep,
             },
           })
         })
@@ -583,7 +583,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
               maaneder: 0,
             },
             aarligInntektVsaPensjon: {
-              beloep: '50000',
+              beloep: 50000,
               sluttAlder: { aar: 75, maaneder: 6 },
             },
           },

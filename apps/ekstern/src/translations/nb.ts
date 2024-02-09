@@ -211,7 +211,7 @@ const translations = {
     'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
   'beregning.fra': 'fra ',
   'beregning.til': ' til ',
-  'beregning.tom': ' tom. ',
+  'beregning.tom': ' t.o.m. ',
   'beregning.livsvarig': 'livsvarig',
   'beregning.lav_opptjening':
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
