@@ -99,40 +99,74 @@ describe('AgePicker', () => {
       expect(optionMaanederElements?.[12].value).toBe('11')
     })
 
-    it('viser bare månedene som kan velges basert på min/maxAlder og valgt år', () => {
-      const { container } = render(
-        <AgePicker
-          name="unique-name"
-          label="My Test Age Picker"
-          minAlder={{ aar: 70, maaneder: 5 }}
-          maxAlder={{ aar: 72, maaneder: 10 }}
-        />
-      )
+    describe('Når min/maxAlder er oppgitt og år er valgt', () => {
+      it('viser bare månedene som kan velges basert mellom min og max mellom to år', () => {
+        const { container } = render(
+          <AgePicker
+            name="unique-name"
+            label="My Test Age Picker"
+            minAlder={{ aar: 70, maaneder: 5 }}
+            maxAlder={{ aar: 72, maaneder: 10 }}
+          />
+        )
 
-      expect(screen.getByTestId('age-picker-unique-name')).toBeVisible()
-      expect(screen.getByText('My Test Age Picker')).toBeVisible()
+        expect(screen.getByTestId('age-picker-unique-name')).toBeVisible()
+        expect(screen.getByText('My Test Age Picker')).toBeVisible()
 
-      const selectMaanederElement = container.querySelector(
-        `[name="unique-name-maaneder"]`
-      )
+        const selectMaanederElement = container.querySelector(
+          `[name="unique-name-maaneder"]`
+        )
 
-      fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
-        target: { value: '70' },
+        fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
+          target: { value: '70' },
+        })
+
+        expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(
+          8
+        )
+
+        fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
+          target: { value: '71' },
+        })
+
+        expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(
+          13
+        )
+
+        fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
+          target: { value: '72' },
+        })
+
+        expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(
+          12
+        )
       })
 
-      expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(8)
+      it('viser bare månedene som kan velges basert mellom min og max innen samme år', () => {
+        const { container } = render(
+          <AgePicker
+            name="unique-name"
+            label="My Test Age Picker"
+            minAlder={{ aar: 75, maaneder: 0 }}
+            maxAlder={{ aar: 75, maaneder: 0 }}
+          />
+        )
 
-      fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
-        target: { value: '71' },
+        expect(screen.getByTestId('age-picker-unique-name')).toBeVisible()
+        expect(screen.getByText('My Test Age Picker')).toBeVisible()
+
+        const selectMaanederElement = container.querySelector(
+          `[name="unique-name-maaneder"]`
+        )
+
+        fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
+          target: { value: '75' },
+        })
+
+        expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(
+          2
+        )
       })
-
-      expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(13)
-
-      fireEvent.change(screen.getByTestId('age-picker-unique-name-aar'), {
-        target: { value: '72' },
-      })
-
-      expect(selectMaanederElement?.querySelectorAll('option')?.length).toBe(12)
     })
   })
 

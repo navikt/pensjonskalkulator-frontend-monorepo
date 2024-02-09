@@ -62,6 +62,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
         arr.push(i)
       }
+      console.log('yearsArray', arr)
       return arr
     }, [minAlder, maxAlder])
 
@@ -70,6 +71,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       for (let i = 0; i <= 11; i++) {
         arr.push(i)
       }
+      console.log('monthsArray', arr)
       return arr
     }, [])
 
@@ -181,14 +183,29 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
               {' '}
             </option>
             {monthsArray.map((month) => {
+              const isYearBelowMinAndAboveMax =
+                valgtAlder?.aar &&
+                valgtAlder?.aar > minAlder?.aar &&
+                valgtAlder?.aar < maxAlder?.aar
+              const isMinYearAndMonthAboveMin =
+                minAlder?.aar !== maxAlder?.aar &&
+                valgtAlder?.aar === minAlder?.aar &&
+                month >= minAlder?.maaneder
+              const isMaxYearAndMonthBelowMax =
+                minAlder?.aar !== maxAlder?.aar &&
+                valgtAlder?.aar === maxAlder?.aar &&
+                month <= maxAlder?.maaneder
+              const isMinAndMaxYearAndMonthBetween =
+                minAlder?.aar === maxAlder?.aar &&
+                month >= minAlder?.maaneder &&
+                month <= maxAlder?.maaneder
+
               if (
                 valgtAlder?.aar &&
-                ((valgtAlder?.aar > minAlder?.aar &&
-                  valgtAlder?.aar < maxAlder?.aar) ||
-                  (valgtAlder?.aar === minAlder?.aar &&
-                    month >= minAlder?.maaneder) ||
-                  (valgtAlder?.aar === maxAlder?.aar &&
-                    month <= maxAlder?.maaneder))
+                (isYearBelowMinAndAboveMax ||
+                  isMinYearAndMonthAboveMin ||
+                  isMaxYearAndMonthBelowMax ||
+                  isMinAndMaxYearAndMonthBetween)
               ) {
                 return (
                   <option key={month} value={month}>
