@@ -226,14 +226,12 @@ jobs:
       - name: Deploy to staging
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/deploy-staging.yml
 
       - name: Deploy veiledning to staging
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/deploy-veiledning-staging.yml
 
@@ -281,14 +279,12 @@ jobs:
       - name: Deploy to sandbox
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/deploy-sandbox.yml
 
       - name: Deploy veiledning to sandbox
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/deploy-veiledning-sandbox.yml
 
@@ -335,6 +331,5 @@ jobs:
       - name: Deploy to prod-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
           RESOURCE: .nais/deploy-prod.yml
