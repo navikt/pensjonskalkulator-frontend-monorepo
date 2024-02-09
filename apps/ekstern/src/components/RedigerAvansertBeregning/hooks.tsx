@@ -77,10 +77,10 @@ export const useFormLocalState = (initialValues: {
     const hasUttaksalderChanged =
       JSON.stringify(localHeltUttak?.uttaksalder) !==
       JSON.stringify(uttaksalder)
-    const hasAarligInntekBeloepVsaHelPensjonChanged =
+    const hasAarligInntektBeloepVsaHelPensjonChanged =
       (localHeltUttak?.aarligInntektVsaPensjon?.beloep ?? 0) !==
       (aarligInntektVsaHelPensjon?.beloep ?? 0)
-    const hasAarligInntekSluttAlderVsaHelPensjonChanged =
+    const hasAarligInntektSluttAlderVsaHelPensjonChanged =
       JSON.stringify(localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder) !==
       JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder)
 
@@ -91,8 +91,8 @@ export const useFormLocalState = (initialValues: {
         hasGradertUttaksalderChanged ||
         hasAarligInntektVsaGradertPensjonChanged ||
         hasUttaksalderChanged ||
-        hasAarligInntekBeloepVsaHelPensjonChanged ||
-        hasAarligInntekSluttAlderVsaHelPensjonChanged)
+        hasAarligInntektBeloepVsaHelPensjonChanged ||
+        hasAarligInntektSluttAlderVsaHelPensjonChanged)
 
     setHasUnsavedChanges((previous) => {
       return previous !== updatedHasUnsavedChanges
