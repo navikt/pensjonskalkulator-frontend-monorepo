@@ -21,17 +21,4 @@
 .button {
   display: block;
   margin: 0 auto;
-
-  &__avbryt {
-    margin-top: var(--a-spacing-4);
-  }
-
-  @media (min-width: $a-breakpoint-md) {
-    display: inline-block;
-
-    &__avbryt {
-      margin-top: 0;
-      margin-left: var(--a-spacing-4);
-    }
-  }
 }

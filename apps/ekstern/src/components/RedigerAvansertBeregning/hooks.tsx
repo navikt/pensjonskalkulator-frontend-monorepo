@@ -58,24 +58,41 @@ export const useFormLocalState = (initialValues: {
   >(false)
 
   React.useEffect(() => {
-    const updatedHasUnsavedChanges =
-      uttaksalder &&
-      ((aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
+    const hasInntektFremTilUnntakChanged =
+      (aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
         localInntektFremTilUttak !==
           aarligInntektFoerUttakBeloepFraBrukerInput) ||
-        (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
-          localInntektFremTilUttak !== null) ||
-        localGradertUttak?.grad !== gradertUttaksperiode?.grad ||
-        JSON.stringify(localGradertUttak?.uttaksalder) !==
-          JSON.stringify(gradertUttaksperiode?.uttaksalder) ||
-        parseInt(localGradertUttak?.aarligInntektVsaPensjonBeloep ?? '', 10) !==
-          gradertUttaksperiode?.aarligInntektVsaPensjonBeloep ||
-        JSON.stringify(localHeltUttak?.uttaksalder) !==
-          JSON.stringify(uttaksalder) ||
-        (localHeltUttak?.aarligInntektVsaPensjon?.beloep ?? 0) !==
-          (aarligInntektVsaHelPensjon?.beloep ?? 0) ||
-        JSON.stringify(localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder) !==
-          JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder))
+      (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
+        localInntektFremTilUttak !== null)
+    const hasGradChanged =
+      localGradertUttak?.grad !== gradertUttaksperiode?.grad
+    const hasGradertUttaksalderChanged =
+      JSON.stringify(localGradertUttak?.uttaksalder) !==
+      JSON.stringify(gradertUttaksperiode?.uttaksalder)
+    const hasAarligInntektVsaGradertPensjonChanged =
+      (localGradertUttak?.aarligInntektVsaPensjonBeloep ?? '') !==
+      (gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+        ? gradertUttaksperiode?.aarligInntektVsaPensjonBeloep.toString()
+        : '')
+    const hasUttaksalderChanged =
+      JSON.stringify(localHeltUttak?.uttaksalder) !==
+      JSON.stringify(uttaksalder)
+    const hasAarligInntekBeloepVsaHelPensjonChanged =
+      (localHeltUttak?.aarligInntektVsaPensjon?.beloep ?? 0) !==
+      (aarligInntektVsaHelPensjon?.beloep ?? 0)
+    const hasAarligInntekSluttAlderVsaHelPensjonChanged =
+      JSON.stringify(localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder) !==
+      JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder)
+
+    const updatedHasUnsavedChanges =
+      uttaksalder &&
+      (hasInntektFremTilUnntakChanged ||
+        hasGradChanged ||
+        hasGradertUttaksalderChanged ||
+        hasAarligInntektVsaGradertPensjonChanged ||
+        hasUttaksalderChanged ||
+        hasAarligInntekBeloepVsaHelPensjonChanged ||
+        hasAarligInntekSluttAlderVsaHelPensjonChanged)
 
     setHasUnsavedChanges((previous) => {
       return previous !== updatedHasUnsavedChanges
