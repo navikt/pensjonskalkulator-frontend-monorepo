@@ -358,10 +358,11 @@ const translations = {
   'inntekt.info_om_inntekt.list_item4': 'Sjukepengar',
   'inntekt.info_om_inntekt.list_item5': 'Dagpengar',
   'inntekt.info_om_inntekt.list_item6': 'Arbeidsavklaringspengar',
-  'inntekt.info_om_inntekt.list_item7': 'Omsorgsstønad',
-  'inntekt.info_om_inntekt.list_item8':
-    'Fosterheimsgodtgjersle (den delen som utgjer arbeidsgodtgjersle)',
+  'inntekt.info_om_inntekt.list_item7': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.list_item8': 'Omsorgsstønad',
   'inntekt.info_om_inntekt.list_item9':
+    'Fosterheimsgodtgjersle (den delen som utgjer arbeidsgodtgjersle)',
+  'inntekt.info_om_inntekt.list_item10':
     'Førstegongsteneste (viss påbegynt tidlegast i 2010)',
   'inntekt.info_om_inntekt.ingress':
     'Pensjonsgjvande inntekt verkar inn på retten til storleiken på alderspensjonen og andre pensjonsytingar. Pensjonsgjevande inntekt vert rekna ut av Skatteetaten.{br}{br}Uføretrygd gjer opptening til alderspensjon, men vert ikkje rekna som pensjonsgjevande inntekt.',

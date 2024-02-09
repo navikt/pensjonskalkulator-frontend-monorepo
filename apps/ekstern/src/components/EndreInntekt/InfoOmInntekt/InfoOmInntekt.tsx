@@ -49,6 +49,9 @@ export const InfoOmInntekt = () => {
         <li>
           <FormattedMessage id="inntekt.info_om_inntekt.list_item9" />
         </li>
+        <li>
+          <FormattedMessage id="inntekt.info_om_inntekt.list_item10" />
+        </li>
       </ul>
       <BodyLong>
         <FormattedMessage

@@ -7,7 +7,7 @@ import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
 import { Loader } from '@/components/common/Loader'
-import { TilbakeEllerAvslutt } from '@/components/TilbakeEllerAvslutt'
+import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
 import { apiSlice, useTidligstMuligHeltUttakQuery } from '@/state/api/apiSlice'
 import {
@@ -148,7 +148,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       {visning === 'avansert' && <BeregningAvansert />}
       <div className={`${styles.background} ${styles.background__lightblue}`}>
         <div className={styles.container}>
-          <TilbakeEllerAvslutt />
+          <LightBlueFooter />
         </div>
       </div>
     </div>

@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LightBlueFooter > rendrer med riktig tekst og knapper 1`] = `
+<DocumentFragment>
+  <section
+    class="_section_09f9ba"
+  >
+    <div
+      class="_innerwrapper_09f9ba"
+    >
+      <button
+        class="_button_09f9ba navds-button navds-button--secondary navds-button--medium"
+      >
+        <span
+          class="navds-label"
+        >
+          stegvisning.tilbake_start
+        </span>
+      </button>
+    </div>
+  </section>
+</DocumentFragment>
+`;

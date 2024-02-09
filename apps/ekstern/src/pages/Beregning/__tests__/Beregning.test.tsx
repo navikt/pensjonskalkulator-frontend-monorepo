@@ -145,7 +145,7 @@ describe('Beregning', () => {
       })
       expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(14)
+      expect(screen.getAllByRole('button')).toHaveLength(13)
     })
 
     it('når kallet til tidligst mulig uttak feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
@@ -177,7 +177,7 @@ describe('Beregning', () => {
       ).toBeInTheDocument()
 
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(17)
+      expect(screen.getAllByRole('button')).toHaveLength(16)
     })
   })
 
@@ -201,8 +201,6 @@ describe('Beregning', () => {
 
   it('gir mulighet til å avbryte og starte ny beregning ', async () => {
     render(<Beregning visning="enkel" />)
-
-    expect(await screen.findByText('stegvisning.avbryt')).toBeVisible()
     expect(await screen.findByText('stegvisning.tilbake_start')).toBeVisible()
   })
 })

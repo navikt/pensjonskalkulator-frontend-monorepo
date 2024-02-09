@@ -44,7 +44,7 @@ describe('EndreInntektVsaPensjon', async () => {
         )
       )
       expect(oppdatereInntektMock).toHaveBeenCalledWith({
-        beloep: '123000',
+        beloep: 123000,
         sluttAlder: { aar: 70, maaneder: 0 },
       })
     })
@@ -127,7 +127,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: '123000',
+              beloep: 123000,
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}
@@ -170,7 +170,7 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(oppdatereInntektMock).toHaveBeenCalledWith({
-        beloep: '99000',
+        beloep: 99000,
         sluttAlder: { aar: 75, maaneder: 0 },
       })
     })
@@ -183,7 +183,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: '123000',
+              beloep: 123000,
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}
@@ -223,7 +223,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: '123000',
+              beloep: 123000,
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}

@@ -211,7 +211,7 @@ const translations = {
     'Vi klarte dessverre ikke å beregne pensjonen din akkurat nå.',
   'beregning.fra': 'fra ',
   'beregning.til': ' til ',
-  'beregning.tom': ' tom. ',
+  'beregning.tom': ' t.o.m. ',
   'beregning.livsvarig': 'livsvarig',
   'beregning.lav_opptjening':
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
@@ -251,7 +251,7 @@ const translations = {
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
-    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %)',
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
   'beregning.avansert.rediger.read_more.pensjonsalder.label':
     'Om pensjonsalder',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro':
@@ -380,10 +380,11 @@ const translations = {
   'inntekt.info_om_inntekt.list_item4': 'sykepenger',
   'inntekt.info_om_inntekt.list_item5': 'dagpenger',
   'inntekt.info_om_inntekt.list_item6': 'arbeidsavklaringspenger',
-  'inntekt.info_om_inntekt.list_item7': 'omsorgsstønad',
-  'inntekt.info_om_inntekt.list_item8':
-    'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
+  'inntekt.info_om_inntekt.list_item7': 'omstillingsstønad',
+  'inntekt.info_om_inntekt.list_item8': 'omsorgsstønad',
   'inntekt.info_om_inntekt.list_item9':
+    'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
+  'inntekt.info_om_inntekt.list_item10':
     'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
   'inntekt.info_om_inntekt.ingress':
     'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.',

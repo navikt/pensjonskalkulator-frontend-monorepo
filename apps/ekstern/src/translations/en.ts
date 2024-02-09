@@ -279,6 +279,7 @@ const translations = {
   'inntekt.info_om_inntekt.list_item7': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.list_item8': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.list_item9': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.list_item10': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.ingress': 'MANGLER_TEKST',
   'forbehold.title': 'MANGLER_TEKST',
   'forbehold.intro': 'MANGLER_TEKST',
