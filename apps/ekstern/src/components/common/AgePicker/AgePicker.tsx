@@ -181,15 +181,15 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
               {' '}
             </option>
             {monthsArray.map((month) => {
-              const isYearBelowMinAndAboveMax =
+              const isYearAboveMinAndBelowMax =
                 valgtAlder?.aar &&
                 valgtAlder?.aar > minAlder?.aar &&
                 valgtAlder?.aar < maxAlder?.aar
-              const isMinYearAndMonthAboveMin =
+              const isMinYearAndMonthAboveOrEqualMin =
                 minAlder?.aar !== maxAlder?.aar &&
                 valgtAlder?.aar === minAlder?.aar &&
                 month >= minAlder?.maaneder
-              const isMaxYearAndMonthBelowMax =
+              const isMaxYearAndMonthBelowOrEqualMax =
                 minAlder?.aar !== maxAlder?.aar &&
                 valgtAlder?.aar === maxAlder?.aar &&
                 month <= maxAlder?.maaneder
@@ -200,9 +200,9 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
 
               if (
                 valgtAlder?.aar &&
-                (isYearBelowMinAndAboveMax ||
-                  isMinYearAndMonthAboveMin ||
-                  isMaxYearAndMonthBelowMax ||
+                (isYearAboveMinAndBelowMax ||
+                  isMinYearAndMonthAboveOrEqualMin ||
+                  isMaxYearAndMonthBelowOrEqualMax ||
                   isMinAndMaxYearAndMonthBetween)
               ) {
                 return (
