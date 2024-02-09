@@ -380,10 +380,11 @@ const translations = {
   'inntekt.info_om_inntekt.list_item4': 'sykepenger',
   'inntekt.info_om_inntekt.list_item5': 'dagpenger',
   'inntekt.info_om_inntekt.list_item6': 'arbeidsavklaringspenger',
-  'inntekt.info_om_inntekt.list_item7': 'omsorgsstønad',
-  'inntekt.info_om_inntekt.list_item8':
-    'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
+  'inntekt.info_om_inntekt.list_item7': 'omstillingsstønad',
+  'inntekt.info_om_inntekt.list_item8': 'omsorgsstønad',
   'inntekt.info_om_inntekt.list_item9':
+    'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
+  'inntekt.info_om_inntekt.list_item10':
     'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
   'inntekt.info_om_inntekt.ingress':
     'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.',

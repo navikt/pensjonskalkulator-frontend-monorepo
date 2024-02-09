@@ -42,6 +42,9 @@ exports[`InfoModalInntekt > viser fast info om inntekt 1`] = `
     <li>
       inntekt.info_om_inntekt.list_item9
     </li>
+    <li>
+      inntekt.info_om_inntekt.list_item10
+    </li>
   </ul>
   <p
     class="navds-body-long navds-body-long--medium"
