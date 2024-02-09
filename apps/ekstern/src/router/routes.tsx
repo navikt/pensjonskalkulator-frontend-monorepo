@@ -12,7 +12,7 @@ import { Step2 } from '@/pages/Step2'
 import { Step3 } from '@/pages/Step3'
 import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
-import { StepFeil } from '@/pages/StepFeil/'
+import { StepFeil } from '@/pages/StepFeil'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
 import { paths } from './constants'
