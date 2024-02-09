@@ -17,6 +17,8 @@ import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
+import styles from './EndreInntekt.module.scss'
+
 interface Props {
   visning: 'enkel' | 'avansert'
   className?: string
@@ -134,6 +136,7 @@ export const EndreInntekt: React.FC<Props> = ({
                 type="text"
                 inputMode="numeric"
                 name="inntekt"
+                className={styles.textfield}
                 label={intl.formatMessage({
                   id: 'inntekt.endre_inntekt_modal.textfield.label',
                 })}

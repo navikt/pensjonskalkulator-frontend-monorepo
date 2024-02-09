@@ -183,6 +183,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             type="text"
             inputMode="numeric"
             name="inntekt-vsa-pensjon"
+            className={styles.textfield}
             label={intl.formatMessage({
               id: 'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label',
             })}
