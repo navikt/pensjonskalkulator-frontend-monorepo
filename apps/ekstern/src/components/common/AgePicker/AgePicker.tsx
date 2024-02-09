@@ -62,7 +62,6 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       for (let i = minAlder.aar; i <= maxAlder.aar; i++) {
         arr.push(i)
       }
-      console.log('yearsArray', arr)
       return arr
     }, [minAlder, maxAlder])
 
@@ -71,7 +70,6 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
       for (let i = 0; i <= 11; i++) {
         arr.push(i)
       }
-      console.log('monthsArray', arr)
       return arr
     }, [])
 
