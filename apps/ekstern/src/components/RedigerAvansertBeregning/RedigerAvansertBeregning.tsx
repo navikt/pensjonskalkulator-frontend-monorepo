@@ -134,6 +134,7 @@ export const RedigerAvansertBeregning: React.FC<{
         ...prevState,
         [FORM_NAMES.uttaksgrad]: '',
         [FORM_NAMES.uttaksalderGradertUttak]: '',
+        [FORM_NAMES.uttaksalderHeltUttak]: '',
       }
     })
     const avansertBeregningFormatertUttaksgradAsNumber = e.target.value
