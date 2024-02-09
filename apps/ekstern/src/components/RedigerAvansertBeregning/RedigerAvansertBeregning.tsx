@@ -107,6 +107,27 @@ export const RedigerAvansertBeregning: React.FC<{
     [FORM_NAMES.inntektVsaGradertUttak]: '',
   })
 
+  const minAlderForHeltUttak = React.useMemo(() => {
+    const oppdatertMinAlder = getMinAlderTilHeltUttak({
+      localGradertUttak: localGradertUttak?.uttaksalder,
+      tidligstMuligHeltUttak,
+    })
+
+    if (
+      localHeltUttak?.uttaksalder &&
+      (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
+        (localHeltUttak.uttaksalder?.maaneder ?? 0) <=
+        (oppdatertMinAlder?.aar ?? 0) * 12 + (oppdatertMinAlder?.maaneder ?? 0)
+    ) {
+      setLocalHeltUttak((previous) => ({
+        ...previous,
+        uttaksalder: undefined,
+      }))
+    }
+
+    return oppdatertMinAlder
+  }, [localGradertUttak, tidligstMuligHeltUttak])
+
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValidationErrors((prevState) => {
       return {
@@ -160,17 +181,6 @@ export const RedigerAvansertBeregning: React.FC<{
       ...previous,
       uttaksalder: alder,
     }))
-    if (
-      localHeltUttak?.uttaksalder &&
-      (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
-        (localHeltUttak.uttaksalder?.maaneder ?? 0) <=
-        (alder?.aar ?? 0) * 12 + (alder?.maaneder ?? 0)
-    ) {
-      setLocalHeltUttak((previous) => ({
-        ...previous,
-        uttaksalder: undefined,
-      }))
-    }
   }
 
   const handleHeltUttakAlderChange = (alder: Partial<Alder> | undefined) => {
@@ -181,6 +191,7 @@ export const RedigerAvansertBeregning: React.FC<{
         [FORM_NAMES.uttaksalderHeltUttak]: '',
       }
     })
+
     setLocalHeltUttak((prevState) => {
       const sluttAlderAntallMaaneder =
         prevState?.aarligInntektVsaPensjon?.sluttAlder?.aar !== undefined
@@ -501,10 +512,7 @@ export const RedigerAvansertBeregning: React.FC<{
             })}
             description={getHeltUttakAgePickerBeskrivelse()}
             value={localHeltUttak?.uttaksalder}
-            minAlder={getMinAlderTilHeltUttak({
-              tidligstMuligHeltUttak,
-              localGradertUttak: localGradertUttak?.uttaksalder,
-            })}
+            minAlder={minAlderForHeltUttak}
             onChange={handleHeltUttakAlderChange}
             error={getHeltAgePickerError()}
           />
