@@ -7,7 +7,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: number
   aarligInntektVsaPensjon?: { beloep: number; sluttAlder: Alder }
-}): TidligstMuligHeltUttakRequestBody | undefined => {
+}): TidligstMuligHeltUttakRequestBody => {
   const {
     afp,
     sivilstand,
@@ -38,7 +38,7 @@ export const generateTidligstMuligGradertUttakRequestBody = (args: {
   aarligInntektFoerUttakBeloep: number
   gradertUttak: Omit<GradertUttak, 'uttaksalder'>
   heltUttak: HeltUttak
-}): TidligstMuligGradertUttakRequestBody | undefined => {
+}): TidligstMuligGradertUttakRequestBody => {
   const {
     afp,
     sivilstand,

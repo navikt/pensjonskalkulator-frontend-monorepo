@@ -8,10 +8,10 @@ import { FORM_NAMES } from './utils'
 import styles from './FormButtonRow.module.scss'
 
 export const FormButtonRow: React.FC<{
-  isFormUnderUpdate: boolean
+  hasUnsavedChanges: boolean
   resetForm: () => void
   gaaTilResultat: () => void
-}> = ({ isFormUnderUpdate, resetForm, gaaTilResultat }) => {
+}> = ({ hasUnsavedChanges, resetForm, gaaTilResultat }) => {
   const intl = useIntl()
 
   return (
@@ -20,7 +20,7 @@ export const FormButtonRow: React.FC<{
       <div>
         <Button form={FORM_NAMES.form}>
           {intl.formatMessage({
-            id: isFormUnderUpdate
+            id: hasUnsavedChanges
               ? 'beregning.avansert.button.oppdater'
               : 'beregning.avansert.button.beregn',
           })}
@@ -36,7 +36,7 @@ export const FormButtonRow: React.FC<{
           })}
         </Button>
       </div>
-      {isFormUnderUpdate && (
+      {hasUnsavedChanges && (
         <div>
           <Button
             type="button"

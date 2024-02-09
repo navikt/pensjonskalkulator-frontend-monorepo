@@ -107,7 +107,7 @@ export const validateAvansertBeregningSkjema = (
   // Hvis brukeren ikke har valgt noe gradert uttak, er minAlder definert av tidligstMuligHeltUttak
   // Hvis brukeren har valgt en alder for gradert uttak, vises det den høyeste av disse alternativene:
   // --> Hvis brukeren har maksimal opptjening (tidligstMuligUttak lik 62 år 0md): gradert uttak + 1 måned
-  // --> Hvis brukeren ikke har maksimal opptjening (tidligstMuligUttak !== 62 år 0md): 67 år og 0 md ( gitt at gradert pensjon ikke er valgt etter 67)
+  // --> Hvis brukeren ikke har maksimal opptjening (tidligstMuligUttak !== 62 år 0md): 67 år og 0 md (gitt at gradert pensjon ikke er valgt etter 67)
    */
 export const getMinAlderTilHeltUttak = (args: {
   localGradertUttak: RecursivePartial<Alder> | undefined

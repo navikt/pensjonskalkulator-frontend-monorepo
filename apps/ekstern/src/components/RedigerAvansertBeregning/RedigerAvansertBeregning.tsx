@@ -12,10 +12,6 @@ import {
   useTidligstMuligHeltUttakQuery,
   useTidligstMuligGradertUttakQuery,
 } from '@/state/api/apiSlice'
-import {
-  generateTidligstMuligHeltUttakRequestBody,
-  generateTidligstMuligGradertUttakRequestBody,
-} from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -31,7 +27,10 @@ import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FormButtonRow } from './FormButtonRow'
-import { useFormLocalState } from './hooks'
+import {
+  useFormLocalState,
+  useTidligstMuligUttakRequestBodyState,
+} from './hooks'
 import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
 import {
   FORM_NAMES,
@@ -60,7 +59,7 @@ export const RedigerAvansertBeregning: React.FC<{
   )
 
   const [
-    isFormUnderUpdate,
+    hasUnsavedChanges,
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
@@ -72,99 +71,32 @@ export const RedigerAvansertBeregning: React.FC<{
     gradertUttaksperiode,
   })
 
-  // TODO REFACTOR flytte denne til en emekl get Function på lik linje som AgePicker error?
-  const [agePickerHelDescription, setAgePickerHelDescription] =
-    React.useState<string>('')
-
-  // TODO REFACTOR flytte denne til en egen hook for request bodys
-  // Hent tidligst hel uttaksalder
   const [
     tidligstMuligHeltUttakRequestBody,
-    setTidligstMuligHeltUttakRequestBody,
-  ] = React.useState<TidligstMuligHeltUttakRequestBody | undefined>(undefined)
-  const {
-    data: tidligstMuligHeltUttak,
-    isError: isTidligstMuligHeltUttakError,
-  } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
-    skip: !tidligstMuligHeltUttakRequestBody,
+    tidligstMuligGradertUttakRequestBody,
+  ] = useTidligstMuligUttakRequestBodyState({
+    afp,
+    sivilstand,
+    harSamboer,
+    aarligInntektFoerUttakBeloep,
+    localInntektFremTilUttak,
+    localGradertUttak,
+    localHeltUttak,
   })
 
-  // Hent tidligst gradert uttaksalder
-  const [
-    tidligstMuligGradertUttakRequestBody,
-    setTidligstMuligGradertUttakRequestBody,
-  ] = React.useState<TidligstMuligGradertUttakRequestBody | undefined>(
-    undefined
+  const { data: tidligstMuligHeltUttak } = useTidligstMuligHeltUttakQuery(
+    tidligstMuligHeltUttakRequestBody,
+    {
+      skip: !tidligstMuligHeltUttakRequestBody,
+    }
   )
+
   const {
     data: tidligstMuligGradertUttak,
     isError: isTidligstMuligGradertUttakError,
   } = useTidligstMuligGradertUttakQuery(tidligstMuligGradertUttakRequestBody, {
     skip: !tidligstMuligGradertUttakRequestBody,
   })
-
-  React.useEffect(() => {
-    const oppdatertHeltUttakRequestBody =
-      generateTidligstMuligHeltUttakRequestBody({
-        afp,
-        sivilstand: sivilstand,
-        harSamboer,
-        aarligInntektFoerUttakBeloep:
-          localInntektFremTilUttak !== null
-            ? localInntektFremTilUttak
-            : aarligInntektFoerUttakBeloep ?? 0,
-      })
-
-    if (oppdatertHeltUttakRequestBody !== undefined) {
-      setTidligstMuligHeltUttakRequestBody(oppdatertHeltUttakRequestBody)
-    }
-
-    if (localGradertUttak?.grad) {
-      setTidligstMuligGradertUttakRequestBody(
-        generateTidligstMuligGradertUttakRequestBody({
-          afp,
-          sivilstand: sivilstand,
-          harSamboer,
-          aarligInntektFoerUttakBeloep:
-            localInntektFremTilUttak !== null
-              ? localInntektFremTilUttak
-              : aarligInntektFoerUttakBeloep ?? 0,
-          heltUttak: {
-            uttaksalder:
-              localHeltUttak?.uttaksalder?.aar &&
-              localHeltUttak?.uttaksalder?.maaneder !== undefined
-                ? (localHeltUttak?.uttaksalder as Alder)
-                : { aar: 67, maaneder: 0 },
-            aarligInntektVsaPensjon:
-              localHeltUttak?.aarligInntektVsaPensjon?.beloep &&
-              localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
-                ? {
-                    ...localHeltUttak?.aarligInntektVsaPensjon,
-                    beloep: parseInt(
-                      localHeltUttak?.aarligInntektVsaPensjon.beloep,
-                      10
-                    ),
-                  }
-                : undefined,
-          },
-          gradertUttak: {
-            grad: localGradertUttak?.grad,
-            aarligInntektVsaPensjonBeloep:
-              localGradertUttak.aarligInntektVsaPensjonBeloep
-                ? parseInt(localGradertUttak.aarligInntektVsaPensjonBeloep, 10)
-                : undefined,
-          },
-        })
-      )
-    }
-  }, [
-    afp,
-    sivilstand,
-    harSamboer,
-    localGradertUttak,
-    localHeltUttak,
-    localInntektFremTilUttak,
-  ])
 
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, string>
@@ -174,28 +106,6 @@ export const RedigerAvansertBeregning: React.FC<{
     [FORM_NAMES.uttaksalderGradertUttak]: '',
     [FORM_NAMES.inntektVsaGradertUttak]: '',
   })
-
-  React.useEffect(() => {
-    // TODO refactor flytte dette til en util function?
-    if (tidligstMuligHeltUttak) {
-      if (!localGradertUttak) {
-        setAgePickerHelDescription(
-          `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
-            intl,
-            tidligstMuligHeltUttak
-          )}.`
-        )
-      } else {
-        if (isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)) {
-          setAgePickerHelDescription(
-            'Med gradert uttak, kan kalkulatoren tidligst beregne 100 % alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut 100 % tidligere.'
-          )
-        } else {
-          setAgePickerHelDescription('')
-        }
-      }
-    }
-  }, [tidligstMuligHeltUttak, isTidligstMuligHeltUttakError, localGradertUttak])
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValidationErrors((prevState) => {
@@ -423,6 +333,24 @@ export const RedigerAvansertBeregning: React.FC<{
       : ''
   }
 
+  // TODO flytte denne til en util og bruk memo med array: tidligstMuligHeltUttak, localGradertUttak
+  const getHeltUttakAgePickerBeskrivelse = (): string | undefined => {
+    if (tidligstMuligHeltUttak) {
+      if (!localGradertUttak) {
+        return `Du kan tidligst ta ut 100 % alderspensjon når du er ${formatUttaksalder(
+          intl,
+          tidligstMuligHeltUttak
+        )}.`
+      } else {
+        if (isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)) {
+          return 'Med gradert uttak, kan kalkulatoren tidligst beregne 100 % alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut 100 % tidligere.'
+        } else {
+          return ''
+        }
+      }
+    }
+  }
+
   return (
     <div
       className={`${styles.container} ${styles.container__hasMobilePadding}`}
@@ -571,7 +499,7 @@ export const RedigerAvansertBeregning: React.FC<{
             label={intl.formatMessage({
               id: 'beregning.avansert.rediger.heltuttak.agepicker.label',
             })}
-            description={agePickerHelDescription}
+            description={getHeltUttakAgePickerBeskrivelse()}
             value={localHeltUttak?.uttaksalder}
             minAlder={getMinAlderTilHeltUttak({
               tidligstMuligHeltUttak,
@@ -612,7 +540,7 @@ export const RedigerAvansertBeregning: React.FC<{
         <FormButtonRow
           resetForm={resetForm}
           gaaTilResultat={gaaTilResultat}
-          isFormUnderUpdate={!!isFormUnderUpdate}
+          hasUnsavedChanges={!!hasUnsavedChanges}
         />
       </div>
     </div>

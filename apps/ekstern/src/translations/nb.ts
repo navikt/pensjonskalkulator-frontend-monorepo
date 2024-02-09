@@ -344,7 +344,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.paragraph':
     'Når du oppdaterer inntekten, må du velge alder på nytt.',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':
-    'Fyll ut et beløp eller velg avbryt hvis du ikke vil endre inntekten din.',
+    'Du må fylle ut inntekt.',
   'inntekt.endre_inntekt_modal.textfield.validation_error.type':
     'Du må skrive hele tall for å oppgi inntekt.',
   'inntekt.endre_inntekt_modal.textfield.validation_error.max':
@@ -353,7 +353,7 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.label':
     'Forventet årsinntekt mens du tar ut 100 % alderspensjon',
   'inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2':
-    'Du kan tjene så mye som du vil samtidig som du tar ut 100 % alderspensjon.',
+    'Du kan tjene så mye du vil samtidig som du tar ut 100 % alderspensjon.',
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
     'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre':

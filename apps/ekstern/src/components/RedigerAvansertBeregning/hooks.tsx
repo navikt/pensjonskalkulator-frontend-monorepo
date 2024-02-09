@@ -1,5 +1,10 @@
 import React from 'react'
 
+import {
+  generateTidligstMuligHeltUttakRequestBody,
+  generateTidligstMuligGradertUttakRequestBody,
+} from '@/state/api/utils'
+
 export const useFormLocalState = (initialValues: {
   aarligInntektFoerUttakBeloepFraBrukerInput: number | null
   uttaksalder: Alder | null
@@ -54,12 +59,12 @@ export const useFormLocalState = (initialValues: {
       : undefined
   )
 
-  const [isFormUnderUpdate, setIsFormUnderUpdate] = React.useState<
+  const [hasUnsavedChanges, setHasUnsavedChanges] = React.useState<
     boolean | null
   >(false)
 
   React.useEffect(() => {
-    const updatedIsFormUnderUpdate =
+    const updatedHasUnsavedChanges =
       uttaksalder &&
       ((aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
         localInntektFremTilUttak !==
@@ -78,9 +83,9 @@ export const useFormLocalState = (initialValues: {
         JSON.stringify(localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder) !==
           JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder))
 
-    setIsFormUnderUpdate((previous) => {
-      return previous !== updatedIsFormUnderUpdate
-        ? updatedIsFormUnderUpdate
+    setHasUnsavedChanges((previous) => {
+      return previous !== updatedHasUnsavedChanges
+        ? updatedHasUnsavedChanges
         : previous
     })
   }, [
@@ -103,10 +108,140 @@ export const useFormLocalState = (initialValues: {
   )
 
   return [
-    isFormUnderUpdate,
+    hasUnsavedChanges,
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
+    handlers,
+  ] as const
+}
+
+export const useTidligstMuligUttakRequestBodyState = (initialValues: {
+  afp: AfpRadio | null
+  sivilstand: Sivilstand | undefined
+  harSamboer: boolean | null
+  aarligInntektFoerUttakBeloep: number | null | undefined
+  localInntektFremTilUttak: number | null
+  localGradertUttak?: Omit<
+    RecursivePartial<GradertUttak>,
+    'aarligInntektVsaPensjonBeloep'
+  > & {
+    aarligInntektVsaPensjonBeloep?: string
+  }
+  localHeltUttak?: Omit<
+    RecursivePartial<HeltUttak>,
+    'aarligInntektVsaPensjon'
+  > & {
+    aarligInntektVsaPensjon?: {
+      beloep: string
+      sluttAlder: Alder
+    }
+  }
+}) => {
+  const {
+    afp,
+    sivilstand,
+    harSamboer,
+    aarligInntektFoerUttakBeloep,
+    localInntektFremTilUttak,
+    localGradertUttak,
+    localHeltUttak,
+  } = initialValues
+
+  const [
+    tidligstMuligHeltUttakRequestBody,
+    setTidligstMuligHeltUttakRequestBody,
+  ] = React.useState<TidligstMuligHeltUttakRequestBody | undefined>(undefined)
+
+  const [
+    tidligstMuligGradertUttakRequestBody,
+    setTidligstMuligGradertUttakRequestBody,
+  ] = React.useState<TidligstMuligGradertUttakRequestBody | undefined>(
+    undefined
+  )
+
+  React.useEffect(() => {
+    const oppdatertHeltUttakRequestBody =
+      generateTidligstMuligHeltUttakRequestBody({
+        afp,
+        sivilstand: sivilstand,
+        harSamboer,
+        aarligInntektFoerUttakBeloep:
+          localInntektFremTilUttak !== null
+            ? localInntektFremTilUttak
+            : aarligInntektFoerUttakBeloep ?? 0,
+      })
+
+    if (oppdatertHeltUttakRequestBody !== undefined) {
+      setTidligstMuligHeltUttakRequestBody(oppdatertHeltUttakRequestBody)
+    }
+
+    if (localGradertUttak?.grad) {
+      setTidligstMuligGradertUttakRequestBody(
+        generateTidligstMuligGradertUttakRequestBody({
+          afp,
+          sivilstand: sivilstand,
+          harSamboer,
+          aarligInntektFoerUttakBeloep:
+            localInntektFremTilUttak !== null
+              ? localInntektFremTilUttak
+              : aarligInntektFoerUttakBeloep ?? 0,
+          heltUttak: {
+            uttaksalder:
+              localHeltUttak?.uttaksalder?.aar &&
+              localHeltUttak?.uttaksalder?.maaneder !== undefined
+                ? (localHeltUttak?.uttaksalder as Alder)
+                : { aar: 67, maaneder: 0 },
+            aarligInntektVsaPensjon:
+              localHeltUttak?.aarligInntektVsaPensjon?.beloep &&
+              localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
+                ? {
+                    beloep: parseInt(
+                      localHeltUttak?.aarligInntektVsaPensjon?.beloep as string,
+                      10
+                    ),
+                    sluttAlder: {
+                      ...(localHeltUttak?.aarligInntektVsaPensjon
+                        ?.sluttAlder as Alder),
+                    },
+                  }
+                : undefined,
+          },
+          gradertUttak: {
+            grad: localGradertUttak?.grad,
+            aarligInntektVsaPensjonBeloep:
+              localGradertUttak.aarligInntektVsaPensjonBeloep
+                ? parseInt(
+                    localGradertUttak.aarligInntektVsaPensjonBeloep as string,
+                    10
+                  )
+                : undefined,
+          },
+        })
+      )
+    }
+  }, [
+    afp,
+    sivilstand,
+    aarligInntektFoerUttakBeloep,
+    harSamboer,
+    localGradertUttak,
+    localHeltUttak,
+  ])
+
+  const handlers = React.useMemo(
+    () => ({
+      setTidligstMuligHeltUttakRequestBody:
+        setTidligstMuligHeltUttakRequestBody,
+      setTidligstMuligGradertUttakRequestBody:
+        setTidligstMuligGradertUttakRequestBody,
+    }),
+    []
+  )
+
+  return [
+    tidligstMuligHeltUttakRequestBody,
+    tidligstMuligGradertUttakRequestBody,
     handlers,
   ] as const
 }
