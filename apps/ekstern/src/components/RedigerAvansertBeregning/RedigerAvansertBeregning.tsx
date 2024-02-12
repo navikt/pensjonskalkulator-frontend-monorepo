@@ -485,6 +485,7 @@ export const RedigerAvansertBeregning: React.FC<{
               type="text"
               inputMode="numeric"
               name={FORM_NAMES.inntektVsaGradertUttak}
+              className={styles.textfield}
               label={`Hva er din forventede årsinntekt mens du tar ut ${localGradertUttak.grad} % alderspensjon? (Valgfritt)`}
               description={intl.formatMessage({
                 id: 'inntekt.endre_inntekt_modal.textfield.description',
