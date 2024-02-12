@@ -91,9 +91,13 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (formatertUttaksalderReadOnly) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
-        logger('alert', { teskt: 'Beregning: Ikke høy nok opptjening' })
+        logger('alert', {
+          teskt: 'Beregning avansert: Ikke høy nok opptjening',
+        })
       } else if (isError) {
-        logger('alert', { teskt: 'Beregning: Klarte ikke beregne pensjon' })
+        logger('alert', {
+          teskt: 'Beregning avansert: Klarte ikke beregne pensjon',
+        })
       }
     }
   }, [formatertUttaksalderReadOnly, isError, alderspensjon])
@@ -103,6 +107,12 @@ export const BeregningAvansert: React.FC = () => {
       throw new Error((error as FetchBaseQueryError).data as string)
     }
   }, [error])
+
+  React.useEffect(() => {
+    if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
+      setModus('redigering')
+    }
+  }, [alderspensjon])
 
   const [
     isPensjonsavtalerAccordionItemOpen,
@@ -130,6 +140,9 @@ export const BeregningAvansert: React.FC = () => {
             setModus('resultat')
             window.scrollTo(0, 0)
           }}
+          hasVilkaarIkkeOppfylt={
+            alderspensjon && !alderspensjon?.vilkaarErOppfylt
+          }
         />
       )}
 
@@ -137,7 +150,7 @@ export const BeregningAvansert: React.FC = () => {
         <div
           className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
         >
-          {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
+          {isError ? (
             <>
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />

@@ -198,7 +198,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
       />
     </div>
     <div
-      class="_alert_9168cd"
+      class="_alert_9168cd undefined"
       role="alert"
     >
       <div

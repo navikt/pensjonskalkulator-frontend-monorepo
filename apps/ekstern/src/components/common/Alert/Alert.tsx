@@ -5,6 +5,7 @@ import { ArrowCirclepathIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button } from '@navikt/ds-react'
 
 export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string
   children: React.ReactNode
   onRetry?: () => void
 }
@@ -12,9 +13,14 @@ export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
 import styles from './Alert.module.scss'
 
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(
-  ({ children, onRetry, ...rest }, ref) => {
+  ({ className, children, onRetry, ...rest }, ref) => {
     return (
-      <div {...rest} ref={ref} className={styles.alert} role="alert">
+      <div
+        {...rest}
+        ref={ref}
+        className={`${styles.alert} ${className}`}
+        role="alert"
+      >
         <BodyLong as="div" className={styles.alertWrapper}>
           {children}
         </BodyLong>
