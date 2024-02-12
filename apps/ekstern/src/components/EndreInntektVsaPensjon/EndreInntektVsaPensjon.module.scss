@@ -12,6 +12,10 @@
   margin-bottom: var(--a-spacing-1);
 }
 
+.textfield input {
+  width: $input-width-m;
+}
+
 .paragraph {
   margin-bottom: var(--a-spacing-2);
 }

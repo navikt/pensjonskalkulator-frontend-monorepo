@@ -350,7 +350,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.textfield.validation_error.type':
     'Du må skrive hele tall for å oppgi inntekt.',
   'inntekt.endre_inntekt_modal.textfield.validation_error.max':
-    'Beløpet kan ikke overskride 100 000 000 kroner.',
+    'Inntekten kan ikke overskride 100 000 000 kroner.',
   'inntekt.endre_inntekt_modal.button': 'Oppdater inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.label':
     'Forventet årsinntekt mens du tar ut 100 % alderspensjon',

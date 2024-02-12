@@ -3,6 +3,7 @@ declare const classNames: typeof globalClassNames & {
   readonly container: "container";
   readonly container__hasMobilePadding: "container__hasMobilePadding";
   readonly form: "form";
+  readonly textfield: "textfield";
   readonly separator: "separator";
   readonly spacer: "spacer";
   readonly spacer__small: "spacer__small";

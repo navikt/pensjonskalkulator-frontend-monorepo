@@ -17,6 +17,10 @@
   max-width: $container-max-width;
 }
 
+.textfield input {
+  width: $input-width-m;
+}
+
 .separator {
   border: 0;
   height: 1px;
