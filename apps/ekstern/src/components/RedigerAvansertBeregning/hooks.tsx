@@ -1,10 +1,12 @@
 import React from 'react'
+import { useIntl } from 'react-intl'
 
 import {
   generateTidligstMuligHeltUttakRequestBody,
   generateTidligstMuligGradertUttakRequestBody,
 } from '@/state/api/utils'
 
+import { FORM_NAMES } from './utils'
 export const useFormLocalState = (initialValues: {
   aarligInntektFoerUttakBeloepFraBrukerInput: number | null
   uttaksalder: Alder | null
@@ -243,6 +245,95 @@ export const useTidligstMuligUttakRequestBodyState = (initialValues: {
   return [
     tidligstMuligHeltUttakRequestBody,
     tidligstMuligGradertUttakRequestBody,
+    handlers,
+  ] as const
+}
+
+export const useFormValidationErrors = (initialValues: { grad?: number }) => {
+  const intl = useIntl()
+
+  const [validationErrors, setValidationErrors] = React.useState<
+    Record<string, string>
+  >({
+    [FORM_NAMES.uttaksgrad]: '',
+    [FORM_NAMES.uttaksalderHeltUttak]: '',
+    [FORM_NAMES.uttaksalderGradertUttak]: '',
+    [FORM_NAMES.inntektVsaGradertUttak]: '',
+  })
+
+  const gradertAgePickerError = React.useMemo(() => {
+    return validationErrors[FORM_NAMES.uttaksalderGradertUttak]
+      ? intl.formatMessage({
+          id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
+        }) +
+          intl.formatMessage(
+            {
+              id: 'beregning.avansert.rediger.agepicker.validation_error',
+            },
+            { grad: initialValues.grad }
+          )
+      : ''
+  }, [validationErrors, initialValues])
+
+  const heltAgePickerError = React.useMemo(() => {
+    return validationErrors[FORM_NAMES.uttaksalderHeltUttak]
+      ? intl.formatMessage({
+          id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
+        }) +
+          intl.formatMessage(
+            {
+              id: 'beregning.avansert.rediger.agepicker.validation_error',
+            },
+            { grad: '100' }
+          )
+      : ''
+  }, [validationErrors, initialValues])
+
+  const handlers = React.useMemo(
+    () => ({
+      setValidationErrors: setValidationErrors,
+      setValidationErrorUttaksalderHeltUttak: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.uttaksalderHeltUttak]: s,
+          }
+        })
+      },
+      setValidationErrorUttaksalderGradertUttak: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.uttaksalderGradertUttak]: s,
+          }
+        })
+      },
+      setValidationErrorInntektVsaGradertUttak: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaGradertUttak]: s,
+          }
+        })
+      },
+      resetValidationErrors: () => {
+        setValidationErrors(() => {
+          return {
+            [FORM_NAMES.uttaksgrad]: '',
+            [FORM_NAMES.uttaksalderHeltUttak]: '',
+            [FORM_NAMES.uttaksalderGradertUttak]: '',
+            [FORM_NAMES.inntektVsaGradertUttak]: '',
+          }
+        })
+      },
+    }),
+    []
+  )
+
+  return [
+    validationErrors,
+    gradertAgePickerError,
+    heltAgePickerError,
     handlers,
   ] as const
 }

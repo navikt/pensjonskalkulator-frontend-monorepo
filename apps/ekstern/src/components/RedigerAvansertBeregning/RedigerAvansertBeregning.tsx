@@ -30,6 +30,7 @@ import { FormButtonRow } from './FormButtonRow'
 import {
   useFormLocalState,
   useTidligstMuligUttakRequestBodyState,
+  useFormValidationErrors,
 } from './hooks'
 import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
 import {
@@ -98,21 +99,24 @@ export const RedigerAvansertBeregning: React.FC<{
     skip: !tidligstMuligGradertUttakRequestBody,
   })
 
-  const [validationErrors, setValidationErrors] = React.useState<
-    Record<string, string>
-  >({
-    [FORM_NAMES.uttaksgrad]: '',
-    [FORM_NAMES.uttaksalderHeltUttak]: '',
-    [FORM_NAMES.uttaksalderGradertUttak]: '',
-    [FORM_NAMES.inntektVsaGradertUttak]: '',
-  })
+  const [
+    validationErrors,
+    gradertAgePickerError,
+    heltAgePickerError,
+    {
+      setValidationErrors,
+      setValidationErrorUttaksalderHeltUttak,
+      setValidationErrorUttaksalderGradertUttak,
+      setValidationErrorInntektVsaGradertUttak,
+      resetValidationErrors,
+    },
+  ] = useFormValidationErrors({ grad: localGradertUttak?.grad })
 
   const minAlderForHeltUttak = React.useMemo(() => {
     const oppdatertMinAlder = getMinAlderTilHeltUttak({
       localGradertUttak: localGradertUttak?.uttaksalder,
       tidligstMuligHeltUttak,
     })
-
     if (
       localHeltUttak?.uttaksalder &&
       (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
@@ -124,30 +128,20 @@ export const RedigerAvansertBeregning: React.FC<{
         uttaksalder: undefined,
       }))
     }
-
     return oppdatertMinAlder
   }, [localGradertUttak, tidligstMuligHeltUttak])
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-        [FORM_NAMES.uttaksgrad]: '',
-        [FORM_NAMES.uttaksalderGradertUttak]: '',
-        [FORM_NAMES.uttaksalderHeltUttak]: '',
-      }
-    })
+    resetValidationErrors()
     const avansertBeregningFormatertUttaksgradAsNumber = e.target.value
       ? parseInt(e.target.value.match(/\d+/)?.[0] as string, 10)
       : 100
-
     setLocalGradertUttak((previous) => {
       return !isNaN(avansertBeregningFormatertUttaksgradAsNumber) &&
         avansertBeregningFormatertUttaksgradAsNumber !== 100
         ? { ...previous, grad: avansertBeregningFormatertUttaksgradAsNumber }
         : undefined
     })
-
     setLocalHeltUttak((previous) => {
       return { ...previous, uttaksalder: undefined }
     })
@@ -162,22 +156,11 @@ export const RedigerAvansertBeregning: React.FC<{
         ? e.target.value
         : undefined,
     }))
-
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-        [FORM_NAMES.inntektVsaGradertUttak]: '',
-      }
-    })
+    setValidationErrorInntektVsaGradertUttak('')
   }
 
   const handleGradertUttakAlderChange = (alder: Partial<Alder> | undefined) => {
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-        [FORM_NAMES.uttaksalderGradertUttak]: '',
-      }
-    })
+    setValidationErrorUttaksalderGradertUttak('')
     setLocalGradertUttak((previous) => ({
       ...previous,
       uttaksalder: alder,
@@ -185,14 +168,7 @@ export const RedigerAvansertBeregning: React.FC<{
   }
 
   const handleHeltUttakAlderChange = (alder: Partial<Alder> | undefined) => {
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-
-        [FORM_NAMES.uttaksalderHeltUttak]: '',
-      }
-    })
-
+    setValidationErrorUttaksalderHeltUttak('')
     setLocalHeltUttak((prevState) => {
       const sluttAlderAntallMaaneder =
         prevState?.aarligInntektVsaPensjon?.sluttAlder?.aar !== undefined
@@ -213,9 +189,9 @@ export const RedigerAvansertBeregning: React.FC<{
     })
   }
 
+  // TODO - refactor - se om denne kan flyttes ut til util eller deles opp?
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-
     const data = new FormData(e.currentTarget)
     const gradertUttakAarFormData = data.get(
       `${FORM_NAMES.uttaksalderGradertUttak}-aar`
@@ -300,52 +276,19 @@ export const RedigerAvansertBeregning: React.FC<{
           localInntektFremTilUttak
         )
       )
-
       gaaTilResultat()
     }
   }
 
   const resetForm = (): void => {
-    setValidationErrors({
-      [FORM_NAMES.uttaksgrad]: '',
-      [FORM_NAMES.uttaksalderHeltUttak]: '',
-      [FORM_NAMES.uttaksalderGradertUttak]: '',
-      [FORM_NAMES.inntektVsaGradertUttak]: '',
-    })
+    resetValidationErrors()
     setLocalInntektFremTilUttak(null)
     setLocalGradertUttak(undefined)
     setLocalHeltUttak(undefined)
   }
 
-  const getGradertAgePickerError = (): string => {
-    return validationErrors[FORM_NAMES.uttaksalderGradertUttak]
-      ? intl.formatMessage({
-          id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
-        }) +
-          intl.formatMessage(
-            {
-              id: 'beregning.avansert.rediger.agepicker.validation_error',
-            },
-            { grad: localGradertUttak?.grad }
-          )
-      : ''
-  }
-
-  const getHeltAgePickerError = (): string => {
-    return validationErrors[FORM_NAMES.uttaksalderHeltUttak]
-      ? intl.formatMessage({
-          id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
-        }) +
-          intl.formatMessage(
-            {
-              id: 'beregning.avansert.rediger.agepicker.validation_error',
-            },
-            { grad: '100' }
-          )
-      : ''
-  }
-
-  // TODO flytte denne til en util og bruk memo med array: tidligstMuligHeltUttak, localGradertUttak
+  // TODO flytte denne til en useMemo med array: tidligstMuligHeltUttak, localGradertUttak
+  // TODO flytte den andre description også i en useMemo (mulig begge kan være emd i en felleshook?)
   const getHeltUttakAgePickerBeskrivelse = (): string | undefined => {
     if (tidligstMuligHeltUttak) {
       if (!localGradertUttak) {
@@ -381,7 +324,6 @@ export const RedigerAvansertBeregning: React.FC<{
                   : aarligInntektFoerUttakBeloep
               )} kr per år før skatt`}
             </span>
-
             <EndreInntekt
               visning="avansert"
               buttonLabel="beregning.avansert.rediger.inntekt.button"
@@ -476,7 +418,7 @@ export const RedigerAvansertBeregning: React.FC<{
               minAlder={tidligstMuligGradertUttak}
               maxAlder={{ aar: 74, maaneder: 11 }}
               onChange={handleGradertUttakAlderChange}
-              error={getGradertAgePickerError()}
+              error={gradertAgePickerError}
             />
             {localGradertUttak?.grad !== 100 && (
               <ReadMoreOmPensjonsalder
@@ -522,7 +464,7 @@ export const RedigerAvansertBeregning: React.FC<{
             value={localHeltUttak?.uttaksalder}
             minAlder={minAlderForHeltUttak}
             onChange={handleHeltUttakAlderChange}
-            error={getHeltAgePickerError()}
+            error={heltAgePickerError}
           />
           <div className={styles.spacer__small} />
         </div>
