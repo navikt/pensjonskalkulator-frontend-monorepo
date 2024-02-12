@@ -195,10 +195,12 @@ const translations = {
   'tidligstmuliguttak.1964.ingress_2':
     ' Foreslåtte lovendringer kan øke pensjonsalderen.',
   'tidligstmuliguttak.readmore_title': 'Om pensjonsalder',
+  'tidligstmuliguttak.readmore_ingress.optional':
+    'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}',
   'tidligstmuliguttak.readmore_ingress.enkelt':
-    'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du i detaljert kalkulator endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 100 %. <detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
+    'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du i detaljert kalkulator endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 100 %. <detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'tidligstmuliguttak.readmore_ingress.avansert':
-    'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 100 %.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
+    'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 100 %.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'tidligstmuliguttak.info_afp':
     'Har du AFP i offentlig sektor, kan du trolig ta ut alderspensjon tidligere enn hvis du ikke har AFP.',
   'tidligstmuliguttak.error':
@@ -255,7 +257,7 @@ const translations = {
   'beregning.avansert.rediger.read_more.pensjonsalder.label':
     'Om pensjonsalder',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro':
-    'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}',
+    'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}',
   'beregning.avansert.rediger.read_more.pensjonsalder.subtitle':
     'Dagens regler',
   'beregning.avansert.rediger.read_more.pensjonsalder.body':
@@ -348,7 +350,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.textfield.validation_error.type':
     'Du må skrive hele tall for å oppgi inntekt.',
   'inntekt.endre_inntekt_modal.textfield.validation_error.max':
-    'Beløpet kan ikke overskride 100 000 000 kroner.',
+    'Inntekten kan ikke overskride 100 000 000 kroner.',
   'inntekt.endre_inntekt_modal.button': 'Oppdater inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.label':
     'Forventet årsinntekt mens du tar ut 100 % alderspensjon',

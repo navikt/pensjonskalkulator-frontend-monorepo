@@ -84,12 +84,12 @@ export const RedigerAvansertBeregning: React.FC<{
     localHeltUttak,
   })
 
-  const { data: tidligstMuligHeltUttak } = useTidligstMuligHeltUttakQuery(
-    tidligstMuligHeltUttakRequestBody,
-    {
-      skip: !tidligstMuligHeltUttakRequestBody,
-    }
-  )
+  const {
+    data: tidligstMuligHeltUttak,
+    isError: isTidligstMuligHeltUttakError,
+  } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
+    skip: !tidligstMuligHeltUttakRequestBody,
+  })
 
   const {
     data: tidligstMuligGradertUttak,
@@ -134,6 +134,7 @@ export const RedigerAvansertBeregning: React.FC<{
         ...prevState,
         [FORM_NAMES.uttaksgrad]: '',
         [FORM_NAMES.uttaksalderGradertUttak]: '',
+        [FORM_NAMES.uttaksalderHeltUttak]: '',
       }
     })
     const avansertBeregningFormatertUttaksgradAsNumber = e.target.value
@@ -477,7 +478,13 @@ export const RedigerAvansertBeregning: React.FC<{
               onChange={handleGradertUttakAlderChange}
               error={getGradertAgePickerError()}
             />
-            {localGradertUttak?.grad !== 100 && <ReadMoreOmPensjonsalder />}
+            {localGradertUttak?.grad !== 100 && (
+              <ReadMoreOmPensjonsalder
+                showTidligstMuligUttakOptionalIngress={
+                  !isTidligstMuligGradertUttakError
+                }
+              />
+            )}
             <div className={styles.spacer} />
             <TextField
               form={FORM_NAMES.form}
@@ -522,7 +529,13 @@ export const RedigerAvansertBeregning: React.FC<{
 
         {(!localGradertUttak ||
           !localGradertUttak?.grad ||
-          localGradertUttak?.grad === 100) && <ReadMoreOmPensjonsalder />}
+          localGradertUttak?.grad === 100) && (
+          <ReadMoreOmPensjonsalder
+            showTidligstMuligUttakOptionalIngress={
+              !isTidligstMuligHeltUttakError
+            }
+          />
+        )}
 
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined && (
