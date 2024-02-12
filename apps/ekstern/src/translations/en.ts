@@ -139,6 +139,7 @@ const translations = {
   'tidligstmuliguttak.1963.ingress_2': 'MANGLER_TEKST',
   'tidligstmuliguttak.1964.ingress_2': 'MANGLER_TEKST',
   'tidligstmuliguttak.readmore_title': 'MANGLER_TEKST',
+  'tidligstmuliguttak.readmore_ingress.optional': 'MANGLER_TEKST',
   'tidligstmuliguttak.readmore_ingress.enkelt': 'MANGLER_TEKST',
   'tidligstmuliguttak.readmore_ingress.avansert': 'MANGLER_TEKST',
   'tidligstmuliguttak.info_afp': 'MANGLER_TEKST',
