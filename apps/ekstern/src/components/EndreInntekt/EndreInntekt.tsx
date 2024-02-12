@@ -173,6 +173,7 @@ export const EndreInntekt: React.FC<Props> = ({
       <Button
         className={className ? className : ''}
         variant="tertiary"
+        size="small"
         icon={<PencilIcon aria-hidden />}
         onClick={openInntektModal}
       >
