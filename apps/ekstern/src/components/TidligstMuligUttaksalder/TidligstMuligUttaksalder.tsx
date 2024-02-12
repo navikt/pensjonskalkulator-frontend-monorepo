@@ -86,6 +86,14 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
           className={styles.readmore}
           header={<FormattedMessage id="tidligstmuliguttak.readmore_title" />}
         >
+          {tidligstMuligUttak !== undefined && (
+            <FormattedMessage
+              id="tidligstmuliguttak.readmore_ingress.optional"
+              values={{
+                ...getFormatMessageValues(intl),
+              }}
+            />
+          )}
           <FormattedMessage
             id={`tidligstmuliguttak.readmore_ingress.${
               detaljertFaneFeatureToggle?.enabled ? 'avansert' : 'enkelt'

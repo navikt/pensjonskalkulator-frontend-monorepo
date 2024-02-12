@@ -127,7 +127,34 @@ describe('TidligstMuligUttaksalder', () => {
     })
   })
 
-  it('viser feilmelding og readmore når tidligstMuligUttak ikke kunne hentes', async () => {
+  it('viser readmore med riktig tekst når tidligstMuligUttak kunne hentes', async () => {
+    render(
+      <TidligstMuligUttaksalder
+        tidligstMuligUttak={{ aar: 65, maaneder: 3 }}
+        hasAfpOffentlig={false}
+        show1963Text={false}
+      />
+    )
+    expect(
+      screen.queryByText('tidligstmuliguttak.error')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByText('tidligstmuliguttak.readmore_title')
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Den oppgitte alderen er et estimat etter dagens regler.',
+        { exact: false }
+      )
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født.',
+        { exact: false }
+      )
+    ).toBeInTheDocument()
+  })
+  it('viser readmore med riktig tekst når tidligstMuligUttak ikke kunne hentes', async () => {
     render(
       <TidligstMuligUttaksalder
         tidligstMuligUttak={undefined}
@@ -135,11 +162,22 @@ describe('TidligstMuligUttaksalder', () => {
         show1963Text={false}
       />
     )
-    await waitFor(() => {
-      expect(screen.getByText('tidligstmuliguttak.error')).toBeInTheDocument()
-      expect(
-        screen.getByText('tidligstmuliguttak.readmore_title')
-      ).toBeInTheDocument()
-    })
+
+    expect(screen.getByText('tidligstmuliguttak.error')).toBeInTheDocument()
+    expect(
+      screen.getByText('tidligstmuliguttak.readmore_title')
+    ).toBeInTheDocument()
+    expect(
+      screen.queryByText(
+        'Den oppgitte alderen er et estimat etter dagens regler.',
+        { exact: false }
+      )
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født.',
+        { exact: false }
+      )
+    ).toBeInTheDocument()
   })
 })
