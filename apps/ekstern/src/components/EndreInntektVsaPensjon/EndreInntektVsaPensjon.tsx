@@ -17,7 +17,6 @@ import styles from './EndreInntektVsaPensjon.module.scss'
 
 interface Props {
   uttaksperiode?: RecursivePartial<HeltUttak>
-
   oppdatereInntekt: (aarligInntektVsaPensjon?: {
     beloep: number
     sluttAlder: {
@@ -209,9 +208,18 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             })}
             value={sluttAlder}
             minAlder={
-              uttaksperiode?.uttaksalder?.aar &&
-              uttaksperiode?.uttaksalder?.maaneder !== undefined
-                ? (uttaksperiode.uttaksalder as Alder)
+              uttaksperiode?.uttaksalder?.aar
+                ? {
+                    aar:
+                      uttaksperiode?.uttaksalder?.maaneder === 11
+                        ? uttaksperiode?.uttaksalder?.aar + 1
+                        : uttaksperiode?.uttaksalder?.aar,
+                    maaneder:
+                      uttaksperiode?.uttaksalder?.maaneder !== undefined &&
+                      uttaksperiode?.uttaksalder?.maaneder !== 11
+                        ? uttaksperiode?.uttaksalder?.maaneder + 1
+                        : 0,
+                  }
                 : undefined
             }
             maxAlder={{ aar: 75, maaneder: 11 }}
@@ -276,7 +284,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
               : ''
           } (${transformertDate})`}</BodyShort>
           <Button
-            className={styles.button}
+            className={`${styles.button} ${styles.button__marginRight}`}
             variant="tertiary"
             size="small"
             icon={<PencilIcon aria-hidden />}
@@ -300,7 +308,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </>
       ) : (
         <>
-          <BodyShort>
+          <BodyShort className={styles.paragraph}>
             <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2" />
           </BodyShort>
           <Button

@@ -371,8 +371,7 @@ const translations = {
     'Du kan tjene så mye du vil samtidig som du tar ut 100 % alderspensjon.',
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
     'Legg til inntekt',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre':
-    'Oppdater inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre': 'Endre inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette': 'Slett inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label':
