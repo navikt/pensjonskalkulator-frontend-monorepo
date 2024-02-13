@@ -225,9 +225,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             }}
             error={
               validationErrors['sluttalder-inntekt-vsa-pensjon']
-                ? intl.formatMessage({
+                ? `${intl.formatMessage({
                     id: validationErrors['sluttalder-inntekt-vsa-pensjon'],
-                  })
+                  })}.`
                 : ''
             }
           />
