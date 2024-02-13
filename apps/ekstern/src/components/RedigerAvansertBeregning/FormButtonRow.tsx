@@ -15,7 +15,7 @@ export const FormButtonRow: React.FC<{
   const intl = useIntl()
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <hr className={styles.separator} />
       <div>
         <Button
@@ -53,6 +53,6 @@ export const FormButtonRow: React.FC<{
           </Button>
         </div>
       )}
-    </>
+    </div>
   )
 }

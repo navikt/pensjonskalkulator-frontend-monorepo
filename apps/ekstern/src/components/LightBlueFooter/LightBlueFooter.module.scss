@@ -21,4 +21,8 @@
 .button {
   display: block;
   margin: 0 auto;
+
+  @media (min-width: $a-breakpoint-lg) {
+    margin: 0;
+  }
 }
