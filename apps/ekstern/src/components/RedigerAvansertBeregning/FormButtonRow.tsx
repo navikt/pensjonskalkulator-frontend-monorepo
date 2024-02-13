@@ -18,7 +18,10 @@ export const FormButtonRow: React.FC<{
     <>
       <hr className={styles.separator} />
       <div>
-        <Button form={FORM_NAMES.form}>
+        <Button
+          form={FORM_NAMES.form}
+          className={`${styles.button} ${styles.buttonSubmit}`}
+        >
           {intl.formatMessage({
             id: hasUnsavedChanges
               ? 'beregning.avansert.button.oppdater'
@@ -29,7 +32,7 @@ export const FormButtonRow: React.FC<{
           type="button"
           variant="secondary"
           onClick={resetForm}
-          className={styles.buttonNullstill}
+          className={styles.button}
         >
           {intl.formatMessage({
             id: 'beregning.avansert.button.nullstill',
@@ -41,7 +44,7 @@ export const FormButtonRow: React.FC<{
           <Button
             type="button"
             variant="tertiary"
-            className={styles.buttonAvbryt}
+            className={styles.button}
             onClick={gaaTilResultat}
           >
             {intl.formatMessage({

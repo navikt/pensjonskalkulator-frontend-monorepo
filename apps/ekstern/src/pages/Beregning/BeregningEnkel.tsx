@@ -91,9 +91,11 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   React.useEffect(() => {
     if (uttaksalder !== null) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
-        logger('alert', { teskt: 'Beregning: Ikke høy nok opptjening' })
+        logger('alert', { teskt: 'Beregning enkel: Ikke høy nok opptjening' })
       } else if (isError) {
-        logger('alert', { teskt: 'Beregning: Klarte ikke beregne pensjon' })
+        logger('alert', {
+          teskt: 'Beregning enkel: Klarte ikke beregne pensjon',
+        })
       }
     }
   }, [uttaksalder, isError, alderspensjon])
