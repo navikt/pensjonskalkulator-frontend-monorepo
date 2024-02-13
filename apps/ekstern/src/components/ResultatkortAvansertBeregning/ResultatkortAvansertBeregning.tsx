@@ -132,7 +132,9 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                     id: 'beregning.avansert.resultatkort.inntekt_1',
                   })}
                   {intl.formatMessage({
-                    id: 'beregning.tom',
+                    id: aarligInntektVsaHelPensjon?.sluttAlder.maaneder
+                      ? 'beregning.tom'
+                      : 'beregning.til',
                   })}
                   {formatUttaksalder(
                     intl,
