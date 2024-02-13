@@ -163,8 +163,8 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
-  'agepicker.validation_error.aar': 'Du må velge år og måned.',
-  'agepicker.validation_error.maaneder': 'Du må velge måned.',
+  'agepicker.validation_error.aar': 'Du må velge år og måned',
+  'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',
   'alder.md': 'md.',
   'alder.maaned': 'måned',
@@ -251,9 +251,18 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_1': 'Pensjonsgivende årsinntekt',
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
+  'beregning.avansert.rediger.inntekt_frem_til_uttak.label':
+    'Pensjonsgivende inntekt frem til pensjon',
+  'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
+    'kr per år før skatt',
+  'beregning.avansert.rediger.uttaksgrad.label':
+    'Hvor mye alderspensjon vil du ta ut?',
+  'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label':
+    'Hva er din forventede årsinntekt mens du tar ut {grad} % alderspensjon? (Valgfritt)',
   'beregning.avansert.rediger.read_more.pensjonsalder.label':
     'Om pensjonsalder',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro':
@@ -263,6 +272,10 @@ const translations = {
   'beregning.avansert.rediger.read_more.pensjonsalder.body':
     'Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut 100 % forskyves.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'beregning.avansert.rediger.inntekt.button': 'Endre inntekt',
+  'beregning.avansert.rediger.agepicker.beskrivelse':
+    'Du kan tidligst ta ut {grad} % alderspensjon når du er',
+  'beregning.avansert.rediger.agepicker.tmu_info':
+    'Med gradert uttak, kan kalkulatoren tidligst beregne 100 % alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut 100 % tidligere.',
   'beregning.avansert.rediger.agepicker.validation_error':
     ' for når du vil ta ut {grad} % alderspensjon.',
   'beregning.avansert.rediger.gradertuttak.agepicker.label':

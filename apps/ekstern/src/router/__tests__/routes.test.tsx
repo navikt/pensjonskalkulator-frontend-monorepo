@@ -861,7 +861,9 @@ describe('routes', () => {
 
         await waitFor(async () => {
           expect(
-            await screen.findByText('Pensjonsgivende inntekt frem til pensjon')
+            await screen.findByText(
+              'beregning.avansert.rediger.inntekt_frem_til_uttak.label'
+            )
           ).toBeInTheDocument()
         })
       })
