@@ -277,6 +277,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           <Button
             className={styles.button}
             variant="tertiary"
+            size="small"
             icon={<PencilIcon aria-hidden />}
             onClick={openInntektVsaPensjonModal}
           >
@@ -287,6 +288,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           <Button
             className={styles.button}
             variant="tertiary"
+            size="small"
             icon={<TrashIcon aria-hidden />}
             onClick={onDelete}
           >
@@ -297,11 +299,12 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </>
       ) : (
         <>
-          <BodyShort className={styles.paragraph}>
+          <BodyShort>
             <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2" />
           </BodyShort>
           <Button
             variant="tertiary"
+            size="small"
             icon={<PlusCircleIcon aria-hidden />}
             onClick={openInntektVsaPensjonModal}
           >

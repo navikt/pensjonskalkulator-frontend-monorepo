@@ -21,6 +21,15 @@
   width: $input-width-m;
 }
 
+.select {
+  :global {
+    select,
+    .navds-select__container {
+      width: $input-width-xxs;
+    }
+  }
+}
+
 .separator {
   border: 0;
   height: 1px;
@@ -46,7 +55,7 @@
 }
 
 .description {
-  display: inline-block;
+  display: block;
   color: var(--a-text-subtle);
   font-size: var(--a-font-size-large);
   font-weight: var(--a-font-weight-regular);
@@ -54,14 +63,12 @@
   line-height: var(--a-font-line-height-large);
 
   &Text {
-    margin-top: -0.5rem;
     display: inline-block;
     vertical-align: middle;
+    margin-right: 0.25rem;
   }
 
   button {
-    margin-left: 0.25rem;
-    margin-top: -0.15rem;
     vertical-align: middle;
   }
 }

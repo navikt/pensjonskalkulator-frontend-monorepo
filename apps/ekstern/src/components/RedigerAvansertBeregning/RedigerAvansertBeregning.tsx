@@ -416,6 +416,7 @@ export const RedigerAvansertBeregning: React.FC<{
           <Select
             form={FORM_NAMES.form}
             name={FORM_NAMES.uttaksgrad}
+            className={styles.select}
             label="Hvor mye alderspensjon vil du ta ut?"
             description="Velg uttaksgrad"
             value={
@@ -481,11 +482,14 @@ export const RedigerAvansertBeregning: React.FC<{
               error={getGradertAgePickerError()}
             />
             {localGradertUttak?.grad !== 100 && (
-              <ReadMoreOmPensjonsalder
-                showTidligstMuligUttakOptionalIngress={
-                  !isTidligstMuligGradertUttakError
-                }
-              />
+              <>
+                <div className={styles.spacer__small} />
+                <ReadMoreOmPensjonsalder
+                  showTidligstMuligUttakOptionalIngress={
+                    !isTidligstMuligGradertUttakError
+                  }
+                />
+              </>
             )}
             <div className={styles.spacer} />
             <TextField

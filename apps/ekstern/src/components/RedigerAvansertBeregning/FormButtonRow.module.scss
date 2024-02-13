@@ -5,15 +5,13 @@
   height: 1px;
   width: 100%;
   background-color: var(--a-gray-600);
-  margin: var(--a-spacing-8) 0;
+  margin: var(--a-spacing-8) 0 var(--a-spacing-4) 0;
 }
 
 .button {
-  &Nullstill {
-    margin-left: var(--a-spacing-4);
-  }
+  margin-top: var(--a-spacing-4);
 
-  &Avbryt {
-    margin-top: var(--a-spacing-4);
+  &Submit {
+    margin-right: var(--a-spacing-4);
   }
 }
