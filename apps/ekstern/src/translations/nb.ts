@@ -374,12 +374,13 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre':
     'Oppdater inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette': 'Slett inntekt',
-
   'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label':
     'Hva er din forventede årsinntekt mens du tar ut 100 % alderspensjon?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'Dagens kroneverdi før skatt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label':
+    'Til hvilken alder forventer du å ha inntekten?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
   'inntekt.info_om_inntekt.read_more': 'Om pensjonsgivende inntekt',

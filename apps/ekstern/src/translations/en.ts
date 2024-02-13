@@ -274,6 +274,7 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'MANGLER_TEKST',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.open.link': 'MANGLER_TEKST',

@@ -91,7 +91,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
 
     return (
       <div ref={ref} data-testid={`age-picker-${name}`}>
-        <Label>{label}</Label>
+        <Label className={!description ? styles.label : ''}>{label}</Label>
         {description && (
           <BodyShort
             className={styles.description}

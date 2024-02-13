@@ -204,8 +204,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           <div className={styles.spacer} />
           <AgePicker
             name="sluttalder-inntekt-vsa-pensjon"
-            label="Til hvilken alder forventer du å ha inntekten?"
-            description=""
+            label={intl.formatMessage({
+              id: 'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label',
+            })}
             value={sluttAlder}
             minAlder={
               uttaksperiode?.uttaksalder?.aar &&
