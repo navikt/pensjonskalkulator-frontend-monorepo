@@ -4,6 +4,7 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { BodyLong, Label, Select, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
+import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { ReadMore } from '@/components/common/ReadMore'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
@@ -42,7 +43,8 @@ import styles from './RedigerAvansertBeregning.module.scss'
 
 export const RedigerAvansertBeregning: React.FC<{
   gaaTilResultat: () => void
-}> = ({ gaaTilResultat }) => {
+  hasVilkaarIkkeOppfylt?: boolean
+}> = ({ gaaTilResultat, hasVilkaarIkkeOppfylt }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
@@ -524,7 +526,20 @@ export const RedigerAvansertBeregning: React.FC<{
             onChange={handleHeltUttakAlderChange}
             error={getHeltAgePickerError()}
           />
-          <div className={styles.spacer__small} />
+          {hasVilkaarIkkeOppfylt &&
+          uttaksalder &&
+          uttaksalder.aar < 67 &&
+          JSON.stringify(uttaksalder) ===
+            JSON.stringify(localHeltUttak?.uttaksalder) ? (
+            <AlertDashBorder className={styles.alert}>
+              <FormattedMessage
+                id="beregning.lav_opptjening"
+                values={{ startAar: uttaksalder.aar }}
+              />
+            </AlertDashBorder>
+          ) : (
+            <div className={styles.spacer__small} />
+          )}
         </div>
 
         {(!localGradertUttak ||
