@@ -241,7 +241,7 @@ export const RedigerAvansertBeregning: React.FC<{
         )
       } else {
         const aarligInntektVsaGradertPensjon = parseInt(
-          inntektVsaGradertPensjonFormData as string,
+          (inntektVsaGradertPensjonFormData as string).replace(/ /g, ''),
           10
         )
         dispatch(
@@ -327,6 +327,7 @@ export const RedigerAvansertBeregning: React.FC<{
               }}
             />
           </div>
+          <div className={`${styles.spacer} ${styles.spacer__small}`} />
           <ReadMore
             name="Endring av inntekt i avansert fane"
             header={intl.formatMessage({
