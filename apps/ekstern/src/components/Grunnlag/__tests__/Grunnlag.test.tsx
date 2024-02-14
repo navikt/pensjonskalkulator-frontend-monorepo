@@ -27,16 +27,13 @@ describe('Grunnlag', () => {
       const user = userEvent.setup()
       render(<Grunnlag />)
       expect(screen.getByText('grunnlag.uttaksgrad.title')).toBeVisible()
-      expect(screen.getByText('100 %')).toBeVisible()
+      expect(screen.getAllByText('100 %')).toHaveLength(3)
       const buttons = screen.getAllByRole('button')
 
       await user.click(buttons[1])
 
       expect(
-        await screen.findByText(
-          'Denne beregningen viser 100 % uttak av alderspensjon',
-          { exact: false }
-        )
+        await screen.findByText('Denne beregningen viser', { exact: false })
       ).toBeVisible()
     })
   })

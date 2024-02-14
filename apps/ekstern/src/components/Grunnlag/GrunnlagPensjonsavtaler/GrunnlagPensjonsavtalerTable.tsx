@@ -107,9 +107,9 @@ export const GrunnlagPensjonsavtalerTable = (props: IProps) => {
                             styles.tabellCell__Right
                           )}
                         >
-                          {`${formatWithoutDecimal(
+                          <span className="nowrap">{`${formatWithoutDecimal(
                             utbetalingsperiode.aarligUtbetaling
-                          )} kr`}
+                          )} kr`}</span>
                         </td>
                       </tr>
                     )
