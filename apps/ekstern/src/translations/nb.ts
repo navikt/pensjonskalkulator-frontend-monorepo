@@ -353,7 +353,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
-    'Hva forventer du å ha i årlig inntekt frem til du tar ut pensjon?',
+    'Hva er din forventede årsinntekt frem til du tar ut pensjon?',
   'inntekt.endre_inntekt_modal.textfield.description':
     'Dagens kroneverdi før skatt',
   'inntekt.endre_inntekt_modal.paragraph':
