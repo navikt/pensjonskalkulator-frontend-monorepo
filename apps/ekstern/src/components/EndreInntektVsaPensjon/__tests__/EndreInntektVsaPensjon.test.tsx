@@ -16,7 +16,9 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2')
+        screen.getByText('Du kan tjene så mye du vil samtidig som du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       await user.click(
@@ -63,7 +65,9 @@ describe('EndreInntektVsaPensjon', async () => {
         selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
       ).toBe(undefined)
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2')
+        screen.getByText('Du kan tjene så mye du vil samtidig som du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       await user.click(
@@ -92,7 +96,9 @@ describe('EndreInntektVsaPensjon', async () => {
       ).toBe(undefined)
 
       expect(
-        screen.queryByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+        screen.queryByText('Forventet årsinntekt mens du tar ut', {
+          exact: false,
+        })
       ).not.toBeInTheDocument()
 
       expect(
@@ -136,7 +142,9 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+        screen.getByText('Forventet årsinntekt mens du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       expect(
@@ -192,7 +200,9 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+        screen.getByText('Forventet årsinntekt mens du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       expect(
@@ -232,7 +242,9 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+        screen.getByText('Forventet årsinntekt mens du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       expect(

@@ -778,9 +778,31 @@ describe('RedigerAvansertBeregning-hooks', () => {
       // gradertUttakAgePickerBeskrivelse
       expect(result.current[3]).toEqual('')
       // heltUttakAgePickerBeskrivelse
-      expect(result.current[4]).toEqual(
-        'beregning.avansert.rediger.agepicker.beskrivelse 67 alder.aar.'
-      )
+      expect(result.current[4]).toMatchInlineSnapshot(`
+        <React.Fragment>
+          <Memo(MemoizedFormattedMessage)
+            id="beregning.avansert.rediger.agepicker.beskrivelse"
+            values={
+              {
+                "afpLink": [Function],
+                "alderspensjonsreglerLink": [Function],
+                "br": <br />,
+                "detaljertKalkulatorLink": [Function],
+                "dinPensjonBeholdningLink": [Function],
+                "dinPensjonLink": [Function],
+                "garantiPensjonLink": [Function],
+                "grad": 100,
+                "navPersonvernerklaeringKontaktOss": [Function],
+                "navPersonvernerklaeringLink": [Function],
+                "norskPensjonLink": [Function],
+                "nowrap": [Function],
+                "strong": [Function],
+              }
+            }
+          />
+           67 alder.aar.
+        </React.Fragment>
+      `)
     })
 
     it('Når grad er oppgitt, returnerer riktig initial values', () => {
@@ -802,13 +824,53 @@ describe('RedigerAvansertBeregning-hooks', () => {
       // heltUttakAgePickerError
       expect(result.current[2]).toEqual('')
       // gradertUttakAgePickerBeskrivelse
-      expect(result.current[3]).toEqual(
-        'beregning.avansert.rediger.agepicker.beskrivelse 62 alder.aar string.og 7 alder.maaneder.'
-      )
+      expect(result.current[3]).toMatchInlineSnapshot(`
+        <React.Fragment>
+          <Memo(MemoizedFormattedMessage)
+            id="beregning.avansert.rediger.agepicker.beskrivelse"
+            values={
+              {
+                "afpLink": [Function],
+                "alderspensjonsreglerLink": [Function],
+                "br": <br />,
+                "detaljertKalkulatorLink": [Function],
+                "dinPensjonBeholdningLink": [Function],
+                "dinPensjonLink": [Function],
+                "garantiPensjonLink": [Function],
+                "grad": 40,
+                "navPersonvernerklaeringKontaktOss": [Function],
+                "navPersonvernerklaeringLink": [Function],
+                "norskPensjonLink": [Function],
+                "nowrap": [Function],
+                "strong": [Function],
+              }
+            }
+          />
+           62 alder.aar string.og 7 alder.maaneder.
+        </React.Fragment>
+      `)
       // heltUttakAgePickerBeskrivelse
-      expect(result.current[4]).toEqual(
-        'beregning.avansert.rediger.agepicker.tmu_info'
-      )
+      expect(result.current[4]).toMatchInlineSnapshot(`
+        <Memo(MemoizedFormattedMessage)
+          id="beregning.avansert.rediger.agepicker.tmu_info"
+          values={
+            {
+              "afpLink": [Function],
+              "alderspensjonsreglerLink": [Function],
+              "br": <br />,
+              "detaljertKalkulatorLink": [Function],
+              "dinPensjonBeholdningLink": [Function],
+              "dinPensjonLink": [Function],
+              "garantiPensjonLink": [Function],
+              "navPersonvernerklaeringKontaktOss": [Function],
+              "navPersonvernerklaeringLink": [Function],
+              "norskPensjonLink": [Function],
+              "nowrap": [Function],
+              "strong": [Function],
+            }
+          }
+        />
+      `)
     })
 
     it('Når validationErrors endrer seg, oppdaterer gradertAgePickerError og heltAgePickerError', () => {
@@ -865,13 +927,61 @@ describe('RedigerAvansertBeregning-hooks', () => {
       })
 
       // gradertAgePickerError
-      expect(result.current[1]).toEqual(
-        'id2beregning.avansert.rediger.agepicker.validation_error'
+      expect(result.current[1]).toMatchInlineSnapshot(
+        `
+        <React.Fragment>
+          id2
+           
+          <Memo(MemoizedFormattedMessage)
+            id="beregning.avansert.rediger.agepicker.validation_error"
+            values={
+              {
+                "afpLink": [Function],
+                "alderspensjonsreglerLink": [Function],
+                "br": <br />,
+                "detaljertKalkulatorLink": [Function],
+                "dinPensjonBeholdningLink": [Function],
+                "dinPensjonLink": [Function],
+                "garantiPensjonLink": [Function],
+                "grad": 40,
+                "navPersonvernerklaeringKontaktOss": [Function],
+                "navPersonvernerklaeringLink": [Function],
+                "norskPensjonLink": [Function],
+                "nowrap": [Function],
+                "strong": [Function],
+              }
+            }
+          />
+        </React.Fragment>
+      `
       )
       // heltAgePickerError
-      expect(result.current[2]).toEqual(
-        'id4beregning.avansert.rediger.agepicker.validation_error'
-      )
+      expect(result.current[2]).toMatchInlineSnapshot(`
+        <React.Fragment>
+          id4
+           
+          <Memo(MemoizedFormattedMessage)
+            id="beregning.avansert.rediger.agepicker.validation_error"
+            values={
+              {
+                "afpLink": [Function],
+                "alderspensjonsreglerLink": [Function],
+                "br": <br />,
+                "detaljertKalkulatorLink": [Function],
+                "dinPensjonBeholdningLink": [Function],
+                "dinPensjonLink": [Function],
+                "garantiPensjonLink": [Function],
+                "grad": 100,
+                "navPersonvernerklaeringKontaktOss": [Function],
+                "navPersonvernerklaeringLink": [Function],
+                "norskPensjonLink": [Function],
+                "nowrap": [Function],
+                "strong": [Function],
+              }
+            }
+          />
+        </React.Fragment>
+      `)
 
       act(() => {
         resetValidationErrors()

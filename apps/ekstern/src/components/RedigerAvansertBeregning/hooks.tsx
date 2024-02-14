@@ -1,11 +1,12 @@
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 
 import {
   generateTidligstMuligHeltUttakRequestBody,
   generateTidligstMuligGradertUttakRequestBody,
 } from '@/state/api/utils'
 import { formatUttaksalder, isUttaksalderOverMinUttaksaar } from '@/utils/alder'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import { FORM_NAMES } from './utils'
 
@@ -269,56 +270,73 @@ export const useFormValidationErrors = (initialValues: {
   })
 
   const gradertUttakAgePickerError = React.useMemo(() => {
-    return validationErrors[FORM_NAMES.uttaksalderGradertUttak]
-      ? intl.formatMessage({
+    return validationErrors[FORM_NAMES.uttaksalderGradertUttak] ? (
+      <>
+        {intl.formatMessage({
           id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
-        }) +
-          intl.formatMessage(
-            {
-              id: 'beregning.avansert.rediger.agepicker.validation_error',
-            },
-            { grad: grad }
-          )
-      : ''
+        })}{' '}
+        <FormattedMessage
+          id="beregning.avansert.rediger.agepicker.validation_error"
+          values={{ ...getFormatMessageValues(intl), grad: grad }}
+        />
+      </>
+    ) : (
+      ''
+    )
   }, [validationErrors, initialValues])
 
   const heltUttakAgePickerError = React.useMemo(() => {
-    return validationErrors[FORM_NAMES.uttaksalderHeltUttak]
-      ? intl.formatMessage({
+    return validationErrors[FORM_NAMES.uttaksalderHeltUttak] ? (
+      <>
+        {intl.formatMessage({
           id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
-        }) +
-          intl.formatMessage(
-            {
-              id: 'beregning.avansert.rediger.agepicker.validation_error',
-            },
-            { grad: '100' }
-          )
-      : ''
+        })}{' '}
+        <FormattedMessage
+          id="beregning.avansert.rediger.agepicker.validation_error"
+          values={{ ...getFormatMessageValues(intl), grad: 100 }}
+        />
+      </>
+    ) : (
+      ''
+    )
   }, [validationErrors, initialValues])
 
   const gradertUttakAgePickerBeskrivelse = React.useMemo(() => {
     return tidligstMuligGradertUttak &&
       tidligstMuligHeltUttak &&
-      isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)
-      ? `${intl.formatMessage({ id: 'beregning.avansert.rediger.agepicker.beskrivelse' }, { grad: grad })} ${formatUttaksalder(
-          intl,
-          tidligstMuligGradertUttak
-        )}.`
-      : ''
-  }, [tidligstMuligHeltUttak, grad])
+      isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak) ? (
+      <>
+        <FormattedMessage
+          id="beregning.avansert.rediger.agepicker.beskrivelse"
+          values={{ ...getFormatMessageValues(intl), grad: grad }}
+        />
+        {` ${formatUttaksalder(intl, tidligstMuligGradertUttak)}.`}
+      </>
+    ) : (
+      ''
+    )
+  }, [tidligstMuligGradertUttak, tidligstMuligHeltUttak, grad])
 
   const heltUttakAgePickerBeskrivelse = React.useMemo(() => {
     if (tidligstMuligHeltUttak) {
       if (grad === undefined || grad === 100) {
-        return `${intl.formatMessage({ id: 'beregning.avansert.rediger.agepicker.beskrivelse' }, { grad: 100 })} ${formatUttaksalder(
-          intl,
-          tidligstMuligHeltUttak
-        )}.`
+        return (
+          <>
+            <FormattedMessage
+              id="beregning.avansert.rediger.agepicker.beskrivelse"
+              values={{ ...getFormatMessageValues(intl), grad: 100 }}
+            />
+            {` ${formatUttaksalder(intl, tidligstMuligHeltUttak)}.`}
+          </>
+        )
       } else {
         if (isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)) {
-          return intl.formatMessage({
-            id: 'beregning.avansert.rediger.agepicker.tmu_info',
-          })
+          return (
+            <FormattedMessage
+              id="beregning.avansert.rediger.agepicker.tmu_info"
+              values={{ ...getFormatMessageValues(intl) }}
+            />
+          )
         } else {
           return ''
         }

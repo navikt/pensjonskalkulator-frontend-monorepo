@@ -386,12 +386,15 @@ export const RedigerAvansertBeregning: React.FC<{
             <AgePicker
               form={FORM_NAMES.form}
               name={FORM_NAMES.uttaksalderGradertUttak}
-              label={intl.formatMessage(
-                {
-                  id: 'beregning.avansert.rediger.gradertuttak.agepicker.label',
-                },
-                { grad: localGradertUttak.grad }
-              )}
+              label={
+                <FormattedMessage
+                  id="beregning.avansert.rediger.gradertuttak.agepicker.label"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                    grad: localGradertUttak.grad,
+                  }}
+                />
+              }
               description={gradertUttakAgePickerBeskrivelse}
               value={localGradertUttak?.uttaksalder}
               minAlder={tidligstMuligGradertUttak}
@@ -417,12 +420,15 @@ export const RedigerAvansertBeregning: React.FC<{
               inputMode="numeric"
               name={FORM_NAMES.inntektVsaGradertUttak}
               className={styles.textfield}
-              label={intl.formatMessage(
-                {
-                  id: 'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label',
-                },
-                { grad: localGradertUttak.grad }
-              )}
+              label={
+                <FormattedMessage
+                  id="beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                    grad: localGradertUttak.grad,
+                  }}
+                />
+              }
               description={intl.formatMessage({
                 id: 'inntekt.endre_inntekt_modal.textfield.description',
               })}
@@ -444,9 +450,14 @@ export const RedigerAvansertBeregning: React.FC<{
           <AgePicker
             form={FORM_NAMES.form}
             name={FORM_NAMES.uttaksalderHeltUttak}
-            label={intl.formatMessage({
-              id: 'beregning.avansert.rediger.heltuttak.agepicker.label',
-            })}
+            label={
+              <FormattedMessage
+                id="beregning.avansert.rediger.heltuttak.agepicker.label"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            }
             description={heltUttakAgePickerBeskrivelse}
             value={localHeltUttak?.uttaksalder}
             minAlder={minAlderForHeltUttak}
