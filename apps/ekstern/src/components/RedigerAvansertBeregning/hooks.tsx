@@ -231,6 +231,7 @@ export const useTidligstMuligUttakRequestBodyState = (initialValues: {
     sivilstand,
     aarligInntektFoerUttakBeloep,
     harSamboer,
+    localInntektFremTilUttak,
     localGradertUttak,
     localHeltUttak,
   ])
