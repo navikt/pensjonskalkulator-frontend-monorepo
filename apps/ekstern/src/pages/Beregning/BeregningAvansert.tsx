@@ -112,7 +112,7 @@ export const BeregningAvansert: React.FC = () => {
     if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
       setModus('redigering')
     }
-  }, [alderspensjon])
+  }, [modus, alderspensjon])
 
   const [
     isPensjonsavtalerAccordionItemOpen,
