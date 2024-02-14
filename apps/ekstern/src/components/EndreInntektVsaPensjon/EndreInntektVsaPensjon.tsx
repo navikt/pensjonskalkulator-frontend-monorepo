@@ -270,26 +270,29 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
               values={{ ...getFormatMessageValues(intl) }}
             />
           </Label>
-          <BodyShort>{`${formatWithoutDecimal(
-            uttaksperiode.aarligInntektVsaPensjon.beloep
-          )} kr ${intl.formatMessage({
-            id: 'beregning.fra',
-          })} ${
-            uttaksperiode.uttaksalder?.aar &&
-            uttaksperiode.uttaksalder.maaneder !== undefined
-              ? formatUttaksalder(intl, uttaksperiode.uttaksalder as Alder, {
-                  compact: true,
-                })
-              : ''
-          } ${intl.formatMessage({
-            id: 'beregning.til',
-          })} ${
-            sluttAlder?.aar && sluttAlder.maaneder !== undefined
-              ? formatUttaksalder(intl, sluttAlder as Alder, {
-                  compact: true,
-                })
-              : ''
-          } (${transformertDate})`}</BodyShort>
+          <BodyShort>
+            <span className="nowrap">{`${formatWithoutDecimal(
+              uttaksperiode.aarligInntektVsaPensjon.beloep
+            )} kr`}</span>
+            {` ${intl.formatMessage({
+              id: 'beregning.fra',
+            })} ${
+              uttaksperiode.uttaksalder?.aar &&
+              uttaksperiode.uttaksalder.maaneder !== undefined
+                ? formatUttaksalder(intl, uttaksperiode.uttaksalder as Alder, {
+                    compact: true,
+                  })
+                : ''
+            } ${intl.formatMessage({
+              id: 'beregning.til',
+            })} ${
+              sluttAlder?.aar && sluttAlder.maaneder !== undefined
+                ? formatUttaksalder(intl, sluttAlder as Alder, {
+                    compact: true,
+                  })
+                : ''
+            } (${transformertDate})`}
+          </BodyShort>
           <Button
             className={`${styles.button} ${styles.button__marginRight}`}
             variant="tertiary"

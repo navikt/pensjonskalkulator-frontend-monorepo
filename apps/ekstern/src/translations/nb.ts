@@ -293,7 +293,7 @@ const translations = {
     'Denne beregningen viser <nowrap>100 %</nowrap> uttak av alderspensjon. I detaljert kalkulator kan du beregne alderspensjon med andre uttaksgrader (<nowrap>20 %</nowrap>, <nowrap>40 %</nowrap>, <nowrap>50 %</nowrap>, <nowrap>60 %</nowrap> og <nowrap>80 %</nowrap>). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut <nowrap>100 %</nowrap>.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
   'grunnlag.inntekt.title': 'Inntekt frem til uttak',
   'grunnlag.inntekt.ingress':
-    'Din siste pensjonsgivende inntekt fra Skatteetaten er {beloep} kr fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
+    'Din siste pensjonsgivende inntekt fra Skatteetaten er <nowrap>{beloep} kr</nowrap> fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
   'grunnlag.inntekt.info_om_inntekt': 'Hva er pensjonsgivende inntekt?',
   'grunnlag.inntekt.info_om_inntekt.lukk': 'Lukk',
   'grunnlag.sivilstand.title': 'Sivilstand',

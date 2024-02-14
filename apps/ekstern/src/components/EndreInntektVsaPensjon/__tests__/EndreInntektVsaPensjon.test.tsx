@@ -148,8 +148,11 @@ describe('EndreInntektVsaPensjon', async () => {
       ).toBeInTheDocument()
 
       expect(
+        screen.getByText('123 000 kr', { exact: false })
+      ).toBeInTheDocument()
+      expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
+          'beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -206,8 +209,11 @@ describe('EndreInntektVsaPensjon', async () => {
       ).toBeInTheDocument()
 
       expect(
+        screen.getByText('123 000 kr', { exact: false })
+      ).toBeInTheDocument()
+      expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
+          'beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -248,8 +254,11 @@ describe('EndreInntektVsaPensjon', async () => {
       ).toBeInTheDocument()
 
       expect(
+        screen.getByText('123 000 kr', { exact: false })
+      ).toBeInTheDocument()
+      expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
+          'beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -278,8 +287,11 @@ describe('EndreInntektVsaPensjon', async () => {
       expect(oppdatereInntektMock).not.toHaveBeenCalledWith()
 
       expect(
+        screen.getByText('123 000 kr', { exact: false })
+      ).toBeInTheDocument()
+      expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
+          'beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()

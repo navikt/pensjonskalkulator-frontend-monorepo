@@ -110,7 +110,9 @@ export function TabellVisning({
                   <React.Fragment key={j}>
                     <dt>{name}</dt>
                     <dd className={styles.detailsItemRight}>
-                      {formatWithoutDecimal(subSum)}
+                      <span className="nowrap">
+                        {formatWithoutDecimal(subSum)}
+                      </span>
                     </dd>
                   </React.Fragment>
                 ))}
@@ -125,7 +127,7 @@ export function TabellVisning({
               >
                 <Table.DataCell>{alder}</Table.DataCell>
                 <Table.DataCell className={styles.detailsItemRight}>
-                  {formatWithoutDecimal(sum)}
+                  <span className="nowrap">{formatWithoutDecimal(sum)}</span>
                 </Table.DataCell>
               </Table.ExpandableRow>
             )

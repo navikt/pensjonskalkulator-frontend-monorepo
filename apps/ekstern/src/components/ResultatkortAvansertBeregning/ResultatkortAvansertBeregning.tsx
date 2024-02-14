@@ -54,7 +54,10 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_1',
             })}
-            : {formatWithoutDecimal(aarligInntektFoerUttakBeloep)}
+            :{' '}
+            <span className="nowrap">
+              {formatWithoutDecimal(aarligInntektFoerUttakBeloep)}
+            </span>
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_2',
             })}
@@ -92,9 +95,11 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                         id: 'beregning.avansert.resultatkort.inntekt_1',
                       })}
                       {': '}
-                      {formatWithoutDecimal(
-                        gradertUttaksperiode.aarligInntektVsaPensjonBeloep
-                      )}
+                      <span className="nowrap">
+                        {formatWithoutDecimal(
+                          gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+                        )}
+                      </span>
                       {intl.formatMessage({
                         id: 'beregning.avansert.resultatkort.inntekt_2',
                       })}
@@ -144,7 +149,9 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                     }
                   )}
                   {': '}
-                  {formatWithoutDecimal(aarligInntektVsaHelPensjon?.beloep)}
+                  <span className="nowrap">
+                    {formatWithoutDecimal(aarligInntektVsaHelPensjon?.beloep)}
+                  </span>
                   {intl.formatMessage({
                     id: 'beregning.avansert.resultatkort.inntekt_2',
                   })}

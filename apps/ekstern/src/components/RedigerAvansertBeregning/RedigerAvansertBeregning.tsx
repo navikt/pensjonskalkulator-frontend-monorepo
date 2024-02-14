@@ -304,11 +304,14 @@ export const RedigerAvansertBeregning: React.FC<{
           </Label>
           <div className={styles.description}>
             <span className={styles.descriptionText}>
-              {`${formatWithoutDecimal(
-                localInntektFremTilUttak !== null
-                  ? localInntektFremTilUttak
-                  : aarligInntektFoerUttakBeloep
-              )} ${intl.formatMessage({ id: 'beregning.avansert.rediger.inntekt_frem_til_uttak.description' })}`}
+              <span className="nowrap">
+                {formatWithoutDecimal(
+                  localInntektFremTilUttak !== null
+                    ? localInntektFremTilUttak
+                    : aarligInntektFoerUttakBeloep
+                )}
+              </span>
+              {` ${intl.formatMessage({ id: 'beregning.avansert.rediger.inntekt_frem_til_uttak.description' })}`}
             </span>
             <EndreInntekt
               visning="avansert"

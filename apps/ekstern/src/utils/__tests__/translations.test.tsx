@@ -227,5 +227,25 @@ describe('translations-utils', () => {
       )
       expect(asFragment()).toMatchSnapshot()
     })
+
+    it('formaterer <strong>', async () => {
+      const { asFragment } = render(
+        <FormattedMessage
+          id="translation.test.strong"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('formaterer <nowrap>', async () => {
+      const { asFragment } = render(
+        <FormattedMessage
+          id="translation.test.nowrap"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })
