@@ -79,13 +79,13 @@ const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>
-              <FormattedMessage id="grunnlag.pensjonsavtaler.tabell.title.left" />
+              <FormattedMessage id="pensjonsavtaler.tabell.title.left" />
             </Table.HeaderCell>
             <Table.HeaderCell style={{ width: '15em' }}>
-              <FormattedMessage id="grunnlag.pensjonsavtaler.tabell.title.middle" />
+              <FormattedMessage id="pensjonsavtaler.tabell.title.middle" />
             </Table.HeaderCell>
             <Table.HeaderCell align="right" style={{ width: '7em' }}>
-              <FormattedMessage id="grunnlag.pensjonsavtaler.tabell.title.right" />
+              <FormattedMessage id="pensjonsavtaler.tabell.title.right" />
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

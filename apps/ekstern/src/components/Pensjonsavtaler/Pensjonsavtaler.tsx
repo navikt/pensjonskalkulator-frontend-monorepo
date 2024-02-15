@@ -85,21 +85,21 @@ export const Pensjonsavtaler = () => {
     pensjonsavtaler?.partialResponse && pensjonsavtaler?.avtaler.length === 0
 
   return (
-    <div>
+    <section className={styles.section}>
       <Heading size="medium">
-        {intl.formatMessage({ id: 'grunnlag.pensjonsavtaler.title' })}
+        {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
       </Heading>
       <>
         {!harSamtykket && (
           <BodyLong>
-            <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress" />
+            <FormattedMessage id="pensjonsavtaler.ingress.error.samtykke_ingress" />
             <Link href={paths.start} onClick={onCancel}>
               {intl.formatMessage({
-                id: 'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1',
+                id: 'pensjonsavtaler.ingress.error.samtykke_link_1',
               })}
             </Link>{' '}
             <FormattedMessage
-              id="grunnlag.pensjonsavtaler.ingress.error.samtykke_link_2"
+              id="pensjonsavtaler.ingress.error.samtykke_link_2"
               values={{
                 ...getFormatMessageValues(intl),
               }}
@@ -117,7 +117,7 @@ export const Pensjonsavtaler = () => {
                 aria-hidden
               />
               <BodyLong className={styles.infoText}>
-                <FormattedMessage id="grunnlag.pensjonsavtaler.ingress.ingen" />
+                <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
               </BodyLong>
             </div>
           )}
@@ -147,24 +147,29 @@ export const Pensjonsavtaler = () => {
               <FormattedMessage
                 id={
                   isError || isPartialWith0Avtaler
-                    ? 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
-                    : 'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+                    ? 'pensjonsavtaler.ingress.error.pensjonsavtaler'
+                    : 'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
                 }
               />
             </BodyLong>
           </div>
         )}
         {harSamtykket && (
-          <BodyLong className={styles.paragraph} size="small">
-            <FormattedMessage
-              id="grunnlag.pensjonsavtaler.ingress"
-              values={{
-                ...getFormatMessageValues(intl),
-              }}
-            />
-          </BodyLong>
+          <>
+            <BodyLong>
+              <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+            </BodyLong>
+            <BodyLong className={styles.paragraph} size="small">
+              <FormattedMessage
+                id="pensjonsavtaler.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            </BodyLong>
+          </>
         )}
       </>
-    </div>
+    </section>
   )
 }

@@ -37,7 +37,7 @@ const Pensjonsavtaler: React.FC<IPensjonsavtalerProps> = ({
               </th>
               <td align="right">
                 {formatWithoutDecimal(utbetalingsperiode.aarligUtbetaling)}{' '}
-                <FormattedMessage id="grunnlag.pensjonsavtaler.kr_pr_aar" />
+                <FormattedMessage id="pensjonsavtaler.kr_pr_aar" />
               </td>
             </tr>
           ))}
