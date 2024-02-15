@@ -217,7 +217,7 @@ describe('Grunnlag', () => {
 
     it('Når brukeren har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag />, {
+      render(<Grunnlag visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -241,7 +241,7 @@ describe('Grunnlag', () => {
 
     it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag />, {
+      render(<Grunnlag visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -260,7 +260,7 @@ describe('Grunnlag', () => {
 
     it('Når brukeren har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag />, {
+      render(<Grunnlag visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
