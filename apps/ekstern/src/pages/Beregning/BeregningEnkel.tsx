@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
+import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
@@ -200,6 +201,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
                     !isError && alderspensjon?.vilkaarErOppfylt
                   }
                 />
+                <Pensjonsavtaler />
                 <Grunnlag />
               </PensjonsavtalerAccordionContext.Provider>
             </>

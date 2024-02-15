@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest'
 
-import { GrunnlagPensjonsavtalerTable } from '../GrunnlagPensjonsavtalerTable'
+import { PensjonsavtalerTable } from '../PensjonsavtalerTable'
 import { render, screen } from '@/test-utils'
 
 describe('GrunnlagPensjonsavtaler', () => {
@@ -32,7 +32,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       },
     ]
     const { container } = render(
-      <GrunnlagPensjonsavtalerTable pensjonsavtaler={avtaler} />
+      <PensjonsavtalerTable pensjonsavtaler={avtaler} />
     )
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(
@@ -82,7 +82,7 @@ describe('GrunnlagPensjonsavtaler', () => {
     }
 
     const { container } = render(
-      <GrunnlagPensjonsavtalerTable pensjonsavtaler={[avtale]} />
+      <PensjonsavtalerTable pensjonsavtaler={[avtale]} />
     )
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(

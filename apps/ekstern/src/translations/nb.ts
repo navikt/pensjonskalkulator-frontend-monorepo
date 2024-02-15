@@ -306,10 +306,10 @@ const translations = {
   'grunnlag.afp.ingress.nei':
     'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ny beregning.',
   'grunnlag.pensjonsavtaler.title': 'Pensjonsavtaler',
-  'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikke innhentet',
-  'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikke hentes',
+  'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikke innhentet', // TODO: Fjerne (bgi)
+  'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikke hentes', // TODO: Fjerne (bgi)
   'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial':
-    '(Avtaler mangler)',
+    '(Avtaler mangler)', // TODO: Fjerne (bgi)
   'grunnlag.pensjonsavtaler.ingress':
     'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikke ansvarlig for beløpene som er oppgitt. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekk aktuell tjenestepensjonsordning.',
   'grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress':
@@ -323,12 +323,16 @@ const translations = {
   'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
     'Vi klarte ikke å hente alle pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
   'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
-  'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtaler',
+  'grunnlag.pensjonsavtaler.tabell.title.left': 'Avtaler',
+  'grunnlag.pensjonsavtaler.tabell.title.middle': 'Perioder',
   'grunnlag.pensjonsavtaler.tabell.title.right': 'Årlig beløp',
-  'grunnlag.pensjonsavtaler.fra_og_med': 'Fra og med',
-  'grunnlag.pensjonsavtaler.til_og_med': 'til og med',
+  'grunnlag.pensjonsavtaler.fra_og_med': 'Fra og med', // TODO: Fjerne (bgi)
+  'grunnlag.pensjonsavtaler.fra': 'Fra',
+  'grunnlag.pensjonsavtaler.til_og_med': 'til og med', // TODO: Fjerne (bgi)
+  'grunnlag.pensjonsavtaler.til': 'til',
   'grunnlag.pensjonsavtaler.og': 'og',
   'grunnlag.pensjonsavtaler.aar': 'år',
+  'grunnlag.pensjonsavtaler.kr_pr_aar': 'kr per år',
   'grunnlag.pensjonsavtaler.md': 'md.',
   'grunnlag.pensjonsavtaler.livsvarig': 'Livsvarig fra og med',
   'grunnlag.forbehold.title': 'Forbehold',

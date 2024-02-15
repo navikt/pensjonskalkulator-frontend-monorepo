@@ -1,4 +1,4 @@
-import globalClassNames from "../../../style.d";
+import globalClassNames from "../../style.d";
 declare const classNames: typeof globalClassNames & {
   readonly info: "info";
   readonly info__hasMargin: "info__hasMargin";

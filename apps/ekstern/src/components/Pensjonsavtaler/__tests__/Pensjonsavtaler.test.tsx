@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { Accordion } from '@navikt/ds-react'
 import { describe, it, vi } from 'vitest'
 
-import { GrunnlagPensjonsavtaler } from '../GrunnlagPensjonsavtaler'
+import { Pensjonsavtaler } from '../Pensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import {
@@ -45,7 +45,7 @@ describe('GrunnlagPensjonsavtaler', () => {
 
       const { store } = render(
         <Accordion>
-          <GrunnlagPensjonsavtaler />
+          <Pensjonsavtaler />
         </Accordion>,
         {
           preloadedState: {
@@ -97,7 +97,7 @@ describe('GrunnlagPensjonsavtaler', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
       render(
         <Accordion>
-          <GrunnlagPensjonsavtaler />
+          <Pensjonsavtaler />
         </Accordion>,
         {
           preloadedState: {
@@ -134,7 +134,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(
         <Accordion>
-          <GrunnlagPensjonsavtaler />
+          <Pensjonsavtaler />
         </Accordion>,
         {
           preloadedState: {
@@ -195,7 +195,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(
         <Accordion>
-          <GrunnlagPensjonsavtaler />
+          <Pensjonsavtaler />
         </Accordion>,
         {
           preloadedState: {
@@ -240,7 +240,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(
         <Accordion>
-          <GrunnlagPensjonsavtaler />
+          <Pensjonsavtaler />
         </Accordion>,
         {
           preloadedState: {
@@ -298,7 +298,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(
         <Accordion>
-          <GrunnlagPensjonsavtaler />
+          <Pensjonsavtaler />
         </Accordion>,
         {
           preloadedState: {

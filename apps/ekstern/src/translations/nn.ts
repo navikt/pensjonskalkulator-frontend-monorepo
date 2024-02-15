@@ -311,10 +311,10 @@ const translations = {
   'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
     'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
   'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
-  'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtalar',
-  'grunnlag.pensjonsavtaler.tabell.title.right': 'Årleg beløp',
-  'grunnlag.pensjonsavtaler.fra_og_med': 'Frå og med',
-  'grunnlag.pensjonsavtaler.til_og_med': 'til og med',
+  'grunnlag.pensjonsavtaler.tabell.title.left': 'Avtalar', // TODO: FIx
+  'grunnlag.pensjonsavtaler.tabell.title.right': 'Årleg beløp', // TODO: Fix
+  'grunnlag.pensjonsavtaler.fra_og_med': 'Frå og med', // TODO: Fix
+  'grunnlag.pensjonsavtaler.til_og_med': 'til og med', // TODO: Fix
   'grunnlag.pensjonsavtaler.og': 'og',
   'grunnlag.pensjonsavtaler.aar': 'år',
   'grunnlag.pensjonsavtaler.md': 'md',

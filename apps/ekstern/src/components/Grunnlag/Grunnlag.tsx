@@ -13,7 +13,6 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 import { GrunnlagForbehold } from './GrunnlagForbehold'
 import { GrunnlagInntekt } from './GrunnlagInntekt'
-import { GrunnlagPensjonsavtaler } from './GrunnlagPensjonsavtaler'
 import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
@@ -149,7 +148,6 @@ export const Grunnlag: React.FC = () => {
               </BodyLong>
             </GrunnlagSection>
           </AccordionItem>
-          <GrunnlagPensjonsavtaler />
         </Accordion>
       </section>
       <GrunnlagForbehold />

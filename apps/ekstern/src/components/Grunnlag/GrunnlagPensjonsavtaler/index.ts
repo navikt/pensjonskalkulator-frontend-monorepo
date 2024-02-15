@@ -1,1 +1,0 @@
-export { GrunnlagPensjonsavtaler } from './GrunnlagPensjonsavtaler'
