@@ -53,7 +53,7 @@ describe('AFP nei/vet ikke', () => {
 
         it('forventer jeg å få informasjon i grunnlaget om at AFP kan påvirke min uttaksalder.', () => {
           cy.contains('button', '70').click()
-          cy.contains('Grunnlaget for beregningen').should('exist')
+          cy.contains('Øvrig grunnlag for beregningen').should('exist')
           cy.contains('AFP:').click()
           cy.contains('Vet ikke').should('exist')
           cy.contains(

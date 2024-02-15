@@ -360,13 +360,12 @@ describe('Hovedhistorie', () => {
 
       it('forventer jeg å få informasjon om grunnlaget for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
         cy.contains('button', '70').click()
-        cy.contains('Grunnlaget for beregningen').should('exist')
+        cy.contains('Øvrig grunnlag for beregningen').should('exist')
         cy.contains('Uttaksgrad:').click({ force: true })
         cy.contains('Inntekt frem til uttak:').click({ force: true })
         cy.contains('Sivilstand:').click({ force: true })
         cy.contains('Opphold i Norge:').click({ force: true })
         cy.contains('AFP:').click({ force: true })
-        cy.contains('Pensjonsavtaler:').click({ force: true })
       })
 
       it('forventer jeg å kunne lese enkle forbehold, og få lenke til utfyllende forbehold.', () => {

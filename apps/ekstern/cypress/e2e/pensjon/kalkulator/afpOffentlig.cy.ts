@@ -75,7 +75,7 @@ describe('AFP offentlig', () => {
 
         it('forventer jeg å få informasjon i grunnlaget om at regelverk for AFP offentlig ikke er klart.', () => {
           cy.contains('button', '70').click()
-          cy.contains('Grunnlaget for beregningen').should('exist')
+          cy.contains('Øvrig grunnlag for beregningen').should('exist')
           cy.contains('AFP:').click()
           cy.contains('Offentlig').should('exist')
           cy.contains('Vi kan ikke vise din AFP').should('exist')
