@@ -2,10 +2,6 @@
 
 .section {
   margin-bottom: var(--a-spacing-6);
-
-  @media (min-width: $a-breakpoint-md) {
-    margin-bottom: var(--a-spacing-12);
-  }
 }
 
 .buttonRow {
