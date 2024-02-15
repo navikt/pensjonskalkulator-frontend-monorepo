@@ -51,7 +51,6 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Opphold i Norge').click({ force: true })
     cy.contains('button', 'Alderspensjon').click({ force: true })
     cy.contains('button', 'AFP').click({ force: true })
-    cy.contains('button', 'Pensjonsavtaler').click({ force: true })
     cy.checkA11y()
   })
 
