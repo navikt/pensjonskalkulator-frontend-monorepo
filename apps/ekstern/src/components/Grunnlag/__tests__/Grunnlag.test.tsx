@@ -4,8 +4,8 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Grunnlag', () => {
-  it('viser alle seksjonene og forbehold', async () => {
-    render(<Grunnlag />)
+  it('når grunnlag vises i Enkel visning, viser alle seksjonene og forbehold', async () => {
+    render(<Grunnlag visning="enkel" />)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.uttaksgrad.title')).toBeVisible()
@@ -16,16 +16,30 @@ describe('Grunnlag', () => {
       await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
     expect(await screen.findByText('grunnlag.afp.title')).toBeVisible()
+    expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
+  })
+
+  it('når grunnlag vises i Avansert visning, viser alle seksjonene utenom uttaksgrad og inntekt, i tilleg til forbehold', async () => {
+    render(<Grunnlag visning="avansert" />)
+    expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+    expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(
-      await screen.findByText('grunnlag.pensjonsavtaler.title')
+      screen.queryByText('grunnlag.uttaksgrad.title')
+    ).not.toBeInTheDocument()
+    expect(screen.queryByText('grunnlag.inntekt.title')).not.toBeInTheDocument()
+    expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
+    expect(await screen.findByText('grunnlag.opphold.title')).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
+    expect(await screen.findByText('grunnlag.afp.title')).toBeVisible()
     expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
   })
 
   describe('Grunnlag - uttaksgrad', () => {
     it('viser riktig tittel med formatert uttaksgrad og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag />)
+      render(<Grunnlag visning="enkel" />)
       expect(screen.getByText('grunnlag.uttaksgrad.title')).toBeVisible()
       expect(screen.getAllByText('100 %')).toHaveLength(3)
       const buttons = screen.getAllByRole('button')
@@ -49,7 +63,7 @@ describe('Grunnlag', () => {
           foedselsdato: '1963-04-30',
         },
       })
-      render(<Grunnlag />, {
+      render(<Grunnlag visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -88,7 +102,7 @@ describe('Grunnlag', () => {
           foedselsdato: '1963-04-30',
         },
       })
-      render(<Grunnlag />, {
+      render(<Grunnlag visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -119,7 +133,7 @@ describe('Grunnlag', () => {
     it('viser feilmelding når henting av personopplysninger feiler', async () => {
       const user = userEvent.setup()
       mockErrorResponse('/v1/person')
-      render(<Grunnlag />)
+      render(<Grunnlag visning="enkel" />)
 
       await waitFor(() => {
         expect(
@@ -145,7 +159,7 @@ describe('Grunnlag', () => {
   describe('Grunnlag - opphold', () => {
     it('viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag />)
+      render(<Grunnlag visning="enkel" />)
       expect(screen.getByText('grunnlag.opphold.title')).toBeVisible()
       expect(screen.getByText('grunnlag.opphold.value')).toBeVisible()
       const buttons = screen.getAllByRole('button')
@@ -164,7 +178,7 @@ describe('Grunnlag', () => {
   describe('Grunnlag - alderspensjon', () => {
     it('viser riktig tittel', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag />)
+      render(<Grunnlag visning="enkel" />)
       expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
       expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
       const buttons = screen.getAllByRole('button')
@@ -182,7 +196,7 @@ describe('Grunnlag', () => {
   describe('Grunnlag - AFP', () => {
     it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag />, {
+      render(<Grunnlag visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
