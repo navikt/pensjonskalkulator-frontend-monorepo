@@ -61,7 +61,6 @@ export const RedigerAvansertBeregning: React.FC<{
   )
 
   const [
-    // hasUnsavedChanges,
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
