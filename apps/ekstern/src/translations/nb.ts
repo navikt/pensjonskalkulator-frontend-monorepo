@@ -286,6 +286,12 @@ const translations = {
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',
   'beregning.avansert.button.nullstill': 'Nullstill valg',
   'beregning.avansert.button.avbryt': 'Avbryt endring',
+  'beregning.avansert.avbryt_modal.title':
+    'Er du sikker på at du vil avslutte avansert beregning?',
+  'beregning.avansert.avbryt_modal.body':
+    'Hvis du avslutter, blir ikke beregningen din lagret.',
+  'beregning.avansert.avbryt_modal.button.avslutt': 'Avslutt avansert',
+  'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
   'grunnlag.title': 'Grunnlaget for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',

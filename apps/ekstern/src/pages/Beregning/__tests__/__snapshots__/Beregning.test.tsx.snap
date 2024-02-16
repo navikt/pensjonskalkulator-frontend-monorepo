@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Beregning > Gitt at feature-toggle for detaljert fane skrues av og på > når TMU har feilet og brukeren bytter fane, nullstilles cachen slik at TMU kan hentes på nytt 1`] = `
+<DocumentFragment>
+  <svg
+    aria-labelledby="loader-r9k"
+    aria-live="polite"
+    class="navds-loader _loader__isCentered_1c4a2e navds-loader--3xlarge navds-loader--neutral"
+    data-testid="uttaksalder-loader"
+    focusable="false"
+    preserveAspectRatio="xMidYMid"
+    viewBox="0 0 50 50"
+  >
+    <title
+      id="loader-r9k"
+    >
+      beregning.loading
+    </title>
+    <circle
+      class="navds-loader__background"
+      cx="25"
+      cy="25"
+      fill="none"
+      r="20"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+    <circle
+      class="navds-loader__foreground"
+      cx="25"
+      cy="25"
+      fill="none"
+      r="20"
+      stroke-dasharray="50 155"
+    />
+  </svg>
+</DocumentFragment>
+`;

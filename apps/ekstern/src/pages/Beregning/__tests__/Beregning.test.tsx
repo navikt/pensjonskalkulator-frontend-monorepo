@@ -1,11 +1,15 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
+import { FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent, waitFor } from '@/test-utils'
+import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
 
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/68.json')
 
@@ -57,7 +61,7 @@ describe('Beregning', () => {
       expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
     })
 
-    it('når brukeren har gjort en simulering og bytter fane, nullstiller det pågående simulering', async () => {
+    it('når brukeren har gjort en Enkel simulering og bytter fane, nullstiller det pågående simulering', async () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
@@ -86,6 +90,128 @@ describe('Beregning', () => {
       expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
       await user.click(await screen.findByText('beregning.toggle.avansert'))
       expect(flushCurrentSimulationMock).toHaveBeenCalled()
+    })
+
+    it('når brukeren begynner å fylle ut skjema på Avansert og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
+      const user = userEvent.setup()
+      const flushCurrentSimulationMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushCurrentSimulation'
+      )
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      render(<Beregning visning="avansert" />)
+
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '67' },
+        }
+      )
+
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByText('beregning.toggle.enkel'))
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.body')
+      ).toBeInTheDocument()
+      await user.click(
+        await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
+      )
+      await user.click(await screen.findByText('beregning.toggle.enkel'))
+      await user.click(
+        await screen.findByText(
+          'beregning.avansert.avbryt_modal.button.avslutt'
+        )
+      )
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
+      expect(flushCurrentSimulationMock).toHaveBeenCalled()
+    })
+
+    it('når brukeren er på resultatside etter en Avansert simulering og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
+      const user = userEvent.setup()
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      render(<Beregning visning="avansert" />)
+
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '67' },
+        }
+      )
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '0' },
+        }
+      )
+
+      await user.click(
+        await screen.findByText('beregning.avansert.button.beregn')
+      )
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByText('beregning.toggle.enkel'))
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.body')
+      ).toBeInTheDocument()
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
+      ).toBeInTheDocument()
+      expect(
+        await screen.findByText(
+          'beregning.avansert.avbryt_modal.button.avslutt'
+        )
+      ).toBeInTheDocument()
+    })
+
+    it('når brukeren har gjort en Avansert simulering som hen redigerer og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
+      const user = userEvent.setup()
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      render(<Beregning visning="avansert" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              formatertUttaksalderReadOnly:
+                '70 alder.aar string.og 4 alder.maaned',
+              uttaksalder: { aar: 70, maaneder: 4 },
+            },
+          },
+        },
+      })
+
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByText('beregning.toggle.enkel'))
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.body')
+      ).toBeInTheDocument()
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
+      ).toBeInTheDocument()
+      expect(
+        await screen.findByText(
+          'beregning.avansert.avbryt_modal.button.avslutt'
+        )
+      ).toBeInTheDocument()
     })
   })
 
@@ -148,7 +274,7 @@ describe('Beregning', () => {
       expect(screen.getAllByRole('button')).toHaveLength(13)
     })
 
-    it('når kallet til tidligst mulig uttak feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
+    it('når kallet til TMU feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
       mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
         method: 'post',
       })
@@ -178,6 +304,65 @@ describe('Beregning', () => {
 
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
       expect(screen.getAllByRole('button')).toHaveLength(16)
+    })
+
+    it('når kallet til TMU feiler og brukeren bytter fane, nullstilles cachen slik at TMU kan hentes på nytt', async () => {
+      const user = userEvent.setup()
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
+        'initiate'
+      )
+      const flushCurrentSimulationMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushCurrentSimulation'
+      )
+      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
+        method: 'post',
+      })
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+
+      let invalidateTagsMock = vi
+        .spyOn(apiSliceUtils.apiSlice.util, 'invalidateTags')
+        .mockReturnValue({
+          type: 'something',
+          payload: ['TidligstMuligHeltUttak'],
+        })
+      invalidateTagsMock = Object.assign(invalidateTagsMock, { match: vi.fn() })
+
+      mockResponse('/v2/alderspensjon/simulering', {
+        status: 200,
+        method: 'post',
+        json: {
+          ...alderspensjonResponse,
+        },
+      })
+      render(<Beregning visning="enkel" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samboer: false,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('tidligstmuliguttak.error')
+      ).toBeInTheDocument()
+
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByText('beregning.toggle.avansert'))
+      expect(flushCurrentSimulationMock).toHaveBeenCalled()
+      expect(initiateMock).toHaveBeenCalledTimes(2)
+      expect(invalidateTagsMock).toHaveBeenCalledWith([
+        'TidligstMuligHeltUttak',
+      ])
     })
   })
 
