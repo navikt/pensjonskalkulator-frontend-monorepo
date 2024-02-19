@@ -173,7 +173,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
               <AlertDashBorder onRetry={isError ? onRetry : undefined}>
                 {!isError && uttaksalder && uttaksalder.aar < 67 && (
                   <FormattedMessage
-                    id="beregning.lav_opptjening"
+                    id="beregning.lav_opptjening.aar"
                     values={{ startAar: uttaksalder.aar }}
                   />
                 )}

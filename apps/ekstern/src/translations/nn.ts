@@ -209,8 +209,9 @@ const translations = {
   'beregning.til': 'MANGLER_TEKST',
   'beregning.tom': ' MANGLER_TEKST',
   'beregning.livsvarig': 'MANGLER_TEKST',
-  'beregning.lav_opptjening':
+  'beregning.lav_opptjening.aar':
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
+  'beregning.lav_opptjening.aar_og_md': 'MANGLER_TEKST',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.pensjonsavtaler.error':

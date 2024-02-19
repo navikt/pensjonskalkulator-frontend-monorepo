@@ -475,8 +475,17 @@ export const RedigerAvansertBeregning: React.FC<{
             JSON.stringify(localHeltUttak?.uttaksalder) ? (
             <AlertDashBorder className={styles.alert}>
               <FormattedMessage
-                id="beregning.lav_opptjening"
-                values={{ startAar: uttaksalder.aar }}
+                id={
+                  uttaksalder.maaneder
+                    ? 'beregning.lav_opptjening.aar_og_md'
+                    : 'beregning.lav_opptjening.aar'
+                }
+                values={{
+                  startAar: uttaksalder.aar,
+                  startMaaned: uttaksalder.maaneder
+                    ? uttaksalder.maaneder
+                    : undefined,
+                }}
               />
             </AlertDashBorder>
           ) : (
