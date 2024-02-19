@@ -243,7 +243,7 @@
     // This creates a new stacking context
     isolation: isolate;
 
-    // THis removes the stacking context from that node
+    // This removes the stacking context from that node
     .highcharts-container {
       z-index: auto !important;
     }

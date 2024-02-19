@@ -3,16 +3,21 @@ import { useIntl } from 'react-intl'
 
 import { Button } from '@navikt/ds-react'
 
+import { BeregningContext } from '@/pages/Beregning/context'
+import { useAppSelector } from '@/state/hooks'
+import { selectCurrentSimulation } from '@/state/userInput/selectors'
+
 import { FORM_NAMES } from './utils'
 
 import styles from './FormButtonRow.module.scss'
 
 export const FormButtonRow: React.FC<{
-  hasUnsavedChanges: boolean
   resetForm: () => void
   gaaTilResultat: () => void
-}> = ({ hasUnsavedChanges, resetForm, gaaTilResultat }) => {
+}> = ({ resetForm, gaaTilResultat }) => {
   const intl = useIntl()
+  const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
+  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
 
   return (
     <div className={styles.wrapper}>
@@ -23,9 +28,10 @@ export const FormButtonRow: React.FC<{
           className={`${styles.button} ${styles.buttonSubmit}`}
         >
           {intl.formatMessage({
-            id: hasUnsavedChanges
-              ? 'beregning.avansert.button.oppdater'
-              : 'beregning.avansert.button.beregn',
+            id:
+              uttaksalder && harAvansertSkjemaUnsavedChanges
+                ? 'beregning.avansert.button.oppdater'
+                : 'beregning.avansert.button.beregn',
           })}
         </Button>
         <Button
@@ -39,7 +45,7 @@ export const FormButtonRow: React.FC<{
           })}
         </Button>
       </div>
-      {hasUnsavedChanges && (
+      {uttaksalder && harAvansertSkjemaUnsavedChanges && (
         <div>
           <Button
             type="button"

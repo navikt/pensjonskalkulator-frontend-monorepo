@@ -1,6 +1,7 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
+import { BeregningContext } from '@/pages/Beregning/context'
 import {
   generateTidligstMuligHeltUttakRequestBody,
   generateTidligstMuligGradertUttakRequestBody,
@@ -22,6 +23,9 @@ export const useFormLocalState = (initialValues: {
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
   } = initialValues
+
+  const { setHarAvansertSkjemaUnsavedChanges } =
+    React.useContext(BeregningContext)
 
   const [localInntektFremTilUttak, setInntektFremTilUttak] = React.useState<
     number | null
@@ -58,10 +62,6 @@ export const useFormLocalState = (initialValues: {
       : undefined
   )
 
-  const [hasUnsavedChanges, setHasUnsavedChanges] = React.useState<
-    boolean | null
-  >(false)
-
   React.useEffect(() => {
     const hasInntektFremTilUnntakChanged =
       (aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
@@ -81,7 +81,7 @@ export const useFormLocalState = (initialValues: {
         : '')
     const hasUttaksalderChanged =
       JSON.stringify(localHeltUttak?.uttaksalder) !==
-      JSON.stringify(uttaksalder)
+      JSON.stringify(uttaksalder ?? undefined)
     const hasAarligInntektBeloepVsaHelPensjonChanged =
       (localHeltUttak?.aarligInntektVsaPensjon?.beloep ?? 0) !==
       (aarligInntektVsaHelPensjon?.beloep ?? 0)
@@ -90,18 +90,17 @@ export const useFormLocalState = (initialValues: {
       JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder)
 
     const updatedHasUnsavedChanges =
-      uttaksalder &&
-      (hasInntektFremTilUnntakChanged ||
-        hasGradChanged ||
-        hasGradertUttaksalderChanged ||
-        hasAarligInntektVsaGradertPensjonChanged ||
-        hasUttaksalderChanged ||
-        hasAarligInntektBeloepVsaHelPensjonChanged ||
-        hasAarligInntektSluttAlderVsaHelPensjonChanged)
+      hasInntektFremTilUnntakChanged ||
+      hasGradChanged ||
+      hasGradertUttaksalderChanged ||
+      hasAarligInntektVsaGradertPensjonChanged ||
+      hasUttaksalderChanged ||
+      hasAarligInntektBeloepVsaHelPensjonChanged ||
+      hasAarligInntektSluttAlderVsaHelPensjonChanged
 
-    setHasUnsavedChanges((previous) => {
+    setHarAvansertSkjemaUnsavedChanges((previous) => {
       return previous !== updatedHasUnsavedChanges
-        ? updatedHasUnsavedChanges
+        ? !!updatedHasUnsavedChanges
         : previous
     })
   }, [
@@ -124,7 +123,6 @@ export const useFormLocalState = (initialValues: {
   )
 
   return [
-    hasUnsavedChanges,
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,

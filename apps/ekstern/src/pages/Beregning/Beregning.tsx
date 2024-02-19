@@ -1,8 +1,8 @@
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { ToggleGroup } from '@navikt/ds-react'
+import { BodyLong, Button, Modal, ToggleGroup } from '@navikt/ds-react'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
@@ -23,14 +23,18 @@ import {
   selectSivilstand,
   selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
+import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { addSelfDestructingEventListener } from '@/utils/events'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
+import { BeregningContext, AvansertBeregningModus } from './context'
 
 import styles from './Beregning.module.scss'
 
 type BeregningVisning = 'enkel' | 'avansert'
+
 interface Props {
   visning: BeregningVisning
 }
@@ -46,6 +50,13 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
+
+  const [showModal, setShowModal] = React.useState<boolean>(false)
+  const [avansertSkjemaModus, setAvansertSkjemaModus] =
+    React.useState<AvansertBeregningModus>('redigering')
+  const [harAvansertSkjemaUnsavedChanges, setHarAvansertSkjemaUnsavedChanges] =
+    React.useState<boolean>(false)
 
   const [
     tidligstMuligHeltUttakRequestBody,
@@ -76,6 +87,46 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     })
   }, [])
 
+  const shouldShowModalBoolean = React.useMemo(() => {
+    return (
+      harAvansertSkjemaUnsavedChanges ||
+      avansertSkjemaModus === 'resultat' ||
+      !!(avansertSkjemaModus === 'redigering' && uttaksalder)
+    )
+  }, [uttaksalder, avansertSkjemaModus, harAvansertSkjemaUnsavedChanges])
+
+  React.useEffect(() => {
+    let handler: ((e: Event) => void) | undefined
+    const onPopState = () => {
+      setShowModal(true)
+    }
+
+    if (
+      shouldShowModalBoolean &&
+      window.location.href.includes(paths.beregningDetaljert)
+    ) {
+      window.history.pushState(
+        null,
+        intl.formatMessage({
+          id: 'application.title.beregning',
+        }),
+        window.location.href
+      )
+      handler = addSelfDestructingEventListener(window, 'popstate', onPopState)
+    } else {
+      if (handler) {
+        window.removeEventListener('popstate', handler)
+        navigate(-1)
+      }
+    }
+
+    return () => {
+      if (handler) {
+        window.removeEventListener('popstate', handler)
+      }
+    }
+  }, [shouldShowModalBoolean])
+
   React.useEffect(() => {
     const requestBody = generateTidligstMuligHeltUttakRequestBody({
       afp,
@@ -86,9 +137,11 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     setTidligstMuligHeltUttakRequestBody(requestBody)
   }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
-  const onToggleChange = (v: string) => {
+  const navigateToTab = (v: BeregningVisning) => {
     navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningDetaljert)
     dispatch(userInputActions.flushCurrentSimulation())
+    setAvansertSkjemaModus('redigering')
+    setHarAvansertSkjemaUnsavedChanges(false)
 
     if (isTidligstMuligUttakError) {
       dispatch(apiSlice.util.invalidateTags(['TidligstMuligHeltUttak']))
@@ -99,6 +152,20 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           )
         )
       }
+    }
+  }
+
+  const onToggleChange = (v: string) => {
+    if (
+      visning === 'avansert' &&
+      v === 'enkel' &&
+      (harAvansertSkjemaUnsavedChanges ||
+        avansertSkjemaModus === 'resultat' ||
+        (avansertSkjemaModus === 'redigering' && uttaksalder))
+    ) {
+      setShowModal(true)
+    } else {
+      navigateToTab(v as BeregningVisning)
     }
   }
 
@@ -115,42 +182,90 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }
 
   return (
-    <div className={styles.beregning}>
-      {detaljertFaneFeatureToggle?.enabled && (
-        <div className={styles.toggle}>
+    <BeregningContext.Provider
+      value={{
+        avansertSkjemaModus,
+        setAvansertSkjemaModus,
+        harAvansertSkjemaUnsavedChanges,
+        setHarAvansertSkjemaUnsavedChanges,
+      }}
+    >
+      <Modal
+        open={showModal}
+        header={{
+          heading: intl.formatMessage({
+            id: 'beregning.avansert.avbryt_modal.title',
+          }),
+        }}
+        width="medium"
+      >
+        <Modal.Body>
+          <BodyLong>
+            <FormattedMessage id="beregning.avansert.avbryt_modal.body" />
+          </BodyLong>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            type="button"
+            onClick={() => {
+              setShowModal(false)
+              navigateToTab('enkel')
+            }}
+          >
+            {intl.formatMessage({
+              id: 'beregning.avansert.avbryt_modal.button.avslutt',
+            })}
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => {
+              setShowModal(false)
+            }}
+          >
+            {intl.formatMessage({
+              id: 'beregning.avansert.avbryt_modal.button.avbryt',
+            })}
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <div className={styles.beregning}>
+        {detaljertFaneFeatureToggle?.enabled && (
+          <div className={styles.toggle}>
+            <div className={styles.container}>
+              <ToggleGroup
+                value={visning}
+                variant="neutral"
+                onChange={onToggleChange}
+              >
+                <ToggleGroup.Item value="enkel">
+                  {intl.formatMessage({
+                    id: 'beregning.toggle.enkel',
+                  })}
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value="avansert">
+                  {intl.formatMessage({
+                    id: 'beregning.toggle.avansert',
+                  })}
+                </ToggleGroup.Item>
+              </ToggleGroup>
+            </div>
+          </div>
+        )}
+        {visning === 'enkel' && (
+          <BeregningEnkel
+            tidligstMuligUttak={
+              !isTidligstMuligUttakError ? tidligstMuligUttak : undefined
+            }
+          />
+        )}
+        {visning === 'avansert' && <BeregningAvansert />}
+        <div className={`${styles.background} ${styles.background__lightblue}`}>
           <div className={styles.container}>
-            <ToggleGroup
-              defaultValue={visning}
-              variant="neutral"
-              onChange={onToggleChange}
-            >
-              <ToggleGroup.Item value="enkel">
-                {intl.formatMessage({
-                  id: 'beregning.toggle.enkel',
-                })}
-              </ToggleGroup.Item>
-              <ToggleGroup.Item value="avansert">
-                {intl.formatMessage({
-                  id: 'beregning.toggle.avansert',
-                })}
-              </ToggleGroup.Item>
-            </ToggleGroup>
+            <LightBlueFooter />
           </div>
         </div>
-      )}
-      {visning === 'enkel' && (
-        <BeregningEnkel
-          tidligstMuligUttak={
-            !isTidligstMuligUttakError ? tidligstMuligUttak : undefined
-          }
-        />
-      )}
-      {visning === 'avansert' && <BeregningAvansert />}
-      <div className={`${styles.background} ${styles.background__lightblue}`}>
-        <div className={styles.container}>
-          <LightBlueFooter />
-        </div>
       </div>
-    </div>
+    </BeregningContext.Provider>
   )
 }
