@@ -7,6 +7,7 @@ declare const classNames: typeof globalClassNames & {
   readonly selectMaaned: "selectMaaned";
   readonly select__hasError: "select__hasError";
   readonly selectErrorMessage: "selectErrorMessage";
+  readonly nowrap: "nowrap";
   readonly date: "date";
 };
 export = classNames;

@@ -53,6 +53,12 @@
       &::before {
         content: '•';
       }
+
+      :global {
+        .nowrap {
+          display: contents;
+        }
+      }
     }
   }
 }
