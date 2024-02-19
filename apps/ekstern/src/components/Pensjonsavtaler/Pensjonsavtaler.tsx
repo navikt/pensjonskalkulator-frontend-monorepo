@@ -122,7 +122,7 @@ export const Pensjonsavtaler = () => {
             </div>
           )}
         {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-          <div>
+          <div data-testid="pensjonsavtaler-list">
             {isMobile ? (
               <PensjonsavtalerMobil pensjonsavtaler={pensjonsavtaler.avtaler} />
             ) : (
@@ -154,7 +154,7 @@ export const Pensjonsavtaler = () => {
             </BodyLong>
           </div>
         )}
-        {harSamtykket && (
+        {harSamtykket && !isError && (
           <>
             <BodyLong>
               <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />

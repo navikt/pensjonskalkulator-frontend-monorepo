@@ -26,39 +26,40 @@ const PensjonsavtaleRad: React.FC<IPensjonsavtalerRad> = ({
   return pensjonsavtale.utbetalingsperioder.map((utbetalingsperiode, i) => {
     const isLastRow = pensjonsavtale.utbetalingsperioder.length - 1 > i
     return (
-      <>
-        <Table.Row shadeOnHover={false}>
-          {i === 0 && (
-            <Table.HeaderCell
-              scope="row"
-              className={styles.TableRader__alignTop}
-              rowSpan={pensjonsavtale.utbetalingsperioder.length}
-            >
-              {pensjonsavtale.produktbetegnelse}
-            </Table.HeaderCell>
-          )}
-          <Table.DataCell
-            className={clsx({
-              [styles.TableRader__noBottomBorder]: isLastRow,
-            })}
+      <Table.Row
+        shadeOnHover={false}
+        key={`${JSON.stringify(utbetalingsperiode)}-row`}
+      >
+        {i === 0 && (
+          <Table.HeaderCell
+            scope="row"
+            className={styles.TableRader__alignTop}
+            rowSpan={pensjonsavtale.utbetalingsperioder.length}
           >
-            {utbetalingsperiode.sluttAlder
-              ? formaterSluttAlderString(intl)(
-                  utbetalingsperiode.startAlder,
-                  utbetalingsperiode.sluttAlder
-                )
-              : formaterLivsvarigString(intl)(utbetalingsperiode.startAlder)}
-          </Table.DataCell>
-          <Table.DataCell
-            align="right"
-            className={clsx({
-              [styles.TableRader__noBottomBorder]: isLastRow,
-            })}
-          >
-            {formatWithoutDecimal(utbetalingsperiode.aarligUtbetaling)} kr
-          </Table.DataCell>
-        </Table.Row>
-      </>
+            {pensjonsavtale.produktbetegnelse}
+          </Table.HeaderCell>
+        )}
+        <Table.DataCell
+          className={clsx({
+            [styles.TableRader__noBottomBorder]: isLastRow,
+          })}
+        >
+          {utbetalingsperiode.sluttAlder
+            ? formaterSluttAlderString(intl)(
+                utbetalingsperiode.startAlder,
+                utbetalingsperiode.sluttAlder
+              )
+            : formaterLivsvarigString(intl)(utbetalingsperiode.startAlder)}
+        </Table.DataCell>
+        <Table.DataCell
+          align="right"
+          className={clsx({
+            [styles.TableRader__noBottomBorder]: isLastRow,
+          })}
+        >
+          {formatWithoutDecimal(utbetalingsperiode.aarligUtbetaling)} kr
+        </Table.DataCell>
+      </Table.Row>
     )
   })
 }
@@ -91,7 +92,10 @@ const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
         </Table.Header>
         <Table.Body>
           {pensjonsavtaler.map((pensjonsavtale) => (
-            <PensjonsavtaleRad pensjonsavtale={pensjonsavtale} />
+            <PensjonsavtaleRad
+              key={`${pensjonsavtale.key}-table-rad`}
+              pensjonsavtale={pensjonsavtale}
+            />
           ))}
         </Table.Body>
       </Table>
@@ -112,6 +116,7 @@ export const PensjonsavtalerTable: React.FC<IProps> = ({ pensjonsavtaler }) => {
       {Object.entries(gruppertePensjonsavtaler).map(
         ([avtaleGruppe, gruppePensjonsavtaler]) => (
           <AvtaleGruppe
+            key={`${avtaleGruppe}-gruppe-table`}
             avtale={avtaleGruppe}
             pensjonsavtaler={gruppePensjonsavtaler}
           />

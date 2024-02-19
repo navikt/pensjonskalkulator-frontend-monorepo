@@ -16,9 +16,6 @@ describe('Grunnlag', () => {
       await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
     expect(await screen.findByText('grunnlag.afp.title')).toBeVisible()
-    expect(
-      await screen.findByText('grunnlag.pensjonsavtaler.title')
-    ).toBeVisible()
     expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
   })
 

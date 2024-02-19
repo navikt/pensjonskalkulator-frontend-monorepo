@@ -18,12 +18,12 @@ const Pensjonsavtaler: React.FC<IPensjonsavtalerProps> = ({
 }) => {
   const intl = useIntl()
   return pensjonsavtaler.map((avtale) => (
-    <div>
+    <div key={`${avtale.key}-mobile`}>
       <Heading size="xsmall">{avtale.produktbetegnelse}</Heading>
       <table style={{ width: '100%' }}>
         <tbody>
           {avtale.utbetalingsperioder.map((utbetalingsperiode) => (
-            <tr>
+            <tr key={`${JSON.stringify(utbetalingsperiode)}-mobile`}>
               <th style={{ fontWeight: 'normal' }} scope="row" align="left">
                 {utbetalingsperiode.sluttAlder
                   ? utils.formaterSluttAlderString(intl)(
@@ -79,10 +79,11 @@ export const PensjonsavtalerMobil: React.FC<IProps> = ({ pensjonsavtaler }) => {
         ([avtaleGruppe, gruppePensjonsavtaler]) => (
           <>
             <AvtaleGruppe
+              key={`${avtaleGruppe}-gruppe-mobil`}
               avtale={avtaleGruppe}
               pensjonsavtaler={gruppePensjonsavtaler}
             />
-            <Divider />
+            <Divider key={`${avtaleGruppe}-divider`} />
           </>
         )
       )}

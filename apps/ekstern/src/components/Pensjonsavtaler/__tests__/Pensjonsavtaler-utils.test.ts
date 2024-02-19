@@ -49,10 +49,10 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
       const mockFn = vi.fn().mockReturnValue('string')
       expect(getMaanedString(mockFn, 1)).toEqual(' string 1 string')
       expect(mockFn).toHaveBeenNthCalledWith(1, {
-        id: 'grunnlag.pensjonsavtaler.og',
+        id: 'pensjonsavtaler.og',
       })
       expect(mockFn).toHaveBeenNthCalledWith(2, {
-        id: 'grunnlag.pensjonsavtaler.md',
+        id: 'pensjonsavtaler.md',
       })
       expect(getMaanedString(mockFn, 5)).toEqual(' string 5 string')
     })
