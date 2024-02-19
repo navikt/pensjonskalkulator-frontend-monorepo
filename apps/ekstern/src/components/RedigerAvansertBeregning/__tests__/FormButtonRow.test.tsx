@@ -2,16 +2,30 @@ import { describe, expect, it } from 'vitest'
 
 import { FormButtonRow } from '../FormButtonRow'
 import { FORM_NAMES } from '../utils'
+import {
+  BeregningContext,
+  AvansertBeregningModus,
+} from '@/pages/Beregning/context'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, fireEvent } from '@/test-utils'
 
 describe('FormButtonRow', () => {
-  it('Når knapperaden rendres med hasUnsavedChanges false, vises det riktig tekst og avbryt knappen er skjult', () => {
+  const contextMockedValues = {
+    avansertSkjemaModus: 'redigering' as AvansertBeregningModus,
+    setAvansertSkjemaModus: vi.fn(),
+    harAvansertSkjemaUnsavedChanges: false,
+    setHarAvansertSkjemaUnsavedChanges: () => {},
+  }
+
+  it('Når knapperaden rendres med harAvansertSkjemaUnsavedChanges false, vises det riktig tekst og avbryt knappen er skjult', () => {
     render(
-      <FormButtonRow
-        hasUnsavedChanges={false}
-        resetForm={vi.fn()}
-        gaaTilResultat={vi.fn()}
-      />
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <FormButtonRow resetForm={vi.fn()} gaaTilResultat={vi.fn()} />
+      </BeregningContext.Provider>
     )
     expect(screen.getByText('beregning.avansert.button.beregn')).toBeVisible()
     expect(
@@ -25,13 +39,27 @@ describe('FormButtonRow', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('Når knapperaden rendres med hasUnsavedChanges true, vises det riktig tekst og avbryt knappen er synlig', () => {
+  it('Når knapperaden rendres etter at brukeren har valgt uttaksalder og har ulagrede endringer, vises det riktig tekst og avbryt knappen er synlig', () => {
     render(
-      <FormButtonRow
-        hasUnsavedChanges={true}
-        resetForm={vi.fn()}
-        gaaTilResultat={vi.fn()}
-      />
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+          harAvansertSkjemaUnsavedChanges: true,
+        }}
+      >
+        <FormButtonRow resetForm={vi.fn()} gaaTilResultat={vi.fn()} />
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              uttaksalder: { aar: 67, maaneder: 0 },
+            },
+          },
+        },
+      }
     )
     expect(
       screen.queryByText('beregning.avansert.button.beregn')
@@ -46,15 +74,15 @@ describe('FormButtonRow', () => {
   it('Når Beregn knappen trykkes på, submittes formen', () => {
     const onSubmitMock = vi.fn()
     render(
-      <>
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
         <form id={FORM_NAMES.form} method="dialog" onSubmit={onSubmitMock}>
-          <FormButtonRow
-            hasUnsavedChanges={false}
-            resetForm={vi.fn()}
-            gaaTilResultat={vi.fn()}
-          />
+          <FormButtonRow resetForm={vi.fn()} gaaTilResultat={vi.fn()} />
         </form>
-      </>
+      </BeregningContext.Provider>
     )
 
     fireEvent.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -64,11 +92,13 @@ describe('FormButtonRow', () => {
   it('Når Nullstill knappen trykkes på, kalles det onReset', () => {
     const onResetMock = vi.fn()
     render(
-      <FormButtonRow
-        hasUnsavedChanges={false}
-        resetForm={onResetMock}
-        gaaTilResultat={vi.fn()}
-      />
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <FormButtonRow resetForm={onResetMock} gaaTilResultat={vi.fn()} />
+      </BeregningContext.Provider>
     )
 
     fireEvent.click(screen.getByText('beregning.avansert.button.nullstill'))
@@ -78,11 +108,28 @@ describe('FormButtonRow', () => {
   it('Når Avbryt knappen trykkes på, kalles det gaaTilResultat', () => {
     const gaaTilResultatMock = vi.fn()
     render(
-      <FormButtonRow
-        hasUnsavedChanges={true}
-        resetForm={vi.fn()}
-        gaaTilResultat={gaaTilResultatMock}
-      />
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+          harAvansertSkjemaUnsavedChanges: true,
+        }}
+      >
+        <FormButtonRow
+          resetForm={vi.fn()}
+          gaaTilResultat={gaaTilResultatMock}
+        />
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              uttaksalder: { aar: 67, maaneder: 0 },
+            },
+          },
+        },
+      }
     )
 
     fireEvent.click(screen.getByText('beregning.avansert.button.avbryt'))
