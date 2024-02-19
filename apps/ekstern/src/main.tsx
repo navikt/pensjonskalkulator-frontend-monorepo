@@ -41,13 +41,13 @@ const router = createBrowserRouter(routes, {
 initializeLogs()
 
 ReactDOM.createRoot(root).render(
-  <>
+  <React.StrictMode>
     <Provider store={store}>
       <LanguageProvider>
         <RouterProvider router={router} />
       </LanguageProvider>
     </Provider>
-  </>
+  </React.StrictMode>
 )
 
 if (window.Cypress) {
