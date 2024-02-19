@@ -16,12 +16,8 @@
   width: $input-width-m;
 }
 
-.paragraph {
-  margin-bottom: var(--a-spacing-1);
-}
-
 .button {
-  margin-top: var(--a-spacing-2);
+  margin-top: var(--a-spacing-1);
 
   &__marginRight {
     margin-right: var(--a-spacing-4);
