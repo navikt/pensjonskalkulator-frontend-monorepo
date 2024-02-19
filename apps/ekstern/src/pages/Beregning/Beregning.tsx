@@ -25,6 +25,7 @@ import {
 } from '@/state/userInput/selectors'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { addSelfDestructingEventListener } from '@/utils/events'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
@@ -85,6 +86,46 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       id: 'application.title.beregning',
     })
   }, [])
+
+  const shouldShowModalBoolean = React.useMemo(() => {
+    return (
+      harAvansertSkjemaUnsavedChanges ||
+      avansertSkjemaModus === 'resultat' ||
+      !!(avansertSkjemaModus === 'redigering' && uttaksalder)
+    )
+  }, [uttaksalder, avansertSkjemaModus, harAvansertSkjemaUnsavedChanges])
+
+  React.useEffect(() => {
+    let handler: ((e: Event) => void) | undefined
+    const onPopState = () => {
+      setShowModal(true)
+    }
+
+    if (
+      shouldShowModalBoolean &&
+      window.location.href.includes(paths.beregningDetaljert)
+    ) {
+      window.history.pushState(
+        null,
+        intl.formatMessage({
+          id: 'application.title.beregning',
+        }),
+        window.location.href
+      )
+      handler = addSelfDestructingEventListener(window, 'popstate', onPopState)
+    } else {
+      if (handler) {
+        window.removeEventListener('popstate', handler)
+        navigate(-1)
+      }
+    }
+
+    return () => {
+      if (handler) {
+        window.removeEventListener('popstate', handler)
+      }
+    }
+  }, [shouldShowModalBoolean])
 
   React.useEffect(() => {
     const requestBody = generateTidligstMuligHeltUttakRequestBody({

@@ -1,4 +1,5 @@
 import * as ReactRouterUtils from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 import { describe, expect, it, vi } from 'vitest'
 
@@ -12,6 +13,7 @@ import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
 
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/68.json')
+const previousWindow = window
 
 describe('Beregning', () => {
   const fakeApiCalls = {
@@ -42,6 +44,11 @@ describe('Beregning', () => {
     },
   }
 
+  it('har riktig sidetittel', () => {
+    render(<Beregning visning="enkel" />)
+    expect(document.title).toBe('application.title.beregning')
+  })
+
   describe('Gitt at feature-toggle for detaljert fane skrues av og på', () => {
     it('vises det toggle mellom "enkel" og "detaljert" visning', () => {
       mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
@@ -60,7 +67,9 @@ describe('Beregning', () => {
       render(<Beregning visning="enkel" />)
       expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
     })
+  })
 
+  describe('Gitt at brukeren navigerer mellom fanene', () => {
     it('når brukeren har gjort en Enkel simulering og bytter fane, nullstiller det pågående simulering', async () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
@@ -87,7 +96,7 @@ describe('Beregning', () => {
         },
       })
 
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByRole('radiogroup')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.avansert'))
       expect(flushCurrentSimulationMock).toHaveBeenCalled()
     })
@@ -117,11 +126,11 @@ describe('Beregning', () => {
         }
       )
 
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByRole('radiogroup')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
-      ).toBeInTheDocument()
+      ).toBeVisible()
       await user.click(
         await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
       )
@@ -163,19 +172,19 @@ describe('Beregning', () => {
       await user.click(
         await screen.findByText('beregning.avansert.button.beregn')
       )
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByRole('radiogroup')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
-      ).toBeInTheDocument()
+      ).toBeVisible()
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
-      ).toBeInTheDocument()
+      ).toBeVisible()
       expect(
         await screen.findByText(
           'beregning.avansert.avbryt_modal.button.avslutt'
         )
-      ).toBeInTheDocument()
+      ).toBeVisible()
     })
 
     it('når brukeren har gjort en Avansert simulering som hen redigerer og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
@@ -199,25 +208,198 @@ describe('Beregning', () => {
         },
       })
 
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByRole('radiogroup')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
-      ).toBeInTheDocument()
+      ).toBeVisible()
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
-      ).toBeInTheDocument()
+      ).toBeVisible()
       expect(
         await screen.findByText(
           'beregning.avansert.avbryt_modal.button.avslutt'
         )
-      ).toBeInTheDocument()
+      ).toBeVisible()
     })
   })
 
-  it('har riktig sidetittel', () => {
-    render(<Beregning visning="enkel" />)
-    expect(document.title).toBe('application.title.beregning')
+  describe('Gitt at brukeren navigerer tilbake', () => {
+    beforeEach(() => {
+      global.window = Object.create(window)
+      Object.defineProperty(window, 'location', {
+        value: {
+          href: paths.beregningDetaljert,
+        },
+        writable: true,
+      })
+    })
+
+    afterEach(() => {
+      global.window = previousWindow
+    })
+
+    function NavigateWrapper({ children }: { children: React.ReactNode }) {
+      function handleClick() {
+        fireEvent(
+          window,
+          new window.PopStateEvent('popstate', {
+            state: { page: 1 },
+          })
+        )
+      }
+
+      return (
+        <div>
+          <button onClick={handleClick} data-testid="navigate-btn">
+            Navigate
+          </button>
+          {children}
+        </div>
+      )
+    }
+
+    it('når brukeren har gjort en Enkel simulering og trykker på tilbakeknappen, vises ikke Avbryt-Modalen', async () => {
+      global.window = Object.create(window)
+      Object.defineProperty(window, 'location', {
+        value: {
+          href: paths.beregningEnkel,
+        },
+        writable: true,
+      })
+      const user = userEvent.setup()
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      render(
+        <NavigateWrapper>
+          <Beregning visning="enkel" />
+        </NavigateWrapper>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              currentSimulation: {
+                formatertUttaksalderReadOnly:
+                  '70 alder.aar string.og 4 alder.maaned',
+                uttaksalder: { aar: 70, maaneder: 4 },
+                aarligInntektFoerUttakBeloep: 300000,
+                gradertUttaksperiode: null,
+              },
+            },
+          },
+        }
+      )
+
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByTestId('navigate-btn'))
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.body')
+      ).not.toBeVisible()
+    })
+
+    it('når brukeren begynner å fylle ut skjema på Avansert og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
+      const user = userEvent.setup()
+
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      render(
+        <NavigateWrapper>
+          <Beregning visning="avansert" />
+        </NavigateWrapper>
+      )
+
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '67' },
+        }
+      )
+
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByTestId('navigate-btn'))
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.body')
+      ).toBeVisible()
+    })
+
+    it('når brukeren er på resultatside etter en Avansert simulering  og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
+      const user = userEvent.setup()
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      render(
+        <NavigateWrapper>
+          <Beregning visning="avansert" />
+        </NavigateWrapper>
+      )
+
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '67' },
+        }
+      )
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '0' },
+        }
+      )
+
+      await user.click(
+        await screen.findByText('beregning.avansert.button.beregn')
+      )
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByTestId('navigate-btn'))
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.body')
+      ).toBeVisible()
+    })
+
+    it('når brukeren har gjort en Avansert simulering som hen redigerer  og trykker på tilbakeknappen,', async () => {
+      const user = userEvent.setup()
+      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
+        status: 200,
+        json: { enabled: true },
+      })
+      render(
+        <NavigateWrapper>
+          <Beregning visning="avansert" />
+        </NavigateWrapper>,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: false,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                formatertUttaksalderReadOnly:
+                  '70 alder.aar string.og 4 alder.maaned',
+                uttaksalder: { aar: 70, maaneder: 4 },
+              },
+            },
+          },
+        }
+      )
+
+      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      await user.click(await screen.findByTestId('navigate-btn'))
+      expect(
+        await screen.findByText('beregning.avansert.avbryt_modal.body')
+      ).toBeVisible()
+    })
   })
 
   describe('Når tidligst mulig uttaksalder hentes', () => {
