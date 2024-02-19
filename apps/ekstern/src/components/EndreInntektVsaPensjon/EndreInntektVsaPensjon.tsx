@@ -318,13 +318,14 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </>
       ) : (
         <>
-          <BodyShort className={styles.paragraph}>
+          <BodyShort>
             <FormattedMessage
               id="inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2"
               values={{ ...getFormatMessageValues(intl) }}
             />
           </BodyShort>
           <Button
+            className={styles.button}
             variant="tertiary"
             size="small"
             icon={<PlusCircleIcon aria-hidden />}
