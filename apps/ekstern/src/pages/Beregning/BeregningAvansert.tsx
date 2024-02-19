@@ -156,12 +156,6 @@ export const BeregningAvansert: React.FC = () => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
               <Alert onRetry={isError ? onRetry : undefined}>
-                {uttaksalder && uttaksalder.aar < 67 && (
-                  <FormattedMessage
-                    id="beregning.lav_opptjening"
-                    values={{ startAar: uttaksalder.aar }}
-                  />
-                )}
                 {isError && <FormattedMessage id="beregning.error" />}
               </Alert>
               <ResultatkortAvansertBeregning
