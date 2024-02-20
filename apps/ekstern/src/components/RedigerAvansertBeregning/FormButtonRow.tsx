@@ -14,7 +14,8 @@ import styles from './FormButtonRow.module.scss'
 export const FormButtonRow: React.FC<{
   resetForm: () => void
   gaaTilResultat: () => void
-}> = ({ resetForm, gaaTilResultat }) => {
+  hasVilkaarIkkeOppfylt?: boolean
+}> = ({ resetForm, gaaTilResultat, hasVilkaarIkkeOppfylt }) => {
   const intl = useIntl()
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
@@ -29,7 +30,9 @@ export const FormButtonRow: React.FC<{
         >
           {intl.formatMessage({
             id:
-              uttaksalder && harAvansertSkjemaUnsavedChanges
+              uttaksalder &&
+              !hasVilkaarIkkeOppfylt &&
+              harAvansertSkjemaUnsavedChanges
                 ? 'beregning.avansert.button.oppdater'
                 : 'beregning.avansert.button.beregn',
           })}
@@ -45,20 +48,22 @@ export const FormButtonRow: React.FC<{
           })}
         </Button>
       </div>
-      {uttaksalder && harAvansertSkjemaUnsavedChanges && (
-        <div>
-          <Button
-            type="button"
-            variant="tertiary"
-            className={styles.button}
-            onClick={gaaTilResultat}
-          >
-            {intl.formatMessage({
-              id: 'beregning.avansert.button.avbryt',
-            })}
-          </Button>
-        </div>
-      )}
+      {uttaksalder &&
+        !hasVilkaarIkkeOppfylt &&
+        harAvansertSkjemaUnsavedChanges && (
+          <div>
+            <Button
+              type="button"
+              variant="tertiary"
+              className={styles.button}
+              onClick={gaaTilResultat}
+            >
+              {intl.formatMessage({
+                id: 'beregning.avansert.button.avbryt',
+              })}
+            </Button>
+          </div>
+        )}
     </div>
   )
 }

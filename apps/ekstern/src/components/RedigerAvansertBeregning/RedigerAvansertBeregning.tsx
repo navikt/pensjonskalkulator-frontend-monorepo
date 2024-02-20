@@ -9,6 +9,7 @@ import { ReadMore } from '@/components/common/ReadMore'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
 import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
+import { BeregningContext } from '@/pages/Beregning/context'
 import {
   useTidligstMuligHeltUttakQuery,
   useTidligstMuligGradertUttakQuery,
@@ -64,6 +65,8 @@ export const RedigerAvansertBeregning: React.FC<{
     selectAarligInntektFoerUttakBeloep
   )
 
+  const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
+
   const [
     localInntektFremTilUttak,
     localHeltUttak,
@@ -74,7 +77,6 @@ export const RedigerAvansertBeregning: React.FC<{
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
-    hasVilkaarIkkeOppfylt,
   })
 
   const [
@@ -289,7 +291,14 @@ export const RedigerAvansertBeregning: React.FC<{
           localInntektFremTilUttak
         )
       )
-      gaaTilResultat()
+
+      // Dersom vilkårene ikke var oppfylt, sjekk at noe ble endret for å sende til resultat
+      if (
+        !hasVilkaarIkkeOppfylt ||
+        (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)
+      ) {
+        gaaTilResultat()
+      }
     }
   }
 
@@ -416,6 +425,27 @@ export const RedigerAvansertBeregning: React.FC<{
               onChange={handleGradertUttakAlderChange}
               error={gradertUttakAgePickerError}
             />
+            {hasVilkaarIkkeOppfylt &&
+              gradertUttaksperiode &&
+              gradertUttaksperiode.uttaksalder &&
+              JSON.stringify(gradertUttaksperiode.uttaksalder) ===
+                JSON.stringify(localGradertUttak?.uttaksalder) && (
+                <AlertDashBorder className={styles.alert}>
+                  <FormattedMessage
+                    id={
+                      gradertUttaksperiode.uttaksalder.maaneder
+                        ? 'beregning.lav_opptjening.aar_og_md'
+                        : 'beregning.lav_opptjening.aar'
+                    }
+                    values={{
+                      startAar: gradertUttaksperiode.uttaksalder.aar,
+                      startMaaned: gradertUttaksperiode.uttaksalder.maaneder
+                        ? gradertUttaksperiode.uttaksalder.maaneder
+                        : undefined,
+                    }}
+                  />
+                </AlertDashBorder>
+              )}
             {localGradertUttak?.grad !== 100 && (
               <>
                 <div className={styles.spacer__small} />
@@ -479,6 +509,7 @@ export const RedigerAvansertBeregning: React.FC<{
             error={heltUttakAgePickerError}
           />
           {hasVilkaarIkkeOppfylt &&
+          !gradertUttaksperiode &&
           uttaksalder &&
           uttaksalder.aar < 67 &&
           JSON.stringify(uttaksalder) ===
@@ -535,7 +566,11 @@ export const RedigerAvansertBeregning: React.FC<{
               />
             </div>
           )}
-        <FormButtonRow resetForm={resetForm} gaaTilResultat={gaaTilResultat} />
+        <FormButtonRow
+          resetForm={resetForm}
+          gaaTilResultat={gaaTilResultat}
+          hasVilkaarIkkeOppfylt={hasVilkaarIkkeOppfylt}
+        />
       </div>
     </div>
   )
