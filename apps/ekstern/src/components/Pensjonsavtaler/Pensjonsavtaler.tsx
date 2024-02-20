@@ -9,6 +9,7 @@ import {
 import { BodyLong, Heading, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 
+import ShowMore from '../common/ShowMore/ShowMore'
 import { paths } from '@/router/constants'
 import { usePensjonsavtalerQuery } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
@@ -86,7 +87,7 @@ export const Pensjonsavtaler = () => {
 
   return (
     <section className={styles.section}>
-      <Heading size="medium">
+      <Heading size="medium" id="pensjonsavtaler-heading">
         {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
       </Heading>
       <>
@@ -121,23 +122,7 @@ export const Pensjonsavtaler = () => {
               </BodyLong>
             </div>
           )}
-        {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-          <div data-testid="pensjonsavtaler-list">
-            {isMobile ? (
-              <div data-testid="pensjonsavtaler-mobil">
-                <PensjonsavtalerMobil
-                  pensjonsavtaler={pensjonsavtaler.avtaler}
-                />
-              </div>
-            ) : (
-              <div data-testid="pensjonsavtaler-table">
-                <PensjonsavtalerTable
-                  pensjonsavtaler={pensjonsavtaler.avtaler}
-                />
-              </div>
-            )}
-          </div>
-        )}
+
         {(isError || pensjonsavtaler?.partialResponse) && (
           <div
             className={clsx(styles.info, {
@@ -162,8 +147,26 @@ export const Pensjonsavtaler = () => {
             </BodyLong>
           </div>
         )}
+
         {harSamtykket && !isError && (
-          <>
+          <ShowMore aria-labelledby="pensjonsavtaler-heading">
+            {isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
+              <div data-testid="pensjonsavtaler-list">
+                {isMobile ? (
+                  <div data-testid="pensjonsavtaler-mobil">
+                    <PensjonsavtalerMobil
+                      pensjonsavtaler={pensjonsavtaler.avtaler}
+                    />
+                  </div>
+                ) : (
+                  <div data-testid="pensjonsavtaler-table">
+                    <PensjonsavtalerTable
+                      pensjonsavtaler={pensjonsavtaler.avtaler}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
             <BodyLong>
               <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
             </BodyLong>
@@ -175,7 +178,7 @@ export const Pensjonsavtaler = () => {
                 }}
               />
             </BodyLong>
-          </>
+          </ShowMore>
         )}
       </>
     </section>
