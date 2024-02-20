@@ -549,6 +549,33 @@ describe('RedigerAvansertBeregning-hooks', () => {
         ).toHaveTextContent(`FALSE`)
       })
     })
+
+    it('Når hasVilkaarIkkeOppfylt er true, blir hasUnsavedChanges false selv om andre verider har endret seg', async () => {
+      const { result } = renderHook(useFormLocalState, {
+        wrapper,
+        initialProps: {
+          ...initialProps,
+          hasVilkaarIkkeOppfylt: true,
+        },
+      })
+
+      // harAvansertSkjemaUnsavedChanges
+      expect(
+        await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
+      ).toHaveTextContent(`FALSE`)
+
+      const { setLocalInntektFremTilUttak } = result.current[3]
+
+      act(() => {
+        setLocalInntektFremTilUttak(800000)
+      })
+      // harAvansertSkjemaUnsavedChanges
+      expect(
+        await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
+      ).toHaveTextContent(`FALSE`)
+      // localInntektFremTilUttak
+      expect(result.current[0]).toBe(800000)
+    })
   })
 
   describe('useTidligstMuligUttakRequestBodyState', () => {

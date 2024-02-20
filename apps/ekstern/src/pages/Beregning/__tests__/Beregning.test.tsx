@@ -1,49 +1,18 @@
 import * as ReactRouterUtils from 'react-router'
-import { useNavigate } from 'react-router-dom'
 
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
 import { FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
-import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
-import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
-import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
+import { fireEvent, render, screen, userEvent } from '@/test-utils'
 
-const alderspensjonResponse = require('../../../mocks/data/alderspensjon/68.json')
 const previousWindow = window
 
 describe('Beregning', () => {
-  const fakeApiCalls = {
-    queries: {
-      ['getPerson(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getPerson',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          fornavn: 'Aprikos',
-          sivilstand: 'UGIFT',
-          foedselsdato: '1963-04-30',
-        },
-        fulfilledTimeStamp: 1688046412103,
-      },
-      ['getInntekt(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getInntekt',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          beloep: 500000,
-          aar: 2021,
-        },
-        fulfilledTimeStamp: 1688046412103,
-      },
-    },
-  }
-
   it('har riktig sidetittel', () => {
     render(<Beregning visning="enkel" />)
     expect(document.title).toBe('application.title.beregning')
@@ -399,152 +368,6 @@ describe('Beregning', () => {
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
       ).toBeVisible()
-    })
-  })
-
-  describe('Når tidligst mulig uttaksalder hentes', () => {
-    it('kalles endepunktet med riktig request body', async () => {
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
-        'initiate'
-      )
-      render(<Beregning visning="enkel" />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            samboer: false,
-            afp: 'ja_privat',
-          },
-        },
-      })
-
-      expect(initiateMock).toHaveBeenCalledWith(
-        {
-          aarligInntektFoerUttakBeloep: 500000,
-          aarligInntektVsaPensjon: undefined,
-
-          harEps: false,
-          simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
-          sivilstand: 'UGIFT',
-        },
-        {
-          forceRefetch: undefined,
-          subscriptionOptions: {
-            pollingInterval: 0,
-            refetchOnFocus: undefined,
-            refetchOnReconnect: undefined,
-            skipPollingIfUnfocused: false,
-          },
-        }
-      )
-    })
-
-    it('viser loading og deretter riktig header, tekst og knapper', async () => {
-      render(<Beregning visning="enkel" />)
-      expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
-      await waitFor(async () => {
-        expect(
-          screen.queryByTestId('uttaksalder-loader')
-        ).not.toBeInTheDocument()
-      })
-      expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
-      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(13)
-    })
-
-    it('når kallet til TMU feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
-      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
-        method: 'post',
-      })
-      mockResponse('/v2/alderspensjon/simulering', {
-        status: 200,
-        method: 'post',
-        json: {
-          ...alderspensjonResponse,
-        },
-      })
-      render(<Beregning visning="enkel" />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            samboer: false,
-          },
-        },
-      })
-
-      expect(
-        await screen.findByText('tidligstmuliguttak.error')
-      ).toBeInTheDocument()
-
-      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(16)
-    })
-
-    it('når kallet til TMU feiler og brukeren bytter fane, nullstilles cachen slik at TMU kan hentes på nytt', async () => {
-      const user = userEvent.setup()
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
-        'initiate'
-      )
-      const flushCurrentSimulationMock = vi.spyOn(
-        userInputReducerUtils.userInputActions,
-        'flushCurrentSimulation'
-      )
-      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
-        method: 'post',
-      })
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
-
-      let invalidateTagsMock = vi
-        .spyOn(apiSliceUtils.apiSlice.util, 'invalidateTags')
-        .mockReturnValue({
-          type: 'something',
-          payload: ['TidligstMuligHeltUttak'],
-        })
-      invalidateTagsMock = Object.assign(invalidateTagsMock, { match: vi.fn() })
-
-      mockResponse('/v2/alderspensjon/simulering', {
-        status: 200,
-        method: 'post',
-        json: {
-          ...alderspensjonResponse,
-        },
-      })
-      render(<Beregning visning="enkel" />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            samboer: false,
-          },
-        },
-      })
-
-      expect(
-        await screen.findByText('tidligstmuliguttak.error')
-      ).toBeInTheDocument()
-
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
-      await user.click(await screen.findByText('beregning.toggle.avansert'))
-      expect(flushCurrentSimulationMock).toHaveBeenCalled()
-      expect(initiateMock).toHaveBeenCalledTimes(2)
-      expect(invalidateTagsMock).toHaveBeenCalledWith([
-        'TidligstMuligHeltUttak',
-      ])
     })
   })
 

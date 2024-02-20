@@ -16,12 +16,14 @@ export const useFormLocalState = (initialValues: {
   uttaksalder: Alder | null
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
+  hasVilkaarIkkeOppfylt?: boolean
 }) => {
   const {
     aarligInntektFoerUttakBeloepFraBrukerInput,
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
+    hasVilkaarIkkeOppfylt,
   } = initialValues
 
   const { setHarAvansertSkjemaUnsavedChanges } =
@@ -90,13 +92,14 @@ export const useFormLocalState = (initialValues: {
       JSON.stringify(aarligInntektVsaHelPensjon?.sluttAlder)
 
     const updatedHasUnsavedChanges =
-      hasInntektFremTilUnntakChanged ||
-      hasGradChanged ||
-      hasGradertUttaksalderChanged ||
-      hasAarligInntektVsaGradertPensjonChanged ||
-      hasUttaksalderChanged ||
-      hasAarligInntektBeloepVsaHelPensjonChanged ||
-      hasAarligInntektSluttAlderVsaHelPensjonChanged
+      !hasVilkaarIkkeOppfylt &&
+      (hasInntektFremTilUnntakChanged ||
+        hasGradChanged ||
+        hasGradertUttaksalderChanged ||
+        hasAarligInntektVsaGradertPensjonChanged ||
+        hasUttaksalderChanged ||
+        hasAarligInntektBeloepVsaHelPensjonChanged ||
+        hasAarligInntektSluttAlderVsaHelPensjonChanged)
 
     setHarAvansertSkjemaUnsavedChanges((previous) => {
       return previous !== updatedHasUnsavedChanges
@@ -111,6 +114,7 @@ export const useFormLocalState = (initialValues: {
     localInntektFremTilUttak,
     localGradertUttak,
     localHeltUttak,
+    hasVilkaarIkkeOppfylt,
   ])
 
   const handlers = React.useMemo(

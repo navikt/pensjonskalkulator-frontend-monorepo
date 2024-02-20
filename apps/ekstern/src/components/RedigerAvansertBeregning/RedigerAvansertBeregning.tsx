@@ -74,6 +74,7 @@ export const RedigerAvansertBeregning: React.FC<{
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
+    hasVilkaarIkkeOppfylt,
   })
 
   const [
@@ -92,7 +93,6 @@ export const RedigerAvansertBeregning: React.FC<{
   const {
     data: tidligstMuligHeltUttak,
     isError: isTidligstMuligHeltUttakError,
-    isSuccess: isTidligstMuligHeltUttakSuccess,
   } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
     skip: !tidligstMuligHeltUttakRequestBody || hasVilkaarIkkeOppfylt,
   })
@@ -124,7 +124,7 @@ export const RedigerAvansertBeregning: React.FC<{
   })
 
   const minAlderForHeltUttak = React.useMemo(() => {
-    if (localGradertUttak || isTidligstMuligHeltUttakSuccess) {
+    if (localGradertUttak || tidligstMuligHeltUttak) {
       const oppdatertMinAlder = getMinAlderTilHeltUttak({
         localGradertUttak: localGradertUttak?.uttaksalder,
         tidligstMuligHeltUttak,
@@ -144,11 +144,7 @@ export const RedigerAvansertBeregning: React.FC<{
       }
       return oppdatertMinAlder
     }
-  }, [
-    localGradertUttak,
-    tidligstMuligHeltUttak,
-    isTidligstMuligHeltUttakSuccess,
-  ])
+  }, [localGradertUttak, tidligstMuligHeltUttak])
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     resetValidationErrors()
