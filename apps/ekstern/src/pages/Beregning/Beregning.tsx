@@ -6,23 +6,14 @@ import { BodyLong, Button, Modal, ToggleGroup } from '@navikt/ds-react'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
-import { Loader } from '@/components/common/Loader'
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
-import { apiSlice, useTidligstMuligHeltUttakQuery } from '@/state/api/apiSlice'
 import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetDetaljertFaneFeatureToggleQuery,
 } from '@/state/api/apiSlice'
-import { generateTidligstMuligHeltUttakRequestBody } from '@/state/api/utils'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
-import {
-  selectAfp,
-  selectSamboer,
-  selectSivilstand,
-  selectAarligInntektFoerUttakBeloep,
-} from '@/state/userInput/selectors'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -43,12 +34,6 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const harSamboer = useAppSelector(selectSamboer)
-  const sivilstand = useAppSelector(selectSivilstand)
-  const afp = useAppSelector(selectAfp)
-  const aarligInntektFoerUttakBeloep = useAppSelector(
-    selectAarligInntektFoerUttakBeloep
-  )
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const avbrytModalRef = React.useRef<HTMLDialogElement>(null)
 
@@ -57,24 +42,10 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const [harAvansertSkjemaUnsavedChanges, setHarAvansertSkjemaUnsavedChanges] =
     React.useState<boolean>(false)
 
-  const [
-    tidligstMuligHeltUttakRequestBody,
-    setTidligstMuligHeltUttakRequestBody,
-  ] = React.useState<TidligstMuligHeltUttakRequestBody | undefined>(undefined)
-
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
   const { data: detaljertFaneFeatureToggle } =
     useGetDetaljertFaneFeatureToggleQuery()
-
-  // Hent tidligst mulig uttaksalder
-  const {
-    data: tidligstMuligUttak,
-    isLoading: isTidligstMuligUttakLoading,
-    isError: isTidligstMuligUttakError,
-  } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
-    skip: !tidligstMuligHeltUttakRequestBody,
-  })
 
   React.useEffect(() => {
     /* c8 ignore next 3 */
@@ -129,32 +100,11 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     }
   }, [shouldShowModalBoolean])
 
-  React.useEffect(() => {
-    const requestBody = generateTidligstMuligHeltUttakRequestBody({
-      afp,
-      sivilstand: sivilstand,
-      harSamboer,
-      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
-    })
-    setTidligstMuligHeltUttakRequestBody(requestBody)
-  }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
-
   const navigateToTab = (v: BeregningVisning) => {
     navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningDetaljert)
     dispatch(userInputActions.flushCurrentSimulation())
     setAvansertSkjemaModus('redigering')
     setHarAvansertSkjemaUnsavedChanges(false)
-
-    if (isTidligstMuligUttakError) {
-      dispatch(apiSlice.util.invalidateTags(['TidligstMuligHeltUttak']))
-      if (tidligstMuligHeltUttakRequestBody) {
-        dispatch(
-          apiSlice.endpoints.tidligstMuligHeltUttak.initiate(
-            tidligstMuligHeltUttakRequestBody
-          )
-        )
-      }
-    }
   }
 
   const onToggleChange = (v: string) => {
@@ -169,18 +119,6 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     } else {
       navigateToTab(v as BeregningVisning)
     }
-  }
-
-  if (isTidligstMuligUttakLoading) {
-    return (
-      <Loader
-        data-testid="uttaksalder-loader"
-        size="3xlarge"
-        title={intl.formatMessage({
-          id: 'beregning.loading',
-        })}
-      />
-    )
   }
 
   return (
@@ -265,13 +203,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
             </div>
           </div>
         )}
-        {visning === 'enkel' && (
-          <BeregningEnkel
-            tidligstMuligUttak={
-              !isTidligstMuligUttakError ? tidligstMuligUttak : undefined
-            }
-          />
-        )}
+        {visning === 'enkel' && <BeregningEnkel />}
         {visning === 'avansert' && <BeregningAvansert />}
         <div className={`${styles.background} ${styles.background__lightblue}`}>
           <div className={styles.container}>

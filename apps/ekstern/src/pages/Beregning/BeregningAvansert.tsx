@@ -109,10 +109,10 @@ export const BeregningAvansert: React.FC = () => {
   }, [error])
 
   React.useEffect(() => {
-    if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
+    if (!isFetching && alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
       setAvansertSkjemaModus('redigering')
     }
-  }, [avansertSkjemaModus, alderspensjon])
+  }, [alderspensjon])
 
   const [
     isPensjonsavtalerAccordionItemOpen,

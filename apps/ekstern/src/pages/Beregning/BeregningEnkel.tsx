@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Alert, Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -7,20 +7,24 @@ import clsx from 'clsx'
 
 import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
+import { Loader } from '@/components/common/Loader'
 import { Grunnlag } from '@/components/Grunnlag'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import {
-  useGetPersonQuery,
   apiSlice,
+  useGetPersonQuery,
+  useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
 } from '@/state/api/apiSlice'
+import { generateTidligstMuligHeltUttakRequestBody } from '@/state/api/utils'
 import { generateAlderspensjonEnkelRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
   selectSamboer,
+  selectSivilstand,
   selectCurrentSimulation,
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
@@ -28,18 +32,15 @@ import {
 import { isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
-interface Props {
-  tidligstMuligUttak?: Alder
-}
-
 import styles from './BeregningEnkel.module.scss'
 
-export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
+export const BeregningEnkel: React.FC = () => {
   const dispatch = useAppDispatch()
-
+  const intl = useIntl()
   const grunnlagPensjonsavtalerRef = React.useRef<HTMLSpanElement>(null)
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
+  const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
@@ -48,6 +49,19 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
   )
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
+
+  const [
+    tidligstMuligHeltUttakRequestBody,
+    setTidligstMuligHeltUttakRequestBody,
+  ] = React.useState<TidligstMuligHeltUttakRequestBody | undefined>(undefined)
+  // Hent tidligst mulig uttaksalder
+  const {
+    data: tidligstMuligUttak,
+    isLoading: isTidligstMuligUttakLoading,
+    isSuccess: isTidligstMuligUttakSuccess,
+  } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
+    skip: !tidligstMuligHeltUttakRequestBody,
+  })
 
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
@@ -60,6 +74,16 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
       !!aarligInntektFoerUttakBeloepFraBrukerInput && uttaksalder === null
     )
   }, [aarligInntektFoerUttakBeloepFraBrukerInput, uttaksalder])
+
+  React.useEffect(() => {
+    const requestBody = generateTidligstMuligHeltUttakRequestBody({
+      afp,
+      sivilstand: sivilstand,
+      harSamboer,
+      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
+    })
+    setTidligstMuligHeltUttakRequestBody(requestBody)
+  }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
 
   React.useEffect(() => {
     if (uttaksalder) {
@@ -131,6 +155,18 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
     setShowInntektAlert(false)
   }
 
+  if (isTidligstMuligUttakLoading) {
+    return (
+      <Loader
+        data-testid="uttaksalder-loader"
+        size="3xlarge"
+        title={intl.formatMessage({
+          id: 'beregning.loading',
+        })}
+      />
+    )
+  }
+
   return (
     <>
       {showInntektAlert && (
@@ -150,7 +186,9 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
       <div className={clsx(styles.background, styles.background__lightgray)}>
         <div className={styles.container}>
           <TidligstMuligUttaksalder
-            tidligstMuligUttak={tidligstMuligUttak}
+            tidligstMuligUttak={
+              isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
+            }
             hasAfpOffentlig={afp === 'ja_offentlig'}
             show1963Text={show1963Text}
           />
@@ -158,7 +196,11 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
       </div>
 
       <div className={styles.container}>
-        <VelgUttaksalder tidligstMuligUttak={tidligstMuligUttak} />
+        <VelgUttaksalder
+          tidligstMuligUttak={
+            isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
+          }
+        />
       </div>
 
       {uttaksalder !== null && (
