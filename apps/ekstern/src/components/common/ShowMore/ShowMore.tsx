@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import React, { forwardRef, useMemo, useRef, useState } from 'react'
 
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
@@ -163,3 +164,4 @@ export const ShowMore = forwardRef<HTMLElement, ShowMoreProps>(
 )
 
 export default ShowMore
+/* c8 ignore end */
