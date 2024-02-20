@@ -112,7 +112,7 @@ export const PensjonsavtalerTable: React.FC<IProps> = ({ pensjonsavtaler }) => {
   }, [pensjonsavtaler])
 
   return (
-    <VStack gap="5">
+    <VStack gap="5" data-testid="pensjonsavtaler-table">
       {Object.entries(gruppertePensjonsavtaler).map(
         ([avtaleGruppe, gruppePensjonsavtaler]) => (
           <AvtaleGruppe

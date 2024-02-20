@@ -124,9 +124,17 @@ export const Pensjonsavtaler = () => {
         {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
           <div data-testid="pensjonsavtaler-list">
             {isMobile ? (
-              <PensjonsavtalerMobil pensjonsavtaler={pensjonsavtaler.avtaler} />
+              <div data-testid="pensjonsavtaler-mobil">
+                <PensjonsavtalerMobil
+                  pensjonsavtaler={pensjonsavtaler.avtaler}
+                />
+              </div>
             ) : (
-              <PensjonsavtalerTable pensjonsavtaler={pensjonsavtaler.avtaler} />
+              <div data-testid="pensjonsavtaler-table">
+                <PensjonsavtalerTable
+                  pensjonsavtaler={pensjonsavtaler.avtaler}
+                />
+              </div>
             )}
           </div>
         )}

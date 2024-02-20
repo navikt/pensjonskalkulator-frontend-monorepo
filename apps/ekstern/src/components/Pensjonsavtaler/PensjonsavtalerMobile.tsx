@@ -17,9 +17,13 @@ const Pensjonsavtaler: React.FC<IPensjonsavtalerProps> = ({
   pensjonsavtaler,
 }) => {
   const intl = useIntl()
+
+  // TODO: Flytt styling til CSS
   return pensjonsavtaler.map((avtale) => (
-    <div key={`${avtale.key}-mobile`}>
-      <Heading size="xsmall">{avtale.produktbetegnelse}</Heading>
+    <div key={`${avtale.key}`}>
+      <Heading level="4" size="xsmall">
+        {avtale.produktbetegnelse}
+      </Heading>
       <table style={{ width: '100%' }}>
         <tbody>
           {avtale.utbetalingsperioder.map((utbetalingsperiode) => (
@@ -58,7 +62,9 @@ const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
 }) => {
   return (
     <VStack gap="3">
-      <Heading size="small">{capitalize(avtale)}</Heading>
+      <Heading level="3" size="small">
+        {capitalize(avtale)}
+      </Heading>
       <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
     </VStack>
   )
@@ -74,17 +80,16 @@ export const PensjonsavtalerMobil: React.FC<IProps> = ({ pensjonsavtaler }) => {
   }, [pensjonsavtaler])
 
   return (
-    <VStack>
+    <VStack data-testid="pensjonsavtaler-mobile">
       {Object.entries(gruppertePensjonsavtaler).map(
         ([avtaleGruppe, gruppePensjonsavtaler]) => (
-          <>
+          <div key={`${avtaleGruppe}-gruppe-mobil`}>
             <AvtaleGruppe
-              key={`${avtaleGruppe}-gruppe-mobil`}
               avtale={avtaleGruppe}
               pensjonsavtaler={gruppePensjonsavtaler}
             />
-            <Divider key={`${avtaleGruppe}-divider`} />
-          </>
+            <Divider />
+          </div>
         )
       )}
     </VStack>

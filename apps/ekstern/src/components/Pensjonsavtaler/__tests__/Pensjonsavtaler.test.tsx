@@ -12,7 +12,7 @@ import {
 } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
-describe('GrunnlagPensjonsavtaler', () => {
+describe('Pensjonsavtaler', () => {
   const fakeInntektApiCall = {
     queries: {
       ['getInntekt(undefined)']: {
