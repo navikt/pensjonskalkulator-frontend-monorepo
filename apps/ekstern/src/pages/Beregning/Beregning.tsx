@@ -25,7 +25,6 @@ import {
 } from '@/state/userInput/selectors'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { addSelfDestructingEventListener } from '@/utils/events'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
@@ -51,8 +50,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     selectAarligInntektFoerUttakBeloep
   )
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
+  const avbrytModalRef = React.useRef<HTMLDialogElement>(null)
 
-  const [showModal, setShowModal] = React.useState<boolean>(false)
   const [avansertSkjemaModus, setAvansertSkjemaModus] =
     React.useState<AvansertBeregningModus>('redigering')
   const [harAvansertSkjemaUnsavedChanges, setHarAvansertSkjemaUnsavedChanges] =
@@ -96,9 +95,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }, [uttaksalder, avansertSkjemaModus, harAvansertSkjemaUnsavedChanges])
 
   React.useEffect(() => {
-    let handler: ((e: Event) => void) | undefined
+    let isEventAdded
     const onPopState = () => {
-      setShowModal(true)
+      avbrytModalRef.current?.showModal()
     }
 
     if (
@@ -112,17 +111,20 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         }),
         window.location.href
       )
-      handler = addSelfDestructingEventListener(window, 'popstate', onPopState)
+      window.addEventListener('popstate', onPopState)
+      isEventAdded = true
     } else {
-      if (handler) {
-        window.removeEventListener('popstate', handler)
+      if (isEventAdded) {
+        window.removeEventListener('popstate', onPopState)
+        isEventAdded = false
         navigate(-1)
       }
     }
 
     return () => {
-      if (handler) {
-        window.removeEventListener('popstate', handler)
+      if (onPopState) {
+        window.removeEventListener('popstate', onPopState)
+        isEventAdded = false
       }
     }
   }, [shouldShowModalBoolean])
@@ -163,7 +165,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         avansertSkjemaModus === 'resultat' ||
         (avansertSkjemaModus === 'redigering' && uttaksalder))
     ) {
-      setShowModal(true)
+      avbrytModalRef.current?.showModal()
     } else {
       navigateToTab(v as BeregningVisning)
     }
@@ -191,13 +193,24 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       }}
     >
       <Modal
-        open={showModal}
+        ref={avbrytModalRef}
         header={{
           heading: intl.formatMessage({
             id: 'beregning.avansert.avbryt_modal.title',
           }),
         }}
         width="medium"
+        onClose={() => {
+          if (window.location.href.includes(paths.beregningDetaljert)) {
+            window.history.pushState(
+              null,
+              intl.formatMessage({
+                id: 'application.title.beregning',
+              }),
+              window.location.href
+            )
+          }
+        }}
       >
         <Modal.Body>
           <BodyLong>
@@ -208,8 +221,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           <Button
             type="button"
             onClick={() => {
-              setShowModal(false)
               navigateToTab('enkel')
+              avbrytModalRef.current?.close('returnValue')
             }}
           >
             {intl.formatMessage({
@@ -220,7 +233,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
             type="button"
             variant="secondary"
             onClick={() => {
-              setShowModal(false)
+              avbrytModalRef.current?.close()
             }}
           >
             {intl.formatMessage({
