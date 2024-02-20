@@ -93,14 +93,14 @@ export const RedigerAvansertBeregning: React.FC<{
     data: tidligstMuligHeltUttak,
     isError: isTidligstMuligHeltUttakError,
   } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
-    skip: !tidligstMuligHeltUttakRequestBody,
+    skip: !tidligstMuligHeltUttakRequestBody || hasVilkaarIkkeOppfylt,
   })
 
   const {
     data: tidligstMuligGradertUttak,
     isError: isTidligstMuligGradertUttakError,
   } = useTidligstMuligGradertUttakQuery(tidligstMuligGradertUttakRequestBody, {
-    skip: !tidligstMuligGradertUttakRequestBody,
+    skip: !tidligstMuligGradertUttakRequestBody || hasVilkaarIkkeOppfylt,
   })
 
   const [
@@ -123,23 +123,27 @@ export const RedigerAvansertBeregning: React.FC<{
   })
 
   const minAlderForHeltUttak = React.useMemo(() => {
-    const oppdatertMinAlder = getMinAlderTilHeltUttak({
-      localGradertUttak: localGradertUttak?.uttaksalder,
-      tidligstMuligHeltUttak,
-    })
-    if (
-      localHeltUttak?.uttaksalder &&
-      (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
-        (localHeltUttak.uttaksalder?.maaneder ?? 0) <=
-        (oppdatertMinAlder?.aar ?? 0) * 12 + (oppdatertMinAlder?.maaneder ?? 0)
-    ) {
-      setLocalHeltUttak((previous) => ({
-        ...previous,
-        uttaksalder: undefined,
-      }))
+    if (localGradertUttak && tidligstMuligHeltUttak) {
+      const oppdatertMinAlder = getMinAlderTilHeltUttak({
+        localGradertUttak: localGradertUttak?.uttaksalder,
+        tidligstMuligHeltUttak,
+      })
+      // if the previously chosen uttaksalder is lower than oppdatertMinAlder
+      if (
+        localHeltUttak?.uttaksalder &&
+        (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
+          (localHeltUttak.uttaksalder?.maaneder ?? 0) <=
+          (oppdatertMinAlder?.aar ?? 0) * 12 +
+            (oppdatertMinAlder?.maaneder ?? 0)
+      ) {
+        setLocalHeltUttak((previous) => ({
+          ...previous,
+          uttaksalder: undefined,
+        }))
+      }
+      return oppdatertMinAlder
     }
-    return oppdatertMinAlder
-  }, [localGradertUttak, tidligstMuligHeltUttak])
+  }, [localGradertUttak])
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     resetValidationErrors()
