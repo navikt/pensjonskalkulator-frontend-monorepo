@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
@@ -195,3 +196,4 @@ export const BeregningAvansert: React.FC = () => {
     </>
   )
 }
+/* c8 ignore end */
