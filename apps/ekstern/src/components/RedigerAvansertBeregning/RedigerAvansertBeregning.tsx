@@ -20,6 +20,7 @@ import {
   selectSivilstand,
   selectCurrentSimulation,
   selectAarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -55,6 +56,9 @@ export const RedigerAvansertBeregning: React.FC<{
   const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
     selectAarligInntektFoerUttakBeloepFraBrukerInput
+  )
+  const aarligInntektFoerUttakBeloepFraBrukerSkatt = useAppSelector(
+    selectAarligInntektFoerUttakBeloepFraSkatt
   )
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
@@ -286,7 +290,9 @@ export const RedigerAvansertBeregning: React.FC<{
 
   const resetForm = (): void => {
     resetValidationErrors()
-    setLocalInntektFremTilUttak(null)
+    setLocalInntektFremTilUttak(
+      aarligInntektFoerUttakBeloepFraBrukerSkatt?.beloep ?? null
+    )
     setLocalGradertUttak(undefined)
     setLocalHeltUttak(undefined)
   }
