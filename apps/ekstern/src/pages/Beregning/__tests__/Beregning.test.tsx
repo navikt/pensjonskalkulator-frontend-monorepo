@@ -8,7 +8,7 @@ import { mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
-import { fireEvent, render, screen, userEvent } from '@/test-utils'
+import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
 
 const previousWindow = window
 
@@ -374,9 +374,13 @@ describe('Beregning', () => {
   describe('Gitt at pensjonskalkulator er i "enkel" visning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="enkel" />)
-      expect(
-        await screen.findByText('velguttaksalder.title')
-      ).toBeInTheDocument()
+      expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+      })
+      expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
     })
   })
 

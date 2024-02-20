@@ -36,7 +36,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   }),
 
   http.post(`${baseUrl}/v1/tidligste-hel-uttaksalder`, async () => {
-    await delay(1500)
+    await delay(TEST_DELAY)
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
   }),
 

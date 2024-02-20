@@ -190,13 +190,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
             </div>
           </div>
         )}
-        {visning === 'enkel' && (
-          <BeregningEnkel
-          // tidligstMuligUttak={
-          //   !isTidligstMuligUttakError ? tidligstMuligUttak : undefined
-          // }
-          />
-        )}
+        {visning === 'enkel' && <BeregningEnkel />}
         {visning === 'avansert' && <BeregningAvansert />}
         <div className={`${styles.background} ${styles.background__lightblue}`}>
           <div className={styles.container}>
