@@ -64,7 +64,6 @@ describe('BeregningEnkel', () => {
         {
           aarligInntektFoerUttakBeloep: 500000,
           aarligInntektVsaPensjon: undefined,
-
           harEps: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
           sivilstand: 'UGIFT',

@@ -550,7 +550,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       })
     })
 
-    it('Når hasVilkaarIkkeOppfylt er true, blir hasUnsavedChanges false selv om andre verider har endret seg', async () => {
+    it('Når hasVilkaarIkkeOppfylt er true, blir hasUnsavedChanges false selv om andre verdier har endret seg', async () => {
       const { result } = renderHook(useFormLocalState, {
         wrapper,
         initialProps: {
