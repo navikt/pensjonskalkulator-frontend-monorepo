@@ -452,7 +452,9 @@ export const RedigerAvansertBeregning: React.FC<{
                 <div className={styles.spacer__small} />
                 <ReadMoreOmPensjonsalder
                   showTidligstMuligUttakOptionalIngress={
-                    !isTidligstMuligGradertUttakError
+                    !isTidligstMuligGradertUttakError &&
+                    !isTidligstMuligHeltUttakError &&
+                    !hasVilkaarIkkeOppfylt
                   }
                 />
               </>
@@ -540,7 +542,7 @@ export const RedigerAvansertBeregning: React.FC<{
           localGradertUttak?.grad === 100) && (
           <ReadMoreOmPensjonsalder
             showTidligstMuligUttakOptionalIngress={
-              !isTidligstMuligHeltUttakError
+              !isTidligstMuligHeltUttakError && !hasVilkaarIkkeOppfylt
             }
           />
         )}
