@@ -12,6 +12,7 @@ import {
   transformUttaksalderToDate,
 } from '@/utils/alder'
 import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
+import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './EndreInntektVsaPensjon.module.scss'
@@ -27,7 +28,6 @@ interface Props {
   }) => void
 }
 
-// TODO legge til Amplitude logging
 export const EndreInntektVsaPensjon: React.FC<Props> = ({
   uttaksperiode,
   oppdatereInntekt,
@@ -91,9 +91,10 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
   }, [sluttAlder, isSuccess])
 
   const openInntektVsaPensjonModal = () => {
-    // logger('modal åpnet', {
-    //   tekst: 'Modal: Endring av pensjonsgivende inntekt',
-    // })
+    logger('modal åpnet', {
+      tekst:
+        'Modal: Endring av pensjonsgivende inntekt vsa. 100% alderspensjon',
+    })
     inntektVsaPensjonModalRef.current?.showModal()
   }
 
@@ -125,6 +126,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
       updateValidationAlderVelgerTextMessage
     )
     if (isInntektValid && isSluttAlderValid) {
+      logger('button klikk', {
+        tekst: 'endrer pensjonsgivende inntekt vsa. 100% alderspensjon',
+      })
       oppdatereInntekt({
         beloep: parseInt(
           (inntektBeloepVsaPensjon as string).replace(/ /g, ''),
@@ -309,7 +313,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             variant="tertiary"
             size="small"
             icon={<TrashIcon aria-hidden />}
-            onClick={onDelete}
+            onClick={wrapLogger('button klikk', {
+              tekst: 'sletter inntekt vsa. 100% alderspensjon',
+            })(onDelete)}
           >
             {intl.formatMessage({
               id: 'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette',

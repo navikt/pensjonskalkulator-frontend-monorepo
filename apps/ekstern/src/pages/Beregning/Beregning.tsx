@@ -16,6 +16,7 @@ import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { logger } from '@/utils/logging'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
@@ -108,6 +109,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }
 
   const onToggleChange = (v: string) => {
+    logger('button klikk', {
+      tekst: `Toggle viser fane ${v}`,
+    })
     if (
       visning === 'avansert' &&
       v === 'enkel' &&

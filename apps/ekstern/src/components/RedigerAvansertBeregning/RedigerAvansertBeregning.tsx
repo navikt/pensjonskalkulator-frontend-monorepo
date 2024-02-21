@@ -27,6 +27,7 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatWithoutDecimal } from '@/utils/inntekt'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FormButtonRow } from './FormButtonRow'
@@ -255,6 +256,15 @@ export const RedigerAvansertBeregning: React.FC<{
           (inntektVsaGradertPensjonFormData as string).replace(/ /g, ''),
           10
         )
+        if (
+          !isNaN(aarligInntektVsaGradertPensjon) &&
+          aarligInntektVsaGradertPensjon > 0
+        ) {
+          // TODO Under avklaring med ny type
+          // logger('Avansert skjema: Inntekt vsa gradert pensjon', {
+          //   tekst: `Beregn avansert pensjon ${aarligInntektVsaGradertPensjon.toString().length} sifre`,
+          // })
+        }
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode({
             uttaksalder: {
@@ -298,6 +308,9 @@ export const RedigerAvansertBeregning: React.FC<{
         !hasVilkaarIkkeOppfylt ||
         (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)
       ) {
+        logger('button klikk', {
+          tekst: 'Beregn avansert pensjon',
+        })
         gaaTilResultat()
       }
     }

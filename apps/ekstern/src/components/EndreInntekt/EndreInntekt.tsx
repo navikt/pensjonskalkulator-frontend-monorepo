@@ -59,7 +59,7 @@ export const EndreInntekt: React.FC<Props> = ({
 
   const openInntektModal = () => {
     logger('modal åpnet', {
-      tekst: 'Modal: Endring av pensjonsgivende inntekt',
+      tekst: `Modal: Endring av pensjonsgivende inntekt ${visning}`,
     })
     inntektModalRef.current?.showModal()
   }
@@ -80,7 +80,7 @@ export const EndreInntekt: React.FC<Props> = ({
 
     if (validateInntekt(inntektData, updateValidationErrorMessage)) {
       logger('button klikk', {
-        tekst: 'endrer pensjonsgivende inntekt',
+        tekst: `endrer pensjonsgivende inntekt ${visning}`,
       })
       window.scrollTo(0, 0)
       /* c8 ignore next 3 */

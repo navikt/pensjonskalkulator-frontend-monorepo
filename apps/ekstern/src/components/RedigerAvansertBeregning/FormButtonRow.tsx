@@ -6,6 +6,7 @@ import { Button } from '@navikt/ds-react'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import { wrapLogger } from '@/utils/logging'
 
 import { FORM_NAMES } from './utils'
 
@@ -40,8 +41,10 @@ export const FormButtonRow: React.FC<{
         <Button
           type="button"
           variant="secondary"
-          onClick={resetForm}
           className={styles.button}
+          onClick={wrapLogger('button klikk', {
+            tekst: 'nullstiller avansert skjema',
+          })(resetForm)}
         >
           {intl.formatMessage({
             id: 'beregning.avansert.button.nullstill',
