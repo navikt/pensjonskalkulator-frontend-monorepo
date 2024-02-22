@@ -115,10 +115,10 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder !== null) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
-        logger('alert', { teskt: 'Beregning enkel: Ikke høy nok opptjening' })
+        logger('alert', { tekst: 'Beregning enkel: Ikke høy nok opptjening' })
       } else if (isError) {
         logger('alert', {
-          teskt: 'Beregning enkel: Klarte ikke beregne pensjon',
+          tekst: 'Beregning enkel: Klarte ikke beregne pensjon',
         })
       }
     }

@@ -247,6 +247,9 @@ export const RedigerAvansertBeregning: React.FC<{
           maaneder: parseInt(heltUttakMaanederFormData as string, 10),
         })
       )
+      logger('valg av uttaksalder for 100 % alderspensjon', {
+        tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
+      })
       if (uttaksgradFormData === '100 %') {
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode(null)
@@ -260,10 +263,15 @@ export const RedigerAvansertBeregning: React.FC<{
           !isNaN(aarligInntektVsaGradertPensjon) &&
           aarligInntektVsaGradertPensjon > 0
         ) {
-          // TODO Under avklaring med ny type
-          // logger('Avansert skjema: Inntekt vsa gradert pensjon', {
-          //   tekst: `Beregn avansert pensjon ${aarligInntektVsaGradertPensjon.toString().length} sifre`,
-          // })
+          logger('valg av uttaksgrad', {
+            tekst: `${uttaksgradFormData}`,
+          })
+          logger('valg av uttaksalder for gradert alderspensjon', {
+            tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
+          })
+          logger('valg av inntekt vsa. gradert pensjon (antall sifre)', {
+            tekst: `${aarligInntektVsaGradertPensjon.toString().length}`,
+          })
         }
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode({

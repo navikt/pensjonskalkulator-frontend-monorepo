@@ -127,7 +127,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
     )
     if (isInntektValid && isSluttAlderValid) {
       logger('button klikk', {
-        tekst: 'endrer pensjonsgivende inntekt vsa. 100% alderspensjon',
+        tekst: uttaksperiode?.aarligInntektVsaPensjon
+          ? 'Legger til pensjonsgivende inntekt vsa. 100% alderspensjon'
+          : 'Endrer pensjonsgivende inntekt vsa. 100% alderspensjon',
       })
       oppdatereInntekt({
         beloep: parseInt(
