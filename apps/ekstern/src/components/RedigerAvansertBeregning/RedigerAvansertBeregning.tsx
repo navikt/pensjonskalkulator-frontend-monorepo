@@ -309,7 +309,9 @@ export const RedigerAvansertBeregning: React.FC<{
         (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)
       ) {
         logger('button klikk', {
-          tekst: 'Beregn avansert pensjon',
+          tekst: harAvansertSkjemaUnsavedChanges
+            ? 'Oppdater avansert pensjon'
+            : 'Beregn avansert pensjon',
         })
         gaaTilResultat()
       }
