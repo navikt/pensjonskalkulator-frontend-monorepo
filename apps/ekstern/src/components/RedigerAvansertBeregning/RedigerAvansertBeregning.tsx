@@ -25,9 +25,7 @@ import {
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatWithoutDecimal } from '@/utils/inntekt'
-import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FormButtonRow } from './FormButtonRow'
@@ -39,7 +37,7 @@ import {
 import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
 import {
   FORM_NAMES,
-  validateAvansertBeregningSkjema,
+  onAvansertBeregningSubmit,
   getMinAlderTilHeltUttak,
 } from './utils'
 
@@ -127,6 +125,7 @@ export const RedigerAvansertBeregning: React.FC<{
     tidligstMuligGradertUttak,
   })
 
+  // TODO se om denne kan flyttes til hooks?
   const minAlderForHeltUttak = React.useMemo(() => {
     if (localGradertUttak || tidligstMuligHeltUttak) {
       const oppdatertMinAlder = getMinAlderTilHeltUttak({
@@ -212,124 +211,6 @@ export const RedigerAvansertBeregning: React.FC<{
     })
   }
 
-  // TODO - refactor - se om denne kan flyttes ut til util eller deles opp?
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
-    const gradertUttakAarFormData = data.get(
-      `${FORM_NAMES.uttaksalderGradertUttak}-aar`
-    )
-    const gradertUttakMaanederFormData = data.get(
-      `${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
-    )
-    const heltUttakAarFormData = data.get(
-      `${FORM_NAMES.uttaksalderHeltUttak}-aar`
-    )
-    const heltUttakMaanederFormData = data.get(
-      `${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
-    )
-    const uttaksgradFormData = data.get('uttaksgrad')
-    const inntektVsaGradertPensjonFormData = data.get(
-      FORM_NAMES.inntektVsaGradertUttak
-    )
-    if (
-      validateAvansertBeregningSkjema(
-        {
-          gradertUttakAarFormData,
-          gradertUttakMaanederFormData,
-          heltUttakAarFormData,
-          heltUttakMaanederFormData,
-          uttaksgradFormData,
-          inntektVsaGradertPensjonFormData,
-        },
-        setValidationErrors
-      )
-    ) {
-      dispatch(
-        userInputActions.setCurrentSimulationUttaksalder({
-          aar: parseInt(heltUttakAarFormData as string, 10),
-          maaneder: parseInt(heltUttakMaanederFormData as string, 10),
-        })
-      )
-      logger('valg av uttaksalder for 100 % alderspensjon', {
-        tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
-      })
-      if (uttaksgradFormData === '100 %') {
-        dispatch(
-          userInputActions.setCurrentSimulationGradertuttaksperiode(null)
-        )
-      } else {
-        const aarligInntektVsaGradertPensjon = parseInt(
-          (inntektVsaGradertPensjonFormData as string).replace(/ /g, ''),
-          10
-        )
-        if (
-          !isNaN(aarligInntektVsaGradertPensjon) &&
-          aarligInntektVsaGradertPensjon > 0
-        ) {
-          logger('valg av uttaksgrad', {
-            tekst: `${uttaksgradFormData}`,
-          })
-          logger('valg av uttaksalder for gradert alderspensjon', {
-            tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
-          })
-          logger('valg av inntekt vsa. gradert pensjon (antall sifre)', {
-            tekst: `${aarligInntektVsaGradertPensjon.toString().length}`,
-          })
-        }
-        dispatch(
-          userInputActions.setCurrentSimulationGradertuttaksperiode({
-            uttaksalder: {
-              aar: parseInt(gradertUttakAarFormData as string, 10),
-              maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
-            },
-            grad: parseInt(
-              (uttaksgradFormData as string).match(/\d+/)?.[0] as string,
-              10
-            ),
-            aarligInntektVsaPensjonBeloep: !isNaN(
-              aarligInntektVsaGradertPensjon
-            )
-              ? aarligInntektVsaGradertPensjon
-              : undefined,
-          })
-        )
-      }
-      dispatch(
-        userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
-          localHeltUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
-            localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.aar &&
-            localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.maaneder !==
-              undefined
-            ? {
-                beloep: localHeltUttak?.aarligInntektVsaPensjon?.beloep,
-                sluttAlder: localHeltUttak?.aarligInntektVsaPensjon
-                  ?.sluttAlder as Alder,
-              }
-            : undefined
-        )
-      )
-      dispatch(
-        userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
-          localInntektFremTilUttak
-        )
-      )
-
-      // Dersom vilkårene ikke var oppfylt, sjekk at noe ble endret for å sende til resultat
-      if (
-        !hasVilkaarIkkeOppfylt ||
-        (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)
-      ) {
-        logger('button klikk', {
-          tekst: harAvansertSkjemaUnsavedChanges
-            ? 'Oppdater avansert pensjon'
-            : 'Beregn avansert pensjon',
-        })
-        gaaTilResultat()
-      }
-    }
-  }
-
   const resetForm = (): void => {
     resetValidationErrors()
     setLocalInntektFremTilUttak(
@@ -344,7 +225,26 @@ export const RedigerAvansertBeregning: React.FC<{
       className={`${styles.container} ${styles.container__hasMobilePadding}`}
     >
       <div className={styles.form}>
-        <form id={FORM_NAMES.form} method="dialog" onSubmit={onSubmit}></form>
+        <form
+          id={FORM_NAMES.form}
+          method="dialog"
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+            const data = new FormData(e.currentTarget)
+            onAvansertBeregningSubmit(
+              data,
+              dispatch,
+              setValidationErrors,
+              gaaTilResultat,
+              {
+                localHeltUttak,
+                localInntektFremTilUttak,
+                hasVilkaarIkkeOppfylt,
+                harAvansertSkjemaUnsavedChanges,
+              }
+            )
+          }}
+        ></form>
         <div>
           <Label className={styles.label}>
             <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.label" />
