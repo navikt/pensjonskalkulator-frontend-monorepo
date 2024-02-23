@@ -27,6 +27,7 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatWithoutDecimal } from '@/utils/inntekt'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FormButtonRow } from './FormButtonRow'
@@ -249,6 +250,9 @@ export const RedigerAvansertBeregning: React.FC<{
           maaneder: parseInt(heltUttakMaanederFormData as string, 10),
         })
       )
+      logger('valg av uttaksalder for 100 % alderspensjon', {
+        tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
+      })
       if (uttaksgradFormData === '100 %') {
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode(null)
@@ -258,6 +262,20 @@ export const RedigerAvansertBeregning: React.FC<{
           (inntektVsaGradertPensjonFormData as string).replace(/ /g, ''),
           10
         )
+        if (
+          !isNaN(aarligInntektVsaGradertPensjon) &&
+          aarligInntektVsaGradertPensjon > 0
+        ) {
+          logger('valg av uttaksgrad', {
+            tekst: `${uttaksgradFormData}`,
+          })
+          logger('valg av uttaksalder for gradert alderspensjon', {
+            tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
+          })
+          logger('valg av inntekt vsa. gradert pensjon (antall sifre)', {
+            tekst: `${aarligInntektVsaGradertPensjon.toString().length}`,
+          })
+        }
         dispatch(
           userInputActions.setCurrentSimulationGradertuttaksperiode({
             uttaksalder: {
@@ -301,6 +319,11 @@ export const RedigerAvansertBeregning: React.FC<{
         !hasVilkaarIkkeOppfylt ||
         (hasVilkaarIkkeOppfylt && harAvansertSkjemaUnsavedChanges)
       ) {
+        logger('button klikk', {
+          tekst: harAvansertSkjemaUnsavedChanges
+            ? 'Oppdater avansert pensjon'
+            : 'Beregn avansert pensjon',
+        })
         gaaTilResultat()
       }
     }

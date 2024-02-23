@@ -93,11 +93,11 @@ export const BeregningAvansert: React.FC = () => {
     if (formatertUttaksalderReadOnly) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
         logger('alert', {
-          teskt: 'Beregning avansert: Ikke høy nok opptjening',
+          tekst: 'Beregning avansert: Ikke høy nok opptjening',
         })
       } else if (isError) {
         logger('alert', {
-          teskt: 'Beregning avansert: Klarte ikke beregne pensjon',
+          tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
         })
       }
     }

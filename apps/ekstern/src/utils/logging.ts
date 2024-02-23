@@ -8,10 +8,29 @@ import { isAnchorTag } from '@/state/api/typeguards'
 type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'readmore åpnet', { tekst: string }>
   | AmplitudeEvent<'readmore lukket', { tekst: string }>
+  | AmplitudeEvent<'expansion card åpnet', { tekst: string }>
+  | AmplitudeEvent<'expansion card lukket', { tekst: string }>
   | AmplitudeEvent<'radiogroup valgt', { tekst: string; valg: string }>
   | AmplitudeEvent<'button klikk', { tekst: string }>
   | AmplitudeEvent<'chip valgt', { tekst: string; data: string }>
   | AmplitudeEvent<'chip avvalgt', { tekst: string; data: string }>
+  | AmplitudeEvent<
+      'valg av uttaksalder for 100 % alderspensjon',
+      { tekst: string; data: string }
+    >
+  | AmplitudeEvent<
+      'valg av uttaksalder for gradert alderspensjon',
+      { tekst: string; data: string }
+    >
+  | AmplitudeEvent<
+      'valg av uttaksalder for gradert alderspensjon',
+      { tekst: string; data: string }
+    >
+  | AmplitudeEvent<'valg av uttaksgrad', { tekst: string; data: string }>
+  | AmplitudeEvent<
+      'valg av inntekt vsa. gradert pensjon (antall sifre)',
+      { tekst: string; data: string }
+    >
   | AmplitudeEvent<'graf tooltip åpnet', { data: string }>
   | AmplitudeEvent<'table expand åpnet', { tekst: string; data: string }>
   | AmplitudeEvent<'table expand lukket', { tekst: string; data: string }>
