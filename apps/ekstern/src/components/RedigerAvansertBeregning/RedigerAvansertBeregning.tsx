@@ -157,7 +157,8 @@ export const RedigerAvansertBeregning: React.FC<{
       : 100
     setLocalGradertUttak((previous) => {
       return !isNaN(avansertBeregningFormatertUttaksgradAsNumber) &&
-        avansertBeregningFormatertUttaksgradAsNumber !== previous
+        avansertBeregningFormatertUttaksgradAsNumber !== previous &&
+        avansertBeregningFormatertUttaksgradAsNumber !== 100
         ? {
             grad: avansertBeregningFormatertUttaksgradAsNumber,
             aarligInntektVsaPensjonBeloep: '',
