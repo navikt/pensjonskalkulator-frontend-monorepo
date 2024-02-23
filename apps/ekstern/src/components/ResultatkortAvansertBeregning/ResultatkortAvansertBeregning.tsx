@@ -3,8 +3,9 @@ import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { PencilIcon } from '@navikt/aksel-icons'
-import { Button, ExpansionCard } from '@navikt/ds-react'
+import { Button, ExpansionCard as ExpansionCardAksel } from '@navikt/ds-react'
 
+import { ExpansionCard } from '@/components/common/ExpansionCard'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import {
@@ -13,6 +14,7 @@ import {
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
+import { wrapLogger } from '@/utils/logging'
 interface Props {
   onButtonClick: () => void
 }
@@ -33,19 +35,20 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
 
   return (
     <ExpansionCard
+      name="Resultatkort avansert beregning"
       className={styles.card}
       aria-labelledby="expansion-card-label"
       size="small"
     >
-      <ExpansionCard.Header>
-        <ExpansionCard.Title id="expansion-card-label" size="small">
+      <ExpansionCardAksel.Header>
+        <ExpansionCardAksel.Title id="expansion-card-label" size="small">
           <FormattedMessage id="beregning.avansert.resultatkort.tittel" />
-        </ExpansionCard.Title>
-        <ExpansionCard.Description>
+        </ExpansionCardAksel.Title>
+        <ExpansionCardAksel.Description>
           <FormattedMessage id="beregning.avansert.resultatkort.description" />
-        </ExpansionCard.Description>
-      </ExpansionCard.Header>
-      <ExpansionCard.Content>
+        </ExpansionCardAksel.Description>
+      </ExpansionCardAksel.Header>
+      <ExpansionCardAksel.Content>
         <dl className={styles.list}>
           <dt className={styles.listTitle}>
             <FormattedMessage id="beregning.avansert.resultatkort.frem_til_uttak" />
@@ -164,13 +167,15 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
           className={styles.button}
           variant="tertiary"
           icon={<PencilIcon aria-hidden />}
-          onClick={onButtonClick}
+          onClick={wrapLogger('button klikk', {
+            tekst: 'Resultatkort: Endre valg',
+          })(onButtonClick)}
         >
           {intl.formatMessage({
             id: 'beregning.avansert.resultatkort.button',
           })}
         </Button>
-      </ExpansionCard.Content>
+      </ExpansionCardAksel.Content>
     </ExpansionCard>
   )
 }

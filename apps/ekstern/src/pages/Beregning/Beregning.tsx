@@ -16,6 +16,7 @@ import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { logger } from '@/utils/logging'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
@@ -68,6 +69,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   React.useEffect(() => {
     let isEventAdded
     const onPopState = () => {
+      logger('modal åpnet', {
+        tekst: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
+      })
       avbrytModalRef.current?.showModal()
     }
 
@@ -108,6 +112,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }
 
   const onToggleChange = (v: string) => {
+    logger('button klikk', {
+      tekst: `Toggle viser fane ${v}`,
+    })
     if (
       visning === 'avansert' &&
       v === 'enkel' &&
@@ -115,6 +122,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         avansertSkjemaModus === 'resultat' ||
         (avansertSkjemaModus === 'redigering' && uttaksalder))
     ) {
+      logger('modal åpnet', {
+        tekst: 'Modal: Er du sikker på at du vil avslutte avansert beregning?',
+      })
       avbrytModalRef.current?.showModal()
     } else {
       navigateToTab(v as BeregningVisning)
