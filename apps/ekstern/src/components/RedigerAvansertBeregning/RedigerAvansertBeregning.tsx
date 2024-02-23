@@ -2,7 +2,7 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { BodyLong, Label, Select, TextField } from '@navikt/ds-react'
+import { Alert, BodyLong, Label, Select, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
@@ -26,6 +26,7 @@ import {
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { isUttaksalderOverMinUttaksaar, formatUttaksalder } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -494,6 +495,20 @@ export const RedigerAvansertBeregning: React.FC<{
               max={5}
             />
             <div className={styles.spacer} />
+            {tidligstMuligHeltUttak &&
+              isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak) && (
+                <>
+                  <Alert variant="info" aria-live="polite">
+                    <FormattedMessage
+                      id="beregning.avansert.rediger.uttaksgrad.info"
+                      values={{
+                        alder: formatUttaksalder(intl, tidligstMuligHeltUttak),
+                      }}
+                    />
+                  </Alert>
+                  <div className={styles.spacer} />
+                </>
+              )}
           </div>
         )}
         <div>

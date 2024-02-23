@@ -250,6 +250,7 @@ const translations = {
     'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.uttaksgrad.info': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label': 'MANGLER_TEKST',
