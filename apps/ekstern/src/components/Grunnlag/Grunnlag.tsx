@@ -51,7 +51,11 @@ export const Grunnlag: React.FC<IProps> = ({ visning }) => {
       <section className={styles.section}>
         <div className={styles.description}>
           <Heading level="2" size="medium">
-            <FormattedMessage id="grunnlag.title" />
+            {visning === 'enkel' ? (
+              <FormattedMessage id="grunnlag.title" />
+            ) : (
+              <FormattedMessage id="grunnlag.title.avansert" />
+            )}
           </Heading>
           <BodyLong>
             <FormattedMessage id="grunnlag.ingress" />

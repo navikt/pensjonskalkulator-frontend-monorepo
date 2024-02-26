@@ -22,6 +22,13 @@ describe('Grunnlag', () => {
     expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
   })
 
+  it('viser annen tittel for avansert', async () => {
+    render(<Grunnlag visning="avansert" />)
+    expect(
+      await screen.findByText('grunnlag.title.avansert')
+    ).toBeInTheDocument()
+  })
+
   describe('Grunnlag - inntekt frem til uttak', () => {
     it('vises i enkel visning', async () => {
       render(<Grunnlag visning="enkel" />)
