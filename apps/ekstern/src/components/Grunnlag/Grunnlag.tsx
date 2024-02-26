@@ -1,9 +1,11 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
-import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
+import { Accordion, BodyLong, Heading, Link } from '@navikt/ds-react'
 
 import { AccordionItem } from '@/components/common/AccordionItem'
+import { paths } from '@/router/constants'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
@@ -24,6 +26,13 @@ interface IProps {
 }
 
 export const Grunnlag: React.FC<IProps> = ({ visning }) => {
+  const navigate = useNavigate()
+
+  const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault()
+    navigate(paths.beregningDetaljert)
+  }
+
   const intl = useIntl()
 
   const { data: person, isSuccess } = useGetPersonQuery()
@@ -77,6 +86,12 @@ export const Grunnlag: React.FC<IProps> = ({ visning }) => {
                       ...getFormatMessageValues(intl),
                     }}
                   />
+
+                  <br />
+                  <br />
+                  <Link href="#" onClick={goToAvansert}>
+                    <FormattedMessage id="grunnlag.uttaksgrad.avansert_link" />
+                  </Link>
                 </BodyLong>
               </GrunnlagSection>
             </AccordionItem>
