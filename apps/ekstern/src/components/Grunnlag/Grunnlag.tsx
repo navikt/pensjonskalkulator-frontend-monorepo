@@ -77,7 +77,7 @@ export const Grunnlag: React.FC<IProps> = ({ visning }) => {
               </GrunnlagSection>
             </AccordionItem>
           )}
-          <GrunnlagInntekt />
+          {visning === 'enkel' && <GrunnlagInntekt />}
           <AccordionItem name="Gunnlag: Sivilstand">
             <GrunnlagSection
               headerTitle={intl.formatMessage({

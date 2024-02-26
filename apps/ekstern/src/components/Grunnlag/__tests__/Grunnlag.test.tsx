@@ -22,6 +22,20 @@ describe('Grunnlag', () => {
     expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
   })
 
+  describe('Grunnlag - inntekt frem til uttak', () => {
+    it('vises i enkel visning', async () => {
+      render(<Grunnlag visning="enkel" />)
+      expect(screen.queryByText('grunnlag.inntekt.title')).toBeInTheDocument()
+    })
+
+    it('vises ikke avansert visning', async () => {
+      render(<Grunnlag visning="avansert" />)
+      expect(
+        screen.queryByText('grunnlag.inntekt.title')
+      ).not.toBeInTheDocument()
+    })
+  })
+
   describe('Grunnlag - uttaksgrad', () => {
     it('viser riktig tittel med formatert uttaksgrad og tekst', async () => {
       const user = userEvent.setup()
@@ -37,7 +51,7 @@ describe('Grunnlag', () => {
       ).toBeVisible()
     })
 
-    it('viser ikke uttaksgrad avansert visning', async () => {
+    it('vises ikke ikke avansert visning', async () => {
       render(<Grunnlag visning="avansert" />)
       expect(
         screen.queryByText('grunnlag.uttaksgrad.title')
