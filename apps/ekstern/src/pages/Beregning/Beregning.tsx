@@ -16,6 +16,7 @@ import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { BeregningVisning } from '@/types/common-types'
 import { logger } from '@/utils/logging'
 
 import { BeregningAvansert } from './BeregningAvansert'
@@ -23,8 +24,6 @@ import { BeregningEnkel } from './BeregningEnkel'
 import { BeregningContext, AvansertBeregningModus } from './context'
 
 import styles from './Beregning.module.scss'
-
-type BeregningVisning = 'enkel' | 'avansert'
 
 interface Props {
   visning: BeregningVisning

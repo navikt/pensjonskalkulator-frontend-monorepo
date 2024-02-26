@@ -273,6 +273,7 @@ const translations = {
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
+  'grunnlag.title.avansert': 'MANGLER_TEKST',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.ingress':

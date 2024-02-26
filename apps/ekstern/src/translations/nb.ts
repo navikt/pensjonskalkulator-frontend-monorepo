@@ -295,6 +295,7 @@ const translations = {
   'beregning.avansert.avbryt_modal.button.avslutt': 'Avslutt avansert',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
   'grunnlag.title': 'Grunnlaget for beregningen',
+  'grunnlag.title.avansert': 'Øvrig grunnlag for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.ingress':

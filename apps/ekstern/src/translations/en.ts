@@ -211,6 +211,7 @@ const translations = {
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
   'grunnlag.title': 'MANGLER_TEKST',
+  'grunnlag.title.avansert': 'MANGLER_TEKST',
   'grunnlag.ingress': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.title': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.ingress': 'MANGLER_TEKST',
