@@ -187,7 +187,7 @@ export const BeregningAvansert: React.FC = () => {
                 <ResultatkortAvansertBeregning
                   onButtonClick={() => setAvansertSkjemaModus('redigering')}
                 />
-                <Grunnlag />
+                <Grunnlag visning="avansert" />
               </PensjonsavtalerAccordionContext.Provider>
             </>
           )}
