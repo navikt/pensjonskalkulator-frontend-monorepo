@@ -104,8 +104,7 @@ export default defineConfig(() => ({
     setupFiles: 'src/test-setup.ts',
     testTimeout: 10000,
     coverage: {
-      //TODO: revert til v8
-      provider: 'istanbul',
+      provider: 'v8',
       all: true,
       extension: ['.ts', '.tsx'],
       exclude: [
