@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
 
@@ -7,6 +8,7 @@ import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
+import { paths } from '@/router/constants'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import {
@@ -24,6 +26,12 @@ import styles from './GrunnlagInntekt.module.scss'
 export const GrunnlagInntekt = () => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault()
+    navigate(paths.beregningDetaljert)
+  }
 
   const infoModalRef = React.useRef<HTMLDialogElement>(null)
 
@@ -122,6 +130,13 @@ export const GrunnlagInntekt = () => {
                 dispatch(userInputActions.setCurrentSimulationUttaksalder(null))
               }}
             />
+            <BodyLong className={styles.link}>
+              <FormattedMessage id="grunnlag.inntekt.avansert_kalkulator" />
+              <Link href="#" onClick={goToAvansert}>
+                <FormattedMessage id="grunnlag.inntekt.avansert_link" />
+              </Link>
+              .
+            </BodyLong>
           </>
         </GrunnlagSection>
       </AccordionItem>
