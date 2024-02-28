@@ -330,7 +330,6 @@ export const RedigerAvansertBeregning: React.FC<{
             />
           </BodyLong>
         </ReadMore>
-
         <div className={styles.spacer} />
         {localGradertUttak && (
           <div>
@@ -463,7 +462,6 @@ export const RedigerAvansertBeregning: React.FC<{
             <div className={styles.spacer__small} />
           )}
         </div>
-
         {(!localGradertUttak ||
           !localGradertUttak?.grad ||
           localGradertUttak?.grad === 100) && (
@@ -473,7 +471,6 @@ export const RedigerAvansertBeregning: React.FC<{
             }
           />
         )}
-
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined && (
             <div>

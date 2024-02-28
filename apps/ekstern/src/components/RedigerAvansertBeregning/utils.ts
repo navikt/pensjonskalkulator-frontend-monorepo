@@ -196,7 +196,8 @@ export const onAvansertBeregningSubmit = (
             (uttaksgradFormData as string).match(/\d+/)?.[0] as string,
             10
           ),
-          aarligInntektVsaPensjonBeloep: !isNaN(aarligInntektVsaGradertPensjon)
+          /* c8 ignore next 3 */
+          aarligInntektVsaPensjonBeloep: !isNaN(aarligInntektVsaGradertPensjon) // Dette kan i praksis ikke skje pga validering lengre opp
             ? aarligInntektVsaGradertPensjon
             : undefined,
         })
