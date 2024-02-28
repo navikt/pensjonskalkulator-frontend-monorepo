@@ -242,7 +242,7 @@ export const BeregningEnkel: React.FC = () => {
                     !isError && alderspensjon?.vilkaarErOppfylt
                   }
                 />
-                <Grunnlag />
+                <Grunnlag visning="enkel" />
               </PensjonsavtalerAccordionContext.Provider>
             </>
           )}
