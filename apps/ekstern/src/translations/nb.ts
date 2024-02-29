@@ -279,7 +279,7 @@ const translations = {
   'beregning.avansert.rediger.agepicker.beskrivelse':
     'Du kan tidligst ta ut <nowrap>{grad} %</nowrap> alderspensjon når du er',
   'beregning.avansert.rediger.agepicker.tmu_info':
-    'Med gradert uttak, kan kalkulatoren tidligst beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut <nowrap>100 %</nowrap> tidligere.',
+    'Etter gradert uttak, kan kalkulatoren tidligst beregne <nowrap>100 %</nowrap> fra 67 år.',
   'beregning.avansert.rediger.agepicker.validation_error':
     ' for når du vil ta ut <nowrap>{grad} %</nowrap> alderspensjon.',
   'beregning.avansert.rediger.gradertuttak.agepicker.label':
