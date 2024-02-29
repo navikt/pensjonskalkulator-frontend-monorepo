@@ -149,7 +149,12 @@ export const Pensjonsavtaler = () => {
         )}
 
         {harSamtykket && !isError && (
-          <ShowMore aria-labelledby="pensjonsavtaler-heading">
+          <ShowMore
+            aria-labelledby="pensjonsavtaler-heading"
+            collapsedHeight={
+              (pensjonsavtaler?.avtaler?.length ?? 0) > 1 ? '20rem' : '10rem'
+            }
+          >
             {isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
               <div data-testid="pensjonsavtaler-list">
                 {isMobile ? (
