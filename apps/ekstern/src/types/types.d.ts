@@ -60,4 +60,6 @@ declare global {
     beloep: number
     alder: number
   }
+
+  type BeregningVisning = 'enkel' | 'avansert'
 }

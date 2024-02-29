@@ -10,7 +10,7 @@ describe('GrunnlagInntekt', () => {
       const { store } = render(<GrunnlagInntekt />)
       store.dispatch(apiSlice.endpoints.getInntekt.initiate())
       expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
-      expect(await screen.findByText('521 338 kr')).toBeVisible()
+      expect(await screen.findAllByText('521 338 kr')).toHaveLength(2)
       await user.click(await screen.findByTestId('accordion-header'))
     })
 
@@ -49,7 +49,7 @@ describe('GrunnlagInntekt', () => {
         await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
       await user.click(await screen.findByText('stegvisning.avbryt'))
-      expect(screen.getByText('521 338 kr')).toBeVisible()
+      expect(screen.getAllByText('521 338 kr')).toHaveLength(2)
       expect(
         await screen.findByText(
           'Din siste pensjonsgivende inntekt fra Skatteetaten er',

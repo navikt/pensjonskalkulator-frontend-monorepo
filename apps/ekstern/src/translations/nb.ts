@@ -163,8 +163,8 @@ const translations = {
   'stegvisning.sivilstand.radio_nei': 'Nei',
   'stegvisning.sivilstand.validation_error':
     'Du må svare på om du har samboer.',
-  'agepicker.validation_error.aar': 'Du må velge år og måned.',
-  'agepicker.validation_error.maaneder': 'Du må velge måned.',
+  'agepicker.validation_error.aar': 'Du må velge år og måned',
+  'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',
   'alder.md': 'md.',
   'alder.maaned': 'måned',
@@ -187,9 +187,9 @@ const translations = {
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
   'tidligstmuliguttak.1963.ingress_1':
-    'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er ',
+    'Din opptjening gjør at du tidligst kan ta ut <nowrap>100 %</nowrap> alderspensjon når du er ',
   'tidligstmuliguttak.1964.ingress_1':
-    'Din opptjening gjør at du etter dagens regler tidligst kan ta ut 100 % alderspensjon når du er ',
+    'Din opptjening gjør at du etter dagens regler tidligst kan ta ut <nowrap>100 %</nowrap> alderspensjon når du er ',
   'tidligstmuliguttak.1963.ingress_2':
     ' Jo lenger du venter, desto mer får du i året.',
   'tidligstmuliguttak.1964.ingress_2':
@@ -198,9 +198,9 @@ const translations = {
   'tidligstmuliguttak.readmore_ingress.optional':
     'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}',
   'tidligstmuliguttak.readmore_ingress.enkelt':
-    'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du i detaljert kalkulator endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 100 %. <detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
+    'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (<nowrap>100 %</nowrap>) alderspensjon fra ønsket alder, kan du i detaljert kalkulator endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut <nowrap>100 %</nowrap>. <detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>{br}{br}Fra 67 år kan alle ta ut <nowrap>100 %</nowrap> alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'tidligstmuliguttak.readmore_ingress.avansert':
-    'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 100 %.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
+    'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (<nowrap>100 %</nowrap>) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut <nowrap>100 %</nowrap>.{br}{br}Fra 67 år kan alle ta ut <nowrap>100 %</nowrap> alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'tidligstmuliguttak.info_afp':
     'Har du AFP i offentlig sektor, kan du trolig ta ut alderspensjon tidligere enn hvis du ikke har AFP.',
   'tidligstmuliguttak.error':
@@ -251,9 +251,18 @@ const translations = {
   'beregning.avansert.resultatkort.inntekt_1': 'Pensjonsgivende årsinntekt',
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
+  'beregning.avansert.rediger.inntekt_frem_til_uttak.label':
+    'Pensjonsgivende inntekt frem til pensjon',
+  'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
+    'kr per år før skatt',
+  'beregning.avansert.rediger.uttaksgrad.label':
+    'Hvor mye alderspensjon vil du ta ut?',
+  'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
-    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label':
+    'Hva er din forventede årsinntekt mens du tar ut <nowrap>{grad} %</nowrap> alderspensjon? (Valgfritt)',
   'beregning.avansert.rediger.read_more.pensjonsalder.label':
     'Om pensjonsalder',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro':
@@ -261,26 +270,30 @@ const translations = {
   'beregning.avansert.rediger.read_more.pensjonsalder.subtitle':
     'Dagens regler',
   'beregning.avansert.rediger.read_more.pensjonsalder.body':
-    'Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (100 %) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut 100 % forskyves.{br}{br}Fra 67 år kan alle ta ut 100 % alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
+    'Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (<nowrap>100 %</nowrap>) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.{br}{br}Fra 67 år kan alle ta ut <nowrap>100 %</nowrap> alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'beregning.avansert.rediger.inntekt.button': 'Endre inntekt',
+  'beregning.avansert.rediger.agepicker.beskrivelse':
+    'Du kan tidligst ta ut <nowrap>{grad} %</nowrap> alderspensjon når du er',
+  'beregning.avansert.rediger.agepicker.tmu_info':
+    'Med gradert uttak, kan kalkulatoren tidligst beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut <nowrap>100 %</nowrap> tidligere.',
   'beregning.avansert.rediger.agepicker.validation_error':
-    ' for når du vil ta ut {grad} % alderspensjon.',
+    ' for når du vil ta ut <nowrap>{grad} %</nowrap>{grad} alderspensjon.',
   'beregning.avansert.rediger.gradertuttak.agepicker.label':
-    'Når vil du ta ut {grad} % alderspensjon',
+    'Når vil du ta ut <nowrap>{grad} %</nowrap> alderspensjon',
   'beregning.avansert.rediger.heltuttak.agepicker.label':
-    'Når vil du ta ut 100 % alderspensjon',
+    'Når vil du ta ut <nowrap>100 %</nowrap> alderspensjon',
   'beregning.avansert.button.beregn': 'Beregn pensjon',
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',
   'beregning.avansert.button.nullstill': 'Nullstill valg',
   'beregning.avansert.button.avbryt': 'Avbryt endring',
-  'grunnlag.title': 'Grunnlaget for beregningen',
+  'grunnlag.title': 'Øvrig grunnlag for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.ingress':
-    'Denne beregningen viser 100 % uttak av alderspensjon. I detaljert kalkulator kan du beregne alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
+    'Denne beregningen viser <nowrap>100 %</nowrap> uttak av alderspensjon. I detaljert kalkulator kan du beregne alderspensjon med andre uttaksgrader (<nowrap>20 %</nowrap>, <nowrap>40 %</nowrap>, <nowrap>50 %</nowrap>, <nowrap>60 %</nowrap> og <nowrap>80 %</nowrap>). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut <nowrap>100 %</nowrap>.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
   'grunnlag.inntekt.title': 'Inntekt frem til uttak',
   'grunnlag.inntekt.ingress':
-    'Din siste pensjonsgivende inntekt fra Skatteetaten er {beloep} kr fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
+    'Din siste pensjonsgivende inntekt fra Skatteetaten er <nowrap>{beloep} kr</nowrap> fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
   'grunnlag.inntekt.info_om_inntekt': 'Hva er pensjonsgivende inntekt?',
   'grunnlag.inntekt.info_om_inntekt.lukk': 'Lukk',
   'grunnlag.sivilstand.title': 'Sivilstand',
@@ -344,7 +357,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
-    'Hva forventer du å ha i årlig inntekt frem til du tar ut pensjon?',
+    'Hva er din forventede årsinntekt frem til du tar ut pensjon?',
   'inntekt.endre_inntekt_modal.textfield.description':
     'Dagens kroneverdi før skatt',
   'inntekt.endre_inntekt_modal.paragraph':
@@ -357,20 +370,20 @@ const translations = {
     'Inntekten kan ikke overskride 100 000 000 kroner.',
   'inntekt.endre_inntekt_modal.button': 'Oppdater inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.label':
-    'Forventet årsinntekt mens du tar ut 100 % alderspensjon',
+    'Forventet årsinntekt mens du tar ut <nowrap>100 %</nowrap> alderspensjon',
   'inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2':
-    'Du kan tjene så mye du vil samtidig som du tar ut 100 % alderspensjon.',
+    'Du kan tjene så mye du vil samtidig som du tar ut <nowrap>100 %</nowrap> alderspensjon.',
   'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til':
     'Legg til inntekt',
-  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre':
-    'Oppdater inntekt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.endre': 'Endre inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette': 'Slett inntekt',
-
   'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label':
-    'Hva er din forventede årsinntekt mens du tar ut 100 % alderspensjon?',
+    'Hva er din forventede årsinntekt mens du tar ut <nowrap>100 %</nowrap> alderspensjon?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'Dagens kroneverdi før skatt',
+  'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label':
+    'Til hvilken alder forventer du å ha inntekten?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
   'inntekt.info_om_inntekt.read_more': 'Om pensjonsgivende inntekt',

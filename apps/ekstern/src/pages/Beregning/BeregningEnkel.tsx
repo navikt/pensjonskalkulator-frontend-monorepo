@@ -202,7 +202,7 @@ export const BeregningEnkel: React.FC<Props> = ({ tidligstMuligUttak }) => {
                   }
                 />
                 <Pensjonsavtaler />
-                <Grunnlag />
+                <Grunnlag visning="enkel" />
               </PensjonsavtalerAccordionContext.Provider>
             </>
           )}

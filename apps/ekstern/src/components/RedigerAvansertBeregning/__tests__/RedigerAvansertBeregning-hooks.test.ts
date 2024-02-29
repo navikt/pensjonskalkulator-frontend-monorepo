@@ -1,8 +1,11 @@
+import * as useIntlUtils from 'react-intl'
+
 import { describe, expect, it } from 'vitest'
 
 import {
   useFormLocalState,
   useTidligstMuligUttakRequestBodyState,
+  useFormValidationErrors,
 } from '../hooks'
 import * as apiUtils from '@/state/api/utils'
 import { act, renderHook } from '@/test-utils'
@@ -740,6 +743,254 @@ describe('RedigerAvansertBeregning-hooks', () => {
         },
         simuleringstype: 'ALDERSPENSJON',
         sivilstand: 'GIFT',
+      })
+    })
+  })
+
+  describe('useFormValidationErrors', () => {
+    const mockedFormatMessageFunction = vi
+      .fn()
+      .mockImplementation(({ id: string }) => {
+        return string
+      })
+    const mockedIntlShape = {
+      formatMessage: mockedFormatMessageFunction,
+    } as unknown as useIntlUtils.IntlShape
+    vi.spyOn(useIntlUtils, 'useIntl').mockReturnValue(mockedIntlShape)
+
+    it('Når ingen grad er oppgitt, returnerer riktig initial values', () => {
+      const { result } = renderHook(useFormValidationErrors, {
+        initialProps: {
+          grad: undefined,
+          tidligstMuligHeltUttak: { aar: 67, maaneder: 0 },
+        },
+      })
+      // validationErrors
+      expect(result.current[0]).toStrictEqual({
+        'inntekt-vsa-gradert-uttak': '',
+        'uttaksalder-gradert-uttak': '',
+        'uttaksalder-helt-uttak': '',
+      })
+      // gradertUttakAgePickerError
+      expect(result.current[1]).toEqual('')
+      // heltAgeUttakPickerError
+      expect(result.current[2]).toEqual('')
+      // gradertUttakAgePickerBeskrivelse
+      expect(result.current[3]).toEqual('')
+      // heltUttakAgePickerBeskrivelse
+      expect(result.current[4]).toMatchInlineSnapshot(`
+        <React.Fragment>
+          <Memo(MemoizedFormattedMessage)
+            id="beregning.avansert.rediger.agepicker.beskrivelse"
+            values={
+              {
+                "afpLink": [Function],
+                "alderspensjonsreglerLink": [Function],
+                "br": <br />,
+                "detaljertKalkulatorLink": [Function],
+                "dinPensjonBeholdningLink": [Function],
+                "dinPensjonLink": [Function],
+                "garantiPensjonLink": [Function],
+                "grad": 100,
+                "navPersonvernerklaeringKontaktOss": [Function],
+                "navPersonvernerklaeringLink": [Function],
+                "norskPensjonLink": [Function],
+                "nowrap": [Function],
+                "strong": [Function],
+              }
+            }
+          />
+           67 alder.aar.
+        </React.Fragment>
+      `)
+    })
+
+    it('Når grad er oppgitt, returnerer riktig initial values', () => {
+      const { result } = renderHook(useFormValidationErrors, {
+        initialProps: {
+          grad: 40,
+          tidligstMuligGradertUttak: { aar: 62, maaneder: 7 },
+          tidligstMuligHeltUttak: { aar: 67, maaneder: 0 },
+        },
+      })
+      // validationErrors
+      expect(result.current[0]).toStrictEqual({
+        'inntekt-vsa-gradert-uttak': '',
+        'uttaksalder-gradert-uttak': '',
+        'uttaksalder-helt-uttak': '',
+      })
+      // gradertUttakAgePickerError
+      expect(result.current[1]).toEqual('')
+      // heltUttakAgePickerError
+      expect(result.current[2]).toEqual('')
+      // gradertUttakAgePickerBeskrivelse
+      expect(result.current[3]).toMatchInlineSnapshot(`
+        <React.Fragment>
+          <Memo(MemoizedFormattedMessage)
+            id="beregning.avansert.rediger.agepicker.beskrivelse"
+            values={
+              {
+                "afpLink": [Function],
+                "alderspensjonsreglerLink": [Function],
+                "br": <br />,
+                "detaljertKalkulatorLink": [Function],
+                "dinPensjonBeholdningLink": [Function],
+                "dinPensjonLink": [Function],
+                "garantiPensjonLink": [Function],
+                "grad": 40,
+                "navPersonvernerklaeringKontaktOss": [Function],
+                "navPersonvernerklaeringLink": [Function],
+                "norskPensjonLink": [Function],
+                "nowrap": [Function],
+                "strong": [Function],
+              }
+            }
+          />
+           62 alder.aar string.og 7 alder.maaneder.
+        </React.Fragment>
+      `)
+      // heltUttakAgePickerBeskrivelse
+      expect(result.current[4]).toMatchInlineSnapshot(`
+        <Memo(MemoizedFormattedMessage)
+          id="beregning.avansert.rediger.agepicker.tmu_info"
+          values={
+            {
+              "afpLink": [Function],
+              "alderspensjonsreglerLink": [Function],
+              "br": <br />,
+              "detaljertKalkulatorLink": [Function],
+              "dinPensjonBeholdningLink": [Function],
+              "dinPensjonLink": [Function],
+              "garantiPensjonLink": [Function],
+              "navPersonvernerklaeringKontaktOss": [Function],
+              "navPersonvernerklaeringLink": [Function],
+              "norskPensjonLink": [Function],
+              "nowrap": [Function],
+              "strong": [Function],
+            }
+          }
+        />
+      `)
+    })
+
+    it('Når validationErrors endrer seg, oppdaterer gradertAgePickerError og heltAgePickerError', () => {
+      const { result } = renderHook(useFormValidationErrors, {
+        initialProps: {
+          grad: 40,
+        },
+      })
+
+      const {
+        setValidationErrors,
+        setValidationErrorUttaksalderHeltUttak,
+        setValidationErrorUttaksalderGradertUttak,
+        setValidationErrorInntektVsaGradertUttak,
+        resetValidationErrors,
+      } = result.current[5]
+      act(() => {
+        setValidationErrorUttaksalderHeltUttak('id1')
+      })
+      // validationErrors
+      expect(result.current[0]).toStrictEqual({
+        'inntekt-vsa-gradert-uttak': '',
+        'uttaksalder-gradert-uttak': '',
+        'uttaksalder-helt-uttak': 'id1',
+      })
+      act(() => {
+        setValidationErrorUttaksalderGradertUttak('id2')
+      })
+      // validationErrors
+      expect(result.current[0]).toStrictEqual({
+        'inntekt-vsa-gradert-uttak': '',
+        'uttaksalder-gradert-uttak': 'id2',
+        'uttaksalder-helt-uttak': 'id1',
+      })
+      act(() => {
+        setValidationErrorInntektVsaGradertUttak('id3')
+      })
+      // validationErrors
+      expect(result.current[0]).toStrictEqual({
+        'inntekt-vsa-gradert-uttak': 'id3',
+        'uttaksalder-gradert-uttak': 'id2',
+        'uttaksalder-helt-uttak': 'id1',
+      })
+      act(() => {
+        setValidationErrors((prevState) => {
+          return { ...prevState, 'uttaksalder-helt-uttak': 'id4' }
+        })
+      })
+      // validationErrors
+      expect(result.current[0]).toStrictEqual({
+        'inntekt-vsa-gradert-uttak': 'id3',
+        'uttaksalder-gradert-uttak': 'id2',
+        'uttaksalder-helt-uttak': 'id4',
+      })
+
+      // gradertAgePickerError
+      expect(result.current[1]).toMatchInlineSnapshot(
+        `
+        <React.Fragment>
+          id2
+           
+          <Memo(MemoizedFormattedMessage)
+            id="beregning.avansert.rediger.agepicker.validation_error"
+            values={
+              {
+                "afpLink": [Function],
+                "alderspensjonsreglerLink": [Function],
+                "br": <br />,
+                "detaljertKalkulatorLink": [Function],
+                "dinPensjonBeholdningLink": [Function],
+                "dinPensjonLink": [Function],
+                "garantiPensjonLink": [Function],
+                "grad": 40,
+                "navPersonvernerklaeringKontaktOss": [Function],
+                "navPersonvernerklaeringLink": [Function],
+                "norskPensjonLink": [Function],
+                "nowrap": [Function],
+                "strong": [Function],
+              }
+            }
+          />
+        </React.Fragment>
+      `
+      )
+      // heltAgePickerError
+      expect(result.current[2]).toMatchInlineSnapshot(`
+        <React.Fragment>
+          id4
+           
+          <Memo(MemoizedFormattedMessage)
+            id="beregning.avansert.rediger.agepicker.validation_error"
+            values={
+              {
+                "afpLink": [Function],
+                "alderspensjonsreglerLink": [Function],
+                "br": <br />,
+                "detaljertKalkulatorLink": [Function],
+                "dinPensjonBeholdningLink": [Function],
+                "dinPensjonLink": [Function],
+                "garantiPensjonLink": [Function],
+                "grad": 100,
+                "navPersonvernerklaeringKontaktOss": [Function],
+                "navPersonvernerklaeringLink": [Function],
+                "norskPensjonLink": [Function],
+                "nowrap": [Function],
+                "strong": [Function],
+              }
+            }
+          />
+        </React.Fragment>
+      `)
+
+      act(() => {
+        resetValidationErrors()
+      })
+      // validationErrors
+      expect(result.current[0]).toStrictEqual({
+        'inntekt-vsa-gradert-uttak': '',
+        'uttaksalder-gradert-uttak': '',
+        'uttaksalder-helt-uttak': '',
       })
     })
   })

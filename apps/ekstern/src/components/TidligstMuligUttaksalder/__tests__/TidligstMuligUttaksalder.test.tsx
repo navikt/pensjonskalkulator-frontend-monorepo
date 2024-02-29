@@ -20,10 +20,15 @@ describe('TidligstMuligUttaksalder', () => {
     )
     await waitFor(() => {
       expect(
-        screen.queryByText('tidligstmuliguttak.1963.ingress_1')
+        screen.queryByText('Din opptjening gjør at du tidligst kan ta ut', {
+          exact: false,
+        })
       ).not.toBeInTheDocument()
       expect(
-        screen.getByText('tidligstmuliguttak.1964.ingress_1')
+        screen.getByText(
+          'Din opptjening gjør at du etter dagens regler tidligst kan ta ut',
+          { exact: false }
+        )
       ).toBeInTheDocument()
       expect(
         screen.getByText('62 alder.aar string.og 9 alder.maaneder', {
@@ -56,10 +61,15 @@ describe('TidligstMuligUttaksalder', () => {
     )
     await waitFor(() => {
       expect(
-        screen.getByText('tidligstmuliguttak.1963.ingress_1')
+        screen.queryByText('Din opptjening gjør at du tidligst kan ta ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
       expect(
-        screen.queryByText('tidligstmuliguttak.1964.ingress_1')
+        screen.queryByText(
+          'Din opptjening gjør at du etter dagens regler tidligst kan ta ut',
+          { exact: false }
+        )
       ).not.toBeInTheDocument()
       expect(
         screen.getByText('62 alder.aar string.og 9 alder.maaneder', {

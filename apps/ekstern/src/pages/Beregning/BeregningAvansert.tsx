@@ -113,7 +113,7 @@ export const BeregningAvansert: React.FC = () => {
     if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
       setModus('redigering')
     }
-  }, [alderspensjon])
+  }, [modus, alderspensjon])
 
   const [
     isPensjonsavtalerAccordionItemOpen,
@@ -193,7 +193,7 @@ export const BeregningAvansert: React.FC = () => {
                   onButtonClick={() => setModus('redigering')}
                 />
                 <Pensjonsavtaler />
-                <Grunnlag />
+                <Grunnlag visning="avansert" />
               </PensjonsavtalerAccordionContext.Provider>
             </>
           )}

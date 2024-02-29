@@ -12,12 +12,12 @@ import {
   transformUttaksalderToDate,
 } from '@/utils/alder'
 import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './EndreInntektVsaPensjon.module.scss'
 
 interface Props {
   uttaksperiode?: RecursivePartial<HeltUttak>
-
   oppdatereInntekt: (aarligInntektVsaPensjon?: {
     beloep: number
     sluttAlder: {
@@ -184,9 +184,12 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             inputMode="numeric"
             name="inntekt-vsa-pensjon"
             className={styles.textfield}
-            label={intl.formatMessage({
-              id: 'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label',
-            })}
+            label={
+              <FormattedMessage
+                id="inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label"
+                values={{ ...getFormatMessageValues(intl) }}
+              />
+            }
             description={intl.formatMessage({
               id: 'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description',
             })}
@@ -204,13 +207,23 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           <div className={styles.spacer} />
           <AgePicker
             name="sluttalder-inntekt-vsa-pensjon"
-            label="Til hvilken alder forventer du å ha inntekten?"
-            description=""
+            label={intl.formatMessage({
+              id: 'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label',
+            })}
             value={sluttAlder}
             minAlder={
-              uttaksperiode?.uttaksalder?.aar &&
-              uttaksperiode?.uttaksalder?.maaneder !== undefined
-                ? (uttaksperiode.uttaksalder as Alder)
+              uttaksperiode?.uttaksalder?.aar
+                ? {
+                    aar:
+                      uttaksperiode?.uttaksalder?.maaneder === 11
+                        ? uttaksperiode?.uttaksalder?.aar + 1
+                        : uttaksperiode?.uttaksalder?.aar,
+                    maaneder:
+                      uttaksperiode?.uttaksalder?.maaneder !== undefined &&
+                      uttaksperiode?.uttaksalder?.maaneder !== 11
+                        ? uttaksperiode?.uttaksalder?.maaneder + 1
+                        : 0,
+                  }
                 : undefined
             }
             maxAlder={{ aar: 75, maaneder: 11 }}
@@ -225,9 +238,9 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             }}
             error={
               validationErrors['sluttalder-inntekt-vsa-pensjon']
-                ? intl.formatMessage({
+                ? `${intl.formatMessage({
                     id: validationErrors['sluttalder-inntekt-vsa-pensjon'],
-                  })
+                  })}.`
                 : ''
             }
           />
@@ -252,30 +265,36 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
       uttaksperiode.aarligInntektVsaPensjon.beloep ? (
         <>
           <Label className={styles.label}>
-            <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.label" />
+            <FormattedMessage
+              id="inntekt.endre_inntekt_vsa_pensjon_modal.label"
+              values={{ ...getFormatMessageValues(intl) }}
+            />
           </Label>
-          <BodyShort>{`${formatWithoutDecimal(
-            uttaksperiode.aarligInntektVsaPensjon.beloep
-          )} kr ${intl.formatMessage({
-            id: 'beregning.fra',
-          })} ${
-            uttaksperiode.uttaksalder?.aar &&
-            uttaksperiode.uttaksalder.maaneder !== undefined
-              ? formatUttaksalder(intl, uttaksperiode.uttaksalder as Alder, {
-                  compact: true,
-                })
-              : ''
-          } ${intl.formatMessage({
-            id: 'beregning.til',
-          })} ${
-            sluttAlder?.aar && sluttAlder.maaneder !== undefined
-              ? formatUttaksalder(intl, sluttAlder as Alder, {
-                  compact: true,
-                })
-              : ''
-          } (${transformertDate})`}</BodyShort>
+          <BodyShort>
+            <span className="nowrap">{`${formatWithoutDecimal(
+              uttaksperiode.aarligInntektVsaPensjon.beloep
+            )} kr`}</span>
+            {` ${intl.formatMessage({
+              id: 'beregning.fra',
+            })} ${
+              uttaksperiode.uttaksalder?.aar &&
+              uttaksperiode.uttaksalder.maaneder !== undefined
+                ? formatUttaksalder(intl, uttaksperiode.uttaksalder as Alder, {
+                    compact: true,
+                  })
+                : ''
+            } ${intl.formatMessage({
+              id: 'beregning.til',
+            })} ${
+              sluttAlder?.aar && sluttAlder.maaneder !== undefined
+                ? formatUttaksalder(intl, sluttAlder as Alder, {
+                    compact: true,
+                  })
+                : ''
+            } (${transformertDate})`}
+          </BodyShort>
           <Button
-            className={styles.button}
+            className={`${styles.button} ${styles.button__marginRight}`}
             variant="tertiary"
             size="small"
             icon={<PencilIcon aria-hidden />}
@@ -299,8 +318,11 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
         </>
       ) : (
         <>
-          <BodyShort>
-            <FormattedMessage id="inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2" />
+          <BodyShort className={styles.paragraph}>
+            <FormattedMessage
+              id="inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2"
+              values={{ ...getFormatMessageValues(intl) }}
+            />
           </BodyShort>
           <Button
             variant="tertiary"

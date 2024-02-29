@@ -16,7 +16,9 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2')
+        screen.getByText('Du kan tjene så mye du vil samtidig som du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       await user.click(
@@ -63,7 +65,9 @@ describe('EndreInntektVsaPensjon', async () => {
         selectCurrentSimulation(store.getState()).aarligInntektVsaHelPensjon
       ).toBe(undefined)
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.ingress_2')
+        screen.getByText('Du kan tjene så mye du vil samtidig som du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       await user.click(
@@ -92,7 +96,9 @@ describe('EndreInntektVsaPensjon', async () => {
       ).toBe(undefined)
 
       expect(
-        screen.queryByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+        screen.queryByText('Forventet årsinntekt mens du tar ut', {
+          exact: false,
+        })
       ).not.toBeInTheDocument()
 
       expect(
@@ -136,12 +142,17 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+        screen.getByText('Forventet årsinntekt mens du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       expect(
+        screen.getByText('123 000 kr', { exact: false })
+      ).toBeInTheDocument()
+      expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
+          'beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -192,12 +203,17 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+        screen.getByText('Forventet årsinntekt mens du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       expect(
+        screen.getByText('123 000 kr', { exact: false })
+      ).toBeInTheDocument()
+      expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
+          'beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -232,12 +248,17 @@ describe('EndreInntektVsaPensjon', async () => {
       )
 
       expect(
-        screen.getByText('inntekt.endre_inntekt_vsa_pensjon_modal.label')
+        screen.getByText('Forventet årsinntekt mens du tar ut', {
+          exact: false,
+        })
       ).toBeInTheDocument()
 
       expect(
+        screen.getByText('123 000 kr', { exact: false })
+      ).toBeInTheDocument()
+      expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
+          'beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()
@@ -266,8 +287,11 @@ describe('EndreInntektVsaPensjon', async () => {
       expect(oppdatereInntektMock).not.toHaveBeenCalledWith()
 
       expect(
+        screen.getByText('123 000 kr', { exact: false })
+      ).toBeInTheDocument()
+      expect(
         screen.getByText(
-          '123 000 kr beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
+          'beregning.fra 67 alder.aar string.og 3 alder.md beregning.til 70 alder.aar',
           { exact: false }
         )
       ).toBeInTheDocument()

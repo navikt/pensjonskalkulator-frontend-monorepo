@@ -17,7 +17,11 @@ import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
 
-export const Grunnlag: React.FC = () => {
+interface Props {
+  visning: BeregningVisning
+}
+
+export const Grunnlag: React.FC<Props> = ({ visning }) => {
   const intl = useIntl()
 
   const { data: person, isSuccess } = useGetPersonQuery()
@@ -52,24 +56,26 @@ export const Grunnlag: React.FC = () => {
           </BodyLong>
         </div>
         <Accordion>
-          <AccordionItem name="Grunnlag: Uttaksgrad">
-            <GrunnlagSection
-              headerTitle={intl.formatMessage({
-                id: 'grunnlag.uttaksgrad.title',
-              })}
-              headerValue="100 %"
-            >
-              <BodyLong>
-                <FormattedMessage
-                  id="grunnlag.uttaksgrad.ingress"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </BodyLong>
-            </GrunnlagSection>
-          </AccordionItem>
-          <GrunnlagInntekt />
+          {visning === 'enkel' && (
+            <AccordionItem name="Grunnlag: Uttaksgrad">
+              <GrunnlagSection
+                headerTitle={intl.formatMessage({
+                  id: 'grunnlag.uttaksgrad.title',
+                })}
+                headerValue="100 %"
+              >
+                <BodyLong>
+                  <FormattedMessage
+                    id="grunnlag.uttaksgrad.ingress"
+                    values={{
+                      ...getFormatMessageValues(intl),
+                    }}
+                  />
+                </BodyLong>
+              </GrunnlagSection>
+            </AccordionItem>
+          )}
+          {visning === 'enkel' && <GrunnlagInntekt />}
           <AccordionItem name="Gunnlag: Sivilstand">
             <GrunnlagSection
               headerTitle={intl.formatMessage({

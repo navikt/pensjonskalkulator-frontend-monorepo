@@ -17,14 +17,14 @@ import {
 export interface AgePickerProps {
   form?: string
   name: string
-  label: string
-  description?: string
+  label: string | JSX.Element
+  description?: string | JSX.Element
   value?: Partial<Alder>
   minAlder?: Alder
   maxAlder?: Alder
   info?: string
   onChange?: (alder: Partial<Alder> | undefined) => void
-  error?: string
+  error?: string | JSX.Element
 }
 
 import styles from './AgePicker.module.scss'
@@ -91,7 +91,7 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
 
     return (
       <div ref={ref} data-testid={`age-picker-${name}`}>
-        <Label>{label}</Label>
+        <Label className={!description ? styles.label : ''}>{label}</Label>
         {description && (
           <BodyShort
             className={styles.description}

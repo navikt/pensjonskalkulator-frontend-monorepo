@@ -1,12 +1,12 @@
 import globalClassNames from "../../style.d";
 declare const classNames: typeof globalClassNames & {
   readonly section: "section";
-  readonly info: "info";
   readonly buttonRow: "buttonRow";
   readonly buttonRow__visible: "buttonRow__visible";
   readonly buttonRowElement: "buttonRowElement";
   readonly buttonRowElement__Right: "buttonRowElement__Right";
   readonly loader: "loader";
+  readonly info: "info";
   readonly infoIcon: "infoIcon";
   readonly infoText: "infoText";
   readonly error: "error";

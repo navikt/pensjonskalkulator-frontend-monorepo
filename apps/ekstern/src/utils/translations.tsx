@@ -151,6 +151,7 @@ export const getFormatMessageValues = (
     br: <br />,
     // TODO utvide test
     strong: (chunks: string) => <strong>{chunks}</strong>,
+    nowrap: (chunks: string) => <span className="nowrap">{chunks}</span>,
   }
 }
 /* eslint-enable @typescript-eslint/no-explicit-any */

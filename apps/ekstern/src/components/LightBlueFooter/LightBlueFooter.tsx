@@ -23,7 +23,7 @@ export function LightBlueFooter() {
     <section className={styles.section}>
       <div className={styles.innerwrapper}>
         <Button
-          variant="secondary"
+          variant="tertiary"
           className={styles.button}
           onClick={wrapLogger('button klikk', { tekst: 'Tilbake til start' })(
             onResetClick
