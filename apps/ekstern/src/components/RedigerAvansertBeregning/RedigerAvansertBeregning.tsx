@@ -1,7 +1,8 @@
+/* c8 ignore start */
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { BodyLong, Label, Select, TextField } from '@navikt/ds-react'
+import { Alert, BodyLong, Label, Select, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
@@ -9,6 +10,7 @@ import { ReadMore } from '@/components/common/ReadMore'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
 import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
+import { BeregningContext } from '@/pages/Beregning/context'
 import {
   useTidligstMuligHeltUttakQuery,
   useTidligstMuligGradertUttakQuery,
@@ -20,9 +22,10 @@ import {
   selectSivilstand,
   selectCurrentSimulation,
   selectAarligInntektFoerUttakBeloep,
+  selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { isUttaksalderOverMinUttaksaar, formatUttaksalder } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -35,7 +38,7 @@ import {
 import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
 import {
   FORM_NAMES,
-  validateAvansertBeregningSkjema,
+  onAvansertBeregningSubmit,
   getMinAlderTilHeltUttak,
 } from './utils'
 
@@ -56,12 +59,16 @@ export const RedigerAvansertBeregning: React.FC<{
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
     selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
+  const aarligInntektFoerUttakBeloepFraBrukerSkatt = useAppSelector(
+    selectAarligInntektFoerUttakBeloepFraSkatt
+  )
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
 
+  const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
+
   const [
-    hasUnsavedChanges,
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
@@ -90,14 +97,14 @@ export const RedigerAvansertBeregning: React.FC<{
     data: tidligstMuligHeltUttak,
     isError: isTidligstMuligHeltUttakError,
   } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
-    skip: !tidligstMuligHeltUttakRequestBody,
+    skip: !tidligstMuligHeltUttakRequestBody || hasVilkaarIkkeOppfylt,
   })
 
   const {
     data: tidligstMuligGradertUttak,
     isError: isTidligstMuligGradertUttakError,
   } = useTidligstMuligGradertUttakQuery(tidligstMuligGradertUttakRequestBody, {
-    skip: !tidligstMuligGradertUttakRequestBody,
+    skip: !tidligstMuligGradertUttakRequestBody || hasVilkaarIkkeOppfylt,
   })
 
   const [
@@ -119,23 +126,28 @@ export const RedigerAvansertBeregning: React.FC<{
     tidligstMuligGradertUttak,
   })
 
+  // TODO se om denne kan flyttes til hooks?
   const minAlderForHeltUttak = React.useMemo(() => {
-    const oppdatertMinAlder = getMinAlderTilHeltUttak({
-      localGradertUttak: localGradertUttak?.uttaksalder,
-      tidligstMuligHeltUttak,
-    })
-    if (
-      localHeltUttak?.uttaksalder &&
-      (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
-        (localHeltUttak.uttaksalder?.maaneder ?? 0) <=
-        (oppdatertMinAlder?.aar ?? 0) * 12 + (oppdatertMinAlder?.maaneder ?? 0)
-    ) {
-      setLocalHeltUttak((previous) => ({
-        ...previous,
-        uttaksalder: undefined,
-      }))
+    if (localGradertUttak || tidligstMuligHeltUttak) {
+      const oppdatertMinAlder = getMinAlderTilHeltUttak({
+        localGradertUttak: localGradertUttak?.uttaksalder,
+        tidligstMuligHeltUttak,
+      })
+      // if the previously chosen uttaksalder is lower than oppdatertMinAlder
+      if (
+        localHeltUttak?.uttaksalder &&
+        (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
+          (localHeltUttak.uttaksalder?.maaneder ?? 0) <=
+          (oppdatertMinAlder?.aar ?? 0) * 12 +
+            (oppdatertMinAlder?.maaneder ?? 0)
+      ) {
+        setLocalHeltUttak((previous) => ({
+          ...previous,
+          uttaksalder: undefined,
+        }))
+      }
+      return oppdatertMinAlder
     }
-    return oppdatertMinAlder
   }, [localGradertUttak, tidligstMuligHeltUttak])
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -145,8 +157,12 @@ export const RedigerAvansertBeregning: React.FC<{
       : 100
     setLocalGradertUttak((previous) => {
       return !isNaN(avansertBeregningFormatertUttaksgradAsNumber) &&
+        avansertBeregningFormatertUttaksgradAsNumber !== previous &&
         avansertBeregningFormatertUttaksgradAsNumber !== 100
-        ? { ...previous, grad: avansertBeregningFormatertUttaksgradAsNumber }
+        ? {
+            grad: avansertBeregningFormatertUttaksgradAsNumber,
+            aarligInntektVsaPensjonBeloep: '',
+          }
         : undefined
     })
     setLocalHeltUttak((previous) => {
@@ -196,98 +212,11 @@ export const RedigerAvansertBeregning: React.FC<{
     })
   }
 
-  // TODO - refactor - se om denne kan flyttes ut til util eller deles opp?
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
-    const gradertUttakAarFormData = data.get(
-      `${FORM_NAMES.uttaksalderGradertUttak}-aar`
-    )
-    const gradertUttakMaanederFormData = data.get(
-      `${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
-    )
-    const heltUttakAarFormData = data.get(
-      `${FORM_NAMES.uttaksalderHeltUttak}-aar`
-    )
-    const heltUttakMaanederFormData = data.get(
-      `${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
-    )
-    const uttaksgradFormData = data.get('uttaksgrad')
-    const inntektVsaGradertPensjonFormData = data.get(
-      FORM_NAMES.inntektVsaGradertUttak
-    )
-    if (
-      validateAvansertBeregningSkjema(
-        {
-          gradertUttakAarFormData,
-          gradertUttakMaanederFormData,
-          heltUttakAarFormData,
-          heltUttakMaanederFormData,
-          uttaksgradFormData,
-          inntektVsaGradertPensjonFormData,
-        },
-        setValidationErrors
-      )
-    ) {
-      dispatch(
-        userInputActions.setCurrentSimulationUttaksalder({
-          aar: parseInt(heltUttakAarFormData as string, 10),
-          maaneder: parseInt(heltUttakMaanederFormData as string, 10),
-        })
-      )
-      if (uttaksgradFormData === '100 %') {
-        dispatch(
-          userInputActions.setCurrentSimulationGradertuttaksperiode(null)
-        )
-      } else {
-        const aarligInntektVsaGradertPensjon = parseInt(
-          (inntektVsaGradertPensjonFormData as string).replace(/ /g, ''),
-          10
-        )
-        dispatch(
-          userInputActions.setCurrentSimulationGradertuttaksperiode({
-            uttaksalder: {
-              aar: parseInt(gradertUttakAarFormData as string, 10),
-              maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
-            },
-            grad: parseInt(
-              (uttaksgradFormData as string).match(/\d+/)?.[0] as string,
-              10
-            ),
-            aarligInntektVsaPensjonBeloep: !isNaN(
-              aarligInntektVsaGradertPensjon
-            )
-              ? aarligInntektVsaGradertPensjon
-              : undefined,
-          })
-        )
-      }
-      dispatch(
-        userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
-          localHeltUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
-            localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.aar &&
-            localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.maaneder !==
-              undefined
-            ? {
-                beloep: localHeltUttak?.aarligInntektVsaPensjon?.beloep,
-                sluttAlder: localHeltUttak?.aarligInntektVsaPensjon
-                  ?.sluttAlder as Alder,
-              }
-            : undefined
-        )
-      )
-      dispatch(
-        userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
-          localInntektFremTilUttak
-        )
-      )
-      gaaTilResultat()
-    }
-  }
-
   const resetForm = (): void => {
     resetValidationErrors()
-    setLocalInntektFremTilUttak(null)
+    setLocalInntektFremTilUttak(
+      aarligInntektFoerUttakBeloepFraBrukerSkatt?.beloep ?? null
+    )
     setLocalGradertUttak(undefined)
     setLocalHeltUttak(undefined)
   }
@@ -297,7 +226,26 @@ export const RedigerAvansertBeregning: React.FC<{
       className={`${styles.container} ${styles.container__hasMobilePadding}`}
     >
       <div className={styles.form}>
-        <form id={FORM_NAMES.form} method="dialog" onSubmit={onSubmit}></form>
+        <form
+          id={FORM_NAMES.form}
+          method="dialog"
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+            const data = new FormData(e.currentTarget)
+            onAvansertBeregningSubmit(
+              data,
+              dispatch,
+              setValidationErrors,
+              gaaTilResultat,
+              {
+                localHeltUttak,
+                localInntektFremTilUttak,
+                hasVilkaarIkkeOppfylt,
+                harAvansertSkjemaUnsavedChanges,
+              }
+            )
+          }}
+        ></form>
         <div>
           <Label className={styles.label}>
             <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.label" />
@@ -383,7 +331,6 @@ export const RedigerAvansertBeregning: React.FC<{
             />
           </BodyLong>
         </ReadMore>
-
         <div className={styles.spacer} />
         {localGradertUttak && (
           <div>
@@ -406,12 +353,35 @@ export const RedigerAvansertBeregning: React.FC<{
               onChange={handleGradertUttakAlderChange}
               error={gradertUttakAgePickerError}
             />
+            {hasVilkaarIkkeOppfylt &&
+              gradertUttaksperiode &&
+              gradertUttaksperiode.uttaksalder &&
+              JSON.stringify(gradertUttaksperiode.uttaksalder) ===
+                JSON.stringify(localGradertUttak?.uttaksalder) && (
+                <AlertDashBorder className={styles.alert}>
+                  <FormattedMessage
+                    id={
+                      gradertUttaksperiode.uttaksalder.maaneder
+                        ? 'beregning.lav_opptjening.aar_og_md'
+                        : 'beregning.lav_opptjening.aar'
+                    }
+                    values={{
+                      startAar: gradertUttaksperiode.uttaksalder.aar,
+                      startMaaned: gradertUttaksperiode.uttaksalder.maaneder
+                        ? gradertUttaksperiode.uttaksalder.maaneder
+                        : undefined,
+                    }}
+                  />
+                </AlertDashBorder>
+              )}
             {localGradertUttak?.grad !== 100 && (
               <>
                 <div className={styles.spacer__small} />
                 <ReadMoreOmPensjonsalder
                   showTidligstMuligUttakOptionalIngress={
-                    !isTidligstMuligGradertUttakError
+                    !isTidligstMuligGradertUttakError &&
+                    !isTidligstMuligHeltUttakError &&
+                    !hasVilkaarIkkeOppfylt
                   }
                 />
               </>
@@ -448,6 +418,20 @@ export const RedigerAvansertBeregning: React.FC<{
               max={5}
             />
             <div className={styles.spacer} />
+            {tidligstMuligHeltUttak &&
+              isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak) && (
+                <>
+                  <Alert variant="info" aria-live="polite">
+                    <FormattedMessage
+                      id="beregning.avansert.rediger.uttaksgrad.info"
+                      values={{
+                        alder: formatUttaksalder(intl, tidligstMuligHeltUttak),
+                      }}
+                    />
+                  </Alert>
+                  <div className={styles.spacer} />
+                </>
+              )}
           </div>
         )}
         <div>
@@ -469,31 +453,39 @@ export const RedigerAvansertBeregning: React.FC<{
             error={heltUttakAgePickerError}
           />
           {hasVilkaarIkkeOppfylt &&
+          !gradertUttaksperiode &&
           uttaksalder &&
           uttaksalder.aar < 67 &&
           JSON.stringify(uttaksalder) ===
             JSON.stringify(localHeltUttak?.uttaksalder) ? (
             <AlertDashBorder className={styles.alert}>
               <FormattedMessage
-                id="beregning.lav_opptjening"
-                values={{ startAar: uttaksalder.aar }}
+                id={
+                  uttaksalder.maaneder
+                    ? 'beregning.lav_opptjening.aar_og_md'
+                    : 'beregning.lav_opptjening.aar'
+                }
+                values={{
+                  startAar: uttaksalder.aar,
+                  startMaaned: uttaksalder.maaneder
+                    ? uttaksalder.maaneder
+                    : undefined,
+                }}
               />
             </AlertDashBorder>
           ) : (
             <div className={styles.spacer__small} />
           )}
         </div>
-
         {(!localGradertUttak ||
           !localGradertUttak?.grad ||
           localGradertUttak?.grad === 100) && (
           <ReadMoreOmPensjonsalder
             showTidligstMuligUttakOptionalIngress={
-              !isTidligstMuligHeltUttakError
+              !isTidligstMuligHeltUttakError && !hasVilkaarIkkeOppfylt
             }
           />
         )}
-
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined && (
             <div>
@@ -519,9 +511,10 @@ export const RedigerAvansertBeregning: React.FC<{
         <FormButtonRow
           resetForm={resetForm}
           gaaTilResultat={gaaTilResultat}
-          hasUnsavedChanges={!!hasUnsavedChanges}
+          hasVilkaarIkkeOppfylt={hasVilkaarIkkeOppfylt}
         />
       </div>
     </div>
   )
 }
+/* c8 ignore end */

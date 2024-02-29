@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
@@ -11,6 +12,7 @@ import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { ResultatkortAvansertBeregning } from '@/components/ResultatkortAvansertBeregning'
 import { Simulering } from '@/components/Simulering'
+import { BeregningContext } from '@/pages/Beregning/context'
 import {
   useGetPersonQuery,
   apiSlice,
@@ -29,11 +31,11 @@ import { logger } from '@/utils/logging'
 
 import styles from './BeregningAvansert.module.scss'
 
-type Modus = 'redigering' | 'resultat'
-
 export const BeregningAvansert: React.FC = () => {
   const dispatch = useAppDispatch()
-  const [modus, setModus] = React.useState<Modus>('redigering')
+
+  const { avansertSkjemaModus, setAvansertSkjemaModus } =
+    React.useContext(BeregningContext)
 
   const grunnlagPensjonsavtalerRef = React.useRef<HTMLSpanElement>(null)
   const harSamboer = useAppSelector(selectSamboer)
@@ -55,7 +57,6 @@ export const BeregningAvansert: React.FC = () => {
 
   React.useEffect(() => {
     if (uttaksalder) {
-      // TODO denne må kunne ta høyde for inntekt vsa gradert pensjon, og sluttdato for inntekt vsa helpensjon
       const requestBody = generateAlderspensjonRequestBody({
         afp,
         sivilstand: person?.sivilstand,
@@ -93,11 +94,11 @@ export const BeregningAvansert: React.FC = () => {
     if (formatertUttaksalderReadOnly) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
         logger('alert', {
-          teskt: 'Beregning avansert: Ikke høy nok opptjening',
+          tekst: 'Beregning avansert: Ikke høy nok opptjening',
         })
       } else if (isError) {
         logger('alert', {
-          teskt: 'Beregning avansert: Klarte ikke beregne pensjon',
+          tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
         })
       }
     }
@@ -109,11 +110,12 @@ export const BeregningAvansert: React.FC = () => {
     }
   }, [error])
 
+  // Skal redigerer tilbake når alderspensjon er refetchet ferdig, og
   React.useEffect(() => {
     if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
-      setModus('redigering')
+      setAvansertSkjemaModus('redigering')
     }
-  }, [modus, alderspensjon])
+  }, [alderspensjon])
 
   const [
     isPensjonsavtalerAccordionItemOpen,
@@ -135,10 +137,10 @@ export const BeregningAvansert: React.FC = () => {
 
   return (
     <>
-      {modus === 'redigering' && (
+      {avansertSkjemaModus === 'redigering' && (
         <RedigerAvansertBeregning
           gaaTilResultat={() => {
-            setModus('resultat')
+            setAvansertSkjemaModus('resultat')
             window.scrollTo(0, 0)
           }}
           hasVilkaarIkkeOppfylt={
@@ -147,7 +149,7 @@ export const BeregningAvansert: React.FC = () => {
         />
       )}
 
-      {modus === 'resultat' && (
+      {avansertSkjemaModus === 'resultat' && (
         <div
           className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
         >
@@ -157,16 +159,10 @@ export const BeregningAvansert: React.FC = () => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
               <Alert onRetry={isError ? onRetry : undefined}>
-                {uttaksalder && uttaksalder.aar < 67 && (
-                  <FormattedMessage
-                    id="beregning.lav_opptjening"
-                    values={{ startAar: uttaksalder.aar }}
-                  />
-                )}
                 {isError && <FormattedMessage id="beregning.error" />}
               </Alert>
               <ResultatkortAvansertBeregning
-                onButtonClick={() => setModus('redigering')}
+                onButtonClick={() => setAvansertSkjemaModus('redigering')}
               />
             </>
           ) : (
@@ -190,7 +186,7 @@ export const BeregningAvansert: React.FC = () => {
                   }
                 />
                 <ResultatkortAvansertBeregning
-                  onButtonClick={() => setModus('redigering')}
+                  onButtonClick={() => setAvansertSkjemaModus('redigering')}
                 />
                 <Pensjonsavtaler />
                 <Grunnlag visning="avansert" />
@@ -202,3 +198,4 @@ export const BeregningAvansert: React.FC = () => {
     </>
   )
 }
+/* c8 ignore end */

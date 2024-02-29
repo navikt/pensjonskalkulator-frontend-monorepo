@@ -209,8 +209,9 @@ const translations = {
   'beregning.til': 'MANGLER_TEKST',
   'beregning.tom': ' MANGLER_TEKST',
   'beregning.livsvarig': 'MANGLER_TEKST',
-  'beregning.lav_opptjening':
+  'beregning.lav_opptjening.aar':
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
+  'beregning.lav_opptjening.aar_og_md': 'MANGLER_TEKST',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.pensjonsavtaler.error':
@@ -249,6 +250,7 @@ const translations = {
     'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.uttaksgrad.info': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label': 'MANGLER_TEKST',
@@ -267,11 +269,17 @@ const translations = {
   'beregning.avansert.button.oppdater': 'MANGLER_TEKST',
   'beregning.avansert.button.nullstill': 'MANGLER_TEKST',
   'beregning.avansert.button.avbryt': 'MANGLER_TEKST',
+  'beregning.avansert.avbryt_modal.title': 'MANGLER_TEKST',
+  'beregning.avansert.avbryt_modal.body': 'MANGLER_TEKST',
+  'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
+  'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
+  'grunnlag.title.avansert': 'MANGLER_TEKST',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
+  'grunnlag.uttaksgrad.avansert_link': 'MANGLER_TEKST',
   'grunnlag.uttaksgrad.ingress':
-    'Denne utrekninga syner 100 % uttak av alderspensjon. I detaljert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
+    'Denne utrekninga syner 100 % uttak av alderspensjon. I avansert kalkulator får du rekna ut alderspensjon med andre uttaksgrader (20 %, 40 %, 50 %, 60 % og 80 %). Du kan jobbe så mykje du vil ved sida av pensjon sjølv om du har teke ut 100 %.',
   'grunnlag.inntekt.title': 'Inntekt', // TODO utdatert tekst
   // TODO - utdatert tekst
   'grunnlag.inntekt.ingress':

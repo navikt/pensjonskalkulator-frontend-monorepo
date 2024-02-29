@@ -9,6 +9,8 @@ import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
+const alderspensjonResponse = require('../../../mocks/data/alderspensjon/68.json')
+
 describe('BeregningEnkel', () => {
   const fakeApiCalls = {
     queries: {
@@ -37,6 +39,92 @@ describe('BeregningEnkel', () => {
       },
     },
   }
+
+  describe('Når tidligst mulig uttaksalder hentes', () => {
+    it('kalles endepunktet med riktig request body', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
+        'initiate'
+      )
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samboer: false,
+            afp: 'ja_privat',
+          },
+        },
+      })
+
+      expect(initiateMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 500000,
+          aarligInntektVsaPensjon: undefined,
+          harEps: false,
+          simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
+          sivilstand: 'UGIFT',
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
+    })
+
+    it('viser loading og deretter riktig header, tekst og knapper', async () => {
+      render(<BeregningEnkel />)
+      expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+      })
+      expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
+      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+      expect(screen.getAllByRole('button')).toHaveLength(12)
+    })
+
+    it('når kallet til TMU feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
+      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
+        method: 'post',
+      })
+      mockResponse('/v2/alderspensjon/simulering', {
+        status: 200,
+        method: 'post',
+        json: {
+          ...alderspensjonResponse,
+        },
+      })
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samboer: false,
+          },
+        },
+      })
+
+      expect(
+        await screen.findByText('tidligstmuliguttak.error')
+      ).toBeInTheDocument()
+
+      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+      expect(screen.getAllByRole('button')).toHaveLength(15)
+    })
+  })
 
   describe('Når brukeren velger uttaksalder', () => {
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
@@ -206,7 +294,7 @@ describe('BeregningEnkel', () => {
       const alertBoks = await screen.findByTestId('alert-inntekt')
       expect(alertBoks).toBeVisible()
 
-      await user.click(await screen.findByText('63 alder.aar'))
+      await user.click(await screen.findByText('67 alder.aar'))
       expect(alertBoks).not.toBeVisible()
     })
 

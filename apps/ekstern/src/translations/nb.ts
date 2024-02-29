@@ -217,8 +217,10 @@ const translations = {
   'beregning.til': ' til ',
   'beregning.tom': ' t.o.m. ',
   'beregning.livsvarig': 'livsvarig',
-  'beregning.lav_opptjening':
+  'beregning.lav_opptjening.aar':
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
+  'beregning.lav_opptjening.aar_og_md':
+    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år og {startMaaned} md. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
@@ -260,6 +262,8 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.label':
     'Hvor mye alderspensjon vil du ta ut?',
   'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',
+  'beregning.avansert.rediger.uttaksgrad.info':
+    'Når du har valgt gradert uttak, utsettes alderen du kan ta ut 100 % fra {alder} til en senere alder. Fra 67 år kan alle ta ut 100 % alderspensjon.',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
@@ -277,9 +281,9 @@ const translations = {
   'beregning.avansert.rediger.agepicker.beskrivelse':
     'Du kan tidligst ta ut <nowrap>{grad} %</nowrap> alderspensjon når du er',
   'beregning.avansert.rediger.agepicker.tmu_info':
-    'Med gradert uttak, kan kalkulatoren tidligst beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Du kan likevel ha rett til å ta ut <nowrap>100 %</nowrap> tidligere.',
+    'Etter gradert uttak, kan kalkulatoren tidligst beregne <nowrap>100 %</nowrap> fra 67 år.',
   'beregning.avansert.rediger.agepicker.validation_error':
-    ' for når du vil ta ut <nowrap>{grad} %</nowrap>{grad} alderspensjon.',
+    ' for når du vil ta ut <nowrap>{grad} %</nowrap> alderspensjon.',
   'beregning.avansert.rediger.gradertuttak.agepicker.label':
     'Når vil du ta ut <nowrap>{grad} %</nowrap> alderspensjon',
   'beregning.avansert.rediger.heltuttak.agepicker.label':
@@ -289,11 +293,21 @@ const translations = {
   'beregning.avansert.button.nullstill': 'Nullstill valg',
   'beregning.avansert.button.avbryt': 'Avbryt endring',
   'grunnlag.title': 'Øvrig grunnlag for beregningen',
+  'beregning.avansert.avbryt_modal.title':
+    'Er du sikker på at du vil avslutte avansert beregning?',
+  'beregning.avansert.avbryt_modal.body':
+    'Hvis du avslutter, blir ikke beregningen din lagret.',
+  'beregning.avansert.avbryt_modal.button.avslutt': 'Avslutt avansert',
+  'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
+  'grunnlag.uttaksgrad.avansert_link': 'Gå til avansert kalkulator',
   'grunnlag.uttaksgrad.ingress':
-    'Denne beregningen viser <nowrap>100 %</nowrap> uttak av alderspensjon. I detaljert kalkulator kan du beregne alderspensjon med andre uttaksgrader (<nowrap>20 %</nowrap>, <nowrap>40 %</nowrap>, <nowrap>50 %</nowrap>, <nowrap>60 %</nowrap> og <nowrap>80 %</nowrap>). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut <nowrap>100 %</nowrap>.{br}{br}<detaljertKalkulatorLink>Gå til detaljert kalkulator</detaljertKalkulatorLink>',
+    'Denne beregningen viser <nowrap>100 %</nowrap> uttak av alderspensjon. I avansert kalkulator kan du beregne alderspensjon med andre uttaksgrader (<nowrap>20 %</nowrap>, <nowrap>40 %</nowrap>, <nowrap>50 %</nowrap>, <nowrap>60 %</nowrap> og <nowrap>80 %</nowrap>). Du kan jobbe så mye du vil ved siden av pensjon selv om du har tatt ut <nowrap>100 %</nowrap>.',
   'grunnlag.inntekt.title': 'Inntekt frem til uttak',
+  'grunnlag.inntekt.avansert_kalkulator':
+    'Du kan legge til inntekt ved siden av pensjon i ',
+  'grunnlag.inntekt.avansert_link': 'avansert kalkulator',
   'grunnlag.inntekt.ingress':
     'Din siste pensjonsgivende inntekt fra Skatteetaten er <nowrap>{beloep} kr</nowrap> fra {aar}. Se tidligere inntekter i <dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink>',
   'grunnlag.inntekt.info_om_inntekt': 'Hva er pensjonsgivende inntekt?',

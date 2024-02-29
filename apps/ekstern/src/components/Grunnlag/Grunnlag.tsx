@@ -1,12 +1,15 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
-import { Accordion, BodyLong, Heading } from '@navikt/ds-react'
+import { Accordion, BodyLong, Heading, Link } from '@navikt/ds-react'
 
 import { AccordionItem } from '@/components/common/AccordionItem'
+import { paths } from '@/router/constants'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
+import { BeregningVisning } from '@/types/common-types'
 import { formatAfp } from '@/utils/afp'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -17,11 +20,18 @@ import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
 
-interface Props {
+interface IProps {
   visning: BeregningVisning
 }
 
-export const Grunnlag: React.FC<Props> = ({ visning }) => {
+export const Grunnlag: React.FC<IProps> = ({ visning }) => {
+  const navigate = useNavigate()
+
+  const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault()
+    navigate(paths.beregningDetaljert)
+  }
+
   const intl = useIntl()
 
   const { data: person, isSuccess } = useGetPersonQuery()
@@ -49,7 +59,11 @@ export const Grunnlag: React.FC<Props> = ({ visning }) => {
       <section className={styles.section}>
         <div className={styles.description}>
           <Heading level="2" size="medium">
-            <FormattedMessage id="grunnlag.title" />
+            {visning === 'enkel' ? (
+              <FormattedMessage id="grunnlag.title" />
+            ) : (
+              <FormattedMessage id="grunnlag.title.avansert" />
+            )}
           </Heading>
           <BodyLong>
             <FormattedMessage id="grunnlag.ingress" />
@@ -71,6 +85,12 @@ export const Grunnlag: React.FC<Props> = ({ visning }) => {
                       ...getFormatMessageValues(intl),
                     }}
                   />
+
+                  <br />
+                  <br />
+                  <Link href="#" onClick={goToAvansert}>
+                    <FormattedMessage id="grunnlag.uttaksgrad.avansert_link" />
+                  </Link>
                 </BodyLong>
               </GrunnlagSection>
             </AccordionItem>
