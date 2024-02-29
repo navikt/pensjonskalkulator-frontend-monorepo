@@ -65,17 +65,17 @@ const PensjonsavtaleRad: React.FC<IPensjonsavtalerRad> = ({
 }
 
 interface IAvtaleGruppeProps {
-  avtale: string
+  avtaleGruppeNavn: string
   pensjonsavtaler: Pensjonsavtale[]
 }
 
 const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
-  avtale,
+  avtaleGruppeNavn,
   pensjonsavtaler,
 }) => {
   return (
     <div>
-      <Heading size="small">{capitalize(avtale)}</Heading>
+      <Heading size="small">{capitalize(avtaleGruppeNavn)}</Heading>
       <Table>
         <Table.Header>
           <Table.Row>
@@ -114,10 +114,10 @@ export const PensjonsavtalerTable: React.FC<IProps> = ({ pensjonsavtaler }) => {
   return (
     <VStack gap="5" data-testid="pensjonsavtaler-table">
       {Object.entries(gruppertePensjonsavtaler).map(
-        ([avtaleGruppe, gruppePensjonsavtaler]) => (
+        ([avtaleGruppeNavn, gruppePensjonsavtaler]) => (
           <AvtaleGruppe
-            key={`${avtaleGruppe}-gruppe-table`}
-            avtale={avtaleGruppe}
+            key={`${avtaleGruppeNavn}-gruppe-table`}
+            avtaleGruppeNavn={avtaleGruppeNavn}
             pensjonsavtaler={gruppePensjonsavtaler}
           />
         )

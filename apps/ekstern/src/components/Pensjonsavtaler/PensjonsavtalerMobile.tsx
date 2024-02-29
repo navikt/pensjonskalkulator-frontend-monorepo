@@ -18,13 +18,12 @@ const Pensjonsavtaler: React.FC<IPensjonsavtalerProps> = ({
 }) => {
   const intl = useIntl()
 
-  // TODO: Flytt styling til CSS
   return pensjonsavtaler.map((avtale) => (
     <div key={`${avtale.key}`}>
       <Heading level="4" size="xsmall">
         {avtale.produktbetegnelse}
       </Heading>
-      <table style={{ width: '100%' }}>
+      <table className="full-width">
         <tbody>
           {avtale.utbetalingsperioder.map((utbetalingsperiode) => (
             <tr key={`${JSON.stringify(utbetalingsperiode)}-mobile`}>
