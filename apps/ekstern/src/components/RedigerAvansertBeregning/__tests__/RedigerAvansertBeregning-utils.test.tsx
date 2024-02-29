@@ -3,11 +3,379 @@ import { describe, expect, it } from 'vitest'
 import {
   validateAvansertBeregningSkjema,
   getMinAlderTilHeltUttak,
+  onAvansertBeregningSubmit,
 } from '../utils'
 import * as alderUtils from '@/utils/alder'
 import * as inntektUtils from '@/utils/inntekt'
 
 describe('RedigerAvansertBeregning-utils', () => {
+  describe('onAvansertBeregningSubmit', () => {
+    it('Når onAvansertBeregningSubmit kalles, hentes det riktig data fra formen. Dersom validering feiler lagres det ikke data og validationErrors vises', () => {
+      const dispatchMock = vi.fn()
+      const setValidationErrorsMock = vi.fn()
+      const gaaTilResultatMock = vi.fn()
+      const getMock = vi.fn().mockImplementation((s: string) => {
+        return s
+      })
+      const dataMock: FormData = { get: getMock } as unknown as FormData
+      onAvansertBeregningSubmit(
+        dataMock,
+        dispatchMock,
+        setValidationErrorsMock,
+        gaaTilResultatMock,
+        {
+          localHeltUttak: undefined,
+          localInntektFremTilUttak: null,
+          hasVilkaarIkkeOppfylt: undefined,
+          harAvansertSkjemaUnsavedChanges: false,
+        }
+      )
+      expect(getMock).toHaveBeenCalledTimes(6)
+      expect(getMock).toHaveBeenNthCalledWith(
+        1,
+        'uttaksalder-gradert-uttak-aar'
+      )
+      expect(getMock).toHaveBeenNthCalledWith(
+        2,
+        'uttaksalder-gradert-uttak-maaneder'
+      )
+      expect(getMock).toHaveBeenNthCalledWith(3, 'uttaksalder-helt-uttak-aar')
+      expect(getMock).toHaveBeenNthCalledWith(
+        4,
+        'uttaksalder-helt-uttak-maaneder'
+      )
+      expect(getMock).toHaveBeenNthCalledWith(5, 'uttaksgrad')
+      expect(getMock).toHaveBeenNthCalledWith(6, 'inntekt-vsa-gradert-uttak')
+      expect(dispatchMock).not.toHaveBeenCalled()
+      expect(gaaTilResultatMock).not.toHaveBeenCalled()
+      expect(setValidationErrorsMock).toHaveBeenCalledTimes(3)
+    })
+
+    describe('Gitt at onAvansertBeregningSubmit kalles, og at validering er vellykket', () => {
+      it('Når alle feltene er fylt ut lagres det data og validationErrors kalles ikke', () => {
+        const dispatchMock = vi.fn()
+        const setValidationErrorsMock = vi.fn()
+        const gaaTilResultatMock = vi.fn()
+        const getMock = vi.fn().mockImplementation((s: string) => {
+          switch (s) {
+            case 'uttaksalder-gradert-uttak-aar':
+              return '62'
+            case 'uttaksalder-gradert-uttak-maaneder':
+              return '2'
+            case 'uttaksalder-helt-uttak-aar':
+              return '67'
+            case 'uttaksalder-helt-uttak-maaneder':
+              return '0'
+            case 'uttaksgrad':
+              return '80 %'
+            case 'inntekt-vsa-gradert-uttak':
+              return '100000'
+            default:
+              return ''
+          }
+        })
+        const dataMock: FormData = { get: getMock } as unknown as FormData
+        onAvansertBeregningSubmit(
+          dataMock,
+          dispatchMock,
+          setValidationErrorsMock,
+          gaaTilResultatMock,
+          {
+            localHeltUttak: undefined,
+            localInntektFremTilUttak: null,
+            hasVilkaarIkkeOppfylt: undefined,
+            harAvansertSkjemaUnsavedChanges: false,
+          }
+        )
+
+        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(dispatchMock).toHaveBeenNthCalledWith(1, {
+          payload: {
+            aar: 67,
+            maaneder: 0,
+          },
+          type: 'userInputSlice/setCurrentSimulationUttaksalder',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(2, {
+          payload: {
+            aarligInntektVsaPensjonBeloep: 100000,
+            grad: 80,
+            uttaksalder: {
+              aar: 62,
+              maaneder: 2,
+            },
+          },
+          type: 'userInputSlice/setCurrentSimulationGradertuttaksperiode',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(3, {
+          payload: undefined,
+          type: 'userInputSlice/setCurrentSimulationAarligInntektVsaHelPensjon',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(4, {
+          payload: null,
+          type: 'userInputSlice/setCurrentSimulationaarligInntektFoerUttakBeloep',
+        })
+
+        expect(gaaTilResultatMock).toHaveBeenCalled()
+        expect(setValidationErrorsMock).not.toHaveBeenCalled()
+      })
+
+      it('Når brukeren har endret inntekt og lagt til inntekt vsa 100 % alderspensjon og at alle feltene er fylt ut lagres det data og validationErrors kalles ikke', () => {
+        const dispatchMock = vi.fn()
+        const setValidationErrorsMock = vi.fn()
+        const gaaTilResultatMock = vi.fn()
+        const getMock = vi.fn().mockImplementation((s: string) => {
+          switch (s) {
+            case 'uttaksalder-gradert-uttak-aar':
+              return '62'
+            case 'uttaksalder-gradert-uttak-maaneder':
+              return '2'
+            case 'uttaksalder-helt-uttak-aar':
+              return '67'
+            case 'uttaksalder-helt-uttak-maaneder':
+              return '0'
+            case 'uttaksgrad':
+              return '80 %'
+            case 'inntekt-vsa-gradert-uttak':
+              return '100000'
+            default:
+              return ''
+          }
+        })
+        const dataMock: FormData = { get: getMock } as unknown as FormData
+        onAvansertBeregningSubmit(
+          dataMock,
+          dispatchMock,
+          setValidationErrorsMock,
+          gaaTilResultatMock,
+          {
+            localHeltUttak: {
+              aarligInntektVsaPensjon: {
+                beloep: 300000,
+                sluttAlder: {
+                  aar: 75,
+                  maaneder: 0,
+                },
+              },
+            },
+            localInntektFremTilUttak: 500000,
+            hasVilkaarIkkeOppfylt: undefined,
+            harAvansertSkjemaUnsavedChanges: false,
+          }
+        )
+
+        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(dispatchMock).toHaveBeenNthCalledWith(1, {
+          payload: {
+            aar: 67,
+            maaneder: 0,
+          },
+          type: 'userInputSlice/setCurrentSimulationUttaksalder',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(2, {
+          payload: {
+            aarligInntektVsaPensjonBeloep: 100000,
+            grad: 80,
+            uttaksalder: {
+              aar: 62,
+              maaneder: 2,
+            },
+          },
+          type: 'userInputSlice/setCurrentSimulationGradertuttaksperiode',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(3, {
+          payload: {
+            beloep: 300000,
+            sluttAlder: {
+              aar: 75,
+              maaneder: 0,
+            },
+          },
+          type: 'userInputSlice/setCurrentSimulationAarligInntektVsaHelPensjon',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(4, {
+          payload: 500000,
+          type: 'userInputSlice/setCurrentSimulationaarligInntektFoerUttakBeloep',
+        })
+
+        expect(gaaTilResultatMock).toHaveBeenCalled()
+        expect(setValidationErrorsMock).not.toHaveBeenCalled()
+      })
+
+      it('Når brukeren har endret inntekt og lagt til inntekt vsa 100 % alderspensjon og at alle feltene er fylt ut utenom gradert uttak lagres det data og validationErrors kalles ikke', () => {
+        const dispatchMock = vi.fn()
+        const setValidationErrorsMock = vi.fn()
+        const gaaTilResultatMock = vi.fn()
+        const getMock = vi.fn().mockImplementation((s: string) => {
+          switch (s) {
+            case 'uttaksalder-gradert-uttak-aar':
+              return null
+            case 'uttaksalder-gradert-uttak-maaneder':
+              return null
+            case 'uttaksalder-helt-uttak-aar':
+              return '67'
+            case 'uttaksalder-helt-uttak-maaneder':
+              return '0'
+            case 'uttaksgrad':
+              return '100 %'
+            case 'inntekt-vsa-gradert-uttak':
+              return null
+            default:
+              return ''
+          }
+        })
+        const dataMock: FormData = { get: getMock } as unknown as FormData
+        onAvansertBeregningSubmit(
+          dataMock,
+          dispatchMock,
+          setValidationErrorsMock,
+          gaaTilResultatMock,
+          {
+            localHeltUttak: {
+              aarligInntektVsaPensjon: {
+                beloep: 300000,
+                sluttAlder: {
+                  aar: 75,
+                  maaneder: 0,
+                },
+              },
+            },
+            localInntektFremTilUttak: 500000,
+            hasVilkaarIkkeOppfylt: undefined,
+            harAvansertSkjemaUnsavedChanges: false,
+          }
+        )
+
+        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(dispatchMock).toHaveBeenNthCalledWith(1, {
+          payload: {
+            aar: 67,
+            maaneder: 0,
+          },
+          type: 'userInputSlice/setCurrentSimulationUttaksalder',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(2, {
+          payload: null,
+          type: 'userInputSlice/setCurrentSimulationGradertuttaksperiode',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(3, {
+          payload: {
+            beloep: 300000,
+            sluttAlder: {
+              aar: 75,
+              maaneder: 0,
+            },
+          },
+          type: 'userInputSlice/setCurrentSimulationAarligInntektVsaHelPensjon',
+        })
+        expect(dispatchMock).toHaveBeenNthCalledWith(4, {
+          payload: 500000,
+          type: 'userInputSlice/setCurrentSimulationaarligInntektFoerUttakBeloep',
+        })
+
+        expect(gaaTilResultatMock).toHaveBeenCalled()
+        expect(setValidationErrorsMock).not.toHaveBeenCalled()
+      })
+
+      it('Når hasVilkaarIkkeOppfylt er true og harAvansertSkjemaUnsavedChanges er false lagres det data men brukeren blir ikke sendt til resultatssiden', () => {
+        const dispatchMock = vi.fn()
+        const setValidationErrorsMock = vi.fn()
+        const gaaTilResultatMock = vi.fn()
+        const getMock = vi.fn().mockImplementation((s: string) => {
+          switch (s) {
+            case 'uttaksalder-gradert-uttak-aar':
+              return null
+            case 'uttaksalder-gradert-uttak-maaneder':
+              return null
+            case 'uttaksalder-helt-uttak-aar':
+              return '67'
+            case 'uttaksalder-helt-uttak-maaneder':
+              return '0'
+            case 'uttaksgrad':
+              return '100 %'
+            case 'inntekt-vsa-gradert-uttak':
+              return null
+            default:
+              return ''
+          }
+        })
+        const dataMock: FormData = { get: getMock } as unknown as FormData
+        onAvansertBeregningSubmit(
+          dataMock,
+          dispatchMock,
+          setValidationErrorsMock,
+          gaaTilResultatMock,
+          {
+            localHeltUttak: {
+              aarligInntektVsaPensjon: {
+                beloep: 300000,
+                sluttAlder: {
+                  aar: 75,
+                  maaneder: 0,
+                },
+              },
+            },
+            localInntektFremTilUttak: 500000,
+            hasVilkaarIkkeOppfylt: true,
+            harAvansertSkjemaUnsavedChanges: false,
+          }
+        )
+
+        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(gaaTilResultatMock).not.toHaveBeenCalled()
+        expect(setValidationErrorsMock).not.toHaveBeenCalled()
+      })
+
+      it('Når hasVilkaarIkkeOppfylt er true og harAvansertSkjemaUnsavedChanges er true lagres det data og brukeren blir sendt til resultatssiden', () => {
+        const dispatchMock = vi.fn()
+        const setValidationErrorsMock = vi.fn()
+        const gaaTilResultatMock = vi.fn()
+        const getMock = vi.fn().mockImplementation((s: string) => {
+          switch (s) {
+            case 'uttaksalder-gradert-uttak-aar':
+              return null
+            case 'uttaksalder-gradert-uttak-maaneder':
+              return null
+            case 'uttaksalder-helt-uttak-aar':
+              return '67'
+            case 'uttaksalder-helt-uttak-maaneder':
+              return '0'
+            case 'uttaksgrad':
+              return '100 %'
+            case 'inntekt-vsa-gradert-uttak':
+              return null
+            default:
+              return ''
+          }
+        })
+        const dataMock: FormData = { get: getMock } as unknown as FormData
+        onAvansertBeregningSubmit(
+          dataMock,
+          dispatchMock,
+          setValidationErrorsMock,
+          gaaTilResultatMock,
+          {
+            localHeltUttak: {
+              aarligInntektVsaPensjon: {
+                beloep: 300000,
+                sluttAlder: {
+                  aar: 75,
+                  maaneder: 0,
+                },
+              },
+            },
+            localInntektFremTilUttak: 500000,
+            hasVilkaarIkkeOppfylt: true,
+            harAvansertSkjemaUnsavedChanges: true,
+          }
+        )
+
+        expect(dispatchMock).toHaveBeenCalledTimes(4)
+        expect(gaaTilResultatMock).toHaveBeenCalled()
+        expect(setValidationErrorsMock).not.toHaveBeenCalled()
+      })
+    })
+  })
   describe('validateAvansertBeregningSkjema', () => {
     const correctInputData = {
       gradertUttakAarFormData: '62',
