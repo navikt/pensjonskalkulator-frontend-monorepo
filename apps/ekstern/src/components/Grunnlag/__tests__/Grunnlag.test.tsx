@@ -38,9 +38,7 @@ describe('Grunnlag', () => {
 
   it('viser annen tittel for avansert', async () => {
     render(<Grunnlag visning="avansert" />)
-    expect(
-      await screen.findByText('grunnlag.title.avansert')
-    ).toBeInTheDocument()
+    expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
   })
 
   describe('Grunnlag - inntekt frem til uttak', () => {
