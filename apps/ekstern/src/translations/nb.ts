@@ -166,6 +166,8 @@ const translations = {
   'agepicker.validation_error.aar': 'Du må velge år og måned',
   'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',
+  'string.fra': 'fra',
+  'string.til': 'til',
   'alder.md': 'md.',
   'alder.maaned': 'måned',
   'alder.maaneder': 'måneder',
@@ -322,9 +324,6 @@ const translations = {
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er en foreløpig beregning av hva du kan forvente deg i pensjon. ',
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.title': 'Forbehold',
-  'pensjonsavtaler.aar': 'år',
-  'pensjonsavtaler.fra': 'Fra',
-  'pensjonsavtaler.fra_og_med': 'Fra og med', // TODO: Fjerne (bgi)
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
   'pensjonsavtaler.ingress':
@@ -342,16 +341,11 @@ const translations = {
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
   'pensjonsavtaler.livsvarig': 'Livsvarig fra og med',
   'pensjonsavtaler.md': 'md.',
-  'pensjonsavtaler.og': 'og',
   'pensjonsavtaler.tabell.title.left': 'Avtaler',
   'pensjonsavtaler.tabell.title.middle': 'Perioder',
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
-  'pensjonsavtaler.til_og_med': 'til og med', // TODO: Fjerne (bgi)
   'pensjonsavtaler.title': 'Pensjonsavtaler',
-  'pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikke hentes', // TODO: Fjerne (bgi)
-  'pensjonsavtaler.title.error.pensjonsavtaler.partial': '(Avtaler mangler)', // TODO: Fjerne (bgi)
-  'pensjonsavtaler.title.error.samtykke': 'Ikke innhentet', // TODO: Fjerne (bgi)
   'grunnlag.forbehold.ingress_2':
     'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',

@@ -28,9 +28,9 @@ export function getMaanedString(
 ) {
   if (maaned !== undefined && maaned > 0) {
     return ` ${formatFn({
-      id: 'pensjonsavtaler.og',
+      id: 'string.og',
     })} ${maaned} ${formatFn({
-      id: 'pensjonsavtaler.md',
+      id: 'alder.md',
     })}`
   }
   return ''
@@ -39,16 +39,16 @@ export function getMaanedString(
 export const formaterSluttAlderString =
   (intl: IntlShape) => (startAlder: Alder, sluttAlder: Alder) => {
     return `${intl.formatMessage({
-      id: 'pensjonsavtaler.fra',
+      id: 'string.fra',
     })} ${startAlder.aar} ${intl.formatMessage({
-      id: 'pensjonsavtaler.aar',
+      id: 'alder.aar',
     })}${getMaanedString(
       intl.formatMessage,
       startAlder.maaneder
     )} ${intl.formatMessage({
-      id: 'pensjonsavtaler.til',
+      id: 'string.til',
     })} ${sluttAlder.aar} ${intl.formatMessage({
-      id: 'pensjonsavtaler.aar',
+      id: 'alder.aar',
     })}${
       sluttAlder.maaneder && sluttAlder.maaneder < 11
         ? getMaanedString(intl.formatMessage, sluttAlder.maaneder)
@@ -61,7 +61,7 @@ export const formaterLivsvarigString =
     return `${intl.formatMessage({
       id: 'pensjonsavtaler.livsvarig',
     })} ${startAlder.aar} ${intl.formatMessage({
-      id: 'pensjonsavtaler.aar',
+      id: 'alder.aar',
     })}${
       startAlder.maaneder
         ? getMaanedString(intl.formatMessage, startAlder.maaneder)
