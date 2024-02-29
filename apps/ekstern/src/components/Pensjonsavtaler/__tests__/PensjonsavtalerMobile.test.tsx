@@ -37,13 +37,11 @@ describe('PensjonsavtalerMobile', () => {
     expect(await screen.findByTestId('pensjonsavtaler-mobile')).toBeVisible()
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
-      await screen.findByText(
-        'pensjonsavtaler.livsvarig 67 pensjonsavtaler.aar:'
-      )
+      await screen.findByText('pensjonsavtaler.livsvarig 67 alder.aar:')
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'pensjonsavtaler.livsvarig 67 pensjonsavtaler.aar pensjonsavtaler.og 6 pensjonsavtaler.md:'
+        'pensjonsavtaler.livsvarig 67 alder.aar string.og 6 alder.md:'
       )
     ).toBeVisible()
     expect(
@@ -84,12 +82,12 @@ describe('PensjonsavtalerMobile', () => {
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
       await screen.findByText(
-        'pensjonsavtaler.fra 67 pensjonsavtaler.aar pensjonsavtaler.til 77 pensjonsavtaler.aar:'
+        'string.fra 67 alder.aar string.til 77 alder.aar:'
       )
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'pensjonsavtaler.fra 67 pensjonsavtaler.aar pensjonsavtaler.og 6 pensjonsavtaler.md pensjonsavtaler.til 77 pensjonsavtaler.aar pensjonsavtaler.og 1 pensjonsavtaler.md:'
+        'string.fra 67 alder.aar string.og 6 alder.md string.til 77 alder.aar string.og 1 alder.md:'
       )
     ).toBeVisible()
     expect(
