@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { Accordion } from '@navikt/ds-react'
 import { describe, it, vi } from 'vitest'
 
-import { GrunnlagPensjonsavtaler } from '../GrunnlagPensjonsavtaler'
+import { Pensjonsavtaler } from '../Pensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import {
@@ -12,7 +12,7 @@ import {
 } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
-describe('GrunnlagPensjonsavtaler', () => {
+describe('Pensjonsavtaler', () => {
   const fakeInntektApiCall = {
     queries: {
       ['getInntekt(undefined)']: {
@@ -43,32 +43,26 @@ describe('GrunnlagPensjonsavtaler', () => {
         () => navigateMock
       )
 
-      const { store } = render(
-        <Accordion>
-          <GrunnlagPensjonsavtaler />
-        </Accordion>,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: { ...fakeInntektApiCall },
-            userInput: { ...userInputInitialState, samtykke: false },
-          },
-        }
-      )
+      const { store } = render(<Pensjonsavtaler />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
+          userInput: { ...userInputInitialState, samtykke: false },
+        },
+      })
+      expect(await screen.findByText('pensjonsavtaler.title')).toBeVisible()
       expect(
-        await screen.findByText('grunnlag.pensjonsavtaler.title')
+        await screen.findByText(
+          'pensjonsavtaler.ingress.error.samtykke_ingress',
+          { exact: false }
+        )
       ).toBeVisible()
-      expect(
-        await screen.findByText('grunnlag.pensjonsavtaler.title.error.samtykke')
-      ).toBeVisible()
-      const buttons = screen.getAllByRole('button')
 
-      await user.click(buttons[0])
-
+      screen.debug()
       expect(
         await screen.findAllByText(
-          'grunnlag.pensjonsavtaler.ingress.error.samtykke',
+          'pensjonsavtaler.ingress.error.samtykke_link',
           { exact: false }
         )
       ).toHaveLength(2)
@@ -83,9 +77,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       ).not.toBeInTheDocument()
 
       await user.click(
-        await screen.findByText(
-          'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1'
-        )
+        await screen.findByText('pensjonsavtaler.ingress.error.samtykke_link_1')
       )
 
       expect(navigateMock).toHaveBeenCalledWith(paths.start)
@@ -95,78 +87,43 @@ describe('GrunnlagPensjonsavtaler', () => {
 
   describe('Gitt at brukeren har samtykket', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
-      render(
-        <Accordion>
-          <GrunnlagPensjonsavtaler />
-        </Accordion>,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: { ...fakeInntektApiCall },
-            userInput: {
-              ...userInputInitialState,
-              samtykke: true,
-              currentSimulation: currentSimulation,
-            },
+      render(<Pensjonsavtaler />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
           },
-        }
-      )
-      expect(
-        screen.queryByText(
-          'Du har ikke samtykket til å hente inn pensjonsavtaler om tjenestepensjon',
-          {
-            exact: false,
-          }
-        )
-      ).not.toBeInTheDocument()
-      expect(
-        await screen.findByText('grunnlag.pensjonsavtaler.title')
-      ).toBeVisible()
-      expect(
-        screen.getByTestId('grunnlag.pensjonsavtaler.title-loader')
-      ).toBeVisible()
+        },
+      })
+      expect(await screen.findByText('pensjonsavtaler.title')).toBeVisible()
     })
 
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {
       mockErrorResponse('/v2/pensjonsavtaler', {
         method: 'post',
       })
-      render(
-        <Accordion>
-          <GrunnlagPensjonsavtaler />
-        </Accordion>,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: { ...fakeInntektApiCall },
-            userInput: {
-              ...userInputInitialState,
-              samtykke: true,
-              currentSimulation: currentSimulation,
-            },
+      render(<Pensjonsavtaler />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
           },
-        }
-      )
+        },
+      })
       expect(
-        await screen.findByText(
-          'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler'
-        )
+        await screen.findByText('pensjonsavtaler.ingress.error.pensjonsavtaler')
       ).toBeVisible()
       expect(
-        await screen.findByText(
-          'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
-        )
-      ).toBeVisible()
-      expect(
-        screen.queryByTestId('pensjonsavtaler-table')
+        screen.queryByTestId('pensjonsavtaler-list')
       ).not.toBeInTheDocument()
-      expect(
-        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
-          exact: false,
-        })
-      ).toBeVisible()
     })
 
     it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress og tabell', async () => {
@@ -193,35 +150,27 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(
-        <Accordion>
-          <GrunnlagPensjonsavtaler />
-        </Accordion>,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: { ...fakeInntektApiCall },
-            userInput: {
-              ...userInputInitialState,
-              samtykke: true,
-              currentSimulation: currentSimulation,
-            },
+      render(<Pensjonsavtaler />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
           },
-        }
-      )
+        },
+      })
+
       expect(
         await screen.findByText(
-          'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
-          { exact: false }
+          'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
         )
       ).toBeVisible()
-      expect(
-        await screen.findByText(
-          'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
-        )
-      ).toBeVisible()
-      expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
+
+      expect(await screen.findByTestId('pensjonsavtaler-list')).toBeVisible()
+
       expect(
         await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
@@ -240,7 +189,7 @@ describe('GrunnlagPensjonsavtaler', () => {
       })
       render(
         <Accordion>
-          <GrunnlagPensjonsavtaler />
+          <Pensjonsavtaler />
         </Accordion>,
         {
           preloadedState: {
@@ -256,24 +205,17 @@ describe('GrunnlagPensjonsavtaler', () => {
         }
       )
       expect(
-        await screen.findByText(
-          'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler'
-        )
-      ).toBeVisible()
-      expect(
         screen.queryByText(
-          'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial',
+          'pensjonsavtaler.title.error.pensjonsavtaler.partial',
           { exact: false }
         )
       ).not.toBeInTheDocument()
       expect(
-        await screen.findByText(
-          'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler'
-        )
+        await screen.findByText('pensjonsavtaler.ingress.error.pensjonsavtaler')
       ).toBeVisible()
       expect(
         screen.queryByText(
-          'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+          'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
         )
       ).not.toBeInTheDocument()
       expect(
@@ -287,7 +229,6 @@ describe('GrunnlagPensjonsavtaler', () => {
     })
 
     it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
-      const user = userEvent.setup()
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -296,34 +237,25 @@ describe('GrunnlagPensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(
-        <Accordion>
-          <GrunnlagPensjonsavtaler />
-        </Accordion>,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: { ...fakeInntektApiCall },
-            userInput: {
-              ...userInputInitialState,
-              samtykke: true,
-              currentSimulation: currentSimulation,
-            },
+      render(<Pensjonsavtaler />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
           },
-        }
-      )
-      expect(screen.getByText('grunnlag.pensjonsavtaler.title')).toBeVisible()
-      expect(await screen.findByText('0', { exact: false })).toBeVisible()
+        },
+      })
+      expect(screen.getByText('pensjonsavtaler.title')).toBeVisible()
       expect(
-        await screen.findByText('grunnlag.pensjonsavtaler.ingress.ingen')
+        await screen.findByText('pensjonsavtaler.ingress.ingen')
       ).toBeVisible()
       expect(
         screen.queryByTestId('pensjonsavtaler-table')
       ).not.toBeInTheDocument()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[0])
 
       expect(
         await screen.findByText('Alle avtaler i privat sektor hentes fra ', {

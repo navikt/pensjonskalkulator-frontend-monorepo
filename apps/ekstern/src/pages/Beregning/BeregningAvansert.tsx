@@ -7,6 +7,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
+import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { ResultatkortAvansertBeregning } from '@/components/ResultatkortAvansertBeregning'
 import { Simulering } from '@/components/Simulering'
@@ -191,6 +192,7 @@ export const BeregningAvansert: React.FC = () => {
                 <ResultatkortAvansertBeregning
                   onButtonClick={() => setModus('redigering')}
                 />
+                <Pensjonsavtaler />
                 <Grunnlag visning="avansert" />
               </PensjonsavtalerAccordionContext.Provider>
             </>

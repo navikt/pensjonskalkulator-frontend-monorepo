@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 
-import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' assert { type: 'json' }
+import pensjonsavtalerData from '../../../mocks/data/pensjonsavtaler/67.json' assert { type: 'json' }
 import { groupPensjonsavtalerByType, getMaanedString } from '../utils'
 
 describe('GrunnlagPensjonsavtaler-utils', () => {
@@ -49,10 +49,10 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
       const mockFn = vi.fn().mockReturnValue('string')
       expect(getMaanedString(mockFn, 1)).toEqual(' string 1 string')
       expect(mockFn).toHaveBeenNthCalledWith(1, {
-        id: 'grunnlag.pensjonsavtaler.og',
+        id: 'string.og',
       })
       expect(mockFn).toHaveBeenNthCalledWith(2, {
-        id: 'grunnlag.pensjonsavtaler.md',
+        id: 'alder.md',
       })
       expect(getMaanedString(mockFn, 5)).toEqual(' string 5 string')
     })

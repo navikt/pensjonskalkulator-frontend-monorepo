@@ -1,7 +1,4 @@
-export const pensjonsavtalerKategoriMapObj: Record<
-  PensjonsavtaleKategori,
-  string
-> = {
+export const pensjonsavtalerKategoriMapObj = {
   NONE: 'andre avtaler',
   UNKNOWN: 'andre avtaler',
   PRIVAT_TJENESTEPENSJON: 'privat tjenestepensjon',
@@ -9,4 +6,4 @@ export const pensjonsavtalerKategoriMapObj: Record<
   INDIVIDUELL_ORDNING: 'individuell ordning',
   PRIVAT_AFP: 'privat avtalefestet pensjon',
   FOLKETRYGD: 'folketrygd',
-}
+} as const

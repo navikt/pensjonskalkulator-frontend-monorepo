@@ -57,6 +57,50 @@ describe('LanguageProvider-utils', () => {
       expect(nnTranslationsKeys).toHaveLength(forventetLength)
     })
 
+    it('oversettelser for engelsk inneholder alle oversettelser fra bokmål', () => {
+      const nbTranslations = getTranslations('nb')
+      const enTranslations = getTranslations('en')
+
+      const diff = Object.keys(nbTranslations).filter(
+        (nbKey) => !Object.keys(enTranslations).includes(nbKey)
+      )
+
+      expect(diff).toStrictEqual([])
+    })
+
+    it('oversettelser for nynorsk inneholder alle oversettelser fra bokmål', () => {
+      const nbTranslations = getTranslations('nb')
+      const nnTranslations = getTranslations('nn')
+
+      const diff = Object.keys(nbTranslations).filter(
+        (nbKey) => !Object.keys(nnTranslations).includes(nbKey)
+      )
+
+      expect(diff).toStrictEqual([])
+    })
+
+    it('oversettelser for bokmål inneholder alle oversettelser fra nynorsk', () => {
+      const nbTranslations = getTranslations('nb')
+      const nnTranslations = getTranslations('nn')
+
+      const diff = Object.keys(nnTranslations).filter(
+        (nbKey) => !Object.keys(nbTranslations).includes(nbKey)
+      )
+
+      expect(diff).toStrictEqual([])
+    })
+
+    it('oversettelser for bokmål inneholder alle oversettelser fra engelsk', () => {
+      const nbTranslations = getTranslations('nb')
+      const enTranslations = getTranslations('en')
+
+      const diff = Object.keys(enTranslations).filter(
+        (nbKey) => !Object.keys(nbTranslations).includes(nbKey)
+      )
+
+      expect(diff).toStrictEqual([])
+    })
+
     it('returnerer sammensatte tekster med fallback på bokmål for key som ikke finnes, når locale=en', () => {
       /* eslint-disable @typescript-eslint/ban-ts-comment */
       // @ts-ignore
