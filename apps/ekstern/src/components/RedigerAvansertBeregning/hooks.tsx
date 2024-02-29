@@ -6,29 +6,26 @@ import {
   generateTidligstMuligHeltUttakRequestBody,
   generateTidligstMuligGradertUttakRequestBody,
 } from '@/state/api/utils'
-import { useAppSelector } from '@/state/hooks'
-import { selectAarligInntektFoerUttakBeloepFraSkatt } from '@/state/userInput/selectors'
 import { formatUttaksalder, isUttaksalderOverMinUttaksaar } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FORM_NAMES } from './utils'
 
 export const useFormLocalState = (initialValues: {
+  aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: number | undefined
   aarligInntektFoerUttakBeloepFraBrukerInput: number | null
   uttaksalder: Alder | null
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
 }) => {
   const {
+    aarligInntektFoerUttakBeloepFraBrukerSkattBeloep,
     aarligInntektFoerUttakBeloepFraBrukerInput,
     uttaksalder,
     aarligInntektVsaHelPensjon,
     gradertUttaksperiode,
   } = initialValues
 
-  const aarligInntektFoerUttakBeloepFraBrukerSkatt = useAppSelector(
-    selectAarligInntektFoerUttakBeloepFraSkatt
-  )
   const { setHarAvansertSkjemaUnsavedChanges } =
     React.useContext(BeregningContext)
 
@@ -75,7 +72,7 @@ export const useFormLocalState = (initialValues: {
       (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
         localInntektFremTilUttak !== null &&
         localInntektFremTilUttak !==
-          aarligInntektFoerUttakBeloepFraBrukerSkatt?.beloep)
+          aarligInntektFoerUttakBeloepFraBrukerSkattBeloep)
     const hasGradChanged =
       localGradertUttak?.grad !== gradertUttaksperiode?.grad
     const hasGradertUttaksalderChanged =

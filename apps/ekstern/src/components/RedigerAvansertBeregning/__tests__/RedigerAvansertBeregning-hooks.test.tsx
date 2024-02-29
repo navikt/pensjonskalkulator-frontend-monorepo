@@ -22,6 +22,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       setAvansertSkjemaModus: vi.fn(),
     }
     const initialProps = {
+      aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: 250000,
       aarligInntektFoerUttakBeloepFraBrukerInput: 300000,
       uttaksalder: { aar: 70, maaneder: 0 },
       aarligInntektVsaHelPensjon: {
@@ -62,6 +63,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       const { result } = renderHook(useFormLocalState, {
         wrapper,
         initialProps: {
+          aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: undefined,
           aarligInntektFoerUttakBeloepFraBrukerInput: null,
           uttaksalder: null,
           aarligInntektVsaHelPensjon: undefined,
