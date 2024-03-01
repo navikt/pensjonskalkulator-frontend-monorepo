@@ -74,6 +74,8 @@ export const RedigerAvansertBeregning: React.FC<{
     localGradertUttak,
     { setLocalInntektFremTilUttak, setLocalHeltUttak, setLocalGradertUttak },
   ] = useFormLocalState({
+    aarligInntektFoerUttakBeloepFraBrukerSkattBeloep:
+      aarligInntektFoerUttakBeloepFraBrukerSkatt?.beloep,
     aarligInntektFoerUttakBeloepFraBrukerInput,
     uttaksalder,
     aarligInntektVsaHelPensjon,
