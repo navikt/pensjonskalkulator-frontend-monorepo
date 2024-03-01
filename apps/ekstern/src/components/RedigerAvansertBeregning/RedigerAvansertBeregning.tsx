@@ -167,8 +167,9 @@ export const RedigerAvansertBeregning: React.FC<{
           }
         : undefined
     })
-    setLocalHeltUttak((previous) => {
-      return { ...previous, uttaksalder: undefined }
+    setLocalHeltUttak({
+      uttaksalder: undefined,
+      aarligInntektVsaPensjon: undefined,
     })
   }
 
