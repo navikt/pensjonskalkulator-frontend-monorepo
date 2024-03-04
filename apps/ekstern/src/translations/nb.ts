@@ -166,6 +166,8 @@ const translations = {
   'agepicker.validation_error.aar': 'Du må velge år og måned',
   'agepicker.validation_error.maaneder': 'Du må velge måned',
   'string.og': 'og',
+  'string.fra': 'fra',
+  'string.til': 'til',
   'alder.md': 'md.',
   'alder.maaned': 'måned',
   'alder.maaneder': 'måneder',
@@ -222,9 +224,9 @@ const translations = {
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
-    'Vi klarte ikke å hente <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikke å hente pensjonsavtalene dine',
   'beregning.pensjonsavtaler.error.partial':
-    'Vi klarte ikke å hente alle <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikke å hente alle pensjonsavtalene dine',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
   'beregning.title': 'Beregning',
@@ -290,14 +292,13 @@ const translations = {
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',
   'beregning.avansert.button.nullstill': 'Nullstill valg',
   'beregning.avansert.button.avbryt': 'Avbryt endring',
+  'grunnlag.title': 'Øvrig grunnlag for beregningen',
   'beregning.avansert.avbryt_modal.title':
     'Er du sikker på at du vil avslutte avansert beregning?',
   'beregning.avansert.avbryt_modal.body':
     'Hvis du avslutter, blir ikke beregningen din lagret.',
   'beregning.avansert.avbryt_modal.button.avslutt': 'Avslutt avansert',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
-  'grunnlag.title': 'Grunnlaget for beregningen',
-  'grunnlag.title.avansert': 'Øvrig grunnlag for beregningen',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.avansert_link': 'Gå til avansert kalkulator',
@@ -333,36 +334,32 @@ const translations = {
     'Hvis du er usikker på om du har rett til AFP bør du spørre din arbeidsgiver. AFP kan påvirke når du kan ta ut alderspensjon.',
   'grunnlag.afp.ingress.nei':
     'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ny beregning.',
-  'grunnlag.pensjonsavtaler.title': 'Pensjonsavtaler',
-  'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikke innhentet',
-  'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikke hentes',
-  'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial':
-    '(Avtaler mangler)',
-  'grunnlag.pensjonsavtaler.ingress':
-    'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikke ansvarlig for beløpene som er oppgitt. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekk aktuell tjenestepensjonsordning.',
-  'grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress':
-    'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
-  'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1':
-    'Start en ny beregning',
-  'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_2':
-    'hvis du ønsker å få dette i beregningen.',
-  'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler':
-    'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
-  'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
-    'Vi klarte ikke å hente alle pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
-  'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
-  'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtaler',
-  'grunnlag.pensjonsavtaler.tabell.title.right': 'Årlig beløp',
-  'grunnlag.pensjonsavtaler.fra_og_med': 'Fra og med',
-  'grunnlag.pensjonsavtaler.til_og_med': 'til og med',
-  'grunnlag.pensjonsavtaler.og': 'og',
-  'grunnlag.pensjonsavtaler.aar': 'år',
-  'grunnlag.pensjonsavtaler.md': 'md.',
-  'grunnlag.pensjonsavtaler.livsvarig': 'Livsvarig fra og med',
-  'grunnlag.forbehold.title': 'Forbehold',
-  'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er en foreløpig beregning av hva du kan forvente deg i pensjon. ',
+  'grunnlag.forbehold.link': 'Alle forbehold',
+  'grunnlag.forbehold.title': 'Forbehold',
+  'pensjonsavtaler.fra_og_med_forklaring':
+    '«Fra» betyr «fra og med». «Til» betyr «til og med».',
+  'pensjonsavtaler.ingress':
+    'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikke ansvarlig for beløpene som er oppgitt. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekk aktuell tjenestepensjonsordning.',
+  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+    'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
+  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+    'Vi klarte ikke å hente alle pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
+  'pensjonsavtaler.ingress.error.samtykke_ingress':
+    'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
+  'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start en ny beregning',
+  'pensjonsavtaler.ingress.error.samtykke_link_2':
+    'hvis du ønsker å få dette i beregningen.',
+  'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
+  'pensjonsavtaler.kr_pr_aar': 'kr per år',
+  'pensjonsavtaler.livsvarig': 'Livsvarig fra',
+  'pensjonsavtaler.md': 'md.',
+  'pensjonsavtaler.tabell.title.left': 'Avtaler',
+  'pensjonsavtaler.tabell.title.middle': 'Perioder',
+  'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
+  'pensjonsavtaler.til': 'til',
+  'pensjonsavtaler.title': 'Pensjonsavtaler',
   'grunnlag.forbehold.ingress_2':
     'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',

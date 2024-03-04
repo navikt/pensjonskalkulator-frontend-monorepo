@@ -16,7 +16,6 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 import { GrunnlagForbehold } from './GrunnlagForbehold'
 import { GrunnlagInntekt } from './GrunnlagInntekt'
-import { GrunnlagPensjonsavtaler } from './GrunnlagPensjonsavtaler'
 import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
@@ -60,11 +59,7 @@ export const Grunnlag: React.FC<IProps> = ({ visning }) => {
       <section className={styles.section}>
         <div className={styles.description}>
           <Heading level="2" size="medium">
-            {visning === 'enkel' ? (
-              <FormattedMessage id="grunnlag.title" />
-            ) : (
-              <FormattedMessage id="grunnlag.title.avansert" />
-            )}
+            <FormattedMessage id="grunnlag.title" />
           </Heading>
           <BodyLong>
             <FormattedMessage id="grunnlag.ingress" />
@@ -175,7 +170,6 @@ export const Grunnlag: React.FC<IProps> = ({ visning }) => {
               </BodyLong>
             </GrunnlagSection>
           </AccordionItem>
-          <GrunnlagPensjonsavtaler />
         </Accordion>
       </section>
       <GrunnlagForbehold />

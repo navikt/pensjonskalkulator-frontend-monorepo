@@ -2,14 +2,13 @@ import { describe, it, vi } from 'vitest'
 
 import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' assert { type: 'json' }
 import { Simulering } from '../Simulering'
-import { AccordionContext } from '@/components/common/AccordionItem'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, waitFor, userEvent } from '@/test-utils'
+import { act, render, screen, waitFor } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
@@ -428,31 +427,19 @@ describe('Simulering', () => {
       ).toBeVisible()
     })
 
-    it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding som sender til Grunnlag', async () => {
-      const scrollIntoViewMock = vi.fn()
-      const user = userEvent.setup()
+    it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
       mockErrorResponse('/v2/pensjonsavtaler', {
         status: 500,
         json: "Beep boop I'm an error!",
         method: 'post',
       })
-      const refMock = { current: { scrollIntoView: scrollIntoViewMock } }
-      const toggleOpenMock = vi.fn()
       render(
-        <AccordionContext.Provider
-          value={{
-            ref: refMock as unknown as React.RefObject<HTMLSpanElement>,
-            isOpen: false,
-            toggleOpen: toggleOpenMock,
-          }}
-        >
-          <Simulering
-            isLoading={false}
-            aarligInntektFoerUttakBeloep={0}
-            showAfp={false}
-            showButtonsAndTable={false}
-          />
-        </AccordionContext.Provider>,
+        <Simulering
+          isLoading={false}
+          aarligInntektFoerUttakBeloep={0}
+          showAfp={false}
+          showButtonsAndTable={false}
+        />,
         {
           preloadedState: {
             userInput: {
@@ -465,19 +452,13 @@ describe('Simulering', () => {
         }
       )
       expect(
-        await screen.findByText('Vi klarte ikke å hente', {
+        await screen.findByText('beregning.pensjonsavtaler.error', {
           exact: false,
         })
       ).toBeVisible()
-      const button = await screen.findByText('pensjonsavtalene dine')
-      await user.click(button)
-      expect(scrollIntoViewMock).toHaveBeenCalled()
-      expect(toggleOpenMock).toHaveBeenCalled()
     })
 
-    it('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
-      const scrollIntoViewMock = vi.fn()
-      const user = userEvent.setup()
+    it('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -499,23 +480,13 @@ describe('Simulering', () => {
         },
         method: 'post',
       })
-      const refMock = { current: { scrollIntoView: scrollIntoViewMock } }
-      const toggleOpenMock = vi.fn()
       render(
-        <AccordionContext.Provider
-          value={{
-            ref: refMock as unknown as React.RefObject<HTMLSpanElement>,
-            isOpen: false,
-            toggleOpen: toggleOpenMock,
-          }}
-        >
-          <Simulering
-            isLoading={false}
-            aarligInntektFoerUttakBeloep={0}
-            showAfp={false}
-            showButtonsAndTable={false}
-          />
-        </AccordionContext.Provider>,
+        <Simulering
+          isLoading={false}
+          aarligInntektFoerUttakBeloep={0}
+          showAfp={false}
+          showButtonsAndTable={false}
+        />,
         {
           preloadedState: {
             userInput: {
@@ -528,21 +499,11 @@ describe('Simulering', () => {
         }
       )
       expect(
-        await screen.findByText('Vi klarte ikke å hente alle', {
-          exact: false,
-        })
+        await screen.findByText('beregning.pensjonsavtaler.error.partial')
       ).toBeVisible()
-      const button = await screen.findByText('pensjonsavtalene dine')
-      await act(async () => {
-        await user.click(button)
-      })
-      expect(scrollIntoViewMock).toHaveBeenCalled()
-      expect(toggleOpenMock).toHaveBeenCalled()
     })
 
     it('Når brukeren har samtykket, har ingen pensjonsavtale men har utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
-      const scrollIntoViewMock = vi.fn()
-      const user = userEvent.setup()
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -551,23 +512,13 @@ describe('Simulering', () => {
         },
         method: 'post',
       })
-      const refMock = { current: { scrollIntoView: scrollIntoViewMock } }
-      const toggleOpenMock = vi.fn()
       render(
-        <AccordionContext.Provider
-          value={{
-            ref: refMock as unknown as React.RefObject<HTMLSpanElement>,
-            isOpen: false,
-            toggleOpen: toggleOpenMock,
-          }}
-        >
-          <Simulering
-            isLoading={false}
-            aarligInntektFoerUttakBeloep={0}
-            showAfp={false}
-            showButtonsAndTable={false}
-          />
-        </AccordionContext.Provider>,
+        <Simulering
+          isLoading={false}
+          aarligInntektFoerUttakBeloep={0}
+          showAfp={false}
+          showButtonsAndTable={false}
+        />,
         {
           preloadedState: {
             userInput: {
@@ -580,16 +531,8 @@ describe('Simulering', () => {
         }
       )
       expect(
-        await screen.findByText('Vi klarte ikke å hente', {
-          exact: false,
-        })
+        await screen.findByText('beregning.pensjonsavtaler.error')
       ).toBeVisible()
-      const button = await screen.findByText('pensjonsavtalene dine')
-      await act(async () => {
-        await user.click(button)
-      })
-      expect(scrollIntoViewMock).toHaveBeenCalled()
-      expect(toggleOpenMock).toHaveBeenCalled()
     })
   })
 

@@ -5,9 +5,9 @@ import { FormattedMessage } from 'react-intl'
 import { Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { Alert } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
+import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { ResultatkortAvansertBeregning } from '@/components/ResultatkortAvansertBeregning'
 import { Simulering } from '@/components/Simulering'
@@ -36,13 +36,11 @@ export const BeregningAvansert: React.FC = () => {
   const { avansertSkjemaModus, setAvansertSkjemaModus } =
     React.useContext(BeregningContext)
 
-  const grunnlagPensjonsavtalerRef = React.useRef<HTMLSpanElement>(null)
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
-
   const formatertUttaksalderReadOnly = useAppSelector(
     selectFormatertUttaksalderReadOnly
   )
@@ -116,15 +114,6 @@ export const BeregningAvansert: React.FC = () => {
     }
   }, [alderspensjon])
 
-  const [
-    isPensjonsavtalerAccordionItemOpen,
-    setIslePensjonsavtalerAccordionItem,
-  ] = React.useState<boolean>(false)
-  /* c8 ignore next 3 */
-  const togglePensjonsavtalerAccordionItem = () => {
-    setIslePensjonsavtalerAccordionItem((prevState) => !prevState)
-  }
-
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
     if (alderspensjonRequestBody) {
@@ -166,29 +155,20 @@ export const BeregningAvansert: React.FC = () => {
             </>
           ) : (
             <>
-              <PensjonsavtalerAccordionContext.Provider
-                value={{
-                  ref: grunnlagPensjonsavtalerRef,
-                  isOpen: isPensjonsavtalerAccordionItemOpen,
-                  toggleOpen: togglePensjonsavtalerAccordionItem,
-                }}
-              >
-                <Simulering
-                  isLoading={isFetching}
-                  aarligInntektFoerUttakBeloep={
-                    aarligInntektFoerUttakBeloep ?? 0
-                  }
-                  alderspensjon={alderspensjon}
-                  showAfp={afp === 'ja_privat'}
-                  showButtonsAndTable={
-                    !isError && alderspensjon?.vilkaarErOppfylt
-                  }
-                />
-                <ResultatkortAvansertBeregning
-                  onButtonClick={() => setAvansertSkjemaModus('redigering')}
-                />
-                <Grunnlag visning="avansert" />
-              </PensjonsavtalerAccordionContext.Provider>
+              <Simulering
+                isLoading={isFetching}
+                aarligInntektFoerUttakBeloep={aarligInntektFoerUttakBeloep ?? 0}
+                alderspensjon={alderspensjon}
+                showAfp={afp === 'ja_privat'}
+                showButtonsAndTable={
+                  !isError && alderspensjon?.vilkaarErOppfylt
+                }
+              />
+              <ResultatkortAvansertBeregning
+                onButtonClick={() => setAvansertSkjemaModus('redigering')}
+              />
+              <Pensjonsavtaler />
+              <Grunnlag visning="avansert" />
             </>
           )}
         </div>

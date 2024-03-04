@@ -1,0 +1,11 @@
+.Table {
+  &Rader {
+    &__noBottomBorder {
+      border-bottom-width: 0;
+    }
+
+    &__alignTop {
+      vertical-align: top;
+    }
+  }
+}

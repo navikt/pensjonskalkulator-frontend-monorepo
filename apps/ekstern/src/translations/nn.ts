@@ -215,9 +215,9 @@ const translations = {
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.pensjonsavtaler.error':
-    'Vi klarte ikkje å hente <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikkje å hente pensjonsavtalene dine',
   'beregning.pensjonsavtaler.error.partial':
-    'Vi klarte ikkje å hente alle <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikkje å hente alle pensjonsavtalene dine',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'Utrekning',
@@ -274,7 +274,6 @@ const translations = {
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
-  'grunnlag.title.avansert': 'MANGLER_TEKST',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
   'grunnlag.uttaksgrad.avansert_link': 'MANGLER_TEKST',
@@ -309,41 +308,31 @@ const translations = {
     'Er du er usikker på om du har rett til AFP bør du spørja arbeidsgjevaren din. AFP kan påverke kor tid du kan ta ut alderspensjon.',
   'grunnlag.afp.ingress.nei':
     'Har du starta i jobb hos en arbeidsgjevar som har avtale om AFP, tilrår vi at du gjer ei ny utrekning.',
-  'grunnlag.pensjonsavtaler.title': 'Pensjonsavtalar',
-  'grunnlag.pensjonsavtaler.title.error.samtykke': 'Ikkje innhenta',
-  'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler': 'Kunne ikkje hentast',
-  'grunnlag.pensjonsavtaler.title.error.pensjonsavtaler.partial':
-    'Avtalar manglar',
-  'grunnlag.pensjonsavtaler.ingress':
-    'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
-  'grunnlag.pensjonsavtaler.ingress.error.samtykke_ingress':
-    'Du har ikkje samtykka til å hente inn pensjonsavtalar. ',
-  'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_1':
-    'Start ei ny utrekning',
-  'grunnlag.pensjonsavtaler.ingress.error.samtykke_link_2':
-    'viss du ynskjer å få dette i utrekninga.',
-  'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler':
-    'Vi klarte ikkje å hente pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
-  'grunnlag.pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
-    'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
-  'grunnlag.pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
-  'grunnlag.pensjonsavtaler.tabell.title.left': 'Pensjonsavtalar',
-  'grunnlag.pensjonsavtaler.tabell.title.right': 'Årleg beløp',
-  'grunnlag.pensjonsavtaler.fra_og_med': 'Frå og med',
-  'grunnlag.pensjonsavtaler.til_og_med': 'til og med',
-  'grunnlag.pensjonsavtaler.og': 'og',
-  'grunnlag.pensjonsavtaler.aar': 'år',
-  'grunnlag.pensjonsavtaler.md': 'md',
-  'grunnlag.pensjonsavtaler.livsvarig': 'Livsvarig frå og med',
-  'grunnlag.forbehold.title': 'Atterhald',
-  'grunnlag.forbehold.link': 'Alle atterhald',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er rekna ut med opplysningane vi har om deg og opplysningane du har lagt inn. Utrekninga er gjort med gjeldande regelverk. Dette er ei førebels utrekning av kva du kan vente å få i pensjon. ',
   'grunnlag.forbehold.ingress_2':
     'Denne kalkulatoren er under utvikling og har avgrensa funksjonalitet. Du kan gjere meir spesifisert utrekning i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+  'grunnlag.forbehold.link': 'Alle atterhald',
+  'grunnlag.forbehold.title': 'Atterhald',
   'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
-  'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
+  'pensjonsavtaler.ingress':
+    'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
+  'pensjonsavtaler.ingress.error.pensjonsavtaler':
+    'Vi klarte ikkje å hente pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
+  'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
+    'Vi klarte ikkje å hente alle pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
+  'pensjonsavtaler.ingress.error.samtykke_ingress':
+    'Du har ikkje samtykka til å hente inn pensjonsavtalar. ',
+  'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start ei ny utrekning',
+  'pensjonsavtaler.ingress.error.samtykke_link_2':
+    'viss du ynskjer å få dette i utrekninga.',
+  'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtalar.',
+  'pensjonsavtaler.livsvarig': 'Livsvarig frå og med',
+  'pensjonsavtaler.tabell.title.left': 'Avtalar',
+  'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
+  'pensjonsavtaler.title': 'Pensjonsavtalar',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':

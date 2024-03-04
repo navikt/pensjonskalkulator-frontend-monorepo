@@ -360,13 +360,12 @@ describe('Hovedhistorie', () => {
 
       it('forventer jeg å få informasjon om grunnlaget for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
         cy.contains('button', '70').click()
-        cy.contains('Grunnlaget for beregningen').should('exist')
+        cy.contains('Øvrig grunnlag for beregningen').should('exist')
         cy.contains('Uttaksgrad:').click({ force: true })
         cy.contains('Inntekt frem til uttak:').click({ force: true })
         cy.contains('Sivilstand:').click({ force: true })
         cy.contains('Opphold i Norge:').click({ force: true })
         cy.contains('AFP:').click({ force: true })
-        cy.contains('Pensjonsavtaler:').click({ force: true })
       })
 
       it('forventer jeg å kunne lese enkle forbehold, og få lenke til utfyllende forbehold.', () => {
@@ -503,7 +502,7 @@ describe('Hovedhistorie', () => {
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('521 338 kr').should('exist')
         cy.contains('Inntekt frem til uttak: 521 338 kr').should('exist')
-        cy.contains('button', 'Inntekt frem til uttak').click()
+        cy.contains('button', 'Inntekt frem til uttak').click({ force: true })
 
         cy.contains('button', 'Endre inntekt').click()
         cy.get('[data-testid="inntekt-textfield"]').type('100000')

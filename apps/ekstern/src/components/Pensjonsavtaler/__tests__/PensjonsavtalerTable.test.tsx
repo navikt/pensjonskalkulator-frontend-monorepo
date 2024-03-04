@@ -1,9 +1,9 @@
 import { describe, it } from 'vitest'
 
-import { GrunnlagPensjonsavtalerTable } from '../GrunnlagPensjonsavtalerTable'
+import { PensjonsavtalerTable } from '../PensjonsavtalerTable'
 import { render, screen } from '@/test-utils'
 
-describe('GrunnlagPensjonsavtaler', () => {
+describe('PensjonsavtalerTable', () => {
   it('rendrer riktig med avtaler som bare har start dato', async () => {
     const avtale: Pensjonsavtale = {
       key: 0,
@@ -32,30 +32,31 @@ describe('GrunnlagPensjonsavtaler', () => {
       },
     ]
     const { container } = render(
-      <GrunnlagPensjonsavtalerTable pensjonsavtaler={avtaler} />
+      <PensjonsavtalerTable pensjonsavtaler={avtaler} />
     )
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(
-      await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.left')
+      await screen.findByText('pensjonsavtaler.tabell.title.left')
     ).toBeVisible()
     expect(
-      await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.right')
+      await screen.findByText('pensjonsavtaler.tabell.title.middle')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('pensjonsavtaler.tabell.title.right')
     ).toBeVisible()
 
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
-      await screen.findByText(
-        'grunnlag.pensjonsavtaler.livsvarig 67 grunnlag.pensjonsavtaler.aar'
-      )
+      await screen.findByText('pensjonsavtaler.livsvarig 67 alder.aar')
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'grunnlag.pensjonsavtaler.livsvarig 67 grunnlag.pensjonsavtaler.aar grunnlag.pensjonsavtaler.og 6 grunnlag.pensjonsavtaler.md'
+        'pensjonsavtaler.livsvarig 67 alder.aar string.og 6 alder.md'
       )
     ).toBeVisible()
     expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
     const rows = container.querySelectorAll('tr')
-    expect(rows?.length).toBe(6)
+    expect(rows?.length).toBe(3)
   })
 
   it('rendrer riktig med avtaler som har både start- og sluttdato', async () => {
@@ -82,29 +83,30 @@ describe('GrunnlagPensjonsavtaler', () => {
     }
 
     const { container } = render(
-      <GrunnlagPensjonsavtalerTable pensjonsavtaler={[avtale]} />
+      <PensjonsavtalerTable pensjonsavtaler={[avtale]} />
     )
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(
-      await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.left')
+      await screen.findByText('pensjonsavtaler.tabell.title.left')
     ).toBeVisible()
     expect(
-      await screen.findByText('grunnlag.pensjonsavtaler.tabell.title.right')
+      await screen.findByText('pensjonsavtaler.tabell.title.middle')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('pensjonsavtaler.tabell.title.right')
     ).toBeVisible()
 
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
-      await screen.findByText(
-        'grunnlag.pensjonsavtaler.fra_og_med 67 grunnlag.pensjonsavtaler.aar grunnlag.pensjonsavtaler.til_og_med 77 grunnlag.pensjonsavtaler.aar'
-      )
+      await screen.findByText('String.fra 67 alder.aar string.til 77 alder.aar')
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'grunnlag.pensjonsavtaler.fra_og_med 67 grunnlag.pensjonsavtaler.aar grunnlag.pensjonsavtaler.og 6 grunnlag.pensjonsavtaler.md grunnlag.pensjonsavtaler.til_og_med 77 grunnlag.pensjonsavtaler.aar grunnlag.pensjonsavtaler.og 1 grunnlag.pensjonsavtaler.md'
+        'String.fra 67 alder.aar string.og 6 alder.md string.til 77 alder.aar string.og 1 alder.md'
       )
     ).toBeVisible()
     expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
     const rows = container.querySelectorAll('tr')
-    expect(rows?.length).toBe(5)
+    expect(rows?.length).toBe(3)
   })
 })

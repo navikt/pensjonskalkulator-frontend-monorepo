@@ -4,7 +4,7 @@ import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Grunnlag', () => {
-  it('viser alle seksjonene og forbehold', async () => {
+  it('når grunnlag vises i Enkel visning, viser alle seksjonene og forbehold', async () => {
     render(<Grunnlag visning="enkel" />)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
@@ -16,17 +16,29 @@ describe('Grunnlag', () => {
       await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
     expect(await screen.findByText('grunnlag.afp.title')).toBeVisible()
+    expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
+  })
+
+  it('når grunnlag vises i Avansert visning, viser alle seksjonene utenom uttaksgrad og inntekt, i tilleg til forbehold', async () => {
+    render(<Grunnlag visning="avansert" />)
+    expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+    expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(
-      await screen.findByText('grunnlag.pensjonsavtaler.title')
+      screen.queryByText('grunnlag.uttaksgrad.title')
+    ).not.toBeInTheDocument()
+    expect(screen.queryByText('grunnlag.inntekt.title')).not.toBeInTheDocument()
+    expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
+    expect(await screen.findByText('grunnlag.opphold.title')).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
+    expect(await screen.findByText('grunnlag.afp.title')).toBeVisible()
     expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
   })
 
   it('viser annen tittel for avansert', async () => {
     render(<Grunnlag visning="avansert" />)
-    expect(
-      await screen.findByText('grunnlag.title.avansert')
-    ).toBeInTheDocument()
+    expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
   })
 
   describe('Grunnlag - inntekt frem til uttak', () => {

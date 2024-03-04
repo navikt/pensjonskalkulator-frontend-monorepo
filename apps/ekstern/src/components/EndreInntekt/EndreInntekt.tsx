@@ -20,7 +20,7 @@ import { getFormatMessageValues } from '@/utils/translations'
 import styles from './EndreInntekt.module.scss'
 
 interface Props {
-  visning: 'enkel' | 'avansert'
+  visning: BeregningVisning
   className?: string
   buttonLabel?: string
   value: number | null

@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 
-import pensjonsavtalerData from '../../../../mocks/data/pensjonsavtaler/67.json' assert { type: 'json' }
+import pensjonsavtalerData from '../../../mocks/data/pensjonsavtaler/67.json' assert { type: 'json' }
 import { groupPensjonsavtalerByType, getMaanedString } from '../utils'
 
 describe('GrunnlagPensjonsavtaler-utils', () => {
@@ -25,14 +25,14 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
         'andre avtaler',
         'privat tjenestepensjon',
         'offentlig tjenestepensjon',
-        'individuell ordning',
+        'individuelle ordninger',
       ])
     })
 
     it('grupperer pensjonsavtaler på avtaletype', () => {
       const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
       expect(grouped['andre avtaler']).toHaveLength(1)
-      expect(grouped['individuell ordning']).toHaveLength(2)
+      expect(grouped['individuelle ordninger']).toHaveLength(2)
       expect(grouped['offentlig tjenestepensjon']).toHaveLength(1)
       expect(grouped['privat tjenestepensjon']).toHaveLength(2)
     })
@@ -49,10 +49,10 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
       const mockFn = vi.fn().mockReturnValue('string')
       expect(getMaanedString(mockFn, 1)).toEqual(' string 1 string')
       expect(mockFn).toHaveBeenNthCalledWith(1, {
-        id: 'grunnlag.pensjonsavtaler.og',
+        id: 'string.og',
       })
       expect(mockFn).toHaveBeenNthCalledWith(2, {
-        id: 'grunnlag.pensjonsavtaler.md',
+        id: 'alder.md',
       })
       expect(getMaanedString(mockFn, 5)).toEqual(' string 5 string')
     })
