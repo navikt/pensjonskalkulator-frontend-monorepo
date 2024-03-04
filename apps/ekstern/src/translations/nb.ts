@@ -224,9 +224,9 @@ const translations = {
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
-    'Vi klarte ikke å hente <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikke å hente pensjonsavtalene dine',
   'beregning.pensjonsavtaler.error.partial':
-    'Vi klarte ikke å hente alle <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikke å hente alle pensjonsavtalene dine',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
   'beregning.title': 'Beregning',
