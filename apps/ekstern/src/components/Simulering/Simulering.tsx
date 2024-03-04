@@ -193,14 +193,13 @@ export function Simulering(props: {
                         gradertUttaksperiode?.aarligInntektVsaPensjonBeloep,
                     }
                   : undefined,
-              heltUttak:
-                uttaksalder && aarligInntektVsaHelPensjon
-                  ? {
-                      fra: uttaksalder,
-                      til: aarligInntektVsaHelPensjon?.sluttAlder,
-                      beloep: aarligInntektVsaHelPensjon.beloep,
-                    }
-                  : undefined,
+              heltUttak: uttaksalder
+                ? {
+                    fra: uttaksalder,
+                    til: aarligInntektVsaHelPensjon?.sluttAlder,
+                    beloep: aarligInntektVsaHelPensjon?.beloep,
+                  }
+                : undefined,
               length: XAxis.length,
             }),
           } as SeriesOptionsType,

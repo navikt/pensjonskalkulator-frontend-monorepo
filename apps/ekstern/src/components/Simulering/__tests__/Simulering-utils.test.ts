@@ -101,7 +101,34 @@ describe('Simulering-utils', () => {
       })
     })
     describe('Når helt uttak er oppgitt', () => {
-      it('returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
+      it('uten inntekt vsa hel pensjon, returnerer et riktig mappet array med riktig beløp før uttak', () => {
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 500000,
+            gradertUttak: undefined,
+            heltUttak: {
+              fra: { aar: 65, maaneder: 0 },
+              til: undefined,
+              beloep: undefined,
+            },
+            length: 5,
+          })
+        ).toEqual([500000, 0, 0, 0, 0])
+
+        expect(
+          processInntektArray({
+            inntektFoerUttakBeloep: 500000,
+            gradertUttak: undefined,
+            heltUttak: {
+              fra: { aar: 65, maaneder: 4 },
+              til: undefined,
+              beloep: undefined,
+            },
+            length: 5,
+          })
+        ).toEqual([500000, 166666.66666666666, 0, 0, 0])
+      })
+      it('med inntekt vsa hel pensjon, returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
             inntektFoerUttakBeloep: 500000,
