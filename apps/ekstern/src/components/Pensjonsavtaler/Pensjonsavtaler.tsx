@@ -7,7 +7,6 @@ import {
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
 import { BodyLong, Heading, Link, VStack } from '@navikt/ds-react'
-import clsx from 'clsx'
 
 import ShowMore from '../common/ShowMore/ShowMore'
 import { paths } from '@/router/constants'
@@ -88,7 +87,7 @@ export const Pensjonsavtaler = () => {
   return (
     <section className={styles.section}>
       <Heading size="medium" id="pensjonsavtaler-heading">
-        {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
+        {intl.formatMessage({ id: 'pensjonsavtaler.title' })}{' '}
       </Heading>
       <>
         {!harSamtykket && (
@@ -111,41 +110,55 @@ export const Pensjonsavtaler = () => {
           isSuccess &&
           !pensjonsavtaler?.partialResponse &&
           pensjonsavtaler?.avtaler.length === 0 && (
-            <div className={`${styles.info} ${styles.info__hasMargin}`}>
+            <div className={`${styles.info}`}>
               <InformationSquareFillIcon
                 className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
                 fontSize="1.5rem"
                 aria-hidden
               />
-              <BodyLong className={styles.infoText}>
-                <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
-              </BodyLong>
+              <VStack gap="4">
+                <BodyLong className={styles.infoText}>
+                  <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+                </BodyLong>
+                <BodyLong className={styles.paragraph} size="small">
+                  <FormattedMessage
+                    id="pensjonsavtaler.ingress"
+                    values={{
+                      ...getFormatMessageValues(intl),
+                    }}
+                  />
+                </BodyLong>
+              </VStack>
             </div>
           )}
 
         {(isError || pensjonsavtaler?.partialResponse) && (
-          <div
-            className={clsx(styles.info, {
-              [styles.info__hasMargin]:
-                pensjonsavtaler?.partialResponse && !isPartialWith0Avtaler,
-              [styles.info__hasMarginBottom]: isError || isPartialWith0Avtaler,
-            })}
-          >
-            <ExclamationmarkTriangleFillIcon
-              className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
-              fontSize="1.5rem"
-              aria-hidden
-            />
-            <BodyLong className={styles.infoText}>
+          <>
+            <div className={styles.info}>
+              <ExclamationmarkTriangleFillIcon
+                className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
+                fontSize="1.5rem"
+                aria-hidden
+              />
+              <BodyLong className={styles.infoText}>
+                <FormattedMessage
+                  id={
+                    isError || isPartialWith0Avtaler
+                      ? 'pensjonsavtaler.ingress.error.pensjonsavtaler'
+                      : 'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
+                  }
+                />
+              </BodyLong>
+            </div>
+            <BodyLong className={styles.paragraph} size="small">
               <FormattedMessage
-                id={
-                  isError || isPartialWith0Avtaler
-                    ? 'pensjonsavtaler.ingress.error.pensjonsavtaler'
-                    : 'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
-                }
+                id="pensjonsavtaler.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
               />
             </BodyLong>
-          </div>
+          </>
         )}
 
         {harSamtykket && !isError && (
