@@ -75,24 +75,23 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       avbrytModalRef.current?.showModal()
     }
 
-    if (
-      shouldShowModalBoolean &&
-      window.location.href.includes(paths.beregningDetaljert)
-    ) {
-      window.history.pushState(
-        null,
-        intl.formatMessage({
-          id: 'application.title.beregning',
-        }),
-        window.location.href
-      )
-      window.addEventListener('popstate', onPopState)
-      isEventAdded = true
-    } else {
-      if (isEventAdded) {
+    if (window.location.href.includes(paths.beregningDetaljert)) {
+      if (shouldShowModalBoolean) {
+        window.history.pushState(
+          null,
+          intl.formatMessage({
+            id: 'application.title.beregning',
+          }),
+          window.location.href
+        )
+        window.addEventListener('popstate', onPopState)
+        isEventAdded = true
+      } else {
         window.removeEventListener('popstate', onPopState)
-        isEventAdded = false
-        navigate(-1)
+        if (isEventAdded) {
+          isEventAdded = false
+          navigate(-1)
+        }
       }
     }
 

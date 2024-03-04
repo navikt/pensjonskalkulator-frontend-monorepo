@@ -12,12 +12,14 @@ import { getFormatMessageValues } from '@/utils/translations'
 import { FORM_NAMES } from './utils'
 
 export const useFormLocalState = (initialValues: {
+  aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: number | undefined
   aarligInntektFoerUttakBeloepFraBrukerInput: number | null
   uttaksalder: Alder | null
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
 }) => {
   const {
+    aarligInntektFoerUttakBeloepFraBrukerSkattBeloep,
     aarligInntektFoerUttakBeloepFraBrukerInput,
     uttaksalder,
     aarligInntektVsaHelPensjon,
@@ -68,7 +70,9 @@ export const useFormLocalState = (initialValues: {
         localInntektFremTilUttak !==
           aarligInntektFoerUttakBeloepFraBrukerInput) ||
       (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
-        localInntektFremTilUttak !== null)
+        localInntektFremTilUttak !== null &&
+        localInntektFremTilUttak !==
+          aarligInntektFoerUttakBeloepFraBrukerSkattBeloep)
     const hasGradChanged =
       localGradertUttak?.grad !== gradertUttaksperiode?.grad
     const hasGradertUttaksalderChanged =
