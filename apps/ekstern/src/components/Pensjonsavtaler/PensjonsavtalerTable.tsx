@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Heading, Table, VStack } from '@navikt/ds-react'
+import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { formatWithoutDecimal } from '@/utils/inntekt'
@@ -74,7 +74,7 @@ const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
   pensjonsavtaler,
 }) => {
   return (
-    <div>
+    <>
       <Heading size="small">{capitalize(avtaleGruppeNavn)}</Heading>
       <Table>
         <Table.Header>
@@ -99,7 +99,7 @@ const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
           ))}
         </Table.Body>
       </Table>
-    </div>
+    </>
   )
 }
 
@@ -112,15 +112,22 @@ export const PensjonsavtalerTable: React.FC<IProps> = ({ pensjonsavtaler }) => {
   }, [pensjonsavtaler])
 
   return (
-    <VStack gap="5" data-testid="pensjonsavtaler-table">
-      {Object.entries(gruppertePensjonsavtaler).map(
-        ([avtaleGruppeNavn, gruppePensjonsavtaler]) => (
-          <AvtaleGruppe
-            key={`${avtaleGruppeNavn}-gruppe-table`}
-            avtaleGruppeNavn={avtaleGruppeNavn}
-            pensjonsavtaler={gruppePensjonsavtaler}
-          />
-        )
+    <VStack gap="6">
+      <VStack gap="2" data-testid="pensjonsavtaler-table">
+        {Object.entries(gruppertePensjonsavtaler).map(
+          ([avtaleGruppeNavn, gruppePensjonsavtaler]) => (
+            <AvtaleGruppe
+              key={`${avtaleGruppeNavn}-gruppe-table`}
+              avtaleGruppeNavn={avtaleGruppeNavn}
+              pensjonsavtaler={gruppePensjonsavtaler}
+            />
+          )
+        )}
+      </VStack>
+      {(pensjonsavtaler?.length ?? 0) > 0 && (
+        <BodyLong>
+          <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+        </BodyLong>
       )}
     </VStack>
   )

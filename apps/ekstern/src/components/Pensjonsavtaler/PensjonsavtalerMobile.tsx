@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Heading, VStack } from '@navikt/ds-react'
+import { BodyLong, Heading, VStack } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
 import { formatWithoutDecimal } from '@/utils/inntekt'
@@ -90,6 +90,11 @@ export const PensjonsavtalerMobil: React.FC<IProps> = ({ pensjonsavtaler }) => {
             <Divider />
           </div>
         )
+      )}
+      {(pensjonsavtaler?.length ?? 0) > 0 && (
+        <BodyLong>
+          <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+        </BodyLong>
       )}
     </VStack>
   )

@@ -6,7 +6,7 @@ import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, Heading, Link } from '@navikt/ds-react'
+import { BodyLong, Heading, Link, VStack } from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import ShowMore from '../common/ShowMore/ShowMore'
@@ -155,36 +155,33 @@ export const Pensjonsavtaler = () => {
               (pensjonsavtaler?.avtaler?.length ?? 0) > 1 ? '20rem' : '10rem'
             }
           >
-            {isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-              <div data-testid="pensjonsavtaler-list">
-                {isMobile ? (
-                  <div data-testid="pensjonsavtaler-mobil">
-                    <PensjonsavtalerMobil
-                      pensjonsavtaler={pensjonsavtaler.avtaler}
-                    />
-                  </div>
-                ) : (
-                  <div data-testid="pensjonsavtaler-table">
-                    <PensjonsavtalerTable
-                      pensjonsavtaler={pensjonsavtaler.avtaler}
-                    />
-                  </div>
-                )}
-              </div>
-            )}
-            {(pensjonsavtaler?.avtaler.length ?? 0) > 0 && (
-              <BodyLong>
-                <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+            <VStack gap="4">
+              {isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
+                <div data-testid="pensjonsavtaler-list">
+                  {isMobile ? (
+                    <div data-testid="pensjonsavtaler-mobil">
+                      <PensjonsavtalerMobil
+                        pensjonsavtaler={pensjonsavtaler.avtaler}
+                      />
+                    </div>
+                  ) : (
+                    <div data-testid="pensjonsavtaler-table">
+                      <PensjonsavtalerTable
+                        pensjonsavtaler={pensjonsavtaler.avtaler}
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+              <BodyLong className={styles.paragraph} size="small">
+                <FormattedMessage
+                  id="pensjonsavtaler.ingress"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
               </BodyLong>
-            )}
-            <BodyLong className={styles.paragraph} size="small">
-              <FormattedMessage
-                id="pensjonsavtaler.ingress"
-                values={{
-                  ...getFormatMessageValues(intl),
-                }}
-              />
-            </BodyLong>
+            </VStack>
           </ShowMore>
         )}
       </>
