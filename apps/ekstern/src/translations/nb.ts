@@ -353,7 +353,7 @@ const translations = {
     'hvis du ønsker å få dette i beregningen.',
   'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
-  'pensjonsavtaler.livsvarig': 'Livsvarig fra og med',
+  'pensjonsavtaler.livsvarig': 'Livsvarig fra',
   'pensjonsavtaler.md': 'md.',
   'pensjonsavtaler.tabell.title.left': 'Avtaler',
   'pensjonsavtaler.tabell.title.middle': 'Perioder',
