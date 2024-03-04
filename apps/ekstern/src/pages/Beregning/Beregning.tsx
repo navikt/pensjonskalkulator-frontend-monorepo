@@ -36,6 +36,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
 
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
   const avbrytModalRef = React.useRef<HTMLDialogElement>(null)
+  const pensjonsavtalerRef = React.useRef<HTMLElement>(null)
 
   const [avansertSkjemaModus, setAvansertSkjemaModus] =
     React.useState<AvansertBeregningModus>('redigering')

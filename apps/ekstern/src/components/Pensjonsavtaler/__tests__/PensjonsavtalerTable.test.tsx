@@ -98,11 +98,11 @@ describe('PensjonsavtalerTable', () => {
 
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
     expect(
-      await screen.findByText('string.fra 67 alder.aar string.til 77 alder.aar')
+      await screen.findByText('String.fra 67 alder.aar string.til 77 alder.aar')
     ).toBeVisible()
     expect(
       await screen.findByText(
-        'string.fra 67 alder.aar string.og 6 alder.md string.til 77 alder.aar string.og 1 alder.md'
+        'String.fra 67 alder.aar string.og 6 alder.md string.til 77 alder.aar string.og 1 alder.md'
       )
     ).toBeVisible()
     expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)

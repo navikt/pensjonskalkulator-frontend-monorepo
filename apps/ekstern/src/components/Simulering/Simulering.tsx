@@ -7,7 +7,7 @@ import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
+import { BodyLong, Button, Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
 import Highcharts, {
   SeriesColumnOptions,
@@ -16,7 +16,6 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-import { AccordionContext as PensjonsavtalerAccordionContext } from '@/components/common/AccordionItem'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
@@ -72,11 +71,6 @@ export function Simulering(props: {
     React.useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
     React.useState<boolean>(false)
-  const {
-    ref: grunnlagPensjonsavtalerRef,
-    isOpen: isPensjonsavtalerAccordionItemOpen,
-    toggleOpen: togglePensjonsavtalerAccordionItem,
-  } = React.useContext(PensjonsavtalerAccordionContext)
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
 
@@ -325,25 +319,6 @@ export function Simulering(props: {
                   ? 'beregning.pensjonsavtaler.error'
                   : 'beregning.pensjonsavtaler.error.partial'
               }
-              values={{
-                link: (chunks) => (
-                  <Link
-                    href="#"
-                    onClick={(e) => {
-                      e?.preventDefault()
-                      if (grunnlagPensjonsavtalerRef?.current) {
-                        grunnlagPensjonsavtalerRef?.current.scrollIntoView({
-                          behavior: 'smooth',
-                        })
-                      }
-                      if (!isPensjonsavtalerAccordionItemOpen)
-                        togglePensjonsavtalerAccordionItem()
-                    }}
-                  >
-                    {chunks}
-                  </Link>
-                ),
-              }}
             />
           </BodyLong>
         </div>

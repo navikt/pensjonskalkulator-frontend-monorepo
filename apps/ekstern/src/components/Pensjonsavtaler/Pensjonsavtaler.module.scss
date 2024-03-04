@@ -3,14 +3,6 @@
 .info {
   display: flex;
 
-  &__hasMargin {
-    margin: var(--a-spacing-6) 0 var(--a-spacing-6) 0;
-  }
-
-  &__hasMarginBottom {
-    margin-bottom: var(--a-spacing-6);
-  }
-
   &Icon {
     flex-basis: 1.5rem;
     vertical-align: top;
@@ -53,7 +45,6 @@
     vertical-align: middle;
   }
 }
-
 
 .paragraph {
   margin-bottom: var(--a-spacing-4);

@@ -224,9 +224,9 @@ const translations = {
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
-    'Vi klarte ikke å hente <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikke å hente pensjonsavtalene dine',
   'beregning.pensjonsavtaler.error.partial':
-    'Vi klarte ikke å hente alle <link>pensjonsavtalene dine</link>',
+    'Vi klarte ikke å hente alle pensjonsavtalene dine',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
   'beregning.title': 'Beregning',
@@ -353,7 +353,7 @@ const translations = {
     'hvis du ønsker å få dette i beregningen.',
   'pensjonsavtaler.ingress.ingen': 'Vi fant ingen pensjonsavtaler.',
   'pensjonsavtaler.kr_pr_aar': 'kr per år',
-  'pensjonsavtaler.livsvarig': 'Livsvarig fra og med',
+  'pensjonsavtaler.livsvarig': 'Livsvarig fra',
   'pensjonsavtaler.md': 'md.',
   'pensjonsavtaler.tabell.title.left': 'Avtaler',
   'pensjonsavtaler.tabell.title.middle': 'Perioder',
