@@ -116,19 +116,9 @@ export const Pensjonsavtaler = () => {
                 fontSize="1.5rem"
                 aria-hidden
               />
-              <VStack gap="4">
-                <BodyLong className={styles.infoText}>
-                  <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
-                </BodyLong>
-                <BodyLong className={styles.paragraph} size="small">
-                  <FormattedMessage
-                    id="pensjonsavtaler.ingress"
-                    values={{
-                      ...getFormatMessageValues(intl),
-                    }}
-                  />
-                </BodyLong>
-              </VStack>
+              <BodyLong className={styles.infoText}>
+                <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+              </BodyLong>
             </div>
           )}
 
@@ -186,14 +176,16 @@ export const Pensjonsavtaler = () => {
                   )}
                 </div>
               )}
-              <BodyLong className={styles.paragraph} size="small">
-                <FormattedMessage
-                  id="pensjonsavtaler.ingress"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </BodyLong>
+              {!pensjonsavtaler?.partialResponse && (
+                <BodyLong className={styles.paragraph} size="small">
+                  <FormattedMessage
+                    id="pensjonsavtaler.ingress"
+                    values={{
+                      ...getFormatMessageValues(intl),
+                    }}
+                  />
+                </BodyLong>
+              )}
             </VStack>
           </ShowMore>
         )}

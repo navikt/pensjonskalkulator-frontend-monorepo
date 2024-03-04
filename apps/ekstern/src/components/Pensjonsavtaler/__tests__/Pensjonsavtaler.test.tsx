@@ -1,6 +1,5 @@
 import * as ReactRouterUtils from 'react-router'
 
-import { Accordion } from '@navikt/ds-react'
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
@@ -187,23 +186,18 @@ describe('Pensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(
-        <Accordion>
-          <Pensjonsavtaler />
-        </Accordion>,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: { ...fakeInntektApiCall },
-            userInput: {
-              ...userInputInitialState,
-              samtykke: true,
-              currentSimulation: currentSimulation,
-            },
+      render(<Pensjonsavtaler />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
           },
-        }
-      )
+        },
+      })
       expect(
         screen.queryByText(
           'pensjonsavtaler.title.error.pensjonsavtaler.partial',
