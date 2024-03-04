@@ -40,7 +40,7 @@ export const processInntektArray = (args: {
   heltUttak:
     | {
         fra: Alder
-        til: Alder
+        til: Alder | undefined
         beloep?: number
       }
     | undefined
@@ -48,7 +48,6 @@ export const processInntektArray = (args: {
   length: number
 }): number[] => {
   const { inntektFoerUttakBeloep, gradertUttak, heltUttak, length } = args
-
   const dataArray = new Array(length).fill(0)
   dataArray[0] = inntektFoerUttakBeloep
 
@@ -80,7 +79,9 @@ export const processInntektArray = (args: {
   if (heltUttak) {
     const { fra, til, beloep } = heltUttak
     const startAgeIndex = brekkpunktIndex ? brekkpunktIndex : 1
-    const endAgeIndex = startAgeIndex + (til.aar - fra.aar)
+    const endAgeIndex = til
+      ? startAgeIndex + (til.aar - fra.aar)
+      : dataArray.length
 
     const firstYearPartialAmount =
       brekkpunktIndex === undefined
@@ -97,7 +98,7 @@ export const processInntektArray = (args: {
       dataArray[i] += beloep ? beloep : 0
     }
 
-    if (til.maaneder > 0 && endAgeIndex + 1 < length) {
+    if (til && til.maaneder > 0 && endAgeIndex + 1 < length) {
       dataArray[endAgeIndex] += beloep ? (beloep / 12) * til.maaneder : 0
     }
   }
