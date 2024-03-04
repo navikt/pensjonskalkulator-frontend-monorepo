@@ -502,7 +502,7 @@ describe('Hovedhistorie', () => {
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('521 338 kr').should('exist')
         cy.contains('Inntekt frem til uttak: 521 338 kr').should('exist')
-        cy.contains('button', 'Inntekt frem til uttak').click()
+        cy.contains('button', 'Inntekt frem til uttak').click({ force: true })
 
         cy.contains('button', 'Endre inntekt').click()
         cy.get('[data-testid="inntekt-textfield"]').type('100000')
