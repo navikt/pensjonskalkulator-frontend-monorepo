@@ -1,6 +1,7 @@
 import { IntlShape } from 'react-intl'
 
 import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
+import { capitalize } from '@/utils/string'
 
 export const groupPensjonsavtalerByType = (
   pensjonsavtaler: Pensjonsavtale[]
@@ -38,9 +39,11 @@ export function getMaanedString(
 
 export const formaterSluttAlderString =
   (intl: IntlShape) => (startAlder: Alder, sluttAlder: Alder) => {
-    return `${intl.formatMessage({
-      id: 'string.fra',
-    })} ${startAlder.aar} ${intl.formatMessage({
+    return `${capitalize(
+      intl.formatMessage({
+        id: 'string.fra',
+      })
+    )} ${startAlder.aar} ${intl.formatMessage({
       id: 'alder.aar',
     })}${getMaanedString(
       intl.formatMessage,
