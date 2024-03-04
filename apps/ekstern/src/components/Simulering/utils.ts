@@ -40,7 +40,7 @@ export const processInntektArray = (args: {
   heltUttak:
     | {
         fra: Alder
-        til: Alder | undefined
+        til?: Alder
         beloep?: number
       }
     | undefined
@@ -48,6 +48,7 @@ export const processInntektArray = (args: {
   length: number
 }): number[] => {
   const { inntektFoerUttakBeloep, gradertUttak, heltUttak, length } = args
+
   const dataArray = new Array(length).fill(0)
   dataArray[0] = inntektFoerUttakBeloep
 
