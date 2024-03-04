@@ -25,14 +25,14 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
         'andre avtaler',
         'privat tjenestepensjon',
         'offentlig tjenestepensjon',
-        'individuell ordning',
+        'individuelle ordninger',
       ])
     })
 
     it('grupperer pensjonsavtaler på avtaletype', () => {
       const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
       expect(grouped['andre avtaler']).toHaveLength(1)
-      expect(grouped['individuell ordning']).toHaveLength(2)
+      expect(grouped['individuelle ordninger']).toHaveLength(2)
       expect(grouped['offentlig tjenestepensjon']).toHaveLength(1)
       expect(grouped['privat tjenestepensjon']).toHaveLength(2)
     })
