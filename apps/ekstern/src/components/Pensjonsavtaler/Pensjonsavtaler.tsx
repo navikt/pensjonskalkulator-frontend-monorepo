@@ -172,9 +172,11 @@ export const Pensjonsavtaler = () => {
                 )}
               </div>
             )}
-            <BodyLong>
-              <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
-            </BodyLong>
+            {(pensjonsavtaler?.avtaler.length ?? 0) > 0 && (
+              <BodyLong>
+                <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+              </BodyLong>
+            )}
             <BodyLong className={styles.paragraph} size="small">
               <FormattedMessage
                 id="pensjonsavtaler.ingress"
