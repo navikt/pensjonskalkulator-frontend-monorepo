@@ -124,11 +124,9 @@ export const PensjonsavtalerTable: React.FC<IProps> = ({ pensjonsavtaler }) => {
           )
         )}
       </VStack>
-      {(pensjonsavtaler?.length ?? 0) > 0 && (
-        <BodyLong>
-          <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
-        </BodyLong>
-      )}
+      <BodyLong>
+        <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+      </BodyLong>
     </VStack>
   )
 }

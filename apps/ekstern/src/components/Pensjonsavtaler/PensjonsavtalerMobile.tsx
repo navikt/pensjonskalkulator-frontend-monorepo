@@ -91,11 +91,9 @@ export const PensjonsavtalerMobil: React.FC<IProps> = ({ pensjonsavtaler }) => {
           </div>
         )
       )}
-      {(pensjonsavtaler?.length ?? 0) > 0 && (
-        <BodyLong>
-          <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
-        </BodyLong>
-      )}
+      <BodyLong>
+        <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+      </BodyLong>
     </VStack>
   )
 }
