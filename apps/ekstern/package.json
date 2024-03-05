@@ -48,7 +48,7 @@
     "react-router-dom": "^6.22.1"
   },
   "devDependencies": {
-    "@navikt/nav-dekoratoren-moduler": "^2.1.5",
+    "@navikt/nav-dekoratoren-moduler": "^2.1.6",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.5.2",
