@@ -7,7 +7,7 @@ describe('GrunnlagInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {
     const user = userEvent.setup()
     beforeEach(async () => {
-      const { store } = render(<GrunnlagInntekt />)
+      const { store } = render(<GrunnlagInntekt goToAvansert={vi.fn()} />)
       store.dispatch(apiSlice.endpoints.getInntekt.initiate())
       expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
       expect(await screen.findAllByText('521 338 kr')).toHaveLength(2)
@@ -66,7 +66,7 @@ describe('GrunnlagInntekt', () => {
         status: 200,
         json: { aar: '2021', beloep: 0 },
       })
-      const { store } = render(<GrunnlagInntekt />)
+      const { store } = render(<GrunnlagInntekt goToAvansert={vi.fn()} />)
       store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
       expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
@@ -105,7 +105,7 @@ describe('GrunnlagInntekt', () => {
 
   it('brukeren kan åpne modal for å lese mer om pensjonsgivende inntekt', async () => {
     const user = userEvent.setup()
-    render(<GrunnlagInntekt />)
+    render(<GrunnlagInntekt goToAvansert={vi.fn()} />)
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[2])
@@ -124,5 +124,19 @@ describe('GrunnlagInntekt', () => {
     expect(
       screen.queryByText('grunnlag.inntekt.info_om_inntekt')
     ).not.toBeVisible()
+  })
+
+  it('brukeren kan gå videre til asvansert kalkulator ', async () => {
+    const goToAvansertMock = vi.fn()
+    const user = userEvent.setup()
+    render(<GrunnlagInntekt goToAvansert={goToAvansertMock} />)
+
+    const buttons = screen.getAllByRole('button')
+    await user.click(buttons[2])
+    await user.click(
+      await screen.findByText('inntekt.info_om_inntekt.open.link')
+    )
+    await user.click(await screen.findByText('grunnlag.inntekt.avansert_link'))
+    expect(goToAvansertMock).toHaveBeenCalled()
   })
 })

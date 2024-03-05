@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
 
 import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
 
@@ -8,9 +7,7 @@ import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
-import { paths } from '@/router/constants'
-import { useAppDispatch } from '@/state/hooks'
-import { useAppSelector } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraSkatt,
@@ -23,15 +20,13 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagInntekt.module.scss'
 
-export const GrunnlagInntekt = () => {
+interface Props {
+  goToAvansert: React.MouseEventHandler<HTMLAnchorElement>
+}
+
+export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-
-  const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
-    e.preventDefault()
-    navigate(paths.beregningDetaljert)
-  }
 
   const infoModalRef = React.useRef<HTMLDialogElement>(null)
 

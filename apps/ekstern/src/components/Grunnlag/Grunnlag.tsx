@@ -7,8 +7,9 @@ import { Accordion, BodyLong, Heading, Link } from '@navikt/ds-react'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
-import { useAppSelector } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { formatAfp } from '@/utils/afp'
 import { formatSivilstand } from '@/utils/sivilstand'
@@ -20,15 +21,17 @@ import { GrunnlagSection } from './GrunnlagSection'
 
 import styles from './Grunnlag.module.scss'
 
-interface IProps {
+interface Props {
   visning: BeregningVisning
 }
 
-export const Grunnlag: React.FC<IProps> = ({ visning }) => {
+export const Grunnlag: React.FC<Props> = ({ visning }) => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
+    dispatch(userInputActions.flushCurrentSimulation())
     navigate(paths.beregningDetaljert)
   }
 
@@ -81,7 +84,6 @@ export const Grunnlag: React.FC<IProps> = ({ visning }) => {
                       ...getFormatMessageValues(intl),
                     }}
                   />
-
                   <br />
                   <br />
                   <Link href="#" onClick={goToAvansert}>
@@ -91,7 +93,9 @@ export const Grunnlag: React.FC<IProps> = ({ visning }) => {
               </GrunnlagSection>
             </AccordionItem>
           )}
-          {visning === 'enkel' && <GrunnlagInntekt />}
+          {visning === 'enkel' && (
+            <GrunnlagInntekt goToAvansert={goToAvansert} />
+          )}
           <AccordionItem name="Gunnlag: Sivilstand">
             <GrunnlagSection
               headerTitle={intl.formatMessage({
