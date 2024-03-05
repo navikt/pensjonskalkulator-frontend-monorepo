@@ -1,8 +1,9 @@
 import { EndreInntektVsaPensjon } from '..'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { render, screen, userEvent, fireEvent } from '@/test-utils'
+import * as alderUtils from '@/utils/alder'
+import * as inntektUtils from '@/utils/inntekt'
 
-// TODO mangler test for validering
 describe('EndreInntektVsaPensjon', async () => {
   describe('Gitt at brukeren ikke har lagt inn inntekt vsa pensjon', async () => {
     it('viser riktig ingress og knapp, og brukeren kan legge til inntekt', async () => {
@@ -231,6 +232,7 @@ describe('EndreInntektVsaPensjon', async () => {
       )
       expect(oppdatereInntektMock).toHaveBeenCalledWith(undefined)
     })
+
     it('kan hen avbryte og inntekten settes tilbake', async () => {
       const oppdatereInntektMock = vi.fn()
       const user = userEvent.setup()
@@ -299,5 +301,33 @@ describe('EndreInntektVsaPensjon', async () => {
         screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar')
       ).toHaveValue('70')
     })
+  })
+
+  it('validerer input for inntekt', async () => {
+    const validateAlderMock = vi.spyOn(alderUtils, 'validateAlderFromForm')
+    const validateInntektMock = vi.spyOn(inntektUtils, 'validateInntekt')
+    const oppdatereInntektMock = vi.fn()
+    const user = userEvent.setup()
+    render(
+      <EndreInntektVsaPensjon
+        uttaksperiode={undefined}
+        oppdatereInntekt={oppdatereInntektMock}
+      />
+    )
+
+    await user.click(
+      screen.getByText(
+        'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til'
+      )
+    )
+    await user.click(
+      screen.getByText(
+        'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til'
+      )
+    )
+    expect(validateAlderMock).toHaveBeenCalled()
+    expect(validateInntektMock).toHaveBeenCalled()
+
+    expect(oppdatereInntektMock).not.toHaveBeenCalled()
   })
 })
