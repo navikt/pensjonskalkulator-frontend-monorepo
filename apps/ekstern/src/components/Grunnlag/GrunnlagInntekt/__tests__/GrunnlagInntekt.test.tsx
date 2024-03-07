@@ -126,7 +126,7 @@ describe('GrunnlagInntekt', () => {
     ).not.toBeVisible()
   })
 
-  it('brukeren kan gå videre til asvansert kalkulator ', async () => {
+  it('brukeren kan gå videre til avansert kalkulator ', async () => {
     const goToAvansertMock = vi.fn()
     const user = userEvent.setup()
     render(<GrunnlagInntekt goToAvansert={goToAvansertMock} />)
