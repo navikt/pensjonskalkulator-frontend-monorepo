@@ -3,51 +3,42 @@ import 'cypress-axe'
 import { userInputActions } from '../../src/state/userInput/userInputReducer'
 
 beforeEach(() => {
-  cy.intercept(
-    'GET',
-    `https://www.ekstern.dev.nav.no/person/nav-dekoratoren-api/auth`,
-    {
-      statusCode: 200,
-      body: {
-        authenticated: true,
-        name: 'Aprikos Nordmann',
-        securityLevel: '4',
-      },
-    }
-  ).as('getDecoratorPersonAuth')
+  cy.intercept('GET', `/person/nav-dekoratoren-api/auth`, {
+    statusCode: 200,
+    body: {
+      authenticated: true,
+      name: 'Aprikos Nordmann',
+      securityLevel: '4',
+    },
+  }).as('getDecoratorPersonAuth')
 
-  cy.intercept('GET', `https://login.ekstern.dev.nav.no/oauth2/session`, {
+  cy.intercept('GET', `https://login.nav.no/oauth2/session`, {
     statusCode: 200,
   }).as('getDecoratorLoginAuth')
 
-  cy.intercept('GET', `${Cypress.env('DECORATOR_URL')}/api/driftsmeldinger`, {
-    statusCode: 200,
-    body: [],
-  }).as('getDecoratorDriftsmeldinger')
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `/main-menu?*`,
+    },
+    { fixture: 'decorator-main-menu.html' }
+  ).as('getDecoratorMainMenu')
 
   cy.intercept(
     {
       method: 'GET',
-      url: `${Cypress.env('DECORATOR_URL')}/api/meny`,
+      url: `/user-menu?*`,
     },
-    { fixture: 'decorator-meny.json' }
-  ).as('getDecoratorMeny')
+    { fixture: 'decorator-user-menu.html' }
+  ).as('getDecoratorUserMenu')
 
   cy.intercept(
     {
       method: 'GET',
-      url: `${Cypress.env('DECORATOR_URL')}/api/ta`,
+      url: `/ops-messages`,
     },
-    { fixture: 'decorator-ta.json' }
-  ).as('getDecoratorTa')
-
-  cy.intercept(
-    {
-      method: 'GET',
-      url: `${Cypress.env('DECORATOR_URL')}/api/features?*`,
-    },
-    { fixture: 'decorator-features.json' }
-  ).as('getDecoratorFeatures')
+    { fixture: 'decorator-ops-messages.html' }
+  ).as('getDecoratorOpsMessages')
 
   cy.intercept(
     {
@@ -59,7 +50,7 @@ beforeEach(() => {
     { fixture: 'decorator-env-features.json' }
   ).as('getDecoratorEnvFeatures')
 
-  cy.intercept('POST', 'https://amplitude.nav.no/collect-auto', {
+  cy.intercept('POST', '/collect', {
     statusCode: 200,
   }).as('amplitudeCollect')
 
@@ -138,8 +129,6 @@ beforeEach(() => {
 
 Cypress.Commands.add('login', () => {
   cy.visit('/pensjon/kalkulator/')
-  cy.wait('@getDecoratorPersonAuth')
-  cy.wait('@getDecoratorLoginAuth')
   cy.wait('@getAuthSession')
   cy.contains('button', 'Enkel kalkulator').click()
   cy.wait('@getPerson')
@@ -156,4 +145,11 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
     .its('store')
     .invoke('dispatch', userInputActions.setSamboer(samboer))
   cy.window().its('router').invoke('navigate', '/beregning')
+})
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  if (err.message.includes('Amplitude')) {
+    // prevents Amplitude errors to fail tests
+    return false
+  }
 })

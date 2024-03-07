@@ -12,8 +12,6 @@ describe('Henvisning', () => {
     })
     it('Forventer jeg å få informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
       cy.login()
-      cy.wait('@getDecoratorPersonAuth')
-      cy.wait('@getDecoratorLoginAuth')
       cy.wait('@getAuthSession')
       cy.contains('Kom i gang').should('not.exist')
       cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
@@ -44,8 +42,6 @@ describe('Henvisning', () => {
     })
     it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
       cy.login()
-      cy.wait('@getDecoratorPersonAuth')
-      cy.wait('@getDecoratorLoginAuth')
       cy.wait('@getAuthSession')
       cy.contains('Kom i gang').should('not.exist')
       cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
@@ -76,8 +72,6 @@ describe('Henvisning', () => {
     })
     it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
       cy.login()
-      cy.wait('@getDecoratorPersonAuth')
-      cy.wait('@getDecoratorLoginAuth')
       cy.wait('@getAuthSession')
       cy.contains('Kom i gang').should('not.exist')
       cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
@@ -108,8 +102,6 @@ describe('Henvisning', () => {
     })
     it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
       cy.login()
-      cy.wait('@getDecoratorPersonAuth')
-      cy.wait('@getDecoratorLoginAuth')
       cy.wait('@getAuthSession')
       cy.contains('Kom i gang').should('not.exist')
       cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
