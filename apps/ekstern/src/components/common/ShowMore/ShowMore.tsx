@@ -132,6 +132,7 @@ export const ShowMore = forwardRef<HTMLElement, ShowMoreProps>(
         <div className="navds-show-more__button-section">
           <div className="navds-show-more__button-wrapper">
             <Button
+              data-testid="showmore-button"
               type="button"
               variant="secondary-neutral"
               className="navds-show-more__button"

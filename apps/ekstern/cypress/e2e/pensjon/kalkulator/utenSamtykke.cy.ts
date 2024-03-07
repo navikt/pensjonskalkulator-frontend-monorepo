@@ -63,19 +63,23 @@ describe('Uten samtykke', () => {
           cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
         })
 
-        it('forventer jeg å få informasjon om grunnlaget for beregningen og at pensjonsavtaler ikke er hentet.', () => {
+        it('forventer jeg å få informasjon om øvrig grunnlag for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
           cy.contains('button', '70').click()
           cy.contains('Øvrig grunnlag for beregningen').should('exist')
-          // TODO tilpasse tester
-          // cy.contains('Pensjonsavtaler:').click()
-          // cy.contains('Ikke innhentet').should('exist')
-          // cy.contains(
-          //   'Du har ikke samtykket til å hente inn pensjonsavtaler'
-          // ).should('exist')
+          cy.contains('Uttaksgrad:').click({ force: true })
+          cy.contains('Inntekt frem til uttak:').click({ force: true })
+          cy.contains('Sivilstand:').click({ force: true })
+          cy.contains('Opphold i Norge:').click({ force: true })
+          cy.contains('AFP:').click({ force: true })
         })
 
-        it('ønsker jeg å kunne starte ny beregning', () => {
+        it('forventer informasjon om at pensjonsavtaler ikke er hentet. Jeg må kunne trykke på  "start en ny beregning" hvis jeg ønsker ny beregning med samtykke til pensjonsavtaler.', () => {
           cy.contains('button', '62 år og 10 md.').click()
+          cy.contains('Pensjonsavtaler').should('exist')
+          cy.contains(
+            'Du har ikke samtykket til å hente inn pensjonsavtaler.'
+          ).should('exist')
+
           cy.contains('button', 'Tilbake til start').click({ force: true })
           cy.location('href').should('include', '/pensjon/kalkulator/start')
           cy.fillOutStegvisning({ samtykke: false })

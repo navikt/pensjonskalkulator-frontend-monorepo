@@ -17,8 +17,6 @@ describe('Hovedhistorie', () => {
         statusCode: 401,
       }).as('getAuthSession')
       cy.visit('/pensjon/kalkulator/')
-      cy.wait('@getDecoratorPersonAuth')
-      cy.wait('@getDecoratorLoginAuth')
       cy.wait('@getAuthSession')
     })
 
@@ -64,8 +62,6 @@ describe('Hovedhistorie', () => {
     describe('Når jeg navigerer videre fra /login til /start,', () => {
       beforeEach(() => {
         cy.visit('/pensjon/kalkulator/')
-        cy.wait('@getDecoratorPersonAuth')
-        cy.wait('@getDecoratorLoginAuth')
         cy.wait('@getAuthSession')
       })
       it('forventer jeg å se en startside som ønsker meg velkommen.', () => {
@@ -358,7 +354,18 @@ describe('Hovedhistorie', () => {
         cy.contains('87+').should('exist')
       })
 
-      it('forventer jeg å få informasjon om grunnlaget for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
+      it('forventer jeg en egen tabell med oversikt over mine pensjonsavtaler. Jeg må kunne trykke på trykk vis mer for å se all informasjon, og vis mindre for å skjule informasjon om pensjonsavtaler.', () => {
+        cy.contains('button', '70').click()
+        cy.contains('Pensjonsavtaler').should('exist')
+        cy.get('[data-testid="showmore-button"]').click()
+        cy.contains('Andre avtaler').should('exist')
+        cy.contains('Privat tjenestepensjon').should('exist')
+        cy.contains('Offentlig tjenestepensjon').should('exist')
+        cy.contains('Individuelle ordninger').should('exist')
+        cy.contains('Vis mindre').should('exist')
+      })
+
+      it('forventer jeg å få informasjon om øvrig grunnlag for beregningen. Jeg må kunne trykke på de ulike faktorene for å få opp mer informasjon.', () => {
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
         cy.contains('Uttaksgrad:').click({ force: true })
@@ -376,7 +383,7 @@ describe('Hovedhistorie', () => {
           .and('include', '/pensjon/kalkulator/forbehold')
         cy.contains('a', 'detaljert kalkulator')
           .should('have.attr', 'href')
-          .and('include', 'https://www.intern.dev.nav.no/pselv/simulering.jsf')
+          .and('include', 'https://www.nav.no/pselv/simulering.jsf')
       })
 
       it('ønsker jeg å kunne starte ny beregning.', () => {
