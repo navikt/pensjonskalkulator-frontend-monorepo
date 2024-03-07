@@ -1,4 +1,3 @@
-/* c8 ignore start */
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
@@ -65,7 +64,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
               id: 'beregning.avansert.resultatkort.inntekt_2',
             })}
           </dd>
-          {uttaksalder && gradertUttaksperiode?.uttaksalder && (
+          {uttaksalder && gradertUttaksperiode?.uttaksalder && person && (
             <>
               <dt className={styles.listTitle}>
                 {formatUttaksalder(
@@ -113,7 +112,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
           )}
 
           <dt className={styles.listTitle}>
-            {uttaksalder && (
+            {uttaksalder && person && (
               <>{`${formatUttaksalder(
                 intl,
                 {
@@ -179,4 +178,3 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
     </ExpansionCard>
   )
 }
-/* c8 ignore end */

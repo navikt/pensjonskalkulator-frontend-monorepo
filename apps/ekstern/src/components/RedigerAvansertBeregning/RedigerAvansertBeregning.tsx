@@ -128,7 +128,7 @@ export const RedigerAvansertBeregning: React.FC<{
     tidligstMuligGradertUttak,
   })
 
-  // TODO se om denne kan flyttes til hooks?
+  // TODO se om denne kan flyttes til hooks? (venter på endring i TMU logikk)
   const minAlderForHeltUttak = React.useMemo(() => {
     if (localGradertUttak || tidligstMuligHeltUttak) {
       const oppdatertMinAlder = getMinAlderTilHeltUttak({

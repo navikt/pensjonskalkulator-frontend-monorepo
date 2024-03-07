@@ -149,7 +149,6 @@ export const getFormatMessageValues = (
       </Link>
     ),
     br: <br />,
-    // TODO utvide test
     strong: (chunks: string) => <strong>{chunks}</strong>,
     nowrap: (chunks: string) => <span className="nowrap">{chunks}</span>,
   }
