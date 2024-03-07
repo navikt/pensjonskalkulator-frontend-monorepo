@@ -146,3 +146,10 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
     .invoke('dispatch', userInputActions.setSamboer(samboer))
   cy.window().its('router').invoke('navigate', '/beregning')
 })
+
+Cypress.on('uncaught:exception', (err, runnable) => {
+  if (err.message.includes('Amplitude')) {
+    // prevents Amplitude errors to fail tests
+    return false
+  }
+})
