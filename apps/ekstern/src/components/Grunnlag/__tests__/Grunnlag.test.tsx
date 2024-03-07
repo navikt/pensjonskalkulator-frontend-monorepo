@@ -1,6 +1,10 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { Grunnlag } from '@/components/Grunnlag'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Grunnlag', () => {
@@ -68,6 +72,30 @@ describe('Grunnlag', () => {
       expect(
         await screen.findByText('Denne beregningen viser', { exact: false })
       ).toBeVisible()
+    })
+
+    it('brukeren kan gå til avansert fane og starte en ny beregning', async () => {
+      const flushCurrentSimulationMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushCurrentSimulation'
+      )
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
+
+      const user = userEvent.setup()
+      render(<Grunnlag visning="enkel" />)
+      expect(screen.getByText('grunnlag.uttaksgrad.title')).toBeVisible()
+      expect(screen.getAllByText('100 %')).toHaveLength(3)
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[1])
+      await user.click(
+        await screen.findByText('grunnlag.uttaksgrad.avansert_link')
+      )
+      expect(flushCurrentSimulationMock).toHaveBeenCalled()
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningDetaljert)
     })
 
     it('vises ikke ikke avansert visning', async () => {
