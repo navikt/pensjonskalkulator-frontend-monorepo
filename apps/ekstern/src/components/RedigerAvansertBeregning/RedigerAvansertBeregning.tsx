@@ -295,6 +295,7 @@ export const RedigerAvansertBeregning: React.FC<{
         <div>
           <Select
             form={FORM_NAMES.form}
+            data-testid="uttaksgrad-select"
             name={FORM_NAMES.uttaksgrad}
             className={styles.select}
             label={intl.formatMessage({
