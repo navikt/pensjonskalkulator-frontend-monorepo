@@ -59,12 +59,12 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
   )
 }
 
-export const isUttaksalderOverMinUttaksaar = (tidligstMuligUttak: Alder) => {
-  if (tidligstMuligUttak.aar > MINIMUM_UTTAKSAAR_IFOLGE_LOVEN) {
+export const isAlderOverMinUttaksaar = (alder: Alder) => {
+  if (alder.aar > MINIMUM_UTTAKSAAR_IFOLGE_LOVEN) {
     return true
   } else if (
-    tidligstMuligUttak.aar === MINIMUM_UTTAKSAAR_IFOLGE_LOVEN &&
-    tidligstMuligUttak.maaneder > 0
+    alder.aar === MINIMUM_UTTAKSAAR_IFOLGE_LOVEN &&
+    alder.maaneder > 0
   ) {
     return true
   } else {

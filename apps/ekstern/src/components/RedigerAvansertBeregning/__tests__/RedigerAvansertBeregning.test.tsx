@@ -314,6 +314,47 @@ describe('RedigerAvansertBeregning', () => {
     })
   })
 
-  // TODO test for visning av infoboks beregning.avansert.rediger.uttaksgrad.info
+  it('viser info om utsettelse av TMU når gradert uttak og brukeren ikke har maks opptjening', async () => {
+    const currentSimulation: Simulation = {
+      formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
+      uttaksalder: { aar: 68, maaneder: 0 },
+      aarligInntektFoerUttakBeloep: null,
+      gradertUttaksperiode: {
+        grad: 80,
+        uttaksalder: { aar: 62, maaneder: 0 },
+      },
+    }
+
+    render(
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <RedigerAvansertBeregning
+          gaaTilResultat={vi.fn()}
+          hasVilkaarIkkeOppfylt={false}
+        />
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: { ...currentSimulation },
+          },
+        },
+      }
+    )
+
+    expect(
+      await screen.findByText(
+        'Når du har valgt gradert uttak, utsettes alderen du kan ta ut 100 % fra 65 alder.aar string.og 3 alder.maaneder til en senere alder. Fra 67 år kan alle ta ut 100 % alderspensjon.'
+      )
+    ).toBeVisible()
+  })
+
   // TODO test for nullstilling av feltene når uttaksgrad endrer seg
+  // TODO test for inntekt vsa 100 % pensjon og håndtering av default verdier
+  // TODO test for ulike handlers
 })

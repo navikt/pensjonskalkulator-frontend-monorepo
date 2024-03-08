@@ -6,7 +6,7 @@ import {
   generateTidligstMuligHeltUttakRequestBody,
   generateTidligstMuligGradertUttakRequestBody,
 } from '@/state/api/utils'
-import { formatUttaksalder, isUttaksalderOverMinUttaksaar } from '@/utils/alder'
+import { formatUttaksalder, isAlderOverMinUttaksaar } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FORM_NAMES } from './utils'
@@ -307,7 +307,7 @@ export const useFormValidationErrors = (initialValues: {
   const gradertUttakAgePickerBeskrivelse = React.useMemo(() => {
     return tidligstMuligGradertUttak &&
       tidligstMuligHeltUttak &&
-      isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak) ? (
+      isAlderOverMinUttaksaar(tidligstMuligHeltUttak) ? (
       <>
         <FormattedMessage
           id="beregning.avansert.rediger.agepicker.beskrivelse"
@@ -333,7 +333,7 @@ export const useFormValidationErrors = (initialValues: {
           </>
         )
       } else {
-        if (isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak)) {
+        if (isAlderOverMinUttaksaar(tidligstMuligHeltUttak)) {
           return (
             <FormattedMessage
               id="beregning.avansert.rediger.agepicker.tmu_info"
