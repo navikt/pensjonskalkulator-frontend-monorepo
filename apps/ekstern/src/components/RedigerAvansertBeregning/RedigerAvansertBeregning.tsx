@@ -1,4 +1,3 @@
-/* c8 ignore start */
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
@@ -521,4 +520,3 @@ export const RedigerAvansertBeregning: React.FC<{
     </div>
   )
 }
-/* c8 ignore end */
