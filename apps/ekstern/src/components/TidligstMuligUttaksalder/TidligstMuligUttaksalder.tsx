@@ -6,7 +6,7 @@ import { Alert, BodyLong } from '@navikt/ds-react'
 import { ReadMore } from '@/components/common/ReadMore'
 import { useGetDetaljertFaneFeatureToggleQuery } from '@/state/api/apiSlice'
 import { formatUttaksalder } from '@/utils/alder'
-import { isUttaksalderOverMinUttaksaar } from '@/utils/alder'
+import { isAlderOverMinUttaksaar } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './TidligstMuligUttaksalder.module.scss'
@@ -54,22 +54,21 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                 }}
               />
             </BodyLong>
-            {hasAfpOffentlig &&
-              isUttaksalderOverMinUttaksaar(tidligstMuligUttak) && (
-                <Alert
-                  className={styles.alert}
-                  size="small"
-                  variant="info"
-                  aria-live="polite"
-                >
-                  <FormattedMessage
-                    id="tidligstmuliguttak.info_afp"
-                    values={{
-                      ...getFormatMessageValues(intl),
-                    }}
-                  />
-                </Alert>
-              )}
+            {hasAfpOffentlig && isAlderOverMinUttaksaar(tidligstMuligUttak) && (
+              <Alert
+                className={styles.alert}
+                size="small"
+                variant="info"
+                aria-live="polite"
+              >
+                <FormattedMessage
+                  id="tidligstmuliguttak.info_afp"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
+              </Alert>
+            )}
           </>
         ) : (
           <BodyLong size="medium" className={`${styles.ingress}`}>

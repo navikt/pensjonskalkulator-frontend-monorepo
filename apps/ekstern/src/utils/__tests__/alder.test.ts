@@ -7,7 +7,7 @@ import {
   unformatUttaksalder,
   isFoedtFoer1963,
   isFoedtFoer1964,
-  isUttaksalderOverMinUttaksaar,
+  isAlderOverMinUttaksaar,
   transformUttaksalderToDate,
   transformMaanedToDate,
   validateAlderFromForm,
@@ -100,30 +100,18 @@ describe('alder-utils', () => {
     })
   })
 
-  describe('isUttaksalderOverMinUttaksaar', () => {
+  describe('isAlderOverMinUttaksaar', () => {
     it('returnerer false når alderen er lik eller under 62 år', () => {
-      expect(
-        isUttaksalderOverMinUttaksaar({ aar: 61, maaneder: 11 })
-      ).toBeFalsy()
-      expect(
-        isUttaksalderOverMinUttaksaar({ aar: 62, maaneder: 0 })
-      ).toBeFalsy()
+      expect(isAlderOverMinUttaksaar({ aar: 61, maaneder: 11 })).toBeFalsy()
+      expect(isAlderOverMinUttaksaar({ aar: 62, maaneder: 0 })).toBeFalsy()
     })
 
     it('returnerer true når alderen er over 62 år', () => {
-      expect(
-        isUttaksalderOverMinUttaksaar({ aar: 62, maaneder: 1 })
-      ).toBeTruthy()
+      expect(isAlderOverMinUttaksaar({ aar: 62, maaneder: 1 })).toBeTruthy()
 
-      expect(
-        isUttaksalderOverMinUttaksaar({ aar: 62, maaneder: 2 })
-      ).toBeTruthy()
-      expect(
-        isUttaksalderOverMinUttaksaar({ aar: 63, maaneder: 0 })
-      ).toBeTruthy()
-      expect(
-        isUttaksalderOverMinUttaksaar({ aar: 70, maaneder: 0 })
-      ).toBeTruthy()
+      expect(isAlderOverMinUttaksaar({ aar: 62, maaneder: 2 })).toBeTruthy()
+      expect(isAlderOverMinUttaksaar({ aar: 63, maaneder: 0 })).toBeTruthy()
+      expect(isAlderOverMinUttaksaar({ aar: 70, maaneder: 0 })).toBeTruthy()
     })
   })
 

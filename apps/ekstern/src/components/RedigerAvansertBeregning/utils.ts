@@ -1,9 +1,6 @@
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import {
-  validateAlderFromForm,
-  isUttaksalderOverMinUttaksaar,
-} from '@/utils/alder'
+import { validateAlderFromForm, isAlderOverMinUttaksaar } from '@/utils/alder'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
@@ -259,7 +256,7 @@ export const getMinAlderTilHeltUttak = (args: {
         : { aar: localGradertUttak?.aar + 1, maaneder: 0 }
 
     if (tidligstMuligHeltUttak) {
-      return isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak) &&
+      return isAlderOverMinUttaksaar(tidligstMuligHeltUttak) &&
         localGradertUttakPlus1Maaned.aar * 12 +
           localGradertUttakPlus1Maaned.maaneder <=
           67 * 12
