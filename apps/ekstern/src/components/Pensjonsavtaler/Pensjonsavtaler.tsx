@@ -37,9 +37,8 @@ export const Pensjonsavtaler = () => {
     selectAarligInntektFoerUttakBeloep
   )
   const afp = useAppSelector(selectAfp)
-  const { uttaksalder, aarligInntektVsaHelPensjon } = useAppSelector(
-    selectCurrentSimulation
-  )
+  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
+    useAppSelector(selectCurrentSimulation)
 
   const isMobile = useIsMobile()
 
@@ -57,6 +56,7 @@ export const Pensjonsavtaler = () => {
           uttaksalder,
           aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
+        gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
       })
       setPensjonsavtalerRequestBody(requestBody)
     }
