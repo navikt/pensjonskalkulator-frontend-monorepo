@@ -1,4 +1,3 @@
-/* c8 ignore start */
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
@@ -25,7 +24,7 @@ import {
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
-import { isUttaksalderOverMinUttaksaar, formatUttaksalder } from '@/utils/alder'
+import { isAlderOverMinUttaksaar, formatUttaksalder } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -129,6 +128,7 @@ export const RedigerAvansertBeregning: React.FC<{
   })
 
   // TODO se om denne kan flyttes til hooks? (venter på endring i TMU logikk)
+  /* c8 ignore next 22 */
   const minAlderForHeltUttak = React.useMemo(() => {
     if (localGradertUttak || tidligstMuligHeltUttak) {
       const oppdatertMinAlder = getMinAlderTilHeltUttak({
@@ -295,6 +295,7 @@ export const RedigerAvansertBeregning: React.FC<{
         <div>
           <Select
             form={FORM_NAMES.form}
+            data-testid="uttaksgrad-select"
             name={FORM_NAMES.uttaksgrad}
             className={styles.select}
             label={intl.formatMessage({
@@ -422,7 +423,7 @@ export const RedigerAvansertBeregning: React.FC<{
             />
             <div className={styles.spacer} />
             {tidligstMuligHeltUttak &&
-              isUttaksalderOverMinUttaksaar(tidligstMuligHeltUttak) && (
+              isAlderOverMinUttaksaar(tidligstMuligHeltUttak) && (
                 <>
                   <Alert variant="info" aria-live="polite">
                     <FormattedMessage
@@ -520,4 +521,3 @@ export const RedigerAvansertBeregning: React.FC<{
     </div>
   )
 }
-/* c8 ignore end */

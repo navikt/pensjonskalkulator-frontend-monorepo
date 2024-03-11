@@ -558,7 +558,9 @@ describe('Simulering', () => {
     const highChartsWrapper = await screen.findByTestId(
       'highcharts-aria-wrapper'
     )
-    expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
+    waitFor(() => {
+      expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
+    })
   })
 
   it('setter aria-hidden attribute iht feature toggle', async () => {
