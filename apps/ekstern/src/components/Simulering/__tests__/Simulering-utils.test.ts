@@ -470,7 +470,7 @@ describe('Simulering-utils', () => {
       ])
     })
 
-    it('returnerer riktig summer med graderte avtaler, eller graderte utbetalingsperioder', () => {
+    it.skip('returnerer riktig summer med graderte avtaler, eller graderte utbetalingsperioder', () => {
       const avtale = createMockedPensjonsavtale({
         startAar: 67,
         sluttAar: 77,

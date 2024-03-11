@@ -175,7 +175,6 @@ export const processPensjonsavtalerArray = (
           const allocatedAmount =
             (utbetalingsperiode.aarligUtbetaling *
               Math.max(0, antallMaanederMedPensjon)) /
-            100 /
             12
           result[year - startAar] += allocatedAmount
         }
