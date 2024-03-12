@@ -1,6 +1,6 @@
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { validateAlderFromForm, isAlderOverMinUttaksaar } from '@/utils/alder'
+import { validateAlderFromForm } from '@/utils/alder'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
@@ -232,42 +232,5 @@ export const onAvansertBeregningSubmit = (
       })
       gaaTilResultat()
     }
-  }
-}
-
-/*
-  // Hvis brukeren ikke har valgt noe gradert uttak, er minAlder definert av tidligstMuligHeltUttak
-  // Hvis brukeren har valgt en alder for gradert uttak, vises det den høyeste av disse alternativene:
-  // --> Hvis brukeren har maksimal opptjening (tidligstMuligUttak lik 62 år 0md): gradert uttak + 1 måned
-  // --> Hvis brukeren ikke har maksimal opptjening (tidligstMuligUttak !== 62 år 0md): 67 år og 0 md (gitt at gradert pensjon ikke er valgt etter 67)
-   */
-export const getMinAlderTilHeltUttak = (args: {
-  localGradertUttak: RecursivePartial<Alder> | undefined
-  tidligstMuligHeltUttak: Alder | undefined
-}): Alder => {
-  const { localGradertUttak, tidligstMuligHeltUttak } = args
-  if (localGradertUttak?.aar) {
-    const localGradertUttakPlus1Maaned =
-      localGradertUttak?.maaneder !== 11
-        ? {
-            aar: localGradertUttak?.aar,
-            maaneder: (localGradertUttak?.maaneder ?? 0) + 1,
-          }
-        : { aar: localGradertUttak?.aar + 1, maaneder: 0 }
-
-    if (tidligstMuligHeltUttak) {
-      return isAlderOverMinUttaksaar(tidligstMuligHeltUttak) &&
-        localGradertUttakPlus1Maaned.aar * 12 +
-          localGradertUttakPlus1Maaned.maaneder <=
-          67 * 12
-        ? { aar: 67, maaneder: 0 }
-        : localGradertUttakPlus1Maaned
-    } else {
-      return localGradertUttakPlus1Maaned
-    }
-  } else {
-    return tidligstMuligHeltUttak
-      ? tidligstMuligHeltUttak
-      : { aar: 62, maaneder: 0 }
   }
 }

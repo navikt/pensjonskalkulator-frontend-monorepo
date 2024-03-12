@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 
 import {
   validateAvansertBeregningSkjema,
-  getMinAlderTilHeltUttak,
   onAvansertBeregningSubmit,
 } from '../utils'
 import * as alderUtils from '@/utils/alder'
@@ -509,68 +508,6 @@ describe('RedigerAvansertBeregning-utils', () => {
 
       expect(validateAlderFromFormMock).toHaveBeenCalled()
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
-    })
-  })
-
-  describe('getMinAlderTilHeltUttak', () => {
-    it('returnerer 62 år og 0 md. når hverken gradert uttak eller tidligst mulig uttak er oppgitt', () => {
-      expect(
-        getMinAlderTilHeltUttak({
-          localGradertUttak: undefined,
-          tidligstMuligHeltUttak: undefined,
-        })
-      ).toStrictEqual({ aar: 62, maaneder: 0 })
-    })
-
-    it('returnerer tidligstMuligHeltUttak når gradert uttak ikke er oppgitt', () => {
-      expect(
-        getMinAlderTilHeltUttak({
-          localGradertUttak: undefined,
-          tidligstMuligHeltUttak: { aar: 64, maaneder: 3 },
-        })
-      ).toStrictEqual({ aar: 64, maaneder: 3 })
-    })
-
-    it('returnerer localGradertUttak + 1 måned når gradert uttak er oppgitt og tidligstMuligHeltUttak er ukjent', () => {
-      expect(
-        getMinAlderTilHeltUttak({
-          localGradertUttak: { aar: 64, maaneder: 3 },
-          tidligstMuligHeltUttak: undefined,
-        })
-      ).toStrictEqual({ aar: 64, maaneder: 4 })
-    })
-
-    it('returnerer localGradertUttak + 1 måned når gradert uttak er oppgitt og brukeren har høy nok opptjening', () => {
-      expect(
-        getMinAlderTilHeltUttak({
-          localGradertUttak: { aar: 64, maaneder: 3 },
-          tidligstMuligHeltUttak: { aar: 62, maaneder: 0 },
-        })
-      ).toStrictEqual({ aar: 64, maaneder: 4 })
-      expect(
-        getMinAlderTilHeltUttak({
-          localGradertUttak: { aar: 64, maaneder: 11 },
-          tidligstMuligHeltUttak: { aar: 62, maaneder: 0 },
-        })
-      ).toStrictEqual({ aar: 65, maaneder: 0 })
-    })
-
-    it('returnerer 67 år og 0 md. når gradert uttak er oppgitt og brukeren ikke har høy nok opptjening', () => {
-      expect(
-        getMinAlderTilHeltUttak({
-          localGradertUttak: { aar: 64, maaneder: 3 },
-          tidligstMuligHeltUttak: { aar: 62, maaneder: 1 },
-        })
-      ).toStrictEqual({ aar: 67, maaneder: 0 })
-    })
-
-    it('returnerer localGradertUttak + 1 måned når gradert uttak er oppgitt senere enn 67 år og 0 md., brukeren har høy nok opptjening', () => {
-      expect(
-        getMinAlderTilHeltUttak({
-          localGradertUttak: { aar: 68, maaneder: 3 },
-          tidligstMuligHeltUttak: { aar: 62, maaneder: 0 },
-        })
-      ).toStrictEqual({ aar: 68, maaneder: 4 })
     })
   })
 })

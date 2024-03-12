@@ -6,7 +6,6 @@ declare const classNames: typeof globalClassNames & {
   readonly textfield: "textfield";
   readonly select: "select";
   readonly "navds-select__container": "navds-select__container";
-  readonly separator: "separator";
   readonly spacer: "spacer";
   readonly spacer__small: "spacer__small";
   readonly label: "label";

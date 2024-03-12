@@ -1,45 +1,30 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { Alert, BodyLong, Label, Select, TextField } from '@navikt/ds-react'
+import { BodyLong, Label, Select, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
+import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
 import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
 import { BeregningContext } from '@/pages/Beregning/context'
-import {
-  useTidligstMuligHeltUttakQuery,
-  useTidligstMuligGradertUttakQuery,
-} from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectAfp,
-  selectSamboer,
-  selectSivilstand,
   selectCurrentSimulation,
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
-import { isAlderOverMinUttaksaar, formatUttaksalder } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FormButtonRow } from './FormButtonRow'
-import {
-  useFormLocalState,
-  useTidligstMuligUttakRequestBodyState,
-  useFormValidationErrors,
-} from './hooks'
+import { useFormLocalState, useFormValidationErrors } from './hooks'
 import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
-import {
-  FORM_NAMES,
-  onAvansertBeregningSubmit,
-  getMinAlderTilHeltUttak,
-} from './utils'
+import { FORM_NAMES, onAvansertBeregningSubmit } from './utils'
 
 import styles from './RedigerAvansertBeregning.module.scss'
 
@@ -52,9 +37,6 @@ export const RedigerAvansertBeregning: React.FC<{
 
   const { uttaksalder, gradertUttaksperiode, aarligInntektVsaHelPensjon } =
     useAppSelector(selectCurrentSimulation)
-  const afp = useAppSelector(selectAfp)
-  const harSamboer = useAppSelector(selectSamboer)
-  const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
     selectAarligInntektFoerUttakBeloepFraBrukerInput
   )
@@ -64,7 +46,6 @@ export const RedigerAvansertBeregning: React.FC<{
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
-
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
 
   const [
@@ -82,38 +63,9 @@ export const RedigerAvansertBeregning: React.FC<{
   })
 
   const [
-    tidligstMuligHeltUttakRequestBody,
-    tidligstMuligGradertUttakRequestBody,
-  ] = useTidligstMuligUttakRequestBodyState({
-    afp,
-    sivilstand,
-    harSamboer,
-    aarligInntektFoerUttakBeloep,
-    localInntektFremTilUttak,
-    localGradertUttak,
-    localHeltUttak,
-  })
-
-  const {
-    data: tidligstMuligHeltUttak,
-    isError: isTidligstMuligHeltUttakError,
-  } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
-    skip: !tidligstMuligHeltUttakRequestBody || hasVilkaarIkkeOppfylt,
-  })
-
-  const {
-    data: tidligstMuligGradertUttak,
-    isError: isTidligstMuligGradertUttakError,
-  } = useTidligstMuligGradertUttakQuery(tidligstMuligGradertUttakRequestBody, {
-    skip: !tidligstMuligGradertUttakRequestBody || hasVilkaarIkkeOppfylt,
-  })
-
-  const [
     validationErrors,
     gradertUttakAgePickerError,
     heltUttakAgePickerError,
-    gradertUttakAgePickerBeskrivelse,
-    heltUttakAgePickerBeskrivelse,
     {
       setValidationErrors,
       setValidationErrorUttaksalderHeltUttak,
@@ -123,34 +75,41 @@ export const RedigerAvansertBeregning: React.FC<{
     },
   ] = useFormValidationErrors({
     grad: localGradertUttak?.grad,
-    tidligstMuligHeltUttak,
-    tidligstMuligGradertUttak,
   })
 
-  // TODO se om denne kan flyttes til hooks? (venter på endring i TMU logikk)
-  /* c8 ignore next 22 */
+  // TODO PEK-356 flytte til useFormLocalState hook og skrive tester
   const minAlderForHeltUttak = React.useMemo(() => {
-    if (localGradertUttak || tidligstMuligHeltUttak) {
-      const oppdatertMinAlder = getMinAlderTilHeltUttak({
-        localGradertUttak: localGradertUttak?.uttaksalder,
-        tidligstMuligHeltUttak,
-      })
-      // if the previously chosen uttaksalder is lower than oppdatertMinAlder
+    if (
+      localGradertUttak?.uttaksalder?.aar &&
+      localGradertUttak?.uttaksalder?.maaneder !== undefined
+    ) {
+      const gradertAlder = { ...localGradertUttak.uttaksalder } as Alder
+
+      const localGradertUttakPlus1Maaned =
+        gradertAlder.maaneder !== 11
+          ? {
+              aar: gradertAlder.aar,
+              maaneder: (gradertAlder.maaneder ?? 0) + 1,
+            }
+          : { aar: gradertAlder.aar + 1, maaneder: 0 }
+      // if the previously chosen uttaksalder is lower than localGradertUttakPlus1Maaned
       if (
         localHeltUttak?.uttaksalder &&
         (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
           (localHeltUttak.uttaksalder?.maaneder ?? 0) <=
-          (oppdatertMinAlder?.aar ?? 0) * 12 +
-            (oppdatertMinAlder?.maaneder ?? 0)
+          (localGradertUttakPlus1Maaned.aar ?? 0) * 12 +
+            (localGradertUttakPlus1Maaned.maaneder ?? 0)
       ) {
         setLocalHeltUttak((previous) => ({
           ...previous,
           uttaksalder: undefined,
         }))
       }
-      return oppdatertMinAlder
+      return localGradertUttakPlus1Maaned
+    } else {
+      return undefined
     }
-  }, [localGradertUttak, tidligstMuligHeltUttak])
+  }, [localGradertUttak])
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     resetValidationErrors()
@@ -166,10 +125,6 @@ export const RedigerAvansertBeregning: React.FC<{
             aarligInntektVsaPensjonBeloep: '',
           }
         : undefined
-    })
-    setLocalHeltUttak({
-      uttaksalder: undefined,
-      aarligInntektVsaPensjon: undefined,
     })
   }
 
@@ -269,14 +224,6 @@ export const RedigerAvansertBeregning: React.FC<{
               buttonLabel="beregning.avansert.rediger.inntekt.button"
               value={localInntektFremTilUttak}
               onSubmit={(inntekt) => {
-                if (
-                  (aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
-                    inntekt !== aarligInntektFoerUttakBeloepFraBrukerInput) ||
-                  (aarligInntektFoerUttakBeloepFraBrukerInput === null &&
-                    inntekt !== null)
-                ) {
-                  resetForm()
-                }
                 setLocalInntektFremTilUttak(inntekt)
               }}
             />
@@ -291,7 +238,53 @@ export const RedigerAvansertBeregning: React.FC<{
             <InfoOmInntekt />
           </ReadMore>
         </div>
-        <hr className={styles.separator} />
+        <Divider />
+        <div>
+          <AgePicker
+            form={FORM_NAMES.form}
+            name={FORM_NAMES.uttaksalderHeltUttak}
+            label={
+              <FormattedMessage
+                id="beregning.avansert.rediger.heltuttak.agepicker.label"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            }
+            value={localHeltUttak?.uttaksalder}
+            minAlder={minAlderForHeltUttak}
+            onChange={handleHeltUttakAlderChange}
+            error={heltUttakAgePickerError}
+          />
+          {hasVilkaarIkkeOppfylt &&
+          !gradertUttaksperiode &&
+          uttaksalder &&
+          uttaksalder.aar < 67 &&
+          JSON.stringify(uttaksalder) ===
+            JSON.stringify(localHeltUttak?.uttaksalder) ? (
+            <AlertDashBorder className={styles.alert}>
+              <FormattedMessage
+                id={
+                  uttaksalder.maaneder
+                    ? 'beregning.lav_opptjening.aar_og_md'
+                    : 'beregning.lav_opptjening.aar'
+                }
+                values={{
+                  startAar: uttaksalder.aar,
+                  startMaaned: uttaksalder.maaneder
+                    ? uttaksalder.maaneder
+                    : undefined,
+                }}
+              />
+            </AlertDashBorder>
+          ) : (
+            <div className={styles.spacer__small} />
+          )}
+        </div>
+        {(!localGradertUttak ||
+          !localGradertUttak?.grad ||
+          localGradertUttak?.grad === 100) && <ReadMoreOmPensjonsalder />}
+        <div className={styles.spacer} />
         <div>
           <Select
             form={FORM_NAMES.form}
@@ -350,9 +343,8 @@ export const RedigerAvansertBeregning: React.FC<{
                   }}
                 />
               }
-              description={gradertUttakAgePickerBeskrivelse}
               value={localGradertUttak?.uttaksalder}
-              minAlder={tidligstMuligGradertUttak}
+              // TODO PEK-356  sette maxAlder lik uttaksalder for hel + 1 måned? ( i hooks?)
               maxAlder={{ aar: 74, maaneder: 11 }}
               onChange={handleGradertUttakAlderChange}
               error={gradertUttakAgePickerError}
@@ -381,13 +373,7 @@ export const RedigerAvansertBeregning: React.FC<{
             {localGradertUttak?.grad !== 100 && (
               <>
                 <div className={styles.spacer__small} />
-                <ReadMoreOmPensjonsalder
-                  showTidligstMuligUttakOptionalIngress={
-                    !isTidligstMuligGradertUttakError &&
-                    !isTidligstMuligHeltUttakError &&
-                    !hasVilkaarIkkeOppfylt
-                  }
-                />
+                <ReadMoreOmPensjonsalder />
               </>
             )}
             <div className={styles.spacer} />
@@ -422,7 +408,10 @@ export const RedigerAvansertBeregning: React.FC<{
               max={5}
             />
             <div className={styles.spacer} />
-            {tidligstMuligHeltUttak &&
+            {
+              // TODO PEK-356 under avklaring hvor/hvordan viser vi denne infoboksen?
+              /*
+            tidligstMuligHeltUttak &&
               isAlderOverMinUttaksaar(tidligstMuligHeltUttak) && (
                 <>
                   <Alert variant="info" aria-live="polite">
@@ -435,61 +424,12 @@ export const RedigerAvansertBeregning: React.FC<{
                   </Alert>
                   <div className={styles.spacer} />
                 </>
-              )}
+                    )
+                  */
+            }
           </div>
         )}
-        <div>
-          <AgePicker
-            form={FORM_NAMES.form}
-            name={FORM_NAMES.uttaksalderHeltUttak}
-            label={
-              <FormattedMessage
-                id="beregning.avansert.rediger.heltuttak.agepicker.label"
-                values={{
-                  ...getFormatMessageValues(intl),
-                }}
-              />
-            }
-            description={heltUttakAgePickerBeskrivelse}
-            value={localHeltUttak?.uttaksalder}
-            minAlder={minAlderForHeltUttak}
-            onChange={handleHeltUttakAlderChange}
-            error={heltUttakAgePickerError}
-          />
-          {hasVilkaarIkkeOppfylt &&
-          !gradertUttaksperiode &&
-          uttaksalder &&
-          uttaksalder.aar < 67 &&
-          JSON.stringify(uttaksalder) ===
-            JSON.stringify(localHeltUttak?.uttaksalder) ? (
-            <AlertDashBorder className={styles.alert}>
-              <FormattedMessage
-                id={
-                  uttaksalder.maaneder
-                    ? 'beregning.lav_opptjening.aar_og_md'
-                    : 'beregning.lav_opptjening.aar'
-                }
-                values={{
-                  startAar: uttaksalder.aar,
-                  startMaaned: uttaksalder.maaneder
-                    ? uttaksalder.maaneder
-                    : undefined,
-                }}
-              />
-            </AlertDashBorder>
-          ) : (
-            <div className={styles.spacer__small} />
-          )}
-        </div>
-        {(!localGradertUttak ||
-          !localGradertUttak?.grad ||
-          localGradertUttak?.grad === 100) && (
-          <ReadMoreOmPensjonsalder
-            showTidligstMuligUttakOptionalIngress={
-              !isTidligstMuligHeltUttakError && !hasVilkaarIkkeOppfylt
-            }
-          />
-        )}
+
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined && (
             <div>
