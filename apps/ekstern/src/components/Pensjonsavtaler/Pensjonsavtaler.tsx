@@ -140,14 +140,6 @@ export const Pensjonsavtaler = () => {
                 />
               </BodyLong>
             </div>
-            <BodyLong className={styles.paragraph} size="small">
-              <FormattedMessage
-                id="pensjonsavtaler.ingress"
-                values={{
-                  ...getFormatMessageValues(intl),
-                }}
-              />
-            </BodyLong>
           </>
         )}
 
@@ -176,16 +168,14 @@ export const Pensjonsavtaler = () => {
                   )}
                 </div>
               )}
-              {!pensjonsavtaler?.partialResponse && (
-                <BodyLong className={styles.paragraph} size="small">
-                  <FormattedMessage
-                    id="pensjonsavtaler.ingress"
-                    values={{
-                      ...getFormatMessageValues(intl),
-                    }}
-                  />
-                </BodyLong>
-              )}
+              <BodyLong className={styles.paragraph} size="small">
+                <FormattedMessage
+                  id="pensjonsavtaler.ingress"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
+              </BodyLong>
             </VStack>
           </ShowMore>
         )}
