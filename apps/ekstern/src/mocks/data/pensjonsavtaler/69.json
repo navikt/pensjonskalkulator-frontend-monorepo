@@ -9,8 +9,8 @@
         {
           "startAlder": { "aar": 70, "maaneder": 0 },
           "sluttAlder": { "aar": 72, "maaneder": 11 },
-          "aarligUtbetaling": 100000,
-          "grad": 100
+          "aarligUtbetaling": 25000,
+          "grad": 50
         },
         {
           "startAlder": { "aar": 73, "maaneder": 0 },
