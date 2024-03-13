@@ -52,6 +52,8 @@ export const RedigerAvansertBeregning: React.FC<{
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
+    minAlderForHeltUttak,
+    maxAlderForGradertUttak,
     { setLocalInntektFremTilUttak, setLocalHeltUttak, setLocalGradertUttak },
   ] = useFormLocalState({
     aarligInntektFoerUttakBeloepFraBrukerSkattBeloep:
@@ -76,40 +78,6 @@ export const RedigerAvansertBeregning: React.FC<{
   ] = useFormValidationErrors({
     grad: localGradertUttak?.grad,
   })
-
-  // TODO PEK-356 flytte til useFormLocalState hook og skrive tester
-  const minAlderForHeltUttak = React.useMemo(() => {
-    if (
-      localGradertUttak?.uttaksalder?.aar &&
-      localGradertUttak?.uttaksalder?.maaneder !== undefined
-    ) {
-      const gradertAlder = { ...localGradertUttak.uttaksalder } as Alder
-
-      const localGradertUttakPlus1Maaned =
-        gradertAlder.maaneder !== 11
-          ? {
-              aar: gradertAlder.aar,
-              maaneder: (gradertAlder.maaneder ?? 0) + 1,
-            }
-          : { aar: gradertAlder.aar + 1, maaneder: 0 }
-      // if the previously chosen uttaksalder is lower than localGradertUttakPlus1Maaned
-      if (
-        localHeltUttak?.uttaksalder &&
-        (localHeltUttak.uttaksalder?.aar ?? 0) * 12 +
-          (localHeltUttak.uttaksalder?.maaneder ?? 0) <=
-          (localGradertUttakPlus1Maaned.aar ?? 0) * 12 +
-            (localGradertUttakPlus1Maaned.maaneder ?? 0)
-      ) {
-        setLocalHeltUttak((previous) => ({
-          ...previous,
-          uttaksalder: undefined,
-        }))
-      }
-      return localGradertUttakPlus1Maaned
-    } else {
-      return undefined
-    }
-  }, [localGradertUttak])
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     resetValidationErrors()
@@ -344,8 +312,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 />
               }
               value={localGradertUttak?.uttaksalder}
-              // TODO PEK-356  sette maxAlder lik uttaksalder for hel + 1 måned? ( i hooks?)
-              maxAlder={{ aar: 74, maaneder: 11 }}
+              maxAlder={maxAlderForGradertUttak}
               onChange={handleGradertUttakAlderChange}
               error={gradertUttakAgePickerError}
             />
