@@ -1,10 +1,9 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { BodyLong, Label, Select, TextField } from '@navikt/ds-react'
+import { Alert, BodyLong, Label, Select, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
-import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
 import { EndreInntekt } from '@/components/EndreInntekt'
@@ -207,6 +206,24 @@ export const RedigerAvansertBeregning: React.FC<{
           </ReadMore>
         </div>
         <Divider />
+        {
+          // TODO PEK-357 - koble til faktisk response fra backend
+        }
+        {hasVilkaarIkkeOppfylt && uttaksalder && (
+          <Alert className={styles.alert} variant="info" aria-live="polite">
+            <FormattedMessage id="beregning.lav_opptjening" />
+            <br />
+            <br />
+            <FormattedMessage
+              id="beregning.lav_opptjening.alternativer"
+              values={{
+                alternativtStartAar: 62,
+                alternativtStartMaaned: 2,
+                alertnativtGrad: 20,
+              }}
+            />
+          </Alert>
+        )}
         <div>
           <AgePicker
             form={FORM_NAMES.form}
@@ -224,30 +241,8 @@ export const RedigerAvansertBeregning: React.FC<{
             onChange={handleHeltUttakAlderChange}
             error={heltUttakAgePickerError}
           />
-          {hasVilkaarIkkeOppfylt &&
-          !gradertUttaksperiode &&
-          uttaksalder &&
-          uttaksalder.aar < 67 &&
-          JSON.stringify(uttaksalder) ===
-            JSON.stringify(localHeltUttak?.uttaksalder) ? (
-            <AlertDashBorder className={styles.alert}>
-              <FormattedMessage
-                id={
-                  uttaksalder.maaneder
-                    ? 'beregning.lav_opptjening.aar_og_md'
-                    : 'beregning.lav_opptjening.aar'
-                }
-                values={{
-                  startAar: uttaksalder.aar,
-                  startMaaned: uttaksalder.maaneder
-                    ? uttaksalder.maaneder
-                    : undefined,
-                }}
-              />
-            </AlertDashBorder>
-          ) : (
-            <div className={styles.spacer__small} />
-          )}
+
+          <div className={styles.spacer__small} />
         </div>
         {(!localGradertUttak ||
           !localGradertUttak?.grad ||
@@ -296,9 +291,9 @@ export const RedigerAvansertBeregning: React.FC<{
             />
           </BodyLong>
         </ReadMore>
-        <div className={styles.spacer} />
         {localGradertUttak && (
           <div>
+            <div className={styles.spacer} />
             <AgePicker
               form={FORM_NAMES.form}
               name={FORM_NAMES.uttaksalderGradertUttak}
@@ -316,27 +311,7 @@ export const RedigerAvansertBeregning: React.FC<{
               onChange={handleGradertUttakAlderChange}
               error={gradertUttakAgePickerError}
             />
-            {hasVilkaarIkkeOppfylt &&
-              gradertUttaksperiode &&
-              gradertUttaksperiode.uttaksalder &&
-              JSON.stringify(gradertUttaksperiode.uttaksalder) ===
-                JSON.stringify(localGradertUttak?.uttaksalder) && (
-                <AlertDashBorder className={styles.alert}>
-                  <FormattedMessage
-                    id={
-                      gradertUttaksperiode.uttaksalder.maaneder
-                        ? 'beregning.lav_opptjening.aar_og_md'
-                        : 'beregning.lav_opptjening.aar'
-                    }
-                    values={{
-                      startAar: gradertUttaksperiode.uttaksalder.aar,
-                      startMaaned: gradertUttaksperiode.uttaksalder.maaneder
-                        ? gradertUttaksperiode.uttaksalder.maaneder
-                        : undefined,
-                    }}
-                  />
-                </AlertDashBorder>
-              )}
+
             {localGradertUttak?.grad !== 100 && (
               <>
                 <div className={styles.spacer__small} />
@@ -374,29 +349,8 @@ export const RedigerAvansertBeregning: React.FC<{
               value={localGradertUttak?.aarligInntektVsaPensjonBeloep}
               max={5}
             />
-            <div className={styles.spacer} />
-            {
-              // TODO PEK-356 under avklaring hvor/hvordan viser vi denne infoboksen?
-              /*
-            tidligstMuligHeltUttak &&
-              isAlderOverMinUttaksaar(tidligstMuligHeltUttak) && (
-                <>
-                  <Alert variant="info" aria-live="polite">
-                    <FormattedMessage
-                      id="beregning.avansert.rediger.uttaksgrad.info"
-                      values={{
-                        alder: formatUttaksalder(intl, tidligstMuligHeltUttak),
-                      }}
-                    />
-                  </Alert>
-                  <div className={styles.spacer} />
-                </>
-                    )
-                  */
-            }
           </div>
         )}
-
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined && (
             <div>
