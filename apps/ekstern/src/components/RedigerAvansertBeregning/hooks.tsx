@@ -3,10 +3,10 @@ import { useIntl, FormattedMessage } from 'react-intl'
 
 import { BeregningContext } from '@/pages/Beregning/context'
 import {
-  generateTidligstMuligHeltUttakRequestBody,
-  generateTidligstMuligGradertUttakRequestBody,
-} from '@/state/api/utils'
-import { formatUttaksalder, isAlderOverMinUttaksaar } from '@/utils/alder'
+  DEFAULT_SENEST_UTTAKSALDER,
+  getAlderPlus1Maaned,
+  getAlderMinus1Maaned,
+} from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FORM_NAMES } from './utils'
@@ -63,6 +63,45 @@ export const useFormLocalState = (initialValues: {
         }
       : undefined
   )
+
+  const minAlderForHeltUttak = React.useMemo(() => {
+    if (
+      localGradertUttak?.uttaksalder?.aar &&
+      localGradertUttak?.uttaksalder?.maaneder !== undefined
+    ) {
+      const gradertAlder = { ...localGradertUttak.uttaksalder } as Alder
+      const localGradertUttakPlus1Maaned = getAlderPlus1Maaned(gradertAlder)
+      // if the previously chosen uttaksalder is lower than localGradertUttakPlus1Maaned
+      if (
+        localHeltUttak?.uttaksalder?.aar &&
+        localHeltUttak?.uttaksalder?.maaneder !== undefined &&
+        localHeltUttak.uttaksalder.aar * 12 +
+          localHeltUttak.uttaksalder.maaneder <
+          localGradertUttakPlus1Maaned.aar * 12 +
+            localGradertUttakPlus1Maaned.maaneder
+      ) {
+        setHeltUttak((previous) => ({
+          ...previous,
+          uttaksalder: undefined,
+        }))
+      }
+      return localGradertUttakPlus1Maaned
+    } else {
+      return undefined
+    }
+  }, [localGradertUttak])
+
+  const maxAlderForGradertUttak = React.useMemo(() => {
+    if (
+      localHeltUttak?.uttaksalder?.aar &&
+      localHeltUttak?.uttaksalder?.maaneder !== undefined
+    ) {
+      const heltAlder = { ...localHeltUttak.uttaksalder } as Alder
+      return getAlderMinus1Maaned(heltAlder)
+    } else {
+      return getAlderMinus1Maaned(DEFAULT_SENEST_UTTAKSALDER)
+    }
+  }, [localHeltUttak])
 
   React.useEffect(() => {
     const hasInntektFremTilUnntakChanged =
@@ -130,138 +169,13 @@ export const useFormLocalState = (initialValues: {
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
+    minAlderForHeltUttak,
+    maxAlderForGradertUttak,
     handlers,
   ] as const
 }
 
-export const useTidligstMuligUttakRequestBodyState = (initialValues: {
-  afp: AfpRadio | null
-  sivilstand: Sivilstand | undefined
-  harSamboer: boolean | null
-  aarligInntektFoerUttakBeloep: number | null | undefined
-  localInntektFremTilUttak: number | null
-  localGradertUttak?: Omit<
-    RecursivePartial<GradertUttak>,
-    'aarligInntektVsaPensjonBeloep'
-  > & {
-    aarligInntektVsaPensjonBeloep?: string
-  }
-  localHeltUttak?: RecursivePartial<HeltUttak>
-}) => {
-  const {
-    afp,
-    sivilstand,
-    harSamboer,
-    aarligInntektFoerUttakBeloep,
-    localInntektFremTilUttak,
-    localGradertUttak,
-    localHeltUttak,
-  } = initialValues
-
-  const [
-    tidligstMuligHeltUttakRequestBody,
-    setTidligstMuligHeltUttakRequestBody,
-  ] = React.useState<TidligstMuligHeltUttakRequestBody | undefined>(undefined)
-
-  const [
-    tidligstMuligGradertUttakRequestBody,
-    setTidligstMuligGradertUttakRequestBody,
-  ] = React.useState<TidligstMuligGradertUttakRequestBody | undefined>(
-    undefined
-  )
-
-  React.useEffect(() => {
-    const oppdatertHeltUttakRequestBody =
-      generateTidligstMuligHeltUttakRequestBody({
-        afp,
-        sivilstand: sivilstand,
-        harSamboer,
-        aarligInntektFoerUttakBeloep:
-          localInntektFremTilUttak !== null
-            ? localInntektFremTilUttak
-            : aarligInntektFoerUttakBeloep ?? 0,
-      })
-
-    if (oppdatertHeltUttakRequestBody !== undefined) {
-      setTidligstMuligHeltUttakRequestBody(oppdatertHeltUttakRequestBody)
-    }
-
-    if (localGradertUttak?.grad) {
-      setTidligstMuligGradertUttakRequestBody(
-        generateTidligstMuligGradertUttakRequestBody({
-          afp,
-          sivilstand: sivilstand,
-          harSamboer,
-          aarligInntektFoerUttakBeloep:
-            localInntektFremTilUttak !== null
-              ? localInntektFremTilUttak
-              : aarligInntektFoerUttakBeloep ?? 0,
-          heltUttak: {
-            uttaksalder:
-              localHeltUttak?.uttaksalder?.aar &&
-              localHeltUttak?.uttaksalder?.maaneder !== undefined
-                ? (localHeltUttak?.uttaksalder as Alder)
-                : { aar: 67, maaneder: 0 },
-            aarligInntektVsaPensjon:
-              localHeltUttak?.aarligInntektVsaPensjon?.beloep &&
-              localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder
-                ? {
-                    beloep: localHeltUttak?.aarligInntektVsaPensjon?.beloep,
-
-                    sluttAlder: {
-                      ...(localHeltUttak?.aarligInntektVsaPensjon
-                        ?.sluttAlder as Alder),
-                    },
-                  }
-                : undefined,
-          },
-          gradertUttak: {
-            grad: localGradertUttak?.grad,
-            aarligInntektVsaPensjonBeloep:
-              localGradertUttak.aarligInntektVsaPensjonBeloep
-                ? parseInt(
-                    localGradertUttak.aarligInntektVsaPensjonBeloep as string,
-                    10
-                  )
-                : undefined,
-          },
-        })
-      )
-    }
-  }, [
-    afp,
-    sivilstand,
-    aarligInntektFoerUttakBeloep,
-    harSamboer,
-    localInntektFremTilUttak,
-    localGradertUttak,
-    localHeltUttak,
-  ])
-
-  const handlers = React.useMemo(
-    () => ({
-      setTidligstMuligHeltUttakRequestBody:
-        setTidligstMuligHeltUttakRequestBody,
-      setTidligstMuligGradertUttakRequestBody:
-        setTidligstMuligGradertUttakRequestBody,
-    }),
-    []
-  )
-
-  return [
-    tidligstMuligHeltUttakRequestBody,
-    tidligstMuligGradertUttakRequestBody,
-    handlers,
-  ] as const
-}
-
-export const useFormValidationErrors = (initialValues: {
-  grad?: number
-  tidligstMuligHeltUttak?: Alder
-  tidligstMuligGradertUttak?: Alder
-}) => {
-  const { grad, tidligstMuligHeltUttak, tidligstMuligGradertUttak } =
-    initialValues
+export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   const intl = useIntl()
 
   const [validationErrors, setValidationErrors] = React.useState<
@@ -280,7 +194,7 @@ export const useFormValidationErrors = (initialValues: {
         })}{' '}
         <FormattedMessage
           id="beregning.avansert.rediger.agepicker.validation_error"
-          values={{ ...getFormatMessageValues(intl), grad: grad }}
+          values={{ ...getFormatMessageValues(intl), grad: initialValues.grad }}
         />
       </>
     ) : (
@@ -303,51 +217,6 @@ export const useFormValidationErrors = (initialValues: {
       ''
     )
   }, [validationErrors, initialValues])
-
-  const gradertUttakAgePickerBeskrivelse = React.useMemo(() => {
-    return tidligstMuligGradertUttak &&
-      tidligstMuligHeltUttak &&
-      isAlderOverMinUttaksaar(tidligstMuligHeltUttak) ? (
-      <>
-        <FormattedMessage
-          id="beregning.avansert.rediger.agepicker.beskrivelse"
-          values={{ ...getFormatMessageValues(intl), grad: grad }}
-        />
-        {` ${formatUttaksalder(intl, tidligstMuligGradertUttak)}.`}
-      </>
-    ) : (
-      ''
-    )
-  }, [tidligstMuligGradertUttak, tidligstMuligHeltUttak, grad])
-
-  const heltUttakAgePickerBeskrivelse = React.useMemo(() => {
-    if (tidligstMuligHeltUttak) {
-      if (grad === undefined || grad === 100) {
-        return (
-          <>
-            <FormattedMessage
-              id="beregning.avansert.rediger.agepicker.beskrivelse"
-              values={{ ...getFormatMessageValues(intl), grad: 100 }}
-            />
-            {` ${formatUttaksalder(intl, tidligstMuligHeltUttak)}.`}
-          </>
-        )
-      } else {
-        if (isAlderOverMinUttaksaar(tidligstMuligHeltUttak)) {
-          return (
-            <FormattedMessage
-              id="beregning.avansert.rediger.agepicker.tmu_info"
-              values={{ ...getFormatMessageValues(intl) }}
-            />
-          )
-        } else {
-          return ''
-        }
-      }
-    } else {
-      return ''
-    }
-  }, [tidligstMuligHeltUttak, grad])
 
   const handlers = React.useMemo(
     () => ({
@@ -393,9 +262,6 @@ export const useFormValidationErrors = (initialValues: {
     validationErrors,
     gradertUttakAgePickerError,
     heltUttakAgePickerError,
-    gradertUttakAgePickerBeskrivelse,
-    heltUttakAgePickerBeskrivelse,
-
     handlers,
   ] as const
 }

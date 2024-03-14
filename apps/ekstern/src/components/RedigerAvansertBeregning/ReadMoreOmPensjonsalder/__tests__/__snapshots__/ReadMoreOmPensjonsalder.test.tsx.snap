@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ReadMoreOmPensjonsalder > viser fast info om pensjonsalder 1`] = `
+exports[`ReadMoreOmPensjonsalder > viser riktig info om pensjonsalder 1`] = `
 <DocumentFragment>
   <div
     class="navds-read-more navds-read-more--medium navds-read-more--open"
@@ -40,94 +40,6 @@ exports[`ReadMoreOmPensjonsalder > viser fast info om pensjonsalder 1`] = `
       <p
         class="navds-body-long navds-body-long--medium"
       >
-        Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.
-        <br />
-        <br />
-      </p>
-      <h3
-        class="navds-label"
-      >
-        beregning.avansert.rediger.read_more.pensjonsalder.subtitle
-      </h3>
-      Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.
-      <br />
-      <br />
-      Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.
-      <br />
-      <br />
-      Hvis du ikke kan ta ut hel (
-      <span
-        class="nowrap"
-      >
-        100 %
-      </span>
-      ) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut 
-      <span
-        class="nowrap"
-      >
-        100 %
-      </span>
-       forskyves.
-      <br />
-      <br />
-      Fra 67 år kan alle ta ut 
-      <span
-        class="nowrap"
-      >
-        100 %
-      </span>
-       alderspensjon.
-      <br />
-      <br />
-      Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`ReadMoreOmPensjonsalder > viser fast infoog optional info om pensjonsalder 1`] = `
-<DocumentFragment>
-  <div
-    class="navds-read-more navds-read-more--medium navds-read-more--open"
-  >
-    <button
-      aria-expanded="true"
-      class="navds-read-more__button navds-body-short"
-      data-testid="readmore"
-      type="button"
-    >
-      <svg
-        aria-hidden="true"
-        class="navds-read-more__expand-icon"
-        fill="none"
-        focusable="false"
-        height="1em"
-        role="img"
-        viewBox="0 0 24 24"
-        width="1em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clip-rule="evenodd"
-          d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06Z"
-          fill="currentColor"
-          fill-rule="evenodd"
-        />
-      </svg>
-      <span>
-        beregning.avansert.rediger.read_more.pensjonsalder.label
-      </span>
-    </button>
-    <div
-      aria-hidden="false"
-      class="navds-read-more__content navds-body-long navds-body-long--medium"
-    >
-      <p
-        class="navds-body-long navds-body-long--medium"
-      >
-        Den oppgitte alderen er et estimat etter dagens regler.
-        <br />
-        <br />
         Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.
         <br />
         <br />

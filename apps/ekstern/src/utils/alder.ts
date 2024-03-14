@@ -13,6 +13,7 @@ export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
 }
 
 const MINIMUM_UTTAKSAAR_IFOLGE_LOVEN: number = 62
+export const UBETINGET_UTTAKSALDER_AAR: number = 67
 
 export const formatUttaksalder = (
   intl: IntlShape,
@@ -70,6 +71,24 @@ export const isAlderOverMinUttaksaar = (alder: Alder) => {
   } else {
     return false
   }
+}
+
+export const getAlderPlus1Maaned = (alder: Alder) => {
+  return alder.maaneder !== 11
+    ? {
+        aar: alder.aar,
+        maaneder: (alder.maaneder ?? 0) + 1,
+      }
+    : { aar: alder.aar + 1, maaneder: 0 }
+}
+
+export const getAlderMinus1Maaned = (alder: Alder) => {
+  return alder.maaneder !== 0
+    ? {
+        aar: alder.aar,
+        maaneder: alder.maaneder - 1,
+      }
+    : { aar: alder.aar - 1, maaneder: 11 }
 }
 
 export const transformUttaksalderToDate = (

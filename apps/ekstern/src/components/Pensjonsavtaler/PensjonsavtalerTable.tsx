@@ -75,7 +75,9 @@ const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
 }) => {
   return (
     <>
-      <Heading size="small">{capitalize(avtaleGruppeNavn)}</Heading>
+      <Heading className={styles.TableHeader} size="small">
+        {capitalize(avtaleGruppeNavn)}
+      </Heading>
       <Table>
         <Table.Header>
           <Table.Row>
