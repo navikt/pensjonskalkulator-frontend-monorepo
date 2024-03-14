@@ -29,7 +29,7 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
-import { isFoedtFoer1964 } from '@/utils/alder'
+import { UBETINGET_UTTAKSALDER_AAR, isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
@@ -203,12 +203,14 @@ export const BeregningEnkel: React.FC = () => {
                 <FormattedMessage id="beregning.title" />
               </Heading>
               <AlertDashBorder onRetry={isError ? onRetry : undefined}>
-                {!isError && uttaksalder && uttaksalder.aar < 67 && (
-                  <FormattedMessage
-                    id="beregning.lav_opptjening.aar"
-                    values={{ startAar: uttaksalder.aar }}
-                  />
-                )}
+                {!isError &&
+                  uttaksalder &&
+                  uttaksalder.aar < UBETINGET_UTTAKSALDER_AAR && (
+                    <FormattedMessage
+                      id="beregning.lav_opptjening.aar"
+                      values={{ startAar: uttaksalder.aar }}
+                    />
+                  )}
                 {isError && <FormattedMessage id="beregning.error" />}
               </AlertDashBorder>
             </>

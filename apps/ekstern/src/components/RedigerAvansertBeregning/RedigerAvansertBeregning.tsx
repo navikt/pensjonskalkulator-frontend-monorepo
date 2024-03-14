@@ -18,6 +18,7 @@ import {
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
+import { UBETINGET_UTTAKSALDER_AAR } from '@/utils/alder'
 import { formatWithoutDecimal } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -227,7 +228,7 @@ export const RedigerAvansertBeregning: React.FC<{
           {hasVilkaarIkkeOppfylt &&
           !gradertUttaksperiode &&
           uttaksalder &&
-          uttaksalder.aar < 67 &&
+          uttaksalder.aar < UBETINGET_UTTAKSALDER_AAR &&
           JSON.stringify(uttaksalder) ===
             JSON.stringify(localHeltUttak?.uttaksalder) ? (
             <AlertDashBorder className={styles.alert}>

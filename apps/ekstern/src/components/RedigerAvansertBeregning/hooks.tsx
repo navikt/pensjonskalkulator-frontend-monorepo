@@ -2,7 +2,11 @@ import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { BeregningContext } from '@/pages/Beregning/context'
-import { getAlderPlus1Maaned, getAlderMinus1Maaned } from '@/utils/alder'
+import {
+  DEFAULT_SENEST_UTTAKSALDER,
+  getAlderPlus1Maaned,
+  getAlderMinus1Maaned,
+} from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FORM_NAMES } from './utils'
@@ -95,7 +99,7 @@ export const useFormLocalState = (initialValues: {
       const heltAlder = { ...localHeltUttak.uttaksalder } as Alder
       return getAlderMinus1Maaned(heltAlder)
     } else {
-      return { aar: 74, maaneder: 11 }
+      return getAlderMinus1Maaned(DEFAULT_SENEST_UTTAKSALDER)
     }
   }, [localHeltUttak])
 
