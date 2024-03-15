@@ -3,4 +3,8 @@
   border: 0;
   border-bottom: 1px solid var(--a-border-divider);
   margin: var(--a-spacing-8) 0;
+
+  &__NoMargin {
+    margin: 0;
+  }
 }

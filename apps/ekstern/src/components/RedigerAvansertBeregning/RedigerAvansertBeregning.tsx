@@ -83,16 +83,46 @@ export const RedigerAvansertBeregning: React.FC<{
     const avansertBeregningFormatertUttaksgradAsNumber = e.target.value
       ? parseInt(e.target.value.match(/\d+/)?.[0] as string, 10)
       : 100
-    setLocalGradertUttak((previous) => {
-      return !isNaN(avansertBeregningFormatertUttaksgradAsNumber) &&
-        avansertBeregningFormatertUttaksgradAsNumber !== previous &&
-        avansertBeregningFormatertUttaksgradAsNumber !== 100
-        ? {
+
+    if (
+      !isNaN(avansertBeregningFormatertUttaksgradAsNumber) &&
+      avansertBeregningFormatertUttaksgradAsNumber !== localGradertUttak?.grad
+    ) {
+      // if the avansertBeregningFormatertUttaksgradAsNumber is different than 100
+      if (avansertBeregningFormatertUttaksgradAsNumber !== 100) {
+        // if there was no gradert uttak, empty the value for helt
+        if (localGradertUttak?.uttaksalder === undefined) {
+          setLocalHeltUttak((previous) => {
+            return {
+              ...previous,
+              uttaksalder: undefined,
+            }
+          })
+        }
+        // transfer the uttaksalder value from the first age picker (helt) to gradert age picker
+        setLocalGradertUttak((previous) => {
+          return {
+            ...previous,
+            uttaksalder:
+              previous?.uttaksalder === undefined
+                ? localHeltUttak?.uttaksalder
+                : previous?.uttaksalder,
             grad: avansertBeregningFormatertUttaksgradAsNumber,
-            aarligInntektVsaPensjonBeloep: '',
           }
-        : undefined
-    })
+        })
+      } else {
+        // transfer the value from gradert age picker to helt age picker
+        setLocalHeltUttak((previous) => {
+          return {
+            ...previous,
+            uttaksalder: localGradertUttak?.uttaksalder,
+          }
+        })
+
+        // empty the values for gradert
+        setLocalGradertUttak(undefined)
+      }
+    }
   }
 
   const handleInntektVsaGradertPensjonChange = (
@@ -205,7 +235,7 @@ export const RedigerAvansertBeregning: React.FC<{
             <InfoOmInntekt />
           </ReadMore>
         </div>
-        <Divider />
+        <Divider noMargin />
         {
           // TODO PEK-357 - koble til faktisk response fra backend
         }
@@ -225,29 +255,29 @@ export const RedigerAvansertBeregning: React.FC<{
           </Alert>
         )}
         <div>
-          <AgePicker
-            form={FORM_NAMES.form}
-            name={FORM_NAMES.uttaksalderHeltUttak}
-            label={
-              <FormattedMessage
-                id="beregning.avansert.rediger.heltuttak.agepicker.label"
-                values={{
-                  ...getFormatMessageValues(intl),
-                }}
-              />
-            }
-            value={localHeltUttak?.uttaksalder}
-            minAlder={minAlderForHeltUttak}
-            onChange={handleHeltUttakAlderChange}
-            error={heltUttakAgePickerError}
-          />
-
+          {localGradertUttak ? (
+            <AgePicker
+              form={FORM_NAMES.form}
+              name={FORM_NAMES.uttaksalderGradertUttak}
+              label={<FormattedMessage id="velguttaksalder.title" />}
+              value={localGradertUttak?.uttaksalder}
+              maxAlder={maxAlderForGradertUttak}
+              onChange={handleGradertUttakAlderChange}
+              error={gradertUttakAgePickerError}
+            />
+          ) : (
+            <AgePicker
+              form={FORM_NAMES.form}
+              name={FORM_NAMES.uttaksalderHeltUttak}
+              label={<FormattedMessage id="velguttaksalder.title" />}
+              value={localHeltUttak?.uttaksalder}
+              onChange={handleHeltUttakAlderChange}
+              error={heltUttakAgePickerError}
+            />
+          )}
           <div className={styles.spacer__small} />
+          <ReadMoreOmPensjonsalder />
         </div>
-        {(!localGradertUttak ||
-          !localGradertUttak?.grad ||
-          localGradertUttak?.grad === 100) && <ReadMoreOmPensjonsalder />}
-        <div className={styles.spacer} />
         <div>
           <Select
             form={FORM_NAMES.form}
@@ -275,82 +305,77 @@ export const RedigerAvansertBeregning: React.FC<{
             ))}
           </Select>
           <div className={styles.spacer__small} />
+          <ReadMore
+            name="Om uttaksgrad"
+            header={intl.formatMessage({
+              id: 'beregning.avansert.rediger.read_more.uttaksgrad.label',
+            })}
+          >
+            <BodyLong>
+              <FormattedMessage
+                id="beregning.avansert.rediger.read_more.uttaksgrad.body"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            </BodyLong>
+          </ReadMore>
         </div>
-        <ReadMore
-          name="Om uttaksgrad"
-          header={intl.formatMessage({
-            id: 'beregning.avansert.rediger.read_more.uttaksgrad.label',
-          })}
-        >
-          <BodyLong>
-            <FormattedMessage
-              id="beregning.avansert.rediger.read_more.uttaksgrad.body"
-              values={{
-                ...getFormatMessageValues(intl),
-              }}
-            />
-          </BodyLong>
-        </ReadMore>
         {localGradertUttak && (
-          <div>
-            <div className={styles.spacer} />
-            <AgePicker
-              form={FORM_NAMES.form}
-              name={FORM_NAMES.uttaksalderGradertUttak}
-              label={
-                <FormattedMessage
-                  id="beregning.avansert.rediger.gradertuttak.agepicker.label"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                    grad: localGradertUttak.grad,
-                  }}
-                />
-              }
-              value={localGradertUttak?.uttaksalder}
-              maxAlder={maxAlderForGradertUttak}
-              onChange={handleGradertUttakAlderChange}
-              error={gradertUttakAgePickerError}
-            />
-
-            {localGradertUttak?.grad !== 100 && (
-              <>
-                <div className={styles.spacer__small} />
-                <ReadMoreOmPensjonsalder />
-              </>
-            )}
-            <div className={styles.spacer} />
-            <TextField
-              form={FORM_NAMES.form}
-              data-testid="inntekt-vsa-gradert-pensjon-textfield"
-              type="text"
-              inputMode="numeric"
-              name={FORM_NAMES.inntektVsaGradertUttak}
-              className={styles.textfield}
-              label={
-                <FormattedMessage
-                  id="beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                    grad: localGradertUttak.grad,
-                  }}
-                />
-              }
-              description={intl.formatMessage({
-                id: 'inntekt.endre_inntekt_modal.textfield.description',
-              })}
-              error={
-                validationErrors[FORM_NAMES.inntektVsaGradertUttak]
-                  ? intl.formatMessage({
-                      id: validationErrors[FORM_NAMES.inntektVsaGradertUttak],
-                    })
-                  : ''
-              }
-              onChange={handleInntektVsaGradertPensjonChange}
-              value={localGradertUttak?.aarligInntektVsaPensjonBeloep}
-              max={5}
-            />
-          </div>
+          <>
+            <div>
+              <TextField
+                form={FORM_NAMES.form}
+                data-testid="inntekt-vsa-gradert-pensjon-textfield"
+                type="text"
+                inputMode="numeric"
+                name={FORM_NAMES.inntektVsaGradertUttak}
+                className={styles.textfield}
+                label={
+                  <FormattedMessage
+                    id="beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label"
+                    values={{
+                      ...getFormatMessageValues(intl),
+                      grad: localGradertUttak.grad,
+                    }}
+                  />
+                }
+                description={intl.formatMessage({
+                  id: 'inntekt.endre_inntekt_modal.textfield.description',
+                })}
+                error={
+                  validationErrors[FORM_NAMES.inntektVsaGradertUttak]
+                    ? intl.formatMessage({
+                        id: validationErrors[FORM_NAMES.inntektVsaGradertUttak],
+                      })
+                    : ''
+                }
+                onChange={handleInntektVsaGradertPensjonChange}
+                value={localGradertUttak?.aarligInntektVsaPensjonBeloep}
+                max={5}
+              />
+            </div>
+            <div>
+              <AgePicker
+                form={FORM_NAMES.form}
+                name={FORM_NAMES.uttaksalderHeltUttak}
+                label={
+                  <FormattedMessage
+                    id="beregning.avansert.rediger.heltuttak.agepicker.label"
+                    values={{
+                      ...getFormatMessageValues(intl),
+                    }}
+                  />
+                }
+                value={localHeltUttak?.uttaksalder}
+                minAlder={minAlderForHeltUttak}
+                onChange={handleHeltUttakAlderChange}
+                error={heltUttakAgePickerError}
+              />
+            </div>
+          </>
         )}
+
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined && (
             <div>
