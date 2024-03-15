@@ -280,8 +280,6 @@ const translations = {
   'beregning.avansert.rediger.inntekt.button': 'Endre inntekt',
   'beregning.avansert.rediger.agepicker.validation_error':
     ' for når du vil ta ut <nowrap>{grad} %</nowrap> alderspensjon.',
-  'beregning.avansert.rediger.gradertuttak.agepicker.label':
-    'Når vil du ta ut <nowrap>{grad} %</nowrap> alderspensjon',
   'beregning.avansert.rediger.heltuttak.agepicker.label':
     'Når vil du ta ut <nowrap>100 %</nowrap> alderspensjon',
   'beregning.avansert.button.beregn': 'Beregn pensjon',

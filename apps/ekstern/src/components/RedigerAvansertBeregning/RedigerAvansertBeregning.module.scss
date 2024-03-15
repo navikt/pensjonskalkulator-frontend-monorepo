@@ -15,6 +15,9 @@
 
 .form {
   max-width: $container-max-width;
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-8);
 }
 
 .textfield input {
