@@ -217,10 +217,12 @@ const translations = {
   'beregning.til': ' til ',
   'beregning.tom': ' t.o.m. ',
   'beregning.livsvarig': 'livsvarig',
+  'beregning.lav_opptjening':
+    'Du har ikke høy nok opptjening til det du har valgt. Du må øke alderen eller sette ned uttaksgraden.',
+  'beregning.lav_opptjening.alternativer':
+    'Du kan ved {alternativtStartAar} år og {alternativtStartMaaned} måneder ta ut {alertnativtGrad} % alderspensjon. Du kan også prøve andre kombinasjoner.',
   'beregning.lav_opptjening.aar':
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
-  'beregning.lav_opptjening.aar_og_md':
-    'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år og {startMaaned} md. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
   'beregning.pensjonsavtaler.error':
@@ -262,8 +264,6 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.label':
     'Hvor mye alderspensjon vil du ta ut?',
   'beregning.avansert.rediger.uttaksgrad.description': 'Velg uttaksgrad',
-  'beregning.avansert.rediger.uttaksgrad.info':
-    'Når du har valgt gradert uttak, utsettes alderen du kan ta ut 100 % fra {alder} til en senere alder. Fra 67 år kan alle ta ut 100 % alderspensjon.',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
@@ -280,8 +280,6 @@ const translations = {
   'beregning.avansert.rediger.inntekt.button': 'Endre inntekt',
   'beregning.avansert.rediger.agepicker.validation_error':
     ' for når du vil ta ut <nowrap>{grad} %</nowrap> alderspensjon.',
-  'beregning.avansert.rediger.gradertuttak.agepicker.label':
-    'Når vil du ta ut <nowrap>{grad} %</nowrap> alderspensjon',
   'beregning.avansert.rediger.heltuttak.agepicker.label':
     'Når vil du ta ut <nowrap>100 %</nowrap> alderspensjon',
   'beregning.avansert.button.beregn': 'Beregn pensjon',

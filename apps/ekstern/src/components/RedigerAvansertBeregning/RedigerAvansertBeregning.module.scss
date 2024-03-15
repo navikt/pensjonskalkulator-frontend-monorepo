@@ -15,6 +15,9 @@
 
 .form {
   max-width: $container-max-width;
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-8);
 }
 
 .textfield input {
@@ -66,7 +69,7 @@
 }
 
 .alert {
-  margin-bottom: var(--a-spacing-2);
+  margin-bottom: var(--a-spacing-8);
 }
 
 .ingress {

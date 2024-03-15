@@ -1,4 +1,3 @@
-/* c8 ignore start */
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
 
@@ -23,7 +22,6 @@ import {
   selectAfp,
   selectSamboer,
   selectCurrentSimulation,
-  selectFormatertUttaksalderReadOnly,
   selectAarligInntektFoerUttakBeloep,
 } from '@/state/userInput/selectors'
 import { logger } from '@/utils/logging'
@@ -41,9 +39,6 @@ export const BeregningAvansert: React.FC = () => {
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
-  const formatertUttaksalderReadOnly = useAppSelector(
-    selectFormatertUttaksalderReadOnly
-  )
   const { data: person } = useGetPersonQuery()
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
@@ -51,6 +46,10 @@ export const BeregningAvansert: React.FC = () => {
 
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   React.useEffect(() => {
     if (uttaksalder) {
@@ -88,7 +87,7 @@ export const BeregningAvansert: React.FC = () => {
   )
 
   React.useEffect(() => {
-    if (formatertUttaksalderReadOnly) {
+    if (uttaksalder) {
       if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
         logger('alert', {
           tekst: 'Beregning avansert: Ikke høy nok opptjening',
@@ -99,7 +98,7 @@ export const BeregningAvansert: React.FC = () => {
         })
       }
     }
-  }, [formatertUttaksalderReadOnly, isError, alderspensjon])
+  }, [uttaksalder, isError, alderspensjon])
 
   React.useEffect(() => {
     if (error && (error as FetchBaseQueryError).status === 503) {
@@ -176,4 +175,3 @@ export const BeregningAvansert: React.FC = () => {
     </>
   )
 }
-/* c8 ignore end */

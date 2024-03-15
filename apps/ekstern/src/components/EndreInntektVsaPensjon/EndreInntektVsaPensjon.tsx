@@ -266,7 +266,6 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           </Button>
         </Modal.Footer>
       </Modal>
-      <div className={styles.spacer} />
       {uttaksperiode?.aarligInntektVsaPensjon &&
       uttaksperiode.aarligInntektVsaPensjon.beloep ? (
         <>
