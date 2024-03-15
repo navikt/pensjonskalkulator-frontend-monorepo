@@ -118,7 +118,7 @@ describe('alder-utils', () => {
   })
 
   describe('getAlderPlus1Maaned', () => {
-    it('returnerer riktig alder med en måned mellom 0-11', () => {
+    it('returnerer riktig alder med en måned mellom 1-10', () => {
       const alder = getAlderPlus1Maaned({ aar: 63, maaneder: 3 })
       expect(alder.aar).toBe(63)
       expect(alder.maaneder).toBe(4)
@@ -138,7 +138,7 @@ describe('alder-utils', () => {
   })
 
   describe('getAlderMinus1Maaned', () => {
-    it('returnerer riktig alder med en måned mellom 1-11', () => {
+    it('returnerer riktig alder med en måned mellom 1-10', () => {
       const alder = getAlderMinus1Maaned({ aar: 63, maaneder: 3 })
       expect(alder.aar).toBe(63)
       expect(alder.maaneder).toBe(2)

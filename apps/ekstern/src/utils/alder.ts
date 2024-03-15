@@ -13,6 +13,7 @@ export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
 }
 
 const MINIMUM_UTTAKSAAR_IFOLGE_LOVEN: number = 62
+export const UBETINGET_UTTAKSALDER_AAR: number = 67
 
 export const formatUttaksalder = (
   intl: IntlShape,

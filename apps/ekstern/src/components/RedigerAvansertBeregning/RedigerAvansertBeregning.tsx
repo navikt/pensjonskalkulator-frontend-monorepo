@@ -354,6 +354,7 @@ export const RedigerAvansertBeregning: React.FC<{
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined && (
             <div>
+              <div className={`${styles.spacer} ${styles.spacer__small}`} />
               <EndreInntektVsaPensjon
                 uttaksperiode={localHeltUttak}
                 oppdatereInntekt={(aarligInntektVsaPensjon?: {
