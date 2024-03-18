@@ -5,7 +5,6 @@ import styles from './Divider.module.scss'
 interface Props {
   noMargin?: boolean
 }
-// TODO skrive tester
 export const Divider: React.FC<Props> = ({ noMargin }) => {
   return (
     <hr
