@@ -433,7 +433,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(updateErrorMessageMock).toHaveBeenCalled()
     })
 
-    it('returnerer false når heltUttakAar eller heltUttakMaaneder ikke er gyldig (alle cases allerede videre i validateAlderFromForm) ', () => {
+    it('returnerer false når heltUttakAar eller heltUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm) ', () => {
       const updateErrorMessageMock = vi.fn()
       const validateAlderFromFormMock = vi.spyOn(
         alderUtils,
@@ -453,10 +453,10 @@ describe('RedigerAvansertBeregning-utils', () => {
       ).toBeFalsy()
 
       expect(validateAlderFromFormMock).toHaveBeenCalledTimes(4)
-      expect(updateErrorMessageMock).toHaveBeenCalledTimes(2)
+      expect(updateErrorMessageMock).toHaveBeenCalledTimes(3)
     })
 
-    it('returnerer false når gradertUttakAar eller gradertUttakMaaneder ikke er gyldig (alle cases allerede videre i validateAlderFromForm) ', () => {
+    it('returnerer false når gradertUttakAar eller gradertUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm) ', () => {
       const updateErrorMessageMock = vi.fn()
       const validateAlderFromFormMock = vi.spyOn(
         alderUtils,
@@ -476,6 +476,49 @@ describe('RedigerAvansertBeregning-utils', () => {
       ).toBeFalsy()
 
       expect(validateAlderFromFormMock).toHaveBeenCalledTimes(4)
+      expect(updateErrorMessageMock).toHaveBeenCalledTimes(2)
+    })
+
+    it('returnerer false når gradertUttaksalder er lik eller etter heltuttak', () => {
+      const updateErrorMessageMock = vi.fn()
+      const validateAlderFromFormMock = vi.spyOn(
+        alderUtils,
+        'validateAlderFromForm'
+      )
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '67',
+            gradertUttakMaanederFormData: '0',
+          },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '70',
+            gradertUttakMaanederFormData: '0',
+          },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '66',
+            gradertUttakMaanederFormData: '11',
+          },
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+
+      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(6)
       expect(updateErrorMessageMock).toHaveBeenCalledTimes(2)
     })
 

@@ -51,8 +51,6 @@ export const RedigerAvansertBeregning: React.FC<{
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
-    minAlderForHeltUttak,
-    maxAlderForGradertUttak,
     { setLocalInntektFremTilUttak, setLocalHeltUttak, setLocalGradertUttak },
   ] = useFormLocalState({
     aarligInntektFoerUttakBeloepFraBrukerSkattBeloep:
@@ -261,7 +259,6 @@ export const RedigerAvansertBeregning: React.FC<{
               name={FORM_NAMES.uttaksalderGradertUttak}
               label={<FormattedMessage id="velguttaksalder.title" />}
               value={localGradertUttak?.uttaksalder}
-              maxAlder={maxAlderForGradertUttak}
               onChange={handleGradertUttakAlderChange}
               error={gradertUttakAgePickerError}
             />
@@ -368,7 +365,6 @@ export const RedigerAvansertBeregning: React.FC<{
                   />
                 }
                 value={localHeltUttak?.uttaksalder}
-                minAlder={minAlderForHeltUttak}
                 onChange={handleHeltUttakAlderChange}
                 error={heltUttakAgePickerError}
               />

@@ -120,8 +120,39 @@ describe('RedigerAvansertBeregning', () => {
   })
 
   // TODO PEK-357 tilpasse til ny logikk i handleUttaksgradChange
-  describe.skip('Når uttaksgrad endres', () => {
-    it.skip('overfører uttaksalder til gradert uttak når en grad lavere enn 100 % oppgis', async () => {})
+  describe('Når uttaksgrad endres', () => {
+    it.skip('overfører uttaksalder til gradert uttak når en grad lavere enn 100 % oppgis', async () => {
+      const user = userEvent.setup()
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning
+            gaaTilResultat={vi.fn()}
+            hasVilkaarIkkeOppfylt={false}
+          />
+        </BeregningContext.Provider>
+      )
+
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        ),
+        {
+          target: { value: '75' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+    })
     it.skip('nullstiller feltene for gradert når uttakgsgrad settes tilbake til 100 %', async () => {
       const user = userEvent.setup()
       render(

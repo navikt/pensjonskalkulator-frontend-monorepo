@@ -2,11 +2,6 @@ import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { BeregningContext } from '@/pages/Beregning/context'
-import {
-  DEFAULT_SENEST_UTTAKSALDER,
-  getAlderPlus1Maaned,
-  getAlderMinus1Maaned,
-} from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FORM_NAMES } from './utils'
@@ -63,45 +58,6 @@ export const useFormLocalState = (initialValues: {
         }
       : undefined
   )
-
-  const minAlderForHeltUttak = React.useMemo(() => {
-    if (
-      localGradertUttak?.uttaksalder?.aar &&
-      localGradertUttak?.uttaksalder?.maaneder !== undefined
-    ) {
-      const gradertAlder = { ...localGradertUttak.uttaksalder } as Alder
-      const localGradertUttakPlus1Maaned = getAlderPlus1Maaned(gradertAlder)
-      // if the previously chosen uttaksalder is lower than localGradertUttakPlus1Maaned
-      if (
-        localHeltUttak?.uttaksalder?.aar &&
-        localHeltUttak?.uttaksalder?.maaneder !== undefined &&
-        localHeltUttak.uttaksalder.aar * 12 +
-          localHeltUttak.uttaksalder.maaneder <
-          localGradertUttakPlus1Maaned.aar * 12 +
-            localGradertUttakPlus1Maaned.maaneder
-      ) {
-        setHeltUttak((previous) => ({
-          ...previous,
-          uttaksalder: undefined,
-        }))
-      }
-      return localGradertUttakPlus1Maaned
-    } else {
-      return undefined
-    }
-  }, [localGradertUttak])
-
-  const maxAlderForGradertUttak = React.useMemo(() => {
-    if (
-      localHeltUttak?.uttaksalder?.aar &&
-      localHeltUttak?.uttaksalder?.maaneder !== undefined
-    ) {
-      const heltAlder = { ...localHeltUttak.uttaksalder } as Alder
-      return getAlderMinus1Maaned(heltAlder)
-    } else {
-      return getAlderMinus1Maaned(DEFAULT_SENEST_UTTAKSALDER)
-    }
-  }, [localHeltUttak])
 
   React.useEffect(() => {
     const hasInntektFremTilUnntakChanged =
@@ -169,8 +125,6 @@ export const useFormLocalState = (initialValues: {
     localInntektFremTilUttak,
     localHeltUttak,
     localGradertUttak,
-    minAlderForHeltUttak,
-    maxAlderForGradertUttak,
     handlers,
   ] as const
 }
@@ -194,7 +148,10 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
         })}{' '}
         <FormattedMessage
           id="beregning.avansert.rediger.agepicker.validation_error"
-          values={{ ...getFormatMessageValues(intl), grad: initialValues.grad }}
+          values={{
+            ...getFormatMessageValues(intl),
+            grad: initialValues.grad,
+          }}
         />
       </>
     ) : (
@@ -208,10 +165,15 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
         {intl.formatMessage({
           id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
         })}{' '}
-        <FormattedMessage
-          id="beregning.avansert.rediger.agepicker.validation_error"
-          values={{ ...getFormatMessageValues(intl), grad: 100 }}
-        />
+        {(validationErrors[FORM_NAMES.uttaksalderHeltUttak] ===
+          'agepicker.validation_error.aar' ||
+          validationErrors[FORM_NAMES.uttaksalderHeltUttak] ===
+            'agepicker.validation_error.maaneder') && (
+          <FormattedMessage
+            id="beregning.avansert.rediger.agepicker.validation_error"
+            values={{ ...getFormatMessageValues(intl), grad: 100 }}
+          />
+        )}
       </>
     ) : (
       ''

@@ -199,6 +199,8 @@ const translations = {
   'beregning.avansert.rediger.read_more.pensjonsalder.body': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt.button': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.validation_error': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.agepicker.validation_error.maxAlder':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.heltuttak.agepicker.label': 'MANGLER_TEKST',
   'beregning.avansert.button.beregn': 'MANGLER_TEKST',
   'beregning.avansert.button.oppdater': 'MANGLER_TEKST',

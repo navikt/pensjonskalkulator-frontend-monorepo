@@ -1,6 +1,6 @@
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { validateAlderFromForm } from '@/utils/alder'
+import { validateAlderFromForm, getAlderMinus1Maaned } from '@/utils/alder'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
@@ -10,6 +10,55 @@ export const FORM_NAMES = {
   uttaksalderHeltUttak: 'uttaksalder-helt-uttak',
   uttaksalderGradertUttak: 'uttaksalder-gradert-uttak',
   inntektVsaGradertUttak: 'inntekt-vsa-gradert-uttak',
+}
+
+const validateAlderForGradertUttak = (
+  heltUttaksalder: Alder,
+  gradertUttaksalder:
+    | {
+        aar: FormDataEntryValue | number | undefined | null
+        maaneder: FormDataEntryValue | number | undefined | null
+      }
+    | undefined
+    | null,
+  updateValidationErrorMessage: React.Dispatch<
+    React.SetStateAction<Record<string, string>>
+  >
+): boolean => {
+  let isValid = validateAlderFromForm(
+    {
+      aar: gradertUttaksalder?.aar,
+      maaneder: gradertUttaksalder?.maaneder,
+    },
+    function (s) {
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [FORM_NAMES.uttaksalderGradertUttak]: s,
+        }
+      })
+    }
+  )
+
+  if (isValid) {
+    const maxAlder = getAlderMinus1Maaned(heltUttaksalder)
+    isValid =
+      maxAlder.maaneder + maxAlder.aar * 12 >=
+      parseInt(gradertUttaksalder?.maaneder as string, 10) +
+        parseInt(gradertUttaksalder?.aar as string, 10) * 12
+
+    if (!isValid) {
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [FORM_NAMES.uttaksalderHeltUttak]:
+            'beregning.avansert.rediger.agepicker.validation_error.maxAlder',
+        }
+      })
+    }
+  }
+
+  return isValid
 }
 
 export const validateAvansertBeregningSkjema = (
@@ -82,19 +131,16 @@ export const validateAvansertBeregningSkjema = (
   // Sjekker at uttaksalder for gradert pensjon er fylt ut med en alder (gitt at uttaksgrad er ulik 100 %)
   if (
     uttaksgradFormData !== '100 %' &&
-    !validateAlderFromForm(
+    !validateAlderForGradertUttak(
       {
-        aar: gradertUttakAarFormData,
-        maaneder: gradertUttakMaanederFormData,
+        aar: heltUttakAarFormData as unknown as number,
+        maaneder: heltUttakMaanederFormData as unknown as number,
       },
-      function (s) {
-        updateValidationErrorMessage((prevState) => {
-          return {
-            ...prevState,
-            [FORM_NAMES.uttaksalderGradertUttak]: s,
-          }
-        })
-      }
+      {
+        aar: gradertUttakAarFormData as unknown as number,
+        maaneder: gradertUttakMaanederFormData as unknown as number,
+      },
+      updateValidationErrorMessage
     )
   ) {
     isValid = false
