@@ -88,7 +88,7 @@ export const BeregningAvansert: React.FC = () => {
 
   React.useEffect(() => {
     if (uttaksalder) {
-      if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
+      if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
         logger('alert', {
           tekst: 'Beregning avansert: Ikke høy nok opptjening',
         })
@@ -108,7 +108,7 @@ export const BeregningAvansert: React.FC = () => {
 
   // Skal redigerer tilbake når alderspensjon er refetchet ferdig, og
   React.useEffect(() => {
-    if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
+    if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
       setAvansertSkjemaModus('redigering')
     }
   }, [alderspensjon])
@@ -131,7 +131,7 @@ export const BeregningAvansert: React.FC = () => {
             window.scrollTo(0, 0)
           }}
           hasVilkaarIkkeOppfylt={
-            alderspensjon && !alderspensjon?.vilkaarErOppfylt
+            alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
           }
         />
       )}
@@ -160,7 +160,7 @@ export const BeregningAvansert: React.FC = () => {
                 alderspensjon={alderspensjon}
                 showAfp={afp === 'ja_privat'}
                 showButtonsAndTable={
-                  !isError && alderspensjon?.vilkaarErOppfylt
+                  !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
               />
               <ResultatkortAvansertBeregning

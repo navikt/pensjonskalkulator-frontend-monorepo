@@ -666,13 +666,20 @@ describe('RedigerAvansertBeregning', () => {
   describe('Når simuleringen svarer med vilkaarIkkeOppfylt', () => {
     it.skip('viser alert med informasjon om at vilkår ikke er oppfylt med og uten måned for 100 % uttak', async () => {
       const user = userEvent.setup()
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
           alderspensjon: [],
           afpPrivat: [],
-          vilkaarErOppfylt: false,
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            // alternativ: {
+            //   heltUttaksalder: {}
+            //   gradertUttaksalder: {}
+            //   uttaksgrad: 50
+            // }
+          },
         },
       })
 
@@ -723,13 +730,20 @@ describe('RedigerAvansertBeregning', () => {
 
     it.skip('viser alert med informasjon om at vilkår ikke er oppfylt med og uten måned for gradert uttak', async () => {
       const user = userEvent.setup()
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
           alderspensjon: [],
           afpPrivat: [],
-          vilkaarErOppfylt: false,
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            // alternativ: {
+            //   heltUttaksalder: {}
+            //   gradertUttaksalder: {}
+            //   uttaksgrad: 50
+            // }
+          },
         },
       })
 

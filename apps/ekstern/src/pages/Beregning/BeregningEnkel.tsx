@@ -113,7 +113,7 @@ export const BeregningEnkel: React.FC = () => {
 
   React.useEffect(() => {
     if (uttaksalder !== null) {
-      if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
+      if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
         logger('alert', { tekst: 'Beregning enkel: Ikke høy nok opptjening' })
       } else if (isError) {
         logger('alert', {
@@ -197,7 +197,9 @@ export const BeregningEnkel: React.FC = () => {
         <div
           className={`${styles.container} ${styles.container__hasMobilePadding}`}
         >
-          {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
+          {isError ||
+          (alderspensjon &&
+            !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) ? (
             <>
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />
@@ -222,7 +224,7 @@ export const BeregningEnkel: React.FC = () => {
                 alderspensjon={alderspensjon}
                 showAfp={afp === 'ja_privat'}
                 showButtonsAndTable={
-                  !isError && alderspensjon?.vilkaarErOppfylt
+                  !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
               />
               <Pensjonsavtaler />

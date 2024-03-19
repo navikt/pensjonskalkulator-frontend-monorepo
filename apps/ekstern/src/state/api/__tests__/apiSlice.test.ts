@@ -357,7 +357,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/alderspensjon/simulering', {
+      mockErrorResponse('/v3/alderspensjon/simulering', {
         method: 'post',
       })
       return storeRef
@@ -370,7 +370,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',

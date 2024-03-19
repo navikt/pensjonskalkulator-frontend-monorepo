@@ -45,17 +45,16 @@ declare global {
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =
-    components['schemas']['IngressSimuleringSpecV2']
-  type AlderspensjonResponseBody =
-    components['schemas']['SimuleringsresultatDto']
+    components['schemas']['IngressSimuleringSpecV3']
+  type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV3']
   type AarligInntektVsaPensjon =
-    components['schemas']['IngressSimuleringInntektV2']
+    components['schemas']['IngressSimuleringInntektV3']
 
-  type HeltUttak = components['schemas']['IngressSimuleringHeltUttakV2']
-  type GradertUttak = components['schemas']['IngressSimuleringGradertUttakV2']
+  type HeltUttak = components['schemas']['IngressSimuleringHeltUttakV3']
+  type GradertUttak = components['schemas']['IngressSimuleringGradertUttakV3']
 
   type Simuleringstype =
-    components['schemas']['IngressSimuleringSpecV2']['simuleringstype']
+    components['schemas']['IngressSimuleringSpecV3']['simuleringstype']
   type Pensjonsberegning = {
     beloep: number
     alder: number
