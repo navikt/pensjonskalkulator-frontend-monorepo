@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import { RedigerAvansertBeregning } from '../RedigerAvansertBeregning'
 import { FORM_NAMES } from '../utils'
+import * as RedigerAvansertBeregningUtils from '../utils'
 import { mockResponse } from '@/mocks/server'
 import {
   BeregningContext,
@@ -119,10 +120,8 @@ describe('RedigerAvansertBeregning', () => {
     ).toBeVisible()
   })
 
-  // TODO PEK-357 tilpasse til ny logikk i handleUttaksgradChange
   describe('Når uttaksgrad endres', () => {
-    it.skip('overfører uttaksalder til gradert uttak når en grad lavere enn 100 % oppgis', async () => {
-      const user = userEvent.setup()
+    it('overfører uttaksalder til gradert uttak når en grad lavere enn 100 % oppgis', async () => {
       render(
         <BeregningContext.Provider
           value={{
@@ -137,23 +136,61 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
-        ),
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
         {
-          target: { value: '75' },
+          target: { value: '65' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
+      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+        target: { value: '80 %' },
+      })
+
+      // Sjekker at feltene for 100 % uttak er tomme
+      expect(
+        (
+          screen.getByTestId(
+            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          ) as HTMLSelectElement
+        ).value
+      ).toBe('')
+      expect(
+        (
+          screen.getByTestId(
+            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          ) as HTMLSelectElement
+        ).value
+      ).toBe('')
+
+      // Sjekker at feltene for gradert uttak har fått riktig verdi
+      expect(
+        (
+          (await screen.findByTestId(
+            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          )) as HTMLSelectElement
+        ).value
+      ).toBe('65')
+      expect(
+        (
+          (await screen.findByTestId(
+            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          )) as HTMLSelectElement
+        ).value
+      ).toBe('5')
     })
-    it.skip('nullstiller feltene for gradert når uttakgsgrad settes tilbake til 100 %', async () => {
+    it('nullstiller feltene for gradert og overfører uttaksalder til helt uttak, når uttakgsgrad settes tilbake til 100 %', async () => {
+      const onSubmitMock = vi.spyOn(
+        RedigerAvansertBeregningUtils,
+        'onAvansertBeregningSubmit'
+      )
+
       const user = userEvent.setup()
       render(
         <BeregningContext.Provider
@@ -167,11 +204,6 @@ describe('RedigerAvansertBeregning', () => {
           />
         </BeregningContext.Provider>
       )
-
-      // Endrer uttaksgrad
-      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
-        target: { value: '60 %' },
-      })
 
       // Fyller ut feltene for 100 % uttak + inntekt vsa 100 % uttak
       fireEvent.change(
@@ -187,9 +219,10 @@ describe('RedigerAvansertBeregning', () => {
           `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
-          target: { value: '6' },
+          target: { value: '2' },
         }
       )
+
       user.click(
         screen.getByText(
           'inntekt.endre_inntekt_vsa_pensjon_modal.open.button.legg_til'
@@ -201,7 +234,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         screen.getByTestId('age-picker-sluttalder-inntekt-vsa-pensjon-aar'),
-        { target: { value: '70' } }
+        { target: { value: '75' } }
       )
       fireEvent.change(
         screen.getByTestId(
@@ -225,21 +258,26 @@ describe('RedigerAvansertBeregning', () => {
         )
       ).toBeVisible()
 
-      // Fyller ut feltene for gradert uttak + inntekt vsa gradert uttak
+      // Endrer uttaksgrad
+      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+        target: { value: '60 %' },
+      })
+
+      // Fyller ut feltene for helt uttak + inntekt vsa gradert uttak
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
-          target: { value: '63' },
+          target: { value: '70' },
         }
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
-          target: { value: '2' },
+          target: { value: '6' },
         }
       )
       await user.type(
@@ -249,48 +287,153 @@ describe('RedigerAvansertBeregning', () => {
 
       // Endrer uttaksgrad
       fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
-        target: { value: '80 %' },
+        target: { value: '100 %' },
       })
 
-      // Sjekker at feltene for 100 % uttak er urørt
+      // Sjekker at feltene for gradert uttak er sjult
+      expect(
+        screen.queryByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        )
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+        )
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByTestId('inntekt-vsa-gradert-pensjon-textfield')
+      ).not.toBeInTheDocument()
+
+      // Sjekker at uttaksalderen ble overført tilbake til helt uttak
       expect(
         (
-          screen.getByTestId(
+          (await screen.findByTestId(
             `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
-          ) as HTMLSelectElement
+          )) as HTMLSelectElement
         ).value
       ).toBe('67')
       expect(
         (
-          screen.getByTestId(
+          (await screen.findByTestId(
             `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
-          ) as HTMLSelectElement
+          )) as HTMLSelectElement
+        ).value
+      ).toBe('2')
+
+      await user.click(screen.getByText('beregning.avansert.button.beregn'))
+
+      expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
+        harAvansertSkjemaUnsavedChanges: false,
+        hasVilkaarIkkeOppfylt: false,
+        localHeltUttak: {
+          aarligInntektVsaPensjon: {
+            beloep: 123000,
+            sluttAlder: {
+              aar: 75,
+              maaneder: 0,
+            },
+          },
+          uttaksalder: {
+            aar: 67,
+            maaneder: 2,
+          },
+        },
+        localInntektFremTilUttak: null,
+      })
+    })
+    it('oppdaterer uttaksgrad uten å nullstille uttaksaldere når grad endres fra en verdi lavere enn 100 % til en annen verdi lavere enn 100 %', async () => {
+      const user = userEvent.setup()
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning
+            gaaTilResultat={vi.fn()}
+            hasVilkaarIkkeOppfylt={false}
+          />
+        </BeregningContext.Provider>
+      )
+
+      // Fyller ut feltene for helt uttak
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '67' },
+        }
+      )
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '6' },
+        }
+      )
+
+      // Endrer uttaksgrad uten å ha fylt ut noe uttaksalder
+      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+        target: { value: '60 %' },
+      })
+
+      // Fyller ut feltene for helt uttak
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '70' },
+        }
+      )
+      fireEvent.change(
+        await screen.findByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '6' },
+        }
+      )
+
+      // Endrer uttaksgrad til en annen grad (ikke 100 %)
+      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+        target: { value: '40 %' },
+      })
+
+      // Sjekker at uttaksalderene ikke ble endret
+      expect(
+        (
+          (await screen.findByTestId(
+            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          )) as HTMLSelectElement
+        ).value
+      ).toBe('67')
+      expect(
+        (
+          (await screen.findByTestId(
+            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          )) as HTMLSelectElement
         ).value
       ).toBe('6')
       expect(
-        screen.queryByText('Forventet årsinntekt mens du tar ut', {
-          exact: false,
-        })
-      ).toBeInTheDocument()
+        (
+          (await screen.findByTestId(
+            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          )) as HTMLSelectElement
+        ).value
+      ).toBe('70')
+      expect(
+        (
+          (await screen.findByTestId(
+            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          )) as HTMLSelectElement
+        ).value
+      ).toBe('6')
 
-      // Sjekker at feltene for gradert uttak er nullstilt
-      expect(
-        (
-          screen.getByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
-          ) as HTMLSelectElement
-        ).value
-      ).toBe('')
-      expect(
-        (
-          screen.getByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
-          ) as HTMLSelectElement
-        ).value
-      ).toBe('')
-      expect(
-        screen.getByTestId('inntekt-vsa-gradert-pensjon-textfield').textContent
-      ).toBe('')
+      await user.click(screen.getByText('beregning.avansert.button.beregn'))
     })
   })
 
