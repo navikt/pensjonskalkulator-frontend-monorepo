@@ -74,7 +74,7 @@ describe('EndreInntekt', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('brukeren kan gå ut av modulen og la inntekt uendret', async () => {
+    it('brukeren kan gå ut av modalen og la inntekt uendret', async () => {
       const oppdatereInntektMock = vi.fn()
       const user = userEvent.setup()
 
