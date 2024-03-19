@@ -379,7 +379,7 @@ describe('RedigerAvansertBeregning', () => {
         ).value
       ).toBe('5')
     })
-    it('nullstiller feltene for gradert og overfører uttaksalder til helt uttak, når uttakgsgrad settes tilbake til 100 %', async () => {
+    it('nullstiller feltene for gradert og overfører uttaksalder til helt uttak, når uttaksgrad settes tilbake til 100 %', async () => {
       const onSubmitMock = vi.spyOn(
         RedigerAvansertBeregningUtils,
         'onAvansertBeregningSubmit'
@@ -644,7 +644,7 @@ describe('RedigerAvansertBeregning', () => {
         }
       )
 
-      // Sjekker igjen at uttaksdalder for hel pensjon ikke ble påvirket
+      // Sjekker igjen at uttaksalder for hel pensjon ikke ble påvirket
       expect(
         (
           (await screen.findByTestId(
