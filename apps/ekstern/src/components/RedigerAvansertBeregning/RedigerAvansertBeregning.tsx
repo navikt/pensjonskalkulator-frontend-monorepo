@@ -135,7 +135,9 @@ export const RedigerAvansertBeregning: React.FC<{
     setValidationErrorInntektVsaGradertUttak('')
   }
 
-  const handleGradertUttakAlderChange = (alder: Partial<Alder> | undefined) => {
+  const handleGradertUttaksalderChange = (
+    alder: Partial<Alder> | undefined
+  ) => {
     setValidationErrorUttaksalderGradertUttak('')
     setLocalGradertUttak((previous) => ({
       ...previous,
@@ -143,7 +145,7 @@ export const RedigerAvansertBeregning: React.FC<{
     }))
   }
 
-  const handleHeltUttakAlderChange = (alder: Partial<Alder> | undefined) => {
+  const handleHeltUttaksalderChange = (alder: Partial<Alder> | undefined) => {
     setValidationErrorUttaksalderHeltUttak('')
     setLocalHeltUttak((prevState) => {
       const sluttAlderAntallMaaneder =
@@ -205,7 +207,10 @@ export const RedigerAvansertBeregning: React.FC<{
           </Label>
           <div className={styles.description}>
             <span className={styles.descriptionText}>
-              <span className="nowrap">
+              <span
+                className="nowrap"
+                data-testid="formatert-inntekt-frem-til-uttak"
+              >
                 {formatWithoutDecimal(
                   localInntektFremTilUttak !== null
                     ? localInntektFremTilUttak
@@ -259,7 +264,7 @@ export const RedigerAvansertBeregning: React.FC<{
               name={FORM_NAMES.uttaksalderGradertUttak}
               label={<FormattedMessage id="velguttaksalder.title" />}
               value={localGradertUttak?.uttaksalder}
-              onChange={handleGradertUttakAlderChange}
+              onChange={handleGradertUttaksalderChange}
               error={gradertUttakAgePickerError}
             />
           ) : (
@@ -268,7 +273,7 @@ export const RedigerAvansertBeregning: React.FC<{
               name={FORM_NAMES.uttaksalderHeltUttak}
               label={<FormattedMessage id="velguttaksalder.title" />}
               value={localHeltUttak?.uttaksalder}
-              onChange={handleHeltUttakAlderChange}
+              onChange={handleHeltUttaksalderChange}
               error={heltUttakAgePickerError}
             />
           )}
@@ -365,7 +370,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   />
                 }
                 value={localHeltUttak?.uttaksalder}
-                onChange={handleHeltUttakAlderChange}
+                onChange={handleHeltUttaksalderChange}
                 error={heltUttakAgePickerError}
               />
             </div>
