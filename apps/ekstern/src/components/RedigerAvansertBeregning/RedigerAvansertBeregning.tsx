@@ -1,7 +1,7 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { Alert, BodyLong, Label, Select, TextField } from '@navikt/ds-react'
+import { BodyLong, Label, Select, TextField } from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { Divider } from '@/components/common/Divider'
@@ -9,6 +9,7 @@ import { ReadMore } from '@/components/common/ReadMore'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
 import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
+import { VilkaarsproevingAlert } from '@/components/VilkaarsproevingAlert'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -29,8 +30,8 @@ import styles from './RedigerAvansertBeregning.module.scss'
 
 export const RedigerAvansertBeregning: React.FC<{
   gaaTilResultat: () => void
-  hasVilkaarIkkeOppfylt?: boolean
-}> = ({ gaaTilResultat, hasVilkaarIkkeOppfylt }) => {
+  vilkaarsproeving?: Vilkaarsproeving
+}> = ({ gaaTilResultat, vilkaarsproeving }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
@@ -195,7 +196,8 @@ export const RedigerAvansertBeregning: React.FC<{
               {
                 localHeltUttak,
                 localInntektFremTilUttak,
-                hasVilkaarIkkeOppfylt,
+                hasVilkaarIkkeOppfylt:
+                  vilkaarsproeving?.vilkaarErOppfylt === false,
                 harAvansertSkjemaUnsavedChanges,
               }
             )
@@ -239,24 +241,14 @@ export const RedigerAvansertBeregning: React.FC<{
           </ReadMore>
         </div>
         <Divider noMargin />
-        {
-          // TODO PEK-357 - koble til faktisk response fra backend
-        }
-        {hasVilkaarIkkeOppfylt && uttaksalder && (
-          <Alert className={styles.alert} variant="info" aria-live="polite">
-            <FormattedMessage id="beregning.lav_opptjening" />
-            <br />
-            <br />
-            <FormattedMessage
-              id="beregning.lav_opptjening.alternativer"
-              values={{
-                alternativtStartAar: 62,
-                alternativtStartMaaned: 2,
-                alertnativtGrad: 20,
-              }}
+        {vilkaarsproeving &&
+          !vilkaarsproeving?.vilkaarErOppfylt &&
+          uttaksalder && (
+            <VilkaarsproevingAlert
+              vilkaarsproeving={vilkaarsproeving}
+              uttaksalder={uttaksalder}
             />
-          </Alert>
-        )}
+          )}
         <div>
           {localGradertUttak ? (
             <AgePicker
@@ -403,7 +395,7 @@ export const RedigerAvansertBeregning: React.FC<{
         <FormButtonRow
           resetForm={resetForm}
           gaaTilResultat={gaaTilResultat}
-          hasVilkaarIkkeOppfylt={hasVilkaarIkkeOppfylt}
+          hasVilkaarIkkeOppfylt={vilkaarsproeving?.vilkaarErOppfylt === false}
         />
       </div>
     </div>

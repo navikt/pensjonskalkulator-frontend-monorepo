@@ -30,10 +30,7 @@ describe('RedigerAvansertBeregning', () => {
           ...contextMockedValues,
         }}
       >
-        <RedigerAvansertBeregning
-          gaaTilResultat={vi.fn()}
-          hasVilkaarIkkeOppfylt={false}
-        />
+        <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
       </BeregningContext.Provider>
     )
     expect(
@@ -77,10 +74,7 @@ describe('RedigerAvansertBeregning', () => {
           ...contextMockedValues,
         }}
       >
-        <RedigerAvansertBeregning
-          gaaTilResultat={vi.fn()}
-          hasVilkaarIkkeOppfylt={false}
-        />
+        <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
       </BeregningContext.Provider>
     )
 
@@ -121,7 +115,6 @@ describe('RedigerAvansertBeregning', () => {
     ).toBeVisible()
   })
 
-  // TODO PEK-357 test for reset form
   it('når resetForm kalles, nullstilles det alle feltene', async () => {
     const user = userEvent.setup()
     const { store } = render(
@@ -130,10 +123,7 @@ describe('RedigerAvansertBeregning', () => {
           ...contextMockedValues,
         }}
       >
-        <RedigerAvansertBeregning
-          gaaTilResultat={vi.fn()}
-          hasVilkaarIkkeOppfylt={false}
-        />
+        <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
       </BeregningContext.Provider>
     )
     store.dispatch(apiSlice.endpoints.getInntekt.initiate())
@@ -322,10 +312,7 @@ describe('RedigerAvansertBeregning', () => {
             ...contextMockedValues,
           }}
         >
-          <RedigerAvansertBeregning
-            gaaTilResultat={vi.fn()}
-            hasVilkaarIkkeOppfylt={false}
-          />
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
         </BeregningContext.Provider>
       )
 
@@ -392,10 +379,7 @@ describe('RedigerAvansertBeregning', () => {
             ...contextMockedValues,
           }}
         >
-          <RedigerAvansertBeregning
-            gaaTilResultat={vi.fn()}
-            hasVilkaarIkkeOppfylt={false}
-          />
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
         </BeregningContext.Provider>
       )
 
@@ -543,10 +527,7 @@ describe('RedigerAvansertBeregning', () => {
             ...contextMockedValues,
           }}
         >
-          <RedigerAvansertBeregning
-            gaaTilResultat={vi.fn()}
-            hasVilkaarIkkeOppfylt={false}
-          />
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
         </BeregningContext.Provider>
       )
 
@@ -664,7 +645,7 @@ describe('RedigerAvansertBeregning', () => {
 
   // TODO PEK-357 tilpasse til infomelding med forslag til aldere og grad
   describe('Når simuleringen svarer med vilkaarIkkeOppfylt', () => {
-    it.skip('viser alert med informasjon om at vilkår ikke er oppfylt med og uten måned for 100 % uttak', async () => {
+    it.skip('viser alert med informasjon om at vilkår ikke er oppfylt ...', async () => {
       const user = userEvent.setup()
       mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
@@ -698,7 +679,7 @@ describe('RedigerAvansertBeregning', () => {
         >
           <RedigerAvansertBeregning
             gaaTilResultat={vi.fn()}
-            hasVilkaarIkkeOppfylt={true}
+            // vilkaarsproeving
           />
         </BeregningContext.Provider>,
         {
@@ -724,74 +705,6 @@ describe('RedigerAvansertBeregning', () => {
         }
       )
       user.click(screen.getByText('beregning.avansert.button.beregn'))
-
-      expect(await screen.findByText('beregning.lav_opptjening')).toBeVisible()
-    })
-
-    it.skip('viser alert med informasjon om at vilkår ikke er oppfylt med og uten måned for gradert uttak', async () => {
-      const user = userEvent.setup()
-      mockResponse('/v3/alderspensjon/simulering', {
-        status: 200,
-        method: 'post',
-        json: {
-          alderspensjon: [],
-          afpPrivat: [],
-          vilkaarsproeving: {
-            vilkaarErOppfylt: false,
-            // alternativ: {
-            //   heltUttaksalder: {}
-            //   gradertUttaksalder: {}
-            //   uttaksgrad: 50
-            // }
-          },
-        },
-      })
-
-      const currentSimulation: Simulation = {
-        formatertUttaksalderReadOnly: '65 år string.og 0 alder.maaned',
-        uttaksalder: { aar: 65, maaneder: 0 },
-        aarligInntektFoerUttakBeloep: null,
-        gradertUttaksperiode: {
-          grad: 80,
-          uttaksalder: { aar: 62, maaneder: 0 },
-        },
-      }
-
-      render(
-        <BeregningContext.Provider
-          value={{
-            ...contextMockedValues,
-          }}
-        >
-          <RedigerAvansertBeregning
-            gaaTilResultat={vi.fn()}
-            hasVilkaarIkkeOppfylt={true}
-          />
-        </BeregningContext.Provider>,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-              samtykke: false,
-              currentSimulation: { ...currentSimulation },
-            },
-          },
-        }
-      )
-
-      expect(screen.getByText('beregning.lav_opptjening')).toBeVisible()
-
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
-        ),
-
-        {
-          target: { value: '4' },
-        }
-      )
-
-      user.click(await screen.findByText('beregning.avansert.button.beregn'))
 
       expect(await screen.findByText('beregning.lav_opptjening')).toBeVisible()
     })

@@ -296,7 +296,7 @@ export interface components {
       heltUttaksalder: components['schemas']['AlderV3']
       gradertUttaksalder?: components['schemas']['AlderV3']
       /** Format: int32 */
-      uttaksgrad: number
+      uttaksgrad?: number
     }
     PensjonsberegningV3: {
       /** Format: int32 */

@@ -130,9 +130,7 @@ export const BeregningAvansert: React.FC = () => {
             setAvansertSkjemaModus('resultat')
             window.scrollTo(0, 0)
           }}
-          hasVilkaarIkkeOppfylt={
-            alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
-          }
+          vilkaarsproeving={alderspensjon?.vilkaarsproeving}
         />
       )}
 
