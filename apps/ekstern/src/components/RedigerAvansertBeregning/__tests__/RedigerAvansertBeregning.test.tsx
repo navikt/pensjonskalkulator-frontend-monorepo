@@ -643,30 +643,28 @@ describe('RedigerAvansertBeregning', () => {
     })
   })
 
-  // TODO PEK-357 tilpasse til infomelding med forslag til aldere og grad
   describe('Når simuleringen svarer med vilkaarIkkeOppfylt', () => {
-    it.skip('viser alert med informasjon om at vilkår ikke er oppfylt ...', async () => {
-      const user = userEvent.setup()
+    it('viser alert med informasjon om alternativer', async () => {
+      const vilkaarsproevingMock = {
+        vilkaarErOppfylt: false,
+        alternativ: {
+          heltUttaksalder: { aar: 67, maaneder: 0 },
+        },
+      }
+
       mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
           alderspensjon: [],
           afpPrivat: [],
-          vilkaarsproeving: {
-            vilkaarErOppfylt: false,
-            // alternativ: {
-            //   heltUttaksalder: {}
-            //   gradertUttaksalder: {}
-            //   uttaksgrad: 50
-            // }
-          },
+          vilkaarsproeving: vilkaarsproevingMock,
         },
       })
 
       const currentSimulation: Simulation = {
-        formatertUttaksalderReadOnly: '65 år string.og 0 alder.maaned',
-        uttaksalder: { aar: 65, maaneder: 0 },
+        formatertUttaksalderReadOnly: '62 år string.og 0 alder.maaned',
+        uttaksalder: { aar: 62, maaneder: 0 },
         aarligInntektFoerUttakBeloep: null,
         gradertUttaksperiode: null,
       }
@@ -679,7 +677,7 @@ describe('RedigerAvansertBeregning', () => {
         >
           <RedigerAvansertBeregning
             gaaTilResultat={vi.fn()}
-            // vilkaarsproeving
+            vilkaarsproeving={vilkaarsproevingMock}
           />
         </BeregningContext.Provider>,
         {
@@ -692,21 +690,9 @@ describe('RedigerAvansertBeregning', () => {
           },
         }
       )
-
-      expect(screen.getByText('beregning.lav_opptjening')).toBeVisible()
-
-      fireEvent.change(
-        screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
-        ),
-
-        {
-          target: { value: '6' },
-        }
-      )
-      user.click(screen.getByText('beregning.avansert.button.beregn'))
-
-      expect(await screen.findByText('beregning.lav_opptjening')).toBeVisible()
+      expect(
+        screen.getByText('beregning.vilkaarsproeving.intro', { exact: false })
+      ).toBeVisible()
     })
   })
 
