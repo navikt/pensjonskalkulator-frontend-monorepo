@@ -355,11 +355,6 @@ describe('BeregningAvansert', () => {
         method: 'post',
       })
 
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.alderspensjon,
-        'initiate'
-      )
-
       const cache = console.error
       console.error = () => {}
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
@@ -367,8 +362,6 @@ describe('BeregningAvansert', () => {
         status: 503,
         method: 'post',
       })
-
-      const setAvansertSkjemaModusMock = vi.fn()
 
       const router = createMemoryRouter([
         {

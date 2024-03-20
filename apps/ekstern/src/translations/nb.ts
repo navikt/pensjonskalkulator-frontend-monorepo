@@ -217,10 +217,6 @@ const translations = {
   'beregning.til': ' til ',
   'beregning.tom': ' t.o.m. ',
   'beregning.livsvarig': 'livsvarig',
-  'beregning.lav_opptjening':
-    'Du har ikke høy nok opptjening til det du har valgt. Du må øke alderen eller sette ned uttaksgraden.',
-  'beregning.lav_opptjening.alternativer':
-    'Du kan ved {alternativtStartAar} år og {alternativtStartMaaned} måneder ta ut {alertnativtGrad} % alderspensjon. Du kan også prøve andre kombinasjoner.',
   'beregning.lav_opptjening.aar':
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
@@ -288,6 +284,18 @@ const translations = {
   'beregning.avansert.button.oppdater': 'Oppdater pensjon',
   'beregning.avansert.button.nullstill': 'Nullstill valg',
   'beregning.avansert.button.avbryt': 'Avbryt endring',
+  'beregning.vilkaarsproeving.intro':
+    'Opptjeningen din er ikke høy nok til ønsket uttak. ',
+  'beregning.vilkaarsproeving.intro.ikke_nok_opptjening':
+    '{br}{br}Du kan tidligst ta ut alderspensjon ved 67 år.',
+  'beregning.vilkaarsproeving.intro.optional':
+    'Du må øke alderen eller sette ned uttaksgraden.{br}{br}',
+  'beregning.vilkaarsproeving.alternativer.heltUttak':
+    'Du kan ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder ta ut 100 % alderspensjon. Du kan også prøve andre kombinasjoner.',
+  'beregning.vilkaarsproeving.alternativer.gradertUttak':
+    'Du kan ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder ta ut {alternativtGrad} % alderspensjon. Du kan også prøve andre kombinasjoner.',
+  'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak':
+    'Du kan ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder ta ut {alternativtGrad} % alderspensjon hvis du tar ut 100 % alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Du kan også prøve andre kombinasjoner.',
   'grunnlag.title': 'Øvrig grunnlag for beregningen',
   'beregning.avansert.avbryt_modal.title':
     'Er du sikker på at du vil avslutte avansert beregning?',

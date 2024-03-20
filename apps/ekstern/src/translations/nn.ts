@@ -209,8 +209,6 @@ const translations = {
   'beregning.til': 'MANGLER_TEKST',
   'beregning.tom': ' MANGLER_TEKST',
   'beregning.livsvarig': 'MANGLER_TEKST',
-  'beregning.lav_opptjening': 'MANGLER_TEKST',
-  'beregning.lav_opptjening.alternativer': 'MANGLER_TEKST',
   'beregning.lav_opptjening.aar':
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
 
@@ -273,6 +271,12 @@ const translations = {
   'beregning.avansert.avbryt_modal.body': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.intro': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.intro.ikke_nok_opptjening': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.intro.optional': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.heltUttak': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.gradertUttak': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',

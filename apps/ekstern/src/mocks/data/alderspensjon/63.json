@@ -126,8 +126,7 @@
   "vilkaarsproeving": {
     "vilkaarErOppfylt": false,
     "alternativ": {
-      "heltUttaksalder": { "aar": 65, "maaneder": 3 },
-      "uttaksgrad": 100
+      "heltUttaksalder": { "aar": 65, "maaneder": 3 }
     }
   }
 }
