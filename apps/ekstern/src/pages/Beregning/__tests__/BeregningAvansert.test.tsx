@@ -232,13 +232,19 @@ describe('BeregningAvansert', () => {
 
     it('Når brukeren har valgt en uttaksalder og at simulering svarer med vilkaarIkkeOppfylt, logges det alert og skjemaet settes i redigeringsmodus', async () => {
       const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
           alderspensjon: [],
           afpPrivat: [],
-          vilkaarErOppfylt: false,
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            alternativ: {
+              heltUttaksalder: { aar: 67, maaneder: 0 },
+              uttaksgrad: 100,
+            },
+          },
         },
       })
 
@@ -289,7 +295,7 @@ describe('BeregningAvansert', () => {
     it('Når brukeren har valgt en uttaksalder og at simulering feiler, logges det alert og vises resultatkort med informasjon om feilen og mulighet til å prøve på nytt', async () => {
       const user = userEvent.setup()
       const loggerSpy = vi.spyOn(loggerUtils, 'logger')
-      mockErrorResponse('/v2/alderspensjon/simulering', {
+      mockErrorResponse('/v3/alderspensjon/simulering', {
         method: 'post',
       })
 
@@ -345,7 +351,7 @@ describe('BeregningAvansert', () => {
     })
 
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
-      mockErrorResponse('/v2/alderspensjon/simulering', {
+      mockErrorResponse('/v3/alderspensjon/simulering', {
         method: 'post',
       })
 
@@ -357,7 +363,7 @@ describe('BeregningAvansert', () => {
       const cache = console.error
       console.error = () => {}
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 503,
         method: 'post',
       })
