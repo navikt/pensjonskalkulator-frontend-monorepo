@@ -50,7 +50,6 @@ const translations = {
   'landingsside.liste.1':
     'har budd eller arbeidd utanfor Noreg i meir enn fem år etter fylte 16 år',
   'landingsside.liste.2': 'har uføretrygd eller attlevandepensjon',
-  'landingsside.liste.3': 'har særaldersgrense',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
@@ -397,9 +396,6 @@ const translations = {
   'forbehold.gjenlevende.title': 'Attlevandepensjon',
   'forbehold.gjenlevende.ingress':
     'Har du vedtak om attlevandepensjon kan utrekninga gje feil resultat. Du må nytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Dette gjeld og om du er i jobb og ikkje får utbetalt attlevandepensjon.',
-  'forbehold.saeralder.title': 'Særalderspensjon',
-  'forbehold.saeralder.ingress':
-    'Har du særalderspensjon frå ei tenestepensjonsordning, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Årsaka til det er at denne kalkulatoren vil bruke di siste registrerte pensjonsgjevande inntekt frem til tidspunktet for uttak. Utrekninga kan difor vise feil beløp.',
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtalar',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har gjeve samtykke til det, hentar vi inn opplysningar om kva du vil få i pensjon frå offentlege og private pensjonsordningar. NAV har ikkje ansvar for beløpa som vert viste. Beløpa er meint for å gje omtrentleg oversikt over din totale pensjon.{br}{br}Privat tenestepensjon og individuelle rettar vert innhenta via Norsk Pensjon.{br}{br}NAV har for tida ikkje høve til å hente informasjon frå offentlege tenestepensjonsordningar. Dette skuldast at reglane for ny offentleg AFP ikkje er endeleg vedteke, i tillegg til nye samordningsreglar for offentleg tenestepensjon. Ta kontakt med di pensjonsordning om du treng informasjon om tenestepensjonen din.{br}{br}Ynskjer du meir detaljar om dine pensjonsavtalar, må du sjekke direkte med den enkelte pensjonsordninga.',

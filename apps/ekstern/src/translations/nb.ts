@@ -51,7 +51,6 @@ const translations = {
   'landingsside.liste.1':
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
   'landingsside.liste.2': 'mottar uføretrygd eller gjenlevendepensjon',
-  'landingsside.liste.3': 'har særaldersgrense',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
@@ -439,9 +438,6 @@ const translations = {
   'forbehold.gjenlevende.title': 'Gjenlevendepensjon',
   'forbehold.gjenlevende.ingress':
     'Er du innvilget gjenlevendepensjon kan beregningen gi feil resultat. Du må benytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Det gjelder selv om du er i jobb og ikke får utbetalt gjenlevendepensjon.  ',
-  'forbehold.saeralder.title': 'Særalderspensjon',
-  'forbehold.saeralder.ingress':
-    'Mottar du særalderspensjon fra en tjenestepensjonsordning, må du bruke <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Årsaken til det er at denne kalkulatoren vil bruke din siste registrerte inntekt frem til uttaksalderen. Beregningen kan derfor vise feil beløp.',
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtaler',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har samtykket til det, henter vi inn opplysninger om hva du vil få i pensjon fra offentlige og private pensjonsordninger. NAV har ikke ansvar for beløpene som oppgis, men er ment for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon.{br}{br}NAV har for tiden ikke mulighet til å hente informasjon fra offentlige tjenestepensjonsordninger. Dette skyldes at reglene for ny offentlig AFP ikke er endelig vedtatt, og nye samordningsregler for offentlig tjenestepensjon. Ta kontakt med din tjenestepensjonsordning dersom du trenger informasjon om tjenestepensjonen din.{br}{br}Hvis du ønsker en nærmere oversikt over dine pensjonsavtaler, må du sjekke direkte med den enkelte pensjonsordningen.',
