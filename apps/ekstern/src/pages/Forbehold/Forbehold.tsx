@@ -121,19 +121,6 @@ export function Forbehold() {
       </section>
       <section>
         <Heading level="3" size="small" spacing>
-          <FormattedMessage id="forbehold.saeralder.title" />
-        </Heading>
-        <BodyLong spacing>
-          <FormattedMessage
-            id="forbehold.saeralder.ingress"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
-        </BodyLong>
-      </section>
-      <section>
-        <Heading level="3" size="small" spacing>
           <FormattedMessage id="forbehold.pensjonsavtaler.title" />
         </Heading>
         <BodyLong spacing>
