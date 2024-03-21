@@ -4,6 +4,7 @@ declare const classNames: typeof globalClassNames & {
   readonly container: "container";
   readonly container__hasPadding: "container__hasPadding";
   readonly toggle: "toggle";
+  readonly toggle__paddingBottom: "toggle__paddingBottom";
   readonly background: "background";
   readonly background__lightblue: "background__lightblue";
 };

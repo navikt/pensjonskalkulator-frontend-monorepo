@@ -190,7 +190,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       </Modal>
       <div className={styles.beregning}>
         {detaljertFaneFeatureToggle?.enabled && (
-          <div className={styles.toggle}>
+          <div
+            className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
+          >
             <div className={styles.container}>
               <ToggleGroup
                 value={visning}
