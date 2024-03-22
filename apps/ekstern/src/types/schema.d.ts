@@ -46,6 +46,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v2/alderspensjon/simulering': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Simuler alderspensjon
+     *
+     * @description Lag en prognose for framtidig alderspensjon. Feltet 'epsHarInntektOver2G' brukes til å angi om ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet eller ei.
+     */
+    post: operations['simulerAlderspensjonV2']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v1/tidligste-hel-uttaksalder': {
     parameters: {
       query?: never
@@ -293,10 +314,10 @@ export interface components {
       maaneder: number
     }
     AlternativV3: {
-      heltUttaksalder: components['schemas']['AlderV3']
       gradertUttaksalder?: components['schemas']['AlderV3']
       /** Format: int32 */
       uttaksgrad?: number
+      heltUttaksalder: components['schemas']['AlderV3']
     }
     PensjonsberegningV3: {
       /** Format: int32 */
@@ -392,6 +413,64 @@ export interface components {
       aarligUtbetaling: number
       /** Format: int32 */
       grad: number
+    }
+    IngressSimuleringAlderV2: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    IngressSimuleringGradertUttakV2: {
+      /** Format: int32 */
+      grad: number
+      uttaksalder: components['schemas']['IngressSimuleringAlderV2']
+      /** Format: int32 */
+      aarligInntektVsaPensjonBeloep?: number
+    }
+    IngressSimuleringHeltUttakV2: {
+      uttaksalder: components['schemas']['IngressSimuleringAlderV2']
+      aarligInntektVsaPensjon?: components['schemas']['IngressSimuleringInntektV2']
+    }
+    IngressSimuleringInntektV2: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder: components['schemas']['IngressSimuleringAlderV2']
+    }
+    IngressSimuleringSpecV2: {
+      /** @enum {string} */
+      simuleringstype: 'ALDERSPENSJON' | 'ALDERSPENSJON_MED_AFP_PRIVAT'
+      /** Format: date */
+      foedselsdato: string
+      epsHarInntektOver2G: boolean
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep?: number
+      /** @enum {string} */
+      sivilstand?:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+        | 'SAMBOER'
+      gradertUttak?: components['schemas']['IngressSimuleringGradertUttakV2']
+      heltUttak: components['schemas']['IngressSimuleringHeltUttakV2']
+    }
+    PensjonsberegningDto: {
+      /** Format: int32 */
+      alder: number
+      /** Format: int32 */
+      beloep: number
+    }
+    SimuleringsresultatDto: {
+      alderspensjon: components['schemas']['PensjonsberegningDto'][]
+      afpPrivat: components['schemas']['PensjonsberegningDto'][]
+      vilkaarErOppfylt: boolean
     }
     IngressUttaksalderAlderV1: {
       /** Format: int32 */
@@ -612,6 +691,39 @@ export interface operations {
         }
       }
       /** @description Henting av pensjonsavtaler kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  simulerAlderspensjonV2: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['IngressSimuleringSpecV2']
+      }
+    }
+    responses: {
+      /** @description Simulering utført (men dersom vilkår ikke oppfylt vil responsen ikke inneholde pensjonsbeløp). */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['SimuleringsresultatDto']
+        }
+      }
+      /** @description Simulering kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown
