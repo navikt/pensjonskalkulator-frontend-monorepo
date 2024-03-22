@@ -1,0 +1,165 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er den default ubetinget uttaksalder, vises det riktig tekst 1`] = `
+<DocumentFragment>
+  <div
+    aria-live="polite"
+    class="navds-alert navds-alert--warning navds-alert--medium"
+  >
+    <svg
+      aria-labelledby="title-r0"
+      class="navds-alert__icon"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="title-r0"
+      >
+        Advarsel
+      </title>
+      <path
+        clip-rule="evenodd"
+        d="M12 2.25a.75.75 0 0 1 .656.387l9.527 17.25A.75.75 0 0 1 21.526 21H2.474a.75.75 0 0 1-.657-1.113l9.526-17.25A.75.75 0 0 1 12 2.25ZM12 8.75a.75.75 0 0 1 .75.75v4a.75.75 0 0 1-1.5 0v-4a.75.75 0 0 1 .75-.75Zm-1 7.75a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+    >
+      beregning.vilkaarsproeving.intro
+      <br />
+      <br />
+      Du kan tidligst ta ut alderspensjon ved 67 år.
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er lik uttaksalder med ny gradering, vises det riktig tekst 1`] = `
+<DocumentFragment>
+  <div
+    aria-live="polite"
+    class="navds-alert navds-alert--warning navds-alert--medium"
+  >
+    <svg
+      aria-labelledby="title-r2"
+      class="navds-alert__icon"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="title-r2"
+      >
+        Advarsel
+      </title>
+      <path
+        clip-rule="evenodd"
+        d="M12 2.25a.75.75 0 0 1 .656.387l9.527 17.25A.75.75 0 0 1 21.526 21H2.474a.75.75 0 0 1-.657-1.113l9.526-17.25A.75.75 0 0 1 12 2.25ZM12 8.75a.75.75 0 0 1 .75.75v4a.75.75 0 0 1-1.5 0v-4a.75.75 0 0 1 .75-.75Zm-1 7.75a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+    >
+      beregning.vilkaarsproeving.introDu må øke alderen eller sette ned uttaksgraden.
+      <br />
+      <br />
+      Du kan ved 65 år og 3 måneder ta ut 40 % alderspensjon. Du kan også prøve andre kombinasjoner.
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er ulik uttaksalder med ny gradering, vises det riktig tekst 1`] = `
+<DocumentFragment>
+  <div
+    aria-live="polite"
+    class="navds-alert navds-alert--warning navds-alert--medium"
+  >
+    <svg
+      aria-labelledby="title-r3"
+      class="navds-alert__icon"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="title-r3"
+      >
+        Advarsel
+      </title>
+      <path
+        clip-rule="evenodd"
+        d="M12 2.25a.75.75 0 0 1 .656.387l9.527 17.25A.75.75 0 0 1 21.526 21H2.474a.75.75 0 0 1-.657-1.113l9.526-17.25A.75.75 0 0 1 12 2.25ZM12 8.75a.75.75 0 0 1 .75.75v4a.75.75 0 0 1-1.5 0v-4a.75.75 0 0 1 .75-.75Zm-1 7.75a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+    >
+      beregning.vilkaarsproeving.introDu må øke alderen eller sette ned uttaksgraden.
+      <br />
+      <br />
+      Du kan ved 68 år og 5 måneder ta ut 40 % alderspensjon hvis du tar ut 100 % alderspensjon ved 65 år og 3 måneder eller senere. Du kan også prøve andre kombinasjoner.
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er uttaksalder for 100% uten gradering, vises det riktig tekst 1`] = `
+<DocumentFragment>
+  <div
+    aria-live="polite"
+    class="navds-alert navds-alert--warning navds-alert--medium"
+  >
+    <svg
+      aria-labelledby="title-r1"
+      class="navds-alert__icon"
+      fill="none"
+      focusable="false"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title
+        id="title-r1"
+      >
+        Advarsel
+      </title>
+      <path
+        clip-rule="evenodd"
+        d="M12 2.25a.75.75 0 0 1 .656.387l9.527 17.25A.75.75 0 0 1 21.526 21H2.474a.75.75 0 0 1-.657-1.113l9.526-17.25A.75.75 0 0 1 12 2.25ZM12 8.75a.75.75 0 0 1 .75.75v4a.75.75 0 0 1-1.5 0v-4a.75.75 0 0 1 .75-.75Zm-1 7.75a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z"
+        fill="currentColor"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <div
+      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+    >
+      beregning.vilkaarsproeving.introDu må øke alderen eller sette ned uttaksgraden.
+      <br />
+      <br />
+      Du kan ved 65 år og 3 måneder ta ut 100 % alderspensjon. Du kan også prøve andre kombinasjoner.
+    </div>
+  </div>
+</DocumentFragment>
+`;
