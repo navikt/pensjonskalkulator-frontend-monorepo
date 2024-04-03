@@ -74,6 +74,8 @@ const translations = {
     'Siden du har apotekordningen, må du bruke detaljert kalkulator.',
   'henvisning.utland.body':
     'Siden du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert kalkulator.',
+  'stegvisning.radio_ja': 'Ja',
+  'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -262,6 +264,14 @@ const translations = {
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
+    'Forventer du å ha inntekt samtidig som du tar ut 100 % pensjon?',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
+    'Du kan tjene så mye du vil, mens du tar ut pensjon.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
+    'Du må svare på om du forventer å ha inntekt ved siden av 100 % pensjon.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
+    'Du må svare på om du forventer å ha inntekt ved siden av gradert pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label':
     'Hva er din forventede årsinntekt mens du tar ut <nowrap>{grad} %</nowrap> alderspensjon? (Valgfritt)',
   'beregning.avansert.rediger.read_more.pensjonsalder.label':

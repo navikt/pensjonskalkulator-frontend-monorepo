@@ -1,14 +1,21 @@
 import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
-import { BodyLong, Label, Select, TextField } from '@navikt/ds-react'
+import {
+  BodyLong,
+  Label,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+} from '@navikt/ds-react'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
 import { EndreInntekt } from '@/components/EndreInntekt'
 import { InfoOmInntekt } from '@/components/EndreInntekt/InfoOmInntekt'
-import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
+// import { EndreInntektVsaPensjon } from '@/components/EndreInntektVsaPensjon'
 import { VilkaarsproevingAlert } from '@/components/VilkaarsproevingAlert'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -51,8 +58,16 @@ export const RedigerAvansertBeregning: React.FC<{
   const [
     localInntektFremTilUttak,
     localHeltUttak,
+    localHarInntektVsaHeltUttakRadio,
     localGradertUttak,
-    { setLocalInntektFremTilUttak, setLocalHeltUttak, setLocalGradertUttak },
+    localHarInntektVsaGradertUttakRadio,
+    {
+      setLocalInntektFremTilUttak,
+      setLocalHeltUttak,
+      setLocalGradertUttak,
+      setLocalHarInntektVsaHeltUttakRadio,
+      setLocalHarInntektVsaGradertUttakRadio,
+    },
   ] = useFormLocalState({
     aarligInntektFoerUttakBeloepFraBrukerSkattBeloep:
       aarligInntektFoerUttakBeloepFraBrukerSkatt?.beloep,
@@ -69,7 +84,9 @@ export const RedigerAvansertBeregning: React.FC<{
     {
       setValidationErrors,
       setValidationErrorUttaksalderHeltUttak,
+      setValidationErrorInntektVsaHeltUttakRadio,
       setValidationErrorUttaksalderGradertUttak,
+      setValidationErrorInntektVsaGradertUttakRadio,
       setValidationErrorInntektVsaGradertUttak,
       resetValidationErrors,
     },
@@ -124,6 +141,16 @@ export const RedigerAvansertBeregning: React.FC<{
     }
   }
 
+  const handleInntektVsaHeltUttakRadioChange = (s: BooleanRadio) => {
+    setLocalHarInntektVsaHeltUttakRadio(s === 'ja' ? true : false)
+    setValidationErrorInntektVsaHeltUttakRadio('')
+  }
+
+  const handleInntektVsaGradertUttakRadioChange = (s: BooleanRadio) => {
+    setLocalHarInntektVsaGradertUttakRadio(s === 'ja' ? true : false)
+    setValidationErrorInntektVsaGradertUttakRadio('')
+  }
+
   const handleInntektVsaGradertPensjonChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -175,6 +202,7 @@ export const RedigerAvansertBeregning: React.FC<{
     )
     setLocalGradertUttak(undefined)
     setLocalHeltUttak(undefined)
+    setLocalHarInntektVsaHeltUttakRadio(null)
   }
 
   return (
@@ -318,6 +346,47 @@ export const RedigerAvansertBeregning: React.FC<{
         {localGradertUttak && (
           <>
             <div>
+              <RadioGroup
+                legend={
+                  <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak" />
+                }
+                description={
+                  <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description" />
+                }
+                name={FORM_NAMES.inntektVsaGradertUttakRadio}
+                value={
+                  localHarInntektVsaGradertUttakRadio === null
+                    ? null
+                    : localHarInntektVsaGradertUttakRadio
+                      ? 'ja'
+                      : 'nei'
+                }
+                onChange={handleInntektVsaGradertUttakRadioChange}
+                error={
+                  validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
+                    ? intl.formatMessage({
+                        id: validationErrors[
+                          FORM_NAMES.inntektVsaGradertUttakRadio
+                        ],
+                      })
+                    : ''
+                }
+                role="radiogroup"
+                aria-required="true"
+              >
+                <Radio form={FORM_NAMES.form} value="ja">
+                  <FormattedMessage id="stegvisning.radio_ja" />
+                </Radio>
+                <Radio form={FORM_NAMES.form} value="nei">
+                  <FormattedMessage id="stegvisning.radio_nei" />
+                </Radio>
+              </RadioGroup>
+            </div>
+
+            {
+              // TODO skjule tekstfield bak "ja" til RadioGroup
+            }
+            <div>
               <TextField
                 form={FORM_NAMES.form}
                 data-testid="inntekt-vsa-gradert-pensjon-textfield"
@@ -349,6 +418,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 max={5}
               />
             </div>
+            <Divider noMargin />
             <div>
               <AgePicker
                 form={FORM_NAMES.form}
@@ -368,8 +438,47 @@ export const RedigerAvansertBeregning: React.FC<{
             </div>
           </>
         )}
+        <div>
+          <RadioGroup
+            legend={
+              <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak" />
+            }
+            description={
+              <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description" />
+            }
+            name={FORM_NAMES.inntektVsaHeltUttakRadio}
+            value={
+              localHarInntektVsaHeltUttakRadio === null
+                ? null
+                : localHarInntektVsaHeltUttakRadio
+                  ? 'ja'
+                  : 'nei'
+            }
+            onChange={handleInntektVsaHeltUttakRadioChange}
+            error={
+              validationErrors[FORM_NAMES.inntektVsaHeltUttakRadio]
+                ? intl.formatMessage({
+                    id: validationErrors[FORM_NAMES.inntektVsaHeltUttakRadio],
+                  })
+                : ''
+            }
+            role="radiogroup"
+            aria-required="true"
+          >
+            <Radio form={FORM_NAMES.form} value="ja">
+              <FormattedMessage id="stegvisning.radio_ja" />
+            </Radio>
+            <Radio form={FORM_NAMES.form} value="nei">
+              <FormattedMessage id="stegvisning.radio_nei" />
+            </Radio>
+          </RadioGroup>
+        </div>
 
-        {localHeltUttak?.uttaksalder?.aar &&
+        {localHarInntektVsaHeltUttakRadio && (
+          <div>Her kommer input og AgePicker</div>
+        )}
+
+        {/* {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined && (
             <div>
               <div className={`${styles.spacer} ${styles.spacer__small}`} />
@@ -391,7 +500,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 }}
               />
             </div>
-          )}
+          )} */}
         <FormButtonRow
           resetForm={resetForm}
           gaaTilResultat={gaaTilResultat}

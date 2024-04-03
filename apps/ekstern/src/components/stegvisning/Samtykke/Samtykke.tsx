@@ -13,10 +13,8 @@ interface Props {
   harSamtykket: boolean | null
   onCancel: () => void
   onPrevious: () => void
-  onNext: (samtykkeData: SamtykkeRadio) => void
+  onNext: (samtykkeData: BooleanRadio) => void
 }
-
-export type SamtykkeRadio = 'ja' | 'nei'
 
 export function Samtykke({
   harSamtykket,
@@ -31,7 +29,7 @@ export function Samtykke({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const samtykkeData = data.get('samtykke') as SamtykkeRadio | undefined
+    const samtykkeData = data.get('samtykke') as BooleanRadio | undefined
 
     if (!samtykkeData) {
       setValidationError(

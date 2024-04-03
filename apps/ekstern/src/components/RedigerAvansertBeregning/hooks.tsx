@@ -24,6 +24,13 @@ export const useFormLocalState = (initialValues: {
   const { setHarAvansertSkjemaUnsavedChanges } =
     React.useContext(BeregningContext)
 
+  const [localHarInntektVsaHeltUttakRadio, setHarInntektVsaHeltUttakRadio] =
+    React.useState<boolean | null>(null)
+  const [
+    localHarInntektVsaGradertUttakRadio,
+    setHarInntektVsaGradertUttakRadio,
+  ] = React.useState<boolean | null>(null)
+
   const [localInntektFremTilUttak, setInntektFremTilUttak] = React.useState<
     number | null
   >(
@@ -117,6 +124,8 @@ export const useFormLocalState = (initialValues: {
       setLocalInntektFremTilUttak: setInntektFremTilUttak,
       setLocalHeltUttak: setHeltUttak,
       setLocalGradertUttak: setGradertUttak,
+      setLocalHarInntektVsaHeltUttakRadio: setHarInntektVsaHeltUttakRadio,
+      setLocalHarInntektVsaGradertUttakRadio: setHarInntektVsaGradertUttakRadio,
     }),
     []
   )
@@ -124,7 +133,9 @@ export const useFormLocalState = (initialValues: {
   return [
     localInntektFremTilUttak,
     localHeltUttak,
+    localHarInntektVsaHeltUttakRadio,
     localGradertUttak,
+    localHarInntektVsaGradertUttakRadio,
     handlers,
   ] as const
 }
@@ -188,6 +199,22 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
           return {
             ...prevState,
             [FORM_NAMES.uttaksalderHeltUttak]: s,
+          }
+        })
+      },
+      setValidationErrorInntektVsaHeltUttakRadio: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaHeltUttakRadio]: s,
+          }
+        })
+      },
+      setValidationErrorInntektVsaGradertUttakRadio: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaGradertUttakRadio]: s,
           }
         })
       },

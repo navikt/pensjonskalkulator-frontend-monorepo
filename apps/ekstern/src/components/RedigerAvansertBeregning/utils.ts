@@ -9,6 +9,8 @@ export const FORM_NAMES = {
   uttaksgrad: 'uttaksgrad',
   uttaksalderHeltUttak: 'uttaksalder-helt-uttak',
   uttaksalderGradertUttak: 'uttaksalder-gradert-uttak',
+  inntektVsaHeltUttakRadio: 'inntekt-vsa-helt-uttak-radio',
+  inntektVsaGradertUttakRadio: 'inntekt-vsa-gradert-uttak-radio',
   inntektVsaGradertUttak: 'inntekt-vsa-gradert-uttak',
 }
 
@@ -67,6 +69,8 @@ export const validateAvansertBeregningSkjema = (
     gradertUttakMaanederFormData: FormDataEntryValue | null
     heltUttakAarFormData: FormDataEntryValue | null
     heltUttakMaanederFormData: FormDataEntryValue | null
+    inntektVsaHeltUttakRadioFormData: FormDataEntryValue | null
+    inntektVsaGradertUttakRadioFormData: FormDataEntryValue | null
     uttaksgradFormData: FormDataEntryValue | null
     inntektVsaGradertPensjonFormData: FormDataEntryValue | null
   },
@@ -79,11 +83,25 @@ export const validateAvansertBeregningSkjema = (
     gradertUttakMaanederFormData,
     heltUttakAarFormData,
     heltUttakMaanederFormData,
+    inntektVsaHeltUttakRadioFormData,
+    inntektVsaGradertUttakRadioFormData,
     uttaksgradFormData,
     inntektVsaGradertPensjonFormData,
   } = inputData
 
   let isValid = true
+
+  // Sjekker at radio for inntekt vsa helt uttak er fylt ut
+  if (!inntektVsaHeltUttakRadioFormData) {
+    isValid = false
+    updateValidationErrorMessage((prevState) => {
+      return {
+        ...prevState,
+        [FORM_NAMES.inntektVsaHeltUttakRadio]:
+          'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error',
+      }
+    })
+  }
 
   // Sjekker at uttaksgrad er fylt ut med en prosent
   if (
@@ -146,6 +164,18 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
   }
 
+  // Sjekker at radio for inntekt vsa helt uttak er fylt ut (gitt at uttaksgrad er ulik 100 %)
+  if (uttaksgradFormData !== '100 %' && !inntektVsaGradertUttakRadioFormData) {
+    isValid = false
+    updateValidationErrorMessage((prevState) => {
+      return {
+        ...prevState,
+        [FORM_NAMES.inntektVsaGradertUttakRadio]:
+          'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error',
+      }
+    })
+  }
+
   return isValid
 }
 
@@ -182,6 +212,12 @@ export const onAvansertBeregningSubmit = (
   const heltUttakMaanederFormData = data.get(
     `${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
   )
+  const inntektVsaHeltUttakRadioFormData = data.get(
+    `${FORM_NAMES.inntektVsaHeltUttakRadio}`
+  )
+  const inntektVsaGradertUttakRadioFormData = data.get(
+    `${FORM_NAMES.inntektVsaGradertUttakRadio}`
+  )
   const uttaksgradFormData = data.get('uttaksgrad')
   const inntektVsaGradertPensjonFormData = data.get(
     FORM_NAMES.inntektVsaGradertUttak
@@ -193,6 +229,8 @@ export const onAvansertBeregningSubmit = (
         gradertUttakMaanederFormData,
         heltUttakAarFormData,
         heltUttakMaanederFormData,
+        inntektVsaHeltUttakRadioFormData,
+        inntektVsaGradertUttakRadioFormData,
         uttaksgradFormData,
         inntektVsaGradertPensjonFormData,
       },

@@ -14,10 +14,8 @@ interface Props {
   harSamboer: boolean | null
   onCancel: () => void
   onPrevious: () => void
-  onNext: (sivilstandData: SivilstandRadio) => void
+  onNext: (sivilstandData: BooleanRadio) => void
 }
-
-export type SivilstandRadio = 'ja' | 'nei'
 
 export function Sivilstand({
   sivilstand,
@@ -38,7 +36,7 @@ export function Sivilstand({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const sivilstandData = data.get('sivilstand') as SivilstandRadio | undefined
+    const sivilstandData = data.get('sivilstand') as BooleanRadio | undefined
 
     if (!sivilstandData) {
       setValidationError(
