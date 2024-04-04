@@ -53,6 +53,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
             <FormattedMessage
               id="beregning.vilkaarsproeving.alternativer.heltUttak"
               values={{
+                ...getFormatMessageValues(intl),
                 alternativtHeltStartAar:
                   vilkaarsproeving.alternativ.heltUttaksalder?.aar,
                 alternativtHeltStartMaaned:
@@ -69,6 +70,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
             <FormattedMessage
               id="beregning.vilkaarsproeving.alternativer.gradertUttak"
               values={{
+                ...getFormatMessageValues(intl),
                 alternativtGrad: vilkaarsproeving.alternativ.uttaksgrad,
                 alternativtGradertStartAar:
                   vilkaarsproeving.alternativ.gradertUttaksalder?.aar,
@@ -86,6 +88,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
             <FormattedMessage
               id="beregning.vilkaarsproeving.alternativer.heltOgGradertUttak"
               values={{
+                ...getFormatMessageValues(intl),
                 alternativtGrad: vilkaarsproeving.alternativ.uttaksgrad,
                 alternativtGradertStartAar:
                   vilkaarsproeving.alternativ.gradertUttaksalder?.aar,

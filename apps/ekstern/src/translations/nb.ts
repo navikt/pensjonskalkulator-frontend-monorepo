@@ -290,11 +290,11 @@ const translations = {
   'beregning.vilkaarsproeving.intro.optional':
     'Du må øke alderen eller sette ned uttaksgraden.{br}{br}',
   'beregning.vilkaarsproeving.alternativer.heltUttak':
-    'Du kan ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder ta ut 100 % alderspensjon. Du kan også prøve andre kombinasjoner.',
+    'Du kan ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder ta ut <nowrap>100 %</nowrap> alderspensjon. Du kan også prøve andre kombinasjoner.',
   'beregning.vilkaarsproeving.alternativer.gradertUttak':
-    'Du kan ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder ta ut {alternativtGrad} % alderspensjon. Du kan også prøve andre kombinasjoner.',
+    'Du kan ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon. Du kan også prøve andre kombinasjoner.',
   'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak':
-    'Du kan ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder ta ut {alternativtGrad} % alderspensjon hvis du tar ut 100 % alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Du kan også prøve andre kombinasjoner.',
+    'Du kan ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon hvis du tar ut 100 % alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Du kan også prøve andre kombinasjoner.',
   'grunnlag.title': 'Øvrig grunnlag for beregningen',
   'beregning.avansert.avbryt_modal.title':
     'Er du sikker på at du vil avslutte avansert beregning?',

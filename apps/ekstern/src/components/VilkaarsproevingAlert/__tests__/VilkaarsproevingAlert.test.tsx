@@ -1,7 +1,7 @@
-import { describe, it, vi } from 'vitest'
+import { describe, it } from 'vitest'
 
 import { VilkaarsproevingAlert } from '..'
-import { render, screen, userEvent } from '@/test-utils'
+import { render, screen } from '@/test-utils'
 import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
 
 describe('VilkaarsproevingAlert', () => {
@@ -60,12 +60,19 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText(
-        'Du kan ved 65 år og 3 måneder ta ut 100 % alderspensjon. Du kan også prøve andre kombinasjoner.',
-        {
-          exact: false,
-        }
-      )
+      screen.getByText('Du kan ved 65 år og 3 måneder ta ut', {
+        exact: false,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('100 %', {
+        exact: false,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Du kan også prøve andre kombinasjoner.', {
+        exact: false,
+      })
     ).toBeInTheDocument()
     expect(asFragment()).toMatchSnapshot()
   })
@@ -97,12 +104,19 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText(
-        'Du kan ved 65 år og 3 måneder ta ut 40 % alderspensjon. Du kan også prøve andre kombinasjoner.',
-        {
-          exact: false,
-        }
-      )
+      screen.getByText('Du kan ved 65 år og 3 måneder ta ut', {
+        exact: false,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('40 %', {
+        exact: false,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Du kan også prøve andre kombinasjoner.', {
+        exact: false,
+      })
     ).toBeInTheDocument()
     expect(asFragment()).toMatchSnapshot()
   })
@@ -133,12 +147,29 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText(
-        'Du kan ved 68 år og 5 måneder ta ut 40 % alderspensjon hvis du tar ut 100 % alderspensjon ved 65 år og 3 måneder eller senere. Du kan også prøve andre kombinasjoner.',
-        {
-          exact: false,
-        }
-      )
+      screen.getByText('Du kan ved 68 år og 5 måneder ta ut', {
+        exact: false,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('40 %', {
+        exact: false,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('100 %', {
+        exact: false,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('ved 65 år og 3 måneder eller senere', {
+        exact: false,
+      })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Du kan også prøve andre kombinasjoner.', {
+        exact: false,
+      })
     ).toBeInTheDocument()
     expect(asFragment()).toMatchSnapshot()
   })
