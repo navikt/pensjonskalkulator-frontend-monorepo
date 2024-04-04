@@ -54,7 +54,7 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/amplitude-js": "^8.16.5",
     "@types/react": "^18.2.74",
-    "@types/react-dom": "^18.2.22",
+    "@types/react-dom": "^18.2.24",
     "@typescript-eslint/parser": "^7.3.1",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@vitejs/plugin-react": "^4.2.1",
