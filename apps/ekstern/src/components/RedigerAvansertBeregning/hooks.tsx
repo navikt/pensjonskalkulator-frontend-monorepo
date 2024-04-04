@@ -7,8 +7,8 @@ import { getFormatMessageValues } from '@/utils/translations'
 import { FORM_NAMES } from './utils'
 
 export const useFormLocalState = (initialValues: {
-  aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: number | undefined
-  aarligInntektFoerUttakBeloepFraBrukerInput: number | null
+  aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: string | undefined
+  aarligInntektFoerUttakBeloepFraBrukerInput: string | null
   uttaksalder: Alder | null
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
@@ -32,7 +32,7 @@ export const useFormLocalState = (initialValues: {
   ] = React.useState<boolean | null>(null)
 
   const [localInntektFremTilUttak, setInntektFremTilUttak] = React.useState<
-    number | null
+    string | null
   >(
     aarligInntektFoerUttakBeloepFraBrukerInput
       ? aarligInntektFoerUttakBeloepFraBrukerInput
@@ -50,10 +50,7 @@ export const useFormLocalState = (initialValues: {
       : undefined,
   })
   const [localGradertUttak, setGradertUttak] = React.useState<
-    | (Omit<RecursivePartial<GradertUttak>, 'aarligInntektVsaPensjonBeloep'> & {
-        aarligInntektVsaPensjonBeloep?: string
-      })
-    | undefined
+    RecursivePartial<GradertUttak> | undefined
   >(
     gradertUttaksperiode
       ? {

@@ -1,14 +1,23 @@
-export const formatWithoutDecimal = (
-  amount?: number | string | null
-): string => {
+export const formatInntekt = (amount?: number | string | null): string => {
   if (amount === null || amount === undefined || amount === '') return ''
   const integerAmount =
-    typeof amount === 'string' ? parseInt(amount, 10) : amount
-  return Intl.NumberFormat('nb-NO', {
-    style: 'decimal',
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(integerAmount)
+    typeof amount === 'string'
+      ? parseInt(amount.replace(/\D+/g, ''), 10)
+      : amount
+
+  return !isNaN(integerAmount)
+    ? Intl.NumberFormat('nb-NO', {
+        style: 'decimal',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(integerAmount)
+    : ''
+}
+
+export const formatInntektToNumber = (s?: string) => {
+  if (!s) return 0
+  const inntekt = parseInt(s.replace(/[^-0-9]/g, ''), 10)
+  return !isNaN(inntekt) ? inntekt : 0
 }
 
 export const validateInntekt = (
@@ -29,14 +38,13 @@ export const validateInntekt = (
     }
     return isValid
   }
-  const s = input.replace(/ /g, '')
 
-  if (isNaN(s as unknown as number) || !/^[0-9]+$/.test(s)) {
+  if (!/^[0-9\s\-.]+$/.test(input)) {
     isValid = false
     updateValidationErrorMessage(
       'inntekt.endre_inntekt_modal.textfield.validation_error.type'
     )
-  } else if (parseInt(s as string, 10) > 100000000) {
+  } else if (parseInt(input as string, 10) > 100000000) {
     isValid = false
     updateValidationErrorMessage(
       'inntekt.endre_inntekt_modal.textfield.validation_error.max'

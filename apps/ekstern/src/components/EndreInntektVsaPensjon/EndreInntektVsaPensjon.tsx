@@ -11,7 +11,7 @@ import {
   validateAlderFromForm,
   transformUttaksalderToDate,
 } from '@/utils/alder'
-import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
+import { validateInntekt } from '@/utils/inntekt'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -20,7 +20,7 @@ import styles from './EndreInntektVsaPensjon.module.scss'
 interface Props {
   uttaksperiode?: RecursivePartial<HeltUttak>
   oppdatereInntekt: (aarligInntektVsaPensjon?: {
-    beloep: number
+    beloep: string
     sluttAlder: {
       aar: number
       maaneder: number
@@ -132,10 +132,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
           : 'Endrer pensjonsgivende inntekt vsa. 100% alderspensjon',
       })
       oppdatereInntekt({
-        beloep: parseInt(
-          (inntektBeloepVsaPensjon as string).replace(/ /g, ''),
-          10
-        ),
+        beloep: inntektBeloepVsaPensjon,
         sluttAlder: { ...(sluttAlder as Alder) },
       })
       if (inntektVsaPensjonModalRef.current?.open) {
@@ -276,9 +273,7 @@ export const EndreInntektVsaPensjon: React.FC<Props> = ({
             />
           </Label>
           <BodyShort>
-            <span className="nowrap">{`${formatWithoutDecimal(
-              uttaksperiode.aarligInntektVsaPensjon.beloep
-            )} kr`}</span>
+            <span className="nowrap">{`${uttaksperiode.aarligInntektVsaPensjon.beloep} kr`}</span>
             {` ${intl.formatMessage({
               id: 'beregning.fra',
             })} ${

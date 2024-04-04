@@ -58,7 +58,7 @@ describe('Beregning', () => {
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
-              aarligInntektFoerUttakBeloep: 300000,
+              aarligInntektFoerUttakBeloep: '300 000',
               gradertUttaksperiode: null,
             },
           },
@@ -254,7 +254,7 @@ describe('Beregning', () => {
                 formatertUttaksalderReadOnly:
                   '70 alder.aar string.og 4 alder.maaned',
                 uttaksalder: { aar: 70, maaneder: 4 },
-                aarligInntektFoerUttakBeloep: 300000,
+                aarligInntektFoerUttakBeloep: '300 000',
                 gradertUttaksperiode: null,
               },
             },

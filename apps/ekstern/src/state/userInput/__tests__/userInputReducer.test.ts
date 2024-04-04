@@ -86,7 +86,7 @@ describe('userInputSlice', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
         userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
-          800000
+          '800000'
         )
       )
 
@@ -94,7 +94,25 @@ describe('userInputSlice', () => {
         ...userInputInitialState,
         currentSimulation: {
           ...userInputInitialState.currentSimulation,
-          aarligInntektFoerUttakBeloep: 800000,
+          aarligInntektFoerUttakBeloep: '800 000',
+        },
+      })
+    })
+
+    it('setCurrentSimulationAarligInntektVsaHelPensjon med tomt beloep', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon({
+          beloep: '',
+          sluttAlder: { aar: 75, maaneder: 0 },
+        })
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          aarligInntektVsaHelPensjon: undefined,
         },
       })
     })
@@ -103,7 +121,7 @@ describe('userInputSlice', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
         userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon({
-          beloep: 800000,
+          beloep: '800000',
           sluttAlder: { aar: 75, maaneder: 0 },
         })
       )
@@ -113,7 +131,7 @@ describe('userInputSlice', () => {
         currentSimulation: {
           ...userInputInitialState.currentSimulation,
           aarligInntektVsaHelPensjon: {
-            beloep: 800000,
+            beloep: '800 000',
             sluttAlder: { aar: 75, maaneder: 0 },
           },
         },
@@ -126,7 +144,7 @@ describe('userInputSlice', () => {
         userInputActions.setCurrentSimulationGradertuttaksperiode({
           uttaksalder: { aar: 67, maaneder: 3 },
           grad: 20,
-          aarligInntektVsaPensjonBeloep: 150000,
+          aarligInntektVsaPensjonBeloep: '150000',
         })
       )
 
@@ -137,7 +155,7 @@ describe('userInputSlice', () => {
           gradertUttaksperiode: {
             uttaksalder: { aar: 67, maaneder: 3 },
             grad: 20,
-            aarligInntektVsaPensjonBeloep: 150000,
+            aarligInntektVsaPensjonBeloep: '150 000',
           },
         },
       })
@@ -195,7 +213,7 @@ describe('userInputSlice', () => {
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             uttaksalder: { aar: 66, maaneder: 4 },
-            aarligInntektFoerUttakBeloep: 300000,
+            aarligInntektFoerUttakBeloep: '300 000',
             gradertUttaksperiode: null,
           },
         },
@@ -215,12 +233,11 @@ describe('userInputSlice', () => {
           samtykke: true,
           afp: 'ja_offentlig',
           samboer: false,
-
           currentSimulation: {
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             uttaksalder: { aar: 66, maaneder: 4 },
-            aarligInntektFoerUttakBeloep: 300000,
+            aarligInntektFoerUttakBeloep: '300 000',
             gradertUttaksperiode: null,
           },
         },

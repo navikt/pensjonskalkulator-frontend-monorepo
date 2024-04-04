@@ -150,14 +150,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           {
             localHeltUttak: {
               aarligInntektVsaPensjon: {
-                beloep: 300000,
+                beloep: '300 000',
                 sluttAlder: {
                   aar: 75,
                   maaneder: 0,
                 },
               },
             },
-            localInntektFremTilUttak: 500000,
+            localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -184,7 +184,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(3, {
           payload: {
-            beloep: 300000,
+            beloep: '300 000',
             sluttAlder: {
               aar: 75,
               maaneder: 0,
@@ -193,7 +193,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           type: 'userInputSlice/setCurrentSimulationAarligInntektVsaHelPensjon',
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(4, {
-          payload: 500000,
+          payload: '500 000',
           type: 'userInputSlice/setCurrentSimulationaarligInntektFoerUttakBeloep',
         })
 
@@ -232,14 +232,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           {
             localHeltUttak: {
               aarligInntektVsaPensjon: {
-                beloep: 300000,
+                beloep: '300 000',
                 sluttAlder: {
                   aar: 75,
                   maaneder: 0,
                 },
               },
             },
-            localInntektFremTilUttak: 500000,
+            localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -259,7 +259,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(3, {
           payload: {
-            beloep: 300000,
+            beloep: '300 000',
             sluttAlder: {
               aar: 75,
               maaneder: 0,
@@ -268,7 +268,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           type: 'userInputSlice/setCurrentSimulationAarligInntektVsaHelPensjon',
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(4, {
-          payload: 500000,
+          payload: '500 000',
           type: 'userInputSlice/setCurrentSimulationaarligInntektFoerUttakBeloep',
         })
 
@@ -307,14 +307,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           {
             localHeltUttak: {
               aarligInntektVsaPensjon: {
-                beloep: 300000,
+                beloep: '300 000',
                 sluttAlder: {
                   aar: 75,
                   maaneder: 0,
                 },
               },
             },
-            localInntektFremTilUttak: 500000,
+            localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -356,14 +356,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           {
             localHeltUttak: {
               aarligInntektVsaPensjon: {
-                beloep: 300000,
+                beloep: '300 000',
                 sluttAlder: {
                   aar: 75,
                   maaneder: 0,
                 },
               },
             },
-            localInntektFremTilUttak: 500000,
+            localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: true,
           }
@@ -382,6 +382,8 @@ describe('RedigerAvansertBeregning-utils', () => {
       heltUttakAarFormData: '67',
       heltUttakMaanederFormData: '0',
       uttaksgradFormData: '40 %',
+      inntektVsaHeltUttakRadioFormData: 'ja',
+      inntektVsaGradertUttakRadioFormData: 'ja',
       inntektVsaGradertPensjonFormData: '99000',
     }
 

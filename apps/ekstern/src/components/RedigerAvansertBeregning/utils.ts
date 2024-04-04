@@ -1,7 +1,7 @@
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { validateAlderFromForm, getAlderMinus1Maaned } from '@/utils/alder'
-import { validateInntekt } from '@/utils/inntekt'
+import { validateInntekt, formatInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
 export const FORM_NAMES = {
@@ -111,21 +111,6 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
   }
 
-  // Sjekker at inntekt vsa gradert pensjon er enten tom eller fylt ut med en gyldig string
-  if (
-    !validateInntekt(
-      inntektVsaGradertPensjonFormData as string,
-      (s: string) => {
-        updateValidationErrorMessage((prevState) => {
-          return { ...prevState, [FORM_NAMES.inntektVsaGradertUttak]: s }
-        })
-      },
-      false
-    )
-  ) {
-    isValid = false
-  }
-
   // Sjekker at uttaksalder for hele pensjon er fylt ut med en alder
   if (
     !validateAlderFromForm(
@@ -176,6 +161,27 @@ export const validateAvansertBeregningSkjema = (
     })
   }
 
+  // Sjekker at  inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 % og radioknappen er på "ja")
+  // Sjekker at inntekt vsa gradert pensjon er enten tom eller fylt ut med en gyldig string
+  if (
+    uttaksgradFormData !== '100 %' &&
+    inntektVsaGradertUttakRadioFormData === 'ja'
+  ) {
+    if (
+      !validateInntekt(
+        inntektVsaGradertPensjonFormData as string,
+        (s: string) => {
+          updateValidationErrorMessage((prevState) => {
+            return { ...prevState, [FORM_NAMES.inntektVsaGradertUttak]: s }
+          })
+        },
+        true
+      )
+    ) {
+      isValid = false
+    }
+  }
+
   return isValid
 }
 
@@ -188,7 +194,7 @@ export const onAvansertBeregningSubmit = (
   gaaTilResultat: () => void,
   previousData: {
     localHeltUttak: RecursivePartial<HeltUttak> | undefined
-    localInntektFremTilUttak: number | null
+    localInntektFremTilUttak: string | null
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
   }
@@ -249,14 +255,7 @@ export const onAvansertBeregningSubmit = (
     if (uttaksgradFormData === '100 %') {
       dispatch(userInputActions.setCurrentSimulationGradertuttaksperiode(null))
     } else {
-      const aarligInntektVsaGradertPensjon = parseInt(
-        (inntektVsaGradertPensjonFormData as string).replace(/ /g, ''),
-        10
-      )
-      if (
-        !isNaN(aarligInntektVsaGradertPensjon) &&
-        aarligInntektVsaGradertPensjon > 0
-      ) {
+      if (inntektVsaGradertPensjonFormData) {
         logger('valg av uttaksgrad', {
           tekst: `${uttaksgradFormData}`,
         })
@@ -264,7 +263,7 @@ export const onAvansertBeregningSubmit = (
           tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
         })
         logger('valg av inntekt vsa. gradert pensjon (antall sifre)', {
-          tekst: `${aarligInntektVsaGradertPensjon.toString().length}`,
+          tekst: `${(inntektVsaGradertPensjonFormData as string).replace(/ /g, '').length}`,
         })
       }
       dispatch(
@@ -277,10 +276,8 @@ export const onAvansertBeregningSubmit = (
             (uttaksgradFormData as string).match(/\d+/)?.[0] as string,
             10
           ),
-          /* c8 ignore next 3 */
-          aarligInntektVsaPensjonBeloep: !isNaN(aarligInntektVsaGradertPensjon) // Dette kan i praksis ikke skje pga validering lengre opp
-            ? aarligInntektVsaGradertPensjon
-            : undefined,
+          aarligInntektVsaPensjonBeloep:
+            inntektVsaGradertPensjonFormData as string,
         })
       )
     }
@@ -291,7 +288,9 @@ export const onAvansertBeregningSubmit = (
           localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.maaneder !==
             undefined
           ? {
-              beloep: localHeltUttak?.aarligInntektVsaPensjon?.beloep,
+              beloep: formatInntekt(
+                localHeltUttak?.aarligInntektVsaPensjon?.beloep
+              ),
               sluttAlder: localHeltUttak?.aarligInntektVsaPensjon
                 ?.sluttAlder as Alder,
             }

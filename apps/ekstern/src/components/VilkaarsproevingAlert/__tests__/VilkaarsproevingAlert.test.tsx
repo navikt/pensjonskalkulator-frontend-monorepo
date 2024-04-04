@@ -1,7 +1,7 @@
-import { describe, it, vi } from 'vitest'
+import { describe, it } from 'vitest'
 
 import { VilkaarsproevingAlert } from '..'
-import { render, screen, userEvent } from '@/test-utils'
+import { render, screen } from '@/test-utils'
 import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
 
 describe('VilkaarsproevingAlert', () => {

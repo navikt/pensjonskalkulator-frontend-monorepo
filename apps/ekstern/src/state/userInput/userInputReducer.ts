@@ -1,14 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { formatInntekt } from '@/utils/inntekt'
+
 export interface Simulation {
   formatertUttaksalderReadOnly: string | null // (!) Obs READONLY - string i format "YY alder.aar string.og M alder.maaneder" - oppdateres automatisk basert på uttaksalder - se uttaksalderListener
   uttaksalder: Alder | null // valgt uttaksalder for 100% alderspensjon (alder perioden gjelder FRA) - aar heltall, maaneder heltall mellom 0-11
-  aarligInntektFoerUttakBeloep: number | null // inntekt før uttak av pensjon - heltall beløp i nok - overskriver beløp fra Skatteetaten
-  aarligInntektVsaHelPensjon?: {
-    // optional
-    beloep: number // heltall beløp i nok - inntekt vsa. pensjon
-    sluttAlder: Alder // alder inntekt vsa. pensjon tar slutt
-  }
+  aarligInntektFoerUttakBeloep: string | null // inntekt før uttak av pensjon - formatert string i nok - overskriver beløp fra Skatteetaten
+  aarligInntektVsaHelPensjon?: AarligInntektVsaPensjon
   gradertUttaksperiode: GradertUttak | null
 }
 
@@ -63,21 +61,36 @@ export const userInputSlice = createSlice({
     },
     setCurrentSimulationaarligInntektFoerUttakBeloep: (
       state,
-      action: PayloadAction<number | null>
+      action: PayloadAction<string | null>
     ) => {
-      state.currentSimulation.aarligInntektFoerUttakBeloep = action.payload
+      state.currentSimulation.aarligInntektFoerUttakBeloep = formatInntekt(
+        action.payload
+      )
     },
     setCurrentSimulationAarligInntektVsaHelPensjon: (
       state,
-      action: PayloadAction<{ beloep: number; sluttAlder: Alder } | undefined>
+      action: PayloadAction<AarligInntektVsaPensjon | undefined>
     ) => {
-      state.currentSimulation.aarligInntektVsaHelPensjon = action.payload
+      state.currentSimulation.aarligInntektVsaHelPensjon =
+        action.payload && action.payload.beloep
+          ? {
+              ...action.payload,
+              beloep: formatInntekt(action.payload?.beloep),
+            }
+          : undefined
     },
     setCurrentSimulationGradertuttaksperiode: (
       state,
       action: PayloadAction<GradertUttak | null>
     ) => {
       state.currentSimulation.gradertUttaksperiode = action.payload
+        ? {
+            ...action.payload,
+            aarligInntektVsaPensjonBeloep: action.payload
+              ? formatInntekt(action.payload.aarligInntektVsaPensjonBeloep)
+              : undefined,
+          }
+        : null
     },
     syncCurrentSimulationFormatertUttaksalderReadOnly: (
       state,

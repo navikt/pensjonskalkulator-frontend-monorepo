@@ -17,17 +17,17 @@ describe('RedigerAvansertBeregning-hooks', () => {
       setAvansertSkjemaModus: vi.fn(),
     }
     const initialProps = {
-      aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: 250000,
-      aarligInntektFoerUttakBeloepFraBrukerInput: 300000,
+      aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: '250 000',
+      aarligInntektFoerUttakBeloepFraBrukerInput: '300 000',
       uttaksalder: { aar: 70, maaneder: 0 },
       aarligInntektVsaHelPensjon: {
-        beloep: 100000,
+        beloep: '100 000',
         sluttAlder: { aar: 75, maaneder: 0 },
       },
       gradertUttaksperiode: {
         grad: 40,
         uttaksalder: { aar: 67, maaneder: 0 },
-        aarligInntektVsaPensjonBeloep: 100000,
+        aarligInntektVsaPensjonBeloep: '100 000',
       },
     }
 

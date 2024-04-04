@@ -12,7 +12,7 @@ import {
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
 import { formatUttaksalder, transformUttaksalderToDate } from '@/utils/alder'
-import { formatWithoutDecimal } from '@/utils/inntekt'
+import { formatInntekt } from '@/utils/inntekt'
 import { wrapLogger } from '@/utils/logging'
 interface Props {
   onButtonClick: () => void
@@ -56,10 +56,7 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_1',
             })}
-            :{' '}
-            <span className="nowrap">
-              {formatWithoutDecimal(aarligInntektFoerUttakBeloep)}
-            </span>
+            : <span className="nowrap">{aarligInntektFoerUttakBeloep}</span>
             {intl.formatMessage({
               id: 'beregning.avansert.resultatkort.inntekt_2',
             })}
@@ -89,24 +86,22 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
                     {gradertUttaksperiode.grad} %<br />
                   </>
                 )}
-                {gradertUttaksperiode.aarligInntektVsaPensjonBeloep !==
-                  undefined &&
-                  gradertUttaksperiode.aarligInntektVsaPensjonBeloep > 0 && (
-                    <>
-                      {intl.formatMessage({
-                        id: 'beregning.avansert.resultatkort.inntekt_1',
-                      })}
-                      {': '}
-                      <span className="nowrap">
-                        {formatWithoutDecimal(
-                          gradertUttaksperiode.aarligInntektVsaPensjonBeloep
-                        )}
-                      </span>
-                      {intl.formatMessage({
-                        id: 'beregning.avansert.resultatkort.inntekt_2',
-                      })}
-                    </>
-                  )}
+                {gradertUttaksperiode.aarligInntektVsaPensjonBeloep && (
+                  <>
+                    {intl.formatMessage({
+                      id: 'beregning.avansert.resultatkort.inntekt_1',
+                    })}
+                    {': '}
+                    <span className="nowrap">
+                      {formatInntekt(
+                        gradertUttaksperiode.aarligInntektVsaPensjonBeloep
+                      )}
+                    </span>
+                    {intl.formatMessage({
+                      id: 'beregning.avansert.resultatkort.inntekt_2',
+                    })}
+                  </>
+                )}
               </dd>
             </>
           )}
@@ -131,34 +126,33 @@ export const ResultatkortAvansertBeregning: React.FC<Props> = ({
               id: 'beregning.avansert.resultatkort.alderspensjon',
             })}
             100 %
-            {aarligInntektVsaHelPensjon &&
-              aarligInntektVsaHelPensjon.beloep > 0 && (
-                <>
-                  <br />
-                  {intl.formatMessage({
-                    id: 'beregning.avansert.resultatkort.inntekt_1',
-                  })}
-                  {intl.formatMessage({
-                    id: aarligInntektVsaHelPensjon?.sluttAlder.maaneder
-                      ? 'beregning.tom'
-                      : 'beregning.til',
-                  })}
-                  {formatUttaksalder(
-                    intl,
-                    aarligInntektVsaHelPensjon?.sluttAlder,
-                    {
-                      compact: true,
-                    }
-                  )}
-                  {': '}
-                  <span className="nowrap">
-                    {formatWithoutDecimal(aarligInntektVsaHelPensjon?.beloep)}
-                  </span>
-                  {intl.formatMessage({
-                    id: 'beregning.avansert.resultatkort.inntekt_2',
-                  })}
-                </>
-              )}
+            {aarligInntektVsaHelPensjon?.beloep && (
+              <>
+                <br />
+                {intl.formatMessage({
+                  id: 'beregning.avansert.resultatkort.inntekt_1',
+                })}
+                {intl.formatMessage({
+                  id: aarligInntektVsaHelPensjon?.sluttAlder.maaneder
+                    ? 'beregning.tom'
+                    : 'beregning.til',
+                })}
+                {formatUttaksalder(
+                  intl,
+                  aarligInntektVsaHelPensjon?.sluttAlder,
+                  {
+                    compact: true,
+                  }
+                )}
+                {': '}
+                <span className="nowrap">
+                  {aarligInntektVsaHelPensjon?.beloep}
+                </span>
+                {intl.formatMessage({
+                  id: 'beregning.avansert.resultatkort.inntekt_2',
+                })}
+              </>
+            )}
           </dd>
         </dl>
 

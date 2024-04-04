@@ -17,7 +17,7 @@ describe('EndreInntekt', () => {
       render(
         <EndreInntekt
           visning="enkel"
-          value={521338}
+          value="521 338"
           onSubmit={oppdatereInntektMock}
         />
       )
@@ -34,7 +34,7 @@ describe('EndreInntekt', () => {
         )
       ).not.toBeInTheDocument()
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
-      expect(oppdatereInntektMock).toHaveBeenCalledWith(123000)
+      expect(oppdatereInntektMock).toHaveBeenCalledWith('123000')
 
       expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
@@ -46,7 +46,7 @@ describe('EndreInntekt', () => {
       render(
         <EndreInntekt
           visning="enkel"
-          value={521338}
+          value="521 338"
           onSubmit={oppdatereInntektMock}
         />
       )
@@ -81,7 +81,7 @@ describe('EndreInntekt', () => {
       render(
         <EndreInntekt
           visning="enkel"
-          value={521338}
+          value="521 338"
           onSubmit={oppdatereInntektMock}
         />
       )
@@ -102,7 +102,7 @@ describe('EndreInntekt', () => {
       render(
         <EndreInntekt
           visning="enkel"
-          value={0}
+          value="0"
           onSubmit={oppdatereInntektMock}
         />
       )
@@ -115,7 +115,7 @@ describe('EndreInntekt', () => {
       await user.type(input, '123000')
 
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
-      expect(oppdatereInntektMock).toHaveBeenCalledWith(123000)
+      expect(oppdatereInntektMock).toHaveBeenCalledWith('123000')
     })
   })
 
@@ -126,7 +126,7 @@ describe('EndreInntekt', () => {
     render(
       <EndreInntekt
         visning="enkel"
-        value={500000}
+        value="500 000"
         onSubmit={oppdatereInntektMock}
       />
     )
@@ -164,7 +164,7 @@ describe('EndreInntekt', () => {
     render(
       <EndreInntekt
         visning="avansert"
-        value={500000}
+        value="500 000"
         onSubmit={oppdatereInntektMock}
       />,
       {

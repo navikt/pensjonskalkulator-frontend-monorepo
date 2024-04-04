@@ -58,7 +58,7 @@ export const BeregningAvansert: React.FC = () => {
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
-        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         gradertUttak: gradertUttaksperiode
           ? {
               ...gradertUttaksperiode,
@@ -154,7 +154,9 @@ export const BeregningAvansert: React.FC = () => {
             <>
               <Simulering
                 isLoading={isFetching}
-                aarligInntektFoerUttakBeloep={aarligInntektFoerUttakBeloep ?? 0}
+                aarligInntektFoerUttakBeloep={
+                  aarligInntektFoerUttakBeloep ?? '0'
+                }
                 alderspensjon={alderspensjon}
                 showAfp={afp === 'ja_privat'}
                 showButtonsAndTable={

@@ -89,7 +89,7 @@ describe('ResultatkortAvansertBeregning', () => {
             currentSimulation: {
               ...currentSimulation,
               aarligInntektVsaHelPensjon: {
-                beloep: 200000,
+                beloep: '200 000',
                 sluttAlder: { aar: 70, maaneder: 3 },
               },
             },
@@ -139,7 +139,7 @@ describe('ResultatkortAvansertBeregning', () => {
               gradertUttaksperiode: {
                 grad: 20,
                 uttaksalder: { aar: 65, maaneder: 3 },
-                aarligInntektVsaPensjonBeloep: 100000,
+                aarligInntektVsaPensjonBeloep: '100 000',
               },
             },
           },

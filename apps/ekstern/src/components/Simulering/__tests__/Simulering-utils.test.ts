@@ -73,7 +73,7 @@ describe('Simulering-utils', () => {
       it('returnerer et array med én 0 verdi uten å feile', () => {
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 0,
+            inntektFoerUttakBeloep: '0',
             gradertUttak: undefined,
             heltUttak: undefined,
             length: 0,
@@ -84,7 +84,7 @@ describe('Simulering-utils', () => {
       it('returnerer et riktig mappet array med riktig beløp før uttak, og 0 verdi videre', () => {
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 500000,
+            inntektFoerUttakBeloep: '500 000',
             gradertUttak: undefined,
             heltUttak: undefined,
             length: 1,
@@ -92,7 +92,7 @@ describe('Simulering-utils', () => {
         ).toEqual([500000])
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 500000,
+            inntektFoerUttakBeloep: '500 000',
             gradertUttak: undefined,
             heltUttak: undefined,
             length: 4,
@@ -104,7 +104,7 @@ describe('Simulering-utils', () => {
       it('uten inntekt vsa hel pensjon, returnerer et riktig mappet array med riktig beløp før uttak', () => {
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 500000,
+            inntektFoerUttakBeloep: '500 000',
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 65, maaneder: 0 },
@@ -117,7 +117,7 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 500000,
+            inntektFoerUttakBeloep: '500 000',
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 65, maaneder: 4 },
@@ -131,12 +131,12 @@ describe('Simulering-utils', () => {
       it('med inntekt vsa hel pensjon, returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 500000,
+            inntektFoerUttakBeloep: '500 000',
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 65, maaneder: 0 },
               til: { aar: 67, maaneder: 0 },
-              beloep: 300000,
+              beloep: '300 000',
             },
             length: 5,
           })
@@ -144,12 +144,12 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 500000,
+            inntektFoerUttakBeloep: '500 000',
             gradertUttak: undefined,
             heltUttak: {
               fra: { aar: 65, maaneder: 4 },
               til: { aar: 67, maaneder: 3 },
-              beloep: 300000,
+              beloep: '300 000',
             },
             length: 5,
           })
@@ -161,16 +161,16 @@ describe('Simulering-utils', () => {
       it('returnerer et riktig mappet array med riktig beløp før uttak, og verdi for inntekt vsa pensjon videre', () => {
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 500000,
+            inntektFoerUttakBeloep: '500 000',
             gradertUttak: {
               fra: { aar: 65, maaneder: 0 },
               til: { aar: 67, maaneder: 0 },
-              beloep: 300000,
+              beloep: '300 000',
             },
             heltUttak: {
               fra: { aar: 67, maaneder: 0 },
               til: { aar: 71, maaneder: 0 },
-              beloep: 100000,
+              beloep: '100 000',
             },
             length: 8,
           })
@@ -178,16 +178,16 @@ describe('Simulering-utils', () => {
 
         expect(
           processInntektArray({
-            inntektFoerUttakBeloep: 500000,
+            inntektFoerUttakBeloep: '500 000',
             gradertUttak: {
               fra: { aar: 65, maaneder: 4 },
               til: { aar: 67, maaneder: 3 },
-              beloep: 300000,
+              beloep: '300 000',
             },
             heltUttak: {
               fra: { aar: 67, maaneder: 3 },
               til: { aar: 71, maaneder: 8 },
-              beloep: 100000,
+              beloep: '100 000',
             },
             length: 10,
           })

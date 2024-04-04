@@ -14,7 +14,6 @@ import {
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { formatWithoutDecimal } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -57,9 +56,7 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
           headerTitle={intl.formatMessage({
             id: 'grunnlag.inntekt.title',
           })}
-          headerValue={`${formatWithoutDecimal(
-            aarligInntektFoerUttakBeloep ?? 0
-          )} kr`}
+          headerValue={`${aarligInntektFoerUttakBeloep} kr`}
         >
           <>
             <BodyLong>
@@ -67,9 +64,7 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
                 id="grunnlag.inntekt.ingress"
                 values={{
                   ...getFormatMessageValues(intl),
-                  beloep: formatWithoutDecimal(
-                    aarligInntektFoerUttakBeloepFraSkatt?.beloep
-                  ),
+                  beloep: aarligInntektFoerUttakBeloepFraSkatt?.beloep,
                   aar: aarligInntektFoerUttakBeloepFraSkatt?.aar,
                 }}
               />
@@ -111,15 +106,11 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
             <EndreInntekt
               visning="enkel"
               className={styles.button}
-              value={
-                aarligInntektFoerUttakBeloepFraBrukerInput
-                  ? aarligInntektFoerUttakBeloepFraBrukerInput
-                  : 0
-              }
-              onSubmit={(inntekt) => {
+              value={aarligInntektFoerUttakBeloepFraBrukerInput}
+              onSubmit={(uformatertInntekt) => {
                 dispatch(
                   userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
-                    inntekt
+                    uformatertInntekt
                   )
                 )
                 dispatch(userInputActions.setCurrentSimulationUttaksalder(null))

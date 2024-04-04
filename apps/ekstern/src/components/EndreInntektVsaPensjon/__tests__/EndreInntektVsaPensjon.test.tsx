@@ -134,7 +134,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: 123000,
+              beloep: '123 000',
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}
@@ -195,7 +195,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: 123000,
+              beloep: '123 000',
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}
@@ -241,7 +241,7 @@ describe('EndreInntektVsaPensjon', async () => {
           uttaksperiode={{
             uttaksalder: { aar: 67, maaneder: 3 },
             aarligInntektVsaPensjon: {
-              beloep: 123000,
+              beloep: '123 000',
               sluttAlder: { aar: 70, maaneder: 0 },
             },
           }}

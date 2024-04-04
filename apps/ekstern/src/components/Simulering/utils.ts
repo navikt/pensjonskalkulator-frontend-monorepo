@@ -2,6 +2,8 @@ import { IntlShape } from 'react-intl'
 
 import { Chart, Point, Series } from 'highcharts'
 
+import { formatInntektToNumber } from '@/utils/inntekt'
+
 import {
   COLUMN_WIDTH,
   MAX_UTTAKSALDER,
