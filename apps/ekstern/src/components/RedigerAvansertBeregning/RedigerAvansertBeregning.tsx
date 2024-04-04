@@ -488,7 +488,7 @@ export const RedigerAvansertBeregning: React.FC<{
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined &&
           localHarInntektVsaHeltUttakRadio && (
-            <div>Her kommer input og AgePicker</div>
+            <div>Her kommer input og AgePicker fra EndreInntektVsaPensjon</div>
           )}
 
         {/* {localHeltUttak?.uttaksalder?.aar &&

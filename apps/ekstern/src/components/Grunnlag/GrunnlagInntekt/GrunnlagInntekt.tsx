@@ -109,7 +109,7 @@ export const GrunnlagInntekt: React.FC<Props> = ({ goToAvansert }) => {
               value={aarligInntektFoerUttakBeloepFraBrukerInput}
               onSubmit={(uformatertInntekt) => {
                 dispatch(
-                  userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
+                  userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
                     uformatertInntekt
                   )
                 )

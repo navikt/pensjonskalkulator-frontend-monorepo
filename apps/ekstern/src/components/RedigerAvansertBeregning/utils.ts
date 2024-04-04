@@ -298,7 +298,7 @@ export const onAvansertBeregningSubmit = (
       )
     )
     dispatch(
-      userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
+      userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
         localInntektFremTilUttak
       )
     )

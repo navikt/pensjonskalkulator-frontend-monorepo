@@ -82,10 +82,10 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('setCurrentSimulationaarligInntektFoerUttakBeloep', () => {
+    it('setCurrentSimulationAarligInntektFoerUttakBeloep', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
-        userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
+        userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
           '800000'
         )
       )

@@ -25,11 +25,20 @@ export const useFormLocalState = (initialValues: {
     React.useContext(BeregningContext)
 
   const [localHarInntektVsaHeltUttakRadio, setHarInntektVsaHeltUttakRadio] =
-    React.useState<boolean | null>(null)
+    React.useState<boolean | null>(
+      !uttaksalder ? null : aarligInntektVsaHelPensjon ? true : false
+    )
+
   const [
     localHarInntektVsaGradertUttakRadio,
     setHarInntektVsaGradertUttakRadio,
-  ] = React.useState<boolean | null>(null)
+  ] = React.useState<boolean | null>(
+    !uttaksalder
+      ? null
+      : gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+        ? true
+        : false
+  )
 
   const [localInntektFremTilUttak, setInntektFremTilUttak] = React.useState<
     string | null
@@ -63,6 +72,7 @@ export const useFormLocalState = (initialValues: {
       : undefined
   )
 
+  // TODO endring av radio fra ja til nei (fjerning av inntekt) bør trigge "oppdatert" status (flushe beløpet i InputFelt?)
   React.useEffect(() => {
     const hasInntektFremTilUnntakChanged =
       (aarligInntektFoerUttakBeloepFraBrukerInput !== null &&

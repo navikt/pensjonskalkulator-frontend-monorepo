@@ -112,7 +112,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(4, {
           payload: null,
-          type: 'userInputSlice/setCurrentSimulationaarligInntektFoerUttakBeloep',
+          type: 'userInputSlice/setCurrentSimulationAarligInntektFoerUttakBeloep',
         })
 
         expect(gaaTilResultatMock).toHaveBeenCalled()
@@ -194,7 +194,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(4, {
           payload: '500 000',
-          type: 'userInputSlice/setCurrentSimulationaarligInntektFoerUttakBeloep',
+          type: 'userInputSlice/setCurrentSimulationAarligInntektFoerUttakBeloep',
         })
 
         expect(gaaTilResultatMock).toHaveBeenCalled()
@@ -269,7 +269,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(4, {
           payload: '500 000',
-          type: 'userInputSlice/setCurrentSimulationaarligInntektFoerUttakBeloep',
+          type: 'userInputSlice/setCurrentSimulationAarligInntektFoerUttakBeloep',
         })
 
         expect(gaaTilResultatMock).toHaveBeenCalled()

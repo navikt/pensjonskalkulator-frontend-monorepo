@@ -59,13 +59,12 @@ export const userInputSlice = createSlice({
         uttaksalder: action.payload ? { ...action.payload } : null,
       }
     },
-    setCurrentSimulationaarligInntektFoerUttakBeloep: (
+    setCurrentSimulationAarligInntektFoerUttakBeloep: (
       state,
       action: PayloadAction<string | null>
     ) => {
-      state.currentSimulation.aarligInntektFoerUttakBeloep = formatInntekt(
-        action.payload
-      )
+      state.currentSimulation.aarligInntektFoerUttakBeloep =
+        action.payload !== null ? formatInntekt(action.payload) : null
     },
     setCurrentSimulationAarligInntektVsaHelPensjon: (
       state,
