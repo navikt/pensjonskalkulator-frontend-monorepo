@@ -384,7 +384,10 @@ describe('RedigerAvansertBeregning-utils', () => {
       uttaksgradFormData: '40 %',
       inntektVsaHeltUttakRadioFormData: 'ja',
       inntektVsaGradertUttakRadioFormData: 'ja',
-      inntektVsaGradertPensjonFormData: '99000',
+      inntektVsaHeltUttakFormData: 'ja',
+      inntektVsaHeltUttakSluttAlderAarFormData: '75',
+      inntektVsaHeltUttakSluttAlderMaanederFormData: '0',
+      inntektVsaGradertUttakFormData: '99000',
     }
 
     it('returnerer true uten å oppdatere feilmeldingsteksten når input er korrekt', () => {
@@ -426,7 +429,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       const validateInntektMock = vi.spyOn(inntektUtils, 'validateInntekt')
       expect(
         validateAvansertBeregningSkjema(
-          { ...correctInputData, inntektVsaGradertPensjonFormData: 'abc' },
+          { ...correctInputData, inntektVsaGradertUttakFormData: 'abc' },
           updateErrorMessageMock
         )
       ).toBeFalsy()
