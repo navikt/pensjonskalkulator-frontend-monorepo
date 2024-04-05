@@ -49,6 +49,8 @@ const translations = {
   'henvisning.gjenlevende.body': 'MANGLER_TEKST',
   'henvisning.apotekerne.body': 'MANGLER_TEKST',
   'henvisning.utland.body': 'MANGLER_TEKST',
+  'stegvisning.radio_ja': 'MANGLER_TEKST',
+  'stegvisning.radio_nei': 'MANGLER_TEKST',
   'stegvisning.neste': 'MANGLER_TEKST',
   'stegvisning.tilbake': 'MANGLER_TEKST',
   'stegvisning.avbryt': 'MANGLER_TEKST',
@@ -188,6 +190,16 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.pensjonsalder.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro': 'MANGLER_TEKST',

@@ -54,16 +54,14 @@ describe('RedigerAvansertBeregning', () => {
       )
     ).toBeVisible()
 
-    fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
       target: { value: '80 %' },
     })
 
     expect(
       screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`)
     ).toBeVisible()
-    expect(
-      screen.getByTestId('inntekt-vsa-gradert-pensjon-textfield')
-    ).toBeVisible()
+    expect(screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak)).toBeVisible()
   })
 
   it('readmore med tilleggsinformasjon til bruker vises riktig', async () => {
@@ -99,7 +97,7 @@ describe('RedigerAvansertBeregning', () => {
       )
     ).toBeVisible()
 
-    fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
       target: { value: '80 %' },
     })
 
@@ -193,7 +191,7 @@ describe('RedigerAvansertBeregning', () => {
       )
     ).toBeVisible()
     // Endrer uttaksgrad
-    fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
       target: { value: '60 %' },
     })
 
@@ -215,7 +213,7 @@ describe('RedigerAvansertBeregning', () => {
       }
     )
     await user.type(
-      screen.getByTestId('inntekt-vsa-gradert-pensjon-textfield'),
+      screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
       '100000'
     )
 
@@ -240,7 +238,7 @@ describe('RedigerAvansertBeregning', () => {
     expect(
       (
         screen.queryByTestId(
-          'inntekt-vsa-gradert-pensjon-textfield'
+          FORM_NAMES.inntektVsaGradertUttak
         ) as HTMLInputElement
       ).value
     ).toBe('100000')
@@ -281,7 +279,7 @@ describe('RedigerAvansertBeregning', () => {
       )
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByTestId('inntekt-vsa-gradert-pensjon-textfield')
+      screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttak)
     ).not.toBeInTheDocument()
     expect(
       (
@@ -330,7 +328,7 @@ describe('RedigerAvansertBeregning', () => {
           target: { value: '5' },
         }
       )
-      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
         target: { value: '80 %' },
       })
 
@@ -437,7 +435,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeVisible()
 
       // Endrer uttaksgrad
-      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
         target: { value: '60 %' },
       })
 
@@ -459,12 +457,12 @@ describe('RedigerAvansertBeregning', () => {
         }
       )
       await user.type(
-        screen.getByTestId('inntekt-vsa-gradert-pensjon-textfield'),
+        screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
         '100000'
       )
 
       // Endrer uttaksgrad
-      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
         target: { value: '100 %' },
       })
 
@@ -480,7 +478,7 @@ describe('RedigerAvansertBeregning', () => {
         )
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByTestId('inntekt-vsa-gradert-pensjon-textfield')
+        screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttak)
       ).not.toBeInTheDocument()
 
       // Sjekker at uttaksalderen ble overført tilbake til helt uttak
@@ -550,7 +548,7 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       // Endrer uttaksgrad uten å ha fylt ut noe uttaksalder
-      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
         target: { value: '60 %' },
       })
 
@@ -573,7 +571,7 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       // Endrer uttaksgrad til en annen grad (ikke 100 %)
-      fireEvent.change(await screen.findByTestId('uttaksgrad-select'), {
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
         target: { value: '40 %' },
       })
 

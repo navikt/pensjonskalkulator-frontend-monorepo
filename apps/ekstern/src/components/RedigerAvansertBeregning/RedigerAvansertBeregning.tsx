@@ -353,7 +353,7 @@ export const RedigerAvansertBeregning: React.FC<{
           <Select
             form={FORM_NAMES.form}
             name={FORM_NAMES.uttaksgrad}
-            data-testid="uttaksgrad-select"
+            data-testid={FORM_NAMES.uttaksgrad}
             className={styles.select}
             label={intl.formatMessage({
               id: 'beregning.avansert.rediger.uttaksgrad.label',
@@ -443,7 +443,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 <TextField
                   form={FORM_NAMES.form}
                   name={FORM_NAMES.inntektVsaGradertUttak}
-                  data-testid="inntekt-vsa-gradert-pensjon-textfield"
+                  data-testid={FORM_NAMES.inntektVsaGradertUttak}
                   type="text"
                   inputMode="numeric"
                   className={styles.textfield}
@@ -548,7 +548,7 @@ export const RedigerAvansertBeregning: React.FC<{
                 <TextField
                   form={FORM_NAMES.form}
                   name={FORM_NAMES.inntektVsaHeltUttak}
-                  data-testid="inntekt-vsa-hel-pensjon-textfield"
+                  data-testid={FORM_NAMES.inntektVsaHeltUttak}
                   type="text"
                   inputMode="numeric"
                   className={styles.textfield}
