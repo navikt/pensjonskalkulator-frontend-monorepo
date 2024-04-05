@@ -33,7 +33,7 @@ export const useFormLocalState = (initialValues: {
     localHarInntektVsaGradertUttakRadio,
     setHarInntektVsaGradertUttakRadio,
   ] = React.useState<boolean | null>(
-    !uttaksalder
+    !gradertUttaksperiode?.uttaksalder
       ? null
       : gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
         ? true
@@ -72,7 +72,24 @@ export const useFormLocalState = (initialValues: {
       : undefined
   )
 
-  // TODO endring av radio fra ja til nei (fjerning av inntekt) bør trigge "oppdatert" status (flushe beløpet i InputFelt?)
+  const minAlderInntektSluttAlder = React.useMemo(
+    () =>
+      localHeltUttak?.uttaksalder?.aar
+        ? {
+            aar:
+              localHeltUttak?.uttaksalder?.maaneder === 11
+                ? localHeltUttak?.uttaksalder?.aar + 1
+                : localHeltUttak?.uttaksalder?.aar,
+            maaneder:
+              localHeltUttak?.uttaksalder?.maaneder !== undefined &&
+              localHeltUttak?.uttaksalder?.maaneder !== 11
+                ? localHeltUttak?.uttaksalder?.maaneder + 1
+                : 0,
+          }
+        : undefined,
+    [localHeltUttak]
+  )
+
   React.useEffect(() => {
     const hasInntektFremTilUnntakChanged =
       (aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
@@ -143,6 +160,7 @@ export const useFormLocalState = (initialValues: {
     localHarInntektVsaHeltUttakRadio,
     localGradertUttak,
     localHarInntektVsaGradertUttakRadio,
+    minAlderInntektSluttAlder,
     handlers,
   ] as const
 }
@@ -209,27 +227,27 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
           }
         })
       },
-      setValidationErrorInntektVsaHeltUttakRadio: (s: string) => {
-        setValidationErrors((prevState) => {
-          return {
-            ...prevState,
-            [FORM_NAMES.inntektVsaHeltUttakRadio]: s,
-          }
-        })
-      },
-      setValidationErrorInntektVsaGradertUttakRadio: (s: string) => {
-        setValidationErrors((prevState) => {
-          return {
-            ...prevState,
-            [FORM_NAMES.inntektVsaGradertUttakRadio]: s,
-          }
-        })
-      },
       setValidationErrorUttaksalderGradertUttak: (s: string) => {
         setValidationErrors((prevState) => {
           return {
             ...prevState,
             [FORM_NAMES.uttaksalderGradertUttak]: s,
+          }
+        })
+      },
+      setValidationErrorInntektVsaHeltUttak: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaHeltUttak]: s,
+          }
+        })
+      },
+      setValidationErrorInntektVsaHeltUttakSluttAlder: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: s,
           }
         })
       },
