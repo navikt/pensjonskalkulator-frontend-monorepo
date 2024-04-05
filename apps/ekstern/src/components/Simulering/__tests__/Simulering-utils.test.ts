@@ -170,7 +170,7 @@ describe('Simulering-utils', () => {
             heltUttak: {
               fra: { aar: 67, maaneder: 0 },
               til: { aar: 71, maaneder: 0 },
-              beloep: 300000,
+              beloep: 100000,
             },
             length: 8,
           })
@@ -187,7 +187,7 @@ describe('Simulering-utils', () => {
             heltUttak: {
               fra: { aar: 67, maaneder: 3 },
               til: { aar: 71, maaneder: 8 },
-              beloep: 300000,
+              beloep: 100000,
             },
             length: 10,
           })
