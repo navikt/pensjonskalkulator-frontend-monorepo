@@ -1,7 +1,7 @@
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { validateAlderFromForm, getAlderMinus1Maaned } from '@/utils/alder'
-import { validateInntekt, formatInntekt } from '@/utils/inntekt'
+import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
 export const FORM_NAMES = {
@@ -238,14 +238,12 @@ export const onAvansertBeregningSubmit = (
   >,
   gaaTilResultat: () => void,
   previousData: {
-    localHeltUttak: RecursivePartial<HeltUttak> | undefined
     localInntektFremTilUttak: string | null
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
   }
 ): void => {
   const {
-    localHeltUttak,
     localInntektFremTilUttak,
     hasVilkaarIkkeOppfylt,
     harAvansertSkjemaUnsavedChanges,
@@ -308,7 +306,7 @@ export const onAvansertBeregningSubmit = (
       tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
     })
     if (uttaksgradFormData === '100 %') {
-      dispatch(userInputActions.setCurrentSimulationGradertuttaksperiode(null))
+      dispatch(userInputActions.setCurrentSimulationGradertUttaksperiode(null))
     } else {
       if (inntektVsaGradertUttakFormData) {
         logger('valg av uttaksgrad', {
@@ -322,7 +320,7 @@ export const onAvansertBeregningSubmit = (
         })
       }
       dispatch(
-        userInputActions.setCurrentSimulationGradertuttaksperiode({
+        userInputActions.setCurrentSimulationGradertUttaksperiode({
           uttaksalder: {
             aar: parseInt(gradertUttakAarFormData as string, 10),
             maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
@@ -338,16 +336,21 @@ export const onAvansertBeregningSubmit = (
     }
     dispatch(
       userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
-        localHeltUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
-          localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.aar &&
-          localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.maaneder !==
-            undefined
+        inntektVsaHeltUttakFormData !== null &&
+          inntektVsaHeltUttakSluttAlderAarFormData &&
+          inntektVsaHeltUttakSluttAlderMaanederFormData !== null
           ? {
-              beloep: formatInntekt(
-                localHeltUttak?.aarligInntektVsaPensjon?.beloep
-              ),
-              sluttAlder: localHeltUttak?.aarligInntektVsaPensjon
-                ?.sluttAlder as Alder,
+              beloep: inntektVsaHeltUttakFormData as string,
+              sluttAlder: {
+                aar: parseInt(
+                  inntektVsaHeltUttakSluttAlderAarFormData as string,
+                  10
+                ),
+                maaneder: parseInt(
+                  inntektVsaHeltUttakSluttAlderMaanederFormData as string,
+                  10
+                ),
+              },
             }
           : undefined
       )

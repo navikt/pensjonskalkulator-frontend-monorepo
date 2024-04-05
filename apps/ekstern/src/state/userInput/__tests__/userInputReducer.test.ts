@@ -138,10 +138,10 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('setCurrentSimulationGradertuttaksperiode', () => {
+    it('setCurrentSimulationGradertUttaksperiode', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
-        userInputActions.setCurrentSimulationGradertuttaksperiode({
+        userInputActions.setCurrentSimulationGradertUttaksperiode({
           uttaksalder: { aar: 67, maaneder: 3 },
           grad: 20,
           aarligInntektVsaPensjonBeloep: '150000',
@@ -162,7 +162,7 @@ describe('userInputSlice', () => {
 
       const updatedState2 = userInputSlice(
         updatedState,
-        userInputActions.setCurrentSimulationGradertuttaksperiode(null)
+        userInputActions.setCurrentSimulationGradertUttaksperiode(null)
       )
 
       expect(updatedState2).toStrictEqual({

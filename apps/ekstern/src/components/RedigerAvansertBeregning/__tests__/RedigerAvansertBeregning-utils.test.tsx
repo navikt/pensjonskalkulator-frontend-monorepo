@@ -9,6 +9,34 @@ import * as inntektUtils from '@/utils/inntekt'
 
 describe('RedigerAvansertBeregning-utils', () => {
   describe('onAvansertBeregningSubmit', () => {
+    const formDataAllFieldsSwitch = (s: string) => {
+      switch (s) {
+        case 'uttaksalder-gradert-uttak-aar':
+          return '62'
+        case 'uttaksalder-gradert-uttak-maaneder':
+          return '2'
+        case 'uttaksalder-helt-uttak-aar':
+          return '67'
+        case 'uttaksalder-helt-uttak-maaneder':
+          return '0'
+        case 'uttaksgrad':
+          return '80 %'
+        case 'inntekt-vsa-helt-uttak-radio':
+          return 'ja'
+        case 'inntekt-vsa-gradert-uttak-radio':
+          return 'ja'
+        case 'inntekt-vsa-helt-uttak':
+          return '300000'
+        case 'inntekt-vsa-helt-uttak-slutt-alder-aar':
+          return '75'
+        case 'inntekt-vsa-helt-uttak-slutt-alder-maaneder':
+          return '0'
+        case 'inntekt-vsa-gradert-uttak':
+          return '100000'
+        default:
+          return ''
+      }
+    }
     it('Når onAvansertBeregningSubmit kalles, hentes det riktig data fra formen. Dersom validering feiler lagres det ikke data og validationErrors vises', () => {
       const dispatchMock = vi.fn()
       const setValidationErrorsMock = vi.fn()
@@ -23,13 +51,12 @@ describe('RedigerAvansertBeregning-utils', () => {
         setValidationErrorsMock,
         gaaTilResultatMock,
         {
-          localHeltUttak: undefined,
           localInntektFremTilUttak: null,
           hasVilkaarIkkeOppfylt: undefined,
           harAvansertSkjemaUnsavedChanges: false,
         }
       )
-      expect(getMock).toHaveBeenCalledTimes(6)
+      expect(getMock).toHaveBeenCalledTimes(11)
       expect(getMock).toHaveBeenNthCalledWith(
         1,
         'uttaksalder-gradert-uttak-aar'
@@ -44,10 +71,24 @@ describe('RedigerAvansertBeregning-utils', () => {
         'uttaksalder-helt-uttak-maaneder'
       )
       expect(getMock).toHaveBeenNthCalledWith(5, 'uttaksgrad')
-      expect(getMock).toHaveBeenNthCalledWith(6, 'inntekt-vsa-gradert-uttak')
+      expect(getMock).toHaveBeenNthCalledWith(6, 'inntekt-vsa-helt-uttak-radio')
+      expect(getMock).toHaveBeenNthCalledWith(
+        7,
+        'inntekt-vsa-gradert-uttak-radio'
+      )
+      expect(getMock).toHaveBeenNthCalledWith(8, 'inntekt-vsa-helt-uttak')
+      expect(getMock).toHaveBeenNthCalledWith(
+        9,
+        'inntekt-vsa-helt-uttak-slutt-alder-aar'
+      )
+      expect(getMock).toHaveBeenNthCalledWith(
+        10,
+        'inntekt-vsa-helt-uttak-slutt-alder-maaneder'
+      )
+      expect(getMock).toHaveBeenNthCalledWith(11, 'inntekt-vsa-gradert-uttak')
       expect(dispatchMock).not.toHaveBeenCalled()
       expect(gaaTilResultatMock).not.toHaveBeenCalled()
-      expect(setValidationErrorsMock).toHaveBeenCalledTimes(3)
+      expect(setValidationErrorsMock).toHaveBeenCalledTimes(2)
     })
 
     describe('Gitt at onAvansertBeregningSubmit kalles, og at validering er vellykket', () => {
@@ -55,24 +96,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         const dispatchMock = vi.fn()
         const setValidationErrorsMock = vi.fn()
         const gaaTilResultatMock = vi.fn()
-        const getMock = vi.fn().mockImplementation((s: string) => {
-          switch (s) {
-            case 'uttaksalder-gradert-uttak-aar':
-              return '62'
-            case 'uttaksalder-gradert-uttak-maaneder':
-              return '2'
-            case 'uttaksalder-helt-uttak-aar':
-              return '67'
-            case 'uttaksalder-helt-uttak-maaneder':
-              return '0'
-            case 'uttaksgrad':
-              return '80 %'
-            case 'inntekt-vsa-gradert-uttak':
-              return '100000'
-            default:
-              return ''
-          }
-        })
+        const getMock = vi.fn().mockImplementation(formDataAllFieldsSwitch)
         const dataMock: FormData = { get: getMock } as unknown as FormData
         onAvansertBeregningSubmit(
           dataMock,
@@ -80,7 +104,6 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            localHeltUttak: undefined,
             localInntektFremTilUttak: null,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
@@ -97,17 +120,23 @@ describe('RedigerAvansertBeregning-utils', () => {
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(2, {
           payload: {
-            aarligInntektVsaPensjonBeloep: 100000,
+            aarligInntektVsaPensjonBeloep: '100000',
             grad: 80,
             uttaksalder: {
               aar: 62,
               maaneder: 2,
             },
           },
-          type: 'userInputSlice/setCurrentSimulationGradertuttaksperiode',
+          type: 'userInputSlice/setCurrentSimulationGradertUttaksperiode',
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(3, {
-          payload: undefined,
+          payload: {
+            beloep: '300000',
+            sluttAlder: {
+              aar: 75,
+              maaneder: 0,
+            },
+          },
           type: 'userInputSlice/setCurrentSimulationAarligInntektVsaHelPensjon',
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(4, {
@@ -123,24 +152,8 @@ describe('RedigerAvansertBeregning-utils', () => {
         const dispatchMock = vi.fn()
         const setValidationErrorsMock = vi.fn()
         const gaaTilResultatMock = vi.fn()
-        const getMock = vi.fn().mockImplementation((s: string) => {
-          switch (s) {
-            case 'uttaksalder-gradert-uttak-aar':
-              return '62'
-            case 'uttaksalder-gradert-uttak-maaneder':
-              return '2'
-            case 'uttaksalder-helt-uttak-aar':
-              return '67'
-            case 'uttaksalder-helt-uttak-maaneder':
-              return '0'
-            case 'uttaksgrad':
-              return '80 %'
-            case 'inntekt-vsa-gradert-uttak':
-              return '100000'
-            default:
-              return ''
-          }
-        })
+
+        const getMock = vi.fn().mockImplementation(formDataAllFieldsSwitch)
         const dataMock: FormData = { get: getMock } as unknown as FormData
         onAvansertBeregningSubmit(
           dataMock,
@@ -148,15 +161,6 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            localHeltUttak: {
-              aarligInntektVsaPensjon: {
-                beloep: '300 000',
-                sluttAlder: {
-                  aar: 75,
-                  maaneder: 0,
-                },
-              },
-            },
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
@@ -173,18 +177,18 @@ describe('RedigerAvansertBeregning-utils', () => {
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(2, {
           payload: {
-            aarligInntektVsaPensjonBeloep: 100000,
+            aarligInntektVsaPensjonBeloep: '100000',
             grad: 80,
             uttaksalder: {
               aar: 62,
               maaneder: 2,
             },
           },
-          type: 'userInputSlice/setCurrentSimulationGradertuttaksperiode',
+          type: 'userInputSlice/setCurrentSimulationGradertUttaksperiode',
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(3, {
           payload: {
-            beloep: '300 000',
+            beloep: '300000',
             sluttAlder: {
               aar: 75,
               maaneder: 0,
@@ -205,6 +209,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         const dispatchMock = vi.fn()
         const setValidationErrorsMock = vi.fn()
         const gaaTilResultatMock = vi.fn()
+
         const getMock = vi.fn().mockImplementation((s: string) => {
           switch (s) {
             case 'uttaksalder-gradert-uttak-aar':
@@ -217,6 +222,16 @@ describe('RedigerAvansertBeregning-utils', () => {
               return '0'
             case 'uttaksgrad':
               return '100 %'
+            case 'inntekt-vsa-helt-uttak-radio':
+              return 'ja'
+            case 'inntekt-vsa-gradert-uttak-radio':
+              return null
+            case 'inntekt-vsa-helt-uttak':
+              return '300000'
+            case 'inntekt-vsa-helt-uttak-slutt-alder-aar':
+              return '75'
+            case 'inntekt-vsa-helt-uttak-slutt-alder-maaneder':
+              return '0'
             case 'inntekt-vsa-gradert-uttak':
               return null
             default:
@@ -230,15 +245,6 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            localHeltUttak: {
-              aarligInntektVsaPensjon: {
-                beloep: '300 000',
-                sluttAlder: {
-                  aar: 75,
-                  maaneder: 0,
-                },
-              },
-            },
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
@@ -255,11 +261,11 @@ describe('RedigerAvansertBeregning-utils', () => {
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(2, {
           payload: null,
-          type: 'userInputSlice/setCurrentSimulationGradertuttaksperiode',
+          type: 'userInputSlice/setCurrentSimulationGradertUttaksperiode',
         })
         expect(dispatchMock).toHaveBeenNthCalledWith(3, {
           payload: {
-            beloep: '300 000',
+            beloep: '300000',
             sluttAlder: {
               aar: 75,
               maaneder: 0,
@@ -280,24 +286,8 @@ describe('RedigerAvansertBeregning-utils', () => {
         const dispatchMock = vi.fn()
         const setValidationErrorsMock = vi.fn()
         const gaaTilResultatMock = vi.fn()
-        const getMock = vi.fn().mockImplementation((s: string) => {
-          switch (s) {
-            case 'uttaksalder-gradert-uttak-aar':
-              return null
-            case 'uttaksalder-gradert-uttak-maaneder':
-              return null
-            case 'uttaksalder-helt-uttak-aar':
-              return '67'
-            case 'uttaksalder-helt-uttak-maaneder':
-              return '0'
-            case 'uttaksgrad':
-              return '100 %'
-            case 'inntekt-vsa-gradert-uttak':
-              return null
-            default:
-              return ''
-          }
-        })
+
+        const getMock = vi.fn().mockImplementation(formDataAllFieldsSwitch)
         const dataMock: FormData = { get: getMock } as unknown as FormData
         onAvansertBeregningSubmit(
           dataMock,
@@ -305,15 +295,6 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            localHeltUttak: {
-              aarligInntektVsaPensjon: {
-                beloep: '300 000',
-                sluttAlder: {
-                  aar: 75,
-                  maaneder: 0,
-                },
-              },
-            },
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: false,
@@ -329,24 +310,8 @@ describe('RedigerAvansertBeregning-utils', () => {
         const dispatchMock = vi.fn()
         const setValidationErrorsMock = vi.fn()
         const gaaTilResultatMock = vi.fn()
-        const getMock = vi.fn().mockImplementation((s: string) => {
-          switch (s) {
-            case 'uttaksalder-gradert-uttak-aar':
-              return null
-            case 'uttaksalder-gradert-uttak-maaneder':
-              return null
-            case 'uttaksalder-helt-uttak-aar':
-              return '67'
-            case 'uttaksalder-helt-uttak-maaneder':
-              return '0'
-            case 'uttaksgrad':
-              return '100 %'
-            case 'inntekt-vsa-gradert-uttak':
-              return null
-            default:
-              return ''
-          }
-        })
+
+        const getMock = vi.fn().mockImplementation(formDataAllFieldsSwitch)
         const dataMock: FormData = { get: getMock } as unknown as FormData
         onAvansertBeregningSubmit(
           dataMock,
@@ -354,15 +319,6 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
-            localHeltUttak: {
-              aarligInntektVsaPensjon: {
-                beloep: '300 000',
-                sluttAlder: {
-                  aar: 75,
-                  maaneder: 0,
-                },
-              },
-            },
             localInntektFremTilUttak: '500 000',
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: true,
@@ -375,6 +331,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       })
     })
   })
+  // TODO korrigere og utvide test
   describe('validateAvansertBeregningSkjema', () => {
     const correctInputData = {
       gradertUttakAarFormData: '62',
@@ -384,7 +341,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       uttaksgradFormData: '40 %',
       inntektVsaHeltUttakRadioFormData: 'ja',
       inntektVsaGradertUttakRadioFormData: 'ja',
-      inntektVsaHeltUttakFormData: 'ja',
+      inntektVsaHeltUttakFormData: '300000',
       inntektVsaHeltUttakSluttAlderAarFormData: '75',
       inntektVsaHeltUttakSluttAlderMaanederFormData: '0',
       inntektVsaGradertUttakFormData: '99000',

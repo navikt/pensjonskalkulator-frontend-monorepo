@@ -78,7 +78,7 @@ export const userInputSlice = createSlice({
             }
           : undefined
     },
-    setCurrentSimulationGradertuttaksperiode: (
+    setCurrentSimulationGradertUttaksperiode: (
       state,
       action: PayloadAction<GradertUttak | null>
     ) => {

@@ -271,7 +271,6 @@ export const RedigerAvansertBeregning: React.FC<{
               setValidationErrors,
               gaaTilResultat,
               {
-                localHeltUttak,
                 localInntektFremTilUttak,
                 hasVilkaarIkkeOppfylt:
                   vilkaarsproeving?.vilkaarErOppfylt === false,
