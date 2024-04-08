@@ -8,7 +8,7 @@ import * as alderUtils from '@/utils/alder'
 import * as inntektUtils from '@/utils/inntekt'
 
 describe('RedigerAvansertBeregning-utils', () => {
-  describe('onAvansertBeregningSubmit', () => {
+  describe('FonAvansertBeregningSubmit', () => {
     const formDataAllFieldsSwitch = (s: string) => {
       switch (s) {
         case 'uttaksalder-gradert-uttak-aar':
@@ -331,7 +331,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       })
     })
   })
-  // TODO korrigere og utvide test
+
   describe('validateAvansertBeregningSkjema', () => {
     const correctInputData = {
       gradertUttakAarFormData: '62',
@@ -358,7 +358,30 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
     })
 
-    it('returnerer false når uttaksgrad er noe annet enn et tall', () => {
+    it('returnerer false når heltUttakAar eller heltUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm)', () => {
+      const updateErrorMessageMock = vi.fn()
+      const validateAlderFromFormMock = vi.spyOn(
+        alderUtils,
+        'validateAlderFromForm'
+      )
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, heltUttakAarFormData: 'abc' },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, heltUttakMaanederFormData: null },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+
+      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(6)
+      expect(updateErrorMessageMock).toHaveBeenCalledTimes(3)
+    })
+
+    it('returnerer false når uttaksgrad er fylt ut med noe annet enn et tall', () => {
       const updateErrorMessageMock = vi.fn()
       expect(
         validateAvansertBeregningSkjema(
@@ -381,44 +404,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
     })
 
-    it('returnerer false når inntekt ikke er gyldig (alle cases allerede videre i validateInntekt) ', () => {
-      const updateErrorMessageMock = vi.fn()
-      const validateInntektMock = vi.spyOn(inntektUtils, 'validateInntekt')
-      expect(
-        validateAvansertBeregningSkjema(
-          { ...correctInputData, inntektVsaGradertUttakFormData: 'abc' },
-          updateErrorMessageMock
-        )
-      ).toBeFalsy()
-
-      expect(validateInntektMock).toHaveBeenCalled()
-      expect(updateErrorMessageMock).toHaveBeenCalled()
-    })
-
-    it('returnerer false når heltUttakAar eller heltUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm) ', () => {
-      const updateErrorMessageMock = vi.fn()
-      const validateAlderFromFormMock = vi.spyOn(
-        alderUtils,
-        'validateAlderFromForm'
-      )
-      expect(
-        validateAvansertBeregningSkjema(
-          { ...correctInputData, heltUttakAarFormData: 'abc' },
-          updateErrorMessageMock
-        )
-      ).toBeFalsy()
-      expect(
-        validateAvansertBeregningSkjema(
-          { ...correctInputData, heltUttakMaanederFormData: null },
-          updateErrorMessageMock
-        )
-      ).toBeFalsy()
-
-      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(4)
-      expect(updateErrorMessageMock).toHaveBeenCalledTimes(3)
-    })
-
-    it('returnerer false når gradertUttakAar eller gradertUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm) ', () => {
+    it('returnerer false når gradertUttakAar eller gradertUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm)', () => {
       const updateErrorMessageMock = vi.fn()
       const validateAlderFromFormMock = vi.spyOn(
         alderUtils,
@@ -437,7 +423,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         )
       ).toBeFalsy()
 
-      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(4)
+      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(6)
       expect(updateErrorMessageMock).toHaveBeenCalledTimes(2)
     })
 
@@ -480,7 +466,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         )
       ).toBeTruthy()
 
-      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(6)
+      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(9)
       expect(updateErrorMessageMock).toHaveBeenCalledTimes(2)
     })
 
@@ -513,6 +499,99 @@ describe('RedigerAvansertBeregning-utils', () => {
 
       expect(validateAlderFromFormMock).toHaveBeenCalled()
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
+    })
+
+    it('returnerer false når radio knapp for inntekt vsa. 100 % uttaksalder ikke er fylt ut', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, inntektVsaHeltUttakRadioFormData: null },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateErrorMessageMock).toHaveBeenCalled()
+    })
+
+    it('returnerer false når brukeren har valgt inntekt vsa. 100 % uttaksalder uten å fylle ut input feltet for beløp', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, inntektVsaHeltUttakFormData: null },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateErrorMessageMock).toHaveBeenCalled()
+    })
+
+    it('returnerer false når brukeren har valgt inntekt vsa. 100 % uttaksalder og inntekt er ugyldig (alle cases allerede videre i validateInntekt)', () => {
+      const validateInntektMock = vi.spyOn(inntektUtils, 'validateInntekt')
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, inntektVsaHeltUttakFormData: 'abc' },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(validateInntektMock).toHaveBeenCalled()
+      expect(updateErrorMessageMock).toHaveBeenCalled()
+    })
+
+    it('returnerer false når brukeren har valgt inntekt vsa. 100 % uttaksalder med ugyldig sluttalder for inntekten (alle cases allerede dekket i validateAlderFromForm)', () => {
+      const validateAlderFromFormMock = vi.spyOn(
+        alderUtils,
+        'validateAlderFromForm'
+      )
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            inntektVsaHeltUttakSluttAlderAarFormData: 'abc',
+          },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(3)
+      expect(updateErrorMessageMock).toHaveBeenCalled()
+    })
+
+    it('returnerer false når brukeren har valgt en gradering og radio knapp for inntekt vsa. 100 % uttaksalder ikke er fylt ut', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, inntektVsaGradertUttakRadioFormData: null },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(updateErrorMessageMock).toHaveBeenCalled()
+    })
+
+    it('returnerer true når brukeren ikke har valgt gradering og radio knapp for inntekt vsa. 100 % uttaksalder ikke er fylt ut', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '100 %',
+            inntektVsaGradertUttakRadioFormData: null,
+          },
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(updateErrorMessageMock).not.toHaveBeenCalled()
+    })
+
+    it('returnerer false når brukeren har valgt en gradering og valgt ja til inntekt vsa. gradert uttak, men inntekt ikke er gyldig (alle cases allerede videre i validateInntekt)', () => {
+      const updateErrorMessageMock = vi.fn()
+      const validateInntektMock = vi.spyOn(inntektUtils, 'validateInntekt')
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, inntektVsaGradertUttakFormData: 'abc' },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(validateInntektMock).toHaveBeenCalled()
+      expect(updateErrorMessageMock).toHaveBeenCalled()
     })
   })
 })
