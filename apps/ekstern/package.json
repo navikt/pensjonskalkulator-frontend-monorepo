@@ -32,7 +32,7 @@
     "@formatjs/intl-datetimeformat": "^6.12.3",
     "@formatjs/intl-numberformat": "^8.10.0",
     "@grafana/faro-web-sdk": "^1.5.1",
-    "@grafana/faro-web-tracing": "^1.5.0",
+    "@grafana/faro-web-tracing": "^1.5.1",
     "@navikt/aksel-icons": "^6.3.6",
     "@navikt/ds-css": "^6.3.6",
     "@navikt/ds-react": "^6.3.6",
