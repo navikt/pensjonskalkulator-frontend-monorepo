@@ -179,9 +179,12 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   const gradertUttakAgePickerError = React.useMemo(() => {
     return validationErrors[FORM_NAMES.uttaksalderGradertUttak] ? (
       <>
-        {intl.formatMessage({
-          id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
-        })}{' '}
+        {intl.formatMessage(
+          {
+            id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
+          },
+          { ...getFormatMessageValues(intl) }
+        )}{' '}
         <FormattedMessage
           id="beregning.avansert.rediger.agepicker.validation_error"
           values={{
@@ -198,9 +201,12 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   const heltUttakAgePickerError = React.useMemo(() => {
     return validationErrors[FORM_NAMES.uttaksalderHeltUttak] ? (
       <>
-        {intl.formatMessage({
-          id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
-        })}{' '}
+        {intl.formatMessage(
+          {
+            id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
+          },
+          { ...getFormatMessageValues(intl) }
+        )}{' '}
         {(validationErrors[FORM_NAMES.uttaksalderHeltUttak] ===
           'agepicker.validation_error.aar' ||
           validationErrors[FORM_NAMES.uttaksalderHeltUttak] ===

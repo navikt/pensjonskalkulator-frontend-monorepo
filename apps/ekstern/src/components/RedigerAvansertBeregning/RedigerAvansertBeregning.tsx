@@ -40,7 +40,6 @@ export const RedigerAvansertBeregning: React.FC<{
 }> = ({ gaaTilResultat, vilkaarsproeving }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-
   const { uttaksalder, gradertUttaksperiode, aarligInntektVsaHelPensjon } =
     useAppSelector(selectCurrentSimulation)
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
@@ -94,7 +93,6 @@ export const RedigerAvansertBeregning: React.FC<{
     grad: localGradertUttak?.grad,
   })
 
-  // TODO trenger test som dekker at sluttAlder nullstilles
   const handleHeltUttaksalderChange = (alder: Partial<Alder> | undefined) => {
     setValidationErrorUttaksalderHeltUttak('')
     setLocalHeltUttak((prevState) => {
@@ -409,6 +407,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description" />
                 }
                 name={FORM_NAMES.inntektVsaGradertUttakRadio}
+                data-testid={FORM_NAMES.inntektVsaGradertUttakRadio}
                 value={
                   localHarInntektVsaGradertUttakRadio === null
                     ? null
@@ -435,10 +434,18 @@ export const RedigerAvansertBeregning: React.FC<{
                 role="radiogroup"
                 aria-required="true"
               >
-                <Radio form={FORM_NAMES.form} value="ja">
+                <Radio
+                  form={FORM_NAMES.form}
+                  data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`}
+                  value="ja"
+                >
                   <FormattedMessage id="stegvisning.radio_ja" />
                 </Radio>
-                <Radio form={FORM_NAMES.form} value="nei">
+                <Radio
+                  form={FORM_NAMES.form}
+                  data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`}
+                  value="nei"
+                >
                   <FormattedMessage id="stegvisning.radio_nei" />
                 </Radio>
               </RadioGroup>
@@ -522,6 +529,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description" />
                 }
                 name={FORM_NAMES.inntektVsaHeltUttakRadio}
+                data-testid={FORM_NAMES.inntektVsaHeltUttakRadio}
                 value={
                   localHarInntektVsaHeltUttakRadio === null
                     ? null
@@ -545,10 +553,18 @@ export const RedigerAvansertBeregning: React.FC<{
                 role="radiogroup"
                 aria-required="true"
               >
-                <Radio form={FORM_NAMES.form} value="ja">
+                <Radio
+                  form={FORM_NAMES.form}
+                  data-testid={`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`}
+                  value="ja"
+                >
                   <FormattedMessage id="stegvisning.radio_ja" />
                 </Radio>
-                <Radio form={FORM_NAMES.form} value="nei">
+                <Radio
+                  form={FORM_NAMES.form}
+                  data-testid={`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`}
+                  value="nei"
+                >
                   <FormattedMessage id="stegvisning.radio_nei" />
                 </Radio>
               </RadioGroup>
