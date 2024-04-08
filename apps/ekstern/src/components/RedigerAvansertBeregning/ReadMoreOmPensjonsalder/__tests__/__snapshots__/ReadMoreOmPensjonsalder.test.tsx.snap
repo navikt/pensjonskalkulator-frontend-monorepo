@@ -40,7 +40,7 @@ exports[`ReadMoreOmPensjonsalder > viser fast info om pensjonsalder 1`] = `
       <p
         class="navds-body-long navds-body-long--medium"
       >
-        Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.
+        Stortinget har blitt enige om endringer i pensjonssystemet. Aldersgrensene er forventet å øke gradvis fra 1964-kullet med en til to måneder per årskull.
         <br />
         <br />
       </p>
@@ -128,7 +128,7 @@ exports[`ReadMoreOmPensjonsalder > viser fast infoog optional info om pensjonsal
         Den oppgitte alderen er et estimat etter dagens regler.
         <br />
         <br />
-        Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.
+        Stortinget har blitt enige om endringer i pensjonssystemet. Aldersgrensene er forventet å øke gradvis fra 1964-kullet med en til to måneder per årskull.
         <br />
         <br />
       </p>
