@@ -94,6 +94,7 @@ export const RedigerAvansertBeregning: React.FC<{
     grad: localGradertUttak?.grad,
   })
 
+  // TODO trenger test som dekker at sluttAlder nullstilles
   const handleHeltUttaksalderChange = (alder: Partial<Alder> | undefined) => {
     setValidationErrorUttaksalderHeltUttak('')
     setLocalHeltUttak((prevState) => {
