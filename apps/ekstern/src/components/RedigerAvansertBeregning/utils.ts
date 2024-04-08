@@ -166,9 +166,13 @@ export const validateAvansertBeregningSkjema = (
     if (
       !validateInntekt(
         inntektVsaHeltUttakFormData as string,
-        (s: string) => {
+        () => {
           updateValidationErrorMessage((prevState) => {
-            return { ...prevState, [FORM_NAMES.inntektVsaHeltUttak]: s }
+            return {
+              ...prevState,
+              [FORM_NAMES.inntektVsaHeltUttak]:
+                'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
+            }
           })
         },
         true
@@ -215,9 +219,13 @@ export const validateAvansertBeregningSkjema = (
     if (
       !validateInntekt(
         inntektVsaGradertUttakFormData as string,
-        (s: string) => {
+        () => {
           updateValidationErrorMessage((prevState) => {
-            return { ...prevState, [FORM_NAMES.inntektVsaGradertUttak]: s }
+            return {
+              ...prevState,
+              [FORM_NAMES.inntektVsaGradertUttak]:
+                'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error',
+            }
           })
         },
         true

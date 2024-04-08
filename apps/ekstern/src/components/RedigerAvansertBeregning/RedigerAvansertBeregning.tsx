@@ -419,11 +419,17 @@ export const RedigerAvansertBeregning: React.FC<{
                 onChange={handleInntektVsaGradertUttakRadioChange}
                 error={
                   validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
-                    ? intl.formatMessage({
-                        id: validationErrors[
-                          FORM_NAMES.inntektVsaGradertUttakRadio
-                        ],
-                      })
+                    ? intl.formatMessage(
+                        {
+                          id: validationErrors[
+                            FORM_NAMES.inntektVsaGradertUttakRadio
+                          ],
+                        },
+                        {
+                          ...getFormatMessageValues(intl),
+                          grad: localGradertUttak.grad,
+                        }
+                      )
                     : ''
                 }
                 role="radiogroup"
@@ -461,11 +467,17 @@ export const RedigerAvansertBeregning: React.FC<{
                   })}
                   error={
                     validationErrors[FORM_NAMES.inntektVsaGradertUttak]
-                      ? intl.formatMessage({
-                          id: validationErrors[
-                            FORM_NAMES.inntektVsaGradertUttak
-                          ],
-                        })
+                      ? intl.formatMessage(
+                          {
+                            id: validationErrors[
+                              FORM_NAMES.inntektVsaGradertUttak
+                            ],
+                          },
+                          {
+                            ...getFormatMessageValues(intl),
+                            grad: localGradertUttak.grad,
+                          }
+                        )
                       : ''
                   }
                   onChange={handleInntektVsaGradertUttakChange}
@@ -520,11 +532,14 @@ export const RedigerAvansertBeregning: React.FC<{
                 onChange={handleInntektVsaHeltUttakRadioChange}
                 error={
                   validationErrors[FORM_NAMES.inntektVsaHeltUttakRadio]
-                    ? intl.formatMessage({
-                        id: validationErrors[
-                          FORM_NAMES.inntektVsaHeltUttakRadio
-                        ],
-                      })
+                    ? intl.formatMessage(
+                        {
+                          id: validationErrors[
+                            FORM_NAMES.inntektVsaHeltUttakRadio
+                          ],
+                        },
+                        { ...getFormatMessageValues(intl) }
+                      )
                     : ''
                 }
                 role="radiogroup"
@@ -563,9 +578,14 @@ export const RedigerAvansertBeregning: React.FC<{
                   })}
                   error={
                     validationErrors[FORM_NAMES.inntektVsaHeltUttak]
-                      ? intl.formatMessage({
-                          id: validationErrors[FORM_NAMES.inntektVsaHeltUttak],
-                        })
+                      ? intl.formatMessage(
+                          {
+                            id: validationErrors[
+                              FORM_NAMES.inntektVsaHeltUttak
+                            ],
+                          },
+                          { ...getFormatMessageValues(intl) }
+                        )
                       : undefined
                   }
                   onChange={handleInntektVsaHeltUttakChange}

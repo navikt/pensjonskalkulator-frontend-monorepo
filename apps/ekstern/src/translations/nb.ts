@@ -269,13 +269,17 @@ const translations = {
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
     'Du kan tjene så mye du vil, mens du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
-    'Du må svare på om du forventer å ha inntekt ved siden av 100 % pensjon.',
+    'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
+  'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
+    'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
     'Du kan tjene så mye du vil, mens du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
-    'Du må svare på om du forventer å ha inntekt ved siden av gradert pensjon.',
+    'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
+    'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label':
     'Hva er din forventede årsinntekt mens du tar ut <nowrap>{grad} %</nowrap> alderspensjon?',
   'beregning.avansert.rediger.read_more.pensjonsalder.label':
