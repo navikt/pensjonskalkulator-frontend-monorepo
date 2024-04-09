@@ -33,7 +33,7 @@ export const useFormLocalState = (initialValues: {
     localHarInntektVsaGradertUttakRadio,
     setHarInntektVsaGradertUttakRadio,
   ] = React.useState<boolean | null>(
-    !gradertUttaksperiode?.uttaksalder
+    !uttaksalder || !gradertUttaksperiode?.uttaksalder
       ? null
       : gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
         ? true
@@ -175,6 +175,23 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
     [FORM_NAMES.uttaksalderGradertUttak]: '',
     [FORM_NAMES.inntektVsaGradertUttak]: '',
   })
+
+  React.useEffect(() => {
+    const ariaInvalidElements = document.querySelectorAll(
+      'input[aria-invalid]:not([aria-invalid="false"]), select[aria-invalid]:not([aria-invalid="false"])'
+    )
+
+    if (
+      document.activeElement?.tagName === 'BUTTON' &&
+      ariaInvalidElements.length > 0
+    ) {
+      ;(ariaInvalidElements[0] as HTMLElement).focus()
+      ;(ariaInvalidElements[0] as HTMLElement).scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      })
+    }
+  }, [validationErrors])
 
   const gradertUttakAgePickerError = React.useMemo(() => {
     return validationErrors[FORM_NAMES.uttaksalderGradertUttak] ? (

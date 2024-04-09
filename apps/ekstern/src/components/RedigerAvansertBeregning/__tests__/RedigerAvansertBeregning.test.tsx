@@ -23,6 +23,24 @@ describe('RedigerAvansertBeregning', () => {
     setHarAvansertSkjemaUnsavedChanges: () => {},
   }
 
+  it('scroller på toppen av siden når en route endrer seg', async () => {
+    const scrollToMock = vi.fn()
+    Object.defineProperty(global.window, 'scrollTo', {
+      value: scrollToMock,
+      writable: true,
+    })
+    render(
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+      </BeregningContext.Provider>
+    )
+    expect(scrollToMock).toHaveBeenCalledWith(0, 0)
+  })
+
   it('feltene rendres riktig som default, og når brukeren legger til en gradert periode', async () => {
     const user = userEvent.setup()
     render(
@@ -1091,7 +1109,7 @@ describe('RedigerAvansertBeregning', () => {
     })
   })
 
-  it('Når brukeren klikker på beregn med ugyldige felter, vises det feilmeldinger', async () => {
+  it('Når brukeren klikker på beregn med ugyldige felter, vises det feilmeldinger og fokus flyttes til riktig felt', async () => {
     const user = userEvent.setup()
     render(
       <BeregningContext.Provider
@@ -1110,6 +1128,9 @@ describe('RedigerAvansertBeregning', () => {
         exact: false,
       })
     ).toBeVisible()
+    expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
+      `${FORM_NAMES.uttaksalderHeltUttak}-aar`
+    )
 
     // Fyller inn uttaksalder slik at RadioGroup vises
     fireEvent.change(
@@ -1134,6 +1155,9 @@ describe('RedigerAvansertBeregning', () => {
         exact: false,
       })
     ).toBeVisible()
+    expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
+      FORM_NAMES.inntektVsaHeltUttakRadio
+    )
 
     // Hukker av for inntekt vsa. gradert uttak og viser felt for beløp
     await user.click(
@@ -1149,6 +1173,9 @@ describe('RedigerAvansertBeregning', () => {
         }
       )
     ).toBeVisible()
+    expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
+      FORM_NAMES.inntektVsaHeltUttak
+    )
 
     // Fylle ut inntekt vsa 100 % uttak
     await user.type(
@@ -1156,12 +1183,15 @@ describe('RedigerAvansertBeregning', () => {
       '123000'
     )
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
-    // Feilmelding forsluttAlder for inntekt vsa 100 % uttak
+    // Feilmelding for sluttAlder for inntekt vsa 100 % uttak
     expect(
       screen.getByText('agepicker.validation_error.aar', {
         exact: false,
       })
     ).toBeVisible()
+    expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
+      `${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+    )
 
     // Hukker av nei for inntekt vsa. helt uttak og skjuler feltene
     await user.click(
@@ -1214,6 +1244,9 @@ describe('RedigerAvansertBeregning', () => {
         }
       )
     ).toBeVisible()
+    expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
+      FORM_NAMES.inntektVsaGradertUttakRadio
+    )
 
     // Hukker av ja for inntekt vsa. gradert uttak
     await user.click(
@@ -1228,6 +1261,10 @@ describe('RedigerAvansertBeregning', () => {
         { exact: false }
       )
     ).toBeVisible()
+
+    expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
+      FORM_NAMES.inntektVsaGradertUttak
+    )
   })
 
   describe('Når simuleringen svarer med vilkaarIkkeOppfylt', () => {
