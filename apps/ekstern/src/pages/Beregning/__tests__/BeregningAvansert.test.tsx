@@ -137,6 +137,9 @@ describe('BeregningAvansert', () => {
           target: { value: '6' },
         }
       )
+      await user.click(
+        screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+      )
 
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
       expect(setAvansertSkjemaModusMock).toHaveBeenCalledWith('resultat')

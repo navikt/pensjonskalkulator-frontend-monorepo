@@ -25,7 +25,7 @@ describe('Beregning', () => {
         json: { enabled: false },
       })
       render(<Beregning visning="enkel" />)
-      expect(screen.queryByRole('radiogroup')).not.toBeInTheDocument()
+      expect(screen.queryByTestId('toggle-avansert')).not.toBeInTheDocument()
     })
 
     it('vises det toggle mellom "enkel" og "detaljert" visning', async () => {
@@ -34,7 +34,7 @@ describe('Beregning', () => {
         json: { enabled: true },
       })
       render(<Beregning visning="enkel" />)
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
     })
   })
 
@@ -58,14 +58,14 @@ describe('Beregning', () => {
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
-              aarligInntektFoerUttakBeloep: 300000,
+              aarligInntektFoerUttakBeloep: '300 000',
               gradertUttaksperiode: null,
             },
           },
         },
       })
 
-      expect(await screen.findByRole('radiogroup')).toBeVisible()
+      expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.avansert'))
       expect(flushCurrentSimulationMock).toHaveBeenCalled()
     })
@@ -95,7 +95,7 @@ describe('Beregning', () => {
         }
       )
 
-      expect(await screen.findByRole('radiogroup')).toBeVisible()
+      expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
@@ -141,7 +141,7 @@ describe('Beregning', () => {
       await user.click(
         await screen.findByText('beregning.avansert.button.beregn')
       )
-      expect(await screen.findByRole('radiogroup')).toBeVisible()
+      expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
@@ -177,7 +177,7 @@ describe('Beregning', () => {
         },
       })
 
-      expect(await screen.findByRole('radiogroup')).toBeVisible()
+      expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
@@ -254,7 +254,7 @@ describe('Beregning', () => {
                 formatertUttaksalderReadOnly:
                   '70 alder.aar string.og 4 alder.maaned',
                 uttaksalder: { aar: 70, maaneder: 4 },
-                aarligInntektFoerUttakBeloep: 300000,
+                aarligInntektFoerUttakBeloep: '300 000',
                 gradertUttaksperiode: null,
               },
             },
@@ -262,7 +262,7 @@ describe('Beregning', () => {
         }
       )
 
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
       await user.click(await screen.findByTestId('navigate-btn'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
@@ -291,7 +291,7 @@ describe('Beregning', () => {
         }
       )
 
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
       await user.click(await screen.findByTestId('navigate-btn'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
@@ -330,7 +330,7 @@ describe('Beregning', () => {
       await user.click(
         await screen.findByText('beregning.avansert.button.beregn')
       )
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
       await user.click(await screen.findByTestId('navigate-btn'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')
@@ -363,7 +363,7 @@ describe('Beregning', () => {
         }
       )
 
-      expect(await screen.findByRole('radiogroup')).toBeInTheDocument()
+      expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
       await user.click(await screen.findByTestId('navigate-btn'))
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.body')

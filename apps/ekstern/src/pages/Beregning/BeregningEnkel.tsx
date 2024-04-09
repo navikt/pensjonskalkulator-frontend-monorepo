@@ -79,7 +79,7 @@ export const BeregningEnkel: React.FC = () => {
       afp,
       sivilstand: sivilstand,
       harSamboer,
-      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
+      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
     })
     setTidligstMuligHeltUttakRequestBody(requestBody)
   }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
@@ -91,7 +91,7 @@ export const BeregningEnkel: React.FC = () => {
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
-        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         uttaksalder,
       })
       setAlderspensjonEnkelRequestBody(requestBody)
@@ -220,7 +220,9 @@ export const BeregningEnkel: React.FC = () => {
             <>
               <Simulering
                 isLoading={isFetching}
-                aarligInntektFoerUttakBeloep={aarligInntektFoerUttakBeloep ?? 0}
+                aarligInntektFoerUttakBeloep={
+                  aarligInntektFoerUttakBeloep ?? '0'
+                }
                 alderspensjon={alderspensjon}
                 showAfp={afp === 'ja_privat'}
                 showButtonsAndTable={

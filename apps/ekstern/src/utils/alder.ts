@@ -18,6 +18,11 @@ export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
   maaneder: 0,
 }
 
+export const DEFAULT_MAX_OPPTJENINGSALDER: Alder = {
+  aar: 75,
+  maaneder: 11,
+}
+
 export const formatUttaksalder = (
   intl: IntlShape,
   { aar, maaneder }: Alder,

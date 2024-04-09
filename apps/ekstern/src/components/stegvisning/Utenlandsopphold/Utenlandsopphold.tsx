@@ -12,10 +12,8 @@ interface Props {
   harUtenlandsopphold: boolean | null
   onCancel: () => void
   onPrevious: () => void
-  onNext: (utenlandsoppholdData: UtenlandsoppholdRadio) => void
+  onNext: (utenlandsoppholdData: BooleanRadio) => void
 }
-
-export type UtenlandsoppholdRadio = 'ja' | 'nei'
 
 export function Utenlandsopphold({
   harUtenlandsopphold,
@@ -31,7 +29,7 @@ export function Utenlandsopphold({
 
     const data = new FormData(e.currentTarget)
     const utenlandsoppholdData = data.get('utenlandsopphold') as
-      | UtenlandsoppholdRadio
+      | BooleanRadio
       | undefined
 
     if (!utenlandsoppholdData) {

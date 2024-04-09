@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
 import clsx from 'clsx'
 
-import { formatWithoutDecimal } from '@/utils/inntekt'
+import { formatInntekt } from '@/utils/inntekt'
 import { capitalize } from '@/utils/string'
 
 import {
@@ -57,7 +57,7 @@ const PensjonsavtaleRad: React.FC<IPensjonsavtalerRad> = ({
             [styles.TableRader__noBottomBorder]: isLastRow,
           })}
         >
-          {formatWithoutDecimal(utbetalingsperiode.aarligUtbetaling)} kr
+          {formatInntekt(utbetalingsperiode.aarligUtbetaling)} kr
         </Table.DataCell>
       </Table.Row>
     )

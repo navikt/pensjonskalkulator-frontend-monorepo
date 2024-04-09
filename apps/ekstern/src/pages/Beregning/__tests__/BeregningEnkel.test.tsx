@@ -248,7 +248,7 @@ describe('BeregningEnkel', () => {
             currentSimulation: {
               formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: 0,
+              aarligInntektFoerUttakBeloep: '0',
               gradertUttaksperiode: null,
             },
           },
@@ -286,7 +286,7 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             currentSimulation: {
               ...userInputInitialState.currentSimulation,
-              aarligInntektFoerUttakBeloep: 100000,
+              aarligInntektFoerUttakBeloep: '100 000',
             },
           },
         },
@@ -315,7 +315,7 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             currentSimulation: {
               ...userInputInitialState.currentSimulation,
-              aarligInntektFoerUttakBeloep: 100000,
+              aarligInntektFoerUttakBeloep: '100 000',
             },
           },
         },

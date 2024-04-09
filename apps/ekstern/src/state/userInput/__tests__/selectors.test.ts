@@ -22,7 +22,7 @@ describe('userInput selectors', () => {
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '62 alder.aar string.og 5 alder.maaneder',
     uttaksalder: { aar: 62, maaneder: 5 },
-    aarligInntektFoerUttakBeloep: 0,
+    aarligInntektFoerUttakBeloep: '0',
     gradertUttaksperiode: null,
   }
 
@@ -241,15 +241,17 @@ describe('userInput selectors', () => {
         ...initialState.userInput,
         currentSimulation: {
           ...currentSimulation,
-          aarligInntektFoerUttakBeloep: 512000,
+          aarligInntektFoerUttakBeloep: '512 000',
         },
       },
     }
-    expect(selectAarligInntektFoerUttakBeloepFraBrukerInput(state)).toBe(512000)
+    expect(selectAarligInntektFoerUttakBeloepFraBrukerInput(state)).toBe(
+      '512 000'
+    )
   })
 
   describe('selectAarligInntektFoerUttakBeloepFraSkatt', () => {
-    it('returnerer undefined når /inntekt har ikke blitt kalt eller har feilet', () => {
+    it('returnerer tomt streng når /inntekt har ikke blitt kalt eller har feilet', () => {
       const state: RootState = {
         ...initialState,
       }
@@ -280,11 +282,9 @@ describe('userInput selectors', () => {
           ...fakeApiCall,
         },
       }
-      const inntekt = selectAarligInntektFoerUttakBeloepFraSkatt(
-        state
-      ) as Inntekt
-      expect(inntekt.beloep).toBe(500000)
-      expect(inntekt.aar).toBe(2021)
+      const inntekt = selectAarligInntektFoerUttakBeloepFraSkatt(state)
+      expect(inntekt?.beloep).toBe('500 000')
+      expect(inntekt?.aar).toBe(2021)
     })
   })
 
@@ -316,14 +316,14 @@ describe('userInput selectors', () => {
           ...initialState.userInput,
           currentSimulation: {
             ...currentSimulation,
-            aarligInntektFoerUttakBeloep: 350000,
+            aarligInntektFoerUttakBeloep: '350 000',
           },
         },
       }
-      expect(selectAarligInntektFoerUttakBeloep(state)).toBe(350000)
+      expect(selectAarligInntektFoerUttakBeloep(state)).toBe('350 000')
     })
 
-    it('returnerer inntekt fra Skatteetaten, når brukeren ikke har overskrevet den', () => {
+    it('returnerer formatert inntekt fra Skatteetaten, når brukeren ikke har overskrevet den', () => {
       const state: RootState = {
         ...initialState,
         /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -339,7 +339,7 @@ describe('userInput selectors', () => {
           },
         },
       }
-      expect(selectAarligInntektFoerUttakBeloep(state)).toBe(500000)
+      expect(selectAarligInntektFoerUttakBeloep(state)).toBe('500 000')
     })
   })
 

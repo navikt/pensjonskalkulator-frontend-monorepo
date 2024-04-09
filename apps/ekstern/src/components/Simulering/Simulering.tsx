@@ -29,6 +29,7 @@ import {
   selectSivilstand,
   selectAfp,
 } from '@/state/userInput/selectors'
+import { formatInntektToNumber } from '@/utils/inntekt'
 import { wrapLogger } from '@/utils/logging'
 
 import { SERIES_DEFAULT } from './constants'
@@ -47,7 +48,7 @@ import styles from './Simulering.module.scss'
 
 export function Simulering(props: {
   isLoading: boolean
-  aarligInntektFoerUttakBeloep: number
+  aarligInntektFoerUttakBeloep: string
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
   showButtonsAndTable?: boolean
@@ -177,21 +178,26 @@ export function Simulering(props: {
             ...SERIES_DEFAULT.SERIE_INNTEKT,
             name: intl.formatMessage({ id: SERIES_DEFAULT.SERIE_INNTEKT.name }),
             data: processInntektArray({
-              inntektFoerUttakBeloep: aarligInntektFoerUttakBeloep,
+              inntektFoerUttakBeloep: formatInntektToNumber(
+                aarligInntektFoerUttakBeloep
+              ),
               gradertUttak:
                 gradertUttaksperiode && uttaksalder
                   ? {
                       fra: gradertUttaksperiode?.uttaksalder,
                       til: uttaksalder,
-                      beloep:
-                        gradertUttaksperiode?.aarligInntektVsaPensjonBeloep,
+                      beloep: formatInntektToNumber(
+                        gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+                      ),
                     }
                   : undefined,
               heltUttak: uttaksalder
                 ? {
                     fra: uttaksalder,
                     til: aarligInntektVsaHelPensjon?.sluttAlder,
-                    beloep: aarligInntektVsaHelPensjon?.beloep,
+                    beloep: formatInntektToNumber(
+                      aarligInntektVsaHelPensjon?.beloep
+                    ),
                   }
                 : undefined,
               length: XAxis.length,

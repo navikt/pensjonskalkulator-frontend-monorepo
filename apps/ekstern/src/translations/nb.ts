@@ -74,6 +74,8 @@ const translations = {
     'Siden du har apotekordningen, må du bruke detaljert kalkulator.',
   'henvisning.utland.body':
     'Siden du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert kalkulator.',
+  'stegvisning.radio_ja': 'Ja',
+  'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -262,8 +264,24 @@ const translations = {
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
+    'Forventer du å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon?',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
+    'Du kan tjene så mye du vil, mens du tar ut pensjon.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
+    'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
+  'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
+    'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak':
+    'Forventer du å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon?',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
+    'Du kan tjene så mye du vil, mens du tar ut pensjon.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
+    'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
+    'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label':
-    'Hva er din forventede årsinntekt mens du tar ut <nowrap>{grad} %</nowrap> alderspensjon? (Valgfritt)',
+    'Hva er din forventede årsinntekt mens du tar ut <nowrap>{grad} %</nowrap> alderspensjon?',
   'beregning.avansert.rediger.read_more.pensjonsalder.label':
     'Om pensjonsalder',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro':
@@ -276,7 +294,7 @@ const translations = {
   'beregning.avansert.rediger.agepicker.validation_error':
     ' for når du vil ta ut <nowrap>{grad} %</nowrap> alderspensjon.',
   'beregning.avansert.rediger.agepicker.validation_error.maxAlder':
-    'Uttaksalder for 100 % alderspensjon må være senere enn alder for gradert pensjon.',
+    'Uttaksalder for <nowrap>100 %</nowrap/> alderspensjon må være senere enn alder for gradert pensjon.',
   'beregning.avansert.rediger.heltuttak.agepicker.label':
     'Når vil du ta ut <nowrap>100 %</nowrap> alderspensjon',
   'beregning.avansert.button.beregn': 'Beregn pensjon',

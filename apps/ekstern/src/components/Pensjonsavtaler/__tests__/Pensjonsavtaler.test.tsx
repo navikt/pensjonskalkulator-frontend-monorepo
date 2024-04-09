@@ -31,7 +31,7 @@ describe('Pensjonsavtaler', () => {
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 1 },
-    aarligInntektFoerUttakBeloep: 0,
+    aarligInntektFoerUttakBeloep: '0',
     gradertUttaksperiode: null,
   }
   describe('Gitt at brukeren ikke har samtykket', () => {

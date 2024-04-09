@@ -193,7 +193,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           <div
             className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
           >
-            <div className={styles.container}>
+            <div className={styles.container} data-testid="toggle-avansert">
               <ToggleGroup
                 value={visning}
                 variant="neutral"

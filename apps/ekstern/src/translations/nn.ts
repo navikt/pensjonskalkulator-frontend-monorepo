@@ -72,6 +72,8 @@ const translations = {
   'henvisning.apotekerne.body': 'MANGLER_TEKST',
   'henvisning.utland.body':
     'Sidan du har budd eller jobba utanfor Noreg i meir enn fem år, må du bruke detaljert kalkulator.',
+  'stegvisning.radio_ja': 'Ja',
+  'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -251,6 +253,20 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.pensjonsalder.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro': 'MANGLER_TEKST',

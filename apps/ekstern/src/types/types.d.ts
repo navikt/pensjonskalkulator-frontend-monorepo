@@ -7,6 +7,8 @@ declare global {
 
   type Locales = 'nb' | 'nn' | 'en'
 
+  type BooleanRadio = 'ja' | 'nei'
+
   type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
   type Alder = components['schemas']['Alder']
   type UnleashToggle = components['schemas']['EnablementDto']
@@ -48,11 +50,24 @@ declare global {
     components['schemas']['IngressSimuleringSpecV3']
   type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV3']
   type Vilkaarsproeving = components['schemas']['VilkaarsproevingV3']
-  type AarligInntektVsaPensjon =
-    components['schemas']['IngressSimuleringInntektV3']
+  type AarligInntektVsaPensjon = {
+    beloep: string
+    sluttAlder: Alder
+  }
 
-  type HeltUttak = components['schemas']['IngressSimuleringHeltUttakV3']
-  type GradertUttak = components['schemas']['IngressSimuleringGradertUttakV3']
+  type HeltUttak = Omit<
+    components['schemas']['IngressSimuleringHeltUttakV3'],
+    'aarligInntektVsaPensjon'
+  > & {
+    aarligInntektVsaPensjon?: AarligInntektVsaPensjon
+  }
+
+  type GradertUttak = Omit<
+    components['schemas']['IngressSimuleringGradertUttakV3'],
+    'aarligInntektVsaPensjonBeloep'
+  > & {
+    aarligInntektVsaPensjonBeloep?: string
+  }
 
   type Simuleringstype =
     components['schemas']['IngressSimuleringSpecV3']['simuleringstype']

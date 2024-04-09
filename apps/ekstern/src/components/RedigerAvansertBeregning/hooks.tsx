@@ -7,8 +7,8 @@ import { getFormatMessageValues } from '@/utils/translations'
 import { FORM_NAMES } from './utils'
 
 export const useFormLocalState = (initialValues: {
-  aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: number | undefined
-  aarligInntektFoerUttakBeloepFraBrukerInput: number | null
+  aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: string | undefined
+  aarligInntektFoerUttakBeloepFraBrukerInput: string | null
   uttaksalder: Alder | null
   aarligInntektVsaHelPensjon: AarligInntektVsaPensjon | undefined
   gradertUttaksperiode: GradertUttak | null
@@ -24,8 +24,24 @@ export const useFormLocalState = (initialValues: {
   const { setHarAvansertSkjemaUnsavedChanges } =
     React.useContext(BeregningContext)
 
+  const [localHarInntektVsaHeltUttakRadio, setHarInntektVsaHeltUttakRadio] =
+    React.useState<boolean | null>(
+      !uttaksalder ? null : aarligInntektVsaHelPensjon ? true : false
+    )
+
+  const [
+    localHarInntektVsaGradertUttakRadio,
+    setHarInntektVsaGradertUttakRadio,
+  ] = React.useState<boolean | null>(
+    !gradertUttaksperiode?.uttaksalder
+      ? null
+      : gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+        ? true
+        : false
+  )
+
   const [localInntektFremTilUttak, setInntektFremTilUttak] = React.useState<
-    number | null
+    string | null
   >(
     aarligInntektFoerUttakBeloepFraBrukerInput
       ? aarligInntektFoerUttakBeloepFraBrukerInput
@@ -43,10 +59,7 @@ export const useFormLocalState = (initialValues: {
       : undefined,
   })
   const [localGradertUttak, setGradertUttak] = React.useState<
-    | (Omit<RecursivePartial<GradertUttak>, 'aarligInntektVsaPensjonBeloep'> & {
-        aarligInntektVsaPensjonBeloep?: string
-      })
-    | undefined
+    RecursivePartial<GradertUttak> | undefined
   >(
     gradertUttaksperiode
       ? {
@@ -57,6 +70,24 @@ export const useFormLocalState = (initialValues: {
               : undefined,
         }
       : undefined
+  )
+
+  const minAlderInntektSluttAlder = React.useMemo(
+    () =>
+      localHeltUttak?.uttaksalder?.aar
+        ? {
+            aar:
+              localHeltUttak?.uttaksalder?.maaneder === 11
+                ? localHeltUttak?.uttaksalder?.aar + 1
+                : localHeltUttak?.uttaksalder?.aar,
+            maaneder:
+              localHeltUttak?.uttaksalder?.maaneder !== undefined &&
+              localHeltUttak?.uttaksalder?.maaneder !== 11
+                ? localHeltUttak?.uttaksalder?.maaneder + 1
+                : 0,
+          }
+        : undefined,
+    [localHeltUttak]
   )
 
   React.useEffect(() => {
@@ -117,6 +148,8 @@ export const useFormLocalState = (initialValues: {
       setLocalInntektFremTilUttak: setInntektFremTilUttak,
       setLocalHeltUttak: setHeltUttak,
       setLocalGradertUttak: setGradertUttak,
+      setLocalHarInntektVsaHeltUttakRadio: setHarInntektVsaHeltUttakRadio,
+      setLocalHarInntektVsaGradertUttakRadio: setHarInntektVsaGradertUttakRadio,
     }),
     []
   )
@@ -124,7 +157,10 @@ export const useFormLocalState = (initialValues: {
   return [
     localInntektFremTilUttak,
     localHeltUttak,
+    localHarInntektVsaHeltUttakRadio,
     localGradertUttak,
+    localHarInntektVsaGradertUttakRadio,
+    minAlderInntektSluttAlder,
     handlers,
   ] as const
 }
@@ -143,9 +179,12 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   const gradertUttakAgePickerError = React.useMemo(() => {
     return validationErrors[FORM_NAMES.uttaksalderGradertUttak] ? (
       <>
-        {intl.formatMessage({
-          id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
-        })}{' '}
+        {intl.formatMessage(
+          {
+            id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
+          },
+          { ...getFormatMessageValues(intl) }
+        )}{' '}
         <FormattedMessage
           id="beregning.avansert.rediger.agepicker.validation_error"
           values={{
@@ -162,9 +201,12 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   const heltUttakAgePickerError = React.useMemo(() => {
     return validationErrors[FORM_NAMES.uttaksalderHeltUttak] ? (
       <>
-        {intl.formatMessage({
-          id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
-        })}{' '}
+        {intl.formatMessage(
+          {
+            id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
+          },
+          { ...getFormatMessageValues(intl) }
+        )}{' '}
         {(validationErrors[FORM_NAMES.uttaksalderHeltUttak] ===
           'agepicker.validation_error.aar' ||
           validationErrors[FORM_NAMES.uttaksalderHeltUttak] ===
@@ -196,6 +238,22 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
           return {
             ...prevState,
             [FORM_NAMES.uttaksalderGradertUttak]: s,
+          }
+        })
+      },
+      setValidationErrorInntektVsaHeltUttak: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaHeltUttak]: s,
+          }
+        })
+      },
+      setValidationErrorInntektVsaHeltUttakSluttAlder: (s: string) => {
+        setValidationErrors((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: s,
           }
         })
       },

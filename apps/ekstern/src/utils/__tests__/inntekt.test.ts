@@ -1,40 +1,84 @@
 import { describe, expect, it } from 'vitest'
 
-import { formatWithoutDecimal, validateInntekt } from '../inntekt'
+import {
+  formatInntekt,
+  formatInntektToNumber,
+  validateInntekt,
+} from '../inntekt'
 
 describe('inntekt-utils', () => {
-  describe('formatWithoutDecimal', () => {
+  describe('formatInntekt', () => {
     it('returnerer tom string når amount er null eller undefined', () => {
-      expect(formatWithoutDecimal(null)).toBe('')
-      expect(formatWithoutDecimal(undefined)).toBe('')
+      expect(formatInntekt(null)).toBe('')
+      expect(formatInntekt(undefined)).toBe('')
+      expect(formatInntekt('')).toBe('')
+    })
+
+    it('returnerer tom string når amount er ugyldig', () => {
+      expect(formatInntekt('ytr')).toBe('')
     })
 
     it('returnerer string uten komma når amount er 0', () => {
-      expect(formatWithoutDecimal(0)).toBe('0')
+      expect(formatInntekt(0)).toBe('0')
     })
 
     it('returnerer string uten komma når amount er integer', () => {
-      expect(formatWithoutDecimal(1)).toBe('1')
-      expect(formatWithoutDecimal(25)).toBe('25')
-      expect(formatWithoutDecimal(-4)).toBe('−4')
+      expect(formatInntekt(1)).toBe('1')
+      expect(formatInntekt(25)).toBe('25')
+      expect(formatInntekt(-4)).toBe('−4')
+    })
+
+    it('returnerer nærmeste tall når amount har ugyldige karakter', () => {
+      expect(formatInntekt('100.000')).toBe('100 000')
+      expect(formatInntekt('100-000')).toBe('100 000')
+      expect(formatInntekt('100/000')).toBe('100 000')
     })
 
     it('returnerer formatert string med heltall rundet opp eller ned når amount er float', () => {
-      expect(formatWithoutDecimal(100123.95)).toBe('100 124')
-      expect(formatWithoutDecimal(100123.5)).toBe('100 124')
-      expect(formatWithoutDecimal(100123.49)).toBe('100 123')
-      expect(formatWithoutDecimal(-15.2)).toBe('−15')
+      expect(formatInntekt(100123.95)).toBe('100 124')
+      expect(formatInntekt(100123.5)).toBe('100 124')
+      expect(formatInntekt(100123.49)).toBe('100 123')
+      expect(formatInntekt(-15.2)).toBe('−15')
     })
 
     it('returnerer string med mellomrom mellom hvert tredje siffer', () => {
-      expect(formatWithoutDecimal(100_000)).toBe('100 000')
-      expect(formatWithoutDecimal(9_999_999)).toBe('9 999 999')
+      expect(formatInntekt(100_000)).toBe('100 000')
+      expect(formatInntekt(9_999_999)).toBe('9 999 999')
     })
 
     it('returnerer riktig string når amount kommer som string', () => {
-      expect(formatWithoutDecimal('')).toBe('')
-      expect(formatWithoutDecimal('0')).toBe('0')
-      expect(formatWithoutDecimal('123000')).toBe('123 000')
+      expect(formatInntekt('')).toBe('')
+      expect(formatInntekt('0')).toBe('0')
+      expect(formatInntekt('123000')).toBe('123 000')
+    })
+  })
+
+  describe('formatInntektToNumber', () => {
+    it('returnerer 0 når amount er tom eller undefined', () => {
+      expect(formatInntektToNumber(undefined)).toBe(0)
+      expect(formatInntektToNumber('')).toBe(0)
+    })
+
+    it('returnerer 0 når amount er ugyldig', () => {
+      expect(formatInntektToNumber('ytr')).toBe(0)
+    })
+
+    it('returnerer 0 når amount er 0', () => {
+      expect(formatInntektToNumber('0')).toBe(0)
+    })
+
+    it('returnerer riktig tall når amount er integer', () => {
+      expect(formatInntektToNumber('1')).toBe(1)
+      expect(formatInntektToNumber('25')).toBe(25)
+      expect(formatInntektToNumber('-4')).toBe(-4)
+    })
+
+    it('returnerer nærmeste tall når amount inneholder ugyldige tegn', () => {
+      expect(formatInntektToNumber('100 000')).toBe(100000)
+      expect(formatInntektToNumber('100 000')).toBe(100000)
+      expect(formatInntektToNumber('100.000')).toBe(100000)
+      expect(formatInntektToNumber('100/000')).toBe(100000)
+      expect(formatInntektToNumber('9_999_999')).toBe(9999999)
     })
   })
 
@@ -71,22 +115,27 @@ describe('inntekt-utils', () => {
       ).toBeTruthy()
     })
 
-    it('returnerer false med riktig feilmelding når input er noe annet enn tall mellom 0-9 med/uten mellomrom', async () => {
+    it('returnerer false med riktig feilmelding når input er noe annet enn tall mellom 0-9 med/uten mellomrom, bindestrekk eller punktum', async () => {
       expect(
         validateInntekt('qwerty', updateValidationErrorMessageMock)
-      ).toBeFalsy()
-      expect(
-        validateInntekt('123.43', updateValidationErrorMessageMock)
       ).toBeFalsy()
       expect(
         validateInntekt('123,45', updateValidationErrorMessageMock)
       ).toBeFalsy()
       expect(
-        validateInntekt('-25', updateValidationErrorMessageMock)
+        validateInntekt('123/45', updateValidationErrorMessageMock)
       ).toBeFalsy()
-      expect(validateInntekt('-', updateValidationErrorMessageMock)).toBeFalsy()
+      expect(
+        validateInntekt('-25', updateValidationErrorMessageMock)
+      ).toBeTruthy()
+      expect(
+        validateInntekt('-', updateValidationErrorMessageMock)
+      ).toBeTruthy()
+      expect(
+        validateInntekt('123.43', updateValidationErrorMessageMock)
+      ).toBeTruthy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
-        5,
+        1,
         'inntekt.endre_inntekt_modal.textfield.validation_error.type'
       )
     })

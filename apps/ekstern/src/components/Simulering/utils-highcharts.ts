@@ -13,7 +13,7 @@ import {
 } from 'highcharts'
 
 import { cleanAndAddEventListener } from '@/utils/events'
-import { formatWithoutDecimal } from '@/utils/inntekt'
+import { formatInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
 import {
@@ -56,7 +56,7 @@ export type HighchartsScrollingHTMLDivElement = HTMLDivElement & {
 export function labelFormatterDesktop(this: AxisLabelsFormatterContextObject) {
   const sum =
     typeof this.value === 'number' ? this.value : parseInt(this.value, 10)
-  return formatWithoutDecimal(sum)
+  return formatInntekt(sum)
 }
 
 export function labelFormatterMobile(this: AxisLabelsFormatterContextObject) {
@@ -174,7 +174,7 @@ export function tooltipFormatter(
         `<td class="${styles.tooltipTableCell}"><span class="${styles.tooltipTableCellDot}" style="backgroundColor:${point.series.color}"></span>${point.series.name}</td>` +
         `<td class="${styles.tooltipTableCell} ${
           styles.tooltipTableCell__right
-        }"><span class="nowrap">${formatWithoutDecimal(point.y)} kr</span></td>` +
+        }"><span class="nowrap">${formatInntekt(point.y)} kr</span></td>` +
         `</tr>`
     }
   })
@@ -191,7 +191,7 @@ export function tooltipFormatter(
     )}</th>` +
     `<th class="${styles.tooltipTableHeaderCell} ${
       styles.tooltipTableHeaderCell__right
-    }"><span class="nowrap">${formatWithoutDecimal(points?.[0].total)} kr</span></th>` +
+    }"><span class="nowrap">${formatInntekt(points?.[0].total)} kr</span></th>` +
     `</tr></thead><tbody>`
 
   const footerFormat = '</tbody></table>'
