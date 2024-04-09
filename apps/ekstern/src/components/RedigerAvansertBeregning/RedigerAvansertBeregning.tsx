@@ -24,6 +24,7 @@ import {
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
+import { DEFAULT_MAX_OPPTJENINGSALDER } from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -618,7 +619,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   })}
                   value={localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder}
                   minAlder={minAlderInntektSluttAlder}
-                  maxAlder={{ aar: 75, maaneder: 11 }}
+                  maxAlder={DEFAULT_MAX_OPPTJENINGSALDER}
                   onChange={handleInntektVsaHeltUttakSluttAlderChange}
                   error={
                     validationErrors[FORM_NAMES.inntektVsaHeltUttakSluttAlder]

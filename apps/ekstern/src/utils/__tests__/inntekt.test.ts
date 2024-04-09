@@ -115,7 +115,7 @@ describe('inntekt-utils', () => {
       ).toBeTruthy()
     })
 
-    it('returnerer false med riktig feilmelding når input er noe annet enn tall mellom 0-9 med/uten mellomrom, bindestrekk eller punkt', async () => {
+    it('returnerer false med riktig feilmelding når input er noe annet enn tall mellom 0-9 med/uten mellomrom, bindestrekk eller punktum', async () => {
       expect(
         validateInntekt('qwerty', updateValidationErrorMessageMock)
       ).toBeFalsy()
