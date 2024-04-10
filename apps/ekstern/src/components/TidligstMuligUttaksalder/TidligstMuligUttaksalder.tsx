@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { Alert, BodyLong } from '@navikt/ds-react'
 
 import { ReadMore } from '@/components/common/ReadMore'
-import { useGetDetaljertFaneFeatureToggleQuery } from '@/state/api/apiSlice'
 import { formatUttaksalder } from '@/utils/alder'
 import { isAlderOverMinUttaksaar } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -23,8 +22,6 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
   show1963Text,
 }) => {
   const intl = useIntl()
-  const { data: detaljertFaneFeatureToggle } =
-    useGetDetaljertFaneFeatureToggleQuery()
 
   return (
     <div className={styles.wrapper} data-testid="tidligst-mulig-uttak">
@@ -81,7 +78,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
           </BodyLong>
         )}
         <ReadMore
-          name="Om tidspunkter for uttak"
+          name="Om pensjonsalder enkelt"
           className={styles.readmore}
           header={<FormattedMessage id="tidligstmuliguttak.readmore_title" />}
         >
@@ -94,9 +91,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
             />
           )}
           <FormattedMessage
-            id={`tidligstmuliguttak.readmore_ingress.${
-              detaljertFaneFeatureToggle?.enabled ? 'avansert' : 'enkelt'
-            }`}
+            id="tidligstmuliguttak.readmore_ingress.enkelt"
             values={{
               ...getFormatMessageValues(intl),
             }}

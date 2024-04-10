@@ -142,7 +142,6 @@ const translations = {
   'tidligstmuliguttak.readmore_title': 'MANGLER_TEKST',
   'tidligstmuliguttak.readmore_ingress.optional': 'MANGLER_TEKST',
   'tidligstmuliguttak.readmore_ingress.enkelt': 'MANGLER_TEKST',
-  'tidligstmuliguttak.readmore_ingress.avansert': 'MANGLER_TEKST',
   'tidligstmuliguttak.info_afp': 'MANGLER_TEKST',
   'tidligstmuliguttak.error': 'MANGLER_TEKST',
   'velguttaksalder.title': 'MANGLER_TEKST',

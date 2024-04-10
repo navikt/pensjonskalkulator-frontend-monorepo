@@ -40,7 +40,7 @@ exports[`ReadMoreOmPensjonsalder > viser riktig info om pensjonsalder 1`] = `
       <p
         class="navds-body-long navds-body-long--medium"
       >
-        Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født. Dette er ikke vedtatt av Stortinget enda. Pensjonsalderen vil da øke for dem som er født fra og med 1964.
+        Stortinget har blitt enige om endringer i pensjonssystemet. Aldersgrensene er forventet å øke gradvis fra 1964-kullet med en til to måneder per årskull.
         <br />
         <br />
       </p>
@@ -61,13 +61,13 @@ exports[`ReadMoreOmPensjonsalder > viser riktig info om pensjonsalder 1`] = `
       >
         100 %
       </span>
-      ) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut 
+      ) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, forskyves tidspunktet du kan ta ut 
       <span
         class="nowrap"
       >
         100 %
       </span>
-       forskyves.
+      .
       <br />
       <br />
       Fra 67 år kan alle ta ut 
