@@ -342,6 +342,13 @@ export const onAvansertBeregningSubmit = (
         })
       )
     }
+
+    if (inntektVsaHeltUttakFormData !== null) {
+      logger('valg av inntekt vsa. 100 % pensjon (antall sifre)', {
+        tekst: `${(inntektVsaHeltUttakFormData as string).replace(/ /g, '').length}`,
+      })
+    }
+
     dispatch(
       userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
         inntektVsaHeltUttakFormData !== null &&

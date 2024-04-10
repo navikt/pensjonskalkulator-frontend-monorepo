@@ -111,6 +111,9 @@ export const BeregningAvansert: React.FC = () => {
     if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
       setAvansertSkjemaModus('redigering')
     }
+    if (alderspensjon && alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
+      logger('resultat vist', { tekst: 'Beregning avansert' })
+    }
   }, [alderspensjon])
 
   const onRetry = (): void => {
