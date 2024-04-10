@@ -54,6 +54,10 @@ export const RedigerAvansertBeregning: React.FC<{
   )
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const [
     localInntektFremTilUttak,
     localHeltUttak,
@@ -364,6 +368,7 @@ export const RedigerAvansertBeregning: React.FC<{
               localGradertUttak?.grad ? `${localGradertUttak.grad} %` : '100 %'
             }
             onChange={handleUttaksgradChange}
+            aria-required="true"
           >
             <option>
               <FormattedMessage id="beregning.avansert.rediger.uttaksgrad.description" />
@@ -439,6 +444,9 @@ export const RedigerAvansertBeregning: React.FC<{
                   form={FORM_NAMES.form}
                   data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`}
                   value="ja"
+                  aria-invalid={
+                    !!validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
+                  }
                 >
                   <FormattedMessage id="stegvisning.radio_ja" />
                 </Radio>
@@ -558,6 +566,9 @@ export const RedigerAvansertBeregning: React.FC<{
                   form={FORM_NAMES.form}
                   data-testid={`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`}
                   value="ja"
+                  aria-invalid={
+                    !!validationErrors[FORM_NAMES.inntektVsaHeltUttakRadio]
+                  }
                 >
                   <FormattedMessage id="stegvisning.radio_ja" />
                 </Radio>
@@ -608,6 +619,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   onChange={handleInntektVsaHeltUttakChange}
                   value={localHeltUttak?.aarligInntektVsaPensjon?.beloep}
                   max={5}
+                  aria-required="true"
                 />
               </div>
               <div>
