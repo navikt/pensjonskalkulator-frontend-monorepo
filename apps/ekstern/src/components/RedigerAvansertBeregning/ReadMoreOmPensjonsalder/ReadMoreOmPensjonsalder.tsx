@@ -13,7 +13,7 @@ export const ReadMoreOmPensjonsalder: React.FC<{
 
   return (
     <ReadMore
-      name="Om pensjonsalder"
+      name="Om pensjonsalder avansert"
       header={intl.formatMessage({
         id: 'beregning.avansert.rediger.read_more.pensjonsalder.label',
       })}
