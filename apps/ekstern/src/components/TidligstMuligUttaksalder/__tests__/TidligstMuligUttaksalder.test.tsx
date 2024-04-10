@@ -159,11 +159,12 @@ describe('TidligstMuligUttaksalder', () => {
     ).toBeInTheDocument()
     expect(
       screen.getByText(
-        'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født.',
+        'Stortinget har blitt enige om endringer i pensjonssystemet.',
         { exact: false }
       )
     ).toBeInTheDocument()
   })
+
   it('viser readmore med riktig tekst når tidligstMuligUttak ikke kunne hentes', async () => {
     render(
       <TidligstMuligUttaksalder
@@ -185,7 +186,7 @@ describe('TidligstMuligUttaksalder', () => {
     ).not.toBeInTheDocument()
     expect(
       screen.getByText(
-        'Regjeringen ønsker å justere pensjonsalderen etter hvilket år du er født.',
+        'Stortinget har blitt enige om endringer i pensjonssystemet.',
         { exact: false }
       )
     ).toBeInTheDocument()
