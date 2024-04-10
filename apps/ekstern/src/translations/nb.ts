@@ -268,6 +268,8 @@ const translations = {
     'Du kan tjene så mye du vil, mens du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
+  'beregning.avansert.rediger.uttaksgrad.validation_error':
+    'Du må velge hvor mye alderspensjon du vil ta ut.',
   'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
     'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak':

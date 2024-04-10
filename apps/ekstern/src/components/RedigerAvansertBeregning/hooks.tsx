@@ -60,17 +60,22 @@ export const useFormLocalState = (initialValues: {
   })
   const [localGradertUttak, setGradertUttak] = React.useState<
     RecursivePartial<GradertUttak> | undefined
-  >(
-    gradertUttaksperiode
+  >({
+    grad: gradertUttaksperiode?.grad
+      ? gradertUttaksperiode.grad
+      : uttaksalder
+        ? 100
+        : undefined,
+    uttaksalder: gradertUttaksperiode?.uttaksalder
       ? {
-          ...gradertUttaksperiode,
-          aarligInntektVsaPensjonBeloep:
-            gradertUttaksperiode.aarligInntektVsaPensjonBeloep
-              ? gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString()
-              : undefined,
+          ...gradertUttaksperiode.uttaksalder,
         }
-      : undefined
-  )
+      : undefined,
+    aarligInntektVsaPensjonBeloep:
+      gradertUttaksperiode?.aarligInntektVsaPensjonBeloep
+        ? gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString()
+        : undefined,
+  })
 
   const minAlderInntektSluttAlder = React.useMemo(
     () =>

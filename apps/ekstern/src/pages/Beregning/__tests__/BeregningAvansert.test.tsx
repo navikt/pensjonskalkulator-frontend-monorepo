@@ -137,6 +137,9 @@ describe('BeregningAvansert', () => {
           target: { value: '6' },
         }
       )
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+        target: { value: '100 %' },
+      })
       await user.click(
         screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
       )
