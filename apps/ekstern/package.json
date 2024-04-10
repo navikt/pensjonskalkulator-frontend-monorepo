@@ -89,7 +89,7 @@
     "stylelint-config-standard-scss": "^11.1.0",
     "timers": "^0.1.1",
     "typescript": "^5.4.4",
-    "vite": "^5.2.7",
+    "vite": "^5.2.8",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-sass-dts": "^1.3.17",
     "vite-plugin-stylelint": "^5.3.1",
