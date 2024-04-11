@@ -1128,6 +1128,15 @@ describe('RedigerAvansertBeregning', () => {
         exact: false,
       })
     ).toBeVisible()
+    // Feilmelding for uttaksgrad
+    expect(
+      screen.getByText(
+        'beregning.avansert.rediger.uttaksgrad.validation_error',
+        {
+          exact: false,
+        }
+      )
+    ).toBeVisible()
     expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
       `${FORM_NAMES.uttaksalderHeltUttak}-aar`
     )
@@ -1147,6 +1156,11 @@ describe('RedigerAvansertBeregning', () => {
         target: { value: '5' },
       }
     )
+
+    // Velger gradert uttak
+    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+      target: { value: '100 %' },
+    })
 
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
     // Feilmelding for radioknapp inntekt vsa 100 % uttak

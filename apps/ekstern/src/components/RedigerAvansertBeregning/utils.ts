@@ -119,6 +119,21 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
   }
 
+  // Sjekker at uttaksgrad er fylt ut med en prosent
+  if (
+    !uttaksgradFormData ||
+    /^(?!(100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
+  ) {
+    isValid = false
+    updateValidationErrorMessage((prevState) => {
+      return {
+        ...prevState,
+        [FORM_NAMES.uttaksgrad]:
+          'beregning.avansert.rediger.uttaksgrad.validation_error',
+      }
+    })
+  }
+
   // Sjekker at uttaksalder for gradert pensjon er fylt ut med en alder (gitt at uttaksgrad er ulik 100 %)
   if (
     uttaksgradFormData !== '100 %' &&
@@ -133,14 +148,6 @@ export const validateAvansertBeregningSkjema = (
       },
       updateValidationErrorMessage
     )
-  ) {
-    isValid = false
-  }
-
-  // Sjekker at uttaksgrad er fylt ut med en prosent
-  if (
-    !uttaksgradFormData ||
-    /^(?!(100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
   ) {
     isValid = false
   }

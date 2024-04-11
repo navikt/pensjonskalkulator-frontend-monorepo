@@ -194,6 +194,7 @@ const translations = {
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
     'MANGLER_TEKST',
+  'beregning.avansert.rediger.uttaksgrad.validation_error': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak': 'MANGLER_TEKST',

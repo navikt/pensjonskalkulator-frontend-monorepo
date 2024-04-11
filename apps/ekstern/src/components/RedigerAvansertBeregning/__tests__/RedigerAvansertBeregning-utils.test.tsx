@@ -8,7 +8,7 @@ import * as alderUtils from '@/utils/alder'
 import * as inntektUtils from '@/utils/inntekt'
 
 describe('RedigerAvansertBeregning-utils', () => {
-  describe('FonAvansertBeregningSubmit', () => {
+  describe('onAvansertBeregningSubmit', () => {
     const formDataAllFieldsSwitch = (s: string) => {
       switch (s) {
         case 'uttaksalder-gradert-uttak-aar':
@@ -88,7 +88,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(getMock).toHaveBeenNthCalledWith(11, 'inntekt-vsa-gradert-uttak')
       expect(dispatchMock).not.toHaveBeenCalled()
       expect(gaaTilResultatMock).not.toHaveBeenCalled()
-      expect(setValidationErrorsMock).toHaveBeenCalledTimes(2)
+      expect(setValidationErrorsMock).toHaveBeenCalledTimes(3)
     })
 
     describe('Gitt at onAvansertBeregningSubmit kalles, og at validering er vellykket', () => {
@@ -381,8 +381,15 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(updateErrorMessageMock).toHaveBeenCalledTimes(3)
     })
 
-    it('returnerer false når uttaksgrad er fylt ut med noe annet enn et tall', () => {
+    it('returnerer false når uttaksgrad er fylt ut med noe annet enn et tall med prosent', () => {
       const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, uttaksgradFormData: '' },
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: 'abc' },
@@ -401,7 +408,6 @@ describe('RedigerAvansertBeregning-utils', () => {
           updateErrorMessageMock
         )
       ).toBeFalsy()
-      expect(updateErrorMessageMock).not.toHaveBeenCalled()
     })
 
     it('returnerer false når gradertUttakAar eller gradertUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm)', () => {

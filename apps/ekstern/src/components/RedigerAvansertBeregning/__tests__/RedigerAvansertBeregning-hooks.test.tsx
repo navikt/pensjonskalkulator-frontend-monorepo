@@ -80,7 +80,11 @@ describe('RedigerAvansertBeregning-hooks', () => {
       // localHarInntektVsaHeltUttakRadio
       expect(result.current[2]).toBe(null)
       // localGradertUttak
-      expect(result.current[3]).toBe(undefined)
+      expect(result.current[3]).toStrictEqual({
+        aarligInntektVsaPensjonBeloep: undefined,
+        grad: undefined,
+        uttaksalder: undefined,
+      })
       // localHarInntektVsaGradertUttakRadio
       expect(result.current[4]).toBe(null)
       // minAlderInntektSluttAlder
@@ -705,9 +709,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
 
     it('Når validationErrors endrer seg, oppdaterer gradertAgePickerError og heltAgePickerError', () => {
       const { result } = renderHook(useFormValidationErrors, {
-        initialProps: {
-          grad: 40,
-        },
+        initialProps: {},
       })
 
       const {
@@ -773,7 +775,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
                 "dinPensjonBeholdningLink": [Function],
                 "dinPensjonLink": [Function],
                 "garantiPensjonLink": [Function],
-                "grad": 40,
+                "grad": undefined,
                 "navPersonvernerklaeringKontaktOss": [Function],
                 "navPersonvernerklaeringLink": [Function],
                 "norskPensjonLink": [Function],

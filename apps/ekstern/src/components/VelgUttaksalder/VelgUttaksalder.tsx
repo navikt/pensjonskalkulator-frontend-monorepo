@@ -38,7 +38,7 @@ export const VelgUttaksalder: React.FC<Props> = ({
 
   const onAlderClick = (formatertAlder: string) => {
     logger('chip valgt', {
-      tekst: 'Velg uttaksalder alder',
+      tekst: 'Velg uttaksalder',
       data: formatertAlder,
     })
     const alder = unformatUttaksalder(formatertAlder)

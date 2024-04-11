@@ -131,49 +131,61 @@ export const RedigerAvansertBeregning: React.FC<{
   }
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    resetValidationErrors()
-    const avansertBeregningFormatertUttaksgradAsNumber = e.target.value
-      ? parseInt(e.target.value.match(/\d+/)?.[0] as string, 10)
-      : 100
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        [FORM_NAMES.uttaksgrad]: '',
+        [FORM_NAMES.uttaksalderGradertUttak]: '',
+        [FORM_NAMES.inntektVsaGradertUttakRadio]: '',
+        [FORM_NAMES.inntektVsaGradertUttak]: '',
+      }
+    })
+    const avansertBeregningFormatertUttaksgradAsNumber = parseInt(
+      e.target.value.match(/\d+/)?.[0] as string,
+      10
+    )
 
     if (
-      !isNaN(avansertBeregningFormatertUttaksgradAsNumber) &&
-      avansertBeregningFormatertUttaksgradAsNumber !== localGradertUttak?.grad
+      avansertBeregningFormatertUttaksgradAsNumber === 100 ||
+      isNaN(avansertBeregningFormatertUttaksgradAsNumber)
     ) {
-      // if the avansertBeregningFormatertUttaksgradAsNumber is different than 100
-      if (avansertBeregningFormatertUttaksgradAsNumber !== 100) {
-        // if there was no gradert uttak, empty the value for helt
-        if (localGradertUttak?.uttaksalder === undefined) {
-          setLocalHeltUttak({
-            uttaksalder: undefined,
-            aarligInntektVsaPensjon: undefined,
-          })
-          setLocalHarInntektVsaHeltUttakRadio(null)
-        }
-        // transfer the uttaksalder value from the first age picker (helt) to gradert age picker
-        setLocalGradertUttak((previous) => {
-          return {
-            ...previous,
-            uttaksalder:
-              previous?.uttaksalder === undefined
-                ? localHeltUttak?.uttaksalder
-                : previous?.uttaksalder,
-            grad: avansertBeregningFormatertUttaksgradAsNumber,
-          }
-        })
-      } else {
-        // transfer the value from gradert age picker to helt age picker
+      const prevUttaksalder = localGradertUttak?.uttaksalder
+        ? { ...localGradertUttak?.uttaksalder }
+        : undefined
+      // Hvis uttaksalder for gradert var fylt ut, overfører den til 100 % alderspensjon
+      if (prevUttaksalder) {
         setLocalHeltUttak((previous) => {
           return {
             ...previous,
-            uttaksalder: localGradertUttak?.uttaksalder,
+            uttaksalder: prevUttaksalder,
           }
         })
-
-        // empty the values for gradert
-        setLocalGradertUttak(undefined)
-        setLocalHarInntektVsaGradertUttakRadio(null)
       }
+      // empty the values for gradert
+      setLocalGradertUttak({
+        grad: 100,
+      })
+      setLocalHarInntektVsaGradertUttakRadio(null)
+    } else {
+      // if there was no gradert uttak from before, empty the value for helt
+      if (localGradertUttak?.uttaksalder === undefined) {
+        setLocalHeltUttak({
+          uttaksalder: undefined,
+          aarligInntektVsaPensjon: undefined,
+        })
+        setLocalHarInntektVsaHeltUttakRadio(null)
+      }
+      // transfer the uttaksalder value from the first age picker (helt) to gradert age picker
+      setLocalGradertUttak((previous) => {
+        return {
+          ...previous,
+          uttaksalder:
+            previous?.uttaksalder === undefined
+              ? localHeltUttak?.uttaksalder
+              : previous?.uttaksalder,
+          grad: avansertBeregningFormatertUttaksgradAsNumber,
+        }
+      })
     }
   }
 
@@ -330,7 +342,7 @@ export const RedigerAvansertBeregning: React.FC<{
             />
           )}
         <div>
-          {localGradertUttak ? (
+          {localGradertUttak?.grad && localGradertUttak?.grad !== 100 ? (
             <AgePicker
               form={FORM_NAMES.form}
               name={FORM_NAMES.uttaksalderGradertUttak}
@@ -364,14 +376,24 @@ export const RedigerAvansertBeregning: React.FC<{
             description={intl.formatMessage({
               id: 'beregning.avansert.rediger.uttaksgrad.description',
             })}
-            value={
-              localGradertUttak?.grad ? `${localGradertUttak.grad} %` : '100 %'
-            }
+            value={localGradertUttak?.grad ? `${localGradertUttak.grad} %` : ''}
             onChange={handleUttaksgradChange}
+            error={
+              validationErrors[FORM_NAMES.uttaksgrad]
+                ? intl.formatMessage(
+                    {
+                      id: validationErrors[FORM_NAMES.uttaksgrad],
+                    },
+                    {
+                      ...getFormatMessageValues(intl),
+                    }
+                  )
+                : ''
+            }
             aria-required="true"
           >
-            <option>
-              <FormattedMessage id="beregning.avansert.rediger.uttaksgrad.description" />
+            <option disabled selected value="">
+              {' '}
             </option>
             {['20 %', '40 %', '50 %', '60 %', '80 %', '100 %'].map((grad) => (
               <option key={grad} value={grad}>
@@ -396,7 +418,7 @@ export const RedigerAvansertBeregning: React.FC<{
             </BodyLong>
           </ReadMore>
         </div>
-        {localGradertUttak && (
+        {localGradertUttak?.grad && localGradertUttak.grad !== 100 && (
           <>
             <div>
               <RadioGroup
