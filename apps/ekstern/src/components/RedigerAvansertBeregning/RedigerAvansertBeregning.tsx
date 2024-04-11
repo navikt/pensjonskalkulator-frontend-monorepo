@@ -218,7 +218,7 @@ export const RedigerAvansertBeregning: React.FC<{
       ...previous,
       aarligInntektVsaPensjon: {
         ...previous?.aarligInntektVsaPensjon,
-        beloep: e.target.value ? e.target.value : undefined,
+        beloep: e.target.value ? formatInntekt(e.target.value) : undefined,
       },
     }))
   }
@@ -243,7 +243,7 @@ export const RedigerAvansertBeregning: React.FC<{
     setLocalGradertUttak((previous) => ({
       ...previous,
       aarligInntektVsaPensjonBeloep: e.target.value
-        ? e.target.value
+        ? formatInntekt(e.target.value)
         : undefined,
     }))
   }
