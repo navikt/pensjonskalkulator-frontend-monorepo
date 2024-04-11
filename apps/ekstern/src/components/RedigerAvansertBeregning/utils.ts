@@ -29,20 +29,34 @@ const validateAlderForGradertUttak = (
     React.SetStateAction<Record<string, string>>
   >
 ): boolean => {
-  let isValid = validateAlderFromForm(
-    {
-      aar: gradertUttaksalder?.aar,
-      maaneder: gradertUttaksalder?.maaneder,
-    },
-    function (s) {
-      updateValidationErrorMessage((prevState) => {
-        return {
-          ...prevState,
-          [FORM_NAMES.uttaksalderGradertUttak]: s,
-        }
-      })
-    }
-  )
+  let isValid =
+    validateAlderFromForm(
+      {
+        aar: gradertUttaksalder?.aar,
+        maaneder: gradertUttaksalder?.maaneder,
+      },
+      function (s) {
+        updateValidationErrorMessage((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.uttaksalderGradertUttak]: s,
+          }
+        })
+      }
+    ) &&
+    validateAlderFromForm(
+      {
+        ...heltUttaksalder,
+      },
+      function (s) {
+        updateValidationErrorMessage((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.uttaksalderHeltUttak]: s,
+          }
+        })
+      }
+    )
 
   if (isValid) {
     const maxAlder = getAlderMinus1Maaned(heltUttaksalder)

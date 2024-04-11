@@ -265,7 +265,7 @@ const translations = {
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
-    'Du kan tjene så mye du vil, mens du tar ut pensjon.',
+    'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
@@ -273,13 +273,13 @@ const translations = {
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
-    'Du kan tjene så mye du vil, mens du tar ut pensjon.',
+    'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
     'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label':
-    'Hva er din forventede årsinntekt mens du tar ut <nowrap>{grad} %</nowrap> alderspensjon?',
+    'Hva er din forventede årsinntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> alderspensjon?',
   'beregning.avansert.rediger.read_more.pensjonsalder.label':
     'Om pensjonsalder',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro':
@@ -406,7 +406,7 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.slette': 'Slett inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.label':
-    'Hva er din forventede årsinntekt mens du tar ut <nowrap>100 %</nowrap> alderspensjon?',
+    'Hva er din forventede årsinntekt samtidig som du tar ut <nowrap>100 %</nowrap> alderspensjon?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description':
     'Dagens kroneverdi før skatt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label':
