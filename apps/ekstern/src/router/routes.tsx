@@ -19,6 +19,7 @@ import { paths } from './constants'
 import {
   directAccessGuard,
   authenticationGuard,
+  foedselsdatoAccessGuard,
   tpoMedlemskapAccessGuard,
 } from './loaders'
 
@@ -41,6 +42,7 @@ export const routes: RouteObject[] = [
         element: <Navigate to={paths.login} replace />,
       },
       {
+        loader: foedselsdatoAccessGuard,
         path: paths.login,
         element: <LandingPage />,
       },
