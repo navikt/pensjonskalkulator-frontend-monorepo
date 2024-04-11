@@ -300,7 +300,7 @@ describe('RedigerAvansertBeregning', () => {
           FORM_NAMES.inntektVsaGradertUttak
         ) as HTMLInputElement
       ).value
-    ).toBe('100000')
+    ).toBe('100 000')
     expect(
       (
         (await screen.findByTestId(
@@ -634,7 +634,7 @@ describe('RedigerAvansertBeregning', () => {
       ).value
     ).toBe('')
     expect(screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)).toHaveValue(
-      '123000'
+      '123 000'
     )
   })
 
@@ -971,7 +971,7 @@ describe('RedigerAvansertBeregning', () => {
             `${FORM_NAMES.inntektVsaGradertUttak}`
           )) as HTMLSelectElement
         ).value
-      ).toBe('100000')
+      ).toBe('100 000')
     })
     it('når uttaksgrad er ugyldig, håndteres den som om den var 100% og nullstiller feltene for gradert', async () => {
       const onSubmitMock = vi.spyOn(
