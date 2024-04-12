@@ -34,7 +34,7 @@ describe('EndreInntekt', () => {
         )
       ).not.toBeInTheDocument()
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
-      expect(oppdatereInntektMock).toHaveBeenCalledWith('123000')
+      expect(oppdatereInntektMock).toHaveBeenCalledWith('123 000')
 
       expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
@@ -65,7 +65,7 @@ describe('EndreInntekt', () => {
       ).toBeInTheDocument()
       const oppdatertInput = screen.getByTestId('inntekt-textfield')
       await user.clear(oppdatertInput)
-      await user.type(oppdatertInput, '123000')
+      await user.type(oppdatertInput, '123 000')
 
       expect(
         screen.queryByText(
@@ -112,10 +112,10 @@ describe('EndreInntekt', () => {
       )
       const input = screen.getByTestId('inntekt-textfield')
       await user.clear(input)
-      await user.type(input, '123000')
+      await user.type(input, '123 000')
 
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
-      expect(oppdatereInntektMock).toHaveBeenCalledWith('123000')
+      expect(oppdatereInntektMock).toHaveBeenCalledWith('123 000')
     })
   })
 

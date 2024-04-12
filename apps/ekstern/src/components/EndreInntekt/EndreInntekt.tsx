@@ -13,6 +13,7 @@ import {
 
 import { useAppSelector } from '@/state/hooks'
 import { selectAarligInntektFoerUttakBeloepFraSkatt } from '@/state/userInput/selectors'
+import { formatInntekt } from '@/utils/inntekt'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -53,7 +54,7 @@ export const EndreInntekt: React.FC<Props> = ({
   const handleTextfieldChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setOppdatertInntekt(e.target.value)
+    setOppdatertInntekt(formatInntekt(e.target.value))
     setValidationError('')
   }
 
