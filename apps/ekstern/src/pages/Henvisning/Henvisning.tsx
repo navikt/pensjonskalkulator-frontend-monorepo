@@ -23,12 +23,6 @@ export const Henvisning: React.FC = () => {
 
   React.useEffect(() => {
     switch (id) {
-      case henvisningUrlParams.foedselsdato:
-        document.title = intl.formatMessage({
-          id: 'application.title.henvisning.foedselsdato',
-        })
-        setIngress('henvisning.foedselsdato.body')
-        break
       case henvisningUrlParams.ufoeretrygd:
         document.title = intl.formatMessage({
           id: 'application.title.henvisning.ufoeretrygd',

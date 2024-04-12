@@ -108,27 +108,6 @@ describe('Step 0', () => {
     })
   })
 
-  it('redirigerer til feilside dersom bruker er født før 1963', async () => {
-    mockResponse('/v1/person', {
-      json: {
-        fornavn: 'Test',
-        sivilstand: 'UGIFT',
-        foedselsdato: '1960-12-31',
-      },
-    })
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<Step0 />)
-
-    await waitFor(async () => {
-      expect(navigateMock).toHaveBeenCalledWith(
-        `${paths.henvisning}/${henvisningUrlParams.foedselsdato}`
-      )
-    })
-  })
-
   it('redirigerer til feilside dersom bruker har uføretrygd', async () => {
     mockResponse('/v1/ekskludert', {
       json: {

@@ -62,6 +62,7 @@ export const routes: RouteObject[] = [
     ErrorBoundary: RouteErrorBoundary,
     children: [
       {
+        loader: foedselsdatoAccessGuard,
         path: paths.start,
         element: <Step0 />,
       },

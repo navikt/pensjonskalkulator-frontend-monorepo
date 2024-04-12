@@ -1,16 +1,14 @@
-// import * as ReactRouterUtils from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
 import { LandingPage } from '..'
+import { mockErrorResponse } from '@/mocks/server'
+import { HOST_BASEURL } from '@/paths'
+import { BASE_PATH, paths } from '@/router/constants'
 import { externalUrls } from '@/router/constants'
-import {
-  render,
-  screen,
-  userEvent,
-  waitFor,
-  RenderRouteWithOutletContext,
-} from '@/test-utils'
+import { routes } from '@/router/routes'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('LandingPage', () => {
   afterEach(() => {
@@ -18,23 +16,27 @@ describe('LandingPage', () => {
     vi.resetAllMocks()
   })
 
-  it('har riktig sidetittel', () => {
-    render(
-      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
-        <LandingPage />
-      </RenderRouteWithOutletContext>,
-      { hasRouter: false }
-    )
-    expect(document.title).toBe('application.title')
+  it('har riktig sidetittel', async () => {
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
+    await waitFor(async () => {
+      expect(document.title).toBe('application.title')
+    })
   })
 
   it('rendrer innlogget side', async () => {
-    const { asFragment } = render(
-      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
-        <LandingPage />
-      </RenderRouteWithOutletContext>,
-      { hasRouter: false }
-    )
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    const { asFragment } = render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
 
     await waitFor(() => {
       expect(
@@ -46,12 +48,18 @@ describe('LandingPage', () => {
   })
 
   it('rendrer utlogget side', async () => {
-    const { asFragment } = render(
-      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
-        <LandingPage />
-      </RenderRouteWithOutletContext>,
-      { hasRouter: false }
-    )
+    mockErrorResponse('/oauth2/session', {
+      baseUrl: `${HOST_BASEURL}`,
+    })
+
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+
+    const { asFragment } = render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
 
     await waitFor(() => {
       expect(
@@ -73,12 +81,13 @@ describe('LandingPage', () => {
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(
-      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
-        <LandingPage />
-      </RenderRouteWithOutletContext>,
-      { hasRouter: false }
-    )
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
 
     await waitFor(() => {
       expect(
@@ -94,17 +103,22 @@ describe('LandingPage', () => {
   })
 
   it('går til enkel kalkulator når brukeren klikker på enkel kalkulator knappen', async () => {
+    mockErrorResponse('/oauth2/session', {
+      baseUrl: `${HOST_BASEURL}`,
+    })
+
     const user = userEvent.setup()
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(
-      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
-        <LandingPage />
-      </RenderRouteWithOutletContext>,
-      { hasRouter: false }
-    )
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
 
     await waitFor(async () => {
       await user.click(
@@ -116,17 +130,23 @@ describe('LandingPage', () => {
   })
 
   it('går til detaljert kalkulator når brukeren klikker på knappen i det andre avsnittet', async () => {
+    mockErrorResponse('/oauth2/session', {
+      baseUrl: `${HOST_BASEURL}`,
+    })
+
     const user = userEvent.setup()
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(
-      <RenderRouteWithOutletContext context={{ isLoggedIn: true }}>
-        <LandingPage />
-      </RenderRouteWithOutletContext>,
-      { hasRouter: false }
-    )
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
+
     await waitFor(() => {
       expect(
         screen.getByTestId('landingside-detaljert-kalkulator-second-button')
@@ -141,17 +161,22 @@ describe('LandingPage', () => {
   })
 
   it('går til uinnlogget kalkulator når brukeren klikker på uinnlogget kalkulator knappen', async () => {
+    mockErrorResponse('/oauth2/session', {
+      baseUrl: `${HOST_BASEURL}`,
+    })
+
     const user = userEvent.setup()
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
 
-    render(
-      <RenderRouteWithOutletContext context={{ isLoggedIn: false }}>
-        <LandingPage />
-      </RenderRouteWithOutletContext>,
-      { hasRouter: false }
-    )
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
 
     await waitFor(() => {
       expect(
