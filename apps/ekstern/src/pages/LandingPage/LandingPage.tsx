@@ -24,7 +24,6 @@ import styles from './LandingPage.module.scss'
 export const LandingPage = () => {
   const intl = useIntl()
   const { isLoggedIn } = useOutletContext<LoginContext>()
-  console.log('>>> isLoggedIn', isLoggedIn)
 
   const loaderData = useGetPersonAccessData()
 
