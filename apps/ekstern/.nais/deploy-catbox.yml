@@ -1,0 +1,54 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: pensjonskalkulator-frontend-catbox
+  namespace: pensjonskalkulator
+  labels:
+    team: pensjonskalkulator
+  annotations:
+    nais.io/run-as-user: "101" # nginx
+spec:
+  image: "{{ image }}"
+  ingresses:
+    - https://catbox.ekstern.dev.nav.no/pensjon/kalkulator
+  port: 8080
+  replicas:
+    min: 2
+    max: 2
+  liveness:
+    path: /internal/health/liveness
+    initialDelay: 20
+    periodSeconds: 20
+    failureThreshold: 5
+    timeout: 1
+  readiness:
+    path: /internal/health/readiness
+    initialDelay: 20
+    periodSeconds: 20
+    failureThreshold: 5
+    timeout: 1
+  frontend:
+    generatedConfig:
+      mountPath: /usr/share/nginx/html/src/nais.js
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      autoLogin: true
+      autoLoginIgnorePaths:
+        - /internal/ping
+        - /pensjon/kalkulator
+        - /pensjon/kalkulator/login
+        - /pensjon/kalkulator/personopplysninger
+        - /pensjon/kalkulator/assets/*
+        - /pensjon/kalkulator/api/status
+        - /pensjon/kalkulator/api/feature/*
+        - /pensjon/kalkulator/src/*
+        - /pensjon/kalkulator/v3/api-docs/current
+  accessPolicy:
+    outbound:
+      rules:
+        - application: pensjonskalkulator-backend
+  env:
+    - name: "PENSJONSKALKULATOR_BACKEND"
+      value: "http://pensjonskalkulator-backend"
