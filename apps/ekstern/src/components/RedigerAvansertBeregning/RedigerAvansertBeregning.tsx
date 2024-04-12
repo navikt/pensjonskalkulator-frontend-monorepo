@@ -547,7 +547,8 @@ export const RedigerAvansertBeregning: React.FC<{
         )}
 
         {localHeltUttak?.uttaksalder?.aar &&
-          localHeltUttak?.uttaksalder?.maaneder !== undefined && (
+          localHeltUttak?.uttaksalder?.maaneder !== undefined &&
+          localGradertUttak?.grad && (
             <div>
               <RadioGroup
                 legend={
