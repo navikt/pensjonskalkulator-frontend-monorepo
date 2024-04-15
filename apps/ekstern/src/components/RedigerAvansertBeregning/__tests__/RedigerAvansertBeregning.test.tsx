@@ -83,7 +83,7 @@ describe('RedigerAvansertBeregning', () => {
       )
     ).not.toBeInTheDocument()
 
-    // Fyller inn uttaksalder slik at RadioGroup vises
+    // Fyller inn uttaksalder og grad slik at RadioGroup vises
     fireEvent.change(
       screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
       {
@@ -98,6 +98,10 @@ describe('RedigerAvansertBeregning', () => {
         target: { value: '5' },
       }
     )
+    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+      target: { value: '100 %' },
+    })
+
     // Hukker av for inntekt vsa. helt uttak og viser felt for beløp og sluttalder
     const heltRadioGroup = screen.getByTestId(
       FORM_NAMES.inntektVsaHeltUttakRadio
@@ -224,31 +228,18 @@ describe('RedigerAvansertBeregning', () => {
         target: { value: '2' },
       }
     )
-    await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
-    )
-
-    await user.type(
-      screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak),
-      '123000'
-    )
-    fireEvent.change(
-      screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
-      ),
-      { target: { value: '75' } }
-    )
-    fireEvent.change(
-      screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
-      ),
-      { target: { value: '0' } }
-    )
-
     // Endrer uttaksgrad
     fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
       target: { value: '60 %' },
     })
+
+    await user.click(
+      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+    )
+    await user.type(
+      screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
+      '100000'
+    )
 
     // Verdien er overført til gradert uttak.
     // Fyller ut feltene for helt uttak + inntekt vsa gradert uttak
@@ -268,12 +259,27 @@ describe('RedigerAvansertBeregning', () => {
         target: { value: '6' },
       }
     )
+
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
+
     await user.type(
-      screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
-      '100000'
+      screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak),
+      '123000'
+    )
+
+    fireEvent.change(
+      screen.getByTestId(
+        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+      ),
+      { target: { value: '75' } }
+    )
+    fireEvent.change(
+      screen.getByTestId(
+        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+      ),
+      { target: { value: '0' } }
     )
 
     // Sjekker at feltene er fylt ut
@@ -392,6 +398,10 @@ describe('RedigerAvansertBeregning', () => {
         target: { value: '2' },
       }
     )
+    // Endrer uttaksgrad
+    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+      target: { value: '100 %' },
+    })
     await user.click(
       screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
@@ -563,6 +573,10 @@ describe('RedigerAvansertBeregning', () => {
         target: { value: '2' },
       }
     )
+    // Endrer uttaksgrad
+    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+      target: { value: '100 %' },
+    })
     await user.click(
       screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
@@ -834,6 +848,7 @@ describe('RedigerAvansertBeregning', () => {
         localInntektFremTilUttak: null,
       })
     })
+
     it('oppdaterer uttaksgrad uten å nullstille uttaksaldere når grad endres fra en verdi lavere enn 100 % til en annen verdi lavere enn 100 %', async () => {
       const user = userEvent.setup()
       render(
