@@ -1,6 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Link as ReactRouterLink, Await } from 'react-router-dom'
+import { Link as ReactRouterLink, Await, useNavigate } from 'react-router-dom'
 import { useOutletContext } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
@@ -14,7 +14,7 @@ import {
 } from '@navikt/ds-react'
 
 import { Loader } from '@/components/common/Loader'
-import { BASE_PATH, externalUrls, paths } from '@/router/constants'
+import { externalUrls, paths } from '@/router/constants'
 import { useGetPersonAccessData } from '@/router/loaders'
 import { LoginContext } from '@/router/loaders'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
@@ -24,6 +24,7 @@ import styles from './LandingPage.module.scss'
 export const LandingPage = () => {
   const intl = useIntl()
   const { isLoggedIn } = useOutletContext<LoginContext>()
+  const navigate = useNavigate()
 
   const loaderData = useGetPersonAccessData()
 
@@ -38,7 +39,7 @@ export const LandingPage = () => {
   }
 
   const gaaTilEnkelKalkulator = () => {
-    window.open(`${BASE_PATH}${paths.start}`, '_self')
+    navigate(paths.start)
   }
 
   const gaaTilUinnloggetKalkulator = () => {
