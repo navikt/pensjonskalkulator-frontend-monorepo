@@ -7,9 +7,10 @@ import {
 } from '@reduxjs/toolkit/query/react'
 
 import { HOST_BASEURL } from '@/paths'
-import { paths } from '@/router/constants'
+import { externalUrls, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
+import { isFoedtFoer1963 } from '@/utils/alder'
 
 export interface LoginContext {
   isLoggedIn: boolean
@@ -99,4 +100,44 @@ export const tpoMedlemskapAccessGuard = async () => {
     // Dersom brukeren ikke samtykker til henting av tpo behøver ikke dette steget å vises
     return redirect(paths.afp)
   }
+}
+
+export type GetPersonQuery = TypedUseQueryStateResult<
+  Person,
+  void,
+  BaseQueryFn<Record<string, unknown>, Person>
+>
+
+export function useGetPersonAccessData<
+  TReturnedValue extends ReturnType<typeof getPersonDeferredLoader>,
+>() {
+  return useLoaderData() as ReturnType<TReturnedValue>['data']
+}
+
+{
+  /* c8 ignore next 11 - Dette er kun for typing */
+}
+export function getPersonDeferredLoader<
+  TData extends {
+    getPersonQuery: GetPersonQuery
+  },
+>(dataFunc: (args?: LoaderFunctionArgs) => TData) {
+  return (args?: LoaderFunctionArgs) =>
+    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
+      data: TData
+    }
+}
+
+export const foedselsdatoAccessGuard = async () => {
+  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
+  if (
+    (await getPersonQuery).isSuccess &&
+    (await getPersonQuery).data?.foedselsdato &&
+    isFoedtFoer1963((await getPersonQuery).data?.foedselsdato as string)
+  ) {
+    window.open(externalUrls.detaljertKalkulator, '_self')
+  }
+  return defer({
+    getPersonQuery,
+  })
 }

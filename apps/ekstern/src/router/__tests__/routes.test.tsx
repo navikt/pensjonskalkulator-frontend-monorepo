@@ -2,7 +2,12 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, vi } from 'vitest'
 
-import { BASE_PATH, henvisningUrlParams, paths } from '../constants'
+import {
+  BASE_PATH,
+  externalUrls,
+  henvisningUrlParams,
+  paths,
+} from '../constants'
 import { routes } from '../routes'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
@@ -41,7 +46,10 @@ describe('routes', () => {
 
   describe(`Gitt at siden er åpen uten pålogging`, () => {
     describe(`${BASE_PATH}${paths.root}`, () => {
-      it('redirigerer til /login', async () => {
+      it('redirigerer til /login og viser upålogget landingssiden', async () => {
+        mockErrorResponse('/oauth2/session', {
+          baseUrl: `${HOST_BASEURL}`,
+        })
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.root}`],
@@ -54,7 +62,10 @@ describe('routes', () => {
     })
 
     describe(`${BASE_PATH}${paths.login}`, () => {
-      it('viser landingssiden med lenke til pålogging (stegvisning start)', async () => {
+      it('Når brukeren ikke er pålogget, viser upålogget landingssiden med login lenke', async () => {
+        mockErrorResponse('/oauth2/session', {
+          baseUrl: `${HOST_BASEURL}`,
+        })
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.login}`],
@@ -65,6 +76,65 @@ describe('routes', () => {
         expect(
           await screen.findByText('landingsside.for.deg.foedt.foer.1963')
         ).toBeVisible()
+      })
+
+      it('Når brukeren er pålogget og født etter 1963, viser pålogget landingssiden', async () => {
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.login}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('landingsside.for.deg.foedt.etter.1963')
+        ).toBeVisible()
+        expect(
+          screen.queryByText('landingsside.for.deg.foedt.foer.1963')
+        ).not.toBeInTheDocument()
+      })
+
+      it('Når brukeren er pålogget og kall til /person feiler, viser pålogget landingssiden', async () => {
+        mockErrorResponse('/v1/person')
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.login}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('landingsside.for.deg.foedt.etter.1963')
+        ).toBeVisible()
+        expect(
+          screen.queryByText('landingsside.for.deg.foedt.foer.1963')
+        ).not.toBeInTheDocument()
+      })
+
+      it('Når brukeren er pålogget og født før 1963, redirigerer brukeren til detaljert kalkulator', async () => {
+        const open = vi.fn()
+        vi.stubGlobal('open', open)
+        mockResponse('/v1/person', {
+          status: 200,
+          json: {
+            fornavn: 'Ola',
+            sivilstand: 'GIFT',
+            foedselsdato: '1961-04-30',
+          },
+        })
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.login}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        await waitFor(() => {
+          expect(open).toHaveBeenCalledWith(
+            externalUrls.detaljertKalkulator,
+            '_self'
+          )
+        })
       })
     })
 
@@ -107,6 +177,33 @@ describe('routes', () => {
           )
         })
       })
+
+      it('redirigerer brukeren til detaljert kalkulator, hvis brukeren er pålogget og født før 1963', async () => {
+        const open = vi.fn()
+        vi.stubGlobal('open', open)
+        mockResponse('/v1/person', {
+          status: 200,
+          json: {
+            fornavn: 'Ola',
+            sivilstand: 'GIFT',
+            foedselsdato: '1961-04-30',
+          },
+        })
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.start}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        await waitFor(() => {
+          expect(open).toHaveBeenCalledWith(
+            externalUrls.detaljertKalkulator,
+            '_self'
+          )
+        })
+      })
+
       it('viser Steg 1', async () => {
         mockResponse('/oauth2/session', {
           baseUrl: `${HOST_BASEURL}`,
@@ -119,47 +216,6 @@ describe('routes', () => {
 
         expect(
           await screen.findByText('stegvisning.start.title Aprikos!')
-        ).toBeVisible()
-      })
-    })
-
-    describe(`${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.foedselsdato}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.foedselsdato}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('viser henvisning 1963', async () => {
-        mockResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.foedselsdato}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-
-        expect(
-          await screen.findByText('henvisning.foedselsdato.body')
         ).toBeVisible()
       })
     })
