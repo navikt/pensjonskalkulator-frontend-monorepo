@@ -151,15 +151,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getDetaljertFaneFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-detaljert-fane',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
   }),
 })
 
@@ -173,5 +164,4 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetDetaljertFaneFeatureToggleQuery,
 } = apiSlice

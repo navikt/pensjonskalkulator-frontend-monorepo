@@ -8,10 +8,7 @@ import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
-import {
-  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetDetaljertFaneFeatureToggleQuery,
-} from '@/state/api/apiSlice'
+import { useGetHighchartsAccessibilityPluginFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
@@ -44,8 +41,6 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
 
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
-  const { data: detaljertFaneFeatureToggle } =
-    useGetDetaljertFaneFeatureToggleQuery()
 
   React.useEffect(() => {
     /* c8 ignore next 3 */
@@ -189,30 +184,28 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         </Modal.Footer>
       </Modal>
       <div className={styles.beregning}>
-        {detaljertFaneFeatureToggle?.enabled && (
-          <div
-            className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
-          >
-            <div className={styles.container} data-testid="toggle-avansert">
-              <ToggleGroup
-                value={visning}
-                variant="neutral"
-                onChange={onToggleChange}
-              >
-                <ToggleGroup.Item value="enkel">
-                  {intl.formatMessage({
-                    id: 'beregning.toggle.enkel',
-                  })}
-                </ToggleGroup.Item>
-                <ToggleGroup.Item value="avansert">
-                  {intl.formatMessage({
-                    id: 'beregning.toggle.avansert',
-                  })}
-                </ToggleGroup.Item>
-              </ToggleGroup>
-            </div>
+        <div
+          className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
+        >
+          <div className={styles.container} data-testid="toggle-avansert">
+            <ToggleGroup
+              value={visning}
+              variant="neutral"
+              onChange={onToggleChange}
+            >
+              <ToggleGroup.Item value="enkel">
+                {intl.formatMessage({
+                  id: 'beregning.toggle.enkel',
+                })}
+              </ToggleGroup.Item>
+              <ToggleGroup.Item value="avansert">
+                {intl.formatMessage({
+                  id: 'beregning.toggle.avansert',
+                })}
+              </ToggleGroup.Item>
+            </ToggleGroup>
           </div>
-        )}
+        </div>
         {visning === 'enkel' && <BeregningEnkel />}
         {visning === 'avansert' && <BeregningAvansert />}
         <div className={`${styles.background} ${styles.background__lightblue}`}>

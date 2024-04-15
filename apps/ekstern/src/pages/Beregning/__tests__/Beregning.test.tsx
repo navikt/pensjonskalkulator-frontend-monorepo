@@ -4,7 +4,6 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
 import { FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
-import { mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
@@ -18,26 +17,6 @@ describe('Beregning', () => {
     expect(document.title).toBe('application.title.beregning')
   })
 
-  describe('Gitt at feature-toggle for detaljert fane skrues av og på', () => {
-    it('vises det toggle mellom "enkel" og "detaljert" visning', () => {
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: false },
-      })
-      render(<Beregning visning="enkel" />)
-      expect(screen.queryByTestId('toggle-avansert')).not.toBeInTheDocument()
-    })
-
-    it('vises det toggle mellom "enkel" og "detaljert" visning', async () => {
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
-      render(<Beregning visning="enkel" />)
-      expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
-    })
-  })
-
   describe('Gitt at brukeren navigerer mellom fanene', () => {
     it('når brukeren har gjort en Enkel simulering og bytter fane, nullstiller det pågående simulering', async () => {
       const user = userEvent.setup()
@@ -45,10 +24,6 @@ describe('Beregning', () => {
         userInputReducerUtils.userInputActions,
         'flushCurrentSimulation'
       )
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
       render(<Beregning visning="enkel" />, {
         preloadedState: {
           userInput: {
@@ -80,10 +55,6 @@ describe('Beregning', () => {
         userInputReducerUtils.userInputActions,
         'flushCurrentSimulation'
       )
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
       render(<Beregning visning="avansert" />)
 
       fireEvent.change(
@@ -115,10 +86,6 @@ describe('Beregning', () => {
 
     it('når brukeren er på resultatside etter en Avansert simulering og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
       const user = userEvent.setup()
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
       render(<Beregning visning="avansert" />)
 
       fireEvent.change(
@@ -158,10 +125,6 @@ describe('Beregning', () => {
 
     it('når brukeren har gjort en Avansert simulering som hen redigerer og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
       const user = userEvent.setup()
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
       render(<Beregning visning="avansert" />, {
         preloadedState: {
           userInput: {
@@ -237,10 +200,6 @@ describe('Beregning', () => {
         writable: true,
       })
       const user = userEvent.setup()
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
       render(
         <NavigateWrapper>
           <Beregning visning="enkel" />
@@ -272,10 +231,6 @@ describe('Beregning', () => {
     it('når brukeren begynner å fylle ut skjema på Avansert og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
 
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
       render(
         <NavigateWrapper>
           <Beregning visning="avansert" />
@@ -300,10 +255,6 @@ describe('Beregning', () => {
 
     it('når brukeren er på resultatside etter en Avansert simulering  og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
       render(
         <NavigateWrapper>
           <Beregning visning="avansert" />
@@ -339,10 +290,6 @@ describe('Beregning', () => {
 
     it('når brukeren har gjort en Avansert simulering som hen redigerer  og trykker på tilbakeknappen,', async () => {
       const user = userEvent.setup()
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { enabled: true },
-      })
       render(
         <NavigateWrapper>
           <Beregning visning="avansert" />

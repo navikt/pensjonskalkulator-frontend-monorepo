@@ -39,7 +39,6 @@ export function Step0() {
     dispatch(
       apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
     )
-    dispatch(apiSlice.endpoints.getDetaljertFaneFeatureToggle.initiate())
   }, [])
 
   React.useEffect(() => {
