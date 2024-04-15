@@ -24,23 +24,6 @@ describe('Henvisning ', async () => {
     navigateMock.mockReset()
   })
 
-  it('rendrer henvisning til foedselsdato', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [
-        `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.foedselsdato}`,
-      ],
-    })
-    const { asFragment } = render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-    expect(
-      await screen.findByText('henvisning.foedselsdato.body')
-    ).toBeVisible()
-    expect(document.title).toBe('application.title.henvisning.foedselsdato')
-    expect(asFragment()).toMatchSnapshot()
-  })
-
   it('rendrer henvisning til ufoeretrygd', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,

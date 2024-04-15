@@ -46,26 +46,6 @@ export const swallowErrorsAsync = async (testFn: () => Promise<void>) => {
   console.error = cache
 }
 
-interface RenderRouteWithOutletContextProps<T = LoginContext> {
-  context: T
-  children: React.ReactNode
-}
-
-export const RenderRouteWithOutletContext = <T,>({
-  context,
-  children,
-}: RenderRouteWithOutletContextProps<T>) => {
-  return (
-    <MemoryRouter>
-      <Routes>
-        <Route path="/" element={<Outlet context={context as T} />}>
-          <Route index element={children} />
-        </Route>
-      </Routes>
-    </MemoryRouter>
-  )
-}
-
 function generateMockedTranslations() {
   const nbTranslations: Record<string, string> = getTranslation_nb()
   const testTranslations: Record<string, string> = getTranslation_test()

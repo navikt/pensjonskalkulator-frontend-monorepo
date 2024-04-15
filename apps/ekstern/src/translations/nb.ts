@@ -12,8 +12,6 @@ const translations = {
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
-  'application.title.henvisning.foedselsdato':
-    'Henvisning født før 1963 – Pensjonskalkulator',
   'application.title.henvisning.ufoeretrygd':
     'Henvisning uføretrygd – Pensjonskalkulator',
   'application.title.henvisning.gjenlevende':
@@ -64,8 +62,6 @@ const translations = {
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i enkel kalkulator',
   'henvisning.detaljert_kalkulator': 'Detaljert kalkulator',
-  'henvisning.foedselsdato.body':
-    'Siden du er født før 1963 må du bruke detaljert kalkulator.',
   'henvisning.ufoeretrygd.body':
     'Siden du mottar uføretrygd, må du bruke detaljert kalkulator.',
   'henvisning.gjenlevende.body':

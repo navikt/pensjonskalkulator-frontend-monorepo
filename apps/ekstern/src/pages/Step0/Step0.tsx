@@ -12,7 +12,6 @@ import {
   useGetInntektQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
-import { isFoedtFoer1963 } from '@/utils/alder'
 
 export function Step0() {
   const intl = useIntl()
@@ -41,12 +40,6 @@ export function Step0() {
     )
     dispatch(apiSlice.endpoints.getDetaljertFaneFeatureToggle.initiate())
   }, [])
-
-  React.useEffect(() => {
-    if (isPersonSuccess && isFoedtFoer1963(person.foedselsdato)) {
-      navigate(`${paths.henvisning}/${henvisningUrlParams.foedselsdato}`)
-    }
-  }, [isPersonSuccess, person, navigate])
 
   React.useEffect(() => {
     if (!isEkskludertStatusFetching && ekskludertStatus?.ekskludert) {
