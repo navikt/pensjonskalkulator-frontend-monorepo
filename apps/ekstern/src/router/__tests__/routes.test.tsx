@@ -46,7 +46,7 @@ describe('routes', () => {
 
   describe(`Gitt at siden er åpen uten pålogging`, () => {
     describe(`${BASE_PATH}${paths.root}`, () => {
-      it('redirigerer til /login og viser upålogget landingsssiden', async () => {
+      it('redirigerer til /login og viser upålogget landingssiden', async () => {
         mockErrorResponse('/oauth2/session', {
           baseUrl: `${HOST_BASEURL}`,
         })
