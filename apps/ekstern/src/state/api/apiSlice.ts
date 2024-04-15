@@ -10,11 +10,21 @@ import {
   isEkskludertStatus,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
+import { veilederBorgerFnrSelector } from '@/state/userInput/selectors'
+import { RootState } from '@/state/store'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
+    prepareHeaders: (headers, { getState }) => {
+      const veilederBorgerFnr = veilederBorgerFnrSelector(
+        getState() as RootState
+      )
+      if (veilederBorgerFnr) {
+        headers.set('fnr', veilederBorgerFnr)
+      }
+    },
   }),
   tagTypes: ['Person', 'Inntekt', 'Alderspensjon', 'TidligstMuligHeltUttak'],
   keepUnusedDataFor: 3600,
