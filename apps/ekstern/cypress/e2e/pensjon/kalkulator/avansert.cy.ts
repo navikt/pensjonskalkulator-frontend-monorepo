@@ -1,5 +1,5 @@
 describe('Avansert', () => {
-  describe.skip('Gitt at jeg som bruker har gjort en enkel beregning,', () => {
+  describe('Gitt at jeg som bruker har gjort en enkel beregning,', () => {
     describe('Når jeg ønsker en avansert beregning', () => {
       beforeEach(() => {
         cy.login()
@@ -34,7 +34,7 @@ describe('Avansert', () => {
   })
 
   describe('Gitt at jeg som bruker har valgt "Avansert",', () => {
-    describe.skip('Når jeg er kommet inn i avansert', () => {
+    describe('Når jeg er kommet inn i avansert', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({ samtykke: false })
@@ -232,12 +232,114 @@ describe('Avansert', () => {
         })
       })
 
-      it.skip('forventer jeg å kunne velge å ikke legge til inntekt vsa. 100 % alderspensjon, og kunne beregne pensjon', () => {
+      it('forventer jeg å kunne svare nei på spørsmål om inntekt vsa. 100 % alderspensjon og beregne pensjon', () => {
         cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
         cy.contains('Beregn pensjon').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Se og endre dine valg').click({ force: true })
         cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
+        cy.contains('Alderspensjon: 100 %').should('exist')
+      })
+    })
+
+    describe('Når jeg har valgt ut pensjonsalder og ønsker en annen uttaksgrad enn 100% alderspensjon', () => {
+      beforeEach(() => {
+        cy.login()
+        cy.fillOutStegvisning({ samtykke: false })
+        cy.wait('@fetchTidligsteUttaksalder')
+        cy.contains('Avansert').click()
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '65'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).select('3')
+        cy.get('[data-testid="uttaksgrad"]').select('40 %')
+      })
+
+      it('forventer jeg å kunne oppgi alder for når jeg ønsker å øke til 100% alderspensjon. Jeg forventer å kunne velge pensjonsalder mellom alder for gradert uttak + 1md og 75 år og 0 md.', () => {
+        cy.contains('Når vil du ta ut 100 % alderspensjon?').should('exist')
+        cy.contains('Velg år').should('exist')
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').then(
+          (selectElements) => {
+            const options = selectElements.find('option')
+            expect(options.length).equal(15)
+            expect(options.eq(1).text()).equal('62 år')
+            expect(options.eq(14).text()).equal('75 år')
+          }
+        )
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '62'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).then((selectElements) => {
+          const options = selectElements.find('option')
+          expect(options.length).equal(13)
+          expect(options.eq(1).text()).equal('0 md. (mai)')
+          expect(options.eq(12).text()).equal('11 md. (apr.)')
+        })
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '75'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).then((selectElements) => {
+          const options = selectElements.find('option')
+          expect(options.length).equal(2)
+          expect(options.eq(1).text()).equal('0 md. (mai)')
+        })
+      })
+
+      it('forventer jeg å kunne oppgi inntekt mens jeg tar ut gradert alderspensjon og 100 % alderspensjon og beregne pensjon', () => {
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '67'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).select('0')
+        cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').check()
+        cy.get('[data-testid="inntekt-vsa-helt-uttak"]').type('100000')
+
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+        ).select('75')
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+        ).select('0')
+
+        cy.contains('Beregn pensjon').click()
+        cy.contains('Beregning').should('exist')
+        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
+        cy.contains('Alderspensjon: 40 %').should('exist')
+        cy.contains('Pensjonsgivende årsinntekt: 300 000 kr før skatt').should(
+          'exist'
+        )
+        cy.contains('67 år (01.05.2030)').should('exist')
+        cy.contains('Alderspensjon: 100 %').should('exist')
+        cy.contains(
+          'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
+        ).should('exist')
+      })
+
+      it('forventer jeg å kunne svare nei på spørsmål om inntekt vsa. gradert alderspensjon og beregne pensjon', () => {
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-nei"]').check()
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '67'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).select('0')
+        cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
+        cy.contains('Beregn pensjon').click()
+        cy.contains('Beregning').should('exist')
+        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
+        cy.contains('Alderspensjon: 40 %').should('exist')
+        cy.contains('67 år (01.05.2030)').should('exist')
         cy.contains('Alderspensjon: 100 %').should('exist')
       })
     })
