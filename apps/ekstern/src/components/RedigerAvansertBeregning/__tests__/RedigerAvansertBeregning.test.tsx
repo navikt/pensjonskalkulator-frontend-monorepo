@@ -1234,12 +1234,11 @@ describe('RedigerAvansertBeregning', () => {
 
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
-    // Feilmelding for uttaksalder for gradert pensjon
+    // Feilmelding for uttaksalder for 100% uttak
     expect(
-      screen.getByText(
-        'alderspensjon må være senere enn alder for gradert pensjon.',
-        { exact: false }
-      )
+      screen.getByText('agepicker.validation_error.aar', {
+        exact: false,
+      })
     ).toBeVisible()
 
     // fyller ut 100 % uttaksalder

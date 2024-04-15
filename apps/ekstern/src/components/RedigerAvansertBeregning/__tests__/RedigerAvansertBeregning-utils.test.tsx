@@ -377,8 +377,8 @@ describe('RedigerAvansertBeregning-utils', () => {
         )
       ).toBeFalsy()
 
-      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(6)
-      expect(updateErrorMessageMock).toHaveBeenCalledTimes(3)
+      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(8)
+      expect(updateErrorMessageMock).toHaveBeenCalledTimes(4)
     })
 
     it('returnerer false når uttaksgrad er fylt ut med noe annet enn et tall med prosent', () => {
@@ -472,7 +472,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         )
       ).toBeTruthy()
 
-      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(9)
+      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(12)
       expect(updateErrorMessageMock).toHaveBeenCalledTimes(2)
     })
 
@@ -557,7 +557,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           updateErrorMessageMock
         )
       ).toBeFalsy()
-      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(3)
+      expect(validateAlderFromFormMock).toHaveBeenCalledTimes(4)
       expect(updateErrorMessageMock).toHaveBeenCalled()
     })
 
