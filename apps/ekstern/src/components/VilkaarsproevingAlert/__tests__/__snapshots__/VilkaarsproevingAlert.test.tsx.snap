@@ -129,7 +129,13 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er ulik uttak
       >
         40 %
       </span>
-       alderspensjon hvis du tar ut 100 % alderspensjon ved 65 år og 3 måneder eller senere. Prøv gjerne andre kombinasjoner.
+       alderspensjon hvis du tar ut 
+      <span
+        class="nowrap"
+      >
+        100 %
+      </span>
+       alderspensjon ved 65 år og 3 måneder eller senere. Prøv gjerne andre kombinasjoner.
     </div>
   </div>
 </DocumentFragment>
