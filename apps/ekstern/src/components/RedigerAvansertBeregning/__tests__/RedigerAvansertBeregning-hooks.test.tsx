@@ -765,7 +765,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           id2
            
           <Memo(MemoizedFormattedMessage)
-            id="beregning.avansert.rediger.agepicker.validation_error"
+            id="beregning.avansert.rediger.agepicker.grad.validation_error"
             values={
               {
                 "afpLink": [Function],

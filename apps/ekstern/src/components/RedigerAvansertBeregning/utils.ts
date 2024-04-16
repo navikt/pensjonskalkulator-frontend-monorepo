@@ -184,40 +184,36 @@ export const validateAvansertBeregningSkjema = (
 
   // Sjekker at inntekt vsa helt uttak og sluttAlder for inntekt er gyldige (gitt at radioknappen er på "ja")
   if (inntektVsaHeltUttakRadioFormData === 'ja') {
-    if (
-      !validateInntekt(
-        inntektVsaHeltUttakFormData as string,
-        () => {
-          updateValidationErrorMessage((prevState) => {
-            return {
-              ...prevState,
-              [FORM_NAMES.inntektVsaHeltUttak]:
-                'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
-            }
-          })
-        },
-        true
-      )
-    ) {
-      isValid = false
-    } else if (
-      !validateAlderFromForm(
-        {
-          aar: inntektVsaHeltUttakSluttAlderAarFormData,
-          maaneder: inntektVsaHeltUttakSluttAlderMaanederFormData,
-        },
-        function (s) {
-          updateValidationErrorMessage((prevState) => {
-            return {
-              ...prevState,
-              [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: s,
-            }
-          })
-        }
-      )
-    ) {
-      isValid = false
-    }
+    const isInntektValid = validateInntekt(
+      inntektVsaHeltUttakFormData as string,
+      () => {
+        updateValidationErrorMessage((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaHeltUttak]:
+              'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
+          }
+        })
+      },
+      true
+    )
+
+    const isSluttAlderValid = validateAlderFromForm(
+      {
+        aar: inntektVsaHeltUttakSluttAlderAarFormData,
+        maaneder: inntektVsaHeltUttakSluttAlderMaanederFormData,
+      },
+      function (s) {
+        updateValidationErrorMessage((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: s,
+          }
+        })
+      }
+    )
+
+    isValid = isValid && isInntektValid && isSluttAlderValid
   }
 
   // Sjekker at radio for inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 %)

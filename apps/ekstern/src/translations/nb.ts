@@ -288,6 +288,8 @@ const translations = {
     'Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (<nowrap>100 %</nowrap>) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.{br}{br}Fra 67 år kan alle ta ut <nowrap>100 %</nowrap> alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'beregning.avansert.rediger.inntekt.button': 'Endre inntekt',
   'beregning.avansert.rediger.agepicker.validation_error':
+    ' for når du vil ta ut alderspensjon.',
+  'beregning.avansert.rediger.agepicker.grad.validation_error':
     ' for når du vil ta ut <nowrap>{grad} %</nowrap> alderspensjon.',
   'beregning.avansert.rediger.agepicker.validation_error.maxAlder':
     'Uttaksalder for <nowrap>100 %</nowrap> alderspensjon må være senere enn alder for gradert pensjon.',
