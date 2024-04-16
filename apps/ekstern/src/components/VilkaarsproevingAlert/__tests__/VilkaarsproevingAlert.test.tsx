@@ -60,9 +60,12 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Du kan ved 65 år og 3 måneder ta ut', {
-        exact: false,
-      })
+      screen.getByText(
+        'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut',
+        {
+          exact: false,
+        }
+      )
     ).toBeInTheDocument()
     expect(
       screen.getByText('100 %', {
@@ -70,7 +73,7 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Du kan også prøve andre kombinasjoner.', {
+      screen.getByText('Prøv gjerne andre kombinasjoner.', {
         exact: false,
       })
     ).toBeInTheDocument()
@@ -104,9 +107,12 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Du kan ved 65 år og 3 måneder ta ut', {
-        exact: false,
-      })
+      screen.getByText(
+        'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut',
+        {
+          exact: false,
+        }
+      )
     ).toBeInTheDocument()
     expect(
       screen.getByText('40 %', {
@@ -114,7 +120,7 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Du kan også prøve andre kombinasjoner.', {
+      screen.getByText('Prøv gjerne andre kombinasjoner.', {
         exact: false,
       })
     ).toBeInTheDocument()
@@ -147,9 +153,12 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Du kan ved 68 år og 5 måneder ta ut', {
-        exact: false,
-      })
+      screen.getByText(
+        'Ett alternativ er at du ved 68 år og 5 måneder kan ta ut',
+        {
+          exact: false,
+        }
+      )
     ).toBeInTheDocument()
     expect(
       screen.getByText('40 %', {
@@ -167,7 +176,7 @@ describe('VilkaarsproevingAlert', () => {
       })
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Du kan også prøve andre kombinasjoner.', {
+      screen.getByText('Prøv gjerne andre kombinasjoner.', {
         exact: false,
       })
     ).toBeInTheDocument()
