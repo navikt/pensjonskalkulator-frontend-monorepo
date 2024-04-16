@@ -164,6 +164,13 @@ describe('Avansert', () => {
           '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
         ).should('not.exist')
       })
+
+      it('forventer jeg kunne forlate siden med tilbakeknappog gå tilbake til Enkel', () => {
+        cy.go('back')
+        cy.contains(
+          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+        ).should('exist')
+      })
     })
 
     describe('Når jeg har valgt ut pensjonsalder og ønsker 100 % alderspensjon', () => {
@@ -239,6 +246,17 @@ describe('Avansert', () => {
         cy.contains('Se og endre dine valg').click({ force: true })
         cy.contains('65 år og 3 md. (01.08.2028)').should('exist')
         cy.contains('Alderspensjon: 100 %').should('exist')
+      })
+
+      it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp etter å ha begynt utfyllingen', () => {
+        cy.go('back')
+        cy.contains(
+          'Er du sikker på at du vil avslutte avansert beregning?'
+        ).should('exist')
+        cy.contains('Avslutt avansert').click()
+        cy.contains(
+          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
+        ).should('exist')
       })
     })
 
@@ -483,6 +501,177 @@ describe('Avansert', () => {
         cy.contains('Alderspensjon: 100 %').should('exist')
         cy.contains(
           'Pensjonsgivende årsinntekt til 75 år: 100 000 kr før skatt'
+        ).should('exist')
+      })
+    })
+
+    describe('Når jeg ønsker å endre mine valg', () => {
+      beforeEach(() => {
+        cy.login()
+        cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
+        cy.wait('@fetchTidligsteUttaksalder')
+        cy.contains('Avansert').click()
+        cy.contains('button', 'Endre inntekt').click()
+        cy.get('[data-testid="inntekt-textfield"]').type('500000')
+        cy.contains('button', 'Oppdater inntekt').click()
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '62'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).select('3')
+        cy.get('[data-testid="uttaksgrad"]').select('40 %')
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '67'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).select('0')
+        cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').check()
+        cy.get('[data-testid="inntekt-vsa-helt-uttak"]').type('100000')
+
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+        ).select('75')
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+        ).select('0')
+        cy.contains('Beregn pensjon').click()
+        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('Endre valg').click()
+      })
+
+      it('forventer jeg at mine tidligere valg er lagret', () => {
+        cy.contains('500 000 kr per år før skatt').should('exist')
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-gradert-uttak-aar"]'
+        ).should('have.value', '62')
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-gradert-uttak-maaneder"]'
+        ).should('have.value', '3')
+        cy.get('[data-testid="uttaksgrad"]').should('have.value', '40 %')
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').should(
+          'be.checked'
+        )
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').should(
+          'have.value',
+          '300 000'
+        )
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').should(
+          'have.value',
+          '67'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).should('have.value', '0')
+        cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').should(
+          'be.checked'
+        )
+        cy.get('[data-testid="inntekt-vsa-helt-uttak"]').should(
+          'have.value',
+          '100 000'
+        )
+      })
+
+      it('forventer jeg å kunne endre inntekt, pensjonsalder og uttaksgrad, og oppdatere min beregning', () => {
+        cy.contains('button', 'Endre inntekt').click()
+        cy.get('[data-testid="inntekt-textfield"]').clear().type('550000')
+        cy.contains('button', 'Oppdater inntekt').click()
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-gradert-uttak-aar"]'
+        ).select('65')
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-gradert-uttak-maaneder"]'
+        ).select('5')
+        cy.get('[data-testid="uttaksgrad"]').select('20 %')
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-nei"]').check()
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '68'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).select('8')
+        cy.get('[data-testid="inntekt-vsa-helt-uttak"]').clear().type('150000')
+
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+        ).select('70')
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+        ).select('6')
+        cy.contains('Oppdater pensjon').click()
+
+        cy.contains('Se og endre dine valg').click({ force: true })
+        cy.contains('Pensjonsgivende årsinntekt: 550 000 kr før skatt').should(
+          'exist'
+        )
+        cy.contains('65 år og 5 md. (01.10.2028)').should('exist')
+        cy.contains('Alderspensjon: 20 %').should('exist')
+        cy.contains('68 år og 8 md. (01.01.2032)').should('exist')
+        cy.contains('Alderspensjon: 100 %').should('exist')
+        cy.contains(
+          'Pensjonsgivende årsinntekt t.o.m. 70 år og 6 md.: 150 000 kr før skatt'
+        ).should('exist')
+      })
+
+      it('forventer jeg å kunne nullstille mine valg', () => {
+        cy.contains('Nullstill valg').click()
+
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').should(
+          'have.value',
+          null
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).should('have.value', null)
+        cy.get('[data-testid="uttaksgrad"]').should('have.value', null)
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').should(
+          'not.exist'
+        )
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-nei"]').should(
+          'not.exist'
+        )
+        cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').should('not.exist')
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-gradert-uttak-aar"]'
+        ).should('not.exist')
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-gradert-uttak-maaneder"]'
+        ).should('not.exist')
+
+        cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-ja"]').should(
+          'not.exist'
+        )
+        cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').should(
+          'not.exist'
+        )
+        cy.get('[data-testid="inntekt-vsa-helt-uttak"]').should('not.exist')
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-aar"]'
+        ).should('not.exist')
+        cy.get(
+          '[data-testid="age-picker-inntekt-vsa-helt-uttak-slutt-alder-maaneder"]'
+        ).should('not.exist')
+      })
+
+      it('forventer jeg å kunne avbryte og komme tilbake til beregningen', () => {
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-gradert-uttak-aar"]'
+        ).select('65')
+        cy.contains('Avbryt endring').click({ force: true })
+        cy.contains('Se og endre dine valg').should('exist')
+      })
+
+      it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp', () => {
+        cy.go('back')
+        cy.contains(
+          'Er du sikker på at du vil avslutte avansert beregning?'
+        ).should('exist')
+        cy.contains('Avslutt avansert').click()
+        cy.contains(
+          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
         ).should('exist')
       })
     })
