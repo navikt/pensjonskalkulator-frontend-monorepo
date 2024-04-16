@@ -10,7 +10,7 @@ metadata:
 spec:
   image: "{{ image }}"
   ingresses:
-    - https://pensjonskalkulator-veiledning-frontend-staging.intern.dev.nav.no
+    - https://pensjonskalkulator-veiledning-frontend-staging.intern.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
