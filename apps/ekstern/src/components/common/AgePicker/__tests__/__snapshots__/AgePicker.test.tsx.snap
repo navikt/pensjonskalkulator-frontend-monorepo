@@ -32,6 +32,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
         >
           <select
             aria-invalid="false"
+            aria-required="true"
             class="navds-select__input navds-body-short navds-body-short--medium"
             data-testid="age-picker-unique-name-aar"
             id="select-r0"
@@ -154,6 +155,7 @@ exports[`AgePicker > rendrer riktig default verdier, description og info 1`] = `
         >
           <select
             aria-invalid="false"
+            aria-required="true"
             class="navds-select__input navds-body-short navds-body-short--medium"
             data-testid="age-picker-unique-name-maaneder"
             disabled=""

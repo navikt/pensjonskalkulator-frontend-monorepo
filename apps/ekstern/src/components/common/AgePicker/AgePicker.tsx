@@ -138,7 +138,8 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
                 })
             }}
             aria-describedby={error ? `${name}-error` : undefined}
-            aria-invalid={!!error}
+            aria-invalid={!!error && !valgtAlder.aar}
+            aria-required
           >
             <option disabled selected value="">
               {' '}
@@ -175,7 +176,8 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
             }}
             disabled={!valgtAlder.aar}
             aria-describedby={error ? `${name}-error` : undefined}
-            aria-invalid={!!error}
+            aria-invalid={!!error && valgtAlder.maaneder === undefined}
+            aria-required
           >
             <option disabled selected value="">
               {' '}

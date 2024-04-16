@@ -1,6 +1,6 @@
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { validateAlderFromForm, isAlderOverMinUttaksaar } from '@/utils/alder'
+import { validateAlderFromForm, getAlderMinus1Maaned } from '@/utils/alder'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
@@ -9,7 +9,74 @@ export const FORM_NAMES = {
   uttaksgrad: 'uttaksgrad',
   uttaksalderHeltUttak: 'uttaksalder-helt-uttak',
   uttaksalderGradertUttak: 'uttaksalder-gradert-uttak',
+  inntektVsaHeltUttakRadio: 'inntekt-vsa-helt-uttak-radio',
+  inntektVsaGradertUttakRadio: 'inntekt-vsa-gradert-uttak-radio',
+  inntektVsaHeltUttak: 'inntekt-vsa-helt-uttak',
+  inntektVsaHeltUttakSluttAlder: 'inntekt-vsa-helt-uttak-slutt-alder',
   inntektVsaGradertUttak: 'inntekt-vsa-gradert-uttak',
+}
+
+const validateAlderForGradertUttak = (
+  heltUttaksalder: Alder,
+  gradertUttaksalder:
+    | {
+        aar: FormDataEntryValue | number | undefined | null
+        maaneder: FormDataEntryValue | number | undefined | null
+      }
+    | undefined
+    | null,
+  updateValidationErrorMessage: React.Dispatch<
+    React.SetStateAction<Record<string, string>>
+  >
+): boolean => {
+  let isValid =
+    validateAlderFromForm(
+      {
+        aar: gradertUttaksalder?.aar,
+        maaneder: gradertUttaksalder?.maaneder,
+      },
+      function (s) {
+        updateValidationErrorMessage((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.uttaksalderGradertUttak]: s,
+          }
+        })
+      }
+    ) &&
+    validateAlderFromForm(
+      {
+        ...heltUttaksalder,
+      },
+      function (s) {
+        updateValidationErrorMessage((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.uttaksalderHeltUttak]: s,
+          }
+        })
+      }
+    )
+
+  if (isValid) {
+    const maxAlder = getAlderMinus1Maaned(heltUttaksalder)
+    isValid =
+      maxAlder.maaneder + maxAlder.aar * 12 >=
+      parseInt(gradertUttaksalder?.maaneder as string, 10) +
+        parseInt(gradertUttaksalder?.aar as string, 10) * 12
+
+    if (!isValid) {
+      updateValidationErrorMessage((prevState) => {
+        return {
+          ...prevState,
+          [FORM_NAMES.uttaksalderHeltUttak]:
+            'beregning.avansert.rediger.agepicker.validation_error.maxAlder',
+        }
+      })
+    }
+  }
+
+  return isValid
 }
 
 export const validateAvansertBeregningSkjema = (
@@ -19,7 +86,12 @@ export const validateAvansertBeregningSkjema = (
     heltUttakAarFormData: FormDataEntryValue | null
     heltUttakMaanederFormData: FormDataEntryValue | null
     uttaksgradFormData: FormDataEntryValue | null
-    inntektVsaGradertPensjonFormData: FormDataEntryValue | null
+    inntektVsaHeltUttakRadioFormData: FormDataEntryValue | null
+    inntektVsaGradertUttakRadioFormData: FormDataEntryValue | null
+    inntektVsaHeltUttakFormData: FormDataEntryValue | null
+    inntektVsaHeltUttakSluttAlderAarFormData: FormDataEntryValue | null
+    inntektVsaHeltUttakSluttAlderMaanederFormData: FormDataEntryValue | null
+    inntektVsaGradertUttakFormData: FormDataEntryValue | null
   },
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
@@ -31,33 +103,15 @@ export const validateAvansertBeregningSkjema = (
     heltUttakAarFormData,
     heltUttakMaanederFormData,
     uttaksgradFormData,
-    inntektVsaGradertPensjonFormData,
+    inntektVsaHeltUttakRadioFormData,
+    inntektVsaGradertUttakRadioFormData,
+    inntektVsaHeltUttakFormData,
+    inntektVsaHeltUttakSluttAlderAarFormData,
+    inntektVsaHeltUttakSluttAlderMaanederFormData,
+    inntektVsaGradertUttakFormData,
   } = inputData
 
   let isValid = true
-
-  // Sjekker at uttaksgrad er fylt ut med en prosent
-  if (
-    !uttaksgradFormData ||
-    /^(?!(100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
-  ) {
-    isValid = false
-  }
-
-  // Sjekker at inntekt vsa gradert pensjon er enten tom eller fylt ut med en gyldig string
-  if (
-    !validateInntekt(
-      inntektVsaGradertPensjonFormData as string,
-      (s: string) => {
-        updateValidationErrorMessage((prevState) => {
-          return { ...prevState, [FORM_NAMES.inntektVsaGradertUttak]: s }
-        })
-      },
-      false
-    )
-  ) {
-    isValid = false
-  }
 
   // Sjekker at uttaksalder for hele pensjon er fylt ut med en alder
   if (
@@ -79,25 +133,123 @@ export const validateAvansertBeregningSkjema = (
     isValid = false
   }
 
+  // Sjekker at uttaksgrad er fylt ut med en prosent
+  if (
+    !uttaksgradFormData ||
+    /^(?!(100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
+  ) {
+    isValid = false
+    updateValidationErrorMessage((prevState) => {
+      return {
+        ...prevState,
+        [FORM_NAMES.uttaksgrad]:
+          'beregning.avansert.rediger.uttaksgrad.validation_error',
+      }
+    })
+  }
+
   // Sjekker at uttaksalder for gradert pensjon er fylt ut med en alder (gitt at uttaksgrad er ulik 100 %)
   if (
     uttaksgradFormData !== '100 %' &&
-    !validateAlderFromForm(
+    !validateAlderForGradertUttak(
       {
-        aar: gradertUttakAarFormData,
-        maaneder: gradertUttakMaanederFormData,
+        aar: heltUttakAarFormData as unknown as number,
+        maaneder: heltUttakMaanederFormData as unknown as number,
+      },
+      {
+        aar: gradertUttakAarFormData as unknown as number,
+        maaneder: gradertUttakMaanederFormData as unknown as number,
+      },
+      updateValidationErrorMessage
+    )
+  ) {
+    isValid = false
+  }
+
+  // Sjekker at radio for inntekt vsa helt uttak er fylt ut (gitt at uttaksalder er fylt ut)
+  if (
+    heltUttakAarFormData &&
+    heltUttakMaanederFormData &&
+    !inntektVsaHeltUttakRadioFormData
+  ) {
+    isValid = false
+    updateValidationErrorMessage((prevState) => {
+      return {
+        ...prevState,
+        [FORM_NAMES.inntektVsaHeltUttakRadio]:
+          'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error',
+      }
+    })
+  }
+
+  // Sjekker at inntekt vsa helt uttak og sluttAlder for inntekt er gyldige (gitt at radioknappen er på "ja")
+  if (inntektVsaHeltUttakRadioFormData === 'ja') {
+    const isInntektValid = validateInntekt(
+      inntektVsaHeltUttakFormData as string,
+      () => {
+        updateValidationErrorMessage((prevState) => {
+          return {
+            ...prevState,
+            [FORM_NAMES.inntektVsaHeltUttak]:
+              'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
+          }
+        })
+      },
+      true
+    )
+
+    const isSluttAlderValid = validateAlderFromForm(
+      {
+        aar: inntektVsaHeltUttakSluttAlderAarFormData,
+        maaneder: inntektVsaHeltUttakSluttAlderMaanederFormData,
       },
       function (s) {
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderGradertUttak]: s,
+            [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: s,
           }
         })
       }
     )
-  ) {
+
+    isValid = isValid && isInntektValid && isSluttAlderValid
+  }
+
+  // Sjekker at radio for inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 %)
+  if (uttaksgradFormData !== '100 %' && !inntektVsaGradertUttakRadioFormData) {
     isValid = false
+    updateValidationErrorMessage((prevState) => {
+      return {
+        ...prevState,
+        [FORM_NAMES.inntektVsaGradertUttakRadio]:
+          'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error',
+      }
+    })
+  }
+
+  // Sjekker at inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 % og radioknappen er på "ja")
+  if (
+    uttaksgradFormData !== '100 %' &&
+    inntektVsaGradertUttakRadioFormData === 'ja'
+  ) {
+    if (
+      !validateInntekt(
+        inntektVsaGradertUttakFormData as string,
+        () => {
+          updateValidationErrorMessage((prevState) => {
+            return {
+              ...prevState,
+              [FORM_NAMES.inntektVsaGradertUttak]:
+                'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error',
+            }
+          })
+        },
+        true
+      )
+    ) {
+      isValid = false
+    }
   }
 
   return isValid
@@ -111,14 +263,12 @@ export const onAvansertBeregningSubmit = (
   >,
   gaaTilResultat: () => void,
   previousData: {
-    localHeltUttak: RecursivePartial<HeltUttak> | undefined
-    localInntektFremTilUttak: number | null
+    localInntektFremTilUttak: string | null
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
   }
 ): void => {
   const {
-    localHeltUttak,
     localInntektFremTilUttak,
     hasVilkaarIkkeOppfylt,
     harAvansertSkjemaUnsavedChanges,
@@ -137,7 +287,20 @@ export const onAvansertBeregningSubmit = (
     `${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
   )
   const uttaksgradFormData = data.get('uttaksgrad')
-  const inntektVsaGradertPensjonFormData = data.get(
+  const inntektVsaHeltUttakRadioFormData = data.get(
+    `${FORM_NAMES.inntektVsaHeltUttakRadio}`
+  )
+  const inntektVsaGradertUttakRadioFormData = data.get(
+    `${FORM_NAMES.inntektVsaGradertUttakRadio}`
+  )
+  const inntektVsaHeltUttakFormData = data.get(FORM_NAMES.inntektVsaHeltUttak)
+  const inntektVsaHeltUttakSluttAlderAarFormData = data.get(
+    `${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+  )
+  const inntektVsaHeltUttakSluttAlderMaanederFormData = data.get(
+    `${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+  )
+  const inntektVsaGradertUttakFormData = data.get(
     FORM_NAMES.inntektVsaGradertUttak
   )
   if (
@@ -147,8 +310,13 @@ export const onAvansertBeregningSubmit = (
         gradertUttakMaanederFormData,
         heltUttakAarFormData,
         heltUttakMaanederFormData,
+        inntektVsaHeltUttakRadioFormData,
+        inntektVsaGradertUttakRadioFormData,
         uttaksgradFormData,
-        inntektVsaGradertPensjonFormData,
+        inntektVsaHeltUttakFormData,
+        inntektVsaHeltUttakSluttAlderAarFormData,
+        inntektVsaHeltUttakSluttAlderMaanederFormData,
+        inntektVsaGradertUttakFormData,
       },
       setValidationErrors
     )
@@ -163,16 +331,9 @@ export const onAvansertBeregningSubmit = (
       tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
     })
     if (uttaksgradFormData === '100 %') {
-      dispatch(userInputActions.setCurrentSimulationGradertuttaksperiode(null))
+      dispatch(userInputActions.setCurrentSimulationGradertUttaksperiode(null))
     } else {
-      const aarligInntektVsaGradertPensjon = parseInt(
-        (inntektVsaGradertPensjonFormData as string).replace(/ /g, ''),
-        10
-      )
-      if (
-        !isNaN(aarligInntektVsaGradertPensjon) &&
-        aarligInntektVsaGradertPensjon > 0
-      ) {
+      if (inntektVsaGradertUttakFormData) {
         logger('valg av uttaksgrad', {
           tekst: `${uttaksgradFormData}`,
         })
@@ -180,11 +341,11 @@ export const onAvansertBeregningSubmit = (
           tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
         })
         logger('valg av inntekt vsa. gradert pensjon (antall sifre)', {
-          tekst: `${aarligInntektVsaGradertPensjon.toString().length}`,
+          tekst: `${(inntektVsaGradertUttakFormData as string).replace(/ /g, '').length}`,
         })
       }
       dispatch(
-        userInputActions.setCurrentSimulationGradertuttaksperiode({
+        userInputActions.setCurrentSimulationGradertUttaksperiode({
           uttaksalder: {
             aar: parseInt(gradertUttakAarFormData as string, 10),
             maaneder: parseInt(gradertUttakMaanederFormData as string, 10),
@@ -193,29 +354,41 @@ export const onAvansertBeregningSubmit = (
             (uttaksgradFormData as string).match(/\d+/)?.[0] as string,
             10
           ),
-          /* c8 ignore next 3 */
-          aarligInntektVsaPensjonBeloep: !isNaN(aarligInntektVsaGradertPensjon) // Dette kan i praksis ikke skje pga validering lengre opp
-            ? aarligInntektVsaGradertPensjon
-            : undefined,
+          aarligInntektVsaPensjonBeloep:
+            inntektVsaGradertUttakFormData as string,
         })
       )
     }
+
+    if (inntektVsaHeltUttakFormData !== null) {
+      logger('valg av inntekt vsa. 100 % pensjon (antall sifre)', {
+        tekst: `${(inntektVsaHeltUttakFormData as string).replace(/ /g, '').length}`,
+      })
+    }
+
     dispatch(
       userInputActions.setCurrentSimulationAarligInntektVsaHelPensjon(
-        localHeltUttak?.aarligInntektVsaPensjon?.beloep !== undefined &&
-          localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.aar &&
-          localHeltUttak?.aarligInntektVsaPensjon?.sluttAlder?.maaneder !==
-            undefined
+        inntektVsaHeltUttakFormData !== null &&
+          inntektVsaHeltUttakSluttAlderAarFormData &&
+          inntektVsaHeltUttakSluttAlderMaanederFormData !== null
           ? {
-              beloep: localHeltUttak?.aarligInntektVsaPensjon?.beloep,
-              sluttAlder: localHeltUttak?.aarligInntektVsaPensjon
-                ?.sluttAlder as Alder,
+              beloep: inntektVsaHeltUttakFormData as string,
+              sluttAlder: {
+                aar: parseInt(
+                  inntektVsaHeltUttakSluttAlderAarFormData as string,
+                  10
+                ),
+                maaneder: parseInt(
+                  inntektVsaHeltUttakSluttAlderMaanederFormData as string,
+                  10
+                ),
+              },
             }
           : undefined
       )
     )
     dispatch(
-      userInputActions.setCurrentSimulationaarligInntektFoerUttakBeloep(
+      userInputActions.setCurrentSimulationAarligInntektFoerUttakBeloep(
         localInntektFremTilUttak
       )
     )
@@ -232,42 +405,5 @@ export const onAvansertBeregningSubmit = (
       })
       gaaTilResultat()
     }
-  }
-}
-
-/*
-  // Hvis brukeren ikke har valgt noe gradert uttak, er minAlder definert av tidligstMuligHeltUttak
-  // Hvis brukeren har valgt en alder for gradert uttak, vises det den høyeste av disse alternativene:
-  // --> Hvis brukeren har maksimal opptjening (tidligstMuligUttak lik 62 år 0md): gradert uttak + 1 måned
-  // --> Hvis brukeren ikke har maksimal opptjening (tidligstMuligUttak !== 62 år 0md): 67 år og 0 md (gitt at gradert pensjon ikke er valgt etter 67)
-   */
-export const getMinAlderTilHeltUttak = (args: {
-  localGradertUttak: RecursivePartial<Alder> | undefined
-  tidligstMuligHeltUttak: Alder | undefined
-}): Alder => {
-  const { localGradertUttak, tidligstMuligHeltUttak } = args
-  if (localGradertUttak?.aar) {
-    const localGradertUttakPlus1Maaned =
-      localGradertUttak?.maaneder !== 11
-        ? {
-            aar: localGradertUttak?.aar,
-            maaneder: (localGradertUttak?.maaneder ?? 0) + 1,
-          }
-        : { aar: localGradertUttak?.aar + 1, maaneder: 0 }
-
-    if (tidligstMuligHeltUttak) {
-      return isAlderOverMinUttaksaar(tidligstMuligHeltUttak) &&
-        localGradertUttakPlus1Maaned.aar * 12 +
-          localGradertUttakPlus1Maaned.maaneder <=
-          67 * 12
-        ? { aar: 67, maaneder: 0 }
-        : localGradertUttakPlus1Maaned
-    } else {
-      return localGradertUttakPlus1Maaned
-    }
-  } else {
-    return tidligstMuligHeltUttak
-      ? tidligstMuligHeltUttak
-      : { aar: 62, maaneder: 0 }
   }
 }

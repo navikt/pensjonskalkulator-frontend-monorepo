@@ -51,22 +51,20 @@ export const FormButtonRow: React.FC<{
           })}
         </Button>
       </div>
-      {uttaksalder &&
-        !hasVilkaarIkkeOppfylt &&
-        harAvansertSkjemaUnsavedChanges && (
-          <div>
-            <Button
-              type="button"
-              variant="tertiary"
-              className={styles.button}
-              onClick={gaaTilResultat}
-            >
-              {intl.formatMessage({
-                id: 'beregning.avansert.button.avbryt',
-              })}
-            </Button>
-          </div>
-        )}
+      {uttaksalder && !hasVilkaarIkkeOppfylt && (
+        <div>
+          <Button
+            type="button"
+            variant="tertiary"
+            className={styles.button}
+            onClick={gaaTilResultat}
+          >
+            {intl.formatMessage({
+              id: 'beregning.avansert.button.avbryt',
+            })}
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

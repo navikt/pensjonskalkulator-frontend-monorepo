@@ -29,7 +29,7 @@ import {
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
-import { isFoedtFoer1964 } from '@/utils/alder'
+import { DEFAULT_UBETINGET_UTTAKSALDER, isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
@@ -79,7 +79,7 @@ export const BeregningEnkel: React.FC = () => {
       afp,
       sivilstand: sivilstand,
       harSamboer,
-      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
+      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
     })
     setTidligstMuligHeltUttakRequestBody(requestBody)
   }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
@@ -91,7 +91,7 @@ export const BeregningEnkel: React.FC = () => {
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
-        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? 0,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         uttaksalder,
       })
       setAlderspensjonEnkelRequestBody(requestBody)
@@ -112,8 +112,14 @@ export const BeregningEnkel: React.FC = () => {
   )
 
   React.useEffect(() => {
+    if (alderspensjon && alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
+      logger('resultat vist', { tekst: 'Beregning enkel' })
+    }
+  }, [alderspensjon])
+
+  React.useEffect(() => {
     if (uttaksalder !== null) {
-      if (alderspensjon && !alderspensjon?.vilkaarErOppfylt) {
+      if (alderspensjon && !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) {
         logger('alert', { tekst: 'Beregning enkel: Ikke høy nok opptjening' })
       } else if (isError) {
         logger('alert', {
@@ -197,18 +203,22 @@ export const BeregningEnkel: React.FC = () => {
         <div
           className={`${styles.container} ${styles.container__hasMobilePadding}`}
         >
-          {isError || (alderspensjon && !alderspensjon?.vilkaarErOppfylt) ? (
+          {isError ||
+          (alderspensjon &&
+            !alderspensjon?.vilkaarsproeving.vilkaarErOppfylt) ? (
             <>
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />
               </Heading>
               <AlertDashBorder onRetry={isError ? onRetry : undefined}>
-                {!isError && uttaksalder && uttaksalder.aar < 67 && (
-                  <FormattedMessage
-                    id="beregning.lav_opptjening.aar"
-                    values={{ startAar: uttaksalder.aar }}
-                  />
-                )}
+                {!isError &&
+                  uttaksalder &&
+                  uttaksalder.aar < DEFAULT_UBETINGET_UTTAKSALDER.aar && (
+                    <FormattedMessage
+                      id="beregning.lav_opptjening.aar"
+                      values={{ startAar: uttaksalder.aar }}
+                    />
+                  )}
                 {isError && <FormattedMessage id="beregning.error" />}
               </AlertDashBorder>
             </>
@@ -216,11 +226,13 @@ export const BeregningEnkel: React.FC = () => {
             <>
               <Simulering
                 isLoading={isFetching}
-                aarligInntektFoerUttakBeloep={aarligInntektFoerUttakBeloep ?? 0}
+                aarligInntektFoerUttakBeloep={
+                  aarligInntektFoerUttakBeloep ?? '0'
+                }
                 alderspensjon={alderspensjon}
                 showAfp={afp === 'ja_privat'}
                 showButtonsAndTable={
-                  !isError && alderspensjon?.vilkaarErOppfylt
+                  !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
               />
               <Pensjonsavtaler />

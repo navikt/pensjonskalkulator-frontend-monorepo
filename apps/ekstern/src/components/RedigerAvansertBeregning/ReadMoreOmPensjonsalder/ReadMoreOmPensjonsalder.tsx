@@ -6,9 +6,7 @@ import { BodyLong, Label } from '@navikt/ds-react'
 import { ReadMore } from '@/components/common/ReadMore'
 import { getFormatMessageValues } from '@/utils/translations'
 
-export const ReadMoreOmPensjonsalder: React.FC<{
-  showTidligstMuligUttakOptionalIngress?: boolean
-}> = ({ showTidligstMuligUttakOptionalIngress }) => {
+export const ReadMoreOmPensjonsalder: React.FC = () => {
   const intl = useIntl()
 
   return (
@@ -19,14 +17,6 @@ export const ReadMoreOmPensjonsalder: React.FC<{
       })}
     >
       <BodyLong>
-        {showTidligstMuligUttakOptionalIngress && (
-          <FormattedMessage
-            id="tidligstmuliguttak.readmore_ingress.optional"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
-        )}
         <FormattedMessage
           id="beregning.avansert.rediger.read_more.pensjonsalder.intro"
           values={{

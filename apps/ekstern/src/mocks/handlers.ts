@@ -5,11 +5,9 @@ import { API_PATH, HOST_BASEURL } from '@/paths'
 import ekskludertStatusResponse from './data/ekskludert-status.json' assert { type: 'json' }
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
-import tidligstMuligGradertUttakResponse from './data/tidligstMuligGradertUttak.json' assert { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
-import detaljertFaneToggleResponse from './data/unleash-enable-detaljert-fane.json' assert { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
@@ -40,11 +38,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
   }),
 
-  http.post(`${baseUrl}/v1/tidligste-gradert-uttaksalder`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(tidligstMuligGradertUttakResponse)
-  }),
-
   http.get(`${baseUrl}/v1/ekskludert`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(ekskludertStatusResponse)
@@ -60,7 +53,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v2/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v3/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const data = await import(
@@ -84,14 +77,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
-    }
-  ),
-
-  http.get(
-    `${baseUrl}/feature/pensjonskalkulator.enable-detaljert-fane`,
-    async () => {
-      await delay(TEST_DELAY)
-      return HttpResponse.json(detaljertFaneToggleResponse)
     }
   ),
 

@@ -1,1 +1,0 @@
-export { EndreInntektVsaPensjon } from './EndreInntektVsaPensjon'

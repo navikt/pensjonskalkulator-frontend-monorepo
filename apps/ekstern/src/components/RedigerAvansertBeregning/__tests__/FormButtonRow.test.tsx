@@ -17,7 +17,7 @@ describe('FormButtonRow', () => {
     setHarAvansertSkjemaUnsavedChanges: () => {},
   }
 
-  it('Når knapperaden rendres med harAvansertSkjemaUnsavedChanges false, vises det riktig tekst og avbryt knappen er skjult', () => {
+  it('Når knapperaden rendres uten uttaksalder og med harAvansertSkjemaUnsavedChanges false, vises det riktig tekst og avbryt knappen er skjult', () => {
     render(
       <BeregningContext.Provider
         value={{
@@ -37,6 +37,37 @@ describe('FormButtonRow', () => {
     expect(
       screen.queryByText('beregning.avansert.button.avbryt')
     ).not.toBeInTheDocument()
+  })
+
+  it('Når knapperaden rendres med uttaksalder og med harAvansertSkjemaUnsavedChanges false, vises det riktig tekst og avbryt knappen er synlig', () => {
+    render(
+      <BeregningContext.Provider
+        value={{
+          ...contextMockedValues,
+        }}
+      >
+        <FormButtonRow resetForm={vi.fn()} gaaTilResultat={vi.fn()} />
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            currentSimulation: {
+              ...userInputInitialState.currentSimulation,
+              uttaksalder: { aar: 67, maaneder: 0 },
+            },
+          },
+        },
+      }
+    )
+    expect(screen.getByText('beregning.avansert.button.beregn')).toBeVisible()
+    expect(
+      screen.queryByText('beregning.avansert.button.oppdater')
+    ).not.toBeInTheDocument()
+    expect(
+      screen.getByText('beregning.avansert.button.nullstill')
+    ).toBeVisible()
+    expect(screen.getByText('beregning.avansert.button.avbryt')).toBeVisible()
   })
 
   it('Når knapperaden rendres etter at brukeren har hatt vilkår ikke oppfylt, vises det riktig tekst og avbryt knappen er skjult', () => {
