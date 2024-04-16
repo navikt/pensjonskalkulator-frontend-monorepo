@@ -105,7 +105,7 @@ export const useFormLocalState = (initialValues: {
         localInntektFremTilUttak !==
           aarligInntektFoerUttakBeloepFraBrukerSkattBeloep)
     const hasGradChanged =
-      localGradertUttak?.grad !== gradertUttaksperiode?.grad
+      (localGradertUttak?.grad ?? 100) !== (gradertUttaksperiode?.grad ?? 100)
     const hasGradertUttaksalderChanged =
       JSON.stringify(localGradertUttak?.uttaksalder) !==
       JSON.stringify(gradertUttaksperiode?.uttaksalder)
