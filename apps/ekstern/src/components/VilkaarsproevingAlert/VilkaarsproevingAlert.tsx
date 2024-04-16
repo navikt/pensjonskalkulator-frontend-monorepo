@@ -46,7 +46,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
       />
 
       {
-        // 1. Hvis forslag om helt uttaksalder uten gradert
+        // 1. Hvis forslag om ny alder for helt uttak uten forslag for gradert uttak
         !harIkkeNokOpptjening &&
           vilkaarsproeving.alternativ &&
           !vilkaarsproeving.alternativ.gradertUttaksalder && (
@@ -63,7 +63,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
           )
       }
       {
-        // 2. Hvis forslag om gradert uten helt uttaksalder
+        // 2. Hvis forslag om ny alder for gradert uttak uten forslag for helt uttak
         isHeltUttaksalderLik &&
           vilkaarsproeving.alternativ &&
           vilkaarsproeving.alternativ.gradertUttaksalder && (
@@ -81,7 +81,7 @@ export const VilkaarsproevingAlert: React.FC<Props> = ({
           )
       }
       {
-        // 3. Hvis forslag om helt uttaksalder og gradert
+        // 3. Hvis forslag om ny alder for helt uttak og ny alder for gradert uttak
         !isHeltUttaksalderLik &&
           vilkaarsproeving.alternativ &&
           vilkaarsproeving.alternativ.gradertUttaksalder && (
