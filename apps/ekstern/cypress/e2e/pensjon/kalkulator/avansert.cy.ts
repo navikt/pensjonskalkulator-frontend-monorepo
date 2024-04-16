@@ -349,7 +349,6 @@ describe('Avansert', () => {
     describe('Når jeg har for lav opptjening til valgt pensjonsalder og/eller uttaksgrad,', () => {
       beforeEach(() => {
         cy.login()
-
         cy.fillOutStegvisning({ samtykke: false })
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('Avansert').click()
@@ -361,7 +360,9 @@ describe('Avansert', () => {
         ).select('1')
         cy.get('[data-testid="uttaksgrad"]').select('100 %')
         cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
+      })
 
+      it('forventer jeg informasjon om at jeg ikke har høy nok opptjening, og at jeg må øke alderen eller sette ned uttaksgraden', () => {
         cy.intercept(
           {
             method: 'POST',
@@ -378,18 +379,112 @@ describe('Avansert', () => {
             },
           }
         ).as('fetchAlderspensjon')
-
         cy.contains('Beregn pensjon').click()
-      })
 
-      it('forventer jeg informasjon om at jeg ikke har høy nok opptjening, og at jeg må øke alderen eller sette ned uttaksgraden', () => {
         cy.contains('Beregning').should('not.exist')
         cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
         cy.contains(
           'Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden.'
         ).should('exist')
+      })
+
+      it('forventer jeg informasjon, dersom jeg ikke har nok opptjening for uttak før 67 år', () => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+          },
+          {
+            alderspensjon: [],
+            afpPrivat: [],
+            vilkaarsproeving: {
+              vilkaarErOppfylt: false,
+              alternativ: {
+                heltUttaksalder: { aar: 67, maaneder: 0 },
+              },
+            },
+          }
+        ).as('fetchAlderspensjon')
+        cy.contains('Beregn pensjon').click()
+
+        cy.contains('Du kan tidligst ta ut alderspensjon ved 67 år.').should(
+          'exist'
+        )
+      })
+
+      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet helt uttak', () => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+          },
+          {
+            alderspensjon: [],
+            afpPrivat: [],
+            vilkaarsproeving: {
+              vilkaarErOppfylt: false,
+              alternativ: {
+                heltUttaksalder: { aar: 65, maaneder: 3 },
+              },
+            },
+          }
+        ).as('fetchAlderspensjon')
+        cy.contains('Beregn pensjon').click()
+
         cy.contains(
-          'Du kan ved 65 år og 3 måneder ta ut 100 % alderspensjon. Du kan også prøve andre kombinasjoner.'
+          'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut 100 % alderspensjon. Prøv gjerne andre kombinasjoner.'
+        ).should('exist')
+      })
+
+      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet gradert uttak', () => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+          },
+          {
+            alderspensjon: [],
+            afpPrivat: [],
+            vilkaarsproeving: {
+              vilkaarErOppfylt: false,
+              alternativ: {
+                heltUttaksalder: { aar: 65, maaneder: 1 },
+                gradertUttaksalder: { aar: 65, maaneder: 3 },
+                uttaksgrad: 40,
+              },
+            },
+          }
+        ).as('fetchAlderspensjon')
+        cy.contains('Beregn pensjon').click()
+
+        cy.contains(
+          'Ett alternativ er at du ved 65 år og 3 måneder kan ta ut 40 % alderspensjon. Prøv gjerne andre kombinasjoner.'
+        ).should('exist')
+      })
+
+      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet gradert uttak med helt uttak', () => {
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+          },
+          {
+            alderspensjon: [],
+            afpPrivat: [],
+            vilkaarsproeving: {
+              vilkaarErOppfylt: false,
+              alternativ: {
+                heltUttaksalder: { aar: 67, maaneder: 0 },
+                gradertUttaksalder: { aar: 65, maaneder: 1 },
+                uttaksgrad: 20,
+              },
+            },
+          }
+        ).as('fetchAlderspensjon')
+        cy.contains('Beregn pensjon').click()
+
+        cy.contains(
+          'Ett alternativ er at du ved 65 år og 1 måneder kan ta ut 20 % alderspensjon hvis du tar ut 100 % alderspensjon ved 67 år og 0 måneder eller senere. Prøv gjerne andre kombinasjoner.'
         ).should('exist')
       })
 
@@ -657,9 +752,6 @@ describe('Avansert', () => {
       })
 
       it('forventer jeg å kunne avbryte og komme tilbake til beregningen', () => {
-        cy.get(
-          '[data-testid="age-picker-uttaksalder-gradert-uttak-aar"]'
-        ).select('65')
         cy.contains('Avbryt endring').click({ force: true })
         cy.contains('Se og endre dine valg').should('exist')
       })
