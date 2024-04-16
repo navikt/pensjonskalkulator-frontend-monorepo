@@ -308,7 +308,7 @@ const translations = {
   'beregning.vilkaarsproeving.alternativer.gradertUttak':
     'Ett alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon. Prøv gjerne andre kombinasjoner.',
   'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak':
-    'Ett alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon hvis du tar ut 100 % alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Prøv gjerne andre kombinasjoner.',
+    'Ett alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon hvis du tar ut <nowrap>100 %</nowrap> alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Prøv gjerne andre kombinasjoner.',
   'grunnlag.title': 'Øvrig grunnlag for beregningen',
   'beregning.avansert.avbryt_modal.title':
     'Er du sikker på at du vil avslutte avansert beregning?',
