@@ -343,5 +343,84 @@ describe('Avansert', () => {
         cy.contains('Alderspensjon: 100 %').should('exist')
       })
     })
+
+    describe('Når jeg har for lav opptjening til valgt pensjonsalder og/eller uttaksgrad,', () => {
+      beforeEach(() => {
+        cy.login()
+
+        cy.fillOutStegvisning({ samtykke: false })
+        cy.wait('@fetchTidligsteUttaksalder')
+        cy.contains('Avansert').click()
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '65'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).select('1')
+        cy.get('[data-testid="uttaksgrad"]').select('100 %')
+        cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
+
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+          },
+          {
+            alderspensjon: [],
+            afpPrivat: [],
+            vilkaarsproeving: {
+              vilkaarErOppfylt: false,
+              alternativ: {
+                heltUttaksalder: { aar: 65, maaneder: 3 },
+              },
+            },
+          }
+        ).as('fetchAlderspensjon')
+
+        cy.contains('Beregn pensjon').click()
+      })
+
+      it('forventer jeg informasjon om at jeg ikke har høy nok opptjening, og at jeg må øke alderen eller sette ned uttaksgraden', () => {
+        cy.contains('Beregning').should('not.exist')
+        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains(
+          'Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden.'
+        ).should('exist')
+        cy.contains(
+          'Du kan ved 65 år og 3 måneder ta ut 100 % alderspensjon. Du kan også prøve andre kombinasjoner.'
+        ).should('exist')
+      })
+
+      it('forventer jeg å kunne endre på inntekt, pensjonsalder og uttaksgrad, og å kunne beregne pensjon', () => {
+        cy.contains('Beregning').should('not.exist')
+        cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+        cy.contains('button', 'Endre inntekt').should('exist')
+        cy.contains('Når vil du ta ut alderspensjon?').should('exist')
+
+        cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
+          '65'
+        )
+        cy.get(
+          '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
+        ).select('3')
+        cy.contains('Hvor mye alderspensjon vil du ta ut?').should('exist')
+        cy.get('[data-testid="uttaksgrad"]').should('exist')
+        cy.intercept(
+          {
+            method: 'POST',
+            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+          },
+          { fixture: 'alderspensjon.json' }
+        ).as('fetchAlderspensjon')
+        cy.contains('Beregn pensjon').click()
+        cy.contains('Beregning').should('exist')
+      })
+
+      it('ønsker jeg å kunne starte ny beregning', () => {
+        cy.contains('Beregning').should('not.exist')
+        cy.contains('button', 'Tilbake til start').click({ force: true })
+        cy.location('href').should('include', '/pensjon/kalkulator/start')
+      })
+    })
   })
 })
