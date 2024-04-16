@@ -418,97 +418,41 @@ export const RedigerAvansertBeregning: React.FC<{
             </BodyLong>
           </ReadMore>
         </div>
-        {localGradertUttak?.grad && localGradertUttak.grad !== 100 && (
-          <>
-            <div>
-              <RadioGroup
-                legend={
-                  <FormattedMessage
-                    id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak"
-                    values={{
-                      ...getFormatMessageValues(intl),
-                      grad: localGradertUttak.grad,
-                    }}
-                  />
-                }
-                description={
-                  <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description" />
-                }
-                name={FORM_NAMES.inntektVsaGradertUttakRadio}
-                data-testid={FORM_NAMES.inntektVsaGradertUttakRadio}
-                value={
-                  localHarInntektVsaGradertUttakRadio === null
-                    ? null
-                    : localHarInntektVsaGradertUttakRadio
-                      ? 'ja'
-                      : 'nei'
-                }
-                onChange={handleInntektVsaGradertUttakRadioChange}
-                error={
-                  validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
-                    ? intl.formatMessage(
-                        {
-                          id: validationErrors[
-                            FORM_NAMES.inntektVsaGradertUttakRadio
-                          ],
-                        },
-                        {
-                          ...getFormatMessageValues(intl),
-                          grad: localGradertUttak.grad,
-                        }
-                      )
-                    : ''
-                }
-                role="radiogroup"
-                aria-required="true"
-              >
-                <Radio
-                  form={FORM_NAMES.form}
-                  data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`}
-                  value="ja"
-                  aria-invalid={
-                    !!validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
-                  }
-                >
-                  <FormattedMessage id="stegvisning.radio_ja" />
-                </Radio>
-                <Radio
-                  form={FORM_NAMES.form}
-                  data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`}
-                  value="nei"
-                >
-                  <FormattedMessage id="stegvisning.radio_nei" />
-                </Radio>
-              </RadioGroup>
-            </div>
-
-            {localHarInntektVsaGradertUttakRadio && (
+        {localGradertUttak?.uttaksalder?.aar &&
+          localGradertUttak?.uttaksalder?.maaneder !== undefined &&
+          localGradertUttak?.grad &&
+          localGradertUttak.grad !== 100 && (
+            <>
               <div>
-                <TextField
-                  form={FORM_NAMES.form}
-                  name={FORM_NAMES.inntektVsaGradertUttak}
-                  data-testid={FORM_NAMES.inntektVsaGradertUttak}
-                  type="text"
-                  inputMode="numeric"
-                  className={styles.textfield}
-                  label={
+                <RadioGroup
+                  legend={
                     <FormattedMessage
-                      id="beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label"
+                      id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak"
                       values={{
                         ...getFormatMessageValues(intl),
                         grad: localGradertUttak.grad,
                       }}
                     />
                   }
-                  description={intl.formatMessage({
-                    id: 'inntekt.endre_inntekt_modal.textfield.description',
-                  })}
+                  description={
+                    <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description" />
+                  }
+                  name={FORM_NAMES.inntektVsaGradertUttakRadio}
+                  data-testid={FORM_NAMES.inntektVsaGradertUttakRadio}
+                  value={
+                    localHarInntektVsaGradertUttakRadio === null
+                      ? null
+                      : localHarInntektVsaGradertUttakRadio
+                        ? 'ja'
+                        : 'nei'
+                  }
+                  onChange={handleInntektVsaGradertUttakRadioChange}
                   error={
-                    validationErrors[FORM_NAMES.inntektVsaGradertUttak]
+                    validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
                       ? intl.formatMessage(
                           {
                             id: validationErrors[
-                              FORM_NAMES.inntektVsaGradertUttak
+                              FORM_NAMES.inntektVsaGradertUttakRadio
                             ],
                           },
                           {
@@ -518,33 +462,92 @@ export const RedigerAvansertBeregning: React.FC<{
                         )
                       : ''
                   }
-                  onChange={handleInntektVsaGradertUttakChange}
-                  value={localGradertUttak?.aarligInntektVsaPensjonBeloep}
-                  max={5}
+                  role="radiogroup"
                   aria-required="true"
+                >
+                  <Radio
+                    form={FORM_NAMES.form}
+                    data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`}
+                    value="ja"
+                    aria-invalid={
+                      !!validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
+                    }
+                  >
+                    <FormattedMessage id="stegvisning.radio_ja" />
+                  </Radio>
+                  <Radio
+                    form={FORM_NAMES.form}
+                    data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`}
+                    value="nei"
+                  >
+                    <FormattedMessage id="stegvisning.radio_nei" />
+                  </Radio>
+                </RadioGroup>
+              </div>
+
+              {localHarInntektVsaGradertUttakRadio && (
+                <div>
+                  <TextField
+                    form={FORM_NAMES.form}
+                    name={FORM_NAMES.inntektVsaGradertUttak}
+                    data-testid={FORM_NAMES.inntektVsaGradertUttak}
+                    type="text"
+                    inputMode="numeric"
+                    className={styles.textfield}
+                    label={
+                      <FormattedMessage
+                        id="beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label"
+                        values={{
+                          ...getFormatMessageValues(intl),
+                          grad: localGradertUttak.grad,
+                        }}
+                      />
+                    }
+                    description={intl.formatMessage({
+                      id: 'inntekt.endre_inntekt_modal.textfield.description',
+                    })}
+                    error={
+                      validationErrors[FORM_NAMES.inntektVsaGradertUttak]
+                        ? intl.formatMessage(
+                            {
+                              id: validationErrors[
+                                FORM_NAMES.inntektVsaGradertUttak
+                              ],
+                            },
+                            {
+                              ...getFormatMessageValues(intl),
+                              grad: localGradertUttak.grad,
+                            }
+                          )
+                        : ''
+                    }
+                    onChange={handleInntektVsaGradertUttakChange}
+                    value={localGradertUttak?.aarligInntektVsaPensjonBeloep}
+                    max={5}
+                    aria-required="true"
+                  />
+                </div>
+              )}
+              <Divider noMargin />
+              <div>
+                <AgePicker
+                  form={FORM_NAMES.form}
+                  name={FORM_NAMES.uttaksalderHeltUttak}
+                  label={
+                    <FormattedMessage
+                      id="beregning.avansert.rediger.heltuttak.agepicker.label"
+                      values={{
+                        ...getFormatMessageValues(intl),
+                      }}
+                    />
+                  }
+                  value={localHeltUttak?.uttaksalder}
+                  onChange={handleHeltUttaksalderChange}
+                  error={heltUttakAgePickerError}
                 />
               </div>
-            )}
-            <Divider noMargin />
-            <div>
-              <AgePicker
-                form={FORM_NAMES.form}
-                name={FORM_NAMES.uttaksalderHeltUttak}
-                label={
-                  <FormattedMessage
-                    id="beregning.avansert.rediger.heltuttak.agepicker.label"
-                    values={{
-                      ...getFormatMessageValues(intl),
-                    }}
-                  />
-                }
-                value={localHeltUttak?.uttaksalder}
-                onChange={handleHeltUttaksalderChange}
-                error={heltUttakAgePickerError}
-              />
-            </div>
-          </>
-        )}
+            </>
+          )}
 
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined &&
