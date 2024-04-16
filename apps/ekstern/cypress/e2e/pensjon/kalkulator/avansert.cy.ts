@@ -1,5 +1,5 @@
 describe('Avansert', () => {
-  describe.skip('Gitt at jeg som bruker har gjort en enkel beregning,', () => {
+  describe('Gitt at jeg som bruker har gjort en enkel beregning,', () => {
     describe('Når jeg ønsker en avansert beregning', () => {
       beforeEach(() => {
         cy.login()
@@ -33,7 +33,7 @@ describe('Avansert', () => {
     })
   })
 
-  describe.skip('Gitt at jeg som bruker har valgt "Avansert",', () => {
+  describe('Gitt at jeg som bruker har valgt "Avansert",', () => {
     describe('Når jeg er kommet inn i avansert', () => {
       beforeEach(() => {
         cy.login()
