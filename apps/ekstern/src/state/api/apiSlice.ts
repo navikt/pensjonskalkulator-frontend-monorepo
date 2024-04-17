@@ -186,10 +186,14 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getAnsattId: builder.query<Ansatt, void>({
+      query: () => '/v1/ansatt-id',
+    }),
   }),
 })
 
 export const {
+  useGetAnsattIdQuery,
   useGetInntektQuery,
   useGetPersonQuery,
   useGetEkskludertStatusQuery,

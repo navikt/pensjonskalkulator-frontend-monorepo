@@ -4,14 +4,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import {
   Alert,
   BodyLong,
-  BodyShort,
-  Box,
   Button,
-  CopyButton,
   HStack,
   Heading,
   InternalHeader,
-  Loader,
   Spacer,
   TextField,
   VStack,
@@ -19,54 +15,22 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework/FrameComponent'
+import BorgerInformasjon from '@/components/veileder/BorgerInformasjon'
 import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
-import { useGetPersonQuery } from '@/state/api/apiSlice'
+import { useGetAnsattIdQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { veilederBorgerFnrSelector } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
-interface IBorgerInformasjonProps {
-  fnr: string
-}
-
-const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({ fnr }) => {
-  const { data: person, isFetching: isPersonFetching } = useGetPersonQuery()
-
-  const onNullstillClick = () => {
-    window.location.href = `${BASE_PATH}/veileder`
-  }
-
-  return (
-    <Box
-      background="bg-default"
-      borderWidth="0 0 2 0"
-      borderColor="border-divider"
-    >
-      <HStack align="center" gap="2" style={{ padding: '16px 24px' }}>
-        {isPersonFetching ? (
-          <Loader />
-        ) : (
-          <BodyShort>{`${person?.navn}`}</BodyShort>
-        )}
-        <span aria-hidden="true">/</span>
-        <HStack align="center" gap="1">
-          {fnr} <CopyButton size="small" copyText={fnr} />
-        </HStack>
-        <Spacer />
-        <div>
-          <Button onClick={onNullstillClick} variant="secondary" size="small">
-            Nullstill bruker
-          </Button>
-        </div>
-      </HStack>
-    </Box>
-  )
-}
+const router = createBrowserRouter(routes, {
+  basename: `${BASE_PATH}/veileder`,
+})
 
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
   const veilederBorgerFnr = useAppSelector(veilederBorgerFnrSelector)
+  const { data: ansatt, isLoading: isLoadingAnsattId } = useGetAnsattIdQuery()
 
   const hasTimedOut = React.useMemo(() => {
     const queryParams = new URLSearchParams(window.location.search)
@@ -95,21 +59,13 @@ export const VeilederInput = () => {
     dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
   }
 
-  const router = createBrowserRouter(routes, {
-    basename: `${BASE_PATH}/veileder`,
-  })
-
-  if (window.Cypress) {
-    window.router = router
-  }
-
   if (!veilederBorgerFnr) {
     return (
       <div>
         <InternalHeader>
           <InternalHeader.Title>Pensjonskalkulator</InternalHeader.Title>
           <Spacer />
-          <InternalHeader.User name="SBHIDENT" />
+          <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
 
         <FrameComponent>
@@ -158,7 +114,7 @@ export const VeilederInput = () => {
             Pensjonskalkulator
           </InternalHeader.Title>
           <Spacer />
-          <InternalHeader.User name="SBHIDENT" />
+          <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
         <BorgerInformasjon fnr={veilederBorgerFnr} />
 
@@ -166,4 +122,8 @@ export const VeilederInput = () => {
       </div>
     )
   }
+}
+
+if (window.Cypress) {
+  window.router = router
 }

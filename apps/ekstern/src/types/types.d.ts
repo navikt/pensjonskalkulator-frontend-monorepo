@@ -61,5 +61,7 @@ declare global {
     alder: number
   }
 
+  type Ansatt = components['schemas']['AnsattV1']
+
   type BeregningVisning = 'enkel' | 'avansert'
 }
