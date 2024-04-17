@@ -82,7 +82,7 @@ export function Step0() {
 
   return (
     <Start
-      fornavn={isPersonSuccess ? (person as Person).fornavn : ''}
+      navn={isPersonSuccess ? (person as Person).navn : ''}
       onCancel={onCancel}
       onNext={onNext}
     />

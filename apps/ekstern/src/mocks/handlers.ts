@@ -25,7 +25,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(inntektResponse)
   }),
 
-  http.get(`${baseUrl}/v1/person`, async () => {
+  http.get(`${baseUrl}/v2/person`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(personResponse)
   }),

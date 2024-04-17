@@ -17,7 +17,7 @@ const fakeApiCalls = {
       requestId: 'xTaE6mOydr5ZI75UXq4Wi',
       startedTimeStamp: 1688046411971,
       data: {
-        fornavn: 'Aprikos',
+        navn: 'Aprikos',
         sivilstand: 'UGIFT',
         foedselsdato: '1963-04-30',
       },

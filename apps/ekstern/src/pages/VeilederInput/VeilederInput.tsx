@@ -47,7 +47,7 @@ const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({ fnr }) => {
         {isPersonFetching ? (
           <Loader />
         ) : (
-          <BodyShort>{`${person?.fornavn}`}</BodyShort>
+          <BodyShort>{`${person?.navn}`}</BodyShort>
         )}
         <span aria-hidden="true">/</span>
         <HStack align="center" gap="1">

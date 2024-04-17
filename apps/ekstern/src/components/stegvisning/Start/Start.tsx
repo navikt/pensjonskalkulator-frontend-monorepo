@@ -12,14 +12,14 @@ import { logOpenLink, wrapLogger } from '@/utils/logging'
 import styles from './Start.module.scss'
 
 interface Props {
-  fornavn: string
+  navn: string
   onCancel: () => void
   onNext: () => void
 }
 
-export function Start({ fornavn, onCancel, onNext }: Props) {
+export function Start({ navn, onCancel, onNext }: Props) {
   const intl = useIntl()
-  const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
+  const navnString = navn !== '' ? ` ${navn}!` : '!'
 
   return (
     <Card hasLargePadding hasMargin>
@@ -29,7 +29,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           <Heading level="2" size="medium" spacing>
             {`${intl.formatMessage({
               id: 'stegvisning.start.title',
-            })}${fornavnString}`}
+            })}${navnString}`}
           </Heading>
           <BodyLong size="large">
             <FormattedMessage id="stegvisning.start.ingress" />

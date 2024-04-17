@@ -109,7 +109,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v1/person': {
+  '/api/v2/person': {
     parameters: {
       query?: never
       header?: never
@@ -582,7 +582,7 @@ export interface components {
       gradertUttak?: components['schemas']['UttaksalderGradertUttakIngressDto']
     }
     ApiPersonDto: {
-      fornavn: string
+      navn: string
       /** Format: date */
       foedselsdato: string
       /** @enum {string} */

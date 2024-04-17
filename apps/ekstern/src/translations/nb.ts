@@ -458,7 +458,7 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.1':
     'Fødselsnummeret ditt henter vi fra ID-porten for å identifisere deg.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.2':
-    'Fornavnet ditt henter vi fra Folkeregisteret for å tydeliggjøre at beregningen gjelder deg.',
+    'navnet ditt henter vi fra Folkeregisteret for å tydeliggjøre at beregningen gjelder deg.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.3':
     'Fødselsdatoen din henter vi fra Folkeregisteret for at vi skal kunne beregne alderspensjonen din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.4':

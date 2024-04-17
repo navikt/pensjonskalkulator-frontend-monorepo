@@ -285,7 +285,7 @@ describe('Typeguards', () => {
     it('returnerer true når input er et Person-objekt', () => {
       expect(
         isPerson({
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1963-04-30',
         })
@@ -296,22 +296,22 @@ describe('Typeguards', () => {
       expect(isPerson(undefined)).toEqual(false)
       expect(isPerson(null)).toEqual(false)
       expect(isPerson({})).toEqual(false)
-      expect(isPerson({ fornavn: 'Ola', sivilstand: 'GIFT' })).toEqual(false)
+      expect(isPerson({ navn: 'Ola', sivilstand: 'GIFT' })).toEqual(false)
       expect(
         isPerson({
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'LOREMIPSUM',
           foedselsdato: null,
         })
       ).toEqual(false)
       expect(
         isPerson({
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'UGIFT',
           foedselsdato: 'abc',
         })
       ).toEqual(false)
-      expect(isPerson({ fornavn: 'Ola', foedselsdato: '1963-04-30' })).toEqual(
+      expect(isPerson({ navn: 'Ola', foedselsdato: '1963-04-30' })).toEqual(
         false
       )
       expect(isPerson({ sivilstand: 'GIFT' })).toEqual(false)

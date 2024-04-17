@@ -86,7 +86,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'UGIFT',
               foedselsdato: '1963-04-30',
             },
@@ -117,7 +117,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'UGIFT',
               foedselsdato: '1963-04-30',
             },
@@ -145,7 +145,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'GIFT',
               foedselsdato: '1963-04-30',
             },
@@ -176,7 +176,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'UGIFT',
               foedselsdato: '1963-04-30',
             },
@@ -209,7 +209,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'GIFT',
               foedselsdato: '1963-04-30',
             },
