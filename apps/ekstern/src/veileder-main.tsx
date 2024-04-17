@@ -1,7 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import { InternalHeader, Spacer } from '@navikt/ds-react'
 import ReactDOM from 'react-dom/client'
 
 import { LanguageProvider } from '@/context/LanguageProvider'

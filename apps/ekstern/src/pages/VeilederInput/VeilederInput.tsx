@@ -30,7 +30,7 @@ const router = createBrowserRouter(routes, {
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
   const veilederBorgerFnr = useAppSelector(veilederBorgerFnrSelector)
-  const { data: ansatt, isLoading: isLoadingAnsattId } = useGetAnsattIdQuery()
+  const { data: ansatt } = useGetAnsattIdQuery()
 
   const hasTimedOut = React.useMemo(() => {
     const queryParams = new URLSearchParams(window.location.search)
