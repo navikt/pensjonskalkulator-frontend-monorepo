@@ -330,15 +330,24 @@ export const onAvansertBeregningSubmit = (
     logger('valg av uttaksalder for 100 % alderspensjon', {
       tekst: `${heltUttakAarFormData} år og ${heltUttakMaanederFormData} md.`,
     })
+
     if (uttaksgradFormData === '100 %') {
       dispatch(userInputActions.setCurrentSimulationGradertUttaksperiode(null))
+      logger('radiogroup valgt', {
+        tekst: 'Inntekt vsa. helt uttak',
+        valg: inntektVsaHeltUttakRadioFormData ? 'ja' : 'nei',
+      })
     } else {
+      logger('valg av uttaksgrad', {
+        tekst: `${uttaksgradFormData}`,
+      })
+      logger('valg av uttaksalder for gradert alderspensjon', {
+        tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
+      })
       if (inntektVsaGradertUttakFormData) {
-        logger('valg av uttaksgrad', {
-          tekst: `${uttaksgradFormData}`,
-        })
-        logger('valg av uttaksalder for gradert alderspensjon', {
-          tekst: `${gradertUttakAarFormData} år og ${gradertUttakMaanederFormData} md.`,
+        logger('radiogroup valgt', {
+          tekst: 'Inntekt vsa. gradert uttak',
+          valg: inntektVsaGradertUttakRadioFormData ? 'ja' : 'nei',
         })
         logger('valg av inntekt vsa. gradert pensjon (antall sifre)', {
           tekst: `${(inntektVsaGradertUttakFormData as string).replace(/ /g, '').length}`,
