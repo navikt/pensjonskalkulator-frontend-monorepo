@@ -8,13 +8,11 @@ const inntektResponse = require('../../../mocks/data/inntekt.json')
 const personResponse = require('../../../mocks/data/person.json')
 const tpoMedlemskapResponse = require('../../../mocks/data/tpo-medlemskap.json')
 const tidligstMuligHeltUttakResponse = require('../../../mocks/data/tidligstMuligHeltUttak.json')
-const tidligstMuligGradertUttakResponse = require('../../../mocks/data/tidligstMuligGradertUttak.json')
 const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler/67.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
 const ekskludertStatusResponse = require('../../../mocks/data/ekskludert-status.json')
 const spraakvelgerToggleResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
 const highchartsAccessibilityPluginResponse = require('../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json')
-const highchartsDetaljertFaneResponse = require('../../../mocks/data/unleash-enable-detaljert-fane.json')
 
 describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
@@ -23,7 +21,6 @@ describe('apiSlice', () => {
     expect(apiSlice.endpoints).toHaveProperty('getTpoMedlemskap')
     expect(apiSlice.endpoints).toHaveProperty('pensjonsavtaler')
     expect(apiSlice.endpoints).toHaveProperty('tidligstMuligHeltUttak')
-    expect(apiSlice.endpoints).toHaveProperty('tidligstMuligGradertUttak')
     expect(apiSlice.endpoints).toHaveProperty('alderspensjon')
     expect(apiSlice.endpoints).toHaveProperty('getSpraakvelgerFeatureToggle')
   })
@@ -332,52 +329,6 @@ describe('apiSlice', () => {
     })
   })
 
-  describe('tidligstMuligGradertUttak', () => {
-    it('returnerer data ved successfull query', async () => {
-      const storeRef = setupStore(undefined, true)
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.tidligstMuligGradertUttak.initiate())
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(tidligstMuligGradertUttakResponse)
-        })
-    })
-
-    it('returnerer undefined ved feilende query', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v1/tidligste-gradert-uttaksalder', {
-        status: 500,
-        method: 'post',
-      })
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.tidligstMuligGradertUttak.initiate())
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('rejected')
-          expect(result.data).toBe(undefined)
-        })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockResponse('/v1/tidligste-gradert-uttaksalder', {
-        status: 200,
-        json: [{ 'tullete svar': 'lorem' }],
-        method: 'post',
-      })
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch<any>(
-            apiSlice.endpoints.tidligstMuligGradertUttak.initiate()
-          )
-          .then((result: FetchBaseQueryError) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
-  })
-
   describe('alderspensjon', () => {
     const body: AlderspensjonRequestBody = {
       simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
@@ -405,7 +356,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v2/alderspensjon/simulering', {
+      mockErrorResponse('/v3/alderspensjon/simulering', {
         method: 'post',
       })
       return storeRef
@@ -418,7 +369,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -528,54 +479,6 @@ describe('apiSlice', () => {
         await storeRef
           .dispatch<any>(
             apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
-          )
-          .then((result: FetchBaseQueryError) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
-  })
-
-  describe('getDetaljertFaneFeatureToggle', () => {
-    it('returnerer data ved vellykket query', async () => {
-      const storeRef = setupStore({}, true)
-      return storeRef
-        .dispatch<any>(
-          apiSlice.endpoints.getDetaljertFaneFeatureToggle.initiate()
-        )
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(highchartsDetaljertFaneResponse)
-        })
-    })
-
-    it('returnerer undefined ved feilende query', async () => {
-      const storeRef = setupStore({}, true)
-      mockErrorResponse('/feature/pensjonskalkulator.enable-detaljert-fane')
-      return storeRef
-        .dispatch<any>(
-          apiSlice.endpoints.getDetaljertFaneFeatureToggle.initiate()
-        )
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('rejected')
-          expect(result.data).toBe(undefined)
-        })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore({}, true)
-
-      mockResponse('/feature/pensjonskalkulator.enable-detaljert-fane', {
-        status: 200,
-        json: { lorem: 'ipsum' },
-      })
-
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch<any>(
-            apiSlice.endpoints.getDetaljertFaneFeatureToggle.initiate()
           )
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)

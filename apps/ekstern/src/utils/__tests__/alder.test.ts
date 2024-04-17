@@ -8,6 +8,8 @@ import {
   isFoedtFoer1963,
   isFoedtFoer1964,
   isAlderOverMinUttaksaar,
+  getAlderPlus1Maaned,
+  getAlderMinus1Maaned,
   transformUttaksalderToDate,
   transformMaanedToDate,
   validateAlderFromForm,
@@ -112,6 +114,46 @@ describe('alder-utils', () => {
       expect(isAlderOverMinUttaksaar({ aar: 62, maaneder: 2 })).toBeTruthy()
       expect(isAlderOverMinUttaksaar({ aar: 63, maaneder: 0 })).toBeTruthy()
       expect(isAlderOverMinUttaksaar({ aar: 70, maaneder: 0 })).toBeTruthy()
+    })
+  })
+
+  describe('getAlderPlus1Maaned', () => {
+    it('returnerer riktig alder med en måned mellom 1-10', () => {
+      const alder = getAlderPlus1Maaned({ aar: 63, maaneder: 3 })
+      expect(alder.aar).toBe(63)
+      expect(alder.maaneder).toBe(4)
+    })
+
+    it('returnerer riktig alder med måned 0', () => {
+      const alder = getAlderPlus1Maaned({ aar: 63, maaneder: 0 })
+      expect(alder.aar).toBe(63)
+      expect(alder.maaneder).toBe(1)
+    })
+
+    it('returnerer riktig alder med måned 11', () => {
+      const alder = getAlderPlus1Maaned({ aar: 63, maaneder: 11 })
+      expect(alder.aar).toBe(64)
+      expect(alder.maaneder).toBe(0)
+    })
+  })
+
+  describe('getAlderMinus1Maaned', () => {
+    it('returnerer riktig alder med en måned mellom 1-10', () => {
+      const alder = getAlderMinus1Maaned({ aar: 63, maaneder: 3 })
+      expect(alder.aar).toBe(63)
+      expect(alder.maaneder).toBe(2)
+    })
+
+    it('returnerer riktig alder med måned 0', () => {
+      const alder = getAlderMinus1Maaned({ aar: 63, maaneder: 0 })
+      expect(alder.aar).toBe(62)
+      expect(alder.maaneder).toBe(11)
+    })
+
+    it('returnerer riktig alder med måned 11', () => {
+      const alder = getAlderMinus1Maaned({ aar: 63, maaneder: 11 })
+      expect(alder.aar).toBe(63)
+      expect(alder.maaneder).toBe(10)
     })
   })
 

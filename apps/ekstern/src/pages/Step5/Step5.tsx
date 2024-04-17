@@ -2,10 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import {
-  Sivilstand,
-  SivilstandRadio,
-} from '@/components/stegvisning/Sivilstand'
+import { Sivilstand } from '@/components/stegvisning/Sivilstand'
 import { paths } from '@/router/constants'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -34,7 +31,7 @@ export function Step5() {
     return navigate(paths.afp)
   }
 
-  const onNext = (sivilstandData: SivilstandRadio): void => {
+  const onNext = (sivilstandData: BooleanRadio): void => {
     dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
     navigate(paths.beregningEnkel)
   }

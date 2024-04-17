@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { SeriesColumnOptions } from 'highcharts'
 
 import { ReadMore } from '../common/ReadMore'
-import { formatWithoutDecimal } from '@/utils/inntekt'
+import { formatInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
 import { useTableData } from './hooks'
@@ -110,9 +110,7 @@ export function TabellVisning({
                   <React.Fragment key={j}>
                     <dt>{name}</dt>
                     <dd className={styles.detailsItemRight}>
-                      <span className="nowrap">
-                        {formatWithoutDecimal(subSum)}
-                      </span>
+                      <span className="nowrap">{formatInntekt(subSum)}</span>
                     </dd>
                   </React.Fragment>
                 ))}
@@ -127,7 +125,7 @@ export function TabellVisning({
               >
                 <Table.DataCell>{alder}</Table.DataCell>
                 <Table.DataCell className={styles.detailsItemRight}>
-                  <span className="nowrap">{formatWithoutDecimal(sum)}</span>
+                  <span className="nowrap">{formatInntekt(sum)}</span>
                 </Table.DataCell>
               </Table.ExpandableRow>
             )
@@ -144,11 +142,11 @@ export function TabellVisning({
                     styles.detailsItemBold
                   )}
                 >
-                  {sum > 0 ? `${formatWithoutDecimal(sum)} kr` : ''}
+                  {sum > 0 ? `${formatInntekt(sum)} kr` : ''}
                 </Table.DataCell>
                 {detaljer.map(({ subSum }, j) => (
                   <Table.DataCell key={j} className={styles.detailsItemRight}>
-                    {subSum > 0 ? `${formatWithoutDecimal(subSum)} kr` : ''}
+                    {subSum > 0 ? `${formatInntekt(subSum)} kr` : ''}
                   </Table.DataCell>
                 ))}
               </Table.Row>

@@ -4,7 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong, Heading, VStack } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
-import { formatWithoutDecimal } from '@/utils/inntekt'
+import { formatInntekt } from '@/utils/inntekt'
 import { capitalize } from '@/utils/string'
 
 import * as utils from './utils'
@@ -39,7 +39,7 @@ const Pensjonsavtaler: React.FC<IPensjonsavtalerProps> = ({
                 :
               </th>
               <td align="right">
-                {formatWithoutDecimal(utbetalingsperiode.aarligUtbetaling)}{' '}
+                {formatInntekt(utbetalingsperiode.aarligUtbetaling)}{' '}
                 <FormattedMessage id="pensjonsavtaler.kr_pr_aar" />
               </td>
             </tr>

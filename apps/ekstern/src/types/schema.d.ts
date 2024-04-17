@@ -766,7 +766,7 @@ export interface components {
         | 'GJENLEVENDE_PARTNER'
     }
     ApiPersonDto: {
-      fornavn: string
+      navn: string
       /** Format: date */
       foedselsdato: string
       /** @enum {string} */

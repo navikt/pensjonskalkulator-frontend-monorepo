@@ -5,15 +5,12 @@ import {
   createBrowserRouter,
   MemoryRouter,
   RouterProvider,
-  Routes,
-  Route,
-  Outlet,
 } from 'react-router-dom'
 
 import { createListenerMiddleware } from '@reduxjs/toolkit'
 import { render, RenderOptions } from '@testing-library/react'
 
-import { authenticationGuard, LoginContext } from '@/router/loaders'
+import { authenticationGuard } from '@/router/loaders'
 import { getTranslation_test } from '@/utils/__tests__/test-translations'
 
 import { createUttaksalderListener } from './state/listeners/uttaksalderListener'

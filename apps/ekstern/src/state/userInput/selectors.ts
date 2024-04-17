@@ -3,6 +3,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
+import { formatInntekt } from '@/utils/inntekt'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
 export const selectUtenlandsopphold = (state: RootState): boolean | null =>
@@ -47,23 +48,33 @@ export const selectSamboer = (state: RootState): boolean | null => {
 
 export const selectAarligInntektFoerUttakBeloepFraBrukerInput = (
   state: RootState
-): number | null =>
+): string | null =>
   state.userInput.currentSimulation.aarligInntektFoerUttakBeloep
 
 export const selectAarligInntektFoerUttakBeloepFraSkatt = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return apiSlice.endpoints.getInntekt.select(undefined)(state)?.data
+    const aarligInntektFraSkatt =
+      apiSlice.endpoints.getInntekt.select(undefined)(state)?.data
+    return aarligInntektFraSkatt
+      ? {
+          ...aarligInntektFraSkatt,
+          beloep: formatInntekt(aarligInntektFraSkatt?.beloep),
+        }
+      : undefined
   }
 )
 
 export const selectAarligInntektFoerUttakBeloep = (
   state: RootState
-): number | null | undefined => {
+): string | null | undefined => {
   const aarligInntektFoerUttakBeloepFraBrukerInput =
     selectAarligInntektFoerUttakBeloepFraBrukerInput(state)
+
   if (aarligInntektFoerUttakBeloepFraBrukerInput === null) {
-    return selectAarligInntektFoerUttakBeloepFraSkatt(state, undefined)?.beloep
+    return formatInntekt(
+      selectAarligInntektFoerUttakBeloepFraSkatt(state, undefined)?.beloep
+    )
   }
   return aarligInntektFoerUttakBeloepFraBrukerInput
 }

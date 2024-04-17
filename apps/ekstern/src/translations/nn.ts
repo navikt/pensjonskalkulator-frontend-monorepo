@@ -68,6 +68,8 @@ const translations = {
   'henvisning.apotekerne.body': 'MANGLER_TEKST',
   'henvisning.utland.body':
     'Sidan du har budd eller jobba utanfor Noreg i meir enn fem år, må du bruke detaljert kalkulator.',
+  'stegvisning.radio_ja': 'Ja',
+  'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
@@ -205,7 +207,7 @@ const translations = {
   'beregning.livsvarig': 'MANGLER_TEKST',
   'beregning.lav_opptjening.aar':
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
-  'beregning.lav_opptjening.aar_og_md': 'MANGLER_TEKST',
+
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
   'beregning.pensjonsavtaler.error':
@@ -244,9 +246,23 @@ const translations = {
     'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
-  'beregning.avansert.rediger.uttaksgrad.info': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.uttaksgrad.validation_error': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.pensjonsalder.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.pensjonsalder.intro': 'MANGLER_TEKST',
@@ -254,10 +270,10 @@ const translations = {
     'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.pensjonsalder.body': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt.button': 'MANGLER_TEKST',
-  'beregning.avansert.rediger.agepicker.beskrivelse': 'MANGLER_TEKST',
-  'beregning.avansert.rediger.agepicker.tmu_info': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.validation_error': 'MANGLER_TEKST',
-  'beregning.avansert.rediger.gradertuttak.agepicker.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.agepicker.grad.validation_error': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.agepicker.validation_error.maxAlder':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.heltuttak.agepicker.label': 'MANGLER_TEKST',
   'beregning.avansert.button.beregn': 'MANGLER_TEKST',
   'beregning.avansert.button.oppdater': 'MANGLER_TEKST',
@@ -267,6 +283,12 @@ const translations = {
   'beregning.avansert.avbryt_modal.body': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.intro': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.intro.ikke_nok_opptjening': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.intro.optional': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.heltUttak': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.gradertUttak': 'MANGLER_TEKST',
+  'beregning.vilkaarsproeving.alternativer.heltOgGradertUttak': 'MANGLER_TEKST',
   'grunnlag.title': 'Grunnlaget for utrekninga',
   'grunnlag.ingress': 'Beløpa er viste i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',

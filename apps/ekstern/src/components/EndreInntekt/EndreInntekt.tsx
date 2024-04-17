@@ -13,7 +13,8 @@ import {
 
 import { useAppSelector } from '@/state/hooks'
 import { selectAarligInntektFoerUttakBeloepFraSkatt } from '@/state/userInput/selectors'
-import { formatWithoutDecimal, validateInntekt } from '@/utils/inntekt'
+import { formatInntekt } from '@/utils/inntekt'
+import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -23,8 +24,8 @@ interface Props {
   visning: BeregningVisning
   className?: string
   buttonLabel?: string
-  value: number | null
-  onSubmit: (inntekt: number) => void
+  value: string | null
+  onSubmit: (inntekt: string) => void
 }
 export const EndreInntekt: React.FC<Props> = ({
   visning,
@@ -43,17 +44,17 @@ export const EndreInntekt: React.FC<Props> = ({
 
   const [validationError, setValidationError] = React.useState<string>('')
   const [oppdatertInntekt, setOppdatertInntekt] = React.useState<string>(
-    value ? value.toString() : ''
+    value ?? ''
   )
 
   React.useEffect(() => {
-    setOppdatertInntekt(value ? value.toString() : '')
+    setOppdatertInntekt(value ?? '')
   }, [value])
 
   const handleTextfieldChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setOppdatertInntekt(e.target.value)
+    setOppdatertInntekt(formatInntekt(e.target.value))
     setValidationError('')
   }
 
@@ -88,7 +89,7 @@ export const EndreInntekt: React.FC<Props> = ({
         setOppdatertInntekt('')
         inntektModalRef.current?.close()
       }
-      onSubmitCallback(parseInt((inntektData as string).replace(/ /g, ''), 10))
+      onSubmitCallback(inntektData ?? '')
     }
   }
 
@@ -119,9 +120,7 @@ export const EndreInntekt: React.FC<Props> = ({
                 id="grunnlag.inntekt.ingress"
                 values={{
                   ...getFormatMessageValues(intl),
-                  beloep: formatWithoutDecimal(
-                    aarligInntektFoerUttakBeloepFraSkatt?.beloep
-                  ),
+                  beloep: aarligInntektFoerUttakBeloepFraSkatt?.beloep,
                   aar: aarligInntektFoerUttakBeloepFraSkatt?.aar,
                 }}
               />

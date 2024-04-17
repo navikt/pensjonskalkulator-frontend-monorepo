@@ -4102,7 +4102,7 @@ exports[`TabellVisning > rendrer riktig formatert tabell med detaljer når 4 ser
             >
               <div
                 class="navds-table__expanded-row-collapse"
-                style="height: 0px; overflow: hidden; transition: height 250ms ease 0ms;"
+                style="height: auto;"
               >
                 <div
                   aria-hidden="false"

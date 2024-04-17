@@ -2,7 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Samtykke, SamtykkeRadio } from '@/components/stegvisning/Samtykke'
+import { Samtykke } from '@/components/stegvisning/Samtykke'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -25,7 +25,7 @@ export function Step2() {
     })
   }, [])
 
-  const onNext = (samtykkeData: SamtykkeRadio) => {
+  const onNext = (samtykkeData: BooleanRadio) => {
     const samtykke = samtykkeData === 'ja'
     dispatch(userInputActions.setSamtykke(samtykke))
     if (shouldFlush && !samtykke) {

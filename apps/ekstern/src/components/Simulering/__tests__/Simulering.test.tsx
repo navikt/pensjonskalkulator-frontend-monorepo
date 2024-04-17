@@ -14,7 +14,7 @@ describe('Simulering', () => {
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '67 år string.og 0 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 0 },
-    aarligInntektFoerUttakBeloep: 0,
+    aarligInntektFoerUttakBeloep: '0',
     gradertUttaksperiode: null,
   }
 
@@ -27,7 +27,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={true}
-          aarligInntektFoerUttakBeloep={0}
+          aarligInntektFoerUttakBeloep="0"
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -66,7 +66,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={500000}
+          aarligInntektFoerUttakBeloep="500 000"
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -107,7 +107,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={500000}
+          aarligInntektFoerUttakBeloep="500 000"
           alderspensjon={alderspensjonData}
           showAfp={true}
           showButtonsAndTable={true}
@@ -146,7 +146,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={500000}
+          aarligInntektFoerUttakBeloep="500 000"
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -180,7 +180,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={500000}
+          aarligInntektFoerUttakBeloep="500 000"
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -226,7 +226,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={500000}
+          aarligInntektFoerUttakBeloep="500 000"
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={false}
@@ -290,7 +290,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={500000}
+          aarligInntektFoerUttakBeloep="500 000"
           alderspensjon={alderspensjonData}
           showAfp={true}
           showButtonsAndTable={true}
@@ -337,7 +337,7 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={500000}
+          aarligInntektFoerUttakBeloep="500 000"
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={true}
@@ -403,7 +403,7 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={0}
+          aarligInntektFoerUttakBeloep="0"
           alderspensjon={alderspensjonData}
           showAfp={false}
           showButtonsAndTable={true}
@@ -415,7 +415,7 @@ describe('Simulering', () => {
               samtykke: true,
               currentSimulation: {
                 ...currentSimulation,
-                aarligInntektFoerUttakBeloep: 500000,
+                aarligInntektFoerUttakBeloep: '500 000',
               },
             },
           },
@@ -436,7 +436,7 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={0}
+          aarligInntektFoerUttakBeloep="0"
           showAfp={false}
           showButtonsAndTable={false}
         />,
@@ -483,7 +483,7 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={0}
+          aarligInntektFoerUttakBeloep="0"
           showAfp={false}
           showButtonsAndTable={false}
         />,
@@ -515,7 +515,7 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
-          aarligInntektFoerUttakBeloep={0}
+          aarligInntektFoerUttakBeloep="0"
           showAfp={false}
           showButtonsAndTable={false}
         />,
@@ -542,7 +542,7 @@ describe('Simulering', () => {
         isLoading={false}
         showAfp={true}
         showButtonsAndTable={true}
-        aarligInntektFoerUttakBeloep={500000}
+        aarligInntektFoerUttakBeloep="500 000"
       />,
       {
         preloadedState: {
@@ -575,7 +575,7 @@ describe('Simulering', () => {
     render(
       <Simulering
         isLoading={false}
-        aarligInntektFoerUttakBeloep={0}
+        aarligInntektFoerUttakBeloep="0"
         showAfp={true}
         showButtonsAndTable={true}
       />,

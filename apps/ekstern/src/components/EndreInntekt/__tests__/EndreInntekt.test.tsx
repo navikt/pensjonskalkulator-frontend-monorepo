@@ -17,7 +17,7 @@ describe('EndreInntekt', () => {
       render(
         <EndreInntekt
           visning="enkel"
-          value={521338}
+          value="521 338"
           onSubmit={oppdatereInntektMock}
         />
       )
@@ -34,7 +34,7 @@ describe('EndreInntekt', () => {
         )
       ).not.toBeInTheDocument()
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
-      expect(oppdatereInntektMock).toHaveBeenCalledWith(123000)
+      expect(oppdatereInntektMock).toHaveBeenCalledWith('123 000')
 
       expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
@@ -46,7 +46,7 @@ describe('EndreInntekt', () => {
       render(
         <EndreInntekt
           visning="enkel"
-          value={521338}
+          value="521 338"
           onSubmit={oppdatereInntektMock}
         />
       )
@@ -65,7 +65,7 @@ describe('EndreInntekt', () => {
       ).toBeInTheDocument()
       const oppdatertInput = screen.getByTestId('inntekt-textfield')
       await user.clear(oppdatertInput)
-      await user.type(oppdatertInput, '123000')
+      await user.type(oppdatertInput, '123 000')
 
       expect(
         screen.queryByText(
@@ -74,14 +74,14 @@ describe('EndreInntekt', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('brukeren kan gå ut av modulen og la inntekt uendret', async () => {
+    it('brukeren kan gå ut av modalen og la inntekt uendret', async () => {
       const oppdatereInntektMock = vi.fn()
       const user = userEvent.setup()
 
       render(
         <EndreInntekt
           visning="enkel"
-          value={521338}
+          value="521 338"
           onSubmit={oppdatereInntektMock}
         />
       )
@@ -102,7 +102,7 @@ describe('EndreInntekt', () => {
       render(
         <EndreInntekt
           visning="enkel"
-          value={0}
+          value="0"
           onSubmit={oppdatereInntektMock}
         />
       )
@@ -112,10 +112,10 @@ describe('EndreInntekt', () => {
       )
       const input = screen.getByTestId('inntekt-textfield')
       await user.clear(input)
-      await user.type(input, '123000')
+      await user.type(input, '123 000')
 
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
-      expect(oppdatereInntektMock).toHaveBeenCalledWith(123000)
+      expect(oppdatereInntektMock).toHaveBeenCalledWith('123 000')
     })
   })
 
@@ -126,7 +126,7 @@ describe('EndreInntekt', () => {
     render(
       <EndreInntekt
         visning="enkel"
-        value={500000}
+        value="500 000"
         onSubmit={oppdatereInntektMock}
       />
     )
@@ -164,7 +164,7 @@ describe('EndreInntekt', () => {
     render(
       <EndreInntekt
         visning="avansert"
-        value={500000}
+        value="500 000"
         onSubmit={oppdatereInntektMock}
       />,
       {

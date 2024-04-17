@@ -123,5 +123,10 @@
       "beloep": 80000
     }
   ],
-  "vilkaarErOppfylt": false
+  "vilkaarsproeving": {
+    "vilkaarErOppfylt": false,
+    "alternativ": {
+      "heltUttaksalder": { "aar": 65, "maaneder": 3 }
+    }
+  }
 }

@@ -5,7 +5,6 @@
   background-color: var(--a-white);
   display: flex;
   flex-direction: column;
-  padding-top: var(--a-spacing-4) !important;
   padding-bottom: var(--a-spacing-6) !important;
 
   &__hasMobilePadding {
@@ -15,6 +14,15 @@
 
 .form {
   max-width: $container-max-width;
+  display: flex;
+  flex-direction: column;
+  gap: var(--a-spacing-8);
+
+  :global {
+    .nowrap {
+      display: contents;
+    }
+  }
 }
 
 .textfield input {
@@ -28,14 +36,6 @@
       width: $input-width-xxs;
     }
   }
-}
-
-.separator {
-  border: 0;
-  height: 1px;
-  width: 100%;
-  background-color: var(--a-border-divider);
-  margin: var(--a-spacing-8) 0;
 }
 
 .spacer {
@@ -74,7 +74,7 @@
 }
 
 .alert {
-  margin-bottom: var(--a-spacing-2);
+  margin-bottom: var(--a-spacing-8);
 }
 
 .ingress {

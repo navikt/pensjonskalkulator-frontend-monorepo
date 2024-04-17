@@ -7,12 +7,21 @@ export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
   aar: 62,
   maaneder: 0,
 }
+
+export const DEFAULT_UBETINGET_UTTAKSALDER: Alder = {
+  aar: 67,
+  maaneder: 0,
+}
+
 export const DEFAULT_SENEST_UTTAKSALDER: Alder = {
   aar: 75,
   maaneder: 0,
 }
 
-const MINIMUM_UTTAKSAAR_IFOLGE_LOVEN: number = 62
+export const DEFAULT_MAX_OPPTJENINGSALDER: Alder = {
+  aar: 75,
+  maaneder: 11,
+}
 
 export const formatUttaksalder = (
   intl: IntlShape,
@@ -60,16 +69,34 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
 }
 
 export const isAlderOverMinUttaksaar = (alder: Alder) => {
-  if (alder.aar > MINIMUM_UTTAKSAAR_IFOLGE_LOVEN) {
+  if (alder.aar > DEFAULT_TIDLIGST_UTTAKSALDER.aar) {
     return true
   } else if (
-    alder.aar === MINIMUM_UTTAKSAAR_IFOLGE_LOVEN &&
+    alder.aar === DEFAULT_TIDLIGST_UTTAKSALDER.aar &&
     alder.maaneder > 0
   ) {
     return true
   } else {
     return false
   }
+}
+
+export const getAlderPlus1Maaned = (alder: Alder) => {
+  return alder.maaneder !== 11
+    ? {
+        aar: alder.aar,
+        maaneder: (alder.maaneder ?? 0) + 1,
+      }
+    : { aar: alder.aar + 1, maaneder: 0 }
+}
+
+export const getAlderMinus1Maaned = (alder: Alder) => {
+  return alder.maaneder !== 0
+    ? {
+        aar: alder.aar,
+        maaneder: alder.maaneder - 1,
+      }
+    : { aar: alder.aar - 1, maaneder: 11 }
 }
 
 export const transformUttaksalderToDate = (

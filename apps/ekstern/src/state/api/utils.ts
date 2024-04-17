@@ -1,12 +1,13 @@
 import { checkHarSamboer } from '@/utils/sivilstand'
+import { formatInntektToNumber } from '@/utils/inntekt'
 import { format, parseISO } from 'date-fns'
 
 export const generateTidligstMuligHeltUttakRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
-  aarligInntektFoerUttakBeloep: number
-  aarligInntektVsaPensjon?: { beloep: number; sluttAlder: Alder }
+  aarligInntektFoerUttakBeloep: string
+  aarligInntektVsaPensjon?: { beloep: string; sluttAlder: Alder }
 }): TidligstMuligHeltUttakRequestBody => {
   const {
     afp,
@@ -20,47 +21,22 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
     simuleringstype:
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     harEps: harSamboer !== null ? harSamboer : undefined,
-    aarligInntektFoerUttakBeloep,
+    aarligInntektFoerUttakBeloep: formatInntektToNumber(
+      aarligInntektFoerUttakBeloep
+    ),
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand
         : harSamboer
           ? 'SAMBOER'
           : 'UGIFT',
-    aarligInntektVsaPensjon,
-  }
-}
-
-export const generateTidligstMuligGradertUttakRequestBody = (args: {
-  afp: AfpRadio | null
-  sivilstand?: Sivilstand | null | undefined
-  harSamboer: boolean | null
-  aarligInntektFoerUttakBeloep: number
-  gradertUttak: Omit<GradertUttak, 'uttaksalder'>
-  heltUttak: HeltUttak
-}): TidligstMuligGradertUttakRequestBody => {
-  const {
-    afp,
-    sivilstand,
-    harSamboer,
-    aarligInntektFoerUttakBeloep,
-    gradertUttak,
-    heltUttak,
-  } = args
-
-  return {
-    simuleringstype:
-      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
-    harEps: harSamboer !== null ? harSamboer : undefined,
-    aarligInntektFoerUttakBeloep,
-    sivilstand:
-      sivilstand && checkHarSamboer(sivilstand)
-        ? sivilstand
-        : harSamboer
-          ? 'SAMBOER'
-          : 'UGIFT',
-    gradertUttak,
-    heltUttak,
+    aarligInntektVsaPensjon:
+      aarligInntektVsaPensjon && aarligInntektVsaPensjon.beloep
+        ? {
+            ...aarligInntektVsaPensjon,
+            beloep: formatInntektToNumber(aarligInntektVsaPensjon.beloep),
+          }
+        : undefined,
   }
 }
 
@@ -69,7 +45,7 @@ export const generateAlderspensjonRequestBody = (args: {
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
-  aarligInntektFoerUttakBeloep: number
+  aarligInntektFoerUttakBeloep: string
   gradertUttak?: GradertUttak
   heltUttak?: HeltUttak
 }): AlderspensjonRequestBody | undefined => {
@@ -92,16 +68,33 @@ export const generateAlderspensjonRequestBody = (args: {
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    aarligInntektFoerUttakBeloep,
+    aarligInntektFoerUttakBeloep: formatInntektToNumber(
+      aarligInntektFoerUttakBeloep
+    ),
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand
         : harSamboer
           ? 'SAMBOER'
           : 'UGIFT',
-    gradertUttak,
+    gradertUttak: gradertUttak
+      ? {
+          ...gradertUttak,
+          aarligInntektVsaPensjonBeloep: formatInntektToNumber(
+            gradertUttak?.aarligInntektVsaPensjonBeloep
+          ),
+        }
+      : undefined,
     heltUttak: {
       ...heltUttak,
+      aarligInntektVsaPensjon: heltUttak.aarligInntektVsaPensjon
+        ? {
+            beloep: formatInntektToNumber(
+              heltUttak.aarligInntektVsaPensjon?.beloep
+            ),
+            sluttAlder: heltUttak.aarligInntektVsaPensjon?.sluttAlder,
+          }
+        : undefined,
     },
   }
 }
@@ -111,7 +104,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   foedselsdato: string | null | undefined
-  aarligInntektFoerUttakBeloep: number
+  aarligInntektFoerUttakBeloep: string
   uttaksalder: Alder | null
 }): AlderspensjonRequestBody | undefined => {
   const {
@@ -132,7 +125,9 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
       afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
-    aarligInntektFoerUttakBeloep,
+    aarligInntektFoerUttakBeloep: formatInntektToNumber(
+      aarligInntektFoerUttakBeloep
+    ),
     sivilstand:
       sivilstand && checkHarSamboer(sivilstand)
         ? sivilstand
@@ -146,7 +141,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
 }
 
 export const generatePensjonsavtalerRequestBody = (args: {
-  aarligInntektFoerUttakBeloep: number
+  aarligInntektFoerUttakBeloep: string
   afp: AfpRadio | null
   sivilstand?: Sivilstand
   heltUttak: HeltUttak
@@ -160,7 +155,9 @@ export const generatePensjonsavtalerRequestBody = (args: {
     gradertUttak,
   } = args
   return {
-    aarligInntektFoerUttakBeloep,
+    aarligInntektFoerUttakBeloep: formatInntektToNumber(
+      aarligInntektFoerUttakBeloep
+    ),
     uttaksperioder: [
       ...(gradertUttak
         ? [
@@ -176,7 +173,9 @@ export const generatePensjonsavtalerRequestBody = (args: {
               aarligInntektVsaPensjon:
                 gradertUttak.aarligInntektVsaPensjonBeloep
                   ? {
-                      beloep: gradertUttak.aarligInntektVsaPensjonBeloep,
+                      beloep: formatInntektToNumber(
+                        gradertUttak.aarligInntektVsaPensjonBeloep
+                      ),
                       sluttAlder: heltUttak.uttaksalder,
                     }
                   : undefined,
@@ -193,7 +192,14 @@ export const generatePensjonsavtalerRequestBody = (args: {
               : 0,
         },
         grad: 100,
-        aarligInntektVsaPensjon: heltUttak.aarligInntektVsaPensjon,
+        aarligInntektVsaPensjon: heltUttak.aarligInntektVsaPensjon
+          ? {
+              beloep: formatInntektToNumber(
+                heltUttak.aarligInntektVsaPensjon.beloep
+              ),
+              sluttAlder: heltUttak.aarligInntektVsaPensjon.sluttAlder,
+            }
+          : undefined,
       },
     ],
     harAfp: afp === 'ja_privat',

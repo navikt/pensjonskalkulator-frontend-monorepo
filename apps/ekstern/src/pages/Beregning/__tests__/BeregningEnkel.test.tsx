@@ -97,7 +97,7 @@ describe('BeregningEnkel', () => {
       mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
         method: 'post',
       })
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
@@ -153,7 +153,7 @@ describe('BeregningEnkel', () => {
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
-      mockErrorResponse('/v2/alderspensjon/simulering', {
+      mockErrorResponse('/v3/alderspensjon/simulering', {
         method: 'post',
       })
       const user = userEvent.setup()
@@ -193,7 +193,7 @@ describe('BeregningEnkel', () => {
 
       const user = userEvent.setup()
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 503,
         method: 'post',
       })
@@ -218,13 +218,19 @@ describe('BeregningEnkel', () => {
 
     it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav og skjuler Grunnlag', async () => {
       const user = userEvent.setup()
-      mockResponse('/v2/alderspensjon/simulering', {
+      mockResponse('/v3/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
           alderspensjon: [],
           afpPrivat: [],
-          vilkaarErOppfylt: false,
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            alternativ: {
+              heltUttaksalder: { aar: 67, maaneder: 0 },
+              uttaksgrad: 100,
+            },
+          },
         },
       })
       mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
@@ -242,7 +248,7 @@ describe('BeregningEnkel', () => {
             currentSimulation: {
               formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
-              aarligInntektFoerUttakBeloep: 0,
+              aarligInntektFoerUttakBeloep: '0',
               gradertUttaksperiode: null,
             },
           },
@@ -280,7 +286,7 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             currentSimulation: {
               ...userInputInitialState.currentSimulation,
-              aarligInntektFoerUttakBeloep: 100000,
+              aarligInntektFoerUttakBeloep: '100 000',
             },
           },
         },
@@ -309,7 +315,7 @@ describe('BeregningEnkel', () => {
             ...userInputInitialState,
             currentSimulation: {
               ...userInputInitialState.currentSimulation,
-              aarligInntektFoerUttakBeloep: 100000,
+              aarligInntektFoerUttakBeloep: '100 000',
             },
           },
         },

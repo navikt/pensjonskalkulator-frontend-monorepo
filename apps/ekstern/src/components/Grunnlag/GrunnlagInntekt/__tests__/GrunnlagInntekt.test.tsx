@@ -64,13 +64,13 @@ describe('GrunnlagInntekt', () => {
       const user = userEvent.setup()
       mockResponse('/inntekt', {
         status: 200,
-        json: { aar: '2021', beloep: 0 },
+        json: { aar: 2021, beloep: 0 },
       })
       const { store } = render(<GrunnlagInntekt goToAvansert={vi.fn()} />)
-      store.dispatch(apiSlice.endpoints.getInntekt.initiate())
+      await store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
       expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
-      expect(await screen.findByText('0 kr')).toBeVisible()
+      expect((await screen.findAllByText('0 kr')).length).toEqual(2)
       await user.click(await screen.findByTestId('accordion-header'))
 
       await user.click(
@@ -83,7 +83,7 @@ describe('GrunnlagInntekt', () => {
       )
 
       expect(await screen.findByText('123 000 kr')).toBeVisible()
-      expect(screen.queryByText('0 kr')).not.toBeInTheDocument()
+      expect(screen.queryAllByText('0 kr').length).toEqual(1)
 
       expect(
         await screen.findByText(

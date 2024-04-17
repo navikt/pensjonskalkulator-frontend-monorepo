@@ -27,5 +27,7 @@
       "beloep": 80000
     }
   ],
-  "vilkaarErOppfylt": true
+  "vilkaarsproeving": {
+    "vilkaarErOppfylt": true
+  }
 }
