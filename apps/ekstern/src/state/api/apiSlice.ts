@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   isInntekt,
   isPensjonsberegningArray,
+  isAfpOffentlig,
   isPerson,
   isPensjonsavtale,
   isTpoMedlemskap,
@@ -111,7 +112,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v3/alderspensjon/simulering',
+        url: '/v4/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -119,7 +120,8 @@ export const apiSlice = createApi({
       transformResponse: (response: AlderspensjonResponseBody) => {
         if (
           !isPensjonsberegningArray(response?.alderspensjon) ||
-          !isPensjonsberegningArray(response?.afpPrivat)
+          !isPensjonsberegningArray(response?.afpPrivat) ||
+          (response.afpOffentlig && !isAfpOffentlig(response?.afpOffentlig))
         ) {
           throw new Error(
             `Mottok ugyldig alderspensjon: ${response?.alderspensjon}`

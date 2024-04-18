@@ -331,13 +331,12 @@ describe('apiSlice', () => {
 
   describe('alderspensjon', () => {
     const body: AlderspensjonRequestBody = {
-      simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
+      simuleringstype: 'ALDERSPENSJON',
       foedselsdato: '1963-04-30',
       sivilstand: 'UGIFT',
       epsHarInntektOver2G: true,
       heltUttak: {
         uttaksalder: { aar: 67, maaneder: 8 },
-
         aarligInntektVsaPensjon: {
           beloep: 0,
           sluttAlder: { aar: 75, maaneder: 0 },
@@ -356,7 +355,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v3/alderspensjon/simulering', {
+      mockErrorResponse('/v4/alderspensjon/simulering', {
         method: 'post',
       })
       return storeRef
@@ -369,9 +368,69 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v3/alderspensjon/simulering', {
+      mockResponse('/v4/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
+        method: 'post',
+      })
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+    it('kaster feil ved uventet format på responsen under afpPrivat', async () => {
+      const storeRef = setupStore(undefined, true)
+      mockResponse('/v4/alderspensjon/simulering', {
+        status: 200,
+        json: {
+          alderspensjon: [],
+          afpPrivat: [
+            {
+              alder: '77 år - should be nbumber',
+              beloep: 234756,
+            },
+          ],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: true,
+          },
+        },
+        method: 'post',
+      })
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(apiSlice.endpoints.alderspensjon.initiate(body))
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+    it('kaster feil ved uventet format på responsen under afpOffentlig', async () => {
+      const storeRef = setupStore(undefined, true)
+      mockResponse('/v4/alderspensjon/simulering', {
+        status: 200,
+        json: {
+          alderspensjon: [],
+          afpPrivat: [],
+          afpOffentlig: {
+            afpLeverandoer: 19384745,
+            afpOffentligListe: [
+              {
+                alder: 62,
+                beloep: 234756,
+              },
+            ],
+          },
+          vilkaarsproeving: {
+            vilkaarErOppfylt: true,
+          },
+        },
         method: 'post',
       })
       await swallowErrorsAsync(async () => {

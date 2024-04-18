@@ -5,6 +5,7 @@ import {
   isInntekt,
   isPensjonsavtale,
   isPensjonsberegningArray,
+  isAfpOffentlig,
   isPerson,
   isEkskludertStatus,
   isTpoMedlemskap,
@@ -14,6 +15,7 @@ import {
   isSomeEnumKey,
 } from '../typeguards'
 import { trackOrSetValue } from '@testing-library/user-event/dist/types/document/trackValue'
+import { af } from 'date-fns/locale'
 
 describe('Typeguards', () => {
   describe('isInntekt', () => {
@@ -277,6 +279,55 @@ describe('Typeguards', () => {
             alder: 'abc',
           },
         ])
+      ).toBeFalsy()
+    })
+  })
+
+  describe('isAfpOffentlig', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(
+        isAfpOffentlig({
+          afpLeverandoer: 'KLP',
+          afpOffentligListe: [],
+        })
+      ).toBeTruthy()
+
+      expect(
+        isAfpOffentlig({
+          afpLeverandoer: 'KLP',
+          afpOffentligListe: [
+            {
+              beloep: 2,
+              alder: 3,
+            },
+          ],
+        })
+      ).toBeTruthy()
+    })
+
+    it('returnerer false når typen er undefined, har feil leverandør eller at Pensjonsberegning i listen har feil type', () => {
+      expect(isAfpOffentlig(undefined)).toBeFalsy()
+
+      expect(
+        isAfpOffentlig({
+          afpLeverandoer: 123,
+          afpOffentligListe: [
+            {
+              beloep: 2,
+              alder: 3,
+            },
+          ],
+        })
+      ).toBeFalsy()
+      expect(
+        isAfpOffentlig({
+          afpLeverandoer: 'KLP',
+          afpOffentligListe: [
+            {
+              beloep: 2,
+            },
+          ],
+        })
       ).toBeFalsy()
     })
   })
