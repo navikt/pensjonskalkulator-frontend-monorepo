@@ -8,6 +8,7 @@ import personResponse from './data/person.json' assert { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
+import highchartsAfpOffentligToggleResponse from './data/unleash-enable-afp-offentlig.json' assert { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
@@ -107,6 +108,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
+    }
+  ),
+
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.enable-afp-offentlig`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(highchartsAfpOffentligToggleResponse)
     }
   ),
 

@@ -31,9 +31,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   } = args
 
   return {
-    // TODO PEK-386 ta i bruk getAfpSimuleringstypeFromRadio
-    simuleringstype:
-      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
     harEps: harSamboer !== null ? harSamboer : undefined,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
@@ -78,9 +76,7 @@ export const generateAlderspensjonRequestBody = (args: {
   }
 
   return {
-    // TODO PEK-386 ta i bruk getAfpSimuleringstypeFromRadio
-    simuleringstype:
-      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -136,9 +132,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   }
 
   return {
-    // TODO PEK-386 ta i bruk getAfpSimuleringstypeFromRadio
-    simuleringstype:
-      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -218,7 +212,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
           : undefined,
       },
     ],
-    harAfp: afp === 'ja_privat', // TODO PEK-259 avklare om afp offentlig påvirker dette
+    harAfp: afp === 'ja_privat', // TODO PEK-386 avklare om afp offentlig påvirker dette
     // harEpsPensjon: Bruker kan angi om E/P/S har pensjon (støttes i detaljert kalkulator) – her bruker backend hardkodet false i MVP
     // harEpsPensjonsgivendeInntektOver2G: Bruker kan angi om E/P/S har inntekt >2G (støttes i detaljert kalkulator) – her bruker backend true i MVP hvis samboer/gift
     // antallAarIUtlandetEtter16: Bruker kan angi et antall (støttes i detaljert kalkulator) – her bruker backend hardkodet 0 i MVP

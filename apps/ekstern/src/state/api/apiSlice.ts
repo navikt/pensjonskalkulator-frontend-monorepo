@@ -153,6 +153,15 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getAfpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-afp-offentlig',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
   }),
 })
 
@@ -166,4 +175,5 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
+  useGetAfpOffentligFeatureToggleQuery,
 } = apiSlice

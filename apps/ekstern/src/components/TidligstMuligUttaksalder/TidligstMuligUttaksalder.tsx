@@ -51,6 +51,9 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                 }}
               />
             </BodyLong>
+            {
+              // TODO PEK-387: Fjerne logikk og hasAfpOffentlig prop
+            }
             {hasAfpOffentlig && isAlderOverMinUttaksaar(tidligstMuligUttak) && (
               <Alert
                 className={styles.alert}
