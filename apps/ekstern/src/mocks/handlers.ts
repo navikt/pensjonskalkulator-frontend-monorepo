@@ -53,15 +53,45 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v3/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v4/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
-    const data = await import(
-      `./data/alderspensjon/${
-        (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
-      }.json`
+    const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
+    const data = await import(`./data/alderspensjon/${aar}.json`)
+    const mergedData = JSON.parse(JSON.stringify(data.default))
+    console.log(
+      'simuleringstype',
+      (body as AlderspensjonRequestBody).simuleringstype
     )
-    return HttpResponse.json(data)
+    if (
+      (body as AlderspensjonRequestBody).simuleringstype ===
+      'ALDERSPENSJON_MED_AFP_PRIVAT'
+    ) {
+      const afpPrivatData = JSON.parse(
+        JSON.stringify(await import(`./data/afp-privat/${aar}.json`))
+      )
+      mergedData.afpPrivat = [...afpPrivatData.default.afpPrivat]
+    }
+    if (
+      (body as AlderspensjonRequestBody).simuleringstype ===
+      'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+    ) {
+      const afpOffentligData = JSON.parse(
+        JSON.stringify(await import(`./data/afp-offentlig.json`))
+      )
+      if (afpOffentligData.default.afpOffentlig) {
+        mergedData.afpOffentlig = {
+          ...afpOffentligData.default.afpOffentlig,
+          afpOffentligListe: [
+            {
+              ...afpOffentligData.default.afpOffentlig.afpOffentligListe[0],
+              alder: aar,
+            },
+          ],
+        }
+      }
+    }
+    return HttpResponse.json(mergedData)
   }),
 
   http.get(
