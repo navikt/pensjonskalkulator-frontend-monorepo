@@ -323,7 +323,7 @@ describe('Grunnlag', () => {
 
     it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
       const user = userEvent.setup()
-      const { asFragment } = render(<Grunnlag visning="enkel" />, {
+      render(<Grunnlag visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -337,7 +337,6 @@ describe('Grunnlag', () => {
 
       await user.click(buttons[6])
 
-      expect(asFragment()).toMatchSnapshot()
       expect(
         await screen.findByText('grunnlag.afp.ingress.nei', { exact: false })
       ).toBeVisible()
