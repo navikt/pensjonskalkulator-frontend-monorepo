@@ -5,7 +5,6 @@ import { TabellVisning } from '../TabellVisning'
 import { render, screen, userEvent } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
-// TODO PEK-386 revidere tester etter at showAfp og showPensjonsavtaler er faset ut
 describe('TabellVisning', () => {
   const series: SeriesColumnOptions[] = [
     {
@@ -33,7 +32,7 @@ describe('TabellVisning', () => {
 
   it('rendrer riktig formatert tabell med detaljer når 2 serier er oppgitt: inntekt og alderspensjon', async () => {
     const user = userEvent.setup()
-    const { asFragment } = render(
+    render(
       <TabellVisning
         series={[series[0], series[1]]}
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
@@ -56,7 +55,7 @@ describe('TabellVisning', () => {
 
   it('rendrer riktig formatert tabell med detaljer når 4 serier er oppgitt: inntekt, alderspensjon, afp og pensjonsavtaler', async () => {
     const user = userEvent.setup()
-    const { asFragment } = render(
+    render(
       <TabellVisning
         series={[...series, afpSerie, pensjonsavtalerSerie]}
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}

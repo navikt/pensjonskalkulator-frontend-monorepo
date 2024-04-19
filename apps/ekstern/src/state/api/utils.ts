@@ -212,7 +212,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
           : undefined,
       },
     ],
-    harAfp: afp === 'ja_privat', // TODO PEK-386 avklare om afp offentlig påvirker dette
+    harAfp: afp === 'ja_privat',
     // harEpsPensjon: Bruker kan angi om E/P/S har pensjon (støttes i detaljert kalkulator) – her bruker backend hardkodet false i MVP
     // harEpsPensjonsgivendeInntektOver2G: Bruker kan angi om E/P/S har inntekt >2G (støttes i detaljert kalkulator) – her bruker backend true i MVP hvis samboer/gift
     // antallAarIUtlandetEtter16: Bruker kan angi et antall (støttes i detaljert kalkulator) – her bruker backend hardkodet 0 i MVP

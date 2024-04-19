@@ -50,7 +50,6 @@ export const Pensjonsavtaler = () => {
     if (harSamtykket && uttaksalder) {
       const requestBody = generatePensjonsavtalerRequestBody({
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
-        // TODO PEK-386: skal det gjøres noe med afp her?
         afp,
         sivilstand,
         heltUttak: {

@@ -260,7 +260,10 @@ export const BeregningEnkel: React.FC = () => {
                 }
               />
               <Pensjonsavtaler />
-              <Grunnlag visning="enkel" />
+              <Grunnlag
+                visning="enkel"
+                afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
+              />
             </>
           )}
         </div>

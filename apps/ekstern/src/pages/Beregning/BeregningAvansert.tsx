@@ -186,7 +186,10 @@ export const BeregningAvansert: React.FC = () => {
                 onButtonClick={() => setAvansertSkjemaModus('redigering')}
               />
               <Pensjonsavtaler />
-              <Grunnlag visning="avansert" />
+              <Grunnlag
+                visning="avansert"
+                afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
+              />
             </>
           )}
         </div>
