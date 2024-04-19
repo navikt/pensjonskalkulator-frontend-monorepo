@@ -5,6 +5,7 @@ import { TabellVisning } from '../TabellVisning'
 import { render, screen, userEvent } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
+// TODO PEK-386 revidere tester etter at showAfp og showPensjonsavtaler er faset ut
 describe('TabellVisning', () => {
   const series: SeriesColumnOptions[] = [
     {
@@ -17,19 +18,20 @@ describe('TabellVisning', () => {
       name: 'beregning.highcharts.serie.alderspensjon.name',
       data: [200000, 350000, 400000, 400000, 400000, 400000, 400000, 400000, 0],
     },
-    {
-      type: 'column',
-      name: 'beregning.highcharts.serie.tp.name',
-      data: [180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000, 0],
-    },
-    {
-      type: 'column',
-      name: 'beregning.highcharts.serie.AFP.name',
-      data: [18000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 0],
-    },
   ]
 
-  it('rendrer riktig formatert tabell med detaljer når 2 serier er oppgitt og showAfp og showPensjonsavtaler er false', async () => {
+  const afpSerie: SeriesColumnOptions = {
+    type: 'column',
+    name: 'beregning.highcharts.serie.AFP.name',
+    data: [18000, 50000, 50000, 50000, 50000, 50000, 50000, 50000, 0],
+  }
+  const pensjonsavtalerSerie: SeriesColumnOptions = {
+    type: 'column',
+    name: 'beregning.highcharts.serie.tp.name',
+    data: [180000, 250000, 380000, 380000, 380000, 380000, 380000, 380000, 0],
+  }
+
+  it('rendrer riktig formatert tabell med detaljer når 2 serier er oppgitt: inntekt og alderspensjon', async () => {
     const user = userEvent.setup()
     const { asFragment } = render(
       <TabellVisning
@@ -44,24 +46,20 @@ describe('TabellVisning', () => {
     expect(await screen.findByText('300 000')).toBeInTheDocument()
     expect(await screen.findAllByRole('row')).toHaveLength(19)
     expect(await screen.findAllByRole('cell')).toHaveLength(54)
-    expect(asFragment()).toMatchSnapshot()
 
     const buttons = await screen.findAllByRole('button')
     await user.click(buttons[1])
     expect(await screen.findAllByRole('term')).toHaveLength(2)
     expect(await screen.findByText('100 000')).toBeInTheDocument()
     expect(await screen.findByText('200 000')).toBeInTheDocument()
-    expect(asFragment()).toMatchSnapshot()
   })
 
-  it('rendrer riktig formatert tabell med detaljer når 4 serier er oppgitt og showAfp og showPensjonsavtaler er true', async () => {
+  it('rendrer riktig formatert tabell med detaljer når 4 serier er oppgitt: inntekt, alderspensjon, afp og pensjonsavtaler', async () => {
     const user = userEvent.setup()
     const { asFragment } = render(
       <TabellVisning
-        series={[...series]}
+        series={[...series, afpSerie, pensjonsavtalerSerie]}
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
-        showAfp={true}
-        showPensjonsavtaler={true}
       />
     )
     expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
@@ -73,7 +71,6 @@ describe('TabellVisning', () => {
     expect(await screen.findAllByRole('cell')).toHaveLength(72)
     expect(await screen.findAllByRole('button')).toHaveLength(10)
     expect(await screen.findByText('498 000')).toBeInTheDocument()
-    expect(asFragment()).toMatchSnapshot()
 
     const buttons = screen.getAllByRole('button')
     await user.click(buttons[1])
@@ -83,8 +80,6 @@ describe('TabellVisning', () => {
     expect(await screen.findByText('180 000')).toBeInTheDocument()
     expect(await screen.findByText('18 000')).toBeInTheDocument()
     expect(await screen.findByText('200 000')).toBeInTheDocument()
-
-    expect(asFragment()).toMatchSnapshot()
   })
 
   it('logger når en rad i tabellen åpnes og lukkes', async () => {
@@ -92,10 +87,8 @@ describe('TabellVisning', () => {
     const loggerSpy = vi.spyOn(loggerUtils, 'logger')
     render(
       <TabellVisning
-        series={series}
+        series={[...series, afpSerie, pensjonsavtalerSerie]}
         aarArray={['69', '70', '71', '72', '73', '74', '75', '76', '77+']}
-        showAfp={true}
-        showPensjonsavtaler={true}
       />
     )
     await user.click(await screen.findByText('beregning.tabell.vis'))

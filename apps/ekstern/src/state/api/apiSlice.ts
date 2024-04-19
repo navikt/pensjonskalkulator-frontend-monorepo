@@ -112,7 +112,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v4/alderspensjon/simulering',
+        url: '/v5/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -120,7 +120,8 @@ export const apiSlice = createApi({
       transformResponse: (response: AlderspensjonResponseBody) => {
         if (
           !isPensjonsberegningArray(response?.alderspensjon) ||
-          !isPensjonsberegningArray(response?.afpPrivat) ||
+          (response.afpPrivat &&
+            !isPensjonsberegningArray(response?.afpPrivat?.afpPrivatListe)) ||
           (response.afpOffentlig && !isAfpOffentlig(response?.afpOffentlig))
         ) {
           throw new Error(

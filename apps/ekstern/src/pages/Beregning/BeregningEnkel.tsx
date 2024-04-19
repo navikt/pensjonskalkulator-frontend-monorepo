@@ -244,8 +244,17 @@ export const BeregningEnkel: React.FC = () => {
                 aarligInntektFoerUttakBeloep={
                   aarligInntektFoerUttakBeloep ?? '0'
                 }
-                alderspensjon={alderspensjon}
-                showAfp={afp === 'ja_privat'}
+                alderspensjonListe={alderspensjon?.alderspensjon}
+                afpPrivatListe={
+                  afp === 'ja_privat'
+                    ? alderspensjon?.afpPrivat.afpPrivatListe
+                    : undefined
+                }
+                afpOffentligListe={
+                  afp === 'ja_offentlig'
+                    ? alderspensjon?.afpOffentlig?.afpOffentligListe
+                    : undefined
+                }
                 showButtonsAndTable={
                   !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
