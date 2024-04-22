@@ -47,7 +47,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
-      - name: Fetch openapi backend types 
+      - name: Fetch openapi backend types
         run: npx openapi-typescript ${{ github.event.inputs.prod == 'true' && 'https://www.nav.no/pensjon/kalkulator/v3/api-docs/current' || 'https://staging.ekstern.dev.nav.no/pensjon/kalkulator/v3/api-docs/current' }} -o ./src/types/schema.d.ts
 
       - name: Format backend scheme
@@ -164,7 +164,7 @@ jobs:
           steps.cache-cypress.outputs.cache-hit != 'true' &&
           github.event.inputs.prod != 'true'
         run: npx cypress install
-        
+
       - name: Rebuild node-sass
         run: npm rebuild node-sass
 
@@ -238,7 +238,7 @@ jobs:
 
   deploy-sandbox:
     name: Deploy to sandbox
-    needs: [ run-unit-tests, run-integration-tests ]
+    needs: [run-unit-tests, run-integration-tests]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
@@ -291,7 +291,7 @@ jobs:
 
   deploy-catbox:
     name: Deploy to catbox
-    needs: [ run-unit-tests, run-integration-tests ]
+    needs: [run-unit-tests, run-integration-tests]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
@@ -313,7 +313,7 @@ jobs:
 
       - name: Build Docker image catbox
         run: |
-          docker build -f .docker/Dockerfile -t ${IMAGE} .
+          docker build -f .docker/Dockerfile-node -t ${IMAGE} .
 
       - name: Log in to the container registry
         uses: docker/login-action@v3
