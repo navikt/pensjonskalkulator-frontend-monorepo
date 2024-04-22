@@ -51,7 +51,7 @@ exports[`GrunnlagForbehold > rendrer riktig 1`] = `
         href="https://www.nav.no/pselv/simulering.jsf"
         target="_blank"
       >
-        detaljert kalkulator
+        detaljert pensjonskalkulator
         <svg
           aria-labelledby="title-r1"
           fill="none"

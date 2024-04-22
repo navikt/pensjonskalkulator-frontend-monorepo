@@ -107,7 +107,7 @@ export const LandingPage = () => {
               data-testid="landingside-detaljert-kalkulator-button"
               variant="secondary"
               onClick={wrapLogger('button klikk', {
-                tekst: 'Detaljert kalkulator',
+                tekst: 'Detaljert pensjonskalkulator',
               })(gaaTilDetaljertKalkulator)}
             >
               {detaljertKalkulatorButtonText}

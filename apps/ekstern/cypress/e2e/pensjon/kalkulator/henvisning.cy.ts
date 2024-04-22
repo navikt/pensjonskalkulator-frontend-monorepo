@@ -37,7 +37,7 @@ describe('Henvisning', () => {
       cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
         'exist'
       )
-      cy.contains('button', 'Detaljert kalkulator').click()
+      cy.contains('button', 'Detaljert pensjonskalkulator').click()
       cy.origin('https://login.idporten.no', () => {
         cy.get('h1').contains('Velg elektronisk ID')
       })
@@ -67,7 +67,7 @@ describe('Henvisning', () => {
       cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
         'exist'
       )
-      cy.contains('button', 'Detaljert kalkulator').click()
+      cy.contains('button', 'Detaljert pensjonskalkulator').click()
       cy.origin('https://login.idporten.no', () => {
         cy.get('h1').contains('Velg elektronisk ID')
       })
@@ -97,7 +97,7 @@ describe('Henvisning', () => {
       cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
         'exist'
       )
-      cy.contains('button', 'Detaljert kalkulator').click()
+      cy.contains('button', 'Detaljert pensjonskalkulator').click()
       cy.origin('https://login.idporten.no', () => {
         cy.get('h1').contains('Velg elektronisk ID')
       })
@@ -136,7 +136,7 @@ describe('Henvisning', () => {
       cy.contains('button', 'Kom i gang').click()
       cy.get('[type="radio"]').first().check()
       cy.contains('button', 'Neste').click()
-      cy.contains('button', 'Detaljert kalkulator').click()
+      cy.contains('button', 'Detaljert pensjonskalkulator').click()
       cy.origin('https://login.idporten.no', () => {
         cy.get('h1').contains('Velg elektronisk ID')
       })
