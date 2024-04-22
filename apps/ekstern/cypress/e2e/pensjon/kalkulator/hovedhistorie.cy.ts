@@ -129,7 +129,7 @@ describe('Hovedhistorie', () => {
         })
         it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
           cy.contains('h2', 'Pensjonsavtaler').should('exist')
-          cy.contains('Skal vi hente dine pensjonsavtaler?').should('exist')
+          cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
           cy.contains('Disse opplysningene henter vi').should('exist')
         })
         it('forventer å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
