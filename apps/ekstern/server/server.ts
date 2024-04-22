@@ -1,6 +1,7 @@
-import express, { Request } from 'express'
 import path from 'path'
+
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis'
+import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const AUTH_PROVIDER = (() => {

@@ -64,6 +64,12 @@ jobs:
         if: github.event.inputs.prod == 'true'
         run: npm run build:production
 
+      - name: Build backend for frontend
+        run: npm run build:server
+
+      - name: Build backend for frontend
+        run: npm prune --omit=dev
+
       - name: Save build folder
         uses: actions/upload-artifact@v4
         with:
@@ -291,7 +297,7 @@ jobs:
 
   deploy-catbox:
     name: Deploy to catbox
-    needs: [run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
