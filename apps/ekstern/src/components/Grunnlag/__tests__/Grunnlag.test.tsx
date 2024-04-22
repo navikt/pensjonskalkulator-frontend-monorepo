@@ -250,17 +250,14 @@ describe('Grunnlag', () => {
   describe('Grunnlag - AFP', () => {
     it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      const { asFragment } = render(
-        <Grunnlag visning="enkel" afpLeverandoer="KLP" />,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-              afp: 'ja_offentlig',
-            },
+      render(<Grunnlag visning="enkel" afpLeverandoer="KLP" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_offentlig',
           },
-        }
-      )
+        },
+      })
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
       expect(screen.getByText('afp.offentlig')).toBeVisible()
 

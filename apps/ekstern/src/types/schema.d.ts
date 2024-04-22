@@ -16,7 +16,7 @@ export interface paths {
     /**
      * Simuler alderspensjon
      *
-     * @description Lag en prognose for framtidig alderspensjon med støtte til Afp Offentlig. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
+     * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
      */
     post: operations['simulerAlderspensjonV5']
     delete?: never
@@ -37,7 +37,7 @@ export interface paths {
     /**
      * Simuler alderspensjon
      *
-     * @description Lag en prognose for framtidig alderspensjon med støtte til Afp Offentlig. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
+     * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
      */
     post: operations['simulerAlderspensjonV4']
     delete?: never
@@ -161,7 +161,7 @@ export interface paths {
     /**
      * Hent personinformasjon
      *
-     * @description Henter personinformasjon om den innloggede brukeren
+     * @description Henter personinformasjon om den innloggede brukeren.
      */
     get: operations['personV2']
     put?: never
@@ -182,7 +182,7 @@ export interface paths {
     /**
      * Hent personinformasjon
      *
-     * @description Henter personinformasjon om den innloggede brukeren
+     * @description Henter personinformasjon for person-ID-en angitt i tilgangstokenet eller i HTTP-header.
      */
     get: operations['person']
     put?: never
@@ -394,12 +394,12 @@ export interface components {
       gradertUttak?: components['schemas']['IngressSimuleringGradertUttakV5']
       heltUttak: components['schemas']['IngressSimuleringHeltUttakV5']
     }
-    AfpPrivatV5: {
-      afpPrivatListe: components['schemas']['PensjonsberegningAfpPrivatV5'][]
-    }
     AfpOffentligV5: {
       afpLeverandoer: string
       afpOffentligListe: components['schemas']['PensjonsberegningAfpOffentligV5'][]
+    }
+    AfpPrivatV5: {
+      afpPrivatListe: components['schemas']['PensjonsberegningV5'][]
     }
     AlderV5: {
       /** Format: int32 */
@@ -412,12 +412,6 @@ export interface components {
       /** Format: int32 */
       uttaksgrad?: number
       heltUttaksalder: components['schemas']['AlderV5']
-    }
-    PensjonsberegningAfpPrivatV5: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
     }
     PensjonsberegningAfpOffentligV5: {
       /** Format: int32 */
@@ -433,13 +427,13 @@ export interface components {
     }
     SimuleringResultatV5: {
       alderspensjon: components['schemas']['PensjonsberegningV5'][]
-      afpPrivat?: components['schemas']['afpPrivatListe']
+      afpPrivat?: components['schemas']['AfpPrivatV5']
       afpOffentlig?: components['schemas']['AfpOffentligV5']
-      vilkaarsproeving: components['schemas']['VilkaarsproevingV4']
+      vilkaarsproeving: components['schemas']['VilkaarsproevingV5']
     }
     VilkaarsproevingV5: {
       vilkaarErOppfylt: boolean
-      alternativ?: components['schemas']['AlternativV4']
+      alternativ?: components['schemas']['AlternativV5']
     }
     IngressSimuleringAlderV4: {
       /** Format: int32 */
@@ -825,6 +819,24 @@ export interface components {
       gradertUttak: components['schemas']['IngressUttaksalderGradertUttakV1']
       heltUttak: components['schemas']['IngressUttaksalderHeltUttakV1']
     }
+    PersonV2: {
+      navn: string
+      /** Format: date */
+      foedselsdato: string
+      /** @enum {string} */
+      sivilstand:
+        | 'UNKNOWN'
+        | 'UOPPGITT'
+        | 'UGIFT'
+        | 'GIFT'
+        | 'ENKE_ELLER_ENKEMANN'
+        | 'SKILT'
+        | 'SEPARERT'
+        | 'REGISTRERT_PARTNER'
+        | 'SEPARERT_PARTNER'
+        | 'SKILT_PARTNER'
+        | 'GJENLEVENDE_PARTNER'
+    }
     UttaksalderAlderDto: {
       /** Format: int32 */
       aar: number
@@ -864,24 +876,6 @@ export interface components {
         | 'ALDERSPENSJON_MED_AFP_PRIVAT'
         | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
       gradertUttak?: components['schemas']['UttaksalderGradertUttakIngressDto']
-    }
-    PersonV2: {
-      navn: string
-      /** Format: date */
-      foedselsdato: string
-      /** @enum {string} */
-      sivilstand:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
     }
     ApiPersonDto: {
       fornavn: string
@@ -959,7 +953,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          '*/*': components['schemas']['SimuleringResultatV4']
+          '*/*': components['schemas']['SimuleringResultatV5']
         }
       }
       /** @description Simulering kunne ikke utføres av tekniske årsaker */
@@ -1173,16 +1167,14 @@ export interface operations {
   }
   personV2: {
     parameters: {
-      query?: {
-        spec?: components['schemas']['UttaksalderIngressSpecDto']
-      }
+      query?: never
       header?: never
       path?: never
       cookie?: never
     }
     requestBody?: never
     responses: {
-      /** @description Henting av personinformasjon utført. I resultatet er verdi av 'maaneder' 0..11. */
+      /** @description Henting av personinformasjon utført. */
       200: {
         headers: {
           [name: string]: unknown
@@ -1191,7 +1183,7 @@ export interface operations {
           '*/*': components['schemas']['PersonV2']
         }
       }
-      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker */
+      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
       503: {
         headers: {
           [name: string]: unknown
@@ -1213,7 +1205,7 @@ export interface operations {
     }
     requestBody?: never
     responses: {
-      /** @description Henting av personinformasjon utført. I resultatet er verdi av 'maaneder' 0..11. */
+      /** @description Henting av personinformasjon utført. */
       200: {
         headers: {
           [name: string]: unknown
@@ -1222,7 +1214,7 @@ export interface operations {
           '*/*': components['schemas']['ApiPersonDto']
         }
       }
-      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker */
+      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
       503: {
         headers: {
           [name: string]: unknown
