@@ -370,7 +370,6 @@ describe('Avansert', () => {
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -396,7 +395,6 @@ describe('Avansert', () => {
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -420,7 +418,7 @@ describe('Avansert', () => {
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
+
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -444,7 +442,7 @@ describe('Avansert', () => {
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
+
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -470,7 +468,6 @@ describe('Avansert', () => {
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
