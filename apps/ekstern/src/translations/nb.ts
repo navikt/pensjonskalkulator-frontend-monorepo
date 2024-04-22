@@ -149,7 +149,7 @@ const translations = {
   'stegvisning.afp.alert_ja_offentlig':
     'NAV kan ikke beregne AFP i offentlig sektor, men du kan likevel fortsette og beregne alderspensjon fra NAV.',
   'stegvisning.afp.alert_vet_ikke':
-    'Er du usikker på om du har rett til AFP, bør du sjekke med arbeidsgiveren din.',
+    'Er du usikker, bør du sjekke med arbeidsgiveren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
@@ -345,14 +345,17 @@ const translations = {
     'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
   'grunnlag.afp.ingress.null': '-',
-  'grunnlag.afp.ingress.ja_offentlig':
+  'grunnlag.afp.ingress.ja_offentlig.unavailable':
     'Vi kan ikke vise din AFP fordi regelverket for ny AFP i offentlig sektor ikke er endelig avklart. For mer informasjon, sjekk din tjenestepensjonsordning.',
+  'grunnlag.afp.ingress.ja_offentlig':
+    'Du har oppgitt AFP i offentlig sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din{afpLeverandoer}.',
   'grunnlag.afp.ingress.ja_privat':
-    'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP, men forutsetter at du gjør det i beregningen. Les mer om vilkårene for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
+    'Du har oppgitt AFP i privat sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.vet_ikke':
-    'Hvis du er usikker på om du har rett til AFP bør du spørre din arbeidsgiver. AFP kan påvirke når du kan ta ut alderspensjon.',
+    'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon.',
   'grunnlag.afp.ingress.nei':
-    'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ny beregning.',
+    'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ',
+  'grunnlag.afp.reset_link': 'ny beregning',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er en foreløpig beregning av hva du kan forvente deg i pensjon. ',
   'grunnlag.forbehold.link': 'Alle forbehold',

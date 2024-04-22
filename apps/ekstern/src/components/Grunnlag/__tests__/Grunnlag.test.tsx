@@ -250,6 +250,32 @@ describe('Grunnlag', () => {
   describe('Grunnlag - AFP', () => {
     it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
+      render(<Grunnlag visning="enkel" afpLeverandoer="KLP" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_offentlig',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(screen.getByText('afp.offentlig')).toBeVisible()
+
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[6])
+
+      expect(
+        await screen.findByText('Du har oppgitt AFP i offentlig sektor.', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(screen.getByText('KLP', { exact: false })).toBeVisible()
+    })
+
+    it('Når brukeren har valgt AFP offentlig og at feature-toggle er av, viser riktig tittel med formatert inntekt og tekst', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
+      const user = userEvent.setup()
       render(<Grunnlag visning="enkel" />, {
         preloadedState: {
           userInput: {
@@ -265,7 +291,7 @@ describe('Grunnlag', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
+        await screen.findByText('grunnlag.afp.ingress.ja_offentlig.unavailable')
       ).toBeVisible()
     })
 
@@ -286,14 +312,13 @@ describe('Grunnlag', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText(
-          'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP',
-          { exact: false }
-        )
+        await screen.findByText('Du har oppgitt AFP i privat sektor.', {
+          exact: false,
+        })
       ).toBeVisible()
     })
 
-    it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
+    it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
       const user = userEvent.setup()
       render(<Grunnlag visning="enkel" />, {
         preloadedState: {
@@ -309,7 +334,10 @@ describe('Grunnlag', () => {
 
       await user.click(buttons[6])
 
-      expect(await screen.findByText('grunnlag.afp.ingress.nei')).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.afp.ingress.nei', { exact: false })
+      ).toBeVisible()
+      expect(await screen.findByText('grunnlag.afp.reset_link')).toBeVisible()
     })
 
     it('Når brukeren har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {

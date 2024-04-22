@@ -15,6 +15,7 @@ import { VelgUttaksalder } from '@/components/VelgUttaksalder'
 import {
   apiSlice,
   useGetPersonQuery,
+  useGetAfpOffentligFeatureToggleQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
 } from '@/state/api/apiSlice'
@@ -48,6 +49,8 @@ export const BeregningEnkel: React.FC = () => {
   )
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
+  const { data: afpOffentligFeatureToggle } =
+    useGetAfpOffentligFeatureToggleQuery()
 
   const [
     tidligstMuligHeltUttakRequestBody,
@@ -76,7 +79,11 @@ export const BeregningEnkel: React.FC = () => {
 
   React.useEffect(() => {
     const requestBody = generateTidligstMuligHeltUttakRequestBody({
-      afp,
+      afp: afpOffentligFeatureToggle?.enabled
+        ? afp
+        : afp === 'ja_offentlig'
+          ? 'vet_ikke'
+          : afp,
       sivilstand: sivilstand,
       harSamboer,
       aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
@@ -87,7 +94,11 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
-        afp,
+        afp: afpOffentligFeatureToggle?.enabled
+          ? afp
+          : afp === 'ja_offentlig'
+            ? 'vet_ikke'
+            : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
@@ -185,7 +196,11 @@ export const BeregningEnkel: React.FC = () => {
             tidligstMuligUttak={
               isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
             }
-            hasAfpOffentlig={afp === 'ja_offentlig'}
+            hasAfpOffentlig={
+              afpOffentligFeatureToggle?.enabled
+                ? false
+                : afp === 'ja_offentlig'
+            }
             show1963Text={show1963Text}
           />
         </div>
@@ -229,14 +244,26 @@ export const BeregningEnkel: React.FC = () => {
                 aarligInntektFoerUttakBeloep={
                   aarligInntektFoerUttakBeloep ?? '0'
                 }
-                alderspensjon={alderspensjon}
-                showAfp={afp === 'ja_privat'}
+                alderspensjonListe={alderspensjon?.alderspensjon}
+                afpPrivatListe={
+                  afp === 'ja_privat'
+                    ? alderspensjon?.afpPrivat?.afpPrivatListe
+                    : undefined
+                }
+                afpOffentligListe={
+                  afp === 'ja_offentlig'
+                    ? alderspensjon?.afpOffentlig?.afpOffentligListe
+                    : undefined
+                }
                 showButtonsAndTable={
                   !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
               />
               <Pensjonsavtaler />
-              <Grunnlag visning="enkel" />
+              <Grunnlag
+                visning="enkel"
+                afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
+              />
             </>
           )}
         </div>

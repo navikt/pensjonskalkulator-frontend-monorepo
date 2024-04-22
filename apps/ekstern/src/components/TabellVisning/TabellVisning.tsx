@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { SeriesColumnOptions } from 'highcharts'
 
 import { ReadMore } from '../common/ReadMore'
+import { SERIES_DEFAULT } from '@/components/Simulering/constants'
 import { formatInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
@@ -14,8 +15,6 @@ import { useTableData } from './hooks'
 interface Props {
   series: SeriesColumnOptions[]
   aarArray?: string[]
-  showAfp?: boolean
-  showPensjonsavtaler?: boolean
 }
 
 import styles from './TabellVisning.module.scss'
@@ -34,15 +33,31 @@ const logOnExpandOpenAndClose = (alder: string) => (open: boolean) => {
   }
 }
 
-export function TabellVisning({
-  series,
-  aarArray,
-  showAfp = false,
-  showPensjonsavtaler = false,
-}: Props) {
+export function TabellVisning({ series, aarArray }: Props) {
   const intl = useIntl()
   const tableData = useTableData(series, aarArray)
   const [isVisTabellOpen, setVisTabellOpen] = React.useState<boolean>(false)
+
+  const showAfp = React.useMemo(() => {
+    return series.some(
+      (serie) =>
+        serie.name ===
+        intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_AFP.name,
+        })
+    )
+  }, [series])
+
+  const showPensjonsavtaler = React.useMemo(() => {
+    return series.some(
+      (serie) =>
+        serie.name ===
+        intl.formatMessage({
+          id: SERIES_DEFAULT.SERIE_TP.name,
+        })
+    )
+  }, [series])
+
   return (
     <ReadMore
       name="Tabell av beregningen"
@@ -72,6 +87,7 @@ export function TabellVisning({
             >
               <FormattedMessage id="beregning.highcharts.serie.inntekt.name" />
             </Table.HeaderCell>
+
             {showAfp && (
               <Table.HeaderCell
                 scope="col"

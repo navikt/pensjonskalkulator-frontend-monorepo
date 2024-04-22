@@ -1,16 +1,18 @@
 {
-  "afpPrivat": [
-    {
-      "alder": 75,
-      "beloep": 20000
-    },
-    {
-      "alder": 76,
-      "beloep": 80000
-    },
-    {
-      "alder": 77,
-      "beloep": 80000
-    }
-  ]
+  "afpPrivat": {
+    "afpPrivatListe": [
+      {
+        "alder": 75,
+        "beloep": 20000
+      },
+      {
+        "alder": 76,
+        "beloep": 80000
+      },
+      {
+        "alder": 77,
+        "beloep": 80000
+      }
+    ]
+  }
 }

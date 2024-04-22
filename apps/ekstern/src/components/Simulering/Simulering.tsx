@@ -49,16 +49,18 @@ import styles from './Simulering.module.scss'
 export function Simulering(props: {
   isLoading: boolean
   aarligInntektFoerUttakBeloep: string
-  alderspensjon?: AlderspensjonResponseBody
-  showAfp: boolean
+  alderspensjonListe?: Pensjonsberegning[]
+  afpPrivatListe?: Pensjonsberegning[]
+  afpOffentligListe?: Pensjonsberegning[]
   showButtonsAndTable?: boolean
 }) {
   const intl = useIntl()
   const {
     isLoading,
     aarligInntektFoerUttakBeloep,
-    alderspensjon,
-    showAfp,
+    alderspensjonListe,
+    afpPrivatListe,
+    afpOffentligListe,
     showButtonsAndTable,
   } = props
   const harSamtykket = useAppSelector(selectSamtykke)
@@ -159,7 +161,7 @@ export function Simulering(props: {
         )
       )
     }
-  }, [alderspensjon, pensjonsavtaler])
+  }, [alderspensjonListe, pensjonsavtaler])
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
@@ -170,7 +172,7 @@ export function Simulering(props: {
       ? gradertUttaksperiode.uttaksalder.maaneder
       : uttaksalder?.maaneder
 
-    if (startAar && startMaaned !== undefined && alderspensjon) {
+    if (startAar && startMaaned !== undefined && alderspensjonListe) {
       setChartOptions({
         ...getChartDefaults(XAxis),
         series: [
@@ -203,7 +205,7 @@ export function Simulering(props: {
               length: XAxis.length,
             }),
           } as SeriesOptionsType,
-          ...(showAfp
+          ...(afpPrivatListe
             ? [
                 {
                   ...SERIES_DEFAULT.SERIE_AFP,
@@ -212,7 +214,22 @@ export function Simulering(props: {
                   }),
                   /* c8 ignore next 1 */
                   data: processPensjonsberegningArray(
-                    alderspensjon.afpPrivat,
+                    afpPrivatListe,
+                    XAxis.length
+                  ),
+                } as SeriesOptionsType,
+              ]
+            : []),
+          ...(afpOffentligListe
+            ? [
+                {
+                  ...SERIES_DEFAULT.SERIE_AFP,
+                  name: intl.formatMessage({
+                    id: SERIES_DEFAULT.SERIE_AFP.name,
+                  }),
+                  /* c8 ignore next 1 */
+                  data: processPensjonsberegningArray(
+                    afpOffentligListe,
                     XAxis.length
                   ),
                 } as SeriesOptionsType,
@@ -240,7 +257,7 @@ export function Simulering(props: {
               id: SERIES_DEFAULT.SERIE_ALDERSPENSJON.name,
             }),
             data: processPensjonsberegningArray(
-              alderspensjon.alderspensjon,
+              alderspensjonListe,
               XAxis.length
             ),
           } as SeriesOptionsType,
@@ -344,10 +361,6 @@ export function Simulering(props: {
         <TabellVisning
           series={chartOptions.series as SeriesColumnOptions[]}
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
-          showAfp={showAfp}
-          showPensjonsavtaler={
-            isPensjonsavtalerSuccess && pensjonsavtaler?.avtaler.length > 0
-          }
         />
       )}
     </section>
