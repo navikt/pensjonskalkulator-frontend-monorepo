@@ -128,7 +128,7 @@ describe('Hovedhistorie', () => {
           cy.contains('button', 'Neste').click()
         })
         it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
-          cy.contains('h2', 'Pensjonen din').should('exist')
+          cy.contains('h2', 'Pensjonsavtaler').should('exist')
           cy.contains('Skal vi hente dine pensjonsavtaler?').should('exist')
           cy.contains('Disse opplysningene henter vi').should('exist')
         })

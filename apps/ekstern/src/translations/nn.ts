@@ -45,9 +45,11 @@ const translations = {
     'Du kan velgje mellom enkel eller detaljert kalkulator. Enkel kalkulator passar for deg som vil ha eit rask oversyn. Detaljert kalkulator passar for deg som vil ha ei meir spesifisert utrekning.',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
     'Enkel kalkulator er under utvikling. Du må du bruke detaljert kalkulator viss du:',
+  'landingsside.velge_mellom_detaljert_og_enkel_3': 'MANGLER_TEKST',
   'landingsside.liste.1':
     'har budd eller arbeidd utanfor Noreg i meir enn fem år etter fylte 16 år',
   'landingsside.liste.2': 'har uføretrygd eller attlevandepensjon',
+  'landingsside.liste.3': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
@@ -129,6 +131,7 @@ const translations = {
     'kan takast ut saman med arbeid',
   'stegvisning.afp.readmore_privat_list_item3':
     'må takast ut saman med alderspensjon frå folketrygda (NAV)',
+  'stegvisning.afp.readmore_privat_list_item4': 'MANGLER_TEKST',
   'stegvisning.afp.readmore_privat_link':
     'Les om vilkåra til <afpLink>AFP i privat sektor på afp.no</afpLink>',
   'stegvisning.afp.readmore_offentlig_title':
@@ -403,12 +406,8 @@ const translations = {
   'forbehold.sivilstand.title': 'Sivilstand',
   'forbehold.sivilstand.ingress':
     'Er du gift har vi lagt til grunn at du bur saman med ektefellen din. Er du gift eller har stadfesta at du har sambuar, har vi lagt til grunn at den du bur saman med har eiga inntekt høgare enn 2 gonger grunnbeløpet, eller har eigen pensjon når du tek ut pensjon. Er du sambuar legg vi til grunn at de har budd saman i 12 av de siste 18 månadane når du tek ut pensjon. Utrekninga nyttar ordinær sats for garantipensjon. Har ektefelle eller samboer lågare inntekt og ikkje eigen pensjon kan du ha rett på høg sats for garantipensjon. For nokon betyr det høgare alderspensjon.{br}{br}Har du stadfesta at du bur aleine er alderspensjon rekna ut etter høg sats for garantipensjon. Om du på uttakstidspunktet for pensjon likevel har sambuar eller er gift, kan det gje lågare alderspensjon då ordinær sats for garantipensjon skal nyttast.',
-  'forbehold.afp_privat.title': 'AFP Privat',
-  'forbehold.afp_privat.ingress':
-    'NAV har ikkje vurdert om du fyller inngangsvilkåra for å få AFP, men tek atterhald om at du har rett til pensjonen du har valgt å rekne ut.{br}{br}AFP i privat sektor kan gje innverknad på kva som er det tidlegast mogelege tidspunktet for deg å ta ut alderspensjon. Om du har rekna ut alderspensjon med AFP, og det viser seg at du på tidspunktet for uttak av alderspensjon ikkje fyller vilkåra for AFP, kan det verke inn på om du kan ta ut alderspensjon før 67 år.',
-  'forbehold.afp_offentlig.title': 'AFP Offentlig',
-  'forbehold.afp_offentlig.ingress':
-    'NAV har for tida ikkje høve til å hente informasjon om AFP frå offentlege tenestepensjonsordningar.{br}{br}Rett til AFP i offentleg sektor kan gjera det mogeleg å starte uttak av alderspensjon tidlegare, men alderspensjon kan likevel aldri startast tidlegare enn månaden etter fylte 62 år.{br}{br}Ynskjer du meir informasjon om din AFP i offentlig sektor må du sjekke direkte med di tenestepensjonsordning.',
+  'forbehold.afp.title': 'AFP',
+  'forbehold.afp.ingress': 'MANGLER_TEKST',
   'forbehold.uforetrygd.title': 'Uføretrygd',
   'forbehold.uforetrygd.ingress':
     'Har du full eller delvis uføretrygd kan utrekninga gje feil resultat. Du må nytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>.',

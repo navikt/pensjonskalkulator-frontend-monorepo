@@ -15,7 +15,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker Steg 2
-    cy.contains('Pensjonen din')
+    cy.contains('Pensjonsavtaler')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Neste').click()

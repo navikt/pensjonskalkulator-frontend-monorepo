@@ -124,6 +124,9 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
             <li>
               <FormattedMessage id="stegvisning.afp.readmore_privat_list_item3" />
             </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item4" />
+            </li>
           </ul>
           <FormattedMessage
             id="stegvisning.afp.readmore_privat_link"

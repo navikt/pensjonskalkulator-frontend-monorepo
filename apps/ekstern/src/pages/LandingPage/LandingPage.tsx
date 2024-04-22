@@ -91,7 +91,17 @@ export const LandingPage = () => {
                 id: 'landingsside.liste.2',
               })}
             </li>
+            <li>
+              {intl.formatMessage({
+                id: 'landingsside.liste.3',
+              })}
+            </li>
           </ul>
+          <BodyLong>
+            {intl.formatMessage({
+              id: 'landingsside.velge_mellom_detaljert_og_enkel_3',
+            })}
+          </BodyLong>
           <HStack gap="4">
             <Button
               data-testid="landingside-detaljert-kalkulator-button"
