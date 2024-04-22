@@ -7,7 +7,7 @@ import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, Button, Heading } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, HeadingProps } from '@navikt/ds-react'
 import clsx from 'clsx'
 import Highcharts, {
   SeriesColumnOptions,
@@ -48,6 +48,7 @@ import styles from './Simulering.module.scss'
 
 export function Simulering(props: {
   isLoading: boolean
+  headingLevel: HeadingProps['level']
   aarligInntektFoerUttakBeloep: string
   alderspensjon?: AlderspensjonResponseBody
   showAfp: boolean
@@ -56,6 +57,7 @@ export function Simulering(props: {
   const intl = useIntl()
   const {
     isLoading,
+    headingLevel,
     aarligInntektFoerUttakBeloep,
     alderspensjon,
     showAfp,
@@ -251,7 +253,7 @@ export function Simulering(props: {
 
   return (
     <section className={styles.section}>
-      <Heading level="3" size="medium" visuallyHidden>
+      <Heading level={headingLevel} size="medium" visuallyHidden>
         <FormattedMessage id="beregning.highcharts.title" />
       </Heading>
       <div

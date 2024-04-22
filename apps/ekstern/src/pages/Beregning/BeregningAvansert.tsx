@@ -157,6 +157,7 @@ export const BeregningAvansert: React.FC = () => {
             <>
               <Simulering
                 isLoading={isFetching}
+                headingLevel="2"
                 aarligInntektFoerUttakBeloep={
                   aarligInntektFoerUttakBeloep ?? '0'
                 }
