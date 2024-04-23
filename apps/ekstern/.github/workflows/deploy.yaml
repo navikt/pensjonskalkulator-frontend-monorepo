@@ -24,6 +24,7 @@ jobs:
       IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     name: Build application
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -92,7 +93,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: .docker/Dockerfile
+          file: .docker/Dockerfile-node
           push: true
           tags: ${{ env.IMAGE }}
 
@@ -323,7 +324,6 @@ jobs:
   deploy-catbox:
     name: Deploy to catbox
     needs: [build]
-    permissions: write-all
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
