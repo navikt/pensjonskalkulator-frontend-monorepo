@@ -81,7 +81,7 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   console.log('Everything is fine, proxying to backend')
 
   return createProxyMiddleware({
-    target: PENSJONSKALKULATOR_BACKEND,
+    target: `${PENSJONSKALKULATOR_BACKEND}/api`,
     headers: {
       Authorization: `Bearer ${obo.token}`,
     },
