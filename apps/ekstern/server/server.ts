@@ -26,6 +26,11 @@ const AUTH_PROVIDER = (() => {
   }
 })() as 'idporten' | 'azure'
 
+// TokenX is needed for token exchange from idporten to Nav token
+if (AUTH_PROVIDER === 'idporten' && !process.env.TOKEN_X_ISSUER) {
+  throw Error('Missing TOKEN_X_ISSUER')
+}
+
 const OBO_ISSUER = (() => {
   if (AUTH_PROVIDER === 'idporten') {
     return process.env.IDPORTEN_OBO_ISSUER
@@ -43,14 +48,12 @@ const __dirname = process.cwd()
 
 // Server hele assets mappen uten autentisering
 app.use('/pensjon/kalkulator/assets', (req, res, next) => {
-  console.log('Serving assets')
   const assetFolder = path.join(__dirname, 'assets')
   return express.static(assetFolder)(req, res, next)
 })
 
 // Dunno, nais.js. Vet ikke hva den gjør
 app.use('/pensjon/kalkulator/src', (req, res, next) => {
-  console.log('Serving src')
   const srcFolder = path.join(__dirname, 'src')
   return express.static(srcFolder)(req, res, next)
 })
@@ -59,7 +62,6 @@ app.use('/pensjon/kalkulator/src', (req, res, next) => {
 app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   const token = getToken(req)
   if (!token) {
-    console.log('No token')
     return res.sendStatus(403)
   }
   const validationResult = await validateToken(token)
@@ -73,12 +75,8 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   console.log('OBO_ISSUER', OBO_ISSUER)
   const obo = await requestOboToken(token, OBO_ISSUER)
   if (!obo.ok) {
-    console.log('OBO request failed')
-    console.log(obo.error)
     return res.sendStatus(401)
   }
-
-  console.log('Everything is fine, proxying to backend')
 
   return createProxyMiddleware({
     target: `${PENSJONSKALKULATOR_BACKEND}/api`,

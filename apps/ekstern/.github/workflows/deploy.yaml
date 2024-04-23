@@ -35,14 +35,14 @@ jobs:
           node-version: '20.9.0'
           registry-url: 'https://npm.pkg.github.com'
 
-      # - name: Cache node modules
-      #   id: cache-node
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: |
-      #       node_modules
-      #       ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
         if: steps.cache-node.outputs.cache-hit != 'true'
@@ -80,7 +80,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -f .docker/Dockerfile-node -t ${IMAGE} .
+          docker build -f .docker/Dockerfile -t ${IMAGE} .
 
       - name: Log in to the container registry
         uses: docker/login-action@v3
@@ -93,7 +93,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: .docker/Dockerfile-node
+          file: .docker/Dockerfile
           push: true
           tags: ${{ env.IMAGE }}
 
@@ -231,31 +231,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-
-      - name: Build Docker image staging
-        run: |
-          docker build -f .docker/Dockerfile -t ${IMAGE} .
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
-
       - name: Deploy to staging
         uses: nais/deploy/actions/deploy@v2
         env:
@@ -270,7 +245,7 @@ jobs:
 
   deploy-sandbox:
     name: Deploy to sandbox
-    needs: [run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
@@ -283,31 +258,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-
-      - name: Build Docker image sandbox
-        run: |
-          docker build -f .docker/Dockerfile -t ${IMAGE} .
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
 
       - name: Deploy to sandbox
         uses: nais/deploy/actions/deploy@v2
@@ -364,33 +314,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-
-      - name: Build Docker image prod-gcp
-        run: |
-          docker build -f .docker/Dockerfile -t ${IMAGE} .
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
-
       - name: Deploy to prod-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/deploy-prod.yml
+
+      - name: Deploy veiledning to prod-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/deploy-veiledning-prod.yml
