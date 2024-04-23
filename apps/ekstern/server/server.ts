@@ -88,11 +88,11 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
 
 // Kubernetes probes
 app.get('/internal/health/liveness', (req, res) => {
-  res.sendStatus(200).send('alive')
+  res.sendStatus(200)
 })
 
 app.get('/internal/health/ready', (req, res) => {
-  res.sendStatus(200).send('ready')
+  res.sendStatus(200)
 })
 
 // For alle andre endepunkt svar med *.html (siden vi bruker react-router)
