@@ -340,14 +340,12 @@ jobs:
       - name: Deploy to catbox
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/deploy-catbox.yml
 
       - name: Deploy veiledning to catbox
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/deploy-veiledning-catbox.yml
 
