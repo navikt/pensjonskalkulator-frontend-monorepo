@@ -30,6 +30,8 @@ spec:
   frontend:
     generatedConfig:
       mountPath: /usr/share/nginx/html/src/nais.js
+  tokenx:
+    enabled: true
   idporten:
     enabled: true
     sidecar:
