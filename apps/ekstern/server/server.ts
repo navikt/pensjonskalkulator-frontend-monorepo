@@ -35,7 +35,8 @@ const OBO_ISSUER = (() => {
 })() as string
 
 const PORT = 8080
-const PENSJONSKALKULATOR_BACKEND = 'http://localhost:8081/api'
+const PENSJONSKALKULATOR_BACKEND =
+  process.env.PENSJONSKALKULATOR_BACKEND ?? 'http://localhost:8081/api'
 
 const app = express()
 const __dirname = process.cwd()
