@@ -75,24 +75,9 @@ describe('Pensjonskalkulator', () => {
 
   it('rendrer skjemaet og resultatsside for avansert uten a11y-feil', () => {
     cy.login()
-
-    cy.contains('button', 'Kom i gang').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').first().check()
-    cy.contains('button', 'Beregn pensjon').click()
-
-    // Sjekker Beregning
+    cy.fillOutStegvisning({ samtykke: false })
     cy.wait('@fetchTidligsteUttaksalder')
-
+    cy.contains('Avansert').click()
     cy.contains('Avansert').click()
     cy.injectAxe()
     cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
@@ -140,11 +125,10 @@ describe('Pensjonskalkulator', () => {
     cy.intercept(
       {
         method: 'POST',
-        url: '/pensjon/kalkulator/api/v4/alderspensjon/simulering',
+        url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
       },
       {
         alderspensjon: [],
-        afpPrivat: [],
         vilkaarsproeving: {
           vilkaarErOppfylt: false,
           alternativ: {
@@ -156,6 +140,10 @@ describe('Pensjonskalkulator', () => {
     cy.contains('Beregn pensjon').click()
 
     cy.contains('Beregning').should('not.exist')
+    cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
+    cy.contains(
+      'Opptjeningen din er ikke høy nok til ønsket uttak. Du må øke alderen eller sette ned uttaksgraden.'
+    ).should('exist')
     cy.injectAxe()
     cy.checkA11y('main')
   })
