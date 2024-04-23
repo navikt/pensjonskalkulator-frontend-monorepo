@@ -67,7 +67,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                   </li>
                 </ul>
                 <p
-                  class="navds-body-long navds-body-long--medium"
+                  class="_paragraph_6ae597 navds-body-long navds-body-long--medium"
                 >
                   landingsside.velge_mellom_detaljert_og_enkel_3
                 </p>
@@ -76,7 +76,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                   style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
                 >
                   <button
-                    class="navds-button navds-button--secondary navds-button--medium"
+                    class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
                     data-testid="landingside-detaljert-kalkulator-button"
                   >
                     <span
@@ -86,7 +86,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                     </span>
                   </button>
                   <button
-                    class="navds-button navds-button--secondary navds-button--medium"
+                    class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
                     data-testid="landingside-enkel-kalkulator-button"
                   >
                     <span
@@ -202,7 +202,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                   </li>
                 </ul>
                 <p
-                  class="navds-body-long navds-body-long--medium"
+                  class="_paragraph_6ae597 navds-body-long navds-body-long--medium"
                 >
                   landingsside.velge_mellom_detaljert_og_enkel_3
                 </p>
@@ -211,7 +211,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                   style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
                 >
                   <button
-                    class="navds-button navds-button--secondary navds-button--medium"
+                    class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
                     data-testid="landingside-detaljert-kalkulator-button"
                   >
                     <span
@@ -221,7 +221,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                     </span>
                   </button>
                   <button
-                    class="navds-button navds-button--secondary navds-button--medium"
+                    class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
                     data-testid="landingside-enkel-kalkulator-button"
                   >
                     <span
