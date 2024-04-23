@@ -324,6 +324,7 @@ jobs:
   deploy-catbox:
     name: Deploy to catbox
     needs: [build]
+    permissions: write-all
     runs-on: ubuntu-latest
     if: |
       (github.event_name == 'push' ||
