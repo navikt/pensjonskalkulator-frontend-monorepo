@@ -26,8 +26,8 @@ describe('Hovedhistorie', () => {
           // prevents Cypress from failing when catching errors in uinnlogget kalkulator
           return false
         })
-        cy.contains('button', 'Logg inn i enkel kalkulator').should('exist')
-        cy.contains('button', 'Logg inn i detaljert kalkulator').click()
+        cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
+        cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
 
         cy.origin('https://login.idporten.no', () => {
           cy.get('h1').contains('Velg elektronisk ID')
@@ -43,13 +43,13 @@ describe('Hovedhistorie', () => {
 
     describe('Når jeg vil logge inn for å teste kalkulatoren,', () => {
       it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
-        cy.contains('a', 'Personopplysninger som brukes i enkel kalkulator')
+        cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/personopplysninger')
       })
 
       it('forventer jeg å kunne logge inn med ID-porten.', () => {
-        cy.contains('button', 'Logg inn i enkel kalkulator').click()
+        cy.contains('button', 'Logg inn i pensjonskalkulator').click()
         cy.location('href').should(
           'eq',
           'http://localhost:4173/pensjon/kalkulator/oauth2/login?redirect=%2Fpensjon%2Fkalkulator%2Fstart'
@@ -65,13 +65,13 @@ describe('Hovedhistorie', () => {
         cy.wait('@getAuthSession')
       })
       it('forventer jeg å se en startside som ønsker meg velkommen.', () => {
-        cy.contains('button', 'Detaljert kalkulator').should('exist')
+        cy.contains('button', 'Detaljert pensjonskalkulator').should('exist')
         cy.contains('button', 'Enkel kalkulator').click()
         cy.contains('Hei Aprikos!')
       })
       it('ønsker jeg informasjon om hvilke personopplysninger som brukes i kalkulatoren.', () => {
         cy.contains('button', 'Enkel kalkulator').click()
-        cy.contains('a', 'Personopplysninger som brukes i enkel kalkulator')
+        cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/personopplysninger')
       })
@@ -128,8 +128,8 @@ describe('Hovedhistorie', () => {
           cy.contains('button', 'Neste').click()
         })
         it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
-          cy.contains('h2', 'Pensjonen din').should('exist')
-          cy.contains('Skal vi hente dine pensjonsavtaler?').should('exist')
+          cy.contains('h2', 'Pensjonsavtaler').should('exist')
+          cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
           cy.contains('Disse opplysningene henter vi').should('exist')
         })
         it('forventer å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
@@ -381,7 +381,7 @@ describe('Hovedhistorie', () => {
         cy.contains('a', 'Alle forbehold')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/forbehold')
-        cy.contains('a', 'detaljert kalkulator')
+        cy.contains('a', 'detaljert pensjonskalkulator')
           .should('have.attr', 'href')
           .and('include', 'https://www.nav.no/pselv/simulering.jsf')
       })
