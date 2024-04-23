@@ -97,7 +97,7 @@ export const LandingPage = () => {
               })}
             </li>
           </ul>
-          <BodyLong>
+          <BodyLong className={styles.paragraph}>
             {intl.formatMessage({
               id: 'landingsside.velge_mellom_detaljert_og_enkel_3',
             })}
@@ -106,6 +106,7 @@ export const LandingPage = () => {
             <Button
               data-testid="landingside-detaljert-kalkulator-button"
               variant="secondary"
+              className={styles.button}
               onClick={wrapLogger('button klikk', {
                 tekst: 'Detaljert pensjonskalkulator',
               })(gaaTilDetaljertKalkulator)}
@@ -115,6 +116,7 @@ export const LandingPage = () => {
             <Button
               data-testid="landingside-enkel-kalkulator-button"
               variant="secondary"
+              className={styles.button}
               onClick={wrapLogger('button klikk', {
                 tekst: 'Enkel kalkulator',
               })(gaaTilEnkelKalkulator)}
