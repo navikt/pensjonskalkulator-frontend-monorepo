@@ -4,35 +4,44 @@ import { PensjonsavtalerTable } from '../PensjonsavtalerTable'
 import { render, screen } from '@/test-utils'
 
 describe('PensjonsavtalerTable', () => {
-  it('rendrer riktig med avtaler som bare har start dato', async () => {
-    const avtale: Pensjonsavtale = {
-      key: 0,
-      produktbetegnelse: 'DNB',
-      kategori: 'PRIVAT_TJENESTEPENSJON',
-      startAar: 67,
+  const avtale: Pensjonsavtale = {
+    key: 0,
+    produktbetegnelse: 'DNB',
+    kategori: 'PRIVAT_TJENESTEPENSJON',
+    startAar: 67,
+    utbetalingsperioder: [
+      {
+        startAlder: { aar: 67, maaneder: 0 },
+        aarligUtbetaling: 12345,
+        grad: 100,
+      },
+    ],
+  }
+
+  const avtaler = [
+    avtale,
+    {
+      ...avtale,
+      key: 1,
       utbetalingsperioder: [
         {
-          startAlder: { aar: 67, maaneder: 0 },
-          aarligUtbetaling: 12345,
-          grad: 100,
+          ...avtale.utbetalingsperioder[0],
+          startAlder: { aar: 67, maaneder: 6 },
         },
       ],
-    }
-    const avtaler = [
-      avtale,
-      {
-        ...avtale,
-        key: 1,
-        utbetalingsperioder: [
-          {
-            ...avtale.utbetalingsperioder[0],
-            startAlder: { aar: 67, maaneder: 6 },
-          },
-        ],
-      },
-    ]
+    },
+  ]
+
+  it('rendrer riktig header', async () => {
+    render(<PensjonsavtalerTable headingLevel="4" pensjonsavtaler={avtaler} />)
+    expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
+
+    expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
+  })
+
+  it('rendrer riktig med avtaler som bare har start dato', async () => {
     const { container } = render(
-      <PensjonsavtalerTable pensjonsavtaler={avtaler} />
+      <PensjonsavtalerTable headingLevel="4" pensjonsavtaler={avtaler} />
     )
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(
@@ -57,10 +66,12 @@ describe('PensjonsavtalerTable', () => {
     expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
     const rows = container.querySelectorAll('tr')
     expect(rows?.length).toBe(3)
+
+    expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
   })
 
   it('rendrer riktig med avtaler som har både start- og sluttdato', async () => {
-    const avtale: Pensjonsavtale = {
+    const avtaleMedStartOgSlutt: Pensjonsavtale = {
       key: 2,
       produktbetegnelse: 'DNB',
       kategori: 'PRIVAT_TJENESTEPENSJON',
@@ -83,7 +94,10 @@ describe('PensjonsavtalerTable', () => {
     }
 
     const { container } = render(
-      <PensjonsavtalerTable pensjonsavtaler={[avtale]} />
+      <PensjonsavtalerTable
+        headingLevel="4"
+        pensjonsavtaler={[avtaleMedStartOgSlutt]}
+      />
     )
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(

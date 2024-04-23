@@ -186,9 +186,10 @@ export const BeregningAvansert: React.FC = () => {
               <ResultatkortAvansertBeregning
                 onButtonClick={() => setAvansertSkjemaModus('redigering')}
               />
-              <Pensjonsavtaler />
+              <Pensjonsavtaler headingLevel="2" />
               <Grunnlag
                 visning="avansert"
+                headingLevel="2"
                 afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
               />
             </>

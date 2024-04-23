@@ -6,7 +6,7 @@ import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, Heading, Link, VStack } from '@navikt/ds-react'
+import { BodyLong, Heading, HeadingProps, Link, VStack } from '@navikt/ds-react'
 
 import ShowMore from '../common/ShowMore/ShowMore'
 import { paths } from '@/router/constants'
@@ -29,7 +29,10 @@ import { PensjonsavtalerTable } from './PensjonsavtalerTable'
 
 import styles from './Pensjonsavtaler.module.scss'
 
-export const Pensjonsavtaler = () => {
+export const Pensjonsavtaler = (props: {
+  headingLevel: HeadingProps['level']
+}) => {
+  const { headingLevel } = props
   const intl = useIntl()
   const harSamtykket = useAppSelector(selectSamtykke)
   const sivilstand = useAppSelector(selectSivilstand)
@@ -62,6 +65,14 @@ export const Pensjonsavtaler = () => {
     }
   }, [harSamtykket, uttaksalder])
 
+  const subHeadingLevel = React.useMemo(() => {
+    return headingLevel
+      ? ((
+          parseInt(headingLevel as string, 10) + 1
+        ).toString() as HeadingProps['level'])
+      : '4'
+  }, [headingLevel])
+
   const {
     data: pensjonsavtaler,
     isError,
@@ -86,8 +97,8 @@ export const Pensjonsavtaler = () => {
 
   return (
     <section className={styles.section}>
-      <Heading size="medium" id="pensjonsavtaler-heading">
-        {intl.formatMessage({ id: 'pensjonsavtaler.title' })}{' '}
+      <Heading id="pensjonsavtaler-heading" level={headingLevel} size="medium">
+        {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
       </Heading>
       <>
         {!harSamtykket && (
@@ -156,12 +167,14 @@ export const Pensjonsavtaler = () => {
                   {isMobile ? (
                     <div data-testid="pensjonsavtaler-mobil">
                       <PensjonsavtalerMobil
+                        headingLevel={subHeadingLevel}
                         pensjonsavtaler={pensjonsavtaler.avtaler}
                       />
                     </div>
                   ) : (
                     <div data-testid="pensjonsavtaler-table">
                       <PensjonsavtalerTable
+                        headingLevel={subHeadingLevel}
                         pensjonsavtaler={pensjonsavtaler.avtaler}
                       />
                     </div>
