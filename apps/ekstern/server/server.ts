@@ -26,6 +26,11 @@ const AUTH_PROVIDER = (() => {
   }
 })() as 'idporten' | 'azure'
 
+// TokenX is needed for token exchange from idporten to Nav token
+if (AUTH_PROVIDER === 'idporten' && !process.env.TOKEN_X_ISSUER) {
+  throw Error('Missing TOKEN_X_ISSUER')
+}
+
 const OBO_ISSUER = (() => {
   if (AUTH_PROVIDER === 'idporten') {
     return process.env.IDPORTEN_OBO_ISSUER
@@ -35,21 +40,20 @@ const OBO_ISSUER = (() => {
 })() as string
 
 const PORT = 8080
-const PENSJONSKALKULATOR_BACKEND = 'http://localhost:8081/api'
+const PENSJONSKALKULATOR_BACKEND =
+  process.env.PENSJONSKALKULATOR_BACKEND ?? 'http://localhost:8081/api'
 
 const app = express()
 const __dirname = process.cwd()
 
 // Server hele assets mappen uten autentisering
 app.use('/pensjon/kalkulator/assets', (req, res, next) => {
-  console.log('Serving assets')
   const assetFolder = path.join(__dirname, 'assets')
   return express.static(assetFolder)(req, res, next)
 })
 
 // Dunno, nais.js. Vet ikke hva den gjør
 app.use('/pensjon/kalkulator/src', (req, res, next) => {
-  console.log('Serving src')
   const srcFolder = path.join(__dirname, 'src')
   return express.static(srcFolder)(req, res, next)
 })
@@ -62,15 +66,20 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   }
   const validationResult = await validateToken(token)
   if (!validationResult.ok) {
+    console.log('Token validation failed')
+    console.log(validationResult.error)
     return res.sendStatus(401)
   }
 
+  console.log('AUTH_PROVIDER', AUTH_PROVIDER)
+  console.log('OBO_ISSUER', OBO_ISSUER)
   const obo = await requestOboToken(token, OBO_ISSUER)
   if (!obo.ok) {
     return res.sendStatus(401)
   }
+
   return createProxyMiddleware({
-    target: PENSJONSKALKULATOR_BACKEND,
+    target: `${PENSJONSKALKULATOR_BACKEND}/api`,
     headers: {
       Authorization: `Bearer ${obo.token}`,
     },
@@ -80,11 +89,11 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
 
 // Kubernetes probes
 app.get('/internal/health/liveness', (req, res) => {
-  res.sendStatus(200).send('alive')
+  res.sendStatus(200)
 })
 
 app.get('/internal/health/ready', (req, res) => {
-  res.sendStatus(200).send('ready')
+  res.sendStatus(200)
 })
 
 // For alle andre endepunkt svar med *.html (siden vi bruker react-router)

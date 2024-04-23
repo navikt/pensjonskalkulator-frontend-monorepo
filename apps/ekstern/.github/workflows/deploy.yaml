@@ -20,8 +20,11 @@ on:
 
 jobs:
   build:
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     name: Build application
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -67,15 +70,6 @@ jobs:
       - name: Build backend for frontend
         run: npm run build:server
 
-      - name: Build backend for frontend
-        run: npm prune --omit=dev
-
-      - name: Copy node_modules
-        run: mv node_modules/ dist/
-
-      - name: Copy package.json
-        run: mv package.json dist/
-
       - name: Save build folder
         uses: actions/upload-artifact@v4
         with:
@@ -83,6 +77,32 @@ jobs:
           path: dist
           if-no-files-found: error
           retention-days: 1
+
+      - name: Build Docker image
+        run: |
+          docker build -f .docker/Dockerfile -t ${IMAGE} .
+
+      - name: Log in to the container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: .docker/Dockerfile
+          push: true
+          tags: ${{ env.IMAGE }}
+
+      - name: Log in to the container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
   run-unit-tests:
     name: Run unit tests
@@ -211,31 +231,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-
-      - name: Build Docker image staging
-        run: |
-          docker build -f .docker/Dockerfile -t ${IMAGE} .
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
-
       - name: Deploy to staging
         uses: nais/deploy/actions/deploy@v2
         env:
@@ -250,7 +245,7 @@ jobs:
 
   deploy-sandbox:
     name: Deploy to sandbox
-    needs: [run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
@@ -263,31 +258,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-
-      - name: Build Docker image sandbox
-        run: |
-          docker build -f .docker/Dockerfile -t ${IMAGE} .
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
 
       - name: Deploy to sandbox
         uses: nais/deploy/actions/deploy@v2
@@ -312,47 +282,20 @@ jobs:
       github.event.inputs.prod != 'true' &&
       github.ref == 'refs/heads/catbox'
     env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-catbox:${{ github.sha }}
+      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-
-      - name: Build Docker image catbox
-        run: |
-          docker build -f .docker/Dockerfile-node -t ${IMAGE} .
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
-
       - name: Deploy to catbox
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/deploy-catbox.yml
 
       - name: Deploy veiledning to catbox
         uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .nais/deploy-veiledning-catbox.yml
 
@@ -371,33 +314,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download the build folders
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-
-      - name: Build Docker image prod-gcp
-        run: |
-          docker build -f .docker/Dockerfile -t ${IMAGE} .
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
-
       - name: Deploy to prod-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
           RESOURCE: .nais/deploy-prod.yml
+
+      - name: Deploy veiledning to prod-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: .nais/deploy-veiledning-prod.yml

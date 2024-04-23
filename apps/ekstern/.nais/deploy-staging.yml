@@ -29,7 +29,9 @@ spec:
     timeout: 1
   frontend:
     generatedConfig:
-      mountPath: /usr/share/nginx/html/src/nais.js
+      mountPath: /app/src/nais.js
+  tokenx:
+    enabled: true
   idporten:
     enabled: true
     sidecar:
@@ -52,3 +54,5 @@ spec:
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"
+    - name: "IDPORTEN_OBO_ISSUER"
+      value: "dev-gcp:pensjonskalkulator:pensjonskalkulator-backend"
