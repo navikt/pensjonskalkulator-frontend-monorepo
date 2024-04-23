@@ -1,6 +1,7 @@
 import { describe, it, vi } from 'vitest'
 
 import { AFP } from '..'
+import { mockErrorResponse } from '@/mocks/server'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
@@ -72,6 +73,7 @@ describe('stegvisning - AFP', () => {
   })
 
   it('viser riktig infomeldinger når brukeren klikker på de ulike valgene', async () => {
+    mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
     const user = userEvent.setup()
     render(
       <AFP

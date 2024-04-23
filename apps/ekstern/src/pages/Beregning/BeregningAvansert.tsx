@@ -15,6 +15,7 @@ import {
   useGetPersonQuery,
   apiSlice,
   useAlderspensjonQuery,
+  useGetAfpOffentligFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -40,6 +41,8 @@ export const BeregningAvansert: React.FC = () => {
     selectAarligInntektFoerUttakBeloep
   )
   const { data: person } = useGetPersonQuery()
+  const { data: afpOffentligFeatureToggle } =
+    useGetAfpOffentligFeatureToggleQuery()
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
@@ -54,7 +57,11 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonRequestBody({
-        afp,
+        afp: afpOffentligFeatureToggle?.enabled
+          ? afp
+          : afp === 'ja_offentlig'
+            ? 'vet_ikke'
+            : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
@@ -161,8 +168,17 @@ export const BeregningAvansert: React.FC = () => {
                 aarligInntektFoerUttakBeloep={
                   aarligInntektFoerUttakBeloep ?? '0'
                 }
-                alderspensjon={alderspensjon}
-                showAfp={afp === 'ja_privat'}
+                alderspensjonListe={alderspensjon?.alderspensjon}
+                afpPrivatListe={
+                  afp === 'ja_privat' && alderspensjon?.afpPrivat
+                    ? alderspensjon?.afpPrivat.afpPrivatListe
+                    : undefined
+                }
+                afpOffentligListe={
+                  afp === 'ja_offentlig' && alderspensjon?.afpOffentlig
+                    ? alderspensjon?.afpOffentlig.afpOffentligListe
+                    : undefined
+                }
                 showButtonsAndTable={
                   !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
@@ -171,7 +187,10 @@ export const BeregningAvansert: React.FC = () => {
                 onButtonClick={() => setAvansertSkjemaModus('redigering')}
               />
               <Pensjonsavtaler />
-              <Grunnlag visning="avansert" />
+              <Grunnlag
+                visning="avansert"
+                afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
+              />
             </>
           )}
         </div>

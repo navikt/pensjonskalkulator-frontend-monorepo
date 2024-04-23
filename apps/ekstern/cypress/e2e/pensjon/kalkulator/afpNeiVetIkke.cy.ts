@@ -21,7 +21,7 @@ describe('AFP nei/vet ikke', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(3).check()
         cy.contains(
-          'Er du usikker på om du har rett til AFP, bør du sjekke med arbeidsgiveren din.'
+          'Er du usikker, bør du sjekke med arbeidsgiveren din.'
         ).should('exist')
         cy.contains('button', 'Neste').click()
       })
@@ -57,7 +57,7 @@ describe('AFP nei/vet ikke', () => {
           cy.contains('AFP:').click()
           cy.contains('Vet ikke').should('exist')
           cy.contains(
-            'Hvis du er usikker på om du har rett til AFP bør du spørre din arbeidsgiver. AFP kan påvirke når du kan ta ut alderspensjon.'
+            'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon.'
           ).should('exist')
 
           cy.contains('Tilbake til start').click({ force: true })

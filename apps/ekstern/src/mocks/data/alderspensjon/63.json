@@ -61,8 +61,10 @@
       "beloep": 184932
     }
   ],
-  "afpPrivat": [],
   "vilkaarsproeving": {
-    "vilkaarErOppfylt": true
+    "vilkaarErOppfylt": false,
+    "alternativ": {
+      "heltUttaksalder": { "aar": 67, "maaneder": 0 }
+    }
   }
 }

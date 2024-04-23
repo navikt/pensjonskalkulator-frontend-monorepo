@@ -13,6 +13,7 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
+import { useGetAfpOffentligFeatureToggleQuery } from '@/state/api/apiSlice'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -30,6 +31,9 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
   const [validationError, setValidationError] = React.useState<string>('')
   const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
+
+  const { data: afpOffentligFeatureToggle } =
+    useGetAfpOffentligFeatureToggleQuery()
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -141,11 +145,12 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
           <Radio value="ja_offentlig">
             <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
           </Radio>
-          {showAlert === 'ja_offentlig' && (
-            <Alert className={styles.alert} variant="info" aria-live="polite">
-              <FormattedMessage id="stegvisning.afp.alert_ja_offentlig" />
-            </Alert>
-          )}
+          {showAlert === 'ja_offentlig' &&
+            !afpOffentligFeatureToggle?.enabled && (
+              <Alert className={styles.alert} variant="info" aria-live="polite">
+                <FormattedMessage id="stegvisning.afp.alert_ja_offentlig" />
+              </Alert>
+            )}
           <Radio value="ja_privat">
             <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
           </Radio>
