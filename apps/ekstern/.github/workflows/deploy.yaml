@@ -333,17 +333,6 @@ jobs:
     env:
       IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
-
       - name: Deploy to catbox
         uses: nais/deploy/actions/deploy@v2
         env:
