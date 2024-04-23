@@ -68,6 +68,8 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
     return res.sendStatus(401)
   }
 
+  console.log('AUTH_PROVIDER', AUTH_PROVIDER)
+  console.log('OBO_ISSUER', OBO_ISSUER)
   const obo = await requestOboToken(token, OBO_ISSUER)
   if (!obo.ok) {
     console.log('OBO request failed')
