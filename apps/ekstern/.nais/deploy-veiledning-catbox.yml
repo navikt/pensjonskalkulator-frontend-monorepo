@@ -60,3 +60,7 @@ spec:
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"
+    - name: "IDPORTEN_OBO_ISSUER"
+      value: "dev-gcp:pensjonskalkulator:pensjonskalkulator-backend"
+    - name: "AZURE_OBO_ISSUER"
+      value: "api://dev-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default"
