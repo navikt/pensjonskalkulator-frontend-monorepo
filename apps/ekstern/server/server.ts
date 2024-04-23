@@ -58,17 +58,25 @@ app.use('/pensjon/kalkulator/src', (req, res, next) => {
 app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   const token = getToken(req)
   if (!token) {
+    console.log('No token')
     return res.sendStatus(403)
   }
   const validationResult = await validateToken(token)
   if (!validationResult.ok) {
+    console.log('Token validation failed')
+    console.log(validationResult.error)
     return res.sendStatus(401)
   }
 
   const obo = await requestOboToken(token, OBO_ISSUER)
   if (!obo.ok) {
+    console.log('OBO request failed')
+    console.log(obo.error)
     return res.sendStatus(401)
   }
+
+  console.log('Everything is fine, proxying to backend')
+
   return createProxyMiddleware({
     target: PENSJONSKALKULATOR_BACKEND,
     headers: {
