@@ -51,7 +51,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
           href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
-          detaljert kalkulator
+          detaljert pensjonskalkulator
           <svg
             aria-labelledby="title-r3"
             fill="none"
@@ -97,7 +97,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
       <h3
         class="navds-heading navds-heading--small navds-typo--spacing"
       >
-        forbehold.afp_privat.title
+        forbehold.afp.title
       </h3>
       <p
         class="navds-body-long navds-body-long--medium navds-typo--spacing"
@@ -105,25 +105,10 @@ exports[`Forbehold > rendrer riktig 1`] = `
         NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP, men forutsetter at du har rett til pensjonen du har valgt å beregne.
         <br />
         <br />
-        AFP i privat sektor kan påvirke hva som er ditt tidligste mulige uttakstidspunkt for alderspensjon. Om du har beregnet med AFP, og det viser seg at du på tidspunktet for uttak av alderspensjon ikke fyller vilkårene for AFP, kan det påvirke om du kan ta ut alderspensjon før 67 år.   
-      </p>
-    </section>
-    <section>
-      <h3
-        class="navds-heading navds-heading--small navds-typo--spacing"
-      >
-        forbehold.afp_offentlig.title
-      </h3>
-      <p
-        class="navds-body-long navds-body-long--medium navds-typo--spacing"
-      >
-        NAV har for tiden ikke mulighet til å hente informasjon om AFP fra offentlige tjenestepensjonsordninger.
+        Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.
         <br />
         <br />
-        AFP i offentlig sektor kan gi lavere første mulige uttaksalder på alderspensjon, men alderspensjon kan likevel aldri startes tidligere enn måneden etter fylte 62 år.
-        <br />
-        <br />
-        Hvis du ønsker mer informasjon om din AFP i offentlig sektor må du sjekke direkte med din tjenestepensjonsordning.  
+        For AFP i offentlig sektor gir kalkulatoren et estimat, men AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.
       </p>
     </section>
     <section>
@@ -141,7 +126,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
           href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
-          detaljert kalkulator
+          detaljert pensjonskalkulator
           <svg
             aria-labelledby="title-r4"
             fill="none"
@@ -183,7 +168,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
           href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
-          detaljert kalkulator
+          detaljert pensjonskalkulator
           <svg
             aria-labelledby="title-r5"
             fill="none"
