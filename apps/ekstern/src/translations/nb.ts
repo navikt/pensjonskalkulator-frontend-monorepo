@@ -46,7 +46,7 @@ const translations = {
     'I pensjonskalkulatoren kan du sjekke alderspensjon fra NAV, tjenestepensjon fra privat sektor og AFP fra offentlig og privat sektor.',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
     'Pensjonskalkulatoren er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
-  'landingsside.velge_mellom_detaljert_og_enkel_3':
+  'Flandingsside.velge_mellom_detaljert_og_enkel_3':
     'Detaljert pensjonskalkulator støtter ikke AFP i offentlig sektor.',
   'landingsside.liste.1':
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
@@ -57,7 +57,7 @@ const translations = {
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
   'landingsside.button.enkel_kalkulator_utlogget':
     'Logg inn i pensjonskalkulator',
-  'landingsside.button.enkel_kalkulator': 'Enkel kalkulator',
+  'landingsside.button.enkel_kalkulator': 'Pensjonskalkulator',
   'landingsside.text.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.button.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.body.uinnlogget_kalkulator':

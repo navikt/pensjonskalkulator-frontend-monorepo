@@ -104,6 +104,16 @@ export const LandingPage = () => {
           </BodyLong>
           <HStack gap="4">
             <Button
+              data-testid="landingside-enkel-kalkulator-button"
+              variant="primary"
+              className={styles.button}
+              onClick={wrapLogger('button klikk', {
+                tekst: 'Pensjonskalkulator',
+              })(gaaTilEnkelKalkulator)}
+            >
+              {enkelKalkulatorButtonText}
+            </Button>
+            <Button
               data-testid="landingside-detaljert-kalkulator-button"
               variant="secondary"
               className={styles.button}
@@ -112,16 +122,6 @@ export const LandingPage = () => {
               })(gaaTilDetaljertKalkulator)}
             >
               {detaljertKalkulatorButtonText}
-            </Button>
-            <Button
-              data-testid="landingside-enkel-kalkulator-button"
-              variant="secondary"
-              className={styles.button}
-              onClick={wrapLogger('button klikk', {
-                tekst: 'Enkel kalkulator',
-              })(gaaTilEnkelKalkulator)}
-            >
-              {enkelKalkulatorButtonText}
             </Button>
           </HStack>
         </div>

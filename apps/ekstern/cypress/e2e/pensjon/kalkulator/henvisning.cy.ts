@@ -132,7 +132,7 @@ describe('Henvisning', () => {
         'eq',
         'http://localhost:4173/pensjon/kalkulator/login'
       )
-      cy.contains('button', 'Enkel kalkulator').click()
+      cy.contains('button', 'Pensjonskalkulator').click()
       cy.contains('button', 'Kom i gang').click()
       cy.get('[type="radio"]').first().check()
       cy.contains('button', 'Neste').click()

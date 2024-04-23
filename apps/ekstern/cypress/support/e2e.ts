@@ -130,7 +130,7 @@ beforeEach(() => {
 Cypress.Commands.add('login', () => {
   cy.visit('/pensjon/kalkulator/')
   cy.wait('@getAuthSession')
-  cy.contains('button', 'Enkel kalkulator').click()
+  cy.contains('button', 'Pensjonskalkulator').click()
   cy.wait('@getPerson')
   cy.wait('@getInntekt')
 })

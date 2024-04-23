@@ -66,17 +66,17 @@ describe('Hovedhistorie', () => {
       })
       it('forventer jeg å se en startside som ønsker meg velkommen.', () => {
         cy.contains('button', 'Detaljert pensjonskalkulator').should('exist')
-        cy.contains('button', 'Enkel kalkulator').click()
+        cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('Hei Aprikos!')
       })
       it('ønsker jeg informasjon om hvilke personopplysninger som brukes i kalkulatoren.', () => {
-        cy.contains('button', 'Enkel kalkulator').click()
+        cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/personopplysninger')
       })
       it('ønsker jeg å kunne starte kalkulatoren eller avbryte beregningen.', () => {
-        cy.contains('button', 'Enkel kalkulator').click()
+        cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('button', 'Kom i gang').click()
         cy.location('href').should(
           'include',
