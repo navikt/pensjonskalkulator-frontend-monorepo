@@ -1,7 +1,13 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Heading, Table, VStack } from '@navikt/ds-react'
+import {
+  BodyLong,
+  Heading,
+  HeadingProps,
+  Table,
+  VStack,
+} from '@navikt/ds-react'
 import clsx from 'clsx'
 
 import { formatInntekt } from '@/utils/inntekt'
@@ -65,17 +71,19 @@ const PensjonsavtaleRad: React.FC<IPensjonsavtalerRad> = ({
 }
 
 interface IAvtaleGruppeProps {
+  headingLevel: HeadingProps['level']
   avtaleGruppeNavn: string
   pensjonsavtaler: Pensjonsavtale[]
 }
 
 const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
+  headingLevel,
   avtaleGruppeNavn,
   pensjonsavtaler,
 }) => {
   return (
     <>
-      <Heading className={styles.TableHeader} size="small">
+      <Heading level={headingLevel} className={styles.TableHeader} size="small">
         {capitalize(avtaleGruppeNavn)}
       </Heading>
       <Table>
@@ -106,9 +114,13 @@ const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
 }
 
 interface IProps {
+  headingLevel: HeadingProps['level']
   pensjonsavtaler: Pensjonsavtale[]
 }
-export const PensjonsavtalerTable: React.FC<IProps> = ({ pensjonsavtaler }) => {
+export const PensjonsavtalerTable: React.FC<IProps> = ({
+  headingLevel,
+  pensjonsavtaler,
+}) => {
   const gruppertePensjonsavtaler = React.useMemo(() => {
     return groupPensjonsavtalerByType(pensjonsavtaler)
   }, [pensjonsavtaler])
@@ -119,6 +131,7 @@ export const PensjonsavtalerTable: React.FC<IProps> = ({ pensjonsavtaler }) => {
         {Object.entries(gruppertePensjonsavtaler).map(
           ([avtaleGruppeNavn, gruppePensjonsavtaler]) => (
             <AvtaleGruppe
+              headingLevel={headingLevel}
               key={`${avtaleGruppeNavn}-gruppe-table`}
               avtaleGruppeNavn={avtaleGruppeNavn}
               pensjonsavtaler={gruppePensjonsavtaler}

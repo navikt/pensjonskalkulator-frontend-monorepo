@@ -164,6 +164,7 @@ export const BeregningAvansert: React.FC = () => {
             <>
               <Simulering
                 isLoading={isFetching}
+                headingLevel="2"
                 aarligInntektFoerUttakBeloep={
                   aarligInntektFoerUttakBeloep ?? '0'
                 }
@@ -185,9 +186,10 @@ export const BeregningAvansert: React.FC = () => {
               <ResultatkortAvansertBeregning
                 onButtonClick={() => setAvansertSkjemaModus('redigering')}
               />
-              <Pensjonsavtaler />
+              <Pensjonsavtaler headingLevel="2" />
               <Grunnlag
                 visning="avansert"
+                headingLevel="2"
                 afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
               />
             </>

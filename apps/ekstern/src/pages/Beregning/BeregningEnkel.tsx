@@ -241,6 +241,7 @@ export const BeregningEnkel: React.FC = () => {
             <>
               <Simulering
                 isLoading={isFetching}
+                headingLevel="3"
                 aarligInntektFoerUttakBeloep={
                   aarligInntektFoerUttakBeloep ?? '0'
                 }
@@ -259,9 +260,10 @@ export const BeregningEnkel: React.FC = () => {
                   !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
               />
-              <Pensjonsavtaler />
+              <Pensjonsavtaler headingLevel="3" />
               <Grunnlag
                 visning="enkel"
+                headingLevel="3"
                 afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
               />
             </>

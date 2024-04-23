@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Heading, VStack } from '@navikt/ds-react'
+import { BodyLong, Heading, HeadingProps, VStack } from '@navikt/ds-react'
 
 import { Divider } from '@/components/common/Divider'
 import { formatInntekt } from '@/utils/inntekt'
@@ -10,17 +10,19 @@ import { capitalize } from '@/utils/string'
 import * as utils from './utils'
 
 interface IPensjonsavtalerProps {
+  headingLevel: HeadingProps['level']
   pensjonsavtaler: Pensjonsavtale[]
 }
 
 const Pensjonsavtaler: React.FC<IPensjonsavtalerProps> = ({
+  headingLevel,
   pensjonsavtaler,
 }) => {
   const intl = useIntl()
 
   return pensjonsavtaler.map((avtale) => (
     <div key={`${avtale.key}`}>
-      <Heading level="4" size="xsmall">
+      <Heading level={headingLevel} size="xsmall">
         {avtale.produktbetegnelse}
       </Heading>
       <table className="full-width">
@@ -51,29 +53,44 @@ const Pensjonsavtaler: React.FC<IPensjonsavtalerProps> = ({
 }
 
 interface IAvtaleGruppeProps {
+  headingLevel: HeadingProps['level']
   avtale: string
   pensjonsavtaler: Pensjonsavtale[]
 }
 
 const AvtaleGruppe: React.FC<IAvtaleGruppeProps> = ({
+  headingLevel,
   avtale,
   pensjonsavtaler,
 }) => {
   return (
     <VStack gap="3">
-      <Heading level="3" size="small">
+      <Heading level={headingLevel} size="small">
         {capitalize(avtale)}
       </Heading>
-      <Pensjonsavtaler pensjonsavtaler={pensjonsavtaler} />
+      <Pensjonsavtaler
+        headingLevel={
+          headingLevel
+            ? ((
+                parseInt(headingLevel as string, 10) + 1
+              ).toString() as HeadingProps['level'])
+            : '4'
+        }
+        pensjonsavtaler={pensjonsavtaler}
+      />
     </VStack>
   )
 }
 
 interface IProps {
+  headingLevel: HeadingProps['level']
   pensjonsavtaler: Pensjonsavtale[]
 }
 
-export const PensjonsavtalerMobil: React.FC<IProps> = ({ pensjonsavtaler }) => {
+export const PensjonsavtalerMobil: React.FC<IProps> = ({
+  headingLevel,
+  pensjonsavtaler,
+}) => {
   const gruppertePensjonsavtaler = React.useMemo(() => {
     return utils.groupPensjonsavtalerByType(pensjonsavtaler)
   }, [pensjonsavtaler])
@@ -84,6 +101,7 @@ export const PensjonsavtalerMobil: React.FC<IProps> = ({ pensjonsavtaler }) => {
         ([avtaleGruppe, gruppePensjonsavtaler]) => (
           <div key={`${avtaleGruppe}-gruppe-mobil`}>
             <AvtaleGruppe
+              headingLevel={headingLevel}
               avtale={avtaleGruppe}
               pensjonsavtaler={gruppePensjonsavtaler}
             />

@@ -42,7 +42,7 @@ describe('Pensjonsavtaler', () => {
         () => navigateMock
       )
 
-      const { store } = render(<Pensjonsavtaler />, {
+      const { store } = render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -50,7 +50,9 @@ describe('Pensjonsavtaler', () => {
           userInput: { ...userInputInitialState, samtykke: false },
         },
       })
-      expect(await screen.findByText('pensjonsavtaler.title')).toBeVisible()
+      expect(
+        await screen.findByRole('heading', { level: 3 })
+      ).toHaveTextContent('pensjonsavtaler.title')
       expect(
         await screen.findByText(
           'pensjonsavtaler.ingress.error.samtykke_ingress',
@@ -86,7 +88,7 @@ describe('Pensjonsavtaler', () => {
 
   describe('Gitt at brukeren har samtykket', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
-      render(<Pensjonsavtaler />, {
+      render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -98,14 +100,16 @@ describe('Pensjonsavtaler', () => {
           },
         },
       })
-      expect(await screen.findByText('pensjonsavtaler.title')).toBeVisible()
+      expect(
+        await screen.findByRole('heading', { level: 3 })
+      ).toHaveTextContent('pensjonsavtaler.title')
     })
 
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {
       mockErrorResponse('/v2/pensjonsavtaler', {
         method: 'post',
       })
-      render(<Pensjonsavtaler />, {
+      render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -149,7 +153,7 @@ describe('Pensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(<Pensjonsavtaler />, {
+      render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -167,14 +171,18 @@ describe('Pensjonsavtaler', () => {
           'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
         )
       ).toBeVisible()
-
       expect(await screen.findByTestId('pensjonsavtaler-list')).toBeVisible()
-
       expect(
         await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
         })
       ).toBeVisible()
+      expect(
+        await screen.findByRole('heading', { level: 3 })
+      ).toHaveTextContent('pensjonsavtaler.title')
+      expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(
+        1
+      )
     })
 
     it('Når pensjonsavtaler har delvis svar og ingen avtaler, viser riktig header og melding, og viser ingress og tabell', async () => {
@@ -186,7 +194,7 @@ describe('Pensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(<Pensjonsavtaler />, {
+      render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
@@ -220,6 +228,9 @@ describe('Pensjonsavtaler', () => {
           exact: false,
         })
       ).toBeVisible()
+      expect(
+        await screen.findByRole('heading', { level: 3 })
+      ).toHaveTextContent('pensjonsavtaler.title')
     })
 
     it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
@@ -231,7 +242,7 @@ describe('Pensjonsavtaler', () => {
         },
         method: 'post',
       })
-      render(<Pensjonsavtaler />, {
+      render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore

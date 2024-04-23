@@ -2,7 +2,13 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Accordion, BodyLong, Heading, Link } from '@navikt/ds-react'
+import {
+  Accordion,
+  BodyLong,
+  Heading,
+  HeadingProps,
+  Link,
+} from '@navikt/ds-react'
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
@@ -26,10 +32,15 @@ import styles from './Grunnlag.module.scss'
 
 interface Props {
   visning: BeregningVisning
+  headingLevel: HeadingProps['level']
   afpLeverandoer?: string
 }
 
-export const Grunnlag: React.FC<Props> = ({ visning, afpLeverandoer }) => {
+export const Grunnlag: React.FC<Props> = ({
+  visning,
+  headingLevel,
+  afpLeverandoer,
+}) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -74,7 +85,7 @@ export const Grunnlag: React.FC<Props> = ({ visning, afpLeverandoer }) => {
     <>
       <section className={styles.section}>
         <div className={styles.description}>
-          <Heading level="2" size="medium">
+          <Heading level={headingLevel} size="medium">
             <FormattedMessage id="grunnlag.title" />
           </Heading>
           <BodyLong>
@@ -210,7 +221,7 @@ export const Grunnlag: React.FC<Props> = ({ visning, afpLeverandoer }) => {
           </AccordionItem>
         </Accordion>
       </section>
-      <GrunnlagForbehold />
+      <GrunnlagForbehold headingLevel={headingLevel} />
     </>
   )
 }
