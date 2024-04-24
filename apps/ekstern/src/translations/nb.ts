@@ -45,7 +45,7 @@ const translations = {
   'landingsside.velge_mellom_detaljert_og_enkel':
     'I pensjonskalkulatoren kan du sjekke alderspensjon fra NAV, tjenestepensjon fra privat sektor og AFP fra offentlig og privat sektor.',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
-    'Pensjonskalkulatoren er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
+    'Pensjonskalkulatoren er under utvikling. Derfor må du bruke detaljert pensjonskalkulator hvis du: ',
   'landingsside.velge_mellom_detaljert_og_enkel_3':
     'Detaljert pensjonskalkulator støtter ikke AFP i offentlig sektor.',
   'landingsside.liste.1':
@@ -502,9 +502,9 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.7':
     'Din sivilstand kan påvirke pensjonens størrelse. Opplysninger om sivilstanden din hentes fra Folkeregisteret. Hvis du er registrert som ugift, separert, skilt eller enke/enkemann, spør vi deg om du har samboer. Endringer du gjør, gjelder kun for den beregningen og lagres ikke hos NAV eller Folkeregisteret.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
-    'Hvis du har uføretrygd eller gjenlevendepensjon bruker vi opplysningene til å kunne henvise deg til detaljert kalkulator.',
+    'Hvis du har uføretrygd eller gjenlevendepensjon bruker vi opplysningene til å kunne henvise deg til detaljert pensjonskalkulator.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
-    'Vi spør deg om utenlandsopphold. Kalkulatoren tar ikke høyde for lengre utenlandsopphold. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg derfor til detaljert kalkulator.',
+    'Vi spør deg om utenlandsopphold. Kalkulatoren tar ikke høyde for lengre utenlandsopphold. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg derfor til detaljert pensjonskalkulator.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
     'Vi spør deg om du har rett til AFP i enten offentlig eller privat sektor. Vi bruker opplysningen til å identifisere om vi skal beregne alderspensjonen din med AFP. Opplysningen brukes også til å informere om når du kan ta ut alderspensjon. Videre bruker vi opplysningen til å beregne AFP.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
