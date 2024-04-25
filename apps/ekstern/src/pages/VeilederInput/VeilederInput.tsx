@@ -18,10 +18,16 @@ import { FrameComponent } from '@/components/common/PageFramework/FrameComponent
 import BorgerInformasjon from '@/components/veileder/BorgerInformasjon'
 import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
-import { useGetAnsattIdQuery, useGetPersonQuery } from '@/state/api/apiSlice'
+import {
+  apiSlice,
+  useGetAnsattIdQuery,
+  useGetPersonQuery,
+} from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { veilederBorgerFnrSelector } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+
+import { VeilederInputRequestError } from './VeilederInputRequestError'
 
 const router = createBrowserRouter(routes, {
   basename: location.pathname,
@@ -35,7 +41,7 @@ export const VeilederInput = () => {
 
   const {
     isSuccess: personSuccess,
-    isLoading: personLoading,
+    isFetching: personLoading,
     error: personError,
   } = useGetPersonQuery(undefined, {
     skip: !veilederBorgerFnr,
@@ -66,11 +72,14 @@ export const VeilederInput = () => {
     event.preventDefault()
     const nyFnr = event.currentTarget.veilderBorgerFnr.value
     dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
+    dispatch(apiSlice.util.invalidateTags(['Person']))
   }
 
-  if (!personSuccess && !veilederBorgerFnr) {
+  console.log('personError', personError)
+
+  if ((!personSuccess && !veilederBorgerFnr) || personError || personLoading) {
     return (
-      <div>
+      <div data-testid="veileder-uten-borger">
         <InternalHeader>
           <InternalHeader.Title>Pensjonskalkulator</InternalHeader.Title>
           <Spacer />
@@ -91,15 +100,14 @@ export const VeilederInput = () => {
                     <br /> Logg inn på bruker på nytt.
                   </Alert>
                 )}
-                {personError && (
-                  <Alert variant="warning">Kan ikke hente person</Alert>
-                )}
+                <VeilederInputRequestError personError={personError} />
                 <BodyLong>
                   Logg inn i enkel pensjonskalkulator på vegne av bruker.
                 </BodyLong>
                 <form onSubmit={onSubmit} style={{ maxWidth: '16em' }}>
                   <VStack gap="2">
                     <TextField
+                      data-testid="borger-fnr-input"
                       label="Fødselsnummer"
                       name="veilderBorgerFnr"
                       description="11 siffer"
@@ -122,7 +130,7 @@ export const VeilederInput = () => {
     )
   } else {
     return (
-      <div>
+      <div data-testid="veileder-med-borger">
         <InternalHeader>
           <InternalHeader.Title onClick={onTitleClick}>
             Pensjonskalkulator

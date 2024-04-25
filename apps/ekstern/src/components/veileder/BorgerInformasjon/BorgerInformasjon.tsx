@@ -38,7 +38,7 @@ export const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({
         )}
         <span aria-hidden="true">/</span>
         <HStack align="center" gap="1">
-          {fnr} <CopyButton size="small" copyText={fnr} />
+          F.nr.: {fnr} <CopyButton size="small" copyText={fnr} />
         </HStack>
         <Spacer />
         <div>

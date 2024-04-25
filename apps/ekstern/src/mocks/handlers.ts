@@ -24,8 +24,15 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(inntektResponse)
   }),
 
-  http.get(`${baseUrl}/v2/person`, async () => {
+  http.get(`${baseUrl}/v2/person`, async ({ request }) => {
     await delay(TEST_DELAY)
+    if (request.headers.get('fnr') === '40100000000') {
+      return HttpResponse.json({}, { status: 401 })
+    }
+    if (request.headers.get('fnr') === '40400000000') {
+      return HttpResponse.json({}, { status: 404 })
+    }
+
     return HttpResponse.json(personResponse)
   }),
 
