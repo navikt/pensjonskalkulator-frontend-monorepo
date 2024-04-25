@@ -18,19 +18,28 @@ import { FrameComponent } from '@/components/common/PageFramework/FrameComponent
 import BorgerInformasjon from '@/components/veileder/BorgerInformasjon'
 import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
-import { useGetAnsattIdQuery } from '@/state/api/apiSlice'
+import { useGetAnsattIdQuery, useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { veilederBorgerFnrSelector } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 const router = createBrowserRouter(routes, {
-  basename: `${BASE_PATH}/veileder`,
+  basename: location.pathname,
 })
 
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
   const veilederBorgerFnr = useAppSelector(veilederBorgerFnrSelector)
+
   const { data: ansatt } = useGetAnsattIdQuery()
+
+  const {
+    isSuccess: personSuccess,
+    isLoading: personLoading,
+    error: personError,
+  } = useGetPersonQuery(undefined, {
+    skip: !veilederBorgerFnr,
+  })
 
   const hasTimedOut = React.useMemo(() => {
     const queryParams = new URLSearchParams(window.location.search)
@@ -41,7 +50,7 @@ export const VeilederInput = () => {
     window.location.href = `${BASE_PATH}/veileder`
   }
 
-  // TODO: Reset timeout når man gjør noe
+  // Redirect etter 1 time
   React.useEffect(() => {
     if (hasTimedOut) return
     const timer = setTimeout(
@@ -59,7 +68,7 @@ export const VeilederInput = () => {
     dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
   }
 
-  if (!veilederBorgerFnr) {
+  if (!personSuccess && !veilederBorgerFnr) {
     return (
       <div>
         <InternalHeader>
@@ -82,6 +91,9 @@ export const VeilederInput = () => {
                     <br /> Logg inn på bruker på nytt.
                   </Alert>
                 )}
+                {personError && (
+                  <Alert variant="warning">Kan ikke hente person</Alert>
+                )}
                 <BodyLong>
                   Logg inn i enkel pensjonskalkulator på vegne av bruker.
                 </BodyLong>
@@ -93,7 +105,9 @@ export const VeilederInput = () => {
                       description="11 siffer"
                     ></TextField>
                     <HStack gap="2">
-                      <Button type="submit">Logg inn</Button>
+                      <Button type="submit" loading={personLoading}>
+                        Logg inn
+                      </Button>
                       <Button type="reset" variant="tertiary">
                         Avbryt
                       </Button>
@@ -116,7 +130,7 @@ export const VeilederInput = () => {
           <Spacer />
           <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
-        <BorgerInformasjon fnr={veilederBorgerFnr} />
+        <BorgerInformasjon fnr={veilederBorgerFnr!} />
 
         <RouterProvider router={router} />
       </div>
