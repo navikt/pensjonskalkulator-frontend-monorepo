@@ -2,6 +2,19 @@ import { checkHarSamboer } from '@/utils/sivilstand'
 import { formatInntektToNumber } from '@/utils/inntekt'
 import { format, parseISO } from 'date-fns'
 
+export const getAfpSimuleringstypeFromRadio = (
+  afp: AfpRadio | null
+): AfpSimuleringstype => {
+  switch (afp) {
+    case 'ja_privat':
+      return 'ALDERSPENSJON_MED_AFP_PRIVAT'
+    case 'ja_offentlig':
+      return 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+    default:
+      return 'ALDERSPENSJON'
+  }
+}
+
 export const generateTidligstMuligHeltUttakRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
@@ -18,8 +31,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
   } = args
 
   return {
-    simuleringstype:
-      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
     harEps: harSamboer !== null ? harSamboer : undefined,
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
@@ -64,8 +76,7 @@ export const generateAlderspensjonRequestBody = (args: {
   }
 
   return {
-    simuleringstype:
-      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -121,8 +132,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   }
 
   return {
-    simuleringstype:
-      afp === 'ja_privat' ? 'ALDERSPENSJON_MED_AFP_PRIVAT' : 'ALDERSPENSJON',
+    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(

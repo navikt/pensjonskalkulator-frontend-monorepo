@@ -12,9 +12,9 @@ describe('Henvisning', () => {
 
       cy.visit('/pensjon/kalkulator/')
       cy.wait('@getAuthSession')
-      cy.contains('Kom i gang').should('not.exist')
 
       cy.origin('https://login.idporten.no', () => {
+        cy.contains('Kom i gang').should('not.exist')
         cy.get('h1').contains('Velg elektronisk ID')
       })
     })

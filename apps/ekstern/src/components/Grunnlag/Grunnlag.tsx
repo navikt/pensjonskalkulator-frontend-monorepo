@@ -2,11 +2,20 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Accordion, BodyLong, Heading, Link } from '@navikt/ds-react'
+import {
+  Accordion,
+  BodyLong,
+  Heading,
+  HeadingProps,
+  Link,
+} from '@navikt/ds-react'
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
-import { useGetPersonQuery } from '@/state/api/apiSlice'
+import {
+  useGetPersonQuery,
+  useGetAfpOffentligFeatureToggleQuery,
+} from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -23,11 +32,26 @@ import styles from './Grunnlag.module.scss'
 
 interface Props {
   visning: BeregningVisning
+  headingLevel: HeadingProps['level']
+  afpLeverandoer?: string
 }
 
-export const Grunnlag: React.FC<Props> = ({ visning }) => {
+export const Grunnlag: React.FC<Props> = ({
+  visning,
+  headingLevel,
+  afpLeverandoer,
+}) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
+  const { data: afpOffentligFeatureToggle } =
+    useGetAfpOffentligFeatureToggleQuery()
+
+  const goToStart: React.MouseEventHandler<HTMLAnchorElement> = (e): void => {
+    e.preventDefault()
+    dispatch(userInputActions.flush())
+    navigate(paths.start)
+  }
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
@@ -61,7 +85,7 @@ export const Grunnlag: React.FC<Props> = ({ visning }) => {
     <>
       <section className={styles.section}>
         <div className={styles.description}>
-          <Heading level="2" size="medium">
+          <Heading level={headingLevel} size="medium">
             <FormattedMessage id="grunnlag.title" />
           </Heading>
           <BodyLong>
@@ -165,18 +189,39 @@ export const Grunnlag: React.FC<Props> = ({ visning }) => {
               headerValue={formatertAfp}
             >
               <BodyLong>
-                <FormattedMessage
-                  id={`grunnlag.afp.ingress.${afp}`}
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
+                {!afpOffentligFeatureToggle?.enabled &&
+                afp === 'ja_offentlig' ? (
+                  <FormattedMessage
+                    id={`grunnlag.afp.ingress.${afp}.unavailable`}
+                    values={{
+                      ...getFormatMessageValues(intl),
+                    }}
+                  />
+                ) : (
+                  <FormattedMessage
+                    id={`grunnlag.afp.ingress.${afp}`}
+                    values={{
+                      afpLeverandoer: afpLeverandoer
+                        ? ` (${afpLeverandoer})`
+                        : '',
+                      ...getFormatMessageValues(intl),
+                    }}
+                  />
+                )}
+                {afp === 'nei' && (
+                  <>
+                    <Link href="#" onClick={goToStart}>
+                      <FormattedMessage id="grunnlag.afp.reset_link" />
+                    </Link>
+                    .
+                  </>
+                )}
               </BodyLong>
             </GrunnlagSection>
           </AccordionItem>
         </Accordion>
       </section>
-      <GrunnlagForbehold />
+      <GrunnlagForbehold headingLevel={headingLevel} />
     </>
   )
 }

@@ -1,5 +1,7 @@
 import { describe, it, vi } from 'vitest'
 
+import afpOffentligData from '../../../mocks/data/afp-offentlig.json' assert { type: 'json' }
+import afpPrivatData from '../../../mocks/data/afp-privat/67.json' assert { type: 'json' }
 import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' assert { type: 'json' }
 import { Simulering } from '../Simulering'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
@@ -21,43 +23,44 @@ describe('Simulering', () => {
   afterEach(() => {
     vi.clearAllMocks()
   })
-
-  describe('Gitt at brukeren IKKE samtykker', () => {
-    it('Når alderspensjon laster så vises det en spinner', async () => {
-      const { container } = render(
-        <Simulering
-          isLoading={true}
-          aarligInntektFoerUttakBeloep="0"
-          alderspensjon={alderspensjonData}
-          showAfp={false}
-          showButtonsAndTable={false}
-        />,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-              samtykke: false,
-              currentSimulation: { ...currentSimulation },
-            },
+  it('Når alderspensjon laster så vises det en spinner, og deretter heading på riktig nivå', async () => {
+    const { container } = render(
+      <Simulering
+        isLoading={true}
+        headingLevel="3"
+        aarligInntektFoerUttakBeloep="0"
+        alderspensjonListe={alderspensjonData.alderspensjon}
+        showButtonsAndTable={false}
+      />,
+      {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: { ...currentSimulation },
           },
-        }
-      )
+        },
+      }
+    )
 
-      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+    expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
 
-      // Nødvendig for at animasjonen rekker å bli ferdig
-      await act(async () => {
-        await new Promise((r) => setTimeout(r, 500))
-      })
-
-      expect(
-        container.getElementsByClassName('highcharts-container')
-      ).toHaveLength(1)
-      expect(
-        container.getElementsByClassName('highcharts-loading')
-      ).toHaveLength(1)
+    // Nødvendig for at animasjonen rekker å bli ferdig
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 500))
     })
 
+    expect(
+      container.getElementsByClassName('highcharts-container')
+    ).toHaveLength(1)
+    expect(container.getElementsByClassName('highcharts-loading')).toHaveLength(
+      1
+    )
+    const heading = screen.getByRole('heading', { level: 3 })
+    expect(heading).toHaveTextContent('beregning.highcharts.title')
+  })
+
+  describe('Gitt at brukeren IKKE samtykker', () => {
     it('Når brukeren ikke velger AFP, viser kun inntekt og alderspensjon', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
@@ -66,9 +69,9 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
-          alderspensjon={alderspensjonData}
-          showAfp={false}
+          alderspensjonListe={alderspensjonData.alderspensjon}
           showButtonsAndTable={false}
         />,
         {
@@ -107,9 +110,10 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
-          alderspensjon={alderspensjonData}
-          showAfp={true}
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          afpPrivatListe={afpPrivatData.afpPrivat.afpPrivatListe}
           showButtonsAndTable={true}
         />,
         {
@@ -142,13 +146,53 @@ describe('Simulering', () => {
       expect(SVGlegendItems).toHaveLength(3)
     })
 
+    it('Når brukeren velger AFP-offentlig, viser inntekt, alderspensjon og AFP', async () => {
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          afpOffentligListe={afpOffentligData.afpOffentlig.afpOffentligListe}
+          showButtonsAndTable={true}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: false,
+              afp: 'ja_offentlig',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendItems = container.getElementsByClassName(
+        'highcharts-legend-item'
+      )
+      const SVGlegendItems = Array.from(legendItems).filter(
+        (item) => item.tagName === 'g'
+      )
+      expect(SVGlegendItems).toHaveLength(3)
+    })
+
     it('Når brukeren velger uttaksagrad 67 år, vises årene i grafen fra 66 år til 77+', async () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
-          alderspensjon={alderspensjonData}
-          showAfp={false}
+          alderspensjonListe={alderspensjonData.alderspensjon}
           showButtonsAndTable={false}
         />,
         {
@@ -180,9 +224,9 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
-          alderspensjon={alderspensjonData}
-          showAfp={false}
+          alderspensjonListe={alderspensjonData.alderspensjon}
           showButtonsAndTable={false}
         />,
         {
@@ -226,9 +270,9 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
-          alderspensjon={alderspensjonData}
-          showAfp={false}
+          alderspensjonListe={alderspensjonData.alderspensjon}
           showButtonsAndTable={false}
         />,
         {
@@ -290,9 +334,10 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
-          alderspensjon={alderspensjonData}
-          showAfp={true}
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          afpPrivatListe={afpPrivatData.afpPrivat.afpPrivatListe}
           showButtonsAndTable={true}
         />,
         {
@@ -301,6 +346,45 @@ describe('Simulering', () => {
               ...userInputInitialState,
               samtykke: true,
               afp: 'ja_privat',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(4)
+    })
+
+    it('Når brukeren velger AFP-offentlig, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          afpOffentligListe={afpOffentligData.afpOffentlig.afpOffentligListe}
+          showButtonsAndTable={true}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'ja_offentlig',
               currentSimulation: { ...currentSimulation },
             },
           },
@@ -337,9 +421,9 @@ describe('Simulering', () => {
       const { container } = render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
-          alderspensjon={alderspensjonData}
-          showAfp={false}
+          alderspensjonListe={alderspensjonData.alderspensjon}
           showButtonsAndTable={true}
         />,
         {
@@ -403,9 +487,9 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="0"
-          alderspensjon={alderspensjonData}
-          showAfp={false}
+          alderspensjonListe={alderspensjonData.alderspensjon}
           showButtonsAndTable={true}
         />,
         {
@@ -436,8 +520,8 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="0"
-          showAfp={false}
           showButtonsAndTable={false}
         />,
         {
@@ -483,8 +567,8 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="0"
-          showAfp={false}
           showButtonsAndTable={false}
         />,
         {
@@ -515,8 +599,8 @@ describe('Simulering', () => {
       render(
         <Simulering
           isLoading={false}
+          headingLevel="3"
           aarligInntektFoerUttakBeloep="0"
-          showAfp={false}
           showButtonsAndTable={false}
         />,
         {
@@ -540,7 +624,9 @@ describe('Simulering', () => {
     render(
       <Simulering
         isLoading={false}
-        showAfp={true}
+        headingLevel="3"
+        alderspensjonListe={alderspensjonData.alderspensjon}
+        afpPrivatListe={afpPrivatData.afpPrivat.afpPrivatListe}
         showButtonsAndTable={true}
         aarligInntektFoerUttakBeloep="500 000"
       />,
@@ -575,8 +661,9 @@ describe('Simulering', () => {
     render(
       <Simulering
         isLoading={false}
+        headingLevel="3"
         aarligInntektFoerUttakBeloep="0"
-        showAfp={true}
+        afpPrivatListe={afpPrivatData.afpPrivat.afpPrivatListe}
         showButtonsAndTable={true}
       />,
       {

@@ -366,11 +366,10 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -392,11 +391,10 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -416,11 +414,11 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
+
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -440,11 +438,11 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
+
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -466,11 +464,10 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
-            afpPrivat: [],
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {
@@ -505,7 +502,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v3/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon.json' }
         ).as('fetchAlderspensjon')

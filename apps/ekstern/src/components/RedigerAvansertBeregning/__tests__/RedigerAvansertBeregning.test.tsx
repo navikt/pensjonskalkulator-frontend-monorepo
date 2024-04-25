@@ -1304,12 +1304,11 @@ describe('RedigerAvansertBeregning', () => {
         },
       }
 
-      mockResponse('/v3/alderspensjon/simulering', {
+      mockResponse('/v5/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
           alderspensjon: [],
-          afpPrivat: [],
           vilkaarsproeving: vilkaarsproevingMock,
         },
       })

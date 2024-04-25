@@ -1,4 +1,5 @@
 import {
+  getAfpSimuleringstypeFromRadio,
   generateTidligstMuligHeltUttakRequestBody,
   generateAlderspensjonEnkelRequestBody,
   generateAlderspensjonRequestBody,
@@ -6,6 +7,22 @@ import {
 } from '../utils'
 
 describe('apiSlice - utils', () => {
+  describe('getAfpSimuleringstypeFromRadio', () => {
+    it('returnerer riktig simuleringstype', () => {
+      expect(getAfpSimuleringstypeFromRadio(null)).toEqual('ALDERSPENSJON')
+      expect(getAfpSimuleringstypeFromRadio('nei')).toEqual('ALDERSPENSJON')
+      expect(getAfpSimuleringstypeFromRadio('vet_ikke')).toEqual(
+        'ALDERSPENSJON'
+      )
+      expect(getAfpSimuleringstypeFromRadio('ja_privat')).toEqual(
+        'ALDERSPENSJON_MED_AFP_PRIVAT'
+      )
+      expect(getAfpSimuleringstypeFromRadio('ja_offentlig')).toEqual(
+        'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+      )
+    })
+  })
+
   describe('generateTidligstMuligHeltUttakRequestBody', () => {
     const requestBody = {
       afp: null,

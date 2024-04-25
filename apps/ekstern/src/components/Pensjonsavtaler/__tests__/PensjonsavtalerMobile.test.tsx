@@ -4,35 +4,43 @@ import { PensjonsavtalerMobil } from '../PensjonsavtalerMobile'
 import { render, screen } from '@/test-utils'
 
 describe('PensjonsavtalerMobile', () => {
-  it('rendrer riktig med avtaler som bare har start dato', async () => {
-    const avtale: Pensjonsavtale = {
-      key: 0,
-      produktbetegnelse: 'DNB',
-      kategori: 'PRIVAT_TJENESTEPENSJON',
-      startAar: 67,
+  const avtale: Pensjonsavtale = {
+    key: 0,
+    produktbetegnelse: 'DNB',
+    kategori: 'PRIVAT_TJENESTEPENSJON',
+    startAar: 67,
+    utbetalingsperioder: [
+      {
+        startAlder: { aar: 67, maaneder: 0 },
+        aarligUtbetaling: 12345,
+        grad: 100,
+      },
+    ],
+  }
+  const avtaler = [
+    avtale,
+    {
+      ...avtale,
+      key: 1,
       utbetalingsperioder: [
         {
-          startAlder: { aar: 67, maaneder: 0 },
-          aarligUtbetaling: 12345,
-          grad: 100,
+          ...avtale.utbetalingsperioder[0],
+          startAlder: { aar: 67, maaneder: 6 },
         },
       ],
-    }
-    const avtaler = [
-      avtale,
-      {
-        ...avtale,
-        key: 1,
-        utbetalingsperioder: [
-          {
-            ...avtale.utbetalingsperioder[0],
-            startAlder: { aar: 67, maaneder: 6 },
-          },
-        ],
-      },
-    ]
+    },
+  ]
+
+  it('rendrer riktig header', async () => {
+    render(<PensjonsavtalerMobil headingLevel="4" pensjonsavtaler={avtaler} />)
+
+    expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
+    expect(await screen.findAllByRole('heading', { level: 5 })).toHaveLength(2)
+  })
+
+  it('rendrer riktig med avtaler som bare har start dato', async () => {
     const { container } = render(
-      <PensjonsavtalerMobil pensjonsavtaler={avtaler} />
+      <PensjonsavtalerMobil headingLevel="4" pensjonsavtaler={avtaler} />
     )
     expect(await screen.findByTestId('pensjonsavtaler-mobile')).toBeVisible()
     expect(await screen.findByText('Privat tjenestepensjon')).toBeVisible()
@@ -52,7 +60,7 @@ describe('PensjonsavtalerMobile', () => {
   })
 
   it('rendrer riktig med avtaler som har både start- og sluttdato', async () => {
-    const avtale: Pensjonsavtale = {
+    const avtaleMedStartOgSlutt: Pensjonsavtale = {
       key: 2,
       produktbetegnelse: 'DNB',
       kategori: 'PRIVAT_TJENESTEPENSJON',
@@ -75,7 +83,10 @@ describe('PensjonsavtalerMobile', () => {
     }
 
     const { container } = render(
-      <PensjonsavtalerMobil pensjonsavtaler={[avtale]} />
+      <PensjonsavtalerMobil
+        headingLevel="4"
+        pensjonsavtaler={[avtaleMedStartOgSlutt]}
+      />
     )
     expect(await screen.findByTestId('pensjonsavtaler-mobile')).toBeVisible()
 

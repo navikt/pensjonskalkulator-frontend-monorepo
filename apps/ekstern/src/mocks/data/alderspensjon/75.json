@@ -13,20 +13,6 @@
       "beloep": 384492
     }
   ],
-  "afpPrivat": [
-    {
-      "alder": 75,
-      "beloep": 20000
-    },
-    {
-      "alder": 76,
-      "beloep": 80000
-    },
-    {
-      "alder": 77,
-      "beloep": 80000
-    }
-  ],
   "vilkaarsproeving": {
     "vilkaarErOppfylt": true
   }

@@ -9,7 +9,8 @@ import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Grunnlag', () => {
   it('når grunnlag vises i Enkel visning, viser alle seksjonene og forbehold', async () => {
-    render(<Grunnlag visning="enkel" />)
+    render(<Grunnlag headingLevel="3" visning="enkel" />)
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(2)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.uttaksgrad.title')).toBeVisible()
@@ -24,7 +25,8 @@ describe('Grunnlag', () => {
   })
 
   it('når grunnlag vises i Avansert visning, viser alle seksjonene utenom uttaksgrad og inntekt, i tilleg til forbehold', async () => {
-    render(<Grunnlag visning="avansert" />)
+    render(<Grunnlag headingLevel="2" visning="avansert" />)
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(2)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(
@@ -41,18 +43,18 @@ describe('Grunnlag', () => {
   })
 
   it('viser annen tittel for avansert', async () => {
-    render(<Grunnlag visning="avansert" />)
+    render(<Grunnlag headingLevel="2" visning="avansert" />)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
   })
 
   describe('Grunnlag - inntekt frem til uttak', () => {
     it('vises i enkel visning', async () => {
-      render(<Grunnlag visning="enkel" />)
+      render(<Grunnlag headingLevel="2" visning="enkel" />)
       expect(screen.queryByText('grunnlag.inntekt.title')).toBeInTheDocument()
     })
 
     it('vises ikke avansert visning', async () => {
-      render(<Grunnlag visning="avansert" />)
+      render(<Grunnlag headingLevel="2" visning="avansert" />)
       expect(
         screen.queryByText('grunnlag.inntekt.title')
       ).not.toBeInTheDocument()
@@ -62,7 +64,7 @@ describe('Grunnlag', () => {
   describe('Grunnlag - uttaksgrad', () => {
     it('viser riktig tittel med formatert uttaksgrad og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag visning="enkel" />)
+      render(<Grunnlag headingLevel="2" visning="enkel" />)
       expect(screen.getByText('grunnlag.uttaksgrad.title')).toBeVisible()
       expect(screen.getAllByText('100 %')).toHaveLength(3)
       const buttons = screen.getAllByRole('button')
@@ -85,7 +87,7 @@ describe('Grunnlag', () => {
       )
 
       const user = userEvent.setup()
-      render(<Grunnlag visning="enkel" />)
+      render(<Grunnlag headingLevel="2" visning="enkel" />)
       expect(screen.getByText('grunnlag.uttaksgrad.title')).toBeVisible()
       expect(screen.getAllByText('100 %')).toHaveLength(3)
       const buttons = screen.getAllByRole('button')
@@ -99,7 +101,7 @@ describe('Grunnlag', () => {
     })
 
     it('vises ikke ikke avansert visning', async () => {
-      render(<Grunnlag visning="avansert" />)
+      render(<Grunnlag headingLevel="2" visning="avansert" />)
       expect(
         screen.queryByText('grunnlag.uttaksgrad.title')
       ).not.toBeInTheDocument()
@@ -117,7 +119,7 @@ describe('Grunnlag', () => {
           foedselsdato: '1963-04-30',
         },
       })
-      render(<Grunnlag visning="enkel" />, {
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -156,7 +158,7 @@ describe('Grunnlag', () => {
           foedselsdato: '1963-04-30',
         },
       })
-      render(<Grunnlag visning="enkel" />, {
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -187,7 +189,7 @@ describe('Grunnlag', () => {
     it('viser feilmelding når henting av personopplysninger feiler', async () => {
       const user = userEvent.setup()
       mockErrorResponse('/v2/person')
-      render(<Grunnlag visning="enkel" />)
+      render(<Grunnlag headingLevel="2" visning="enkel" />)
 
       await waitFor(() => {
         expect(
@@ -213,7 +215,7 @@ describe('Grunnlag', () => {
   describe('Grunnlag - opphold', () => {
     it('viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag visning="enkel" />)
+      render(<Grunnlag headingLevel="2" visning="enkel" />)
       expect(screen.getByText('grunnlag.opphold.title')).toBeVisible()
       expect(screen.getByText('grunnlag.opphold.value')).toBeVisible()
       const buttons = screen.getAllByRole('button')
@@ -232,7 +234,7 @@ describe('Grunnlag', () => {
   describe('Grunnlag - alderspensjon', () => {
     it('viser riktig tittel', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag visning="enkel" />)
+      render(<Grunnlag headingLevel="2" visning="enkel" />)
       expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
       expect(screen.getByText('grunnlag.alderspensjon.title')).toBeVisible()
       const buttons = screen.getAllByRole('button')
@@ -250,7 +252,36 @@ describe('Grunnlag', () => {
   describe('Grunnlag - AFP', () => {
     it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag visning="enkel" />, {
+      render(
+        <Grunnlag headingLevel="2" visning="enkel" afpLeverandoer="KLP" />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              afp: 'ja_offentlig',
+            },
+          },
+        }
+      )
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(screen.getByText('afp.offentlig')).toBeVisible()
+
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[6])
+
+      expect(
+        await screen.findByText('Du har oppgitt AFP i offentlig sektor.', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(screen.getByText('KLP', { exact: false })).toBeVisible()
+    })
+
+    it('Når brukeren har valgt AFP offentlig og at feature-toggle er av, viser riktig tittel med formatert inntekt og tekst', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
+      const user = userEvent.setup()
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -265,13 +296,13 @@ describe('Grunnlag', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
+        await screen.findByText('grunnlag.afp.ingress.ja_offentlig.unavailable')
       ).toBeVisible()
     })
 
     it('Når brukeren har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag visning="enkel" />, {
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -286,16 +317,15 @@ describe('Grunnlag', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText(
-          'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP',
-          { exact: false }
-        )
+        await screen.findByText('Du har oppgitt AFP i privat sektor.', {
+          exact: false,
+        })
       ).toBeVisible()
     })
 
-    it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
+    it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag visning="enkel" />, {
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -309,12 +339,15 @@ describe('Grunnlag', () => {
 
       await user.click(buttons[6])
 
-      expect(await screen.findByText('grunnlag.afp.ingress.nei')).toBeVisible()
+      expect(
+        await screen.findByText('grunnlag.afp.ingress.nei', { exact: false })
+      ).toBeVisible()
+      expect(await screen.findByText('grunnlag.afp.reset_link')).toBeVisible()
     })
 
     it('Når brukeren har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(<Grunnlag visning="enkel" />, {
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,

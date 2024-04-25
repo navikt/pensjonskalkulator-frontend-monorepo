@@ -9,6 +9,7 @@ import personResponse from './data/person.json' assert { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
+import highchartsAfpOffentligToggleResponse from './data/unleash-enable-afp-offentlig.json' assert { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
@@ -66,15 +67,41 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v3/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v5/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
-    const data = await import(
-      `./data/alderspensjon/${
-        (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
-      }.json`
-    )
-    return HttpResponse.json(data)
+    const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
+    const data = await import(`./data/alderspensjon/${aar}.json`)
+    const mergedData = JSON.parse(JSON.stringify(data.default))
+    if (
+      (body as AlderspensjonRequestBody).simuleringstype ===
+      'ALDERSPENSJON_MED_AFP_PRIVAT'
+    ) {
+      const afpPrivatData = JSON.parse(
+        JSON.stringify(await import(`./data/afp-privat/${aar}.json`))
+      )
+      mergedData.afpPrivat = { ...afpPrivatData.default.afpPrivat }
+    }
+    if (
+      (body as AlderspensjonRequestBody).simuleringstype ===
+      'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
+    ) {
+      const afpOffentligData = JSON.parse(
+        JSON.stringify(await import(`./data/afp-offentlig.json`))
+      )
+      if (afpOffentligData.default.afpOffentlig) {
+        mergedData.afpOffentlig = {
+          ...afpOffentligData.default.afpOffentlig,
+          afpOffentligListe: [
+            {
+              ...afpOffentligData.default.afpOffentlig.afpOffentligListe[0],
+              alder: aar,
+            },
+          ],
+        }
+      }
+    }
+    return HttpResponse.json(mergedData)
   }),
 
   http.get(
@@ -90,6 +117,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
+    }
+  ),
+
+  http.get(
+    `${baseUrl}/feature/pensjonskalkulator.enable-afp-offentlig`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(highchartsAfpOffentligToggleResponse)
     }
   ),
 

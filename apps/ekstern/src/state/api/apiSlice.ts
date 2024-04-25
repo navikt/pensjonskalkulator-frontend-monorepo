@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   isInntekt,
   isPensjonsberegningArray,
+  isAfpOffentlig,
   isPerson,
   isPensjonsavtale,
   isTpoMedlemskap,
@@ -121,7 +122,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v3/alderspensjon/simulering',
+        url: '/v5/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -129,7 +130,9 @@ export const apiSlice = createApi({
       transformResponse: (response: AlderspensjonResponseBody) => {
         if (
           !isPensjonsberegningArray(response?.alderspensjon) ||
-          !isPensjonsberegningArray(response?.afpPrivat)
+          (response.afpPrivat &&
+            !isPensjonsberegningArray(response?.afpPrivat?.afpPrivatListe)) ||
+          (response.afpOffentlig && !isAfpOffentlig(response?.afpOffentlig))
         ) {
           throw new Error(
             `Mottok ugyldig alderspensjon: ${response?.alderspensjon}`
@@ -163,6 +166,9 @@ export const apiSlice = createApi({
     }),
     getDetaljertFaneFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.enable-detaljert-fane',
+    }),
+    getAfpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-afp-offentlig',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -187,4 +193,5 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
+  useGetAfpOffentligFeatureToggleQuery,
 } = apiSlice

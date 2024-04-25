@@ -97,7 +97,7 @@ describe('BeregningEnkel', () => {
       mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
         method: 'post',
       })
-      mockResponse('/v3/alderspensjon/simulering', {
+      mockResponse('/v5/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
@@ -153,7 +153,7 @@ describe('BeregningEnkel', () => {
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
-      mockErrorResponse('/v3/alderspensjon/simulering', {
+      mockErrorResponse('/v5/alderspensjon/simulering', {
         method: 'post',
       })
       const user = userEvent.setup()
@@ -193,7 +193,7 @@ describe('BeregningEnkel', () => {
 
       const user = userEvent.setup()
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
-      mockResponse('/v3/alderspensjon/simulering', {
+      mockResponse('/v5/alderspensjon/simulering', {
         status: 503,
         method: 'post',
       })
@@ -218,12 +218,11 @@ describe('BeregningEnkel', () => {
 
     it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav og skjuler Grunnlag', async () => {
       const user = userEvent.setup()
-      mockResponse('/v3/alderspensjon/simulering', {
+      mockResponse('/v5/alderspensjon/simulering', {
         status: 200,
         method: 'post',
         json: {
           alderspensjon: [],
-          afpPrivat: [],
           vilkaarsproeving: {
             vilkaarErOppfylt: false,
             alternativ: {
