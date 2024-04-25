@@ -7,7 +7,9 @@ const translations = {
   'application.title.stegvisning.step3':
     'Offentlig tjenestepensjon – Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
-  'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.step5':
+    'Uføretrygd og AFP – Pensjonskalkulator',
+  'application.title.stegvisning.step6': 'Sivilstand – Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
@@ -151,6 +153,19 @@ const translations = {
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker, bør du sjekke med arbeidsgiveren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
+  'stegvisning.ufoere.title': 'Uføretrygd og avtalefestet pensjon',
+  'stegvisning.ufoere.info':
+    'Du kan ikke kombinere uføretrygd og avtalefestet pensjon (AFP). Du må velge før du fyller 62 år.',
+  'stegvisning.ufoere.readmore_1.title':
+    'Om uføretrygd og avtalefestet pensjon',
+  'stegvisning.ufoere.readmore_1.body':
+    'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra NAV etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.{br}{br}Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.',
+  'stegvisning.ufoere.readmore_2.title':
+    'Få hjelp til å finne ut hva som lønner seg',
+  'stegvisning.ufoere.readmore_2.body':
+    'Hvis du jobber i privat sektor, <kontaktOssLink>kontakt NAV</kontaktOssLink>. Hvis du jobber i offentlig sektor, kontakt din tjenestepensjonsordning.',
+  'stegvisning.ufoere.ingress':
+    'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
@@ -522,6 +537,6 @@ const translations = {
   'personopplysninger.section.spoersmaal.heading':
     'Spørsmål til NAV eller datatilsynet om personvern',
   'personopplysninger.section.spoersmaal.text':
-    'Se kontaktinformasjon i <navPersonvernerklaeringKontaktOss>personvernerklæringen</navPersonvernerklaeringKontaktOss> for NAV.',
+    'Se kontaktinformasjon i <navPersonvernerklaeringKontaktOssLink>personvernerklæringen</navPersonvernerklaeringKontaktOssLink> for NAV.',
 }
 export const getTranslation_nb = () => translations

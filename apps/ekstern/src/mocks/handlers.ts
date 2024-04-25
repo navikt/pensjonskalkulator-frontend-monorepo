@@ -40,10 +40,10 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
   }),
 
-  http.get(`${baseUrl}/v1/ekskludert`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(ekskludertStatusResponse)
-  }),
+  // http.get(`${baseUrl}/v1/ekskludert`, async () => {
+  //   await delay(TEST_DELAY)
+  //   return HttpResponse.json(ekskludertStatusResponse)
+  // }),
 
   http.post(`${baseUrl}/v2/pensjonsavtaler`, async ({ request }) => {
     await delay(TEST_DELAY)
