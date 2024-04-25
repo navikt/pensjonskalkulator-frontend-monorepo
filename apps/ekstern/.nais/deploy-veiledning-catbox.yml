@@ -30,6 +30,9 @@ spec:
   frontend:
     generatedConfig:
       mountPath: /app/src/nais.js
+  prometheus:
+    enabled: true
+    path: /metrics
   azure:
     application:
       enabled: true
@@ -60,5 +63,5 @@ spec:
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"
-    - name: "AZURE_OBO_ISSUER"
+    - name: "ENTRA_ID_OBO_SCOPE"
       value: "api://dev-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default"

@@ -2,7 +2,22 @@ import path from 'path'
 
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis'
 import express from 'express'
+import promBundle from 'express-prom-bundle'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import winston from 'winston'
+
+const metricsMiddleware = promBundle({ includeMethod: true })
+
+const logger = winston.createLogger({
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.json(),
+    }),
+  ],
+})
+
+export default logger
 
 const AUTH_PROVIDER = (() => {
   const idporten: boolean = !!process.env.IDPORTEN_ISSUER
@@ -31,11 +46,11 @@ if (AUTH_PROVIDER === 'idporten' && !process.env.TOKEN_X_ISSUER) {
   throw Error('Missing TOKEN_X_ISSUER')
 }
 
-const OBO_ISSUER = (() => {
+const OBO_AUDIENCE = (() => {
   if (AUTH_PROVIDER === 'idporten') {
-    return process.env.IDPORTEN_OBO_ISSUER
+    return process.env.TOKEN_X_OBO_AUDIENCE
   } else if (AUTH_PROVIDER === 'azure') {
-    return process.env.AZURE_OBO_ISSUER
+    return process.env.ENTRA_ID_OBO_SCOPE
   }
 })() as string
 
@@ -45,6 +60,8 @@ const PENSJONSKALKULATOR_BACKEND =
 
 const app = express()
 const __dirname = process.cwd()
+
+app.use(metricsMiddleware)
 
 // Server hele assets mappen uten autentisering
 app.use('/pensjon/kalkulator/assets', (req, res, next) => {
@@ -62,19 +79,18 @@ app.use('/pensjon/kalkulator/src', (req, res, next) => {
 app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   const token = getToken(req)
   if (!token) {
+    logger.info('No token found in request')
     return res.sendStatus(403)
   }
   const validationResult = await validateToken(token)
   if (!validationResult.ok) {
-    console.log('Token validation failed')
-    console.log(validationResult.error)
+    logger.error('Failed to validate token', { error: validationResult.error })
     return res.sendStatus(401)
   }
 
-  console.log('AUTH_PROVIDER', AUTH_PROVIDER)
-  console.log('OBO_ISSUER', OBO_ISSUER)
-  const obo = await requestOboToken(token, OBO_ISSUER)
+  const obo = await requestOboToken(token, OBO_AUDIENCE)
   if (!obo.ok) {
+    logger.error('Failed to get OBO token', { error: obo.error })
     return res.sendStatus(401)
   }
 
@@ -83,16 +99,16 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
     headers: {
       Authorization: `Bearer ${obo.token}`,
     },
-    logger: console,
+    logger: logger,
   })(req, res, next)
 })
 
 // Kubernetes probes
-app.get('/internal/health/liveness', (req, res) => {
+app.get('/internal/health/liveness', (_req, res) => {
   res.sendStatus(200)
 })
 
-app.get('/internal/health/ready', (req, res) => {
+app.get('/internal/health/ready', (_req, res) => {
   res.sendStatus(200)
 })
 

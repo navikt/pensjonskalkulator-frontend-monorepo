@@ -32,7 +32,10 @@
   "dependencies": {
     "@navikt/oasis": "^3.2.4",
     "express": "^4.19.2",
-    "http-proxy-middleware": "^3.0.0"
+    "express-prom-bundle": "^7.0.0",
+    "http-proxy-middleware": "^3.0.0",
+    "prom-client": "^15.1.2",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "@formatjs/intl-datetimeformat": "^6.12.3",
