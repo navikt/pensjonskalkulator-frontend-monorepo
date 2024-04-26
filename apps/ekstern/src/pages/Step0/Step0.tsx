@@ -10,6 +10,7 @@ import {
   useGetPersonQuery,
   useGetEkskludertStatusQuery,
   useGetInntektQuery,
+  useGetUfoereFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 
@@ -17,6 +18,8 @@ export function Step0() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+
+  const { data: ufoereFeatureToggle } = useGetUfoereFeatureToggleQuery()
 
   const { isFetching: isEkskludertStatusFetching, data: ekskludertStatus } =
     useGetEkskludertStatusQuery()
@@ -42,7 +45,10 @@ export function Step0() {
 
   React.useEffect(() => {
     if (!isEkskludertStatusFetching && ekskludertStatus?.ekskludert) {
-      if (ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD') {
+      if (
+        !ufoereFeatureToggle?.enabled &&
+        ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+      ) {
         navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
       } else if (ekskludertStatus.aarsak === 'HAR_GJENLEVENDEYTELSE') {
         navigate(`${paths.henvisning}/${henvisningUrlParams.gjenlevende}`)

@@ -163,6 +163,15 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getUfoereFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-ufoere',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
   }),
 })
 
@@ -177,4 +186,5 @@ export const {
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetAfpOffentligFeatureToggleQuery,
+  useGetUfoereFeatureToggleQuery,
 } = apiSlice
