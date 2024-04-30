@@ -91,7 +91,9 @@ describe('Loaders', () => {
       const getPersonQueryPromise = await returnedFromLoader.data.getPersonQuery
 
       await waitFor(async () => {
-        expect(getPersonQueryPromise.data.foedselsdato).toBe('1963-04-30')
+        expect(
+          (getPersonQueryPromise as GetPersonQuery).data.foedselsdato
+        ).toBe('1963-04-30')
       })
       expect(returnedFromLoader).toMatchSnapshot()
       expect(initiateMock).toHaveBeenCalled()
@@ -120,7 +122,9 @@ describe('Loaders', () => {
       const getPersonQueryPromise = await returnedFromLoader.data.getPersonQuery
 
       await waitFor(async () => {
-        expect(getPersonQueryPromise.data.foedselsdato).toBe('1960-04-30')
+        expect(
+          (getPersonQueryPromise as GetPersonQuery).data.foedselsdato
+        ).toBe('1960-04-30')
         expect(open).toHaveBeenCalledWith(
           externalUrls.detaljertKalkulator,
           '_self'
@@ -155,7 +159,9 @@ describe('Loaders', () => {
         await returnedFromLoader.data.shouldRedirectTo
 
       await waitFor(async () => {
-        expect(getPersonQueryPromise.data.foedselsdato).toBe('1963-04-30')
+        expect(
+          (getPersonQueryPromise as GetPersonQuery).data.foedselsdato
+        ).toBe('1963-04-30')
         expect(shouldRedirectToPromise).toEqual('')
       })
       expect(returnedFromLoader).toMatchSnapshot()
