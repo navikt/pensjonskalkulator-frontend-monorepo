@@ -382,6 +382,39 @@ describe('routes', () => {
       })
     })
 
+    describe(`${BASE_PATH}${paths.forbehold}`, () => {
+      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
+        const open = vi.fn()
+        vi.stubGlobal('open', open)
+        mockErrorResponse('/oauth2/session', {
+          baseUrl: `${HOST_BASEURL}`,
+        })
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.forbehold}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        await waitFor(() => {
+          expect(open).toHaveBeenCalledWith(
+            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+            '_self'
+          )
+        })
+      })
+      it('viser forbehold siden', async () => {
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.forbehold}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(await screen.findByText('forbehold.title')).toBeInTheDocument()
+      })
+    })
+
     describe(`${BASE_PATH}${paths.utenlandsopphold}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
@@ -436,39 +469,6 @@ describe('routes', () => {
         expect(
           await screen.findByText('stegvisning.utenlandsopphold.title')
         ).toBeInTheDocument()
-      })
-    })
-
-    describe(`${BASE_PATH}${paths.forbehold}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.forbehold}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('viser forbehold siden', async () => {
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.forbehold}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        expect(await screen.findByText('forbehold.title')).toBeInTheDocument()
       })
     })
 
@@ -682,7 +682,7 @@ describe('routes', () => {
       })
     })
 
-    describe.skip(`${BASE_PATH}${paths.ufoeretrygd}`, () => {
+    describe(`${BASE_PATH}${paths.ufoeretrygd}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)

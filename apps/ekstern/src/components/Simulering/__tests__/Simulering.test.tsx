@@ -25,7 +25,7 @@ describe('Simulering', () => {
     window.scrollTo = () => vi.fn()
   })
 
-  it.skip('Når alderspensjon laster så vises det en spinner, og deretter heading på riktig nivå', async () => {
+  it('Når alderspensjon laster så vises det en spinner, og deretter heading på riktig nivå', async () => {
     const { container } = render(
       <Simulering
         isLoading={true}
@@ -62,7 +62,7 @@ describe('Simulering', () => {
     expect(heading).toHaveTextContent('beregning.highcharts.title')
   })
 
-  describe.skip('Gitt at brukeren IKKE samtykker', () => {
+  describe('Gitt at brukeren IKKE samtykker', () => {
     it('Når brukeren ikke velger AFP, viser kun inntekt og alderspensjon', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
@@ -264,7 +264,7 @@ describe('Simulering', () => {
   })
 
   describe('Gitt at brukeren samtykker', () => {
-    it.skip('Når brukeren velger uten AFP, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+    it('Når brukeren velger uten AFP, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
       const usePensjonsavtalerQueryMock = vi.spyOn(
         apiSliceUtils,
         'usePensjonsavtalerQuery'
@@ -332,7 +332,7 @@ describe('Simulering', () => {
       ).toBeVisible()
     })
 
-    it.skip('Når brukeren velger AFP-privat, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+    it('Når brukeren velger AFP-privat, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
       const { container } = render(
         <Simulering
           isLoading={false}
@@ -371,7 +371,7 @@ describe('Simulering', () => {
       expect(legendItems).toHaveLength(4)
     })
 
-    it.skip('Når brukeren velger AFP-offentlig, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+    it('Når brukeren velger AFP-offentlig, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
       const { container } = render(
         <Simulering
           isLoading={false}
@@ -410,7 +410,7 @@ describe('Simulering', () => {
       expect(legendItems).toHaveLength(4)
     })
 
-    it.skip('Når brukeren har 0 pensjonsavtaler', async () => {
+    it('Når brukeren har 0 pensjonsavtaler', async () => {
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -536,7 +536,7 @@ describe('Simulering', () => {
       })
     })
 
-    it.skip('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
+    it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
       mockErrorResponse('/v2/pensjonsavtaler', {
         status: 500,
         json: "Beep boop I'm an error!",
@@ -567,7 +567,7 @@ describe('Simulering', () => {
       ).toBeVisible()
     })
 
-    it.skip('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
+    it('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -612,7 +612,7 @@ describe('Simulering', () => {
       ).toBeVisible()
     })
 
-    it.skip('Når brukeren har samtykket, har ingen pensjonsavtale men har utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
+    it('Når brukeren har samtykket, har ingen pensjonsavtale men har utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -645,7 +645,7 @@ describe('Simulering', () => {
     })
   })
 
-  it.skip('viser tabell og skjuler grafen for skjermlesere', async () => {
+  it('viser tabell og skjuler grafen for skjermlesere', async () => {
     render(
       <Simulering
         isLoading={false}
@@ -674,7 +674,7 @@ describe('Simulering', () => {
     })
   })
 
-  it.skip('setter aria-hidden attribute iht feature toggle', async () => {
+  it('setter aria-hidden attribute iht feature toggle', async () => {
     mockResponse(
       '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
       {

@@ -12,6 +12,7 @@ import { Step2 } from '@/pages/Step2'
 import { Step3 } from '@/pages/Step3'
 import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
+import { Step6 } from '@/pages/Step6'
 import { StepFeil } from '@/pages/StepFeil'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
@@ -97,8 +98,13 @@ export const routes: RouteObject[] = [
       },
       {
         loader: directAccessGuard,
-        path: paths.sivilstand,
+        path: paths.ufoeretrygd,
         element: <Step5 />,
+      },
+      {
+        loader: directAccessGuard,
+        path: paths.sivilstand,
+        element: <Step6 />,
       },
       {
         loader: directAccessGuard,
