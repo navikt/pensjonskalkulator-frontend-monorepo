@@ -12,7 +12,6 @@ import { Step2 } from '@/pages/Step2'
 import { Step3 } from '@/pages/Step3'
 import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
-import { Step6 } from '@/pages/Step6'
 import { StepFeil } from '@/pages/StepFeil'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
@@ -20,7 +19,7 @@ import { paths } from './constants'
 import {
   directAccessGuard,
   authenticationGuard,
-  foedselsdatoAccessGuard,
+  landingPageAccessGuard,
   tpoMedlemskapAccessGuard,
 } from './loaders'
 
@@ -43,7 +42,7 @@ export const routes: RouteObject[] = [
         element: <Navigate to={paths.login} replace />,
       },
       {
-        loader: foedselsdatoAccessGuard,
+        loader: landingPageAccessGuard,
         path: paths.login,
         element: <LandingPage />,
       },
@@ -63,7 +62,7 @@ export const routes: RouteObject[] = [
     ErrorBoundary: RouteErrorBoundary,
     children: [
       {
-        loader: foedselsdatoAccessGuard,
+        loader: landingPageAccessGuard,
         path: paths.start,
         element: <Step0 />,
       },
@@ -97,13 +96,8 @@ export const routes: RouteObject[] = [
       },
       {
         loader: directAccessGuard,
-        path: paths.ufoeretrygd,
-        element: <Step5 />,
-      },
-      {
-        loader: directAccessGuard,
         path: paths.sivilstand,
-        element: <Step6 />,
+        element: <Step5 />,
       },
       {
         loader: directAccessGuard,

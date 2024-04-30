@@ -108,8 +108,8 @@ export type GetPersonQuery = TypedUseQueryStateResult<
   BaseQueryFn<Record<string, unknown>, Person>
 >
 
-export function useGetPersonAccessData<
-  TReturnedValue extends ReturnType<typeof getPersonDeferredLoader>,
+export function useLandingPageAccessData<
+  TReturnedValue extends ReturnType<typeof landingPageDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
@@ -117,7 +117,7 @@ export function useGetPersonAccessData<
 {
   /* c8 ignore next 11 - Dette er kun for typing */
 }
-export function getPersonDeferredLoader<
+export function landingPageDeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
   },
@@ -128,7 +128,7 @@ export function getPersonDeferredLoader<
     }
 }
 
-export const foedselsdatoAccessGuard = async () => {
+export const landingPageAccessGuard = async () => {
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   if (
     (await getPersonQuery).isSuccess &&
@@ -137,6 +137,10 @@ export const foedselsdatoAccessGuard = async () => {
   ) {
     window.open(externalUrls.detaljertKalkulator, '_self')
   }
+  // TODO PEK-400 - vurdering invalidate tags
+  // if ((await getPersonQuery).isError) {
+  //   store.dispatch(apiSlice.util.invalidateTags(['Person']))
+  // }
   return defer({
     getPersonQuery,
   })

@@ -15,7 +15,7 @@ import {
 
 import { Loader } from '@/components/common/Loader'
 import { BASE_PATH, externalUrls, paths } from '@/router/constants'
-import { useGetPersonAccessData } from '@/router/loaders'
+import { useLandingPageAccessData } from '@/router/loaders'
 import { LoginContext } from '@/router/loaders'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 
@@ -25,7 +25,7 @@ export const LandingPage = () => {
   const intl = useIntl()
   const { isLoggedIn } = useOutletContext<LoginContext>()
 
-  const loaderData = useGetPersonAccessData()
+  const loaderData = useLandingPageAccessData()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
