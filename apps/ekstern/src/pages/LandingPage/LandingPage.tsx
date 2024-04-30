@@ -1,7 +1,11 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Link as ReactRouterLink, Await, useNavigate } from 'react-router-dom'
-import { useOutletContext } from 'react-router-dom'
+import {
+  Await,
+  Link as ReactRouterLink,
+  useNavigate,
+  useOutletContext,
+} from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
@@ -15,8 +19,9 @@ import {
 
 import { Loader } from '@/components/common/Loader'
 import { externalUrls, paths } from '@/router/constants'
-import { useGetPersonAccessData } from '@/router/loaders'
-import { LoginContext } from '@/router/loaders'
+import { LoginContext, useGetPersonAccessData } from '@/router/loaders'
+import { useAppSelector } from '@/state/hooks'
+import { isVeilederSelector } from '@/state/userInput/selectors'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 import styles from './LandingPage.module.scss'
@@ -25,7 +30,7 @@ export const LandingPage = () => {
   const intl = useIntl()
   const { isLoggedIn } = useOutletContext<LoginContext>()
   const navigate = useNavigate()
-
+  const isVeileder = useAppSelector(isVeilederSelector)
   const loaderData = useGetPersonAccessData()
 
   React.useEffect(() => {
@@ -45,6 +50,11 @@ export const LandingPage = () => {
   const gaaTilUinnloggetKalkulator = () => {
     window.open(externalUrls.uinnloggetKalkulator, '_self')
   }
+  React.useEffect(() => {
+    if (isVeileder) {
+      gaaTilEnkelKalkulator()
+    }
+  }, [isVeileder])
 
   const detaljertKalkulatorButtonText = isLoggedIn
     ? intl.formatMessage({

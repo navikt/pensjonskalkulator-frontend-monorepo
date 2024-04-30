@@ -22,7 +22,7 @@ import styles from './AFP.module.scss'
 interface Props {
   isLastStep: boolean
   afp: AfpRadio | null
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: (afpData: AfpRadio) => void
 }
@@ -179,14 +179,16 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
+        {onCancel && (
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        )}
       </form>
     </Card>
   )

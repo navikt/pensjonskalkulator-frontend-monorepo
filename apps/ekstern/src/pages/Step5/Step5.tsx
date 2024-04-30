@@ -6,7 +6,10 @@ import { Sivilstand } from '@/components/stegvisning/Sivilstand'
 import { paths } from '@/router/constants'
 import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamboerFraBrukerInput } from '@/state/userInput/selectors'
+import {
+  isVeilederSelector,
+  selectSamboerFraBrukerInput,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step5() {
@@ -15,6 +18,7 @@ export function Step5() {
   const dispatch = useAppDispatch()
   const { data: person, isSuccess } = useGetPersonQuery()
   const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
+  const isVeileder = useAppSelector(isVeilederSelector)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -22,10 +26,13 @@ export function Step5() {
     })
   }, [])
 
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
+  // Fjern mulighet for avbryt hvis person er veileder
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        dispatch(userInputActions.flush())
+        navigate(paths.login)
+      }
 
   const onPrevious = (): void => {
     return navigate(paths.afp)

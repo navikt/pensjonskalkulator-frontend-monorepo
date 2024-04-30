@@ -10,7 +10,7 @@ import styles from './Utenlandsopphold.module.scss'
 
 interface Props {
   harUtenlandsopphold: boolean | null
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: (utenlandsoppholdData: BooleanRadio) => void
 }
@@ -100,14 +100,16 @@ export function Utenlandsopphold({
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
+        {onCancel && (
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        )}
       </form>
     </Card>
   )

@@ -13,7 +13,7 @@ import styles from './Start.module.scss'
 
 interface Props {
   navn: string
-  onCancel: () => void
+  onCancel?: () => void
   onNext: () => void
 }
 
@@ -43,13 +43,17 @@ export function Start({ navn, onCancel, onNext }: Props) {
           >
             <FormattedMessage id="stegvisning.start.button" />
           </Button>
-          <Button
-            type="button"
-            variant="tertiary"
-            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-          >
-            <FormattedMessage id="stegvisning.avbryt" />
-          </Button>
+          {onCancel && (
+            <Button
+              type="button"
+              variant="tertiary"
+              onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
+                onCancel
+              )}
+            >
+              <FormattedMessage id="stegvisning.avbryt" />
+            </Button>
+          )}
         </div>
       </div>
       <Link

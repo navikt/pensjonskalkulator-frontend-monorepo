@@ -15,6 +15,9 @@ export const selectSamtykke = (state: RootState): boolean | null =>
 export const veilederBorgerFnrSelector = (state: RootState) =>
   state.userInput.veilderBorgerFnr
 
+export const isVeilederSelector = (state: RootState) =>
+  !!state.userInput.veilderBorgerFnr
+
 export const selectAfp = (state: RootState): AfpRadio | null =>
   state.userInput.afp
 
