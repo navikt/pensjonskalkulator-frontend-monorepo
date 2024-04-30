@@ -20,6 +20,7 @@ import {
   directAccessGuard,
   authenticationGuard,
   landingPageAccessGuard,
+  step0AccessGuard,
   tpoMedlemskapAccessGuard,
 } from './loaders'
 
@@ -62,7 +63,7 @@ export const routes: RouteObject[] = [
     ErrorBoundary: RouteErrorBoundary,
     children: [
       {
-        loader: landingPageAccessGuard,
+        loader: step0AccessGuard,
         path: paths.start,
         element: <Step0 />,
       },

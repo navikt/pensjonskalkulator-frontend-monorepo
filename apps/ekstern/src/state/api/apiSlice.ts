@@ -17,7 +17,13 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
   }),
-  tagTypes: ['Person', 'Inntekt', 'Alderspensjon', 'TidligstMuligHeltUttak'],
+  tagTypes: [
+    'Person',
+    'Inntekt',
+    'EkskludertStatus',
+    'Alderspensjon',
+    'TidligstMuligHeltUttak',
+  ],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
@@ -45,6 +51,7 @@ export const apiSlice = createApi({
     }),
     getEkskludertStatus: builder.query<EkskludertStatus, void>({
       query: () => '/v1/ekskludert',
+      providesTags: ['EkskludertStatus'],
       transformResponse: (response: any) => {
         if (!isEkskludertStatus(response)) {
           throw new Error(`Mottok ugyldig ekskludert response:`, response)

@@ -7,7 +7,7 @@ import {
 } from '@reduxjs/toolkit/query/react'
 
 import { HOST_BASEURL } from '@/paths'
-import { externalUrls, paths } from '@/router/constants'
+import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { isFoedtFoer1963 } from '@/utils/alder'
@@ -53,6 +53,114 @@ export const directAccessGuard = async () => {
   }
   return null
 }
+
+// ////////////////////////////////////////
+
+export function useLandingPageAccessData<
+  TReturnedValue extends ReturnType<typeof landingPageDeferredLoader>,
+>() {
+  return useLoaderData() as ReturnType<TReturnedValue>['data']
+}
+
+{
+  /* c8 ignore next 11 - Dette er kun for typing */
+}
+export function landingPageDeferredLoader<
+  TData extends {
+    getPersonQuery: GetPersonQuery
+  },
+>(dataFunc: (args?: LoaderFunctionArgs) => TData) {
+  return (args?: LoaderFunctionArgs) =>
+    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
+      data: TData
+    }
+}
+
+export const landingPageAccessGuard = async () => {
+  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
+  getPersonQuery.then((res) => {
+    if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
+      window.open(externalUrls.detaljertKalkulator, '_self')
+    }
+  })
+
+  return defer({
+    getPersonQuery,
+  })
+}
+
+/// ////////////////////////////////////////////////////////////////////////
+
+export function useStep0AccessData<
+  TReturnedValue extends ReturnType<typeof step0DeferredLoader>,
+>() {
+  return useLoaderData() as ReturnType<TReturnedValue>['data']
+}
+
+{
+  /* c8 ignore next 11 - Dette er kun for typing */
+}
+export function step0DeferredLoader<
+  TData extends {
+    getPersonQuery: GetPersonQuery
+    shouldRedirectTo: string | undefined
+  },
+>(dataFunc: (args?: LoaderFunctionArgs) => TData) {
+  return (args?: LoaderFunctionArgs) =>
+    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
+      data: TData
+    }
+}
+
+export const step0AccessGuard = async () => {
+  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
+
+  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
+    resolveRedirectUrl = resolve
+  })
+  // Henter inntekt til senere
+  store.dispatch(apiSlice.endpoints.getInntekt.initiate())
+
+  // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
+  const getEkskludertStatusQuery = store.dispatch(
+    apiSlice.endpoints.getEkskludertStatus.initiate()
+  )
+
+  getEkskludertStatusQuery.then((res) => {
+    if (res?.data?.ekskludert) {
+      if (res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE') {
+        resolveRedirectUrl(
+          `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+        )
+      } else if (res?.data?.aarsak === 'ER_APOTEKER') {
+        resolveRedirectUrl(
+          `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+        )
+      } else {
+        resolveRedirectUrl('')
+      }
+    } else {
+      resolveRedirectUrl('')
+    }
+  })
+
+  // Sørger for at brukere født før 1963 ikke aksesserer vår kalkulator
+  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
+
+  if (
+    (await getPersonQuery).data?.foedselsdato &&
+    isFoedtFoer1963((await getPersonQuery).data?.foedselsdato as string)
+  ) {
+    window.open(externalUrls.detaljertKalkulator, '_self')
+  }
+
+  return defer({
+    getPersonQuery,
+    shouldRedirectTo,
+  })
+}
+
+// ///////////////////////////////////////////
 
 export type TpoMedlemskapQuery = TypedUseQueryStateResult<
   TpoMedlemskap,
@@ -100,48 +208,4 @@ export const tpoMedlemskapAccessGuard = async () => {
     // Dersom brukeren ikke samtykker til henting av tpo behøver ikke dette steget å vises
     return redirect(paths.afp)
   }
-}
-
-export type GetPersonQuery = TypedUseQueryStateResult<
-  Person,
-  void,
-  BaseQueryFn<Record<string, unknown>, Person>
->
-
-export function useLandingPageAccessData<
-  TReturnedValue extends ReturnType<typeof landingPageDeferredLoader>,
->() {
-  return useLoaderData() as ReturnType<TReturnedValue>['data']
-}
-
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
-export function landingPageDeferredLoader<
-  TData extends {
-    getPersonQuery: GetPersonQuery
-  },
->(dataFunc: (args?: LoaderFunctionArgs) => TData) {
-  return (args?: LoaderFunctionArgs) =>
-    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
-      data: TData
-    }
-}
-
-export const landingPageAccessGuard = async () => {
-  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  if (
-    (await getPersonQuery).isSuccess &&
-    (await getPersonQuery).data?.foedselsdato &&
-    isFoedtFoer1963((await getPersonQuery).data?.foedselsdato as string)
-  ) {
-    window.open(externalUrls.detaljertKalkulator, '_self')
-  }
-  // TODO PEK-400 - vurdering invalidate tags
-  // if ((await getPersonQuery).isError) {
-  //   store.dispatch(apiSlice.util.invalidateTags(['Person']))
-  // }
-  return defer({
-    getPersonQuery,
-  })
 }

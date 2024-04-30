@@ -14,6 +14,12 @@ declare global {
   type UnleashToggle = components['schemas']['EnablementDto']
 
   // /person
+  export type GetPersonQuery = TypedUseQueryStateResult<
+    Person,
+    void,
+    BaseQueryFn<Record<string, unknown>, Person>
+  >
+
   type Person = components['schemas']['ApiPersonDto']
   type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'

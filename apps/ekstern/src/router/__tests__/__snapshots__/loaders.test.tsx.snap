@@ -1,5 +1,49 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`Loaders > landingPageAccessGuard > kaller getPersonQuery og returnerer en defered response 1`] = `
+DeferredData {
+  "abortPromise": Promise {},
+  "controller": AbortController {
+    Symbol(SameObject caches): {
+      "signal": AbortSignal {},
+    },
+  },
+  "data": {
+    "getPersonQuery": Promise {},
+  },
+  "deferredKeys": [
+    "getPersonQuery",
+  ],
+  "init": {},
+  "pendingKeysSet": Set {},
+  "subscribers": Set {},
+  "unlistenAbortSignal": [Function],
+}
+`;
+
+exports[`Loaders > step0AccessGuard > kaller getPersonQuery, getInntekt og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
+DeferredData {
+  "abortPromise": Promise {},
+  "controller": AbortController {
+    Symbol(SameObject caches): {
+      "signal": AbortSignal {},
+    },
+  },
+  "data": {
+    "getPersonQuery": Promise {},
+    "shouldRedirectTo": Promise {},
+  },
+  "deferredKeys": [
+    "getPersonQuery",
+    "shouldRedirectTo",
+  ],
+  "init": {},
+  "pendingKeysSet": Set {},
+  "subscribers": Set {},
+  "unlistenAbortSignal": [Function],
+}
+`;
+
 exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
 _Response {
   Symbol(realm): {
