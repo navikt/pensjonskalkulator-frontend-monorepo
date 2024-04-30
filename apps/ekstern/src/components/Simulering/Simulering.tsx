@@ -7,7 +7,7 @@ import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, Button, Heading, HeadingProps } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, HeadingProps, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 import Highcharts, {
   SeriesColumnOptions,
@@ -374,13 +374,13 @@ export function Simulering(props: {
               id="beregning.pensjonsavtaler.info"
               values={{
                 scrollTo: (chunk) => (
-                  <a
+                  <Link
                     href="#"
                     data-testid="pensjonsavtaler-info-link"
                     onClick={handlePensjonsavtalerLinkClick}
                   >
                     {chunk}
-                  </a>
+                  </Link>
                 ),
               }}
             />
