@@ -22,20 +22,20 @@ export const VeilederInputRequestError: React.FC<
         )
       case 404:
         return (
-          <Alert variant="warning" data-testid="alert-ikke-tilgang">
+          <Alert variant="warning" data-testid="alert-ikke-gyldig">
             Fødselsnummeret er ikke gyldig.
           </Alert>
         )
       default:
         return (
-          <Alert variant="warning" data-testid="alert-ikke-tilgang">
+          <Alert variant="warning" data-testid="alert-annet">
             Feil ved henting av person.
           </Alert>
         )
     }
   } else {
     return (
-      <Alert variant="warning" data-testid="alert-ikke-tilgang">
+      <Alert variant="warning" data-testid="alert-annet">
         Feil ved henting av person.
       </Alert>
     )

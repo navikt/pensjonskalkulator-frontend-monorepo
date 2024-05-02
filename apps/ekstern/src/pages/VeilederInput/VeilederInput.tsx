@@ -29,8 +29,10 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 
 import { VeilederInputRequestError } from './VeilederInputRequestError'
 
+import styles from './VeilederInput.module.scss'
+
 const router = createBrowserRouter(routes, {
-  basename: location.pathname,
+  basename: `${BASE_PATH}/veileder`,
 })
 
 export const VeilederInput = () => {
@@ -61,6 +63,7 @@ export const VeilederInput = () => {
     if (hasTimedOut) return
     const timer = setTimeout(
       () => {
+        console.log('Redirecting to timeout')
         window.location.href = `${BASE_PATH}/veileder?timeout`
       },
       60 * 60 * 1000
@@ -74,8 +77,6 @@ export const VeilederInput = () => {
     dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
     dispatch(apiSlice.util.invalidateTags(['Person']))
   }
-
-  console.log('personError', personError)
 
   if ((!personSuccess && !veilederBorgerFnr) || personError || personLoading) {
     return (
@@ -94,7 +95,7 @@ export const VeilederInput = () => {
               </Heading>
               <VStack gap="4">
                 {hasTimedOut && (
-                  <Alert variant="warning">
+                  <Alert variant="warning" data-testid="inaktiv-alert">
                     Du var for lenge inaktiv og sesjonen for bruker har derfor
                     løpt ut.
                     <br /> Logg inn på bruker på nytt.
@@ -102,9 +103,9 @@ export const VeilederInput = () => {
                 )}
                 <VeilederInputRequestError personError={personError} />
                 <BodyLong>
-                  Logg inn i enkel pensjonskalkulator på vegne av bruker.
+                  Logg inn i pensjonskalkulator på vegne av bruker.
                 </BodyLong>
-                <form onSubmit={onSubmit} style={{ maxWidth: '16em' }}>
+                <form onSubmit={onSubmit} className={styles.form}>
                   <VStack gap="2">
                     <TextField
                       data-testid="borger-fnr-input"
@@ -113,10 +114,18 @@ export const VeilederInput = () => {
                       description="11 siffer"
                     ></TextField>
                     <HStack gap="2">
-                      <Button type="submit" loading={personLoading}>
+                      <Button
+                        type="submit"
+                        data-testid="veileder-submit"
+                        loading={personLoading}
+                      >
                         Logg inn
                       </Button>
-                      <Button type="reset" variant="tertiary">
+                      <Button
+                        type="reset"
+                        data-testid="veileder-reset"
+                        variant="tertiary"
+                      >
                         Avbryt
                       </Button>
                     </HStack>
