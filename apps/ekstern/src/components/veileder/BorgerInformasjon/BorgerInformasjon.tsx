@@ -35,11 +35,17 @@ export const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({
         {isPersonFetching ? <Loader /> : person?.navn}
         <span aria-hidden="true">/</span>
         <HStack align="center" gap="1">
-          F.nr.: {fnr} <CopyButton size="small" copyText={fnr} />
+          <div data-testid="borger-fnr">F.nr.: {fnr}</div>
+          <CopyButton size="small" copyText={fnr} />
         </HStack>
         <Spacer />
         <div>
-          <Button onClick={onNullstillClick} variant="secondary" size="small">
+          <Button
+            onClick={onNullstillClick}
+            data-testid="borger-nullstill"
+            variant="secondary"
+            size="small"
+          >
             Nullstill bruker
           </Button>
         </div>
