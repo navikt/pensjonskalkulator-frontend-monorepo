@@ -75,11 +75,10 @@ export function Step0() {
           {(queries: [GetPersonQuery, string]) => {
             const getPersonQuery = queries[0]
             const shouldRedirectTo = queries[1]
-            if (shouldRedirectTo) {
-              navigate(shouldRedirectTo)
-            }
+
             return (
               <Start
+                shouldRedirectTo={shouldRedirectTo}
                 fornavn={
                   getPersonQuery.isSuccess
                     ? (getPersonQuery.data as Person).fornavn

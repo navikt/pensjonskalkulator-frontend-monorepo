@@ -22,7 +22,7 @@ import {
   authenticationGuard,
   landingPageAccessGuard,
   step0AccessGuard,
-  tpoMedlemskapAccessGuard,
+  step3AccessGuard,
 } from './loaders'
 
 export const routes: RouteObject[] = [
@@ -87,7 +87,7 @@ export const routes: RouteObject[] = [
         element: <Step2 />,
       },
       {
-        loader: tpoMedlemskapAccessGuard,
+        loader: step3AccessGuard,
         path: paths.offentligTp,
         element: <Step3 />,
       },

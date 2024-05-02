@@ -44,7 +44,7 @@ DeferredData {
 }
 `;
 
-exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
+exports[`Loaders > step3AccessGuard > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
 _Response {
   Symbol(realm): {
     "settingsObject": {},
@@ -90,7 +90,7 @@ _Response {
 }
 `;
 
-exports[`Loaders > tpoMedlemskapAccessGuard > kaller redirect til /start location når samtykke er null 1`] = `
+exports[`Loaders > step3AccessGuard > kaller redirect til /start location, når samtykke er null 1`] = `
 _Response {
   Symbol(realm): {
     "settingsObject": {},
@@ -133,28 +133,5 @@ _Response {
       "settingsObject": {},
     },
   },
-}
-`;
-
-exports[`Loaders > tpoMedlemskapAccessGuard > kaller tp-registret når samtykke er oppgitt til true 1`] = `
-DeferredData {
-  "abortPromise": Promise {},
-  "controller": AbortController {
-    Symbol(SameObject caches): {
-      "signal": AbortSignal {},
-    },
-  },
-  "data": {
-    "getTpoMedlemskapQuery": Promise {},
-  },
-  "deferredKeys": [
-    "getTpoMedlemskapQuery",
-  ],
-  "init": {},
-  "pendingKeysSet": Set {
-    "getTpoMedlemskapQuery",
-  },
-  "subscribers": Set {},
-  "unlistenAbortSignal": [Function],
 }
 `;

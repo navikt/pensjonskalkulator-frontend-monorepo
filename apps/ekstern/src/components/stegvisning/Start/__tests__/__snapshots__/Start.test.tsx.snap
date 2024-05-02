@@ -136,7 +136,7 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
     >
       stegvisning.start.link
       <svg
-        aria-labelledby="title-r1"
+        aria-labelledby="title-r2"
         fill="none"
         focusable="false"
         height="1.25rem"
@@ -146,7 +146,7 @@ exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig he
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="title-r1"
+          id="title-r2"
         >
           application.global.external_link
         </title>
