@@ -179,6 +179,15 @@ export const apiSlice = createApi({
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
+    getUfoereFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-ufoere',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
   }),
 })
 
@@ -194,4 +203,5 @@ export const {
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetAfpOffentligFeatureToggleQuery,
+  useGetUfoereFeatureToggleQuery,
 } = apiSlice

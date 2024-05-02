@@ -221,7 +221,7 @@ const translations = {
   'beregning.pensjonsavtaler.error.partial':
     'Vi klarte ikke å hente alle pensjonsavtalene dine',
   'beregning.pensjonsavtaler.info':
-    'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
+    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
   'beregning.alert.inntekt':
     'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
@@ -436,7 +436,7 @@ const translations = {
   'inntekt.info_om_inntekt.list_item10':
     'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
   'inntekt.info_om_inntekt.ingress':
-    'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.',
+    'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd regnes ikke som pensjonsgivende inntekt. Uføretrygd gir opptjening til alderspensjon basert på antatt inntekt til og med året du fyller 61 år.',
   'forbehold.title': 'Forbehold',
   'forbehold.intro':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Dersom du fortsetter i jobb etter uttak av alderspensjon, vil alderspensjon fortsette å øke etter hvert som ny opptjening legges til. Du kan tjene opp til alderspensjon til og med året du fyller 75 år.',

@@ -108,7 +108,32 @@ describe('Step 0', () => {
     })
   })
 
-  it('redirigerer til feilside dersom bruker har uføretrygd', async () => {
+  it('rendrer steget som vanlig dersom bruker har uføretrygd og feature-toggle er av', async () => {
+    mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
+      status: 200,
+      json: { enabled: true },
+    })
+    mockResponse('/v1/ekskludert', {
+      json: {
+        ekskludert: true,
+        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
+      },
+    })
+
+    render(<Step0 />)
+
+    await waitFor(() => {
+      expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
+      expect(screen.getByText('stegvisning.start.button')).toBeVisible()
+      expect(screen.getByText('stegvisning.avbryt')).toBeVisible()
+    })
+  })
+
+  it('redirigerer til feilside dersom bruker har uføretrygd og feature-toggle er av', async () => {
+    mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
+      status: 200,
+      json: { enabled: false },
+    })
     mockResponse('/v1/ekskludert', {
       json: {
         ekskludert: true,
