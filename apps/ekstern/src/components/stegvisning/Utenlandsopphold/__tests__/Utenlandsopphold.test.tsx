@@ -140,4 +140,27 @@ describe('stegvisning - Utenlandsopphold', () => {
       expect(onCancelMock).toHaveBeenCalled()
     })
   })
+  it('viser avbryt knapp når onCancel er definert', async () => {
+    render(
+      <Utenlandsopphold
+        harUtenlandsopphold={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
+  })
+
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(
+      <Utenlandsopphold
+        harUtenlandsopphold={null}
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
+  })
 })

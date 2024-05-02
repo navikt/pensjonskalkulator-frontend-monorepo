@@ -8,6 +8,7 @@ import { HOST_BASEURL } from '@/paths'
 import { BASE_PATH, paths } from '@/router/constants'
 import { externalUrls } from '@/router/constants'
 import { routes } from '@/router/routes'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('LandingPage', () => {
@@ -199,5 +200,34 @@ describe('LandingPage', () => {
       externalUrls.uinnloggetKalkulator,
       '_self'
     )
+  })
+
+  it('sender videre automatisk hvis bruker er veileder', async () => {
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          veilderBorgerFnr: '81549300',
+        },
+      },
+    })
+
+    await waitFor(async () => {
+      expect(
+        screen.getByTestId('landingside-enkel-kalkulator-button')
+      ).toBeInTheDocument()
+    })
+
+    expect(navigateMock).toHaveBeenCalledWith(paths.start)
   })
 })

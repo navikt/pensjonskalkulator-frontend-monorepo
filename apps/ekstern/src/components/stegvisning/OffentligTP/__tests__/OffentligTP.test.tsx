@@ -76,4 +76,25 @@ describe('stegvisning - OffentligTP', () => {
     await user.click(screen.getByText('stegvisning.avbryt'))
     expect(onCancelMock).toHaveBeenCalled()
   })
+  it('viser avbryt knapp når onCancel er definert', async () => {
+    render(
+      <OffentligTP
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
+  })
+
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(
+      <OffentligTP
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
+  })
 })
