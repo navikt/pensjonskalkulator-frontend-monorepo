@@ -1,11 +1,6 @@
 import { redirect } from 'react-router'
 import { defer, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
 
-import {
-  BaseQueryFn,
-  TypedUseQueryStateResult,
-} from '@reduxjs/toolkit/query/react'
-
 import { HOST_BASEURL } from '@/paths'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -118,6 +113,14 @@ export const step0AccessGuard = async () => {
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
   })
+
+  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
+  getPersonQuery.then((res) => {
+    if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
+      window.open(externalUrls.detaljertKalkulator, '_self')
+    }
+  })
+
   // Henter inntekt til senere
   store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
@@ -144,16 +147,6 @@ export const step0AccessGuard = async () => {
     }
   })
 
-  // Sørger for at brukere født før 1963 ikke aksesserer vår kalkulator
-  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-
-  if (
-    (await getPersonQuery).data?.foedselsdato &&
-    isFoedtFoer1963((await getPersonQuery).data?.foedselsdato as string)
-  ) {
-    window.open(externalUrls.detaljertKalkulator, '_self')
-  }
-
   return defer({
     getPersonQuery,
     shouldRedirectTo,
@@ -162,14 +155,8 @@ export const step0AccessGuard = async () => {
 
 // ///////////////////////////////////////////
 
-export type TpoMedlemskapQuery = TypedUseQueryStateResult<
-  TpoMedlemskap,
-  void,
-  BaseQueryFn<Record<string, unknown>, TpoMedlemskap>
->
-
-export function useTpoMedlemskapAccessData<
-  TReturnedValue extends ReturnType<typeof tpoMedlemskapDeferredLoader>,
+export function useStep3AccessData<
+  TReturnedValue extends ReturnType<typeof step3DeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
@@ -177,9 +164,9 @@ export function useTpoMedlemskapAccessData<
 {
   /* c8 ignore next 11 - Dette er kun for typing */
 }
-export function tpoMedlemskapDeferredLoader<
+export function step3DeferredLoader<
   TData extends {
-    getTpoMedlemskapQuery: TpoMedlemskapQuery
+    shouldRedirectTo: string | undefined
   },
 >(dataFunc: (args?: LoaderFunctionArgs) => TData) {
   return (args?: LoaderFunctionArgs) =>
@@ -188,8 +175,15 @@ export function tpoMedlemskapDeferredLoader<
     }
 }
 
-export const tpoMedlemskapAccessGuard = async () => {
+export const step3AccessGuard = async () => {
   const harSamtykket = store.getState().userInput.samtykke
+  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
+  let rejectRedirectUrl: (reason?: unknown) => void
+
+  const shouldRedirectTo: Promise<string> = new Promise((resolve, reject) => {
+    resolveRedirectUrl = resolve
+    rejectRedirectUrl = reject
+  })
 
   // Dersom brukeren prøver å aksessere steget direkte uten å ha svart på samtykke spørsmålet sendes den til start steget
   if (harSamtykket === null) {
@@ -201,8 +195,23 @@ export const tpoMedlemskapAccessGuard = async () => {
     const getTpoMedlemskapQuery = store.dispatch(
       apiSlice.endpoints.getTpoMedlemskap.initiate()
     )
+    // Dersom brukeren ikke har noe tp-forhold behøver ikke dette steget å vises
+    getTpoMedlemskapQuery
+      .then((res) => {
+        if (res.isError) {
+          throw new Error()
+        }
+        if (res?.isSuccess && !res?.data?.harTjenestepensjonsforhold) {
+          resolveRedirectUrl(paths.afp)
+        } else {
+          resolveRedirectUrl('')
+        }
+      })
+      .catch(() => {
+        rejectRedirectUrl(null)
+      })
     return defer({
-      getTpoMedlemskapQuery,
+      shouldRedirectTo,
     })
   } else {
     // Dersom brukeren ikke samtykker til henting av tpo behøver ikke dette steget å vises

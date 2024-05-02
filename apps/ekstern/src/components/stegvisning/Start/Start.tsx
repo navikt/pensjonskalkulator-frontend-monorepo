@@ -1,5 +1,6 @@
+import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
@@ -12,14 +13,22 @@ import { logOpenLink, wrapLogger } from '@/utils/logging'
 import styles from './Start.module.scss'
 
 interface Props {
+  shouldRedirectTo?: string
   fornavn: string
   onCancel: () => void
   onNext: () => void
 }
 
-export function Start({ fornavn, onCancel, onNext }: Props) {
+export function Start({ shouldRedirectTo, fornavn, onCancel, onNext }: Props) {
   const intl = useIntl()
+  const navigate = useNavigate()
   const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
+
+  React.useEffect(() => {
+    if (shouldRedirectTo) {
+      navigate(shouldRedirectTo)
+    }
+  }, [shouldRedirectTo])
 
   return (
     <Card hasLargePadding hasMargin>

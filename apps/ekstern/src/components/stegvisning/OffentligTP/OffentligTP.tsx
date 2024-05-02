@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
@@ -10,25 +11,26 @@ import { getFormatMessageValues } from '@/utils/translations'
 import styles from './OffentligTP.module.scss'
 
 interface Props {
+  shouldRedirectTo?: string
   onCancel: () => void
   onPrevious: () => void
   onNext: () => void
-  shouldJumpOverStep?: boolean
 }
 
 export function OffentligTP({
+  shouldRedirectTo,
   onCancel,
   onPrevious,
   onNext,
-  shouldJumpOverStep,
 }: Props) {
   const intl = useIntl()
+  const navigate = useNavigate()
 
   React.useEffect(() => {
-    if (shouldJumpOverStep) {
-      onNext()
+    if (shouldRedirectTo) {
+      navigate(shouldRedirectTo)
     }
-  }, [shouldJumpOverStep])
+  }, [shouldRedirectTo])
 
   return (
     <Card hasLargePadding hasMargin>

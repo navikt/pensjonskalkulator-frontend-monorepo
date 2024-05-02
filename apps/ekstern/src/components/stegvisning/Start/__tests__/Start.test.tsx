@@ -1,3 +1,5 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { describe, it, vi } from 'vitest'
 
 import { Start } from '..'
@@ -18,6 +20,24 @@ describe('stegvisning - Start', () => {
       )
       expect(result.asFragment()).toMatchSnapshot()
     })
+  })
+
+  it('kaller navigate når shouldRedirectTo er angitt', async () => {
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const randomPath = '/random-path'
+
+    render(
+      <Start
+        shouldRedirectTo={randomPath}
+        fornavn=""
+        onCancel={onCancelMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(navigateMock).toHaveBeenCalledWith(randomPath)
   })
 
   it('rendrer slik den skal uten fornavn, med riktig heading, bilde, tekst og knapper', async () => {
