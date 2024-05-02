@@ -113,6 +113,14 @@ export const step0AccessGuard = async () => {
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
   })
+
+  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
+  getPersonQuery.then((res) => {
+    if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
+      window.open(externalUrls.detaljertKalkulator, '_self')
+    }
+  })
+
   // Henter inntekt til senere
   store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
@@ -138,16 +146,6 @@ export const step0AccessGuard = async () => {
       resolveRedirectUrl('')
     }
   })
-
-  // Sørger for at brukere født før 1963 ikke aksesserer vår kalkulator
-  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-
-  if (
-    (await getPersonQuery).data?.foedselsdato &&
-    isFoedtFoer1963((await getPersonQuery).data?.foedselsdato as string)
-  ) {
-    window.open(externalUrls.detaljertKalkulator, '_self')
-  }
 
   return defer({
     getPersonQuery,
