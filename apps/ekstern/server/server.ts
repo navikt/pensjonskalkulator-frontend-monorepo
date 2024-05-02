@@ -17,8 +17,6 @@ const logger = winston.createLogger({
   ],
 })
 
-export default logger
-
 const AUTH_PROVIDER = (() => {
   const idporten: boolean = !!process.env.IDPORTEN_ISSUER
   const azure: boolean = !!process.env.AZURE_OPENID_CONFIG_ISSUER
@@ -112,12 +110,26 @@ app.get('/internal/health/ready', (_req, res) => {
   res.sendStatus(200)
 })
 
-// For alle andre endepunkt svar med *.html (siden vi bruker react-router)
-app.use('*', async (req, res, next) => {
+// For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
+app.get('/pensjon/kalkulator/veileder?*', (_req, res) => {
+  console.log('AUTH_PROVIDER', AUTH_PROVIDER)
+  if (AUTH_PROVIDER === 'azure') {
+    console.log('Server veileder.html')
+
+    return res.sendFile(__dirname + '/veileder.html')
+  } else {
+    console.log('Redirect to kalkulator')
+    return res.redirect('/pensjon/kalkulator')
+  }
+})
+
+app.get('*', (_req, res) => {
   if (AUTH_PROVIDER === 'idporten') {
-    return express.static(__dirname + '/index.html')(req, res, next)
+    console.log('Server index.html')
+    return res.sendFile(__dirname + '/index.html')
   } else if (AUTH_PROVIDER === 'azure') {
-    return express.static(__dirname + '/veileder.html')(req, res, next)
+    console.log('Redirect to veileder')
+    return res.redirect('/pensjon/kalkulator/veileder')
   }
 })
 
