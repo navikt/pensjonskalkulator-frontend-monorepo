@@ -112,23 +112,18 @@ app.get('/internal/health/ready', (_req, res) => {
 
 // For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
 app.get('/pensjon/kalkulator/veileder?*', (_req, res) => {
-  console.log('AUTH_PROVIDER', AUTH_PROVIDER)
   if (AUTH_PROVIDER === 'azure') {
-    console.log('Server veileder.html')
-
     return res.sendFile(__dirname + '/veileder.html')
   } else {
-    console.log('Redirect to kalkulator')
     return res.redirect('/pensjon/kalkulator')
   }
 })
 
 app.get('*', (_req, res) => {
   if (AUTH_PROVIDER === 'idporten') {
-    console.log('Server index.html')
     return res.sendFile(__dirname + '/index.html')
   } else if (AUTH_PROVIDER === 'azure') {
-    console.log('Redirect to veileder')
+    logger.info('Redirecting to veileder')
     return res.redirect('/pensjon/kalkulator/veileder')
   }
 })
