@@ -22,8 +22,6 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
   const harSamboer = useAppSelector(selectSamboerFraSivilstand)
 
-  console.log('>>>>> harSamboer', harSamboer)
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
@@ -33,6 +31,7 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
     onNext()
   }
 
+  // TODO PEK-400 skal vi logge noe?
   // React.useEffect(() => {
   //     logger('alert', {
   //       tekst: 'Uføretrygd og AFP',

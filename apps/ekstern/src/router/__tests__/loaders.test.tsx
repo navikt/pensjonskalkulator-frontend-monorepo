@@ -708,5 +708,223 @@ describe('Loaders', () => {
     })
   })
 
-  // TODO PEK_400 mangler test for step6AccessGuard
+  describe('step6AccessGuard', async () => {
+    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          queries: {},
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step6AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren ikke har samboer, er hen ikke redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getPerson(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getPerson',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: {
+                fornavn: 'Aprikos',
+                sivilstand: 'UGIFT',
+                foedselsdato: '1963-04-30',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step6AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe('')
+    })
+
+    it('Når brukeren har samboer, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getPerson(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getPerson',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: {
+                fornavn: 'Aprikos',
+                sivilstand: 'GIFT',
+                foedselsdato: '1963-04-30',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step6AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe(paths.beregningEnkel)
+    })
+
+    it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren ikke har samboer, er hen ikke redirigert', async () => {
+      mockResponse('/v1/person', {
+        status: 200,
+        json: {
+          fornavn: 'Ola',
+          sivilstand: 'UGIFT',
+          foedselsdato: '1963-04-30',
+        },
+      })
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getPerson(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getPerson',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step6AccessGuard()
+      const getPersonResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.getPersonQuery
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect((getPersonResponse as GetPersonQuery).data.sivilstand).toBe(
+        'UGIFT'
+      )
+      expect(shouldRedirectToResponse).toBe('')
+    })
+
+    it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren har samboer, er hen redirigert', async () => {
+      mockResponse('/v1/person', {
+        status: 200,
+        json: {
+          fornavn: 'Ola',
+          sivilstand: 'GIFT',
+          foedselsdato: '1963-04-30',
+        },
+      })
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getPerson(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getPerson',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step6AccessGuard()
+      const getPersonResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.getPersonQuery
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect((getPersonResponse as GetPersonQuery).data.sivilstand).toBe('GIFT')
+      expect(shouldRedirectToResponse).toBe(paths.beregningEnkel)
+    })
+
+    it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren er født før 1963, er hen redirigert', async () => {
+      const open = vi.fn()
+      vi.stubGlobal('open', open)
+
+      mockResponse('/v1/person', {
+        status: 200,
+        json: {
+          fornavn: 'Ola',
+          sivilstand: 'GIFT',
+          foedselsdato: '1960-04-30',
+        },
+      })
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getPerson(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getPerson',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step6AccessGuard()
+      const getPersonResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.getPersonQuery
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect((getPersonResponse as GetPersonQuery).data.foedselsdato).toBe(
+        '1960-04-30'
+      )
+      expect(shouldRedirectToResponse).toBe('')
+
+      expect(open).toHaveBeenCalledWith(
+        externalUrls.detaljertKalkulator,
+        '_self'
+      )
+    })
+  })
 })

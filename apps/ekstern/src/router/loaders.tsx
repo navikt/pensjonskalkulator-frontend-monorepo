@@ -392,33 +392,8 @@ export const step6AccessGuard = async () => {
     undefined
   )(store.getState())
 
-  // Hvis getPerson har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-  if (getPersonPreviousResponse.isError) {
-    const newGetPersonQuery = store.dispatch(
-      apiSlice.endpoints.getPerson.initiate()
-    )
-    newGetPersonQuery.then((res) => {
-      if (res.isError) {
-        resolveRedirectUrl(paths.uventetFeil)
-        resolveGetPerson(null)
-      } else if (
-        res?.isSuccess &&
-        isFoedtFoer1963(res?.data?.foedselsdato as string)
-      ) {
-        window.open(externalUrls.detaljertKalkulator, '_self')
-        resolveGetPerson(null)
-      } else if (
-        res?.data?.sivilstand &&
-        checkHarSamboer(res.data.sivilstand)
-      ) {
-        resolveRedirectUrl(paths.beregningEnkel)
-        resolveGetPerson(res)
-      } else {
-        resolveRedirectUrl('')
-        resolveGetPerson(res)
-      }
-    })
-  } else {
+  // Hvis getPerson har blitt fetchet tidligere, gjenbruk responsen
+  if (getPersonPreviousResponse.isSuccess) {
     if (
       getPersonPreviousResponse?.data?.sivilstand &&
       checkHarSamboer(getPersonPreviousResponse.data.sivilstand)
@@ -429,6 +404,33 @@ export const step6AccessGuard = async () => {
       resolveRedirectUrl('')
       resolveGetPerson(getPersonPreviousResponse)
     }
+  } else {
+    // Hvis getPerson har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+    const newGetPersonQuery = store.dispatch(
+      apiSlice.endpoints.getPerson.initiate()
+    )
+    newGetPersonQuery.then((res) => {
+      if (res.isError) {
+        resolveRedirectUrl(paths.uventetFeil)
+        resolveGetPerson(null)
+      }
+      if (res.isSuccess) {
+        if (isFoedtFoer1963(res?.data?.foedselsdato as string)) {
+          resolveGetPerson(res)
+          resolveRedirectUrl('')
+          window.open(externalUrls.detaljertKalkulator, '_self')
+        } else if (
+          res?.data?.sivilstand &&
+          checkHarSamboer(res.data.sivilstand)
+        ) {
+          resolveRedirectUrl(paths.beregningEnkel)
+          resolveGetPerson(res)
+        } else {
+          resolveRedirectUrl('')
+          resolveGetPerson(res)
+        }
+      }
+    })
   }
 
   return defer({
