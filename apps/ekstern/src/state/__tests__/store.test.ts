@@ -4,7 +4,7 @@ import { setupStore } from '../store'
 import { UserInputState } from '../userInput/userInputReducer'
 
 describe('store', () => {
-  it.skip('returnerer store med riktig slices og default state', () => {
+  it('returnerer store med riktig slices og default state', () => {
     const store = setupStore()
     const initialState = store.getState()
     expect(initialState).toMatchSnapshot()
