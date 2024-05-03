@@ -5,8 +5,9 @@ import { HOST_BASEURL } from '@/paths'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
+import { selectAfp } from '@/state/userInput/selectors'
 import { isFoedtFoer1963 } from '@/utils/alder'
-
+import { checkHarSamboer } from '@/utils/sivilstand'
 export interface LoginContext {
   isLoggedIn: boolean
 }
@@ -315,6 +316,123 @@ export const step4AccessGuard = async () => {
   }
 
   return defer({
+    shouldRedirectTo,
+  })
+}
+
+/// ////////////////////////////////////////////////////////////////////////
+
+export const step5AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
+
+  const afp = selectAfp(store.getState())
+  const ekskludertStatusResponse =
+    apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+      store.getState()
+    ).data
+
+  if (
+    ekskludertStatusResponse?.ekskludert &&
+    ekskludertStatusResponse.aarsak === 'HAR_LOEPENDE_UFOERETRYGD' &&
+    afp !== 'nei'
+  ) {
+    return null
+  }
+  return redirect(paths.sivilstand)
+}
+
+// ////////////////////////////////////////
+
+export function useStep6AccessData<
+  TReturnedValue extends ReturnType<typeof step6DeferredLoader>,
+>() {
+  return useLoaderData() as ReturnType<TReturnedValue>['data']
+}
+
+{
+  /* c8 ignore next 11 - Dette er kun for typing */
+}
+export function step6DeferredLoader<
+  TData extends {
+    getPersonQuery: GetPersonQuery
+    shouldRedirectTo: string | undefined
+  },
+>(dataFunc: (args?: LoaderFunctionArgs) => TData) {
+  return (args?: LoaderFunctionArgs) =>
+    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
+      data: TData
+    }
+}
+
+export const step6AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
+  let resolveRedirectUrl: (
+    value: string | PromiseLike<string>
+  ) => void = () => {}
+
+  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
+    resolveRedirectUrl = resolve
+  })
+
+  let resolveGetPerson: (
+    value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
+  ) => void = () => {}
+
+  const getPersonQuery: Promise<null | GetPersonQuery> = new Promise(
+    (resolve) => {
+      resolveGetPerson = resolve
+    }
+  )
+
+  const getPersonPreviousResponse = apiSlice.endpoints.getPerson.select(
+    undefined
+  )(store.getState())
+
+  // Hvis getPerson har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+  if (getPersonPreviousResponse.isError) {
+    const newGetPersonQuery = store.dispatch(
+      apiSlice.endpoints.getPerson.initiate()
+    )
+    newGetPersonQuery.then((res) => {
+      if (res.isError) {
+        resolveRedirectUrl(paths.uventetFeil)
+        resolveGetPerson(null)
+      } else if (
+        res?.isSuccess &&
+        isFoedtFoer1963(res?.data?.foedselsdato as string)
+      ) {
+        window.open(externalUrls.detaljertKalkulator, '_self')
+        resolveGetPerson(null)
+      } else if (
+        res?.data?.sivilstand &&
+        checkHarSamboer(res.data.sivilstand)
+      ) {
+        resolveRedirectUrl(paths.beregningEnkel)
+        resolveGetPerson(res)
+      } else {
+        resolveRedirectUrl('')
+        resolveGetPerson(res)
+      }
+    })
+  } else {
+    if (
+      getPersonPreviousResponse?.data?.sivilstand &&
+      checkHarSamboer(getPersonPreviousResponse.data.sivilstand)
+    ) {
+      resolveRedirectUrl(paths.beregningEnkel)
+      resolveGetPerson(getPersonPreviousResponse)
+    } else {
+      resolveRedirectUrl('')
+      resolveGetPerson(getPersonPreviousResponse)
+    }
+  }
+
+  return defer({
+    getPersonQuery,
     shouldRedirectTo,
   })
 }

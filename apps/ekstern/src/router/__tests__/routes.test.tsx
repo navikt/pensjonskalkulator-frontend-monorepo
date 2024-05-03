@@ -720,6 +720,7 @@ describe('routes', () => {
         ).toBeInTheDocument()
       })
 
+      // TODO PEK-400 fikse test
       it('viser Steg 5 når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
@@ -778,6 +779,7 @@ describe('routes', () => {
         ).toBeInTheDocument()
       })
 
+      // TODO PEK-400 Fikse test
       it('viser Steg 6 når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {

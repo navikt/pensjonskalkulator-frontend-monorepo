@@ -1,5 +1,7 @@
+import React from 'react'
 import { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
@@ -10,6 +12,7 @@ import { formatSivilstand } from '@/utils/sivilstand'
 import styles from './Sivilstand.module.scss'
 
 interface Props {
+  shouldRedirectTo?: string
   sivilstand: Sivilstand
   harSamboer: boolean | null
   onCancel: () => void
@@ -18,6 +21,7 @@ interface Props {
 }
 
 export function Sivilstand({
+  shouldRedirectTo,
   sivilstand,
   harSamboer,
   onCancel,
@@ -25,7 +29,14 @@ export function Sivilstand({
   onNext,
 }: Props) {
   const intl = useIntl()
+  const navigate = useNavigate()
   const [validationError, setValidationError] = useState<string>('')
+
+  React.useEffect(() => {
+    if (shouldRedirectTo) {
+      navigate(shouldRedirectTo)
+    }
+  }, [shouldRedirectTo])
 
   const formatertSivilstand = useMemo(
     () => formatSivilstand(intl, sivilstand).toLowerCase(),

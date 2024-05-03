@@ -22,6 +22,8 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
   const harSamboer = useAppSelector(selectSamboerFraSivilstand)
 
+  console.log('>>>>> harSamboer', harSamboer)
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 

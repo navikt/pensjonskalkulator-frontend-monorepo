@@ -8,6 +8,8 @@ import {
   step0AccessGuard,
   step3AccessGuard,
   step4AccessGuard,
+  step5AccessGuard,
+  step6AccessGuard,
 } from '../loaders'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
@@ -614,4 +616,97 @@ describe('Loaders', () => {
       expect(initiateMock).toHaveBeenCalled()
     })
   })
+
+  describe('step5AccessGuard', () => {
+    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          queries: {},
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step5AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren har uføretrygd og har valgt afp, er hen ikke redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ekskludert: true, aarsak: 'HAR_LOEPENDE_UFOERETRYGD' },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'ja_privat' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step5AccessGuard()
+      expect(returnedFromLoader).toBeNull()
+    })
+
+    it('Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ekskludert: true, aarsak: 'HAR_LOEPENDE_UFOERETRYGD' },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'nei' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step5AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren ikke har uføretrygd, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ekskludert: false, aarsak: 'NONE' },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step5AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+  })
+
+  // TODO PEK_400 mangler test for step6AccessGuard
 })

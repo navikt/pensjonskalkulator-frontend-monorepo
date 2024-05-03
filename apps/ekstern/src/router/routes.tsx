@@ -24,6 +24,8 @@ import {
   step0AccessGuard,
   step3AccessGuard,
   step4AccessGuard,
+  step5AccessGuard,
+  step6AccessGuard,
 } from './loaders'
 
 export const routes: RouteObject[] = [
@@ -98,12 +100,12 @@ export const routes: RouteObject[] = [
         element: <Step4 />,
       },
       {
-        loader: directAccessGuard,
+        loader: step5AccessGuard,
         path: paths.ufoeretrygd,
         element: <Step5 />,
       },
       {
-        loader: directAccessGuard,
+        loader: step6AccessGuard,
         path: paths.sivilstand,
         element: <Step6 />,
       },
