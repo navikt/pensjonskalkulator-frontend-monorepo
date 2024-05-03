@@ -23,6 +23,7 @@ import {
   landingPageAccessGuard,
   step0AccessGuard,
   step3AccessGuard,
+  step4AccessGuard,
 } from './loaders'
 
 export const routes: RouteObject[] = [
@@ -92,7 +93,7 @@ export const routes: RouteObject[] = [
         element: <Step3 />,
       },
       {
-        loader: directAccessGuard,
+        loader: step4AccessGuard,
         path: paths.afp,
         element: <Step4 />,
       },

@@ -3,7 +3,6 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { Step0 } from '..'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths, henvisningUrlParams } from '@/router/constants'
 import { routes } from '@/router/routes'

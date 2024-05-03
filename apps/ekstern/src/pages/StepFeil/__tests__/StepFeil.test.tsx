@@ -3,7 +3,6 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepFeil } from '..'
-import * as Step4Utils from '../../Step4/utils'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -68,7 +67,6 @@ describe('Step Feil', () => {
       json: { fornavn: 'Ola', sivilstand: 'UGIFT', foedselsdato: '1963-04-30' },
     })
     const user = userEvent.setup()
-    const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -76,7 +74,6 @@ describe('Step Feil', () => {
     render(<StepFeil />)
     user.click(await screen.findByText('error.global.button'))
     await waitFor(() => {
-      expect(nesteSideMock).toHaveBeenCalledWith(false)
       expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
     })
   })
@@ -87,7 +84,6 @@ describe('Step Feil', () => {
       json: { fornavn: 'Ola', sivilstand: 'GIFT', foedselsdato: '1963-04-30' },
     })
     const checkHarSamboerMock = vi.spyOn(sivilstandUtils, 'checkHarSamboer')
-    const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -95,9 +91,6 @@ describe('Step Feil', () => {
     render(<StepFeil />)
     await waitFor(() => {
       expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
-    })
-    await waitFor(() => {
-      expect(nesteSideMock).toHaveBeenCalledWith(true)
     })
     expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
   })

@@ -5,20 +5,22 @@ import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
+import { useAppSelector } from '@/state/hooks'
+import { selectSamboerFraSivilstand } from '@/state/userInput/selectors'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './Ufoere.module.scss'
 
 interface Props {
-  isLastStep: boolean
   onCancel: () => void
   onPrevious: () => void
   onNext: () => void
 }
 
-export function Ufoere({ isLastStep, onCancel, onPrevious, onNext }: Props) {
+export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
+  const harSamboer = useAppSelector(selectSamboerFraSivilstand)
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -74,7 +76,7 @@ export function Ufoere({ isLastStep, onCancel, onPrevious, onNext }: Props) {
 
         <Button type="submit" className={styles.button}>
           <FormattedMessage
-            id={isLastStep ? 'stegvisning.beregn' : 'stegvisning.neste'}
+            id={harSamboer ? 'stegvisning.beregn' : 'stegvisning.neste'}
           />
         </Button>
         <Button

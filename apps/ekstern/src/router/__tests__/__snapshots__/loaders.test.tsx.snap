@@ -135,3 +135,49 @@ _Response {
   },
 }
 `;
+
+exports[`Loaders > step4AccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
+_Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
+  Symbol(state): {
+    "aborted": false,
+    "cacheState": "",
+    "headersList": _HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "location",
+          "value": "/start",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    "rangeRequested": false,
+    "requestIncludesCredentials": false,
+    "status": 302,
+    "statusText": "",
+    "timingAllowPassed": false,
+    "timingInfo": null,
+    "type": "default",
+    "urlList": [],
+  },
+  Symbol(headers): _Headers {
+    Symbol(headers list): _HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "location",
+          "value": "/start",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
+}
+`;

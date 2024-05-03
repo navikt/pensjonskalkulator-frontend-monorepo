@@ -41,7 +41,7 @@ export const authenticationGuard = async () => {
 export const directAccessGuard = async () => {
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (
-    store.getState().api.queries === undefined ||
+    store.getState().api?.queries === undefined ||
     Object.keys(store.getState().api.queries).length === 0
   ) {
     return redirect(paths.start)
@@ -176,6 +176,9 @@ export function step3DeferredLoader<
 }
 
 export const step3AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
   const harSamtykket = store.getState().userInput.samtykke
   let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
   let rejectRedirectUrl: (reason?: unknown) => void
@@ -217,4 +220,101 @@ export const step3AccessGuard = async () => {
     // Dersom brukeren ikke samtykker til henting av tpo behøver ikke dette steget å vises
     return redirect(paths.afp)
   }
+}
+
+/// ////////////////////////////////////////////////////////////////////////
+
+export function useStep4AccessData<
+  TReturnedValue extends ReturnType<typeof step4DeferredLoader>,
+>() {
+  return useLoaderData() as ReturnType<TReturnedValue>['data']
+}
+
+{
+  /* c8 ignore next 11 - Dette er kun for typing */
+}
+export function step4DeferredLoader<
+  TData extends {
+    shouldRedirectTo: string | undefined
+  },
+>(dataFunc: (args?: LoaderFunctionArgs) => TData) {
+  return (args?: LoaderFunctionArgs) =>
+    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
+      data: TData
+    }
+}
+
+export const step4AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
+  let resolveRedirectUrl: (
+    value: string | PromiseLike<string>
+  ) => void = () => {}
+
+  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
+    resolveRedirectUrl = resolve
+  })
+
+  const hasInntektPreviouslyFailed = apiSlice.endpoints.getInntekt.select(
+    undefined
+  )(store.getState()).isError
+
+  const hasEkskludertStatusPreviouslyFailed =
+    apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+      store.getState()
+    ).isError
+
+  // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+  if (hasInntektPreviouslyFailed) {
+    const getInntektQuery = store.dispatch(
+      apiSlice.endpoints.getInntekt.initiate()
+    )
+    getInntektQuery.then((res) => {
+      if (res.isError) {
+        resolveRedirectUrl(paths.uventetFeil)
+      } else if (
+        apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+          store.getState()
+        ).isSuccess
+      ) {
+        resolveRedirectUrl('')
+      }
+    })
+  }
+  // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+  if (hasEkskludertStatusPreviouslyFailed) {
+    const getEkskludertStatusQuery = store.dispatch(
+      apiSlice.endpoints.getEkskludertStatus.initiate()
+    )
+    getEkskludertStatusQuery.then((res) => {
+      if (res.isError) {
+        resolveRedirectUrl(paths.uventetFeil)
+      }
+      if (
+        res?.data?.ekskludert &&
+        res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
+      ) {
+        resolveRedirectUrl(
+          `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+        )
+      } else if (res?.data?.ekskludert && res?.data?.aarsak === 'ER_APOTEKER') {
+        resolveRedirectUrl(
+          `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+        )
+      } else if (
+        apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
+          .isSuccess
+      ) {
+        resolveRedirectUrl('')
+      }
+    })
+  }
+  if (!hasInntektPreviouslyFailed && !hasEkskludertStatusPreviouslyFailed) {
+    resolveRedirectUrl('')
+  }
+
+  return defer({
+    shouldRedirectTo,
+  })
 }

@@ -25,7 +25,20 @@ describe('Step 3', () => {
   beforeEach(() => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
-        queries: {},
+        queries: {
+          ['getPerson(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getPerson',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              fornavn: 'Aprikos',
+              sivilstand: 'UGIFT',
+              foedselsdato: '1963-04-30',
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
       },
       userInput: {
         ...userInputReducerUtils.userInputInitialState,

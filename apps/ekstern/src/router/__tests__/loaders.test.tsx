@@ -7,6 +7,7 @@ import {
   landingPageAccessGuard,
   step0AccessGuard,
   step3AccessGuard,
+  step4AccessGuard,
 } from '../loaders'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
@@ -240,6 +241,9 @@ describe('Loaders', () => {
 
     it('kaller redirect til /afp location når samtykke er oppgitt til false', async () => {
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: false },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -254,6 +258,9 @@ describe('Loaders', () => {
         'initiate'
       )
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: true },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -281,6 +288,9 @@ describe('Loaders', () => {
         'initiate'
       )
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: true },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -299,12 +309,14 @@ describe('Loaders', () => {
 
     it('kaller getTpoMedlemskapQuery og returnerer en rejected defered response, når samtykke er true og tp-forhold feilet', async () => {
       mockErrorResponse('/tpo-medlemskap')
-
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap,
         'initiate'
       )
       const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
         userInput: { ...userInputInitialState, samtykke: true },
       }
       store.getState = vi.fn().mockImplementation(() => {
@@ -318,6 +330,288 @@ describe('Loaders', () => {
         expect(error).toEqual(null)
         expect(initiateMock).toHaveBeenCalled()
       }
+    })
+  })
+
+  describe('step4AccessGuard', () => {
+    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          queries: {},
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Gitt kall til inntekt har tidligere feilet, kjøres det nytt kall. Når den fungerer igjen returneres det tom redirect url', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getInntekt,
+        'initiate'
+      )
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getInntekt(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getInntekt',
+              requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+              startedTimeStamp: 1714725265404,
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+            },
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ekskludert: false, aarsak: 'NONE' },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual('')
+      })
+      expect(initiateMock).toHaveBeenCalled()
+    })
+
+    it('Gitt kall til inntekt har tidligere feilet, kjøres det nytt kall. Når den feiler igjen returneres det redirect url til feilsiden', async () => {
+      mockErrorResponse('/inntekt')
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getInntekt,
+        'initiate'
+      )
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getInntekt(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getInntekt',
+              requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+              startedTimeStamp: 1714725265404,
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+            },
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ekskludert: false, aarsak: 'NONE' },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
+      })
+      expect(initiateMock).toHaveBeenCalled()
+    })
+
+    it('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall. Når brukeren har gjenlevendeytelse, returneres det riktig redirect url', async () => {
+      mockResponse('/v1/ekskludert', {
+        json: {
+          ekskludert: true,
+          aarsak: 'HAR_GJENLEVENDEYTELSE',
+        },
+      })
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
+        'initiate'
+      )
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getEkskludertStatus',
+              requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+              startedTimeStamp: 1714725265404,
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(
+          `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+        )
+      })
+      expect(initiateMock).toHaveBeenCalled()
+    })
+
+    it('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall. Når brukeren har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
+      mockResponse('/v1/ekskludert', {
+        json: {
+          ekskludert: true,
+          aarsak: 'ER_APOTEKER',
+        },
+      })
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
+        'initiate'
+      )
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getEkskludertStatus',
+              requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+              startedTimeStamp: 1714725265404,
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(
+          `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+        )
+      })
+      expect(initiateMock).toHaveBeenCalled()
+    })
+
+    it('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall. Når brukeren ikke er ekskludert, returneres det tom redirect url', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
+        'initiate'
+      )
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getEkskludertStatus',
+              requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+              startedTimeStamp: 1714725265404,
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+            },
+            ['getInntekt(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getInntekt',
+              requestId: 'Agg8YpiSQJ9z7snnDTE7c',
+              data: { beloep: 500000, aar: '2022' },
+              startedTimeStamp: 1714725797073,
+              fulfilledTimeStamp: 1714725797288,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual('')
+      })
+      expect(initiateMock).toHaveBeenCalled()
+    })
+
+    it('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall. Når den feiler igjen returneres det redirect url til feilsiden', async () => {
+      mockErrorResponse('/v1/ekskludert')
+
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
+        'initiate'
+      )
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getEkskludertStatus',
+              requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+              startedTimeStamp: 1714725265404,
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
+      })
+      expect(initiateMock).toHaveBeenCalled()
     })
   })
 })

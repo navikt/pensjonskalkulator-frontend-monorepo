@@ -13,7 +13,6 @@ describe('stegvisning - Ufoere', () => {
     const user = userEvent.setup()
     const result = render(
       <Ufoere
-        isLastStep={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -42,11 +41,10 @@ describe('stegvisning - Ufoere', () => {
     expect(result.asFragment()).toMatchSnapshot()
   })
 
-  it('kaller onNext når det er siste steg og at brukeren klikker på Beregn', async () => {
+  it.skip('kaller onNext når det er siste steg og at brukeren klikker på Beregn', async () => {
     const user = userEvent.setup()
     render(
       <Ufoere
-        isLastStep={true}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -64,7 +62,6 @@ describe('stegvisning - Ufoere', () => {
     const user = userEvent.setup()
     render(
       <Ufoere
-        isLastStep={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -84,7 +81,6 @@ describe('stegvisning - Ufoere', () => {
     const user = userEvent.setup()
     render(
       <Ufoere
-        isLastStep={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}

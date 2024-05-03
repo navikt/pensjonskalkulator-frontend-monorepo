@@ -2,7 +2,6 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { getNesteSide } from '../Step4/utils'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { useGetInntektQuery, useGetPersonQuery } from '@/state/api/apiSlice'
@@ -30,7 +29,9 @@ export function StepFeil() {
 
   React.useEffect(() => {
     if (isInntektSuccess && isPersonSuccess) {
-      const url = getNesteSide(checkHarSamboer(person.sivilstand))
+      const url = checkHarSamboer(person.sivilstand)
+        ? paths.beregningEnkel
+        : paths.sivilstand
       navigate(url)
     }
   }, [isInntektSuccess, isPersonSuccess, person])
