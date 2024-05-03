@@ -682,6 +682,64 @@ describe('routes', () => {
       })
     })
 
+    describe(`${BASE_PATH}${paths.ufoeretrygd}`, () => {
+      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
+        const open = vi.fn()
+        vi.stubGlobal('open', open)
+        mockErrorResponse('/oauth2/session', {
+          baseUrl: `${HOST_BASEURL}`,
+        })
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        await waitFor(() => {
+          expect(open).toHaveBeenCalledWith(
+            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+            '_self'
+          )
+        })
+      })
+      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+        store.getState = vi.fn().mockImplementation(() => ({
+          api: {},
+          userInput: { ...userInputInitialState },
+        }))
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('stegvisning.start.button')
+        ).toBeInTheDocument()
+      })
+
+      it('viser Steg 5 når brukeren kommer til steget gjennom stegvisningen', async () => {
+        store.getState = vi.fn().mockImplementation(() => ({
+          api: {
+            ...fakeApiCalls,
+          },
+          userInput: { ...userInputInitialState },
+        }))
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('stegvisning.ufoere.title')
+        ).toBeInTheDocument()
+      })
+    })
+
     describe(`${BASE_PATH}${paths.sivilstand}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()

@@ -1,4 +1,4 @@
 {
-  "ekskludert": true,
-  "aarsak": "HAR_LOEPENDE_UFOERETRYGD"
+  "ekskludert": false,
+  "aarsak": "NONE"
 }

@@ -2,13 +2,15 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Sivilstand } from '@/components/stegvisning/Sivilstand'
+import { getNesteSide } from '../Step4/utils'
+import { Loader } from '@/components/common/Loader'
+import { Ufoere } from '@/components/stegvisning/Ufoere'
 import { paths } from '@/router/constants'
-import { useGetPersonQuery } from '@/state/api/apiSlice'
+import { useGetInntektQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   isVeilederSelector,
-  selectSamboerFraBrukerInput,
+  selectSamboerFraSivilstand,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -16,8 +18,10 @@ export function Step5() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { data: person, isSuccess } = useGetPersonQuery()
-  const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
+  const harSamboer = useAppSelector(selectSamboerFraSivilstand)
+
+  const { isLoading: isInntektLoading, isError: isInntektError } =
+    useGetInntektQuery()
   const isVeileder = useAppSelector(isVeilederSelector)
 
   React.useEffect(() => {
@@ -25,6 +29,10 @@ export function Step5() {
       id: 'application.title.stegvisning.step5',
     })
   }, [])
+
+  const nesteSide = React.useMemo(() => {
+    return getNesteSide(harSamboer, isInntektError)
+  }, [harSamboer, isInntektError])
 
   // Fjern mulighet for avbryt hvis person er veileder
   const onCancel = isVeileder
@@ -38,21 +46,29 @@ export function Step5() {
     return navigate(paths.afp)
   }
 
-  const onNext = (sivilstandData: BooleanRadio): void => {
-    dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
-    navigate(paths.beregningEnkel)
+  const onNext = (): void => {
+    navigate(nesteSide)
   }
-  return (
-    <>
-      {isSuccess && (
-        <Sivilstand
-          sivilstand={person.sivilstand}
-          harSamboer={samboerSvar}
-          onCancel={onCancel}
-          onPrevious={onPrevious}
-          onNext={onNext}
+
+  if (isInntektLoading) {
+    return (
+      <div style={{ width: '100%' }}>
+        <Loader
+          data-testid="step5-loader"
+          size="3xlarge"
+          title={intl.formatMessage({ id: 'pageframework.loading' })}
+          isCentered
         />
-      )}
-    </>
+      </div>
+    )
+  }
+
+  return (
+    <Ufoere
+      isLastStep={nesteSide === paths.beregningEnkel}
+      onCancel={onCancel}
+      onPrevious={onPrevious}
+      onNext={onNext}
+    />
   )
 }
