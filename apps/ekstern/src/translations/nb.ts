@@ -236,7 +236,7 @@ const translations = {
   'beregning.pensjonsavtaler.error.partial':
     'Vi klarte ikke å hente alle pensjonsavtalene dine',
   'beregning.pensjonsavtaler.info':
-    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>',
+    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
   'beregning.alert.inntekt':
     'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
