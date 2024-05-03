@@ -14,6 +14,7 @@ export const externalUrls = {
     'https://www.nav.no/personvernerklaering#dine-rettigheter',
   personvernerklaeringKontaktOss:
     'https://www.nav.no/personvernerklaering#kontakt-nav',
+  kontaktOss: 'https://www.nav.no/kontaktoss',
 }
 
 export const paths = {
@@ -25,6 +26,7 @@ export const paths = {
   utenlandsopphold: '/utenlandsopphold',
   offentligTp: '/offentlig-tp',
   afp: '/afp',
+  ufoeretrygd: '/ufoeretrygd-afp',
   sivilstand: '/sivilstand',
   uventetFeil: '/uventet-feil',
   beregningEnkel: '/beregning',

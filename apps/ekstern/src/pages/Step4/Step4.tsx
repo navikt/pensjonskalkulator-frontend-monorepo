@@ -9,6 +9,7 @@ import {
   useGetInntektQuery,
   useGetPersonQuery,
   useGetTpoMedlemskapQuery,
+  useGetEkskludertStatusQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -27,6 +28,8 @@ export function Step4() {
   const harSamtykket = useAppSelector(selectSamtykke)
   const harSamboer = useAppSelector(selectSamboerFraSivilstand)
   const previousAfp = useAppSelector(selectAfp)
+  const { isFetching: isEkskludertStatusFetching, data: ekskludertStatus } =
+    useGetEkskludertStatusQuery()
   const { isLoading: isInntektLoading, isError: isInntektError } =
     useGetInntektQuery()
   const { isLoading: isPersonLoading } = useGetPersonQuery()
@@ -62,10 +65,18 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    navigate(nesteSide)
+    const hasUfoeretrygd =
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+
+    if (hasUfoeretrygd && afpData && afpData !== 'nei') {
+      navigate(paths.ufoeretrygd)
+    } else {
+      navigate(nesteSide)
+    }
   }
 
-  if (isPersonLoading || isInntektLoading) {
+  if (isPersonLoading || isEkskludertStatusFetching || isInntektLoading) {
     return (
       <div style={{ width: '100%' }}>
         <Loader

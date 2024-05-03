@@ -7,7 +7,8 @@ const translations = {
   'application.title.stegvisning.step3':
     'Offentleg tenestepensjon - Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP -Pensjonskalkulator',
-  'application.title.stegvisning.step5': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.step5': 'MANGLER_TEKST',
+  'application.title.stegvisning.step6': 'Sivilstand - Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
@@ -151,6 +152,13 @@ const translations = {
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker på om du har rett til AFP, bør du sjekke med arbeidsgjevaren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
+  'stegvisning.ufoere.title': 'MANGLER_TEKST',
+  'stegvisning.ufoere.info': 'MANGLER_TEKST',
+  'stegvisning.ufoere.readmore_1.title': 'MANGLER_TEKST',
+  'stegvisning.ufoere.readmore_1.body': 'MANGLER_TEKST',
+  'stegvisning.ufoere.readmore_2.title': 'MANGLER_TEKST',
+  'stegvisning.ufoere.readmore_2.body': 'MANGLER_TEKST',
+  'stegvisning.ufoere.ingress': 'MANGLER_TEKST',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
@@ -476,6 +484,6 @@ const translations = {
   'personopplysninger.section.spoersmaal.heading':
     'Spørsmål til NAV eller datatilsynet om personvern',
   'personopplysninger.section.spoersmaal.text':
-    'Sjå kontaktinformasjon i <navPersonvernerklaeringKontaktOss>personvernerklæringa</navPersonvernerklaeringKontaktOss> for NAV.',
+    'Sjå kontaktinformasjon i <navPersonvernerklaeringKontaktOssLink>personvernerklæringa</navPersonvernerklaeringKontaktOssLink> for NAV.',
 }
 export const getTranslation_nn = () => translations

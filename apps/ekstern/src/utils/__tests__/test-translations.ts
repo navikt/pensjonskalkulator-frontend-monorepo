@@ -14,8 +14,10 @@ const translations = {
     'lorem ipsum dolor <norskPensjonLink>my link</norskPensjonLink>',
   'translation.test.navPersonvernerklaeringLink':
     'lorem ipsum dolor <navPersonvernerklaeringLink>my link</navPersonvernerklaeringLink>',
-  'translation.test.navPersonvernerklaeringKontaktOss':
-    'lorem ipsum dolor <navPersonvernerklaeringKontaktOss>my link</navPersonvernerklaeringKontaktOss>',
+  'translation.test.navPersonvernerklaeringKontaktOssLink':
+    'lorem ipsum dolor <navPersonvernerklaeringKontaktOssLink>my link</navPersonvernerklaeringKontaktOssLink>',
+  'translation.test.kontaktOssLink':
+    'lorem ipsum dolor <kontaktOssLink>my link</kontaktOssLink>',
   'translation.test.br': 'lorem{br}ipsum{br}{br}dolor',
   'translation.test.strong': 'lorem<strong>ipsum</strong>dolor',
   'translation.test.nowrap': 'lorem<nowrap>ipsum</nowrap>dolor',
