@@ -33,8 +33,7 @@ export function Step0() {
 
   React.useEffect(() => {
     if (
-      ufoereFeatureToggle &&
-      !ufoereFeatureToggle?.enabled &&
+      (!ufoereFeatureToggle || !ufoereFeatureToggle?.enabled) &&
       ekskludertStatus?.ekskludert &&
       ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
     ) {
