@@ -101,125 +101,136 @@ export function AFP({
   const handleRadioChange = (value: AfpRadio): void => {
     setShowAlert(value)
     setValidationError('')
-    setIsLastStep(
-      !!harSamboer ||
-        (ekskludertStatus?.aarsak === 'HAR_LOEPENDE_UFOERETRYGD' &&
-          value !== 'nei')
-    )
+    if (harSamboer) {
+      setIsLastStep(
+        !(
+          ekskludertStatus?.aarsak === 'HAR_LOEPENDE_UFOERETRYGD' &&
+          value !== 'nei'
+        )
+      )
+    }
   }
 
   return (
-    <Card hasLargePadding hasMargin>
-      <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
-          <FormattedMessage id="stegvisning.afp.title" />
-        </Heading>
-        <BodyLong size="large">
-          <FormattedMessage id="stegvisning.afp.ingress" />
-        </BodyLong>
-        <ReadMore
-          name="Avtalefestet pensjon i offentlig sektor"
-          className={styles.readmoreOffentlig}
-          header={
-            <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_title" />
-          <ul className={styles.list}>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
-            </li>
-          </ul>
-          <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
-        </ReadMore>
-        <ReadMore
-          name="Avtalefestet pensjon i privat sektor"
-          className={styles.readmorePrivat}
-          header={
-            <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.afp.readmore_privat_list_title" />
-          <ul className={styles.list}>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item1" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item2" />
-            </li>
-            <li>
-              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item3" />
-            </li>
-          </ul>
-          <FormattedMessage
-            id="stegvisning.afp.readmore_privat_link"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
-        </ReadMore>
-        <RadioGroup
-          className={styles.radiogroup}
-          legend={<FormattedMessage id="stegvisning.afp.radio_label" />}
-          name="afp"
-          defaultValue={afp}
-          onChange={handleRadioChange}
-          error={validationError}
-          role="radiogroup"
-          aria-required="true"
-        >
-          <Radio value="ja_offentlig">
-            <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
-          </Radio>
-          {showAlert === 'ja_offentlig' &&
-            !afpOffentligFeatureToggle?.enabled && (
+    !shouldRedirectTo && (
+      <Card hasLargePadding hasMargin>
+        <form onSubmit={onSubmit}>
+          <Heading level="2" size="medium" spacing>
+            <FormattedMessage id="stegvisning.afp.title" />
+          </Heading>
+          <BodyLong size="large">
+            <FormattedMessage id="stegvisning.afp.ingress" />
+          </BodyLong>
+          <ReadMore
+            name="Avtalefestet pensjon i offentlig sektor"
+            className={styles.readmoreOffentlig}
+            header={
+              <FormattedMessage id="stegvisning.afp.readmore_offentlig_title" />
+            }
+          >
+            <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_title" />
+            <ul className={styles.list}>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item1" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item2" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_offentlig_list_item3" />
+              </li>
+            </ul>
+            <FormattedMessage id="stegvisning.afp.readmore_offentlig_ingress" />
+          </ReadMore>
+          <ReadMore
+            name="Avtalefestet pensjon i privat sektor"
+            className={styles.readmorePrivat}
+            header={
+              <FormattedMessage id="stegvisning.afp.readmore_privat_title" />
+            }
+          >
+            <FormattedMessage id="stegvisning.afp.readmore_privat_list_title" />
+            <ul className={styles.list}>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item1" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item2" />
+              </li>
+              <li>
+                <FormattedMessage id="stegvisning.afp.readmore_privat_list_item3" />
+              </li>
+            </ul>
+            <FormattedMessage
+              id="stegvisning.afp.readmore_privat_link"
+              values={{
+                ...getFormatMessageValues(intl),
+              }}
+            />
+          </ReadMore>
+          <RadioGroup
+            className={styles.radiogroup}
+            legend={<FormattedMessage id="stegvisning.afp.radio_label" />}
+            name="afp"
+            defaultValue={afp}
+            onChange={handleRadioChange}
+            error={validationError}
+            role="radiogroup"
+            aria-required="true"
+          >
+            <Radio value="ja_offentlig">
+              <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
+            </Radio>
+            {showAlert === 'ja_offentlig' &&
+              !afpOffentligFeatureToggle?.enabled && (
+                <Alert
+                  className={styles.alert}
+                  variant="info"
+                  aria-live="polite"
+                >
+                  <FormattedMessage id="stegvisning.afp.alert_ja_offentlig" />
+                </Alert>
+              )}
+            <Radio value="ja_privat">
+              <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
+            </Radio>
+            <Radio value="nei">
+              <FormattedMessage id="stegvisning.afp.radio_nei" />
+            </Radio>
+            <Radio value="vet_ikke">
+              <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
+            </Radio>
+            {showAlert === 'vet_ikke' && (
               <Alert className={styles.alert} variant="info" aria-live="polite">
-                <FormattedMessage id="stegvisning.afp.alert_ja_offentlig" />
+                <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
               </Alert>
             )}
-          <Radio value="ja_privat">
-            <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
-          </Radio>
-          <Radio value="nei">
-            <FormattedMessage id="stegvisning.afp.radio_nei" />
-          </Radio>
-          <Radio value="vet_ikke">
-            <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
-          </Radio>
-          {showAlert === 'vet_ikke' && (
-            <Alert className={styles.alert} variant="info" aria-live="polite">
-              <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
-            </Alert>
-          )}
-        </RadioGroup>
-        <Button type="submit" className={styles.button}>
-          <FormattedMessage
-            id={isLastStep ? 'stegvisning.beregn' : 'stegvisning.neste'}
-          />
-        </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="secondary"
-          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
-        >
-          <FormattedMessage id="stegvisning.tilbake" />
-        </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
-      </form>
-    </Card>
+          </RadioGroup>
+          <Button type="submit" className={styles.button}>
+            <FormattedMessage
+              id={isLastStep ? 'stegvisning.beregn' : 'stegvisning.neste'}
+            />
+          </Button>
+          <Button
+            type="button"
+            className={styles.button}
+            variant="secondary"
+            onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(
+              onPrevious
+            )}
+          >
+            <FormattedMessage id="stegvisning.tilbake" />
+          </Button>
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        </form>
+      </Card>
+    )
   )
 }

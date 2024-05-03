@@ -292,22 +292,27 @@ export const step4AccessGuard = async () => {
       if (res.isError) {
         resolveRedirectUrl(paths.uventetFeil)
       }
-      if (
-        res?.data?.ekskludert &&
-        res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
-      ) {
-        resolveRedirectUrl(
-          `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-        )
-      } else if (res?.data?.ekskludert && res?.data?.aarsak === 'ER_APOTEKER') {
-        resolveRedirectUrl(
-          `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-        )
-      } else if (
-        apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
-          .isSuccess
-      ) {
-        resolveRedirectUrl('')
+      if (res.isSuccess) {
+        if (
+          res?.data?.ekskludert &&
+          res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
+        ) {
+          resolveRedirectUrl(
+            `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+          )
+        } else if (
+          res?.data?.ekskludert &&
+          res?.data?.aarsak === 'ER_APOTEKER'
+        ) {
+          resolveRedirectUrl(
+            `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+          )
+        } else if (
+          apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
+            .isSuccess
+        ) {
+          resolveRedirectUrl('')
+        }
       }
     })
   }
@@ -412,13 +417,13 @@ export const step6AccessGuard = async () => {
     newGetPersonQuery.then((res) => {
       if (res.isError) {
         resolveRedirectUrl(paths.uventetFeil)
-        resolveGetPerson(null)
+        resolveGetPerson(res)
       }
       if (res.isSuccess) {
         if (isFoedtFoer1963(res?.data?.foedselsdato as string)) {
-          resolveGetPerson(res)
-          resolveRedirectUrl('')
           window.open(externalUrls.detaljertKalkulator, '_self')
+          resolveRedirectUrl('')
+          resolveGetPerson(res)
         } else if (
           res?.data?.sivilstand &&
           checkHarSamboer(res.data.sivilstand)

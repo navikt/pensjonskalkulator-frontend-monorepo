@@ -78,7 +78,11 @@ export function Step6() {
           return (
             <Sivilstand
               shouldRedirectTo={shouldRedirectTo}
-              sivilstand={(getPersonQuery.data as Person).sivilstand}
+              sivilstand={
+                getPersonQuery.isSuccess
+                  ? (getPersonQuery.data as Person).sivilstand
+                  : 'UNKNOWN'
+              }
               harSamboer={samboerSvar}
               onCancel={onCancel}
               onPrevious={onPrevious}

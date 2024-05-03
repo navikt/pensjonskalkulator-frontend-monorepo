@@ -33,41 +33,43 @@ export function OffentligTP({
   }, [shouldRedirectTo])
 
   return (
-    <Card hasLargePadding hasMargin>
-      <Heading level="2" size="medium" spacing>
-        <FormattedMessage id="stegvisning.offentligtp.title" />
-      </Heading>
-      <BodyLong>
-        <FormattedMessage
-          id="stegvisning.offentligtp.ingress"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
-      </BodyLong>
-      <Button
-        type="submit"
-        className={styles.button}
-        onClick={wrapLogger('button klikk', { tekst: 'Neste' })(onNext)}
-      >
-        <FormattedMessage id="stegvisning.neste" />
-      </Button>
-      <Button
-        type="button"
-        className={styles.button}
-        variant="secondary"
-        onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
-      >
-        <FormattedMessage id="stegvisning.tilbake" />
-      </Button>
-      <Button
-        type="button"
-        className={styles.button}
-        variant="tertiary"
-        onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-      >
-        <FormattedMessage id="stegvisning.avbryt" />
-      </Button>
-    </Card>
+    !shouldRedirectTo && (
+      <Card hasLargePadding hasMargin>
+        <Heading level="2" size="medium" spacing>
+          <FormattedMessage id="stegvisning.offentligtp.title" />
+        </Heading>
+        <BodyLong>
+          <FormattedMessage
+            id="stegvisning.offentligtp.ingress"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </BodyLong>
+        <Button
+          type="submit"
+          className={styles.button}
+          onClick={wrapLogger('button klikk', { tekst: 'Neste' })(onNext)}
+        >
+          <FormattedMessage id="stegvisning.neste" />
+        </Button>
+        <Button
+          type="button"
+          className={styles.button}
+          variant="secondary"
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+        >
+          <FormattedMessage id="stegvisning.tilbake" />
+        </Button>
+        <Button
+          type="button"
+          className={styles.button}
+          variant="tertiary"
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+        >
+          <FormattedMessage id="stegvisning.avbryt" />
+        </Button>
+      </Card>
+    )
   )
 }
