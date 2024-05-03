@@ -5,8 +5,9 @@ import { HOST_BASEURL } from '@/paths'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
+import { selectAfp } from '@/state/userInput/selectors'
 import { isFoedtFoer1963 } from '@/utils/alder'
-
+import { checkHarSamboer } from '@/utils/sivilstand'
 export interface LoginContext {
   isLoggedIn: boolean
 }
@@ -41,7 +42,7 @@ export const authenticationGuard = async () => {
 export const directAccessGuard = async () => {
   // Dersom ingen kall er registrert i store betyr det at brukeren prøver å aksessere en url direkte
   if (
-    store.getState().api.queries === undefined ||
+    store.getState().api?.queries === undefined ||
     Object.keys(store.getState().api.queries).length === 0
   ) {
     return redirect(paths.start)
@@ -176,6 +177,9 @@ export function step3DeferredLoader<
 }
 
 export const step3AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
   const harSamtykket = store.getState().userInput.samtykke
   let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
   let rejectRedirectUrl: (reason?: unknown) => void
@@ -217,4 +221,225 @@ export const step3AccessGuard = async () => {
     // Dersom brukeren ikke samtykker til henting av tpo behøver ikke dette steget å vises
     return redirect(paths.afp)
   }
+}
+
+/// ////////////////////////////////////////////////////////////////////////
+
+export function useStep4AccessData<
+  TReturnedValue extends ReturnType<typeof step4DeferredLoader>,
+>() {
+  return useLoaderData() as ReturnType<TReturnedValue>['data']
+}
+
+{
+  /* c8 ignore next 11 - Dette er kun for typing */
+}
+export function step4DeferredLoader<
+  TData extends {
+    shouldRedirectTo: string | undefined
+  },
+>(dataFunc: (args?: LoaderFunctionArgs) => TData) {
+  return (args?: LoaderFunctionArgs) =>
+    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
+      data: TData
+    }
+}
+
+export const step4AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
+  let resolveRedirectUrl: (
+    value: string | PromiseLike<string>
+  ) => void = () => {}
+
+  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
+    resolveRedirectUrl = resolve
+  })
+
+  const hasInntektPreviouslyFailed = apiSlice.endpoints.getInntekt.select(
+    undefined
+  )(store.getState()).isError
+
+  const hasEkskludertStatusPreviouslyFailed =
+    apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+      store.getState()
+    ).isError
+
+  // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+  if (hasInntektPreviouslyFailed) {
+    const getInntektQuery = store.dispatch(
+      apiSlice.endpoints.getInntekt.initiate()
+    )
+    getInntektQuery.then((res) => {
+      if (res.isError) {
+        resolveRedirectUrl(paths.uventetFeil)
+      } else if (
+        apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+          store.getState()
+        ).isSuccess
+      ) {
+        resolveRedirectUrl('')
+      }
+    })
+  }
+  // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+  if (hasEkskludertStatusPreviouslyFailed) {
+    const getEkskludertStatusQuery = store.dispatch(
+      apiSlice.endpoints.getEkskludertStatus.initiate()
+    )
+    getEkskludertStatusQuery.then((res) => {
+      if (res.isError) {
+        resolveRedirectUrl(paths.uventetFeil)
+      }
+      if (res.isSuccess) {
+        if (
+          res?.data?.ekskludert &&
+          res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
+        ) {
+          resolveRedirectUrl(
+            `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+          )
+        } else if (
+          res?.data?.ekskludert &&
+          res?.data?.aarsak === 'ER_APOTEKER'
+        ) {
+          resolveRedirectUrl(
+            `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+          )
+        } else if (
+          apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
+            .isSuccess
+        ) {
+          resolveRedirectUrl('')
+        }
+      }
+    })
+  }
+  if (!hasInntektPreviouslyFailed && !hasEkskludertStatusPreviouslyFailed) {
+    resolveRedirectUrl('')
+  }
+
+  return defer({
+    shouldRedirectTo,
+  })
+}
+
+/// ////////////////////////////////////////////////////////////////////////
+
+export const step5AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
+
+  const afp = selectAfp(store.getState())
+  const ekskludertStatusResponse =
+    apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+      store.getState()
+    ).data
+
+  if (
+    ekskludertStatusResponse?.ekskludert &&
+    ekskludertStatusResponse.aarsak === 'HAR_LOEPENDE_UFOERETRYGD' &&
+    afp !== 'nei'
+  ) {
+    return null
+  }
+  return redirect(paths.sivilstand)
+}
+
+// ////////////////////////////////////////
+
+export function useStep6AccessData<
+  TReturnedValue extends ReturnType<typeof step6DeferredLoader>,
+>() {
+  return useLoaderData() as ReturnType<TReturnedValue>['data']
+}
+
+{
+  /* c8 ignore next 11 - Dette er kun for typing */
+}
+export function step6DeferredLoader<
+  TData extends {
+    getPersonQuery: GetPersonQuery
+    shouldRedirectTo: string | undefined
+  },
+>(dataFunc: (args?: LoaderFunctionArgs) => TData) {
+  return (args?: LoaderFunctionArgs) =>
+    defer(dataFunc(args)) as Omit<ReturnType<typeof defer>, 'data'> & {
+      data: TData
+    }
+}
+
+export const step6AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
+  let resolveRedirectUrl: (
+    value: string | PromiseLike<string>
+  ) => void = () => {}
+
+  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
+    resolveRedirectUrl = resolve
+  })
+
+  let resolveGetPerson: (
+    value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
+  ) => void = () => {}
+
+  const getPersonQuery: Promise<null | GetPersonQuery> = new Promise(
+    (resolve) => {
+      resolveGetPerson = resolve
+    }
+  )
+
+  const getPersonPreviousResponse = apiSlice.endpoints.getPerson.select(
+    undefined
+  )(store.getState())
+
+  // Hvis getPerson har blitt fetchet tidligere, gjenbruk responsen
+  if (getPersonPreviousResponse.isSuccess) {
+    if (
+      getPersonPreviousResponse?.data?.sivilstand &&
+      checkHarSamboer(getPersonPreviousResponse.data.sivilstand)
+    ) {
+      resolveRedirectUrl(paths.beregningEnkel)
+      resolveGetPerson(getPersonPreviousResponse)
+    } else {
+      resolveRedirectUrl('')
+      resolveGetPerson(getPersonPreviousResponse)
+    }
+  } else {
+    // Hvis getPerson har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+    const newGetPersonQuery = store.dispatch(
+      apiSlice.endpoints.getPerson.initiate()
+    )
+    newGetPersonQuery.then((res) => {
+      if (res.isError) {
+        resolveRedirectUrl(paths.uventetFeil)
+        resolveGetPerson(res)
+      }
+      if (res.isSuccess) {
+        if (isFoedtFoer1963(res?.data?.foedselsdato as string)) {
+          window.open(externalUrls.detaljertKalkulator, '_self')
+          resolveRedirectUrl('')
+          resolveGetPerson(res)
+        } else if (
+          res?.data?.sivilstand &&
+          checkHarSamboer(res.data.sivilstand)
+        ) {
+          resolveRedirectUrl(paths.beregningEnkel)
+          resolveGetPerson(res)
+        } else {
+          resolveRedirectUrl('')
+          resolveGetPerson(res)
+        }
+      }
+    })
+  }
+
+  return defer({
+    getPersonQuery,
+    shouldRedirectTo,
+  })
 }

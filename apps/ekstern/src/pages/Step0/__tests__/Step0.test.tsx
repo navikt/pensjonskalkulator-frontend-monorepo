@@ -3,7 +3,6 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { Step0 } from '..'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths, henvisningUrlParams } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -96,7 +95,7 @@ describe('Step 0', () => {
       hasRouter: false,
     })
     await waitFor(async () => {
-      await user.click(screen.getByText('stegvisning.avbryt'))
+      await user.click(await screen.findByText('stegvisning.avbryt'))
       expect(navigateMock).toHaveBeenCalledWith(paths.login)
     })
   })

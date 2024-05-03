@@ -19,7 +19,6 @@ declare global {
     void,
     BaseQueryFn<Record<string, unknown>, Person>
   >
-
   type Person = components['schemas']['ApiPersonDto']
   type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
@@ -28,6 +27,11 @@ declare global {
   type Inntekt = components['schemas']['InntektDto']
 
   // /ekskludert-status
+  export type GetEkskludertStatusQuery = TypedUseQueryStateResult<
+    EkskludertStatus,
+    void,
+    BaseQueryFn<Record<string, unknown>, Person>
+  >
   type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
 
   // /tpo-medlemskap

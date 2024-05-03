@@ -20,7 +20,6 @@ export function Step0() {
   const loaderData = useStep0AccessData()
 
   const { data: ufoereFeatureToggle } = useGetUfoereFeatureToggleQuery()
-
   const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
 
   React.useEffect(() => {
@@ -33,14 +32,12 @@ export function Step0() {
   }, [])
 
   React.useEffect(() => {
-    // TODO Fases ut når feature for uføre er lansert
-    if (ekskludertStatus?.ekskludert) {
-      if (
-        !ufoereFeatureToggle?.enabled &&
-        ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
-      ) {
-        navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
-      }
+    if (
+      (!ufoereFeatureToggle || !ufoereFeatureToggle?.enabled) &&
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
     }
   }, [ekskludertStatus, navigate])
 
@@ -53,44 +50,42 @@ export function Step0() {
   }
 
   return (
-    <>
-      <React.Suspense
-        fallback={
-          <div style={{ width: '100%' }}>
-            <Loader
-              data-testid="step0-loader"
-              size="3xlarge"
-              title={intl.formatMessage({ id: 'pageframework.loading' })}
-              isCentered
-            />
-          </div>
-        }
+    <React.Suspense
+      fallback={
+        <div style={{ width: '100%' }}>
+          <Loader
+            data-testid="step0-loader"
+            size="3xlarge"
+            title={intl.formatMessage({ id: 'pageframework.loading' })}
+            isCentered
+          />
+        </div>
+      }
+    >
+      <Await
+        resolve={Promise.all([
+          loaderData.getPersonQuery,
+          loaderData.shouldRedirectTo,
+        ])}
       >
-        <Await
-          resolve={Promise.all([
-            loaderData.getPersonQuery,
-            loaderData.shouldRedirectTo,
-          ])}
-        >
-          {(queries: [GetPersonQuery, string]) => {
-            const getPersonQuery = queries[0]
-            const shouldRedirectTo = queries[1]
+        {(queries: [GetPersonQuery, string]) => {
+          const getPersonQuery = queries[0]
+          const shouldRedirectTo = queries[1]
 
-            return (
-              <Start
-                shouldRedirectTo={shouldRedirectTo}
-                fornavn={
-                  getPersonQuery.isSuccess
-                    ? (getPersonQuery.data as Person).fornavn
-                    : ''
-                }
-                onCancel={onCancel}
-                onNext={onNext}
-              />
-            )
-          }}
-        </Await>
-      </React.Suspense>
-    </>
+          return (
+            <Start
+              shouldRedirectTo={shouldRedirectTo}
+              fornavn={
+                getPersonQuery.isSuccess
+                  ? (getPersonQuery.data as Person).fornavn
+                  : ''
+              }
+              onCancel={onCancel}
+              onNext={onNext}
+            />
+          )
+        }}
+      </Await>
+    </React.Suspense>
   )
 }

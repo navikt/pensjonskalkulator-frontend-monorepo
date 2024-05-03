@@ -563,8 +563,7 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-
-      it('viser Steg 3 når brukeren kommer til steget gjennom stegvisningen og har tpo-medlemskap', async () => {
+      it('Gitt at brukeren har tpo-medlemskap, når hen kommer fra stegvisningen, vises Steg 3', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
@@ -582,8 +581,7 @@ describe('routes', () => {
           await screen.findByText('stegvisning.offentligtp.title')
         ).toBeVisible()
       })
-
-      it('redirigerer til Step 4 når brukeren har svart nei på spørsmålet om samtykke', async () => {
+      it('Gitt at brukeren har svart nei til spørsmål om samtykke, redirigerer til Step 4', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
@@ -599,8 +597,7 @@ describe('routes', () => {
         })
         expect(await screen.findByText('stegvisning.afp.title')).toBeVisible()
       })
-
-      it('redirigerer til Step 4 når brukeren har samtykket og ikke har noe offentlig tjenestepensjonsforhold', async () => {
+      it('Gitt at brukeren har samtykket og ikke har noe offentlig tjenestepensjonsforhold, redirigerer til Step 4', async () => {
         mockResponse('/tpo-medlemskap', {
           status: 200,
           json: { harTjenestepensjonsforhold: false },
@@ -661,8 +658,7 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-
-      it('viser Steg 4 når brukeren kommer til steget gjennom stegvisningen og har tpo medlemskap', async () => {
+      it('viser Steg 4 når brukeren kommer til steget gjennom stegvisningen og at /inntekt  og /ekskludert ikke har feilet', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
@@ -719,11 +715,19 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-
-      it('viser Steg 5 når brukeren kommer til steget gjennom stegvisningen', async () => {
+      it('Gitt at brukeren mottar uføretrygd og har valgt afp, når hen kommer fra stegvisningen, vises Steg 5', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ['getEkskludertStatus(undefined)']: {
+                status: 'fulfilled',
+                endpointName: 'getEkskludertStatus',
+                requestId: 't1wLPiRKrfe_vchftk8s8',
+                data: { ekskludert: true, aarsak: 'HAR_LOEPENDE_UFOERETRYGD' },
+                startedTimeStamp: 1714725797072,
+                fulfilledTimeStamp: 1714725797669,
+              },
+            },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -732,6 +736,9 @@ describe('routes', () => {
           initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
         })
         render(<RouterProvider router={router} />, {
+          preloadedState: {
+            userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+          },
           hasRouter: false,
         })
         expect(
@@ -777,8 +784,7 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-
-      it('viser Steg 6 når brukeren kommer til steget gjennom stegvisningen', async () => {
+      it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser Steg 6', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
@@ -835,7 +841,6 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-
       it('viser uventet feil når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
