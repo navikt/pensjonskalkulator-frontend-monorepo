@@ -12,6 +12,8 @@ import {
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
   selectHarHentetTpoMedlemskap,
+  isVeilederSelector,
+  veilederBorgerFnrSelector,
 } from '../selectors'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -400,6 +402,42 @@ describe('userInput selectors', () => {
         },
       }
       expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
+    })
+  })
+  describe('isVeilederSelector', () => {
+    it('er false når veilederBorgerFnr ikke er satt', () => {
+      const state: RootState = initialState
+      expect(isVeilederSelector(state)).toBe(false)
+    })
+
+    it('er true når veilederBorgerFnr er satt', () => {
+      const state: RootState = {
+        ...initialState,
+        userInput: {
+          ...initialState.userInput,
+          veilderBorgerFnr: '81549300',
+        },
+      }
+      expect(isVeilederSelector(state)).toBe(true)
+    })
+  })
+
+  describe('veilederBorgerFnrSelector', () => {
+    it('er undefined når veilederBorgerFnr ikke er satt', () => {
+      const state: RootState = initialState
+      expect(veilederBorgerFnrSelector(state)).toBeUndefined()
+    })
+
+    it('er fnr når veilederBorgerFnr er satt', () => {
+      const testFnr = '81549300'
+      const state: RootState = {
+        ...initialState,
+        userInput: {
+          ...initialState.userInput,
+          veilderBorgerFnr: testFnr,
+        },
+      }
+      expect(veilederBorgerFnrSelector(state)).toBe(testFnr)
     })
   })
 })
