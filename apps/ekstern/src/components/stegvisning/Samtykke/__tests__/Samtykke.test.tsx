@@ -133,23 +133,12 @@ describe('stegvisning - Samtykke', () => {
       />
     )
 
+    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
 
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })
-  })
-  it('viser avbryt knapp når onCancel er definert', async () => {
-    render(
-      <Samtykke
-        harSamtykket
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-
-    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

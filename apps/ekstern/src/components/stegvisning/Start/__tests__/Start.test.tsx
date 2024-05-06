@@ -40,11 +40,6 @@ describe('stegvisning - Start', () => {
     expect(onNextMock).toHaveBeenCalled()
   })
 
-  it('viser avbryt knapp når onCancel er definert', async () => {
-    render(<Start navn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
-    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
-  })
-
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
     render(<Start navn="Ola" onCancel={undefined} onNext={onNextMock} />)
     expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
@@ -53,6 +48,7 @@ describe('stegvisning - Start', () => {
   it('kaller onCancel når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
     render(<Start navn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
+    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
     expect(onCancelMock).toHaveBeenCalled()
   })
