@@ -17,7 +17,7 @@ export default defineConfig(() => ({
     rollupOptions: {
       input: {
         appBorger: resolve(__dirname, './index.html'),
-        appVeileder: resolve(__dirname, './veileder.html'),
+        appVeileder: resolve(__dirname, './index-veileder.html'),
       },
       external: ['./nais.js'],
       output: {
