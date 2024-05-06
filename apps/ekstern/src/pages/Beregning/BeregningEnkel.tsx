@@ -8,7 +8,9 @@ import clsx from 'clsx'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { Grunnlag } from '@/components/Grunnlag'
+import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
+import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
@@ -270,6 +272,22 @@ export const BeregningEnkel: React.FC = () => {
           )}
         </div>
       )}
+      {uttaksalder !== null &&
+        alderspensjon &&
+        alderspensjon?.vilkaarsproeving.vilkaarErOppfylt && (
+          <>
+            <div
+              className={clsx(styles.background, styles.background__lightblue)}
+            >
+              <div className={styles.container}>
+                <SavnerDuNoe headingLevel="3" showAvansert />
+              </div>
+            </div>
+            <div className={styles.container}>
+              <GrunnlagForbehold headingLevel="3" />
+            </div>
+          </>
+        )}
     </>
   )
 }

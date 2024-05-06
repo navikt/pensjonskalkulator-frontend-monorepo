@@ -175,7 +175,7 @@ describe('BeregningAvansert', () => {
       )
     })
 
-    it('Når brukeren har valgt en uttaksalder og at simulering svarer med en beregning, vises det resultatkort og simulering', async () => {
+    it('Når brukeren har valgt en uttaksalder og at simulering svarer med en beregning, vises det resultatkort og simulering med tabell, Grunnlag og Forbhold', async () => {
       const user = userEvent.setup()
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
@@ -234,6 +234,13 @@ describe('BeregningAvansert', () => {
       await user.click(
         screen.getByText('beregning.avansert.resultatkort.button')
       )
+
+      expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+      expect(
+        await screen.findByText('grunnlag.forbehold.title')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('savnerdunoe.title')).toBeInTheDocument()
+      expect(screen.queryByText('savnerdunoe.ingress')).not.toBeInTheDocument()
     })
 
     it('Når brukeren har valgt en uttaksalder og at simulering svarer med vilkaarIkkeOppfylt, logges det alert og skjemaet settes i redigeringsmodus', async () => {
