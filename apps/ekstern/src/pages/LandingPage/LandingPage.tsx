@@ -50,6 +50,8 @@ export const LandingPage = () => {
   const gaaTilUinnloggetKalkulator = () => {
     window.open(externalUrls.uinnloggetKalkulator, '_self')
   }
+
+  // TODO: Fikses i PEK-400, håndteres i loaders
   React.useEffect(() => {
     if (isVeileder) {
       gaaTilEnkelKalkulator()
