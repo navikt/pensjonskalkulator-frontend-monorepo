@@ -80,7 +80,7 @@ describe('BeregningEnkel', () => {
       )
     })
 
-    it.skip('viser loading og deretter riktig header, tekst og knapper', async () => {
+    it('viser loading og deretter riktig header, tekst og knapper', async () => {
       render(<BeregningEnkel />)
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
       await waitFor(async () => {
