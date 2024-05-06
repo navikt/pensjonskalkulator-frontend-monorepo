@@ -10,8 +10,7 @@ metadata:
 spec:
   image: "{{ image }}"
   ingresses:
-    # TODO: Finn URL for prod
-    - https://pensjonskalkulator-veiledning-frontend-catbox.intern.dev.nav.no/pensjon/kalkulator
+    - https://pensjonskalkulator.intern.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
@@ -38,7 +37,6 @@ spec:
     application:
       enabled: true
       claims:
-        # TODO: Stemmer disse gruppene for prod?
         groups:
           - id: "a3f91493-1ab8-4b64-a544-0a77cbba9240" # 0000-GA-Pensjon_VEILEDER
           - id: "dbe4ad45-320b-4e9a-aaa1-73cca4ee124d" # 0000-GA-Egne_ansatte
