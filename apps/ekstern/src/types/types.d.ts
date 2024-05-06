@@ -24,6 +24,9 @@ declare global {
   // /ekskludert-status
   type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
 
+  // /ufoeregrad
+  type Ufoeregrad = components['schemas']['UfoeregradDto']
+
   // /tpo-medlemskap
   type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
 

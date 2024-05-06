@@ -151,6 +151,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/ufoerepensjon': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Har løpende uføretrygd
+     *
+     * @description Hvorvidt den innloggede brukeren har løpende uføretrygd
+     */
+    post: operations['harUfoeretrygd']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v2/person': {
     parameters: {
       query?: never
@@ -227,6 +248,27 @@ export interface paths {
      * @description Henter informasjon som identifiserer den innloggede ansatte.
      */
     get: operations['ansattId']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/ufoerepensjon/ufoeregrad': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Hente gjeldende uføregrad
+     *
+     * @description Hente gjeldende uføregrad fra løpende vedtak om uføretrygd om det finnes
+     */
+    get: operations['hentUfoeregrad']
     put?: never
     post?: never
     delete?: never
@@ -819,6 +861,13 @@ export interface components {
       gradertUttak: components['schemas']['IngressUttaksalderGradertUttakV1']
       heltUttak: components['schemas']['IngressUttaksalderHeltUttakV1']
     }
+    UfoerepensjonSpecDto: {
+      /** Format: date */
+      fom: string
+    }
+    UfoerepensjonDto: {
+      harUfoerepensjon: boolean
+    }
     PersonV2: {
       navn: string
       /** Format: date */
@@ -906,6 +955,10 @@ export interface components {
     }
     AnsattV1: {
       id: string
+    }
+    UfoeregradDto: {
+      /** Format: int32 */
+      ufoeregrad: number
     }
     TjenestepensjonsforholdDto: {
       harTjenestepensjonsforhold: boolean
@@ -1165,6 +1218,39 @@ export interface operations {
       }
     }
   }
+  harUfoeretrygd: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['UfoerepensjonSpecDto']
+      }
+    }
+    responses: {
+      /** @description Sjekking av uføretrygd utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['UfoerepensjonDto']
+        }
+      }
+      /** @description Sjekking av uføretrygd kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
   personV2: {
     parameters: {
       query?: never
@@ -1273,6 +1359,35 @@ export interface operations {
         }
       }
       /** @description Henting av ansatt-ID kunne ikke utføres av tekniske årsaker. */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  hentUfoeregrad: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Henting av uføregrad utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['UfoeregradDto']
+        }
+      }
+      /** @description henting av uføregrad kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

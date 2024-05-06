@@ -8,6 +8,7 @@ import {
   isAfpOffentlig,
   isPerson,
   isEkskludertStatus,
+  isUfoeregrad,
   isTpoMedlemskap,
   isUtbetalingsperiode,
   isUnleashToggle,
@@ -425,6 +426,26 @@ describe('Typeguards', () => {
           aarsak: 'abc',
         })
       ).toEqual(false)
+    })
+  })
+
+  describe('isUfoeregrad', () => {
+    it('returnerer true når input er et Ufoeregrad-objekt', () => {
+      expect(
+        isUfoeregrad({
+          ufoeregrad: 75,
+        })
+      ).toEqual(true)
+    })
+
+    it('returnerer false når input ikke er et Ufoeregrad-objekt', () => {
+      expect(isUfoeregrad(undefined)).toEqual(false)
+      expect(isUfoeregrad(null)).toEqual(false)
+      expect(isUfoeregrad({})).toEqual(false)
+      expect(isUfoeregrad({ random: 75 })).toEqual(false)
+      expect(isUfoeregrad({ ufoeregrad: null })).toEqual(false)
+      expect(isUfoeregrad({ ufoeregrad: {} })).toEqual(false)
+      expect(isUfoeregrad({ ufoeregrad: '75' })).toEqual(false)
     })
   })
 

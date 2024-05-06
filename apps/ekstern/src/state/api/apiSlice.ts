@@ -9,6 +9,7 @@ import {
   isUnleashToggle,
   isAlder,
   isEkskludertStatus,
+  isUfoeregrad,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
 
@@ -48,6 +49,15 @@ export const apiSlice = createApi({
       transformResponse: (response: any) => {
         if (!isEkskludertStatus(response)) {
           throw new Error(`Mottok ugyldig ekskludert response:`, response)
+        }
+        return response
+      },
+    }),
+    getUfoeregrad: builder.query<Ufoeregrad, void>({
+      query: () => '/v1/ufoeregrad',
+      transformResponse: (response: any) => {
+        if (!isUfoeregrad(response)) {
+          throw new Error(`Mottok ugyldig ufoeregrad response:`, response)
         }
         return response
       },

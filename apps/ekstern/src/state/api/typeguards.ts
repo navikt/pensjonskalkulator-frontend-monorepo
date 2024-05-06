@@ -147,6 +147,15 @@ export const isEkskludertStatus = (data?: any): data is EkskludertStatus => {
   )
 }
 
+export const isUfoeregrad = (data?: any): data is Ufoeregrad => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    !Array.isArray(data) &&
+    typeof data.ufoeregrad === 'number'
+  )
+}
+
 export const isAlder = (data?: any): data is Alder => {
   return (
     typeof data === 'object' &&
