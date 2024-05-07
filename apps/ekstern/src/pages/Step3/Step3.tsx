@@ -7,7 +7,8 @@ import { Loader } from '@/components/common/Loader'
 import { OffentligTP } from '@/components/stegvisning/OffentligTP'
 import { paths } from '@/router/constants'
 import { useStep3AccessData } from '@/router/loaders'
-import { useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { isVeilederSelector } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step3() {
@@ -15,6 +16,7 @@ export function Step3() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const loaderData = useStep3AccessData()
+  const isVeileder = useAppSelector(isVeilederSelector)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -22,10 +24,12 @@ export function Step3() {
     })
   }, [])
 
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        dispatch(userInputActions.flush())
+        navigate(paths.login)
+      }
 
   const onPrevious = (): void => {
     navigate(paths.samtykke)

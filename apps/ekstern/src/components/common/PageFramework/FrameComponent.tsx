@@ -1,6 +1,5 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useLocation } from 'react-router-dom'
 
 import { Heading } from '@navikt/ds-react'
 import clsx from 'clsx'
@@ -21,11 +20,6 @@ export const FrameComponent: React.FC<{
   children,
 }) => {
   const intl = useIntl()
-  const { pathname } = useLocation()
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [pathname])
 
   return (
     <div

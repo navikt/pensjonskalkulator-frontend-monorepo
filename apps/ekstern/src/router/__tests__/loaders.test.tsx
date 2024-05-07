@@ -26,7 +26,7 @@ const fakeApiCalls = {
       requestId: 'xTaE6mOydr5ZI75UXq4Wi',
       startedTimeStamp: 1688046411971,
       data: {
-        fornavn: 'Aprikos',
+        navn: 'Aprikos',
         sivilstand: 'UGIFT',
         foedselsdato: '1963-04-30',
       },
@@ -108,10 +108,10 @@ describe('Loaders', () => {
       const open = vi.fn()
       vi.stubGlobal('open', open)
 
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1960-04-30',
         },
@@ -733,7 +733,7 @@ describe('Loaders', () => {
               endpointName: 'getPerson',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                fornavn: 'Aprikos',
+                navn: 'Aprikos',
                 sivilstand: 'UGIFT',
                 foedselsdato: '1963-04-30',
               },
@@ -764,7 +764,7 @@ describe('Loaders', () => {
               endpointName: 'getPerson',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                fornavn: 'Aprikos',
+                navn: 'Aprikos',
                 sivilstand: 'GIFT',
                 foedselsdato: '1963-04-30',
               },
@@ -787,10 +787,10 @@ describe('Loaders', () => {
     })
 
     it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren ikke har samboer, er hen ikke redirigert', async () => {
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'UGIFT',
           foedselsdato: '1963-04-30',
         },
@@ -832,10 +832,10 @@ describe('Loaders', () => {
     })
 
     it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren har samboer, er hen redirigert', async () => {
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1963-04-30',
         },
@@ -878,10 +878,10 @@ describe('Loaders', () => {
       const open = vi.fn()
       vi.stubGlobal('open', open)
 
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1960-04-30',
         },

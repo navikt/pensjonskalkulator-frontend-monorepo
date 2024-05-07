@@ -43,10 +43,10 @@ describe('stegvisning - Ufoere', () => {
   })
 
   it('viser riktig tekst på Neste knapp når brukeren har samboer', async () => {
-    mockResponse('/v1/person', {
+    mockResponse('/v2/person', {
       status: 200,
       json: {
-        fornavn: 'Aprikos',
+        navn: 'Aprikos',
         sivilstand: 'GIFT',
         foedselsdato: '1963-04-30',
       },

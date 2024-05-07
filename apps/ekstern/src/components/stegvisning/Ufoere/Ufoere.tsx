@@ -13,7 +13,7 @@ import { getFormatMessageValues } from '@/utils/translations'
 import styles from './Ufoere.module.scss'
 
 interface Props {
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: () => void
 }
@@ -88,14 +88,16 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
+        {onCancel && (
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        )}
       </form>
     </Card>
   )

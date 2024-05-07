@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { Ufoere } from '@/components/stegvisning/Ufoere'
 import { paths } from '@/router/constants'
-import { useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { isVeilederSelector } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step5() {
@@ -12,16 +13,21 @@ export function Step5() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
+  const isVeileder = useAppSelector(isVeilederSelector)
+
   React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.step5',
     })
   }, [])
 
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
+  // Fjern mulighet for avbryt hvis person er veileder
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        dispatch(userInputActions.flush())
+        navigate(paths.login)
+      }
 
   const onPrevious = (): void => {
     return navigate(paths.afp)

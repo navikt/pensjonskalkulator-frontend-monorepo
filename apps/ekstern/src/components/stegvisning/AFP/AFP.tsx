@@ -26,7 +26,7 @@ import styles from './AFP.module.scss'
 interface Props {
   shouldRedirectTo?: string
   afp: AfpRadio | null
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: (afpData: AfpRadio) => void
 }
@@ -221,14 +221,18 @@ export function AFP({
           >
             <FormattedMessage id="stegvisning.tilbake" />
           </Button>
-          <Button
-            type="button"
-            className={styles.button}
-            variant="tertiary"
-            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-          >
-            <FormattedMessage id="stegvisning.avbryt" />
-          </Button>
+          {onCancel && (
+            <Button
+              type="button"
+              className={styles.button}
+              variant="tertiary"
+              onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
+                onCancel
+              )}
+            >
+              <FormattedMessage id="stegvisning.avbryt" />
+            </Button>
+          )}
         </form>
       </Card>
     )

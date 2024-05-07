@@ -35,7 +35,7 @@ describe('Step 0', () => {
     expect(screen.getByTestId('step0-loader')).toBeVisible()
   })
 
-  it('henter personopplysninger og viser hilsen med fornavnet til brukeren', async () => {
+  it('henter personopplysninger og viser hilsen med navnet til brukeren', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.start}`],
@@ -48,8 +48,8 @@ describe('Step 0', () => {
     })
   })
 
-  it('rendrer hilsen uten fornavn når henting av personopplysninger feiler', async () => {
-    mockErrorResponse('/v1/person')
+  it('rendrer hilsen uten navn når henting av personopplysninger feiler', async () => {
+    mockErrorResponse('/v2/person')
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.start}`],

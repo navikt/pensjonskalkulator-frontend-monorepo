@@ -11,7 +11,8 @@ import {
   useGetEkskludertStatusQuery,
   useGetUfoereFeatureToggleQuery,
 } from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { isVeilederSelector } from '@/state/userInput/selectors'
 
 export function Step0() {
   const intl = useIntl()
@@ -31,6 +32,8 @@ export function Step0() {
     )
   }, [])
 
+  const isVeileder = useAppSelector(isVeilederSelector)
+
   React.useEffect(() => {
     if (
       (!ufoereFeatureToggle || !ufoereFeatureToggle?.enabled) &&
@@ -41,9 +44,12 @@ export function Step0() {
     }
   }, [ekskludertStatus, navigate])
 
-  const onCancel = (): void => {
-    navigate(paths.login)
-  }
+  // Fjern mulighet for avbryt hvis person er veileder
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        navigate(paths.login)
+      }
 
   const onNext = (): void => {
     navigate(paths.utenlandsopphold)
@@ -75,9 +81,9 @@ export function Step0() {
           return (
             <Start
               shouldRedirectTo={shouldRedirectTo}
-              fornavn={
+              navn={
                 getPersonQuery.isSuccess
-                  ? (getPersonQuery.data as Person).fornavn
+                  ? (getPersonQuery.data as Person).navn
                   : ''
               }
               onCancel={onCancel}

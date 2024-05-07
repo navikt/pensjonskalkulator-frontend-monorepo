@@ -294,9 +294,9 @@ describe('Hovedhistorie', () => {
       })
       it('ønsker jeg som er født fom. 1964 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v1/person' },
+          { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
           {
-            fornavn: 'Aprikos',
+            navn: 'Aprikos',
             sivilstand: 'UGIFT',
             foedselsdato: '1964-04-30',
           }

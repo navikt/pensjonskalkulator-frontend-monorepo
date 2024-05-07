@@ -179,10 +179,10 @@ describe('stegvisning - AFP', () => {
   })
 
   it('viser riktig tekst på Neste knapp når brukeren har samboer', async () => {
-    mockResponse('/v1/person', {
+    mockResponse('/v2/person', {
       status: 200,
       json: {
-        fornavn: 'Ola',
+        navn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1963-04-30',
       },
@@ -204,10 +204,10 @@ describe('stegvisning - AFP', () => {
   it('viser riktig tekst på Neste knapp når brukeren har samboer, uføretrygd og at hen klikker på de ulike afp valgene', async () => {
     const user = userEvent.setup()
 
-    mockResponse('/v1/person', {
+    mockResponse('/v2/person', {
       status: 200,
       json: {
-        fornavn: 'Ola',
+        navn: 'Ola',
         sivilstand: 'GIFT',
         foedselsdato: '1963-04-30',
       },
@@ -306,6 +306,19 @@ describe('stegvisning - AFP', () => {
 
     await user.click(screen.getByText('stegvisning.avbryt'))
 
+    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     expect(onCancelMock).toHaveBeenCalled()
+  })
+
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(
+      <AFP
+        afp={null}
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
   })
 })

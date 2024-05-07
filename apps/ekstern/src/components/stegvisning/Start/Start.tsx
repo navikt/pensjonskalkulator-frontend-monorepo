@@ -14,15 +14,15 @@ import styles from './Start.module.scss'
 
 interface Props {
   shouldRedirectTo?: string
-  fornavn: string
-  onCancel: () => void
+  navn: string
+  onCancel?: () => void
   onNext: () => void
 }
 
-export function Start({ shouldRedirectTo, fornavn, onCancel, onNext }: Props) {
+export function Start({ shouldRedirectTo, navn, onCancel, onNext }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
-  const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
+  const navnString = navn !== '' ? ` ${navn}!` : '!'
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -39,7 +39,7 @@ export function Start({ shouldRedirectTo, fornavn, onCancel, onNext }: Props) {
             <Heading level="2" size="medium" spacing>
               {`${intl.formatMessage({
                 id: 'stegvisning.start.title',
-              })}${fornavnString}`}
+              })}${navnString}`}
             </Heading>
             <BodyLong size="large">
               <FormattedMessage id="stegvisning.start.ingress" />
@@ -53,15 +53,17 @@ export function Start({ shouldRedirectTo, fornavn, onCancel, onNext }: Props) {
             >
               <FormattedMessage id="stegvisning.start.button" />
             </Button>
-            <Button
-              type="button"
-              variant="tertiary"
-              onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
-                onCancel
-              )}
-            >
-              <FormattedMessage id="stegvisning.avbryt" />
-            </Button>
+            {onCancel && (
+              <Button
+                type="button"
+                variant="tertiary"
+                onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
+                  onCancel
+                )}
+              >
+                <FormattedMessage id="stegvisning.avbryt" />
+              </Button>
+            )}
           </div>
         </div>
         <Link
