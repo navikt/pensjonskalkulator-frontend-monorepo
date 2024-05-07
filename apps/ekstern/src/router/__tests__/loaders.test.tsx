@@ -372,6 +372,50 @@ describe('Loaders', () => {
       expect(returnedFromLoader).toMatchSnapshot()
     })
 
+    it('Når kall til /ufoeregrad feiler returneres det redirect url til feilsiden', async () => {
+      mockErrorResponse('/v1/ufoeregrad')
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getUfoeregrad,
+        'initiate'
+      )
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getInntekt(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getInntekt',
+              requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+              startedTimeStamp: 1714725265404,
+              data: { beloep: '500000', aar: '2022' },
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ekskludert: false, aarsak: 'NONE' },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
+      })
+      expect(initiateMock).toHaveBeenCalled()
+    })
+
     it('Gitt kall til inntekt har tidligere feilet, kjøres det nytt kall. Når den fungerer igjen returneres det tom redirect url', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.getInntekt,

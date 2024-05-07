@@ -14,7 +14,7 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
-import { useGetEkskludertStatusQuery } from '@/state/api/apiSlice'
+import { useGetUfoeregradQuery } from '@/state/api/apiSlice'
 import { useGetAfpOffentligFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectSamboerFraSivilstand } from '@/state/userInput/selectors'
@@ -42,7 +42,7 @@ export function AFP({
   const navigate = useNavigate()
 
   const harSamboer = useAppSelector(selectSamboerFraSivilstand)
-  const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
+  const { data: ufoeregrad } = useGetUfoeregradQuery()
   const [validationError, setValidationError] = React.useState<string>('')
   const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
   const [isLastStep, setIsLastStep] = React.useState<boolean>(!!harSamboer)
@@ -102,12 +102,7 @@ export function AFP({
     setShowAlert(value)
     setValidationError('')
     if (harSamboer) {
-      setIsLastStep(
-        !(
-          ekskludertStatus?.aarsak === 'HAR_LOEPENDE_UFOERETRYGD' &&
-          value !== 'nei'
-        )
-      )
+      setIsLastStep(!(ufoeregrad?.ufoeregrad && value !== 'nei'))
     }
   }
 

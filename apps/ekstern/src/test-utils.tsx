@@ -91,8 +91,6 @@ export function renderWithProviders(
       <MemoryRouter>{children}</MemoryRouter>
     )
 
-    console.log('>>> RENDER WITH STORE', store.getState())
-
     return (
       <Provider store={store}>
         <IntlProvider locale="nb" messages={generateMockedTranslations()}>

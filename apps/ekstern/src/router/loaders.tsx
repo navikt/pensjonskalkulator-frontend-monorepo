@@ -85,26 +85,21 @@ export const landingPageAccessGuard = async () => {
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   getPersonQuery
     .then((res) => {
-      console.log('getPersonQuery THEN', store.getState().userInput)
       if (
         res?.isSuccess &&
         isFoedtFoer1963(res?.data?.foedselsdato as string)
       ) {
         resolveRedirectUrl('')
-        console.log('resolve (0))')
         window.open(externalUrls.detaljertKalkulator, '_self')
       } else {
         if (selectIsVeileder(store.getState())) {
-          console.log('resolve paths.start')
           resolveRedirectUrl(paths.start)
         } else {
-          console.log('resolve (1))')
           resolveRedirectUrl('')
         }
       }
     })
     .catch(() => {
-      console.log('resolve (ERROR))')
       resolveRedirectUrl('')
     })
 
@@ -294,59 +289,66 @@ export const step4AccessGuard = async () => {
       store.getState()
     ).isError
 
-  // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-  if (hasInntektPreviouslyFailed) {
-    const getInntektQuery = store.dispatch(
-      apiSlice.endpoints.getInntekt.initiate()
-    )
-    getInntektQuery.then((res) => {
-      if (res.isError) {
-        resolveRedirectUrl(paths.uventetFeil)
-      } else if (
-        apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-          store.getState()
-        ).isSuccess
-      ) {
+  store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate()).then((res) => {
+    if (res.isError) {
+      resolveRedirectUrl(paths.uventetFeil)
+    }
+    if (res.isSuccess) {
+      // Hvis alle kallene er vellykket, resolve
+      if (!hasInntektPreviouslyFailed && !hasEkskludertStatusPreviouslyFailed) {
         resolveRedirectUrl('')
       }
-    })
-  }
-  // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-  if (hasEkskludertStatusPreviouslyFailed) {
-    const getEkskludertStatusQuery = store.dispatch(
-      apiSlice.endpoints.getEkskludertStatus.initiate()
-    )
-    getEkskludertStatusQuery.then((res) => {
-      if (res.isError) {
-        resolveRedirectUrl(paths.uventetFeil)
+      // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+      if (hasInntektPreviouslyFailed) {
+        store
+          .dispatch(apiSlice.endpoints.getInntekt.initiate())
+          .then((inntektRes) => {
+            if (inntektRes.isError) {
+              resolveRedirectUrl(paths.uventetFeil)
+            } else if (
+              apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+                store.getState()
+              ).isSuccess
+            ) {
+              resolveRedirectUrl('')
+            }
+          })
       }
-      if (res.isSuccess) {
-        if (
-          res?.data?.ekskludert &&
-          res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
-        ) {
-          resolveRedirectUrl(
-            `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-          )
-        } else if (
-          res?.data?.ekskludert &&
-          res?.data?.aarsak === 'ER_APOTEKER'
-        ) {
-          resolveRedirectUrl(
-            `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-          )
-        } else if (
-          apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
-            .isSuccess
-        ) {
-          resolveRedirectUrl('')
-        }
+      // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+      if (hasEkskludertStatusPreviouslyFailed) {
+        store
+          .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+          .then((ekskludertStatusRes) => {
+            if (ekskludertStatusRes.isError) {
+              resolveRedirectUrl(paths.uventetFeil)
+            }
+            if (res.isSuccess) {
+              if (
+                ekskludertStatusRes?.data?.ekskludert &&
+                ekskludertStatusRes?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
+              ) {
+                resolveRedirectUrl(
+                  `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+                )
+              } else if (
+                ekskludertStatusRes?.data?.ekskludert &&
+                ekskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+              ) {
+                resolveRedirectUrl(
+                  `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+                )
+              } else if (
+                apiSlice.endpoints.getInntekt.select(undefined)(
+                  store.getState()
+                ).isSuccess
+              ) {
+                resolveRedirectUrl('')
+              }
+            }
+          })
       }
-    })
-  }
-  if (!hasInntektPreviouslyFailed && !hasEkskludertStatusPreviouslyFailed) {
-    resolveRedirectUrl('')
-  }
+    }
+  })
 
   return defer({
     shouldRedirectTo,
