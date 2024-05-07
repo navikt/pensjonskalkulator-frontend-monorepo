@@ -101,6 +101,14 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   })(req, res, next)
 })
 
+app.use(
+  '/pensjon/kalkulator/v3/api-docs/current',
+  createProxyMiddleware({
+    target: `${PENSJONSKALKULATOR_BACKEND}/v3/api-docs/current`,
+    logger: logger,
+  })
+)
+
 // Kubernetes probes
 app.get('/internal/health/liveness', (_req, res) => {
   res.sendStatus(200)
