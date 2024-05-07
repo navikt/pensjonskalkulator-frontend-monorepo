@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
@@ -10,64 +11,67 @@ import { getFormatMessageValues } from '@/utils/translations'
 import styles from './OffentligTP.module.scss'
 
 interface Props {
+  shouldRedirectTo?: string
   onCancel?: () => void
   onPrevious: () => void
   onNext: () => void
-  shouldJumpOverStep?: boolean
 }
 
 export function OffentligTP({
+  shouldRedirectTo,
   onCancel,
   onPrevious,
   onNext,
-  shouldJumpOverStep,
 }: Props) {
   const intl = useIntl()
+  const navigate = useNavigate()
 
   React.useEffect(() => {
-    if (shouldJumpOverStep) {
-      onNext()
+    if (shouldRedirectTo) {
+      navigate(shouldRedirectTo)
     }
-  }, [shouldJumpOverStep])
+  }, [shouldRedirectTo])
 
   return (
-    <Card hasLargePadding hasMargin>
-      <Heading level="2" size="medium" spacing>
-        <FormattedMessage id="stegvisning.offentligtp.title" />
-      </Heading>
-      <BodyLong>
-        <FormattedMessage
-          id="stegvisning.offentligtp.ingress"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
-      </BodyLong>
-      <Button
-        type="submit"
-        className={styles.button}
-        onClick={wrapLogger('button klikk', { tekst: 'Neste' })(onNext)}
-      >
-        <FormattedMessage id="stegvisning.neste" />
-      </Button>
-      <Button
-        type="button"
-        className={styles.button}
-        variant="secondary"
-        onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
-      >
-        <FormattedMessage id="stegvisning.tilbake" />
-      </Button>
-      {onCancel && (
+    !shouldRedirectTo && (
+      <Card hasLargePadding hasMargin>
+        <Heading level="2" size="medium" spacing>
+          <FormattedMessage id="stegvisning.offentligtp.title" />
+        </Heading>
+        <BodyLong>
+          <FormattedMessage
+            id="stegvisning.offentligtp.ingress"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </BodyLong>
+        <Button
+          type="submit"
+          className={styles.button}
+          onClick={wrapLogger('button klikk', { tekst: 'Neste' })(onNext)}
+        >
+          <FormattedMessage id="stegvisning.neste" />
+        </Button>
         <Button
           type="button"
           className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          variant="secondary"
+          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
         >
-          <FormattedMessage id="stegvisning.avbryt" />
+          <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-      )}
-    </Card>
+        {onCancel && (
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        )}
+      </Card>
+    )
   )
 }

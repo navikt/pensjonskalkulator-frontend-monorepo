@@ -646,7 +646,7 @@ describe('Simulering', () => {
   })
 
   it('viser tabell og skjuler grafen for skjermlesere', async () => {
-    render(
+    const { store } = render(
       <Simulering
         isLoading={false}
         headingLevel="3"
@@ -664,6 +664,9 @@ describe('Simulering', () => {
           },
         },
       }
+    )
+    store.dispatch(
+      apiSliceUtils.apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
     )
     expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
     const highChartsWrapper = await screen.findByTestId(

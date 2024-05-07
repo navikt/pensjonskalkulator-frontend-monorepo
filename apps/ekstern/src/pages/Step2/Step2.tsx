@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
   selectHarHentetTpoMedlemskap,
-  isVeilederSelector,
+  selectIsVeileder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -19,7 +19,7 @@ export function Step2() {
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
   const shouldFlush = useAppSelector(selectHarHentetTpoMedlemskap)
-  const isVeileder = useAppSelector(isVeilederSelector)
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({

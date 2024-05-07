@@ -1,13 +1,12 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Await } from 'react-router-dom'
 
+import { Loader } from '@/components/common/Loader'
 import { Sivilstand } from '@/components/stegvisning/Sivilstand'
 import { paths } from '@/router/constants'
-import {
-  useGetPersonQuery,
-  useGetEkskludertStatusQuery,
-} from '@/state/api/apiSlice'
+import { useStep6AccessData } from '@/router/loaders'
+import { useGetEkskludertStatusQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -19,10 +18,11 @@ export function Step6() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const loaderData = useStep6AccessData()
+
   const afp = useAppSelector(selectAfp)
   const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
 
-  const { data: person, isSuccess } = useGetPersonQuery()
   const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
 
   React.useEffect(() => {
@@ -51,17 +51,46 @@ export function Step6() {
     dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
     navigate(paths.beregningEnkel)
   }
+
   return (
-    <>
-      {isSuccess && (
-        <Sivilstand
-          sivilstand={person.sivilstand}
-          harSamboer={samboerSvar}
-          onCancel={onCancel}
-          onPrevious={onPrevious}
-          onNext={onNext}
-        />
-      )}
-    </>
+    <React.Suspense
+      fallback={
+        <div style={{ width: '100%' }}>
+          <Loader
+            data-testid="step6-loader"
+            size="3xlarge"
+            title={intl.formatMessage({ id: 'pageframework.loading' })}
+            isCentered
+          />
+        </div>
+      }
+    >
+      <Await
+        resolve={Promise.all([
+          loaderData.getPersonQuery,
+          loaderData.shouldRedirectTo,
+        ])}
+      >
+        {(queries: [GetPersonQuery, string]) => {
+          const getPersonQuery = queries[0]
+          const shouldRedirectTo = queries[1]
+
+          return (
+            <Sivilstand
+              shouldRedirectTo={shouldRedirectTo}
+              sivilstand={
+                getPersonQuery.isSuccess
+                  ? (getPersonQuery.data as Person).sivilstand
+                  : 'UNKNOWN'
+              }
+              harSamboer={samboerSvar}
+              onCancel={onCancel}
+              onPrevious={onPrevious}
+              onNext={onNext}
+            />
+          )
+        }}
+      </Await>
+    </React.Suspense>
   )
 }
