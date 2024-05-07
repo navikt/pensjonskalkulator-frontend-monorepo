@@ -132,10 +132,10 @@ describe('Step 4', () => {
           aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
         },
       })
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'UGIFT',
           foedselsdato: '1963-04-30',
         },
@@ -175,10 +175,10 @@ describe('Step 4', () => {
           aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
         },
       })
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'UGIFT',
           foedselsdato: '1963-04-30',
         },
