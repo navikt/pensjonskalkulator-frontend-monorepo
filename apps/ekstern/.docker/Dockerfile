@@ -1,11 +1,13 @@
-FROM nginxinc/nginx-unprivileged
+FROM node:20-alpine
 
-ENV NGINX_ENVSUBST_OUTPUT_DIR /tmp
 ENV TZ="Europe/Oslo"
 
-COPY .nginx/nginx-conf-overwrite.conf /etc/nginx/conf.d/default.conf
+WORKDIR /app
+COPY /dist .
+COPY package.json .
+COPY node_modules/ node_modules/
 
-COPY /dist /usr/share/nginx/html
 
-# Will extract environment variables before nginx starts (ref. https://hub.docker.com/_/nginx):
-COPY .nginx/nginx.conf /etc/nginx/templates/default.conf.template
+
+
+CMD ["node", "server/server.js"]

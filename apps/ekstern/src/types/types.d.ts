@@ -14,7 +14,7 @@ declare global {
   type UnleashToggle = components['schemas']['EnablementDto']
 
   // /person
-  type Person = components['schemas']['ApiPersonDto']
+  type Person = components['schemas']['PersonV2']
   type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 
@@ -79,6 +79,8 @@ declare global {
     beloep: number
     alder: number
   }
+
+  type Ansatt = components['schemas']['AnsattV1']
 
   type BeregningVisning = 'enkel' | 'avansert'
 }

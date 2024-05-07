@@ -11,11 +11,21 @@ import {
   isEkskludertStatus,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
+import { veilederBorgerFnrSelector } from '@/state/userInput/selectors'
+import { RootState } from '@/state/store'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
+    prepareHeaders: (headers, { getState }) => {
+      const veilederBorgerFnr = veilederBorgerFnrSelector(
+        getState() as RootState
+      )
+      if (veilederBorgerFnr) {
+        headers.set('fnr', veilederBorgerFnr)
+      }
+    },
   }),
   tagTypes: ['Person', 'Inntekt', 'Alderspensjon', 'TidligstMuligHeltUttak'],
   keepUnusedDataFor: 3600,
@@ -31,7 +41,7 @@ export const apiSlice = createApi({
       },
     }),
     getPerson: builder.query<Person, void>({
-      query: () => '/v1/person',
+      query: () => '/v2/person',
       providesTags: ['Person'],
       transformResponse: (response) => {
         if (!isPerson(response)) {
@@ -154,6 +164,9 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getDetaljertFaneFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-detaljert-fane',
+    }),
     getAfpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.enable-afp-offentlig',
       transformResponse: (response: UnleashToggle) => {
@@ -162,6 +175,9 @@ export const apiSlice = createApi({
         }
         return response
       },
+    }),
+    getAnsattId: builder.query<Ansatt, void>({
+      query: () => '/v1/ansatt-id',
     }),
     getUfoereFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.enable-ufoere',
@@ -176,6 +192,7 @@ export const apiSlice = createApi({
 })
 
 export const {
+  useGetAnsattIdQuery,
   useGetInntektQuery,
   useGetPersonQuery,
   useGetEkskludertStatusQuery,

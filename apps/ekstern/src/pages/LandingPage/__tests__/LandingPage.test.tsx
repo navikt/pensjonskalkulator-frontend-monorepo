@@ -1,3 +1,4 @@
+import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
@@ -7,6 +8,7 @@ import { HOST_BASEURL } from '@/paths'
 import { BASE_PATH, paths } from '@/router/constants'
 import { externalUrls } from '@/router/constants'
 import { routes } from '@/router/routes'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('LandingPage', () => {
@@ -107,6 +109,10 @@ describe('LandingPage', () => {
     })
 
     const user = userEvent.setup()
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
@@ -125,7 +131,7 @@ describe('LandingPage', () => {
       )
     })
 
-    expect(open).toHaveBeenCalledWith('/pensjon/kalkulator/start', '_self')
+    expect(navigateMock).toHaveBeenCalledWith(`${paths.start}`)
   })
 
   it('går til detaljert kalkulator når brukeren klikker på knappen i det andre avsnittet', async () => {
@@ -194,5 +200,34 @@ describe('LandingPage', () => {
       externalUrls.uinnloggetKalkulator,
       '_self'
     )
+  })
+
+  it('sender videre automatisk hvis bruker er veileder', async () => {
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.login}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          veilderBorgerFnr: '81549300',
+        },
+      },
+    })
+
+    await waitFor(async () => {
+      expect(
+        screen.getByTestId('landingside-enkel-kalkulator-button')
+      ).toBeInTheDocument()
+    })
+
+    expect(navigateMock).toHaveBeenCalledWith(paths.start)
   })
 })

@@ -12,7 +12,7 @@ import styles from './Sivilstand.module.scss'
 interface Props {
   sivilstand: Sivilstand
   harSamboer: boolean | null
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: (sivilstandData: BooleanRadio) => void
 }
@@ -99,14 +99,16 @@ export function Sivilstand({
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
+        {onCancel && (
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        )}
       </form>
     </Card>
   )

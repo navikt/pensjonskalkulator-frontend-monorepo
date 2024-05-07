@@ -2,6 +2,7 @@ import { delay, http, HttpResponse } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
 
+import ansattIdResponse from './data/ansatt-id.json' assert { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' assert { type: 'json' }
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
@@ -25,9 +26,21 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(inntektResponse)
   }),
 
-  http.get(`${baseUrl}/v1/person`, async () => {
+  http.get(`${baseUrl}/v2/person`, async ({ request }) => {
     await delay(TEST_DELAY)
+    if (request.headers.get('fnr') === '40100000000') {
+      return HttpResponse.json({}, { status: 401 })
+    }
+    if (request.headers.get('fnr') === '40400000000') {
+      return HttpResponse.json({}, { status: 404 })
+    }
+
     return HttpResponse.json(personResponse)
+  }),
+
+  http.get(`${baseUrl}/v1/ansatt-id`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(ansattIdResponse)
   }),
 
   http.get(`${baseUrl}/tpo-medlemskap`, async () => {

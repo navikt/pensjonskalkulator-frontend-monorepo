@@ -21,6 +21,7 @@ export function ErrorPageUnexpected() {
     logger('feilside', {
       feil: 'Uventet feil',
     })
+    window.scrollTo(0, 0)
   })
 
   return (

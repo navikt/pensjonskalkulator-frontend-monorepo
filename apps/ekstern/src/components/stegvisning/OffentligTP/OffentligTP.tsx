@@ -10,7 +10,7 @@ import { getFormatMessageValues } from '@/utils/translations'
 import styles from './OffentligTP.module.scss'
 
 interface Props {
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: () => void
   shouldJumpOverStep?: boolean
@@ -58,14 +58,16 @@ export function OffentligTP({
       >
         <FormattedMessage id="stegvisning.tilbake" />
       </Button>
-      <Button
-        type="button"
-        className={styles.button}
-        variant="tertiary"
-        onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-      >
-        <FormattedMessage id="stegvisning.avbryt" />
-      </Button>
+      {onCancel && (
+        <Button
+          type="button"
+          className={styles.button}
+          variant="tertiary"
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+        >
+          <FormattedMessage id="stegvisning.avbryt" />
+        </Button>
+      )}
     </Card>
   )
 }
