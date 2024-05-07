@@ -40,10 +40,10 @@ describe('Step 5', () => {
   describe('Gitt at brukeren er GIFT (og har dermed en samboer)', () => {
     it('Når brukeren klikker på Beregn, evaluerer samboerskapet og navigerer videre til beregning', async () => {
       const user = userEvent.setup()
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1963-04-30',
         },
@@ -78,10 +78,10 @@ describe('Step 5', () => {
   describe('Gitt at brukeren er UGIFT (og har dermed muligens en samboer)', () => {
     it('Når brukeren klikker på Neste, navigerer videre til sivilstand steget', async () => {
       const user = userEvent.setup()
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'UGIFT',
           foedselsdato: '1963-04-30',
         },
@@ -118,7 +118,7 @@ describe('Step 5', () => {
   describe('Gitt at kall til /person feiler og at sivilstand til brukeren er ukjent', () => {
     it('Når brukeren klikker på Neste, navigerer videre til uventet-feil side', async () => {
       const user = userEvent.setup()
-      mockErrorResponse('/v1/person')
+      mockErrorResponse('/v2/person')
       const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
       const navigateMock = vi.fn()
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(

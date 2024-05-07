@@ -10,7 +10,7 @@ metadata:
 spec:
   image: "{{ image }}"
   ingresses:
-    - https://pensjonskalkulator-veiledning-frontend-staging.intern.dev.nav.no
+    - https://pensjonskalkulator-veiledning-frontend-staging.intern.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 2
@@ -29,7 +29,10 @@ spec:
     timeout: 1
   frontend:
     generatedConfig:
-      mountPath: /usr/share/nginx/html/src/nais.js
+      mountPath: /app/src/nais.js
+  prometheus:
+    enabled: true
+    path: /metrics
   azure:
     application:
       enabled: true
@@ -60,3 +63,5 @@ spec:
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"
+    - name: "ENTRA_ID_OBO_SCOPE"
+      value: "api://dev-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default"

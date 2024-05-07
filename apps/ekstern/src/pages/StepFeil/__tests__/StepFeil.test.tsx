@@ -45,7 +45,7 @@ describe('Step Feil', () => {
 
   it('kaller /person på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden til brukeren klikker avbryt', async () => {
     const user = userEvent.setup()
-    mockErrorResponse('/v1/person')
+    mockErrorResponse('/v2/person')
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -63,9 +63,9 @@ describe('Step Feil', () => {
   })
 
   it('kaller /inntekt på nytt (gitt at nytt kall er vellykket), evaluerer samboerskapet og navigerer videre til riktig side', async () => {
-    mockResponse('/v1/person', {
+    mockResponse('/v2/person', {
       status: 200,
-      json: { fornavn: 'Ola', sivilstand: 'UGIFT', foedselsdato: '1963-04-30' },
+      json: { navn: 'Ola', sivilstand: 'UGIFT', foedselsdato: '1963-04-30' },
     })
     const user = userEvent.setup()
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
@@ -82,9 +82,9 @@ describe('Step Feil', () => {
   })
 
   it('kaller /person på nytt (gitt at nytt kall er vellykket), evaluerer samboerskapet og navigerer videre til riktig side', async () => {
-    mockResponse('/v1/person', {
+    mockResponse('/v2/person', {
       status: 200,
-      json: { fornavn: 'Ola', sivilstand: 'GIFT', foedselsdato: '1963-04-30' },
+      json: { navn: 'Ola', sivilstand: 'GIFT', foedselsdato: '1963-04-30' },
     })
     const checkHarSamboerMock = vi.spyOn(sivilstandUtils, 'checkHarSamboer')
     const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')

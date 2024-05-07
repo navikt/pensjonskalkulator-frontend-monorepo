@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig heading, bilde, tekst og knapper 1`] = `
+exports[`stegvisning - Start > rendrer slik den skal med navn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
     class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
@@ -81,7 +81,7 @@ exports[`stegvisning - Start > rendrer slik den skal med fornavn, med riktig hea
 </DocumentFragment>
 `;
 
-exports[`stegvisning - Start > rendrer slik den skal uten fornavn, med riktig heading, bilde, tekst og knapper 1`] = `
+exports[`stegvisning - Start > rendrer slik den skal uten navn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
   <section
     class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"

@@ -30,6 +30,7 @@ exports[`store > returnerer store med riktig slices og default state 1`] = `
     "samboer": null,
     "samtykke": null,
     "utenlandsopphold": null,
+    "veilderBorgerFnr": undefined,
   },
 }
 `;

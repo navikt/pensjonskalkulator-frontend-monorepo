@@ -14,6 +14,7 @@ export function ErrorPage404() {
     logger('feilside', {
       feil: '404 Not found',
     })
+    window.scrollTo(0, 0)
   })
 
   return (

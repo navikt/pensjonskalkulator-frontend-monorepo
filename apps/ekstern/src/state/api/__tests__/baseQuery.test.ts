@@ -17,8 +17,9 @@ describe('apiSlice', () => {
 
     await import('../apiSlice')
 
-    await expect(fetchBaseQueryMockFunction).toHaveBeenCalledWith({
+    expect(fetchBaseQueryMockFunction).toHaveBeenCalledWith({
       baseUrl: API_BASEURL,
+      prepareHeaders: expect.any(Function),
     })
   })
 })
