@@ -54,7 +54,7 @@ const OBO_AUDIENCE = (() => {
 
 const PORT = 8080
 const PENSJONSKALKULATOR_BACKEND =
-  process.env.PENSJONSKALKULATOR_BACKEND ?? 'http://localhost:8081/api'
+  process.env.PENSJONSKALKULATOR_BACKEND ?? 'http://localhost:8081'
 
 const app = express()
 const __dirname = process.cwd()
@@ -102,9 +102,9 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
 })
 
 app.use(
-  '/pensjon/kalkulator/v3/api-docs/current',
+  '/pensjon/kalkulator/v3/api-docs',
   createProxyMiddleware({
-    target: `${PENSJONSKALKULATOR_BACKEND}/v3/api-docs/current`,
+    target: `${PENSJONSKALKULATOR_BACKEND}/v3/api-docs`,
     logger: logger,
   })
 )
