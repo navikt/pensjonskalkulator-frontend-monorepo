@@ -12,7 +12,7 @@ import {
   useGetUfoereFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { isVeilederSelector } from '@/state/userInput/selectors'
+import { selectIsVeileder } from '@/state/userInput/selectors'
 
 export function Step0() {
   const intl = useIntl()
@@ -32,7 +32,7 @@ export function Step0() {
     )
   }, [])
 
-  const isVeileder = useAppSelector(isVeilederSelector)
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     if (

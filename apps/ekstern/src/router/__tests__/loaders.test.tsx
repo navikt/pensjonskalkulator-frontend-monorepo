@@ -92,15 +92,13 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const getPersonQueryResponse =
-        await returnedFromLoader.data.getPersonQuery
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
 
       await waitFor(async () => {
-        expect(
-          (getPersonQueryResponse as GetPersonQuery).data.foedselsdato
-        ).toBe('1963-04-30')
+        expect(shouldRedirectToResponse).toEqual('')
       })
-      expect(returnedFromLoader).toMatchSnapshot()
       expect(initiateMock).toHaveBeenCalled()
     })
 
@@ -124,17 +122,40 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await landingPageAccessGuard()
-      const getPersonQueryResponse =
-        await returnedFromLoader.data.getPersonQuery
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
 
       await waitFor(async () => {
-        expect(
-          (getPersonQueryResponse as GetPersonQuery).data.foedselsdato
-        ).toBe('1960-04-30')
+        expect(shouldRedirectToResponse).toEqual('')
+      })
+
+      await waitFor(async () => {
         expect(open).toHaveBeenCalledWith(
           externalUrls.detaljertKalkulator,
           '_self'
         )
+      })
+    })
+
+    it('kaller redirect til /start location når brukeren er veilder', async () => {
+      const mockedState = {
+        api: {
+          ...fakeApiCalls,
+        },
+        userInput: { ...userInputInitialState, veilderBorgerFnr: '81549300' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await landingPageAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(paths.start)
       })
     })
   })

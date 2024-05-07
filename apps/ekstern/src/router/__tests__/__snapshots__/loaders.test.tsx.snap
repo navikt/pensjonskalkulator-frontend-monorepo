@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Loaders > landingPageAccessGuard > kaller getPersonQuery og returnerer en defered response 1`] = `
+exports[`Loaders > landingPageAccessGuard > kaller redirect til /start location når brukeren er veilder 1`] = `
 DeferredData {
   "abortPromise": Promise {},
   "controller": AbortController {
@@ -9,13 +9,15 @@ DeferredData {
     },
   },
   "data": {
-    "getPersonQuery": Promise {},
+    "shouldRedirectTo": Promise {},
   },
   "deferredKeys": [
-    "getPersonQuery",
+    "shouldRedirectTo",
   ],
   "init": {},
-  "pendingKeysSet": Set {},
+  "pendingKeysSet": Set {
+    "shouldRedirectTo",
+  },
   "subscribers": Set {},
   "unlistenAbortSignal": [Function],
 }

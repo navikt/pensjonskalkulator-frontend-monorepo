@@ -5,9 +5,10 @@ import { HOST_BASEURL } from '@/paths'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
-import { selectAfp } from '@/state/userInput/selectors'
+import { selectIsVeileder, selectAfp } from '@/state/userInput/selectors'
 import { isFoedtFoer1963 } from '@/utils/alder'
 import { checkHarSamboer } from '@/utils/sivilstand'
+
 export interface LoginContext {
   isLoggedIn: boolean
 }
@@ -63,7 +64,7 @@ export function useLandingPageAccessData<
 }
 export function landingPageDeferredLoader<
   TData extends {
-    getPersonQuery: GetPersonQuery
+    shouldRedirectTo: string | undefined
   },
 >(dataFunc: (args?: LoaderFunctionArgs) => TData) {
   return (args?: LoaderFunctionArgs) =>
@@ -73,15 +74,42 @@ export function landingPageDeferredLoader<
 }
 
 export const landingPageAccessGuard = async () => {
-  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  getPersonQuery.then((res) => {
-    if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
-      window.open(externalUrls.detaljertKalkulator, '_self')
-    }
+  let resolveRedirectUrl: (
+    value: string | PromiseLike<string>
+  ) => void = () => {}
+
+  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
+    resolveRedirectUrl = resolve
   })
 
+  const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
+  getPersonQuery
+    .then((res) => {
+      console.log('getPersonQuery THEN', store.getState().userInput)
+      if (
+        res?.isSuccess &&
+        isFoedtFoer1963(res?.data?.foedselsdato as string)
+      ) {
+        resolveRedirectUrl('')
+        console.log('resolve (0))')
+        window.open(externalUrls.detaljertKalkulator, '_self')
+      } else {
+        if (selectIsVeileder(store.getState())) {
+          console.log('resolve paths.start')
+          resolveRedirectUrl(paths.start)
+        } else {
+          console.log('resolve (1))')
+          resolveRedirectUrl('')
+        }
+      }
+    })
+    .catch(() => {
+      console.log('resolve (ERROR))')
+      resolveRedirectUrl('')
+    })
+
   return defer({
-    getPersonQuery,
+    shouldRedirectTo,
   })
 }
 

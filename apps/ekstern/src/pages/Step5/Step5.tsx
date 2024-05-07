@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Ufoere } from '@/components/stegvisning/Ufoere'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { isVeilederSelector } from '@/state/userInput/selectors'
+import { selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step5() {
@@ -13,7 +13,7 @@ export function Step5() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const isVeileder = useAppSelector(isVeilederSelector)
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({

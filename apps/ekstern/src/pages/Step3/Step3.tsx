@@ -8,7 +8,7 @@ import { OffentligTP } from '@/components/stegvisning/OffentligTP'
 import { paths } from '@/router/constants'
 import { useStep3AccessData } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { isVeilederSelector } from '@/state/userInput/selectors'
+import { selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step3() {
@@ -16,7 +16,7 @@ export function Step3() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const loaderData = useStep3AccessData()
-  const isVeileder = useAppSelector(isVeilederSelector)
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({

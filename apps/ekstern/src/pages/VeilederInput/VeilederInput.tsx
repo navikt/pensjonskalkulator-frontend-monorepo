@@ -24,7 +24,7 @@ import {
   useGetPersonQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { veilederBorgerFnrSelector } from '@/state/userInput/selectors'
+import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 import { VeilederInputRequestError } from './VeilederInputRequestError'
@@ -37,7 +37,7 @@ const router = createBrowserRouter(routes, {
 
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
-  const veilederBorgerFnr = useAppSelector(veilederBorgerFnrSelector)
+  const veilederBorgerFnr = useAppSelector(selectVeilederBorgerFnr)
 
   const { data: ansatt } = useGetAnsattIdQuery()
 
