@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
   selectHarHentetTpoMedlemskap,
+  isVeilederSelector,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -18,6 +19,7 @@ export function Step2() {
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
   const shouldFlush = useAppSelector(selectHarHentetTpoMedlemskap)
+  const isVeileder = useAppSelector(isVeilederSelector)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -37,10 +39,12 @@ export function Step2() {
     navigate(paths.offentligTp)
   }
 
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        dispatch(userInputActions.flush())
+        navigate(paths.login)
+      }
 
   const onPrevious = (): void => {
     navigate(paths.utenlandsopphold)

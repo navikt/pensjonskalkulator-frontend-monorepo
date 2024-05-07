@@ -11,6 +11,7 @@ export interface Simulation {
 }
 
 export interface UserInputState {
+  veilderBorgerFnr?: string
   utenlandsopphold: boolean | null
   samtykke: boolean | null
   afp: AfpRadio | null
@@ -19,6 +20,7 @@ export interface UserInputState {
 }
 
 export const userInputInitialState: UserInputState = {
+  veilderBorgerFnr: undefined,
   utenlandsopphold: null,
   samtykke: null,
   afp: null,
@@ -35,6 +37,9 @@ export const userInputSlice = createSlice({
   name: 'userInputSlice',
   initialState: userInputInitialState,
   reducers: {
+    setVeilederBorgerFnr: (state, action: PayloadAction<string>) => {
+      state.veilderBorgerFnr = action.payload
+    },
     setUtenlandsopphold: (state, action: PayloadAction<boolean>) => {
       state.utenlandsopphold = action.payload
     },

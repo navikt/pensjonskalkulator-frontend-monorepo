@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
@@ -14,6 +15,10 @@ export default defineConfig(() => ({
   build: {
     sourcemap: true,
     rollupOptions: {
+      input: {
+        appBorger: resolve(__dirname, './index.html'),
+        appVeileder: resolve(__dirname, './index-veileder.html'),
+      },
       external: ['./nais.js'],
       output: {
         manualChunks: {

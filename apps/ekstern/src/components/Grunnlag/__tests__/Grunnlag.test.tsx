@@ -111,10 +111,10 @@ describe('Grunnlag', () => {
   describe('Grunnlag - sivilstand', () => {
     it('viser riktig tekst og lenke når henting av sivilstand er vellykket', async () => {
       const user = userEvent.setup()
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'GIFT',
           foedselsdato: '1963-04-30',
         },
@@ -150,10 +150,10 @@ describe('Grunnlag', () => {
 
     it('viser riktig tekst og lenke når brukeren har oppgitt samboerskap manuelt', async () => {
       const user = userEvent.setup()
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: {
-          fornavn: 'Ola',
+          navn: 'Ola',
           sivilstand: 'UGIFT',
           foedselsdato: '1963-04-30',
         },
@@ -188,7 +188,7 @@ describe('Grunnlag', () => {
 
     it('viser feilmelding når henting av personopplysninger feiler', async () => {
       const user = userEvent.setup()
-      mockErrorResponse('/v1/person')
+      mockErrorResponse('/v2/person')
       render(<Grunnlag headingLevel="2" visning="enkel" />)
 
       await waitFor(() => {

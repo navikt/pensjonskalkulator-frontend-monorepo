@@ -7,9 +7,9 @@ describe('stegvisning - Start', () => {
   const onCancelMock = vi.fn()
   const onNextMock = vi.fn()
 
-  it('rendrer slik den skal med fornavn, med riktig heading, bilde, tekst og knapper', async () => {
+  it('rendrer slik den skal med navn, med riktig heading, bilde, tekst og knapper', async () => {
     const result = render(
-      <Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />
+      <Start navn="Ola" onCancel={onCancelMock} onNext={onNextMock} />
     )
 
     await waitFor(() => {
@@ -20,9 +20,9 @@ describe('stegvisning - Start', () => {
     })
   })
 
-  it('rendrer slik den skal uten fornavn, med riktig heading, bilde, tekst og knapper', async () => {
+  it('rendrer slik den skal uten navn, med riktig heading, bilde, tekst og knapper', async () => {
     const result = render(
-      <Start fornavn="" onCancel={onCancelMock} onNext={onNextMock} />
+      <Start navn="" onCancel={onCancelMock} onNext={onNextMock} />
     )
 
     await waitFor(() => {
@@ -35,14 +35,20 @@ describe('stegvisning - Start', () => {
 
   it('kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
-    render(<Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
+    render(<Start navn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
     await user.click(screen.getByText('stegvisning.start.button'))
     expect(onNextMock).toHaveBeenCalled()
   })
 
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(<Start navn="Ola" onCancel={undefined} onNext={onNextMock} />)
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
+  })
+
   it('kaller onCancel når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
-    render(<Start fornavn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
+    render(<Start navn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
+    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
     expect(onCancelMock).toHaveBeenCalled()
   })

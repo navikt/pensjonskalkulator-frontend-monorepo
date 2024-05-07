@@ -8,7 +8,10 @@ import { Ufoere } from '@/components/stegvisning/Ufoere'
 import { paths } from '@/router/constants'
 import { useGetInntektQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamboerFraSivilstand } from '@/state/userInput/selectors'
+import {
+  isVeilederSelector,
+  selectSamboerFraSivilstand,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step5() {
@@ -19,6 +22,7 @@ export function Step5() {
 
   const { isLoading: isInntektLoading, isError: isInntektError } =
     useGetInntektQuery()
+  const isVeileder = useAppSelector(isVeilederSelector)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -30,10 +34,13 @@ export function Step5() {
     return getNesteSide(harSamboer, isInntektError)
   }, [harSamboer, isInntektError])
 
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
+  // Fjern mulighet for avbryt hvis person er veileder
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        dispatch(userInputActions.flush())
+        navigate(paths.login)
+      }
 
   const onPrevious = (): void => {
     return navigate(paths.afp)

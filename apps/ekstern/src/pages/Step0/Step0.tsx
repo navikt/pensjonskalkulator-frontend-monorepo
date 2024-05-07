@@ -12,7 +12,8 @@ import {
   useGetInntektQuery,
   useGetUfoereFeatureToggleQuery,
 } from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { isVeilederSelector } from '@/state/userInput/selectors'
 
 export function Step0() {
   const intl = useIntl()
@@ -43,6 +44,8 @@ export function Step0() {
     )
   }, [])
 
+  const isVeileder = useAppSelector(isVeilederSelector)
+
   React.useEffect(() => {
     if (!isEkskludertStatusFetching && ekskludertStatus?.ekskludert) {
       if (
@@ -58,9 +61,12 @@ export function Step0() {
     }
   }, [isEkskludertStatusFetching, ekskludertStatus, navigate])
 
-  const onCancel = (): void => {
-    navigate(paths.login)
-  }
+  // Fjern mulighet for avbryt hvis person er veileder
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        navigate(paths.login)
+      }
 
   const onNext = (): void => {
     if (isInntektError) {
@@ -87,7 +93,7 @@ export function Step0() {
 
   return (
     <Start
-      fornavn={isPersonSuccess ? (person as Person).fornavn : ''}
+      navn={isPersonSuccess ? (person as Person).navn : ''}
       onCancel={onCancel}
       onNext={onNext}
     />

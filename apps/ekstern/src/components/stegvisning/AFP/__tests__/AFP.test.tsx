@@ -223,6 +223,20 @@ describe('stegvisning - AFP', () => {
 
     await user.click(screen.getByText('stegvisning.avbryt'))
 
+    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     expect(onCancelMock).toHaveBeenCalled()
+  })
+
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(
+      <AFP
+        isLastStep={false}
+        afp={null}
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
   })
 })

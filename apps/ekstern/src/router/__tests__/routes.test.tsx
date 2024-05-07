@@ -26,7 +26,7 @@ const fakeApiCalls = {
       requestId: 'xTaE6mOydr5ZI75UXq4Wi',
       startedTimeStamp: 1688046411971,
       data: {
-        fornavn: 'Aprikos',
+        navn: 'Aprikos',
         sivilstand: 'UGIFT',
         foedselsdato: '1963-04-30',
       },
@@ -95,7 +95,7 @@ describe('routes', () => {
       })
 
       it('Når brukeren er pålogget og kall til /person feiler, viser pålogget landingssiden', async () => {
-        mockErrorResponse('/v1/person')
+        mockErrorResponse('/v2/person')
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.login}`],
@@ -114,10 +114,10 @@ describe('routes', () => {
       it('Når brukeren er pålogget og født før 1963, redirigerer brukeren til detaljert kalkulator', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
-        mockResponse('/v1/person', {
+        mockResponse('/v2/person', {
           status: 200,
           json: {
-            fornavn: 'Ola',
+            navn: 'Ola',
             sivilstand: 'GIFT',
             foedselsdato: '1961-04-30',
           },
@@ -181,10 +181,10 @@ describe('routes', () => {
       it('redirigerer brukeren til detaljert kalkulator, hvis brukeren er pålogget og født før 1963', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
-        mockResponse('/v1/person', {
+        mockResponse('/v2/person', {
           status: 200,
           json: {
-            fornavn: 'Ola',
+            navn: 'Ola',
             sivilstand: 'GIFT',
             foedselsdato: '1961-04-30',
           },
