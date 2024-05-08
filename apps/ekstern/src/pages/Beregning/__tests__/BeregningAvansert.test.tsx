@@ -221,16 +221,16 @@ describe('BeregningAvansert', () => {
       expect(
         container.getElementsByClassName('highcharts-loading')
       ).toHaveLength(1)
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
         ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
       })
       expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
 
-      expect(
-        await screen.findByText('beregning.tabell.vis')
-      ).toBeInTheDocument()
       await user.click(
         screen.getByText('beregning.avansert.resultatkort.button')
       )

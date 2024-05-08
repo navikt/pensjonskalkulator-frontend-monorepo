@@ -216,6 +216,118 @@ describe('BeregningEnkel', () => {
       ).toBeInTheDocument()
     })
 
+    it('vises ikke AFP privat på resultatssiden, når brukeren mottar uføretrygd', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 100,
+        },
+      })
+      const user = userEvent.setup()
+      const { store } = render(<BeregningEnkel />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            afp: 'ja_privat',
+            currentSimulation: {
+              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
+              uttaksalder: { aar: 68, maaneder: 0 },
+              aarligInntektFoerUttakBeloep: '0',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+      store.dispatch(apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate())
+      await user.click(await screen.findByText('68 alder.aar'))
+      const buttons = await screen.findAllByRole('button', { pressed: true })
+      expect(buttons[0]).toHaveTextContent('68 alder.aar')
+
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+
+      await user.click(await screen.findByText('beregning.tabell.vis'))
+
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.inntekt.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.alderspensjon.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('columnheader', {
+          name: 'beregning.highcharts.serie.afp.name',
+        })
+      ).not.toBeInTheDocument()
+    })
+
+    it('vises ikke AFP offentlig på resultatssiden, når brukeren mottar uføretrygd', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 100,
+        },
+      })
+      const user = userEvent.setup()
+      const { store } = render(<BeregningEnkel />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            afp: 'ja_offentlig',
+            currentSimulation: {
+              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
+              uttaksalder: { aar: 68, maaneder: 0 },
+              aarligInntektFoerUttakBeloep: '0',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+      store.dispatch(apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate())
+      await user.click(await screen.findByText('68 alder.aar'))
+      const buttons = await screen.findAllByRole('button', { pressed: true })
+      expect(buttons[0]).toHaveTextContent('68 alder.aar')
+
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+
+      await user.click(await screen.findByText('beregning.tabell.vis'))
+
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.inntekt.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.alderspensjon.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('columnheader', {
+          name: 'beregning.highcharts.serie.afp.name',
+        })
+      ).not.toBeInTheDocument()
+    })
+
     it('viser feilmelding og skjuler Grunnlag og tabell og gir mulighet til å prøve på nytt, gitt at beregning av alderspensjon har feilet', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
