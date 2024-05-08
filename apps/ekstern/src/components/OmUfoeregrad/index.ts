@@ -1,0 +1,1 @@
+export { OmUfoeretrygd } from './OmUfoeretrygd'

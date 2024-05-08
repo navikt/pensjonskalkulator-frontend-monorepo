@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { Grunnlag } from '@/components/Grunnlag'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
+import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
@@ -250,6 +251,21 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - AFP', () => {
+    const fakeApiCallUfoere = {
+      queries: {
+        ['getUfoeregrad(undefined)']: {
+          status: 'fulfilled',
+          endpointName: 'getUfoeregrad',
+          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+          startedTimeStamp: 1688046411971,
+          data: {
+            ufoeregrad: 75,
+          },
+          fulfilledTimeStamp: 1688046412103,
+        },
+      },
+    }
+
     it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(
@@ -278,6 +294,35 @@ describe('Grunnlag', () => {
       expect(screen.getByText('KLP', { exact: false })).toBeVisible()
     })
 
+    it('Når en bruker med uføretrygd har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
+      render(
+        <Grunnlag headingLevel="2" visning="enkel" afpLeverandoer="KLP" />,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: {
+              ...fakeApiCallUfoere,
+            },
+            userInput: {
+              ...userInputInitialState,
+              afp: 'ja_offentlig',
+            },
+          },
+        }
+      )
+
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('afp.offentlig (grunnlag.afp.ikke_beregnet)')
+      ).toBeVisible()
+      expect(
+        screen.getByText(
+          'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable'
+        )
+      ).toBeInTheDocument()
+    })
+
     it('Når brukeren har valgt AFP offentlig og at feature-toggle er av, viser riktig tittel med formatert inntekt og tekst', async () => {
       mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
       const user = userEvent.setup()
@@ -298,6 +343,32 @@ describe('Grunnlag', () => {
       expect(
         await screen.findByText('grunnlag.afp.ingress.ja_offentlig.unavailable')
       ).toBeVisible()
+    })
+
+    it('Når en bruker med uføretrygd har valgt AFP offentlig og at feature-toggle er av, viser riktig tittel med formatert inntekt og tekst', async () => {
+      mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...fakeApiCallUfoere,
+          },
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_offentlig',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('afp.offentlig (grunnlag.afp.ikke_beregnet)')
+      ).toBeVisible()
+      expect(
+        screen.getByText(
+          'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable'
+        )
+      ).toBeInTheDocument()
     })
 
     it('Når brukeren har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
@@ -323,6 +394,32 @@ describe('Grunnlag', () => {
       ).toBeVisible()
     })
 
+    it('Når en bruker med uføretrygd har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...fakeApiCallUfoere,
+          },
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_privat',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('afp.privat (grunnlag.afp.ikke_beregnet)')
+      ).toBeVisible()
+      expect(
+        screen.getByText(
+          'Når du mottar uføretrygd, kan du ikke selv beregne AFP i kalkulatoren.',
+          { exact: false }
+        )
+      ).toBeInTheDocument()
+    })
+
     it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
       const user = userEvent.setup()
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
@@ -345,6 +442,27 @@ describe('Grunnlag', () => {
       expect(await screen.findByText('grunnlag.afp.reset_link')).toBeVisible()
     })
 
+    it('Når en bruker med uføretrygd har valgt uten AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...fakeApiCallUfoere,
+          },
+          userInput: {
+            ...userInputInitialState,
+            afp: 'nei',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(screen.getByText('afp.nei')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.ingress.nei.ufoeretrygd')
+      ).toBeInTheDocument()
+    })
+
     it('Når brukeren har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
@@ -364,6 +482,27 @@ describe('Grunnlag', () => {
       expect(
         await screen.findByText('grunnlag.afp.ingress.vet_ikke')
       ).toBeVisible()
+    })
+
+    it('Når en bruker med uføretrygd har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...fakeApiCallUfoere,
+          },
+          userInput: {
+            ...userInputInitialState,
+            afp: 'vet_ikke',
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(screen.getByText('afp.vet_ikke')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.afp.ingress.vet_ikke.ufoeretrygd')
+      ).toBeInTheDocument()
     })
   })
 })

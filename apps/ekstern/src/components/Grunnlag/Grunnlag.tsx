@@ -17,7 +17,11 @@ import {
   useGetAfpOffentligFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectAfp, selectSamboer } from '@/state/userInput/selectors'
+import {
+  selectAfp,
+  selectSamboer,
+  selectUfoeregrad,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { formatAfp } from '@/utils/afp'
@@ -64,11 +68,15 @@ export const Grunnlag: React.FC<Props> = ({
   const { data: person, isSuccess } = useGetPersonQuery()
   const afp = useAppSelector(selectAfp)
   const harSamboer = useAppSelector(selectSamboer)
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
 
-  const formatertAfp = React.useMemo(
-    () => formatAfp(intl, afp ?? 'vet_ikke'),
-    [afp]
-  )
+  const formatertAfp = React.useMemo(() => {
+    const afpString = formatAfp(intl, afp ?? 'vet_ikke')
+    if (ufoeregrad && (afp === 'ja_offentlig' || afp === 'ja_privat')) {
+      return `${afpString} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`
+    }
+    return afpString
+  }, [afp])
 
   const formatertSivilstand = React.useMemo(
     () =>
@@ -189,26 +197,21 @@ export const Grunnlag: React.FC<Props> = ({
               headerValue={formatertAfp}
             >
               <BodyLong>
-                {!afpOffentligFeatureToggle?.enabled &&
-                afp === 'ja_offentlig' ? (
-                  <FormattedMessage
-                    id={`grunnlag.afp.ingress.${afp}.unavailable`}
-                    values={{
-                      ...getFormatMessageValues(intl),
-                    }}
-                  />
-                ) : (
-                  <FormattedMessage
-                    id={`grunnlag.afp.ingress.${afp}`}
-                    values={{
-                      afpLeverandoer: afpLeverandoer
-                        ? ` (${afpLeverandoer})`
-                        : '',
-                      ...getFormatMessageValues(intl),
-                    }}
-                  />
-                )}
-                {afp === 'nei' && (
+                <FormattedMessage
+                  id={`grunnlag.afp.ingress.${afp}${ufoeregrad ? '.ufoeretrygd' : ''}${
+                    !afpOffentligFeatureToggle?.enabled &&
+                    afp === 'ja_offentlig'
+                      ? '.unavailable'
+                      : ''
+                  }`}
+                  values={{
+                    afpLeverandoer: afpLeverandoer
+                      ? ` (${afpLeverandoer})`
+                      : '',
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
+                {!ufoeregrad && afp === 'nei' && (
                   <>
                     <Link href="#" onClick={goToStart}>
                       <FormattedMessage id="grunnlag.afp.reset_link" />
