@@ -257,12 +257,12 @@ export const BeregningEnkel: React.FC = () => {
                 }
                 alderspensjonListe={alderspensjon?.alderspensjon}
                 afpPrivatListe={
-                  ufoeregrad === 0 && afp === 'ja_privat'
+                  !ufoeregrad && afp === 'ja_privat'
                     ? alderspensjon?.afpPrivat?.afpPrivatListe
                     : undefined
                 }
                 afpOffentligListe={
-                  ufoeregrad === 0 && afp === 'ja_offentlig'
+                  !ufoeregrad && afp === 'ja_offentlig'
                     ? alderspensjon?.afpOffentlig?.afpOffentligListe
                     : undefined
                 }
