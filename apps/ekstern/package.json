@@ -64,7 +64,7 @@
     "amplitude-js": "^8.21.9",
     "axe-core": "^4.9.1",
     "clsx": "^2.1.1",
-    "cypress": "^13.8.1",
+    "cypress": "^13.9.0",
     "cypress-axe": "^1.4.0",
     "date-fns": "^3.6.0",
     "eslint": "^8.57.0",
