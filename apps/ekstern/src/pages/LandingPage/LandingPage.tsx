@@ -74,62 +74,64 @@ export const LandingPage = () => {
       }
     }, [shouldRedirectTo])
 
+    if (shouldRedirectTo) {
+      return null
+    }
+
     return (
-      !shouldRedirectTo && (
-        <section>
-          <VStack gap="4">
-            <Heading size="medium" level="2">
-              {intl.formatMessage({
-                id: 'landingsside.for.deg.foedt.etter.1963',
-              })}
-            </Heading>
+      <section>
+        <VStack gap="4">
+          <Heading size="medium" level="2">
+            {intl.formatMessage({
+              id: 'landingsside.for.deg.foedt.etter.1963',
+            })}
+          </Heading>
+          <BodyLong>
+            {intl.formatMessage({
+              id: 'landingsside.velge_mellom_detaljert_og_enkel',
+            })}
+          </BodyLong>
+          <div>
             <BodyLong>
               {intl.formatMessage({
-                id: 'landingsside.velge_mellom_detaljert_og_enkel',
+                id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
               })}
             </BodyLong>
-            <div>
-              <BodyLong>
+            <ul>
+              <li>
                 {intl.formatMessage({
-                  id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
+                  id: 'landingsside.liste.1',
                 })}
-              </BodyLong>
-              <ul>
-                <li>
-                  {intl.formatMessage({
-                    id: 'landingsside.liste.1',
-                  })}
-                </li>
-                <li>
-                  {intl.formatMessage({
-                    id: 'landingsside.liste.2',
-                  })}
-                </li>
-              </ul>
-              <HStack gap="4">
-                <Button
-                  data-testid="landingside-detaljert-kalkulator-button"
-                  variant="secondary"
-                  onClick={wrapLogger('button klikk', {
-                    tekst: 'Detaljert kalkulator',
-                  })(gaaTilDetaljertKalkulator)}
-                >
-                  {detaljertKalkulatorButtonText}
-                </Button>
-                <Button
-                  data-testid="landingside-enkel-kalkulator-button"
-                  variant="secondary"
-                  onClick={wrapLogger('button klikk', {
-                    tekst: 'Enkel kalkulator',
-                  })(gaaTilEnkelKalkulator)}
-                >
-                  {enkelKalkulatorButtonText}
-                </Button>
-              </HStack>
-            </div>
-          </VStack>
-        </section>
-      )
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'landingsside.liste.2',
+                })}
+              </li>
+            </ul>
+            <HStack gap="4">
+              <Button
+                data-testid="landingside-detaljert-kalkulator-button"
+                variant="secondary"
+                onClick={wrapLogger('button klikk', {
+                  tekst: 'Detaljert kalkulator',
+                })(gaaTilDetaljertKalkulator)}
+              >
+                {detaljertKalkulatorButtonText}
+              </Button>
+              <Button
+                data-testid="landingside-enkel-kalkulator-button"
+                variant="secondary"
+                onClick={wrapLogger('button klikk', {
+                  tekst: 'Enkel kalkulator',
+                })(gaaTilEnkelKalkulator)}
+              >
+                {enkelKalkulatorButtonText}
+              </Button>
+            </HStack>
+          </div>
+        </VStack>
+      </section>
     )
   }
 
