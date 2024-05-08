@@ -11,7 +11,7 @@ import {
   isEkskludertStatus,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
-import { veilederBorgerFnrSelector } from '@/state/userInput/selectors'
+import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
 import { RootState } from '@/state/store'
 
 export const apiSlice = createApi({
@@ -19,15 +19,19 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
     prepareHeaders: (headers, { getState }) => {
-      const veilederBorgerFnr = veilederBorgerFnrSelector(
-        getState() as RootState
-      )
+      const veilederBorgerFnr = selectVeilederBorgerFnr(getState() as RootState)
       if (veilederBorgerFnr) {
         headers.set('fnr', veilederBorgerFnr)
       }
     },
   }),
-  tagTypes: ['Person', 'Inntekt', 'Alderspensjon', 'TidligstMuligHeltUttak'],
+  tagTypes: [
+    'Person',
+    'Inntekt',
+    'EkskludertStatus',
+    'Alderspensjon',
+    'TidligstMuligHeltUttak',
+  ],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
@@ -55,6 +59,7 @@ export const apiSlice = createApi({
     }),
     getEkskludertStatus: builder.query<EkskludertStatus, void>({
       query: () => '/v1/ekskludert',
+      providesTags: ['EkskludertStatus'],
       transformResponse: (response: any) => {
         if (!isEkskludertStatus(response)) {
           throw new Error(`Mottok ugyldig ekskludert response:`, response)

@@ -19,9 +19,7 @@ import {
 
 import { Loader } from '@/components/common/Loader'
 import { externalUrls, paths } from '@/router/constants'
-import { LoginContext, useGetPersonAccessData } from '@/router/loaders'
-import { useAppSelector } from '@/state/hooks'
-import { isVeilederSelector } from '@/state/userInput/selectors'
+import { LoginContext, useLandingPageAccessData } from '@/router/loaders'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 import styles from './LandingPage.module.scss'
@@ -29,9 +27,9 @@ import styles from './LandingPage.module.scss'
 export const LandingPage = () => {
   const intl = useIntl()
   const { isLoggedIn } = useOutletContext<LoginContext>()
+
+  const loaderData = useLandingPageAccessData()
   const navigate = useNavigate()
-  const isVeileder = useAppSelector(isVeilederSelector)
-  const loaderData = useGetPersonAccessData()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -51,13 +49,6 @@ export const LandingPage = () => {
     window.open(externalUrls.uinnloggetKalkulator, '_self')
   }
 
-  // TODO: Fikses i PEK-400, håndteres i loaders
-  React.useEffect(() => {
-    if (isVeileder) {
-      gaaTilEnkelKalkulator()
-    }
-  }, [isVeileder])
-
   const detaljertKalkulatorButtonText = isLoggedIn
     ? intl.formatMessage({
         id: 'landingsside.button.detaljert_kalkulator',
@@ -74,61 +65,73 @@ export const LandingPage = () => {
         id: 'landingsside.button.enkel_kalkulator_utlogget',
       })
 
-  const TopSection: React.FC = () => (
-    <section>
-      <VStack gap="4">
-        <Heading size="medium" level="2">
-          {intl.formatMessage({
-            id: 'landingsside.for.deg.foedt.etter.1963',
-          })}
-        </Heading>
-        <BodyLong>
-          {intl.formatMessage({
-            id: 'landingsside.velge_mellom_detaljert_og_enkel',
-          })}
-        </BodyLong>
-        <div>
-          <BodyLong>
-            {intl.formatMessage({
-              id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
-            })}
-          </BodyLong>
-          <ul>
-            <li>
+  const TopSection: React.FC<{ shouldRedirectTo?: string }> = ({
+    shouldRedirectTo,
+  }) => {
+    React.useEffect(() => {
+      if (shouldRedirectTo) {
+        navigate(shouldRedirectTo)
+      }
+    }, [shouldRedirectTo])
+
+    return (
+      !shouldRedirectTo && (
+        <section>
+          <VStack gap="4">
+            <Heading size="medium" level="2">
               {intl.formatMessage({
-                id: 'landingsside.liste.1',
+                id: 'landingsside.for.deg.foedt.etter.1963',
               })}
-            </li>
-            <li>
+            </Heading>
+            <BodyLong>
               {intl.formatMessage({
-                id: 'landingsside.liste.2',
+                id: 'landingsside.velge_mellom_detaljert_og_enkel',
               })}
-            </li>
-          </ul>
-          <HStack gap="4">
-            <Button
-              data-testid="landingside-detaljert-kalkulator-button"
-              variant="secondary"
-              onClick={wrapLogger('button klikk', {
-                tekst: 'Detaljert kalkulator',
-              })(gaaTilDetaljertKalkulator)}
-            >
-              {detaljertKalkulatorButtonText}
-            </Button>
-            <Button
-              data-testid="landingside-enkel-kalkulator-button"
-              variant="secondary"
-              onClick={wrapLogger('button klikk', {
-                tekst: 'Enkel kalkulator',
-              })(gaaTilEnkelKalkulator)}
-            >
-              {enkelKalkulatorButtonText}
-            </Button>
-          </HStack>
-        </div>
-      </VStack>
-    </section>
-  )
+            </BodyLong>
+            <div>
+              <BodyLong>
+                {intl.formatMessage({
+                  id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
+                })}
+              </BodyLong>
+              <ul>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.1',
+                  })}
+                </li>
+                <li>
+                  {intl.formatMessage({
+                    id: 'landingsside.liste.2',
+                  })}
+                </li>
+              </ul>
+              <HStack gap="4">
+                <Button
+                  data-testid="landingside-detaljert-kalkulator-button"
+                  variant="secondary"
+                  onClick={wrapLogger('button klikk', {
+                    tekst: 'Detaljert kalkulator',
+                  })(gaaTilDetaljertKalkulator)}
+                >
+                  {detaljertKalkulatorButtonText}
+                </Button>
+                <Button
+                  data-testid="landingside-enkel-kalkulator-button"
+                  variant="secondary"
+                  onClick={wrapLogger('button klikk', {
+                    tekst: 'Enkel kalkulator',
+                  })(gaaTilEnkelKalkulator)}
+                >
+                  {enkelKalkulatorButtonText}
+                </Button>
+              </HStack>
+            </div>
+          </VStack>
+        </section>
+      )
+    )
+  }
 
   const BottomLink: React.FC = () => (
     <Link
@@ -160,13 +163,15 @@ export const LandingPage = () => {
         />
       }
     >
-      <Await resolve={loaderData.getPersonQuery}>
-        <div className={styles.landingPage}>
-          <VStack gap="10">
-            <TopSection />
-          </VStack>
-          <BottomLink />
-        </div>
+      <Await resolve={loaderData.shouldRedirectTo}>
+        {(shouldRedirectTo: string) => (
+          <div className={styles.landingPage}>
+            <VStack gap="10">
+              <TopSection shouldRedirectTo={shouldRedirectTo} />
+            </VStack>
+            <BottomLink />
+          </div>
+        )}
       </Await>
     </React.Suspense>
   ) : (
