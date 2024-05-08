@@ -8,6 +8,7 @@ import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
+import ufoeregradResponse from './data/ufoeregrad.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
 import afpOffentligToggleResponse from './data/unleash-enable-afp-offentlig.json' assert { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
@@ -24,6 +25,16 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   http.get(`${baseUrl}/inntekt`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(inntektResponse)
+  }),
+
+  http.get(`${baseUrl}/v1/ekskludert`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(ekskludertStatusResponse)
+  }),
+
+  http.get(`${baseUrl}/v1/ufoeregrad`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(ufoeregradResponse)
   }),
 
   http.get(`${baseUrl}/v2/person`, async ({ request }) => {
@@ -51,11 +62,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   http.post(`${baseUrl}/v1/tidligste-hel-uttaksalder`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
-  }),
-
-  http.get(`${baseUrl}/v1/ekskludert`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(ekskludertStatusResponse)
   }),
 
   http.post(`${baseUrl}/v2/pensjonsavtaler`, async ({ request }) => {

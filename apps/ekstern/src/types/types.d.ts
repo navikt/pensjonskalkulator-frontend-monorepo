@@ -34,6 +34,9 @@ declare global {
   >
   type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
 
+  // /ufoeregrad
+  type Ufoeregrad = components['schemas']['UfoeregradDto']
+
   // /tpo-medlemskap
   export type TpoMedlemskapQuery = TypedUseQueryStateResult<
     TpoMedlemskap,
