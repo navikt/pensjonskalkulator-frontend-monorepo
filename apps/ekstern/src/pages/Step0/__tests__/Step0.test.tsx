@@ -95,9 +95,12 @@ describe('Step 0', () => {
       hasRouter: false,
     })
     await waitFor(async () => {
-      await user.click(await screen.findByText('stegvisning.avbryt'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.login)
+      await waitFor(async () => {
+        expect(screen.queryByTestId('step0-loader')).not.toBeInTheDocument()
+      })
     })
+    await user.click(await screen.findByText('stegvisning.avbryt'))
+    expect(navigateMock).toHaveBeenCalledWith(paths.login)
   })
 
   it('rendrer steget som vanlig dersom bruker har uføretrygd og feature-toggle er av', async () => {

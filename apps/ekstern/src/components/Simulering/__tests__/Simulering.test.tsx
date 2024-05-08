@@ -518,18 +518,20 @@ describe('Simulering', () => {
       const elemDiv = document.createElement('div')
       elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
       document.body.appendChild(elemDiv)
-
-      expect(
-        await screen.findByText(
-          'Du har pensjonsavtaler som starter før valgt alder.',
-          { exact: false }
-        )
-      ).toBeVisible()
+      await waitFor(async () => {
+        expect(
+          await screen.findByText(
+            'Du har pensjonsavtaler som starter før valgt alder.',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
 
       const pensjonsavtalerScrollToLink = await screen.findByTestId(
         'pensjonsavtaler-info-link'
       )
       await user.click(pensjonsavtalerScrollToLink)
+
       expect(scrollToMock).toHaveBeenCalledWith({
         behavior: 'smooth',
         top: -15,
