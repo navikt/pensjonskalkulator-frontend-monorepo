@@ -30,60 +30,62 @@ export function Start({ shouldRedirectTo, navn, onCancel, onNext }: Props) {
     }
   }, [shouldRedirectTo])
 
+  if (shouldRedirectTo) {
+    return null
+  }
+
   return (
-    !shouldRedirectTo && (
-      <Card hasLargePadding hasMargin>
-        <div className={styles.wrapper}>
-          <img className={styles.image} src={FridaPortrett} alt="" />
-          <div className={styles.wrapperText}>
-            <Heading level="2" size="medium" spacing>
-              {`${intl.formatMessage({
-                id: 'stegvisning.start.title',
-              })}${navnString}`}
-            </Heading>
-            <BodyLong size="large">
-              <FormattedMessage id="stegvisning.start.ingress" />
-            </BodyLong>
+    <Card hasLargePadding hasMargin>
+      <div className={styles.wrapper}>
+        <img className={styles.image} src={FridaPortrett} alt="" />
+        <div className={styles.wrapperText}>
+          <Heading level="2" size="medium" spacing>
+            {`${intl.formatMessage({
+              id: 'stegvisning.start.title',
+            })}${navnString}`}
+          </Heading>
+          <BodyLong size="large">
+            <FormattedMessage id="stegvisning.start.ingress" />
+          </BodyLong>
+          <Button
+            type="submit"
+            className={styles.button}
+            onClick={wrapLogger('button klikk', { tekst: 'Kom i gang' })(
+              onNext
+            )}
+          >
+            <FormattedMessage id="stegvisning.start.button" />
+          </Button>
+          {onCancel && (
             <Button
-              type="submit"
-              className={styles.button}
-              onClick={wrapLogger('button klikk', { tekst: 'Kom i gang' })(
-                onNext
+              type="button"
+              variant="tertiary"
+              onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
+                onCancel
               )}
             >
-              <FormattedMessage id="stegvisning.start.button" />
+              <FormattedMessage id="stegvisning.avbryt" />
             </Button>
-            {onCancel && (
-              <Button
-                type="button"
-                variant="tertiary"
-                onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
-                  onCancel
-                )}
-              >
-                <FormattedMessage id="stegvisning.avbryt" />
-              </Button>
-            )}
-          </div>
+          )}
         </div>
-        <Link
-          onClick={logOpenLink}
-          className={styles.link}
-          as={ReactRouterLink}
-          to={paths.personopplysninger}
-          target="_blank"
-          inlineText
-        >
-          <FormattedMessage id="stegvisning.start.link" />
-          <ExternalLinkIcon
-            title={intl.formatMessage({
-              id: 'application.global.external_link',
-            })}
-            width="1.25rem"
-            height="1.25rem"
-          />
-        </Link>
-      </Card>
-    )
+      </div>
+      <Link
+        onClick={logOpenLink}
+        className={styles.link}
+        as={ReactRouterLink}
+        to={paths.personopplysninger}
+        target="_blank"
+        inlineText
+      >
+        <FormattedMessage id="stegvisning.start.link" />
+        <ExternalLinkIcon
+          title={intl.formatMessage({
+            id: 'application.global.external_link',
+          })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    </Card>
   )
 }
