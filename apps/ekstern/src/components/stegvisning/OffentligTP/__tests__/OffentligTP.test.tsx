@@ -1,3 +1,5 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { describe, it, vi } from 'vitest'
 
 import { OffentligTP } from '..'
@@ -24,16 +26,22 @@ describe('stegvisning - OffentligTP', () => {
     })
   })
 
-  it('kaller onNext når shouldJumpOverStep er true', async () => {
+  it('kaller navigate når shouldRedirectTo er angitt', async () => {
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const randomPath = '/random-path'
+
     render(
       <OffentligTP
-        shouldJumpOverStep={true}
+        shouldRedirectTo={randomPath}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
       />
     )
-    expect(onNextMock).toHaveBeenCalled()
+    expect(navigateMock).toHaveBeenCalledWith(randomPath)
   })
 
   it('kaller onNext når brukeren klikker på Neste', async () => {

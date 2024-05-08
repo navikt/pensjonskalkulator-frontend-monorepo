@@ -1,3 +1,5 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { describe, it, vi } from 'vitest'
 
 import { Start } from '..'
@@ -20,6 +22,24 @@ describe('stegvisning - Start', () => {
     })
   })
 
+  it('kaller navigate når shouldRedirectTo er angitt', async () => {
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const randomPath = '/random-path'
+
+    render(
+      <Start
+        shouldRedirectTo={randomPath}
+        navn=""
+        onCancel={onCancelMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(navigateMock).toHaveBeenCalledWith(randomPath)
+  })
+
   it('rendrer slik den skal uten navn, med riktig heading, bilde, tekst og knapper', async () => {
     const result = render(
       <Start navn="" onCancel={onCancelMock} onNext={onNextMock} />
@@ -38,6 +58,11 @@ describe('stegvisning - Start', () => {
     render(<Start navn="Ola" onCancel={onCancelMock} onNext={onNextMock} />)
     await user.click(screen.getByText('stegvisning.start.button'))
     expect(onNextMock).toHaveBeenCalled()
+  })
+
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(<Start navn="Ola" onCancel={undefined} onNext={onNextMock} />)
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

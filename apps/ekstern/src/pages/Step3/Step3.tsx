@@ -6,20 +6,17 @@ import { Card } from '@/components/common/Card'
 import { Loader } from '@/components/common/Loader'
 import { OffentligTP } from '@/components/stegvisning/OffentligTP'
 import { paths } from '@/router/constants'
-import {
-  TpoMedlemskapQuery,
-  useTpoMedlemskapAccessData,
-} from '@/router/loaders'
+import { useStep3AccessData } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { isVeilederSelector } from '@/state/userInput/selectors'
+import { selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step3() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const loaderData = useTpoMedlemskapAccessData()
-  const isVeileder = useAppSelector(isVeilederSelector)
+  const loaderData = useStep3AccessData()
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -53,29 +50,29 @@ export function Step3() {
           />
         }
       >
-        <Await resolve={loaderData.getTpoMedlemskapQuery}>
-          {(getTpoMedlemskapQuery: TpoMedlemskapQuery) => {
-            return getTpoMedlemskapQuery.isError ? (
-              <Card hasLargePadding hasMargin>
-                <Card.Content
-                  onPrimaryButtonClick={onNext}
-                  onSecondaryButtonClick={onPrevious}
-                  onTertiaryButtonClick={onCancel}
-                  text={{
-                    header: 'stegvisning.offentligtp.error.title',
-                    ingress: 'stegvisning.offentligtp.error.ingress',
-                    primaryButton: 'stegvisning.neste',
-                    secondaryButton: 'stegvisning.tilbake',
-                    tertiaryButton: 'stegvisning.avbryt',
-                  }}
-                />
-              </Card>
-            ) : (
+        <Await
+          resolve={loaderData.shouldRedirectTo}
+          errorElement={
+            <Card hasLargePadding hasMargin>
+              <Card.Content
+                onPrimaryButtonClick={onNext}
+                onSecondaryButtonClick={onPrevious}
+                onTertiaryButtonClick={onCancel}
+                text={{
+                  header: 'stegvisning.offentligtp.error.title',
+                  ingress: 'stegvisning.offentligtp.error.ingress',
+                  primaryButton: 'stegvisning.neste',
+                  secondaryButton: 'stegvisning.tilbake',
+                  tertiaryButton: 'stegvisning.avbryt',
+                }}
+              />
+            </Card>
+          }
+        >
+          {(shouldRedirectTo: string) => {
+            return (
               <OffentligTP
-                shouldJumpOverStep={
-                  getTpoMedlemskapQuery.isSuccess &&
-                  !getTpoMedlemskapQuery.data.harTjenestepensjonsforhold
-                }
+                shouldRedirectTo={shouldRedirectTo}
                 onCancel={onCancel}
                 onPrevious={onPrevious}
                 onNext={onNext}

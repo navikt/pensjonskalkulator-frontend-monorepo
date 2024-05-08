@@ -6,7 +6,7 @@ import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'
 import { paths, henvisningUrlParams } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectUtenlandsopphold } from '@/state/userInput/selectors'
-import { isVeilederSelector } from '@/state/userInput/selectors'
+import { selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step1() {
@@ -14,7 +14,7 @@ export function Step1() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harUtenlandsopphold = useAppSelector(selectUtenlandsopphold)
-  const isVeileder = useAppSelector(isVeilederSelector)
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({

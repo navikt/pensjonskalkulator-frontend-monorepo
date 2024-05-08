@@ -20,8 +20,12 @@ import { paths } from './constants'
 import {
   directAccessGuard,
   authenticationGuard,
-  foedselsdatoAccessGuard,
-  tpoMedlemskapAccessGuard,
+  landingPageAccessGuard,
+  step0AccessGuard,
+  step3AccessGuard,
+  step4AccessGuard,
+  step5AccessGuard,
+  step6AccessGuard,
 } from './loaders'
 
 export const routes: RouteObject[] = [
@@ -43,7 +47,7 @@ export const routes: RouteObject[] = [
         element: <Navigate to={paths.login} replace />,
       },
       {
-        loader: foedselsdatoAccessGuard,
+        loader: landingPageAccessGuard,
         path: paths.login,
         element: <LandingPage />,
       },
@@ -63,7 +67,7 @@ export const routes: RouteObject[] = [
     ErrorBoundary: RouteErrorBoundary,
     children: [
       {
-        loader: foedselsdatoAccessGuard,
+        loader: step0AccessGuard,
         path: paths.start,
         element: <Step0 />,
       },
@@ -86,22 +90,22 @@ export const routes: RouteObject[] = [
         element: <Step2 />,
       },
       {
-        loader: tpoMedlemskapAccessGuard,
+        loader: step3AccessGuard,
         path: paths.offentligTp,
         element: <Step3 />,
       },
       {
-        loader: directAccessGuard,
+        loader: step4AccessGuard,
         path: paths.afp,
         element: <Step4 />,
       },
       {
-        loader: directAccessGuard,
+        loader: step5AccessGuard,
         path: paths.ufoeretrygd,
         element: <Step5 />,
       },
       {
-        loader: directAccessGuard,
+        loader: step6AccessGuard,
         path: paths.sivilstand,
         element: <Step6 />,
       },
