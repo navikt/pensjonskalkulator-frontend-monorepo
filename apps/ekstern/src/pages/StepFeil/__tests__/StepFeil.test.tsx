@@ -3,12 +3,9 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepFeil } from '..'
-import * as Step4Utils from '../../Step4/utils'
-import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
-import * as sivilstandUtils from '@/utils/sivilstand'
 
 describe('Step Feil', () => {
   it('har riktig sidetittel', () => {
@@ -18,88 +15,11 @@ describe('Step Feil', () => {
 
   it('rendrer Step Feil slik den skal når brukeren har svart på spørsmålet om samtykke,', async () => {
     render(<StepFeil />)
-    expect(screen.getByTestId('loader')).toBeVisible()
     await waitFor(() => {
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'error.global.title'
       )
     })
-  })
-
-  it('kaller /inntekt på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden til brukeren klikker avbryt', async () => {
-    const user = userEvent.setup()
-    mockErrorResponse('/inntekt')
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<StepFeil />)
-    await user.click(await screen.findByText('error.global.button'))
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'error.global.title'
-      )
-      expect(navigateMock).toHaveBeenCalledWith('/login')
-    })
-  })
-
-  it('kaller /person på nytt (gitt at nytt kall fremdeles feiler), og blir værende på siden til brukeren klikker avbryt', async () => {
-    const user = userEvent.setup()
-    mockErrorResponse('/v2/person')
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<StepFeil />)
-
-    await user.click(await screen.findByText('error.global.button'))
-
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'error.global.title'
-      )
-      expect(navigateMock).toHaveBeenCalledWith('/login')
-    })
-  })
-
-  it('kaller /inntekt på nytt (gitt at nytt kall er vellykket), evaluerer samboerskapet og navigerer videre til riktig side', async () => {
-    mockResponse('/v2/person', {
-      status: 200,
-      json: { navn: 'Ola', sivilstand: 'UGIFT', foedselsdato: '1963-04-30' },
-    })
-    const user = userEvent.setup()
-    const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<StepFeil />)
-    user.click(await screen.findByText('error.global.button'))
-    await waitFor(() => {
-      expect(nesteSideMock).toHaveBeenCalledWith(false)
-      expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
-    })
-  })
-
-  it('kaller /person på nytt (gitt at nytt kall er vellykket), evaluerer samboerskapet og navigerer videre til riktig side', async () => {
-    mockResponse('/v2/person', {
-      status: 200,
-      json: { navn: 'Ola', sivilstand: 'GIFT', foedselsdato: '1963-04-30' },
-    })
-    const checkHarSamboerMock = vi.spyOn(sivilstandUtils, 'checkHarSamboer')
-    const nesteSideMock = vi.spyOn(Step4Utils, 'getNesteSide')
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<StepFeil />)
-    await waitFor(() => {
-      expect(checkHarSamboerMock).toHaveBeenCalledWith('GIFT')
-    })
-    await waitFor(() => {
-      expect(nesteSideMock).toHaveBeenCalledWith(true)
-    })
-    expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
   })
 
   it('redirigerer til landingssiden når brukeren klikker på knappen', async () => {

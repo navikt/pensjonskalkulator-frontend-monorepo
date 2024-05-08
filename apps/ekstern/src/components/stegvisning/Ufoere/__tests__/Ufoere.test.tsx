@@ -1,9 +1,10 @@
 import { describe, it, vi } from 'vitest'
 
 import { Ufoere } from '..'
+import { mockResponse } from '@/mocks/server'
+import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
-
 describe('stegvisning - Ufoere', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
@@ -13,7 +14,6 @@ describe('stegvisning - Ufoere', () => {
     const user = userEvent.setup()
     const result = render(
       <Ufoere
-        isLastStep={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -42,18 +42,38 @@ describe('stegvisning - Ufoere', () => {
     expect(result.asFragment()).toMatchSnapshot()
   })
 
-  it('kaller onNext når det er siste steg og at brukeren klikker på Beregn', async () => {
-    const user = userEvent.setup()
-    render(
+  it('viser riktig tekst på Neste knapp når brukeren har samboer', async () => {
+    mockResponse('/v2/person', {
+      status: 200,
+      json: {
+        navn: 'Aprikos',
+        sivilstand: 'GIFT',
+        foedselsdato: '1963-04-30',
+      },
+    })
+
+    const { store } = render(
       <Ufoere
-        isLastStep={true}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
       />
     )
+    await store.dispatch(apiSlice.endpoints.getPerson.initiate())
+    expect(await screen.findByText('stegvisning.beregn')).toBeInTheDocument()
     expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-    await user.click(screen.getByText('stegvisning.beregn'))
+  })
+
+  it('kaller onNext når brukeren klikker på Neste', async () => {
+    const user = userEvent.setup()
+    render(
+      <Ufoere
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
@@ -64,7 +84,6 @@ describe('stegvisning - Ufoere', () => {
     const user = userEvent.setup()
     render(
       <Ufoere
-        isLastStep={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
@@ -84,7 +103,6 @@ describe('stegvisning - Ufoere', () => {
     const user = userEvent.setup()
     render(
       <Ufoere
-        isLastStep={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}

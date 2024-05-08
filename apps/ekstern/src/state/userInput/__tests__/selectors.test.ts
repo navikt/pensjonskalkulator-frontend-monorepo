@@ -12,8 +12,8 @@ import {
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
   selectHarHentetTpoMedlemskap,
-  isVeilederSelector,
-  veilederBorgerFnrSelector,
+  selectIsVeileder,
+  selectVeilederBorgerFnr,
 } from '../selectors'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -404,10 +404,10 @@ describe('userInput selectors', () => {
       expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
     })
   })
-  describe('isVeilederSelector', () => {
+  describe('selectIsVeileder', () => {
     it('er false når veilederBorgerFnr ikke er satt', () => {
       const state: RootState = initialState
-      expect(isVeilederSelector(state)).toBe(false)
+      expect(selectIsVeileder(state)).toBe(false)
     })
 
     it('er true når veilederBorgerFnr er satt', () => {
@@ -418,14 +418,14 @@ describe('userInput selectors', () => {
           veilderBorgerFnr: '81549300',
         },
       }
-      expect(isVeilederSelector(state)).toBe(true)
+      expect(selectIsVeileder(state)).toBe(true)
     })
   })
 
-  describe('veilederBorgerFnrSelector', () => {
+  describe('selectVeilederBorgerFnr', () => {
     it('er undefined når veilederBorgerFnr ikke er satt', () => {
       const state: RootState = initialState
-      expect(veilederBorgerFnrSelector(state)).toBeUndefined()
+      expect(selectVeilederBorgerFnr(state)).toBeUndefined()
     })
 
     it('er fnr når veilederBorgerFnr er satt', () => {
@@ -437,7 +437,7 @@ describe('userInput selectors', () => {
           veilderBorgerFnr: testFnr,
         },
       }
-      expect(veilederBorgerFnrSelector(state)).toBe(testFnr)
+      expect(selectVeilederBorgerFnr(state)).toBe(testFnr)
     })
   })
 })
