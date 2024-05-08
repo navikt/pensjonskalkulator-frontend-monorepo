@@ -85,26 +85,21 @@ export const landingPageAccessGuard = async () => {
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   getPersonQuery
     .then((res) => {
-      console.log('getPersonQuery THEN', store.getState().userInput)
       if (
         res?.isSuccess &&
         isFoedtFoer1963(res?.data?.foedselsdato as string)
       ) {
         resolveRedirectUrl('')
-        console.log('resolve (0))')
         window.open(externalUrls.detaljertKalkulator, '_self')
       } else {
         if (selectIsVeileder(store.getState())) {
-          console.log('resolve paths.start')
           resolveRedirectUrl(paths.start)
         } else {
-          console.log('resolve (1))')
           resolveRedirectUrl('')
         }
       }
     })
     .catch(() => {
-      console.log('resolve (ERROR))')
       resolveRedirectUrl('')
     })
 
