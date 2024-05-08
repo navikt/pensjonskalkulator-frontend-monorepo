@@ -20,7 +20,11 @@ export function Step0() {
   const dispatch = useAppDispatch()
   const loaderData = useStep0AccessData()
 
-  const { data: ufoereFeatureToggle } = useGetUfoereFeatureToggleQuery()
+  const {
+    isSuccess,
+    isError,
+    data: ufoereFeatureToggle,
+  } = useGetUfoereFeatureToggleQuery()
   const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
 
   React.useEffect(() => {
@@ -36,13 +40,21 @@ export function Step0() {
 
   React.useEffect(() => {
     if (
-      (!ufoereFeatureToggle || !ufoereFeatureToggle?.enabled) &&
+      isSuccess &&
+      !ufoereFeatureToggle?.enabled &&
       ekskludertStatus?.ekskludert &&
       ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
     ) {
       navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
     }
-  }, [ekskludertStatus, navigate])
+    if (
+      isError &&
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+  }, [isSuccess, isError, ekskludertStatus])
 
   // Fjern mulighet for avbryt hvis person er veileder
   const onCancel = isVeileder

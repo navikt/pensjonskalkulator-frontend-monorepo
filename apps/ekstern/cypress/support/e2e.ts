@@ -77,10 +77,10 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-detaljert-fane',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-ufoere',
     },
-    { fixture: 'toggle-enable-detaljert-fane.json' }
-  ).as('getFeatureToggleHighcharts')
+    { fixture: 'toggle-enable-ufoere.json' }
+  ).as('getFeatureToggleUfoere')
 
   cy.intercept(
     {
