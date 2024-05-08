@@ -1,28 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Loaders > landingPageAccessGuard > kaller redirect til /start location når brukeren er veilder 1`] = `
-DeferredData {
-  "abortPromise": Promise {},
-  "controller": AbortController {
-    Symbol(SameObject caches): {
-      "signal": AbortSignal {},
-    },
-  },
-  "data": {
-    "shouldRedirectTo": Promise {},
-  },
-  "deferredKeys": [
-    "shouldRedirectTo",
-  ],
-  "init": {},
-  "pendingKeysSet": Set {
-    "shouldRedirectTo",
-  },
-  "subscribers": Set {},
-  "unlistenAbortSignal": [Function],
-}
-`;
-
 exports[`Loaders > step0AccessGuard > kaller getPersonQuery, getInntekt og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
 DeferredData {
   "abortPromise": Promise {},

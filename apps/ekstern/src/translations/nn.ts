@@ -203,6 +203,12 @@ const translations = {
   'tidligstmuliguttak.info_afp':
     'Du kan truleg ta ut alderspensjon tidlegare viss du har rett til AFP i offentleg sektor.',
   'tidligstmuliguttak.error': 'MANGLER_TEKST',
+  'omufoeretrygd.hel.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.gradert.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.readmore.title': 'MANGLER_TEKST',
+  'omufoeretrygd.readmore.hel.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.readmore.gradert.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.avansert_link': 'MANGLER_TEKST',
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',

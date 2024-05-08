@@ -40,8 +40,8 @@ describe('BeregningEnkel', () => {
     },
   }
 
-  describe('Når tidligst mulig uttaksalder hentes', () => {
-    it('kalles endepunktet med riktig request body', async () => {
+  describe('Når en bruker ikke mottar uføretrygd', () => {
+    it('kalles endepunktet for tidligst mulig uttaksalder med riktig request body', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
         'initiate'
@@ -80,7 +80,7 @@ describe('BeregningEnkel', () => {
       )
     })
 
-    it('viser loading og deretter riktig header, tekst og knapper', async () => {
+    it('viser loading og deretter riktig header, tekst og alle knappene fra tidligst mulig uttaksalderen', async () => {
       render(<BeregningEnkel />)
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
       await waitFor(async () => {
@@ -91,6 +91,7 @@ describe('BeregningEnkel', () => {
       expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
       expect(screen.getAllByRole('button')).toHaveLength(12)
+      expect(screen.queryByTestId('om-ufoeretrygd')).not.toBeInTheDocument()
     })
 
     it('når kallet til TMU feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
@@ -123,6 +124,73 @@ describe('BeregningEnkel', () => {
 
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
       expect(screen.getAllByRole('button')).toHaveLength(15)
+    })
+  })
+
+  describe('Når en bruker mottar uføretrygd', () => {
+    const updatedFakeApiCalls = {
+      queries: {
+        ...fakeApiCalls.queries,
+        ['getUfoeregrad(undefined)']: {
+          status: 'fulfilled',
+          endpointName: 'getUfoeregrad',
+          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+          startedTimeStamp: 1688046411971,
+          data: {
+            ufoeregrad: 100,
+          },
+          fulfilledTimeStamp: 1688046412103,
+        },
+      },
+    }
+
+    it('hentes det ikke tidligst mulig uttaksalder', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
+        'initiate'
+      )
+
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...updatedFakeApiCalls,
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samboer: false,
+            afp: 'ja_privat',
+          },
+        },
+      })
+
+      expect(initiateMock).not.toHaveBeenCalled()
+      expect(screen.getAllByRole('button')).toHaveLength(10)
+    })
+
+    it('vises det riktig antall knapper fra default ubetinget uttaksalder', async () => {
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...updatedFakeApiCalls,
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samboer: false,
+            afp: 'ja_privat',
+          },
+        },
+      })
+
+      expect(await screen.findByTestId('om-ufoeretrygd')).toBeVisible()
+      expect(
+        screen.queryByTestId('tidligst-mulig-uttak')
+      ).not.toBeInTheDocument()
     })
   })
 

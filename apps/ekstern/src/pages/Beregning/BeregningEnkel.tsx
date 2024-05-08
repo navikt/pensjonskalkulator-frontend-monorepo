@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { Grunnlag } from '@/components/Grunnlag'
+import { OmUfoeretrygd } from '@/components/OmUfoeregrad'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
@@ -29,6 +30,7 @@ import {
   selectCurrentSimulation,
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
+  selectUfoeregrad,
 } from '@/state/userInput/selectors'
 import { DEFAULT_UBETINGET_UTTAKSALDER, isFoedtFoer1964 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -41,6 +43,7 @@ export const BeregningEnkel: React.FC = () => {
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
@@ -62,7 +65,7 @@ export const BeregningEnkel: React.FC = () => {
     isLoading: isTidligstMuligUttakLoading,
     isSuccess: isTidligstMuligUttakSuccess,
   } = useTidligstMuligHeltUttakQuery(tidligstMuligHeltUttakRequestBody, {
-    skip: !tidligstMuligHeltUttakRequestBody,
+    skip: !tidligstMuligHeltUttakRequestBody || !!ufoeregrad,
   })
 
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
@@ -189,27 +192,34 @@ export const BeregningEnkel: React.FC = () => {
           </Alert>
         </div>
       )}
-
       <div className={clsx(styles.background, styles.background__lightgray)}>
         <div className={styles.container}>
-          <TidligstMuligUttaksalder
-            tidligstMuligUttak={
-              isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
-            }
-            hasAfpOffentlig={
-              afpOffentligFeatureToggle?.enabled
-                ? false
-                : afp === 'ja_offentlig'
-            }
-            show1963Text={show1963Text}
-          />
+          {ufoeregrad ? (
+            <OmUfoeretrygd ufoeregrad={ufoeregrad} />
+          ) : (
+            <TidligstMuligUttaksalder
+              tidligstMuligUttak={
+                isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
+              }
+              hasAfpOffentlig={
+                afpOffentligFeatureToggle?.enabled
+                  ? false
+                  : afp === 'ja_offentlig'
+              }
+              show1963Text={show1963Text}
+            />
+          )}
         </div>
       </div>
 
       <div className={styles.container}>
         <VelgUttaksalder
           tidligstMuligUttak={
-            isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
+            ufoeregrad
+              ? { ...DEFAULT_UBETINGET_UTTAKSALDER }
+              : isTidligstMuligUttakSuccess
+                ? tidligstMuligUttak
+                : undefined
           }
         />
       </div>

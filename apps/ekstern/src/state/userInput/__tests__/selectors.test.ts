@@ -14,6 +14,7 @@ import {
   selectHarHentetTpoMedlemskap,
   selectIsVeileder,
   selectVeilederBorgerFnr,
+  selectUfoeregrad,
 } from '../selectors'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -438,6 +439,39 @@ describe('userInput selectors', () => {
         },
       }
       expect(selectVeilederBorgerFnr(state)).toBe(testFnr)
+    })
+  })
+
+  describe('selectUfoeregrad', () => {
+    it('er undefined når ufoeregrad ikke er kalt enda', () => {
+      const state: RootState = initialState
+      expect(selectUfoeregrad(state)).toBeUndefined()
+    })
+
+    it('er number når kallet er vellykket', () => {
+      const fakeApiCall = {
+        queries: {
+          ['getUfoeregrad(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getUfoeregrad',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              ufoeregrad: 75,
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+      }
+      expect(selectUfoeregrad(state)).toBe(75)
     })
   })
 })
