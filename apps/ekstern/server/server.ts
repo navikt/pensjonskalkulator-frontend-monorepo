@@ -59,6 +59,13 @@ const app = express()
 const __dirname = process.cwd()
 
 app.use(metricsMiddleware)
+app.use((req, _res, next) => {
+  if (!req.headers['x_correlation-id']) {
+    req.headers['x_correlation-id'] = crypto.randomUUID()
+  }
+  next()
+})
+
 app.use((req, res, next) => {
   const start = Date.now()
   res.on('finish', () => {
@@ -68,6 +75,7 @@ app.use((req, res, next) => {
       method: req.method,
       duration,
       statusCode: res.statusCode,
+      'x_correlation-id': req.headers['x_correlation-id'],
     }
 
     const logMessage = `${req.method} ${req.path} ${res.statusCode}`
@@ -95,7 +103,9 @@ app.use('/pensjon/kalkulator/src', (req, res, next) => {
 app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   const token = getToken(req)
   if (!token) {
-    logger.info('No token found in request')
+    logger.info('No token found in request', {
+      'x_correlation-id': req.headers['x_correlation-id'],
+    })
     return res.sendStatus(403)
   }
   const validationResult = await validateToken(token)
@@ -103,6 +113,7 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
     logger.error('Failed to validate token', {
       error: validationResult.error.message,
       errorType: validationResult.errorType,
+      'x_correlation-id': req.headers['x_correlation-id'],
     })
     return res.sendStatus(401)
   }
@@ -111,6 +122,7 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   if (!obo.ok) {
     logger.error('Failed to get OBO token', {
       error: obo.error.message,
+      'x_correlation-id': req.headers['x_correlation-id'],
     })
     return res.sendStatus(401)
   }
