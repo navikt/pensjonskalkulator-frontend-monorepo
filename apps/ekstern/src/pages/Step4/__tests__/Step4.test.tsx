@@ -3,7 +3,8 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { BASE_PATH, paths } from '@/router/constants'
+import { mockResponse } from '@/mocks/server'
+import { BASE_PATH, paths, henvisningUrlParams } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
@@ -47,7 +48,7 @@ describe('Step 4', () => {
     store.getState = initialGetState
   })
 
-  it('har riktig sidetittel og viser loader mens inntekt og ekskludertStatus fetches', async () => {
+  it('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
@@ -60,14 +61,6 @@ describe('Step 4', () => {
               status: 'FETCH_ERROR',
               error: 'TypeError: Failed to fetch',
             },
-          },
-          ['getEkskludertStatus(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getEkskludertStatus',
-            requestId: 't1wLPiRKrfe_vchftk8s8',
-            data: { ekskludert: false, aarsak: 'NONE' },
-            startedTimeStamp: 1714725797072,
-            fulfilledTimeStamp: 1714725797669,
           },
           ['getPerson(undefined)']: {
             status: 'fulfilled',
@@ -111,11 +104,66 @@ describe('Step 4', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
+    expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent(
+      'stegvisning.afp.title'
+    )
+    expect(screen.getAllByRole('radio')).toHaveLength(4)
+  })
+
+  it('rendrer steget som vanlig dersom bruker har uføretrygd og feature-toggle er av', async () => {
+    mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
+      status: 200,
+      json: { enabled: true },
+    })
+    mockResponse('/v1/ekskludert', {
+      json: {
+        ekskludert: true,
+        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
+      },
+    })
+
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.afp}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
 
     expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent(
       'stegvisning.afp.title'
     )
     expect(screen.getAllByRole('radio')).toHaveLength(4)
+  })
+
+  it('redirigerer til feilside dersom bruker har uføretrygd og feature-toggle er av', async () => {
+    mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
+      status: 200,
+      json: { enabled: false },
+    })
+    mockResponse('/v1/ekskludert', {
+      json: {
+        ekskludert: true,
+        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
+      },
+    })
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [`${BASE_PATH}${paths.afp}`],
+    })
+    render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
+
+    await waitFor(async () => {
+      expect(navigateMock).toHaveBeenCalledWith(
+        `${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`
+      )
+    })
   })
 
   it('Når brukeren velger afp og klikker på Neste, registrerer afp og navigerer videre til step 5', async () => {
