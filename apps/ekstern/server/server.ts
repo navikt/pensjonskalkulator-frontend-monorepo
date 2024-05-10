@@ -71,7 +71,7 @@ app.use((req, res, next) => {
   res.on('finish', () => {
     const duration = Date.now() - start
     const logMetadata = {
-      url: req.url,
+      url: req.originalUrl,
       method: req.method,
       duration,
       statusCode: res.statusCode,
