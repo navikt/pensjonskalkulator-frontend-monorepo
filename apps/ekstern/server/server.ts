@@ -1,5 +1,6 @@
 import path from 'path'
 
+import { ecsFormat } from '@elastic/ecs-winston-format'
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis'
 import express from 'express'
 import promBundle from 'express-prom-bundle'
@@ -9,12 +10,10 @@ import winston from 'winston'
 const metricsMiddleware = promBundle({ includeMethod: true })
 
 const logger = winston.createLogger({
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.Console({
-      format: winston.format.json(),
-    }),
-  ],
+  format: ecsFormat({
+    convertReqRes: true,
+  }),
+  transports: [new winston.transports.Console()],
 })
 
 const AUTH_PROVIDER = (() => {
@@ -60,7 +59,21 @@ const app = express()
 const __dirname = process.cwd()
 
 app.use(metricsMiddleware)
-
+app.use((req, res, next) => {
+  const { fnr, authorization, cookie, ...headers } = req.headers
+  const start = Date.now()
+  res.on('finish', () => {
+    const duration = Date.now() - start
+    logger.info('HTTP Request', {
+      url: req.url,
+      method: req.method,
+      headers,
+      duration,
+      statusCode: res.statusCode,
+    })
+  })
+  next()
+})
 // Server hele assets mappen uten autentisering
 app.use('/pensjon/kalkulator/assets', (req, res, next) => {
   const assetFolder = path.join(__dirname, 'assets')
@@ -75,6 +88,7 @@ app.use('/pensjon/kalkulator/src', (req, res, next) => {
 
 // Proxy til backend med token exchange
 app.use('/pensjon/kalkulator/api', async (req, res, next) => {
+  logger.info('Proxying request to backend', { req, res })
   const token = getToken(req)
   if (!token) {
     logger.info('No token found in request')
@@ -82,13 +96,18 @@ app.use('/pensjon/kalkulator/api', async (req, res, next) => {
   }
   const validationResult = await validateToken(token)
   if (!validationResult.ok) {
-    logger.error('Failed to validate token', { error: validationResult.error })
+    logger.error('Failed to validate token', {
+      error: validationResult.error.message,
+      errorType: validationResult.errorType,
+    })
     return res.sendStatus(401)
   }
 
   const obo = await requestOboToken(token, OBO_AUDIENCE)
   if (!obo.ok) {
-    logger.error('Failed to get OBO token', { error: obo.error })
+    logger.error('Failed to get OBO token', {
+      error: obo.error.message,
+    })
     return res.sendStatus(401)
   }
 
@@ -137,5 +156,7 @@ app.get('*', (_req, res) => {
 })
 
 app.listen(PORT, () => {
-  logger.info(`Server is running on http://localhost:${PORT}`)
+  logger.info(
+    `Server is running on http://localhost:${PORT} using ${AUTH_PROVIDER} as auth provider`
+  )
 })
