@@ -60,17 +60,22 @@ const __dirname = process.cwd()
 
 app.use(metricsMiddleware)
 app.use((req, res, next) => {
-  const { fnr, authorization, cookie, ...headers } = req.headers
   const start = Date.now()
   res.on('finish', () => {
     const duration = Date.now() - start
-    logger.info('HTTP Request', {
+    const logMetadata = {
       url: req.url,
       method: req.method,
-      headers,
       duration,
       statusCode: res.statusCode,
-    })
+    }
+
+    const logMessage = `${req.method} ${req.path} ${res.statusCode}`
+    if (res.statusCode >= 400) {
+      logger.error(logMessage, logMetadata)
+    } else {
+      logger.info(logMessage, logMetadata)
+    }
   })
   next()
 })
@@ -88,7 +93,6 @@ app.use('/pensjon/kalkulator/src', (req, res, next) => {
 
 // Proxy til backend med token exchange
 app.use('/pensjon/kalkulator/api', async (req, res, next) => {
-  logger.info('Proxying request to backend', { req, res })
   const token = getToken(req)
   if (!token) {
     logger.info('No token found in request')
@@ -130,11 +134,11 @@ app.use(
 
 // Kubernetes probes
 app.get('/internal/health/liveness', (_req, res) => {
-  res.sendStatus(200)
+  return res.sendStatus(200)
 })
 
 app.get('/internal/health/ready', (_req, res) => {
-  res.sendStatus(200)
+  return res.sendStatus(200)
 })
 
 // For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
@@ -150,7 +154,6 @@ app.get('*', (_req, res) => {
   if (AUTH_PROVIDER === 'idporten') {
     return res.sendFile(__dirname + '/index.html')
   } else if (AUTH_PROVIDER === 'azure') {
-    logger.info('Redirecting to veileder')
     return res.redirect('/pensjon/kalkulator/veileder')
   }
 })
