@@ -769,6 +769,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
             values={
               {
                 "afpLink": [Function],
+                "afpPrivatLink": [Function],
                 "alderspensjonsreglerLink": [Function],
                 "br": <br />,
                 "detaljertKalkulatorLink": [Function],
@@ -781,6 +782,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
                 "navPersonvernerklaeringLink": [Function],
                 "norskPensjonLink": [Function],
                 "nowrap": [Function],
+                "planleggePensjonLink": [Function],
                 "strong": [Function],
               }
             }

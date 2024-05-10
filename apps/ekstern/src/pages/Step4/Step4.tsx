@@ -6,10 +6,11 @@ import { Loader } from '@/components/common/Loader'
 import { AFP } from '@/components/stegvisning/AFP'
 import { henvisningUrlParams, paths } from '@/router/constants'
 import { useStep4AccessData } from '@/router/loaders'
-import { useGetTpoMedlemskapQuery } from '@/state/api/apiSlice'
 import {
+  useGetTpoMedlemskapQuery,
   useGetUfoereFeatureToggleQuery,
   useGetUfoeregradQuery,
+  useGetEkskludertStatusQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
@@ -27,18 +28,35 @@ export function Step4() {
   const harSamtykket = useAppSelector(selectSamtykke)
   const previousAfp = useAppSelector(selectAfp)
 
+  const {
+    isSuccess,
+    isError,
+    data: ufoereFeatureToggle,
+  } = useGetUfoereFeatureToggleQuery()
+  const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
+  const { data: ufoeregrad } = useGetUfoeregradQuery()
   const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
     useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
-  const { data: ufoereFeatureToggle } = useGetUfoereFeatureToggleQuery()
-  const { data: ufoeregrad } = useGetUfoeregradQuery()
 
   const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
-    document.title = intl.formatMessage({
-      id: 'application.title.stegvisning.step4',
-    })
-  }, [])
+    if (
+      isSuccess &&
+      !ufoereFeatureToggle?.enabled &&
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+    if (
+      isError &&
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+  }, [isSuccess, isError, ekskludertStatus])
 
   React.useEffect(() => {
     if (
@@ -48,6 +66,12 @@ export function Step4() {
       navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
     }
   }, [ufoeregrad, navigate])
+
+  React.useEffect(() => {
+    document.title = intl.formatMessage({
+      id: 'application.title.stegvisning.step4',
+    })
+  }, [])
 
   // Fjern mulighet for avbryt hvis person er veileder
   const onCancel = isVeileder

@@ -21,7 +21,7 @@ describe('Step 0', () => {
     store.getState = initialGetState
   })
 
-  it('har riktig sidetittel og viser loader mens person, inntekt og ekskludertStatus fetches', async () => {
+  it('har riktig sidetittel og viser loader mens loaderen fetcher data', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.start}`],
@@ -103,7 +103,7 @@ describe('Step 0', () => {
     expect(navigateMock).toHaveBeenCalledWith(paths.login)
   })
 
-  it('rendrer steget som vanlig dersom bruker har uføretrygd og feature-toggle er av', async () => {
+  it('rendrer steget som vanlig dersom bruker har uføretrygd og feature-toggle er på', async () => {
     mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
       status: 200,
       json: { enabled: true },
