@@ -149,7 +149,7 @@ app.get('/internal/health/liveness', (_req, res) => {
   return res.sendStatus(200)
 })
 
-app.get('/internal/health/ready', (_req, res) => {
+app.get('/internal/health/readiness', (_req, res) => {
   return res.sendStatus(200)
 })
 
