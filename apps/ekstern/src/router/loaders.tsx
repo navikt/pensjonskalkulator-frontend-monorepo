@@ -363,16 +363,11 @@ export const step5AccessGuard = async () => {
   }
 
   const afp = selectAfp(store.getState())
-  const ekskludertStatusResponse =
-    apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-      store.getState()
-    ).data
+  const ufoereGradResponse = apiSlice.endpoints.getUfoeregrad.select(undefined)(
+    store.getState()
+  ).data
 
-  if (
-    ekskludertStatusResponse?.ekskludert &&
-    ekskludertStatusResponse.aarsak === 'HAR_LOEPENDE_UFOERETRYGD' &&
-    afp !== 'nei'
-  ) {
+  if (ufoereGradResponse && afp !== 'nei') {
     return null
   }
   return redirect(paths.sivilstand)
