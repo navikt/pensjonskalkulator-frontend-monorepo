@@ -33,9 +33,11 @@ export const OmUfoeretrygd: React.FC<Props> = ({ ufoeregrad }) => {
         <>
           <BodyLong size="medium" className={`${styles.ingress}`}>
             <FormattedMessage
-              id={`omufoeretrygd.${
-                ufoeregrad === 100 ? 'hel' : 'gradert'
-              }.ingress`}
+              id={
+                ufoeregrad === 100
+                  ? 'omufoeretrygd.hel.ingress'
+                  : 'omufoeretrygd.gradert.ingress'
+              }
               values={{
                 ...getFormatMessageValues(intl),
                 grad: ufoeregrad,
@@ -55,9 +57,11 @@ export const OmUfoeretrygd: React.FC<Props> = ({ ufoeregrad }) => {
           header={<FormattedMessage id="omufoeretrygd.readmore.title" />}
         >
           <FormattedMessage
-            id={`omufoeretrygd.readmore.${
-              ufoeregrad === 100 ? 'hel' : 'gradert'
-            }.ingress`}
+            id={
+              ufoeregrad === 100
+                ? 'omufoeretrygd.readmore.hel.ingress'
+                : 'omufoeretrygd.readmore.gradert.ingress'
+            }
             values={{
               ...getFormatMessageValues(intl),
             }}
