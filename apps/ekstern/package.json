@@ -30,6 +30,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@elastic/ecs-winston-format": "^1.5.3",
     "@navikt/oasis": "^3.2.4",
     "express": "^4.19.2",
     "express-prom-bundle": "^7.0.0",
