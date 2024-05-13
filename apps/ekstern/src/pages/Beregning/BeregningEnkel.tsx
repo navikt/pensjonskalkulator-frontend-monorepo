@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { Alert, Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -13,6 +14,7 @@ import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { Simulering } from '@/components/Simulering'
 import { TidligstMuligUttaksalder } from '@/components/TidligstMuligUttaksalder'
 import { VelgUttaksalder } from '@/components/VelgUttaksalder'
+import { paths } from '@/router/constants'
 import {
   apiSlice,
   useGetPersonQuery,
@@ -38,8 +40,10 @@ import { logger } from '@/utils/logging'
 import styles from './BeregningEnkel.module.scss'
 
 export const BeregningEnkel: React.FC = () => {
-  const dispatch = useAppDispatch()
   const intl = useIntl()
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
@@ -144,8 +148,12 @@ export const BeregningEnkel: React.FC = () => {
   }, [uttaksalder, isError, alderspensjon])
 
   React.useEffect(() => {
-    if (error && (error as FetchBaseQueryError).status === 503) {
-      throw new Error((error as FetchBaseQueryError).data as string)
+    if (
+      error &&
+      ((error as FetchBaseQueryError).status === 503 ||
+        (error as FetchBaseQueryError).status === 'PARSING_ERROR')
+    ) {
+      navigate(paths.uventetFeil)
     }
   }, [error])
 

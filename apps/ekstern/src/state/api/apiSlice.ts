@@ -26,18 +26,11 @@ export const apiSlice = createApi({
       }
     },
   }),
-  tagTypes: [
-    'Person',
-    'Inntekt',
-    'EkskludertStatus',
-    'Alderspensjon',
-    'TidligstMuligHeltUttak',
-  ],
+  tagTypes: ['Person', 'TpoMedlemskap', 'Alderspensjon', 'Pensjonsavtaler'],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
       query: () => '/inntekt',
-      providesTags: ['Inntekt'],
       transformResponse: (response) => {
         if (!isInntekt(response)) {
           throw new Error(`Mottok ugyldig inntekt: ${response}`)
@@ -60,7 +53,6 @@ export const apiSlice = createApi({
     }),
     getEkskludertStatus: builder.query<EkskludertStatus, void>({
       query: () => '/v1/ekskludert',
-      providesTags: ['EkskludertStatus'],
       transformResponse: (response: any) => {
         if (!isEkskludertStatus(response)) {
           throw new Error(`Mottok ugyldig ekskludert response:`, response)
@@ -79,6 +71,7 @@ export const apiSlice = createApi({
     }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
       query: () => '/tpo-medlemskap',
+      providesTags: ['TpoMedlemskap'],
       transformResponse: (response: TpoMedlemskap) => {
         if (!isTpoMedlemskap(response)) {
           throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
@@ -95,7 +88,6 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
-      providesTags: ['TidligstMuligHeltUttak'],
       transformResponse: (response: Alder) => {
         if (!isAlder(response)) {
           throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
@@ -112,6 +104,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
+      providesTags: ['Pensjonsavtaler'],
       transformResponse: (response: PensjonsavtalerResponseBody) => {
         if (
           !response.avtaler ||

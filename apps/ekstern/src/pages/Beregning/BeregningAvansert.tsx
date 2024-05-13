@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -11,6 +12,7 @@ import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { ResultatkortAvansertBeregning } from '@/components/ResultatkortAvansertBeregning'
 import { Simulering } from '@/components/Simulering'
 import { BeregningContext } from '@/pages/Beregning/context'
+import { paths } from '@/router/constants'
 import {
   useGetPersonQuery,
   apiSlice,
@@ -31,6 +33,7 @@ import styles from './BeregningAvansert.module.scss'
 
 export const BeregningAvansert: React.FC = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const { avansertSkjemaModus, setAvansertSkjemaModus } =
     React.useContext(BeregningContext)
@@ -108,8 +111,12 @@ export const BeregningAvansert: React.FC = () => {
   }, [uttaksalder, isError, alderspensjon])
 
   React.useEffect(() => {
-    if (error && (error as FetchBaseQueryError).status === 503) {
-      throw new Error((error as FetchBaseQueryError).data as string)
+    if (
+      error &&
+      ((error as FetchBaseQueryError).status === 503 ||
+        (error as FetchBaseQueryError).status === 'PARSING_ERROR')
+    ) {
+      navigate(paths.uventetFeil)
     }
   }, [error])
 

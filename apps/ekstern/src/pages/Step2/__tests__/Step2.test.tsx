@@ -5,6 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Step2 } from '..'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
+import { selectHarHentetTpoMedlemskap } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
@@ -33,8 +34,8 @@ describe('Step 2', () => {
   })
 
   describe('Gitt at brukeren svarer Nei på spørsmål om samtykke', async () => {
-    it('nullstiller api storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke) og kaller feature toggle, person og inntekt på nytt. Navigerer videre til riktig side når brukerenklikker på Neste', async () => {
-      const fakeApiCall = {
+    it('invaliderer cache for tpo-medlemskap og pensjonsavtaler i storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke). Navigerer videre til riktig side når brukerenklikker på Neste', async () => {
+      const fakeApiCalls = {
         queries: {
           ['getTpoMedlemskap(undefined)']: {
             status: 'fulfilled',
@@ -42,23 +43,27 @@ describe('Step 2', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              harTjenestepensjonsforhold: 'false',
+              harTjenestePensjonsforhold: true,
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+          ['pensjonsavtaler(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'pensjonsavtaler',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              avtaler: [],
+              partialResponse: false,
             },
             fulfilledTimeStamp: 1688046412103,
           },
         },
       }
-      const initiategetSpraakvelgerFeatureToggleMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getSpraakvelgerFeatureToggle,
-        'initiate'
-      )
-      const initiateGetPersonMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getPerson,
-        'initiate'
-      )
-      const initiateGetInntektMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getInntekt,
-        'initiate'
+
+      const invalidateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.util.invalidateTags,
+        'match'
       )
 
       const user = userEvent.setup()
@@ -71,14 +76,19 @@ describe('Step 2', () => {
         preloadedState: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          api: { ...fakeApiCall },
+          api: { ...fakeApiCalls },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
           },
         },
       })
-      expect(Object.keys(store.getState().api.queries).length).toEqual(1)
+      await store.dispatch(
+        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap.initiate()
+      )
+      expect(Object.keys(store.getState().api.queries).length).toEqual(2)
+
+      expect(selectHarHentetTpoMedlemskap(store.getState())).toBe(true)
 
       const radioButtons = screen.getAllByRole('radio')
 
@@ -86,10 +96,8 @@ describe('Step 2', () => {
       await user.click(screen.getByText('stegvisning.neste'))
 
       expect(store.getState().userInput.samtykke).toBe(false)
-      expect(initiategetSpraakvelgerFeatureToggleMock).toHaveBeenCalled()
-      expect(initiateGetPersonMock).toHaveBeenCalled()
-      expect(initiateGetInntektMock).toHaveBeenCalled()
-      expect(Object.keys(store.getState().api.queries).length).toEqual(3)
+      expect(invalidateMock).toHaveBeenCalledTimes(2)
+
       expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
     })
   })
