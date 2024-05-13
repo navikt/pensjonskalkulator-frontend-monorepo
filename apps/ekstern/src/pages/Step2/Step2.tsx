@@ -31,10 +31,7 @@ export function Step2() {
     const samtykke = samtykkeData === 'ja'
     dispatch(userInputActions.setSamtykke(samtykke))
     if (shouldFlush && !samtykke) {
-      dispatch(apiSlice.util.resetApiState())
-      dispatch(apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate())
-      dispatch(apiSlice.endpoints.getPerson.initiate())
-      dispatch(apiSlice.endpoints.getInntekt.initiate())
+      apiSlice.util.invalidateTags(['TpoMedlemskap', 'Pensjonsavtaler'])
     }
     navigate(paths.offentligTp)
   }

@@ -1,9 +1,11 @@
+import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningEnkel } from '../BeregningEnkel'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { paths } from '@/router/constants'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -188,8 +190,10 @@ describe('BeregningEnkel', () => {
     })
 
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
-      const cache = console.error
-      console.error = () => {}
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
 
       const user = userEvent.setup()
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
@@ -209,11 +213,9 @@ describe('BeregningEnkel', () => {
       })
 
       await user.click(await screen.findByText('68 alder.aar'))
-
-      expect(await screen.findByText('error.global.title')).toBeVisible()
-      expect(await screen.findByText('error.global.ingress')).toBeVisible()
-
-      console.error = cache
+      await waitFor(() => {
+        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
+      })
     })
 
     it('Når brukeren velger en alder som de ikke har nok opptjening til, viser infomelding om at opptjeningen er for lav og skjuler Grunnlag', async () => {

@@ -1,3 +1,4 @@
+import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, expect, it, vi } from 'vitest'
@@ -9,6 +10,7 @@ import {
   BeregningContext,
   AvansertBeregningModus,
 } from '@/pages/Beregning/context'
+import { paths } from '@/router/constants'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -356,12 +358,11 @@ describe('BeregningAvansert', () => {
     })
 
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
-      mockErrorResponse('/v5/alderspensjon/simulering', {
-        method: 'post',
-      })
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
 
-      const cache = console.error
-      console.error = () => {}
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
       mockResponse('/v5/alderspensjon/simulering', {
         status: 503,
@@ -402,10 +403,9 @@ describe('BeregningAvansert', () => {
         },
       })
 
-      expect(await screen.findByText('error.global.title')).toBeVisible()
-      expect(await screen.findByText('error.global.ingress')).toBeVisible()
-
-      console.error = cache
+      await waitFor(() => {
+        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
+      })
     })
   })
 })
