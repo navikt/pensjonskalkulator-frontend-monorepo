@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.5.3",
-    "@navikt/oasis": "^3.2.4",
+    "@navikt/oasis": "^3.3.0",
     "express": "^4.19.2",
     "express-prom-bundle": "^7.0.0",
     "http-proxy-middleware": "^3.0.0",
