@@ -367,7 +367,7 @@ export const step5AccessGuard = async () => {
     store.getState()
   ).data
 
-  if (ufoereGradResponse && afp !== 'nei') {
+  if (ufoereGradResponse?.ufoeregrad && afp !== 'nei') {
     return null
   }
   return redirect(paths.sivilstand)
