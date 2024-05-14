@@ -7,8 +7,9 @@ import { AFP } from '@/components/stegvisning/AFP'
 import { henvisningUrlParams, paths } from '@/router/constants'
 import { useStep4AccessData } from '@/router/loaders'
 import {
-  useGetUfoereFeatureToggleQuery,
   useGetTpoMedlemskapQuery,
+  useGetUfoereFeatureToggleQuery,
+  useGetUfoeregradQuery,
   useGetEkskludertStatusQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -33,6 +34,11 @@ export function Step4() {
     data: ufoereFeatureToggle,
   } = useGetUfoereFeatureToggleQuery()
   const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
+  const { data: ufoeregrad } = useGetUfoeregradQuery()
+  const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
+    useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
+
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     if (
@@ -52,10 +58,14 @@ export function Step4() {
     }
   }, [isSuccess, isError, ekskludertStatus])
 
-  const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
-    useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
-
-  const isVeileder = useAppSelector(selectIsVeileder)
+  React.useEffect(() => {
+    if (
+      (!ufoereFeatureToggle || !ufoereFeatureToggle?.enabled) &&
+      ufoeregrad?.ufoeregrad
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+  }, [ufoeregrad, navigate])
 
   React.useEffect(() => {
     document.title = intl.formatMessage({

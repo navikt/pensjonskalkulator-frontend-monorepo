@@ -129,11 +129,10 @@ describe('Step 6', () => {
 
   it('sender tilbake til steg 5 når brukeren som mottar uføretrygd og som har valgt afp klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    mockResponse('/v1/ekskludert', {
+    mockResponse('/v1/ufoeregrad', {
       status: 200,
       json: {
-        ekskludert: true,
-        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
+        ufoeregrad: 100,
       },
     })
     const navigateMock = vi.fn()
@@ -152,7 +151,7 @@ describe('Step 6', () => {
       hasRouter: false,
     })
 
-    store.dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+    store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
@@ -162,11 +161,10 @@ describe('Step 6', () => {
 
   it('sender tilbake til steg 4 når brukeren som mottar uføretrygd og har ikke valgt afp og klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    mockResponse('/v1/ekskludert', {
+    mockResponse('/v1/ufoeregrad', {
       status: 200,
       json: {
-        ekskludert: true,
-        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
+        ufoeregrad: 100,
       },
     })
     const navigateMock = vi.fn()
@@ -185,7 +183,7 @@ describe('Step 6', () => {
       hasRouter: false,
     })
 
-    store.dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+    store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
@@ -195,13 +193,7 @@ describe('Step 6', () => {
 
   it('sender tilbake til steg 4 når brukeren som ikke mottar uføretrygd klikker på Tilbake', async () => {
     const user = userEvent.setup()
-    mockResponse('/v1/ekskludert', {
-      status: 200,
-      json: {
-        ekskludert: false,
-        aarsak: 'NONE',
-      },
-    })
+
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
@@ -218,7 +210,7 @@ describe('Step 6', () => {
       hasRouter: false,
     })
 
-    store.dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+    store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))

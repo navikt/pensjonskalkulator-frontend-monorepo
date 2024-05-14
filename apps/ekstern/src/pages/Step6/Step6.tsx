@@ -6,7 +6,7 @@ import { Loader } from '@/components/common/Loader'
 import { Sivilstand } from '@/components/stegvisning/Sivilstand'
 import { paths } from '@/router/constants'
 import { useStep6AccessData } from '@/router/loaders'
-import { useGetEkskludertStatusQuery } from '@/state/api/apiSlice'
+import { useGetUfoeregradQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -23,7 +23,7 @@ export function Step6() {
   const afp = useAppSelector(selectAfp)
   const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
 
-  const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
+  const { data: ufoeregrad } = useGetUfoeregradQuery()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -37,10 +37,7 @@ export function Step6() {
   }
 
   const onPrevious = (): void => {
-    const hasUfoeretrygd =
-      ekskludertStatus?.ekskludert &&
-      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
-    if (hasUfoeretrygd && afp && afp !== 'nei') {
+    if (ufoeregrad?.ufoeregrad && afp && afp !== 'nei') {
       navigate(paths.ufoeretrygd)
     } else {
       navigate(paths.afp)

@@ -289,59 +289,66 @@ export const step4AccessGuard = async () => {
       store.getState()
     ).isError
 
-  // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-  if (hasInntektPreviouslyFailed) {
-    const getInntektQuery = store.dispatch(
-      apiSlice.endpoints.getInntekt.initiate()
-    )
-    getInntektQuery.then((res) => {
-      if (res.isError) {
-        resolveRedirectUrl(paths.uventetFeil)
-      } else if (
-        apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-          store.getState()
-        ).isSuccess
-      ) {
+  store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate()).then((res) => {
+    if (res.isError) {
+      resolveRedirectUrl(paths.uventetFeil)
+    }
+    if (res.isSuccess) {
+      // Hvis alle kallene er vellykket, resolve
+      if (!hasInntektPreviouslyFailed && !hasEkskludertStatusPreviouslyFailed) {
         resolveRedirectUrl('')
       }
-    })
-  }
-  // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-  if (hasEkskludertStatusPreviouslyFailed) {
-    const getEkskludertStatusQuery = store.dispatch(
-      apiSlice.endpoints.getEkskludertStatus.initiate()
-    )
-    getEkskludertStatusQuery.then((res) => {
-      if (res.isError) {
-        resolveRedirectUrl(paths.uventetFeil)
+      // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+      if (hasInntektPreviouslyFailed) {
+        store
+          .dispatch(apiSlice.endpoints.getInntekt.initiate())
+          .then((inntektRes) => {
+            if (inntektRes.isError) {
+              resolveRedirectUrl(paths.uventetFeil)
+            } else if (
+              apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+                store.getState()
+              ).isSuccess
+            ) {
+              resolveRedirectUrl('')
+            }
+          })
       }
-      if (res.isSuccess) {
-        if (
-          res?.data?.ekskludert &&
-          res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
-        ) {
-          resolveRedirectUrl(
-            `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-          )
-        } else if (
-          res?.data?.ekskludert &&
-          res?.data?.aarsak === 'ER_APOTEKER'
-        ) {
-          resolveRedirectUrl(
-            `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-          )
-        } else if (
-          apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
-            .isSuccess
-        ) {
-          resolveRedirectUrl('')
-        }
+      // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+      if (hasEkskludertStatusPreviouslyFailed) {
+        store
+          .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+          .then((ekskludertStatusRes) => {
+            if (ekskludertStatusRes.isError) {
+              resolveRedirectUrl(paths.uventetFeil)
+            }
+            if (res.isSuccess) {
+              if (
+                ekskludertStatusRes?.data?.ekskludert &&
+                ekskludertStatusRes?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
+              ) {
+                resolveRedirectUrl(
+                  `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+                )
+              } else if (
+                ekskludertStatusRes?.data?.ekskludert &&
+                ekskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+              ) {
+                resolveRedirectUrl(
+                  `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+                )
+              } else if (
+                apiSlice.endpoints.getInntekt.select(undefined)(
+                  store.getState()
+                ).isSuccess
+              ) {
+                resolveRedirectUrl('')
+              }
+            }
+          })
       }
-    })
-  }
-  if (!hasInntektPreviouslyFailed && !hasEkskludertStatusPreviouslyFailed) {
-    resolveRedirectUrl('')
-  }
+    }
+  })
 
   return defer({
     shouldRedirectTo,
@@ -356,16 +363,11 @@ export const step5AccessGuard = async () => {
   }
 
   const afp = selectAfp(store.getState())
-  const ekskludertStatusResponse =
-    apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-      store.getState()
-    ).data
+  const ufoereGradResponse = apiSlice.endpoints.getUfoeregrad.select(undefined)(
+    store.getState()
+  ).data
 
-  if (
-    ekskludertStatusResponse?.ekskludert &&
-    ekskludertStatusResponse.aarsak === 'HAR_LOEPENDE_UFOERETRYGD' &&
-    afp !== 'nei'
-  ) {
+  if (ufoereGradResponse?.ufoeregrad && afp !== 'nei') {
     return null
   }
   return redirect(paths.sivilstand)
