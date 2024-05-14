@@ -97,3 +97,11 @@ export const selectHarHentetTpoMedlemskap = createSelector(
       ?.isUninitialized
   }
 )
+
+export const selectUfoeregrad = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return apiSlice.endpoints.getUfoeregrad.select(undefined)(state)?.data
+      ?.ufoeregrad as number
+  }
+)

@@ -204,6 +204,7 @@ export const {
   useGetInntektQuery,
   useGetPersonQuery,
   useGetEkskludertStatusQuery,
+  useGetUfoeregradQuery,
   useGetTpoMedlemskapQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,

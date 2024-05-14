@@ -719,11 +719,11 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ['getEkskludertStatus(undefined)']: {
+              ['getUfoeregrad(undefined)']: {
                 status: 'fulfilled',
-                endpointName: 'getEkskludertStatus',
+                endpointName: 'getUfoeregrad',
                 requestId: 't1wLPiRKrfe_vchftk8s8',
-                data: { ekskludert: true, aarsak: 'HAR_LOEPENDE_UFOERETRYGD' },
+                data: { ufoeregrad: 50 },
                 startedTimeStamp: 1714725797072,
                 fulfilledTimeStamp: 1714725797669,
               },

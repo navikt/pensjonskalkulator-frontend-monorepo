@@ -213,11 +213,10 @@ describe('stegvisning - AFP', () => {
       },
     })
 
-    mockResponse('/v1/ekskludert', {
+    mockResponse('/v1/ufoeregrad', {
       status: 200,
       json: {
-        ekskludert: true,
-        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
+        ufoeregrad: 100,
       },
     })
 
@@ -229,7 +228,7 @@ describe('stegvisning - AFP', () => {
         onNext={onNextMock}
       />
     )
-    await store.dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+    await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
     await store.dispatch(apiSlice.endpoints.getPerson.initiate())
 
     expect(await screen.findByText('stegvisning.neste')).toBeVisible()

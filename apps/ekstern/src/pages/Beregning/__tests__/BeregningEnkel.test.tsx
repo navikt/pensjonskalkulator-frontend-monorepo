@@ -42,8 +42,8 @@ describe('BeregningEnkel', () => {
     },
   }
 
-  describe('Når tidligst mulig uttaksalder hentes', () => {
-    it('kalles endepunktet med riktig request body', async () => {
+  describe('Når en bruker ikke mottar uføretrygd', () => {
+    it('kalles endepunktet for tidligst mulig uttaksalder med riktig request body', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
         'initiate'
@@ -82,7 +82,7 @@ describe('BeregningEnkel', () => {
       )
     })
 
-    it('viser loading og deretter riktig header, tekst og knapper', async () => {
+    it('viser loading og deretter riktig header, tekst og alle knappene fra tidligst mulig uttaksalderen', async () => {
       render(<BeregningEnkel />)
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
       await waitFor(async () => {
@@ -93,6 +93,7 @@ describe('BeregningEnkel', () => {
       expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
       expect(screen.getAllByRole('button')).toHaveLength(12)
+      expect(screen.queryByTestId('om-ufoeretrygd')).not.toBeInTheDocument()
     })
 
     it('når kallet til TMU feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
@@ -128,6 +129,73 @@ describe('BeregningEnkel', () => {
     })
   })
 
+  describe('Når en bruker mottar uføretrygd', () => {
+    const updatedFakeApiCalls = {
+      queries: {
+        ...fakeApiCalls.queries,
+        ['getUfoeregrad(undefined)']: {
+          status: 'fulfilled',
+          endpointName: 'getUfoeregrad',
+          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+          startedTimeStamp: 1688046411971,
+          data: {
+            ufoeregrad: 100,
+          },
+          fulfilledTimeStamp: 1688046412103,
+        },
+      },
+    }
+
+    it('hentes det ikke tidligst mulig uttaksalder', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
+        'initiate'
+      )
+
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...updatedFakeApiCalls,
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samboer: false,
+            afp: 'ja_privat',
+          },
+        },
+      })
+
+      expect(initiateMock).not.toHaveBeenCalled()
+      expect(screen.getAllByRole('button')).toHaveLength(10)
+    })
+
+    it('vises det riktig antall knapper fra default ubetinget uttaksalder', async () => {
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...updatedFakeApiCalls,
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samboer: false,
+            afp: 'ja_privat',
+          },
+        },
+      })
+
+      expect(await screen.findByTestId('om-ufoeretrygd')).toBeVisible()
+      expect(
+        screen.queryByTestId('tidligst-mulig-uttak')
+      ).not.toBeInTheDocument()
+    })
+  })
+
   describe('Når brukeren velger uttaksalder', () => {
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
@@ -154,6 +222,118 @@ describe('BeregningEnkel', () => {
       ).toBeInTheDocument()
       expect(await screen.findByText('savnerdunoe.title')).toBeInTheDocument()
       expect(await screen.findByText('savnerdunoe.ingress')).toBeInTheDocument()
+    })
+
+    it('vises ikke AFP privat på resultatssiden, når brukeren mottar uføretrygd', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 100,
+        },
+      })
+      const user = userEvent.setup()
+      const { store } = render(<BeregningEnkel />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            afp: 'ja_privat',
+            currentSimulation: {
+              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
+              uttaksalder: { aar: 68, maaneder: 0 },
+              aarligInntektFoerUttakBeloep: '0',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+      store.dispatch(apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate())
+      await user.click(await screen.findByText('68 alder.aar'))
+      const buttons = await screen.findAllByRole('button', { pressed: true })
+      expect(buttons[0]).toHaveTextContent('68 alder.aar')
+
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+
+      await user.click(await screen.findByText('beregning.tabell.vis'))
+
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.inntekt.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.alderspensjon.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('columnheader', {
+          name: 'beregning.highcharts.serie.afp.name',
+        })
+      ).not.toBeInTheDocument()
+    })
+
+    it('vises ikke AFP offentlig på resultatssiden, når brukeren mottar uføretrygd', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 100,
+        },
+      })
+      const user = userEvent.setup()
+      const { store } = render(<BeregningEnkel />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            afp: 'ja_offentlig',
+            currentSimulation: {
+              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
+              uttaksalder: { aar: 68, maaneder: 0 },
+              aarligInntektFoerUttakBeloep: '0',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+      store.dispatch(apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate())
+      await user.click(await screen.findByText('68 alder.aar'))
+      const buttons = await screen.findAllByRole('button', { pressed: true })
+      expect(buttons[0]).toHaveTextContent('68 alder.aar')
+
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+
+      await user.click(await screen.findByText('beregning.tabell.vis'))
+
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.inntekt.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.alderspensjon.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('columnheader', {
+          name: 'beregning.highcharts.serie.afp.name',
+        })
+      ).not.toBeInTheDocument()
     })
 
     it('viser feilmelding og skjuler Grunnlag og tabell og gir mulighet til å prøve på nytt, gitt at beregning av alderspensjon har feilet', async () => {
