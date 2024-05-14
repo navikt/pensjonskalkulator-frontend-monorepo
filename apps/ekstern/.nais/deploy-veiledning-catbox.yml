@@ -10,7 +10,7 @@ metadata:
 spec:
   image: "{{ image }}"
   ingresses:
-    - https://pensjonskalkulator-veiledning-frontend-catbox.intern.dev.nav.no/pensjon/kalkulator
+    - https://pensjonskalkulator-veiledning-frontend-catbox.ansatt.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
     min: 1
