@@ -1,10 +1,13 @@
-@import '../../../scss/variables';
+@import '../../scss/variables';
 
 .section {
-  padding-bottom: var(--a-spacing-12);
+  padding: var(--a-spacing-8) var(--a-spacing-6) var(--a-spacing-12)
+    var(--a-spacing-6);
 
   @media (min-width: $a-breakpoint-lg) {
     max-width: $container-max-width;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

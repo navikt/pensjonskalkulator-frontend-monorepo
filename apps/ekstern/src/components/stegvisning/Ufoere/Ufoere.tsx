@@ -31,13 +31,6 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
     onNext()
   }
 
-  // TODO PEK-400 skal vi logge noe?
-  // React.useEffect(() => {
-  //     logger('alert', {
-  //       tekst: 'Uføretrygd og AFP',
-  //     })
-  // }, [])
-
   return (
     <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>

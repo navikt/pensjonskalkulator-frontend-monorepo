@@ -24,7 +24,7 @@ export const OmUfoeretrygd: React.FC<Props> = ({ ufoeregrad }) => {
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
     dispatch(userInputActions.flushCurrentSimulation())
-    navigate(paths.beregningDetaljert)
+    navigate(paths.beregningAvansert)
   }
 
   return (

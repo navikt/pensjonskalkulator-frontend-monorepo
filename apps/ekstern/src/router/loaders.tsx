@@ -7,6 +7,7 @@ import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { selectIsVeileder, selectAfp } from '@/state/userInput/selectors'
 import { isFoedtFoer1963 } from '@/utils/alder'
+import { logger } from '@/utils/logging'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
 export interface LoginContext {
@@ -320,6 +321,9 @@ export const step4AccessGuard = async () => {
           .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
           .then((ekskludertStatusRes) => {
             if (ekskludertStatusRes.isError) {
+              logger('info', {
+                tekst: 'ekskludert feilet',
+              })
               resolveRedirectUrl(paths.uventetFeil)
             }
             if (res.isSuccess) {
