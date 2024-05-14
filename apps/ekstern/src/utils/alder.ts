@@ -74,7 +74,7 @@ export const isAlderLikEllerOverUbetingetUttaksalder = (
   if (!alder.aar) {
     return false
   }
-  if (alder.aar > DEFAULT_UBETINGET_UTTAKSALDER.aar) {
+  if (alder.aar >= DEFAULT_UBETINGET_UTTAKSALDER.aar) {
     return true
   } else if (
     alder.aar === DEFAULT_UBETINGET_UTTAKSALDER.aar &&

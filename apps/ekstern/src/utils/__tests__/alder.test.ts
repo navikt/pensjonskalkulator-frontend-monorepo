@@ -104,7 +104,7 @@ describe('alder-utils', () => {
   })
 
   describe('isAlderLikEllerOverUbetingetUttaksalder', () => {
-    it('returnerer false når alderen er lik eller over 67 år', () => {
+    it('returnerer true når alderen er lik eller over 67 år', () => {
       expect(
         isAlderLikEllerOverUbetingetUttaksalder({ aar: 67, maaneder: 0 })
       ).toBeTruthy()
@@ -116,7 +116,7 @@ describe('alder-utils', () => {
       ).toBeTruthy()
     })
 
-    it('returnerer true når alderen er under 67 år', () => {
+    it('returnerer false når alderen er under 67 år', () => {
       expect(
         isAlderLikEllerOverUbetingetUttaksalder({ aar: 62, maaneder: 1 })
       ).toBeFalsy()

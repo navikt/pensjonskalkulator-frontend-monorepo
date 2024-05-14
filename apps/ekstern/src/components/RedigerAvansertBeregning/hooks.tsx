@@ -125,7 +125,6 @@ export const useFormLocalState = (initialValues: {
         (localGradertUttak?.grad &&
           filtrerteUttaksgrad.includes(localGradertUttak?.grad))
       ) {
-        console.log('>>> muligeUttaksgrad (IF - IF)')
         return filtrerteUttaksgrad.map((grad) => `${grad} %`)
       }
     }

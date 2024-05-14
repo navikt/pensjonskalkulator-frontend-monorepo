@@ -19,12 +19,16 @@ import { VilkaarsproevingAlert } from '@/components/VilkaarsproevingAlert'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
+  selectUfoeregrad,
   selectCurrentSimulation,
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
 } from '@/state/userInput/selectors'
-import { DEFAULT_MAX_OPPTJENINGSALDER } from '@/utils/alder'
+import {
+  DEFAULT_MAX_OPPTJENINGSALDER,
+  DEFAULT_UBETINGET_UTTAKSALDER,
+} from '@/utils/alder'
 import { formatInntekt } from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -41,6 +45,8 @@ export const RedigerAvansertBeregning: React.FC<{
 }> = ({ gaaTilResultat, vilkaarsproeving }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
+
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
   const { uttaksalder, gradertUttaksperiode, aarligInntektVsaHelPensjon } =
     useAppSelector(selectCurrentSimulation)
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
@@ -65,6 +71,7 @@ export const RedigerAvansertBeregning: React.FC<{
     localGradertUttak,
     localHarInntektVsaGradertUttakRadio,
     minAlderInntektSluttAlder,
+    muligeUttaksgrad,
     {
       setLocalInntektFremTilUttak,
       setLocalHeltUttak,
@@ -73,6 +80,7 @@ export const RedigerAvansertBeregning: React.FC<{
       setLocalHarInntektVsaGradertUttakRadio,
     },
   ] = useFormLocalState({
+    ufoeregrad,
     aarligInntektFoerUttakBeloepFraBrukerSkattBeloep:
       aarligInntektFoerUttakBeloepFraBrukerSkatt?.beloep,
     aarligInntektFoerUttakBeloepFraBrukerInput,
@@ -119,15 +127,39 @@ export const RedigerAvansertBeregning: React.FC<{
       }
     })
   }
-
+  // TODO PEK-396 skrive test for håndtering av shouldResetGradertUttak
   const handleGradertUttaksalderChange = (
     alder: Partial<Alder> | undefined
   ) => {
+    // Dersom brukeren har uføregrad og endrer alderen til en alder som tillater flere graderinger, skal gradert uttak nullstilles
+    const shouldResetGradertUttak =
+      ufoeregrad &&
+      ufoeregrad !== 100 &&
+      alder?.aar &&
+      alder?.maaneder !== undefined &&
+      (alder?.aar > DEFAULT_UBETINGET_UTTAKSALDER.aar ||
+        (alder?.aar === DEFAULT_UBETINGET_UTTAKSALDER.aar &&
+          alder?.maaneder > 0))
+
     setValidationErrorUttaksalderGradertUttak('')
-    setLocalGradertUttak((previous) => ({
-      ...previous,
-      uttaksalder: alder,
-    }))
+    if (shouldResetGradertUttak) {
+      // Overførter verdien tilbake til helt uttak
+      setLocalHeltUttak((previous) => ({
+        ...previous,
+        uttaksalder: alder,
+      }))
+      setLocalHarInntektVsaGradertUttakRadio(null)
+      setLocalGradertUttak(() => ({
+        uttaksalder: undefined,
+        grad: undefined,
+        aarligInntektVsaPensjonBeloep: undefined,
+      }))
+    } else {
+      setLocalGradertUttak((previous) => ({
+        ...previous,
+        uttaksalder: alder,
+      }))
+    }
   }
 
   const handleUttaksgradChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -288,6 +320,7 @@ export const RedigerAvansertBeregning: React.FC<{
               gaaTilResultat,
               {
                 localInntektFremTilUttak,
+                ufoeregrad,
                 hasVilkaarIkkeOppfylt:
                   vilkaarsproeving?.vilkaarErOppfylt === false,
                 harAvansertSkjemaUnsavedChanges,
@@ -326,7 +359,7 @@ export const RedigerAvansertBeregning: React.FC<{
           <ReadMore
             name="Endring av inntekt i avansert fane"
             header={intl.formatMessage({
-              id: 'inntekt.info_om_inntekt.read_more',
+              id: 'inntekt.info_om_inntekt.read_more.label',
             })}
           >
             <InfoOmInntekt />
@@ -342,6 +375,9 @@ export const RedigerAvansertBeregning: React.FC<{
             />
           )}
         <div>
+          {
+            // TODO PEK-396 skrive tester for begrensing av alder ved uføregrad === 100
+          }
           {localGradertUttak?.grad && localGradertUttak?.grad !== 100 ? (
             <AgePicker
               form={FORM_NAMES.form}
@@ -350,6 +386,9 @@ export const RedigerAvansertBeregning: React.FC<{
               value={localGradertUttak?.uttaksalder}
               onChange={handleGradertUttaksalderChange}
               error={gradertUttakAgePickerError}
+              minAlder={
+                ufoeregrad === 100 ? DEFAULT_UBETINGET_UTTAKSALDER : undefined
+              }
             />
           ) : (
             <AgePicker
@@ -359,10 +398,13 @@ export const RedigerAvansertBeregning: React.FC<{
               value={localHeltUttak?.uttaksalder}
               onChange={handleHeltUttaksalderChange}
               error={heltUttakAgePickerError}
+              minAlder={
+                ufoeregrad === 100 ? DEFAULT_UBETINGET_UTTAKSALDER : undefined
+              }
             />
           )}
           <div className={styles.spacer__small} />
-          <ReadMoreOmPensjonsalder />
+          <ReadMoreOmPensjonsalder ufoeregrad={ufoeregrad} />
         </div>
         <div>
           <Select
@@ -395,22 +437,31 @@ export const RedigerAvansertBeregning: React.FC<{
             <option disabled selected value="">
               {' '}
             </option>
-            {['20 %', '40 %', '50 %', '60 %', '80 %', '100 %'].map((grad) => (
+            {muligeUttaksgrad.map((grad) => (
               <option key={grad} value={grad}>
                 {grad}
               </option>
             ))}
           </Select>
           <div className={styles.spacer__small} />
+          {
+            // TODO PEK-396 skrive tester for ulike readmore i tilfelle brukeren har uføretrygd
+          }
           <ReadMore
             name="Om uttaksgrad"
             header={intl.formatMessage({
-              id: 'beregning.avansert.rediger.read_more.uttaksgrad.label',
+              id: ufoeregrad
+                ? 'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label'
+                : 'beregning.avansert.rediger.read_more.uttaksgrad.label',
             })}
           >
             <BodyLong>
               <FormattedMessage
-                id="beregning.avansert.rediger.read_more.uttaksgrad.body"
+                id={
+                  ufoeregrad
+                    ? 'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body'
+                    : 'beregning.avansert.rediger.read_more.uttaksgrad.body'
+                }
                 values={{
                   ...getFormatMessageValues(intl),
                 }}
@@ -434,8 +485,17 @@ export const RedigerAvansertBeregning: React.FC<{
                       }}
                     />
                   }
+                  // TODO PEK-396 skrive tester for ulike readmore i tilfelle brukeren har gradert uføretrygd og valgt alder < 67
                   description={
-                    <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description" />
+                    <FormattedMessage
+                      id={
+                        ufoeregrad &&
+                        localGradertUttak.uttaksalder.aar <
+                          DEFAULT_UBETINGET_UTTAKSALDER.aar
+                          ? 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description'
+                          : 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description'
+                      }
+                    />
                   }
                   name={FORM_NAMES.inntektVsaGradertUttakRadio}
                   data-testid={FORM_NAMES.inntektVsaGradertUttakRadio}
@@ -483,6 +543,28 @@ export const RedigerAvansertBeregning: React.FC<{
                     <FormattedMessage id="stegvisning.radio_nei" />
                   </Radio>
                 </RadioGroup>
+                {
+                  // TODO PEK-396 skrive tester for ulike readmore i tilfelle brukeren har gradert uføretrygd og valgt alder < 67
+                }
+                {ufoeregrad &&
+                  localGradertUttak.uttaksalder.aar <
+                    DEFAULT_UBETINGET_UTTAKSALDER.aar && (
+                    <ReadMore
+                      name="Om inntekt og uføretrygd"
+                      header={intl.formatMessage({
+                        id: 'inntekt.info_om_inntekt.ufoeretrygd.read_more.label',
+                      })}
+                    >
+                      <BodyLong>
+                        <FormattedMessage
+                          id="inntekt.info_om_inntekt.ufoeretrygd.read_more.body"
+                          values={{
+                            ...getFormatMessageValues(intl),
+                          }}
+                        />
+                      </BodyLong>
+                    </ReadMore>
+                  )}
               </div>
 
               {localHarInntektVsaGradertUttakRadio && (
@@ -530,6 +612,9 @@ export const RedigerAvansertBeregning: React.FC<{
               )}
               <Divider noMargin />
               <div>
+                {
+                  // TODO PEK-396 skrive tester for begrensing av alder ved uføregrad === 100
+                }
                 <AgePicker
                   form={FORM_NAMES.form}
                   name={FORM_NAMES.uttaksalderHeltUttak}
@@ -544,6 +629,9 @@ export const RedigerAvansertBeregning: React.FC<{
                   value={localHeltUttak?.uttaksalder}
                   onChange={handleHeltUttaksalderChange}
                   error={heltUttakAgePickerError}
+                  minAlder={
+                    ufoeregrad ? DEFAULT_UBETINGET_UTTAKSALDER : undefined
+                  }
                 />
               </div>
             </>

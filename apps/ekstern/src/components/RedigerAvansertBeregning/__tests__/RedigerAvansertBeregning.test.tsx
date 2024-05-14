@@ -147,7 +147,9 @@ describe('RedigerAvansertBeregning', () => {
       </BeregningContext.Provider>
     )
 
-    expect(screen.getByText('inntekt.info_om_inntekt.read_more')).toBeVisible()
+    expect(
+      screen.getByText('inntekt.info_om_inntekt.read_more.label')
+    ).toBeVisible()
     user.click(
       screen.getByText('beregning.avansert.rediger.read_more.uttaksgrad.label')
     )
@@ -844,11 +846,11 @@ describe('RedigerAvansertBeregning', () => {
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
         harAvansertSkjemaUnsavedChanges: false,
+        ufoeregrad: undefined,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
       })
     })
-
     it('oppdaterer uttaksgrad uten å nullstille uttaksaldere når grad endres fra en verdi lavere enn 100 % til en annen verdi lavere enn 100 %', async () => {
       const user = userEvent.setup()
       render(
@@ -1118,6 +1120,7 @@ describe('RedigerAvansertBeregning', () => {
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
         harAvansertSkjemaUnsavedChanges: false,
+        ufoeregrad: undefined,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
       })

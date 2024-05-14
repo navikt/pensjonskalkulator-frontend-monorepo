@@ -1,8 +1,14 @@
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { validateAlderFromForm, getAlderMinus1Maaned } from '@/utils/alder'
+import {
+  DEFAULT_UBETINGET_UTTAKSALDER,
+  validateAlderFromForm,
+  getAlderMinus1Maaned,
+  isAlderLikEllerOverUbetingetUttaksalder,
+} from '@/utils/alder'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
+import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
 export const FORM_NAMES = {
   form: 'avansert-beregning',
@@ -93,6 +99,7 @@ export const validateAvansertBeregningSkjema = (
     inntektVsaHeltUttakSluttAlderMaanederFormData: FormDataEntryValue | null
     inntektVsaGradertUttakFormData: FormDataEntryValue | null
   },
+  ufoeregrad: number,
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >
@@ -164,6 +171,55 @@ export const validateAvansertBeregningSkjema = (
     )
   ) {
     isValid = false
+  }
+
+  // Gitt at brukeren har uføretrygd, og at heltUttaksalder, gradertUttaksalder og uttaksgradFormData er valid
+  // Sjekker at uttaksgraden er iht uføregraden
+  if (isValid && ufoeregrad) {
+    if (ufoeregrad === 100) {
+      // Dette kan i terorien ikke oppstå fordi aldersvelgeren for gradert og helt uttak er begrenset fra ubetinget uttaksalderen allerede
+      const isHeltUttaksalderValid = isAlderLikEllerOverUbetingetUttaksalder({
+        aar: parseInt(heltUttakAarFormData as string, 10),
+        maaneder: parseInt(heltUttakMaanederFormData as string, 10),
+      })
+      const isGradertUttaksalderValid =
+        uttaksgradFormData === '100 %' ||
+        (uttaksgradFormData !== '100 %' &&
+          isAlderLikEllerOverUbetingetUttaksalder({
+            aar: parseInt(gradertUttakAarFormData as string, 10),
+            maaneder: parseInt(gradertUttakAarFormData as string, 10),
+          }))
+      isValid = isHeltUttaksalderValid && isGradertUttaksalderValid
+    } else {
+      // Hvis brukeren har valgt gradert uttak med uttaksalder før ubetinget uttaksalderen
+      if (
+        gradertUttakAarFormData &&
+        gradertUttakMaanederFormData &&
+        parseInt(gradertUttakAarFormData as string, 10) <
+          DEFAULT_UBETINGET_UTTAKSALDER.aar
+      ) {
+        const maksGrad = 100 - ufoeregrad
+        const filtrerteUttaksgrad = ALLE_UTTAKSGRAD_AS_NUMBER.filter(
+          (grad) => grad <= maksGrad
+        )
+        const valgtUttaksgradAsNumber = parseFloat(
+          (uttaksgradFormData as string).replace(/\D/g, '')
+        )
+        const isUttaksgradValid = filtrerteUttaksgrad.includes(
+          valgtUttaksgradAsNumber
+        )
+        if (!isUttaksgradValid) {
+          updateValidationErrorMessage((prevState) => {
+            return {
+              ...prevState,
+              [FORM_NAMES.uttaksgrad]:
+                'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error',
+            }
+          })
+        }
+        isValid = isUttaksgradValid
+      }
+    }
   }
 
   // Sjekker at radio for inntekt vsa helt uttak er fylt ut (gitt at uttaksalder er fylt ut)
@@ -264,12 +320,14 @@ export const onAvansertBeregningSubmit = (
   gaaTilResultat: () => void,
   previousData: {
     localInntektFremTilUttak: string | null
+    ufoeregrad: number
     hasVilkaarIkkeOppfylt: boolean | undefined
     harAvansertSkjemaUnsavedChanges: boolean
   }
 ): void => {
   const {
     localInntektFremTilUttak,
+    ufoeregrad,
     hasVilkaarIkkeOppfylt,
     harAvansertSkjemaUnsavedChanges,
   } = previousData
@@ -318,6 +376,7 @@ export const onAvansertBeregningSubmit = (
         inntektVsaHeltUttakSluttAlderMaanederFormData,
         inntektVsaGradertUttakFormData,
       },
+      ufoeregrad,
       setValidationErrors
     )
   ) {
