@@ -10,7 +10,7 @@ import { render, screen, userEvent, waitFor } from '@/test-utils'
 describe('Grunnlag', () => {
   it('når grunnlag vises i Enkel visning, viser alle seksjonene og forbehold', async () => {
     render(<Grunnlag headingLevel="3" visning="enkel" />)
-    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(2)
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(1)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.uttaksgrad.title')).toBeVisible()
@@ -21,12 +21,11 @@ describe('Grunnlag', () => {
       await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
     expect(await screen.findByText('grunnlag.afp.title')).toBeVisible()
-    expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
   })
 
   it('når grunnlag vises i Avansert visning, viser alle seksjonene utenom uttaksgrad og inntekt, i tilleg til forbehold', async () => {
     render(<Grunnlag headingLevel="2" visning="avansert" />)
-    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(2)
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
     expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
     expect(await screen.findByText('grunnlag.ingress')).toBeInTheDocument()
     expect(
@@ -39,7 +38,6 @@ describe('Grunnlag', () => {
       await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
     expect(await screen.findByText('grunnlag.afp.title')).toBeVisible()
-    expect(await screen.findByText('grunnlag.forbehold.title')).toBeVisible()
   })
 
   it('viser annen tittel for avansert', async () => {
@@ -97,7 +95,7 @@ describe('Grunnlag', () => {
         await screen.findByText('grunnlag.uttaksgrad.avansert_link')
       )
       expect(flushCurrentSimulationMock).toHaveBeenCalled()
-      expect(navigateMock).toHaveBeenCalledWith(paths.beregningDetaljert)
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningAvansert)
     })
 
     it('vises ikke ikke avansert visning', async () => {

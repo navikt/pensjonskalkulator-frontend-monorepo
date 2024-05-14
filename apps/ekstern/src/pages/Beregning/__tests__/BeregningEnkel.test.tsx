@@ -197,7 +197,7 @@ describe('BeregningEnkel', () => {
   })
 
   describe('Når brukeren velger uttaksalder', () => {
-    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph, gitt at beregning av alderspensjon var vellykket', async () => {
+    it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
       const { container } = render(<BeregningEnkel />)
       await user.click(await screen.findByText('68 alder.aar'))
@@ -216,6 +216,12 @@ describe('BeregningEnkel', () => {
       expect(
         await screen.findByText('beregning.tabell.vis')
       ).toBeInTheDocument()
+      expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+      expect(
+        await screen.findByText('grunnlag.forbehold.title')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('savnerdunoe.title')).toBeInTheDocument()
+      expect(await screen.findByText('savnerdunoe.ingress')).toBeInTheDocument()
     })
 
     it('vises ikke AFP privat på resultatssiden, når brukeren mottar uføretrygd', async () => {

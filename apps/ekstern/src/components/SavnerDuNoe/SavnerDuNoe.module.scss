@@ -1,0 +1,20 @@
+@import '../../scss/variables';
+
+.section {
+  max-width: $container-max-width;
+  padding: var(--a-spacing-8) var(--a-spacing-6);
+
+  @media (min-width: $a-breakpoint-lg) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.paragraph {
+  margin-bottom: var(--a-spacing-6);
+}
+
+.button {
+  display: inline-block;
+  margin-top: var(--a-spacing-4);
+}

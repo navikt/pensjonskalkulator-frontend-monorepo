@@ -28,7 +28,6 @@ import { formatAfp } from '@/utils/afp'
 import { formatSivilstand } from '@/utils/sivilstand'
 import { getFormatMessageValues } from '@/utils/translations'
 
-import { GrunnlagForbehold } from './GrunnlagForbehold'
 import { GrunnlagInntekt } from './GrunnlagInntekt'
 import { GrunnlagSection } from './GrunnlagSection'
 
@@ -60,7 +59,7 @@ export const Grunnlag: React.FC<Props> = ({
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
     dispatch(userInputActions.flushCurrentSimulation())
-    navigate(paths.beregningDetaljert)
+    navigate(paths.beregningAvansert)
   }
 
   const intl = useIntl()
@@ -90,141 +89,134 @@ export const Grunnlag: React.FC<Props> = ({
   )
 
   return (
-    <>
-      <section className={styles.section}>
-        <div className={styles.description}>
-          <Heading level={headingLevel} size="medium">
-            <FormattedMessage id="grunnlag.title" />
-          </Heading>
-          <BodyLong>
-            <FormattedMessage id="grunnlag.ingress" />
-          </BodyLong>
-        </div>
-        <Accordion>
-          {visning === 'enkel' && (
-            <AccordionItem name="Grunnlag: Uttaksgrad">
-              <GrunnlagSection
-                headerTitle={intl.formatMessage({
-                  id: 'grunnlag.uttaksgrad.title',
-                })}
-                headerValue="100 %"
-              >
-                <BodyLong>
-                  <FormattedMessage
-                    id="grunnlag.uttaksgrad.ingress"
-                    values={{
-                      ...getFormatMessageValues(intl),
-                    }}
-                  />
-                  <br />
-                  <br />
-                  <Link href="#" onClick={goToAvansert}>
-                    <FormattedMessage id="grunnlag.uttaksgrad.avansert_link" />
+    <section className={styles.section}>
+      <div className={styles.description}>
+        <Heading level={headingLevel} size="medium">
+          <FormattedMessage id="grunnlag.title" />
+        </Heading>
+        <BodyLong>
+          <FormattedMessage id="grunnlag.ingress" />
+        </BodyLong>
+      </div>
+      <Accordion>
+        {visning === 'enkel' && (
+          <AccordionItem name="Grunnlag: Uttaksgrad">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.uttaksgrad.title',
+              })}
+              headerValue="100 %"
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.uttaksgrad.ingress"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
+                <br />
+                <br />
+                <Link href="#" onClick={goToAvansert}>
+                  <FormattedMessage id="grunnlag.uttaksgrad.avansert_link" />
+                </Link>
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+        )}
+        {visning === 'enkel' && <GrunnlagInntekt goToAvansert={goToAvansert} />}
+        <AccordionItem name="Gunnlag: Sivilstand">
+          <GrunnlagSection
+            headerTitle={intl.formatMessage({
+              id: 'grunnlag.sivilstand.title',
+            })}
+            headerValue={
+              isSuccess
+                ? formatertSivilstand
+                : intl.formatMessage({
+                    id: 'grunnlag.sivilstand.title.error',
+                  })
+            }
+          >
+            <BodyLong>
+              <FormattedMessage
+                id="grunnlag.sivilstand.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            </BodyLong>
+          </GrunnlagSection>
+        </AccordionItem>
+        <AccordionItem name="Grunnlag: Utenlandsopphold">
+          <GrunnlagSection
+            headerTitle={intl.formatMessage({
+              id: 'grunnlag.opphold.title',
+            })}
+            headerValue={intl.formatMessage({
+              id: 'grunnlag.opphold.value',
+            })}
+          >
+            <BodyLong>
+              <FormattedMessage
+                id="grunnlag.opphold.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            </BodyLong>
+          </GrunnlagSection>
+        </AccordionItem>
+        <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
+          <GrunnlagSection
+            headerTitle={intl.formatMessage({
+              id: 'grunnlag.alderspensjon.title',
+            })}
+            headerValue={intl.formatMessage({
+              id: 'grunnlag.alderspensjon.value',
+            })}
+          >
+            <BodyLong>
+              <FormattedMessage
+                id="grunnlag.alderspensjon.ingress"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            </BodyLong>
+          </GrunnlagSection>
+        </AccordionItem>
+        <AccordionItem name="Grunnlag: AFP">
+          <GrunnlagSection
+            headerTitle={intl.formatMessage({
+              id: 'grunnlag.afp.title',
+            })}
+            headerValue={formatertAfp}
+          >
+            <BodyLong>
+              <FormattedMessage
+                id={`grunnlag.afp.ingress.${afp}${ufoeregrad ? '.ufoeretrygd' : ''}${
+                  !afpOffentligFeatureToggle?.enabled && afp === 'ja_offentlig'
+                    ? '.unavailable'
+                    : ''
+                }`}
+                values={{
+                  afpLeverandoer: afpLeverandoer ? ` (${afpLeverandoer})` : '',
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+
+              {!ufoeregrad && afp === 'nei' && (
+                <>
+                  <Link href="#" onClick={goToStart}>
+                    <FormattedMessage id="grunnlag.afp.reset_link" />
                   </Link>
-                </BodyLong>
-              </GrunnlagSection>
-            </AccordionItem>
-          )}
-          {visning === 'enkel' && (
-            <GrunnlagInntekt goToAvansert={goToAvansert} />
-          )}
-          <AccordionItem name="Gunnlag: Sivilstand">
-            <GrunnlagSection
-              headerTitle={intl.formatMessage({
-                id: 'grunnlag.sivilstand.title',
-              })}
-              headerValue={
-                isSuccess
-                  ? formatertSivilstand
-                  : intl.formatMessage({
-                      id: 'grunnlag.sivilstand.title.error',
-                    })
-              }
-            >
-              <BodyLong>
-                <FormattedMessage
-                  id="grunnlag.sivilstand.ingress"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </BodyLong>
-            </GrunnlagSection>
-          </AccordionItem>
-          <AccordionItem name="Grunnlag: Utenlandsopphold">
-            <GrunnlagSection
-              headerTitle={intl.formatMessage({
-                id: 'grunnlag.opphold.title',
-              })}
-              headerValue={intl.formatMessage({
-                id: 'grunnlag.opphold.value',
-              })}
-            >
-              <BodyLong>
-                <FormattedMessage
-                  id="grunnlag.opphold.ingress"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </BodyLong>
-            </GrunnlagSection>
-          </AccordionItem>
-          <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
-            <GrunnlagSection
-              headerTitle={intl.formatMessage({
-                id: 'grunnlag.alderspensjon.title',
-              })}
-              headerValue={intl.formatMessage({
-                id: 'grunnlag.alderspensjon.value',
-              })}
-            >
-              <BodyLong>
-                <FormattedMessage
-                  id="grunnlag.alderspensjon.ingress"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </BodyLong>
-            </GrunnlagSection>
-          </AccordionItem>
-          <AccordionItem name="Grunnlag: AFP">
-            <GrunnlagSection
-              headerTitle={intl.formatMessage({
-                id: 'grunnlag.afp.title',
-              })}
-              headerValue={formatertAfp}
-            >
-              <BodyLong>
-                <FormattedMessage
-                  id={`grunnlag.afp.ingress.${afp}${ufoeregrad ? '.ufoeretrygd' : ''}${
-                    !afpOffentligFeatureToggle?.enabled &&
-                    afp === 'ja_offentlig'
-                      ? '.unavailable'
-                      : ''
-                  }`}
-                  values={{
-                    afpLeverandoer: afpLeverandoer
-                      ? ` (${afpLeverandoer})`
-                      : '',
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-                {!ufoeregrad && afp === 'nei' && (
-                  <>
-                    <Link href="#" onClick={goToStart}>
-                      <FormattedMessage id="grunnlag.afp.reset_link" />
-                    </Link>
-                    .
-                  </>
-                )}
-              </BodyLong>
-            </GrunnlagSection>
-          </AccordionItem>
-        </Accordion>
-      </section>
-      <GrunnlagForbehold headingLevel={headingLevel} />
-    </>
+                  .
+                </>
+              )}
+            </BodyLong>
+          </GrunnlagSection>
+        </AccordionItem>
+      </Accordion>
+    </section>
   )
 }
