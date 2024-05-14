@@ -7,6 +7,7 @@ import {
   unformatUttaksalder,
   isFoedtFoer1963,
   isFoedtFoer1964,
+  isAlderLikEllerOverUbetingetUttaksalder,
   isAlderOverMinUttaksaar,
   getAlderPlus1Maaned,
   getAlderMinus1Maaned,
@@ -99,6 +100,32 @@ describe('alder-utils', () => {
       expect(isFoedtFoer1964('1963-12-31')).toBeTruthy()
       expect(isFoedtFoer1964('1960-04-30')).toBeTruthy()
       expect(isFoedtFoer1964('1945-12-04')).toBeTruthy()
+    })
+  })
+
+  describe('isAlderLikEllerOverUbetingetUttaksalder', () => {
+    it('returnerer false når alderen er lik eller over 67 år', () => {
+      expect(
+        isAlderLikEllerOverUbetingetUttaksalder({ aar: 67, maaneder: 0 })
+      ).toBeTruthy()
+      expect(
+        isAlderLikEllerOverUbetingetUttaksalder({ aar: 67, maaneder: 11 })
+      ).toBeTruthy()
+      expect(
+        isAlderLikEllerOverUbetingetUttaksalder({ aar: 70, maaneder: 3 })
+      ).toBeTruthy()
+    })
+
+    it('returnerer true når alderen er under 67 år', () => {
+      expect(
+        isAlderLikEllerOverUbetingetUttaksalder({ aar: 62, maaneder: 1 })
+      ).toBeFalsy()
+      expect(
+        isAlderLikEllerOverUbetingetUttaksalder({ aar: 63, maaneder: 0 })
+      ).toBeFalsy()
+      expect(
+        isAlderLikEllerOverUbetingetUttaksalder({ aar: 66, maaneder: 11 })
+      ).toBeFalsy()
     })
   })
 

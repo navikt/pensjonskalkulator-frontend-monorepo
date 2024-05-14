@@ -221,11 +221,13 @@ const translations = {
     'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
   'omufoeretrygd.gradert.ingress':
     'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
-  'omufoeretrygd.readmore.title': 'Om uføretrygd og alderspensjon',
+  'omufoeretrygd.readmore.title': 'Om pensjonsalder og uføretrygd',
   'omufoeretrygd.readmore.hel.ingress':
     '<nowrap>100 %</nowrap> uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går <nowrap>100 %</nowrap> uføretrygd automatisk over til <nowrap>100 %</nowrap> alderspensjon. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
   'omufoeretrygd.readmore.gradert.ingress':
     'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige <nowrap>100 %</nowrap>. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
+  'omufoeretrygd.readmore.gradert.avansert.ingress':
+    'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Ved 67 år går gradert uføretrygd automatisk over til alderspensjon.',
   'omufoeretrygd.avansert_link': 'Avansert',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'beregning.toggle.enkel': 'Enkel',
@@ -283,6 +285,10 @@ const translations = {
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
+  'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label':
+    'Om uttaksgrad og uføretrygd',
+  'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body':
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
@@ -291,12 +297,16 @@ const translations = {
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.uttaksgrad.validation_error':
     'Du må velge hvor mye alderspensjon du vil ta ut.',
+  'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error':
+    'Du må sette ned uttaksgraden slik at gradene av alderspensjon og uføretrygd ikke overstiger 100 % til sammen. Etter 67 år kan du velge 100 % uttak.',
   'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
     'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
     'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description':
+    'Alderspensjonen påvirker ikke inntektsgrensen  for uføretrygden din.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
@@ -452,7 +462,11 @@ const translations = {
     'Til hvilken alder forventer du å ha inntekten?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
-  'inntekt.info_om_inntekt.read_more': 'Om pensjonsgivende inntekt',
+  'inntekt.info_om_inntekt.read_more.label': 'Om pensjonsgivende inntekt',
+  'inntekt.info_om_inntekt.ufoeretrygd.read_more.label':
+    'Om inntekt og uføeretrygd',
+  'inntekt.info_om_inntekt.ufoeretrygd.read_more.body':
+    'Alderspensjon er ikke pensjonsgivende inntekt og påvirker ikke inntektsgrensen for uføretrygden din. Du beholder inntektsgrensen din ved kombinasjon av uføretrygd og alderspensjon fra folketrygden.',
   'inntekt.info_om_inntekt.open.link': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_om_inntekt.intro':
     'Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. Hvis du endrer fremtidig inntekt i kalkulatoren, brukes den i stedet.{br}{br}',

@@ -1,0 +1,1 @@
+export const ALLE_UTTAKSGRAD_AS_NUMBER = [20, 40, 50, 60, 80, 100]

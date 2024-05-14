@@ -155,6 +155,7 @@ const translations = {
   'omufoeretrygd.readmore.title': 'MANGLER_TEKST',
   'omufoeretrygd.readmore.hel.ingress': 'MANGLER_TEKST',
   'omufoeretrygd.readmore.gradert.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.readmore.gradert.avansert.ingress': 'MANGLER_TEKST',
   'omufoeretrygd.avansert_link': 'MANGLER_TEKST',
   'velguttaksalder.title': 'MANGLER_TEKST',
   'beregning.toggle.enkel': 'MANGLER_TEKST',
@@ -201,16 +202,24 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak': 'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.validation_error': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak': 'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
     'MANGLER_TEKST',
@@ -313,6 +322,9 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.read_more.label': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ufoeretrygd.read_more.label': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ufoeretrygd.read_more.body': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.open.link': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.intro': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.subtitle': 'MANGLER_TEKST',
