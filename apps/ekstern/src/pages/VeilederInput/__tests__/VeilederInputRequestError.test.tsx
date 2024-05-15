@@ -3,9 +3,9 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { VeilederInputRequestError } from '../VeilederInputRequestError'
 import { render, screen } from '@/test-utils'
 describe('veileder - feilmeldinger', () => {
-  it('401 - Ikke tilgang', () => {
+  it('403 - Ikke tilgang', () => {
     const personError: FetchBaseQueryError = {
-      status: 401,
+      status: 403,
       data: null,
     }
     render(<VeilederInputRequestError personError={personError} />)
