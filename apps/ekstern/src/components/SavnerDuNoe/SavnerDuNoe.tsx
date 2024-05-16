@@ -28,7 +28,7 @@ export function SavnerDuNoe(props: {
 
   return (
     <section className={styles.section}>
-      <Heading level={headingLevel} size="medium" spacing>
+      <Heading level={headingLevel} size="medium" className={styles.heading}>
         <FormattedMessage id="savnerdunoe.title" />
       </Heading>
       {showAvansert && (
