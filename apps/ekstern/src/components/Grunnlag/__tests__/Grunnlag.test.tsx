@@ -418,6 +418,15 @@ describe('Grunnlag', () => {
     })
 
     it('Når brukeren har valgt uten AFP, viser riktig tittel med formatert inntekt, tekst og lenke', async () => {
+      const flushMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flush'
+      )
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
+
       const user = userEvent.setup()
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
@@ -437,6 +446,9 @@ describe('Grunnlag', () => {
         await screen.findByText('grunnlag.afp.ingress.nei', { exact: false })
       ).toBeVisible()
       expect(await screen.findByText('grunnlag.afp.reset_link')).toBeVisible()
+      await user.click(await screen.findByText('grunnlag.afp.reset_link'))
+      expect(flushMock).toHaveBeenCalled()
+      expect(navigateMock).toHaveBeenCalledWith(paths.start)
     })
 
     it('Når en bruker med uføretrygd har valgt uten AFP, viser riktig tittel med formatert inntekt og tekst', async () => {

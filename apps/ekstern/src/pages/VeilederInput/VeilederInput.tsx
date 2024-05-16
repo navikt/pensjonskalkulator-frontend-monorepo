@@ -73,7 +73,7 @@ export const VeilederInput = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const nyFnr = event.currentTarget.veilderBorgerFnr.value
+    const nyFnr = event.currentTarget.veilederBorgerFnr.value
     dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
     dispatch(apiSlice.util.invalidateTags(['Person']))
   }
@@ -110,7 +110,7 @@ export const VeilederInput = () => {
                     <TextField
                       data-testid="borger-fnr-input"
                       label="Fødselsnummer"
-                      name="veilderBorgerFnr"
+                      name="veilederBorgerFnr"
                       description="11 siffer"
                     ></TextField>
                     <HStack gap="2">

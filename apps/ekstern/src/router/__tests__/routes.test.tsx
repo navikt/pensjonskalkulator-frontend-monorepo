@@ -213,10 +213,11 @@ describe('routes', () => {
           initialEntries: [`${BASE_PATH}${paths.start}`],
         })
         render(<RouterProvider router={router} />, { hasRouter: false })
-
-        expect(
-          await screen.findByText('stegvisning.start.title Aprikos!')
-        ).toBeVisible()
+        await waitFor(async () => {
+          expect(
+            await screen.findByText('stegvisning.start.title Aprikos!')
+          ).toBeVisible()
+        })
       })
     })
 

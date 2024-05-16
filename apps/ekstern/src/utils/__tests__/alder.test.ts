@@ -117,6 +117,10 @@ describe('alder-utils', () => {
     })
 
     it('returnerer false når alderen er under 67 år', () => {
+      expect(isAlderLikEllerOverUbetingetUttaksalder({})).toBeFalsy()
+      expect(
+        isAlderLikEllerOverUbetingetUttaksalder({ maaneder: 6 })
+      ).toBeFalsy()
       expect(
         isAlderLikEllerOverUbetingetUttaksalder({ aar: 62, maaneder: 1 })
       ).toBeFalsy()
