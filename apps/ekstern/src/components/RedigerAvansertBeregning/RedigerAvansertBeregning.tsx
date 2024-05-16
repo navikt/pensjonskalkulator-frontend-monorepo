@@ -375,9 +375,6 @@ export const RedigerAvansertBeregning: React.FC<{
             />
           )}
         <div>
-          {
-            // TODO PEK-396 skrive tester for begrensing av alder ved uføregrad === 100
-          }
           {localGradertUttak?.grad && localGradertUttak?.grad !== 100 ? (
             <AgePicker
               form={FORM_NAMES.form}
@@ -612,9 +609,6 @@ export const RedigerAvansertBeregning: React.FC<{
               )}
               <Divider noMargin />
               <div>
-                {
-                  // TODO PEK-396 skrive tester for begrensing av alder ved uføregrad === 100
-                }
                 <AgePicker
                   form={FORM_NAMES.form}
                   name={FORM_NAMES.uttaksalderHeltUttak}

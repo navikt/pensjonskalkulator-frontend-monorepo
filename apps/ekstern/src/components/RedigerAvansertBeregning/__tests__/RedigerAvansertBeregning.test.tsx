@@ -13,7 +13,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { render, screen, fireEvent, userEvent } from '@/test-utils'
+import { render, screen, fireEvent, userEvent, waitFor } from '@/test-utils'
 
 describe('RedigerAvansertBeregning', () => {
   const contextMockedValues = {
@@ -716,6 +716,7 @@ describe('RedigerAvansertBeregning', () => {
         ).value
       ).toBe('5')
     })
+
     it('nullstiller feltene for gradert og overfører uttaksalder til helt uttak, når uttaksgrad settes tilbake til 100 %', async () => {
       const onSubmitMock = vi.spyOn(
         RedigerAvansertBeregningUtils,
@@ -1124,6 +1125,410 @@ describe('RedigerAvansertBeregning', () => {
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
       })
+    })
+  })
+
+  describe('Gitt at en bruker mottar 100 % uføretrygd', () => {
+    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubentinget uttaksalderen ', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 100,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+      expect(
+        await screen.findByText('omufoeretrygd.readmore.title')
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label'
+        )
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body'
+        )
+      ).toBeInTheDocument()
+
+      const selectAarElement = screen.getByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+      )
+      const optionAarElements = selectAarElement?.querySelectorAll('option')
+      expect(optionAarElements?.[0].value).toBe('')
+      expect(optionAarElements?.[1].value).toBe('67')
+      expect(optionAarElements?.[9].value).toBe('75')
+
+      // Fyller ut uttaksalder
+      fireEvent.change(
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        {
+          target: { value: '67' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+      // Velger gradert uttak
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+        target: { value: '50 %' },
+      })
+
+      const selectAarElementHelt = screen.getByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+      )
+      const optionAarElementsHelt =
+        selectAarElementHelt?.querySelectorAll('option')
+      expect(optionAarElementsHelt?.[0].value).toBe('')
+      expect(optionAarElementsHelt?.[1].value).toBe('67')
+      expect(optionAarElementsHelt?.[9].value).toBe('75')
+
+      const selectAarElementGradert = screen.getByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+      )
+      const optionAarElementsGradert =
+        selectAarElementGradert?.querySelectorAll('option')
+      expect(optionAarElementsGradert?.[0].value).toBe('')
+      expect(optionAarElementsGradert?.[1].value).toBe('67')
+      expect(optionAarElementsGradert?.[9].value).toBe('75')
+    })
+  })
+
+  describe('Gitt at en bruker mottar gradert uføretrygd', () => {
+    it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra ubentinget uttaksalderen', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 50,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+      expect(
+        await screen.findByText('omufoeretrygd.readmore.title')
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label'
+        )
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body'
+        )
+      ).toBeInTheDocument()
+
+      const selectAarElement = screen.getByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+      )
+      const optionAarElements = selectAarElement?.querySelectorAll('option')
+      expect(optionAarElements?.[0].value).toBe('')
+      expect(optionAarElements?.[1].value).toBe('62')
+      expect(optionAarElements?.[14].value).toBe('75')
+
+      // Fyller ut uttaksalder
+      fireEvent.change(
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        {
+          target: { value: '64' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+      // Velger gradert uttak
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+        target: { value: '20 %' },
+      })
+
+      const selectAarElementHelt = screen.getByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+      )
+      const optionAarElementsHelt =
+        selectAarElementHelt?.querySelectorAll('option')
+      expect(optionAarElementsHelt?.[0].value).toBe('')
+      expect(optionAarElementsHelt?.[1].value).toBe('67')
+      expect(optionAarElementsHelt?.[9].value).toBe('75')
+
+      const selectAarElementGradert = screen.getByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+      )
+      const optionAarElementsGradert =
+        selectAarElementGradert?.querySelectorAll('option')
+      expect(optionAarElementsGradert?.[0].value).toBe('')
+      expect(optionAarElementsGradert?.[1].value).toBe('62')
+      expect(optionAarElementsGradert?.[14].value).toBe('75')
+    })
+
+    it('når brukeren velger en alder før ubetinget uttaksalderen, begrenses valgene for uttaksgrad basert på uføregraden', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 50,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+
+      const selectUttaksgradElement = screen.getByTestId(FORM_NAMES.uttaksgrad)
+      const optionUttaksgradElements =
+        selectUttaksgradElement?.querySelectorAll('option')
+      expect(optionUttaksgradElements?.[0].value).toBe('')
+      expect(optionUttaksgradElements?.[1].value).toBe('20 %')
+      expect(optionUttaksgradElements?.[6].value).toBe('100 %')
+      expect(optionUttaksgradElements?.length).toBe(7)
+
+      // Fyller ut uttaksalder
+      fireEvent.change(
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        {
+          target: { value: '64' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+
+      const selectOppdatertUttaksgradElement = screen.getByTestId(
+        FORM_NAMES.uttaksgrad
+      )
+      const optionOppdatertUttaksgradElements =
+        selectOppdatertUttaksgradElement?.querySelectorAll('option')
+      expect(optionOppdatertUttaksgradElements?.[0].value).toBe('')
+      expect(optionOppdatertUttaksgradElements?.[1].value).toBe('20 %')
+      expect(optionOppdatertUttaksgradElements?.length).toBe(4)
+    })
+
+    it('når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 50,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+
+      // Velger gradert uttak som etterhvert blir ugyldig
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+        target: { value: '80 %' },
+      })
+
+      // Fyller ut uttaksalder
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        ),
+        {
+          target: { value: '64' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+
+      const selectUttaksgradElement = screen.getByTestId(FORM_NAMES.uttaksgrad)
+      const optionUttaksgradElements =
+        selectUttaksgradElement?.querySelectorAll('option')
+      expect(optionUttaksgradElements?.[0].value).toBe('')
+      expect(optionUttaksgradElements?.[1].value).toBe('20 %')
+      expect(optionUttaksgradElements?.[6].value).toBe('100 %')
+      expect(optionUttaksgradElements?.length).toBe(7)
+    })
+
+    it('når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 50,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+
+      // Fyller ut uttaksalder
+      fireEvent.change(
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        {
+          target: { value: '70' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+
+      // Velger gradert uttak som etterhvert blir ugyldig
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+        target: { value: '80 %' },
+      })
+
+      // Endrer uttaksalder
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        ),
+        {
+          target: { value: '64' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+
+      const selectUttaksgradElement = screen.getByTestId(FORM_NAMES.uttaksgrad)
+      const optionUttaksgradElements =
+        selectUttaksgradElement?.querySelectorAll('option')
+      expect(optionUttaksgradElements?.[0].value).toBe('')
+      expect(optionUttaksgradElements?.[1].value).toBe('20 %')
+      expect(optionUttaksgradElements?.[6].value).toBe('100 %')
+      expect(optionUttaksgradElements?.length).toBe(7)
+    })
+
+    it('når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 50,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+
+      // Fyller ut uttaksalder
+      fireEvent.change(
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        {
+          target: { value: '64' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+
+      // Velger avgrenset uttaksgrad
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+        target: { value: '20 %' },
+      })
+
+      const selectUttaksgradElement = screen.getByTestId(FORM_NAMES.uttaksgrad)
+      const optionUttaksgradElements =
+        selectUttaksgradElement?.querySelectorAll('option')
+      expect(optionUttaksgradElements?.length).toBe(4)
+
+      // Endrer uttaksalder for gradert uttak med noe høyere alder
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        ),
+        {
+          target: { value: '70' },
+        }
+      )
+
+      expect(
+        screen.queryByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        )
+      ).not.toBeInTheDocument()
+      expect(
+        screen.queryByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+        )
+      ).not.toBeInTheDocument()
+
+      const selectOppdatertUttaksgradElement = screen.getByTestId(
+        FORM_NAMES.uttaksgrad
+      )
+      const optionOppdatertUttaksgradElements =
+        selectOppdatertUttaksgradElement?.querySelectorAll('option')
+      expect(optionOppdatertUttaksgradElements?.[0].value).toBe('')
+      expect(optionOppdatertUttaksgradElements?.[1].value).toBe('20 %')
+      expect(optionOppdatertUttaksgradElements?.[6].value).toBe('100 %')
+      expect(optionOppdatertUttaksgradElements?.length).toBe(7)
     })
   })
 
