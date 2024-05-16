@@ -163,7 +163,7 @@ const translations = {
   'stegvisning.ufoere.readmore_2.title':
     'Få hjelp til å finne ut hva som lønner seg',
   'stegvisning.ufoere.readmore_2.body':
-    'Hvis du jobber i privat sektor, <kontaktOssLink>kontakt NAV</kontaktOssLink>. Hvis du jobber i offentlig sektor, kontakt din tjenestepensjonsordning.',
+    'Hvis du jobber i privat sektor, <planleggePensjonLink>kontakt NAV</planleggePensjonLink>. Hvis du jobber i offentlig sektor, kontakt din tjenestepensjonsordning.',
   'stegvisning.ufoere.ingress':
     'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.sivilstand.title': 'Din sivilstand',
@@ -221,7 +221,7 @@ const translations = {
     'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
   'omufoeretrygd.gradert.ingress':
     'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
-  'omufoeretrygd.readmore.title': 'Om uføretrygd og alderspensjon',
+  'omufoeretrygd.readmore.title': 'Om pensjonsalder og uføretrygd',
   'omufoeretrygd.readmore.hel.ingress':
     '<nowrap>100 %</nowrap> uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går <nowrap>100 %</nowrap> uføretrygd automatisk over til <nowrap>100 %</nowrap> alderspensjon. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
   'omufoeretrygd.readmore.gradert.ingress':
@@ -399,7 +399,7 @@ const translations = {
   'savnerdunoe.title': 'Savner du noe?',
   'savnerdunoe.ingress':
     'Flere valg for uttaksgrad, pensjonsalder og inntekt finner du i Avansert.',
-  'savnerdunoe.button': 'Gå til avansert',
+  'savnerdunoe.button': 'Gå til Avansert',
   'savnerdunoe.body':
     'Denne kalkulatoren er under utvikling. Har du behov for å lagre beregninger og se flere detaljer, kan du gjøre det i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
