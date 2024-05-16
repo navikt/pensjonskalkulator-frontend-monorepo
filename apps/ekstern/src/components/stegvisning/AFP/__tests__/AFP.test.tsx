@@ -1,3 +1,5 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { describe, it, vi } from 'vitest'
 
 import { AFP } from '..'
@@ -10,6 +12,25 @@ describe('stegvisning - AFP', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
+
+  it('kaller navigate når shouldRedirectTo er angitt', async () => {
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const randomPath = '/random-path'
+
+    render(
+      <AFP
+        shouldRedirectTo={randomPath}
+        afp={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(navigateMock).toHaveBeenCalledWith(randomPath)
+  })
 
   it('rendrer slik den skal når afp ikke er oppgitt', async () => {
     const user = userEvent.setup()

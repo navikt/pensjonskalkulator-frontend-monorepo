@@ -2,11 +2,14 @@ import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import { BeregningContext } from '@/pages/Beregning/context'
+import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
+import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
 import { FORM_NAMES } from './utils'
 
 export const useFormLocalState = (initialValues: {
+  ufoeregrad: number
   aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: string | undefined
   aarligInntektFoerUttakBeloepFraBrukerInput: string | null
   uttaksalder: Alder | null
@@ -14,6 +17,7 @@ export const useFormLocalState = (initialValues: {
   gradertUttaksperiode: GradertUttak | null
 }) => {
   const {
+    ufoeregrad,
     aarligInntektFoerUttakBeloepFraBrukerSkattBeloep,
     aarligInntektFoerUttakBeloepFraBrukerInput,
     uttaksalder,
@@ -95,6 +99,38 @@ export const useFormLocalState = (initialValues: {
     [localHeltUttak]
   )
 
+  const muligeUttaksgrad = React.useMemo(() => {
+    // Hvis uttaksalder for gradert ikke eksisterer, ta utgangspunkt i helt uttaksalder
+    // Hvis uttaksalder for gradert eksisterer, ta utgangspunkt i denne
+    const valgtAlder =
+      localGradertUttak?.uttaksalder?.aar &&
+      localGradertUttak?.uttaksalder?.maaneder !== undefined
+        ? { ...localGradertUttak?.uttaksalder }
+        : { ...localHeltUttak?.uttaksalder }
+
+    if (
+      valgtAlder?.aar &&
+      valgtAlder?.maaneder !== undefined &&
+      ufoeregrad &&
+      ufoeregrad !== 100 &&
+      valgtAlder?.aar < DEFAULT_UBETINGET_UTTAKSALDER.aar
+    ) {
+      const maksGrad = 100 - ufoeregrad
+      const filtrerteUttaksgrad = ALLE_UTTAKSGRAD_AS_NUMBER.filter(
+        (grad) => grad <= maksGrad
+      )
+      // hvis ingen grad var valgt, eller at en grad var valgt og at den er gyldig, return avgrenset grad
+      if (
+        !localGradertUttak?.grad ||
+        (localGradertUttak?.grad &&
+          filtrerteUttaksgrad.includes(localGradertUttak?.grad))
+      ) {
+        return filtrerteUttaksgrad.map((grad) => `${grad} %`)
+      }
+    }
+    return ALLE_UTTAKSGRAD_AS_NUMBER.map((grad) => `${grad} %`)
+  }, [ufoeregrad, localGradertUttak, localHeltUttak])
+
   React.useEffect(() => {
     const hasInntektFremTilUnntakChanged =
       (aarligInntektFoerUttakBeloepFraBrukerInput !== null &&
@@ -166,6 +202,7 @@ export const useFormLocalState = (initialValues: {
     localGradertUttak,
     localHarInntektVsaGradertUttakRadio,
     minAlderInntektSluttAlder,
+    muligeUttaksgrad,
     handlers,
   ] as const
 }

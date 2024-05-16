@@ -17,6 +17,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       setAvansertSkjemaModus: vi.fn(),
     }
     const initialProps = {
+      ufoeregrad: 0,
       aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: '250 000',
       aarligInntektFoerUttakBeloepFraBrukerInput: '300 000',
       uttaksalder: { aar: 70, maaneder: 0 },
@@ -58,6 +59,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       const { result } = renderHook(useFormLocalState, {
         wrapper,
         initialProps: {
+          ufoeregrad: 0,
           aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: undefined,
           aarligInntektFoerUttakBeloepFraBrukerInput: null,
           uttaksalder: null,
@@ -89,6 +91,8 @@ describe('RedigerAvansertBeregning-hooks', () => {
       expect(result.current[4]).toBe(null)
       // minAlderInntektSluttAlder
       expect(result.current[5]).toBe(undefined)
+      // muligeUttaksgrad
+      expect(result.current[6]).toHaveLength(6)
     })
 
     it('Når Redux store inneholder alle verdier fra før av, returnerer riktig initial values', async () => {
@@ -127,6 +131,8 @@ describe('RedigerAvansertBeregning-hooks', () => {
         aar: 70,
         maaneder: 1,
       })
+      // muligeUttaksgrad
+      expect(result.current[6]).toHaveLength(6)
     })
 
     it('Når Redux store inneholder alle verdier utenom inntekt vsa. pensjon fra før av, returnerer riktig initial values', async () => {
@@ -167,6 +173,8 @@ describe('RedigerAvansertBeregning-hooks', () => {
         aar: 70,
         maaneder: 1,
       })
+      // muligeUttaksgrad
+      expect(result.current[6]).toHaveLength(6)
     })
 
     describe('Når inntekt frem til uttak endrer seg,', () => {
@@ -183,7 +191,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalInntektFremTilUttak } = result.current[6]
+        const { setLocalInntektFremTilUttak } = result.current[7]
 
         act(() => {
           setLocalInntektFremTilUttak('800000')
@@ -210,7 +218,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalInntektFremTilUttak } = result.current[6]
+        const { setLocalInntektFremTilUttak } = result.current[7]
 
         act(() => {
           setLocalInntektFremTilUttak('800000')
@@ -236,7 +244,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalInntektFremTilUttak } = result.current[6]
+        const { setLocalInntektFremTilUttak } = result.current[7]
 
         act(() => {
           setLocalInntektFremTilUttak('300 000')
@@ -260,7 +268,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
-        const { setLocalHeltUttak } = result.current[6]
+        const { setLocalHeltUttak } = result.current[7]
 
         act(() => {
           setLocalHeltUttak({
@@ -290,6 +298,8 @@ describe('RedigerAvansertBeregning-hooks', () => {
           aar: 70,
           maaneder: 0,
         })
+        // muligeUttaksgrad
+        expect(result.current[6]).toHaveLength(6)
       })
 
       it('Når beløp til aarligInntektVsaPensjon endrer seg, oppdateres verdien og hasUnsavedChanges', async () => {
@@ -303,7 +313,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
-        const { setLocalHeltUttak } = result.current[6]
+        const { setLocalHeltUttak } = result.current[7]
 
         act(() => {
           setLocalHeltUttak({
@@ -339,7 +349,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
-        const { setLocalHeltUttak } = result.current[6]
+        const { setLocalHeltUttak } = result.current[7]
 
         act(() => {
           setLocalHeltUttak({
@@ -375,7 +385,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
-        const { setLocalHeltUttak } = result.current[6]
+        const { setLocalHeltUttak } = result.current[7]
 
         act(() => {
           setLocalHeltUttak({
@@ -405,7 +415,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
-        const { setLocalHeltUttak } = result.current[6]
+        const { setLocalHeltUttak } = result.current[7]
 
         act(() => {
           setLocalHeltUttak({
@@ -437,7 +447,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalGradertUttak } = result.current[6]
+        const { setLocalGradertUttak } = result.current[7]
 
         act(() => {
           setLocalGradertUttak({
@@ -457,6 +467,8 @@ describe('RedigerAvansertBeregning-hooks', () => {
           uttaksalder: { aar: 67, maaneder: 0 },
           aarligInntektVsaPensjonBeloep: '100 000',
         })
+        // muligeUttaksgrad
+        expect(result.current[6]).toHaveLength(6)
       })
 
       it('Når uttaksalder endrer seg, oppdateres verdien og hasUnsavedChanges', async () => {
@@ -472,7 +484,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalGradertUttak } = result.current[6]
+        const { setLocalGradertUttak } = result.current[7]
 
         act(() => {
           setLocalGradertUttak({
@@ -507,7 +519,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalGradertUttak } = result.current[6]
+        const { setLocalGradertUttak } = result.current[7]
 
         act(() => {
           setLocalGradertUttak({
@@ -552,7 +564,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalGradertUttak } = result.current[6]
+        const { setLocalGradertUttak } = result.current[7]
 
         act(() => {
           setLocalGradertUttak({
@@ -585,7 +597,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalGradertUttak } = result.current[6]
+        const { setLocalGradertUttak } = result.current[7]
 
         act(() => {
           setLocalGradertUttak({
@@ -619,7 +631,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
 
-        const { setLocalGradertUttak } = result.current[6]
+        const { setLocalGradertUttak } = result.current[7]
 
         act(() => {
           setLocalGradertUttak(undefined)
@@ -643,7 +655,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
-        const { setLocalGradertUttak } = result.current[6]
+        const { setLocalGradertUttak } = result.current[7]
 
         act(() => {
           setLocalGradertUttak({
@@ -656,6 +668,57 @@ describe('RedigerAvansertBeregning-hooks', () => {
         expect(
           await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
         ).toHaveTextContent(`FALSE`)
+      })
+
+      it('Gitt at brukeren har gradert uføretrygd, når uttaksalder endres til en alder før ubetinget uttaksalder, avgrenses muligeUttaksgrad', async () => {
+        const { result } = renderHook(useFormLocalState, {
+          wrapper,
+          initialProps: {
+            ...initialProps,
+            gradertUttaksperiode: null,
+            ufoeregrad: 60,
+          },
+        })
+
+        const { setLocalGradertUttak } = result.current[7]
+
+        act(() => {
+          setLocalGradertUttak({
+            grad: undefined,
+            uttaksalder: { aar: 66, maaneder: 1 },
+            aarligInntektVsaPensjonBeloep:
+              initialProps.gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString(),
+          })
+        })
+
+        // muligeUttaksgrad
+        expect(result.current[6]).toHaveLength(2)
+        expect(result.current[6]).toStrictEqual(['20 %', '40 %'])
+      })
+
+      it('Gitt at brukeren har gradert uføretrygd, når uttaksgrad er allerede valgt og uttaksalder endres til en alder før ubetinget uttaksalder som gjøre denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
+        const { result } = renderHook(useFormLocalState, {
+          wrapper,
+          initialProps: {
+            ...initialProps,
+            gradertUttaksperiode: null,
+            ufoeregrad: 75,
+          },
+        })
+
+        const { setLocalGradertUttak } = result.current[7]
+
+        act(() => {
+          setLocalGradertUttak({
+            grad: 40,
+            uttaksalder: { aar: 66, maaneder: 1 },
+            aarligInntektVsaPensjonBeloep:
+              initialProps.gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString(),
+          })
+        })
+
+        // muligeUttaksgrad
+        expect(result.current[6]).toHaveLength(6)
       })
     })
   })

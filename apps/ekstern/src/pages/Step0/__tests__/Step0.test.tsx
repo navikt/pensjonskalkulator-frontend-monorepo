@@ -123,7 +123,7 @@ describe('Step 0', () => {
       hasRouter: false,
     })
 
-    await waitFor(() => {
+    await waitFor(async () => {
       expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
       expect(screen.getByText('stegvisning.start.button')).toBeVisible()
       expect(screen.getByText('stegvisning.avbryt')).toBeVisible()

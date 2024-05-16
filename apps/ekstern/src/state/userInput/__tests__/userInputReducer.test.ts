@@ -5,6 +5,17 @@ import userInputSlice, {
 
 describe('userInputSlice', () => {
   describe('actions', () => {
+    it('setVeilederBorgerFnr', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setVeilederBorgerFnr('01067428733')
+      )
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        veilederBorgerFnr: '01067428733',
+      })
+    })
+
     it('setUtenlandsopphold', () => {
       const updatedState = userInputSlice(
         userInputInitialState,

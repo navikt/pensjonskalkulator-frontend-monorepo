@@ -20,7 +20,7 @@ describe('VeilederInput', () => {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
-          veilderBorgerFnr: '12345678901',
+          veilederBorgerFnr: '12345678901',
         },
       },
     })

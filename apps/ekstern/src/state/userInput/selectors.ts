@@ -13,10 +13,10 @@ export const selectSamtykke = (state: RootState): boolean | null =>
   state.userInput.samtykke
 
 export const selectVeilederBorgerFnr = (state: RootState) =>
-  state.userInput.veilderBorgerFnr
+  state.userInput.veilederBorgerFnr
 
 export const selectIsVeileder = (state: RootState) =>
-  !!state.userInput.veilderBorgerFnr
+  !!state.userInput.veilederBorgerFnr
 
 export const selectAfp = (state: RootState): AfpRadio | null =>
   state.userInput.afp
