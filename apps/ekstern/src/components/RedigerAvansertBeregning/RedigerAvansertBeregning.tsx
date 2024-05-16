@@ -127,7 +127,7 @@ export const RedigerAvansertBeregning: React.FC<{
       }
     })
   }
-  // TODO PEK-396 skrive test for håndtering av shouldResetGradertUttak
+
   const handleGradertUttaksalderChange = (
     alder: Partial<Alder> | undefined
   ) => {
@@ -441,9 +441,6 @@ export const RedigerAvansertBeregning: React.FC<{
             ))}
           </Select>
           <div className={styles.spacer__small} />
-          {
-            // TODO PEK-396 skrive tester for ulike readmore i tilfelle brukeren har uføretrygd
-          }
           <ReadMore
             name="Om uttaksgrad"
             header={intl.formatMessage({
@@ -482,7 +479,6 @@ export const RedigerAvansertBeregning: React.FC<{
                       }}
                     />
                   }
-                  // TODO PEK-396 skrive tester for ulike readmore i tilfelle brukeren har gradert uføretrygd og valgt alder < 67
                   description={
                     <FormattedMessage
                       id={
@@ -540,9 +536,6 @@ export const RedigerAvansertBeregning: React.FC<{
                     <FormattedMessage id="stegvisning.radio_nei" />
                   </Radio>
                 </RadioGroup>
-                {
-                  // TODO PEK-396 skrive tester for ulike readmore i tilfelle brukeren har gradert uføretrygd og valgt alder < 67
-                }
                 {ufoeregrad &&
                   localGradertUttak.uttaksalder.aar <
                     DEFAULT_UBETINGET_UTTAKSALDER.aar && (

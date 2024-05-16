@@ -13,7 +13,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { render, screen, fireEvent, userEvent, waitFor } from '@/test-utils'
+import { render, screen, fireEvent, userEvent } from '@/test-utils'
 
 describe('RedigerAvansertBeregning', () => {
   const contextMockedValues = {
@@ -1209,7 +1209,7 @@ describe('RedigerAvansertBeregning', () => {
   })
 
   describe('Gitt at en bruker mottar gradert uføretrygd', () => {
-    it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra ubentinget uttaksalderen', async () => {
+    it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra ubetinget uttaksalderen', async () => {
       mockResponse('/v1/ufoeregrad', {
         status: 200,
         json: {
@@ -1287,6 +1287,61 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionAarElementsGradert?.[14].value).toBe('75')
     })
 
+    it('vises ekstra informasjon om inntekt vsa pensjon og gradertuføretrygd når brukeren velger en alder før ubetinget uttaksalderen', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 50,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+
+      // Fyller ut uttaksalder
+      fireEvent.change(
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        {
+          target: { value: '64' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+      // Velger gradert uttak
+      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+        target: { value: '20 %' },
+      })
+
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description'
+        )
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'inntekt.info_om_inntekt.ufoeretrygd.read_more.label'
+        )
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'inntekt.info_om_inntekt.ufoeretrygd.read_more.body'
+        )
+      ).toBeInTheDocument()
+    })
+
     it('når brukeren velger en alder før ubetinget uttaksalderen, begrenses valgene for uttaksgrad basert på uføregraden', async () => {
       mockResponse('/v1/ufoeregrad', {
         status: 200,
@@ -1339,13 +1394,14 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionOppdatertUttaksgradElements?.length).toBe(4)
     })
 
-    it('når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad', async () => {
+    it('når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       mockResponse('/v1/ufoeregrad', {
         status: 200,
         json: {
           ufoeregrad: 50,
         },
       })
+      const user = userEvent.setup()
       const { store } = render(
         <BeregningContext.Provider
           value={{
@@ -1387,15 +1443,47 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionUttaksgradElements?.[1].value).toBe('20 %')
       expect(optionUttaksgradElements?.[6].value).toBe('100 %')
       expect(optionUttaksgradElements?.length).toBe(7)
+
+      // Fyller ut de andre påkrevde feltene
+      await user.click(
+        screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`)
+      )
+      fireEvent.change(
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        {
+          target: { value: '70' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+      await user.click(
+        screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+      )
+
+      await user.click(screen.getByText('beregning.avansert.button.beregn'))
+
+      // Feilmelding for ugyldig uttaksgrad
+      expect(
+        screen.getByText(
+          'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error'
+        )
+      ).toBeVisible()
     })
 
-    it('når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad', async () => {
+    it('når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       mockResponse('/v1/ufoeregrad', {
         status: 200,
         json: {
           ufoeregrad: 50,
         },
       })
+      const user = userEvent.setup()
       const { store } = render(
         <BeregningContext.Provider
           value={{
@@ -1453,6 +1541,37 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionUttaksgradElements?.[1].value).toBe('20 %')
       expect(optionUttaksgradElements?.[6].value).toBe('100 %')
       expect(optionUttaksgradElements?.length).toBe(7)
+
+      // Fyller ut de andre påkrevde feltene
+      await user.click(
+        screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`)
+      )
+      fireEvent.change(
+        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        {
+          target: { value: '70' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '5' },
+        }
+      )
+      await user.click(
+        screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+      )
+
+      await user.click(screen.getByText('beregning.avansert.button.beregn'))
+
+      // Feilmelding for ugyldig uttaksgrad
+      expect(
+        screen.getByText(
+          'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error'
+        )
+      ).toBeVisible()
     })
 
     it('når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
