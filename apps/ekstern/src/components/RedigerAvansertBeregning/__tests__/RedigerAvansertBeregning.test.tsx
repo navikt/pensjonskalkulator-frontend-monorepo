@@ -368,6 +368,58 @@ describe('RedigerAvansertBeregning', () => {
     expect(
       screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttak)
     ).not.toBeInTheDocument()
+
+    // Fyller uttaksalder igjen
+    fireEvent.change(
+      await screen.findByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+      ),
+      {
+        target: { value: '70' },
+      }
+    )
+    fireEvent.change(
+      await screen.findByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+      ),
+      {
+        target: { value: '6' },
+      }
+    )
+    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
+      target: { value: '60 %' },
+    })
+    // sjekker at radio knappen for gradert uttak er nullstilt
+    expect(
+      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+    ).not.toBeChecked()
+    expect(
+      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`)
+    ).not.toBeChecked()
+    // Fyller uttaksalder igjen
+    fireEvent.change(
+      await screen.findByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+      ),
+      {
+        target: { value: '73' },
+      }
+    )
+    fireEvent.change(
+      await screen.findByTestId(
+        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+      ),
+      {
+        target: { value: '3' },
+      }
+    )
+    // sjekker at radio knappen for helt uttaker nullstilt
+    expect(
+      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+    ).not.toBeChecked()
+    expect(
+      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+    ).not.toBeChecked()
   })
 
   it('når alle feltene for 100 % uttak fylles ut og at radioknappen for inntekt endres til nei, skjules det inntekt og sluttAlder', async () => {
