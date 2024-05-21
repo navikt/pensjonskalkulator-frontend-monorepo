@@ -537,24 +537,24 @@ export const RedigerAvansertBeregning: React.FC<{
                   </Radio>
                 </RadioGroup>
                 {ufoeregrad &&
-                  localGradertUttak.uttaksalder.aar <
-                    DEFAULT_UBETINGET_UTTAKSALDER.aar && (
-                    <ReadMore
-                      name="Om inntekt og uføretrygd"
-                      header={intl.formatMessage({
-                        id: 'inntekt.info_om_inntekt.ufoeretrygd.read_more.label',
-                      })}
-                    >
-                      <BodyLong>
-                        <FormattedMessage
-                          id="inntekt.info_om_inntekt.ufoeretrygd.read_more.body"
-                          values={{
-                            ...getFormatMessageValues(intl),
-                          }}
-                        />
-                      </BodyLong>
-                    </ReadMore>
-                  )}
+                localGradertUttak.uttaksalder.aar <
+                  DEFAULT_UBETINGET_UTTAKSALDER.aar ? (
+                  <ReadMore
+                    name="Om inntekt og uføretrygd"
+                    header={intl.formatMessage({
+                      id: 'inntekt.info_om_inntekt.ufoeretrygd.read_more.label',
+                    })}
+                  >
+                    <BodyLong>
+                      <FormattedMessage
+                        id="inntekt.info_om_inntekt.ufoeretrygd.read_more.body"
+                        values={{
+                          ...getFormatMessageValues(intl),
+                        }}
+                      />
+                    </BodyLong>
+                  </ReadMore>
+                ) : null}
               </div>
 
               {localHarInntektVsaGradertUttakRadio && (
