@@ -6,6 +6,7 @@ import { Card } from '../../components/common/Card'
 import { externalUrls, paths, henvisningUrlParams } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import { wrapLogger } from '@/utils/logging'
 
 const gaaTilDetaljertKalkulator = () => {
@@ -54,6 +55,7 @@ export const Henvisning: React.FC = () => {
 
   const onAvbryt = (): void => {
     dispatch(apiSlice.util.resetApiState())
+    dispatch(userInputActions.flush())
     navigate(paths.login)
   }
 
