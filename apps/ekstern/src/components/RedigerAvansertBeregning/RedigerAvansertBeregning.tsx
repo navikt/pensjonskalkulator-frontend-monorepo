@@ -444,16 +444,17 @@ export const RedigerAvansertBeregning: React.FC<{
           <ReadMore
             name="Om uttaksgrad"
             header={intl.formatMessage({
-              id: ufoeregrad
-                ? 'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label'
-                : 'beregning.avansert.rediger.read_more.uttaksgrad.label',
+              id:
+                ufoeregrad && ufoeregrad !== 100
+                  ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
+                  : 'beregning.avansert.rediger.read_more.uttaksgrad.label',
             })}
           >
             <BodyLong>
               <FormattedMessage
                 id={
-                  ufoeregrad
-                    ? 'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body'
+                  ufoeregrad && ufoeregrad !== 100
+                    ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
                     : 'beregning.avansert.rediger.read_more.uttaksgrad.body'
                 }
                 values={{

@@ -1129,7 +1129,8 @@ describe('RedigerAvansertBeregning', () => {
   })
 
   describe('Gitt at en bruker mottar 100 % uføretrygd', () => {
-    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubentinget uttaksalderen ', async () => {
+    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubentinget uttaksalderen', async () => {
+      const user = userEvent.setup()
       mockResponse('/v1/ufoeregrad', {
         status: 200,
         json: {
@@ -1149,16 +1150,17 @@ describe('RedigerAvansertBeregning', () => {
       expect(
         await screen.findByText('omufoeretrygd.readmore.title')
       ).toBeVisible()
+      await user.click(
+        await screen.findByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.label'
+        )
+      )
       expect(
         await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label'
+          'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut',
+          { exact: false }
         )
       ).toBeVisible()
-      expect(
-        await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body'
-        )
-      ).toBeInTheDocument()
 
       const selectAarElement = screen.getByTestId(
         `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
@@ -1231,12 +1233,12 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeVisible()
       expect(
         await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label'
+          'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
         )
       ).toBeVisible()
       expect(
         await screen.findByText(
-          'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body'
+          'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
         )
       ).toBeInTheDocument()
 
