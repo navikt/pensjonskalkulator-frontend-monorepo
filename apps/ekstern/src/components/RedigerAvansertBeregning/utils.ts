@@ -191,11 +191,21 @@ export const validateAvansertBeregningSkjema = (
           }))
       isValid = isHeltUttaksalderValid && isGradertUttaksalderValid
     } else {
-      // Hvis brukeren har valgt gradert uttak med uttaksalder før ubetinget uttaksalderen
+      // Hvis uttaksalder for gradert ikke eksisterer, ta utgangspunkt i helt uttaksalder
+      // Hvis uttaksalder for gradert eksisterer, ta utgangspunkt i denne
+      const valgtAlder =
+        uttaksgradFormData === '100 %'
+          ? { aar: heltUttakAarFormData, maaneder: heltUttakMaanederFormData }
+          : {
+              aar: gradertUttakAarFormData,
+              maaneder: gradertUttakMaanederFormData,
+            }
+
+      // Hvis brukeren har valgt uttaksalder før ubetinget uttaksalderen
       if (
-        gradertUttakAarFormData &&
-        gradertUttakMaanederFormData &&
-        parseInt(gradertUttakAarFormData as string, 10) <
+        valgtAlder.aar &&
+        valgtAlder.maaneder &&
+        parseInt(valgtAlder.aar as string, 10) <
           DEFAULT_UBETINGET_UTTAKSALDER.aar
       ) {
         const maksGrad = 100 - ufoeregrad

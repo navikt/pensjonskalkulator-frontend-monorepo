@@ -579,8 +579,22 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(updateErrorMessageMock).toHaveBeenCalledTimes(0)
     })
 
-    it('returnerer false når gradertUttaksalder er før ubetinget uttaksalder med et ugyldig uttaksgrad for en bruker med gradert uføretrygd', () => {
+    it('returnerer false når heltUttaksalder eller gradertUttaksalder er før ubetinget uttaksalder med et ugyldig uttaksgrad for en bruker med gradert uføretrygd', () => {
       const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '100 %',
+            heltUttakAarFormData: '63',
+            heltUttakMaanederFormData: '0',
+            gradertUttakAarFormData: null,
+            gradertUttakMaanederFormData: null,
+          },
+          60,
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           {
@@ -622,7 +636,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         )
       ).toBeTruthy()
 
-      expect(updateErrorMessageMock).toHaveBeenCalledTimes(1)
+      expect(updateErrorMessageMock).toHaveBeenCalledTimes(2)
     })
 
     it('returnerer false når radio knapp for inntekt vsa. 100 % uttaksalder ikke er fylt ut', () => {

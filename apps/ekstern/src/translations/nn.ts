@@ -263,9 +263,9 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
-  'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.label':
+  'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label':
     'MANGLER_TEKST',
-  'beregning.avansert.rediger.read_more.uttaksgrad.ufoeretrygd.body':
+  'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak': 'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
