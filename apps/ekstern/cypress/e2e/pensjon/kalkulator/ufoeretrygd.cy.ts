@@ -100,8 +100,8 @@ describe('Ufoeretrygd', () => {
     })
   })
 
-  describe('Som bruker som har logget inn på kalkulatoren, som mottar uføretrygd og som ikke har rett til AFP', () => {
-    describe('Når jeg har 100 % uføretrygd og er kommet til beregningssiden', () => {
+  describe('Som bruker som har logget inn på kalkulatoren, som mottar 100 % uføretrygd og som ikke har rett til AFP', () => {
+    describe('Når jeg er kommet til beregningssiden', () => {
       beforeEach(() => {
         cy.intercept(
           {
@@ -154,8 +154,10 @@ describe('Ufoeretrygd', () => {
         cy.contains('button', `76 år`).should('not.exist')
       })
     })
+  })
 
-    describe('Når jeg har gradert uføretrygd og er kommet til beregningssiden', () => {
+  describe('Som bruker som har logget inn på kalkulatoren, som mottar gradert uføretrygd og som ikke har rett til AFP', () => {
+    describe('Når jeg er kommet til beregningssiden', () => {
       beforeEach(() => {
         cy.intercept(
           {
@@ -208,6 +210,93 @@ describe('Ufoeretrygd', () => {
         })
         cy.contains('button', `66 år`).should('not.exist')
         cy.contains('button', `76 år`).should('not.exist')
+      })
+    })
+  })
+
+  describe('Som bruker som har logget inn på kalkulatoren og som mottar uføretrygd', () => {
+    beforeEach(() => {
+      cy.intercept(
+        {
+          method: 'GET',
+          url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-ufoere',
+        },
+        {
+          enabled: true,
+        }
+      ).as('getFeatureToggleUfoere')
+      cy.intercept(
+        { method: 'GET', url: '/pensjon/kalkulator/api/v1/ufoeregrad' },
+        {
+          ufoeregrad: 75,
+        }
+      ).as('getUfoeregrad')
+
+      cy.login()
+      cy.contains('button', 'Kom i gang').click()
+      cy.get('[type="radio"]').last().check()
+      cy.contains('button', 'Neste').click()
+      cy.get('[type="radio"]').last().check()
+      cy.contains('button', 'Neste').click()
+      cy.contains('button', 'Neste').click()
+    })
+
+    describe('Når jeg velger afp "ja, offentlig" og hvilken alder jeg ønsker beregning fra,', () => {
+      it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg ', () => {
+        cy.get('[type="radio"]').eq(0).check()
+        cy.contains('button', 'Neste').click()
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').eq(1).check()
+        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', '67 år').click()
+        cy.contains('AFP: Offentlig (ikke beregnet)').click()
+        cy.contains(
+          'Vi kan ikke vise din AFP fordi regelverket for ny AFP i offentlig sektor ikke er endelig avklart. For mer informasjon, sjekk din tjenestepensjonsordning.'
+        ).should('exist')
+      })
+    })
+
+    describe('Når jeg velger afp "ja, privat" og hvilken alder jeg ønsker beregning fra,', () => {
+      it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg ', () => {
+        cy.get('[type="radio"]').eq(1).check()
+        cy.contains('button', 'Neste').click()
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').eq(1).check()
+        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', '67 år').click()
+        cy.contains('AFP: Privat (ikke beregnet)').click()
+        cy.contains(
+          'Når du mottar uføretrygd, kan du ikke selv beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter fylte 62 år mister du retten til AFP.'
+        ).should('exist')
+      })
+    })
+
+    describe('Når jeg velger afp "nei" og hvilken alder jeg ønsker beregning fra,', () => {
+      it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg ', () => {
+        cy.get('[type="radio"]').eq(2).check()
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').eq(1).check()
+        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', '67 år').click()
+        cy.contains('AFP: Nei').click()
+        cy.contains(
+          'Starter du i jobb hos en arbeidsgiver som har avtale om AFP, må du være oppmerksom på at AFP og uføretrygd ikke kan kombineres. Du må velge mellom AFP og uføretrygd før du er 62 år.'
+        ).should('exist')
+      })
+    })
+
+    describe('Når jeg velger afp "vet ikke" og hvilken alder jeg ønsker beregning fra,', () => {
+      it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg ', () => {
+        cy.get('[type="radio"]').eq(3).check()
+        cy.contains('button', 'Neste').click()
+        cy.contains('button', 'Neste').click()
+        cy.get('[type="radio"]').eq(1).check()
+        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', '67 år').click()
+        cy.contains('AFP: Vet ikke').click()
+        cy.contains(
+          'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din.'
+        ).should('exist')
       })
     })
   })
