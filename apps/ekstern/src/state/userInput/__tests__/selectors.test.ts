@@ -416,7 +416,7 @@ describe('userInput selectors', () => {
         ...initialState,
         userInput: {
           ...initialState.userInput,
-          veilderBorgerFnr: '81549300',
+          veilederBorgerFnr: '81549300',
         },
       }
       expect(selectIsVeileder(state)).toBe(true)
@@ -435,7 +435,7 @@ describe('userInput selectors', () => {
         ...initialState,
         userInput: {
           ...initialState.userInput,
-          veilderBorgerFnr: testFnr,
+          veilederBorgerFnr: testFnr,
         },
       }
       expect(selectVeilederBorgerFnr(state)).toBe(testFnr)

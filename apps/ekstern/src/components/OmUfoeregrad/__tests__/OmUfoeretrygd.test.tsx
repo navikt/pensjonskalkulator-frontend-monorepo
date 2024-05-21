@@ -1,6 +1,10 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { describe, it } from 'vitest'
 
 import { OmUfoeretrygd } from '..'
+import { paths } from '@/router/constants'
+import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('OmUfoeretrygd', () => {
@@ -27,6 +31,15 @@ describe('OmUfoeretrygd', () => {
   })
 
   it('viser riktig innhold med gradert ufoeretrygd', async () => {
+    const flushCurrentSimulationMock = vi.spyOn(
+      userInputReducerUtils.userInputActions,
+      'flushCurrentSimulation'
+    )
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+
     const user = userEvent.setup()
     render(<OmUfoeretrygd ufoeregrad={75} />)
 
@@ -46,5 +59,8 @@ describe('OmUfoeretrygd', () => {
         { exact: false }
       )
     ).toBeInTheDocument()
+    await user.click(screen.getByText('omufoeretrygd.avansert_link'))
+    expect(flushCurrentSimulationMock).toHaveBeenCalled()
+    expect(navigateMock).toHaveBeenCalledWith(paths.beregningAvansert)
   })
 })

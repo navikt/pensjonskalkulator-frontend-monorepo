@@ -143,7 +143,7 @@ describe('Loaders', () => {
         api: {
           ...fakeApiCalls,
         },
-        userInput: { ...userInputInitialState, veilderBorgerFnr: '81549300' },
+        userInput: { ...userInputInitialState, veilederBorgerFnr: '81549300' },
       }
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState

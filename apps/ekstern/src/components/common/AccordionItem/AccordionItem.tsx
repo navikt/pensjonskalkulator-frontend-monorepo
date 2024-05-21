@@ -21,7 +21,7 @@ interface AccordionContextType {
 export const AccordionContext = React.createContext<AccordionContextType>({
   ref: undefined,
   isOpen: false,
-  /* c8 ignore next 1 - Treffer aldri siden Aksel vil kaste feil dersom Accordion.Item ikke er i en Accordion */
+  /* c8 ignore next 5 - Treffer aldri siden Aksel vil kaste feil dersom Accordion.Item ikke er i en Accordion */
   toggleOpen: () => {
     if (process.env.NODE_ENV !== 'test') {
       console.warn('AccordionContext not initialized')

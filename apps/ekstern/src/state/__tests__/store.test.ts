@@ -12,7 +12,7 @@ describe('store', () => {
 
   it('returnerer store med riktig state når setupStore kalles med parameter', () => {
     const state: UserInputState = {
-      veilderBorgerFnr: undefined,
+      veilederBorgerFnr: undefined,
       utenlandsopphold: true,
       samtykke: true,
       afp: null,

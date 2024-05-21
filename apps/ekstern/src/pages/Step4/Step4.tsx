@@ -49,6 +49,7 @@ export function Step4() {
     ) {
       navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
     }
+    /* c8 ignore next 7 - fases ut etter lansering av uføre */
     if (
       isError &&
       ekskludertStatus?.ekskludert &&

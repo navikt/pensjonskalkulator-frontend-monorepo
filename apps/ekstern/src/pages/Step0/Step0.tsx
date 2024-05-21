@@ -39,6 +39,7 @@ export function Step0() {
   const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
+    /* c8 ignore next 8 - fases ut etter lansering av uføre */
     if (
       isSuccess &&
       !ufoereFeatureToggle?.enabled &&

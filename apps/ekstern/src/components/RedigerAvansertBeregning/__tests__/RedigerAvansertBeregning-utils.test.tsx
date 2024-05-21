@@ -52,6 +52,7 @@ describe('RedigerAvansertBeregning-utils', () => {
         gaaTilResultatMock,
         {
           localInntektFremTilUttak: null,
+          ufoeregrad: 0,
           hasVilkaarIkkeOppfylt: undefined,
           harAvansertSkjemaUnsavedChanges: false,
         }
@@ -105,6 +106,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           gaaTilResultatMock,
           {
             localInntektFremTilUttak: null,
+            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -162,6 +164,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           gaaTilResultatMock,
           {
             localInntektFremTilUttak: '500 000',
+            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -246,6 +249,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           gaaTilResultatMock,
           {
             localInntektFremTilUttak: '500 000',
+            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -296,6 +300,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           gaaTilResultatMock,
           {
             localInntektFremTilUttak: '500 000',
+            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -320,6 +325,7 @@ describe('RedigerAvansertBeregning-utils', () => {
           gaaTilResultatMock,
           {
             localInntektFremTilUttak: '500 000',
+            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: true,
           }
@@ -352,6 +358,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           correctInputData,
+          0,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -367,12 +374,14 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, heltUttakAarFormData: 'abc' },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, heltUttakMaanederFormData: null },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -386,6 +395,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '' },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -393,18 +403,21 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: 'abc' },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '400' },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '4000' },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -419,12 +432,14 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, gradertUttakAarFormData: 'abc' },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, gradertUttakMaanederFormData: null },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -446,6 +461,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '67',
             gradertUttakMaanederFormData: '0',
           },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -457,6 +473,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '70',
             gradertUttakMaanederFormData: '0',
           },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -468,6 +485,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '66',
             gradertUttakMaanederFormData: '11',
           },
+          0,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -489,6 +507,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             uttaksgradFormData: '100 %',
             gradertUttakAarFormData: 'abc',
           },
+          0,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -499,6 +518,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             uttaksgradFormData: '100 %',
             gradertUttakMaanederFormData: null,
           },
+          0,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -507,11 +527,110 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
     })
 
+    it('returnerer false når gradertUttaksalder eller heltUttaksalder er før ubetinget uttaksalder for en bruker med 100 % uføretrygd', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            heltUttakAarFormData: '63',
+            heltUttakMaanederFormData: '0',
+          },
+          100,
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '100 %',
+            gradertUttakAarFormData: null,
+            gradertUttakMaanederFormData: null,
+          },
+          100,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '100 %',
+            gradertUttakAarFormData: '68',
+            gradertUttakMaanederFormData: '3',
+          },
+          100,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '63',
+            gradertUttakMaanederFormData: '0',
+          },
+          100,
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+
+      expect(updateErrorMessageMock).toHaveBeenCalledTimes(0)
+    })
+
+    it('returnerer false når gradertUttaksalder er før ubetinget uttaksalder med et ugyldig uttaksgrad for en bruker med gradert uføretrygd', () => {
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '50 %',
+            gradertUttakAarFormData: '63',
+            gradertUttakMaanederFormData: '0',
+          },
+          60,
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '40 %',
+            gradertUttakAarFormData: '63',
+            gradertUttakMaanederFormData: '0',
+          },
+          60,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+
+      // Denne skal returnere true fordi alderen er etter ubetinget uttaksgrad
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '40 %',
+            gradertUttakAarFormData: '67',
+            gradertUttakMaanederFormData: '0',
+            heltUttakAarFormData: '67',
+            heltUttakMaanederFormData: '6',
+          },
+          60,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+
+      expect(updateErrorMessageMock).toHaveBeenCalledTimes(1)
+    })
+
     it('returnerer false når radio knapp for inntekt vsa. 100 % uttaksalder ikke er fylt ut', () => {
       const updateErrorMessageMock = vi.fn()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakRadioFormData: null },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -523,6 +642,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakFormData: null },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -535,6 +655,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakFormData: 'abc' },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -554,6 +675,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             ...correctInputData,
             inntektVsaHeltUttakSluttAlderAarFormData: 'abc',
           },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -566,6 +688,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaGradertUttakRadioFormData: null },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -581,6 +704,7 @@ describe('RedigerAvansertBeregning-utils', () => {
             uttaksgradFormData: '100 %',
             inntektVsaGradertUttakRadioFormData: null,
           },
+          0,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -593,6 +717,7 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaGradertUttakFormData: 'abc' },
+          0,
           updateErrorMessageMock
         )
       ).toBeFalsy()

@@ -181,7 +181,7 @@ export const getFormatMessageValues = (
     planleggePensjonLink: (chunks: string) => (
       <Link
         onClick={logOpenLink}
-        href={externalUrls.kontaktOss}
+        href={externalUrls.planleggePensjon}
         target="_blank"
         inlineText
       >
