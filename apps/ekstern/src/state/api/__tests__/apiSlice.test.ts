@@ -11,8 +11,11 @@ const tidligstMuligHeltUttakResponse = require('../../../mocks/data/tidligstMuli
 const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler/67.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
 const ekskludertStatusResponse = require('../../../mocks/data/ekskludert-status.json')
+const ufoeregradResponse = require('../../../mocks/data/ufoeregrad.json')
 const spraakvelgerToggleResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
-const highchartsAccessibilityPluginResponse = require('../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json')
+const afpOffentligToggleResponse = require('../../../mocks/data/unleash-enable-afp-offentlig.json')
+const ufoereToggleResponse = require('../../../mocks/data/unleash-enable-ufoere.json')
+const highchartsAccessibilityPluginToggleResponse = require('../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json')
 
 describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
@@ -81,7 +84,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v1/person')
+      mockErrorResponse('/v2/person')
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getPerson.initiate())
         .then((result: FetchBaseQueryError) => {
@@ -92,7 +95,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v1/person', {
+      mockResponse('/v2/person', {
         status: 200,
         json: { sivilstand: 'SIRKUSKLOVN' },
       })
@@ -130,6 +133,36 @@ describe('apiSlice', () => {
       await swallowErrorsAsync(async () => {
         return storeRef
           .dispatch<any>(apiSlice.endpoints.getEkskludertStatus.initiate())
+          .then((result: FetchBaseQueryError) => {
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
+  describe('getUfoeregrad', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = setupStore(undefined, true)
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getUfoeregrad.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(ufoeregradResponse)
+        })
+    })
+
+    it('kaster feil ved uforventet format på data', async () => {
+      const storeRef = setupStore(undefined, true)
+
+      mockResponse('/v1/ufoeregrad', {
+        json: {
+          feil: 'format',
+        },
+      })
+      await swallowErrorsAsync(async () => {
+        return storeRef
+          .dispatch<any>(apiSlice.endpoints.getUfoeregrad.initiate())
           .then((result: FetchBaseQueryError) => {
             expect(result.status).toBe('rejected')
             expect(result.data).toBe(undefined)
@@ -504,7 +537,7 @@ describe('apiSlice', () => {
         .then((result: FetchBaseQueryError) => {
           expect(result.status).toBe('fulfilled')
           expect(result.data).toMatchObject(
-            highchartsAccessibilityPluginResponse
+            highchartsAccessibilityPluginToggleResponse
           )
         })
     })
@@ -540,6 +573,96 @@ describe('apiSlice', () => {
           .dispatch<any>(
             apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
           )
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
+  describe('getAfpOffentligFeatureToggle', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = setupStore(undefined, true)
+      return storeRef
+        .dispatch<any>(
+          apiSlice.endpoints.getAfpOffentligFeatureToggle.initiate()
+        )
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(afpOffentligToggleResponse)
+        })
+    })
+
+    it('returnerer undefined ved feilende query', async () => {
+      const storeRef = setupStore(undefined, true)
+      mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
+      return storeRef
+        .dispatch<any>(
+          apiSlice.endpoints.getAfpOffentligFeatureToggle.initiate()
+        )
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
+    })
+
+    it('kaster feil ved uventet format på responsen', async () => {
+      const storeRef = setupStore(undefined, true)
+
+      mockResponse('/feature/pensjonskalkulator.enable-afp-offentlig', {
+        status: 200,
+        json: { lorem: 'ipsum' },
+      })
+
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(
+            apiSlice.endpoints.getAfpOffentligFeatureToggle.initiate()
+          )
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
+  describe('getUfoereFeatureToggle', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = setupStore(undefined, true)
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getUfoereFeatureToggle.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(ufoereToggleResponse)
+        })
+    })
+
+    it('returnerer undefined ved feilende query', async () => {
+      const storeRef = setupStore(undefined, true)
+      mockErrorResponse('/feature/pensjonskalkulator.enable-ufoere')
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getUfoereFeatureToggle.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
+    })
+
+    it('kaster feil ved uventet format på responsen', async () => {
+      const storeRef = setupStore(undefined, true)
+
+      mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
+        status: 200,
+        json: { lorem: 'ipsum' },
+      })
+
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(apiSlice.endpoints.getUfoereFeatureToggle.initiate())
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)
             expect(result.status).toBe('rejected')

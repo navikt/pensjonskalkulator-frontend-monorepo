@@ -106,8 +106,8 @@ export const isPerson = (data?: any): data is Person => {
       'SKILT_PARTNER',
       'GJENLEVENDE_PARTNER',
     ].includes(data?.sivilstand) &&
-    data.fornavn &&
-    typeof data.fornavn === 'string' &&
+    data.navn &&
+    typeof data.navn === 'string' &&
     data.foedselsdato &&
     data.foedselsdato !== undefined &&
     new Date(data.foedselsdato).toString() !== 'Invalid Date'
@@ -144,6 +144,15 @@ export const isEkskludertStatus = (data?: any): data is EkskludertStatus => {
       'HAR_GJENLEVENDEYTELSE',
       'ER_APOTEKER',
     ].includes(data?.aarsak)
+  )
+}
+
+export const isUfoeregrad = (data?: any): data is Ufoeregrad => {
+  return (
+    typeof data === 'object' &&
+    data !== null &&
+    !Array.isArray(data) &&
+    typeof data.ufoeregrad === 'number'
   )
 }
 

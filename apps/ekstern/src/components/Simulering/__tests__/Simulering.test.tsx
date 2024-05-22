@@ -10,7 +10,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, waitFor } from '@/test-utils'
+import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
@@ -22,7 +22,9 @@ describe('Simulering', () => {
 
   afterEach(() => {
     vi.clearAllMocks()
+    window.scrollTo = () => vi.fn()
   })
+
   it('Når alderspensjon laster så vises det en spinner, og deretter heading på riktig nivå', async () => {
     const { container } = render(
       <Simulering
@@ -460,6 +462,13 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
+      const scrollToMock = vi.fn()
+      Object.defineProperty(global.window, 'scrollTo', {
+        value: scrollToMock,
+        writable: true,
+      })
+
+      const user = userEvent.setup()
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -506,9 +515,27 @@ describe('Simulering', () => {
         }
       )
 
-      expect(
-        await screen.findByText('beregning.pensjonsavtaler.info')
-      ).toBeVisible()
+      const elemDiv = document.createElement('div')
+      elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
+      document.body.appendChild(elemDiv)
+      await waitFor(async () => {
+        expect(
+          await screen.findByText(
+            'Du har pensjonsavtaler som starter før valgt alder.',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
+
+      const pensjonsavtalerScrollToLink = await screen.findByTestId(
+        'pensjonsavtaler-info-link'
+      )
+      await user.click(pensjonsavtalerScrollToLink)
+
+      expect(scrollToMock).toHaveBeenCalledWith({
+        behavior: 'smooth',
+        top: -15,
+      })
     })
 
     it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
@@ -621,7 +648,7 @@ describe('Simulering', () => {
   })
 
   it('viser tabell og skjuler grafen for skjermlesere', async () => {
-    render(
+    const { store } = render(
       <Simulering
         isLoading={false}
         headingLevel="3"
@@ -639,6 +666,9 @@ describe('Simulering', () => {
           },
         },
       }
+    )
+    store.dispatch(
+      apiSliceUtils.apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
     )
     expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
     const highChartsWrapper = await screen.findByTestId(

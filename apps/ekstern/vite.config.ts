@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import eslint from 'vite-plugin-eslint'
@@ -14,6 +15,10 @@ export default defineConfig(() => ({
   build: {
     sourcemap: true,
     rollupOptions: {
+      input: {
+        appBorger: resolve(__dirname, './index.html'),
+        appVeileder: resolve(__dirname, './index-veileder.html'),
+      },
       external: ['./nais.js'],
       output: {
         manualChunks: {
@@ -108,18 +113,21 @@ export default defineConfig(() => ({
       all: true,
       extension: ['.ts', '.tsx'],
       exclude: [
+        '**/*/faro.ts',
         '*.config.ts',
+        'cypress',
+        'server/server.ts',
         'src/mocks',
         'src/test-utils.tsx',
+        'src/main.tsx',
+        'src/main-veileder.tsx',
         'src/**/*.d.ts',
         'src/**/*.types.ts',
         'src/**/__tests__',
-        'src/main.tsx',
         'src/**/index.ts',
         'src/state/hooks.ts',
-        'cypress',
+        'src/components/common/ShowMore',
         'src/types',
-        '**/*/faro.ts',
       ],
       perFile: true,
       thresholds: {

@@ -68,6 +68,19 @@ export const isFoedtFoer1964 = (foedselsdato: string): boolean => {
   )
 }
 
+export const isAlderLikEllerOverUbetingetUttaksalder = (
+  alder: Alder | Partial<Alder>
+) => {
+  if (!alder.aar) {
+    return false
+  }
+  if (alder.aar >= DEFAULT_UBETINGET_UTTAKSALDER.aar) {
+    return true
+  } else {
+    return false
+  }
+}
+
 export const isAlderOverMinUttaksaar = (alder: Alder) => {
   if (alder.aar > DEFAULT_TIDLIGST_UTTAKSALDER.aar) {
     return true

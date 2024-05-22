@@ -11,6 +11,7 @@ import {
   paths,
 } from '@/router/constants'
 import { routes } from '@/router/routes'
+import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
 const navigateMock = vi.fn()
@@ -85,9 +86,11 @@ describe('Henvisning ', async () => {
   })
 
   it('trykker avbryt knapp', async () => {
+    const flushMock = vi.spyOn(userInputReducerUtils.userInputActions, 'flush')
     const user = userEvent.setup()
     render(<Henvisning />)
     await user.click(screen.getByTestId('card-button-secondary'))
+    expect(flushMock).toHaveBeenCalled()
     expect(navigateMock).toHaveBeenNthCalledWith(1, paths.login)
   })
 

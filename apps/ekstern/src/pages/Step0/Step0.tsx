@@ -1,35 +1,31 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Await } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { Start } from '@/components/stegvisning/Start'
 import { henvisningUrlParams, paths } from '@/router/constants'
+import { useStep0AccessData } from '@/router/loaders'
 import { apiSlice } from '@/state/api/apiSlice'
 import {
-  useGetPersonQuery,
   useGetEkskludertStatusQuery,
-  useGetInntektQuery,
+  useGetUfoereFeatureToggleQuery,
 } from '@/state/api/apiSlice'
-import { useAppDispatch } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { selectIsVeileder } from '@/state/userInput/selectors'
 
 export function Step0() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-
-  const { isFetching: isEkskludertStatusFetching, data: ekskludertStatus } =
-    useGetEkskludertStatusQuery()
-
-  const { isError: isInntektError, isFetching: isInntektFetching } =
-    useGetInntektQuery()
+  const loaderData = useStep0AccessData()
 
   const {
-    data: person,
-    isError: isPersonError,
-    isSuccess: isPersonSuccess,
-    isFetching: isPersonFetching,
-  } = useGetPersonQuery()
+    isSuccess,
+    isError,
+    data: ufoereFeatureToggle,
+  } = useGetUfoereFeatureToggleQuery()
+  const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -40,50 +36,75 @@ export function Step0() {
     )
   }, [])
 
-  React.useEffect(() => {
-    if (!isEkskludertStatusFetching && ekskludertStatus?.ekskludert) {
-      if (ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD') {
-        navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
-      } else if (ekskludertStatus.aarsak === 'HAR_GJENLEVENDEYTELSE') {
-        navigate(`${paths.henvisning}/${henvisningUrlParams.gjenlevende}`)
-      } else if (ekskludertStatus.aarsak === 'ER_APOTEKER') {
-        navigate(`${paths.henvisning}/${henvisningUrlParams.apotekerne}`)
-      }
-    }
-  }, [isEkskludertStatusFetching, ekskludertStatus, navigate])
+  const isVeileder = useAppSelector(selectIsVeileder)
 
-  const onCancel = (): void => {
-    navigate(paths.login)
-  }
+  React.useEffect(() => {
+    /* c8 ignore next 8 - fases ut etter lansering av uføre */
+    if (
+      isSuccess &&
+      !ufoereFeatureToggle?.enabled &&
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+    if (
+      isError &&
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+  }, [isSuccess, isError, ekskludertStatus])
+
+  // Fjern mulighet for avbryt hvis person er veileder
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        navigate(paths.login)
+      }
 
   const onNext = (): void => {
-    if (isInntektError) {
-      dispatch(apiSlice.util.invalidateTags(['Inntekt']))
-    }
-    if (isPersonError) {
-      dispatch(apiSlice.util.invalidateTags(['Person']))
-    }
     navigate(paths.utenlandsopphold)
   }
 
-  if (isPersonFetching || isInntektFetching || isEkskludertStatusFetching) {
-    return (
-      <div style={{ width: '100%' }}>
-        <Loader
-          data-testid="step0-loader"
-          size="3xlarge"
-          title={intl.formatMessage({ id: 'pageframework.loading' })}
-          isCentered
-        />
-      </div>
-    )
-  }
-
   return (
-    <Start
-      fornavn={isPersonSuccess ? (person as Person).fornavn : ''}
-      onCancel={onCancel}
-      onNext={onNext}
-    />
+    <React.Suspense
+      fallback={
+        <div style={{ width: '100%' }}>
+          <Loader
+            data-testid="step0-loader"
+            size="3xlarge"
+            title={intl.formatMessage({ id: 'pageframework.loading' })}
+            isCentered
+          />
+        </div>
+      }
+    >
+      <Await
+        resolve={Promise.all([
+          loaderData.getPersonQuery,
+          loaderData.shouldRedirectTo,
+        ])}
+      >
+        {(queries: [GetPersonQuery, string]) => {
+          const getPersonQuery = queries[0]
+          const shouldRedirectTo = queries[1]
+
+          return (
+            <Start
+              shouldRedirectTo={shouldRedirectTo}
+              navn={
+                getPersonQuery.isSuccess
+                  ? (getPersonQuery.data as Person).navn
+                  : ''
+              }
+              onCancel={onCancel}
+              onNext={onNext}
+            />
+          )
+        }}
+      </Await>
+    </React.Suspense>
   )
 }

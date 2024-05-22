@@ -14,7 +14,12 @@ declare global {
   type UnleashToggle = components['schemas']['EnablementDto']
 
   // /person
-  type Person = components['schemas']['ApiPersonDto']
+  export type GetPersonQuery = TypedUseQueryStateResult<
+    Person,
+    void,
+    BaseQueryFn<Record<string, unknown>, Person>
+  >
+  type Person = components['schemas']['PersonV2']
   type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 
@@ -22,9 +27,22 @@ declare global {
   type Inntekt = components['schemas']['InntektDto']
 
   // /ekskludert-status
+  export type GetEkskludertStatusQuery = TypedUseQueryStateResult<
+    EkskludertStatus,
+    void,
+    BaseQueryFn<Record<string, unknown>, Person>
+  >
   type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
 
+  // /ufoeregrad
+  type Ufoeregrad = components['schemas']['UfoeregradDto']
+
   // /tpo-medlemskap
+  export type TpoMedlemskapQuery = TypedUseQueryStateResult<
+    TpoMedlemskap,
+    void,
+    BaseQueryFn<Record<string, unknown>, TpoMedlemskap>
+  >
   type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
 
   // /tidligste-uttaksalder
@@ -79,6 +97,8 @@ declare global {
     beloep: number
     alder: number
   }
+
+  type Ansatt = components['schemas']['AnsattV1']
 
   type BeregningVisning = 'enkel' | 'avansert'
 }

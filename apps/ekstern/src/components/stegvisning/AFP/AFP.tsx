@@ -1,6 +1,7 @@
 import { FormEvent } from 'react'
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import {
   Alert,
@@ -13,27 +14,53 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
+import { useGetUfoeregradQuery } from '@/state/api/apiSlice'
 import { useGetAfpOffentligFeatureToggleQuery } from '@/state/api/apiSlice'
+import { useAppSelector } from '@/state/hooks'
+import { selectSamboerFraSivilstand } from '@/state/userInput/selectors'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './AFP.module.scss'
 
 interface Props {
-  isLastStep: boolean
+  shouldRedirectTo?: string
   afp: AfpRadio | null
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: (afpData: AfpRadio) => void
 }
 
-export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
+export function AFP({
+  shouldRedirectTo,
+  afp,
+  onCancel,
+  onPrevious,
+  onNext,
+}: Props) {
   const intl = useIntl()
+  const navigate = useNavigate()
+
+  const harSamboer = useAppSelector(selectSamboerFraSivilstand)
+  const { data: ufoeregrad } = useGetUfoeregradQuery()
   const [validationError, setValidationError] = React.useState<string>('')
   const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
+  const [isLastStep, setIsLastStep] = React.useState<boolean>(!!harSamboer)
 
   const { data: afpOffentligFeatureToggle } =
     useGetAfpOffentligFeatureToggleQuery()
+
+  React.useEffect(() => {
+    if (harSamboer) {
+      setIsLastStep(true)
+    }
+  }, [harSamboer])
+
+  React.useEffect(() => {
+    if (shouldRedirectTo) {
+      navigate(shouldRedirectTo)
+    }
+  }, [shouldRedirectTo])
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -74,6 +101,12 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
   const handleRadioChange = (value: AfpRadio): void => {
     setShowAlert(value)
     setValidationError('')
+    if (harSamboer) {
+      setIsLastStep(!(ufoeregrad?.ufoeregrad && value !== 'nei'))
+    }
+  }
+  if (shouldRedirectTo) {
+    return null
   }
 
   return (
@@ -182,14 +215,16 @@ export function AFP({ isLastStep, afp, onCancel, onPrevious, onNext }: Props) {
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
+        {onCancel && (
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        )}
       </form>
     </Card>
   )

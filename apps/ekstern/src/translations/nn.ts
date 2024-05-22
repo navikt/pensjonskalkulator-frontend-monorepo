@@ -7,7 +7,8 @@ const translations = {
   'application.title.stegvisning.step3':
     'Offentleg tenestepensjon - Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP -Pensjonskalkulator',
-  'application.title.stegvisning.step5': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.step5': 'MANGLER_TEKST',
+  'application.title.stegvisning.step6': 'Sivilstand - Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
@@ -154,6 +155,13 @@ const translations = {
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker på om du har rett til AFP, bør du sjekke med arbeidsgjevaren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
+  'stegvisning.ufoere.title': 'MANGLER_TEKST',
+  'stegvisning.ufoere.info': 'MANGLER_TEKST',
+  'stegvisning.ufoere.readmore_1.title': 'MANGLER_TEKST',
+  'stegvisning.ufoere.readmore_1.body': 'MANGLER_TEKST',
+  'stegvisning.ufoere.readmore_2.title': 'MANGLER_TEKST',
+  'stegvisning.ufoere.readmore_2.body': 'MANGLER_TEKST',
+  'stegvisning.ufoere.ingress': 'MANGLER_TEKST',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
@@ -198,6 +206,13 @@ const translations = {
   'tidligstmuliguttak.info_afp':
     'Du kan truleg ta ut alderspensjon tidlegare viss du har rett til AFP i offentleg sektor.',
   'tidligstmuliguttak.error': 'MANGLER_TEKST',
+  'omufoeretrygd.hel.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.gradert.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.readmore.title': 'MANGLER_TEKST',
+  'omufoeretrygd.readmore.hel.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.readmore.gradert.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.readmore.gradert.avansert.ingress': 'MANGLER_TEKST',
+  'omufoeretrygd.avansert_link': 'MANGLER_TEKST',
   'velguttaksalder.title': 'Kor tid vil du ta ut alderspensjon?',
   'beregning.toggle.enkel': 'MANGLER_TEKST',
   'beregning.toggle.avansert': 'MANGLER_TEKST',
@@ -251,16 +266,24 @@ const translations = {
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.body': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak': 'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.validation_error': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak': 'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
+    'MANGLER_TEKST',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
     'MANGLER_TEKST',
@@ -318,16 +341,22 @@ const translations = {
   'grunnlag.alderspensjon.ingress':
     'Alderspensjon vert rekna ut frå pensjonsbehaldninga di i folketrygda. Viss du fortset å ha inntekt samstundes med at du tek ut pensjon, vil alderspensjonen din auke.{br}{br}<dinPensjonBeholdningLink>Di pensjonsopptening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglane for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
+  'grunnlag.afp.ikke_beregnet': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.null': '-',
-  'grunnlag.afp.ingress.ja_offentlig.unavailable': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_offentlig':
     'Vi kan ikkje vise din AFP fordi regelverket for ny AFP i offentleg sektor ikkje er endeleg avklart. For meir informasjon, sjekk tenestepensjonsordninga di.',
+  'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.ja_offentlig.unavailable': 'MANGLER_TEKST',
+  'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_privat':
     'NAV har ikkje vurdert om du fyller inngangsvilkåra for å få AFP, men i utrekninga føreset vi at du gjer det. Les meir om vilkåra for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
+  'grunnlag.afp.ingress.ja_privat.ufoeretrygd': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.vet_ikke':
     'Er du er usikker på om du har rett til AFP bør du spørja arbeidsgjevaren din. AFP kan påverke kor tid du kan ta ut alderspensjon.',
+  'grunnlag.afp.ingress.vet_ikke.ufoeretrygd': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.nei':
     'Har du starta i jobb hos en arbeidsgjevar som har avtale om AFP, tilrår vi at du gjer ei ny utrekning.',
+  'grunnlag.afp.ingress.nei.ufoeretrygd': 'MANGLER_TEKST',
   'grunnlag.afp.reset_link': 'MANGLER_TEKST',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er rekna ut med opplysningane vi har om deg og opplysningane du har lagt inn. Utrekninga er gjort med gjeldande regelverk. Dette er ei førebels utrekning av kva du kan vente å få i pensjon. ',
@@ -335,6 +364,10 @@ const translations = {
     'Denne kalkulatoren er under utvikling og har avgrensa funksjonalitet. Du kan gjere meir spesifisert utrekning i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'grunnlag.forbehold.link': 'Alle atterhald',
   'grunnlag.forbehold.title': 'Atterhald',
+  'savnerdunoe.title': 'MANGLER_TEKST',
+  'savnerdunoe.ingress': 'MANGLER_TEKST',
+  'savnerdunoe.button': 'MANGLER_TEKST',
+  'savnerdunoe.body': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
@@ -375,6 +408,9 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.read_more.label': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ufoeretrygd.read_more.label': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ufoeretrygd.read_more.body': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.open.link': 'Kva er pensjonsgjevande inntekt?',
   'inntekt.info_om_inntekt.intro': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.subtitle':
@@ -475,6 +511,6 @@ const translations = {
   'personopplysninger.section.spoersmaal.heading':
     'Spørsmål til NAV eller datatilsynet om personvern',
   'personopplysninger.section.spoersmaal.text':
-    'Sjå kontaktinformasjon i <navPersonvernerklaeringKontaktOss>personvernerklæringa</navPersonvernerklaeringKontaktOss> for NAV.',
+    'Sjå kontaktinformasjon i <navPersonvernerklaeringKontaktOssLink>personvernerklæringa</navPersonvernerklaeringKontaktOssLink> for NAV.',
 }
 export const getTranslation_nn = () => translations

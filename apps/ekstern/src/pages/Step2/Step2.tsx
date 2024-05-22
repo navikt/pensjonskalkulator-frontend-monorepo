@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
   selectHarHentetTpoMedlemskap,
+  selectIsVeileder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -18,6 +19,7 @@ export function Step2() {
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
   const shouldFlush = useAppSelector(selectHarHentetTpoMedlemskap)
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -29,18 +31,17 @@ export function Step2() {
     const samtykke = samtykkeData === 'ja'
     dispatch(userInputActions.setSamtykke(samtykke))
     if (shouldFlush && !samtykke) {
-      dispatch(apiSlice.util.resetApiState())
-      dispatch(apiSlice.endpoints.getSpraakvelgerFeatureToggle.initiate())
-      dispatch(apiSlice.endpoints.getPerson.initiate())
-      dispatch(apiSlice.endpoints.getInntekt.initiate())
+      apiSlice.util.invalidateTags(['TpoMedlemskap', 'Pensjonsavtaler'])
     }
     navigate(paths.offentligTp)
   }
 
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        dispatch(userInputActions.flush())
+        navigate(paths.login)
+      }
 
   const onPrevious = (): void => {
     navigate(paths.utenlandsopphold)

@@ -1,16 +1,21 @@
 import React from 'react'
 import { FormattedMessage } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import clsx from 'clsx'
 
 import { Alert } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
+import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { RedigerAvansertBeregning } from '@/components/RedigerAvansertBeregning'
 import { ResultatkortAvansertBeregning } from '@/components/ResultatkortAvansertBeregning'
+import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Simulering } from '@/components/Simulering'
 import { BeregningContext } from '@/pages/Beregning/context'
+import { paths } from '@/router/constants'
 import {
   useGetPersonQuery,
   apiSlice,
@@ -24,6 +29,7 @@ import {
   selectSamboer,
   selectCurrentSimulation,
   selectAarligInntektFoerUttakBeloep,
+  selectUfoeregrad,
 } from '@/state/userInput/selectors'
 import { logger } from '@/utils/logging'
 
@@ -31,12 +37,14 @@ import styles from './BeregningAvansert.module.scss'
 
 export const BeregningAvansert: React.FC = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const { avansertSkjemaModus, setAvansertSkjemaModus } =
     React.useContext(BeregningContext)
 
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
@@ -108,8 +116,12 @@ export const BeregningAvansert: React.FC = () => {
   }, [uttaksalder, isError, alderspensjon])
 
   React.useEffect(() => {
-    if (error && (error as FetchBaseQueryError).status === 503) {
-      throw new Error((error as FetchBaseQueryError).data as string)
+    if (
+      error &&
+      ((error as FetchBaseQueryError).status === 503 ||
+        (error as FetchBaseQueryError).status === 'PARSING_ERROR')
+    ) {
+      navigate(paths.uventetFeil)
     }
   }, [error])
 
@@ -145,11 +157,11 @@ export const BeregningAvansert: React.FC = () => {
       )}
 
       {avansertSkjemaModus === 'resultat' && (
-        <div
-          className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
-        >
+        <>
           {isError ? (
-            <>
+            <div
+              className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
+            >
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />
               </Heading>
@@ -159,42 +171,65 @@ export const BeregningAvansert: React.FC = () => {
               <ResultatkortAvansertBeregning
                 onButtonClick={() => setAvansertSkjemaModus('redigering')}
               />
-            </>
+            </div>
           ) : (
             <>
-              <Simulering
-                isLoading={isFetching}
-                headingLevel="2"
-                aarligInntektFoerUttakBeloep={
-                  aarligInntektFoerUttakBeloep ?? '0'
-                }
-                alderspensjonListe={alderspensjon?.alderspensjon}
-                afpPrivatListe={
-                  afp === 'ja_privat' && alderspensjon?.afpPrivat
-                    ? alderspensjon?.afpPrivat.afpPrivatListe
-                    : undefined
-                }
-                afpOffentligListe={
-                  afp === 'ja_offentlig' && alderspensjon?.afpOffentlig
-                    ? alderspensjon?.afpOffentlig.afpOffentligListe
-                    : undefined
-                }
-                showButtonsAndTable={
-                  !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
-                }
-              />
-              <ResultatkortAvansertBeregning
-                onButtonClick={() => setAvansertSkjemaModus('redigering')}
-              />
-              <Pensjonsavtaler headingLevel="2" />
-              <Grunnlag
-                visning="avansert"
-                headingLevel="2"
-                afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
-              />
+              <div
+                className={`${styles.container} ${styles.container__hasMobilePadding} ${styles.container__hasTopMargin}`}
+              >
+                <Simulering
+                  isLoading={isFetching}
+                  headingLevel="2"
+                  aarligInntektFoerUttakBeloep={
+                    aarligInntektFoerUttakBeloep ?? '0'
+                  }
+                  alderspensjonListe={alderspensjon?.alderspensjon}
+                  afpPrivatListe={
+                    !ufoeregrad &&
+                    afp === 'ja_privat' &&
+                    alderspensjon?.afpPrivat
+                      ? alderspensjon?.afpPrivat.afpPrivatListe
+                      : undefined
+                  }
+                  afpOffentligListe={
+                    !ufoeregrad &&
+                    afp === 'ja_offentlig' &&
+                    alderspensjon?.afpOffentlig
+                      ? alderspensjon?.afpOffentlig.afpOffentligListe
+                      : undefined
+                  }
+                  showButtonsAndTable={
+                    !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
+                  }
+                />
+                <ResultatkortAvansertBeregning
+                  onButtonClick={() => setAvansertSkjemaModus('redigering')}
+                />
+                <Pensjonsavtaler headingLevel="2" />
+                <Grunnlag
+                  visning="avansert"
+                  headingLevel="2"
+                  afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
+                />
+              </div>
+              <>
+                <div
+                  className={clsx(
+                    styles.background,
+                    styles.background__lightblue
+                  )}
+                >
+                  <div className={styles.container}>
+                    <SavnerDuNoe headingLevel="3" />
+                  </div>
+                </div>
+                <div className={styles.container}>
+                  <GrunnlagForbehold headingLevel="3" />
+                </div>
+              </>
             </>
           )}
-        </div>
+        </>
       )}
     </>
   )

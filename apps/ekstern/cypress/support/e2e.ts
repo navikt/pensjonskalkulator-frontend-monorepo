@@ -45,7 +45,7 @@ beforeEach(() => {
       method: 'GET',
       url: `${Cypress.env(
         'DECORATOR_URL'
-      )}/env?chatbot=false&redirectToUrl=https://www.ekstern.dev.nav.no/pensjon/kalkulator/start`,
+      )}/env?chatbot=false&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start`,
     },
     { fixture: 'decorator-env-features.json' }
   ).as('getDecoratorEnvFeatures')
@@ -77,10 +77,10 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-detaljert-fane',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-ufoere',
     },
-    { fixture: 'toggle-enable-detaljert-fane.json' }
-  ).as('getFeatureToggleHighcharts')
+    { fixture: 'toggle-enable-ufoere.json' }
+  ).as('getFeatureToggleUfoere')
 
   cy.intercept(
     {
@@ -91,7 +91,15 @@ beforeEach(() => {
   ).as('getEkskludertStatus')
 
   cy.intercept(
-    { method: 'GET', url: '/pensjon/kalkulator/api/v1/person' },
+    {
+      method: 'GET',
+      url: '/pensjon/kalkulator/api/v1/ufoeregrad',
+    },
+    { fixture: 'ufoeregrad.json' }
+  ).as('getUfoeregrad')
+
+  cy.intercept(
+    { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
     { fixture: 'person.json' }
   ).as('getPerson')
 

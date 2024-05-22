@@ -3,15 +3,15 @@
 exports[`GrunnlagForbehold > rendrer riktig 1`] = `
 <DocumentFragment>
   <section
-    class="_section_b1579a"
+    class="_section_1598cd"
   >
     <h2
-      class="_heading_b1579a navds-heading navds-heading--medium"
+      class="_heading_1598cd navds-heading navds-heading--medium"
     >
       grunnlag.forbehold.title
     </h2>
     <p
-      class="_text_b1579a navds-body-long navds-body-long--medium"
+      class="_text_1598cd navds-body-long navds-body-long--medium"
     >
       grunnlag.forbehold.ingress_1
       <a

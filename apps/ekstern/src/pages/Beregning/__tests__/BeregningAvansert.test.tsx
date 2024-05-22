@@ -1,3 +1,4 @@
+import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, expect, it, vi } from 'vitest'
@@ -9,6 +10,7 @@ import {
   BeregningContext,
   AvansertBeregningModus,
 } from '@/pages/Beregning/context'
+import { paths } from '@/router/constants'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -25,7 +27,7 @@ describe('BeregningAvansert', () => {
         requestId: 'xTaE6mOydr5ZI75UXq4Wi',
         startedTimeStamp: 1688046411971,
         data: {
-          fornavn: 'Aprikos',
+          navn: 'Aprikos',
           sivilstand: 'UGIFT',
           foedselsdato: '1963-04-30',
         },
@@ -175,7 +177,7 @@ describe('BeregningAvansert', () => {
       )
     })
 
-    it('Når brukeren har valgt en uttaksalder og at simulering svarer med en beregning, vises det resultatkort og simulering', async () => {
+    it('Når brukeren har valgt en uttaksalder og at simulering svarer med en beregning, vises det resultatkort og simulering med tabell, Grunnlag og Forbhold', async () => {
       const user = userEvent.setup()
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
@@ -221,19 +223,26 @@ describe('BeregningAvansert', () => {
       expect(
         container.getElementsByClassName('highcharts-loading')
       ).toHaveLength(1)
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(
           screen.queryByTestId('uttaksalder-loader')
         ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
       })
       expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
 
-      expect(
-        await screen.findByText('beregning.tabell.vis')
-      ).toBeInTheDocument()
       await user.click(
         screen.getByText('beregning.avansert.resultatkort.button')
       )
+
+      expect(await screen.findByText('grunnlag.title')).toBeInTheDocument()
+      expect(
+        await screen.findByText('grunnlag.forbehold.title')
+      ).toBeInTheDocument()
+      expect(await screen.findByText('savnerdunoe.title')).toBeInTheDocument()
+      expect(screen.queryByText('savnerdunoe.ingress')).not.toBeInTheDocument()
     })
 
     it('Når brukeren har valgt en uttaksalder og at simulering svarer med vilkaarIkkeOppfylt, logges det alert og skjemaet settes i redigeringsmodus', async () => {
@@ -356,12 +365,11 @@ describe('BeregningAvansert', () => {
     })
 
     it('viser ErrorPageUnexpected når simulering svarer med errorcode 503', async () => {
-      mockErrorResponse('/v5/alderspensjon/simulering', {
-        method: 'post',
-      })
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
 
-      const cache = console.error
-      console.error = () => {}
       // Må bruke mockResponse for å få riktig status (mockErrorResponse returnerer "originalStatus")
       mockResponse('/v5/alderspensjon/simulering', {
         status: 503,
@@ -402,10 +410,9 @@ describe('BeregningAvansert', () => {
         },
       })
 
-      expect(await screen.findByText('error.global.title')).toBeVisible()
-      expect(await screen.findByText('error.global.ingress')).toBeVisible()
-
-      console.error = cache
+      await waitFor(() => {
+        expect(navigateMock).toHaveBeenCalledWith(paths.uventetFeil)
+      })
     })
   })
 })

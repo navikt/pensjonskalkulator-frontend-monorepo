@@ -1,3 +1,5 @@
+import * as ReactRouterUtils from 'react-router'
+
 import { describe, it, vi } from 'vitest'
 
 import { Sivilstand } from '..'
@@ -31,6 +33,27 @@ describe('stegvisning - Sivilstand', () => {
       expect(result.asFragment()).toMatchSnapshot()
     })
   })
+
+  it('kaller navigate når shouldRedirectTo er angitt', async () => {
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const randomPath = '/random-path'
+
+    render(
+      <Sivilstand
+        sivilstand="UOPPGITT"
+        shouldRedirectTo={randomPath}
+        harSamboer={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(navigateMock).toHaveBeenCalledWith(randomPath)
+  })
+
   describe('rendrer slik den skal når sivilstand er oppgitt', async () => {
     it('når harSamboer er true', async () => {
       render(
@@ -142,10 +165,24 @@ describe('stegvisning - Sivilstand', () => {
       />
     )
 
+    expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
 
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })
+  })
+
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(
+      <Sivilstand
+        sivilstand="UGIFT"
+        harSamboer
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
   })
 })

@@ -7,7 +7,7 @@ import {
   ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, Button, Heading, HeadingProps } from '@navikt/ds-react'
+import { BodyLong, Button, Heading, HeadingProps, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 import Highcharts, {
   SeriesColumnOptions,
@@ -268,6 +268,21 @@ export function Simulering(props: {
     }
   }, [XAxis])
 
+  const handlePensjonsavtalerLinkClick: React.MouseEventHandler<
+    HTMLAnchorElement
+  > = (e): void => {
+    e.preventDefault()
+    const pensjonsavtalerHeader = document.getElementById(
+      'pensjonsavtaler-heading'
+    )
+    if (pensjonsavtalerHeader) {
+      window.scrollTo({
+        top: pensjonsavtalerHeader.offsetTop - 15,
+        behavior: 'smooth',
+      })
+    }
+  }
+
   return (
     <section className={styles.section}>
       <Heading level={headingLevel} size="medium" visuallyHidden>
@@ -355,7 +370,20 @@ export function Simulering(props: {
             aria-hidden
           />
           <p className={styles.infoText}>
-            <FormattedMessage id="beregning.pensjonsavtaler.info" />
+            <FormattedMessage
+              id="beregning.pensjonsavtaler.info"
+              values={{
+                scrollTo: (chunk) => (
+                  <Link
+                    href="#"
+                    data-testid="pensjonsavtaler-info-link"
+                    onClick={handlePensjonsavtalerLinkClick}
+                  >
+                    {chunk}
+                  </Link>
+                ),
+              }}
+            />
           </p>
         </div>
       )}

@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { BodyLong, Button, Heading } from '@navikt/ds-react'
 
@@ -10,25 +11,30 @@ import { getFormatMessageValues } from '@/utils/translations'
 import styles from './OffentligTP.module.scss'
 
 interface Props {
-  onCancel: () => void
+  shouldRedirectTo?: string
+  onCancel?: () => void
   onPrevious: () => void
   onNext: () => void
-  shouldJumpOverStep?: boolean
 }
 
 export function OffentligTP({
+  shouldRedirectTo,
   onCancel,
   onPrevious,
   onNext,
-  shouldJumpOverStep,
 }: Props) {
   const intl = useIntl()
+  const navigate = useNavigate()
 
   React.useEffect(() => {
-    if (shouldJumpOverStep) {
-      onNext()
+    if (shouldRedirectTo) {
+      navigate(shouldRedirectTo)
     }
-  }, [shouldJumpOverStep])
+  }, [shouldRedirectTo])
+
+  if (shouldRedirectTo) {
+    return null
+  }
 
   return (
     <Card hasLargePadding hasMargin>
@@ -58,14 +64,16 @@ export function OffentligTP({
       >
         <FormattedMessage id="stegvisning.tilbake" />
       </Button>
-      <Button
-        type="button"
-        className={styles.button}
-        variant="tertiary"
-        onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-      >
-        <FormattedMessage id="stegvisning.avbryt" />
-      </Button>
+      {onCancel && (
+        <Button
+          type="button"
+          className={styles.button}
+          variant="tertiary"
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+        >
+          <FormattedMessage id="stegvisning.avbryt" />
+        </Button>
+      )}
     </Card>
   )
 }

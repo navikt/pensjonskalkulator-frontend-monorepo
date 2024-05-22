@@ -52,7 +52,7 @@ exports[`InfoModalInntekt > viser fast info om inntekt 1`] = `
     Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.
     <br />
     <br />
-    Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.
+    Uføretrygd regnes ikke som pensjonsgivende inntekt. Uføretrygd gir opptjening til alderspensjon basert på antatt inntekt til og med året du fyller 61 år.
   </p>
 </DocumentFragment>
 `;

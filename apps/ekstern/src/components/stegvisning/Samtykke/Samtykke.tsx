@@ -11,7 +11,7 @@ import styles from './Samtykke.module.scss'
 
 interface Props {
   harSamtykket: boolean | null
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: (samtykkeData: BooleanRadio) => void
 }
@@ -114,14 +114,16 @@ export function Samtykke({
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
+        {onCancel && (
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        )}
       </form>
     </Card>
   )

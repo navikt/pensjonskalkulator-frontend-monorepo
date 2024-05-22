@@ -6,33 +6,55 @@ import { BodyLong, Label } from '@navikt/ds-react'
 import { ReadMore } from '@/components/common/ReadMore'
 import { getFormatMessageValues } from '@/utils/translations'
 
-export const ReadMoreOmPensjonsalder: React.FC = () => {
+interface Props {
+  ufoeregrad: number
+}
+export const ReadMoreOmPensjonsalder: React.FC<Props> = ({ ufoeregrad }) => {
   const intl = useIntl()
 
   return (
     <ReadMore
       name="Om pensjonsalder avansert"
       header={intl.formatMessage({
-        id: 'beregning.avansert.rediger.read_more.pensjonsalder.label',
+        id: ufoeregrad
+          ? 'omufoeretrygd.readmore.title'
+          : 'beregning.avansert.rediger.read_more.pensjonsalder.label',
       })}
     >
-      <BodyLong>
-        <FormattedMessage
-          id="beregning.avansert.rediger.read_more.pensjonsalder.intro"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
-      </BodyLong>
-      <Label as="h3">
-        <FormattedMessage id="beregning.avansert.rediger.read_more.pensjonsalder.subtitle" />
-      </Label>
-      <FormattedMessage
-        id="beregning.avansert.rediger.read_more.pensjonsalder.body"
-        values={{
-          ...getFormatMessageValues(intl),
-        }}
-      />
+      {ufoeregrad ? (
+        <BodyLong>
+          <FormattedMessage
+            id={
+              ufoeregrad === 100
+                ? 'omufoeretrygd.readmore.hel.ingress'
+                : 'omufoeretrygd.readmore.gradert.avansert.ingress'
+            }
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </BodyLong>
+      ) : (
+        <>
+          <BodyLong>
+            <FormattedMessage
+              id="beregning.avansert.rediger.read_more.pensjonsalder.intro"
+              values={{
+                ...getFormatMessageValues(intl),
+              }}
+            />
+          </BodyLong>
+          <Label as="h3">
+            <FormattedMessage id="beregning.avansert.rediger.read_more.pensjonsalder.subtitle" />
+          </Label>
+          <FormattedMessage
+            id="beregning.avansert.rediger.read_more.pensjonsalder.body"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </>
+      )}
     </ReadMore>
   )
 }

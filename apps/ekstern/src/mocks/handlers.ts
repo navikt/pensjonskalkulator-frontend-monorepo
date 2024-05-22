@@ -2,14 +2,17 @@ import { delay, http, HttpResponse } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
 
+import ansattIdResponse from './data/ansatt-id.json' assert { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' assert { type: 'json' }
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
+import ufoeregradResponse from './data/ufoeregrad.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
-import highchartsAfpOffentligToggleResponse from './data/unleash-enable-afp-offentlig.json' assert { type: 'json' }
+import afpOffentligToggleResponse from './data/unleash-enable-afp-offentlig.json' assert { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
+import ufoereToggleResponse from './data/unleash-enable-ufoere.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
@@ -24,9 +27,31 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(inntektResponse)
   }),
 
-  http.get(`${baseUrl}/v1/person`, async () => {
+  http.get(`${baseUrl}/v1/ekskludert`, async () => {
     await delay(TEST_DELAY)
+    return HttpResponse.json(ekskludertStatusResponse)
+  }),
+
+  http.get(`${baseUrl}/v1/ufoeregrad`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(ufoeregradResponse)
+  }),
+
+  http.get(`${baseUrl}/v2/person`, async ({ request }) => {
+    await delay(TEST_DELAY)
+    if (request.headers.get('fnr') === '40100000000') {
+      return HttpResponse.json({}, { status: 401 })
+    }
+    if (request.headers.get('fnr') === '40400000000') {
+      return HttpResponse.json({}, { status: 404 })
+    }
+
     return HttpResponse.json(personResponse)
+  }),
+
+  http.get(`${baseUrl}/v1/ansatt-id`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(ansattIdResponse)
   }),
 
   http.get(`${baseUrl}/tpo-medlemskap`, async () => {
@@ -37,11 +62,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   http.post(`${baseUrl}/v1/tidligste-hel-uttaksalder`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(tidligstMuligHeltUttakResponse)
-  }),
-
-  http.get(`${baseUrl}/v1/ekskludert`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(ekskludertStatusResponse)
   }),
 
   http.post(`${baseUrl}/v2/pensjonsavtaler`, async ({ request }) => {
@@ -111,9 +131,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     `${baseUrl}/feature/pensjonskalkulator.enable-afp-offentlig`,
     async () => {
       await delay(TEST_DELAY)
-      return HttpResponse.json(highchartsAfpOffentligToggleResponse)
+      return HttpResponse.json(afpOffentligToggleResponse)
     }
   ),
+
+  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-ufoere`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(ufoereToggleResponse)
+  }),
 
   http.post('http://localhost:12347/collect', async ({ request }) => {
     await request.json()

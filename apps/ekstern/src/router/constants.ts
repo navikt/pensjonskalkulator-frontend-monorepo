@@ -6,6 +6,7 @@ export const externalUrls = {
   detaljertKalkulator: 'https://www.nav.no/pselv/simulering.jsf',
   alderspensjonsregler: 'https://www.nav.no/alderspensjon#beregning',
   afp: 'https://www.afp.no',
+  afpPrivat: 'https://www.nav.no/afp-i-privat-sektor',
   garantipensjon: 'https://www.nav.no/minstepensjon',
   norskPensjon: 'https://norskpensjon.no/',
   uinnloggetKalkulator:
@@ -14,6 +15,9 @@ export const externalUrls = {
     'https://www.nav.no/personvernerklaering#dine-rettigheter',
   personvernerklaeringKontaktOss:
     'https://www.nav.no/personvernerklaering#kontakt-nav',
+  kontaktOss: 'https://www.nav.no/kontaktoss',
+  planleggePensjon:
+    'https://www.nav.no/planlegger-pensjon#noe-du-ikke-finner-svaret-p-her',
 }
 
 export const paths = {
@@ -25,10 +29,11 @@ export const paths = {
   utenlandsopphold: '/utenlandsopphold',
   offentligTp: '/offentlig-tp',
   afp: '/afp',
+  ufoeretrygd: '/ufoeretrygd-afp',
   sivilstand: '/sivilstand',
   uventetFeil: '/uventet-feil',
   beregningEnkel: '/beregning',
-  beregningDetaljert: '/beregning-detaljert',
+  beregningAvansert: '/beregning-detaljert',
   forbehold: '/forbehold',
   personopplysninger: '/personopplysninger',
 } as const

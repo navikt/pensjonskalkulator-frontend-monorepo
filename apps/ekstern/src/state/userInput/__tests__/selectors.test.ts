@@ -12,6 +12,9 @@ import {
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
   selectHarHentetTpoMedlemskap,
+  selectIsVeileder,
+  selectVeilederBorgerFnr,
+  selectUfoeregrad,
 } from '../selectors'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -86,7 +89,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'UGIFT',
               foedselsdato: '1963-04-30',
             },
@@ -117,7 +120,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'UGIFT',
               foedselsdato: '1963-04-30',
             },
@@ -145,7 +148,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'GIFT',
               foedselsdato: '1963-04-30',
             },
@@ -176,7 +179,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'UGIFT',
               foedselsdato: '1963-04-30',
             },
@@ -209,7 +212,7 @@ describe('userInput selectors', () => {
             requestId: 'xTaE6mOydr5ZI75UXq4Wi',
             startedTimeStamp: 1688046411971,
             data: {
-              fornavn: 'Aprikos',
+              navn: 'Aprikos',
               sivilstand: 'GIFT',
               foedselsdato: '1963-04-30',
             },
@@ -400,6 +403,75 @@ describe('userInput selectors', () => {
         },
       }
       expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
+    })
+  })
+  describe('selectIsVeileder', () => {
+    it('er false når veilederBorgerFnr ikke er satt', () => {
+      const state: RootState = initialState
+      expect(selectIsVeileder(state)).toBe(false)
+    })
+
+    it('er true når veilederBorgerFnr er satt', () => {
+      const state: RootState = {
+        ...initialState,
+        userInput: {
+          ...initialState.userInput,
+          veilederBorgerFnr: '81549300',
+        },
+      }
+      expect(selectIsVeileder(state)).toBe(true)
+    })
+  })
+
+  describe('selectVeilederBorgerFnr', () => {
+    it('er undefined når veilederBorgerFnr ikke er satt', () => {
+      const state: RootState = initialState
+      expect(selectVeilederBorgerFnr(state)).toBeUndefined()
+    })
+
+    it('er fnr når veilederBorgerFnr er satt', () => {
+      const testFnr = '81549300'
+      const state: RootState = {
+        ...initialState,
+        userInput: {
+          ...initialState.userInput,
+          veilederBorgerFnr: testFnr,
+        },
+      }
+      expect(selectVeilederBorgerFnr(state)).toBe(testFnr)
+    })
+  })
+
+  describe('selectUfoeregrad', () => {
+    it('er undefined når ufoeregrad ikke er kalt enda', () => {
+      const state: RootState = initialState
+      expect(selectUfoeregrad(state)).toBeUndefined()
+    })
+
+    it('er number når kallet er vellykket', () => {
+      const fakeApiCall = {
+        queries: {
+          ['getUfoeregrad(undefined)']: {
+            status: 'fulfilled',
+            endpointName: 'getUfoeregrad',
+            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+            startedTimeStamp: 1688046411971,
+            data: {
+              ufoeregrad: 75,
+            },
+            fulfilledTimeStamp: 1688046412103,
+          },
+        },
+      }
+      const state: RootState = {
+        ...initialState,
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...fakeApiCall,
+        },
+      }
+      expect(selectUfoeregrad(state)).toBe(75)
     })
   })
 })

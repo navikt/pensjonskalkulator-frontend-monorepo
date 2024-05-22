@@ -1,5 +1,6 @@
+import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Button, Heading, Link } from '@navikt/ds-react'
@@ -12,14 +13,26 @@ import { logOpenLink, wrapLogger } from '@/utils/logging'
 import styles from './Start.module.scss'
 
 interface Props {
-  fornavn: string
-  onCancel: () => void
+  shouldRedirectTo?: string
+  navn: string
+  onCancel?: () => void
   onNext: () => void
 }
 
-export function Start({ fornavn, onCancel, onNext }: Props) {
+export function Start({ shouldRedirectTo, navn, onCancel, onNext }: Props) {
   const intl = useIntl()
-  const fornavnString = fornavn !== '' ? ` ${fornavn}!` : '!'
+  const navigate = useNavigate()
+  const navnString = navn !== '' ? ` ${navn}!` : '!'
+
+  React.useEffect(() => {
+    if (shouldRedirectTo) {
+      navigate(shouldRedirectTo)
+    }
+  }, [shouldRedirectTo])
+
+  if (shouldRedirectTo) {
+    return null
+  }
 
   return (
     <Card hasLargePadding hasMargin>
@@ -29,7 +42,7 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           <Heading level="2" size="medium" spacing>
             {`${intl.formatMessage({
               id: 'stegvisning.start.title',
-            })}${fornavnString}`}
+            })}${navnString}`}
           </Heading>
           <BodyLong size="large">
             <FormattedMessage id="stegvisning.start.ingress" />
@@ -43,13 +56,17 @@ export function Start({ fornavn, onCancel, onNext }: Props) {
           >
             <FormattedMessage id="stegvisning.start.button" />
           </Button>
-          <Button
-            type="button"
-            variant="tertiary"
-            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-          >
-            <FormattedMessage id="stegvisning.avbryt" />
-          </Button>
+          {onCancel && (
+            <Button
+              type="button"
+              variant="tertiary"
+              onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
+                onCancel
+              )}
+            >
+              <FormattedMessage id="stegvisning.avbryt" />
+            </Button>
+          )}
         </div>
       </div>
       <Link

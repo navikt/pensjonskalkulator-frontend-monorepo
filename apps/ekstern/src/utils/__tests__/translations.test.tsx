@@ -195,10 +195,10 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
     })
 
-    it('formaterer <navPersonvernerklaeringKontaktOss> med riktig url og ikon', async () => {
+    it('formaterer <navPersonvernerklaeringKontaktOssLink> med riktig url og ikon', async () => {
       render(
         <FormattedMessage
-          id="translation.test.navPersonvernerklaeringKontaktOss"
+          id="translation.test.navPersonvernerklaeringKontaktOssLink"
           values={{ ...getFormatMessageValues(intlMock) }}
         />
       )
@@ -211,6 +211,29 @@ describe('translations-utils', () => {
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         externalUrls.personvernerklaeringKontaktOss
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <kontaktOssLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.kontaktOssLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.kontaktOss
       )
 
       expect(

@@ -1,7 +1,11 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Link as ReactRouterLink, Await } from 'react-router-dom'
-import { useOutletContext } from 'react-router-dom'
+import {
+  Await,
+  Link as ReactRouterLink,
+  useNavigate,
+  useOutletContext,
+} from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import {
@@ -14,9 +18,8 @@ import {
 } from '@navikt/ds-react'
 
 import { Loader } from '@/components/common/Loader'
-import { BASE_PATH, externalUrls, paths } from '@/router/constants'
-import { useGetPersonAccessData } from '@/router/loaders'
-import { LoginContext } from '@/router/loaders'
+import { externalUrls, paths } from '@/router/constants'
+import { LoginContext, useLandingPageAccessData } from '@/router/loaders'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 
 import styles from './LandingPage.module.scss'
@@ -25,7 +28,8 @@ export const LandingPage = () => {
   const intl = useIntl()
   const { isLoggedIn } = useOutletContext<LoginContext>()
 
-  const loaderData = useGetPersonAccessData()
+  const loaderData = useLandingPageAccessData()
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -38,7 +42,7 @@ export const LandingPage = () => {
   }
 
   const gaaTilEnkelKalkulator = () => {
-    window.open(`${BASE_PATH}${paths.start}`, '_self')
+    navigate(paths.start)
   }
 
   const gaaTilUinnloggetKalkulator = () => {
@@ -61,73 +65,87 @@ export const LandingPage = () => {
         id: 'landingsside.button.enkel_kalkulator_utlogget',
       })
 
-  const TopSection: React.FC = () => (
-    <section>
-      <VStack gap="4">
-        <Heading size="medium" level="2">
-          {intl.formatMessage({
-            id: 'landingsside.for.deg.foedt.etter.1963',
-          })}
-        </Heading>
-        <BodyLong>
-          {intl.formatMessage({
-            id: 'landingsside.velge_mellom_detaljert_og_enkel',
-          })}
-        </BodyLong>
-        <div>
+  const TopSection: React.FC<{ shouldRedirectTo?: string }> = ({
+    shouldRedirectTo,
+  }) => {
+    React.useEffect(() => {
+      if (shouldRedirectTo) {
+        navigate(shouldRedirectTo)
+      }
+    }, [shouldRedirectTo])
+
+    if (shouldRedirectTo) {
+      return null
+    }
+
+    return (
+      <section>
+        <VStack gap="4">
+          <Heading size="medium" level="2">
+            {intl.formatMessage({
+              id: 'landingsside.for.deg.foedt.etter.1963',
+            })}
+          </Heading>
           <BodyLong>
             {intl.formatMessage({
-              id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
+              id: 'landingsside.velge_mellom_detaljert_og_enkel',
             })}
           </BodyLong>
-          <ul>
-            <li>
+          <div>
+            <BodyLong>
               {intl.formatMessage({
-                id: 'landingsside.liste.1',
+                id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
               })}
-            </li>
-            <li>
+            </BodyLong>
+            <ul>
+              <li>
+                {intl.formatMessage({
+                  id: 'landingsside.liste.1',
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'landingsside.liste.2',
+                })}
+              </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'landingsside.liste.3',
+                })}
+              </li>
+            </ul>
+            <BodyLong className={styles.paragraph}>
               {intl.formatMessage({
-                id: 'landingsside.liste.2',
+                id: 'landingsside.velge_mellom_detaljert_og_enkel_3',
               })}
-            </li>
-            <li>
-              {intl.formatMessage({
-                id: 'landingsside.liste.3',
-              })}
-            </li>
-          </ul>
-          <BodyLong className={styles.paragraph}>
-            {intl.formatMessage({
-              id: 'landingsside.velge_mellom_detaljert_og_enkel_3',
-            })}
-          </BodyLong>
-          <HStack gap="4">
-            <Button
-              data-testid="landingside-enkel-kalkulator-button"
-              variant="primary"
-              className={styles.button}
-              onClick={wrapLogger('button klikk', {
-                tekst: 'Pensjonskalkulator',
-              })(gaaTilEnkelKalkulator)}
-            >
-              {enkelKalkulatorButtonText}
-            </Button>
-            <Button
-              data-testid="landingside-detaljert-kalkulator-button"
-              variant="secondary"
-              className={styles.button}
-              onClick={wrapLogger('button klikk', {
-                tekst: 'Detaljert pensjonskalkulator',
-              })(gaaTilDetaljertKalkulator)}
-            >
-              {detaljertKalkulatorButtonText}
-            </Button>
-          </HStack>
-        </div>
-      </VStack>
-    </section>
-  )
+            </BodyLong>
+            <HStack gap="4">
+              <Button
+                data-testid="landingside-enkel-kalkulator-button"
+                variant="primary"
+                className={styles.button}
+                onClick={wrapLogger('button klikk', {
+                  tekst: 'Enkel kalkulator',
+                })(gaaTilEnkelKalkulator)}
+              >
+                {enkelKalkulatorButtonText}
+              </Button>
+              <Button
+                data-testid="landingside-detaljert-kalkulator-button"
+                variant="secondary"
+                className={styles.button}
+                onClick={wrapLogger('button klikk', {
+                  tekst: 'Detaljert pensjonskalkulator',
+                })(gaaTilDetaljertKalkulator)}
+              >
+                {detaljertKalkulatorButtonText}
+              </Button>
+            </HStack>
+          </div>
+        </VStack>
+      </section>
+    )
+  }
 
   const BottomLink: React.FC = () => (
     <Link
@@ -159,13 +177,15 @@ export const LandingPage = () => {
         />
       }
     >
-      <Await resolve={loaderData.getPersonQuery}>
-        <div className={styles.landingPage}>
-          <VStack gap="10">
-            <TopSection />
-          </VStack>
-          <BottomLink />
-        </div>
+      <Await resolve={loaderData.shouldRedirectTo}>
+        {(shouldRedirectTo: string) => (
+          <div className={styles.landingPage}>
+            <VStack gap="10">
+              <TopSection shouldRedirectTo={shouldRedirectTo} />
+            </VStack>
+            <BottomLink />
+          </div>
+        )}
       </Await>
     </React.Suspense>
   ) : (

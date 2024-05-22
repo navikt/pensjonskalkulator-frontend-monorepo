@@ -2,19 +2,18 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Sivilstand } from '@/components/stegvisning/Sivilstand'
+import { Ufoere } from '@/components/stegvisning/Ufoere'
 import { paths } from '@/router/constants'
-import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectSamboerFraBrukerInput } from '@/state/userInput/selectors'
+import { selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step5() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { data: person, isSuccess } = useGetPersonQuery()
-  const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
+
+  const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -22,30 +21,21 @@ export function Step5() {
     })
   }, [])
 
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
+  // Fjern mulighet for avbryt hvis person er veileder
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        dispatch(userInputActions.flush())
+        navigate(paths.login)
+      }
 
   const onPrevious = (): void => {
     return navigate(paths.afp)
   }
 
-  const onNext = (sivilstandData: BooleanRadio): void => {
-    dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
-    navigate(paths.beregningEnkel)
+  const onNext = (): void => {
+    navigate(paths.sivilstand)
   }
-  return (
-    <>
-      {isSuccess && (
-        <Sivilstand
-          sivilstand={person.sivilstand}
-          harSamboer={samboerSvar}
-          onCancel={onCancel}
-          onPrevious={onPrevious}
-          onNext={onNext}
-        />
-      )}
-    </>
-  )
+
+  return <Ufoere onCancel={onCancel} onPrevious={onPrevious} onNext={onNext} />
 }

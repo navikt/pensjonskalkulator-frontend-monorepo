@@ -12,6 +12,12 @@ export const selectUtenlandsopphold = (state: RootState): boolean | null =>
 export const selectSamtykke = (state: RootState): boolean | null =>
   state.userInput.samtykke
 
+export const selectVeilederBorgerFnr = (state: RootState) =>
+  state.userInput.veilederBorgerFnr
+
+export const selectIsVeileder = (state: RootState) =>
+  !!state.userInput.veilederBorgerFnr
+
 export const selectAfp = (state: RootState): AfpRadio | null =>
   state.userInput.afp
 
@@ -89,5 +95,13 @@ export const selectHarHentetTpoMedlemskap = createSelector(
   (state) => {
     return !apiSlice.endpoints.getTpoMedlemskap.select(undefined)(state)
       ?.isUninitialized
+  }
+)
+
+export const selectUfoeregrad = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return apiSlice.endpoints.getUfoeregrad.select(undefined)(state)?.data
+      ?.ufoeregrad as number
   }
 )

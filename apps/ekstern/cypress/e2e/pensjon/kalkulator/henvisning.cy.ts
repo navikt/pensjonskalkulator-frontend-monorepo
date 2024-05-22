@@ -2,9 +2,9 @@ describe('Henvisning', () => {
   describe('Når jeg som bruker født før 1963 logger inn,', () => {
     it('Forventer jeg å bli redirigert til detaljert kalkulator.', () => {
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v1/person' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
         {
-          fornavn: 'Aprikos',
+          navn: 'Aprikos',
           sivilstand: 'UGIFT',
           foedselsdato: '1960-04-30',
         }
@@ -33,7 +33,6 @@ describe('Henvisning', () => {
     it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
       cy.login()
       cy.wait('@getAuthSession')
-      cy.contains('Kom i gang').should('not.exist')
       cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
         'exist'
       )
@@ -42,6 +41,9 @@ describe('Henvisning', () => {
         cy.get('h1').contains('Velg elektronisk ID')
       })
       cy.visit('/pensjon/kalkulator/start')
+      cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
+        'exist'
+      )
       cy.contains('button', 'Avbryt').click()
       cy.location('href').should(
         'eq',

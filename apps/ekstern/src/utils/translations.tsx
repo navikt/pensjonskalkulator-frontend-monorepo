@@ -103,6 +103,21 @@ export const getFormatMessageValues = (
         />
       </Link>
     ),
+    afpPrivatLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.afpPrivat}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
     norskPensjonLink: (chunks: string) => (
       <Link
         onClick={logOpenLink}
@@ -133,10 +148,40 @@ export const getFormatMessageValues = (
         />
       </Link>
     ),
-    navPersonvernerklaeringKontaktOss: (chunks: string) => (
+    navPersonvernerklaeringKontaktOssLink: (chunks: string) => (
       <Link
         onClick={logOpenLink}
         href={externalUrls.personvernerklaeringKontaktOss}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
+    kontaktOssLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.kontaktOss}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
+    planleggePensjonLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.planleggePensjon}
         target="_blank"
         inlineText
       >

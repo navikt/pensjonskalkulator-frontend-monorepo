@@ -69,7 +69,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
       avbrytModalRef.current?.showModal()
     }
 
-    if (window.location.href.includes(paths.beregningDetaljert)) {
+    if (window.location.href.includes(paths.beregningAvansert)) {
       if (shouldShowModalBoolean) {
         window.history.pushState(
           null,
@@ -98,7 +98,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   }, [shouldShowModalBoolean])
 
   const navigateToTab = (v: BeregningVisning) => {
-    navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningDetaljert)
+    navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningAvansert)
     dispatch(userInputActions.flushCurrentSimulation())
     setAvansertSkjemaModus('redigering')
     setHarAvansertSkjemaUnsavedChanges(false)
@@ -142,7 +142,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         }}
         width="medium"
         onClose={() => {
-          if (window.location.href.includes(paths.beregningDetaljert)) {
+          if (window.location.href.includes(paths.beregningAvansert)) {
             window.history.pushState(
               null,
               intl.formatMessage({

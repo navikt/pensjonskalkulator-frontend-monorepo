@@ -1,3 +1,4 @@
+import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
@@ -7,12 +8,16 @@ import { HOST_BASEURL } from '@/paths'
 import { BASE_PATH, paths } from '@/router/constants'
 import { externalUrls } from '@/router/constants'
 import { routes } from '@/router/routes'
+import { store } from '@/state/store'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
+
+const initialGetState = store.getState
 
 describe('LandingPage', () => {
   afterEach(() => {
     vi.clearAllMocks()
     vi.resetAllMocks()
+    store.getState = initialGetState
   })
 
   it('har riktig sidetittel', async () => {
@@ -107,6 +112,10 @@ describe('LandingPage', () => {
     })
 
     const user = userEvent.setup()
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
 
     const open = vi.fn()
     vi.stubGlobal('open', open)
@@ -125,7 +134,7 @@ describe('LandingPage', () => {
       )
     })
 
-    expect(open).toHaveBeenCalledWith('/pensjon/kalkulator/start', '_self')
+    expect(navigateMock).toHaveBeenCalledWith(`${paths.start}`)
   })
 
   it('går til detaljert kalkulator når brukeren klikker på knappen i det andre avsnittet', async () => {

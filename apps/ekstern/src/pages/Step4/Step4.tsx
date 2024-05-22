@@ -1,37 +1,72 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Await } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { AFP } from '@/components/stegvisning/AFP'
-import { paths } from '@/router/constants'
+import { henvisningUrlParams, paths } from '@/router/constants'
+import { useStep4AccessData } from '@/router/loaders'
 import {
-  useGetInntektQuery,
-  useGetPersonQuery,
   useGetTpoMedlemskapQuery,
+  useGetUfoereFeatureToggleQuery,
+  useGetUfoeregradQuery,
+  useGetEkskludertStatusQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
   selectAfp,
-  selectSamboerFraSivilstand,
+  selectIsVeileder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-
-import { getNesteSide } from './utils'
 
 export function Step4() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const loaderData = useStep4AccessData()
   const harSamtykket = useAppSelector(selectSamtykke)
-  const harSamboer = useAppSelector(selectSamboerFraSivilstand)
   const previousAfp = useAppSelector(selectAfp)
-  const { isLoading: isInntektLoading, isError: isInntektError } =
-    useGetInntektQuery()
-  const { isLoading: isPersonLoading } = useGetPersonQuery()
+
+  const {
+    isSuccess,
+    isError,
+    data: ufoereFeatureToggle,
+  } = useGetUfoereFeatureToggleQuery()
+  const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
+  const { data: ufoeregrad } = useGetUfoeregradQuery()
   const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
     useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
+
+  const isVeileder = useAppSelector(selectIsVeileder)
+
+  React.useEffect(() => {
+    if (
+      isSuccess &&
+      !ufoereFeatureToggle?.enabled &&
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+    /* c8 ignore next 7 - fases ut etter lansering av uføre */
+    if (
+      isError &&
+      ekskludertStatus?.ekskludert &&
+      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+  }, [isSuccess, isError, ekskludertStatus])
+
+  React.useEffect(() => {
+    if (
+      (!ufoereFeatureToggle || !ufoereFeatureToggle?.enabled) &&
+      ufoeregrad?.ufoeregrad
+    ) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
+    }
+  }, [ufoeregrad, navigate])
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -39,15 +74,13 @@ export function Step4() {
     })
   }, [])
 
-  const nesteSide = React.useMemo(
-    () => getNesteSide(harSamboer, isInntektError),
-    [harSamboer, isInntektError]
-  )
-
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
+  // Fjern mulighet for avbryt hvis person er veileder
+  const onCancel = isVeileder
+    ? undefined
+    : (): void => {
+        dispatch(userInputActions.flush())
+        navigate(paths.login)
+      }
 
   const onPrevious = (): void => {
     if (
@@ -62,29 +95,35 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    navigate(nesteSide)
-  }
-
-  if (isPersonLoading || isInntektLoading) {
-    return (
-      <div style={{ width: '100%' }}>
-        <Loader
-          data-testid="step4-loader"
-          size="3xlarge"
-          title={intl.formatMessage({ id: 'pageframework.loading' })}
-          isCentered
-        />
-      </div>
-    )
+    navigate(paths.ufoeretrygd)
   }
 
   return (
-    <AFP
-      isLastStep={nesteSide === paths.beregningEnkel}
-      afp={previousAfp}
-      onCancel={onCancel}
-      onPrevious={onPrevious}
-      onNext={onNext}
-    />
+    <React.Suspense
+      fallback={
+        <div style={{ width: '100%' }}>
+          <Loader
+            data-testid="step4-loader"
+            size="3xlarge"
+            title={intl.formatMessage({ id: 'pageframework.loading' })}
+            isCentered
+          />
+        </div>
+      }
+    >
+      <Await resolve={loaderData.shouldRedirectTo}>
+        {(shouldRedirectTo: string) => {
+          return (
+            <AFP
+              shouldRedirectTo={shouldRedirectTo}
+              afp={previousAfp}
+              onCancel={onCancel}
+              onPrevious={onPrevious}
+              onNext={onNext}
+            />
+          )
+        }}
+      </Await>
+    </React.Suspense>
   )
 }

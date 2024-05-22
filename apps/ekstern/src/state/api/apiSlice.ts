@@ -9,20 +9,28 @@ import {
   isUnleashToggle,
   isAlder,
   isEkskludertStatus,
+  isUfoeregrad,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
+import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
+import { RootState } from '@/state/store'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASEURL,
+    prepareHeaders: (headers, { getState }) => {
+      const veilederBorgerFnr = selectVeilederBorgerFnr(getState() as RootState)
+      if (veilederBorgerFnr) {
+        headers.set('fnr', veilederBorgerFnr)
+      }
+    },
   }),
-  tagTypes: ['Person', 'Inntekt', 'Alderspensjon', 'TidligstMuligHeltUttak'],
+  tagTypes: ['Person', 'TpoMedlemskap', 'Alderspensjon', 'Pensjonsavtaler'],
   keepUnusedDataFor: 3600,
   endpoints: (builder) => ({
     getInntekt: builder.query<Inntekt, void>({
       query: () => '/inntekt',
-      providesTags: ['Inntekt'],
       transformResponse: (response) => {
         if (!isInntekt(response)) {
           throw new Error(`Mottok ugyldig inntekt: ${response}`)
@@ -31,7 +39,7 @@ export const apiSlice = createApi({
       },
     }),
     getPerson: builder.query<Person, void>({
-      query: () => '/v1/person',
+      query: () => '/v2/person',
       providesTags: ['Person'],
       transformResponse: (response) => {
         if (!isPerson(response)) {
@@ -52,8 +60,18 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getUfoeregrad: builder.query<Ufoeregrad, void>({
+      query: () => '/v1/ufoeregrad',
+      transformResponse: (response: any) => {
+        if (!isUfoeregrad(response)) {
+          throw new Error(`Mottok ugyldig ufoeregrad response:`, response)
+        }
+        return response
+      },
+    }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
       query: () => '/tpo-medlemskap',
+      providesTags: ['TpoMedlemskap'],
       transformResponse: (response: TpoMedlemskap) => {
         if (!isTpoMedlemskap(response)) {
           throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
@@ -70,7 +88,6 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
-      providesTags: ['TidligstMuligHeltUttak'],
       transformResponse: (response: Alder) => {
         if (!isAlder(response)) {
           throw new Error(`Mottok ugyldig uttaksalder: ${response}`)
@@ -87,6 +104,7 @@ export const apiSlice = createApi({
         method: 'POST',
         body,
       }),
+      providesTags: ['Pensjonsavtaler'],
       transformResponse: (response: PensjonsavtalerResponseBody) => {
         if (
           !response.avtaler ||
@@ -154,8 +172,23 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getDetaljertFaneFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-detaljert-fane',
+    }),
     getAfpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.enable-afp-offentlig',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
+    getAnsattId: builder.query<Ansatt, void>({
+      query: () => '/v1/ansatt-id',
+    }),
+    getUfoereFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-ufoere',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -167,9 +200,11 @@ export const apiSlice = createApi({
 })
 
 export const {
+  useGetAnsattIdQuery,
   useGetInntektQuery,
   useGetPersonQuery,
   useGetEkskludertStatusQuery,
+  useGetUfoeregradQuery,
   useGetTpoMedlemskapQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
@@ -177,4 +212,5 @@ export const {
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetAfpOffentligFeatureToggleQuery,
+  useGetUfoereFeatureToggleQuery,
 } = apiSlice

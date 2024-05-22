@@ -172,6 +172,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v1/ufoeregrad': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Hente gjeldende uføregrad
+     *
+     * @description Hente gjeldende uføregrad fra løpende vedtak om uføretrygd om det finnes
+     */
+    get: operations['hentUfoeregrad']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v1/person': {
     parameters: {
       query?: never
@@ -837,6 +858,10 @@ export interface components {
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
     }
+    UfoeregradDto: {
+      /** Format: int32 */
+      ufoeregrad: number
+    }
     UttaksalderAlderDto: {
       /** Format: int32 */
       aar: number
@@ -1184,6 +1209,35 @@ export interface operations {
         }
       }
       /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  hentUfoeregrad: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Henting av uføregrad utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['UfoeregradDto']
+        }
+      }
+      /** @description henting av uføregrad kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

@@ -1,5 +1,7 @@
+import React from 'react'
 import { FormEvent, useMemo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
+import { useNavigate } from 'react-router-dom'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
@@ -10,14 +12,16 @@ import { formatSivilstand } from '@/utils/sivilstand'
 import styles from './Sivilstand.module.scss'
 
 interface Props {
+  shouldRedirectTo?: string
   sivilstand: Sivilstand
   harSamboer: boolean | null
-  onCancel: () => void
+  onCancel?: () => void
   onPrevious: () => void
   onNext: (sivilstandData: BooleanRadio) => void
 }
 
 export function Sivilstand({
+  shouldRedirectTo,
   sivilstand,
   harSamboer,
   onCancel,
@@ -25,7 +29,14 @@ export function Sivilstand({
   onNext,
 }: Props) {
   const intl = useIntl()
+  const navigate = useNavigate()
   const [validationError, setValidationError] = useState<string>('')
+
+  React.useEffect(() => {
+    if (shouldRedirectTo) {
+      navigate(shouldRedirectTo)
+    }
+  }, [shouldRedirectTo])
 
   const formatertSivilstand = useMemo(
     () => formatSivilstand(intl, sivilstand).toLowerCase(),
@@ -58,6 +69,10 @@ export function Sivilstand({
 
   const handleRadioChange = (): void => {
     setValidationError('')
+  }
+
+  if (shouldRedirectTo) {
+    return null
   }
 
   return (
@@ -99,14 +114,16 @@ export function Sivilstand({
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>
-        <Button
-          type="button"
-          className={styles.button}
-          variant="tertiary"
-          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-        >
-          <FormattedMessage id="stegvisning.avbryt" />
-        </Button>
+        {onCancel && (
+          <Button
+            type="button"
+            className={styles.button}
+            variant="tertiary"
+            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
+          >
+            <FormattedMessage id="stegvisning.avbryt" />
+          </Button>
+        )}
       </form>
     </Card>
   )

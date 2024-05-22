@@ -7,7 +7,9 @@ const translations = {
   'application.title.stegvisning.step3':
     'Offentlig tjenestepensjon – Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
-  'application.title.stegvisning.step5': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.step5':
+    'Uføretrygd og AFP – Pensjonskalkulator',
+  'application.title.stegvisning.step6': 'Sivilstand – Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
@@ -157,6 +159,19 @@ const translations = {
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker, bør du sjekke med arbeidsgiveren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
+  'stegvisning.ufoere.title': 'Uføretrygd og avtalefestet pensjon',
+  'stegvisning.ufoere.info':
+    'Du kan ikke kombinere uføretrygd og avtalefestet pensjon (AFP). Du må velge før du fyller 62 år.',
+  'stegvisning.ufoere.readmore_1.title':
+    'Om uføretrygd og avtalefestet pensjon',
+  'stegvisning.ufoere.readmore_1.body':
+    'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra NAV etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.{br}{br}Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.',
+  'stegvisning.ufoere.readmore_2.title':
+    'Få hjelp til å finne ut hva som lønner seg',
+  'stegvisning.ufoere.readmore_2.body':
+    'Hvis du jobber i privat sektor, <planleggePensjonLink>kontakt NAV</planleggePensjonLink>. Hvis du jobber i offentlig sektor, kontakt din tjenestepensjonsordning.',
+  'stegvisning.ufoere.ingress':
+    'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
@@ -208,6 +223,18 @@ const translations = {
     'Har du AFP i offentlig sektor, kan du trolig ta ut alderspensjon tidligere enn hvis du ikke har AFP.',
   'tidligstmuliguttak.error':
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
+  'omufoeretrygd.hel.ingress':
+    'Du har <nowrap>100 %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Kommende lovendringer vil gradvis øke pensjonsalderen for dem som er født i 1964 eller senere.',
+  'omufoeretrygd.gradert.ingress':
+    'Du har <nowrap>{grad} %</nowrap> uføretrygd. Her kan du beregne <nowrap>100 %</nowrap> alderspensjon fra 67 år. Vil du beregne uttak før 67 år, må du gå til {link}.',
+  'omufoeretrygd.readmore.title': 'Om pensjonsalder og uføretrygd',
+  'omufoeretrygd.readmore.hel.ingress':
+    '<nowrap>100 %</nowrap> uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går <nowrap>100 %</nowrap> uføretrygd automatisk over til <nowrap>100 %</nowrap> alderspensjon. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
+  'omufoeretrygd.readmore.gradert.ingress':
+    'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige <nowrap>100 %</nowrap>. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
+  'omufoeretrygd.readmore.gradert.avansert.ingress':
+    'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Ved 67 år går gradert uføretrygd automatisk over til alderspensjon.',
+  'omufoeretrygd.avansert_link': 'Avansert',
   'velguttaksalder.title': 'Når vil du ta ut alderspensjon?',
   'beregning.toggle.enkel': 'Enkel',
   'beregning.toggle.avansert': 'Avansert',
@@ -227,7 +254,7 @@ const translations = {
   'beregning.pensjonsavtaler.error.partial':
     'Vi klarte ikke å hente alle pensjonsavtalene dine',
   'beregning.pensjonsavtaler.info':
-    'Du har pensjonsavtaler som starter før valgt alder. Se detaljer i grunnlaget under.',
+    'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
   'beregning.alert.inntekt':
     'Fordi du har endret inntekten din, endres pensjonsopptjeningen din.',
@@ -264,6 +291,10 @@ const translations = {
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'Om uttaksgrad',
   'beregning.avansert.rediger.read_more.uttaksgrad.body':
     'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Du kan velge gradert uttak (20, 40, 50, 60 eller <nowrap>80 %</nowrap>), eller hel alderspensjon (<nowrap>100 %</nowrap>).',
+  'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label':
+    'Om uttaksgrad og uføretrygd',
+  'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body':
+    'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
@@ -272,12 +303,16 @@ const translations = {
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.uttaksgrad.validation_error':
     'Du må velge hvor mye alderspensjon du vil ta ut.',
+  'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error':
+    'Du må sette ned uttaksgraden slik at gradene av alderspensjon og uføretrygd ikke overstiger 100 % til sammen. Etter 67 år kan du velge 100 % uttak.',
   'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error':
     'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>100 %</nowrap> pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak':
     'Forventer du å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon?',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
     'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.',
+  'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description':
+    'Alderspensjonen påvirker ikke inntektsgrensen  for uføretrygden din.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
@@ -350,22 +385,39 @@ const translations = {
   'grunnlag.alderspensjon.ingress':
     'Alderspensjon beregnes ut ifra din pensjonsbeholdning i folketrygden. Hvis du fortsetter å ha inntekt samtidig som du tar ut pensjon, vil alderspensjonen din øke.{br}{br}<dinPensjonBeholdningLink>Din pensjonsopptjening</dinPensjonBeholdningLink> {br}{br}<alderspensjonsreglerLink>Om reglene for alderspensjon</alderspensjonsreglerLink>',
   'grunnlag.afp.title': 'AFP',
+  'grunnlag.afp.ikke_beregnet': 'ikke beregnet',
   'grunnlag.afp.ingress.null': '-',
-  'grunnlag.afp.ingress.ja_offentlig.unavailable':
-    'Vi kan ikke vise din AFP fordi regelverket for ny AFP i offentlig sektor ikke er endelig avklart. For mer informasjon, sjekk din tjenestepensjonsordning.',
   'grunnlag.afp.ingress.ja_offentlig':
     'Du har oppgitt AFP i offentlig sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din{afpLeverandoer}.',
+  'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd':
+    'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}For mer informasjon om AFP, kontakt din tjenestepensjonsordning.',
+  'grunnlag.afp.ingress.ja_offentlig.unavailable':
+    'Vi kan ikke vise din AFP fordi regelverket for ny AFP i offentlig sektor ikke er endelig avklart. For mer informasjon, sjekk din tjenestepensjonsordning.',
+  'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable':
+    'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}For mer informasjon om AFP, kontakt din tjenestepensjonsordning.',
   'grunnlag.afp.ingress.ja_privat':
     'Du har oppgitt AFP i privat sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
+  'grunnlag.afp.ingress.ja_privat.ufoeretrygd':
+    'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}Du kan lese mer om dette på <afpPrivatLink>nav.no</afpPrivatLink>. Ønsker du hjelp til å finne ut hva som lønner seg, <planleggePensjonLink>kontakt NAV</planleggePensjonLink>.',
   'grunnlag.afp.ingress.vet_ikke':
     'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon.',
+  'grunnlag.afp.ingress.vet_ikke.ufoeretrygd':
+    'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter fylte 62 år mister du retten til AFP. Du må derfor undersøke om du har rett til AFP, og velge mellom AFP og uføretrygd før du er 62 år.',
   'grunnlag.afp.ingress.nei':
     'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ',
+  'grunnlag.afp.ingress.nei.ufoeretrygd':
+    'Starter du i jobb hos en arbeidsgiver som har avtale om AFP, må du være oppmerksom på at AFP og uføretrygd ikke kan kombineres. Du må velge mellom AFP og uføretrygd før du er 62 år.',
   'grunnlag.afp.reset_link': 'ny beregning',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er en foreløpig beregning av hva du kan forvente deg i pensjon. ',
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.title': 'Forbehold',
+  'savnerdunoe.title': 'Savner du noe?',
+  'savnerdunoe.ingress':
+    'Flere valg for uttaksgrad, pensjonsalder og inntekt finner du i Avansert.',
+  'savnerdunoe.button': 'Gå til Avansert',
+  'savnerdunoe.body':
+    'Denne kalkulatoren er under utvikling. Har du behov for å lagre beregninger og se flere detaljer, kan du gjøre det i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
   'pensjonsavtaler.ingress':
@@ -422,7 +474,11 @@ const translations = {
     'Til hvilken alder forventer du å ha inntekten?',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.legg_til': 'Legg til inntekt',
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
-  'inntekt.info_om_inntekt.read_more': 'Om pensjonsgivende inntekt',
+  'inntekt.info_om_inntekt.read_more.label': 'Om pensjonsgivende inntekt',
+  'inntekt.info_om_inntekt.ufoeretrygd.read_more.label':
+    'Om inntekt og uføretrygd',
+  'inntekt.info_om_inntekt.ufoeretrygd.read_more.body':
+    'Alderspensjon er ikke pensjonsgivende inntekt og påvirker ikke inntektsgrensen for uføretrygden din. Du beholder inntektsgrensen din ved kombinasjon av uføretrygd og alderspensjon fra folketrygden.',
   'inntekt.info_om_inntekt.open.link': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_om_inntekt.intro':
     'Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. Hvis du endrer fremtidig inntekt i kalkulatoren, brukes den i stedet.{br}{br}',
@@ -442,7 +498,7 @@ const translations = {
   'inntekt.info_om_inntekt.list_item10':
     'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
   'inntekt.info_om_inntekt.ingress':
-    'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd gir opptjening til alderspensjon, men regnes ikke som pensjonsgivende inntekt.',
+    'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd regnes ikke som pensjonsgivende inntekt. Uføretrygd gir opptjening til alderspensjon basert på antatt inntekt til og med året du fyller 61 år.',
   'forbehold.title': 'Forbehold',
   'forbehold.intro':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Dersom du fortsetter i jobb etter uttak av alderspensjon, vil alderspensjon fortsette å øke etter hvert som ny opptjening legges til. Du kan tjene opp til alderspensjon til og med året du fyller 75 år.',
@@ -490,7 +546,7 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.1':
     'Fødselsnummeret ditt henter vi fra ID-porten for å identifisere deg.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.2':
-    'Fornavnet ditt henter vi fra Folkeregisteret for å tydeliggjøre at beregningen gjelder deg.',
+    'Navnet ditt henter vi fra Folkeregisteret for å tydeliggjøre at beregningen gjelder deg.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.3':
     'Fødselsdatoen din henter vi fra Folkeregisteret for at vi skal kunne beregne alderspensjonen din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.4':
@@ -525,6 +581,6 @@ const translations = {
   'personopplysninger.section.spoersmaal.heading':
     'Spørsmål til NAV eller datatilsynet om personvern',
   'personopplysninger.section.spoersmaal.text':
-    'Se kontaktinformasjon i <navPersonvernerklaeringKontaktOss>personvernerklæringen</navPersonvernerklaeringKontaktOss> for NAV.',
+    'Se kontaktinformasjon i <navPersonvernerklaeringKontaktOssLink>personvernerklæringen</navPersonvernerklaeringKontaktOssLink> for NAV.',
 }
 export const getTranslation_nb = () => translations
