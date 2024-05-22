@@ -108,7 +108,10 @@ describe('Ufoeretrygd', () => {
           cy.contains('button', '67 år').click()
           cy.contains('AFP: Offentlig (ikke beregnet)').click()
           cy.contains(
-            'Vi kan ikke vise din AFP fordi regelverket for ny AFP i offentlig sektor ikke er endelig avklart. For mer informasjon, sjekk din tjenestepensjonsordning.'
+            'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP.'
+          ).should('exist')
+          cy.contains(
+            'For mer informasjon om AFP, kontakt din tjenestepensjonsordning.'
           ).should('exist')
         })
       })
@@ -138,7 +141,10 @@ describe('Ufoeretrygd', () => {
           cy.contains('button', '67 år').click()
           cy.contains('AFP: Privat (ikke beregnet)').click()
           cy.contains(
-            'Når du mottar uføretrygd, kan du ikke selv beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter fylte 62 år mister du retten til AFP.'
+            'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP.'
+          ).should('exist')
+          cy.contains(
+            'Ønsker du hjelp til å finne ut hva som lønner seg'
           ).should('exist')
         })
       })
