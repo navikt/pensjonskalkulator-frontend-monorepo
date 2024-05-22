@@ -13,7 +13,7 @@ export const VeilederInputRequestError: React.FC<
 
   if ('status' in personError) {
     switch (personError.status) {
-      case 401:
+      case 403:
         return (
           <Alert variant="warning" data-testid="alert-ikke-tilgang">
             Du har ikke tilgang til brukeren eller pensjonskalkulatoren. Hvis du
