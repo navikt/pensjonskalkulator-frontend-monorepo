@@ -108,7 +108,10 @@ describe('Ufoeretrygd', () => {
           cy.contains('button', '67 år').click()
           cy.contains('AFP: Offentlig (ikke beregnet)').click()
           cy.contains(
-            'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}For mer informasjon om AFP, kontakt din tjenestepensjonsordning.'
+            'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP.'
+          ).should('exist')
+          cy.contains(
+            'For mer informasjon om AFP, kontakt din tjenestepensjonsordning.'
           ).should('exist')
         })
       })
@@ -138,7 +141,10 @@ describe('Ufoeretrygd', () => {
           cy.contains('button', '67 år').click()
           cy.contains('AFP: Privat (ikke beregnet)').click()
           cy.contains(
-            'Når du mottar uføretrygd, kan du ikke selv beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter fylte 62 år mister du retten til AFP.'
+            'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP.'
+          ).should('exist')
+          cy.contains(
+            'Ønsker du hjelp til å finne ut hva som lønner seg'
           ).should('exist')
         })
       })

@@ -315,7 +315,8 @@ describe('Grunnlag', () => {
       ).toBeVisible()
       expect(
         screen.getByText(
-          'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable'
+          'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren.',
+          { exact: false }
         )
       ).toBeInTheDocument()
     })
@@ -363,7 +364,8 @@ describe('Grunnlag', () => {
       ).toBeVisible()
       expect(
         screen.getByText(
-          'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable'
+          'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren.',
+          { exact: false }
         )
       ).toBeInTheDocument()
     })
@@ -411,7 +413,7 @@ describe('Grunnlag', () => {
       ).toBeVisible()
       expect(
         screen.getByText(
-          'Når du mottar uføretrygd, kan du ikke selv beregne AFP i kalkulatoren.',
+          'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren.',
           { exact: false }
         )
       ).toBeInTheDocument()
