@@ -84,7 +84,7 @@ const translations = {
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
-    'Velkommen til enkel kalkulator som er under utvikling. For å kunne beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
+    'Velkommen til pensjonskalkulatoren som er under utvikling. For å kunne beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysninger som brukes i pensjonskalkulator',
@@ -509,7 +509,7 @@ const translations = {
     'Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du gift eller har bekreftet at du har samboer, har vi forutsatt at den du bor sammen med har egen inntekt høyere enn 2 ganger grunnbeløpet eller mottar egen pensjon når du tar ut pensjon. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon. Beregningen benytter ordinær sats for beregning av garantipensjon. Dersom ektefelle eller samboer har lavere inntekt og ikke mottar egen pensjon kan du ha rett på høy sats for garantipensjon, som for noen betyr en høyere alderspensjon.{br}{br}Om du har bekreftet at du bor alene er alderspensjon beregnet etter høy sats for garantipensjon. Om du på uttakstidspunktet for pensjon likevel har samboer eller er gift, kan det gi lavere alderspensjon grunnet at ordinær sats for garantipensjon skal benyttes. ',
   'forbehold.afp.title': 'AFP',
   'forbehold.afp.ingress':
-    'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP, men forutsetter at du har rett til pensjonen du har valgt å beregne.{br}{br}Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.{br}{br}For AFP i offentlig sektor gir kalkulatoren et estimat, men AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.',
+    'NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP, men forutsetter at du har rett til pensjonen du har valgt å beregne.{br}{br}Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.{br}{br}For AFP i offentlig sektor gir kalkulatoren et estimat, beregnet etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse. Den endelige AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.',
   'forbehold.uforetrygd.title': 'Uføretrygd',
   'forbehold.uforetrygd.ingress':
     'Mottar du hel eller delvis uføretrygd kan beregningen gi feil resultat. Du må benytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',

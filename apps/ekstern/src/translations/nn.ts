@@ -79,8 +79,7 @@ const translations = {
   'stegvisning.tilbake_start': 'Tilbake til start',
   'stegvisning.beregn': 'Rekne ut pensjon',
   'stegvisning.start.title': 'Hei',
-  'stegvisning.start.ingress':
-    'Velkommen til enkel kalkulator som er under utvikling. For å kunne rekne ut pensjonen din, må du svare på alle spørsmåla som kjem.',
+  'stegvisning.start.ingress': 'MANGLER_TEKST',
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysningar som vert brukt i enkel kalkulator',
