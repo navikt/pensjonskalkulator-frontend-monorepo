@@ -20,7 +20,6 @@ import {
   useGetPersonQuery,
   apiSlice,
   useAlderspensjonQuery,
-  useGetAfpOffentligFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -49,8 +48,6 @@ export const BeregningAvansert: React.FC = () => {
     selectAarligInntektFoerUttakBeloep
   )
   const { data: person } = useGetPersonQuery()
-  const { data: afpOffentligFeatureToggle } =
-    useGetAfpOffentligFeatureToggleQuery()
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
@@ -65,11 +62,7 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonRequestBody({
-        afp: afpOffentligFeatureToggle?.enabled
-          ? afp
-          : afp === 'ja_offentlig'
-            ? 'vet_ikke'
-            : afp,
+        afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,

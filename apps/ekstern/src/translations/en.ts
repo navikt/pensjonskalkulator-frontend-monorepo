@@ -271,8 +271,6 @@ const translations = {
   'grunnlag.afp.ingress.null': '-',
   'grunnlag.afp.ingress.ja_offentlig': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.ja_offentlig.unavailable': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_privat': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.vet_ikke': 'MANGLER_TEKST',

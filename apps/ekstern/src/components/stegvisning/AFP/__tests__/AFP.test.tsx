@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { AFP } from '..'
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { mockResponse } from '@/mocks/server'
 import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
@@ -93,7 +93,6 @@ describe('stegvisning - AFP', () => {
   })
 
   it('viser riktig infomeldinger når brukeren klikker på de ulike valgene', async () => {
-    mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
     const user = userEvent.setup()
     render(
       <AFP
@@ -108,17 +107,11 @@ describe('stegvisning - AFP', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
     expect(
-      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
-    ).not.toBeInTheDocument()
-    expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
 
     await user.click(radioButtons[0])
 
-    expect(
-      screen.getByText('stegvisning.afp.alert_ja_offentlig')
-    ).toBeInTheDocument()
     expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
@@ -126,26 +119,17 @@ describe('stegvisning - AFP', () => {
     await user.click(radioButtons[1])
 
     expect(
-      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
-    ).not.toBeInTheDocument()
-    expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
 
     await user.click(radioButtons[2])
 
     expect(
-      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
-    ).not.toBeInTheDocument()
-    expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).not.toBeInTheDocument()
 
     await user.click(radioButtons[3])
 
-    expect(
-      screen.queryByText('stegvisning.afp.alert_ja_offentlig')
-    ).not.toBeInTheDocument()
     expect(
       screen.queryByText('stegvisning.afp.alert_vet_ikke')
     ).toBeInTheDocument()
@@ -252,23 +236,28 @@ describe('stegvisning - AFP', () => {
     await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
     await store.dispatch(apiSlice.endpoints.getPerson.initiate())
 
+    // viser først "neste", så endres den til "beregn" når amsboer vurderes
     expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-    expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
+    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
 
     const radioButtons = screen.getAllByRole('radio')
 
+    /* afp ja, offentlig */
     await user.click(radioButtons[0])
     expect(await screen.findByText('stegvisning.neste')).toBeVisible()
     expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
 
+    /* afp ja, privat */
     await user.click(radioButtons[1])
     expect(await screen.findByText('stegvisning.neste')).toBeVisible()
     expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
 
+    /* afp nei */
     await user.click(radioButtons[2])
-    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
     expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
+    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
 
+    /* afp vet ikke */
     await user.click(radioButtons[3])
     expect(await screen.findByText('stegvisning.neste')).toBeVisible()
     expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()

@@ -346,8 +346,6 @@ const translations = {
   'grunnlag.afp.ingress.ja_offentlig':
     'Vi kan ikkje vise din AFP fordi regelverket for ny AFP i offentleg sektor ikkje er endeleg avklart. For meir informasjon, sjekk tenestepensjonsordninga di.',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.ja_offentlig.unavailable': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_privat':
     'NAV har ikkje vurdert om du fyller inngangsvilkåra for å få AFP, men i utrekninga føreset vi at du gjer det. Les meir om vilkåra for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd': 'MANGLER_TEKST',

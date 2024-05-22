@@ -20,7 +20,6 @@ import { paths } from '@/router/constants'
 import {
   apiSlice,
   useGetPersonQuery,
-  useGetAfpOffentligFeatureToggleQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
 } from '@/state/api/apiSlice'
@@ -58,8 +57,6 @@ export const BeregningEnkel: React.FC = () => {
   )
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
-  const { data: afpOffentligFeatureToggle } =
-    useGetAfpOffentligFeatureToggleQuery()
 
   const [
     tidligstMuligHeltUttakRequestBody,
@@ -88,11 +85,7 @@ export const BeregningEnkel: React.FC = () => {
 
   React.useEffect(() => {
     const requestBody = generateTidligstMuligHeltUttakRequestBody({
-      afp: afpOffentligFeatureToggle?.enabled
-        ? afp
-        : afp === 'ja_offentlig'
-          ? 'vet_ikke'
-          : afp,
+      afp,
       sivilstand: sivilstand,
       harSamboer,
       aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
@@ -103,11 +96,7 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
-        afp: afpOffentligFeatureToggle?.enabled
-          ? afp
-          : afp === 'ja_offentlig'
-            ? 'vet_ikke'
-            : afp,
+        afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
@@ -211,11 +200,7 @@ export const BeregningEnkel: React.FC = () => {
               tidligstMuligUttak={
                 isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
               }
-              hasAfpOffentlig={
-                afpOffentligFeatureToggle?.enabled
-                  ? false
-                  : afp === 'ja_offentlig'
-              }
+              hasAfpOffentlig={afp === 'ja_offentlig'}
               show1963Text={show1963Text}
             />
           )}

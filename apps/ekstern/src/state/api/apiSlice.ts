@@ -172,18 +172,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getDetaljertFaneFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-detaljert-fane',
-    }),
-    getAfpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-afp-offentlig',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
@@ -211,6 +199,5 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetAfpOffentligFeatureToggleQuery,
   useGetUfoereFeatureToggleQuery,
 } = apiSlice

@@ -321,55 +321,6 @@ describe('Grunnlag', () => {
       ).toBeInTheDocument()
     })
 
-    it('Når brukeren har valgt AFP offentlig og at feature-toggle er av, viser riktig tittel med formatert inntekt og tekst', async () => {
-      mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
-      const user = userEvent.setup()
-      render(<Grunnlag headingLevel="2" visning="enkel" />, {
-        preloadedState: {
-          userInput: {
-            ...userInputInitialState,
-            afp: 'ja_offentlig',
-          },
-        },
-      })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
-      expect(screen.getByText('afp.offentlig')).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[6])
-
-      expect(
-        await screen.findByText('grunnlag.afp.ingress.ja_offentlig.unavailable')
-      ).toBeVisible()
-    })
-
-    it('Når en bruker med uføretrygd har valgt AFP offentlig og at feature-toggle er av, viser riktig tittel med formatert inntekt og tekst', async () => {
-      mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
-      render(<Grunnlag headingLevel="2" visning="enkel" />, {
-        preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: {
-            ...fakeApiCallUfoere,
-          },
-          userInput: {
-            ...userInputInitialState,
-            afp: 'ja_offentlig',
-          },
-        },
-      })
-      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
-      expect(
-        screen.getByText('afp.offentlig (grunnlag.afp.ikke_beregnet)')
-      ).toBeVisible()
-      expect(
-        screen.getByText(
-          'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren.',
-          { exact: false }
-        )
-      ).toBeInTheDocument()
-    })
-
     it('Når brukeren har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
