@@ -29,6 +29,7 @@ import {
   selectSamboer,
   selectCurrentSimulation,
   selectAarligInntektFoerUttakBeloep,
+  selectUfoeregrad,
 } from '@/state/userInput/selectors'
 import { logger } from '@/utils/logging'
 
@@ -43,6 +44,7 @@ export const BeregningAvansert: React.FC = () => {
 
   const harSamboer = useAppSelector(selectSamboer)
   const afp = useAppSelector(selectAfp)
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
@@ -183,12 +185,16 @@ export const BeregningAvansert: React.FC = () => {
                   }
                   alderspensjonListe={alderspensjon?.alderspensjon}
                   afpPrivatListe={
-                    afp === 'ja_privat' && alderspensjon?.afpPrivat
+                    !ufoeregrad &&
+                    afp === 'ja_privat' &&
+                    alderspensjon?.afpPrivat
                       ? alderspensjon?.afpPrivat.afpPrivatListe
                       : undefined
                   }
                   afpOffentligListe={
-                    afp === 'ja_offentlig' && alderspensjon?.afpOffentlig
+                    !ufoeregrad &&
+                    afp === 'ja_offentlig' &&
+                    alderspensjon?.afpOffentlig
                       ? alderspensjon?.afpOffentlig.afpOffentligListe
                       : undefined
                   }
