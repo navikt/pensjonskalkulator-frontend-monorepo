@@ -299,6 +299,7 @@ export const RedigerAvansertBeregning: React.FC<{
     )
     setLocalGradertUttak(undefined)
     setLocalHeltUttak(undefined)
+    setLocalHarInntektVsaGradertUttakRadio(null)
     setLocalHarInntektVsaHeltUttakRadio(null)
   }
 
