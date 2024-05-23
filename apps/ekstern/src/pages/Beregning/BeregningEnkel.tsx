@@ -105,13 +105,12 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
-        afp: ufoeregrad
-          ? 'nei'
-          : afpOffentligFeatureToggle?.enabled
-            ? afp
-            : afp === 'ja_offentlig'
-              ? 'vet_ikke'
-              : afp,
+        ufoeregrad,
+        afp: afpOffentligFeatureToggle?.enabled
+          ? afp
+          : afp === 'ja_offentlig'
+            ? 'vet_ikke'
+            : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
