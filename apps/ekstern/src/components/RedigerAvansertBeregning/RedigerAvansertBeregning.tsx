@@ -137,10 +137,7 @@ export const RedigerAvansertBeregning: React.FC<{
       ufoeregrad !== 100 &&
       alder?.aar &&
       alder?.maaneder !== undefined &&
-      (alder?.aar > DEFAULT_UBETINGET_UTTAKSALDER.aar ||
-        (alder?.aar === DEFAULT_UBETINGET_UTTAKSALDER.aar &&
-          alder?.maaneder > 0))
-
+      alder?.aar >= DEFAULT_UBETINGET_UTTAKSALDER.aar
     setValidationErrorUttaksalderGradertUttak('')
     if (shouldResetGradertUttak) {
       // Overførter verdien tilbake til helt uttak
