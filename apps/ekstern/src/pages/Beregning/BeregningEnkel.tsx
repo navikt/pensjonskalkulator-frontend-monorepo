@@ -87,7 +87,7 @@ export const BeregningEnkel: React.FC = () => {
   }, [aarligInntektFoerUttakBeloepFraBrukerInput, uttaksalder])
 
   React.useEffect(() => {
-    if (ufoeregrad === 0) {
+    if (!ufoeregrad) {
       const requestBody = generateTidligstMuligHeltUttakRequestBody({
         afp: afpOffentligFeatureToggle?.enabled
           ? afp
