@@ -265,17 +265,14 @@ describe('Grunnlag', () => {
 
     it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
-      render(
-        <Grunnlag headingLevel="2" visning="enkel" afpLeverandoer="KLP" />,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-              afp: 'ja_offentlig',
-            },
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_offentlig',
           },
-        }
-      )
+        },
+      })
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
       expect(screen.getByText('afp.offentlig')).toBeVisible()
 
@@ -284,30 +281,25 @@ describe('Grunnlag', () => {
       await user.click(buttons[6])
 
       expect(
-        await screen.findByText('Du har oppgitt AFP i offentlig sektor.', {
-          exact: false,
-        })
+        await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
       ).toBeVisible()
       expect(screen.getByText('KLP', { exact: false })).toBeVisible()
     })
 
     it('Når en bruker med uføretrygd har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
-      render(
-        <Grunnlag headingLevel="2" visning="enkel" afpLeverandoer="KLP" />,
-        {
-          preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: {
-              ...fakeApiCallUfoere,
-            },
-            userInput: {
-              ...userInputInitialState,
-              afp: 'ja_offentlig',
-            },
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...fakeApiCallUfoere,
           },
-        }
-      )
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_offentlig',
+          },
+        },
+      })
 
       expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
       expect(

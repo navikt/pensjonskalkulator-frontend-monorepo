@@ -182,14 +182,14 @@ export const BeregningAvansert: React.FC = () => {
                     !ufoeregrad &&
                     afp === 'ja_privat' &&
                     alderspensjon?.afpPrivat
-                      ? alderspensjon?.afpPrivat.afpPrivatListe
+                      ? alderspensjon?.afpPrivat
                       : undefined
                   }
                   afpOffentligListe={
                     !ufoeregrad &&
                     afp === 'ja_offentlig' &&
                     alderspensjon?.afpOffentlig
-                      ? alderspensjon?.afpOffentlig.afpOffentligListe
+                      ? alderspensjon?.afpOffentlig
                       : undefined
                   }
                   showButtonsAndTable={
@@ -200,11 +200,7 @@ export const BeregningAvansert: React.FC = () => {
                   onButtonClick={() => setAvansertSkjemaModus('redigering')}
                 />
                 <Pensjonsavtaler headingLevel="2" />
-                <Grunnlag
-                  visning="avansert"
-                  headingLevel="2"
-                  afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
-                />
+                <Grunnlag visning="avansert" headingLevel="2" />
               </div>
               <>
                 <div

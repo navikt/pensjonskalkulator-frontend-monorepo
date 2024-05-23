@@ -33,14 +33,9 @@ import styles from './Grunnlag.module.scss'
 interface Props {
   visning: BeregningVisning
   headingLevel: HeadingProps['level']
-  afpLeverandoer?: string
 }
 
-export const Grunnlag: React.FC<Props> = ({
-  visning,
-  headingLevel,
-  afpLeverandoer,
-}) => {
+export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -190,7 +185,6 @@ export const Grunnlag: React.FC<Props> = ({
               <FormattedMessage
                 id={`grunnlag.afp.ingress.${afp}${ufoeregrad ? '.ufoeretrygd' : ''}`}
                 values={{
-                  afpLeverandoer: afpLeverandoer ? ` (${afpLeverandoer})` : '',
                   ...getFormatMessageValues(intl),
                 }}
               />

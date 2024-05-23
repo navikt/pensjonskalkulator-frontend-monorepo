@@ -387,7 +387,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/v5/alderspensjon/simulering', {
+      mockErrorResponse('/v6/alderspensjon/simulering', {
         method: 'post',
       })
       return storeRef
@@ -400,7 +400,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v5/alderspensjon/simulering', {
+      mockResponse('/v6/alderspensjon/simulering', {
         status: 200,
         json: [{ 'tullete svar': 'lorem' }],
         method: 'post',
@@ -417,18 +417,17 @@ describe('apiSlice', () => {
     })
     it('kaster feil ved uventet format på responsen under afpPrivat', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v5/alderspensjon/simulering', {
+      mockResponse('/v6/alderspensjon/simulering', {
         status: 200,
         json: {
           alderspensjon: [],
-          afpPrivat: {
-            afpPrivatListe: [
-              {
-                alder: '77 år - should be number',
-                beloep: 234756,
-              },
-            ],
-          },
+          afpPrivat: [
+            {
+              alder: '77 år - should be number',
+              beloep: 234756,
+            },
+          ],
+
           vilkaarsproeving: {
             vilkaarErOppfylt: true,
           },
@@ -447,19 +446,16 @@ describe('apiSlice', () => {
     })
     it('kaster feil ved uventet format på responsen under afpOffentlig', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/v5/alderspensjon/simulering', {
+      mockResponse('/v6/alderspensjon/simulering', {
         status: 200,
         json: {
           alderspensjon: [],
-          afpOffentlig: {
-            afpLeverandoer: 19384745,
-            afpOffentligListe: [
-              {
-                alder: 62,
-                beloep: 234756,
-              },
-            ],
-          },
+          afpOffentlig: [
+            {
+              alder: 62,
+              beloep: 'abc',
+            },
+          ],
           vilkaarsproeving: {
             vilkaarErOppfylt: true,
           },

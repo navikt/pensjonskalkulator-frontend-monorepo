@@ -73,7 +73,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(data)
   }),
 
-  http.post(`${baseUrl}/v5/alderspensjon/simulering`, async ({ request }) => {
+  http.post(`${baseUrl}/v6/alderspensjon/simulering`, async ({ request }) => {
     await delay(TEST_DELAY)
     const body = await request.json()
     const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
@@ -96,15 +96,12 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
         JSON.stringify(await import(`./data/afp-offentlig.json`))
       )
       if (afpOffentligData.default.afpOffentlig) {
-        mergedData.afpOffentlig = {
-          ...afpOffentligData.default.afpOffentlig,
-          afpOffentligListe: [
-            {
-              ...afpOffentligData.default.afpOffentlig.afpOffentligListe[0],
-              alder: aar,
-            },
-          ],
-        }
+        mergedData.afpOffentlig = [
+          {
+            ...afpOffentligData.default.afpOffentlig[0],
+            alder: aar,
+          },
+        ]
       }
     }
     return HttpResponse.json(mergedData)

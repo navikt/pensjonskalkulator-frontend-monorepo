@@ -125,7 +125,7 @@ describe('Pensjonskalkulator', () => {
     cy.intercept(
       {
         method: 'POST',
-        url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+        url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
       },
       {
         alderspensjon: [],

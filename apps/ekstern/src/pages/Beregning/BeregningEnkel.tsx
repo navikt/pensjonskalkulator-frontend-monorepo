@@ -256,12 +256,12 @@ export const BeregningEnkel: React.FC = () => {
                 alderspensjonListe={alderspensjon?.alderspensjon}
                 afpPrivatListe={
                   !ufoeregrad && afp === 'ja_privat'
-                    ? alderspensjon?.afpPrivat?.afpPrivatListe
+                    ? alderspensjon?.afpPrivat
                     : undefined
                 }
                 afpOffentligListe={
                   !ufoeregrad && afp === 'ja_offentlig'
-                    ? alderspensjon?.afpOffentlig?.afpOffentligListe
+                    ? alderspensjon?.afpOffentlig
                     : undefined
                 }
                 showButtonsAndTable={
@@ -269,11 +269,7 @@ export const BeregningEnkel: React.FC = () => {
                 }
               />
               <Pensjonsavtaler headingLevel="3" />
-              <Grunnlag
-                visning="enkel"
-                headingLevel="3"
-                afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
-              />
+              <Grunnbnlag visning="enkel" headingLevel="3" />
             </>
           )}
         </div>
