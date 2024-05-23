@@ -136,6 +136,7 @@ describe('apiSlice - utils', () => {
 
   describe('generateAlderspensjonEnkelRequestBody', () => {
     const requestBody = {
+      ufoeregrad: 0,
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
@@ -173,14 +174,38 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
+          afp: 'ja_offentlig',
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
           afp: 'nei',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
-
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          afp: 'vet_ikke',
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
       expect(
         generateAlderspensjonEnkelRequestBody({
           ...requestBody,
           afp: null,
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          ufoeregrad: 75,
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          ufoeregrad: 75,
+          afp: 'ja_offentlig',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
     })
@@ -256,6 +281,7 @@ describe('apiSlice - utils', () => {
 
   describe('generateAlderspensjonRequestBody', () => {
     const requestBody = {
+      ufoeregrad: 0,
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
@@ -299,13 +325,38 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
+          afp: 'ja_offentlig',
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG')
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
           afp: 'nei',
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
+          afp: 'vet_ikke',
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
           afp: null,
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          ufoeregrad: 60,
+        })?.simuleringstype
+      ).toEqual('ALDERSPENSJON')
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          afp: 'ja_offentlig',
+          ufoeregrad: 60,
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
     })

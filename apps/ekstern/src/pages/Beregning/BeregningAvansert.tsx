@@ -62,6 +62,7 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonRequestBody({
+        ufoeregrad,
         afp,
         sivilstand: person?.sivilstand,
         harSamboer,
