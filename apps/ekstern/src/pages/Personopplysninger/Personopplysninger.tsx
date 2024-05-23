@@ -91,6 +91,9 @@ export function Personopplysninger() {
           <li>
             <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10" />
           </li>
+          <li>
+            <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11" />
+          </li>
         </ul>
 
         <Heading level="4" size="xsmall" spacing>

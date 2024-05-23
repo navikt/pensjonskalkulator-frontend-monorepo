@@ -393,6 +393,8 @@ const translations = {
     'MANGLER_TEKST',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
     'MANGLER_TEKST',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
+    'MANGLER_TEKST',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
     'MANGLER_TEKST',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.1': 'MANGLER_TEKST',

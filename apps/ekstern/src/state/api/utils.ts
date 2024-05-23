@@ -53,6 +53,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
 }
 
 export const generateAlderspensjonRequestBody = (args: {
+  ufoeregrad: number
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
@@ -62,6 +63,7 @@ export const generateAlderspensjonRequestBody = (args: {
   heltUttak?: HeltUttak
 }): AlderspensjonRequestBody | undefined => {
   const {
+    ufoeregrad,
     afp,
     sivilstand,
     harSamboer,
@@ -76,7 +78,9 @@ export const generateAlderspensjonRequestBody = (args: {
   }
 
   return {
-    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
+    simuleringstype: ufoeregrad
+      ? 'ALDERSPENSJON'
+      : getAfpSimuleringstypeFromRadio(afp),
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -111,6 +115,7 @@ export const generateAlderspensjonRequestBody = (args: {
 }
 
 export const generateAlderspensjonEnkelRequestBody = (args: {
+  ufoeregrad: number
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
@@ -119,6 +124,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   uttaksalder: Alder | null
 }): AlderspensjonRequestBody | undefined => {
   const {
+    ufoeregrad,
     afp,
     sivilstand,
     harSamboer,
@@ -132,7 +138,9 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   }
 
   return {
-    simuleringstype: getAfpSimuleringstypeFromRadio(afp),
+    simuleringstype: ufoeregrad
+      ? 'ALDERSPENSJON'
+      : getAfpSimuleringstypeFromRadio(afp),
     foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(

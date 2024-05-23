@@ -65,6 +65,7 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonRequestBody({
+        ufoeregrad,
         afp: afpOffentligFeatureToggle?.enabled
           ? afp
           : afp === 'ja_offentlig'

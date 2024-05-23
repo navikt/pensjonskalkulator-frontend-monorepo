@@ -224,13 +224,19 @@ describe('BeregningEnkel', () => {
       expect(await screen.findByText('savnerdunoe.ingress')).toBeInTheDocument()
     })
 
-    it('vises ikke AFP privat på resultatssiden, når brukeren mottar uføretrygd', async () => {
+    it('beregnes ikke med AFP privat, når brukeren mottar uføretrygd', async () => {
+      const simuleringsMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        'initiate'
+      )
+
       mockResponse('/v1/ufoeregrad', {
         status: 200,
         json: {
           ufoeregrad: 100,
         },
       })
+
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
@@ -261,6 +267,31 @@ describe('BeregningEnkel', () => {
         ).toBeInTheDocument()
       })
 
+      expect(simuleringsMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 0,
+          epsHarInntektOver2G: true,
+          foedselsdato: '1963-04-30',
+          heltUttak: {
+            uttaksalder: {
+              aar: 68,
+              maaneder: 0,
+            },
+          },
+          simuleringstype: 'ALDERSPENSJON',
+          sivilstand: 'UGIFT',
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
+
       await user.click(await screen.findByText('beregning.tabell.vis'))
 
       expect(
@@ -280,7 +311,11 @@ describe('BeregningEnkel', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('vises ikke AFP offentlig på resultatssiden, når brukeren mottar uføretrygd', async () => {
+    it('beregnes ikke med AFP offentlig, når brukeren mottar uføretrygd', async () => {
+      const simuleringsMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        'initiate'
+      )
       mockResponse('/v1/ufoeregrad', {
         status: 200,
         json: {
@@ -316,6 +351,31 @@ describe('BeregningEnkel', () => {
           await screen.findByText('beregning.tabell.vis')
         ).toBeInTheDocument()
       })
+
+      expect(simuleringsMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 0,
+          epsHarInntektOver2G: true,
+          foedselsdato: '1963-04-30',
+          heltUttak: {
+            uttaksalder: {
+              aar: 68,
+              maaneder: 0,
+            },
+          },
+          simuleringstype: 'ALDERSPENSJON',
+          sivilstand: 'UGIFT',
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
 
       await user.click(await screen.findByText('beregning.tabell.vis'))
 

@@ -493,6 +493,8 @@ const translations = {
     'Vi spør deg om opphald utanfor Noreg. Har du budd eller arbeidd utanfor Noreg i meir enn 5 år, må du nytta detaljert kalkulator. Enkel kalkulator tek ikkje omsyn til lengre utanlandsopphald.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
     'Vi spør deg om du har rett til AFP i anten offentleg eller privat sektor. Vi nyttar opplysninga til å identifisere om vi skal rekne ut alderspensjonen din med AFP. Opplysninga vert og brukt til å informere om at AFP kan verka inn på kor tid du kan ta ut alderspensjon.',
+  'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
+    'MANGLER_TEKST',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
     'Opplysningar som vi hentar viss du samtykker (GDPR Art 6 (1) a, Samtykke).',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.1':
