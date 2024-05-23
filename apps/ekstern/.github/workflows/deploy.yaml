@@ -254,7 +254,7 @@ jobs:
       github.event.inputs.prod != 'true' &&
       github.ref == 'refs/heads/sandbox'
     env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-sandbox:${{ github.sha }}
+      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
