@@ -87,27 +87,31 @@ export const BeregningEnkel: React.FC = () => {
   }, [aarligInntektFoerUttakBeloepFraBrukerInput, uttaksalder])
 
   React.useEffect(() => {
-    const requestBody = generateTidligstMuligHeltUttakRequestBody({
-      afp: afpOffentligFeatureToggle?.enabled
-        ? afp
-        : afp === 'ja_offentlig'
-          ? 'vet_ikke'
-          : afp,
-      sivilstand: sivilstand,
-      harSamboer,
-      aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
-    })
-    setTidligstMuligHeltUttakRequestBody(requestBody)
-  }, [afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
-
-  React.useEffect(() => {
-    if (uttaksalder) {
-      const requestBody = generateAlderspensjonEnkelRequestBody({
+    if (ufoeregrad === 0) {
+      const requestBody = generateTidligstMuligHeltUttakRequestBody({
         afp: afpOffentligFeatureToggle?.enabled
           ? afp
           : afp === 'ja_offentlig'
             ? 'vet_ikke'
             : afp,
+        sivilstand: sivilstand,
+        harSamboer,
+        aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
+      })
+      setTidligstMuligHeltUttakRequestBody(requestBody)
+    }
+  }, [ufoeregrad, afp, sivilstand, aarligInntektFoerUttakBeloep, harSamboer])
+
+  React.useEffect(() => {
+    if (uttaksalder) {
+      const requestBody = generateAlderspensjonEnkelRequestBody({
+        afp: ufoeregrad
+          ? 'nei'
+          : afpOffentligFeatureToggle?.enabled
+            ? afp
+            : afp === 'ja_offentlig'
+              ? 'vet_ikke'
+              : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
