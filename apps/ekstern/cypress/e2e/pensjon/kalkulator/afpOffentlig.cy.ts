@@ -20,9 +20,6 @@ describe('AFP offentlig', () => {
         cy.contains('Vet ikke').should('exist')
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains(
-          'NAV kan ikke beregne AFP i offentlig sektor, men du kan likevel fortsette og beregne alderspensjon fra NAV.'
-        ).should('exist')
         cy.contains('button', 'Neste').click()
       })
 
@@ -73,7 +70,8 @@ describe('AFP offentlig', () => {
           cy.contains('87+').should('exist')
         })
 
-        it('forventer jeg å få informasjon i grunnlaget om at regelverk for AFP offentlig ikke er klart.', () => {
+        // TODO PEK-388 utdatert test
+        it.skip('forventer jeg å få informasjon i grunnlaget om at regelverk for AFP offentlig ikke er klart.', () => {
           cy.contains('button', '70').click()
           cy.contains('Øvrig grunnlag for beregningen').should('exist')
           cy.contains('AFP:').click()

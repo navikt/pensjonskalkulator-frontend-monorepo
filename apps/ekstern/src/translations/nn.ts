@@ -79,8 +79,7 @@ const translations = {
   'stegvisning.tilbake_start': 'Tilbake til start',
   'stegvisning.beregn': 'Rekne ut pensjon',
   'stegvisning.start.title': 'Hei',
-  'stegvisning.start.ingress':
-    'Velkommen til enkel kalkulator som er under utvikling. For å kunne rekne ut pensjonen din, må du svare på alle spørsmåla som kjem.',
+  'stegvisning.start.ingress': 'MANGLER_TEKST',
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysningar som vert brukt i enkel kalkulator',
@@ -150,8 +149,6 @@ const translations = {
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
   'stegvisning.afp.radio_nei': 'Nei',
   'stegvisning.afp.radio_vet_ikke': 'Veit ikkje',
-  'stegvisning.afp.alert_ja_offentlig':
-    'NAV kan ikkje rekne ut AFP i offentleg sektor, men du kan likevel fortsette for å få rekna ut alderspensjon fra NAV.',
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker på om du har rett til AFP, bør du sjekke med arbeidsgjevaren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
@@ -346,8 +343,6 @@ const translations = {
   'grunnlag.afp.ingress.ja_offentlig':
     'Vi kan ikkje vise din AFP fordi regelverket for ny AFP i offentleg sektor ikkje er endeleg avklart. For meir informasjon, sjekk tenestepensjonsordninga di.',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.ja_offentlig.unavailable': 'MANGLER_TEKST',
-  'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd.unavailable': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.ja_privat':
     'NAV har ikkje vurdert om du fyller inngangsvilkåra for å få AFP, men i utrekninga føreset vi at du gjer det. Les meir om vilkåra for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd': 'MANGLER_TEKST',

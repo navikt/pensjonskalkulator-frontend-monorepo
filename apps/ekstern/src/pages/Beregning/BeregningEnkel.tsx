@@ -20,7 +20,6 @@ import { paths } from '@/router/constants'
 import {
   apiSlice,
   useGetPersonQuery,
-  useGetAfpOffentligFeatureToggleQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
 } from '@/state/api/apiSlice'
@@ -58,8 +57,6 @@ export const BeregningEnkel: React.FC = () => {
   )
 
   const { isSuccess: isPersonSuccess, data: person } = useGetPersonQuery()
-  const { data: afpOffentligFeatureToggle } =
-    useGetAfpOffentligFeatureToggleQuery()
 
   const [
     tidligstMuligHeltUttakRequestBody,
@@ -89,11 +86,7 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (!ufoeregrad) {
       const requestBody = generateTidligstMuligHeltUttakRequestBody({
-        afp: afpOffentligFeatureToggle?.enabled
-          ? afp
-          : afp === 'ja_offentlig'
-            ? 'vet_ikke'
-            : afp,
+        afp,
         sivilstand: sivilstand,
         harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
@@ -106,11 +99,7 @@ export const BeregningEnkel: React.FC = () => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
         ufoeregrad,
-        afp: afpOffentligFeatureToggle?.enabled
-          ? afp
-          : afp === 'ja_offentlig'
-            ? 'vet_ikke'
-            : afp,
+        afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
@@ -214,11 +203,7 @@ export const BeregningEnkel: React.FC = () => {
               tidligstMuligUttak={
                 isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
               }
-              hasAfpOffentlig={
-                afpOffentligFeatureToggle?.enabled
-                  ? false
-                  : afp === 'ja_offentlig'
-              }
+              hasAfpOffentlig={afp === 'ja_offentlig'}
               show1963Text={show1963Text}
             />
           )}
@@ -271,12 +256,12 @@ export const BeregningEnkel: React.FC = () => {
                 alderspensjonListe={alderspensjon?.alderspensjon}
                 afpPrivatListe={
                   !ufoeregrad && afp === 'ja_privat'
-                    ? alderspensjon?.afpPrivat?.afpPrivatListe
+                    ? alderspensjon?.afpPrivat
                     : undefined
                 }
                 afpOffentligListe={
                   !ufoeregrad && afp === 'ja_offentlig'
-                    ? alderspensjon?.afpOffentlig?.afpOffentligListe
+                    ? alderspensjon?.afpOffentlig
                     : undefined
                 }
                 showButtonsAndTable={
@@ -284,11 +269,7 @@ export const BeregningEnkel: React.FC = () => {
                 }
               />
               <Pensjonsavtaler headingLevel="3" />
-              <Grunnlag
-                visning="enkel"
-                headingLevel="3"
-                afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
-              />
+              <Grunnlag visning="enkel" headingLevel="3" />
             </>
           )}
         </div>

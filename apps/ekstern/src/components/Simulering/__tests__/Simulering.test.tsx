@@ -115,7 +115,7 @@ describe('Simulering', () => {
           headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
           alderspensjonListe={alderspensjonData.alderspensjon}
-          afpPrivatListe={afpPrivatData.afpPrivat.afpPrivatListe}
+          afpPrivatListe={afpPrivatData.afpPrivat}
           showButtonsAndTable={true}
         />,
         {
@@ -155,7 +155,7 @@ describe('Simulering', () => {
           headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
           alderspensjonListe={alderspensjonData.alderspensjon}
-          afpOffentligListe={afpOffentligData.afpOffentlig.afpOffentligListe}
+          afpOffentligListe={afpOffentligData.afpOffentlig}
           showButtonsAndTable={true}
         />,
         {
@@ -339,7 +339,7 @@ describe('Simulering', () => {
           headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
           alderspensjonListe={alderspensjonData.alderspensjon}
-          afpPrivatListe={afpPrivatData.afpPrivat.afpPrivatListe}
+          afpPrivatListe={afpPrivatData.afpPrivat}
           showButtonsAndTable={true}
         />,
         {
@@ -378,7 +378,7 @@ describe('Simulering', () => {
           headingLevel="3"
           aarligInntektFoerUttakBeloep="500 000"
           alderspensjonListe={alderspensjonData.alderspensjon}
-          afpOffentligListe={afpOffentligData.afpOffentlig.afpOffentligListe}
+          afpOffentligListe={afpOffentligData.afpOffentlig}
           showButtonsAndTable={true}
         />,
         {
@@ -653,7 +653,7 @@ describe('Simulering', () => {
         isLoading={false}
         headingLevel="3"
         alderspensjonListe={alderspensjonData.alderspensjon}
-        afpPrivatListe={afpPrivatData.afpPrivat.afpPrivatListe}
+        afpPrivatListe={afpPrivatData.afpPrivat}
         showButtonsAndTable={true}
         aarligInntektFoerUttakBeloep="500 000"
       />,
@@ -693,7 +693,7 @@ describe('Simulering', () => {
         isLoading={false}
         headingLevel="3"
         aarligInntektFoerUttakBeloep="0"
-        afpPrivatListe={afpPrivatData.afpPrivat.afpPrivatListe}
+        afpPrivatListe={afpPrivatData.afpPrivat}
         showButtonsAndTable={true}
       />,
       {

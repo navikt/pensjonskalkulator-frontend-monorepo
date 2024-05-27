@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   isInntekt,
   isPensjonsberegningArray,
-  isAfpOffentlig,
   isPerson,
   isPensjonsavtale,
   isTpoMedlemskap,
@@ -130,7 +129,7 @@ export const apiSlice = createApi({
       AlderspensjonRequestBody
     >({
       query: (body) => ({
-        url: '/v5/alderspensjon/simulering',
+        url: '/v6/alderspensjon/simulering',
         method: 'POST',
         body,
       }),
@@ -139,8 +138,9 @@ export const apiSlice = createApi({
         if (
           !isPensjonsberegningArray(response?.alderspensjon) ||
           (response.afpPrivat &&
-            !isPensjonsberegningArray(response?.afpPrivat?.afpPrivatListe)) ||
-          (response.afpOffentlig && !isAfpOffentlig(response?.afpOffentlig))
+            !isPensjonsberegningArray(response?.afpPrivat)) ||
+          (response.afpOffentlig &&
+            !isPensjonsberegningArray(response?.afpOffentlig))
         ) {
           throw new Error(
             `Mottok ugyldig alderspensjon: ${response?.alderspensjon}`
@@ -165,18 +165,6 @@ export const apiSlice = createApi({
     >({
       query: () =>
         '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
-    getDetaljertFaneFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-detaljert-fane',
-    }),
-    getAfpOffentligFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-afp-offentlig',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -211,6 +199,5 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetAfpOffentligFeatureToggleQuery,
   useGetUfoereFeatureToggleQuery,
 } = apiSlice

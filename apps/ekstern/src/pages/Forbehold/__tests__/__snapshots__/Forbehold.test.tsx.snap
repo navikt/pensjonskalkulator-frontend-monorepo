@@ -108,7 +108,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
         Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.
         <br />
         <br />
-        For AFP i offentlig sektor gir kalkulatoren et estimat, men AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.
+        For AFP i offentlig sektor gir kalkulatoren et estimat, beregnet etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse. Den endelige AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.
       </p>
     </section>
     <section>

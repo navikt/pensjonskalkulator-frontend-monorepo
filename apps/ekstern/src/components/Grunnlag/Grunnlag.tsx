@@ -12,10 +12,7 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
-import {
-  useGetPersonQuery,
-  useGetAfpOffentligFeatureToggleQuery,
-} from '@/state/api/apiSlice'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -36,19 +33,11 @@ import styles from './Grunnlag.module.scss'
 interface Props {
   visning: BeregningVisning
   headingLevel: HeadingProps['level']
-  afpLeverandoer?: string
 }
 
-export const Grunnlag: React.FC<Props> = ({
-  visning,
-  headingLevel,
-  afpLeverandoer,
-}) => {
+export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-
-  const { data: afpOffentligFeatureToggle } =
-    useGetAfpOffentligFeatureToggleQuery()
 
   const goToStart: React.MouseEventHandler<HTMLAnchorElement> = (e): void => {
     e.preventDefault()
@@ -194,13 +183,8 @@ export const Grunnlag: React.FC<Props> = ({
           >
             <BodyLong>
               <FormattedMessage
-                id={`grunnlag.afp.ingress.${afp}${ufoeregrad ? '.ufoeretrygd' : ''}${
-                  !afpOffentligFeatureToggle?.enabled && afp === 'ja_offentlig'
-                    ? '.unavailable'
-                    : ''
-                }`}
+                id={`grunnlag.afp.ingress.${afp}${ufoeregrad ? '.ufoeretrygd' : ''}`}
                 values={{
-                  afpLeverandoer: afpLeverandoer ? ` (${afpLeverandoer})` : '',
                   ...getFormatMessageValues(intl),
                 }}
               />
