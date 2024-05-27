@@ -104,7 +104,6 @@ const translations = {
   'stegvisning.afp.radio_ja_privat': 'MANGLER_TEKST',
   'stegvisning.afp.radio_nei': 'MANGLER_TEKST',
   'stegvisning.afp.radio_vet_ikke': 'MANGLER_TEKST',
-  'stegvisning.afp.alert_ja_offentlig': 'MANGLER_TEKST',
   'stegvisning.afp.alert_vet_ikke': 'MANGLER_TEKST',
   'stegvisning.afp.validation_error': 'MANGLER_TEKST',
   'stegvisning.ufoere.title': 'MANGLER_TEKST',

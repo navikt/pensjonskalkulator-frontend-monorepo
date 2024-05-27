@@ -20,9 +20,6 @@ describe('AFP offentlig', () => {
         cy.contains('Vet ikke').should('exist')
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains(
-          'NAV kan ikke beregne AFP i offentlig sektor, men du kan likevel fortsette og beregne alderspensjon fra NAV.'
-        ).should('exist')
         cy.contains('button', 'Neste').click()
       })
 

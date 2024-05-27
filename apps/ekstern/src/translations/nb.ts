@@ -154,8 +154,6 @@ const translations = {
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
   'stegvisning.afp.radio_nei': 'Nei',
   'stegvisning.afp.radio_vet_ikke': 'Vet ikke',
-  'stegvisning.afp.alert_ja_offentlig':
-    'NAV kan ikke beregne AFP i offentlig sektor, men du kan likevel fortsette og beregne alderspensjon fra NAV.',
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker, bør du sjekke med arbeidsgiveren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',

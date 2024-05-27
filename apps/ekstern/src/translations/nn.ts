@@ -149,8 +149,6 @@ const translations = {
   'stegvisning.afp.radio_ja_privat': 'Ja, i privat sektor',
   'stegvisning.afp.radio_nei': 'Nei',
   'stegvisning.afp.radio_vet_ikke': 'Veit ikkje',
-  'stegvisning.afp.alert_ja_offentlig':
-    'NAV kan ikkje rekne ut AFP i offentleg sektor, men du kan likevel fortsette for å få rekna ut alderspensjon fra NAV.',
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker på om du har rett til AFP, bør du sjekke med arbeidsgjevaren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
