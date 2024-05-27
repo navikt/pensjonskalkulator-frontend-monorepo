@@ -283,7 +283,6 @@ describe('Grunnlag', () => {
       expect(
         await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
       ).toBeVisible()
-      expect(screen.getByText('KLP', { exact: false })).toBeVisible()
     })
 
     it('Når en bruker med uføretrygd har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {

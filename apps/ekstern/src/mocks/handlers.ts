@@ -86,7 +86,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
       const afpPrivatData = JSON.parse(
         JSON.stringify(await import(`./data/afp-privat/${aar}.json`))
       )
-      mergedData.afpPrivat = { ...afpPrivatData.default.afpPrivat }
+      mergedData.afpPrivat = [...afpPrivatData.default.afpPrivat]
     }
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
