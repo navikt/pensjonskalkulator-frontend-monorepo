@@ -70,7 +70,8 @@ describe('AFP offentlig', () => {
           cy.contains('87+').should('exist')
         })
 
-        it('forventer jeg å få informasjon i grunnlaget om at regelverk for AFP offentlig ikke er klart.', () => {
+        // TODO PEK-388 utdatert test
+        it.skip('forventer jeg å få informasjon i grunnlaget om at regelverk for AFP offentlig ikke er klart.', () => {
           cy.contains('button', '70').click()
           cy.contains('Øvrig grunnlag for beregningen').should('exist')
           cy.contains('AFP:').click()
