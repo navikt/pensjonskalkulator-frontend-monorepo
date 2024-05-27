@@ -12,6 +12,9 @@ export const selectUtenlandsopphold = (state: RootState): boolean | null =>
 export const selectSamtykke = (state: RootState): boolean | null =>
   state.userInput.samtykke
 
+export const selectsamtykkeOffentligAFP = (state: RootState): boolean | null =>
+  state.userInput.samtykkeOffentligAFP
+
 export const selectVeilederBorgerFnr = (state: RootState) =>
   state.userInput.veilederBorgerFnr
 

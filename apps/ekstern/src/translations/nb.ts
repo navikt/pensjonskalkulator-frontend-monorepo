@@ -8,8 +8,10 @@ const translations = {
     'Offentlig tjenestepensjon – Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
   'application.title.stegvisning.step5':
+    'Samtykke AFP offentlig – Pensjonskalkulator',
+  'application.title.stegvisning.step6':
     'Uføretrygd og AFP – Pensjonskalkulator',
-  'application.title.stegvisning.step6': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.step7': 'Sivilstand – Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
@@ -170,6 +172,18 @@ const translations = {
     'Hvis du jobber i privat sektor, <planleggePensjonLink>kontakt NAV</planleggePensjonLink>. Hvis du jobber i offentlig sektor, kontakt din tjenestepensjonsordning.',
   'stegvisning.ufoere.ingress':
     'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
+  'stegvisning.samtykke_offentlig_afp.title':
+    'Samtykke til at NAV beregner avtalefestet pensjon',
+  'stegvisning.samtykke_offentlig_afp.ingress':
+    'Tjenestepensjonsordningen din har ansvar for AFP i offentlig sektor. De vil gjøre den endelige AFP-beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}NAV kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. NAV vurderer ikke om du fyller vilkårene for å få AFP. ',
+  'stegvisning.samtykke_offentlig_afp.radio_label':
+    'Vil du at NAV skal beregne AFP for deg?',
+  'stegvisning.samtykke_offentlig_afp.radio_description':
+    'Samtykket gjelder kun for denne beregningen.',
+  'stegvisning.samtykke_offentlig_afp.radio_ja': 'Ja',
+  'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten',
+  'stegvisning.samtykke_offentlig_afp.validation_error':
+    'Vil du at NAV skal beregne AFP for deg?',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
