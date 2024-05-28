@@ -26,6 +26,7 @@ import { useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectSamtykke,
+  selectUfoeregrad,
   selectSivilstand,
   selectAfp,
 } from '@/state/userInput/selectors'
@@ -66,6 +67,7 @@ export function Simulering(props: {
     showButtonsAndTable,
   } = props
   const harSamtykket = useAppSelector(selectSamtykke)
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
   const { data: highchartsAccessibilityFeatureToggle } =
@@ -119,6 +121,7 @@ export function Simulering(props: {
     if (harSamtykket && uttaksalder) {
       const requestBody = generatePensjonsavtalerRequestBody({
         aarligInntektFoerUttakBeloep,
+        ufoeregrad,
         afp,
         sivilstand,
         heltUttak: {

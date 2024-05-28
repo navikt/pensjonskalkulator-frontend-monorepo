@@ -42,7 +42,7 @@ describe('BeregningEnkel', () => {
     },
   }
 
-  describe('Når en bruker ikke mottar uføretrygd', () => {
+  describe('Gitt at en bruker ikke mottar uføretrygd', () => {
     it('kalles endepunktet for tidligst mulig uttaksalder med riktig request body', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
@@ -68,6 +68,46 @@ describe('BeregningEnkel', () => {
           aarligInntektVsaPensjon: undefined,
           harEps: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
+          sivilstand: 'UGIFT',
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
+    })
+
+    it('Når brukeren har valgt AFP-offentlig og har ikke samtykket til beregning av AFP, kalles endepunktet for tidligst mulig uttaksalder med riktig request body', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
+        'initiate'
+      )
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeApiCalls },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            samtykkeOffentligAFP: false,
+            samboer: false,
+            afp: 'ja_offentlig',
+          },
+        },
+      })
+
+      expect(initiateMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 500000,
+          aarligInntektVsaPensjon: undefined,
+          harEps: false,
+          simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
         },
         {
@@ -129,7 +169,7 @@ describe('BeregningEnkel', () => {
     })
   })
 
-  describe('Når en bruker mottar uføretrygd', () => {
+  describe('Gitt at en bruker mottar uføretrygd', () => {
     const updatedFakeApiCalls = {
       queries: {
         ...fakeApiCalls.queries,
@@ -224,26 +264,99 @@ describe('BeregningEnkel', () => {
       expect(await screen.findByText('savnerdunoe.ingress')).toBeInTheDocument()
     })
 
-    it('beregnes ikke med AFP privat, når brukeren mottar uføretrygd', async () => {
+    it('beregnes med AFP offentlig, når brukeren har samtykket til det', async () => {
       const simuleringsMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
-
-      mockResponse('/v1/ufoeregrad', {
-        status: 200,
-        json: {
-          ufoeregrad: 100,
-        },
-      })
-
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
             samtykke: false,
-            afp: 'ja_privat',
+            samtykkeOffentligAFP: true,
+            afp: 'ja_offentlig',
+            currentSimulation: {
+              formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
+              uttaksalder: { aar: 68, maaneder: 0 },
+              aarligInntektFoerUttakBeloep: '0',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+      store.dispatch(apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate())
+      await user.click(await screen.findByText('68 alder.aar'))
+      const buttons = await screen.findAllByRole('button', { pressed: true })
+      expect(buttons[0]).toHaveTextContent('68 alder.aar')
+
+      await waitFor(async () => {
+        expect(
+          screen.queryByTestId('uttaksalder-loader')
+        ).not.toBeInTheDocument()
+        expect(
+          await screen.findByText('beregning.tabell.vis')
+        ).toBeInTheDocument()
+      })
+
+      expect(simuleringsMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 0,
+          epsHarInntektOver2G: true,
+          foedselsdato: '1963-04-30',
+          heltUttak: {
+            uttaksalder: {
+              aar: 68,
+              maaneder: 0,
+            },
+          },
+          simuleringstype: 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG',
+          sivilstand: 'UGIFT',
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
+
+      await user.click(await screen.findByText('beregning.tabell.vis'))
+
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.inntekt.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('columnheader', {
+          name: 'beregning.highcharts.serie.alderspensjon.name',
+        })
+      ).toBeInTheDocument()
+      expect(
+        screen.queryByRole('columnheader', {
+          name: 'beregning.highcharts.serie.afp.name',
+        })
+      ).toBeInTheDocument()
+    })
+
+    it('beregnes ikke med AFP offentlig, når brukeren ikke har samtykket til det', async () => {
+      const simuleringsMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.alderspensjon,
+        'initiate'
+      )
+      const user = userEvent.setup()
+      const { store } = render(<BeregningEnkel />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            samtykkeOffentligAFP: false,
+            afp: 'ja_offentlig',
             currentSimulation: {
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
@@ -311,24 +424,26 @@ describe('BeregningEnkel', () => {
       ).not.toBeInTheDocument()
     })
 
-    it('beregnes ikke med AFP offentlig, når brukeren mottar uføretrygd', async () => {
+    it('beregnes ikke med AFP privat, når brukeren mottar uføretrygd', async () => {
       const simuleringsMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
+
       mockResponse('/v1/ufoeregrad', {
         status: 200,
         json: {
           ufoeregrad: 100,
         },
       })
+
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
             samtykke: false,
-            afp: 'ja_offentlig',
+            afp: 'ja_privat',
             currentSimulation: {
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },

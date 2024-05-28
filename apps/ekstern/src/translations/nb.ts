@@ -231,8 +231,6 @@ const translations = {
     'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}',
   'tidligstmuliguttak.readmore_ingress.enkelt':
     'Stortinget har blitt enige om endringer i pensjonssystemet. Aldersgrensene er forventet å øke gradvis fra 1964-kullet med en til to måneder per årskull.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (<nowrap>100 %</nowrap>) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.{br}{br}Fra 67 år kan alle ta ut <nowrap>100 %</nowrap> alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
-  'tidligstmuliguttak.info_afp':
-    'Har du AFP i offentlig sektor, kan du trolig ta ut alderspensjon tidligere enn hvis du ikke har AFP.',
   'tidligstmuliguttak.error':
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
   'omufoeretrygd.hel.ingress':
@@ -403,6 +401,8 @@ const translations = {
     'Du har oppgitt AFP i offentlig sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. For mer informasjon om vilkårene, sjekk tjenestepensjonsordningen din.',
   'grunnlag.afp.ingress.ja_offentlig.ufoeretrygd':
     'Når du mottar uføretrygd, kan du ikke beregne AFP i kalkulatoren. AFP og uføretrygd kan ikke kombineres, og får du utbetalt uføretrygd etter du fyller 62 år mister du retten til AFP. Du må derfor velge mellom AFP og uføretrygd før du er 62 år.{br}{br}For mer informasjon om AFP, kontakt din tjenestepensjonsordning.',
+  'grunnlag.afp.ingress.ja_offentlig_utilgjengelig':
+    'Du har oppgitt AFP i offentlig sektor, men du har ikke samtykket til at NAV beregner den. Derfor vises ikke AFP i beregningen.',
   'grunnlag.afp.ingress.ja_privat':
     'Du har oppgitt AFP i privat sektor. NAV har ikke vurdert om du fyller vilkårene for AFP, men forutsetter at du gjør det. Les mer om vilkårene for AFP hos <afpLink>Fellesordningen for AFP</afpLink>.',
   'grunnlag.afp.ingress.ja_privat.ufoeretrygd':

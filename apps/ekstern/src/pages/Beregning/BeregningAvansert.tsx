@@ -27,6 +27,7 @@ import {
   selectAfp,
   selectSamboer,
   selectCurrentSimulation,
+  selectsamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
   selectUfoeregrad,
 } from '@/state/userInput/selectors'
@@ -42,6 +43,7 @@ export const BeregningAvansert: React.FC = () => {
     React.useContext(BeregningContext)
 
   const harSamboer = useAppSelector(selectSamboer)
+  const harSamtykketOffentligAFP = useAppSelector(selectsamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const aarligInntektFoerUttakBeloep = useAppSelector(
@@ -63,7 +65,7 @@ export const BeregningAvansert: React.FC = () => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonRequestBody({
         ufoeregrad,
-        afp,
+        afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,

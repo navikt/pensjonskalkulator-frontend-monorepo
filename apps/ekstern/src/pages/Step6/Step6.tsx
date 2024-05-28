@@ -15,7 +15,7 @@ export function Step6() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const harSamtykket = useAppSelector(selectsamtykkeOffentligAFP)
+  const harSamtykketOffentligAFP = useAppSelector(selectsamtykkeOffentligAFP)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
@@ -44,7 +44,7 @@ export function Step6() {
 
   return (
     <SamtykkeOffentligAFP
-      harSamtykket={harSamtykket}
+      harSamtykket={harSamtykketOffentligAFP}
       onCancel={onCancel}
       onPrevious={onPrevious}
       onNext={onNext}

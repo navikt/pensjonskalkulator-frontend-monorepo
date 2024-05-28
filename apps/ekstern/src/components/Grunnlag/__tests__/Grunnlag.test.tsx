@@ -263,13 +263,14 @@ describe('Grunnlag', () => {
       },
     }
 
-    it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
+    it('Når brukeren har valgt AFP offentlig og samtykket til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
             afp: 'ja_offentlig',
+            samtykkeOffentligAFP: true,
           },
         },
       })
@@ -282,6 +283,33 @@ describe('Grunnlag', () => {
 
       expect(
         await screen.findByText('grunnlag.afp.ingress.ja_offentlig')
+      ).toBeVisible()
+    })
+
+    it('Når brukeren har valgt AFP offentlig og samtykket ikke til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
+      const user = userEvent.setup()
+      render(<Grunnlag headingLevel="2" visning="enkel" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            afp: 'ja_offentlig',
+            samtykkeOffentligAFP: false,
+          },
+        },
+      })
+      expect(screen.getByText('grunnlag.afp.title')).toBeVisible()
+      expect(
+        screen.getByText('afp.offentlig (grunnlag.afp.ikke_beregnet)')
+      ).toBeVisible()
+
+      const buttons = screen.getAllByRole('button')
+
+      await user.click(buttons[6])
+
+      expect(
+        await screen.findByText(
+          'grunnlag.afp.ingress.ja_offentlig_utilgjengelig'
+        )
       ).toBeVisible()
     })
 

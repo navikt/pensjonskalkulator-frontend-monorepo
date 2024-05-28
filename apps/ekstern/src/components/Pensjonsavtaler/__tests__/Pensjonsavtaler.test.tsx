@@ -5,6 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
+import * as apiSliceUtils from '@/state/api/apiSlice'
 import {
   userInputInitialState,
   Simulation,
@@ -30,9 +31,17 @@ describe('Pensjonsavtaler', () => {
 
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
-    uttaksalder: { aar: 67, maaneder: 1 },
+    uttaksalder: { aar: 70, maaneder: 0 },
+    aarligInntektVsaHelPensjon: {
+      beloep: '500 000',
+      sluttAlder: { aar: 75, maaneder: 0 },
+    },
     aarligInntektFoerUttakBeloep: '0',
-    gradertUttaksperiode: null,
+    gradertUttaksperiode: {
+      grad: 50,
+      uttaksalder: { aar: 67, maaneder: 1 },
+      aarligInntektVsaPensjonBeloep: '300 000',
+    },
   }
   describe('Gitt at brukeren ikke har samtykket', () => {
     it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress og tabell', async () => {
@@ -103,6 +112,123 @@ describe('Pensjonsavtaler', () => {
       expect(
         await screen.findByRole('heading', { level: 3 })
       ).toHaveTextContent('pensjonsavtaler.title')
+    })
+
+    it('Når brukeren har valgt afp privat, gradert periode og inntekt, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
+        'initiate'
+      )
+      render(<Pensjonsavtaler headingLevel="3" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            afp: 'ja_privat',
+            currentSimulation: currentSimulation,
+          },
+        },
+      })
+      expect(initiateMock).toHaveBeenCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 0,
+          harAfp: true,
+          sivilstand: undefined,
+          uttaksperioder: [
+            {
+              aarligInntektVsaPensjon: {
+                beloep: 300000,
+                sluttAlder: { aar: 70, maaneder: 0 },
+              },
+              grad: 50,
+              startAlder: {
+                aar: 67,
+                maaneder: 1,
+              },
+            },
+            {
+              aarligInntektVsaPensjon: {
+                beloep: 500000,
+                sluttAlder: { aar: 75, maaneder: 0 },
+              },
+              grad: 100,
+              startAlder: {
+                aar: 70,
+                maaneder: 0,
+              },
+            },
+          ],
+        },
+        {
+          forceRefetch: undefined,
+          subscriptionOptions: {
+            pollingInterval: 0,
+            refetchOnFocus: undefined,
+            refetchOnReconnect: undefined,
+            skipPollingIfUnfocused: false,
+          },
+        }
+      )
+    })
+
+    it('Når brukeren har valgt afp privat men har uføretrygd, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
+        'initiate'
+      )
+      render(<Pensjonsavtaler headingLevel="3" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            queries: {
+              ...fakeInntektApiCall.queries,
+              ['getUfoeregrad(undefined)']: {
+                /* eslint-disable @typescript-eslint/ban-ts-comment */
+                // @ts-ignore
+                status: 'fulfilled',
+                endpointName: 'getUfoeregrad',
+                requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                startedTimeStamp: 1688046411971,
+                data: {
+                  ufoeregrad: 75,
+                },
+                fulfilledTimeStamp: 1688046412103,
+              },
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            afp: 'ja_privat',
+            currentSimulation: currentSimulation,
+          },
+        },
+      })
+      expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)
+    })
+    it('Når brukeren har valgt noe annet enn afp privat kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
+      const initiateMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
+        'initiate'
+      )
+      render(<Pensjonsavtaler headingLevel="3" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: { ...fakeInntektApiCall },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            afp: 'ja_offentlig',
+            currentSimulation: currentSimulation,
+          },
+        },
+      })
+      expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)
     })
 
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {

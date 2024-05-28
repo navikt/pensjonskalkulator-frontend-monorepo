@@ -434,7 +434,29 @@ describe('apiSlice - utils', () => {
       expect(
         generatePensjonsavtalerRequestBody({
           aarligInntektFoerUttakBeloep: '500 000',
+          ufoeregrad: 0,
           afp: 'vet_ikke',
+          heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        harAfp: false,
+        sivilstand: undefined,
+        uttaksperioder: [
+          {
+            startAlder: { aar: 67, maaneder: 0 },
+            grad: 100,
+            aarligInntektVsaPensjon: undefined,
+          },
+        ],
+      })
+    })
+    it('returnerer riktig requestBody når brukeren har uføretrygd og valgt afp privat', () => {
+      expect(
+        generatePensjonsavtalerRequestBody({
+          aarligInntektFoerUttakBeloep: '500 000',
+          ufoeregrad: 50,
+          afp: 'ja_privat',
           heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
         })
       ).toEqual({
@@ -454,6 +476,7 @@ describe('apiSlice - utils', () => {
       expect(
         generatePensjonsavtalerRequestBody({
           aarligInntektFoerUttakBeloep: '500 000',
+          ufoeregrad: 0,
           afp: 'ja_privat',
           sivilstand: 'GIFT',
           heltUttak: {
@@ -484,6 +507,7 @@ describe('apiSlice - utils', () => {
       expect(
         generatePensjonsavtalerRequestBody({
           aarligInntektFoerUttakBeloep: '500 000',
+          ufoeregrad: 0,
           afp: 'ja_privat',
           sivilstand: 'GIFT',
           heltUttak: {

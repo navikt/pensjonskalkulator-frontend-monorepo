@@ -31,6 +31,7 @@ import {
   selectSamboer,
   selectSivilstand,
   selectCurrentSimulation,
+  selectsamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectUfoeregrad,
@@ -46,6 +47,7 @@ export const BeregningEnkel: React.FC = () => {
   const navigate = useNavigate()
 
   const harSamboer = useAppSelector(selectSamboer)
+  const harSamtykketOffentligAFP = useAppSelector(selectsamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
@@ -86,7 +88,7 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (!ufoeregrad) {
       const requestBody = generateTidligstMuligHeltUttakRequestBody({
-        afp,
+        afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: sivilstand,
         harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
@@ -99,7 +101,7 @@ export const BeregningEnkel: React.FC = () => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonEnkelRequestBody({
         ufoeregrad,
-        afp,
+        afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
@@ -203,7 +205,6 @@ export const BeregningEnkel: React.FC = () => {
               tidligstMuligUttak={
                 isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
               }
-              hasAfpOffentlig={afp === 'ja_offentlig'}
               show1963Text={show1963Text}
             />
           )}

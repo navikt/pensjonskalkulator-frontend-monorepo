@@ -14,7 +14,6 @@ describe('TidligstMuligUttaksalder', () => {
     render(
       <TidligstMuligUttaksalder
         tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
-        hasAfpOffentlig={false}
         show1963Text={false}
       />
     )
@@ -55,7 +54,6 @@ describe('TidligstMuligUttaksalder', () => {
     render(
       <TidligstMuligUttaksalder
         tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
-        hasAfpOffentlig={false}
         show1963Text
       />
     )
@@ -85,63 +83,10 @@ describe('TidligstMuligUttaksalder', () => {
     })
   })
 
-  it('viser ikke AFP melding når brukeren ikke har valgt AFP-offentlig', async () => {
-    render(
-      <TidligstMuligUttaksalder
-        tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
-        hasAfpOffentlig={false}
-        show1963Text={false}
-      />
-    )
-
-    await waitFor(() => {
-      expect(
-        screen.getByText('62 alder.aar string.og 9 alder.maaneder', {
-          exact: false,
-        })
-      ).toBeInTheDocument()
-
-      expect(
-        screen.queryByText('tidligstmuliguttak.info_afp')
-      ).not.toBeInTheDocument()
-    })
-  })
-
-  it('viser ikke AFP melding når brukeren har valgt AFP-offentlig, men at tidligstMuligUttak er 62', async () => {
-    render(
-      <TidligstMuligUttaksalder
-        tidligstMuligUttak={{ aar: 62, maaneder: 0 }}
-        hasAfpOffentlig={true}
-        show1963Text={false}
-      />
-    )
-    await waitFor(() => {
-      expect(
-        screen.queryByText('tidligstmuliguttak.info_afp')
-      ).not.toBeInTheDocument()
-    })
-  })
-
-  it('viser AFP melding når brukeren har AFP offentlig og tidligstMuligUttak etter 62', async () => {
-    render(
-      <TidligstMuligUttaksalder
-        tidligstMuligUttak={{ aar: 62, maaneder: 9 }}
-        hasAfpOffentlig={true}
-        show1963Text={false}
-      />
-    )
-    await waitFor(() => {
-      expect(
-        screen.getByText('tidligstmuliguttak.info_afp')
-      ).toBeInTheDocument()
-    })
-  })
-
   it('viser readmore med riktig tekst når tidligstMuligUttak kunne hentes', async () => {
     render(
       <TidligstMuligUttaksalder
         tidligstMuligUttak={{ aar: 65, maaneder: 3 }}
-        hasAfpOffentlig={false}
         show1963Text={false}
       />
     )
@@ -169,7 +114,6 @@ describe('TidligstMuligUttaksalder', () => {
     render(
       <TidligstMuligUttaksalder
         tidligstMuligUttak={undefined}
-        hasAfpOffentlig={false}
         show1963Text={false}
       />
     )

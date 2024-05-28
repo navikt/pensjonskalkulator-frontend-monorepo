@@ -12,13 +12,11 @@ import styles from './TidligstMuligUttaksalder.module.scss'
 
 interface Props {
   tidligstMuligUttak?: Alder
-  hasAfpOffentlig: boolean
   show1963Text: boolean
 }
 
 export const TidligstMuligUttaksalder: React.FC<Props> = ({
   tidligstMuligUttak,
-  hasAfpOffentlig,
   show1963Text,
 }) => {
   const intl = useIntl()
@@ -51,24 +49,6 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                 }}
               />
             </BodyLong>
-            {
-              // TODO PEK-387: Fjerne logikk og hasAfpOffentlig prop
-            }
-            {hasAfpOffentlig && isAlderOverMinUttaksaar(tidligstMuligUttak) && (
-              <Alert
-                className={styles.alert}
-                size="small"
-                variant="info"
-                aria-live="polite"
-              >
-                <FormattedMessage
-                  id="tidligstmuliguttak.info_afp"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </Alert>
-            )}
           </>
         ) : (
           <BodyLong size="medium" className={`${styles.ingress}`}>

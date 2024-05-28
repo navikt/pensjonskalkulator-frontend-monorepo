@@ -40,7 +40,7 @@ describe('Step 7', () => {
     }))
   })
 
-  afterEach(() => {
+  afterEach(async () => {
     store.dispatch(apiSlice.util.resetApiState())
     vi.clearAllMocks()
     vi.resetAllMocks()
@@ -151,7 +151,7 @@ describe('Step 7', () => {
       hasRouter: false,
     })
 
-    store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+    await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
@@ -183,7 +183,7 @@ describe('Step 7', () => {
       hasRouter: false,
     })
 
-    store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+    await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
@@ -210,11 +210,11 @@ describe('Step 7', () => {
       hasRouter: false,
     })
 
-    store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+    await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.afp)
+      expect(navigateMock).toHaveBeenCalledWith(paths.samtykkeOffentligAFP)
     })
   })
 
@@ -237,7 +237,7 @@ describe('Step 7', () => {
       hasRouter: false,
     })
 
-    store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+    await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
