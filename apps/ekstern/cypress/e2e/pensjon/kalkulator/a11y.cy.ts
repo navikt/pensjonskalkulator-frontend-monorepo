@@ -32,7 +32,13 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
     cy.contains('button', 'Neste').click()
 
-    // Sjekker Steg 5
+    // Sjekker Steg 6
+    cy.contains('Samtykke til at NAV beregner avtalefestet pensjon')
+    cy.checkA11y('main')
+    cy.get('[type="radio"]').first().check()
+    cy.contains('button', 'Neste').click()
+
+    // Sjekker Steg 7
     cy.contains('Din sivilstand')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()

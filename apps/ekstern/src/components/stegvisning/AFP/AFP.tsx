@@ -94,7 +94,10 @@ export function AFP({
     setShowAlert(value)
     setValidationError('')
     if (harSamboer) {
-      setIsLastStep(!(ufoeregrad?.ufoeregrad && value !== 'nei'))
+      const viserInfoOmUføregrad = ufoeregrad?.ufoeregrad && value !== 'nei'
+      const viserInfoOmAFPoffentlig =
+        ufoeregrad?.ufoeregrad === 0 && value === 'ja_offentlig'
+      setIsLastStep(!viserInfoOmUføregrad && !viserInfoOmAFPoffentlig)
     }
   }
   if (shouldRedirectTo) {
