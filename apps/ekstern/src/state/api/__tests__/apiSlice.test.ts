@@ -11,6 +11,7 @@ const tidligstMuligHeltUttakResponse = require('../../../mocks/data/tidligstMuli
 const pensjonsavtalerResponse = require('../../../mocks/data/pensjonsavtaler/67.json')
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/67.json')
 const ekskludertStatusResponse = require('../../../mocks/data/ekskludert-status.json')
+const omstillingsstoenadOgGjenlevendeResponse = require('../../../mocks/data/omstillingsstoenad-og-gjenlevende.json')
 const ufoeregradResponse = require('../../../mocks/data/ufoeregrad.json')
 const spraakvelgerToggleResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
 const afpOffentligToggleResponse = require('../../../mocks/data/unleash-enable-afp-offentlig.json')
@@ -132,6 +133,42 @@ describe('apiSlice', () => {
       await swallowErrorsAsync(async () => {
         return storeRef
           .dispatch<any>(apiSlice.endpoints.getEkskludertStatus.initiate())
+          .then((result: FetchBaseQueryError) => {
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
+  describe('getOmstillingsstoenadOgGjenlevende', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = setupStore(undefined, true)
+      return storeRef
+        .dispatch<any>(
+          apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
+        )
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(
+            omstillingsstoenadOgGjenlevendeResponse
+          )
+        })
+    })
+
+    it('kaster feil ved uforventet format på data', async () => {
+      const storeRef = setupStore(undefined, true)
+
+      mockResponse('/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse', {
+        json: {
+          feil: 'format',
+        },
+      })
+      await swallowErrorsAsync(async () => {
+        return storeRef
+          .dispatch<any>(
+            apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
+          )
           .then((result: FetchBaseQueryError) => {
             expect(result.status).toBe('rejected')
             expect(result.data).toBe(undefined)

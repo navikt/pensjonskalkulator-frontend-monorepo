@@ -9,6 +9,7 @@ import {
   isUnleashToggle,
   isAlder,
   isEkskludertStatus,
+  isOmstillingsstoenadOgGjenlevende,
   isUfoeregrad,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
@@ -56,6 +57,21 @@ export const apiSlice = createApi({
       transformResponse: (response: any) => {
         if (!isEkskludertStatus(response)) {
           throw new Error(`Mottok ugyldig ekskludert response:`, response)
+        }
+        return response
+      },
+    }),
+    getOmstillingsstoenadOgGjenlevende: builder.query<
+      OmstillingsstoenadOgGjenlevende,
+      void
+    >({
+      query: () => '/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
+      transformResponse: (response: any) => {
+        if (!isOmstillingsstoenadOgGjenlevende(response)) {
+          throw new Error(
+            `Mottok ugyldig omstillingsstoenad og gjenlevende response:`,
+            response
+          )
         }
         return response
       },

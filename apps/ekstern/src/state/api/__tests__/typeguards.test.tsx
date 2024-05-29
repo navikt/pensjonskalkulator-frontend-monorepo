@@ -8,6 +8,7 @@ import {
   isAfpOffentlig,
   isPerson,
   isEkskludertStatus,
+  isOmstillingsstoenadOgGjenlevende,
   isUfoeregrad,
   isTpoMedlemskap,
   isUtbetalingsperiode,
@@ -15,8 +16,6 @@ import {
   isAlder,
   isSomeEnumKey,
 } from '../typeguards'
-import { trackOrSetValue } from '@testing-library/user-event/dist/types/document/trackValue'
-import { af } from 'date-fns/locale'
 
 describe('Typeguards', () => {
   describe('isInntekt', () => {
@@ -424,6 +423,33 @@ describe('Typeguards', () => {
         isEkskludertStatus({
           ekskludert: true,
           aarsak: 'abc',
+        })
+      ).toEqual(false)
+    })
+  })
+
+  describe('isOmstillingsstoenadOgGjenlevende', () => {
+    it('returnerer true når input er et OmstillingsstoenadOgGjenlevende-objekt', () => {
+      expect(
+        isOmstillingsstoenadOgGjenlevende({
+          harLoependeSak: true,
+        })
+      ).toEqual(true)
+    })
+
+    it('returnerer false når input ikke er et OmstillingsstoenadOgGjenlevende-objekt', () => {
+      expect(isOmstillingsstoenadOgGjenlevende(undefined)).toEqual(false)
+      expect(isOmstillingsstoenadOgGjenlevende(null)).toEqual(false)
+      expect(isOmstillingsstoenadOgGjenlevende({})).toEqual(false)
+      expect(
+        isOmstillingsstoenadOgGjenlevende({ somethingRandom: true })
+      ).toEqual(false)
+      expect(
+        isOmstillingsstoenadOgGjenlevende({ harLoependeSak: 'lorem' })
+      ).toEqual(false)
+      expect(
+        isOmstillingsstoenadOgGjenlevende({
+          harLoependeSak: null,
         })
       ).toEqual(false)
     })

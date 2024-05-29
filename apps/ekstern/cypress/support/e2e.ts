@@ -89,6 +89,14 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
+      url: '/pensjon/kalkulator/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
+    },
+    { fixture: 'omstillingsstoenad-og-gjenlevende.json' }
+  ).as('getOmstillingsstoenadOgGjenlevende')
+
+  cy.intercept(
+    {
+      method: 'GET',
       url: '/pensjon/kalkulator/api/v1/ufoeregrad',
     },
     { fixture: 'ufoeregrad.json' }

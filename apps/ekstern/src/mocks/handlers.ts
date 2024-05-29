@@ -5,6 +5,7 @@ import { API_PATH, HOST_BASEURL } from '@/paths'
 import ansattIdResponse from './data/ansatt-id.json' assert { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' assert { type: 'json' }
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
+import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
@@ -30,6 +31,14 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     await delay(TEST_DELAY)
     return HttpResponse.json(ekskludertStatusResponse)
   }),
+
+  http.get(
+    `${baseUrl}/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse`,
+    async () => {
+      await delay(TEST_DELAY)
+      return HttpResponse.json(omstillingsstoenadOgGjenlevendeResponse)
+    }
+  ),
 
   http.get(`${baseUrl}/v1/ufoeregrad`, async () => {
     await delay(TEST_DELAY)
