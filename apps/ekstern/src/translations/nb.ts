@@ -14,10 +14,6 @@ const translations = {
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
-  'application.title.henvisning.ufoeretrygd':
-    'Henvisning uføretrygd – Pensjonskalkulator',
-  'application.title.henvisning.gjenlevende':
-    'Henvisning gjenlevendepensjon – Pensjonskalkulator',
   'application.title.henvisning.apotekerne':
     'Henvisning apotekerne – Pensjonskalkulator',
   'application.title.henvisning.utland':
@@ -64,10 +60,6 @@ const translations = {
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i enkel kalkulator',
   'henvisning.detaljert_kalkulator': 'Detaljert kalkulator',
-  'henvisning.ufoeretrygd.body':
-    'Siden du mottar uføretrygd, må du bruke detaljert kalkulator.',
-  'henvisning.gjenlevende.body':
-    'Siden du mottar gjenlevendepensjon, må du bruke detaljert kalkulator.',
   'henvisning.apotekerne.body':
     'Siden du har apotekordningen, må du bruke detaljert kalkulator.',
   'henvisning.utland.body':

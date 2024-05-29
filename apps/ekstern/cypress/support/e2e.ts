@@ -81,14 +81,6 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-ufoere',
-    },
-    { fixture: 'toggle-enable-ufoere.json' }
-  ).as('getFeatureToggleUfoere')
-
-  cy.intercept(
-    {
-      method: 'GET',
       url: '/pensjon/kalkulator/api/v1/ekskludert',
     },
     { fixture: 'ekskludert-status.json' }

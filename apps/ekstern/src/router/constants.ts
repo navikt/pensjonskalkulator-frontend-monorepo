@@ -40,8 +40,6 @@ export const paths = {
 
 export const henvisningUrlParams = {
   foedselsdato: '1963',
-  ufoeretrygd: 'ufoeretrygd',
-  gjenlevende: 'gjenlevende',
   apotekerne: 'apotekerne',
   utland: 'utland',
 } as const

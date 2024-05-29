@@ -4,13 +4,9 @@ import { useNavigate, Await } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { Start } from '@/components/stegvisning/Start'
-import { henvisningUrlParams, paths } from '@/router/constants'
+import { paths } from '@/router/constants'
 import { useStep0AccessData } from '@/router/loaders'
 import { apiSlice } from '@/state/api/apiSlice'
-import {
-  useGetEkskludertStatusQuery,
-  useGetUfoereFeatureToggleQuery,
-} from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectIsVeileder } from '@/state/userInput/selectors'
 
@@ -19,13 +15,6 @@ export function Step0() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const loaderData = useStep0AccessData()
-
-  const {
-    isSuccess,
-    isError,
-    data: ufoereFeatureToggle,
-  } = useGetUfoereFeatureToggleQuery()
-  const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -37,25 +26,6 @@ export function Step0() {
   }, [])
 
   const isVeileder = useAppSelector(selectIsVeileder)
-
-  React.useEffect(() => {
-    /* c8 ignore next 8 - fases ut etter lansering av uføre */
-    if (
-      isSuccess &&
-      !ufoereFeatureToggle?.enabled &&
-      ekskludertStatus?.ekskludert &&
-      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
-    ) {
-      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
-    }
-    if (
-      isError &&
-      ekskludertStatus?.ekskludert &&
-      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
-    ) {
-      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
-    }
-  }, [isSuccess, isError, ekskludertStatus])
 
   // Fjern mulighet for avbryt hvis person er veileder
   const onCancel = isVeileder

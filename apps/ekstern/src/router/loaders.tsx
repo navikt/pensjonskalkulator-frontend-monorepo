@@ -156,11 +156,7 @@ export const step0AccessGuard = async () => {
 
   getEkskludertStatusQuery.then((res) => {
     if (res?.data?.ekskludert) {
-      if (res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE') {
-        resolveRedirectUrl(
-          `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-        )
-      } else if (res?.data?.aarsak === 'ER_APOTEKER') {
+      if (res?.data?.aarsak === 'ER_APOTEKER') {
         resolveRedirectUrl(
           `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
         )
@@ -328,13 +324,6 @@ export const step4AccessGuard = async () => {
             }
             if (res.isSuccess) {
               if (
-                ekskludertStatusRes?.data?.ekskludert &&
-                ekskludertStatusRes?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
-              ) {
-                resolveRedirectUrl(
-                  `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-                )
-              } else if (
                 ekskludertStatusRes?.data?.ekskludert &&
                 ekskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
               ) {

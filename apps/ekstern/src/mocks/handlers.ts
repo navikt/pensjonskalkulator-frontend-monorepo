@@ -12,7 +12,6 @@ import ufoeregradResponse from './data/ufoeregrad.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
 import afpOffentligToggleResponse from './data/unleash-enable-afp-offentlig.json' assert { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
-import ufoereToggleResponse from './data/unleash-enable-ufoere.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
@@ -134,11 +133,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
       return HttpResponse.json(afpOffentligToggleResponse)
     }
   ),
-
-  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-ufoere`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(ufoereToggleResponse)
-  }),
 
   http.post('http://localhost:12347/collect', async ({ request }) => {
     await request.json()

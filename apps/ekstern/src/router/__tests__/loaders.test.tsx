@@ -198,31 +198,31 @@ describe('Loaders', () => {
       expect(initiateGetEkskludertStatusMock).toHaveBeenCalled()
     })
 
-    it('Når brukeren har gjenlevendeytelse, returneres det riktig redirect url', async () => {
-      mockResponse('/v1/ekskludert', {
-        json: {
-          ekskludert: true,
-          aarsak: 'HAR_GJENLEVENDEYTELSE',
-        },
-      })
+    // it('Når brukeren har gjenlevendeytelse, returneres det riktig redirect url', async () => {
+    //   mockResponse('/v1/ekskludert', {
+    //     json: {
+    //       ekskludert: true,
+    //       aarsak: 'HAR_GJENLEVENDEYTELSE',
+    //     },
+    //   })
 
-      const mockedState = {
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await step0AccessGuard()
-      await returnedFromLoader.data.getPersonQuery
-      const shouldRedirectToResponse =
-        await returnedFromLoader.data.shouldRedirectTo
+    //   const mockedState = {
+    //     userInput: { ...userInputInitialState },
+    //   }
+    //   store.getState = vi.fn().mockImplementation(() => {
+    //     return mockedState
+    //   })
+    //   const returnedFromLoader = await step0AccessGuard()
+    //   await returnedFromLoader.data.getPersonQuery
+    //   const shouldRedirectToResponse =
+    //     await returnedFromLoader.data.shouldRedirectTo
 
-      await waitFor(async () => {
-        expect(shouldRedirectToResponse).toEqual(
-          `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-        )
-      })
-    })
+    //   await waitFor(async () => {
+    //     expect(shouldRedirectToResponse).toEqual(
+    //       `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+    //     )
+    //   })
+    // })
 
     it('Når brukeren har bruker har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
       mockResponse('/v1/ekskludert', {
@@ -507,50 +507,50 @@ describe('Loaders', () => {
       expect(initiateMock).toHaveBeenCalled()
     })
 
-    it('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall. Når brukeren har gjenlevendeytelse, returneres det riktig redirect url', async () => {
-      mockResponse('/v1/ekskludert', {
-        json: {
-          ekskludert: true,
-          aarsak: 'HAR_GJENLEVENDEYTELSE',
-        },
-      })
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
-        'initiate'
-      )
+    // it('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall. Når brukeren har gjenlevendeytelse, returneres det riktig redirect url', async () => {
+    //   mockResponse('/v1/ekskludert', {
+    //     json: {
+    //       ekskludert: true,
+    //       aarsak: 'HAR_GJENLEVENDEYTELSE',
+    //     },
+    //   })
+    //   const initiateMock = vi.spyOn(
+    //     apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
+    //     'initiate'
+    //   )
 
-      const mockedState = {
-        api: {
-          queries: {
-            ['getEkskludertStatus(undefined)']: {
-              status: 'rejected',
-              endpointName: 'getEkskludertStatus',
-              requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
-              startedTimeStamp: 1714725265404,
-              error: {
-                status: 'FETCH_ERROR',
-                error: 'TypeError: Failed to fetch',
-              },
-            },
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await step4AccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
+    //   const mockedState = {
+    //     api: {
+    //       queries: {
+    //         ['getEkskludertStatus(undefined)']: {
+    //           status: 'rejected',
+    //           endpointName: 'getEkskludertStatus',
+    //           requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
+    //           startedTimeStamp: 1714725265404,
+    //           error: {
+    //             status: 'FETCH_ERROR',
+    //             error: 'TypeError: Failed to fetch',
+    //           },
+    //         },
+    //       },
+    //     },
+    //     userInput: { ...userInputInitialState },
+    //   }
+    //   store.getState = vi.fn().mockImplementation(() => {
+    //     return mockedState
+    //   })
+    //   const returnedFromLoader = await step4AccessGuard()
+    //   const shouldRedirectToResponse = await (
+    //     returnedFromLoader as UNSAFE_DeferredData
+    //   ).data.shouldRedirectTo
 
-      await waitFor(async () => {
-        expect(shouldRedirectToResponse).toEqual(
-          `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-        )
-      })
-      expect(initiateMock).toHaveBeenCalled()
-    })
+    //   await waitFor(async () => {
+    //     expect(shouldRedirectToResponse).toEqual(
+    //       `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
+    //     )
+    //   })
+    //   expect(initiateMock).toHaveBeenCalled()
+    // })
 
     it('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall. Når brukeren har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
       mockResponse('/v1/ekskludert', {

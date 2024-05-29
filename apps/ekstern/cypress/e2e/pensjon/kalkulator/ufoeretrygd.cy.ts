@@ -1,15 +1,6 @@
 describe('Ufoeretrygd', () => {
   describe('Som bruker som har logget inn på kalkulatoren,', () => {
     beforeEach(() => {
-      cy.intercept(
-        {
-          method: 'GET',
-          url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-ufoere',
-        },
-        {
-          enabled: true,
-        }
-      ).as('getFeatureToggleUfoere')
       cy.login()
     })
 

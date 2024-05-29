@@ -14,7 +14,6 @@ const ekskludertStatusResponse = require('../../../mocks/data/ekskludert-status.
 const ufoeregradResponse = require('../../../mocks/data/ufoeregrad.json')
 const spraakvelgerToggleResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
 const afpOffentligToggleResponse = require('../../../mocks/data/unleash-enable-afp-offentlig.json')
-const ufoereToggleResponse = require('../../../mocks/data/unleash-enable-ufoere.json')
 const highchartsAccessibilityPluginToggleResponse = require('../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json')
 
 describe('apiSlice', () => {
@@ -621,48 +620,6 @@ describe('apiSlice', () => {
           .dispatch<any>(
             apiSlice.endpoints.getAfpOffentligFeatureToggle.initiate()
           )
-          .then((result: FetchBaseQueryError) => {
-            expect(result).toThrow(Error)
-            expect(result.status).toBe('rejected')
-            expect(result.data).toBe(undefined)
-          })
-      })
-    })
-  })
-
-  describe('getUfoereFeatureToggle', () => {
-    it('returnerer data ved vellykket query', async () => {
-      const storeRef = setupStore(undefined, true)
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.getUfoereFeatureToggle.initiate())
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('fulfilled')
-          expect(result.data).toMatchObject(ufoereToggleResponse)
-        })
-    })
-
-    it('returnerer undefined ved feilende query', async () => {
-      const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/feature/pensjonskalkulator.enable-ufoere')
-      return storeRef
-        .dispatch<any>(apiSlice.endpoints.getUfoereFeatureToggle.initiate())
-        .then((result: FetchBaseQueryError) => {
-          expect(result.status).toBe('rejected')
-          expect(result.data).toBe(undefined)
-        })
-    })
-
-    it('kaster feil ved uventet format på responsen', async () => {
-      const storeRef = setupStore(undefined, true)
-
-      mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
-        status: 200,
-        json: { lorem: 'ipsum' },
-      })
-
-      await swallowErrorsAsync(async () => {
-        await storeRef
-          .dispatch<any>(apiSlice.endpoints.getUfoereFeatureToggle.initiate())
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)
             expect(result.status).toBe('rejected')
