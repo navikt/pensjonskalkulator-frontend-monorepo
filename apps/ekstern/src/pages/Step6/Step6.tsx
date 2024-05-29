@@ -6,7 +6,7 @@ import { SamtykkeOffentligAFP } from '@/components/stegvisning/SamtykkeOffentlig
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectsamtykkeOffentligAFP,
+  selectSamtykkeOffentligAFP,
   selectIsVeileder,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -15,7 +15,7 @@ export function Step6() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const harSamtykketOffentligAFP = useAppSelector(selectsamtykkeOffentligAFP)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {

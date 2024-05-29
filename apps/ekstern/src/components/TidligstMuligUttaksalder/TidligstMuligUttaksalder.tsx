@@ -1,11 +1,10 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Alert, BodyLong } from '@navikt/ds-react'
+import { BodyLong } from '@navikt/ds-react'
 
 import { ReadMore } from '@/components/common/ReadMore'
 import { formatUttaksalder } from '@/utils/alder'
-import { isAlderOverMinUttaksaar } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './TidligstMuligUttaksalder.module.scss'

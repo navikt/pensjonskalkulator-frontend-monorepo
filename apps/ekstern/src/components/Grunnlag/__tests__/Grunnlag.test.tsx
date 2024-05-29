@@ -286,7 +286,7 @@ describe('Grunnlag', () => {
       ).toBeVisible()
     })
 
-    it('Når brukeren har valgt AFP offentlig og samtykket ikke til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
+    it('Når brukeren har valgt AFP offentlig og ikke samtykket til beregning av den, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {

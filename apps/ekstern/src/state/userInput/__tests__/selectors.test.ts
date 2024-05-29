@@ -1,7 +1,7 @@
 import {
   selectUtenlandsopphold,
   selectSamtykke,
-  selectsamtykkeOffentligAFP,
+  selectSamtykkeOffentligAFP,
   selectAfp,
   selectSivilstand,
   selectSamboerFraBrukerInput,
@@ -52,7 +52,7 @@ describe('userInput selectors', () => {
     expect(selectSamtykke(state)).toBe(true)
   })
 
-  it('selectsamtykkeOffentligAFP', () => {
+  it('selectSamtykkeOffentligAFP', () => {
     const state: RootState = {
       ...initialState,
       userInput: {
@@ -60,7 +60,7 @@ describe('userInput selectors', () => {
         samtykkeOffentligAFP: true,
       },
     }
-    expect(selectsamtykkeOffentligAFP(state)).toBe(true)
+    expect(selectSamtykkeOffentligAFP(state)).toBe(true)
   })
 
   it('selectAfp', () => {

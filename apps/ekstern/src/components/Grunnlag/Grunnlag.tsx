@@ -18,7 +18,7 @@ import {
   selectAfp,
   selectSamboer,
   selectUfoeregrad,
-  selectsamtykkeOffentligAFP,
+  selectSamtykkeOffentligAFP,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
@@ -56,7 +56,7 @@ export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
 
   const { data: person, isSuccess } = useGetPersonQuery()
   const afp = useAppSelector(selectAfp)
-  const harSamtykketOffentligAFP = useAppSelector(selectsamtykkeOffentligAFP)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const harSamboer = useAppSelector(selectSamboer)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
 

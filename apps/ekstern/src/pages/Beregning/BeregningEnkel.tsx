@@ -31,7 +31,7 @@ import {
   selectSamboer,
   selectSivilstand,
   selectCurrentSimulation,
-  selectsamtykkeOffentligAFP,
+  selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectUfoeregrad,
@@ -47,7 +47,7 @@ export const BeregningEnkel: React.FC = () => {
   const navigate = useNavigate()
 
   const harSamboer = useAppSelector(selectSamboer)
-  const harSamtykketOffentligAFP = useAppSelector(selectsamtykkeOffentligAFP)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
   const ufoeregrad = useAppSelector(selectUfoeregrad)

@@ -27,7 +27,7 @@ import {
   selectAfp,
   selectSamboer,
   selectCurrentSimulation,
-  selectsamtykkeOffentligAFP,
+  selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
   selectUfoeregrad,
 } from '@/state/userInput/selectors'
@@ -43,7 +43,7 @@ export const BeregningAvansert: React.FC = () => {
     React.useContext(BeregningContext)
 
   const harSamboer = useAppSelector(selectSamboer)
-  const harSamtykketOffentligAFP = useAppSelector(selectsamtykkeOffentligAFP)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const aarligInntektFoerUttakBeloep = useAppSelector(

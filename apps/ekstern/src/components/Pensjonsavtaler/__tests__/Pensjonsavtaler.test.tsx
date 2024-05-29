@@ -114,7 +114,7 @@ describe('Pensjonsavtaler', () => {
       ).toHaveTextContent('pensjonsavtaler.title')
     })
 
-    it('Når brukeren har valgt afp privat, gradert periode og inntekt, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
+    it('Når brukeren har valgt AFP privat, gradert periode og inntekt, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
         'initiate'
@@ -174,7 +174,7 @@ describe('Pensjonsavtaler', () => {
       )
     })
 
-    it('Når brukeren har valgt afp privat men har uføretrygd, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
+    it('Når brukeren har valgt AFP privat men har uføretrygd, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
         'initiate'

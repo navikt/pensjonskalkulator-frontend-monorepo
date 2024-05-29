@@ -191,7 +191,7 @@ describe('Step 7', () => {
     })
   })
 
-  it('sender tilbake til steg 6 når brukeren som ikke mottar uføretrygd og som har valgt afp offentlig klikker på Tilbake', async () => {
+  it('sender tilbake til steg 6 når brukeren som ikke mottar uføretrygd og som har valgt har valgt AFP offentlig klikker på Tilbake', async () => {
     const user = userEvent.setup()
 
     const navigateMock = vi.fn()
@@ -218,7 +218,7 @@ describe('Step 7', () => {
     })
   })
 
-  it('sender tilbake til steg 4 når brukeren som ikke mottar uføretrygd og som har valgt noe annet enn afp offentlig, klikker på Tilbake', async () => {
+  it('sender tilbake til steg 4 når brukeren som ikke mottar uføretrygd og som har valgt noe annet enn har valgt AFP offentlig, klikker på Tilbake', async () => {
     const user = userEvent.setup()
 
     const navigateMock = vi.fn()
