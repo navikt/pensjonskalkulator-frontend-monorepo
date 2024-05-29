@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
+import { fullfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import {
@@ -12,22 +13,6 @@ import {
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('Pensjonsavtaler', () => {
-  const fakeInntektApiCall = {
-    queries: {
-      ['getInntekt(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getInntekt',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          beloep: 500000,
-          aar: 2021,
-        },
-        fulfilledTimeStamp: 1688046412103,
-      },
-    },
-  }
-
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 1 },
@@ -44,9 +29,13 @@ describe('Pensjonsavtaler', () => {
 
       const { store } = render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: { ...userInputInitialState, samtykke: false },
         },
       })
@@ -90,9 +79,13 @@ describe('Pensjonsavtaler', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -111,9 +104,13 @@ describe('Pensjonsavtaler', () => {
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -155,9 +152,13 @@ describe('Pensjonsavtaler', () => {
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -196,9 +197,13 @@ describe('Pensjonsavtaler', () => {
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -244,9 +249,13 @@ describe('Pensjonsavtaler', () => {
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,

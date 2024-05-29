@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
+import { fullfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -26,18 +27,7 @@ describe('Step 3', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
+          ...fullfilledGetPerson,
         },
       },
       userInput: {

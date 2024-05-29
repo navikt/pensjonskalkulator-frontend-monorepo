@@ -3,6 +3,13 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
+import {
+  fullfilledGetEkskludertStatus,
+  fullfilledGetInntekt,
+  fullfilledGetPerson,
+  fullfilledGetTpoMedlemskap,
+  rejectedGetInntekt,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -18,18 +25,7 @@ describe('Step 4', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
+          ...fullfilledGetPerson,
         },
       },
       userInput: {
@@ -51,28 +47,8 @@ describe('Step 4', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getInntekt(undefined)']: {
-            status: 'rejected',
-            endpointName: 'getInntekt',
-            requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
-            startedTimeStamp: 1714725265404,
-            error: {
-              status: 'FETCH_ERROR',
-              error: 'TypeError: Failed to fetch',
-            },
-          },
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
+          ...rejectedGetInntekt,
+          ...fullfilledGetPerson,
         },
       },
       userInput: {
@@ -161,32 +137,9 @@ describe('Step 4', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getTpoMedlemskap(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getTpoMedlemskap',
-            requestId: 'bawyEKdq9139ubFwBmxyc',
-            startedTimeStamp: 1714729167666,
-            data: { harTjenestepensjonsforhold: true },
-            fulfilledTimeStamp: 1714729167901,
-          },
-          ['getInntekt(undefined)']: {
-            status: 'rejected',
-            endpointName: 'getInntekt',
-            requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
-            startedTimeStamp: 1714725265404,
-            error: {
-              status: 'FETCH_ERROR',
-              error: 'TypeError: Failed to fetch',
-            },
-          },
-          ['getEkskludertStatus(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getEkskludertStatus',
-            requestId: 't1wLPiRKrfe_vchftk8s8',
-            data: { ekskludert: false, aarsak: 'NONE' },
-            startedTimeStamp: 1714725797072,
-            fulfilledTimeStamp: 1714725797669,
-          },
+          ...fullfilledGetTpoMedlemskap,
+          ...fullfilledGetInntekt,
+          ...fullfilledGetEkskludertStatus,
         },
       },
       userInput: {

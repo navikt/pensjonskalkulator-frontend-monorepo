@@ -16,6 +16,12 @@ import {
   selectVeilederBorgerFnr,
   selectUfoeregrad,
 } from '../selectors'
+import {
+  fullfilledGetInntekt,
+  fullfilledGetPerson,
+  fullfilledGetTpoMedlemskap,
+  fullfilledGetUfoeregrad,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
 
@@ -81,29 +87,12 @@ describe('userInput selectors', () => {
       expect(selectSivilstand(state)).toBe(undefined)
     })
     it('returnerer riktig sivilstand når queryen er vellykket', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
-
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fullfilledGetPerson },
         },
       }
       expect(selectSivilstand(state)).toBe('UGIFT')
@@ -112,57 +101,36 @@ describe('userInput selectors', () => {
 
   describe('selectSamboerFraSivilstand', () => {
     it('returnerer false når sivilstanden medfører at personen ikke har samboer', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
-
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fullfilledGetPerson },
         },
       }
       expect(selectSamboerFraSivilstand(state)).toBe(false)
     })
     it('returnerer true når sivilstanden medfører at personen har samboer', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'GIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
-
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          queries: {
+            ['getPerson(undefined)']: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              status: 'fulfilled',
+              endpointName: 'getPerson',
+              requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+              startedTimeStamp: 1688046411971,
+              data: {
+                navn: 'Aprikos',
+                sivilstand: 'GIFT',
+                foedselsdato: '1963-04-30',
+              },
+              fulfilledTimeStamp: 1688046412103,
+            },
+          },
         },
       }
       expect(selectSamboerFraSivilstand(state)).toBe(true)
@@ -171,29 +139,12 @@ describe('userInput selectors', () => {
 
   describe('selectSamboer', () => {
     it('returnerer samboerskap basert på svaret som brukeren har oppgitt, til tross for at sivilstanden sier noe annet', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
-
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fullfilledGetPerson },
         },
         userInput: {
           ...initialState.userInput,
@@ -204,29 +155,25 @@ describe('userInput selectors', () => {
     })
 
     it('returnerer samboerskap basert på sivilstand, og at brukeren ikke svarte spørsmålet om samboer', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'GIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
-
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          queries: {
+            ['getPerson(undefined)']: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              status: 'fulfilled',
+              endpointName: 'getPerson',
+              requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+              startedTimeStamp: 1688046411971,
+              data: {
+                navn: 'Aprikos',
+                sivilstand: 'GIFT',
+                foedselsdato: '1963-04-30',
+              },
+              fulfilledTimeStamp: 1688046412103,
+            },
+          },
         },
         userInput: {
           ...initialState.userInput,
@@ -261,59 +208,28 @@ describe('userInput selectors', () => {
       expect(selectAarligInntektFoerUttakBeloepFraSkatt(state)).toBe(undefined)
     })
     it('returnerer riktig beløp når queryen er vellykket', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getInntekt(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              beloep: 500000,
-              aar: 2021,
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
-
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fullfilledGetInntekt },
         },
       }
       const inntekt = selectAarligInntektFoerUttakBeloepFraSkatt(state)
-      expect(inntekt?.beloep).toBe('500 000')
+      expect(inntekt?.beloep).toBe('521 338')
       expect(inntekt?.aar).toBe(2021)
     })
   })
 
   describe('selectAarligInntektFoerUttakBeloep', () => {
-    const fakeApiCall = {
-      queries: {
-        ['getInntekt(undefined)']: {
-          status: 'fulfilled',
-          endpointName: 'getPerson',
-          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-          startedTimeStamp: 1688046411971,
-          data: {
-            beloep: 500000,
-            aar: 2021,
-          },
-          fulfilledTimeStamp: 1688046412103,
-        },
-      },
-    }
     it('returnerer inntekt basert på svaret som brukeren har oppgitt, som overskriver opprinnelig inntekt hentet fra Skatteetaten', () => {
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fullfilledGetInntekt },
         },
         userInput: {
           ...initialState.userInput,
@@ -329,10 +245,10 @@ describe('userInput selectors', () => {
     it('returnerer formatert inntekt fra Skatteetaten, når brukeren ikke har overskrevet den', () => {
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fullfilledGetInntekt },
         },
         userInput: {
           ...initialState.userInput,
@@ -342,7 +258,7 @@ describe('userInput selectors', () => {
           },
         },
       }
-      expect(selectAarligInntektFoerUttakBeloep(state)).toBe('500 000')
+      expect(selectAarligInntektFoerUttakBeloep(state)).toBe('521 338')
     })
   })
 
@@ -380,26 +296,12 @@ describe('userInput selectors', () => {
       expect(selectHarHentetTpoMedlemskap(state)).toBeFalsy()
     })
     it('returnerer true når /tpo-medlemskap har blitt hentet', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getTpoMedlemskap(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getTpoMedlemskap',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              harTjenestepensjonsforhold: 'false',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
-          ...fakeApiCall,
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fullfilledGetTpoMedlemskap },
         },
       }
       expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
@@ -449,26 +351,12 @@ describe('userInput selectors', () => {
     })
 
     it('er number når kallet er vellykket', () => {
-      const fakeApiCall = {
-        queries: {
-          ['getUfoeregrad(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getUfoeregrad',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              ufoeregrad: 75,
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
       const state: RootState = {
         ...initialState,
         /* eslint-disable @typescript-eslint/ban-ts-comment */
         // @ts-ignore
         api: {
-          ...fakeApiCall,
+          queries: { ...fullfilledGetUfoeregrad },
         },
       }
       expect(selectUfoeregrad(state)).toBe(75)

@@ -9,6 +9,7 @@ import {
   paths,
 } from '../constants'
 import { routes } from '../routes'
+import { fullfilledGetUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -22,13 +23,11 @@ const fakeApiCalls = {
   queries: {
     ['tulleQuery(undefined)']: {
       status: 'fulfilled',
-      endpointName: 'getPerson',
+      endpointName: 'tulleQuery',
       requestId: 'xTaE6mOydr5ZI75UXq4Wi',
       startedTimeStamp: 1688046411971,
       data: {
-        navn: 'Aprikos',
-        sivilstand: 'UGIFT',
-        foedselsdato: '1963-04-30',
+        tull: 'og tøys',
       },
       fulfilledTimeStamp: 1688046412103,
     },
@@ -638,14 +637,7 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ['getUfoeregrad(undefined)']: {
-                status: 'fulfilled',
-                endpointName: 'getUfoeregrad',
-                requestId: 't1wLPiRKrfe_vchftk8s8',
-                data: { ufoeregrad: 50 },
-                startedTimeStamp: 1714725797072,
-                fulfilledTimeStamp: 1714725797669,
-              },
+              ...fullfilledGetUfoeregrad,
             },
           },
           userInput: { ...userInputInitialState },

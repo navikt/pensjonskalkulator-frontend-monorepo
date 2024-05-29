@@ -3,6 +3,10 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step2 } from '..'
+import {
+  fullfilledGetTpoMedlemskap,
+  fullfilledPensjonsavtaler,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { selectHarHentetTpoMedlemskap } from '@/state/userInput/selectors'
@@ -35,32 +39,6 @@ describe('Step 2', () => {
 
   describe('Gitt at brukeren svarer Nei på spørsmål om samtykke', async () => {
     it('invaliderer cache for tpo-medlemskap og pensjonsavtaler i storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke). Navigerer videre til riktig side når brukerenklikker på Neste', async () => {
-      const fakeApiCalls = {
-        queries: {
-          ['getTpoMedlemskap(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getTpoMedlemskap',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              harTjenestePensjonsforhold: true,
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-          ['pensjonsavtaler(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'pensjonsavtaler',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              avtaler: [],
-              partialResponse: false,
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
-        },
-      }
-
       const invalidateMock = vi.spyOn(
         apiSliceUtils.apiSlice.util.invalidateTags,
         'match'
@@ -74,9 +52,14 @@ describe('Step 2', () => {
 
       const { store } = render(<Step2 />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetTpoMedlemskap,
+              ...fullfilledPensjonsavtaler,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,

@@ -1,6 +1,7 @@
 import * as ReactRouterUtils from 'react-router'
 
 import { Grunnlag } from '@/components/Grunnlag'
+import { fullfilledGetUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -248,21 +249,6 @@ describe('Grunnlag', () => {
   })
 
   describe('Grunnlag - AFP', () => {
-    const fakeApiCallUfoere = {
-      queries: {
-        ['getUfoeregrad(undefined)']: {
-          status: 'fulfilled',
-          endpointName: 'getUfoeregrad',
-          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-          startedTimeStamp: 1688046411971,
-          data: {
-            ufoeregrad: 75,
-          },
-          fulfilledTimeStamp: 1688046412103,
-        },
-      },
-    }
-
     it('Når brukeren har valgt AFP offentlig, viser riktig tittel med formatert inntekt og tekst', async () => {
       const user = userEvent.setup()
       render(
@@ -296,10 +282,10 @@ describe('Grunnlag', () => {
         <Grunnlag headingLevel="2" visning="enkel" afpLeverandoer="KLP" />,
         {
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
             api: {
-              ...fakeApiCallUfoere,
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fullfilledGetUfoeregrad },
             },
             userInput: {
               ...userInputInitialState,
@@ -347,10 +333,10 @@ describe('Grunnlag', () => {
       mockErrorResponse('/feature/pensjonskalkulator.enable-afp-offentlig')
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           api: {
-            ...fakeApiCallUfoere,
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fullfilledGetUfoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -396,10 +382,10 @@ describe('Grunnlag', () => {
     it('Når en bruker med uføretrygd har valgt AFP privat, viser riktig tittel med formatert inntekt og tekst', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           api: {
-            ...fakeApiCallUfoere,
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fullfilledGetUfoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -456,10 +442,10 @@ describe('Grunnlag', () => {
     it('Når en bruker med uføretrygd har valgt uten AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           api: {
-            ...fakeApiCallUfoere,
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fullfilledGetUfoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -498,10 +484,10 @@ describe('Grunnlag', () => {
     it('Når en bruker med uføretrygd har svart "vet ikke" på AFP, viser riktig tittel med formatert inntekt og tekst', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           api: {
-            ...fakeApiCallUfoere,
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fullfilledGetUfoeregrad },
           },
           userInput: {
             ...userInputInitialState,

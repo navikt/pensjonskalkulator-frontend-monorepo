@@ -30,26 +30,24 @@ export const OmUfoeretrygd: React.FC<Props> = ({ ufoeregrad }) => {
   return (
     <div className={styles.wrapper} data-testid="om-ufoeretrygd">
       <div className={styles.wrapperCard} aria-live="polite">
-        <>
-          <BodyLong size="medium" className={`${styles.ingress}`}>
-            <FormattedMessage
-              id={
-                ufoeregrad === 100
-                  ? 'omufoeretrygd.hel.ingress'
-                  : 'omufoeretrygd.gradert.ingress'
-              }
-              values={{
-                ...getFormatMessageValues(intl),
-                grad: ufoeregrad,
-                link: (
-                  <Link href="#" onClick={goToAvansert}>
-                    <FormattedMessage id="omufoeretrygd.avansert_link" />
-                  </Link>
-                ),
-              }}
-            />
-          </BodyLong>
-        </>
+        <BodyLong size="medium" className={`${styles.ingress}`}>
+          <FormattedMessage
+            id={
+              ufoeregrad === 100
+                ? 'omufoeretrygd.hel.ingress'
+                : 'omufoeretrygd.gradert.ingress'
+            }
+            values={{
+              ...getFormatMessageValues(intl),
+              grad: ufoeregrad,
+              link: (
+                <Link href="#" onClick={goToAvansert}>
+                  <FormattedMessage id="omufoeretrygd.avansert_link" />
+                </Link>
+              ),
+            }}
+          />
+        </BodyLong>
 
         <ReadMore
           name="Om ufoeretrygd og alderspensjon"

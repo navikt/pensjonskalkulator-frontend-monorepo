@@ -4,6 +4,11 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningEnkel } from '../BeregningEnkel'
+import {
+  fullfilledGetInntekt,
+  fullfilledGetPerson,
+  fullfilledGetUfoeregrad,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
@@ -14,34 +19,6 @@ import { render, screen, userEvent, waitFor } from '@/test-utils'
 const alderspensjonResponse = require('../../../mocks/data/alderspensjon/68.json')
 
 describe('BeregningEnkel', () => {
-  const fakeApiCalls = {
-    queries: {
-      ['getPerson(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getPerson',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          navn: 'Aprikos',
-          sivilstand: 'UGIFT',
-          foedselsdato: '1963-04-30',
-        },
-        fulfilledTimeStamp: 1688046412103,
-      },
-      ['getInntekt(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getInntekt',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          beloep: 500000,
-          aar: 2021,
-        },
-        fulfilledTimeStamp: 1688046412103,
-      },
-    },
-  }
-
   describe('Når en bruker ikke mottar uføretrygd', () => {
     it('kalles endepunktet for tidligst mulig uttaksalder med riktig request body', async () => {
       const initiateMock = vi.spyOn(
@@ -50,9 +27,14 @@ describe('BeregningEnkel', () => {
       )
       render(<BeregningEnkel />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetPerson,
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -64,7 +46,7 @@ describe('BeregningEnkel', () => {
 
       expect(initiateMock).toHaveBeenCalledWith(
         {
-          aarligInntektFoerUttakBeloep: 500000,
+          aarligInntektFoerUttakBeloep: 521338,
           aarligInntektVsaPensjon: undefined,
           harEps: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
@@ -109,9 +91,14 @@ describe('BeregningEnkel', () => {
       })
       render(<BeregningEnkel />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetPerson,
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -130,22 +117,6 @@ describe('BeregningEnkel', () => {
   })
 
   describe('Når en bruker mottar uføretrygd', () => {
-    const updatedFakeApiCalls = {
-      queries: {
-        ...fakeApiCalls.queries,
-        ['getUfoeregrad(undefined)']: {
-          status: 'fulfilled',
-          endpointName: 'getUfoeregrad',
-          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-          startedTimeStamp: 1688046411971,
-          data: {
-            ufoeregrad: 100,
-          },
-          fulfilledTimeStamp: 1688046412103,
-        },
-      },
-    }
-
     it('hentes det ikke tidligst mulig uttaksalder', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
@@ -154,10 +125,14 @@ describe('BeregningEnkel', () => {
 
       render(<BeregningEnkel />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           api: {
-            ...updatedFakeApiCalls,
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetPerson,
+              ...fullfilledGetInntekt,
+              ...fullfilledGetUfoeregrad,
+            },
           },
           userInput: {
             ...userInputInitialState,
@@ -175,10 +150,14 @@ describe('BeregningEnkel', () => {
     it('vises det riktig antall knapper fra default ubetinget uttaksalder', async () => {
       render(<BeregningEnkel />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           api: {
-            ...updatedFakeApiCalls,
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetPerson,
+              ...fullfilledGetInntekt,
+              ...fullfilledGetUfoeregrad,
+            },
           },
           userInput: {
             ...userInputInitialState,
@@ -407,9 +386,14 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       render(<BeregningEnkel />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetPerson,
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
           },
@@ -485,9 +469,14 @@ describe('BeregningEnkel', () => {
       })
       render(<BeregningEnkel />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetPerson,
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -526,9 +515,14 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       render(<BeregningEnkel />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetPerson,
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             currentSimulation: {
@@ -555,9 +549,14 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       render(<BeregningEnkel />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeApiCalls },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fullfilledGetPerson,
+              ...fullfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             currentSimulation: {
