@@ -18,6 +18,7 @@ import {
   selectAfp,
   selectSamboer,
   selectUfoeregrad,
+  selectSamtykkeOffentligAFP,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
@@ -55,12 +56,16 @@ export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
 
   const { data: person, isSuccess } = useGetPersonQuery()
   const afp = useAppSelector(selectAfp)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const harSamboer = useAppSelector(selectSamboer)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
 
   const formatertAfp = React.useMemo(() => {
     const afpString = formatAfp(intl, afp ?? 'vet_ikke')
     if (ufoeregrad && (afp === 'ja_offentlig' || afp === 'ja_privat')) {
+      return `${afpString} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`
+    }
+    if (!harSamtykketOffentligAFP && !ufoeregrad && afp === 'ja_offentlig') {
       return `${afpString} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`
     }
     return afpString
@@ -183,7 +188,7 @@ export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
           >
             <BodyLong>
               <FormattedMessage
-                id={`grunnlag.afp.ingress.${afp}${ufoeregrad ? '.ufoeretrygd' : ''}`}
+                id={`grunnlag.afp.ingress.${afp === 'ja_offentlig' && !harSamtykketOffentligAFP && !ufoeregrad ? 'ja_offentlig_utilgjengelig' : afp}${ufoeregrad ? '.ufoeretrygd' : ''}`}
                 values={{
                   ...getFormatMessageValues(intl),
                 }}

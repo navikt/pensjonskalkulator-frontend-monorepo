@@ -8,7 +8,8 @@ const translations = {
     'Offentleg tenestepensjon - Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP -Pensjonskalkulator',
   'application.title.stegvisning.step5': 'MANGLER_TEKST',
-  'application.title.stegvisning.step6': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.step6': 'MANGLER_TEKST',
+  'application.title.stegvisning.step7': 'Sivilstand - Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
@@ -159,6 +160,13 @@ const translations = {
   'stegvisning.ufoere.readmore_2.title': 'MANGLER_TEKST',
   'stegvisning.ufoere.readmore_2.body': 'MANGLER_TEKST',
   'stegvisning.ufoere.ingress': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.title': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.ingress': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.radio_label': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.radio_description': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.radio_ja': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.radio_nei': 'MANGLER_TEKST',
+  'stegvisning.samtykke_offentlig_afp.validation_error': 'MANGLER_TEKST',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
@@ -200,8 +208,6 @@ const translations = {
   'tidligstmuliguttak.readmore_title': 'MANGLER_TEKST',
   'tidligstmuliguttak.readmore_ingress.optional': 'MANGLER_TEKST',
   'tidligstmuliguttak.readmore_ingress.enkelt': 'MANGLER_TEKST',
-  'tidligstmuliguttak.info_afp':
-    'Du kan truleg ta ut alderspensjon tidlegare viss du har rett til AFP i offentleg sektor.',
   'tidligstmuliguttak.error': 'MANGLER_TEKST',
   'omufoeretrygd.hel.ingress': 'MANGLER_TEKST',
   'omufoeretrygd.gradert.ingress': 'MANGLER_TEKST',

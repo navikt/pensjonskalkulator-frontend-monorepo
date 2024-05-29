@@ -160,6 +160,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
 
 export const generatePensjonsavtalerRequestBody = (args: {
   aarligInntektFoerUttakBeloep: string
+  ufoeregrad: number
   afp: AfpRadio | null
   sivilstand?: Sivilstand
   heltUttak: HeltUttak
@@ -167,6 +168,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
 }): PensjonsavtalerRequestBody => {
   const {
     aarligInntektFoerUttakBeloep,
+    ufoeregrad,
     afp,
     sivilstand,
     heltUttak,
@@ -220,7 +222,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
           : undefined,
       },
     ],
-    harAfp: afp === 'ja_privat',
+    harAfp: !ufoeregrad && afp === 'ja_privat',
     // harEpsPensjon: Bruker kan angi om E/P/S har pensjon (støttes i detaljert kalkulator) – her bruker backend hardkodet false i MVP
     // harEpsPensjonsgivendeInntektOver2G: Bruker kan angi om E/P/S har inntekt >2G (støttes i detaljert kalkulator) – her bruker backend true i MVP hvis samboer/gift
     // antallAarIUtlandetEtter16: Bruker kan angi et antall (støttes i detaljert kalkulator) – her bruker backend hardkodet 0 i MVP

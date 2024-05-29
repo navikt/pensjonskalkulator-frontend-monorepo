@@ -20,6 +20,21 @@ describe('Simulering', () => {
     gradertUttaksperiode: null,
   }
 
+  const fakeApiCallUfoere = {
+    queries: {
+      ['getUfoeregrad(undefined)']: {
+        status: 'fulfilled',
+        endpointName: 'getUfoeregrad',
+        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+        startedTimeStamp: 1688046411971,
+        data: {
+          ufoeregrad: 75,
+        },
+        fulfilledTimeStamp: 1688046412103,
+      },
+    },
+  }
+
   afterEach(() => {
     vi.clearAllMocks()
     window.scrollTo = () => vi.fn()
@@ -333,6 +348,10 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren velger AFP-privat, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+      const usePensjonsavtalerQueryMock = vi.spyOn(
+        apiSliceUtils,
+        'usePensjonsavtalerQuery'
+      )
       const { container } = render(
         <Simulering
           isLoading={false}
@@ -354,6 +373,22 @@ describe('Simulering', () => {
         }
       )
 
+      expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 500000,
+          harAfp: true,
+          sivilstand: undefined,
+          uttaksperioder: [
+            {
+              startAlder: { aar: 67, maaneder: 0 },
+              aarligInntektVsaPensjon: undefined,
+              grad: 100,
+            },
+          ],
+        },
+        { skip: false }
+      )
+
       expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
       // Nødvendig for at animasjonen rekker å bli ferdig
       await act(async () => {
@@ -372,6 +407,10 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren velger AFP-offentlig, henter og viser inntekt, alderspensjon, AFP og pensjonsavtaler', async () => {
+      const usePensjonsavtalerQueryMock = vi.spyOn(
+        apiSliceUtils,
+        'usePensjonsavtalerQuery'
+      )
       const { container } = render(
         <Simulering
           isLoading={false}
@@ -398,6 +437,21 @@ describe('Simulering', () => {
       await act(async () => {
         await new Promise((r) => setTimeout(r, 500))
       })
+      expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 500000,
+          harAfp: false,
+          sivilstand: undefined,
+          uttaksperioder: [
+            {
+              startAlder: { aar: 67, maaneder: 0 },
+              aarligInntektVsaPensjon: undefined,
+              grad: 100,
+            },
+          ],
+        },
+        { skip: false }
+      )
 
       expect(
         container.getElementsByClassName('highcharts-container')
@@ -408,6 +462,152 @@ describe('Simulering', () => {
         legendContainer[0] as HTMLElement
       ).getElementsByClassName('highcharts-legend-item')
       expect(legendItems).toHaveLength(4)
+    })
+
+    it('Når brukeren har uføretrygd og velger AFP-privat, henter og viser inntekt, alderspensjon og pensjonsavtaler', async () => {
+      const usePensjonsavtalerQueryMock = vi.spyOn(
+        apiSliceUtils,
+        'usePensjonsavtalerQuery'
+      )
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: {
+              ...fakeApiCallUfoere,
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'ja_privat',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+      expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 500000,
+          harAfp: false,
+          sivilstand: undefined,
+          uttaksperioder: [
+            {
+              startAlder: { aar: 67, maaneder: 0 },
+              aarligInntektVsaPensjon: undefined,
+              grad: 100,
+            },
+          ],
+        },
+        { skip: false }
+      )
+
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(3)
+      expect(
+        screen.queryByText('beregning.highcharts.serie.afp.name')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.getByText('beregning.highcharts.serie.inntekt.name')
+      ).toBeVisible()
+      expect(
+        screen.getByText('beregning.highcharts.serie.alderspensjon.name')
+      ).toBeVisible()
+      expect(
+        screen.getByText('beregning.highcharts.serie.tp.name')
+      ).toBeVisible()
+    })
+
+    it('Når brukeren har uføretrygd og velger AFP-offentlig, henter og viser inntekt, alderspensjon og pensjonsavtaler', async () => {
+      const usePensjonsavtalerQueryMock = vi.spyOn(
+        apiSliceUtils,
+        'usePensjonsavtalerQuery'
+      )
+      const { container } = render(
+        <Simulering
+          isLoading={false}
+          headingLevel="3"
+          aarligInntektFoerUttakBeloep="500 000"
+          alderspensjonListe={alderspensjonData.alderspensjon}
+          showButtonsAndTable={false}
+        />,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: {
+              ...fakeApiCallUfoere,
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              afp: 'ja_offentlig',
+              currentSimulation: { ...currentSimulation },
+            },
+          },
+        }
+      )
+      expect(await screen.findByTestId('highcharts-done-drawing')).toBeVisible()
+      expect(usePensjonsavtalerQueryMock).toHaveBeenLastCalledWith(
+        {
+          aarligInntektFoerUttakBeloep: 500000,
+          harAfp: false,
+          sivilstand: undefined,
+          uttaksperioder: [
+            {
+              startAlder: { aar: 67, maaneder: 0 },
+              aarligInntektVsaPensjon: undefined,
+              grad: 100,
+            },
+          ],
+        },
+        { skip: false }
+      )
+
+      // Nødvendig for at animasjonen rekker å bli ferdig
+      await act(async () => {
+        await new Promise((r) => setTimeout(r, 500))
+      })
+      expect(
+        container.getElementsByClassName('highcharts-container')
+      ).toHaveLength(1)
+      const legendContainer =
+        container.getElementsByClassName('highcharts-legend')
+      const legendItems = (
+        legendContainer[0] as HTMLElement
+      ).getElementsByClassName('highcharts-legend-item')
+      expect(legendItems).toHaveLength(3)
+      expect(
+        screen.queryByText('beregning.highcharts.serie.afp.name')
+      ).not.toBeInTheDocument()
+      expect(
+        screen.getByText('beregning.highcharts.serie.inntekt.name')
+      ).toBeVisible()
+      expect(
+        screen.getByText('beregning.highcharts.serie.alderspensjon.name')
+      ).toBeVisible()
+      expect(
+        screen.getByText('beregning.highcharts.serie.tp.name')
+      ).toBeVisible()
     })
 
     it('Når brukeren har 0 pensjonsavtaler', async () => {
@@ -674,7 +874,7 @@ describe('Simulering', () => {
     const highChartsWrapper = await screen.findByTestId(
       'highcharts-aria-wrapper'
     )
-    waitFor(() => {
+    await waitFor(() => {
       expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
     })
   })
@@ -706,7 +906,7 @@ describe('Simulering', () => {
         },
       }
     )
-    waitFor(async () => {
+    await waitFor(async () => {
       const highchartsWrapper = await screen.findByTestId(
         'highcharts-aria-wrapper'
       )

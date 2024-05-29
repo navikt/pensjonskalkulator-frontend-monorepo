@@ -236,7 +236,7 @@ describe('stegvisning - AFP', () => {
     await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
     await store.dispatch(apiSlice.endpoints.getPerson.initiate())
 
-    // viser først "neste", så endres den til "beregn" når amsboer vurderes
+    // viser først "neste", så endres den til "beregn" når samboer vurderes
     expect(await screen.findByText('stegvisning.neste')).toBeVisible()
     expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
 
@@ -261,6 +261,63 @@ describe('stegvisning - AFP', () => {
     await user.click(radioButtons[3])
     expect(await screen.findByText('stegvisning.neste')).toBeVisible()
     expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
+  })
+
+  it('viser riktig tekst på Neste knapp når brukeren har samboer, ikke uføretrygd og at hen klikker på de ulike afp valgene', async () => {
+    const user = userEvent.setup()
+
+    mockResponse('/v2/person', {
+      status: 200,
+      json: {
+        navn: 'Ola',
+        sivilstand: 'GIFT',
+        foedselsdato: '1963-04-30',
+      },
+    })
+
+    mockResponse('/v1/ufoeregrad', {
+      status: 200,
+      json: {
+        ufoeregrad: 0,
+      },
+    })
+
+    const { store } = render(
+      <AFP
+        afp={null}
+        onCancel={onCancelMock}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+    await store.dispatch(apiSlice.endpoints.getPerson.initiate())
+
+    // viser først "neste", så endres den til "beregn" når samboer vurderes
+    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
+    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
+
+    const radioButtons = screen.getAllByRole('radio')
+
+    /* afp ja, offentlig */
+    await user.click(radioButtons[0])
+    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
+    expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
+
+    /* afp ja, privat */
+    await user.click(radioButtons[1])
+    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
+    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
+
+    /* afp nei */
+    await user.click(radioButtons[2])
+    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
+    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
+
+    /* afp vet ikke */
+    await user.click(radioButtons[3])
+    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
+    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
   })
 
   it('kaller onNext når brukeren klikker på Neste', async () => {

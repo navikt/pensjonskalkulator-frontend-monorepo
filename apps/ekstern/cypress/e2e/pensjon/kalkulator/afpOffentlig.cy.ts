@@ -42,7 +42,8 @@ describe('AFP offentlig', () => {
         cy.wait('@fetchTidligsteUttaksalder')
       })
 
-      describe('Når jeg er kommet til beregningssiden og får senere enn 62 år på tidligst mulig uttak,', () => {
+      // TODO PEK-388 utdatert test
+      describe.skip('Når jeg er kommet til beregningssiden og får senere enn 62 år på tidligst mulig uttak,', () => {
         it('ønsker jeg tilleggsinformasjon om at rett til AFP gjør at tidligst mulig uttak er tidligere.', () => {
           cy.contains(
             'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
@@ -53,6 +54,7 @@ describe('AFP offentlig', () => {
           ).should('exist')
         })
       })
+
       describe('Når jeg er kommet til beregningssiden og velger hvilken alder jeg ønsker beregning fra,', () => {
         it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt,Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt. AFP offentlig vises ikke.', () => {
           cy.contains('button', '62 år og 10 md.').click()
