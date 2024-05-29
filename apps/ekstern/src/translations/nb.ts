@@ -50,7 +50,7 @@ const translations = {
     'Enkel kalkulator er under utvikling. Derfor må du bruke detaljert kalkulator hvis du: ',
   'landingsside.liste.1':
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
-  'landingsside.liste.2': 'mottar omstillingsstønad eller gjenlevendepensjon',
+  'landingsside.liste.2': 'mottar gjenlevendepensjon',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert kalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert kalkulator',
