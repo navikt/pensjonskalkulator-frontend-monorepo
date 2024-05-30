@@ -23,7 +23,7 @@ describe('Henvisning', () => {
   describe('Når jeg som bruker som er medlem av apotekerne logger inn,', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v1/ekskludert' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v2/ekskludert' },
         {
           ekskludert: true,
           aarsak: 'ER_APOTEKER',

@@ -138,12 +138,7 @@ export const isEkskludertStatus = (data?: any): data is EkskludertStatus => {
     data !== null &&
     !Array.isArray(data) &&
     typeof data.ekskludert === 'boolean' &&
-    [
-      'NONE',
-      'HAR_LOEPENDE_UFOERETRYGD',
-      'HAR_GJENLEVENDEYTELSE',
-      'ER_APOTEKER',
-    ].includes(data?.aarsak)
+    ['NONE', 'ER_APOTEKER'].includes(data?.aarsak)
   )
 }
 

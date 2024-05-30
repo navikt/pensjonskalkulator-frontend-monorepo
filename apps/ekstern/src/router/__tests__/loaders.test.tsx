@@ -200,7 +200,7 @@ describe('Loaders', () => {
     })
 
     it('Når brukeren har bruker har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
-      mockResponse('/v1/ekskludert', {
+      mockResponse('/v2/ekskludert', {
         json: {
           ekskludert: true,
           aarsak: 'ER_APOTEKER',
@@ -417,7 +417,7 @@ describe('Loaders', () => {
       })
 
       it('Når kallet fungerer igjen, men at kall til ekskludert fortsatt feiler, returneres det tom redirect url', async () => {
-        mockErrorResponse('/v1/ekskludert')
+        mockErrorResponse('/v2/ekskludert')
 
         const initiateMock = vi.spyOn(
           apiSliceUtils.apiSlice.endpoints.getInntekt,
@@ -546,7 +546,7 @@ describe('Loaders', () => {
       })
 
       it('Når kallet fungerer igjen, men at kall til ekskludert fortsatt feiler, returneres det tom redirect url', async () => {
-        mockErrorResponse('/v1/ekskludert')
+        mockErrorResponse('/v2/ekskludert')
 
         const initiateMock = vi.spyOn(
           apiSliceUtils.apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende,
@@ -645,7 +645,7 @@ describe('Loaders', () => {
 
     describe('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall.', async () => {
       it('Når kallet fungerer igjen i tillegg til de to andre kallene og at brukeren har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
-        mockResponse('/v1/ekskludert', {
+        mockResponse('/v2/ekskludert', {
           json: {
             ekskludert: true,
             aarsak: 'ER_APOTEKER',
@@ -714,7 +714,7 @@ describe('Loaders', () => {
       })
 
       it('Når kallet fungerer igjen, men at kall til inntekt fortsatt feiler, returneres det tom redirect url', async () => {
-        mockResponse('/v1/ekskludert', {
+        mockResponse('/v2/ekskludert', {
           json: {
             ekskludert: false,
             aarsak: 'NONE',
@@ -746,7 +746,7 @@ describe('Loaders', () => {
       })
 
       it('Når kallet fungerer igjen, men at kall til omstillimngsstønad-og-gjenlevende fortsatt feiler, returneres det tom redirect url', async () => {
-        mockResponse('/v1/ekskludert', {
+        mockResponse('/v2/ekskludert', {
           json: {
             ekskludert: false,
             aarsak: 'NONE',
@@ -780,7 +780,7 @@ describe('Loaders', () => {
       })
 
       it('Når den feiler igjen returneres det redirect url til feilsiden', async () => {
-        mockErrorResponse('/v1/ekskludert')
+        mockErrorResponse('/v2/ekskludert')
 
         const initiateMock = vi.spyOn(
           apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,

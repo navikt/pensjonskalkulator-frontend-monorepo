@@ -53,7 +53,7 @@ export const apiSlice = createApi({
       },
     }),
     getEkskludertStatus: builder.query<EkskludertStatus, void>({
-      query: () => '/v1/ekskludert',
+      query: () => '/v2/ekskludert',
       transformResponse: (response: any) => {
         if (!isEkskludertStatus(response)) {
           throw new Error(`Mottok ugyldig ekskludert response:`, response)

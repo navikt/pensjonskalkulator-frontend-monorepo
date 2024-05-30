@@ -125,7 +125,7 @@ describe('apiSlice', () => {
     it('kaster feil ved uforventet format på data', async () => {
       const storeRef = setupStore(undefined, true)
 
-      mockResponse('/v1/ekskludert', {
+      mockResponse('/v2/ekskludert', {
         json: {
           feil: 'format',
         },
