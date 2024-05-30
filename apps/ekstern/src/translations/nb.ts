@@ -73,9 +73,9 @@ const translations = {
   'henvisning.gjenlevende.body':
     'Siden du mottar gjenlevendepensjon, må du bruke detaljert kalkulator.',
   'henvisning.apotekerne.body':
-    'Siden du har apotekordningen, må du bruke detaljert kalkulator.',
+    'Siden du har apotekordningen, må du bruke detaljert pensjonskalkulator.',
   'henvisning.utland.body':
-    'Siden du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert kalkulator.',
+    'Siden du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert pensjonskalkulator.',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
@@ -174,11 +174,11 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.title':
     'Samtykke til at NAV beregner avtalefestet pensjon',
   'stegvisning.samtykke_offentlig_afp.ingress':
-    'Tjenestepensjonsordningen din har ansvar for AFP i offentlig sektor. De vil gjøre den endelige AFP-beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}NAV kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. NAV vurderer ikke om du fyller vilkårene for å få AFP. ',
+    'Tjenestepensjonsordningen din har ansvar for AFP i offentlig sektor. De vil vurdere om du fyller vilkårene og gjør den endelige beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}NAV vurderer ikke om du har rett til AFP, men kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. ',
   'stegvisning.samtykke_offentlig_afp.radio_label':
     'Vil du at NAV skal beregne AFP for deg?',
   'stegvisning.samtykke_offentlig_afp.radio_description':
-    'Samtykket gjelder kun for denne beregningen.',
+    'Samtykket gjelder kun beregninger i denne kalkulatoren.',
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'Ja',
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_offentlig_afp.validation_error':
@@ -424,7 +424,7 @@ const translations = {
     'Flere valg for uttaksgrad, pensjonsalder og inntekt finner du i Avansert.',
   'savnerdunoe.button': 'Gå til Avansert',
   'savnerdunoe.body':
-    'Denne kalkulatoren er under utvikling. Har du behov for å lagre beregninger og se flere detaljer, kan du gjøre det i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
+    'Denne kalkulatoren er under utvikling. Har du behov for å lagre beregninger og se flere detaljer, kan du gjøre det i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
   'pensjonsavtaler.ingress':
@@ -567,17 +567,18 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
     'Hvis du har uføretrygd, bruker vi din uførehistorikk, uføregrad, antatt inntekt og eventuell yrkesskadehistorikk. Dette gjør vi for å kunne beregne alderspensjonen din. Vi bruker også uføregraden til å vise mulige graderinger av alderspensjon som du kan ta ut i kombinasjon med uføretrygd. Vi henter ikke inn medisinske opplysninger fra saken din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
-    'Hvis du har gjenlevendepensjon bruker vi opplysningen til å kunne henvise deg til detaljert kalkulator.',
+    'Hvis du har gjenlevendepensjon bruker vi opplysningen til å kunne henvise deg til detaljert pensjonskalkulator.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
-    'Vi spør deg om utenlandsopphold. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg til detaljert kalkulator. Enkel kalkulator tar ikke høyde for lengre utenlandsopphold.',
+    'Vi spør deg om utenlandsopphold. Kalkulatoren tar ikke høyde for lengre utenlandsopphol. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg derfor til detaljert pensjonskalkulator.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
-    'Vi spør deg om du har rett til AFP i enten offentlig eller privat sektor. Vi bruker opplysningen til å identifisere om vi skal beregne alderspensjonen din med AFP. Opplysningen brukes også til å informere om at AFP kan påvirke når du kan ta ut alderspensjon.',
+    'Vi spør deg om du har rett til AFP i enten offentlig eller privat sektor. Vi bruker opplysningen til å identifisere om vi skal beregne alderspensjonen din med AFP. Opplysningen brukes også til å informere om når du kan ta ut alderspensjon. Videre bruker vi opplysningen til å beregne AFP.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
-    'Opplysninger som vi henter hvis du samtykker (GDPR Art 6 (1) a, Samtykke).',
+    'Opplysninger som vi bruker hvis du samtykker (GDPR Art 6 (1) a, Samtykke).',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.1':
     'Fra Norsk Pensjon henter vi pensjonsavtaler fra privat sektor, som tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon), fripoliser og enkelte avtaler om pensjonssparing.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.2':
     'Vi sjekker også om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du er eller har vært medlem, informerer vi deg om at du kan ha rettigheter, men henter ikke inn avtalene.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.3': 'MANGLER_TEKST',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
     'Vi henter inn disse opplysningene for at du skal få oversikt over din samlede pensjon.',
   'personopplysninger.section.lagring.heading': 'Lagring',

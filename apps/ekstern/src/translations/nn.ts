@@ -501,6 +501,8 @@ const translations = {
     'Frå Norsk Pensjon hentar vi pensjonsavtalar frå privat sektor, som tenestepensjon frå arbeidsgjevar (innskots-, ytings- eller hybridpensjon), fripolisar og enkelte avtalar om pensjonssparing.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.2':
     'Vi sjekkar og om du er eller har vore medlem i offentleg tenestepensjonsordning. Er du, eller har du vore medlem, informerer vi deg om at du kan ha rett til tenestepensjon, men hentar ikkje inn avtalane.',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.3':
+    'Vi beregner AFP i offentlig sektor ut i fra din AFP-beholdning, hvis du samtykker.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
     'Vi hentar inn desse opplysningane for at du skal få oversikt over den samla pensjonen din.',
   'personopplysninger.section.lagring.heading': 'Lagring',
