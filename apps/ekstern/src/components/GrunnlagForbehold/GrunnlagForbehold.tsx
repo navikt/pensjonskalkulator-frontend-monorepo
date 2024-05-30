@@ -5,7 +5,6 @@ import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { BodyLong, Heading, HeadingProps, Link } from '@navikt/ds-react'
 
 import { paths } from '@/router/constants'
-import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagForbehold.module.scss'
 
@@ -36,14 +35,6 @@ export function GrunnlagForbehold(props: {
             height="1.25rem"
           />
         </Link>
-        <br />
-        <br />
-        <FormattedMessage
-          id="grunnlag.forbehold.ingress_2"
-          values={{
-            ...getFormatMessageValues(intl),
-          }}
-        />
       </BodyLong>
     </section>
   )
