@@ -43,7 +43,7 @@ export const fullfilledGetOmstillingsstoenadOgGjenlevende = {
     status: 'fulfilled',
     endpointName: 'getOmstillingsstoenadOgGjenlevende',
     requestId: 't1wLPiRKrfe_vchftk8s8',
-    data: { harLoependeSak: false },
+    data: { harLoependeSak: true },
     startedTimeStamp: 1714725797072,
     fulfilledTimeStamp: 1714725797669,
   },

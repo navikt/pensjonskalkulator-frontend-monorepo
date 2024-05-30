@@ -168,10 +168,7 @@ describe('BeregningEnkel', () => {
         },
       })
 
-      expect(await screen.findByTestId('om-ufoeretrygd')).toBeVisible()
-      expect(
-        screen.queryByTestId('tidligst-mulig-uttak')
-      ).not.toBeInTheDocument()
+      expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
     })
   })
 
