@@ -353,9 +353,9 @@ describe('userInput selectors', () => {
     it('er number når kallet er vellykket', () => {
       const state: RootState = {
         ...initialState,
-        /* eslint-disable @typescript-eslint/ban-ts-comment */
-        // @ts-ignore
         api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
           queries: { ...fullfilledGetUfoeregrad },
         },
       }

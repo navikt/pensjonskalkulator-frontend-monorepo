@@ -391,9 +391,9 @@ describe('BeregningAvansert', () => {
         hasRouter: false,
 
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
             queries: {
               ...fullfilledGetPerson,
               ...fullfilledGetInntekt,
