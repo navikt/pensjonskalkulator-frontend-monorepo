@@ -54,7 +54,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
           </BodyLong>
         )}
 
-        {ufoeregrad && (
+        {!!ufoeregrad && (
           <BodyLong size="medium" className={`${styles.ingress}`}>
             <FormattedMessage
               id={
