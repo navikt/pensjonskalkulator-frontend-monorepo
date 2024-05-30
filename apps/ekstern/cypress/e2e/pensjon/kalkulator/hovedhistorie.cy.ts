@@ -228,6 +228,47 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    describe('Gitt at jeg som bruker har svart "ja, offentlig" på spørsmålet om AFP,', () => {
+      describe('Når jeg navigerer videre fra /afp til /samtykke-offentlig-afp,', () => {
+        beforeEach(() => {
+          cy.login()
+          cy.contains('button', 'Kom i gang').click()
+          cy.get('[type="radio"]').last().check()
+          cy.contains('button', 'Neste').click()
+          cy.get('[type="radio"]').first().check()
+          cy.contains('button', 'Neste').click()
+          cy.wait('@getTpoMedlemskap')
+          cy.contains('button', 'Neste').click()
+          cy.get('[type="radio"]').first().check()
+          cy.contains('button', 'Neste').click()
+        })
+        it('forventer jeg å bli spurt om mitt samtykke for beregning av offentlig-AFP, og få informasjon om hva samtykket innebærer.', () => {
+          cy.contains(
+            'h2',
+            'Samtykke til at NAV beregner avtalefestet pensjon'
+          ).should('exist')
+          cy.contains('Vil du at NAV skal beregne AFP for deg?').should('exist')
+          cy.contains('button', 'Neste').click()
+          cy.contains(
+            'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+          ).should('exist')
+          cy.get('[type="radio"]').last().check()
+          cy.contains(
+            'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+          ).should('not.exist')
+          cy.contains('button', 'Neste').click()
+        })
+
+        it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
+          cy.contains('button', 'Tilbake').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/afp')
+          cy.go('back')
+          cy.contains('button', 'Avbryt').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/login')
+        })
+      })
+    })
+
     describe('Gitt at jeg som bruker er registrert med en annen sivilstand enn gift eller registrert partner,', () => {
       describe('Når jeg navigerer videre fra /afp til /sivilstand,', () => {
         beforeEach(() => {

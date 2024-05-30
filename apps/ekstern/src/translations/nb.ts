@@ -182,7 +182,7 @@ const translations = {
   'stegvisning.samtykke_offentlig_afp.radio_ja': 'Ja',
   'stegvisning.samtykke_offentlig_afp.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_offentlig_afp.validation_error':
-    'Vil du at NAV skal beregne AFP for deg?',
+    'Du må svare på om du vil at NAV skal beregne AFP for deg.',
   'stegvisning.sivilstand.title': 'Din sivilstand',
   'stegvisning.sivilstand.ingress_1': 'Du er registrert som ',
   'stegvisning.sivilstand.ingress_2':
