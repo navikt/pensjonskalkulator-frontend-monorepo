@@ -62,9 +62,6 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                   <li>
                     landingsside.liste.2
                   </li>
-                  <li>
-                    landingsside.liste.3
-                  </li>
                 </ul>
                 <p
                   class="_paragraph_6ae597 navds-body-long navds-body-long--medium"
@@ -196,9 +193,6 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                   </li>
                   <li>
                     landingsside.liste.2
-                  </li>
-                  <li>
-                    landingsside.liste.3
                   </li>
                 </ul>
                 <p
