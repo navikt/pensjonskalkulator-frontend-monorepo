@@ -110,7 +110,7 @@ const translations = {
   'stegvisning.samtykke.readmore_list_item2':
     'sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning, og viser at du kan ha rettigheter, uten å hente avtalene.',
   'stegvisning.samtykke.readmore_list_item3':
-    'gjelder samtykket kun for denne beregningen.',
+    'gjelder samtykket kun beregninger i denne kalkulatoren.',
   'stegvisning.samtykke.radio_label': 'Skal vi hente pensjonsavtalene dine?',
   'stegvisning.samtykke.radio_ja': 'Ja',
   'stegvisning.samtykke.radio_nei': 'Nei, fortsett uten',
@@ -417,6 +417,8 @@ const translations = {
   'grunnlag.afp.reset_link': 'ny beregning',
   'grunnlag.forbehold.ingress_1':
     'Pensjonen er beregnet med opplysningene vi har om deg og opplysningene du har oppgitt. Beregningen er gjort med gjeldende regelverk. Dette er en foreløpig beregning av hva du kan forvente deg i pensjon. ',
+  'grunnlag.forbehold.ingress_2':
+    'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'grunnlag.forbehold.link': 'Alle forbehold',
   'grunnlag.forbehold.title': 'Forbehold',
   'savnerdunoe.title': 'Savner du noe?',
@@ -447,8 +449,6 @@ const translations = {
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
   'pensjonsavtaler.title': 'Pensjonsavtaler',
-  'grunnlag.forbehold.ingress_2':
-    'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
@@ -569,7 +569,7 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
     'Hvis du har gjenlevendepensjon bruker vi opplysningen til å kunne henvise deg til detaljert pensjonskalkulator.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
-    'Vi spør deg om utenlandsopphold. Kalkulatoren tar ikke høyde for lengre utenlandsopphol. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg derfor til detaljert pensjonskalkulator.',
+    'Vi spør deg om utenlandsopphold. Kalkulatoren tar ikke høyde for lengre utenlandsopphold. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg derfor til detaljert pensjonskalkulator.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
     'Vi spør deg om du har rett til AFP i enten offentlig eller privat sektor. Vi bruker opplysningen til å identifisere om vi skal beregne alderspensjonen din med AFP. Opplysningen brukes også til å informere om når du kan ta ut alderspensjon. Videre bruker vi opplysningen til å beregne AFP.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':
@@ -578,7 +578,8 @@ const translations = {
     'Fra Norsk Pensjon henter vi pensjonsavtaler fra privat sektor, som tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon), fripoliser og enkelte avtaler om pensjonssparing.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.2':
     'Vi sjekker også om du er eller har vært medlem i en offentlig tjenestepensjonsordning. Hvis du er eller har vært medlem, informerer vi deg om at du kan ha rettigheter, men henter ikke inn avtalene.',
-  'personopplysninger.section.hvilke_opplysninger.gpdr.list.3': 'MANGLER_TEKST',
+  'personopplysninger.section.hvilke_opplysninger.gpdr.list.3':
+    'Vi beregner AFP i offentlig sektor ut i fra din AFP-beholdning, hvis du samtykker.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext':
     'Vi henter inn disse opplysningene for at du skal få oversikt over din samlede pensjon.',
   'personopplysninger.section.lagring.heading': 'Lagring',
