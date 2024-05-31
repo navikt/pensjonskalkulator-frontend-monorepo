@@ -3,7 +3,7 @@ describe('Avansert', () => {
     describe('Når jeg ønsker en avansert beregning', () => {
       beforeEach(() => {
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
       })
 
@@ -37,7 +37,7 @@ describe('Avansert', () => {
     describe('Når jeg er kommet inn i avansert', () => {
       beforeEach(() => {
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('Avansert').click()
       })
@@ -176,7 +176,7 @@ describe('Avansert', () => {
     describe('Når jeg har valgt ut pensjonsalder og ønsker 100 % alderspensjon', () => {
       beforeEach(() => {
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('Avansert').click()
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
@@ -263,7 +263,7 @@ describe('Avansert', () => {
     describe('Når jeg har valgt ut pensjonsalder og ønsker en annen uttaksgrad enn 100% alderspensjon', () => {
       beforeEach(() => {
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('Avansert').click()
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
@@ -349,7 +349,7 @@ describe('Avansert', () => {
     describe('Når jeg har for lav opptjening til valgt pensjonsalder og/eller uttaksgrad,', () => {
       beforeEach(() => {
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('Avansert').click()
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
@@ -418,7 +418,6 @@ describe('Avansert', () => {
           },
           {
             alderspensjon: [],
-
             vilkaarsproeving: {
               vilkaarErOppfylt: false,
               alternativ: {

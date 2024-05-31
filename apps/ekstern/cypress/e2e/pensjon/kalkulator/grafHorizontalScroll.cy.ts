@@ -2,7 +2,7 @@ describe('Graf Horizontal scroll', () => {
   context('Gitt at grafen rendres på desktop', () => {
     beforeEach(() => {
       cy.login()
-      cy.fillOutStegvisning({ samtykke: false })
+      cy.fillOutStegvisning({})
     })
 
     it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {

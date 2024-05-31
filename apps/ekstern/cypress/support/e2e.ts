@@ -1,6 +1,7 @@
 import 'cypress-axe'
 
 import { userInputActions } from '../../src/state/userInput/userInputReducer'
+import { apiSlice } from '../../src/state/api/apiSlice'
 
 beforeEach(() => {
   cy.intercept('GET', `/person/nav-dekoratoren-api/auth`, {
@@ -143,16 +144,40 @@ Cypress.Commands.add('login', () => {
   cy.visit('/pensjon/kalkulator/')
   cy.wait('@getAuthSession')
   cy.contains('button', 'Enkel kalkulator').click()
+  // På steg 0 kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   cy.wait('@getPerson')
+  cy.wait('@getEkskludertStatus')
   cy.wait('@getInntekt')
+  cy.wait('@getOmstillingsstoenadOgGjenlevende')
 })
 
 Cypress.Commands.add('fillOutStegvisning', (args) => {
-  const { samtykke, afp = 'vet_ikke', samboer = true } = args
+  const { samtykke = false, afp = 'vet_ikke', samboer = true } = args
+
   cy.window()
     .its('store')
     .invoke('dispatch', userInputActions.setSamtykke(samtykke))
+
+  if (samtykke) {
+    // Kaller /tpo-medlemskap som vanligvis gjøres på steg 2 ila. stegvisningen
+    cy.window()
+      .its('store')
+      .invoke('dispatch', apiSlice.endpoints.getTpoMedlemskap.initiate())
+    // TODO AFP - utvide med samtykkeOffentligAFP argument og dispatch setSamtykkeOffentligAFP
+  }
+
+  // TODO AFP - utvide med samtykkeOffentligAFP argument og dispatch setSamtykkeOffentligAFP
+  // if (afp === 'ja_offentlig') {
+  // }
+
+  // Kaller /ufoeregrad som vanligvis gjøres på steg 4 ila. stegvisningen
+  cy.window()
+    .its('store')
+    .invoke('dispatch', apiSlice.endpoints.getUfoeregrad.initiate())
+  cy.wait('@getUfoeregrad')
+
   cy.window().its('store').invoke('dispatch', userInputActions.setAfp(afp))
+
   cy.window()
     .its('store')
     .invoke('dispatch', userInputActions.setSamboer(samboer))

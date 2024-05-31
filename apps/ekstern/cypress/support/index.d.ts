@@ -9,7 +9,7 @@ declare global {
        * @example cy.fillOutStegvisning(true, 'ja_offentlig', false)
        */
       fillOutStegvisning(args: {
-        samtykke: boolean
+        samtykke?: boolean
         afp?: AfpRadio
         samboer?: boolean
       }): Chainable<void>

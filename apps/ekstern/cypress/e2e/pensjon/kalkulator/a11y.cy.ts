@@ -1,5 +1,12 @@
 describe('Pensjonskalkulator', () => {
   it('rendrer stegsvisning', () => {
+    cy.intercept(
+      { method: 'GET', url: '/pensjon/kalkulator/api/v1/ufoeregrad' },
+      {
+        ufoeregrad: 75,
+      }
+    ).as('getUfoeregrad')
+
     cy.login()
     cy.injectAxe()
 
@@ -33,6 +40,13 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker Steg 5
+    cy.contains('Uføretrygd og avtalefestet pensjon')
+    cy.checkA11y('main')
+    cy.contains('button', 'Neste').click()
+
+    // TODO legge til steg om AFP offentlig
+
+    // Sjekker Steg 6
     cy.contains('Din sivilstand')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
@@ -41,20 +55,7 @@ describe('Pensjonskalkulator', () => {
 
   it('rendrer resultatsside for enkel uten a11y-feil', () => {
     cy.login()
-
-    cy.contains('button', 'Kom i gang').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').first().check()
-    cy.contains('button', 'Beregn pensjon').click()
+    cy.fillOutStegvisning({})
 
     // Sjekker Beregning
     cy.wait('@fetchTidligsteUttaksalder')
@@ -75,7 +76,7 @@ describe('Pensjonskalkulator', () => {
 
   it('rendrer skjemaet og resultatsside for avansert uten a11y-feil', () => {
     cy.login()
-    cy.fillOutStegvisning({ samtykke: false })
+    cy.fillOutStegvisning({})
     cy.wait('@fetchTidligsteUttaksalder')
     cy.contains('Avansert').click()
     cy.contains('Avansert').click()
@@ -112,7 +113,7 @@ describe('Pensjonskalkulator', () => {
 
   it('når brukeren ikke oppfyller vilkaar for valgt uttaksalder, rendrer skjemaet med forslag om annet uttak uten a11y-feil', () => {
     cy.login()
-    cy.fillOutStegvisning({ samtykke: false })
+    cy.fillOutStegvisning({})
     cy.wait('@fetchTidligsteUttaksalder')
     cy.contains('Avansert').click()
     cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select('65')
