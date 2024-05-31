@@ -280,7 +280,6 @@ const translations = {
   'grunnlag.opphold.ingress': 'MANGLER_TEKST',
   'grunnlag.opphold.value': 'MANGLER_TEKST',
   'grunnlag.forbehold.ingress_1': 'MANGLER_TEKST',
-  'grunnlag.forbehold.ingress_2': 'MANGLER_TEKST',
   'grunnlag.forbehold.link': 'MANGLER_TEKST',
   'grunnlag.forbehold.title': 'MANGLER_TEKST',
   'savnerdunoe.title': 'MANGLER_TEKST',

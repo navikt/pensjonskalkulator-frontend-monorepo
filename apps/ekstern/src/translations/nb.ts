@@ -428,8 +428,6 @@ const translations = {
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
   'pensjonsavtaler.title': 'Pensjonsavtaler',
-  'grunnlag.forbehold.ingress_2':
-    'Denne kalkulatoren er under utvikling og har begrenset funksjonalitet. Du kan gjøre mer spesifisert beregning i <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':
