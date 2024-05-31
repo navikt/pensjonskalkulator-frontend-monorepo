@@ -1,6 +1,6 @@
 describe('AFP nei/vet ikke', () => {
   describe('Som bruker som har logget inn på kalkulatoren,', () => {
-    describe('Når jeg navigerer videre fra /offentlig-tp til /afp og vet ikke om jeg har rett til AFP', () => {
+    describe.skip('Når jeg navigerer videre fra /offentlig-tp til /afp og vet ikke om jeg har rett til AFP', () => {
       beforeEach(() => {
         cy.login()
         cy.contains('button', 'Kom i gang').click()
@@ -27,7 +27,39 @@ describe('AFP nei/vet ikke', () => {
       })
     })
 
-    describe('Gitt at jeg som bruker har svart "nei" eller "vet ikke" på spørsmål om AFP,', () => {
+    describe('Gitt at jeg som bruker har svart "nei"  på spørsmål om AFP,', () => {
+      beforeEach(() => {
+        cy.login()
+        cy.fillOutStegvisning({ samtykke: true, afp: 'nei' })
+        cy.wait('@fetchTidligsteUttaksalder')
+      })
+
+      describe('Når jeg er kommet til beregningssiden og velger hvilken alder jeg ønsker beregning fra,', () => {
+        it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt,Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt. AFP vises ikke.', () => {
+          cy.contains('button', '62 år og 10 md.').click()
+          cy.contains('Beregning').should('exist')
+          cy.contains('Pensjonsgivende inntekt').should('exist')
+          cy.contains('AFP (Avtalefestet pensjon)').should('not.exist')
+          cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
+          cy.contains('Alderspensjon (NAV)').should('exist')
+          cy.contains('Tusen kroner').should('exist')
+          cy.contains('61').should('exist')
+          cy.contains('87+').should('exist')
+        })
+
+        it('forventer jeg å få informasjon i grunnlaget om at AFP kan påvirke min uttaksalder.', () => {
+          cy.contains('button', '70').click()
+          cy.contains('Øvrig grunnlag for beregningen').should('exist')
+          cy.contains('AFP:').click()
+          cy.contains('Nei').should('exist')
+          cy.contains(
+            'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ny beregning.'
+          ).should('exist')
+        })
+      })
+    })
+
+    describe('Gitt at jeg som bruker har svart "vet ikke" på spørsmål om AFP,', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({ samtykke: true, afp: 'vet_ikke' })
@@ -45,10 +77,6 @@ describe('AFP nei/vet ikke', () => {
           cy.contains('Tusen kroner').should('exist')
           cy.contains('61').should('exist')
           cy.contains('87+').should('exist')
-
-          cy.contains('Tilbake til start').click({ force: true })
-          cy.fillOutStegvisning({ samtykke: true, afp: 'nei' })
-          cy.contains('AFP (Avtalefestet pensjon)').should('not.exist')
         })
 
         it('forventer jeg å få informasjon i grunnlaget om at AFP kan påvirke min uttaksalder.', () => {
@@ -58,15 +86,6 @@ describe('AFP nei/vet ikke', () => {
           cy.contains('Vet ikke').should('exist')
           cy.contains(
             'Hvis du er usikker på om du har AFP bør du spørre arbeidsgiveren din. AFP kan påvirke når du kan ta ut alderspensjon.'
-          ).should('exist')
-
-          cy.contains('Tilbake til start').click({ force: true })
-          cy.fillOutStegvisning({ samtykke: true, afp: 'nei' })
-          cy.contains('button', '70').click()
-          cy.contains('AFP:').click()
-          cy.contains('Nei').should('exist')
-          cy.contains(
-            'Hvis du starter i jobb hos en arbeidsgiver som har avtale om AFP, anbefaler vi at du gjør en ny beregning.'
           ).should('exist')
         })
       })

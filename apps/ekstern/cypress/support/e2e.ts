@@ -174,7 +174,6 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
   cy.window()
     .its('store')
     .invoke('dispatch', apiSlice.endpoints.getUfoeregrad.initiate())
-  cy.wait('@getUfoeregrad')
 
   cy.window().its('store').invoke('dispatch', userInputActions.setAfp(afp))
 

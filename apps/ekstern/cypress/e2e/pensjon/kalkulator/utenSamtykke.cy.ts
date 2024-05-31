@@ -10,6 +10,7 @@ describe('Uten samtykke', () => {
           cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
         })
+
         it('forventer jeg at det ikke hentes informasjon om pensjonsavtaler eller tjenestepensjon.', () => {
           cy.contains(
             'h2',
@@ -82,7 +83,6 @@ describe('Uten samtykke', () => {
 
           cy.contains('button', 'Tilbake til start').click({ force: true })
           cy.location('href').should('include', '/pensjon/kalkulator/start')
-          cy.fillOutStegvisning({})
         })
       })
     })
