@@ -506,9 +506,9 @@ const translations = {
   'forbehold.uforetrygd.title': 'Uføretrygd',
   'forbehold.uforetrygd.ingress':
     'Mottar du uføretrygd, 100 % eller gradert, har vi forutsatt at du beholder lik uføregrad frem til den avsluttes ved 67 år. Hvis du endrer uføregraden din, kan både beregning og valgene dine i kalkulatoren endres.{br}{br}Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren.{br}{br}Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer vil gi deg et annet resultat.',
-  'forbehold.gjenlevende.title': 'Gjenlevendepensjon',
+  'forbehold.gjenlevende.title': 'Gjenlevendepensjon og omstillingsstønad',
   'forbehold.gjenlevende.ingress':
-    'Er du innvilget gjenlevendepensjon kan beregningen gi feil resultat. Du må benytte <detaljertKalkulatorLink>detaljert kalkulator</detaljertKalkulatorLink>. Det gjelder selv om du er i jobb og ikke får utbetalt gjenlevendepensjon.  ',
+    'Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet.',
   'forbehold.pensjonsavtaler.title': 'Pensjonsavtaler',
   'forbehold.pensjonsavtaler.ingress':
     'Om du har samtykket til det, henter vi inn opplysninger om hva du vil få i pensjon fra offentlige og private pensjonsordninger. NAV har ikke ansvar for beløpene som oppgis, men er ment for å gi en omtrentlig oversikt over din totale pensjon.{br}{br}Privat tjenestepensjon og individuelle rettigheter innhentes via Norsk Pensjon.{br}{br}NAV har for tiden ikke mulighet til å hente informasjon fra offentlige tjenestepensjonsordninger. Ta kontakt med din tjenestepensjonsordning dersom du trenger informasjon om tjenestepensjonen din.{br}{br}Hvis du ønsker en nærmere oversikt over dine pensjonsavtaler, må du sjekke direkte med den enkelte pensjonsordningen.',
@@ -549,7 +549,7 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.8':
     'Hvis du har uføretrygd, bruker vi din uførehistorikk, uføregrad, antatt inntekt og eventuell yrkesskadehistorikk. Dette gjør vi for å kunne beregne alderspensjonen din. Vi bruker også uføregraden til å vise mulige graderinger av alderspensjon som du kan ta ut i kombinasjon med uføretrygd. Vi henter ikke inn medisinske opplysninger fra saken din.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
-    'Hvis du har gjenlevendepensjon bruker vi opplysningen til å kunne henvise deg til detaljert kalkulator.',
+    'Hvis du har gjenlevendepensjon eller omstillingsstønad, bruker vi opplysningen til å informere deg om at gjenlevendepensjon og omstillingsstønad ikke kan kombineres med alderspensjon.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
     'Vi spør deg om utenlandsopphold. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg til detaljert kalkulator. Enkel kalkulator tar ikke høyde for lengre utenlandsopphold.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
