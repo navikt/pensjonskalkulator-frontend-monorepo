@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
-import { fullfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import {
@@ -33,7 +33,7 @@ describe('Pensjonsavtaler', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: { ...userInputInitialState, samtykke: false },
@@ -83,7 +83,7 @@ describe('Pensjonsavtaler', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -108,7 +108,7 @@ describe('Pensjonsavtaler', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -156,7 +156,7 @@ describe('Pensjonsavtaler', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -201,7 +201,7 @@ describe('Pensjonsavtaler', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -253,7 +253,7 @@ describe('Pensjonsavtaler', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {

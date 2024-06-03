@@ -1,4 +1,4 @@
-export const fullfilledGetPerson = {
+export const fulfilledGetPerson = {
   ['getPerson(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getPerson',
@@ -13,7 +13,7 @@ export const fullfilledGetPerson = {
   },
 }
 
-export const fullfilledGetInntekt = {
+export const fulfilledGetInntekt = {
   ['getInntekt(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getInntekt',
@@ -27,7 +27,7 @@ export const fullfilledGetInntekt = {
   },
 }
 
-export const fullfilledGetEkskludertStatus = {
+export const fulfilledGetEkskludertStatus = {
   ['getEkskludertStatus(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getEkskludertStatus',
@@ -38,7 +38,7 @@ export const fullfilledGetEkskludertStatus = {
   },
 }
 
-export const fullfilledGetOmstillingsstoenadOgGjenlevende = {
+export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
   ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getOmstillingsstoenadOgGjenlevende',
@@ -49,7 +49,7 @@ export const fullfilledGetOmstillingsstoenadOgGjenlevende = {
   },
 }
 
-export const fullfilledGetUfoeregrad = {
+export const fulfilledGetUfoeregrad = {
   ['getUfoeregrad(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getUfoeregrad',
@@ -62,7 +62,7 @@ export const fullfilledGetUfoeregrad = {
   },
 }
 
-export const fullfilledGetTpoMedlemskap = {
+export const fulfilledGetTpoMedlemskap = {
   ['getTpoMedlemskap(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getTpoMedlemskap',
@@ -75,7 +75,7 @@ export const fullfilledGetTpoMedlemskap = {
   },
 }
 
-export const fullfilledPensjonsavtaler = {
+export const fulfilledPensjonsavtaler = {
   ['pensjonsavtaler(undefined)']: {
     status: 'fulfilled',
     endpointName: 'pensjonsavtaler',

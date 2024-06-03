@@ -5,9 +5,9 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningEnkel } from '../BeregningEnkel'
 import {
-  fullfilledGetInntekt,
-  fullfilledGetPerson,
-  fullfilledGetUfoeregrad,
+  fulfilledGetInntekt,
+  fulfilledGetPerson,
+  fulfilledGetUfoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -31,8 +31,8 @@ describe('BeregningEnkel', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -95,8 +95,8 @@ describe('BeregningEnkel', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -129,9 +129,9 @@ describe('BeregningEnkel', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
-              ...fullfilledGetUfoeregrad,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetUfoeregrad,
             },
           },
           userInput: {
@@ -154,9 +154,9 @@ describe('BeregningEnkel', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
-              ...fullfilledGetUfoeregrad,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetUfoeregrad,
             },
           },
           userInput: {
@@ -387,8 +387,8 @@ describe('BeregningEnkel', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -470,8 +470,8 @@ describe('BeregningEnkel', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -516,8 +516,8 @@ describe('BeregningEnkel', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {
@@ -550,8 +550,8 @@ describe('BeregningEnkel', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {

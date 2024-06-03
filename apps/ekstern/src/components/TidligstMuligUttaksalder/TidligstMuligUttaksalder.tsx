@@ -124,7 +124,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
         {omstillingsstoenadOgGjenlevende?.harLoependeSak && (
           <Alert className={styles.alert} variant="info" aria-live="polite">
             <FormattedMessage
-              id="tidligstmuliguttak.info_omstillinngsstoenad_og_gjenlevende"
+              id="tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende"
               values={{
                 ...getFormatMessageValues(intl),
               }}

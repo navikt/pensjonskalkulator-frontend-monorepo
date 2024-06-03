@@ -1,5 +1,5 @@
 import { EndreInntekt } from '..'
-import { fullfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
@@ -160,7 +160,7 @@ describe('EndreInntekt', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: { ...userInputInitialState, samtykke: false },

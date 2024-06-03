@@ -17,10 +17,10 @@ import {
   selectUfoeregrad,
 } from '../selectors'
 import {
-  fullfilledGetInntekt,
-  fullfilledGetPerson,
-  fullfilledGetTpoMedlemskap,
-  fullfilledGetUfoeregrad,
+  fulfilledGetInntekt,
+  fulfilledGetPerson,
+  fulfilledGetTpoMedlemskap,
+  fulfilledGetUfoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -92,7 +92,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fullfilledGetPerson },
+          queries: { ...fulfilledGetPerson },
         },
       }
       expect(selectSivilstand(state)).toBe('UGIFT')
@@ -106,7 +106,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fullfilledGetPerson },
+          queries: { ...fulfilledGetPerson },
         },
       }
       expect(selectSamboerFraSivilstand(state)).toBe(false)
@@ -144,7 +144,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fullfilledGetPerson },
+          queries: { ...fulfilledGetPerson },
         },
         userInput: {
           ...initialState.userInput,
@@ -213,7 +213,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fullfilledGetInntekt },
+          queries: { ...fulfilledGetInntekt },
         },
       }
       const inntekt = selectAarligInntektFoerUttakBeloepFraSkatt(state)
@@ -229,7 +229,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fullfilledGetInntekt },
+          queries: { ...fulfilledGetInntekt },
         },
         userInput: {
           ...initialState.userInput,
@@ -248,7 +248,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fullfilledGetInntekt },
+          queries: { ...fulfilledGetInntekt },
         },
         userInput: {
           ...initialState.userInput,
@@ -301,7 +301,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fullfilledGetTpoMedlemskap },
+          queries: { ...fulfilledGetTpoMedlemskap },
         },
       }
       expect(selectHarHentetTpoMedlemskap(state)).toBeTruthy()
@@ -356,7 +356,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fullfilledGetUfoeregrad },
+          queries: { ...fulfilledGetUfoeregrad },
         },
       }
       expect(selectUfoeregrad(state)).toBe(75)

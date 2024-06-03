@@ -12,10 +12,10 @@ import {
   step6AccessGuard,
 } from '../loaders'
 import {
-  fullfilledGetPerson,
-  fullfilledGetInntekt,
-  fullfilledGetEkskludertStatus,
-  fullfilledGetOmstillingsstoenadOgGjenlevende,
+  fulfilledGetPerson,
+  fulfilledGetInntekt,
+  fulfilledGetEkskludertStatus,
+  fulfilledGetOmstillingsstoenadOgGjenlevende,
   rejectedGetInntekt,
   rejectedGetEkskludertStatus,
   rejectedGetOmstillingsstoenadOgGjenlevende,
@@ -50,7 +50,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fullfilledGetPerson,
+            ...fulfilledGetPerson,
           },
         },
         userInput: { ...userInputInitialState, samtykke: null },
@@ -136,7 +136,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fullfilledGetPerson,
+            ...fulfilledGetPerson,
           },
         },
         userInput: { ...userInputInitialState, veilederBorgerFnr: '81549300' },
@@ -241,7 +241,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fullfilledGetPerson,
+            ...fulfilledGetPerson,
           },
         },
         userInput: { ...userInputInitialState, samtykke: false },
@@ -260,7 +260,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fullfilledGetPerson,
+            ...fulfilledGetPerson,
           },
         },
         userInput: { ...userInputInitialState, samtykke: true },
@@ -292,7 +292,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fullfilledGetPerson,
+            ...fulfilledGetPerson,
           },
         },
         userInput: { ...userInputInitialState, samtykke: true },
@@ -320,7 +320,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fullfilledGetPerson,
+            ...fulfilledGetPerson,
           },
         },
         userInput: { ...userInputInitialState, samtykke: true },
@@ -365,8 +365,8 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ...fullfilledGetInntekt,
-            ...fullfilledGetEkskludertStatus,
+            ...fulfilledGetInntekt,
+            ...fulfilledGetEkskludertStatus,
           },
         },
         userInput: { ...userInputInitialState },
@@ -396,8 +396,8 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetInntekt,
-              ...fullfilledGetEkskludertStatus,
-              ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+              ...fulfilledGetEkskludertStatus,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
             },
           },
           userInput: { ...userInputInitialState },
@@ -429,7 +429,7 @@ describe('Loaders', () => {
             queries: {
               ...rejectedGetInntekt,
               ...rejectedGetEkskludertStatus,
-              ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
             },
           },
           userInput: { ...userInputInitialState },
@@ -462,7 +462,7 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetInntekt,
-              ...fullfilledGetEkskludertStatus,
+              ...fulfilledGetEkskludertStatus,
               ...rejectedGetOmstillingsstoenadOgGjenlevende,
             },
           },
@@ -493,8 +493,8 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetInntekt,
-              ...fullfilledGetEkskludertStatus,
-              ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+              ...fulfilledGetEkskludertStatus,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
             },
           },
           userInput: { ...userInputInitialState },
@@ -525,8 +525,8 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetOmstillingsstoenadOgGjenlevende,
-              ...fullfilledGetInntekt,
-              ...fullfilledGetEkskludertStatus,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetEkskludertStatus,
             },
           },
           userInput: { ...userInputInitialState },
@@ -558,7 +558,7 @@ describe('Loaders', () => {
             queries: {
               ...rejectedGetOmstillingsstoenadOgGjenlevende,
               ...rejectedGetEkskludertStatus,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: { ...userInputInitialState },
@@ -590,7 +590,7 @@ describe('Loaders', () => {
             queries: {
               ...rejectedGetOmstillingsstoenadOgGjenlevende,
               ...rejectedGetInntekt,
-              ...fullfilledGetEkskludertStatus,
+              ...fulfilledGetEkskludertStatus,
             },
           },
           userInput: { ...userInputInitialState },
@@ -622,8 +622,8 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetOmstillingsstoenadOgGjenlevende,
-              ...fullfilledGetInntekt,
-              ...fullfilledGetEkskludertStatus,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetEkskludertStatus,
             },
           },
           userInput: { ...userInputInitialState },
@@ -661,8 +661,8 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetEkskludertStatus,
-              ...fullfilledGetInntekt,
-              ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
             },
           },
           userInput: { ...userInputInitialState },
@@ -693,8 +693,8 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetEkskludertStatus,
-              ...fullfilledGetInntekt,
-              ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
             },
           },
           userInput: { ...userInputInitialState },
@@ -727,7 +727,7 @@ describe('Loaders', () => {
             queries: {
               ...rejectedGetEkskludertStatus,
               ...rejectedGetInntekt,
-              ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
             },
           },
           userInput: { ...userInputInitialState },
@@ -760,7 +760,7 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetEkskludertStatus,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetInntekt,
               ...rejectedGetOmstillingsstoenadOgGjenlevende,
             },
           },
@@ -791,8 +791,8 @@ describe('Loaders', () => {
           api: {
             queries: {
               ...rejectedGetEkskludertStatus,
-              ...fullfilledGetInntekt,
-              ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
             },
           },
           userInput: { ...userInputInitialState },

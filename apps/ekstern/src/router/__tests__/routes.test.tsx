@@ -9,7 +9,7 @@ import {
   paths,
 } from '../constants'
 import { routes } from '../routes'
-import { fullfilledGetUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -637,7 +637,7 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ...fullfilledGetUfoeregrad,
+              ...fulfilledGetUfoeregrad,
             },
           },
           userInput: { ...userInputInitialState },

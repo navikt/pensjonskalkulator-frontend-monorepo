@@ -3,7 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { fullfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -20,7 +20,7 @@ describe('Step 6', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ...fullfilledGetPerson,
+          ...fulfilledGetPerson,
         },
       },
       userInput: {
@@ -42,7 +42,7 @@ describe('Step 6', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ...fullfilledGetPerson,
+          ...fulfilledGetPerson,
         },
       },
       userInput: {

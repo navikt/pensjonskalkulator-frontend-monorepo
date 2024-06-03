@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it } from 'vitest'
 
 import { TidligstMuligUttaksalder } from '..'
-import { fullfilledGetOmstillingsstoenadOgGjenlevende } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetOmstillingsstoenadOgGjenlevende } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -165,7 +165,7 @@ describe('TidligstMuligUttaksalder', () => {
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
-                ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+                ...fulfilledGetOmstillingsstoenadOgGjenlevende,
               },
             },
             userInput: { ...userInputInitialState },
@@ -176,7 +176,7 @@ describe('TidligstMuligUttaksalder', () => {
       await waitFor(() => {
         expect(
           screen.getByText(
-            'tidligstmuliguttak.info_omstillinngsstoenad_og_gjenlevende'
+            'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
           )
         ).toBeInTheDocument()
       })
@@ -345,7 +345,7 @@ describe('TidligstMuligUttaksalder', () => {
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
-                ...fullfilledGetOmstillingsstoenadOgGjenlevende,
+                ...fulfilledGetOmstillingsstoenadOgGjenlevende,
               },
             },
             userInput: { ...userInputInitialState },
@@ -356,7 +356,7 @@ describe('TidligstMuligUttaksalder', () => {
       await waitFor(() => {
         expect(
           screen.getByText(
-            'tidligstmuliguttak.info_omstillinngsstoenad_og_gjenlevende'
+            'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
           )
         ).toBeInTheDocument()
       })

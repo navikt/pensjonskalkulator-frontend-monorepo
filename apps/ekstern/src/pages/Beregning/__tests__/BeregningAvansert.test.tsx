@@ -6,8 +6,8 @@ import { describe, expect, it, vi } from 'vitest'
 import { BeregningAvansert } from '../BeregningAvansert'
 import { FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
 import {
-  fullfilledGetInntekt,
-  fullfilledGetPerson,
+  fulfilledGetInntekt,
+  fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import {
@@ -34,8 +34,8 @@ describe('BeregningAvansert', () => {
     const preloadedState = {
       api: {
         queries: {
-          ...fullfilledGetPerson,
-          ...fullfilledGetInntekt,
+          ...fulfilledGetPerson,
+          ...fulfilledGetInntekt,
         },
       },
       userInput: {
@@ -179,8 +179,8 @@ describe('BeregningAvansert', () => {
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
-                ...fullfilledGetPerson,
-                ...fullfilledGetInntekt,
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
               },
             },
             userInput: {
@@ -269,8 +269,8 @@ describe('BeregningAvansert', () => {
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
-                ...fullfilledGetPerson,
-                ...fullfilledGetInntekt,
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
               },
             },
             userInput: {
@@ -326,8 +326,8 @@ describe('BeregningAvansert', () => {
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
               queries: {
-                ...fullfilledGetPerson,
-                ...fullfilledGetInntekt,
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
               },
             },
             userInput: {
@@ -395,8 +395,8 @@ describe('BeregningAvansert', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetPerson,
-              ...fullfilledGetInntekt,
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
             },
           },
           userInput: {

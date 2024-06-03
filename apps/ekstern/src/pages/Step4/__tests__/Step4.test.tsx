@@ -4,10 +4,10 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, it, vi } from 'vitest'
 
 import {
-  fullfilledGetEkskludertStatus,
-  fullfilledGetInntekt,
-  fullfilledGetPerson,
-  fullfilledGetTpoMedlemskap,
+  fulfilledGetEkskludertStatus,
+  fulfilledGetInntekt,
+  fulfilledGetPerson,
+  fulfilledGetTpoMedlemskap,
   rejectedGetInntekt,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
@@ -25,7 +25,7 @@ describe('Step 4', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ...fullfilledGetPerson,
+          ...fulfilledGetPerson,
         },
       },
       userInput: {
@@ -48,7 +48,7 @@ describe('Step 4', () => {
       api: {
         queries: {
           ...rejectedGetInntekt,
-          ...fullfilledGetPerson,
+          ...fulfilledGetPerson,
         },
       },
       userInput: {
@@ -137,9 +137,9 @@ describe('Step 4', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ...fullfilledGetTpoMedlemskap,
-          ...fullfilledGetInntekt,
-          ...fullfilledGetEkskludertStatus,
+          ...fulfilledGetTpoMedlemskap,
+          ...fulfilledGetInntekt,
+          ...fulfilledGetEkskludertStatus,
         },
       },
       userInput: {

@@ -205,7 +205,7 @@ const translations = {
     'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}',
   'tidligstmuliguttak.readmore_ingress.enkelt':
     'Stortinget har blitt enige om endringer i pensjonssystemet. Aldersgrensene er forventet å øke gradvis fra 1964-kullet med en til to måneder per årskull.{br}{br}<strong>Dagens regler</strong>{br}Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.{br}{br}Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du ikke kan ta ut hel (<nowrap>100 %</nowrap>) alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.{br}{br}Fra 67 år kan alle ta ut <nowrap>100 %</nowrap> alderspensjon.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
-  'tidligstmuliguttak.info_omstillinngsstoenad_og_gjenlevende':
+  'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende':
     'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad. Ønsker du å ta ut alderspensjon før 67 år, må du si den ifra deg når du tar ut alderspensjon. Har du spørsmål, kan du kontakte oss på telefon 55 55 33 34.',
   'tidligstmuliguttak.info_afp':
     'Har du AFP i offentlig sektor, kan du trolig ta ut alderspensjon tidligere enn hvis du ikke har AFP.',

@@ -4,8 +4,8 @@ import { describe, it, vi } from 'vitest'
 
 import { Step2 } from '..'
 import {
-  fullfilledGetTpoMedlemskap,
-  fullfilledPensjonsavtaler,
+  fulfilledGetTpoMedlemskap,
+  fulfilledPensjonsavtaler,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
@@ -56,8 +56,8 @@ describe('Step 2', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ...fullfilledGetTpoMedlemskap,
-              ...fullfilledPensjonsavtaler,
+              ...fulfilledGetTpoMedlemskap,
+              ...fulfilledPensjonsavtaler,
             },
           },
           userInput: {
