@@ -346,10 +346,10 @@ describe('Hovedhistorie', () => {
         cy.fillOutStegvisning({ samtykke: false })
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
-          'Din opptjening gjør at du etter dagens regler tidligst kan ta ut 100 % alderspensjon når du er'
+          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
-        cy.contains('Foreslåtte lovendringer kan øke pensjonsalderen.').should(
+        cy.contains('Det kan bli senere pga. økt pensjonsalder.').should(
           'exist'
         )
       })

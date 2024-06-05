@@ -198,9 +198,8 @@ const translations = {
   'sivilstand.gjenlevende_partner': 'Attlevande partnar',
   'sivilstand.med_samboer': 'med sambuar',
   'sivilstand.uten_samboer': 'utan sambuar',
-  'tidligstmuliguttak.1963.ingress_1':
+  'tidligstmuliguttak.ingress_1':
     'Di opptening gjer at du tidlegast kan ta ut 100 % alderspensjon når du er ',
-  'tidligstmuliguttak.1964.ingress_1': 'MANGLER_TEKST',
   'tidligstmuliguttak.1963.ingress_2':
     ' Jo lenger du ventar, dess meir får du i året.',
   'tidligstmuliguttak.1964.ingress_2': 'MANGLER_TEKST',

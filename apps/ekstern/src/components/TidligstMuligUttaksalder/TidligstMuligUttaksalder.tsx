@@ -27,9 +27,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
           <>
             <BodyLong size="medium" className={`${styles.ingress}`}>
               <FormattedMessage
-                id={`tidligstmuliguttak.${
-                  show1963Text ? '1963' : '1964'
-                }.ingress_1`}
+                id="tidligstmuliguttak.ingress_1"
                 values={{
                   ...getFormatMessageValues(intl),
                 }}

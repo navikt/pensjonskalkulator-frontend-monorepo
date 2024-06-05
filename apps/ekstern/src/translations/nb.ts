@@ -217,14 +217,12 @@ const translations = {
   'sivilstand.gjenlevende_partner': 'Gjenlevende partner',
   'sivilstand.med_samboer': 'med samboer',
   'sivilstand.uten_samboer': 'uten samboer',
-  'tidligstmuliguttak.1963.ingress_1':
+  'tidligstmuliguttak.ingress_1':
     'Din opptjening gjør at du tidligst kan ta ut <nowrap>100 %</nowrap> alderspensjon når du er ',
-  'tidligstmuliguttak.1964.ingress_1':
-    'Din opptjening gjør at du etter dagens regler tidligst kan ta ut <nowrap>100 %</nowrap> alderspensjon når du er ',
   'tidligstmuliguttak.1963.ingress_2':
     ' Jo lenger du venter, desto mer får du i året.',
   'tidligstmuliguttak.1964.ingress_2':
-    ' Foreslåtte lovendringer kan øke pensjonsalderen.',
+    'Det kan bli senere pga. økt pensjonsalder.',
   'tidligstmuliguttak.readmore_title': 'Om pensjonsalder',
   'tidligstmuliguttak.readmore_ingress.optional':
     'Den oppgitte alderen er et estimat etter dagens regler.{br}{br}',
