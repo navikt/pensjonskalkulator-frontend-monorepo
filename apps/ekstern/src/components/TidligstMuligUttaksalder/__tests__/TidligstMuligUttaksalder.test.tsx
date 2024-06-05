@@ -35,12 +35,11 @@ describe('TidligstMuligUttaksalder', () => {
         screen.getByText('tidligstmuliguttak.1964.ingress_2')
       ).toBeInTheDocument()
     })
-    await user.click(screen.getByText('tidligstmuliguttak.readmore_title'))
+    await user.click(
+      screen.getByText('beregning.read_more.pensjonsalder.label')
+    )
     expect(
-      screen.getByText(
-        'Den oppgitte alderen er et estimat etter dagens regler.',
-        { exact: false }
-      )
+      screen.getByText('Den oppgitte alderen er et estimat.', { exact: false })
     ).toBeInTheDocument()
   })
 
@@ -82,19 +81,15 @@ describe('TidligstMuligUttaksalder', () => {
       screen.queryByText('tidligstmuliguttak.error')
     ).not.toBeInTheDocument()
     expect(
-      screen.getByText('tidligstmuliguttak.readmore_title')
+      screen.getByText('beregning.read_more.pensjonsalder.label')
     ).toBeInTheDocument()
     expect(
-      screen.getByText(
-        'Den oppgitte alderen er et estimat etter dagens regler.',
-        { exact: false }
-      )
+      screen.getByText('Den oppgitte alderen er et estimat.', { exact: false })
     ).toBeInTheDocument()
     expect(
-      screen.getByText(
-        'Stortinget har blitt enige om endringer i pensjonssystemet.',
-        { exact: false }
-      )
+      screen.getByText('Aldersgrensene vil øke gradvis fra 1964-kullet', {
+        exact: false,
+      })
     ).toBeInTheDocument()
   })
 
@@ -108,19 +103,17 @@ describe('TidligstMuligUttaksalder', () => {
 
     expect(screen.getByText('tidligstmuliguttak.error')).toBeInTheDocument()
     expect(
-      screen.getByText('tidligstmuliguttak.readmore_title')
+      screen.getByText('beregning.read_more.pensjonsalder.label')
     ).toBeInTheDocument()
     expect(
-      screen.queryByText(
-        'Den oppgitte alderen er et estimat etter dagens regler.',
-        { exact: false }
-      )
+      screen.queryByText('Den oppgitte alderen er et estimat.', {
+        exact: false,
+      })
     ).not.toBeInTheDocument()
     expect(
-      screen.getByText(
-        'Stortinget har blitt enige om endringer i pensjonssystemet.',
-        { exact: false }
-      )
+      screen.getByText('Aldersgrensene vil øke gradvis fra 1964-kullet', {
+        exact: false,
+      })
     ).toBeInTheDocument()
   })
 })

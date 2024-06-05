@@ -67,9 +67,7 @@ describe('RedigerAvansertBeregning', () => {
       screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`)
     ).toBeVisible()
     expect(
-      screen.getByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.label'
-      )
+      screen.getByText('beregning.read_more.pensjonsalder.label')
     ).toBeVisible()
     expect(
       screen.queryByTestId(FORM_NAMES.inntektVsaHeltUttakRadio)
@@ -159,30 +157,22 @@ describe('RedigerAvansertBeregning', () => {
         { exact: false }
       )
     ).toBeVisible()
-    user.click(
-      screen.getByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.label'
-      )
-    )
+    user.click(screen.getByText('beregning.read_more.pensjonsalder.label'))
     expect(
-      screen.getByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.subtitle'
-      )
+      screen.getByText('Aldersgrensene vil øke gradvis fra 1964-kullet', {
+        exact: false,
+      })
     ).toBeVisible()
 
     fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
       target: { value: '80 %' },
     })
 
-    user.click(
-      screen.getByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.label'
-      )
-    )
+    user.click(screen.getByText('beregning.read_more.pensjonsalder.label'))
     expect(
-      screen.getByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.subtitle'
-      )
+      screen.getByText('Aldersgrensene vil øke gradvis fra 1964-kullet', {
+        exact: false,
+      })
     ).toBeVisible()
   })
 

@@ -60,18 +60,20 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
         <ReadMore
           name="Om pensjonsalder enkelt"
           className={styles.readmore}
-          header={<FormattedMessage id="tidligstmuliguttak.readmore_title" />}
+          header={
+            <FormattedMessage id="beregning.read_more.pensjonsalder.label" />
+          }
         >
           {tidligstMuligUttak !== undefined && (
             <FormattedMessage
-              id="tidligstmuliguttak.readmore_ingress.optional"
+              id="beregning.read_more.pensjonsalder.body.optional"
               values={{
                 ...getFormatMessageValues(intl),
               }}
             />
           )}
           <FormattedMessage
-            id="tidligstmuliguttak.readmore_ingress.enkelt"
+            id="beregning.read_more.pensjonsalder.body"
             values={{
               ...getFormatMessageValues(intl),
             }}

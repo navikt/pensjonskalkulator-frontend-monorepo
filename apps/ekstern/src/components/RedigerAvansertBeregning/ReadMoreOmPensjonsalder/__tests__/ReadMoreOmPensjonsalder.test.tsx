@@ -6,29 +6,15 @@ describe('ReadMoreOmPensjonsalder', () => {
     const user = userEvent.setup()
     render(<ReadMoreOmPensjonsalder ufoeregrad={0} />)
     await user.click(
-      screen.getByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.label'
-      )
+      screen.getByText('beregning.read_more.pensjonsalder.label')
     )
     expect(
       screen.queryByText('omufoeretrygd.readmore.title')
     ).not.toBeInTheDocument()
     expect(
-      screen.getByText(
-        'Stortinget har blitt enige om endringer i pensjonssystemet.',
-        { exact: false }
-      )
-    ).toBeVisible()
-    expect(
-      screen.getByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.subtitle'
-      )
-    ).toBeVisible()
-    expect(
-      screen.getByText(
-        'Din opptjening i folketrygden og eventuell AFP bestemmer når du kan ta ut alderspensjon.',
-        { exact: false }
-      )
+      screen.getByText('Aldersgrensene vil øke gradvis fra 1964-kullet', {
+        exact: false,
+      })
     ).toBeVisible()
   })
 
@@ -37,9 +23,7 @@ describe('ReadMoreOmPensjonsalder', () => {
     render(<ReadMoreOmPensjonsalder ufoeregrad={75} />)
     await user.click(screen.getByText('omufoeretrygd.readmore.title'))
     expect(
-      screen.queryByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.label'
-      )
+      screen.queryByText('beregning.read_more.pensjonsalder.label')
     ).not.toBeInTheDocument()
     expect(
       screen.getByText(
@@ -54,9 +38,7 @@ describe('ReadMoreOmPensjonsalder', () => {
     render(<ReadMoreOmPensjonsalder ufoeregrad={100} />)
     await user.click(screen.getByText('omufoeretrygd.readmore.title'))
     expect(
-      screen.queryByText(
-        'beregning.avansert.rediger.read_more.pensjonsalder.label'
-      )
+      screen.queryByText('beregning.read_more.pensjonsalder.label')
     ).not.toBeInTheDocument()
     expect(
       screen.getByText(

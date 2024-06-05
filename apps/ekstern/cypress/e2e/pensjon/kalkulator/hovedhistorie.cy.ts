@@ -358,9 +358,7 @@ describe('Hovedhistorie', () => {
         cy.fillOutStegvisning({ samtykke: false })
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('Om pensjonsalder').click()
-        cy.contains(
-          'Den oppgitte alderen er et estimat etter dagens regler'
-        ).should('exist')
+        cy.contains('Den oppgitte alderen er et estimat.').should('exist')
       })
       it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år og 10 md. (første mulige) og 75 år.', () => {
         cy.login()
