@@ -205,7 +205,12 @@ describe('RedigerAvansertBeregning', () => {
     )
     const input = screen.getByTestId('inntekt-textfield')
     await user.clear(input)
-    await user.type(input, '123000')
+    await user.type(input, '1')
+    await user.type(input, '2')
+    await user.type(input, '3')
+    await user.type(input, '0')
+    await user.type(input, '0')
+    await user.type(input, '0')
     expect(
       screen.queryByText(
         'inntekt.endre_inntekt_modal.textfield.validation_error'
@@ -265,11 +270,13 @@ describe('RedigerAvansertBeregning', () => {
     await user.click(
       screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
-
-    await user.type(
-      screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak),
-      '123000'
-    )
+    const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+    await user.type(inputField, '1')
+    await user.type(inputField, '2')
+    await user.type(inputField, '3')
+    await user.type(inputField, '0')
+    await user.type(inputField, '0')
+    await user.type(inputField, '0')
 
     fireEvent.change(
       screen.getByTestId(
@@ -459,11 +466,13 @@ describe('RedigerAvansertBeregning', () => {
     await user.click(
       screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
-
-    await user.type(
-      screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak),
-      '123000'
-    )
+    const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+    await user.type(inputField, '1')
+    await user.type(inputField, '2')
+    await user.type(inputField, '3')
+    await user.type(inputField, '0')
+    await user.type(inputField, '0')
+    await user.type(inputField, '0')
     fireEvent.change(
       screen.getByTestId(
         `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
@@ -634,11 +643,13 @@ describe('RedigerAvansertBeregning', () => {
     await user.click(
       screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
-
-    await user.type(
-      screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak),
-      '123000'
-    )
+    const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+    await user.type(inputField, '1')
+    await user.type(inputField, '2')
+    await user.type(inputField, '3')
+    await user.type(inputField, '0')
+    await user.type(inputField, '0')
+    await user.type(inputField, '0')
     fireEvent.change(
       screen.getByTestId(
         `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
@@ -830,11 +841,13 @@ describe('RedigerAvansertBeregning', () => {
       await user.click(
         screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
       )
-
-      await user.type(
-        screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak),
-        '123000'
-      )
+      const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+      await user.type(inputField, '1')
+      await user.type(inputField, '2')
+      await user.type(inputField, '3')
+      await user.type(inputField, '0')
+      await user.type(inputField, '0')
+      await user.type(inputField, '0')
       fireEvent.change(
         screen.getByTestId(
           `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
@@ -1104,11 +1117,13 @@ describe('RedigerAvansertBeregning', () => {
       await user.click(
         screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
       )
-
-      await user.type(
-        screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak),
-        '123000'
-      )
+      const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+      await user.type(inputField, '1')
+      await user.type(inputField, '2')
+      await user.type(inputField, '3')
+      await user.type(inputField, '0')
+      await user.type(inputField, '0')
+      await user.type(inputField, '0')
       fireEvent.change(
         screen.getByTestId(
           `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
@@ -1788,10 +1803,13 @@ describe('RedigerAvansertBeregning', () => {
     )
 
     // Fylle ut inntekt vsa 100 % uttak
-    await user.type(
-      screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak),
-      '123000'
-    )
+    const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+    await user.type(inputField, '1')
+    await user.type(inputField, '2')
+    await user.type(inputField, '3')
+    await user.type(inputField, '0')
+    await user.type(inputField, '0')
+    await user.type(inputField, '0')
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
     // Feilmelding for sluttAlder for inntekt vsa 100 % uttak
     expect(
