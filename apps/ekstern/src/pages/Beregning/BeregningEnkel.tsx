@@ -261,7 +261,9 @@ export const BeregningEnkel: React.FC = () => {
                     : undefined
                 }
                 afpOffentligListe={
-                  !ufoeregrad && afp === 'ja_offentlig'
+                  !ufoeregrad &&
+                  afp === 'ja_offentlig' &&
+                  harSamtykketOffentligAFP
                     ? alderspensjon?.afpOffentlig
                     : undefined
                 }

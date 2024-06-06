@@ -223,7 +223,7 @@ const translations = {
   'tidligstmuliguttak.1963.ingress_2':
     ' Jo lenger du venter, desto mer får du i året.',
   'tidligstmuliguttak.1964.ingress_2':
-    'Det kan bli senere pga. økt pensjonsalder.',
+    ' Det kan bli senere pga. økt pensjonsalder.',
   'tidligstmuliguttak.error':
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
   'beregning.read_more.pensjonsalder.label': 'Om pensjonsalder',
