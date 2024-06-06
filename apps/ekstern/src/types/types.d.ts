@@ -65,38 +65,33 @@ declare global {
 
   // /simulering/alderspensjon
   type AlderspensjonRequestBody =
-    components['schemas']['IngressSimuleringSpecV5']
+    components['schemas']['IngressSimuleringSpecV6']
   type AfpSimuleringstype =
-    components['schemas']['IngressSimuleringSpecV5']['simuleringstype']
-  type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV5']
-  type Vilkaarsproeving = components['schemas']['VilkaarsproevingV5']
+    components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
+  type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV6']
+  type Vilkaarsproeving = components['schemas']['VilkaarsproevingV6']
   type AarligInntektVsaPensjon = {
     beloep: string
     sluttAlder: Alder
   }
 
   type HeltUttak = Omit<
-    components['schemas']['IngressSimuleringHeltUttakV5'],
+    components['schemas']['IngressSimuleringHeltUttakV6'],
     'aarligInntektVsaPensjon'
   > & {
     aarligInntektVsaPensjon?: AarligInntektVsaPensjon
   }
 
   type GradertUttak = Omit<
-    components['schemas']['IngressSimuleringGradertUttakV5'],
+    components['schemas']['IngressSimuleringGradertUttakV6'],
     'aarligInntektVsaPensjonBeloep'
   > & {
     aarligInntektVsaPensjonBeloep?: string
   }
 
   type Simuleringstype =
-    components['schemas']['IngressSimuleringSpecV5']['simuleringstype']
-  type AfpPrivat = components['schemas']['AfpPrivatV5']
-  type AfpOffentlig = components['schemas']['AfpOffentligV5']
-  type Pensjonsberegning = {
-    beloep: number
-    alder: number
-  }
+    components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
+  type Pensjonsberegning = components['schemas']['PensjonsberegningV6']
 
   type Ansatt = components['schemas']['AnsattV1']
 

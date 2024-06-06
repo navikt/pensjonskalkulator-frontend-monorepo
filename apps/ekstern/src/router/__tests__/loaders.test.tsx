@@ -10,6 +10,7 @@ import {
   step4AccessGuard,
   step5AccessGuard,
   step6AccessGuard,
+  step7AccessGuard,
 } from '../loaders'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
@@ -773,7 +774,7 @@ describe('Loaders', () => {
     })
   })
 
-  describe('step6AccessGuard', async () => {
+  describe('step6AccessGuard', () => {
     it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
       const mockedState = {
         api: {
@@ -785,6 +786,97 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await step6AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren ikke har uføretrygd og har valgt AFP offentlig, er hen ikke redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 0 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step6AccessGuard()
+      expect(returnedFromLoader).toBeNull()
+    })
+
+    it('Når brukeren har uføretrygd og har valgt ja_offentlig til spørsmål om afp, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step6AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 0 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'nei' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step6AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+  })
+
+  describe('step7AccessGuard', async () => {
+    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          queries: {},
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step7AccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })
@@ -813,7 +905,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step6AccessGuard()
+      const returnedFromLoader = await step7AccessGuard()
       const shouldRedirectToResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
@@ -844,7 +936,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step6AccessGuard()
+      const returnedFromLoader = await step7AccessGuard()
       const shouldRedirectToResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
@@ -883,7 +975,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step6AccessGuard()
+      const returnedFromLoader = await step7AccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery
@@ -928,7 +1020,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step6AccessGuard()
+      const returnedFromLoader = await step7AccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery
@@ -974,7 +1066,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step6AccessGuard()
+      const returnedFromLoader = await step7AccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery

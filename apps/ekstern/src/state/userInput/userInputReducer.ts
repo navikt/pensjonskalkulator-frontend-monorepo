@@ -14,6 +14,7 @@ export interface UserInputState {
   veilederBorgerFnr?: string
   utenlandsopphold: boolean | null
   samtykke: boolean | null
+  samtykkeOffentligAFP: boolean | null
   afp: AfpRadio | null
   samboer: boolean | null
   currentSimulation: Simulation
@@ -23,6 +24,7 @@ export const userInputInitialState: UserInputState = {
   veilederBorgerFnr: undefined,
   utenlandsopphold: null,
   samtykke: null,
+  samtykkeOffentligAFP: null,
   afp: null,
   samboer: null,
   currentSimulation: {
@@ -45,6 +47,9 @@ export const userInputSlice = createSlice({
     },
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
+    },
+    setsamtykkeOffentligAFP: (state, action: PayloadAction<boolean>) => {
+      state.samtykkeOffentligAFP = action.payload
     },
     setAfp: (state, action: PayloadAction<AfpRadio>) => {
       state.afp = action.payload
@@ -108,6 +113,7 @@ export const userInputSlice = createSlice({
     flush: (state) => {
       state.utenlandsopphold = null
       state.samtykke = null
+      state.samtykkeOffentligAFP = null
       state.afp = null
       state.samboer = null
       state.currentSimulation = { ...userInputInitialState.currentSimulation }

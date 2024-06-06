@@ -40,6 +40,18 @@ describe('userInputSlice', () => {
       })
     })
 
+    it('setsamtykkeOffentligAFP', () => {
+      const updatedState = userInputSlice(
+        userInputInitialState,
+        userInputActions.setsamtykkeOffentligAFP(true)
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        samtykkeOffentligAFP: true,
+      })
+    })
+
     it('setAfp', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
@@ -218,6 +230,7 @@ describe('userInputSlice', () => {
           ...userInputInitialState,
           utenlandsopphold: true,
           samtykke: true,
+          samtykkeOffentligAFP: true,
           afp: 'ja_offentlig',
           samboer: false,
           currentSimulation: {

@@ -108,25 +108,37 @@ export const LandingPage = () => {
                   id: 'landingsside.liste.2',
                 })}
               </li>
+              <li>
+                {intl.formatMessage({
+                  id: 'landingsside.liste.3',
+                })}
+              </li>
             </ul>
+            <BodyLong className={styles.paragraph}>
+              {intl.formatMessage({
+                id: 'landingsside.velge_mellom_detaljert_og_enkel_3',
+              })}
+            </BodyLong>
             <HStack gap="4">
               <Button
-                data-testid="landingside-detaljert-kalkulator-button"
-                variant="secondary"
-                onClick={wrapLogger('button klikk', {
-                  tekst: 'Detaljert kalkulator',
-                })(gaaTilDetaljertKalkulator)}
-              >
-                {detaljertKalkulatorButtonText}
-              </Button>
-              <Button
                 data-testid="landingside-enkel-kalkulator-button"
-                variant="secondary"
+                variant="primary"
+                className={styles.button}
                 onClick={wrapLogger('button klikk', {
                   tekst: 'Enkel kalkulator',
                 })(gaaTilEnkelKalkulator)}
               >
                 {enkelKalkulatorButtonText}
+              </Button>
+              <Button
+                data-testid="landingside-detaljert-kalkulator-button"
+                variant="secondary"
+                className={styles.button}
+                onClick={wrapLogger('button klikk', {
+                  tekst: 'Detaljert pensjonskalkulator',
+                })(gaaTilDetaljertKalkulator)}
+              >
+                {detaljertKalkulatorButtonText}
               </Button>
             </HStack>
           </div>

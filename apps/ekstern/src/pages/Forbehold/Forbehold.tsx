@@ -69,24 +69,11 @@ export function Forbehold() {
       </section>
       <section>
         <Heading level="3" size="small" spacing>
-          <FormattedMessage id="forbehold.afp_privat.title" />
+          <FormattedMessage id="forbehold.afp.title" />
         </Heading>
         <BodyLong spacing>
           <FormattedMessage
-            id="forbehold.afp_privat.ingress"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
-        </BodyLong>
-      </section>
-      <section>
-        <Heading level="3" size="small" spacing>
-          <FormattedMessage id="forbehold.afp_offentlig.title" />
-        </Heading>
-        <BodyLong spacing>
-          <FormattedMessage
-            id="forbehold.afp_offentlig.ingress"
+            id="forbehold.afp.ingress"
             values={{
               ...getFormatMessageValues(intl),
             }}
