@@ -1,8 +1,11 @@
 import { describe, it, vi } from 'vitest'
 
-import afpOffentligData from '../../../mocks/data/afp-offentlig.json' assert { type: 'json' }
-import afpPrivatData from '../../../mocks/data/afp-privat/67.json' assert { type: 'json' }
-import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' assert { type: 'json' }
+import afpOffentligData from '../../../mocks/data/afp-offentlig.json' assert { type:
+  'json' }
+import afpPrivatData from '../../../mocks/data/afp-privat/67.json' assert { type:
+  'json' }
+import alderspensjonData from '../../../mocks/data/alderspensjon/67.json' assert { type:
+  'json' }
 import { Simulering } from '../Simulering'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import * as apiSliceUtils from '@/state/api/apiSlice'
