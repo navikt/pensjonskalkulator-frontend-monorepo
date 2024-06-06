@@ -1,7 +1,6 @@
 import { vi } from 'vitest'
 
-import pensjonsavtalerData from '../../../mocks/data/pensjonsavtaler/67.json' assert { type:
-  'json' }
+import pensjonsavtalerData from '../../../mocks/data/pensjonsavtaler/67.json' assert { type: 'json' }
 import { groupPensjonsavtalerByType, getMaanedString } from '../utils'
 
 describe('GrunnlagPensjonsavtaler-utils', () => {

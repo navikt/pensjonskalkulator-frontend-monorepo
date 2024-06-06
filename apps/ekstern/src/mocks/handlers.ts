@@ -3,21 +3,15 @@ import { delay, http, HttpResponse } from 'msw'
 import { API_PATH, HOST_BASEURL } from '@/paths'
 
 import ansattIdResponse from './data/ansatt-id.json' assert { type: 'json' }
-import ekskludertStatusResponse from './data/ekskludert-status.json' assert { type:
-  'json' }
+import ekskludertStatusResponse from './data/ekskludert-status.json' assert { type: 'json' }
 import inntektResponse from './data/inntekt.json' assert { type: 'json' }
 import personResponse from './data/person.json' assert { type: 'json' }
-import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type:
-  'json' }
-import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type:
-  'json' }
+import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type: 'json' }
+import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
 import ufoeregradResponse from './data/ufoeregrad.json' assert { type: 'json' }
-import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type:
-  'json' }
-import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type:
-  'json' }
-import ufoereToggleResponse from './data/unleash-enable-ufoere.json' assert { type:
-  'json' }
+import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
+import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
+import ufoereToggleResponse from './data/unleash-enable-ufoere.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
@@ -85,6 +79,8 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     const aar = (body as AlderspensjonRequestBody).heltUttak.uttaksalder.aar
     const data = await import(`./data/alderspensjon/${aar}.json`)
     const mergedData = JSON.parse(JSON.stringify(data.default))
+    let afpPrivat: Pensjonsberegning[] = []
+    let afpOffentlig: Pensjonsberegning[] = []
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
       'ALDERSPENSJON_MED_AFP_PRIVAT'
@@ -92,7 +88,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
       const afpPrivatData = JSON.parse(
         JSON.stringify(await import(`./data/afp-privat/${aar}.json`))
       )
-      mergedData.afpPrivat = [...afpPrivatData.default.afpPrivat]
+      afpPrivat = [...afpPrivatData.default.afpPrivat]
     }
     if (
       (body as AlderspensjonRequestBody).simuleringstype ===
@@ -102,7 +98,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
         JSON.stringify(await import(`./data/afp-offentlig.json`))
       )
       if (afpOffentligData.default.afpOffentlig) {
-        mergedData.afpOffentlig = [
+        afpOffentlig = [
           {
             ...afpOffentligData.default.afpOffentlig[0],
             alder: aar,
@@ -110,7 +106,12 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
         ]
       }
     }
-    return HttpResponse.json(mergedData)
+
+    return HttpResponse.json({
+      ...mergedData,
+      afpPrivat: afpPrivat,
+      afpOffentlig: afpOffentlig,
+    })
   }),
 
   http.get(
