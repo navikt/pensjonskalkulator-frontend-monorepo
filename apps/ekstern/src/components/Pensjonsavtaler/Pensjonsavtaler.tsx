@@ -17,6 +17,7 @@ import {
   selectSamtykke,
   selectAarligInntektFoerUttakBeloep,
   selectAfp,
+  selectUfoeregrad,
   selectSivilstand,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
@@ -39,6 +40,7 @@ export const Pensjonsavtaler = (props: {
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
@@ -53,6 +55,7 @@ export const Pensjonsavtaler = (props: {
     if (harSamtykket && uttaksalder) {
       const requestBody = generatePensjonsavtalerRequestBody({
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
+        ufoeregrad,
         afp,
         sivilstand,
         heltUttak: {

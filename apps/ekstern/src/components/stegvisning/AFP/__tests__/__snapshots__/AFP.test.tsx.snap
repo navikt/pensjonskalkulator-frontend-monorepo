@@ -116,6 +116,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp er oppgitt 1`] = `
             <li>
               stegvisning.afp.readmore_privat_list_item3
             </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item4
+            </li>
           </ul>
           Les om vilkårene til 
           <a
@@ -434,6 +437,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 1`] 
             <li>
               stegvisning.afp.readmore_privat_list_item3
             </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item4
+            </li>
           </ul>
           Les om vilkårene til 
           <a
@@ -750,6 +756,9 @@ exports[`stegvisning - AFP > rendrer slik den skal når afp ikke er oppgitt 2`] 
             </li>
             <li>
               stegvisning.afp.readmore_privat_list_item3
+            </li>
+            <li>
+              stegvisning.afp.readmore_privat_list_item4
             </li>
           </ul>
           Les om vilkårene til 

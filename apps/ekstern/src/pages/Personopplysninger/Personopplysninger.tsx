@@ -107,6 +107,9 @@ export function Personopplysninger() {
           <li>
             <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.gpdr.list.2" />
           </li>
+          <li>
+            <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.gpdr.list.3" />
+          </li>
         </ul>
         <BodyLong spacing>
           <FormattedMessage id="personopplysninger.section.hvilke_opplysninger.gpdr.list.subtext" />

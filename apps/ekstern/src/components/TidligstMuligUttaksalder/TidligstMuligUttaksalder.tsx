@@ -1,24 +1,21 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { Alert, BodyLong } from '@navikt/ds-react'
+import { BodyLong } from '@navikt/ds-react'
 
 import { ReadMore } from '@/components/common/ReadMore'
 import { formatUttaksalder } from '@/utils/alder'
-import { isAlderOverMinUttaksaar } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './TidligstMuligUttaksalder.module.scss'
 
 interface Props {
   tidligstMuligUttak?: Alder
-  hasAfpOffentlig: boolean
   show1963Text: boolean
 }
 
 export const TidligstMuligUttaksalder: React.FC<Props> = ({
   tidligstMuligUttak,
-  hasAfpOffentlig,
   show1963Text,
 }) => {
   const intl = useIntl()
@@ -30,9 +27,7 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
           <>
             <BodyLong size="medium" className={`${styles.ingress}`}>
               <FormattedMessage
-                id={`tidligstmuliguttak.${
-                  show1963Text ? '1963' : '1964'
-                }.ingress_1`}
+                id="tidligstmuliguttak.ingress_1"
                 values={{
                   ...getFormatMessageValues(intl),
                 }}
@@ -51,24 +46,6 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
                 }}
               />
             </BodyLong>
-            {
-              // TODO PEK-387: Fjerne logikk og hasAfpOffentlig prop
-            }
-            {hasAfpOffentlig && isAlderOverMinUttaksaar(tidligstMuligUttak) && (
-              <Alert
-                className={styles.alert}
-                size="small"
-                variant="info"
-                aria-live="polite"
-              >
-                <FormattedMessage
-                  id="tidligstmuliguttak.info_afp"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
-                />
-              </Alert>
-            )}
           </>
         ) : (
           <BodyLong size="medium" className={`${styles.ingress}`}>
@@ -83,18 +60,20 @@ export const TidligstMuligUttaksalder: React.FC<Props> = ({
         <ReadMore
           name="Om pensjonsalder enkelt"
           className={styles.readmore}
-          header={<FormattedMessage id="tidligstmuliguttak.readmore_title" />}
+          header={
+            <FormattedMessage id="beregning.read_more.pensjonsalder.label" />
+          }
         >
           {tidligstMuligUttak !== undefined && (
             <FormattedMessage
-              id="tidligstmuliguttak.readmore_ingress.optional"
+              id="beregning.read_more.pensjonsalder.body.optional"
               values={{
                 ...getFormatMessageValues(intl),
               }}
             />
           )}
           <FormattedMessage
-            id="tidligstmuliguttak.readmore_ingress.enkelt"
+            id="beregning.read_more.pensjonsalder.body"
             values={{
               ...getFormatMessageValues(intl),
             }}
