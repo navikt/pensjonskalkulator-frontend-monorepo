@@ -790,7 +790,7 @@ describe('Loaders', () => {
       expect(returnedFromLoader).toMatchSnapshot()
     })
 
-    it('Når brukeren ikke har uføretrygd og har valgt har valgt AFP offentlig, er hen ikke redirigert', async () => {
+    it('Når brukeren ikke har uføretrygd og har valgt AFP offentlig, er hen ikke redirigert', async () => {
       const mockedState = {
         api: {
           queries: {

@@ -55,6 +55,7 @@ const translations = {
   'landingsside.liste.1':
     'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
   'landingsside.liste.2': 'mottar gjenlevendepensjon',
+  'landingsside.liste.3': 'vil ha en mer detaljert beregning',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert pensjonskalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
@@ -227,7 +228,7 @@ const translations = {
     'I Avansert kan du velge en mer nøyaktig pensjonsalder.',
   'beregning.read_more.pensjonsalder.label': 'Om pensjonsalder',
   'beregning.read_more.pensjonsalder.body.optional':
-    'Den oppgitte alderen er et estimat.{br}',
+    'Den oppgitte alderen er et estimat. ',
   'beregning.read_more.pensjonsalder.body':
     'Aldersgrensene vil øke gradvis fra 1964-kullet med en til to måneder per årskull, men dette tar ikke pensjonskalkulatoren høyde for.{br}{br}Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.{br}{br}Hvis du har oppgitt at du har AFP, er AFP med i vurderingen av når du kan ta ut alderspensjon.{br}{br}Hvis du ikke kan ta ut hel <nowrap>(100 %)</nowrap> alderspensjon fra ønsket alder, kan du endre uttaksgraden for å se om du kan starte tidligere. Tar du ut gradert pensjon, kan tidspunktet du kan ta ut <nowrap>100 %</nowrap> forskyves.{br}{br}Når du velger uttaksalder, gjelder beregningen fra kalendermåneden etter.',
   'omufoeretrygd.hel.ingress':

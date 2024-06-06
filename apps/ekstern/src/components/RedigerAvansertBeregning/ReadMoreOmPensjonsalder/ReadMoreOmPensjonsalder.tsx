@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Label } from '@navikt/ds-react'
+import { BodyLong } from '@navikt/ds-react'
 
 import { ReadMore } from '@/components/common/ReadMore'
 import { getFormatMessageValues } from '@/utils/translations'

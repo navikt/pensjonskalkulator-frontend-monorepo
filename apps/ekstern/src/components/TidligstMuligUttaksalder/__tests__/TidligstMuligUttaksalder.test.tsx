@@ -39,7 +39,9 @@ describe('TidligstMuligUttaksalder', () => {
       screen.getByText('beregning.read_more.pensjonsalder.label')
     )
     expect(
-      screen.getByText('Den oppgitte alderen er et estimat.', { exact: false })
+      screen.getByText('beregning.read_more.pensjonsalder.body.optional', {
+        exact: false,
+      })
     ).toBeInTheDocument()
   })
 
@@ -84,7 +86,9 @@ describe('TidligstMuligUttaksalder', () => {
       screen.getByText('beregning.read_more.pensjonsalder.label')
     ).toBeInTheDocument()
     expect(
-      screen.getByText('Den oppgitte alderen er et estimat.', { exact: false })
+      screen.getByText('beregning.read_more.pensjonsalder.body.optional', {
+        exact: false,
+      })
     ).toBeInTheDocument()
     expect(
       screen.getByText('Aldersgrensene vil øke gradvis fra 1964-kullet', {
@@ -106,9 +110,7 @@ describe('TidligstMuligUttaksalder', () => {
       screen.getByText('beregning.read_more.pensjonsalder.label')
     ).toBeInTheDocument()
     expect(
-      screen.queryByText('Den oppgitte alderen er et estimat.', {
-        exact: false,
-      })
+      screen.queryByText('beregning.read_more.pensjonsalder.body.optional')
     ).not.toBeInTheDocument()
     expect(
       screen.getByText('Aldersgrensene vil øke gradvis fra 1964-kullet', {

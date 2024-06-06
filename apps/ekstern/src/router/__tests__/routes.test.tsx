@@ -787,7 +787,7 @@ describe('routes', () => {
         ).toBeInTheDocument()
       })
 
-      it('Gitt at brukeren ikke mottar uføretrygd og har valgt har valgt AFP offentlig, når hen kommer fra stegvisningen, vises Steg 6', async () => {
+      it('Gitt at brukeren ikke mottar uføretrygd og har valgt AFP offentlig, når hen kommer fra stegvisningen, vises Steg 6', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {

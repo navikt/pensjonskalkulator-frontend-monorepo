@@ -94,10 +94,10 @@ export function AFP({
     setShowAlert(value)
     setValidationError('')
     if (harSamboer) {
-      const viserInfoOmUføregrad = ufoeregrad?.ufoeregrad && value !== 'nei'
+      const viserInfoOmUfoeregrad = ufoeregrad?.ufoeregrad && value !== 'nei'
       const viserInfoOmAFPoffentlig =
         ufoeregrad?.ufoeregrad === 0 && value === 'ja_offentlig'
-      setIsLastStep(!viserInfoOmUføregrad && !viserInfoOmAFPoffentlig)
+      setIsLastStep(!viserInfoOmUfoeregrad && !viserInfoOmAFPoffentlig)
     }
   }
   if (shouldRedirectTo) {
