@@ -13,7 +13,7 @@ import {
 
 import { useAppSelector } from '@/state/hooks'
 import { selectAarligInntektFoerUttakBeloepFraSkatt } from '@/state/userInput/selectors'
-import { formatInntekt } from '@/utils/inntekt'
+import { updateAndFormatInntektFromInputField } from '@/utils/inntekt'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -37,6 +37,7 @@ export const EndreInntekt: React.FC<Props> = ({
   const intl = useIntl()
 
   const inntektModalRef = React.useRef<HTMLDialogElement>(null)
+  const inntektInputRef = React.useRef<HTMLInputElement>(null)
 
   const aarligInntektFoerUttakBeloepFraSkatt = useAppSelector(
     selectAarligInntektFoerUttakBeloepFraSkatt
@@ -54,8 +55,12 @@ export const EndreInntekt: React.FC<Props> = ({
   const handleTextfieldChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setOppdatertInntekt(formatInntekt(e.target.value))
-    setValidationError('')
+    updateAndFormatInntektFromInputField(
+      inntektInputRef.current,
+      e.target.value,
+      setOppdatertInntekt,
+      setValidationError
+    )
   }
 
   const openInntektModal = () => {
@@ -131,6 +136,7 @@ export const EndreInntekt: React.FC<Props> = ({
           <form id="oppdatere-inntekt" method="dialog" onSubmit={onSubmit}>
             <VStack gap="4">
               <TextField
+                ref={inntektInputRef}
                 data-testid="inntekt-textfield"
                 type="text"
                 inputMode="numeric"

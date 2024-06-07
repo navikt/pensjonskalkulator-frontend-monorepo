@@ -20,6 +20,31 @@ export const formatInntektToNumber = (s?: string) => {
   return !isNaN(inntekt) ? inntekt : 0
 }
 
+export const updateAndFormatInntektFromInputField = (
+  inputElement: HTMLInputElement | null,
+  inntekt: string,
+  updateInntekt: (s: string) => void,
+  updateValidationErrors: (s: string) => void
+) => {
+  const caretPosition = inputElement?.selectionStart ?? 0
+  const antallTegnBefore = inntekt.length
+  const formatertInntekt = formatInntekt(inntekt)
+  const antallTegnAfter = formatertInntekt.length
+
+  updateInntekt(formatertInntekt)
+  updateValidationErrors('')
+
+  setTimeout(() => {
+    const updatedCaretPosition =
+      antallTegnAfter > antallTegnBefore
+        ? caretPosition + 1
+        : antallTegnAfter < antallTegnBefore
+          ? caretPosition - 1
+          : caretPosition
+    inputElement?.setSelectionRange(updatedCaretPosition, updatedCaretPosition)
+  }, 10)
+}
+
 export const validateInntekt = (
   input: string | null | undefined,
   updateValidationErrorMessage: (s: string) => void,
