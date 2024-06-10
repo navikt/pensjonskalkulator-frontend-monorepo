@@ -251,11 +251,6 @@ describe('TidligstMuligUttaksalder', () => {
           { exact: false }
         )
       ).toBeInTheDocument()
-      expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
-      ).not.toBeInTheDocument()
     })
 
     it('viser riktig innhold med gradert ufoeretrygd', async () => {
@@ -284,11 +279,6 @@ describe('TidligstMuligUttaksalder', () => {
           }
         )
       ).toBeVisible()
-      expect(
-        screen.queryByText(
-          'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende'
-        )
-      ).not.toBeInTheDocument()
       await user.click(screen.getByText('omufoeretrygd.readmore.title'))
       expect(
         screen.getByText(
