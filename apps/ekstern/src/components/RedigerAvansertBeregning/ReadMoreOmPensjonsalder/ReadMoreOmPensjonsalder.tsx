@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Label } from '@navikt/ds-react'
+import { BodyLong } from '@navikt/ds-react'
 
 import { ReadMore } from '@/components/common/ReadMore'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -18,7 +18,7 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({ ufoeregrad }) => {
       header={intl.formatMessage({
         id: ufoeregrad
           ? 'omufoeretrygd.readmore.title'
-          : 'beregning.avansert.rediger.read_more.pensjonsalder.label',
+          : 'beregning.read_more.pensjonsalder.label',
       })}
     >
       {ufoeregrad ? (
@@ -38,21 +38,12 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({ ufoeregrad }) => {
         <>
           <BodyLong>
             <FormattedMessage
-              id="beregning.avansert.rediger.read_more.pensjonsalder.intro"
+              id="beregning.read_more.pensjonsalder.body"
               values={{
                 ...getFormatMessageValues(intl),
               }}
             />
           </BodyLong>
-          <Label as="h3">
-            <FormattedMessage id="beregning.avansert.rediger.read_more.pensjonsalder.subtitle" />
-          </Label>
-          <FormattedMessage
-            id="beregning.avansert.rediger.read_more.pensjonsalder.body"
-            values={{
-              ...getFormatMessageValues(intl),
-            }}
-          />
         </>
       )}
     </ReadMore>

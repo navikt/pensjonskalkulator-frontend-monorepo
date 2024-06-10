@@ -51,7 +51,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
           href="https://www.nav.no/pselv/simulering.jsf"
           target="_blank"
         >
-          detaljert kalkulator
+          detaljert pensjonskalkulator
           <svg
             aria-labelledby="title-r1"
             fill="none"
@@ -69,7 +69,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
             </title>
             <path
               clip-rule="evenodd"
-              d="M20.532 3.471A.748.748 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002.002.001ZM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25V9Z"
+              d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -97,7 +97,7 @@ exports[`Forbehold > rendrer riktig 1`] = `
       <h3
         class="navds-heading navds-heading--small navds-typo--spacing"
       >
-        forbehold.afp_privat.title
+        forbehold.afp.title
       </h3>
       <p
         class="navds-body-long navds-body-long--medium navds-typo--spacing"
@@ -105,25 +105,10 @@ exports[`Forbehold > rendrer riktig 1`] = `
         NAV har ikke vurdert om du fyller inngangsvilkårene for å få AFP, men forutsetter at du har rett til pensjonen du har valgt å beregne.
         <br />
         <br />
-        AFP i privat sektor kan påvirke hva som er ditt tidligste mulige uttakstidspunkt for alderspensjon. Om du har beregnet med AFP, og det viser seg at du på tidspunktet for uttak av alderspensjon ikke fyller vilkårene for AFP, kan det påvirke om du kan ta ut alderspensjon før 67 år.   
-      </p>
-    </section>
-    <section>
-      <h3
-        class="navds-heading navds-heading--small navds-typo--spacing"
-      >
-        forbehold.afp_offentlig.title
-      </h3>
-      <p
-        class="navds-body-long navds-body-long--medium navds-typo--spacing"
-      >
-        NAV har for tiden ikke mulighet til å hente informasjon om AFP fra offentlige tjenestepensjonsordninger.
+        Om du har beregnet med AFP og ikke har rett til det, kan den angitte alderen for når du kan ta ut alderspensjon bli feil.
         <br />
         <br />
-        AFP i offentlig sektor kan gi lavere første mulige uttaksalder på alderspensjon, men alderspensjon kan likevel aldri startes tidligere enn måneden etter fylte 62 år.
-        <br />
-        <br />
-        Hvis du ønsker mer informasjon om din AFP i offentlig sektor må du sjekke direkte med din tjenestepensjonsordning.  
+        For AFP i offentlig sektor gir kalkulatoren et estimat, beregnet etter lov om avtalefestet pensjon for medlemmer i Statens pensjonskasse. Den endelige AFP-beregningen vil bli gjort av tjenestepensjonsordningen din når du søker om AFP.
       </p>
     </section>
     <section>

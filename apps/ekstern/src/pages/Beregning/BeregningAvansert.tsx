@@ -20,7 +20,6 @@ import {
   useGetPersonQuery,
   apiSlice,
   useAlderspensjonQuery,
-  useGetAfpOffentligFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -28,6 +27,7 @@ import {
   selectAfp,
   selectSamboer,
   selectCurrentSimulation,
+  selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
   selectUfoeregrad,
 } from '@/state/userInput/selectors'
@@ -43,14 +43,13 @@ export const BeregningAvansert: React.FC = () => {
     React.useContext(BeregningContext)
 
   const harSamboer = useAppSelector(selectSamboer)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
   const { data: person } = useGetPersonQuery()
-  const { data: afpOffentligFeatureToggle } =
-    useGetAfpOffentligFeatureToggleQuery()
 
   const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
     useAppSelector(selectCurrentSimulation)
@@ -66,11 +65,7 @@ export const BeregningAvansert: React.FC = () => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonRequestBody({
         ufoeregrad,
-        afp: afpOffentligFeatureToggle?.enabled
-          ? afp
-          : afp === 'ja_offentlig'
-            ? 'vet_ikke'
-            : afp,
+        afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
         foedselsdato: person?.foedselsdato,
@@ -189,14 +184,15 @@ export const BeregningAvansert: React.FC = () => {
                     !ufoeregrad &&
                     afp === 'ja_privat' &&
                     alderspensjon?.afpPrivat
-                      ? alderspensjon?.afpPrivat.afpPrivatListe
+                      ? alderspensjon?.afpPrivat
                       : undefined
                   }
                   afpOffentligListe={
                     !ufoeregrad &&
                     afp === 'ja_offentlig' &&
+                    harSamtykketOffentligAFP &&
                     alderspensjon?.afpOffentlig
-                      ? alderspensjon?.afpOffentlig.afpOffentligListe
+                      ? alderspensjon?.afpOffentlig
                       : undefined
                   }
                   showButtonsAndTable={
@@ -207,11 +203,7 @@ export const BeregningAvansert: React.FC = () => {
                   onButtonClick={() => setAvansertSkjemaModus('redigering')}
                 />
                 <Pensjonsavtaler headingLevel="2" />
-                <Grunnlag
-                  visning="avansert"
-                  headingLevel="2"
-                  afpLeverandoer={alderspensjon?.afpOffentlig?.afpLeverandoer}
-                />
+                <Grunnlag visning="avansert" headingLevel="2" />
               </div>
               <>
                 <div

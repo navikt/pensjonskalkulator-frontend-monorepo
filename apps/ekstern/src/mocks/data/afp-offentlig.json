@@ -1,11 +1,8 @@
 {
-  "afpOffentlig": {
-    "afpLeverandoer": "Statens pensjonskasse",
-    "afpOffentligListe": [
-      {
-        "alder": 0,
-        "beloep": 49059
-      }
-    ]
-  }
+  "afpOffentlig": [
+    {
+      "alder": 0,
+      "beloep": 49059
+    }
+  ]
 }

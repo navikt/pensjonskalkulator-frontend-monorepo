@@ -15,7 +15,6 @@ import {
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { useGetUfoeregradQuery } from '@/state/api/apiSlice'
-import { useGetAfpOffentligFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectSamboerFraSivilstand } from '@/state/userInput/selectors'
 import { logger, wrapLogger } from '@/utils/logging'
@@ -46,9 +45,6 @@ export function AFP({
   const [validationError, setValidationError] = React.useState<string>('')
   const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
   const [isLastStep, setIsLastStep] = React.useState<boolean>(!!harSamboer)
-
-  const { data: afpOffentligFeatureToggle } =
-    useGetAfpOffentligFeatureToggleQuery()
 
   React.useEffect(() => {
     if (harSamboer) {
@@ -87,11 +83,7 @@ export function AFP({
   }
 
   React.useEffect(() => {
-    if (showAlert === 'ja_offentlig') {
-      logger('alert', {
-        tekst: 'Rett til AFP: Offentlig sektor',
-      })
-    } else if (showAlert === 'vet_ikke') {
+    if (showAlert === 'vet_ikke') {
       logger('alert', {
         tekst: 'Rett til AFP: Vet ikke',
       })
@@ -102,7 +94,10 @@ export function AFP({
     setShowAlert(value)
     setValidationError('')
     if (harSamboer) {
-      setIsLastStep(!(ufoeregrad?.ufoeregrad && value !== 'nei'))
+      const viserInfoOmUfoeregrad = ufoeregrad?.ufoeregrad && value !== 'nei'
+      const viserInfoOmAFPoffentlig =
+        ufoeregrad?.ufoeregrad === 0 && value === 'ja_offentlig'
+      setIsLastStep(!viserInfoOmUfoeregrad && !viserInfoOmAFPoffentlig)
     }
   }
   if (shouldRedirectTo) {
@@ -157,6 +152,9 @@ export function AFP({
             <li>
               <FormattedMessage id="stegvisning.afp.readmore_privat_list_item3" />
             </li>
+            <li>
+              <FormattedMessage id="stegvisning.afp.readmore_privat_list_item4" />
+            </li>
           </ul>
           <FormattedMessage
             id="stegvisning.afp.readmore_privat_link"
@@ -178,12 +176,6 @@ export function AFP({
           <Radio value="ja_offentlig">
             <FormattedMessage id="stegvisning.afp.radio_ja_offentlig" />
           </Radio>
-          {showAlert === 'ja_offentlig' &&
-            !afpOffentligFeatureToggle?.enabled && (
-              <Alert className={styles.alert} variant="info" aria-live="polite">
-                <FormattedMessage id="stegvisning.afp.alert_ja_offentlig" />
-              </Alert>
-            )}
           <Radio value="ja_privat">
             <FormattedMessage id="stegvisning.afp.radio_ja_privat" />
           </Radio>

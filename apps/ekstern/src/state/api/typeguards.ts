@@ -30,15 +30,6 @@ export const isPensjonsberegningArray = (
   )
 }
 
-export const isAfpOffentlig = (data?: any): data is AfpOffentlig => {
-  return (
-    data &&
-    'afpLeverandoer' in data &&
-    typeof data.afpLeverandoer === 'string' &&
-    isPensjonsberegningArray(data.afpOffentligListe)
-  )
-}
-
 export const isUtbetalingsperiode = (
   data?: any
 ): data is Utbetalingsperiode => {

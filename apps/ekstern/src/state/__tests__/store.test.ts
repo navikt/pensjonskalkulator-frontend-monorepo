@@ -15,6 +15,7 @@ describe('store', () => {
       veilederBorgerFnr: undefined,
       utenlandsopphold: true,
       samtykke: true,
+      samtykkeOffentligAFP: true,
       afp: null,
       samboer: null,
       currentSimulation: {

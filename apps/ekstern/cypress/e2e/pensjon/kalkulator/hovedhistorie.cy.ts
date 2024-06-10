@@ -26,8 +26,8 @@ describe('Hovedhistorie', () => {
           // prevents Cypress from failing when catching errors in uinnlogget kalkulator
           return false
         })
-        cy.contains('button', 'Logg inn i enkel kalkulator').should('exist')
-        cy.contains('button', 'Logg inn i detaljert kalkulator').click()
+        cy.contains('button', 'Logg inn i pensjonskalkulator').should('exist')
+        cy.contains('button', 'Logg inn i detaljert pensjonskalkulator').click()
 
         cy.origin('https://login.idporten.no', () => {
           cy.get('h1').contains('Velg elektronisk ID')
@@ -43,13 +43,13 @@ describe('Hovedhistorie', () => {
 
     describe('Når jeg vil logge inn for å teste kalkulatoren,', () => {
       it('ønsker jeg å få informasjon om ny kalkulator og om jeg er i målgruppen for å bruke den.', () => {
-        cy.contains('a', 'Personopplysninger som brukes i enkel kalkulator')
+        cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/personopplysninger')
       })
 
       it('forventer jeg å kunne logge inn med ID-porten.', () => {
-        cy.contains('button', 'Logg inn i enkel kalkulator').click()
+        cy.contains('button', 'Logg inn i pensjonskalkulator').click()
         cy.location('href').should(
           'eq',
           'http://localhost:4173/pensjon/kalkulator/oauth2/login?redirect=%2Fpensjon%2Fkalkulator%2Fstart'
@@ -65,18 +65,18 @@ describe('Hovedhistorie', () => {
         cy.wait('@getAuthSession')
       })
       it('forventer jeg å se en startside som ønsker meg velkommen.', () => {
-        cy.contains('button', 'Detaljert kalkulator').should('exist')
-        cy.contains('button', 'Enkel kalkulator').click()
+        cy.contains('button', 'Detaljert pensjonskalkulator').should('exist')
+        cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('Hei Aprikos!')
       })
       it('ønsker jeg informasjon om hvilke personopplysninger som brukes i kalkulatoren.', () => {
-        cy.contains('button', 'Enkel kalkulator').click()
-        cy.contains('a', 'Personopplysninger som brukes i enkel kalkulator')
+        cy.contains('button', 'Pensjonskalkulator').click()
+        cy.contains('a', 'Personopplysninger som brukes i pensjonskalkulator')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/personopplysninger')
       })
       it('ønsker jeg å kunne starte kalkulatoren eller avbryte beregningen.', () => {
-        cy.contains('button', 'Enkel kalkulator').click()
+        cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('button', 'Kom i gang').click()
         cy.location('href').should(
           'include',
@@ -128,8 +128,8 @@ describe('Hovedhistorie', () => {
           cy.contains('button', 'Neste').click()
         })
         it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
-          cy.contains('h2', 'Pensjonen din').should('exist')
-          cy.contains('Skal vi hente dine pensjonsavtaler?').should('exist')
+          cy.contains('h2', 'Pensjonsavtaler').should('exist')
+          cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
           cy.contains('Disse opplysningene henter vi').should('exist')
         })
         it('forventer å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
@@ -228,6 +228,47 @@ describe('Hovedhistorie', () => {
       })
     })
 
+    describe('Gitt at jeg som bruker har svart "ja, offentlig" på spørsmålet om AFP,', () => {
+      describe('Når jeg navigerer videre fra /afp til /samtykke-offentlig-afp,', () => {
+        beforeEach(() => {
+          cy.login()
+          cy.contains('button', 'Kom i gang').click()
+          cy.get('[type="radio"]').last().check()
+          cy.contains('button', 'Neste').click()
+          cy.get('[type="radio"]').first().check()
+          cy.contains('button', 'Neste').click()
+          cy.wait('@getTpoMedlemskap')
+          cy.contains('button', 'Neste').click()
+          cy.get('[type="radio"]').first().check()
+          cy.contains('button', 'Neste').click()
+        })
+        it('forventer jeg å bli spurt om mitt samtykke for beregning av offentlig-AFP, og få informasjon om hva samtykket innebærer.', () => {
+          cy.contains(
+            'h2',
+            'Samtykke til at NAV beregner avtalefestet pensjon'
+          ).should('exist')
+          cy.contains('Vil du at NAV skal beregne AFP for deg?').should('exist')
+          cy.contains('button', 'Neste').click()
+          cy.contains(
+            'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+          ).should('exist')
+          cy.get('[type="radio"]').last().check()
+          cy.contains(
+            'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+          ).should('not.exist')
+          cy.contains('button', 'Neste').click()
+        })
+
+        it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
+          cy.contains('button', 'Tilbake').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/afp')
+          cy.go('back')
+          cy.contains('button', 'Avbryt').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/login')
+        })
+      })
+    })
+
     describe('Gitt at jeg som bruker er registrert med en annen sivilstand enn gift eller registrert partner,', () => {
       describe('Når jeg navigerer videre fra /afp til /sivilstand,', () => {
         beforeEach(() => {
@@ -305,10 +346,10 @@ describe('Hovedhistorie', () => {
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
-          'Din opptjening gjør at du etter dagens regler tidligst kan ta ut 100 % alderspensjon når du er'
+          'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
         ).should('exist')
         cy.contains('62 år og 10 måneder').should('exist')
-        cy.contains('Foreslåtte lovendringer kan øke pensjonsalderen.').should(
+        cy.contains('Det kan bli senere pga. økt pensjonsalder.').should(
           'exist'
         )
       })
@@ -317,9 +358,7 @@ describe('Hovedhistorie', () => {
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('Om pensjonsalder').click()
-        cy.contains(
-          'Den oppgitte alderen er et estimat etter dagens regler'
-        ).should('exist')
+        cy.contains('Den oppgitte alderen er et estimat.').should('exist')
       })
       it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år og 10 md. (første mulige) og 75 år.', () => {
         cy.login()
@@ -381,7 +420,7 @@ describe('Hovedhistorie', () => {
         cy.contains('a', 'Alle forbehold')
           .should('have.attr', 'href')
           .and('include', '/pensjon/kalkulator/forbehold')
-        cy.contains('a', 'detaljert kalkulator')
+        cy.contains('a', 'detaljert pensjonskalkulator')
           .should('have.attr', 'href')
           .and('include', 'https://www.nav.no/pselv/simulering.jsf')
       })

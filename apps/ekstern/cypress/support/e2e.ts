@@ -134,7 +134,7 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'POST',
-      url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+      url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
     },
     { fixture: 'alderspensjon.json' }
   ).as('fetchAlderspensjon')
@@ -143,7 +143,7 @@ beforeEach(() => {
 Cypress.Commands.add('login', () => {
   cy.visit('/pensjon/kalkulator/')
   cy.wait('@getAuthSession')
-  cy.contains('button', 'Enkel kalkulator').click()
+  cy.contains('button', 'Pensjonskalkulator').click()
   // På steg 0 kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   cy.wait('@getPerson')
   cy.wait('@getEkskludertStatus')

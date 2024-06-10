@@ -89,6 +89,19 @@ export const fulfilledPensjonsavtaler = {
   },
 }
 
+export const rejectedGetPerson = {
+  ['getPerson(undefined)']: {
+    status: 'rejected',
+    endpointName: 'getPerson',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    error: {
+      status: 'FETCH_ERROR',
+      error: 'TypeError: Failed to fetch',
+    },
+  },
+}
+
 export const rejectedGetInntekt = {
   ['getInntekt(undefined)']: {
     status: 'rejected',

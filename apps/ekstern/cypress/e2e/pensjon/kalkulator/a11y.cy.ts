@@ -22,7 +22,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker Steg 2
-    cy.contains('Pensjonen din')
+    cy.contains('Pensjonsavtaler')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Neste').click()
@@ -44,9 +44,13 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
     cy.contains('button', 'Neste').click()
 
-    // TODO legge til steg om AFP offentlig
-
     // Sjekker Steg 6
+    cy.contains('Samtykke til at NAV beregner avtalefestet pensjon')
+    cy.checkA11y('main')
+    cy.get('[type="radio"]').first().check()
+    cy.contains('button', 'Neste').click()
+
+    // Sjekker Steg 7
     cy.contains('Din sivilstand')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
@@ -126,7 +130,7 @@ describe('Pensjonskalkulator', () => {
     cy.intercept(
       {
         method: 'POST',
-        url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+        url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
       },
       {
         alderspensjon: [],

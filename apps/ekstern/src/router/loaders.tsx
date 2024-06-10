@@ -407,13 +407,31 @@ export const step5AccessGuard = async () => {
   if (ufoereGradResponse?.ufoeregrad && afp !== 'nei') {
     return null
   }
+  return redirect(paths.samtykkeOffentligAFP)
+}
+
+/// ////////////////////////////////////////////////////////////////////////
+
+export const step6AccessGuard = async () => {
+  if (await directAccessGuard()) {
+    return redirect(paths.start)
+  }
+
+  const afp = selectAfp(store.getState())
+  const ufoereGradResponse = apiSlice.endpoints.getUfoeregrad.select(undefined)(
+    store.getState()
+  ).data
+
+  if (ufoereGradResponse?.ufoeregrad === 0 && afp === 'ja_offentlig') {
+    return null
+  }
   return redirect(paths.sivilstand)
 }
 
 // ////////////////////////////////////////
 
-export function useStep6AccessData<
-  TReturnedValue extends ReturnType<typeof step6DeferredLoader>,
+export function useStep7AccessData<
+  TReturnedValue extends ReturnType<typeof step7DeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
@@ -421,7 +439,7 @@ export function useStep6AccessData<
 {
   /* c8 ignore next 11 - Dette er kun for typing */
 }
-export function step6DeferredLoader<
+export function step7DeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
     shouldRedirectTo: string | undefined
@@ -433,7 +451,7 @@ export function step6DeferredLoader<
     }
 }
 
-export const step6AccessGuard = async () => {
+export const step7AccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }

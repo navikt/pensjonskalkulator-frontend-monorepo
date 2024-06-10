@@ -366,7 +366,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -391,7 +391,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -414,7 +414,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -437,7 +437,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -463,7 +463,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
           },
           {
             alderspensjon: [],
@@ -501,7 +501,7 @@ describe('Avansert', () => {
         cy.intercept(
           {
             method: 'POST',
-            url: '/pensjon/kalkulator/api/v5/alderspensjon/simulering',
+            url: '/pensjon/kalkulator/api/v6/alderspensjon/simulering',
           },
           { fixture: 'alderspensjon.json' }
         ).as('fetchAlderspensjon')

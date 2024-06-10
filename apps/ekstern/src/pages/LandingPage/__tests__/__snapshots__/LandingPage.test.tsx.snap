@@ -62,29 +62,37 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                   <li>
                     landingsside.liste.2
                   </li>
+                  <li>
+                    landingsside.liste.3
+                  </li>
                 </ul>
+                <p
+                  class="_paragraph_6ae597 navds-body-long navds-body-long--medium"
+                >
+                  landingsside.velge_mellom_detaljert_og_enkel_3
+                </p>
                 <div
                   class="navds-stack navds-hstack"
                   style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
                 >
                   <button
-                    class="navds-button navds-button--secondary navds-button--medium"
-                    data-testid="landingside-detaljert-kalkulator-button"
-                  >
-                    <span
-                      class="navds-label"
-                    >
-                      landingsside.button.detaljert_kalkulator
-                    </span>
-                  </button>
-                  <button
-                    class="navds-button navds-button--secondary navds-button--medium"
+                    class="_button_6ae597 navds-button navds-button--primary navds-button--medium"
                     data-testid="landingside-enkel-kalkulator-button"
                   >
                     <span
                       class="navds-label"
                     >
                       landingsside.button.enkel_kalkulator
+                    </span>
+                  </button>
+                  <button
+                    class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
+                    data-testid="landingside-detaljert-kalkulator-button"
+                  >
+                    <span
+                      class="navds-label"
+                    >
+                      landingsside.button.detaljert_kalkulator
                     </span>
                   </button>
                 </div>
@@ -115,7 +123,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
             </title>
             <path
               clip-rule="evenodd"
-              d="M20.532 3.471A.748.748 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002.002.001ZM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25V9Z"
+              d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
               fill="currentColor"
               fill-rule="evenodd"
             />
@@ -189,29 +197,37 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                   <li>
                     landingsside.liste.2
                   </li>
+                  <li>
+                    landingsside.liste.3
+                  </li>
                 </ul>
+                <p
+                  class="_paragraph_6ae597 navds-body-long navds-body-long--medium"
+                >
+                  landingsside.velge_mellom_detaljert_og_enkel_3
+                </p>
                 <div
                   class="navds-stack navds-hstack"
                   style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
                 >
                   <button
-                    class="navds-button navds-button--secondary navds-button--medium"
-                    data-testid="landingside-detaljert-kalkulator-button"
-                  >
-                    <span
-                      class="navds-label"
-                    >
-                      landingsside.button.detaljert_kalkulator_utlogget
-                    </span>
-                  </button>
-                  <button
-                    class="navds-button navds-button--secondary navds-button--medium"
+                    class="_button_6ae597 navds-button navds-button--primary navds-button--medium"
                     data-testid="landingside-enkel-kalkulator-button"
                   >
                     <span
                       class="navds-label"
                     >
                       landingsside.button.enkel_kalkulator_utlogget
+                    </span>
+                  </button>
+                  <button
+                    class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"
+                    data-testid="landingside-detaljert-kalkulator-button"
+                  >
+                    <span
+                      class="navds-label"
+                    >
+                      landingsside.button.detaljert_kalkulator_utlogget
                     </span>
                   </button>
                 </div>
@@ -300,7 +316,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
             </title>
             <path
               clip-rule="evenodd"
-              d="M20.532 3.471A.748.748 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002.002.001ZM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25V9Z"
+              d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
               fill="currentColor"
               fill-rule="evenodd"
             />

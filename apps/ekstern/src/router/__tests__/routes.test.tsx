@@ -658,6 +658,74 @@ describe('routes', () => {
       })
     })
 
+    describe(`${BASE_PATH}${paths.samtykkeOffentligAFP}`, () => {
+      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
+        const open = vi.fn()
+        vi.stubGlobal('open', open)
+        mockErrorResponse('/oauth2/session', {
+          baseUrl: `${HOST_BASEURL}`,
+        })
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.samtykkeOffentligAFP}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        await waitFor(() => {
+          expect(open).toHaveBeenCalledWith(
+            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+            '_self'
+          )
+        })
+      })
+
+      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+        store.getState = vi.fn().mockImplementation(() => ({
+          api: {},
+          userInput: { ...userInputInitialState },
+        }))
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.samtykkeOffentligAFP}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('stegvisning.start.button')
+        ).toBeInTheDocument()
+      })
+
+      it('Gitt at brukeren ikke mottar uføretrygd og har valgt AFP offentlig, når hen kommer fra stegvisningen, vises Steg 6', async () => {
+        store.getState = vi.fn().mockImplementation(() => ({
+          api: {
+            queries: {
+              ['getUfoeregrad(undefined)']: {
+                status: 'fulfilled',
+                endpointName: 'getUfoeregrad',
+                requestId: 't1wLPiRKrfe_vchftk8s8',
+                data: { ufoeregrad: 0 },
+                startedTimeStamp: 1714725797072,
+                fulfilledTimeStamp: 1714725797669,
+              },
+            },
+          },
+          userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+        }))
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.samtykkeOffentligAFP}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('stegvisning.samtykke_offentlig_afp.title')
+        ).toBeInTheDocument()
+      })
+    })
+
     describe(`${BASE_PATH}${paths.sivilstand}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()

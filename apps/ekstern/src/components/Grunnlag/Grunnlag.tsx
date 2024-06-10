@@ -12,15 +12,13 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
-import {
-  useGetPersonQuery,
-  useGetAfpOffentligFeatureToggleQuery,
-} from '@/state/api/apiSlice'
+import { useGetPersonQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
   selectSamboer,
   selectUfoeregrad,
+  selectSamtykkeOffentligAFP,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
@@ -36,19 +34,11 @@ import styles from './Grunnlag.module.scss'
 interface Props {
   visning: BeregningVisning
   headingLevel: HeadingProps['level']
-  afpLeverandoer?: string
 }
 
-export const Grunnlag: React.FC<Props> = ({
-  visning,
-  headingLevel,
-  afpLeverandoer,
-}) => {
+export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-
-  const { data: afpOffentligFeatureToggle } =
-    useGetAfpOffentligFeatureToggleQuery()
 
   const goToStart: React.MouseEventHandler<HTMLAnchorElement> = (e): void => {
     e.preventDefault()
@@ -66,12 +56,16 @@ export const Grunnlag: React.FC<Props> = ({
 
   const { data: person, isSuccess } = useGetPersonQuery()
   const afp = useAppSelector(selectAfp)
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const harSamboer = useAppSelector(selectSamboer)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
 
   const formatertAfp = React.useMemo(() => {
     const afpString = formatAfp(intl, afp ?? 'vet_ikke')
     if (ufoeregrad && (afp === 'ja_offentlig' || afp === 'ja_privat')) {
+      return `${afpString} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`
+    }
+    if (!harSamtykketOffentligAFP && !ufoeregrad && afp === 'ja_offentlig') {
       return `${afpString} (${intl.formatMessage({ id: 'grunnlag.afp.ikke_beregnet' })})`
     }
     return afpString
@@ -194,13 +188,8 @@ export const Grunnlag: React.FC<Props> = ({
           >
             <BodyLong>
               <FormattedMessage
-                id={`grunnlag.afp.ingress.${afp}${ufoeregrad ? '.ufoeretrygd' : ''}${
-                  !afpOffentligFeatureToggle?.enabled && afp === 'ja_offentlig'
-                    ? '.unavailable'
-                    : ''
-                }`}
+                id={`grunnlag.afp.ingress.${afp === 'ja_offentlig' && !harSamtykketOffentligAFP && !ufoeregrad ? 'ja_offentlig_utilgjengelig' : afp}${ufoeregrad ? '.ufoeretrygd' : ''}`}
                 values={{
-                  afpLeverandoer: afpLeverandoer ? ` (${afpLeverandoer})` : '',
                   ...getFormatMessageValues(intl),
                 }}
               />
