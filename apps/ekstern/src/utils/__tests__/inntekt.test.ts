@@ -98,6 +98,28 @@ describe('inntekt-utils', () => {
       expect(updateValideringsfeilMock).toHaveBeenCalled()
     })
 
+    it('når input elementet er funnet og at input strengen inneholder bare 0 og whitespace, formateres den ikke, og inntekt og valideringsfeil oppdateres', async () => {
+      const setSelectionRangeMock = vi.fn()
+      const updateInntektMock = vi.fn()
+      const updateValideringsfeilMock = vi.fn()
+      const inputHtmlElement = {
+        selectionStart: 3,
+        setSelectionRange: setSelectionRangeMock,
+      } as unknown as HTMLInputElement
+
+      updateAndFormatInntektFromInputField(
+        inputHtmlElement,
+        '00 000', // denne strenges skal ikke formateres
+        updateInntektMock,
+        updateValideringsfeilMock
+      )
+
+      expect(updateInntektMock).toHaveBeenCalledWith('00 000')
+      expect(updateValideringsfeilMock).toHaveBeenCalled()
+
+      expect(setSelectionRangeMock).not.toHaveBeenCalled()
+    })
+
     it('når input elementet er funnet og at input strengen blir lik etter formatering, plasseres caret tilbake til sin opprinnelig posisjon, og inntekt og valideringsfeil oppdateres', async () => {
       const setSelectionRangeMock = vi.fn()
       const updateInntektMock = vi.fn()

@@ -26,23 +26,32 @@ export const updateAndFormatInntektFromInputField = (
   updateInntekt: (s: string) => void,
   updateValidationErrors: (s: string) => void
 ) => {
-  const caretPosition = inputElement?.selectionStart ?? 0
-  const antallTegnBefore = inntekt.length
-  const formatertInntekt = formatInntekt(inntekt)
-  const antallTegnAfter = formatertInntekt.length
+  const inntektContainsOnlyZeroAndWhitespace = /^[0\s]*$/
+  if (!inntektContainsOnlyZeroAndWhitespace.test(inntekt)) {
+    const caretPosition = inputElement?.selectionStart ?? 0
+    const antallTegnBefore = inntekt.length
+    const formatertInntekt = formatInntekt(inntekt)
+    const antallTegnAfter = formatertInntekt.length
 
-  updateInntekt(formatertInntekt)
-  updateValidationErrors('')
+    updateInntekt(formatertInntekt)
+    updateValidationErrors('')
 
-  setTimeout(() => {
-    const updatedCaretPosition =
-      antallTegnAfter > antallTegnBefore
-        ? caretPosition + 1
-        : antallTegnAfter < antallTegnBefore
-          ? caretPosition - 1
-          : caretPosition
-    inputElement?.setSelectionRange(updatedCaretPosition, updatedCaretPosition)
-  }, 10)
+    setTimeout(() => {
+      const updatedCaretPosition =
+        antallTegnAfter > antallTegnBefore
+          ? caretPosition + 1
+          : antallTegnAfter < antallTegnBefore
+            ? caretPosition - 1
+            : caretPosition
+      inputElement?.setSelectionRange(
+        updatedCaretPosition,
+        updatedCaretPosition
+      )
+    }, 10)
+  } else {
+    updateInntekt(inntekt)
+    updateValidationErrors('')
+  }
 }
 
 export const validateInntekt = (
