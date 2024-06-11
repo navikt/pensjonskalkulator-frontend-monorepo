@@ -9,7 +9,7 @@ import {
 import { waitFor } from '@/test-utils'
 
 describe('inntekt-utils', () => {
-  describe.skip('formatInntekt', () => {
+  describe('formatInntekt', () => {
     it('returnerer tom string når amount er null eller undefined', () => {
       expect(formatInntekt(null)).toBe('')
       expect(formatInntekt(undefined)).toBe('')
@@ -55,7 +55,7 @@ describe('inntekt-utils', () => {
     })
   })
 
-  describe.skip('formatInntektToNumber', () => {
+  describe('formatInntektToNumber', () => {
     it('returnerer 0 når amount er tom eller undefined', () => {
       expect(formatInntektToNumber(undefined)).toBe(0)
       expect(formatInntektToNumber('')).toBe(0)
@@ -190,7 +190,7 @@ describe('inntekt-utils', () => {
     })
   })
 
-  describe.skip('validateInntekt', () => {
+  describe('validateInntekt', () => {
     afterEach(() => {
       vi.clearAllMocks()
     })
