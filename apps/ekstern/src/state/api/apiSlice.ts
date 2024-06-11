@@ -82,15 +82,7 @@ export const apiSlice = createApi({
         if (!isUfoeregrad(response)) {
           throw new Error(`Mottok ugyldig ufoeregrad response:`, response)
         }
-        logger('info', {
-          tekst: 'hent uføregrad',
-          data:
-            response.ufoeregrad === 0
-              ? 'Ingen uføretrygd'
-              : response.ufoeregrad === 100
-                ? 'Hel uføretrygd'
-                : `Gradert uføretrygd`,
-        })
+
         return response
       },
     }),

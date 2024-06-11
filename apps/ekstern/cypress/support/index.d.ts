@@ -11,6 +11,7 @@ declare global {
       fillOutStegvisning(args: {
         samtykke?: boolean
         afp?: AfpRadio
+        samtykkeAfpOffentlig?: boolean
         samboer?: boolean
       }): Chainable<void>
       /**

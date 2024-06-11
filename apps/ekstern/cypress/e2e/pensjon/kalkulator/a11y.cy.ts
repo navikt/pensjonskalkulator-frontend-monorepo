@@ -1,12 +1,5 @@
 describe('Pensjonskalkulator', () => {
   it('rendrer stegsvisning', () => {
-    cy.intercept(
-      { method: 'GET', url: '/pensjon/kalkulator/api/v1/ufoeregrad' },
-      {
-        ufoeregrad: 75,
-      }
-    ).as('getUfoeregrad')
-
     cy.login()
     cy.injectAxe()
 
@@ -39,10 +32,7 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
     cy.contains('button', 'Neste').click()
 
-    // Sjekker Steg 5
-    cy.contains('Uføretrygd og avtalefestet pensjon')
-    cy.checkA11y('main')
-    cy.contains('button', 'Neste').click()
+    // Hopper over Steg 5
 
     // Sjekker Steg 6
     cy.contains('Samtykke til at NAV beregner avtalefestet pensjon')

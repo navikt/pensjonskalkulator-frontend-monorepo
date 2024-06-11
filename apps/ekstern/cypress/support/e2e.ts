@@ -21,6 +21,18 @@ beforeEach(() => {
     statusCode: 200,
   }).as('getDecoratorLoginAuth')
 
+  cy.intercept('GET', `/collect`, {
+    statusCode: 200,
+  }).as('getDecoratoCollect')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `/api/ta`,
+    },
+    { fixture: 'decorator-ta.json' }
+  ).as('getDecoratorTa')
+
   cy.intercept(
     {
       method: 'GET',
@@ -42,7 +54,7 @@ beforeEach(() => {
       method: 'GET',
       url: `/ops-messages`,
     },
-    { fixture: 'decorator-ops-messages.html' }
+    { fixture: 'decorator-ops.json' }
   ).as('getDecoratorOpsMessages')
 
   cy.intercept(
@@ -50,12 +62,12 @@ beforeEach(() => {
       method: 'GET',
       url: `${Cypress.env(
         'DECORATOR_URL'
-      )}/env?chatbot=false&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start`,
+      )}/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start`,
     },
     { fixture: 'decorator-env-features.json' }
   ).as('getDecoratorEnvFeatures')
 
-  cy.intercept('POST', '/collect', {
+  cy.intercept('POST', 'https://amplitude.nav.no/collect-auto', {
     statusCode: 200,
   }).as('amplitudeCollect')
 
@@ -143,6 +155,7 @@ beforeEach(() => {
 Cypress.Commands.add('login', () => {
   cy.visit('/pensjon/kalkulator/')
   cy.wait('@getAuthSession')
+  cy.wait('@getDecoratorMainMenu')
   cy.contains('button', 'Pensjonskalkulator').click()
   // På steg 0 kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   cy.wait('@getPerson')
@@ -152,7 +165,12 @@ Cypress.Commands.add('login', () => {
 })
 
 Cypress.Commands.add('fillOutStegvisning', (args) => {
-  const { samtykke = false, afp = 'vet_ikke', samboer = true } = args
+  const {
+    samtykke = false,
+    afp = 'vet_ikke',
+    samtykkeAfpOffentlig = true,
+    samboer = true,
+  } = args
 
   cy.window()
     .its('store')
@@ -163,12 +181,17 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
     cy.window()
       .its('store')
       .invoke('dispatch', apiSlice.endpoints.getTpoMedlemskap.initiate())
-    // TODO AFP - utvide med samtykkeOffentligAFP argument og dispatch setSamtykkeOffentligAFP
   }
 
-  // TODO AFP - utvide med samtykkeOffentligAFP argument og dispatch setSamtykkeOffentligAFP
-  // if (afp === 'ja_offentlig') {
-  // }
+  if (afp === 'ja_offentlig') {
+    // Setter santykke til beregning av AFP-offentlig når brukeren har valgt AFP-offentlig
+    cy.window()
+      .its('store')
+      .invoke(
+        'dispatch',
+        userInputActions.setSamtykkeOffentligAFP(samtykkeAfpOffentlig)
+      )
+  }
 
   // Kaller /ufoeregrad som vanligvis gjøres på steg 4 ila. stegvisningen
   cy.window()

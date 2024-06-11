@@ -48,7 +48,7 @@ export const userInputSlice = createSlice({
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
     },
-    setsamtykkeOffentligAFP: (state, action: PayloadAction<boolean>) => {
+    setSamtykkeOffentligAFP: (state, action: PayloadAction<boolean>) => {
       state.samtykkeOffentligAFP = action.payload
     },
     setAfp: (state, action: PayloadAction<AfpRadio>) => {

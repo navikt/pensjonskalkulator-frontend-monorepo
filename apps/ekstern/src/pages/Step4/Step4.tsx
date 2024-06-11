@@ -55,7 +55,7 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    navigate(paths.ufoeretrygd)
+    navigate(paths.ufoeretrygdAFP)
   }
 
   return (

@@ -596,7 +596,7 @@ describe('routes', () => {
       })
     })
 
-    describe(`${BASE_PATH}${paths.ufoeretrygd}`, () => {
+    describe(`${BASE_PATH}${paths.ufoeretrygdAFP}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
@@ -605,7 +605,7 @@ describe('routes', () => {
         })
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygdAFP}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -624,7 +624,7 @@ describe('routes', () => {
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygdAFP}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -644,7 +644,7 @@ describe('routes', () => {
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygdAFP}`],
         })
         render(<RouterProvider router={router} />, {
           preloadedState: {

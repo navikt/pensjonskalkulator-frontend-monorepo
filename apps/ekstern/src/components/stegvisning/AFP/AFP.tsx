@@ -90,6 +90,18 @@ export function AFP({
     }
   }, [showAlert])
 
+  React.useEffect(() => {
+    logger('info', {
+      tekst: 'hent uføregrad',
+      data:
+        ufoeregrad?.ufoeregrad === 0
+          ? 'Ingen uføretrygd'
+          : ufoeregrad?.ufoeregrad === 100
+            ? 'Hel uføretrygd'
+            : `Gradert uføretrygd`,
+    })
+  }, [ufoeregrad])
+
   const handleRadioChange = (value: AfpRadio): void => {
     setShowAlert(value)
     setValidationError('')

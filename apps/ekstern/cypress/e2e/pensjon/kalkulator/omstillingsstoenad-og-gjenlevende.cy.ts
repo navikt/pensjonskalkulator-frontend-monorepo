@@ -31,9 +31,7 @@ describe('med omstillingsstønad og gjenlevende', () => {
       it('må jeg kunne trykke på Readmore for informasjon om pensjonsalder', () => {
         cy.contains('Om pensjonsalder')
         cy.contains('Om pensjonsalder').click()
-        cy.contains(
-          'Den oppgitte alderen er et estimat etter dagens regler'
-        ).should('exist')
+        cy.contains('Den oppgitte alderen er et estimat').should('exist')
       })
     })
 

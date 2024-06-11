@@ -135,7 +135,7 @@ describe('Step 7', () => {
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygd)
+      expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
     })
   })
 

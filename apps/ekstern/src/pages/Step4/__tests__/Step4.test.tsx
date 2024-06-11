@@ -111,7 +111,7 @@ describe('Step 4', () => {
     await user.click(screen.getByText('stegvisning.neste'))
 
     expect(setAfpMock).toHaveBeenCalledWith('ja_offentlig')
-    expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygd)
+    expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
   })
 
   it('sender tilbake til steg 2 når brukeren ikke har tpo-medlemskap og klikker på Tilbake', async () => {
