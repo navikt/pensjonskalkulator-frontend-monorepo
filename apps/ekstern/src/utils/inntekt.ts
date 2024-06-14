@@ -23,7 +23,12 @@ export const formatInntektToNumber = (s?: string) => {
 export const validateInntekt = (
   input: string | null | undefined,
   updateValidationErrorMessage?: (s: string) => void,
-  isRequired: boolean = true
+  isRequired: boolean = true,
+  validationStrings?: {
+    required?: string
+    type?: string
+    max?: string
+  }
 ) => {
   let isValid = true
 
@@ -32,7 +37,8 @@ export const validateInntekt = (
       isValid = false
       if (updateValidationErrorMessage) {
         updateValidationErrorMessage(
-          'inntekt.endre_inntekt_modal.textfield.validation_error.required'
+          validationStrings?.required ??
+            'inntekt.endre_inntekt_modal.textfield.validation_error.required'
         )
       }
     } else {
@@ -45,14 +51,16 @@ export const validateInntekt = (
     isValid = false
     if (updateValidationErrorMessage) {
       updateValidationErrorMessage(
-        'inntekt.endre_inntekt_modal.textfield.validation_error.type'
+        validationStrings?.type ??
+          'inntekt.endre_inntekt_modal.textfield.validation_error.type'
       )
     }
   } else if (parseInt(input as string, 10) > 100000000) {
     isValid = false
     if (updateValidationErrorMessage) {
       updateValidationErrorMessage(
-        'inntekt.endre_inntekt_modal.textfield.validation_error.max'
+        validationStrings?.max ??
+          'inntekt.endre_inntekt_modal.textfield.validation_error.max'
       )
     }
   }

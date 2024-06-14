@@ -226,13 +226,25 @@ describe('inntekt-utils', () => {
       expect(
         validateInntekt(null, updateValidationErrorMessageMock)
       ).toBeFalsy()
+      expect(
+        validateInntekt(
+          undefined,
+          updateValidationErrorMessageMock,
+          undefined,
+          { required: 'requiredString', type: 'typeString', max: 'maxString' }
+        )
+      ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         3,
         'inntekt.endre_inntekt_modal.textfield.validation_error.required'
       )
+      expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
+        4,
+        'requiredString'
+      )
     })
 
-    it('Gitt at input ikke er required, returnerer true med riktig feilmelding når input er tomt', async () => {
+    it('Gitt at input ikke er required, returnerer true uten feilmelding når input er tomt', async () => {
       expect(
         validateInntekt(undefined, updateValidationErrorMessageMock, false)
       ).toBeTruthy()
@@ -242,11 +254,19 @@ describe('inntekt-utils', () => {
       expect(
         validateInntekt(undefined, updateValidationErrorMessageMock, false)
       ).toBeTruthy()
+      expect(updateValidationErrorMessageMock).not.toHaveBeenCalled()
     })
 
     it('returnerer false med riktig feilmelding når input er noe annet enn tall mellom 0-9 med/uten mellomrom, bindestrekk eller punktum', async () => {
       expect(
         validateInntekt('qwerty', updateValidationErrorMessageMock)
+      ).toBeFalsy()
+      expect(
+        validateInntekt('qwerty', updateValidationErrorMessageMock, undefined, {
+          required: 'requiredString',
+          type: 'typeString',
+          max: 'maxString',
+        })
       ).toBeFalsy()
       expect(
         validateInntekt('123,45', updateValidationErrorMessageMock)
@@ -267,15 +287,35 @@ describe('inntekt-utils', () => {
         1,
         'inntekt.endre_inntekt_modal.textfield.validation_error.type'
       )
+      expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
+        2,
+        'typeString'
+      )
     })
 
     it('returnerer false med riktig feilmelding når input oversiger maks beløpet', async () => {
       expect(
         validateInntekt('100000001', updateValidationErrorMessageMock)
       ).toBeFalsy()
+      expect(
+        validateInntekt(
+          '100000001',
+          updateValidationErrorMessageMock,
+          undefined,
+          {
+            required: 'requiredString',
+            type: 'typeString',
+            max: 'maxString',
+          }
+        )
+      ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         1,
         'inntekt.endre_inntekt_modal.textfield.validation_error.max'
+      )
+      expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
+        2,
+        'maxString'
       )
     })
 

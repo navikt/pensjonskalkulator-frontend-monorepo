@@ -302,16 +302,19 @@ export const validateAvansertBeregningSkjema = (
     if (
       !validateInntekt(
         inntektVsaGradertUttakFormData as string,
-        () => {
+        (s: string) => {
           updateValidationErrorMessage((prevState) => {
             return {
               ...prevState,
-              [FORM_NAMES.inntektVsaGradertUttak]:
-                'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error',
+              [FORM_NAMES.inntektVsaGradertUttak]: s,
             }
           })
         },
-        true
+        true,
+        {
+          required:
+            'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error',
+        }
       )
     ) {
       isValid = false
