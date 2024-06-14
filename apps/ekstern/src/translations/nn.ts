@@ -46,8 +46,7 @@ const translations = {
   'landingsside.velge_mellom_detaljert_og_enkel_3': 'MANGLER_TEKST',
   'landingsside.liste.1':
     'har budd eller arbeidd utanfor Noreg i meir enn fem år etter fylte 16 år',
-  'landingsside.liste.2': 'har uføretrygd eller attlevandepensjon',
-  'landingsside.liste.3': 'MANGLER_TEKST',
+  'landingsside.liste.2': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert pensjonskalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',

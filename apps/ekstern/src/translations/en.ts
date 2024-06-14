@@ -35,7 +35,6 @@ const translations = {
   'landingsside.velge_mellom_detaljert_og_enkel_3': 'MANGLER_TEKST',
   'landingsside.liste.1': 'MANGLER_TEKST',
   'landingsside.liste.2': 'MANGLER_TEKST',
-  'landingsside.liste.3': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator': 'MANGLER_TEKST',
   'landingsside.button.enkel_kalkulator_utlogget': 'MANGLER_TEKST',

@@ -108,11 +108,6 @@ export const LandingPage = () => {
                   id: 'landingsside.liste.2',
                 })}
               </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.3',
-                })}
-              </li>
             </ul>
             <BodyLong className={styles.paragraph}>
               {intl.formatMessage({
