@@ -32,6 +32,8 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
     cy.contains('button', 'Neste').click()
 
+    // Hopper over Steg 5
+
     // Sjekker Steg 6
     cy.contains('Samtykke til at NAV beregner avtalefestet pensjon')
     cy.checkA11y('main')
@@ -47,20 +49,7 @@ describe('Pensjonskalkulator', () => {
 
   it('rendrer resultatsside for enkel uten a11y-feil', () => {
     cy.login()
-
-    cy.contains('button', 'Kom i gang').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
-
-    cy.get('[type="radio"]').first().check()
-    cy.contains('button', 'Beregn pensjon').click()
+    cy.fillOutStegvisning({})
 
     // Sjekker Beregning
     cy.wait('@fetchTidligsteUttaksalder')
@@ -81,7 +70,7 @@ describe('Pensjonskalkulator', () => {
 
   it('rendrer skjemaet og resultatsside for avansert uten a11y-feil', () => {
     cy.login()
-    cy.fillOutStegvisning({ samtykke: false })
+    cy.fillOutStegvisning({})
     cy.wait('@fetchTidligsteUttaksalder')
     cy.contains('Avansert').click()
     cy.contains('Avansert').click()
@@ -118,7 +107,7 @@ describe('Pensjonskalkulator', () => {
 
   it('når brukeren ikke oppfyller vilkaar for valgt uttaksalder, rendrer skjemaet med forslag om annet uttak uten a11y-feil', () => {
     cy.login()
-    cy.fillOutStegvisning({ samtykke: false })
+    cy.fillOutStegvisning({})
     cy.wait('@fetchTidligsteUttaksalder')
     cy.contains('Avansert').click()
     cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select('65')

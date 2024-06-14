@@ -39,7 +39,7 @@ export function Step7() {
   // TODO PEK-388: skrive tester
   const onPrevious = (): void => {
     if (ufoeregrad?.ufoeregrad && afp && afp !== 'nei') {
-      navigate(paths.ufoeretrygd)
+      navigate(paths.ufoeretrygdAFP)
     } else if (ufoeregrad?.ufoeregrad === 0 && afp === 'ja_offentlig') {
       navigate(paths.samtykkeOffentligAFP)
     } else {

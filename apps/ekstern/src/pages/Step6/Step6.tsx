@@ -38,7 +38,7 @@ export function Step6() {
 
   const onNext = (samtykkeData: BooleanRadio) => {
     const samtykke = samtykkeData === 'ja'
-    dispatch(userInputActions.setsamtykkeOffentligAFP(samtykke))
+    dispatch(userInputActions.setSamtykkeOffentligAFP(samtykke))
     navigate(paths.sivilstand)
   }
 

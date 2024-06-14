@@ -148,6 +148,10 @@ export const step0AccessGuard = async () => {
 
   // Henter inntekt til senere
   store.dispatch(apiSlice.endpoints.getInntekt.initiate())
+  // Henter omstillingsstønad-og-gjenlevende til senere
+  store.dispatch(
+    apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
+  )
 
   // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
   const getEkskludertStatusQuery = store.dispatch(
@@ -156,11 +160,7 @@ export const step0AccessGuard = async () => {
 
   getEkskludertStatusQuery.then((res) => {
     if (res?.data?.ekskludert) {
-      if (res?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE') {
-        resolveRedirectUrl(
-          `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-        )
-      } else if (res?.data?.aarsak === 'ER_APOTEKER') {
+      if (res?.data?.aarsak === 'ER_APOTEKER') {
         resolveRedirectUrl(
           `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
         )
@@ -285,6 +285,11 @@ export const step4AccessGuard = async () => {
     undefined
   )(store.getState()).isError
 
+  const hasOmstillingsstoenadOgGjenlevendePreviouslyFailed =
+    apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(undefined)(
+      store.getState()
+    ).isError
+
   const hasEkskludertStatusPreviouslyFailed =
     apiSlice.endpoints.getEkskludertStatus.select(undefined)(
       store.getState()
@@ -296,7 +301,11 @@ export const step4AccessGuard = async () => {
     }
     if (res.isSuccess) {
       // Hvis alle kallene er vellykket, resolve
-      if (!hasInntektPreviouslyFailed && !hasEkskludertStatusPreviouslyFailed) {
+      if (
+        !hasInntektPreviouslyFailed &&
+        !hasOmstillingsstoenadOgGjenlevendePreviouslyFailed &&
+        !hasEkskludertStatusPreviouslyFailed
+      ) {
         resolveRedirectUrl('')
       }
       // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
@@ -307,6 +316,9 @@ export const step4AccessGuard = async () => {
             if (inntektRes.isError) {
               resolveRedirectUrl(paths.uventetFeil)
             } else if (
+              apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
+                undefined
+              )(store.getState()).isSuccess &&
               apiSlice.endpoints.getEkskludertStatus.select(undefined)(
                 store.getState()
               ).isSuccess
@@ -315,6 +327,31 @@ export const step4AccessGuard = async () => {
             }
           })
       }
+
+      // Hvis omstillingsstønad-og-gjenlevende har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+      if (hasOmstillingsstoenadOgGjenlevendePreviouslyFailed) {
+        store
+          .dispatch(
+            apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
+          )
+          .then((omstillingsstoenadOgGjenlevendeRes) => {
+            if (omstillingsstoenadOgGjenlevendeRes.isError) {
+              logger('info', {
+                tekst: 'omstillingsstønad og gjenlevende feilet',
+              })
+              resolveRedirectUrl(paths.uventetFeil)
+            } else if (
+              apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
+                .isSuccess &&
+              apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+                store.getState()
+              ).isSuccess
+            ) {
+              resolveRedirectUrl('')
+            }
+          })
+      }
+
       // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
       if (hasEkskludertStatusPreviouslyFailed) {
         store
@@ -329,13 +366,6 @@ export const step4AccessGuard = async () => {
             if (res.isSuccess) {
               if (
                 ekskludertStatusRes?.data?.ekskludert &&
-                ekskludertStatusRes?.data?.aarsak === 'HAR_GJENLEVENDEYTELSE'
-              ) {
-                resolveRedirectUrl(
-                  `${paths.henvisning}/${henvisningUrlParams.gjenlevende}`
-                )
-              } else if (
-                ekskludertStatusRes?.data?.ekskludert &&
                 ekskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
               ) {
                 resolveRedirectUrl(
@@ -344,7 +374,10 @@ export const step4AccessGuard = async () => {
               } else if (
                 apiSlice.endpoints.getInntekt.select(undefined)(
                   store.getState()
-                ).isSuccess
+                ).isSuccess &&
+                apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
+                  undefined
+                )(store.getState()).isSuccess
               ) {
                 resolveRedirectUrl('')
               }

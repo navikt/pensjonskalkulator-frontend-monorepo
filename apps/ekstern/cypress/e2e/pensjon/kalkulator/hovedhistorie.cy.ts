@@ -315,7 +315,7 @@ describe('Hovedhistorie', () => {
             })
           }
         )
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.get('[data-testid="uttaksalder-loader"]').should('exist')
       })
     })
@@ -323,7 +323,7 @@ describe('Hovedhistorie', () => {
     describe('Når jeg er kommet til beregningssiden,', () => {
       it('ønsker jeg som er født i 1963 informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
           'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
@@ -343,7 +343,7 @@ describe('Hovedhistorie', () => {
           }
         ).as('getPerson')
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains(
           'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
@@ -355,14 +355,14 @@ describe('Hovedhistorie', () => {
       })
       it('må jeg kunne trykke på Readmore for å få mer informasjon om pensjonsalder', () => {
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('Om pensjonsalder').click()
         cy.contains('Den oppgitte alderen er et estimat.').should('exist')
       })
       it('forventer jeg å få knapper jeg kan trykke på for å velge og sammenligne ulike uttakstidspunkt. Bruker må også kunne sammenligne uttak mellom 62 år og 10 md. (første mulige) og 75 år.', () => {
         cy.login()
-        cy.fillOutStegvisning({ samtykke: false })
+        cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
         cy.get('.VelgUttaksalder--wrapper button').should('have.length', 14)
         cy.contains('button', '62 år og 10 md.').should('exist')

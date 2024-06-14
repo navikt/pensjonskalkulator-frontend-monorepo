@@ -118,6 +118,7 @@ export default defineConfig(() => ({
         'cypress',
         'server/server.ts',
         'src/mocks',
+        'src/mocks/mockedRTKQueryApiCalls.ts',
         'src/test-utils.tsx',
         'src/main.tsx',
         'src/main-veileder.tsx',

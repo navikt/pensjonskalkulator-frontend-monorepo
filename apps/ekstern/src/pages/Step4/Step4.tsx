@@ -4,14 +4,9 @@ import { useNavigate, Await } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { AFP } from '@/components/stegvisning/AFP'
-import { henvisningUrlParams, paths } from '@/router/constants'
+import { paths } from '@/router/constants'
 import { useStep4AccessData } from '@/router/loaders'
-import {
-  useGetTpoMedlemskapQuery,
-  useGetUfoereFeatureToggleQuery,
-  useGetUfoeregradQuery,
-  useGetEkskludertStatusQuery,
-} from '@/state/api/apiSlice'
+import { useGetTpoMedlemskapQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectSamtykke,
@@ -28,45 +23,10 @@ export function Step4() {
   const harSamtykket = useAppSelector(selectSamtykke)
   const previousAfp = useAppSelector(selectAfp)
 
-  const {
-    isSuccess,
-    isError,
-    data: ufoereFeatureToggle,
-  } = useGetUfoereFeatureToggleQuery()
-  const { data: ekskludertStatus } = useGetEkskludertStatusQuery()
-  const { data: ufoeregrad } = useGetUfoeregradQuery()
   const { data: TpoMedlemskap, isSuccess: isTpoMedlemskapQuerySuccess } =
     useGetTpoMedlemskapQuery(undefined, { skip: !harSamtykket })
 
   const isVeileder = useAppSelector(selectIsVeileder)
-
-  React.useEffect(() => {
-    if (
-      isSuccess &&
-      !ufoereFeatureToggle?.enabled &&
-      ekskludertStatus?.ekskludert &&
-      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
-    ) {
-      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
-    }
-    /* c8 ignore next 7 - fases ut etter lansering av uføre */
-    if (
-      isError &&
-      ekskludertStatus?.ekskludert &&
-      ekskludertStatus.aarsak === 'HAR_LOEPENDE_UFOERETRYGD'
-    ) {
-      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
-    }
-  }, [isSuccess, isError, ekskludertStatus])
-
-  React.useEffect(() => {
-    if (
-      (!ufoereFeatureToggle || !ufoereFeatureToggle?.enabled) &&
-      ufoeregrad?.ufoeregrad
-    ) {
-      navigate(`${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`)
-    }
-  }, [ufoeregrad, navigate])
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -95,7 +55,7 @@ export function Step4() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    navigate(paths.ufoeretrygd)
+    navigate(paths.ufoeretrygdAFP)
   }
 
   return (

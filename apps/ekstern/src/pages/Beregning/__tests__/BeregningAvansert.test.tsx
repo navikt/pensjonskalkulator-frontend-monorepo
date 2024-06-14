@@ -5,6 +5,10 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningAvansert } from '../BeregningAvansert'
 import { FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
+import {
+  fulfilledGetInntekt,
+  fulfilledGetPerson,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import {
   BeregningContext,
@@ -19,34 +23,6 @@ import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
 describe('BeregningAvansert', () => {
-  const fakeApiCalls = {
-    queries: {
-      ['getPerson(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getPerson',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          navn: 'Aprikos',
-          sivilstand: 'UGIFT',
-          foedselsdato: '1963-04-30',
-        },
-        fulfilledTimeStamp: 1688046412103,
-      },
-      ['getInntekt(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getInntekt',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          beloep: 500000,
-          aar: 2021,
-        },
-        fulfilledTimeStamp: 1688046412103,
-      },
-    },
-  }
-
   const contextMockedValues = {
     avansertSkjemaModus: 'resultat' as AvansertBeregningModus,
     setAvansertSkjemaModus: vi.fn(),
@@ -56,7 +32,12 @@ describe('BeregningAvansert', () => {
 
   describe('Gitt at brukeren har fylt ut stegvisningen og er kommet til beregningssiden for avansert', () => {
     const preloadedState = {
-      api: { ...fakeApiCalls },
+      api: {
+        queries: {
+          ...fulfilledGetPerson,
+          ...fulfilledGetInntekt,
+        },
+      },
       userInput: {
         ...userInputInitialState,
         samtykke: true,
@@ -152,7 +133,7 @@ describe('BeregningAvansert', () => {
 
         expect(initiateMock).toHaveBeenCalledWith(
           {
-            aarligInntektFoerUttakBeloep: 500000,
+            aarligInntektFoerUttakBeloep: 521338,
             epsHarInntektOver2G: true,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
@@ -201,7 +182,8 @@ describe('BeregningAvansert', () => {
               ...preloadedState,
               api: {
                 queries: {
-                  ...fakeApiCalls.queries,
+                  ...fulfilledGetPerson,
+                  ...fulfilledGetInntekt,
                   ['getUfoeregrad(undefined)']: {
                     /* eslint-disable @typescript-eslint/ban-ts-comment */
                     // @ts-ignore
@@ -248,7 +230,7 @@ describe('BeregningAvansert', () => {
 
         expect(initiateMock).toHaveBeenCalledWith(
           {
-            aarligInntektFoerUttakBeloep: 500000,
+            aarligInntektFoerUttakBeloep: 521338,
             epsHarInntektOver2G: true,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
@@ -334,7 +316,7 @@ describe('BeregningAvansert', () => {
 
         expect(initiateMock).toHaveBeenCalledWith(
           {
-            aarligInntektFoerUttakBeloep: 500000,
+            aarligInntektFoerUttakBeloep: 521338,
             epsHarInntektOver2G: true,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
@@ -420,7 +402,7 @@ describe('BeregningAvansert', () => {
 
         expect(initiateMock).toHaveBeenCalledWith(
           {
-            aarligInntektFoerUttakBeloep: 500000,
+            aarligInntektFoerUttakBeloep: 521338,
             epsHarInntektOver2G: true,
             foedselsdato: '1963-04-30',
             gradertUttak: undefined,
@@ -463,9 +445,14 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
-              // @ts-ignore
-              api: { ...fakeApiCalls },
+              api: {
+                /* eslint-disable @typescript-eslint/ban-ts-comment */
+                // @ts-ignore
+                queries: {
+                  ...fulfilledGetPerson,
+                  ...fulfilledGetInntekt,
+                },
+              },
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
@@ -553,9 +540,14 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
-              // @ts-ignore
-              api: { ...fakeApiCalls },
+              api: {
+                /* eslint-disable @typescript-eslint/ban-ts-comment */
+                // @ts-ignore
+                queries: {
+                  ...fulfilledGetPerson,
+                  ...fulfilledGetInntekt,
+                },
+              },
               userInput: {
                 ...preloadedState.userInput,
 
@@ -606,9 +598,14 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
-              // @ts-ignore
-              api: { ...fakeApiCalls },
+              api: {
+                /* eslint-disable @typescript-eslint/ban-ts-comment */
+                // @ts-ignore
+                queries: {
+                  ...fulfilledGetPerson,
+                  ...fulfilledGetInntekt,
+                },
+              },
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
@@ -671,9 +668,14 @@ describe('BeregningAvansert', () => {
           hasRouter: false,
 
           preloadedState: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            api: { ...fakeApiCalls },
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
+              },
+            },
             userInput: {
               ...preloadedState.userInput,
               currentSimulation: {

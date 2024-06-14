@@ -1,15 +1,6 @@
-describe('Ufoeretrygd', () => {
+describe('med ufoeretrygd', () => {
   describe('Som bruker som har logget inn på kalkulatoren,', () => {
     beforeEach(() => {
-      cy.intercept(
-        {
-          method: 'GET',
-          url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-ufoere',
-        },
-        {
-          enabled: true,
-        }
-      ).as('getFeatureToggleUfoere')
       cy.login()
     })
 
@@ -159,17 +150,7 @@ describe('Ufoeretrygd', () => {
               ufoeregrad: 100,
             }
           ).as('getUfoeregrad')
-          cy.contains('button', 'Kom i gang').click()
-          cy.get('[type="radio"]').last().check()
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').first().check()
-          cy.contains('button', 'Neste').click()
-          cy.wait('@getTpoMedlemskap')
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').eq(2).check()
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').eq(1).check()
-          cy.contains('button', 'Beregn pensjon').click()
+          cy.fillOutStegvisning({ afp: 'nei' })
         })
 
         it('forventer jeg informasjon om hvilken grad uføretrygd jeg har.', () => {
@@ -204,17 +185,7 @@ describe('Ufoeretrygd', () => {
               ufoeregrad: 75,
             }
           ).as('getUfoeregrad')
-          cy.contains('button', 'Kom i gang').click()
-          cy.get('[type="radio"]').last().check()
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').first().check()
-          cy.contains('button', 'Neste').click()
-          cy.wait('@getTpoMedlemskap')
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').eq(2).check()
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').eq(1).check()
-          cy.contains('button', 'Beregn pensjon').click()
+          cy.fillOutStegvisning({ afp: 'nei' })
         })
 
         it('forventer jeg informasjon om hvilken grad uføretrygd jeg har.', () => {
@@ -250,17 +221,8 @@ describe('Ufoeretrygd', () => {
             ufoeregrad: 100,
           }
         ).as('getUfoeregrad')
-        cy.contains('button', 'Kom i gang').click()
-        cy.get('[type="radio"]').last().check()
-        cy.contains('button', 'Neste').click()
-        cy.get('[type="radio"]').last().check()
-        cy.contains('button', 'Neste').click()
-        cy.contains('button', 'Neste').click()
-        cy.get('[type="radio"]').eq(2).check()
-        cy.contains('button', 'Neste').click()
-        cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
-        cy.contains('button', 'Avansert').click()
+        cy.fillOutStegvisning({ afp: 'nei' })
+        cy.contains('Avansert').click()
       })
 
       describe('Når jeg er kommet til avansert beregning,', () => {
@@ -317,17 +279,8 @@ describe('Ufoeretrygd', () => {
             ufoeregrad: 40,
           }
         ).as('getUfoeregrad')
-        cy.contains('button', 'Kom i gang').click()
-        cy.get('[type="radio"]').last().check()
-        cy.contains('button', 'Neste').click()
-        cy.get('[type="radio"]').last().check()
-        cy.contains('button', 'Neste').click()
-        cy.contains('button', 'Neste').click()
-        cy.get('[type="radio"]').eq(2).check()
-        cy.contains('button', 'Neste').click()
-        cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
-        cy.contains('button', 'Avansert').click()
+        cy.fillOutStegvisning({ afp: 'nei' })
+        cy.contains('Avansert').click()
       })
 
       describe('Når jeg er kommet til avansert beregning,', () => {
@@ -384,6 +337,7 @@ describe('Ufoeretrygd', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).select('6')
         })
+
         it('forventer jeg at mulige uttaksgrader begrenses til uttaksgradene som er mulig å kombinere med uføretrygd.', () => {
           cy.get('[data-testid="uttaksgrad"]').then((selectElements) => {
             const options = selectElements.find('option')
@@ -392,12 +346,14 @@ describe('Ufoeretrygd', () => {
             expect(options.eq(4).text()).equal('60 %')
           })
         })
+
         it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd"', () => {
           cy.contains('button', 'Om uttaksgrad og uføretrygd').click()
           cy.contains(
             'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'
           ).should('exist')
         })
+
         it('forventer jeg tilpasset informasjon om inntekt samtidig som uttak av pensjon.', () => {
           cy.get('[data-testid="uttaksgrad"]').select('50 %')
           cy.contains(
@@ -422,6 +378,7 @@ describe('Ufoeretrygd', () => {
             '[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]'
           ).select('3')
         })
+
         it('forventer jeg å kunne velge alle uttaksgrader.', () => {
           cy.get('[data-testid="uttaksgrad"]').then((selectElements) => {
             const options = selectElements.find('option')
@@ -430,6 +387,7 @@ describe('Ufoeretrygd', () => {
             expect(options.eq(6).text()).equal('100 %')
           })
         })
+
         it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd"', () => {
           cy.contains('button', 'Om uttaksgrad og uføretrygd').click()
           cy.contains(

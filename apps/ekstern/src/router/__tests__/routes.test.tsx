@@ -9,6 +9,7 @@ import {
   paths,
 } from '../constants'
 import { routes } from '../routes'
+import { fulfilledGetUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -22,13 +23,11 @@ const fakeApiCalls = {
   queries: {
     ['tulleQuery(undefined)']: {
       status: 'fulfilled',
-      endpointName: 'getPerson',
+      endpointName: 'tulleQuery',
       requestId: 'xTaE6mOydr5ZI75UXq4Wi',
       startedTimeStamp: 1688046411971,
       data: {
-        navn: 'Aprikos',
-        sivilstand: 'UGIFT',
-        foedselsdato: '1963-04-30',
+        tull: 'og tøys',
       },
       fulfilledTimeStamp: 1688046412103,
     },
@@ -218,88 +217,6 @@ describe('routes', () => {
             await screen.findByText('stegvisning.start.title Aprikos!')
           ).toBeVisible()
         })
-      })
-    })
-
-    describe(`${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('viser henvisning ufoeretrygd', async () => {
-        mockResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-
-        expect(
-          await screen.findByText('henvisning.ufoeretrygd.body')
-        ).toBeVisible()
-      })
-    })
-
-    describe(`${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.gjenlevende}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.gjenlevende}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('viser henvisning gjenlevendepensjon', async () => {
-        mockResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.gjenlevende}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-
-        expect(
-          await screen.findByText('henvisning.gjenlevende.body')
-        ).toBeVisible()
       })
     })
 
@@ -679,7 +596,7 @@ describe('routes', () => {
       })
     })
 
-    describe(`${BASE_PATH}${paths.ufoeretrygd}`, () => {
+    describe(`${BASE_PATH}${paths.ufoeretrygdAFP}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
@@ -688,7 +605,7 @@ describe('routes', () => {
         })
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygdAFP}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -707,7 +624,7 @@ describe('routes', () => {
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygdAFP}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -720,21 +637,14 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ['getUfoeregrad(undefined)']: {
-                status: 'fulfilled',
-                endpointName: 'getUfoeregrad',
-                requestId: 't1wLPiRKrfe_vchftk8s8',
-                data: { ufoeregrad: 50 },
-                startedTimeStamp: 1714725797072,
-                fulfilledTimeStamp: 1714725797669,
-              },
+              ...fulfilledGetUfoeregrad,
             },
           },
           userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.ufoeretrygd}`],
+          initialEntries: [`${BASE_PATH}${paths.ufoeretrygdAFP}`],
         })
         render(<RouterProvider router={router} />, {
           preloadedState: {

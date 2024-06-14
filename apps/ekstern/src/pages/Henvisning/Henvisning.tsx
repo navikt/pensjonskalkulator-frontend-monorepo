@@ -24,18 +24,6 @@ export const Henvisning: React.FC = () => {
 
   React.useEffect(() => {
     switch (id) {
-      case henvisningUrlParams.ufoeretrygd:
-        document.title = intl.formatMessage({
-          id: 'application.title.henvisning.ufoeretrygd',
-        })
-        setIngress('henvisning.ufoeretrygd.body')
-        break
-      case henvisningUrlParams.gjenlevende:
-        document.title = intl.formatMessage({
-          id: 'application.title.henvisning.gjenlevende',
-        })
-        setIngress('henvisning.gjenlevende.body')
-        break
       case henvisningUrlParams.apotekerne:
         document.title = intl.formatMessage({
           id: 'application.title.henvisning.apotekerne',

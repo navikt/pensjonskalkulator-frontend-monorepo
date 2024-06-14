@@ -193,6 +193,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v2/ekskludert': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Om personen er ekskludert fra å bruke kalkulatoren
+     *
+     * @description Eksludering kan skyldes medlemskap i Apotekerforeningen
+     */
+    get: operations['erEkskludertV2']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v1/ufoeregrad': {
     parameters: {
       query?: never
@@ -227,6 +248,27 @@ export interface paths {
      * @description Henter personinformasjon for person-ID-en angitt i tilgangstokenet eller i HTTP-header.
      */
     get: operations['person']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Mottar omstillingsstønad eller gjenlevende ytelse
+     *
+     * @description Hvorvidt den innloggede brukeren mottar omstillingsstønad eller gjenlevende ytelse
+     */
+    get: operations['mottarOmstillingsstoenadEllerGjenlevendeYtelse']
     put?: never
     post?: never
     delete?: never
@@ -963,6 +1005,11 @@ export interface components {
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
     }
+    EkskluderingStatusV2: {
+      ekskludert: boolean
+      /** @enum {string} */
+      aarsak: 'NONE' | 'ER_APOTEKER'
+    }
     UfoeregradDto: {
       /** Format: int32 */
       ufoeregrad: number
@@ -1024,6 +1071,9 @@ export interface components {
         | 'SEPARERT_PARTNER'
         | 'SKILT_PARTNER'
         | 'GJENLEVENDE_PARTNER'
+    }
+    BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse: {
+      harLoependeSak: boolean
     }
     EkskluderingStatusV1: {
       ekskludert: boolean
@@ -1366,6 +1416,35 @@ export interface operations {
       }
     }
   }
+  erEkskludertV2: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Sjekking av ekskludering utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['EkskluderingStatusV2']
+        }
+      }
+      /** @description Sjekking av ekskludering kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
   hentUfoeregrad: {
     parameters: {
       query?: never
@@ -1416,6 +1495,35 @@ export interface operations {
         }
       }
       /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  mottarOmstillingsstoenadEllerGjenlevendeYtelse: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Henting av omstillingsstønad eller gjenlevende ytelse utført. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
+        }
+      }
+      /** @description Henting av omstillingsstønad eller gjenlevende ytelse kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

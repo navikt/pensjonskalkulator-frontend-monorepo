@@ -3,8 +3,14 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { mockResponse } from '@/mocks/server'
-import { BASE_PATH, paths, henvisningUrlParams } from '@/router/constants'
+import {
+  fulfilledGetEkskludertStatus,
+  fulfilledGetInntekt,
+  fulfilledGetPerson,
+  fulfilledGetTpoMedlemskap,
+  rejectedGetInntekt,
+} from '@/mocks/mockedRTKQueryApiCalls'
+import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
@@ -19,18 +25,7 @@ describe('Step 4', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
+          ...fulfilledGetPerson,
         },
       },
       userInput: {
@@ -52,28 +47,8 @@ describe('Step 4', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getInntekt(undefined)']: {
-            status: 'rejected',
-            endpointName: 'getInntekt',
-            requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
-            startedTimeStamp: 1714725265404,
-            error: {
-              status: 'FETCH_ERROR',
-              error: 'TypeError: Failed to fetch',
-            },
-          },
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
+          ...rejectedGetInntekt,
+          ...fulfilledGetPerson,
         },
       },
       userInput: {
@@ -110,62 +85,6 @@ describe('Step 4', () => {
     expect(screen.getAllByRole('radio')).toHaveLength(4)
   })
 
-  it('rendrer steget som vanlig dersom bruker har uføretrygd og feature-toggle er av', async () => {
-    mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
-      status: 200,
-      json: { enabled: true },
-    })
-    mockResponse('/v1/ekskludert', {
-      json: {
-        ekskludert: true,
-        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
-      },
-    })
-
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.afp}`],
-    })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-
-    expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.afp.title'
-    )
-    expect(screen.getAllByRole('radio')).toHaveLength(4)
-  })
-
-  it('redirigerer til feilside dersom bruker har uføretrygd og feature-toggle er av', async () => {
-    mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
-      status: 200,
-      json: { enabled: false },
-    })
-    mockResponse('/v1/ekskludert', {
-      json: {
-        ekskludert: true,
-        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
-      },
-    })
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.afp}`],
-    })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-
-    await waitFor(async () => {
-      expect(navigateMock).toHaveBeenCalledWith(
-        `${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`
-      )
-    })
-  })
-
   it('Når brukeren velger afp og klikker på Neste, registrerer afp og navigerer videre til step 5', async () => {
     const setAfpMock = vi.spyOn(
       userInputReducerUtils.userInputActions,
@@ -192,7 +111,7 @@ describe('Step 4', () => {
     await user.click(screen.getByText('stegvisning.neste'))
 
     expect(setAfpMock).toHaveBeenCalledWith('ja_offentlig')
-    expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygd)
+    expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
   })
 
   it('sender tilbake til steg 2 når brukeren ikke har tpo-medlemskap og klikker på Tilbake', async () => {
@@ -218,32 +137,9 @@ describe('Step 4', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getTpoMedlemskap(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getTpoMedlemskap',
-            requestId: 'bawyEKdq9139ubFwBmxyc',
-            startedTimeStamp: 1714729167666,
-            data: { harTjenestepensjonsforhold: true },
-            fulfilledTimeStamp: 1714729167901,
-          },
-          ['getInntekt(undefined)']: {
-            status: 'rejected',
-            endpointName: 'getInntekt',
-            requestId: 'aVfT2Ly4YtGoIOvDdZfmG',
-            startedTimeStamp: 1714725265404,
-            error: {
-              status: 'FETCH_ERROR',
-              error: 'TypeError: Failed to fetch',
-            },
-          },
-          ['getEkskludertStatus(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getEkskludertStatus',
-            requestId: 't1wLPiRKrfe_vchftk8s8',
-            data: { ekskludert: false, aarsak: 'NONE' },
-            startedTimeStamp: 1714725797072,
-            fulfilledTimeStamp: 1714725797669,
-          },
+          ...fulfilledGetTpoMedlemskap,
+          ...fulfilledGetInntekt,
+          ...fulfilledGetEkskludertStatus,
         },
       },
       userInput: {

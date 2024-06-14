@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import { formatInntekt } from '../../utils/inntekt'
+import { formatInntekt } from '@/utils/inntekt'
 
 export interface Simulation {
   formatertUttaksalderReadOnly: string | null // (!) Obs READONLY - string i format "YY alder.aar string.og M alder.maaneder" - oppdateres automatisk basert på uttaksalder - se uttaksalderListener
@@ -48,7 +48,7 @@ export const userInputSlice = createSlice({
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
     },
-    setsamtykkeOffentligAFP: (state, action: PayloadAction<boolean>) => {
+    setSamtykkeOffentligAFP: (state, action: PayloadAction<boolean>) => {
       state.samtykkeOffentligAFP = action.payload
     },
     setAfp: (state, action: PayloadAction<AfpRadio>) => {

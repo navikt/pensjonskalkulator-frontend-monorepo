@@ -10,7 +10,6 @@ import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Loader } from '@/components/common/Loader'
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
-import { OmUfoeretrygd } from '@/components/OmUfoeregrad'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
 import { SavnerDuNoe } from '@/components/SavnerDuNoe'
 import { Simulering } from '@/components/Simulering'
@@ -198,16 +197,13 @@ export const BeregningEnkel: React.FC = () => {
       )}
       <div className={clsx(styles.background, styles.background__lightgray)}>
         <div className={styles.container}>
-          {ufoeregrad ? (
-            <OmUfoeretrygd ufoeregrad={ufoeregrad} />
-          ) : (
-            <TidligstMuligUttaksalder
-              tidligstMuligUttak={
-                isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
-              }
-              show1963Text={show1963Text}
-            />
-          )}
+          <TidligstMuligUttaksalder
+            tidligstMuligUttak={
+              isTidligstMuligUttakSuccess ? tidligstMuligUttak : undefined
+            }
+            ufoeregrad={ufoeregrad}
+            show1963Text={show1963Text}
+          />
         </div>
       </div>
 
