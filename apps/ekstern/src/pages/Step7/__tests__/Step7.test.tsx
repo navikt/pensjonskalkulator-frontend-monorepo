@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -19,18 +20,7 @@ describe('Step 7', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getPerson(undefined)']: {
-            status: 'fulfilled',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            data: {
-              navn: 'Aprikos',
-              sivilstand: 'UGIFT',
-              foedselsdato: '1963-04-30',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
+          ...fulfilledGetPerson,
         },
       },
       userInput: {
@@ -52,17 +42,7 @@ describe('Step 7', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ['getPerson(undefined)']: {
-            status: 'rejected',
-            endpointName: 'getPerson',
-            requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-            startedTimeStamp: 1688046411971,
-            error: {
-              status: 'FETCH_ERROR',
-              error: 'TypeError: Failed to fetch',
-            },
-            fulfilledTimeStamp: 1688046412103,
-          },
+          fulfilledGetPerson,
         },
       },
       userInput: {
@@ -155,7 +135,7 @@ describe('Step 7', () => {
 
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygd)
+      expect(navigateMock).toHaveBeenCalledWith(paths.ufoeretrygdAFP)
     })
   })
 

@@ -1,6 +1,7 @@
 import 'cypress-axe'
 
 import { userInputActions } from '../../src/state/userInput/userInputReducer'
+import { apiSlice } from '../../src/state/api/apiSlice'
 
 beforeEach(() => {
   cy.intercept('GET', `/person/nav-dekoratoren-api/auth`, {
@@ -19,6 +20,18 @@ beforeEach(() => {
   cy.intercept('GET', `https://login.nav.no/oauth2/session`, {
     statusCode: 200,
   }).as('getDecoratorLoginAuth')
+
+  cy.intercept('GET', `/collect`, {
+    statusCode: 200,
+  }).as('getDecoratoCollect')
+
+  cy.intercept(
+    {
+      method: 'GET',
+      url: `/api/ta`,
+    },
+    { fixture: 'decorator-ta.json' }
+  ).as('getDecoratorTa')
 
   cy.intercept(
     {
@@ -41,7 +54,7 @@ beforeEach(() => {
       method: 'GET',
       url: `/ops-messages`,
     },
-    { fixture: 'decorator-ops-messages.html' }
+    { fixture: 'decorator-ops.json' }
   ).as('getDecoratorOpsMessages')
 
   cy.intercept(
@@ -49,12 +62,12 @@ beforeEach(() => {
       method: 'GET',
       url: `${Cypress.env(
         'DECORATOR_URL'
-      )}/env?chatbot=false&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start`,
+      )}/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start`,
     },
     { fixture: 'decorator-env-features.json' }
   ).as('getDecoratorEnvFeatures')
 
-  cy.intercept('POST', '/collect', {
+  cy.intercept('POST', 'https://amplitude.nav.no/collect-auto', {
     statusCode: 200,
   }).as('amplitudeCollect')
 
@@ -81,18 +94,18 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-ufoere',
+      url: '/pensjon/kalkulator/api/v2/ekskludert',
     },
-    { fixture: 'toggle-enable-ufoere.json' }
-  ).as('getFeatureToggleUfoere')
+    { fixture: 'ekskludert-status.json' }
+  ).as('getEkskludertStatus')
 
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/v1/ekskludert',
+      url: '/pensjon/kalkulator/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
     },
-    { fixture: 'ekskludert-status.json' }
-  ).as('getEkskludertStatus')
+    { fixture: 'omstillingsstoenad-og-gjenlevende.json' }
+  ).as('getOmstillingsstoenadOgGjenlevende')
 
   cy.intercept(
     {
@@ -142,17 +155,52 @@ beforeEach(() => {
 Cypress.Commands.add('login', () => {
   cy.visit('/pensjon/kalkulator/')
   cy.wait('@getAuthSession')
+  // TODO reaktivere når dekoratøren er i produksjon
+  // cy.wait('@getDecoratorMainMenu')
   cy.contains('button', 'Pensjonskalkulator').click()
+  // På steg 0 kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   cy.wait('@getPerson')
+  cy.wait('@getEkskludertStatus')
   cy.wait('@getInntekt')
+  cy.wait('@getOmstillingsstoenadOgGjenlevende')
 })
 
 Cypress.Commands.add('fillOutStegvisning', (args) => {
-  const { samtykke, afp = 'vet_ikke', samboer = true } = args
+  const {
+    samtykke = false,
+    afp = 'vet_ikke',
+    samtykkeAfpOffentlig = true,
+    samboer = true,
+  } = args
+
   cy.window()
     .its('store')
     .invoke('dispatch', userInputActions.setSamtykke(samtykke))
+
+  if (samtykke) {
+    // Kaller /tpo-medlemskap som vanligvis gjøres på steg 2 ila. stegvisningen
+    cy.window()
+      .its('store')
+      .invoke('dispatch', apiSlice.endpoints.getTpoMedlemskap.initiate())
+  }
+
+  if (afp === 'ja_offentlig') {
+    // Setter santykke til beregning av AFP-offentlig når brukeren har valgt AFP-offentlig
+    cy.window()
+      .its('store')
+      .invoke(
+        'dispatch',
+        userInputActions.setSamtykkeOffentligAFP(samtykkeAfpOffentlig)
+      )
+  }
+
+  // Kaller /ufoeregrad som vanligvis gjøres på steg 4 ila. stegvisningen
+  cy.window()
+    .its('store')
+    .invoke('dispatch', apiSlice.endpoints.getUfoeregrad.initiate())
+
   cy.window().its('store').invoke('dispatch', userInputActions.setAfp(afp))
+
   cy.window()
     .its('store')
     .invoke('dispatch', userInputActions.setSamboer(samboer))

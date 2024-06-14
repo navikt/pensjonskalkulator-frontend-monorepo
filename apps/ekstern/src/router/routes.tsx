@@ -103,7 +103,7 @@ export const routes: RouteObject[] = [
       },
       {
         loader: step5AccessGuard,
-        path: paths.ufoeretrygd,
+        path: paths.ufoeretrygdAFP,
         element: <Step5 />,
       },
       {

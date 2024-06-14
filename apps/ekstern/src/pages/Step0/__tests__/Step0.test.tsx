@@ -3,8 +3,8 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
-import { BASE_PATH, paths, henvisningUrlParams } from '@/router/constants'
+import { mockErrorResponse } from '@/mocks/server'
+import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
@@ -101,62 +101,5 @@ describe('Step 0', () => {
     })
     await user.click(await screen.findByText('stegvisning.avbryt'))
     expect(navigateMock).toHaveBeenCalledWith(paths.login)
-  })
-
-  it('rendrer steget som vanlig dersom bruker har uføretrygd og feature-toggle er på', async () => {
-    mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
-      status: 200,
-      json: { enabled: true },
-    })
-    mockResponse('/v1/ekskludert', {
-      json: {
-        ekskludert: true,
-        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
-      },
-    })
-
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.start}`],
-    })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-
-    await waitFor(async () => {
-      expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
-      expect(screen.getByText('stegvisning.start.button')).toBeVisible()
-      expect(screen.getByText('stegvisning.avbryt')).toBeVisible()
-    })
-  })
-
-  it('redirigerer til feilside dersom bruker har uføretrygd og feature-toggle er av', async () => {
-    mockResponse('/feature/pensjonskalkulator.enable-ufoere', {
-      status: 200,
-      json: { enabled: false },
-    })
-    mockResponse('/v1/ekskludert', {
-      json: {
-        ekskludert: true,
-        aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
-      },
-    })
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.start}`],
-    })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-
-    await waitFor(async () => {
-      expect(navigateMock).toHaveBeenCalledWith(
-        `${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`
-      )
-    })
   })
 })

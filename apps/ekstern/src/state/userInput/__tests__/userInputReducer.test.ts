@@ -40,10 +40,10 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('setsamtykkeOffentligAFP', () => {
+    it('setSamtykkeOffentligAFP', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
-        userInputActions.setsamtykkeOffentligAFP(true)
+        userInputActions.setSamtykkeOffentligAFP(true)
       )
 
       expect(updatedState).toStrictEqual({

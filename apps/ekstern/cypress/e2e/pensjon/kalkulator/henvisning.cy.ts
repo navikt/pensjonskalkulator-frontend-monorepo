@@ -20,72 +20,10 @@ describe('Henvisning', () => {
     })
   })
 
-  describe('Når jeg som bruker som får uføretrygd logger inn,', () => {
-    beforeEach(() => {
-      cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v1/ekskludert' },
-        {
-          ekskludert: true,
-          aarsak: 'HAR_LOEPENDE_UFOERETRYGD',
-        }
-      ).as('getEkskludertStatus')
-    })
-    it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
-      cy.login()
-      cy.wait('@getAuthSession')
-      cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
-        'exist'
-      )
-      cy.contains('button', 'Detaljert pensjonskalkulator').click()
-      cy.origin('https://login.idporten.no', () => {
-        cy.get('h1').contains('Velg elektronisk ID')
-      })
-      cy.visit('/pensjon/kalkulator/start')
-      cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
-        'exist'
-      )
-      cy.contains('button', 'Avbryt').click()
-      cy.location('href').should(
-        'eq',
-        'http://localhost:4173/pensjon/kalkulator/login'
-      )
-    })
-  })
-
-  describe('Når jeg som bruker som får gjenlevendepensjon logger inn,', () => {
-    beforeEach(() => {
-      cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v1/ekskludert' },
-        {
-          ekskludert: true,
-          aarsak: 'HAR_GJENLEVENDEYTELSE',
-        }
-      ).as('getEkskludertStatus')
-    })
-    it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
-      cy.login()
-      cy.wait('@getAuthSession')
-      cy.contains('Kom i gang').should('not.exist')
-      cy.contains('Du kan dessverre ikke bruke enkel kalkulator').should(
-        'exist'
-      )
-      cy.contains('button', 'Detaljert pensjonskalkulator').click()
-      cy.origin('https://login.idporten.no', () => {
-        cy.get('h1').contains('Velg elektronisk ID')
-      })
-      cy.visit('/pensjon/kalkulator/start')
-      cy.contains('button', 'Avbryt').click()
-      cy.location('href').should(
-        'eq',
-        'http://localhost:4173/pensjon/kalkulator/login'
-      )
-    })
-  })
-
   describe('Når jeg som bruker som er medlem av apotekerne logger inn,', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', url: '/pensjon/kalkulator/api/v1/ekskludert' },
+        { method: 'GET', url: '/pensjon/kalkulator/api/v2/ekskludert' },
         {
           ekskludert: true,
           aarsak: 'ER_APOTEKER',

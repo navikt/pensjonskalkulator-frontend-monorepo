@@ -25,36 +25,6 @@ describe('Henvisning ', async () => {
     navigateMock.mockReset()
   })
 
-  it('rendrer henvisning til ufoeretrygd', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [
-        `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.ufoeretrygd}`,
-      ],
-    })
-    const { asFragment } = render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-    expect(await screen.findByText('henvisning.ufoeretrygd.body')).toBeVisible()
-    expect(document.title).toBe('application.title.henvisning.ufoeretrygd')
-    expect(asFragment()).toMatchSnapshot()
-  })
-
-  it('rendrer henvisning til gjenlevende', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [
-        `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.gjenlevende}`,
-      ],
-    })
-    const { asFragment } = render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-    expect(await screen.findByText('henvisning.gjenlevende.body')).toBeVisible()
-    expect(document.title).toBe('application.title.henvisning.gjenlevende')
-    expect(asFragment()).toMatchSnapshot()
-  })
-
   it('rendrer henvisning til apotekerne', async () => {
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,

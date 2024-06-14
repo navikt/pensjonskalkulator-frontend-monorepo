@@ -30,7 +30,7 @@ export const paths = {
   offentligTp: '/offentlig-tp',
   afp: '/afp',
   samtykkeOffentligAFP: '/samtykke-offentlig-afp',
-  ufoeretrygd: '/ufoeretrygd-afp',
+  ufoeretrygdAFP: '/ufoeretrygd-afp',
   sivilstand: '/sivilstand',
   uventetFeil: '/uventet-feil',
   beregningEnkel: '/beregning',
@@ -41,8 +41,6 @@ export const paths = {
 
 export const henvisningUrlParams = {
   foedselsdato: '1963',
-  ufoeretrygd: 'ufoeretrygd',
-  gjenlevende: 'gjenlevende',
   apotekerne: 'apotekerne',
   utland: 'utland',
 } as const

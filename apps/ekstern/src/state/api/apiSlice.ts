@@ -8,6 +8,7 @@ import {
   isUnleashToggle,
   isAlder,
   isEkskludertStatus,
+  isOmstillingsstoenadOgGjenlevende,
   isUfoeregrad,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
@@ -52,10 +53,25 @@ export const apiSlice = createApi({
       },
     }),
     getEkskludertStatus: builder.query<EkskludertStatus, void>({
-      query: () => '/v1/ekskludert',
+      query: () => '/v2/ekskludert',
       transformResponse: (response: any) => {
         if (!isEkskludertStatus(response)) {
           throw new Error(`Mottok ugyldig ekskludert response:`, response)
+        }
+        return response
+      },
+    }),
+    getOmstillingsstoenadOgGjenlevende: builder.query<
+      OmstillingsstoenadOgGjenlevende,
+      void
+    >({
+      query: () => '/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
+      transformResponse: (response: any) => {
+        if (!isOmstillingsstoenadOgGjenlevende(response)) {
+          throw new Error(
+            `Mottok ugyldig omstillingsstoenad og gjenlevende response:`,
+            response
+          )
         }
         return response
       },
@@ -66,15 +82,7 @@ export const apiSlice = createApi({
         if (!isUfoeregrad(response)) {
           throw new Error(`Mottok ugyldig ufoeregrad response:`, response)
         }
-        logger('info', {
-          tekst: 'hent uføregrad',
-          data:
-            response.ufoeregrad === 0
-              ? 'Ingen uføretrygd'
-              : response.ufoeregrad === 100
-                ? 'Hel uføretrygd'
-                : `Gradert uføretrygd`,
-        })
+
         return response
       },
     }),
@@ -185,15 +193,6 @@ export const apiSlice = createApi({
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
-    getUfoereFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-ufoere',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
   }),
 })
 
@@ -202,6 +201,7 @@ export const {
   useGetInntektQuery,
   useGetPersonQuery,
   useGetEkskludertStatusQuery,
+  useGetOmstillingsstoenadOgGjenlevendeQuery,
   useGetUfoeregradQuery,
   useGetTpoMedlemskapQuery,
   useTidligstMuligHeltUttakQuery,
@@ -209,5 +209,4 @@ export const {
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetUfoereFeatureToggleQuery,
 } = apiSlice

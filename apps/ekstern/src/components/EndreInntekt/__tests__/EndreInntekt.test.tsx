@@ -1,4 +1,5 @@
 import { EndreInntekt } from '..'
+import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
@@ -160,21 +161,7 @@ describe('EndreInntekt', () => {
 
   it('Når EndreInntekt er i avansert visning vises det topptekst, men ikke bunntekst', async () => {
     const oppdatereInntektMock = vi.fn()
-    const fakeInntektApiCall = {
-      queries: {
-        ['getInntekt(undefined)']: {
-          status: 'fulfilled',
-          endpointName: 'getInntekt',
-          requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-          startedTimeStamp: 1688046411971,
-          data: {
-            beloep: 0,
-            aar: 2021,
-          },
-          fulfilledTimeStamp: 1688046412103,
-        },
-      },
-    }
+
     const user = userEvent.setup()
     render(
       <EndreInntekt
@@ -184,9 +171,13 @@ describe('EndreInntekt', () => {
       />,
       {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: { ...userInputInitialState, samtykke: false },
         },
       }

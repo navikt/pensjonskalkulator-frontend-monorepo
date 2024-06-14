@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Loaders > step0AccessGuard > kaller getPersonQuery, getInntekt og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
+exports[`Loaders > step0AccessGuard > kaller getPersonQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
 DeferredData {
   "abortPromise": Promise {},
   "controller": AbortController {

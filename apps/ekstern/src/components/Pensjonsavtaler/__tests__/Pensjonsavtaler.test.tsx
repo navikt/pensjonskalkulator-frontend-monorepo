@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
+import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
@@ -13,22 +14,6 @@ import {
 import { render, screen, userEvent } from '@/test-utils'
 
 describe('Pensjonsavtaler', () => {
-  const fakeInntektApiCall = {
-    queries: {
-      ['getInntekt(undefined)']: {
-        status: 'fulfilled',
-        endpointName: 'getInntekt',
-        requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-        startedTimeStamp: 1688046411971,
-        data: {
-          beloep: 500000,
-          aar: 2021,
-        },
-        fulfilledTimeStamp: 1688046412103,
-      },
-    },
-  }
-
   const currentSimulation: Simulation = {
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
     uttaksalder: { aar: 70, maaneder: 0 },
@@ -53,9 +38,13 @@ describe('Pensjonsavtaler', () => {
 
       const { store } = render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: { ...userInputInitialState, samtykke: false },
         },
       })
@@ -99,9 +88,13 @@ describe('Pensjonsavtaler', () => {
     it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -121,9 +114,13 @@ describe('Pensjonsavtaler', () => {
       )
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -185,7 +182,7 @@ describe('Pensjonsavtaler', () => {
           // @ts-ignore
           api: {
             queries: {
-              ...fakeInntektApiCall.queries,
+              ...fulfilledGetInntekt,
               ['getUfoeregrad(undefined)']: {
                 /* eslint-disable @typescript-eslint/ban-ts-comment */
                 // @ts-ignore
@@ -217,9 +214,13 @@ describe('Pensjonsavtaler', () => {
       )
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -237,9 +238,13 @@ describe('Pensjonsavtaler', () => {
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -281,9 +286,13 @@ describe('Pensjonsavtaler', () => {
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -322,9 +331,13 @@ describe('Pensjonsavtaler', () => {
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -370,9 +383,13 @@ describe('Pensjonsavtaler', () => {
       })
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          api: { ...fakeInntektApiCall },
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,

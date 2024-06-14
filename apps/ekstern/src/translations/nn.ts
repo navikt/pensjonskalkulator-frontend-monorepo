@@ -14,10 +14,6 @@ const translations = {
     'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
   'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
-  'application.title.henvisning.ufoeretrygd':
-    'Tilvising uføretrygd – Pensjonskalkulator',
-  'application.title.henvisning.gjenlevende':
-    'Tilvising attlevandepensjon – Pensjonskalkulator',
   'application.title.henvisning.apotekerne': 'MANGLER_TEKST',
   'application.title.henvisning.utland':
     'Tilvising utland - Pensjonskalkulator',
@@ -50,8 +46,7 @@ const translations = {
   'landingsside.velge_mellom_detaljert_og_enkel_3': 'MANGLER_TEKST',
   'landingsside.liste.1':
     'har budd eller arbeidd utanfor Noreg i meir enn fem år etter fylte 16 år',
-  'landingsside.liste.2': 'har uføretrygd eller attlevandepensjon',
-  'landingsside.liste.3': 'MANGLER_TEKST',
+  'landingsside.liste.2': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert pensjonskalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
@@ -65,10 +60,6 @@ const translations = {
   'landingsside.link.personopplysninger':
     'Personopplysningar som vert brukt i enkel kalkulator',
   'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
-  'henvisning.ufoeretrygd.body':
-    'Sidan du har uføretrygd må du bruke detaljert kalkulator.',
-  'henvisning.gjenlevende.body':
-    'Sidan du har attlevandepensjon må du bruke detaljert kalkulator.',
   'henvisning.apotekerne.body': 'MANGLER_TEKST',
   'henvisning.utland.body':
     'Sidan du har budd eller jobba utanfor Noreg i meir enn fem år, må du bruke detaljert kalkulator.',
@@ -204,6 +195,7 @@ const translations = {
   'tidligstmuliguttak.1963.ingress_2':
     ' Jo lenger du ventar, dess meir får du i året.',
   'tidligstmuliguttak.1964.ingress_2': 'MANGLER_TEKST',
+  'tidligstmuliguttak.info_omstillingsstoenad_og_gjenlevende': 'MANGLER_TEKST',
   'tidligstmuliguttak.error': 'MANGLER_TEKST',
   'beregning.read_more.pensjonsalder.label': 'MANGLER_TEKST',
   'beregning.read_more.pensjonsalder.body.optional': 'MANGLER_TEKST',

@@ -34,6 +34,10 @@ declare global {
   >
   type EkskludertStatus = components['schemas']['EkskluderingStatusV1']
 
+  // /loepende-omstillingsstoenad-eller-gjenlevendeytelse
+  type OmstillingsstoenadOgGjenlevende =
+    components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
+
   // /ufoeregrad
   type Ufoeregrad = components['schemas']['UfoeregradDto']
 
