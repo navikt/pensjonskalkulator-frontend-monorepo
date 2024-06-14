@@ -20,14 +20,55 @@ export const formatInntektToNumber = (s?: string) => {
   return !isNaN(inntekt) ? inntekt : 0
 }
 
+export const validateInntekt = (
+  input: string | null | undefined,
+  updateValidationErrorMessage?: (s: string) => void,
+  isRequired: boolean = true
+) => {
+  let isValid = true
+
+  if (input === null || input === undefined || input === '') {
+    if (isRequired) {
+      isValid = false
+      if (updateValidationErrorMessage) {
+        updateValidationErrorMessage(
+          'inntekt.endre_inntekt_modal.textfield.validation_error.required'
+        )
+      }
+    } else {
+      isValid = true
+    }
+    return isValid
+  }
+
+  if (!/^[0-9\s\-.]+$/.test(input)) {
+    isValid = false
+    if (updateValidationErrorMessage) {
+      updateValidationErrorMessage(
+        'inntekt.endre_inntekt_modal.textfield.validation_error.type'
+      )
+    }
+  } else if (parseInt(input as string, 10) > 100000000) {
+    isValid = false
+    if (updateValidationErrorMessage) {
+      updateValidationErrorMessage(
+        'inntekt.endre_inntekt_modal.textfield.validation_error.max'
+      )
+    }
+  }
+  return isValid
+}
+
 export const updateAndFormatInntektFromInputField = (
   inputElement: HTMLInputElement | null,
   inntekt: string,
   updateInntekt: (s: string) => void,
   updateValidationErrors: (s: string) => void
 ) => {
+  const isInntektValid = validateInntekt(inntekt, undefined, false)
+
   const inntektContainsOnlyZeroAndWhitespace = /^[0\s]*$/
-  if (!inntektContainsOnlyZeroAndWhitespace.test(inntekt)) {
+  if (isInntektValid && !inntektContainsOnlyZeroAndWhitespace.test(inntekt)) {
     const caretPosition = inputElement?.selectionStart ?? 0
     const antallTegnBefore = inntekt.length
     const formatertInntekt = formatInntekt(inntekt)
@@ -52,37 +93,4 @@ export const updateAndFormatInntektFromInputField = (
     updateInntekt(inntekt)
     updateValidationErrors('')
   }
-}
-
-export const validateInntekt = (
-  input: string | null | undefined,
-  updateValidationErrorMessage: (s: string) => void,
-  isRequired: boolean = true
-) => {
-  let isValid = true
-
-  if (input === null || input === undefined || input === '') {
-    if (isRequired) {
-      isValid = false
-      updateValidationErrorMessage(
-        'inntekt.endre_inntekt_modal.textfield.validation_error.required'
-      )
-    } else {
-      isValid = true
-    }
-    return isValid
-  }
-
-  if (!/^[0-9\s\-.]+$/.test(input)) {
-    isValid = false
-    updateValidationErrorMessage(
-      'inntekt.endre_inntekt_modal.textfield.validation_error.type'
-    )
-  } else if (parseInt(input as string, 10) > 100000000) {
-    isValid = false
-    updateValidationErrorMessage(
-      'inntekt.endre_inntekt_modal.textfield.validation_error.max'
-    )
-  }
-  return isValid
 }
