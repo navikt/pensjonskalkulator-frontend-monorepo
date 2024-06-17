@@ -42,6 +42,12 @@ const validateAlderForGradertUttak = (
         maaneder: gradertUttaksalder?.maaneder,
       },
       function (s) {
+        if (s) {
+          logger('valideringsfeil', {
+            data: 'Avansert - Uttaksalder for gradert uttak',
+            tekst: s,
+          })
+        }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
@@ -55,6 +61,12 @@ const validateAlderForGradertUttak = (
         ...heltUttaksalder,
       },
       function (s) {
+        if (s) {
+          logger('valideringsfeil', {
+            data: 'Avansert - Uttaksalder for gradert uttak',
+            tekst: s,
+          })
+        }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
@@ -78,6 +90,10 @@ const validateAlderForGradertUttak = (
           [FORM_NAMES.uttaksalderHeltUttak]:
             'beregning.avansert.rediger.agepicker.validation_error.maxAlder',
         }
+      })
+      logger('valideringsfeil', {
+        data: 'Avansert - Uttaksalder for gradert uttak',
+        tekst: 'beregning.avansert.rediger.agepicker.validation_error.maxAlder',
       })
     }
   }
@@ -128,6 +144,12 @@ export const validateAvansertBeregningSkjema = (
         maaneder: heltUttakMaanederFormData,
       },
       function (s) {
+        if (s) {
+          logger('valideringsfeil', {
+            data: 'Avansert - Uttaksalder for helt uttak',
+            tekst: s,
+          })
+        }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
@@ -146,6 +168,10 @@ export const validateAvansertBeregningSkjema = (
     /^(?!(100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
   ) {
     isValid = false
+    logger('valideringsfeil', {
+      data: 'Avansert - Uttaksgrad',
+      tekst: 'beregning.avansert.rediger.uttaksgrad.validation_error',
+    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
@@ -219,6 +245,11 @@ export const validateAvansertBeregningSkjema = (
           valgtUttaksgradAsNumber
         )
         if (!isUttaksgradValid) {
+          logger('valideringsfeil', {
+            data: 'Avansert - Uttaksgrad',
+            tekst:
+              'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error',
+          })
           updateValidationErrorMessage((prevState) => {
             return {
               ...prevState,
@@ -239,6 +270,11 @@ export const validateAvansertBeregningSkjema = (
     !inntektVsaHeltUttakRadioFormData
   ) {
     isValid = false
+    logger('valideringsfeil', {
+      data: 'Avansert - Radio inntekt vsa. helt uttak',
+      tekst:
+        'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error',
+    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
@@ -253,6 +289,11 @@ export const validateAvansertBeregningSkjema = (
     const isInntektValid = validateInntekt(
       inntektVsaHeltUttakFormData as string,
       () => {
+        logger('valideringsfeil', {
+          data: 'Avansert -  Inntekt vsa. helt uttak',
+          tekst:
+            'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
+        })
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
@@ -270,6 +311,12 @@ export const validateAvansertBeregningSkjema = (
         maaneder: inntektVsaHeltUttakSluttAlderMaanederFormData,
       },
       function (s) {
+        if (s) {
+          logger('valideringsfeil', {
+            data: 'Avansert -  Sluttalder inntekt vsa. helt uttak',
+            tekst: s,
+          })
+        }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
@@ -285,6 +332,11 @@ export const validateAvansertBeregningSkjema = (
   // Sjekker at radio for inntekt vsa gradert uttak er fylt ut (gitt at uttaksgrad er ulik 100 %)
   if (uttaksgradFormData !== '100 %' && !inntektVsaGradertUttakRadioFormData) {
     isValid = false
+    logger('valideringsfeil', {
+      data: 'Avansert -  Radio inntekt vsa. gradert uttak',
+      tekst:
+        'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error',
+    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
@@ -303,6 +355,11 @@ export const validateAvansertBeregningSkjema = (
       !validateInntekt(
         inntektVsaGradertUttakFormData as string,
         () => {
+          logger('valideringsfeil', {
+            data: 'Avansert -  Inntekt vsa. gradert uttak',
+            tekst:
+              'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error',
+          })
           updateValidationErrorMessage((prevState) => {
             return {
               ...prevState,
