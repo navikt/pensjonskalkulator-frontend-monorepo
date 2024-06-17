@@ -20,8 +20,6 @@ on:
 
 jobs:
   build:
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     name: Build application
     runs-on: ubuntu-latest
     permissions: write-all
@@ -78,31 +76,17 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-      - name: Build Docker image
-        run: |
-          docker build -f .docker/Dockerfile -t ${IMAGE} .
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
+      - name: Create Docker image
+        id: image-creation
+        uses: nais/docker-build-push@v0
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: .docker/Dockerfile
+          team: pensjonskalkulator
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+    outputs:
+      image: ${{ steps.image-creation.outputs.image }}
 
-      - name: Push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: .docker/Dockerfile
-          push: true
-          tags: ${{ env.IMAGE }}
-
-      - name: Log in to the container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
   run-unit-tests:
     name: Run unit tests
@@ -225,8 +209,6 @@ jobs:
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
       github.ref == 'refs/heads/main'
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -235,12 +217,14 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-staging.yml
 
       - name: Deploy veiledning to staging
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-staging.yml
 
   deploy-sandbox:
@@ -263,12 +247,14 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-sandbox.yml
 
       - name: Deploy veiledning to sandbox
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-sandbox.yml
 
   deploy-catbox:
@@ -281,8 +267,6 @@ jobs:
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
       github.ref == 'refs/heads/catbox'
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -291,12 +275,14 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-catbox.yml
 
       - name: Deploy veiledning to catbox
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-catbox.yml
 
   deploy-prod:
@@ -308,8 +294,6 @@ jobs:
       github.ref == 'refs/heads/main' &&
       github.event_name == 'workflow_dispatch' &&
       github.event.inputs.prod == 'true'
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -318,10 +302,12 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-prod.yml
 
       - name: Deploy veiledning to prod-gcp
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-prod.yml
