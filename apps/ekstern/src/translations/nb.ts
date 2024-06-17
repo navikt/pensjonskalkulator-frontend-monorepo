@@ -8,9 +8,9 @@ const translations = {
     'Offentlig tjenestepensjon – Pensjonskalkulator',
   'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
   'application.title.stegvisning.step5':
-    'Samtykke AFP offentlig – Pensjonskalkulator',
-  'application.title.stegvisning.step6':
     'Uføretrygd og AFP – Pensjonskalkulator',
+  'application.title.stegvisning.step6':
+    'Samtykke AFP offentlig – Pensjonskalkulator',
   'application.title.stegvisning.step7': 'Sivilstand – Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventet feil – Pensjonskalkulator',
