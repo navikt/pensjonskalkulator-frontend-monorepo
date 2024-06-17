@@ -33,11 +33,16 @@ export function Utenlandsopphold({
       | undefined
 
     if (!utenlandsoppholdData) {
-      setValidationError(
-        intl.formatMessage({
-          id: 'stegvisning.utenlandsopphold.validation_error',
-        })
-      )
+      const tekst = intl.formatMessage({
+        id: 'stegvisning.utenlandsopphold.validation_error',
+      })
+      setValidationError(tekst)
+      logger('valideringsfeil', {
+        data: intl.formatMessage({
+          id: 'stegvisning.utenlandsopphold.radio_label',
+        }),
+        tekst,
+      })
     } else {
       logger('radiogroup valgt', {
         tekst: 'Utenlandsopphold',
