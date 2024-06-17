@@ -20,8 +20,6 @@ on:
 
 jobs:
   build:
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     name: Build application
     runs-on: ubuntu-latest
     permissions: write-all
@@ -211,8 +209,6 @@ jobs:
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
       github.ref == 'refs/heads/main'
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -271,8 +267,6 @@ jobs:
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
       github.ref == 'refs/heads/catbox'
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -300,8 +294,6 @@ jobs:
       github.ref == 'refs/heads/main' &&
       github.event_name == 'workflow_dispatch' &&
       github.event.inputs.prod == 'true'
-    env:
-      IMAGE: ghcr.io/${{ github.repository }}/pensjonskalkulator-frontend-node:${{ github.sha }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
