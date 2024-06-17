@@ -252,16 +252,19 @@ export const validateAvansertBeregningSkjema = (
   if (inntektVsaHeltUttakRadioFormData === 'ja') {
     const isInntektValid = validateInntekt(
       inntektVsaHeltUttakFormData as string,
-      () => {
+      (s: string) => {
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.inntektVsaHeltUttak]:
-              'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
+            [FORM_NAMES.inntektVsaHeltUttak]: s,
           }
         })
       },
-      true
+      true,
+      {
+        required:
+          'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
+      }
     )
 
     const isSluttAlderValid = validateAlderFromForm(
