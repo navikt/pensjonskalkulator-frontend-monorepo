@@ -251,9 +251,9 @@ describe('Avansert', () => {
       it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp etter å ha begynt utfyllingen', () => {
         cy.go('back')
         cy.contains(
-          'Er du sikker på at du vil avslutte avansert beregning?'
+          'Hvis du går ut av Avansert, mister du alle valgene dine.'
         ).should('exist')
-        cy.contains('Avslutt avansert').click()
+        cy.contains('Gå ut av Avansert').click()
         cy.contains(
           'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
         ).should('exist')
@@ -755,9 +755,9 @@ describe('Avansert', () => {
       it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp', () => {
         cy.go('back')
         cy.contains(
-          'Er du sikker på at du vil avslutte avansert beregning?'
+          'Hvis du går ut av Avansert, mister du alle valgene dine.'
         ).should('exist')
-        cy.contains('Avslutt avansert').click()
+        cy.contains('Gå ut av Avansert').click()
         cy.contains(
           'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
         ).should('exist')
