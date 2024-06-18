@@ -294,12 +294,13 @@ export const getChartOptions = (
           color: 'var(--a-text-subtle)',
         },
       },
+
       lineColor: 'var(--a-text-subtle)',
     },
     yAxis: {
       offset: 10,
-      minorTickInterval: 200000,
-      tickInterval: 200000,
+      minorTickInterval: 50000,
+      tickInterval: 100000,
       allowDecimals: false,
       min: 0,
       title: {
@@ -327,7 +328,11 @@ export const getChartOptions = (
         },
         x: -55,
       },
-      gridLineColor: 'var(--a-grayalpha-200)',
+      gridLineColor: 'var(--a-gray-400)',
+      gridLineWidth: 1,
+      minorGridLineColor: 'var(--a-gray-400)',
+      minorGridLineWidth: 1,
+      minorGridLineDashStyle: 'ShortDash',
     },
     credits: {
       enabled: false,
