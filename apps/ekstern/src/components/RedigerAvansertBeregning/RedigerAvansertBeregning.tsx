@@ -29,7 +29,10 @@ import {
   DEFAULT_MAX_OPPTJENINGSALDER,
   DEFAULT_UBETINGET_UTTAKSALDER,
 } from '@/utils/alder'
-import { formatInntekt } from '@/utils/inntekt'
+import {
+  formatInntekt,
+  updateAndFormatInntektFromInputField,
+} from '@/utils/inntekt'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { FormButtonRow } from './FormButtonRow'
@@ -46,6 +49,8 @@ export const RedigerAvansertBeregning: React.FC<{
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
+  const inntektVsaHeltUttakInputRef = React.useRef<HTMLInputElement>(null)
+  const inntektVsaGradertUttakInputRef = React.useRef<HTMLInputElement>(null)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const { uttaksalder, gradertUttaksperiode, aarligInntektVsaHelPensjon } =
     useAppSelector(selectCurrentSimulation)
@@ -254,14 +259,20 @@ export const RedigerAvansertBeregning: React.FC<{
   const handleInntektVsaHeltUttakChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setValidationErrorInntektVsaHeltUttak('')
-    setLocalHeltUttak((previous) => ({
-      ...previous,
-      aarligInntektVsaPensjon: {
-        ...previous?.aarligInntektVsaPensjon,
-        beloep: e.target.value ? formatInntekt(e.target.value) : undefined,
+    updateAndFormatInntektFromInputField(
+      inntektVsaHeltUttakInputRef.current,
+      e.target.value,
+      (s: string) => {
+        setLocalHeltUttak((previous) => ({
+          ...previous,
+          aarligInntektVsaPensjon: {
+            ...previous?.aarligInntektVsaPensjon,
+            beloep: s ? s : undefined,
+          },
+        }))
       },
-    }))
+      setValidationErrorInntektVsaHeltUttak
+    )
   }
 
   const handleInntektVsaHeltUttakSluttAlderChange = (
@@ -280,13 +291,17 @@ export const RedigerAvansertBeregning: React.FC<{
   const handleInntektVsaGradertUttakChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    setValidationErrorInntektVsaGradertUttak('')
-    setLocalGradertUttak((previous) => ({
-      ...previous,
-      aarligInntektVsaPensjonBeloep: e.target.value
-        ? formatInntekt(e.target.value)
-        : undefined,
-    }))
+    updateAndFormatInntektFromInputField(
+      inntektVsaGradertUttakInputRef.current,
+      e.target.value,
+      (s: string) => {
+        setLocalGradertUttak((previous) => ({
+          ...previous,
+          aarligInntektVsaPensjonBeloep: s ? s : undefined,
+        }))
+      },
+      setValidationErrorInntektVsaGradertUttak
+    )
   }
 
   const resetForm = (): void => {
@@ -559,6 +574,7 @@ export const RedigerAvansertBeregning: React.FC<{
               {localHarInntektVsaGradertUttakRadio && (
                 <div>
                   <TextField
+                    ref={inntektVsaGradertUttakInputRef}
                     form={FORM_NAMES.form}
                     name={FORM_NAMES.inntektVsaGradertUttak}
                     data-testid={FORM_NAMES.inntektVsaGradertUttak}
@@ -689,6 +705,7 @@ export const RedigerAvansertBeregning: React.FC<{
             <>
               <div>
                 <TextField
+                  ref={inntektVsaHeltUttakInputRef}
                   form={FORM_NAMES.form}
                   name={FORM_NAMES.inntektVsaHeltUttak}
                   data-testid={FORM_NAMES.inntektVsaHeltUttak}

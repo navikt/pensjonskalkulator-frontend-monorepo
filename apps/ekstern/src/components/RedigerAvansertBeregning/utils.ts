@@ -41,17 +41,17 @@ const validateAlderForGradertUttak = (
         aar: gradertUttaksalder?.aar,
         maaneder: gradertUttaksalder?.maaneder,
       },
-      function (s) {
-        if (s) {
+      function (tekst) {
+        if (tekst) {
           logger('valideringsfeil', {
             data: 'Avansert - Uttaksalder for gradert uttak',
-            tekst: s,
+            tekst,
           })
         }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderGradertUttak]: s,
+            [FORM_NAMES.uttaksalderGradertUttak]: tekst,
           }
         })
       }
@@ -60,17 +60,17 @@ const validateAlderForGradertUttak = (
       {
         ...heltUttaksalder,
       },
-      function (s) {
-        if (s) {
+      function (tekst) {
+        if (tekst) {
           logger('valideringsfeil', {
             data: 'Avansert - Uttaksalder for gradert uttak',
-            tekst: s,
+            tekst,
           })
         }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderHeltUttak]: s,
+            [FORM_NAMES.uttaksalderHeltUttak]: tekst,
           }
         })
       }
@@ -143,17 +143,17 @@ export const validateAvansertBeregningSkjema = (
         aar: heltUttakAarFormData,
         maaneder: heltUttakMaanederFormData,
       },
-      function (s) {
-        if (s) {
+      function (tekst) {
+        if (tekst) {
           logger('valideringsfeil', {
             data: 'Avansert - Uttaksalder for helt uttak',
-            tekst: s,
+            tekst,
           })
         }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderHeltUttak]: s,
+            [FORM_NAMES.uttaksalderHeltUttak]: tekst,
           }
         })
       }
@@ -288,21 +288,25 @@ export const validateAvansertBeregningSkjema = (
   if (inntektVsaHeltUttakRadioFormData === 'ja') {
     const isInntektValid = validateInntekt(
       inntektVsaHeltUttakFormData as string,
-      () => {
-        logger('valideringsfeil', {
-          data: 'Avansert -  Inntekt vsa. helt uttak',
-          tekst:
-            'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
-        })
+      (tekst: string) => {
+        if (tekst) {
+          logger('valideringsfeil', {
+            data: 'Avansert -  Inntekt vsa. helt uttak',
+            tekst,
+          })
+        }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.inntektVsaHeltUttak]:
-              'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
+            [FORM_NAMES.inntektVsaHeltUttak]: tekst,
           }
         })
       },
-      true
+      true,
+      {
+        required:
+          'beregning.avansert.rediger.inntekt_vsa_helt_uttak.beloep.validation_error',
+      }
     )
 
     const isSluttAlderValid = validateAlderFromForm(
@@ -310,17 +314,17 @@ export const validateAvansertBeregningSkjema = (
         aar: inntektVsaHeltUttakSluttAlderAarFormData,
         maaneder: inntektVsaHeltUttakSluttAlderMaanederFormData,
       },
-      function (s) {
-        if (s) {
+      function (tekst) {
+        if (tekst) {
           logger('valideringsfeil', {
             data: 'Avansert -  Sluttalder inntekt vsa. helt uttak',
-            tekst: s,
+            tekst,
           })
         }
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: s,
+            [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: tekst,
           }
         })
       }
@@ -354,21 +358,25 @@ export const validateAvansertBeregningSkjema = (
     if (
       !validateInntekt(
         inntektVsaGradertUttakFormData as string,
-        () => {
-          logger('valideringsfeil', {
-            data: 'Avansert -  Inntekt vsa. gradert uttak',
-            tekst:
-              'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error',
-          })
+        (tekst: string) => {
+          if (tekst) {
+            logger('valideringsfeil', {
+              data: 'Avansert -  Inntekt vsa. gradert uttak',
+              tekst,
+            })
+          }
           updateValidationErrorMessage((prevState) => {
             return {
               ...prevState,
-              [FORM_NAMES.inntektVsaGradertUttak]:
-                'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error',
+              [FORM_NAMES.inntektVsaGradertUttak]: tekst,
             }
           })
         },
-        true
+        true,
+        {
+          required:
+            'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error',
+        }
       )
     ) {
       isValid = false

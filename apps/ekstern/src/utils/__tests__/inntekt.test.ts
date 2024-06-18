@@ -3,8 +3,10 @@ import { describe, expect, it } from 'vitest'
 import {
   formatInntekt,
   formatInntektToNumber,
+  updateAndFormatInntektFromInputField,
   validateInntekt,
 } from '../inntekt'
+import { waitFor } from '@/test-utils'
 
 describe('inntekt-utils', () => {
   describe('formatInntekt', () => {
@@ -82,6 +84,133 @@ describe('inntekt-utils', () => {
     })
   })
 
+  describe('updateAndFormatInntektFromInputField', () => {
+    it('når input elementet er null feiler ikke funksjonen og inntekt og valideringsfeil oppdateres', () => {
+      const updateInntektMock = vi.fn()
+      const updateValideringsfeilMock = vi.fn()
+      updateAndFormatInntektFromInputField(
+        null,
+        '123000',
+        updateInntektMock,
+        updateValideringsfeilMock
+      )
+      expect(updateInntektMock).toHaveBeenCalled()
+      expect(updateValideringsfeilMock).toHaveBeenCalled()
+    })
+
+    it('når input elementet er funnet og at input er ugyldig , formateres den ikke, og inntekt og valideringsfeil oppdateres', async () => {
+      const setSelectionRangeMock = vi.fn()
+      const updateInntektMock = vi.fn()
+      const updateValideringsfeilMock = vi.fn()
+      const inputHtmlElement = {
+        selectionStart: 3,
+        setSelectionRange: setSelectionRangeMock,
+      } as unknown as HTMLInputElement
+
+      updateAndFormatInntektFromInputField(
+        inputHtmlElement,
+        'abc', // denne strenges skal ikke formateres
+        updateInntektMock,
+        updateValideringsfeilMock
+      )
+
+      expect(updateInntektMock).toHaveBeenCalledWith('abc')
+      expect(updateValideringsfeilMock).toHaveBeenCalled()
+
+      expect(setSelectionRangeMock).not.toHaveBeenCalled()
+    })
+    it('når input elementet er funnet og at input strengen inneholder bare 0 og whitespace, formateres den ikke, og inntekt og valideringsfeil oppdateres', async () => {
+      const setSelectionRangeMock = vi.fn()
+      const updateInntektMock = vi.fn()
+      const updateValideringsfeilMock = vi.fn()
+      const inputHtmlElement = {
+        selectionStart: 3,
+        setSelectionRange: setSelectionRangeMock,
+      } as unknown as HTMLInputElement
+
+      updateAndFormatInntektFromInputField(
+        inputHtmlElement,
+        '00 000', // denne strenges skal ikke formateres
+        updateInntektMock,
+        updateValideringsfeilMock
+      )
+
+      expect(updateInntektMock).toHaveBeenCalledWith('00 000')
+      expect(updateValideringsfeilMock).toHaveBeenCalled()
+
+      expect(setSelectionRangeMock).not.toHaveBeenCalled()
+    })
+
+    it('når input elementet er funnet og at input strengen blir lik etter formatering, plasseres caret tilbake til sin opprinnelig posisjon, og inntekt og valideringsfeil oppdateres', async () => {
+      const setSelectionRangeMock = vi.fn()
+      const updateInntektMock = vi.fn()
+      const updateValideringsfeilMock = vi.fn()
+      const inputHtmlElement = {
+        selectionStart: 3,
+        setSelectionRange: setSelectionRangeMock,
+      } as unknown as HTMLInputElement
+
+      updateAndFormatInntektFromInputField(
+        inputHtmlElement,
+        '100', // denne strenges skal formateres til 100, altså med samme antakk karakter
+        updateInntektMock,
+        updateValideringsfeilMock
+      )
+
+      expect(updateInntektMock).toHaveBeenCalled()
+      expect(updateValideringsfeilMock).toHaveBeenCalled()
+      await waitFor(() => {
+        expect(setSelectionRangeMock).toHaveBeenCalledWith(3, 3)
+      })
+    })
+
+    it('når input elementet er funnet og at input strengen blir mindre etter formatering, plasseres caret et hakk nærmere fra sin opprinnelig posisjon, og inntekt og valideringsfeil oppdateres', async () => {
+      const setSelectionRangeMock = vi.fn()
+      const updateInntektMock = vi.fn()
+      const updateValideringsfeilMock = vi.fn()
+      const inputHtmlElement = {
+        selectionStart: 3,
+        setSelectionRange: setSelectionRangeMock,
+      } as unknown as HTMLInputElement
+
+      updateAndFormatInntektFromInputField(
+        inputHtmlElement,
+        '1 00', // denne strenges skal formateres til 100, altså ett karakter mindre
+        updateInntektMock,
+        updateValideringsfeilMock
+      )
+
+      expect(updateInntektMock).toHaveBeenCalled()
+      expect(updateValideringsfeilMock).toHaveBeenCalled()
+      await waitFor(() => {
+        expect(setSelectionRangeMock).toHaveBeenCalledWith(2, 2)
+      })
+    })
+
+    it('når input elementet er funnet og at input strengen blir større etter formatering, plasseres caret et hakk videre fra sin opprinnelig posisjon, og inntekt og valideringsfeil oppdateres', async () => {
+      const setSelectionRangeMock = vi.fn()
+      const updateInntektMock = vi.fn()
+      const updateValideringsfeilMock = vi.fn()
+      const inputHtmlElement = {
+        selectionStart: 3,
+        setSelectionRange: setSelectionRangeMock,
+      } as unknown as HTMLInputElement
+
+      updateAndFormatInntektFromInputField(
+        inputHtmlElement,
+        '123000', // denne strenges skal formateres til 123 000, altså ett karakter mer
+        updateInntektMock,
+        updateValideringsfeilMock
+      )
+
+      expect(updateInntektMock).toHaveBeenCalled()
+      expect(updateValideringsfeilMock).toHaveBeenCalled()
+      await waitFor(() => {
+        expect(setSelectionRangeMock).toHaveBeenCalledWith(4, 4)
+      })
+    })
+  })
+
   describe('validateInntekt', () => {
     afterEach(() => {
       vi.clearAllMocks()
@@ -97,13 +226,25 @@ describe('inntekt-utils', () => {
       expect(
         validateInntekt(null, updateValidationErrorMessageMock)
       ).toBeFalsy()
+      expect(
+        validateInntekt(
+          undefined,
+          updateValidationErrorMessageMock,
+          undefined,
+          { required: 'requiredString', type: 'typeString', max: 'maxString' }
+        )
+      ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         3,
         'inntekt.endre_inntekt_modal.textfield.validation_error.required'
       )
+      expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
+        4,
+        'requiredString'
+      )
     })
 
-    it('Gitt at input ikke er required, returnerer true med riktig feilmelding når input er tomt', async () => {
+    it('Gitt at input ikke er required, returnerer true uten feilmelding når input er tomt', async () => {
       expect(
         validateInntekt(undefined, updateValidationErrorMessageMock, false)
       ).toBeTruthy()
@@ -113,11 +254,19 @@ describe('inntekt-utils', () => {
       expect(
         validateInntekt(undefined, updateValidationErrorMessageMock, false)
       ).toBeTruthy()
+      expect(updateValidationErrorMessageMock).not.toHaveBeenCalled()
     })
 
     it('returnerer false med riktig feilmelding når input er noe annet enn tall mellom 0-9 med/uten mellomrom, bindestrekk eller punktum', async () => {
       expect(
         validateInntekt('qwerty', updateValidationErrorMessageMock)
+      ).toBeFalsy()
+      expect(
+        validateInntekt('qwerty', updateValidationErrorMessageMock, undefined, {
+          required: 'requiredString',
+          type: 'typeString',
+          max: 'maxString',
+        })
       ).toBeFalsy()
       expect(
         validateInntekt('123,45', updateValidationErrorMessageMock)
@@ -138,15 +287,35 @@ describe('inntekt-utils', () => {
         1,
         'inntekt.endre_inntekt_modal.textfield.validation_error.type'
       )
+      expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
+        2,
+        'typeString'
+      )
     })
 
     it('returnerer false med riktig feilmelding når input oversiger maks beløpet', async () => {
       expect(
         validateInntekt('100000001', updateValidationErrorMessageMock)
       ).toBeFalsy()
+      expect(
+        validateInntekt(
+          '100000001',
+          updateValidationErrorMessageMock,
+          undefined,
+          {
+            required: 'requiredString',
+            type: 'typeString',
+            max: 'maxString',
+          }
+        )
+      ).toBeFalsy()
       expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
         1,
         'inntekt.endre_inntekt_modal.textfield.validation_error.max'
+      )
+      expect(updateValidationErrorMessageMock).toHaveBeenNthCalledWith(
+        2,
+        'maxString'
       )
     })
 

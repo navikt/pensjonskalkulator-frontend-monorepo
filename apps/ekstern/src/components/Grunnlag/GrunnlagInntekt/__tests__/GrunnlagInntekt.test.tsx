@@ -28,8 +28,13 @@ describe('GrunnlagInntekt', () => {
       await user.click(
         await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
-
-      await user.type(await screen.findByTestId('inntekt-textfield'), '123000')
+      const textField = await screen.findByTestId('inntekt-textfield')
+      await user.type(textField, '1')
+      await user.type(textField, '2')
+      await user.type(textField, '3')
+      await user.type(textField, '0')
+      await user.type(textField, '0')
+      await user.type(textField, '0')
       await user.click(
         await screen.findByText('inntekt.endre_inntekt_modal.button')
       )
@@ -77,7 +82,14 @@ describe('GrunnlagInntekt', () => {
         await screen.findByText('inntekt.endre_inntekt_modal.open.button')
       )
 
-      await user.type(screen.getByTestId('inntekt-textfield'), '123000')
+      const textField = await screen.findByTestId('inntekt-textfield')
+      await user.type(textField, '1')
+      await user.type(textField, '2')
+      await user.type(textField, '3')
+      await user.type(textField, '0')
+      await user.type(textField, '0')
+      await user.type(textField, '0')
+
       await user.click(
         await screen.findByText('inntekt.endre_inntekt_modal.button')
       )
