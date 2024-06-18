@@ -71,11 +71,16 @@ export const EndreInntekt: React.FC<Props> = ({
   }
 
   const updateValidationErrorMessage = (id: string) => {
-    setValidationError(
-      intl.formatMessage({
-        id,
-      })
-    )
+    const tekst = intl.formatMessage({
+      id,
+    })
+    logger('valideringsfeil', {
+      data: intl.formatMessage({
+        id: 'inntekt.endre_inntekt_modal.textfield.label',
+      }),
+      tekst,
+    })
+    setValidationError(tekst)
   }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
