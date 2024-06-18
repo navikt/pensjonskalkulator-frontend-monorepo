@@ -241,7 +241,6 @@ const translations = {
   'beregning.avansert.button.nullstill': 'MANGLER_TEKST',
   'beregning.avansert.button.avbryt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.title': 'MANGLER_TEKST',
-  'beregning.avansert.avbryt_modal.body': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avslutt': 'MANGLER_TEKST',
   'beregning.avansert.avbryt_modal.button.avbryt': 'MANGLER_TEKST',
   'beregning.vilkaarsproeving.intro': 'MANGLER_TEKST',

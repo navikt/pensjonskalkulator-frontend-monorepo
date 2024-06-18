@@ -1,8 +1,8 @@
 import React from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { BodyLong, Button, Modal, ToggleGroup } from '@navikt/ds-react'
+import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
@@ -153,11 +153,6 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
           }
         }}
       >
-        <Modal.Body>
-          <BodyLong>
-            <FormattedMessage id="beregning.avansert.avbryt_modal.body" />
-          </BodyLong>
-        </Modal.Body>
         <Modal.Footer>
           <Button
             type="button"
