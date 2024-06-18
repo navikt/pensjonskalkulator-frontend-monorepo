@@ -330,9 +330,7 @@ export const getChartOptions = (
       },
       gridLineColor: 'var(--a-gray-400)',
       gridLineWidth: 1,
-      minorGridLineColor: 'var(--a-gray-400)',
-      minorGridLineWidth: 1,
-      minorGridLineDashStyle: 'ShortDash',
+      minorGridLineWidth: 0,
     },
     credits: {
       enabled: false,

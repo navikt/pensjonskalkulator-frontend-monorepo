@@ -175,7 +175,8 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
   },
   "yAxis": {
     "allowDecimals": false,
-    "gridLineColor": "var(--a-grayalpha-200)",
+    "gridLineColor": "var(--a-gray-400)",
+    "gridLineWidth": 1,
     "labels": {
       "align": "left",
       "formatter": [Function],
@@ -189,9 +190,10 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
       "x": -55,
     },
     "min": 0,
-    "minorTickInterval": 200000,
+    "minorGridLineWidth": 0,
+    "minorTickInterval": 50000,
     "offset": 10,
-    "tickInterval": 200000,
+    "tickInterval": 100000,
     "title": {
       "align": "high",
       "rotation": 0,
