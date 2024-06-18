@@ -28,7 +28,12 @@ describe('EndreInntekt', () => {
       )
       const input = screen.getByTestId('inntekt-textfield')
       await user.clear(input)
-      await user.type(input, '123000')
+      await user.type(input, '1')
+      await user.type(input, '2')
+      await user.type(input, '3')
+      await user.type(input, '0')
+      await user.type(input, '0')
+      await user.type(input, '0')
       expect(
         screen.queryByText(
           'inntekt.endre_inntekt_modal.textfield.validation_error'
@@ -66,7 +71,12 @@ describe('EndreInntekt', () => {
       ).toBeInTheDocument()
       const oppdatertInput = screen.getByTestId('inntekt-textfield')
       await user.clear(oppdatertInput)
-      await user.type(oppdatertInput, '123 000')
+      await user.type(input, '1')
+      await user.type(input, '2')
+      await user.type(input, '3')
+      await user.type(input, '0')
+      await user.type(input, '0')
+      await user.type(input, '0')
 
       expect(
         screen.queryByText(
@@ -113,7 +123,12 @@ describe('EndreInntekt', () => {
       )
       const input = screen.getByTestId('inntekt-textfield')
       await user.clear(input)
-      await user.type(input, '123 000')
+      await user.type(input, '1')
+      await user.type(input, '2')
+      await user.type(input, '3')
+      await user.type(input, '0')
+      await user.type(input, '0')
+      await user.type(input, '0')
 
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
       expect(oppdatereInntektMock).toHaveBeenCalledWith('123 000')
