@@ -347,10 +347,8 @@ const translations = {
     'Ett alternativ er at du ved {alternativtGradertStartAar} år og {alternativtGradertStartMaaned} måneder kan ta ut <nowrap>{alternativtGrad} %</nowrap> alderspensjon hvis du tar ut <nowrap>100 %</nowrap> alderspensjon ved {alternativtHeltStartAar} år og {alternativtHeltStartMaaned} måneder eller senere. Prøv gjerne andre kombinasjoner.',
   'grunnlag.title': 'Øvrig grunnlag for beregningen',
   'beregning.avansert.avbryt_modal.title':
-    'Er du sikker på at du vil avslutte avansert beregning?',
-  'beregning.avansert.avbryt_modal.body':
-    'Hvis du avslutter, blir ikke beregningen din lagret.',
-  'beregning.avansert.avbryt_modal.button.avslutt': 'Avslutt avansert',
+    'Hvis du går ut av Avansert, mister du alle valgene dine.',
+  'beregning.avansert.avbryt_modal.button.avslutt': 'Gå ut av Avansert',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
   'grunnlag.ingress': 'Beløpene er vist i dagens kroneverdi før skatt.',
   'grunnlag.uttaksgrad.title': 'Uttaksgrad',
