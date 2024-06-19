@@ -69,7 +69,7 @@ describe('Beregning', () => {
       expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
-        await screen.findByText('beregning.avansert.avbryt_modal.body')
+        await screen.findByText('beregning.avansert.avbryt_modal.title')
       ).toBeVisible()
       await user.click(
         await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
@@ -111,7 +111,7 @@ describe('Beregning', () => {
       expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
-        await screen.findByText('beregning.avansert.avbryt_modal.body')
+        await screen.findByText('beregning.avansert.avbryt_modal.title')
       ).toBeVisible()
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
@@ -143,7 +143,7 @@ describe('Beregning', () => {
       expect(await screen.findByTestId('toggle-avansert')).toBeVisible()
       await user.click(await screen.findByText('beregning.toggle.enkel'))
       expect(
-        await screen.findByText('beregning.avansert.avbryt_modal.body')
+        await screen.findByText('beregning.avansert.avbryt_modal.title')
       ).toBeVisible()
       expect(
         await screen.findByText('beregning.avansert.avbryt_modal.button.avbryt')
@@ -224,7 +224,7 @@ describe('Beregning', () => {
       expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
       await user.click(await screen.findByTestId('navigate-btn'))
       expect(
-        await screen.findByText('beregning.avansert.avbryt_modal.body')
+        await screen.findByText('beregning.avansert.avbryt_modal.title')
       ).not.toBeVisible()
     })
 
@@ -249,7 +249,7 @@ describe('Beregning', () => {
       expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
       await user.click(await screen.findByTestId('navigate-btn'))
       expect(
-        await screen.findByText('beregning.avansert.avbryt_modal.body')
+        await screen.findByText('beregning.avansert.avbryt_modal.title')
       ).toBeVisible()
     })
 
@@ -284,7 +284,7 @@ describe('Beregning', () => {
       expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
       await user.click(await screen.findByTestId('navigate-btn'))
       expect(
-        await screen.findByText('beregning.avansert.avbryt_modal.body')
+        await screen.findByText('beregning.avansert.avbryt_modal.title')
       ).toBeVisible()
     })
 
@@ -313,7 +313,7 @@ describe('Beregning', () => {
       expect(await screen.findByTestId('toggle-avansert')).toBeInTheDocument()
       await user.click(await screen.findByTestId('navigate-btn'))
       expect(
-        await screen.findByText('beregning.avansert.avbryt_modal.body')
+        await screen.findByText('beregning.avansert.avbryt_modal.title')
       ).toBeVisible()
     })
   })

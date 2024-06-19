@@ -222,7 +222,9 @@ describe('med ufoeretrygd', () => {
           }
         ).as('getUfoeregrad')
         cy.fillOutStegvisning({ afp: 'nei' })
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
       })
 
       describe('Når jeg er kommet til avansert beregning,', () => {
@@ -280,7 +282,9 @@ describe('med ufoeretrygd', () => {
           }
         ).as('getUfoeregrad')
         cy.fillOutStegvisning({ afp: 'nei' })
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
       })
 
       describe('Når jeg er kommet til avansert beregning,', () => {
