@@ -32,11 +32,16 @@ export function Samtykke({
     const samtykkeData = data.get('samtykke') as BooleanRadio | undefined
 
     if (!samtykkeData) {
-      setValidationError(
-        intl.formatMessage({
-          id: 'stegvisning.samtykke.validation_error',
-        })
-      )
+      const tekst = intl.formatMessage({
+        id: 'stegvisning.samtykke.validation_error',
+      })
+      setValidationError(tekst)
+      logger('valideringsfeil', {
+        data: intl.formatMessage({
+          id: 'stegvisning.samtykke.radio_label',
+        }),
+        tekst,
+      })
     } else {
       logger('radiogroup valgt', {
         tekst: 'Samtykke',

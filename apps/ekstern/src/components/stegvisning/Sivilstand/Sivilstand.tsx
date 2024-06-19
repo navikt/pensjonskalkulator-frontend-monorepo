@@ -50,11 +50,16 @@ export function Sivilstand({
     const sivilstandData = data.get('sivilstand') as BooleanRadio | undefined
 
     if (!sivilstandData) {
-      setValidationError(
-        intl.formatMessage({
-          id: 'stegvisning.sivilstand.validation_error',
-        })
-      )
+      const tekst = intl.formatMessage({
+        id: 'stegvisning.sivilstand.validation_error',
+      })
+      setValidationError(tekst)
+      logger('valideringsfeil', {
+        data: intl.formatMessage({
+          id: 'stegvisning.sivilstand.radio_label',
+        }),
+        tekst,
+      })
     } else {
       logger('radiogroup valgt', {
         tekst: 'Samboer',

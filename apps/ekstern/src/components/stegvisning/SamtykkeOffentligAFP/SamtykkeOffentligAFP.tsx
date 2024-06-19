@@ -34,11 +34,16 @@ export function SamtykkeOffentligAFP({
       | undefined
 
     if (!samtykkeData) {
-      setValidationError(
-        intl.formatMessage({
-          id: 'stegvisning.samtykke_offentlig_afp.validation_error',
-        })
-      )
+      const tekst = intl.formatMessage({
+        id: 'stegvisning.samtykke_offentlig_afp.validation_error',
+      })
+      setValidationError(tekst)
+      logger('valideringsfeil', {
+        data: intl.formatMessage({
+          id: 'stegvisning.samtykke_offentlig_afp.radio_label',
+        }),
+        tekst,
+      })
     } else {
       logger('radiogroup valgt', {
         tekst: 'Samtykke Offentlig AFP',

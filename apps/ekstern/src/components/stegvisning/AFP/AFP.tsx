@@ -65,11 +65,16 @@ export function AFP({
     const afpData = data.get('afp') as AfpRadio | undefined
 
     if (!afpData) {
-      setValidationError(
-        intl.formatMessage({
-          id: 'stegvisning.afp.validation_error',
-        })
-      )
+      const tekst = intl.formatMessage({
+        id: 'stegvisning.afp.validation_error',
+      })
+      setValidationError(tekst)
+      logger('valideringsfeil', {
+        data: intl.formatMessage({
+          id: 'stegvisning.afp.radio_label',
+        }),
+        tekst,
+      })
     } else {
       logger('radiogroup valgt', {
         tekst: 'Rett til AFP',
