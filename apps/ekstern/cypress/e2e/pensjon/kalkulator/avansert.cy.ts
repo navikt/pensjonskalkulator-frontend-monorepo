@@ -8,7 +8,9 @@ describe('Avansert', () => {
       })
 
       it('forventer jeg å kunne velge «Avansert fane» for å få flere valgmuligheter', () => {
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
         cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
       })
 
@@ -25,7 +27,9 @@ describe('Avansert', () => {
       })
 
       it('ønsker jeg å kunne starte ny beregning', () => {
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
         cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
         cy.contains('button', 'Tilbake til start').click({ force: true })
         cy.location('href').should('include', '/pensjon/kalkulator/start')
@@ -39,7 +43,9 @@ describe('Avansert', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
       })
 
       it('forventer jeg å se, og kunne endre inntekt frem til pensjon.', () => {
@@ -178,7 +184,9 @@ describe('Avansert', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
           '65'
         )
@@ -265,7 +273,9 @@ describe('Avansert', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
           '65'
         )
@@ -351,7 +361,9 @@ describe('Avansert', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
           '65'
         )
@@ -523,7 +535,9 @@ describe('Avansert', () => {
         cy.login()
         cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
           '62'
         )
@@ -601,7 +615,9 @@ describe('Avansert', () => {
         cy.login()
         cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
-        cy.contains('Avansert').click()
+        cy.get('[data-testid="toggle-avansert"]').within(() => {
+          cy.contains('Avansert').click()
+        })
         cy.contains('button', 'Endre inntekt').click()
         cy.get('[data-testid="inntekt-textfield"]').type('500000')
         cy.contains('button', 'Oppdater inntekt').click()

@@ -72,8 +72,9 @@ describe('Pensjonskalkulator', () => {
     cy.login()
     cy.fillOutStegvisning({})
     cy.wait('@fetchTidligsteUttaksalder')
-    cy.contains('Avansert').click()
-    cy.contains('Avansert').click()
+    cy.get('[data-testid="toggle-avansert"]').within(() => {
+      cy.contains('Avansert').click()
+    })
     cy.injectAxe()
     cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
 
@@ -109,7 +110,9 @@ describe('Pensjonskalkulator', () => {
     cy.login()
     cy.fillOutStegvisning({})
     cy.wait('@fetchTidligsteUttaksalder')
-    cy.contains('Avansert').click()
+    cy.get('[data-testid="toggle-avansert"]').within(() => {
+      cy.contains('Avansert').click()
+    })
     cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select('65')
     cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-maaneder"]').select(
       '1'
