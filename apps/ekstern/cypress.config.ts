@@ -2,7 +2,7 @@ import { defineConfig } from 'cypress'
 
 export default defineConfig({
   env: {
-    DECORATOR_URL: 'https://dekoratoren.ekstern.dev.nav.no',
+    DECORATOR_URL: 'https://www.nav.no/dekoratoren',
   },
   e2e: {
     baseUrl: 'http://localhost:4173',
