@@ -776,7 +776,7 @@ describe('Simulering', () => {
           avtaler: [
             {
               produktbetegnelse: 'Oslo Pensjonsforsikring (livsvarig eksempel)',
-              kategori: 'OFFENTLIG_TJENESTEPENSJON',
+              kategori: 'PRIVAT_TJENESTEPENSJON',
               startAar: 69,
               utbetalingsperioder: [
                 {

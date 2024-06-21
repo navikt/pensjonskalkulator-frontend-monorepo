@@ -20,11 +20,10 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
     it('returnerer riktig navn på grupper', () => {
       const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
       const keys = Object.keys(grouped)
-      expect(keys).toHaveLength(4)
+      expect(keys).toHaveLength(3)
       expect(keys).toEqual([
         'andre avtaler',
         'privat tjenestepensjon',
-        'offentlig tjenestepensjon',
         'individuelle ordninger',
       ])
     })
@@ -33,8 +32,7 @@ describe('GrunnlagPensjonsavtaler-utils', () => {
       const grouped = groupPensjonsavtalerByType(avtalerWithKeys)
       expect(grouped['andre avtaler']).toHaveLength(1)
       expect(grouped['individuelle ordninger']).toHaveLength(2)
-      expect(grouped['offentlig tjenestepensjon']).toHaveLength(1)
-      expect(grouped['privat tjenestepensjon']).toHaveLength(2)
+      expect(grouped['privat tjenestepensjon']).toHaveLength(3)
     })
   })
 
