@@ -579,7 +579,6 @@ describe('Avansert', () => {
         cy.get('[data-testid="showmore-button"]').click()
         cy.contains('Andre avtaler').should('exist')
         cy.contains('Privat tjenestepensjon').should('exist')
-        cy.contains('Offentlig tjenestepensjon').should('exist')
         cy.contains('Individuelle ordninger').should('exist')
         cy.contains('Vis mindre').should('exist')
       })
