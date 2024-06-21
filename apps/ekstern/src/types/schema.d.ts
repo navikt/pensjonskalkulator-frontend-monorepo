@@ -100,7 +100,7 @@ export interface paths {
     /**
      * Hent pensjonsavtaler (versjon 2)
      *
-     * @description Henter pensjonsavtalene til den innloggede brukeren. I request må verdi av 'maaneder' være 0..11.
+     * @description Henter pensjonsavtalene til den innloggede/angitte brukeren. I request må verdi av 'maaneder' være 0..11.
      */
     post: operations['fetchAvtalerV2']
     delete?: never
@@ -768,21 +768,21 @@ export interface components {
       vilkaarErOppfylt: boolean
       alternativ?: components['schemas']['AlternativV3']
     }
-    IngressPensjonsavtaleAlderV2: {
+    PensjonsavtaleAlderSpecV2: {
       /** Format: int32 */
       aar: number
       /** Format: int32 */
       maaneder: number
     }
-    IngressPensjonsavtaleInntektV2: {
+    PensjonsavtaleInntektSpecV2: {
       /** Format: int32 */
       beloep: number
-      sluttAlder?: components['schemas']['IngressPensjonsavtaleAlderV2']
+      sluttAlder?: components['schemas']['PensjonsavtaleAlderSpecV2']
     }
-    IngressPensjonsavtaleSpecV2: {
+    PensjonsavtaleSpecV2: {
       /** Format: int32 */
       aarligInntektFoerUttakBeloep: number
-      uttaksperioder: components['schemas']['IngressPensjonsavtaleUttaksperiodeV2'][]
+      uttaksperioder: components['schemas']['PensjonsavtaleUttaksperiodeSpecV2'][]
       harAfp?: boolean
       harEpsPensjon?: boolean
       harEpsPensjonsgivendeInntektOver2G?: boolean
@@ -803,11 +803,11 @@ export interface components {
         | 'GJENLEVENDE_PARTNER'
         | 'SAMBOER'
     }
-    IngressPensjonsavtaleUttaksperiodeV2: {
-      startAlder: components['schemas']['IngressPensjonsavtaleAlderV2']
+    PensjonsavtaleUttaksperiodeSpecV2: {
+      startAlder: components['schemas']['PensjonsavtaleAlderSpecV2']
       /** Format: int32 */
       grad: number
-      aarligInntektVsaPensjon?: components['schemas']['IngressPensjonsavtaleInntektV2']
+      aarligInntektVsaPensjon?: components['schemas']['PensjonsavtaleInntektSpecV2']
     }
     Alder: {
       /** Format: int32 */
@@ -815,32 +815,25 @@ export interface components {
       /** Format: int32 */
       maaneder: number
     }
-    PensjonsavtaleDto: {
+    PensjonsavtaleResultV2: {
+      avtaler: components['schemas']['PensjonsavtaleV2'][]
+      utilgjengeligeSelskap: components['schemas']['SelskapV2'][]
+    }
+    PensjonsavtaleV2: {
       produktbetegnelse: string
       /** @enum {string} */
-      kategori:
-        | 'NONE'
-        | 'UNKNOWN'
-        | 'INDIVIDUELL_ORDNING'
-        | 'PRIVAT_AFP'
-        | 'PRIVAT_TJENESTEPENSJON'
-        | 'OFFENTLIG_TJENESTEPENSJON'
-        | 'FOLKETRYGD'
+      kategori: 'UNKNOWN' | 'INDIVIDUELL_ORDNING' | 'PRIVAT_TJENESTEPENSJON'
       /** Format: int32 */
       startAar: number
       /** Format: int32 */
       sluttAar?: number
-      utbetalingsperioder: components['schemas']['UtbetalingsperiodeDto'][]
+      utbetalingsperioder: components['schemas']['UtbetalingsperiodeV2'][]
     }
-    PensjonsavtalerDto: {
-      avtaler: components['schemas']['PensjonsavtaleDto'][]
-      utilgjengeligeSelskap: components['schemas']['SelskapDto'][]
-    }
-    SelskapDto: {
+    SelskapV2: {
       navn: string
       heltUtilgjengelig: boolean
     }
-    UtbetalingsperiodeDto: {
+    UtbetalingsperiodeV2: {
       startAlder: components['schemas']['Alder']
       sluttAlder?: components['schemas']['Alder']
       /** Format: int32 */
@@ -1255,7 +1248,7 @@ export interface operations {
     }
     requestBody: {
       content: {
-        'application/json': components['schemas']['IngressPensjonsavtaleSpecV2']
+        'application/json': components['schemas']['PensjonsavtaleSpecV2']
       }
     }
     responses: {
@@ -1265,7 +1258,7 @@ export interface operations {
           [name: string]: unknown
         }
         content: {
-          '*/*': components['schemas']['PensjonsavtalerDto']
+          '*/*': components['schemas']['PensjonsavtaleResultV2']
         }
       }
       /** @description Henting av pensjonsavtaler kunne ikke utføres av tekniske årsaker */
