@@ -1,1 +1,0 @@
-export { OffentligTP } from './OffentligTP'

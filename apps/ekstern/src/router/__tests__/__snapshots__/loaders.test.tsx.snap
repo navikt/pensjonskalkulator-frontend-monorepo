@@ -23,7 +23,7 @@ DeferredData {
 }
 `;
 
-exports[`Loaders > step3AccessGuard > kaller redirect til /afp location når samtykke er oppgitt til false 1`] = `
+exports[`Loaders > step1AccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
 _Response {
   Symbol(realm): {
     "settingsObject": {},
@@ -36,7 +36,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/afp",
+          "value": "/start",
         },
       },
       Symbol(headers map sorted): null,
@@ -56,7 +56,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/afp",
+          "value": "/start",
         },
       },
       Symbol(headers map sorted): null,
@@ -69,7 +69,7 @@ _Response {
 }
 `;
 
-exports[`Loaders > step3AccessGuard > kaller redirect til /start location, når samtykke er null 1`] = `
+exports[`Loaders > step4AccessGuard > Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert 1`] = `
 _Response {
   Symbol(realm): {
     "settingsObject": {},
@@ -82,7 +82,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/start",
+          "value": "/samtykke-offentlig-afp",
         },
       },
       Symbol(headers map sorted): null,
@@ -102,7 +102,53 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/start",
+          "value": "/samtykke-offentlig-afp",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
+}
+`;
+
+exports[`Loaders > step4AccessGuard > Når brukeren ikke har uføretrygd, er hen redirigert 1`] = `
+_Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
+  Symbol(state): {
+    "aborted": false,
+    "cacheState": "",
+    "headersList": _HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "location",
+          "value": "/samtykke-offentlig-afp",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    "rangeRequested": false,
+    "requestIncludesCredentials": false,
+    "status": 302,
+    "statusText": "",
+    "timingAllowPassed": false,
+    "timingInfo": null,
+    "type": "default",
+    "urlList": [],
+  },
+  Symbol(headers): _Headers {
+    Symbol(headers list): _HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "location",
+          "value": "/samtykke-offentlig-afp",
         },
       },
       Symbol(headers map sorted): null,
@@ -161,7 +207,7 @@ _Response {
 }
 `;
 
-exports[`Loaders > step5AccessGuard > Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert 1`] = `
+exports[`Loaders > step5AccessGuard > Når brukeren har uføretrygd og har valgt ja_offentlig til spørsmål om afp, er hen redirigert 1`] = `
 _Response {
   Symbol(realm): {
     "settingsObject": {},
@@ -174,7 +220,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/samtykke-offentlig-afp",
+          "value": "/sivilstand",
         },
       },
       Symbol(headers map sorted): null,
@@ -194,7 +240,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/samtykke-offentlig-afp",
+          "value": "/sivilstand",
         },
       },
       Symbol(headers map sorted): null,
@@ -207,7 +253,7 @@ _Response {
 }
 `;
 
-exports[`Loaders > step5AccessGuard > Når brukeren ikke har uføretrygd, er hen redirigert 1`] = `
+exports[`Loaders > step5AccessGuard > Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert 1`] = `
 _Response {
   Symbol(realm): {
     "settingsObject": {},
@@ -220,7 +266,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/samtykke-offentlig-afp",
+          "value": "/sivilstand",
         },
       },
       Symbol(headers map sorted): null,
@@ -240,7 +286,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/samtykke-offentlig-afp",
+          "value": "/sivilstand",
         },
       },
       Symbol(headers map sorted): null,
@@ -254,190 +300,6 @@ _Response {
 `;
 
 exports[`Loaders > step5AccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
-_Response {
-  Symbol(realm): {
-    "settingsObject": {},
-  },
-  Symbol(state): {
-    "aborted": false,
-    "cacheState": "",
-    "headersList": _HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "location" => {
-          "name": "location",
-          "value": "/start",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    "rangeRequested": false,
-    "requestIncludesCredentials": false,
-    "status": 302,
-    "statusText": "",
-    "timingAllowPassed": false,
-    "timingInfo": null,
-    "type": "default",
-    "urlList": [],
-  },
-  Symbol(headers): _Headers {
-    Symbol(headers list): _HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "location" => {
-          "name": "location",
-          "value": "/start",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "response",
-    Symbol(realm): {
-      "settingsObject": {},
-    },
-  },
-}
-`;
-
-exports[`Loaders > step6AccessGuard > Når brukeren har uføretrygd og har valgt ja_offentlig til spørsmål om afp, er hen redirigert 1`] = `
-_Response {
-  Symbol(realm): {
-    "settingsObject": {},
-  },
-  Symbol(state): {
-    "aborted": false,
-    "cacheState": "",
-    "headersList": _HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "location" => {
-          "name": "location",
-          "value": "/sivilstand",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    "rangeRequested": false,
-    "requestIncludesCredentials": false,
-    "status": 302,
-    "statusText": "",
-    "timingAllowPassed": false,
-    "timingInfo": null,
-    "type": "default",
-    "urlList": [],
-  },
-  Symbol(headers): _Headers {
-    Symbol(headers list): _HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "location" => {
-          "name": "location",
-          "value": "/sivilstand",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "response",
-    Symbol(realm): {
-      "settingsObject": {},
-    },
-  },
-}
-`;
-
-exports[`Loaders > step6AccessGuard > Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert 1`] = `
-_Response {
-  Symbol(realm): {
-    "settingsObject": {},
-  },
-  Symbol(state): {
-    "aborted": false,
-    "cacheState": "",
-    "headersList": _HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "location" => {
-          "name": "location",
-          "value": "/sivilstand",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    "rangeRequested": false,
-    "requestIncludesCredentials": false,
-    "status": 302,
-    "statusText": "",
-    "timingAllowPassed": false,
-    "timingInfo": null,
-    "type": "default",
-    "urlList": [],
-  },
-  Symbol(headers): _Headers {
-    Symbol(headers list): _HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "location" => {
-          "name": "location",
-          "value": "/sivilstand",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "response",
-    Symbol(realm): {
-      "settingsObject": {},
-    },
-  },
-}
-`;
-
-exports[`Loaders > step6AccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
-_Response {
-  Symbol(realm): {
-    "settingsObject": {},
-  },
-  Symbol(state): {
-    "aborted": false,
-    "cacheState": "",
-    "headersList": _HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "location" => {
-          "name": "location",
-          "value": "/start",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    "rangeRequested": false,
-    "requestIncludesCredentials": false,
-    "status": 302,
-    "statusText": "",
-    "timingAllowPassed": false,
-    "timingInfo": null,
-    "type": "default",
-    "urlList": [],
-  },
-  Symbol(headers): _Headers {
-    Symbol(headers list): _HeadersList {
-      "cookies": null,
-      Symbol(headers map): Map {
-        "location" => {
-          "name": "location",
-          "value": "/start",
-        },
-      },
-      Symbol(headers map sorted): null,
-    },
-    Symbol(guard): "response",
-    Symbol(realm): {
-      "settingsObject": {},
-    },
-  },
-}
-`;
-
-exports[`Loaders > step7AccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
 _Response {
   Symbol(realm): {
     "settingsObject": {},

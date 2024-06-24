@@ -1,17 +1,15 @@
 const translations = {
   'application.title': 'Pensjonskalkulator – Pensjon',
   'application.title.stegvisning.step0': 'Start – Pensjonskalkulator',
-  'application.title.stegvisning.step1':
+  'application.title.stegvisning.step1': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.step2':
     'Utenlandsopphold – Pensjonskalkulator',
-  'application.title.stegvisning.step2': 'Samtykke – Pensjonskalkulator',
-  'application.title.stegvisning.step3':
-    'Offentlig tjenestepensjon – Pensjonskalkulator',
-  'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
-  'application.title.stegvisning.step5':
+  'application.title.stegvisning.step3': 'AFP – Pensjonskalkulator',
+  'application.title.stegvisning.step4':
     'Uføretrygd og AFP – Pensjonskalkulator',
-  'application.title.stegvisning.step6':
+  'application.title.stegvisning.step5':
     'Samtykke AFP offentlig – Pensjonskalkulator',
-  'application.title.stegvisning.step7': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.step6': 'Samtykke – Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
@@ -108,16 +106,6 @@ const translations = {
   'stegvisning.samtykke.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
-  'stegvisning.offentligtp.title':
-    'Du kan ha rett til offentlig tjenestepensjon',
-  'stegvisning.offentligtp.loading':
-    'Henter informasjon om medlemskap til offentlig tjenestepensjon',
-  'stegvisning.offentligtp.ingress':
-    'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn tjenestepensjonen din. Du kan sjekke dine avtaler hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).{br}{br}Gå videre for å beregne alderspensjon fra NAV og se pensjonsavtaler i privat sektor.',
-  'stegvisning.offentligtp.error.title':
-    'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor',
-  'stegvisning.offentligtp.error.ingress':
-    'Gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler fra privat sektor.{br}{br}Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
   'stegvisning.afp.title': 'Avtalefestet pensjon',
   'stegvisning.afp.ingress':
     'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',

@@ -77,7 +77,7 @@ describe('stegvisning - Samtykke', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await user.click(screen.getByText('stegvisning.neste'))
+    await user.click(screen.getByText('stegvisning.beregn'))
 
     waitFor(() => {
       expect(
@@ -92,7 +92,7 @@ describe('stegvisning - Samtykke', () => {
       screen.queryByText('stegvisning.samtykke.validation_error')
     ).not.toBeInTheDocument()
 
-    await user.click(screen.getByText('stegvisning.neste'))
+    await user.click(screen.getByText('stegvisning.beregn'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()

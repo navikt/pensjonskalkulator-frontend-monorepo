@@ -13,7 +13,6 @@ import { Step3 } from '@/pages/Step3'
 import { Step4 } from '@/pages/Step4'
 import { Step5 } from '@/pages/Step5'
 import { Step6 } from '@/pages/Step6'
-import { Step7 } from '@/pages/Step7'
 import { StepFeil } from '@/pages/StepFeil'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
@@ -23,11 +22,10 @@ import {
   authenticationGuard,
   landingPageAccessGuard,
   step0AccessGuard,
+  step1AccessGuard,
   step3AccessGuard,
   step4AccessGuard,
   step5AccessGuard,
-  step6AccessGuard,
-  step7AccessGuard,
 } from './loaders'
 
 export const routes: RouteObject[] = [
@@ -82,39 +80,34 @@ export const routes: RouteObject[] = [
         element: <Forbehold />,
       },
       {
-        loader: directAccessGuard,
-        path: paths.utenlandsopphold,
+        loader: step1AccessGuard,
+        path: paths.sivilstand,
         element: <Step1 />,
       },
       {
         loader: directAccessGuard,
-        path: paths.samtykke,
+        path: paths.utenlandsopphold,
         element: <Step2 />,
       },
       {
         loader: step3AccessGuard,
-        path: paths.offentligTp,
+        path: paths.afp,
         element: <Step3 />,
       },
       {
         loader: step4AccessGuard,
-        path: paths.afp,
+        path: paths.ufoeretrygdAFP,
         element: <Step4 />,
       },
       {
         loader: step5AccessGuard,
-        path: paths.ufoeretrygdAFP,
+        path: paths.samtykkeOffentligAFP,
         element: <Step5 />,
       },
       {
-        loader: step6AccessGuard,
-        path: paths.samtykkeOffentligAFP,
+        loader: directAccessGuard,
+        path: paths.samtykke,
         element: <Step6 />,
-      },
-      {
-        loader: step7AccessGuard,
-        path: paths.sivilstand,
-        element: <Step7 />,
       },
       {
         loader: directAccessGuard,

@@ -1,20 +1,22 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Await } from 'react-router-dom'
 
-import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'
-import { paths, henvisningUrlParams } from '@/router/constants'
+import { Loader } from '@/components/common/Loader'
+import { Sivilstand } from '@/components/stegvisning/Sivilstand'
+import { paths } from '@/router/constants'
+import { useStep1AccessData } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectUtenlandsopphold } from '@/state/userInput/selectors'
-import { selectIsVeileder } from '@/state/userInput/selectors'
+import { selectSamboerFraBrukerInput } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step1() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const harUtenlandsopphold = useAppSelector(selectUtenlandsopphold)
-  const isVeileder = useAppSelector(selectIsVeileder)
+  const loaderData = useStep1AccessData()
+
+  const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -22,34 +24,59 @@ export function Step1() {
     })
   }, [])
 
-  const onNext = (utenlandsoppholdData: BooleanRadio) => {
-    const utenlandsopphold = utenlandsoppholdData === 'ja'
-    if (utenlandsopphold) {
-      navigate(`${paths.henvisning}/${henvisningUrlParams.utland}`)
-    } else {
-      dispatch(userInputActions.setUtenlandsopphold(utenlandsopphold))
-      navigate(paths.samtykke)
-    }
+  const onCancel = (): void => {
+    dispatch(userInputActions.flush())
+    navigate(paths.login)
   }
-
-  // Fjern onCancel vis person er veileder
-  const onCancel = isVeileder
-    ? undefined
-    : (): void => {
-        dispatch(userInputActions.flush())
-        navigate(paths.login)
-      }
 
   const onPrevious = (): void => {
     navigate(paths.start)
   }
 
+  const onNext = (sivilstandData: BooleanRadio): void => {
+    dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
+    navigate(paths.utenlandsopphold)
+  }
+
   return (
-    <Utenlandsopphold
-      harUtenlandsopphold={harUtenlandsopphold}
-      onCancel={onCancel}
-      onPrevious={onPrevious}
-      onNext={onNext}
-    />
+    <React.Suspense
+      fallback={
+        <div style={{ width: '100%' }}>
+          <Loader
+            data-testid="step1-loader"
+            size="3xlarge"
+            title={intl.formatMessage({ id: 'pageframework.loading' })}
+            isCentered
+          />
+        </div>
+      }
+    >
+      <Await
+        resolve={Promise.all([
+          loaderData.getPersonQuery,
+          loaderData.shouldRedirectTo,
+        ])}
+      >
+        {(queries: [GetPersonQuery, string]) => {
+          const getPersonQuery = queries[0]
+          const shouldRedirectTo = queries[1]
+
+          return (
+            <Sivilstand
+              shouldRedirectTo={shouldRedirectTo}
+              sivilstand={
+                getPersonQuery.isSuccess
+                  ? (getPersonQuery.data as Person).sivilstand
+                  : 'UNKNOWN'
+              }
+              harSamboer={samboerSvar}
+              onCancel={onCancel}
+              onPrevious={onPrevious}
+              onNext={onNext}
+            />
+          )
+        }}
+      </Await>
+    </React.Suspense>
   )
 }

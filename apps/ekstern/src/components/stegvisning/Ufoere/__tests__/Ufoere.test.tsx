@@ -42,28 +42,6 @@ describe('stegvisning - Ufoere', () => {
     expect(result.asFragment()).toMatchSnapshot()
   })
 
-  it('viser riktig tekst på Neste knapp når brukeren har samboer', async () => {
-    mockResponse('/v2/person', {
-      status: 200,
-      json: {
-        navn: 'Aprikos',
-        sivilstand: 'GIFT',
-        foedselsdato: '1963-04-30',
-      },
-    })
-
-    const { store } = render(
-      <Ufoere
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    await store.dispatch(apiSlice.endpoints.getPerson.initiate())
-    expect(await screen.findByText('stegvisning.beregn')).toBeInTheDocument()
-    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-  })
-
   it('kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(
@@ -90,7 +68,7 @@ describe('stegvisning - Ufoere', () => {
       />,
       {
         preloadedState: {
-          userInput: { samtykke: true, afp: 'ja_privat' },
+          userInput: { afp: 'ja_privat' },
         } as RootState,
       }
     )

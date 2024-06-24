@@ -3,13 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Step2 } from '..'
-import {
-  fulfilledGetTpoMedlemskap,
-  fulfilledPensjonsavtaler,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { paths } from '@/router/constants'
-import * as apiSliceUtils from '@/state/api/apiSlice'
-import { selectHarHentetTpoMedlemskap } from '@/state/userInput/selectors'
+import { paths, henvisningUrlParams } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
@@ -19,70 +13,37 @@ describe('Step 2', () => {
     expect(document.title).toBe('application.title.stegvisning.step2')
   })
 
-  describe('Gitt at brukeren svarer Ja på spørsmål om samtykke', async () => {
-    it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
-      const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
-      const { store } = render(<Step2 />, {})
-      const radioButtons = screen.getAllByRole('radio')
+  it('Når brukeren svarer ja på utenlandsopphold, sendes brukeren videre til riktig side når hen klikker på Neste', async () => {
+    const user = userEvent.setup()
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    render(<Step2 />, {})
+    const radioButtons = screen.getAllByRole('radio')
 
-      await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.neste'))
+    await user.click(radioButtons[0])
+    await user.click(screen.getByText('stegvisning.neste'))
 
-      expect(store.getState().userInput.samtykke).toBe(true)
-      expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
-    })
+    expect(navigateMock).toHaveBeenCalledWith(
+      `${paths.henvisning}/${henvisningUrlParams.utland}`
+    )
   })
 
-  describe('Gitt at brukeren svarer Nei på spørsmål om samtykke', async () => {
-    it('invaliderer cache for tpo-medlemskap og pensjonsavtaler i storen (for å fjerne evt. data som ble hentet pga en tidligere samtykke). Navigerer videre til riktig side når brukerenklikker på Neste', async () => {
-      const invalidateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.util.invalidateTags,
-        'match'
-      )
+  it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {
+    const user = userEvent.setup()
+    const navigateMock = vi.fn()
+    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+      () => navigateMock
+    )
+    const { store } = render(<Step2 />, {})
+    const radioButtons = screen.getAllByRole('radio')
 
-      const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
+    await user.click(radioButtons[1])
+    await user.click(screen.getByText('stegvisning.neste'))
 
-      const { store } = render(<Step2 />, {
-        preloadedState: {
-          api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetTpoMedlemskap,
-              ...fulfilledPensjonsavtaler,
-            },
-          },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-          },
-        },
-      })
-      await store.dispatch(
-        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap.initiate()
-      )
-      expect(Object.keys(store.getState().api.queries).length).toEqual(2)
-
-      expect(selectHarHentetTpoMedlemskap(store.getState())).toBe(true)
-
-      const radioButtons = screen.getAllByRole('radio')
-
-      await user.click(radioButtons[1])
-      await user.click(screen.getByText('stegvisning.neste'))
-
-      expect(store.getState().userInput.samtykke).toBe(false)
-      expect(invalidateMock).toHaveBeenCalledTimes(2)
-
-      expect(navigateMock).toHaveBeenCalledWith(paths.offentligTp)
-    })
+    expect(store.getState().userInput.utenlandsopphold).toBe(false)
+    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
   it('nullstiller input fra brukeren og sender tilbake til steg 1 når brukeren klikker på Tilbake', async () => {
@@ -93,17 +54,19 @@ describe('Step 2', () => {
     )
     const { store } = render(<Step2 />, {
       preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: null },
+        userInput: { ...userInputInitialState, utenlandsopphold: null },
       },
     })
     const radioButtons = screen.getAllByRole('radio')
 
     await user.click(radioButtons[0])
+
     expect(radioButtons[0]).toBeChecked()
+
     await user.click(screen.getByText('stegvisning.tilbake'))
 
-    expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
-    expect(store.getState().userInput.samtykke).toBe(null)
+    expect(store.getState().userInput.utenlandsopphold).toBeNull()
+    expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
   })
 
   it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
@@ -114,7 +77,7 @@ describe('Step 2', () => {
     )
     const { store } = render(<Step2 />, {
       preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: false },
+        userInput: { ...userInputInitialState, utenlandsopphold: false },
       },
     })
     const radioButtons = screen.getAllByRole('radio')
@@ -122,7 +85,7 @@ describe('Step 2', () => {
 
     await user.click(screen.getByText('stegvisning.avbryt'))
 
+    expect(store.getState().userInput.utenlandsopphold).toBeNull()
     expect(navigateMock).toHaveBeenCalledWith(paths.login)
-    expect(store.getState().userInput.samtykke).toBe(null)
   })
 })

@@ -27,7 +27,6 @@ export const paths = {
   start: '/start',
   samtykke: '/samtykke',
   utenlandsopphold: '/utenlandsopphold',
-  offentligTp: '/offentlig-tp',
   afp: '/afp',
   samtykkeOffentligAFP: '/samtykke-offentlig-afp',
   ufoeretrygdAFP: '/ufoeretrygd-afp',

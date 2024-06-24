@@ -333,6 +333,63 @@ describe('routes', () => {
       })
     })
 
+    describe(`${BASE_PATH}${paths.sivilstand}`, () => {
+      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
+        const open = vi.fn()
+        vi.stubGlobal('open', open)
+        mockErrorResponse('/oauth2/session', {
+          baseUrl: `${HOST_BASEURL}`,
+        })
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        await waitFor(() => {
+          expect(open).toHaveBeenCalledWith(
+            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+            '_self'
+          )
+        })
+      })
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
+        store.getState = vi.fn().mockImplementation(() => ({
+          api: {},
+          userInput: { ...userInputInitialState },
+        }))
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('stegvisning.start.button')
+        ).toBeInTheDocument()
+      })
+      it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
+        store.getState = vi.fn().mockImplementation(() => ({
+          api: {
+            ...fakeApiCalls,
+          },
+          userInput: { ...userInputInitialState },
+        }))
+        const router = createMemoryRouter(routes, {
+          basename: BASE_PATH,
+          initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
+        })
+        render(<RouterProvider router={router} />, {
+          hasRouter: false,
+        })
+        expect(
+          await screen.findByText('stegvisning.sivilstand.title')
+        ).toBeInTheDocument()
+      })
+    })
+
     describe(`${BASE_PATH}${paths.utenlandsopphold}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
@@ -354,7 +411,7 @@ describe('routes', () => {
           )
         })
       })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {},
           userInput: { ...userInputInitialState },
@@ -370,12 +427,12 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-      it('viser utenlandsopphold når brukeren kommer til steget gjennom stegvisningen og har tpo medlemskap', async () => {
+      it('viser utenlandsopphold når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
           },
-          userInput: { ...userInputInitialState, samtykke: true },
+          userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
@@ -387,155 +444,6 @@ describe('routes', () => {
         expect(
           await screen.findByText('stegvisning.utenlandsopphold.title')
         ).toBeInTheDocument()
-      })
-    })
-
-    describe(`${BASE_PATH}${paths.samtykke}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.samtykke}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.samtykke}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        expect(
-          await screen.findByText('stegvisning.start.button')
-        ).toBeInTheDocument()
-      })
-
-      it('viser Steg 2 når brukeren kommer til steget gjennom stegvisningen', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {
-            ...fakeApiCalls,
-          },
-          userInput: { ...userInputInitialState },
-        }))
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.samtykke}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        expect(
-          await screen.findByText('stegvisning.samtykke.title')
-        ).toBeInTheDocument()
-      })
-    })
-
-    describe(`${BASE_PATH}${paths.offentligTp}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.offentligTp}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {},
-          userInput: { ...userInputInitialState },
-        }))
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.offentligTp}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        expect(
-          await screen.findByText('stegvisning.start.button')
-        ).toBeInTheDocument()
-      })
-      it('Gitt at brukeren har tpo-medlemskap, når hen kommer fra stegvisningen, vises Steg 3', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {
-            ...fakeApiCalls,
-          },
-          userInput: { ...userInputInitialState, samtykke: true },
-        }))
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.offentligTp}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        expect(
-          await screen.findByText('stegvisning.offentligtp.title')
-        ).toBeVisible()
-      })
-      it('Gitt at brukeren har svart nei til spørsmål om samtykke, redirigerer til Step 4', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {
-            ...fakeApiCalls,
-          },
-          userInput: { ...userInputInitialState, samtykke: false },
-        }))
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.offentligTp}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        expect(await screen.findByText('stegvisning.afp.title')).toBeVisible()
-      })
-      it('Gitt at brukeren har samtykket og ikke har noe offentlig tjenestepensjonsforhold, redirigerer til Step 4', async () => {
-        mockResponse('/tpo-medlemskap', {
-          status: 200,
-          json: { harTjenestepensjonsforhold: false },
-        })
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {
-            ...fakeApiCalls,
-          },
-          userInput: { ...userInputInitialState, samtykke: true },
-        }))
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.offentligTp}`],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(async () => {
-          expect(await screen.findByText('stegvisning.afp.title')).toBeVisible()
-        })
       })
     })
 
@@ -560,7 +468,7 @@ describe('routes', () => {
           )
         })
       })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {},
           userInput: { ...userInputInitialState },
@@ -581,7 +489,7 @@ describe('routes', () => {
           api: {
             ...fakeApiCalls,
           },
-          userInput: { ...userInputInitialState, samtykke: true },
+          userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
@@ -617,7 +525,7 @@ describe('routes', () => {
           )
         })
       })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {},
           userInput: { ...userInputInitialState },
@@ -633,7 +541,7 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-      it('Gitt at brukeren mottar uføretrygd og har valgt afp, når hen kommer fra stegvisningen, vises Steg 5', async () => {
+      it('Gitt at brukeren mottar uføretrygd og har valgt afp, når hen kommer fra stegvisningen, vises steget', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
@@ -680,7 +588,7 @@ describe('routes', () => {
         })
       })
 
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {},
           userInput: { ...userInputInitialState },
@@ -697,7 +605,7 @@ describe('routes', () => {
         ).toBeInTheDocument()
       })
 
-      it('Gitt at brukeren ikke mottar uføretrygd og har valgt AFP offentlig, når hen kommer fra stegvisningen, vises Steg 6', async () => {
+      it('Gitt at brukeren ikke mottar uføretrygd og har valgt AFP offentlig, når hen kommer fra stegvisningen, vises steget', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
@@ -726,7 +634,7 @@ describe('routes', () => {
       })
     })
 
-    describe(`${BASE_PATH}${paths.sivilstand}`, () => {
+    describe(`${BASE_PATH}${paths.samtykke}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
@@ -735,7 +643,7 @@ describe('routes', () => {
         })
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
+          initialEntries: [`${BASE_PATH}${paths.samtykke}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -747,14 +655,10 @@ describe('routes', () => {
           )
         })
       })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
-          api: {},
-          userInput: { ...userInputInitialState },
-        }))
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
+          initialEntries: [`${BASE_PATH}${paths.samtykke}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
@@ -763,22 +667,23 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-      it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser Steg 6', async () => {
+
+      it('viser steget når brukeren kommer til steget gjennom stegvisningen', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
           },
-          userInput: { ...userInputInitialState, samtykke: true },
+          userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
-          initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
+          initialEntries: [`${BASE_PATH}${paths.samtykke}`],
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.sivilstand.title')
+          await screen.findByText('stegvisning.samtykke.title')
         ).toBeInTheDocument()
       })
     })
@@ -804,7 +709,7 @@ describe('routes', () => {
           )
         })
       })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {},
           userInput: { ...userInputInitialState },
@@ -825,7 +730,7 @@ describe('routes', () => {
           api: {
             ...fakeApiCalls,
           },
-          userInput: { ...userInputInitialState, samtykke: true },
+          userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
@@ -861,7 +766,7 @@ describe('routes', () => {
           )
         })
       })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {},
           userInput: { ...userInputInitialState },
@@ -883,7 +788,7 @@ describe('routes', () => {
           api: {
             ...fakeApiCalls,
           },
-          userInput: { ...userInputInitialState, samtykke: true },
+          userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
@@ -925,7 +830,7 @@ describe('routes', () => {
           )
         })
       })
-      it('redirigerer til Step 1 når brukeren prøver å aksessere steget med direkte url', async () => {
+      it('redirigerer til /start når brukeren prøver å aksessere steget med direkte url', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {},
           userInput: { ...userInputInitialState },
@@ -947,7 +852,7 @@ describe('routes', () => {
           api: {
             ...fakeApiCalls,
           },
-          userInput: { ...userInputInitialState, samtykke: true },
+          userInput: { ...userInputInitialState },
         }))
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,

@@ -107,7 +107,7 @@ describe('stegvisning - Sivilstand', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await user.click(screen.getByText('stegvisning.beregn'))
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(
@@ -122,7 +122,7 @@ describe('stegvisning - Sivilstand', () => {
       screen.queryByText('stegvisning.sivilstand.validation_error')
     ).not.toBeInTheDocument()
 
-    await user.click(screen.getByText('stegvisning.beregn'))
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()

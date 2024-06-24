@@ -109,7 +109,7 @@ export function Samtykke({
         </RadioGroup>
 
         <Button type="submit" className={styles.button}>
-          <FormattedMessage id="stegvisning.neste" />
+          <FormattedMessage id="stegvisning.beregn" />
         </Button>
         <Button
           type="button"

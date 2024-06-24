@@ -13,28 +13,61 @@ describe('Step 5', () => {
     expect(document.title).toBe('application.title.stegvisning.step5')
   })
 
-  it('sender til Steg 6 når brukeren klikker på Neste', async () => {
-    const user = userEvent.setup()
+  describe('Gitt at brukeren svarer Ja på spørsmål om samtykke til beregning av offentlig AFP', async () => {
+    it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
+      const user = userEvent.setup()
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
+      const { store } = render(<Step5 />, {})
+      const radioButtons = screen.getAllByRole('radio')
 
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    render(<Step5 />)
-    await user.click(await screen.findByText('stegvisning.neste'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
+      await user.click(radioButtons[0])
+      await user.click(screen.getByText('stegvisning.neste'))
+
+      expect(store.getState().userInput.samtykkeOffentligAFP).toBe(true)
+      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
+    })
   })
 
-  it('sender tilbake til Steg 4 når brukeren klikker på Tilbake', async () => {
-    const user = userEvent.setup()
+  describe('Gitt at brukeren svarer Nei på spørsmål om samtykke til beregning av offentlig AFP', async () => {
+    it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
+      const user = userEvent.setup()
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
+      const { store } = render(<Step5 />, {})
+      const radioButtons = screen.getAllByRole('radio')
 
+      await user.click(radioButtons[1])
+      await user.click(screen.getByText('stegvisning.neste'))
+
+      expect(store.getState().userInput.samtykkeOffentligAFP).toBe(false)
+      expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
+    })
+  })
+
+  it('nullstiller input fra brukeren og sender tilbake til steg 4 når brukeren klikker på Tilbake', async () => {
+    const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<Step5 />)
-    await user.click(await screen.findByText('stegvisning.tilbake'))
+    const { store } = render(<Step5 />, {
+      preloadedState: {
+        userInput: { ...userInputInitialState, samtykkeOffentligAFP: null },
+      },
+    })
+    const radioButtons = screen.getAllByRole('radio')
+
+    await user.click(radioButtons[0])
+    expect(radioButtons[0]).toBeChecked()
+    await user.click(screen.getByText('stegvisning.tilbake'))
+
     expect(navigateMock).toHaveBeenCalledWith(paths.afp)
+    expect(store.getState().userInput.samtykkeOffentligAFP).toBe(null)
   })
 
   it('nullstiller input fra brukeren og redirigerer til landingssiden når brukeren klikker på Avbryt', async () => {
@@ -45,18 +78,15 @@ describe('Step 5', () => {
     )
     const { store } = render(<Step5 />, {
       preloadedState: {
-        userInput: {
-          ...userInputInitialState,
-          samtykke: true,
-          afp: 'ja_privat',
-        },
+        userInput: { ...userInputInitialState, samtykkeOffentligAFP: false },
       },
     })
+    const radioButtons = screen.getAllByRole('radio')
+    expect(radioButtons[1]).toBeChecked()
 
-    await user.click(await screen.findByText('stegvisning.avbryt'))
+    await user.click(screen.getByText('stegvisning.avbryt'))
 
     expect(navigateMock).toHaveBeenCalledWith(paths.login)
-    expect(store.getState().userInput.samtykke).toBe(null)
-    expect(store.getState().userInput.afp).toBe(null)
+    expect(store.getState().userInput.samtykkeOffentligAFP).toBe(null)
   })
 })

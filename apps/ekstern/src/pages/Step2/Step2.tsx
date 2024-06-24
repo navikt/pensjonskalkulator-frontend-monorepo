@@ -2,23 +2,18 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Samtykke } from '@/components/stegvisning/Samtykke'
-import { paths } from '@/router/constants'
-import { apiSlice } from '@/state/api/apiSlice'
+import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'
+import { paths, henvisningUrlParams } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import {
-  selectSamtykke,
-  selectHarHentetTpoMedlemskap,
-  selectIsVeileder,
-} from '@/state/userInput/selectors'
+import { selectUtenlandsopphold } from '@/state/userInput/selectors'
+import { selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step2() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const harSamtykket = useAppSelector(selectSamtykke)
-  const shouldFlush = useAppSelector(selectHarHentetTpoMedlemskap)
+  const harUtenlandsopphold = useAppSelector(selectUtenlandsopphold)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
@@ -27,15 +22,17 @@ export function Step2() {
     })
   }, [])
 
-  const onNext = (samtykkeData: BooleanRadio) => {
-    const samtykke = samtykkeData === 'ja'
-    dispatch(userInputActions.setSamtykke(samtykke))
-    if (shouldFlush && !samtykke) {
-      apiSlice.util.invalidateTags(['TpoMedlemskap', 'Pensjonsavtaler'])
+  const onNext = (utenlandsoppholdData: BooleanRadio) => {
+    const utenlandsopphold = utenlandsoppholdData === 'ja'
+    if (utenlandsopphold) {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.utland}`)
+    } else {
+      dispatch(userInputActions.setUtenlandsopphold(utenlandsopphold))
+      navigate(paths.afp)
     }
-    navigate(paths.offentligTp)
   }
 
+  // Fjern onCancel vis person er veileder
   const onCancel = isVeileder
     ? undefined
     : (): void => {
@@ -44,12 +41,12 @@ export function Step2() {
       }
 
   const onPrevious = (): void => {
-    navigate(paths.utenlandsopphold)
+    navigate(paths.sivilstand)
   }
 
   return (
-    <Samtykke
-      harSamtykket={harSamtykket}
+    <Utenlandsopphold
+      harUtenlandsopphold={harUtenlandsopphold}
       onCancel={onCancel}
       onPrevious={onPrevious}
       onNext={onNext}

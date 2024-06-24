@@ -6,22 +6,12 @@ import {
   authenticationGuard,
   landingPageAccessGuard,
   step0AccessGuard,
-  step3AccessGuard,
+  step1AccessGuard,
   step4AccessGuard,
   step5AccessGuard,
-  step6AccessGuard,
-  step7AccessGuard,
 } from '../loaders'
-import {
-  fulfilledGetPerson,
-  fulfilledGetInntekt,
-  fulfilledGetEkskludertStatus,
-  fulfilledGetOmstillingsstoenadOgGjenlevende,
-  rejectedGetInntekt,
-  rejectedGetEkskludertStatus,
-  rejectedGetOmstillingsstoenadOgGjenlevende,
-} from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse, mockErrorResponse } from '@/mocks/server'
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { mockResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
@@ -227,120 +217,7 @@ describe('Loaders', () => {
     })
   })
 
-  describe('step3AccessGuard', () => {
-    it('kaller redirect til /start location, når samtykke er null', async () => {
-      const mockedState = {
-        userInput: { ...userInputInitialState, samtykke: null },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      expect(await step3AccessGuard()).toMatchSnapshot()
-    })
-
-    it('kaller redirect til /afp location når samtykke er oppgitt til false', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledGetPerson,
-          },
-        },
-        userInput: { ...userInputInitialState, samtykke: false },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      expect(await step3AccessGuard()).toMatchSnapshot()
-    })
-
-    it('kaller getTpoMedlemskapQuery og returnerer en defered response med en tom redirect url, når samtykke er true og brukeren har tp-forhold', async () => {
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap,
-        'initiate'
-      )
-      const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledGetPerson,
-          },
-        },
-        userInput: { ...userInputInitialState, samtykke: true },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await step3AccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-
-      await waitFor(async () => {
-        expect(shouldRedirectToResponse).toEqual('')
-      })
-      expect(initiateMock).toHaveBeenCalled()
-    })
-
-    it('kaller getTpoMedlemskapQuery og returnerer en defered response med en redirect url, når samtykke er true og brukeren ikke har tp-forhold', async () => {
-      mockResponse('/tpo-medlemskap', {
-        status: 200,
-        json: { harTjenestepensjonsforhold: false },
-      })
-
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap,
-        'initiate'
-      )
-      const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledGetPerson,
-          },
-        },
-        userInput: { ...userInputInitialState, samtykke: true },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await step3AccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-
-      await waitFor(async () => {
-        expect(shouldRedirectToResponse).toEqual(paths.afp)
-      })
-      expect(initiateMock).toHaveBeenCalled()
-    })
-
-    it('kaller getTpoMedlemskapQuery og returnerer en rejected defered response, når samtykke er true og tp-forhold feilet', async () => {
-      mockErrorResponse('/tpo-medlemskap')
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getTpoMedlemskap,
-        'initiate'
-      )
-      const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledGetPerson,
-          },
-        },
-        userInput: { ...userInputInitialState, samtykke: true },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      try {
-        const returnedFromLoader = await step3AccessGuard()
-        await (returnedFromLoader as UNSAFE_DeferredData).data.shouldRedirectTo
-      } catch (error) {
-        expect(error).toEqual(null)
-        expect(initiateMock).toHaveBeenCalled()
-      }
-    })
-  })
-
-  describe('step4AccessGuard', () => {
+  describe('step1AccessGuard', async () => {
     it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
       const mockedState = {
         api: {
@@ -351,663 +228,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await step4AccessGuard()
-      expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-
-    it('Når kall til /ufoeregrad feiler returneres det redirect url til feilsiden', async () => {
-      mockErrorResponse('/v1/ufoeregrad')
-      const initiateMock = vi.spyOn(
-        apiSliceUtils.apiSlice.endpoints.getUfoeregrad,
-        'initiate'
-      )
-
-      const mockedState = {
-        api: {
-          queries: {
-            ...fulfilledGetInntekt,
-            ...fulfilledGetEkskludertStatus,
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await step4AccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-
-      await waitFor(async () => {
-        expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-      })
-      expect(initiateMock).toHaveBeenCalled()
-    })
-
-    describe('Gitt kall til inntekt har tidligere feilet, kjøres det nytt kall.', async () => {
-      it('Når kallet fungerer igjen i tillegg til de to andre kallene, returneres det tom redirect url', async () => {
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getInntekt,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetInntekt,
-              ...fulfilledGetEkskludertStatus,
-              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual('')
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-
-      it('Når kallet fungerer igjen, men at kall til ekskludert fortsatt feiler, returneres det tom redirect url', async () => {
-        mockErrorResponse('/v2/ekskludert')
-
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getInntekt,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetInntekt,
-              ...rejectedGetEkskludertStatus,
-              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-
-      it('Når kallet fungerer igjen, men at kall til omstillimngsstønad-og-gjenlevende fortsatt feiler, returneres det tom redirect url', async () => {
-        mockErrorResponse(
-          '/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse'
-        )
-
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getInntekt,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetInntekt,
-              ...fulfilledGetEkskludertStatus,
-              ...rejectedGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-
-      it('Når kallet feiler igjen returneres det redirect url til feilsiden', async () => {
-        mockErrorResponse('/inntekt')
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getInntekt,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetInntekt,
-              ...fulfilledGetEkskludertStatus,
-              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-    })
-
-    describe('Gitt kall til omstillimngsstønad-og-gjenlevende har tidligere feilet, kjøres det nytt kall.', async () => {
-      it('Når kallet fungerer igjen i tillegg til de to andre kallene, returneres det tom redirect url', async () => {
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetOmstillingsstoenadOgGjenlevende,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetEkskludertStatus,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual('')
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-
-      it('Når kallet fungerer igjen, men at kall til ekskludert fortsatt feiler, returneres det tom redirect url', async () => {
-        mockErrorResponse('/v2/ekskludert')
-
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetOmstillingsstoenadOgGjenlevende,
-              ...rejectedGetEkskludertStatus,
-              ...fulfilledGetInntekt,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-
-      it('Når kallet fungerer igjen, men at kall til inntekt fortsatt feiler, returneres det tom redirect url', async () => {
-        mockErrorResponse('/inntekt')
-
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetOmstillingsstoenadOgGjenlevende,
-              ...rejectedGetInntekt,
-              ...fulfilledGetEkskludertStatus,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-
-      it('Når kallet feiler igjen returneres det redirect url til feilsiden', async () => {
-        mockErrorResponse(
-          '/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse'
-        )
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetOmstillingsstoenadOgGjenlevende,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetEkskludertStatus,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-    })
-
-    describe('Gitt kall til ekskludertStatus har tidligere feilet, kjøres det nytt kall.', async () => {
-      it('Når kallet fungerer igjen i tillegg til de to andre kallene og at brukeren har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
-        mockResponse('/v2/ekskludert', {
-          json: {
-            ekskludert: true,
-            aarsak: 'ER_APOTEKER',
-          },
-        })
-
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetEkskludertStatus,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(
-            `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-          )
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-
-      it('Når kallet fungerer igjen i tillegg til de to andre kallene og at brukeren ikke er ekskludert, returneres det tom redirect url', async () => {
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetEkskludertStatus,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual('')
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-
-      it('Når kallet fungerer igjen, men at kall til inntekt fortsatt feiler, returneres det tom redirect url', async () => {
-        mockResponse('/v2/ekskludert', {
-          json: {
-            ekskludert: false,
-            aarsak: 'NONE',
-          },
-        })
-        mockErrorResponse('/inntekt')
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetEkskludertStatus,
-              ...rejectedGetInntekt,
-              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-      })
-
-      it('Når kallet fungerer igjen, men at kall til omstillimngsstønad-og-gjenlevende fortsatt feiler, returneres det tom redirect url', async () => {
-        mockResponse('/v2/ekskludert', {
-          json: {
-            ekskludert: false,
-            aarsak: 'NONE',
-          },
-        })
-        mockErrorResponse(
-          '/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetEkskludertStatus,
-              ...fulfilledGetInntekt,
-              ...rejectedGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-      })
-
-      it('Når den feiler igjen returneres det redirect url til feilsiden', async () => {
-        mockErrorResponse('/v2/ekskludert')
-
-        const initiateMock = vi.spyOn(
-          apiSliceUtils.apiSlice.endpoints.getEkskludertStatus,
-          'initiate'
-        )
-
-        const mockedState = {
-          api: {
-            queries: {
-              ...rejectedGetEkskludertStatus,
-              ...fulfilledGetInntekt,
-              ...fulfilledGetOmstillingsstoenadOgGjenlevende,
-            },
-          },
-          userInput: { ...userInputInitialState },
-        }
-        store.getState = vi.fn().mockImplementation(() => {
-          return mockedState
-        })
-        const returnedFromLoader = await step4AccessGuard()
-        const shouldRedirectToResponse = await (
-          returnedFromLoader as UNSAFE_DeferredData
-        ).data.shouldRedirectTo
-
-        await waitFor(async () => {
-          expect(shouldRedirectToResponse).toEqual(paths.uventetFeil)
-        })
-        expect(initiateMock).toHaveBeenCalled()
-      })
-    })
-  })
-
-  describe('step5AccessGuard', () => {
-    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
-      const mockedState = {
-        api: {
-          queries: {},
-        },
-        userInput: { ...userInputInitialState, samtykke: null },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await step5AccessGuard()
-      expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-
-    it('Når brukeren har uføretrygd og har valgt afp, er hen ikke redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ['getUfoeregrad(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState, afp: 'ja_privat' },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await step5AccessGuard()
-      expect(returnedFromLoader).toBeNull()
-    })
-
-    it('Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ['getUfoeregrad(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState, afp: 'nei' },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await step5AccessGuard()
-      expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-
-    it('Når brukeren ikke har uføretrygd, er hen redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ['getEkskludertStatus(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getEkskludertStatus',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ekskludert: false, aarsak: 'NONE' },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await step5AccessGuard()
-      expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-  })
-
-  describe('step6AccessGuard', () => {
-    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
-      const mockedState = {
-        api: {
-          queries: {},
-        },
-        userInput: { ...userInputInitialState, samtykke: null },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await step6AccessGuard()
-      expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-
-    it('Når brukeren ikke har uføretrygd og har valgt AFP offentlig, er hen ikke redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ['getUfoeregrad(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 0 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await step6AccessGuard()
-      expect(returnedFromLoader).toBeNull()
-    })
-
-    it('Når brukeren har uføretrygd og har valgt ja_offentlig til spørsmål om afp, er hen redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ['getUfoeregrad(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await step6AccessGuard()
-      expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-
-    it('Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert', async () => {
-      const mockedState = {
-        api: {
-          queries: {
-            ['getUfoeregrad(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 0 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-          },
-        },
-        userInput: { ...userInputInitialState, afp: 'nei' },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-
-      const returnedFromLoader = await step6AccessGuard()
-      expect(returnedFromLoader).not.toBeNull()
-      expect(returnedFromLoader).toMatchSnapshot()
-    })
-  })
-
-  describe('step7AccessGuard', async () => {
-    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
-      const mockedState = {
-        api: {
-          queries: {},
-        },
-        userInput: { ...userInputInitialState, samtykke: null },
-      }
-      store.getState = vi.fn().mockImplementation(() => {
-        return mockedState
-      })
-      const returnedFromLoader = await step7AccessGuard()
+      const returnedFromLoader = await step1AccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })
@@ -1036,7 +257,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step7AccessGuard()
+      const returnedFromLoader = await step1AccessGuard()
       const shouldRedirectToResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
@@ -1067,7 +288,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step7AccessGuard()
+      const returnedFromLoader = await step1AccessGuard()
       const shouldRedirectToResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
@@ -1106,7 +327,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step7AccessGuard()
+      const returnedFromLoader = await step1AccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery
@@ -1151,7 +372,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step7AccessGuard()
+      const returnedFromLoader = await step1AccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery
@@ -1197,7 +418,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step7AccessGuard()
+      const returnedFromLoader = await step1AccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery
@@ -1213,6 +434,188 @@ describe('Loaders', () => {
         externalUrls.detaljertKalkulator,
         '_self'
       )
+    })
+  })
+
+  describe('step4AccessGuard', () => {
+    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          queries: {},
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step4AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren har uføretrygd og har valgt afp, er hen ikke redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'ja_privat' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step4AccessGuard()
+      expect(returnedFromLoader).toBeNull()
+    })
+
+    it('Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'nei' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step4AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren ikke har uføretrygd, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ekskludert: false, aarsak: 'NONE' },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step4AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+  })
+
+  describe('step5AccessGuard', () => {
+    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          queries: {},
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await step5AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren ikke har uføretrygd og har valgt AFP offentlig, er hen ikke redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 0 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step5AccessGuard()
+      expect(returnedFromLoader).toBeNull()
+    })
+
+    it('Når brukeren har uføretrygd og har valgt ja_offentlig til spørsmål om afp, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step5AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert', async () => {
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 0 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState, afp: 'nei' },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await step5AccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
     })
   })
 })

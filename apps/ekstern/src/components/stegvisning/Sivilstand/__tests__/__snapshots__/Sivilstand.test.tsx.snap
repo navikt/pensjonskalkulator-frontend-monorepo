@@ -100,7 +100,7 @@ exports[`stegvisning - Sivilstand > rendrer slik den skal når sivilstand ikke e
         <span
           class="navds-label"
         >
-          stegvisning.beregn
+          stegvisning.neste
         </span>
       </button>
       <button

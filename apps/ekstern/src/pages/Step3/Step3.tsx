@@ -2,13 +2,12 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate, Await } from 'react-router-dom'
 
-import { Card } from '@/components/common/Card'
 import { Loader } from '@/components/common/Loader'
-import { OffentligTP } from '@/components/stegvisning/OffentligTP'
+import { AFP } from '@/components/stegvisning/AFP'
 import { paths } from '@/router/constants'
 import { useStep3AccessData } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectIsVeileder } from '@/state/userInput/selectors'
+import { selectAfp, selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step3() {
@@ -16,6 +15,9 @@ export function Step3() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const loaderData = useStep3AccessData()
+
+  const previousAfp = useAppSelector(selectAfp)
+
   const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
@@ -24,6 +26,7 @@ export function Step3() {
     })
   }, [])
 
+  // Fjern mulighet for avbryt hvis person er veileder
   const onCancel = isVeileder
     ? undefined
     : (): void => {
@@ -32,55 +35,40 @@ export function Step3() {
       }
 
   const onPrevious = (): void => {
-    navigate(paths.samtykke)
+    return navigate(paths.utenlandsopphold)
   }
 
-  const onNext = (): void => {
-    navigate(paths.afp)
+  const onNext = (afpData: AfpRadio): void => {
+    dispatch(userInputActions.setAfp(afpData))
+    navigate(paths.ufoeretrygdAFP)
   }
 
   return (
-    <>
-      <React.Suspense
-        fallback={
+    <React.Suspense
+      fallback={
+        <div style={{ width: '100%' }}>
           <Loader
-            data-testid="loader"
+            data-testid="step3-loader"
             size="3xlarge"
             title={intl.formatMessage({ id: 'pageframework.loading' })}
+            isCentered
           />
-        }
-      >
-        <Await
-          resolve={loaderData.shouldRedirectTo}
-          errorElement={
-            <Card hasLargePadding hasMargin>
-              <Card.Content
-                onPrimaryButtonClick={onNext}
-                onSecondaryButtonClick={onPrevious}
-                onTertiaryButtonClick={onCancel}
-                text={{
-                  header: 'stegvisning.offentligtp.error.title',
-                  ingress: 'stegvisning.offentligtp.error.ingress',
-                  primaryButton: 'stegvisning.neste',
-                  secondaryButton: 'stegvisning.tilbake',
-                  tertiaryButton: 'stegvisning.avbryt',
-                }}
-              />
-            </Card>
-          }
-        >
-          {(shouldRedirectTo: string) => {
-            return (
-              <OffentligTP
-                shouldRedirectTo={shouldRedirectTo}
-                onCancel={onCancel}
-                onPrevious={onPrevious}
-                onNext={onNext}
-              />
-            )
-          }}
-        </Await>
-      </React.Suspense>
-    </>
+        </div>
+      }
+    >
+      <Await resolve={loaderData.shouldRedirectTo}>
+        {(shouldRedirectTo: string) => {
+          return (
+            <AFP
+              shouldRedirectTo={shouldRedirectTo}
+              afp={previousAfp}
+              onCancel={onCancel}
+              onPrevious={onPrevious}
+              onNext={onNext}
+            />
+          )
+        }}
+      </Await>
+    </React.Suspense>
   )
 }

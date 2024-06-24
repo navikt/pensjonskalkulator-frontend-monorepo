@@ -152,7 +152,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         <span
           class="navds-label"
         >
-          stegvisning.neste
+          stegvisning.beregn
         </span>
       </button>
       <button

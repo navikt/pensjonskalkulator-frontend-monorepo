@@ -5,8 +5,6 @@ import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
-import { useAppSelector } from '@/state/hooks'
-import { selectSamboerFraSivilstand } from '@/state/userInput/selectors'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -20,7 +18,6 @@ interface Props {
 
 export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
   const intl = useIntl()
-  const harSamboer = useAppSelector(selectSamboerFraSivilstand)
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -69,9 +66,7 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
         </BodyLong>
 
         <Button type="submit" className={styles.button}>
-          <FormattedMessage
-            id={harSamboer ? 'stegvisning.beregn' : 'stegvisning.neste'}
-          />
+          <FormattedMessage id="stegvisning.neste" />
         </Button>
         <Button
           type="button"

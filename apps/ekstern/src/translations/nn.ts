@@ -1,15 +1,13 @@
 const translations = {
   'application.title': 'Pensjonskalkulator - Pensjon',
   'application.title.stegvisning.step0': 'Start - Pensjonskalkulator',
-  'application.title.stegvisning.step1':
+  'application.title.stegvisning.step1': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.step2':
     'Utanlandsopphald - Pensjonskalkulator',
-  'application.title.stegvisning.step2': 'Samtykke - Penjonskalkulator',
-  'application.title.stegvisning.step3':
-    'Offentleg tenestepensjon - Pensjonskalkulator',
-  'application.title.stegvisning.step4': 'AFP -Pensjonskalkulator',
+  'application.title.stegvisning.step3': 'AFP - Pensjonskalkulator',
+  'application.title.stegvisning.step4': 'MANGLER_TEKST',
   'application.title.stegvisning.step5': 'MANGLER_TEKST',
-  'application.title.stegvisning.step6': 'MANGLER_TEKST',
-  'application.title.stegvisning.step7': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.step6': 'Samtykke - Penjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
@@ -102,16 +100,6 @@ const translations = {
   'stegvisning.samtykke.radio_nei': 'Nei, hald fram utan',
   'stegvisning.samtykke.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtalar.',
-  'stegvisning.offentligtp.title':
-    'Du kan ha rett til offentleg tenestepensjon',
-  'stegvisning.offentligtp.loading':
-    'Hentar informasjon om medlemskap til offentleg tenestepensjon',
-  'stegvisning.offentligtp.ingress':
-    'Du er eller har vore tilsett i offentleg sektor, men vi kan dessverre ikkje hente inn tenestepensjonen din. Du kan sjekke dine avtalar hos aktuell tenestepensjonsordning (til dømes Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).{br}{br}Gå vidare for utrekning av alderspensjon frå NAV og sjå pensjonsavtalar i privat sektor.',
-  'stegvisning.offentligtp.error.title':
-    'Vi klarte ikkje å sjekke om du har pensjonsavtalar frå offentleg sektor',
-  'stegvisning.offentligtp.error.ingress':
-    'Gå vidare for utrekning av alderspensjon frå NAV og pensjonsavtalar frå privat sektor.{br}{br}Har du vore eller er tilsett i offentleg sektor, kan du sjekke tenestepensjonsavtalane dine hos aktuell tenestepensjonsordning (til dømes Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
   'stegvisning.afp.title': 'Avtalefesta pensjon',
   'stegvisning.afp.ingress':
     'For å få avtalefesta pensjon (AFP) må arbeidsgjevaren din ha ein slik avtale og du må kvalifisere til å få den.',

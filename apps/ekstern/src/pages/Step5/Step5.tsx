@@ -2,17 +2,20 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Ufoere } from '@/components/stegvisning/Ufoere'
+import { SamtykkeOffentligAFP } from '@/components/stegvisning/SamtykkeOffentligAFP'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectIsVeileder } from '@/state/userInput/selectors'
+import {
+  selectSamtykkeOffentligAFP,
+  selectIsVeileder,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function Step5() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-
+  const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
@@ -33,9 +36,18 @@ export function Step5() {
     return navigate(paths.afp)
   }
 
-  const onNext = (): void => {
-    navigate(paths.sivilstand)
+  const onNext = (samtykkeData: BooleanRadio) => {
+    const samtykke = samtykkeData === 'ja'
+    dispatch(userInputActions.setSamtykkeOffentligAFP(samtykke))
+    navigate(paths.samtykke)
   }
 
-  return <Ufoere onCancel={onCancel} onPrevious={onPrevious} onNext={onNext} />
+  return (
+    <SamtykkeOffentligAFP
+      harSamtykket={harSamtykketOffentligAFP}
+      onCancel={onCancel}
+      onPrevious={onPrevious}
+      onNext={onNext}
+    />
+  )
 }
