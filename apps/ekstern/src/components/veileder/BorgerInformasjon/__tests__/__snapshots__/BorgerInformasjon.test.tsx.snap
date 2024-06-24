@@ -4,41 +4,45 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
 <DocumentFragment>
   <div
     class="navds-box"
-    style="--__ac-box-background: var(--a-bg-default); --__ac-box-border-color: var(--a-border-divider); --__ac-box-border-width: 0px 0px 2px 0px;"
+    style="--__ac-box-background: var(--a-bg-default); --__ac-box-border-color: var(--a-border-divider); --__ac-box-border-width: 0px 0px 1px 0px;"
   >
     <div
       class="navds-stack _wrapper_f04f26 navds-hstack"
       style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: center;"
     >
-      <svg
-        aria-labelledby="loader-r0"
-        class="navds-loader navds-loader--medium navds-loader--neutral"
-        focusable="false"
-        preserveAspectRatio="xMidYMid"
-        viewBox="0 0 50 50"
+      <p
+        class="navds-body-long navds-body-long--medium"
       >
-        <title
-          id="loader-r0"
+        <svg
+          aria-labelledby="loader-r0"
+          class="navds-loader navds-loader--medium navds-loader--neutral"
+          focusable="false"
+          preserveAspectRatio="xMidYMid"
+          viewBox="0 0 50 50"
         >
-          venter...
-        </title>
-        <circle
-          class="navds-loader__background"
-          cx="25"
-          cy="25"
-          fill="none"
-          r="20"
-          xmlns="http://www.w3.org/2000/svg"
-        />
-        <circle
-          class="navds-loader__foreground"
-          cx="25"
-          cy="25"
-          fill="none"
-          r="20"
-          stroke-dasharray="50 155"
-        />
-      </svg>
+          <title
+            id="loader-r0"
+          >
+            venter...
+          </title>
+          <circle
+            class="navds-loader__background"
+            cx="25"
+            cy="25"
+            fill="none"
+            r="20"
+            xmlns="http://www.w3.org/2000/svg"
+          />
+          <circle
+            class="navds-loader__foreground"
+            cx="25"
+            cy="25"
+            fill="none"
+            r="20"
+            stroke-dasharray="50 155"
+          />
+        </svg>
+      </p>
       <span
         aria-hidden="true"
       >
@@ -48,11 +52,12 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
         class="navds-stack navds-hstack"
         style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-1); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: center;"
       >
-        <div
+        <p
+          class="navds-body-short navds-body-short--medium"
           data-testid="borger-fnr"
         >
-          F.nr.: 12345678901
-        </div>
+          F.nr.: 123456 78901
+        </p>
         <button
           aria-live="polite"
           class="navds-copybutton navds-copybutton--small navds-copybutton--neutral navds-copybutton--icon-only"

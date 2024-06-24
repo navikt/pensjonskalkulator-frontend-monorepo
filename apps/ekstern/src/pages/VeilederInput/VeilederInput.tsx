@@ -93,7 +93,7 @@ export const VeilederInput = () => {
               <Heading level="2" size="medium" spacing>
                 Veiledertilgang
               </Heading>
-              <VStack gap="4">
+              <VStack gap="6">
                 {hasTimedOut && (
                   <Alert variant="warning" data-testid="inaktiv-alert">
                     Du var for lenge inaktiv og sesjonen for bruker har derfor
@@ -106,7 +106,7 @@ export const VeilederInput = () => {
                   Logg inn i pensjonskalkulator på vegne av bruker.
                 </BodyLong>
                 <form onSubmit={onSubmit} className={styles.form}>
-                  <VStack gap="2">
+                  <VStack gap="6">
                     <TextField
                       data-testid="borger-fnr-input"
                       label="Fødselsnummer"
@@ -121,16 +121,13 @@ export const VeilederInput = () => {
                       >
                         Logg inn
                       </Button>
-                      <Button
-                        type="reset"
-                        data-testid="veileder-reset"
-                        variant="tertiary"
-                      >
-                        Avbryt
-                      </Button>
                     </HStack>
                   </VStack>
                 </form>
+                <BodyLong>
+                  Denne pensjonskalkulatoren kan foreløpig kun brukes til
+                  veiledning.
+                </BodyLong>
               </VStack>
             </Card>
           </>
