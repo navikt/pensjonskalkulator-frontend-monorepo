@@ -3,45 +3,40 @@ describe('Pensjonskalkulator', () => {
     cy.login()
     cy.injectAxe()
 
-    // Sjekker Steg 1
+    // Sjekker Start steg
     cy.contains('Hei Aprikos!')
     cy.checkA11y('main')
     cy.contains('button', 'Kom i gang').click()
 
-    // Sjekker Steg 1
+    // Sjekker Sivilstand steg
+    cy.contains('Din sivilstand')
+    cy.checkA11y('main')
+    cy.get('[type="radio"]').first().check()
+    cy.contains('button', 'Neste').click()
+
+    // Sjekker utenlandsopphold steg
     cy.contains('Utenlandsopphold')
     cy.checkA11y('main')
     cy.get('[type="radio"]').last().check()
     cy.contains('button', 'Neste').click()
 
-    // Sjekker Steg 2
-    cy.contains('Pensjonsavtaler')
-    cy.checkA11y('main')
-    cy.get('[type="radio"]').first().check()
-    cy.contains('button', 'Neste').click()
-
-    // Sjekker Steg 3
-    cy.contains('Du kan ha rett til offentlig tjenestepensjon')
-    cy.checkA11y('main')
-    cy.contains('button', 'Neste').click()
-
-    // Sjekker Steg 4
+    // Sjekker AFP steg
     cy.contains('Avtalefestet pensjon')
     cy.contains('button', 'Om avtalefestet pensjon i privat sektor').click()
     cy.get('[type="radio"]').first().check()
     cy.checkA11y('main')
     cy.contains('button', 'Neste').click()
 
-    // Hopper over Steg 5
+    // Hopper over AFP + Uføre steg
 
-    // Sjekker Steg 6
+    // Sjekker AFP Samtykke steg
     cy.contains('Samtykke til at NAV beregner avtalefestet pensjon')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Neste').click()
 
-    // Sjekker Steg 7
-    cy.contains('Din sivilstand')
+    // Sjekker Samtykke steg
+    cy.contains('Pensjonsavtaler')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Beregn pensjon').click()

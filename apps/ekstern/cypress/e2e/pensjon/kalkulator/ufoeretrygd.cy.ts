@@ -29,7 +29,6 @@ describe('med ufoeretrygd', () => {
           cy.contains('Vet ikke').should('exist')
           cy.get('[type="radio"]').eq(2).check()
           cy.contains('button', 'Neste').click()
-          cy.contains('Din sivilstand').should('exist')
         })
         it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg ', () => {
           cy.get('[type="radio"]').eq(2).check()
@@ -58,7 +57,6 @@ describe('med ufoeretrygd', () => {
             'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')
           cy.contains('button', 'Neste').click()
-          cy.contains('Din sivilstand').should('exist')
         })
         it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg ', () => {
           cy.get('[type="radio"]').eq(3).check()
@@ -88,7 +86,6 @@ describe('med ufoeretrygd', () => {
             'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')
           cy.contains('button', 'Neste').click()
-          cy.contains('Din sivilstand').should('exist')
         })
         it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg', () => {
           cy.get('[type="radio"]').eq(0).check()
@@ -121,7 +118,6 @@ describe('med ufoeretrygd', () => {
             'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')
           cy.contains('button', 'Neste').click()
-          cy.contains('Din sivilstand').should('exist')
         })
         it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg', () => {
           cy.get('[type="radio"]').eq(1).check()

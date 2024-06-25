@@ -22,7 +22,7 @@ describe('Step 4', () => {
     )
     render(<Step4 />)
     await user.click(await screen.findByText('stegvisning.neste'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
+    expect(navigateMock).toHaveBeenCalledWith(paths.samtykke)
   })
 
   it('sender tilbake til Steg 3 når brukeren klikker på Tilbake', async () => {

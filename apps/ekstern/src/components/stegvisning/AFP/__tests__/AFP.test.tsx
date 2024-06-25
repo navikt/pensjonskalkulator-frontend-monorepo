@@ -3,9 +3,6 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { AFP } from '..'
-import { mockResponse } from '@/mocks/server'
-import { apiSlice } from '@/state/api/apiSlice'
-import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - AFP', () => {

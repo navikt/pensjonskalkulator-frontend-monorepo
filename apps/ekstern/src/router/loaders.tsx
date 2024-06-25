@@ -233,7 +233,7 @@ export const step1AccessGuard = async () => {
       getPersonPreviousResponse?.data?.sivilstand &&
       checkHarSamboer(getPersonPreviousResponse.data.sivilstand)
     ) {
-      resolveRedirectUrl(paths.beregningEnkel)
+      resolveRedirectUrl(paths.utenlandsopphold)
       resolveGetPerson(getPersonPreviousResponse)
     } else {
       resolveRedirectUrl('')
@@ -454,7 +454,7 @@ export const step5AccessGuard = async () => {
   if (ufoereGradResponse?.ufoeregrad === 0 && afp === 'ja_offentlig') {
     return null
   }
-  return redirect(paths.sivilstand)
+  return redirect(paths.samtykke)
 }
 
 // ////////////////////////////////////////

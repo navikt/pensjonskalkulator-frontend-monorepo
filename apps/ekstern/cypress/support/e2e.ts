@@ -172,15 +172,8 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
     .its('store')
     .invoke('dispatch', userInputActions.setSamtykke(samtykke))
 
-  if (samtykke) {
-    // Kaller /tpo-medlemskap som vanligvis gjøres på steg 2 ila. stegvisningen
-    cy.window()
-      .its('store')
-      .invoke('dispatch', apiSlice.endpoints.getTpoMedlemskap.initiate())
-  }
-
   if (afp === 'ja_offentlig') {
-    // Setter santykke til beregning av AFP-offentlig når brukeren har valgt AFP-offentlig
+    // Setter samtykke til beregning av AFP-offentlig når brukeren har valgt AFP-offentlig
     cy.window()
       .its('store')
       .invoke(
@@ -189,7 +182,7 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
       )
   }
 
-  // Kaller /ufoeregrad som vanligvis gjøres på steg 4 ila. stegvisningen
+  // Kaller /ufoeregrad som vanligvis gjøres på steg 3 ila. stegvisningen
   cy.window()
     .its('store')
     .invoke('dispatch', apiSlice.endpoints.getUfoeregrad.initiate())

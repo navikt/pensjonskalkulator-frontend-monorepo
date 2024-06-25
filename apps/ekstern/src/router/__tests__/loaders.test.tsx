@@ -292,7 +292,7 @@ describe('Loaders', () => {
       const shouldRedirectToResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
-      expect(shouldRedirectToResponse).toBe(paths.beregningEnkel)
+      expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
     })
 
     it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren ikke har samboer, er hen ikke redirigert', async () => {

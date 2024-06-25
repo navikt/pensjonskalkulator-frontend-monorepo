@@ -34,7 +34,7 @@ export function Step4() {
   }
 
   const onNext = (): void => {
-    navigate(paths.sivilstand)
+    navigate(paths.samtykke)
   }
 
   return <Ufoere onCancel={onCancel} onPrevious={onPrevious} onNext={onNext} />

@@ -5,7 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'
 import { paths, henvisningUrlParams } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectUtenlandsopphold } from '@/state/userInput/selectors'
+import {
+  selectUtenlandsopphold,
+  selectSamboerFraSivilstand,
+} from '@/state/userInput/selectors'
 import { selectIsVeileder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
@@ -14,6 +17,7 @@ export function Step2() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harUtenlandsopphold = useAppSelector(selectUtenlandsopphold)
+  const harSamboerFraSivilstand = useAppSelector(selectSamboerFraSivilstand)
   const isVeileder = useAppSelector(selectIsVeileder)
 
   React.useEffect(() => {
@@ -41,7 +45,7 @@ export function Step2() {
       }
 
   const onPrevious = (): void => {
-    navigate(paths.sivilstand)
+    navigate(harSamboerFraSivilstand ? paths.start : paths.sivilstand)
   }
 
   return (

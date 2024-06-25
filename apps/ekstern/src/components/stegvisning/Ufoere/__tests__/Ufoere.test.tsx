@@ -1,8 +1,6 @@
 import { describe, it, vi } from 'vitest'
 
 import { Ufoere } from '..'
-import { mockResponse } from '@/mocks/server'
-import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 describe('stegvisning - Ufoere', () => {

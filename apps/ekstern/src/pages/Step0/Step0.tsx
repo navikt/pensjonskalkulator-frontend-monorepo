@@ -35,7 +35,7 @@ export function Step0() {
       }
 
   const onNext = (): void => {
-    navigate(paths.utenlandsopphold)
+    navigate(paths.sivilstand)
   }
 
   return (

@@ -220,7 +220,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/sivilstand",
+          "value": "/samtykke",
         },
       },
       Symbol(headers map sorted): null,
@@ -240,7 +240,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/sivilstand",
+          "value": "/samtykke",
         },
       },
       Symbol(headers map sorted): null,
@@ -266,7 +266,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/sivilstand",
+          "value": "/samtykke",
         },
       },
       Symbol(headers map sorted): null,
@@ -286,7 +286,7 @@ _Response {
       Symbol(headers map): Map {
         "location" => {
           "name": "location",
-          "value": "/sivilstand",
+          "value": "/samtykke",
         },
       },
       Symbol(headers map sorted): null,

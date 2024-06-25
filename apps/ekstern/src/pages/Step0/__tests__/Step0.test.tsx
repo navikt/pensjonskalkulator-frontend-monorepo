@@ -77,7 +77,7 @@ describe('Step 0', () => {
     })
     await waitFor(async () => {
       await user.click(await screen.findByText('stegvisning.start.button'))
-      expect(navigateMock).toHaveBeenCalledWith(paths.utenlandsopphold)
+      expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
     })
   })
 

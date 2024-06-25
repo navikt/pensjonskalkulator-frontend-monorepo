@@ -4,10 +4,7 @@ describe('Hovedhistorie', () => {
       cy.visit('https://www.nav.no/planlegger-pensjon')
       cy.contains('a', 'Prøv pensjonskalkulatoren')
         .should('have.attr', 'href')
-        .and(
-          'include',
-          'https://tjenester.nav.no/pselv/publisering/dinpensjon.jsf'
-        )
+        .and('include', 'https://www.nav.no/pensjon/kalkulator/login')
     })
   })
 
@@ -78,69 +75,108 @@ describe('Hovedhistorie', () => {
       it('ønsker jeg å kunne starte kalkulatoren eller avbryte beregningen.', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('button', 'Kom i gang').click()
-        cy.location('href').should(
-          'include',
-          '/pensjon/kalkulator/utenlandsopphold'
-        )
+        cy.location('href').should('include', '/pensjon/kalkulator/sivilstand')
         cy.go('back')
         cy.contains('button', 'Avbryt').click()
         cy.location('href').should('include', '/pensjon/kalkulator/login')
       })
     })
 
-    describe('Når jeg navigerer videre fra /start til /utenlandsopphold,', () => {
-      beforeEach(() => {
-        cy.login()
-        cy.contains('button', 'Kom i gang').click()
+    describe('Gitt at jeg som bruker er registrert med en annen sivilstand enn gift eller registrert partner,', () => {
+      describe('Når jeg navigerer videre fra /start til neste steg,', () => {
+        beforeEach(() => {
+          cy.login()
+          cy.contains('button', 'Kom i gang').click()
+        })
+        it('forventer jeg å måtte opplyse om at jeg har samboer eller ikke for å få riktig beregning.', () => {
+          cy.contains('h2', 'Din sivilstand').should('exist')
+          cy.contains('button', 'Neste').click()
+          cy.contains('Du må svare på om du har samboer.').should('exist')
+          cy.get('[type="radio"]').last().check({ force: true })
+          cy.contains('Du må svare på om du har samboer.').should('not.exist')
+          cy.contains('button', 'Neste').click()
+        })
+        it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
+          cy.contains('button', 'Tilbake').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/start')
+          cy.go('back')
+          cy.contains('button', 'Avbryt').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/login')
+        })
       })
-      it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge.', () => {
-        cy.contains('h2', 'Utenlandsopphold').should('exist')
-        cy.contains(
-          'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?'
-        ).should('exist')
-      })
-      it('forventer å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {
-        cy.contains('button', 'Neste').click()
-        cy.contains(
-          'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
-        ).should('exist')
-        cy.get('[type="radio"]').first().check()
-        cy.contains(
-          'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
-        ).should('not.exist')
-        cy.contains('button', 'Neste').click()
-      })
-      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
-        cy.contains('button', 'Tilbake').click()
-        cy.location('href').should('include', '/pensjon/kalkulator/start')
-        cy.go('back')
-        cy.contains('button', 'Avbryt').click()
-        cy.location('href').should('include', '/pensjon/kalkulator/login')
+    })
+
+    describe('Gitt at jeg som bruker er registrert som gift eller registrert partner,', () => {
+      describe('Når jeg navigerer videre fra /start til neste steg,', () => {
+        beforeEach(() => {
+          cy.intercept(
+            { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
+            {
+              navn: 'Aprikos',
+              sivilstand: 'GIFT',
+              foedselsdato: '1963-04-30',
+            }
+          ).as('getPerson')
+          cy.login()
+          cy.contains('button', 'Kom i gang').click()
+        })
+        it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge.', () => {
+          cy.contains('h2', 'Utenlandsopphold').should('exist')
+          cy.contains(
+            'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?'
+          ).should('exist')
+        })
+        it('forventer å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {
+          cy.contains('button', 'Neste').click()
+          cy.contains(
+            'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
+          ).should('exist')
+          cy.get('[type="radio"]').first().check()
+          cy.contains(
+            'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
+          ).should('not.exist')
+          cy.contains('button', 'Neste').click()
+        })
+        it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
+          cy.contains('button', 'Tilbake').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/start')
+          cy.go('back')
+          cy.contains('button', 'Avbryt').click()
+          cy.location('href').should('include', '/pensjon/kalkulator/login')
+        })
       })
     })
 
     describe('Gitt at jeg som bruker svarer nei på bodd/jobbet mer enn 5 år utenfor Norge,', () => {
-      describe('Når jeg navigerer videre fra /utenlandsopphold til /samtykke,', () => {
+      describe('Når jeg navigerer videre til /afp,', () => {
         beforeEach(() => {
           cy.login()
           cy.contains('button', 'Kom i gang').click()
           cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
-        })
-        it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
-          cy.contains('h2', 'Pensjonsavtaler').should('exist')
-          cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
-          cy.contains('Disse opplysningene henter vi').should('exist')
-        })
-        it('forventer å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
-          cy.contains('button', 'Neste').click()
-          cy.contains(
-            'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
-          ).should('exist')
           cy.get('[type="radio"]').last().check()
-          cy.contains(
-            'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
-          ).should('not.exist')
+          cy.contains('button', 'Neste').click()
+        })
+        it('forventer jeg å få informasjon om AFP og muligheten for å velge om jeg ønsker å beregne AFP.', () => {
+          cy.contains('h2', 'Avtalefestet pensjon').should('exist')
+          cy.contains('Om avtalefestet pensjon i offentlig sektor').click()
+          cy.contains('Om avtalefestet pensjon i privat sektor').click()
+          cy.contains('a', 'AFP i privat sektor på afp.no')
+            .should('have.attr', 'href')
+            .and('include', 'https://www.afp.no')
+        })
+        it('forventer jeg å måtte  velge om jeg vil beregne med eller uten AFP både i privat og offentlig sektor. Jeg må kunne svare nei for å bare beregne alderspensjon, eller vet ikke hvis jeg er usikker.', () => {
+          cy.contains('Har du rett til AFP?').should('exist')
+          cy.contains('Ja, i offentlig sektor').should('exist')
+          cy.contains('Ja, i privat sektor').should('exist')
+          cy.contains('Nei').should('exist')
+          cy.contains('Vet ikke').should('exist')
+          cy.contains('button', 'Neste').click()
+          cy.contains('Du må svare på om du har rett til AFP.').should('exist')
+          cy.get('[type="radio"]').last().check()
+          cy.contains('Du må svare på om du har rett til AFP.').should(
+            'not.exist'
+          )
           cy.contains('button', 'Neste').click()
         })
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
@@ -154,141 +190,73 @@ describe('Hovedhistorie', () => {
           cy.location('href').should('include', '/pensjon/kalkulator/login')
         })
       })
-    })
 
-    describe('Gitt at jeg som bruker har samtykket til innhenting av avtaler og har TP tilhørighet,', () => {
-      describe('Når jeg navigerer videre fra /samtykke til /offentlig-tp', () => {
+      describe('Gitt at jeg som bruker har svart "ja, offentlig" på spørsmålet om AFP,', () => {
+        describe('Når jeg navigerer videre fra /afp til /samtykke-offentlig-afp,', () => {
+          beforeEach(() => {
+            cy.login()
+            cy.contains('button', 'Kom i gang').click()
+            cy.get('[type="radio"]').last().check()
+            cy.contains('button', 'Neste').click()
+            cy.get('[type="radio"]').last().check()
+            cy.contains('button', 'Neste').click()
+            cy.get('[type="radio"]').first().check()
+            cy.contains('button', 'Neste').click()
+          })
+          it('forventer jeg å bli spurt om mitt samtykke for beregning av offentlig-AFP, og få informasjon om hva samtykket innebærer.', () => {
+            cy.contains(
+              'h2',
+              'Samtykke til at NAV beregner avtalefestet pensjon'
+            ).should('exist')
+            cy.contains('Vil du at NAV skal beregne AFP for deg?').should(
+              'exist'
+            )
+            cy.contains('button', 'Neste').click()
+            cy.contains(
+              'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+            ).should('exist')
+            cy.get('[type="radio"]').last().check()
+            cy.contains(
+              'Du må svare på om du vil at NAV skal beregne AFP for deg.'
+            ).should('not.exist')
+            cy.contains('button', 'Neste').click()
+          })
+
+          it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
+            cy.contains('button', 'Tilbake').click()
+            cy.location('href').should('include', '/pensjon/kalkulator/afp')
+            cy.go('back')
+            cy.contains('button', 'Avbryt').click()
+            cy.location('href').should('include', '/pensjon/kalkulator/login')
+          })
+        })
+      })
+
+      describe('Når jeg navigerer videre til /samtykke,', () => {
         beforeEach(() => {
           cy.login()
           cy.contains('button', 'Kom i gang').click()
           cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').first().check()
-          cy.contains('button', 'Neste').click()
-          cy.wait('@getTpoMedlemskap')
-        })
-        it('forventer jeg å få informasjon om jeg er eller har vært medlem av en offentlig tjenestepensjonsordning.', () => {
-          cy.contains(
-            'h2',
-            'Du kan ha rett til offentlig tjenestepensjon'
-          ).should('exist')
-        })
-        it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
-          cy.contains('button', 'Tilbake').click()
-          cy.location('href').should('include', '/pensjon/kalkulator/samtykke')
-          cy.go('back')
-          cy.contains('button', 'Avbryt').click()
-          cy.location('href').should('include', '/pensjon/kalkulator/login')
-        })
-      })
-    })
-
-    describe('Når jeg navigerer videre fra /offentlig-tp til /afp,', () => {
-      beforeEach(() => {
-        cy.login()
-        cy.contains('button', 'Kom i gang').click()
-        cy.get('[type="radio"]').last().check()
-        cy.contains('button', 'Neste').click()
-        cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Neste').click()
-        cy.wait('@getTpoMedlemskap')
-        cy.contains('button', 'Neste').click()
-      })
-      it('forventer jeg å få informasjon om AFP og muligheten for å velge om jeg ønsker å beregne AFP.', () => {
-        cy.contains('h2', 'Avtalefestet pensjon').should('exist')
-        cy.contains('Om avtalefestet pensjon i offentlig sektor').click()
-        cy.contains('Om avtalefestet pensjon i privat sektor').click()
-        cy.contains('a', 'AFP i privat sektor på afp.no')
-          .should('have.attr', 'href')
-          .and('include', 'https://www.afp.no')
-      })
-      it('forventer jeg å måtte  velge om jeg vil beregne med eller uten AFP både i privat og offentlig sektor. Jeg må kunne svare nei for å bare beregne alderspensjon, eller vet ikke hvis jeg er usikker.', () => {
-        cy.contains('Har du rett til AFP?').should('exist')
-        cy.contains('Ja, i offentlig sektor').should('exist')
-        cy.contains('Ja, i privat sektor').should('exist')
-        cy.contains('Nei').should('exist')
-        cy.contains('Vet ikke').should('exist')
-        cy.contains('button', 'Neste').click()
-        cy.contains('Du må svare på om du har rett til AFP.').should('exist')
-        cy.get('[type="radio"]').last().check()
-        cy.contains('Du må svare på om du har rett til AFP.').should(
-          'not.exist'
-        )
-        cy.contains('button', 'Neste').click()
-      })
-      it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
-        cy.contains('button', 'Tilbake').click()
-        cy.location('href').should(
-          'include',
-          '/pensjon/kalkulator/offentlig-tp'
-        )
-        cy.go('back')
-        cy.contains('button', 'Avbryt').click()
-        cy.location('href').should('include', '/pensjon/kalkulator/login')
-      })
-    })
-
-    describe('Gitt at jeg som bruker har svart "ja, offentlig" på spørsmålet om AFP,', () => {
-      describe('Når jeg navigerer videre fra /afp til /samtykke-offentlig-afp,', () => {
-        beforeEach(() => {
-          cy.login()
-          cy.contains('button', 'Kom i gang').click()
           cy.get('[type="radio"]').last().check()
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').first().check()
-          cy.contains('button', 'Neste').click()
-          cy.wait('@getTpoMedlemskap')
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').first().check()
-          cy.contains('button', 'Neste').click()
-        })
-        it('forventer jeg å bli spurt om mitt samtykke for beregning av offentlig-AFP, og få informasjon om hva samtykket innebærer.', () => {
-          cy.contains(
-            'h2',
-            'Samtykke til at NAV beregner avtalefestet pensjon'
-          ).should('exist')
-          cy.contains('Vil du at NAV skal beregne AFP for deg?').should('exist')
-          cy.contains('button', 'Neste').click()
-          cy.contains(
-            'Du må svare på om du vil at NAV skal beregne AFP for deg.'
-          ).should('exist')
-          cy.get('[type="radio"]').last().check()
-          cy.contains(
-            'Du må svare på om du vil at NAV skal beregne AFP for deg.'
-          ).should('not.exist')
-          cy.contains('button', 'Neste').click()
-        })
-
-        it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
-          cy.contains('button', 'Tilbake').click()
-          cy.location('href').should('include', '/pensjon/kalkulator/afp')
-          cy.go('back')
-          cy.contains('button', 'Avbryt').click()
-          cy.location('href').should('include', '/pensjon/kalkulator/login')
-        })
-      })
-    })
-
-    describe('Gitt at jeg som bruker er registrert med en annen sivilstand enn gift eller registrert partner,', () => {
-      describe('Når jeg navigerer videre fra /afp til /sivilstand,', () => {
-        beforeEach(() => {
-          cy.login()
-          cy.contains('button', 'Kom i gang').click()
-          cy.get('[type="radio"]').last().check()
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').first().check()
-          cy.contains('button', 'Neste').click()
-          cy.wait('@getTpoMedlemskap')
           cy.contains('button', 'Neste').click()
           cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
         })
-        it('forventer jeg å måtte opplyse om at jeg har samboer eller ikke for å få riktig beregning.', () => {
-          cy.contains('h2', 'Din sivilstand').should('exist')
+        it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
+          cy.contains('h2', 'Pensjonsavtaler').should('exist')
+          cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
+          cy.contains('Disse opplysningene henter vi').should('exist')
+        })
+        it('forventer å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
           cy.contains('button', 'Beregn pensjon').click()
-          cy.contains('Du må svare på om du har samboer.').should('exist')
-          cy.get('[type="radio"]').last().check({ force: true })
-          cy.contains('Du må svare på om du har samboer.').should('not.exist')
+          cy.contains(
+            'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
+          ).should('exist')
+          cy.get('[type="radio"]').last().check()
+          cy.contains(
+            'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
+          ).should('not.exist')
           cy.contains('button', 'Beregn pensjon').click()
         })
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
