@@ -114,9 +114,7 @@ describe('stegvisning - Samtykke', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[0]).toBeChecked()
-
     await user.click(screen.getByText('stegvisning.tilbake'))
-
     waitFor(() => {
       expect(onPreviousMock).toHaveBeenCalled()
     })
@@ -132,10 +130,8 @@ describe('stegvisning - Samtykke', () => {
         onNext={onNextMock}
       />
     )
-
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })

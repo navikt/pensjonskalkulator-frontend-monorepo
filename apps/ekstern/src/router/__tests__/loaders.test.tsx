@@ -5,10 +5,10 @@ import {
   directAccessGuard,
   authenticationGuard,
   landingPageAccessGuard,
-  step0AccessGuard,
-  step1AccessGuard,
-  step4AccessGuard,
-  step5AccessGuard,
+  stepStartAccessGuard,
+  stepSivilstandAccessGuard,
+  stepUfoeretrygdAFPAccessGuard,
+  stepSamtykkeOffentligAFPAccessGuard,
 } from '../loaders'
 import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
@@ -147,7 +147,7 @@ describe('Loaders', () => {
     })
   })
 
-  describe('step0AccessGuard', () => {
+  describe('stepStartAccessGuard', () => {
     it('kaller getPersonQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url', async () => {
       const initiateGetPersonMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.getPerson,
@@ -171,7 +171,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await step0AccessGuard()
+      const returnedFromLoader = await stepStartAccessGuard()
       const getPersonQueryResponse =
         await returnedFromLoader.data.getPersonQuery
       const shouldRedirectToResponse =
@@ -204,7 +204,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await step0AccessGuard()
+      const returnedFromLoader = await stepStartAccessGuard()
       await returnedFromLoader.data.getPersonQuery
       const shouldRedirectToResponse =
         await returnedFromLoader.data.shouldRedirectTo
@@ -217,7 +217,7 @@ describe('Loaders', () => {
     })
   })
 
-  describe('step1AccessGuard', async () => {
+  describe('stepSivilstandAccessGuard', async () => {
     it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
       const mockedState = {
         api: {
@@ -228,7 +228,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await step1AccessGuard()
+      const returnedFromLoader = await stepSivilstandAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })
@@ -257,7 +257,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step1AccessGuard()
+      const returnedFromLoader = await stepSivilstandAccessGuard()
       const shouldRedirectToResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
@@ -288,7 +288,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step1AccessGuard()
+      const returnedFromLoader = await stepSivilstandAccessGuard()
       const shouldRedirectToResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
@@ -327,7 +327,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step1AccessGuard()
+      const returnedFromLoader = await stepSivilstandAccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery
@@ -372,7 +372,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step1AccessGuard()
+      const returnedFromLoader = await stepSivilstandAccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery
@@ -380,7 +380,7 @@ describe('Loaders', () => {
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
       expect((getPersonResponse as GetPersonQuery).data.sivilstand).toBe('GIFT')
-      expect(shouldRedirectToResponse).toBe(paths.beregningEnkel)
+      expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
     })
 
     it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren er født før 1963, er hen redirigert', async () => {
@@ -418,7 +418,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step1AccessGuard()
+      const returnedFromLoader = await stepSivilstandAccessGuard()
       const getPersonResponse = await (
         returnedFromLoader as UNSAFE_DeferredData
       ).data.getPersonQuery
@@ -437,7 +437,7 @@ describe('Loaders', () => {
     })
   })
 
-  describe('step4AccessGuard', () => {
+  describe('stepUfoeretrygdAFPAccessGuard', () => {
     it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
       const mockedState = {
         api: {
@@ -448,7 +448,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await step4AccessGuard()
+      const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })
@@ -473,7 +473,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step4AccessGuard()
+      const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).toBeNull()
     })
 
@@ -497,7 +497,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step4AccessGuard()
+      const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })
@@ -522,13 +522,13 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step4AccessGuard()
+      const returnedFromLoader = await stepUfoeretrygdAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })
   })
 
-  describe('step5AccessGuard', () => {
+  describe('stepSamtykkeOffentligAFPAccessGuard', () => {
     it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
       const mockedState = {
         api: {
@@ -539,7 +539,7 @@ describe('Loaders', () => {
       store.getState = vi.fn().mockImplementation(() => {
         return mockedState
       })
-      const returnedFromLoader = await step5AccessGuard()
+      const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })
@@ -564,7 +564,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step5AccessGuard()
+      const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).toBeNull()
     })
 
@@ -588,7 +588,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step5AccessGuard()
+      const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })
@@ -613,7 +613,7 @@ describe('Loaders', () => {
         return mockedState
       })
 
-      const returnedFromLoader = await step5AccessGuard()
+      const returnedFromLoader = await stepSamtykkeOffentligAFPAccessGuard()
       expect(returnedFromLoader).not.toBeNull()
       expect(returnedFromLoader).toMatchSnapshot()
     })

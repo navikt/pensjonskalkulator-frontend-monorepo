@@ -10,6 +10,7 @@ describe('stegvisning - Sivilstand', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
+
   it('rendrer slik den skal når sivilstand ikke er oppgitt', async () => {
     const result = render(
       <Sivilstand
@@ -164,10 +165,8 @@ describe('stegvisning - Sivilstand', () => {
         onNext={onNextMock}
       />
     )
-
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })

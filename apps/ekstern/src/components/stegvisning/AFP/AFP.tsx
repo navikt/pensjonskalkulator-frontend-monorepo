@@ -101,6 +101,7 @@ export function AFP({
     setShowAlert(value)
     setValidationError('')
   }
+
   if (shouldRedirectTo) {
     return null
   }

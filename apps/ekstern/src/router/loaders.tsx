@@ -111,8 +111,8 @@ export const landingPageAccessGuard = async () => {
 
 /// ////////////////////////////////////////////////////////////////////////
 
-export function useStep0AccessData<
-  TReturnedValue extends ReturnType<typeof step0DeferredLoader>,
+export function useStepStartAccessData<
+  TReturnedValue extends ReturnType<typeof stepStartDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
@@ -120,7 +120,7 @@ export function useStep0AccessData<
 {
   /* c8 ignore next 11 - Dette er kun for typing */
 }
-export function step0DeferredLoader<
+export function stepStartDeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
     shouldRedirectTo: string | undefined
@@ -132,7 +132,7 @@ export function step0DeferredLoader<
     }
 }
 
-export const step0AccessGuard = async () => {
+export const stepStartAccessGuard = async () => {
   let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
@@ -180,8 +180,8 @@ export const step0AccessGuard = async () => {
 
 // ///////////////////////////////////////////
 
-export function useStep1AccessData<
-  TReturnedValue extends ReturnType<typeof step1DeferredLoader>,
+export function useStepSivilstandAccessData<
+  TReturnedValue extends ReturnType<typeof stepSivilstandDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
@@ -189,7 +189,7 @@ export function useStep1AccessData<
 {
   /* c8 ignore next 11 - Dette er kun for typing */
 }
-export function step1DeferredLoader<
+export function stepSivilstandDeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
     shouldRedirectTo: string | undefined
@@ -201,7 +201,7 @@ export function step1DeferredLoader<
     }
 }
 
-export const step1AccessGuard = async () => {
+export const stepSivilstandAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
@@ -258,7 +258,7 @@ export const step1AccessGuard = async () => {
           res?.data?.sivilstand &&
           checkHarSamboer(res.data.sivilstand)
         ) {
-          resolveRedirectUrl(paths.beregningEnkel)
+          resolveRedirectUrl(paths.utenlandsopphold)
           resolveGetPerson(res)
         } else {
           resolveRedirectUrl('')
@@ -278,8 +278,8 @@ export const step1AccessGuard = async () => {
 
 /// ////////////////////////////////////////////////////////////////////////
 
-export function useStep3AccessData<
-  TReturnedValue extends ReturnType<typeof step3DeferredLoader>,
+export function useStepAFPAccessData<
+  TReturnedValue extends ReturnType<typeof stepAFPDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
@@ -287,7 +287,7 @@ export function useStep3AccessData<
 {
   /* c8 ignore next 11 - Dette er kun for typing */
 }
-export function step3DeferredLoader<
+export function stepAFPDeferredLoader<
   TData extends {
     shouldRedirectTo: string | undefined
   },
@@ -298,7 +298,7 @@ export function step3DeferredLoader<
     }
 }
 
-export const step3AccessGuard = async () => {
+export const stepAFPAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
@@ -423,7 +423,7 @@ export const step3AccessGuard = async () => {
 
 /// ////////////////////////////////////////////////////////////////////////
 
-export const step4AccessGuard = async () => {
+export const stepUfoeretrygdAFPAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
@@ -441,7 +441,7 @@ export const step4AccessGuard = async () => {
 
 /// ////////////////////////////////////////////////////////////////////////
 
-export const step5AccessGuard = async () => {
+export const stepSamtykkeOffentligAFPAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }

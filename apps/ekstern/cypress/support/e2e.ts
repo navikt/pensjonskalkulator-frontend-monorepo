@@ -153,7 +153,7 @@ Cypress.Commands.add('login', () => {
   // TODO reaktivere når dekoratøren er i produksjon
   // cy.wait('@getDecoratorMainMenu')
   cy.contains('button', 'Pensjonskalkulator').click()
-  // På steg 0 kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
+  // På start steget kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   cy.wait('@getPerson')
   cy.wait('@getEkskludertStatus')
   cy.wait('@getInntekt')

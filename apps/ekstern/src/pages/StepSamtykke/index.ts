@@ -1,0 +1,1 @@
+export { StepSamtykke } from './StepSamtykke'

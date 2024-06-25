@@ -76,7 +76,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', 'Pensjonskalkulator').click()
         cy.contains('button', 'Kom i gang').click()
         cy.location('href').should('include', '/pensjon/kalkulator/sivilstand')
-        cy.go('back')
+        cy.go('forward')
         cy.contains('button', 'Avbryt').click()
         cy.location('href').should('include', '/pensjon/kalkulator/login')
       })
@@ -99,7 +99,7 @@ describe('Hovedhistorie', () => {
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
           cy.contains('button', 'Tilbake').click()
           cy.location('href').should('include', '/pensjon/kalkulator/start')
-          cy.go('back')
+          cy.go('forward')
           cy.contains('button', 'Avbryt').click()
           cy.location('href').should('include', '/pensjon/kalkulator/login')
         })
@@ -126,7 +126,7 @@ describe('Hovedhistorie', () => {
             'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?'
           ).should('exist')
         })
-        it('forventer å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {
+        it('forventer jeg å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {
           cy.contains('button', 'Neste').click()
           cy.contains(
             'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.'
@@ -140,7 +140,7 @@ describe('Hovedhistorie', () => {
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
           cy.contains('button', 'Tilbake').click()
           cy.location('href').should('include', '/pensjon/kalkulator/start')
-          cy.go('back')
+          cy.go('forward')
           cy.contains('button', 'Avbryt').click()
           cy.location('href').should('include', '/pensjon/kalkulator/login')
         })
@@ -165,7 +165,7 @@ describe('Hovedhistorie', () => {
             .should('have.attr', 'href')
             .and('include', 'https://www.afp.no')
         })
-        it('forventer jeg å måtte  velge om jeg vil beregne med eller uten AFP både i privat og offentlig sektor. Jeg må kunne svare nei for å bare beregne alderspensjon, eller vet ikke hvis jeg er usikker.', () => {
+        it('forventer jeg å måtte velge om jeg vil beregne med eller uten AFP både i privat og offentlig sektor. Jeg må kunne svare nei for å bare beregne alderspensjon, eller vet ikke hvis jeg er usikker.', () => {
           cy.contains('Har du rett til AFP?').should('exist')
           cy.contains('Ja, i offentlig sektor').should('exist')
           cy.contains('Ja, i privat sektor').should('exist')
@@ -185,7 +185,7 @@ describe('Hovedhistorie', () => {
             'include',
             '/pensjon/kalkulator/utenlandsopphold'
           )
-          cy.go('back')
+          cy.go('forward')
           cy.contains('button', 'Avbryt').click()
           cy.location('href').should('include', '/pensjon/kalkulator/login')
         })
@@ -225,7 +225,7 @@ describe('Hovedhistorie', () => {
           it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
             cy.contains('button', 'Tilbake').click()
             cy.location('href').should('include', '/pensjon/kalkulator/afp')
-            cy.go('back')
+            cy.go('forward')
             cy.contains('button', 'Avbryt').click()
             cy.location('href').should('include', '/pensjon/kalkulator/login')
           })
@@ -248,7 +248,7 @@ describe('Hovedhistorie', () => {
           cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
           cy.contains('Disse opplysningene henter vi').should('exist')
         })
-        it('forventer å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
+        it('forventer jeg å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
           cy.contains('button', 'Beregn pensjon').click()
           cy.contains(
             'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
@@ -262,7 +262,7 @@ describe('Hovedhistorie', () => {
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
           cy.contains('button', 'Tilbake').click()
           cy.location('href').should('include', '/pensjon/kalkulator/afp')
-          cy.go('back')
+          cy.go('forward')
           cy.contains('button', 'Avbryt').click()
           cy.location('href').should('include', '/pensjon/kalkulator/login')
         })

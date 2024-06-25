@@ -1,13 +1,13 @@
 const translations = {
   'application.title': 'Pensjonskalkulator - Pensjon',
-  'application.title.stegvisning.step0': 'Start - Pensjonskalkulator',
-  'application.title.stegvisning.step1': 'Sivilstand - Pensjonskalkulator',
-  'application.title.stegvisning.step2':
+  'application.title.stegvisning.start': 'Start - Pensjonskalkulator',
+  'application.title.stegvisning.sivilstand': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.utenlandsopphold':
     'Utanlandsopphald - Pensjonskalkulator',
-  'application.title.stegvisning.step3': 'AFP - Pensjonskalkulator',
-  'application.title.stegvisning.step4': 'MANGLER_TEKST',
-  'application.title.stegvisning.step5': 'MANGLER_TEKST',
-  'application.title.stegvisning.step6': 'Samtykke - Penjonskalkulator',
+  'application.title.stegvisning.afp': 'AFP - Pensjonskalkulator',
+  'application.title.stegvisning.ufoeretryg_AFP': 'MANGLER_TEKST',
+  'application.title.stegvisning.samtykke_offentlig_AFP': 'MANGLER_TEKST',
+  'application.title.stegvisning.samtykke': 'Samtykke - Penjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',

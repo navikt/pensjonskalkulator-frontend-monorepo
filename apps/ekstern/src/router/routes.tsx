@@ -6,14 +6,14 @@ import { Forbehold } from '@/pages/Forbehold'
 import { Henvisning } from '@/pages/Henvisning'
 import { LandingPage } from '@/pages/LandingPage'
 import { Personopplysninger } from '@/pages/Personopplysninger'
-import { Step0 } from '@/pages/Step0'
-import { Step1 } from '@/pages/Step1'
-import { Step2 } from '@/pages/Step2'
-import { Step3 } from '@/pages/Step3'
-import { Step4 } from '@/pages/Step4'
-import { Step5 } from '@/pages/Step5'
-import { Step6 } from '@/pages/Step6'
+import { StepAFP } from '@/pages/StepAFP'
 import { StepFeil } from '@/pages/StepFeil'
+import { StepSamtykke } from '@/pages/StepSamtykke'
+import { StepSamtykkeOffentligAFP } from '@/pages/StepSamtykkeOffentligAFP'
+import { StepSivilstand } from '@/pages/StepSivilstand'
+import { StepStart } from '@/pages/StepStart'
+import { StepUfoeretrygdAFP } from '@/pages/StepUfoeretrygdAFP'
+import { StepUtenlandsopphold } from '@/pages/StepUtenlandsopphold'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
 import { paths } from './constants'
@@ -21,11 +21,11 @@ import {
   directAccessGuard,
   authenticationGuard,
   landingPageAccessGuard,
-  step0AccessGuard,
-  step1AccessGuard,
-  step3AccessGuard,
-  step4AccessGuard,
-  step5AccessGuard,
+  stepStartAccessGuard,
+  stepSivilstandAccessGuard,
+  stepAFPAccessGuard,
+  stepUfoeretrygdAFPAccessGuard,
+  stepSamtykkeOffentligAFPAccessGuard,
 } from './loaders'
 
 export const routes: RouteObject[] = [
@@ -67,9 +67,9 @@ export const routes: RouteObject[] = [
     ErrorBoundary: RouteErrorBoundary,
     children: [
       {
-        loader: step0AccessGuard,
+        loader: stepStartAccessGuard,
         path: paths.start,
-        element: <Step0 />,
+        element: <StepStart />,
       },
       {
         path: `${paths.henvisning}/:id`,
@@ -80,34 +80,34 @@ export const routes: RouteObject[] = [
         element: <Forbehold />,
       },
       {
-        loader: step1AccessGuard,
+        loader: stepSivilstandAccessGuard,
         path: paths.sivilstand,
-        element: <Step1 />,
+        element: <StepSivilstand />,
       },
       {
         loader: directAccessGuard,
         path: paths.utenlandsopphold,
-        element: <Step2 />,
+        element: <StepUtenlandsopphold />,
       },
       {
-        loader: step3AccessGuard,
+        loader: stepAFPAccessGuard,
         path: paths.afp,
-        element: <Step3 />,
+        element: <StepAFP />,
       },
       {
-        loader: step4AccessGuard,
+        loader: stepUfoeretrygdAFPAccessGuard,
         path: paths.ufoeretrygdAFP,
-        element: <Step4 />,
+        element: <StepUfoeretrygdAFP />,
       },
       {
-        loader: step5AccessGuard,
+        loader: stepSamtykkeOffentligAFPAccessGuard,
         path: paths.samtykkeOffentligAFP,
-        element: <Step5 />,
+        element: <StepSamtykkeOffentligAFP />,
       },
       {
         loader: directAccessGuard,
         path: paths.samtykke,
-        element: <Step6 />,
+        element: <StepSamtykke />,
       },
       {
         loader: directAccessGuard,

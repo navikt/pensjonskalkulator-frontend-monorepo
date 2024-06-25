@@ -3,6 +3,7 @@ import { describe, it, vi } from 'vitest'
 import { Ufoere } from '..'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
+
 describe('stegvisning - Ufoere', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
@@ -75,7 +76,7 @@ describe('stegvisning - Ufoere', () => {
     expect(onPreviousMock).toHaveBeenCalled()
   })
 
-  it('kaller onCancel når brukeren klikker på Avbryt', async () => {
+  it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
     render(
       <Ufoere
@@ -86,6 +87,19 @@ describe('stegvisning - Ufoere', () => {
     )
 
     await user.click(screen.getByText('stegvisning.avbryt'))
-    expect(onCancelMock).toHaveBeenCalled()
+    waitFor(() => {
+      expect(onCancelMock).toHaveBeenCalled()
+    })
+  })
+
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(
+      <Ufoere
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
   })
 })

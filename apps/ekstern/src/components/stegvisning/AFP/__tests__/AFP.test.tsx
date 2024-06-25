@@ -177,10 +177,8 @@ describe('stegvisning - AFP', () => {
       />
     )
     const radioButtons = screen.getAllByRole('radio')
-
     await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
-
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
     })
@@ -196,13 +194,11 @@ describe('stegvisning - AFP', () => {
         onNext={onNextMock}
       />
     )
-
     await user.click(screen.getByText('stegvisning.tilbake'))
-
     expect(onPreviousMock).toHaveBeenCalled()
   })
 
-  it('kaller onCancel når brukeren klikker på Avbryt', async () => {
+  it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
     render(
       <AFP
@@ -216,7 +212,10 @@ describe('stegvisning - AFP', () => {
     await user.click(screen.getByText('stegvisning.avbryt'))
 
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
-    expect(onCancelMock).toHaveBeenCalled()
+    await user.click(screen.getByText('stegvisning.avbryt'))
+    waitFor(() => {
+      expect(onCancelMock).toHaveBeenCalled()
+    })
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

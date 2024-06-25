@@ -43,3 +43,15 @@ export const henvisningUrlParams = {
   apotekerne: 'apotekerne',
   utland: 'utland',
 } as const
+
+export const stegvisningOrder = [
+  paths.login,
+  paths.start,
+  paths.sivilstand,
+  paths.utenlandsopphold,
+  paths.afp,
+  paths.ufoeretrygdAFP,
+  paths.samtykkeOffentligAFP,
+  paths.samtykke,
+  paths.beregningEnkel,
+] as const

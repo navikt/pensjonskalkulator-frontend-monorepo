@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework'
-import { paths } from '@/router/constants'
+import { onStegvisningCancel } from '@/components/stegvisning/stegvisning-utils'
 import { useAppDispatch } from '@/state/hooks'
-import { userInputActions } from '@/state/userInput/userInputReducer'
 import { logger } from '@/utils/logging'
 
 export function ErrorPageUnexpected() {
@@ -13,8 +12,7 @@ export function ErrorPageUnexpected() {
   const dispatch = useAppDispatch()
 
   const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
+    onStegvisningCancel(dispatch, navigate)
   }
 
   React.useEffect(() => {
