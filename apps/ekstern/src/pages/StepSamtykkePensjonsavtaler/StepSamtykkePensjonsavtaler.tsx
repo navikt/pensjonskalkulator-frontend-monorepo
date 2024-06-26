@@ -2,7 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Samtykke } from '@/components/stegvisning/Samtykke'
+import { SamtykkePensjonsavtaler } from '@/components/stegvisning/SamtykkePensjonsavtaler'
 import {
   onStegvisningCancel,
   onStegvisningNext,
@@ -17,7 +17,7 @@ import {
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
-export function StepSamtykke() {
+export function StepSamtykkePensjonsavtaler() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
@@ -49,7 +49,7 @@ export function StepSamtykke() {
   }
 
   return (
-    <Samtykke
+    <SamtykkePensjonsavtaler
       harSamtykket={harSamtykket}
       onCancel={isVeileder ? undefined : onCancel}
       onPrevious={onPrevious}

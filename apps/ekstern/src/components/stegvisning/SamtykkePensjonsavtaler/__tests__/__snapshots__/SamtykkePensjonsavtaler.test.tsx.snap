@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er oppgitt 1`] = `
+exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samtykket ikke er oppgitt 1`] = `
 <DocumentFragment>
   <section
     class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
@@ -9,15 +9,15 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
       <h2
         class="navds-heading navds-heading--medium navds-typo--spacing"
       >
-        stegvisning.samtykke.title
+        stegvisning.samtykke_pensjonsavtaler.title
       </h2>
       <p
         class="navds-body-long navds-body-long--large"
       >
-        stegvisning.samtykke.ingress
+        stegvisning.samtykke_pensjonsavtaler.ingress
       </p>
       <div
-        class="navds-read-more navds-read-more--medium _readmore_5b4738"
+        class="navds-read-more navds-read-more--medium _readmoreOffentlig_cef636"
       >
         <button
           aria-expanded="false"
@@ -44,39 +44,76 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             />
           </svg>
           <span>
-            stegvisning.samtykke.readmore_title
+            stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title
           </span>
         </button>
         <div
           aria-hidden="true"
           class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
         >
-          stegvisning.samtykke.readmore_list_title
+          stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress
+        </div>
+      </div>
+      <div
+        class="navds-read-more navds-read-more--medium _readmorePrivat_cef636"
+      >
+        <button
+          aria-expanded="false"
+          class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.samtykke_pensjonsavtaler.privat.readmore_title
+          </span>
+        </button>
+        <div
+          aria-hidden="true"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+        >
+          stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress
           <ul
-            class="_list_5b4738"
+            class="_list_cef636"
           >
             <li>
-              stegvisning.samtykke.readmore_list_item1
+              stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1
             </li>
             <li>
-              stegvisning.samtykke.readmore_list_item2
+              stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2
             </li>
             <li>
-              stegvisning.samtykke.readmore_list_item3
+              stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3
             </li>
           </ul>
-          stegvisning.samtykke.readmore_ingress
         </div>
       </div>
       <fieldset
         aria-required="true"
-        class="_radiogroup_5b4738 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
+        class="_radiogroup_cef636 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
         role="radiogroup"
       >
         <legend
           class="navds-fieldset__legend navds-label"
         >
-          stegvisning.samtykke.radio_label
+          stegvisning.samtykke_pensjonsavtaler.radio_label
         </legend>
         <div
           class="navds-radio-buttons"
@@ -85,16 +122,16 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r4"
+              aria-labelledby="r5"
               class="navds-radio__input"
-              id="radio-r3"
+              id="radio-r4"
               name="samtykke"
               type="radio"
               value="ja"
             />
             <label
               class="navds-radio__label"
-              for="radio-r3"
+              for="radio-r4"
             >
               <span
                 class="navds-radio__content"
@@ -102,9 +139,9 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r4"
+                  id="r5"
                 >
-                  stegvisning.samtykke.radio_ja
+                  stegvisning.samtykke_pensjonsavtaler.radio_ja
                 </span>
               </span>
             </label>
@@ -113,16 +150,16 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r7"
+              aria-labelledby="r8"
               class="navds-radio__input"
-              id="radio-r6"
+              id="radio-r7"
               name="samtykke"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r6"
+              for="radio-r7"
             >
               <span
                 class="navds-radio__content"
@@ -130,9 +167,9 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r7"
+                  id="r8"
                 >
-                  stegvisning.samtykke.radio_nei
+                  stegvisning.samtykke_pensjonsavtaler.radio_nei
                 </span>
               </span>
             </label>
@@ -142,11 +179,11 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r2"
+          id="fieldset-error-r3"
         />
       </fieldset>
       <button
-        class="_button_5b4738 navds-button navds-button--primary navds-button--medium"
+        class="_button_cef636 navds-button navds-button--primary navds-button--medium"
         type="submit"
       >
         <span
@@ -156,7 +193,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         </span>
       </button>
       <button
-        class="_button_5b4738 navds-button navds-button--secondary navds-button--medium"
+        class="_button_cef636 navds-button navds-button--secondary navds-button--medium"
         type="button"
       >
         <span
@@ -166,7 +203,7 @@ exports[`stegvisning - Samtykke > rendrer slik den skal når samtykket ikke er o
         </span>
       </button>
       <button
-        class="_button_5b4738 navds-button navds-button--tertiary navds-button--medium"
+        class="_button_cef636 navds-button navds-button--tertiary navds-button--medium"
         type="button"
       >
         <span

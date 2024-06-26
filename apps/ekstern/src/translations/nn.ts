@@ -86,23 +86,27 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har budd eller jobba utanfor Noreg i meir enn fem år etter fylte 16 år.',
-  'stegvisning.samtykke.title': 'Pensjonen din',
-  'stegvisning.samtykke.ingress':
+  'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonen din',
+  'stegvisning.samtykke_pensjonsavtaler.ingress':
     'I kalkulatoren får du fram alderspensjon fra folketrygden (NAV) og eventuell avtalefesta pensjon (AFP) i privat sektor. For å vise andre pensjonsavtalar og tenestepensjon frå arbeidsgjevarar, må vi ha ditt samtykke til å hente pensjonsavtalane dine.',
-  'stegvisning.samtykke.readmore_title': 'Desse opplysningane hentar vi',
-  'stegvisning.samtykke.readmore_ingress':
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
+    'Desse opplysningane hentar vi',
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
     'Samtykket er frivillig. Om du svarar nei får du rekna ut alderspensjon (NAV) og eventuell avtalefesta pensjon (AFP) i privat sektor.',
-  'stegvisning.samtykke.readmore_list_title': 'Viss du samtykkjer: ',
-  'stegvisning.samtykke.readmore_list_item1':
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
     'tenestepensjon frå arbeidsgjevar (innskots-, ytings- eller hybridpensjon), fripolisar og einskilde avtalar om pensjonssparing.',
-  'stegvisning.samtykke.readmore_list_item2':
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
     'sjekkar vi om du er eller har vore medlem i offentleg tenestepensjonsordning, og viser at du kan ha rettar, utan å hente avtalane. ',
-  'stegvisning.samtykke.readmore_list_item3':
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3':
     'gjeld samtykket kun for denne utrekninga.',
-  'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtalar?',
-  'stegvisning.samtykke.radio_ja': 'Ja',
-  'stegvisning.samtykke.radio_nei': 'Nei, hald fram utan',
-  'stegvisning.samtykke.validation_error':
+  'stegvisning.samtykke_pensjonsavtaler.radio_label':
+    'Skal vi hente dine pensjonsavtalar?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
+  'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, hald fram utan',
+  'stegvisning.samtykke_pensjonsavtaler.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtalar.',
   'stegvisning.afp.title': 'Avtalefesta pensjon',
   'stegvisning.afp.ingress':

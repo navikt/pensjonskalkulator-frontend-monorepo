@@ -1,16 +1,16 @@
 import { describe, it, vi } from 'vitest'
 
-import { Samtykke } from '..'
+import { SamtykkePensjonsavtaler } from '..'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
-describe('stegvisning - Samtykke', () => {
+describe('stegvisning - SamtykkePensjonsavtaler', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
   it('rendrer slik den skal når samtykket ikke er oppgitt', async () => {
     const result = render(
-      <Samtykke
+      <SamtykkePensjonsavtaler
         harSamtykket={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -18,7 +18,7 @@ describe('stegvisning - Samtykke', () => {
       />
     )
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.samtykke.title'
+      'stegvisning.samtykke_pensjonsavtaler.title'
     )
     const radioButtons = screen.getAllByRole('radio')
 
@@ -32,7 +32,7 @@ describe('stegvisning - Samtykke', () => {
   describe('rendrer slik den skal når samtykket er oppgitt', async () => {
     it('når samtykket er true', async () => {
       render(
-        <Samtykke
+        <SamtykkePensjonsavtaler
           harSamtykket
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
@@ -49,7 +49,7 @@ describe('stegvisning - Samtykke', () => {
 
     it('når samtykket er false', async () => {
       render(
-        <Samtykke
+        <SamtykkePensjonsavtaler
           harSamtykket={false}
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
@@ -68,7 +68,7 @@ describe('stegvisning - Samtykke', () => {
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(
-      <Samtykke
+      <SamtykkePensjonsavtaler
         harSamtykket={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -81,7 +81,9 @@ describe('stegvisning - Samtykke', () => {
 
     waitFor(() => {
       expect(
-        screen.getByText('stegvisning.samtykke.validation_error')
+        screen.getByText(
+          'stegvisning.samtykke_pensjonsavtaler.validation_error'
+        )
       ).toBeInTheDocument()
       expect(onNextMock).not.toHaveBeenCalled()
     })
@@ -89,7 +91,9 @@ describe('stegvisning - Samtykke', () => {
     await user.click(radioButtons[0])
 
     expect(
-      screen.queryByText('stegvisning.samtykke.validation_error')
+      screen.queryByText(
+        'stegvisning.samtykke_pensjonsavtaler.validation_error'
+      )
     ).not.toBeInTheDocument()
 
     await user.click(screen.getByText('stegvisning.beregn'))
@@ -102,7 +106,7 @@ describe('stegvisning - Samtykke', () => {
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
     render(
-      <Samtykke
+      <SamtykkePensjonsavtaler
         harSamtykket
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -123,7 +127,7 @@ describe('stegvisning - Samtykke', () => {
   it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
     render(
-      <Samtykke
+      <SamtykkePensjonsavtaler
         harSamtykket
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -139,7 +143,7 @@ describe('stegvisning - Samtykke', () => {
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
     render(
-      <Samtykke
+      <SamtykkePensjonsavtaler
         harSamtykket
         onCancel={undefined}
         onPrevious={onPreviousMock}

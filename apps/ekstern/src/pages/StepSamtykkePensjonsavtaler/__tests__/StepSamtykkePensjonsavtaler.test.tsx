@@ -2,22 +2,21 @@ import * as ReactRouterUtils from 'react-router'
 
 import { describe, it, vi } from 'vitest'
 
-import { StepSamtykke } from '..'
+import { StepSamtykkePensjonsavtaler } from '..'
 import * as stegvisningUtils from '@/components/stegvisning/stegvisning-utils'
 import {
   fulfilledGetTpoMedlemskap,
   fulfilledGetUfoeregrad,
   fulfilledPensjonsavtaler,
 } from '@/mocks/mockedRTKQueryApiCalls'
-import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { selectHarHentetTpoMedlemskap } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent, waitFor } from '@/test-utils'
 
-describe('StepSamtykke', () => {
+describe('StepSamtykkePensjonsavtaler', () => {
   it('har riktig sidetittel', async () => {
-    render(<StepSamtykke />)
+    render(<StepSamtykkePensjonsavtaler />)
     expect(document.title).toBe('application.title.stegvisning.samtykke')
   })
 
@@ -29,7 +28,7 @@ describe('StepSamtykke', () => {
         'onStegvisningNext'
       )
 
-      const { store } = render(<StepSamtykke />)
+      const { store } = render(<StepSamtykkePensjonsavtaler />)
       const radioButtons = screen.getAllByRole('radio')
 
       await user.click(radioButtons[0])
@@ -53,7 +52,7 @@ describe('StepSamtykke', () => {
         'onStegvisningNext'
       )
 
-      const { store } = render(<StepSamtykke />, {
+      const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
@@ -97,7 +96,7 @@ describe('StepSamtykke', () => {
       () => navigateMock
     )
 
-    const { store } = render(<StepSamtykke />, {
+    const { store } = render(<StepSamtykkePensjonsavtaler />, {
       preloadedState: {
         userInput: { ...userInputInitialState, afp: 'ja_offentlig' },
       },
@@ -117,7 +116,7 @@ describe('StepSamtykke', () => {
     const onStegvisningCancelMock = vi
       .spyOn(stegvisningUtils, 'onStegvisningCancel')
       .mockImplementation(vi.fn())
-    render(<StepSamtykke />, {
+    render(<StepSamtykkePensjonsavtaler />, {
       preloadedState: {
         userInput: { ...userInputInitialState, samtykke: false },
       },

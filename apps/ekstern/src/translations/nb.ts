@@ -38,7 +38,7 @@ const translations = {
   'error.404.button.link_2': 'Les om pensjon',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
-    'Du må bruke vår detaljerte kalkulator. Den gir deg en beregning av alderspensjon fra folketrygden (NAV), avtalefestet pensjon (AFP) fra offentlig og privat sektor og pensjonsavtaler (arbeidsgivere og sparing).',
+    'Du må bruke vår detaljerte kalkulator. Den gir deg en beregning av alderspensjon fra folketrygden (NAV), AFP (avtalefestet pensjon) fra offentlig og privat sektor og pensjonsavtaler (arbeidsgivere og sparing).',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'I pensjonskalkulatoren kan du sjekke alderspensjon fra NAV, tjenestepensjon fra privat sektor og AFP fra offentlig og privat sektor.',
@@ -93,29 +93,33 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.',
-  'stegvisning.samtykke.title': 'Pensjonsavtaler',
-  'stegvisning.samtykke.ingress':
-    'I kalkulatoren kan du se alderspensjon fra folketrygden (NAV) og eventuell avtalefestet pensjon (AFP). For å vise andre pensjonsavtaler og tjenestepensjon fra arbeidsgivere må vi ha ditt samtykke til å hente pensjonsavtalene dine.',
-  'stegvisning.samtykke.readmore_title': 'Disse opplysningene henter vi',
-  'stegvisning.samtykke.readmore_ingress':
-    'Samtykket er frivillig. Hvis du svarer nei får du beregnet alderspensjon (NAV) og eventuell avtalefestet pensjon (AFP).',
-  'stegvisning.samtykke.readmore_list_title': 'Hvis du samtykker:',
-  'stegvisning.samtykke.readmore_list_item1':
-    'henter vi opplysninger om pensjonsavtaler i privat sektor fra Norsk Pensjon som tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon), fripoliser og enkelte avtaler om pensjonssparing.',
-  'stegvisning.samtykke.readmore_list_item2':
-    'sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning, og viser at du kan ha rettigheter, uten å hente avtalene.',
-  'stegvisning.samtykke.readmore_list_item3':
-    'gjelder samtykket kun beregninger i denne kalkulatoren.',
-  'stegvisning.samtykke.radio_label': 'Skal vi hente pensjonsavtalene dine?',
-  'stegvisning.samtykke.radio_ja': 'Ja',
-  'stegvisning.samtykke.radio_nei': 'Nei, fortsett uten',
-  'stegvisning.samtykke.validation_error':
+  'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
+  'stegvisning.samtykke_pensjonsavtaler.ingress':
+    'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og AFP (avtalefestet pensjon).',
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
+    'Dette sjekker vi om tjenestepensjon i offentlig sektor',
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
+    'Hvis du samtykker sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning og informerer deg om det. Vi kan dessverre ikke hente inn offentlige pensjonsavtaler.',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title':
+    'Dette henter vi om pensjonsavtaler fra privat sektor',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
+    'Hvis du samtykker henter vi opplysninger om pensjonsavtaler i privat sektor fra Norsk Pensjon:',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
+    'tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon)',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
+    'fripoliser',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3':
+    'enkelte pensjonssparingsavtaler som du har tegnet selv',
+  'stegvisning.samtykke_pensjonsavtaler.radio_label':
+    'Skal vi hente pensjonsavtalene dine?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
+  'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, fortsett uten',
+  'stegvisning.samtykke_pensjonsavtaler.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
-  'stegvisning.afp.title': 'Avtalefestet pensjon',
+  'stegvisning.afp.title': 'AFP (Avtalefestet pensjon)',
   'stegvisning.afp.ingress':
-    'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
-  'stegvisning.afp.readmore_privat_title':
-    'Om avtalefestet pensjon i privat sektor',
+    'For å få AFP (avtalefestet pensjon) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
+  'stegvisning.afp.readmore_privat_title': 'Om AFP i privat sektor',
   'stegvisning.afp.readmore_privat_list_title': 'AFP i privat sektor:',
   'stegvisning.afp.readmore_privat_list_item1': 'er en livsvarig pensjon',
   'stegvisning.afp.readmore_privat_list_item2': 'kan tas ut sammen med arbeid',
@@ -125,8 +129,7 @@ const translations = {
     'kan tas ut sammen med tjenestepensjon',
   'stegvisning.afp.readmore_privat_link':
     'Les om vilkårene til <afpLink>AFP i privat sektor på afp.no</afpLink>',
-  'stegvisning.afp.readmore_offentlig_title':
-    'Om avtalefestet pensjon i offentlig sektor',
+  'stegvisning.afp.readmore_offentlig_title': 'Om AFP i offentlig sektor',
   'stegvisning.afp.readmore_offentlig_list_title': 'AFP i offentlig sektor:',
   'stegvisning.afp.readmore_offentlig_list_item1': 'er en livsvarig pensjon',
   'stegvisning.afp.readmore_offentlig_list_item2':
@@ -143,11 +146,10 @@ const translations = {
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker, bør du sjekke med arbeidsgiveren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
-  'stegvisning.ufoere.title': 'Uføretrygd og avtalefestet pensjon',
+  'stegvisning.ufoere.title': 'Uføretrygd og AFP (avtalefestet pensjon)',
   'stegvisning.ufoere.info':
-    'Du kan ikke kombinere uføretrygd og avtalefestet pensjon (AFP). Du må velge før du fyller 62 år.',
-  'stegvisning.ufoere.readmore_1.title':
-    'Om uføretrygd og avtalefestet pensjon',
+    'Du kan ikke kombinere uføretrygd og AFP. Du må velge før du fyller 62 år.',
+  'stegvisning.ufoere.readmore_1.title': 'Om uføretrygd og AFP',
   'stegvisning.ufoere.readmore_1.body':
     'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra NAV etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.{br}{br}Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.',
   'stegvisning.ufoere.readmore_2.title':
@@ -157,7 +159,7 @@ const translations = {
   'stegvisning.ufoere.ingress':
     'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.samtykke_offentlig_afp.title':
-    'Samtykke til at NAV beregner avtalefestet pensjon',
+    'Samtykke til at NAV beregner AFP (avtalefestet pensjon)',
   'stegvisning.samtykke_offentlig_afp.ingress':
     'Tjenestepensjonsordningen din har ansvar for AFP i offentlig sektor. De vil vurdere om du fyller vilkårene og gjør den endelige beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}NAV vurderer ikke om du har rett til AFP, men kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. ',
   'stegvisning.samtykke_offentlig_afp.radio_label':

@@ -8,8 +8,8 @@ import { LandingPage } from '@/pages/LandingPage'
 import { Personopplysninger } from '@/pages/Personopplysninger'
 import { StepAFP } from '@/pages/StepAFP'
 import { StepFeil } from '@/pages/StepFeil'
-import { StepSamtykke } from '@/pages/StepSamtykke'
 import { StepSamtykkeOffentligAFP } from '@/pages/StepSamtykkeOffentligAFP'
+import { StepSamtykkePensjonsavtaler } from '@/pages/StepSamtykkePensjonsavtaler'
 import { StepSivilstand } from '@/pages/StepSivilstand'
 import { StepStart } from '@/pages/StepStart'
 import { StepUfoeretrygdAFP } from '@/pages/StepUfoeretrygdAFP'
@@ -107,7 +107,7 @@ export const routes: RouteObject[] = [
       {
         loader: directAccessGuard,
         path: paths.samtykke,
-        element: <StepSamtykke />,
+        element: <StepSamtykkePensjonsavtaler />,
       },
       {
         loader: directAccessGuard,

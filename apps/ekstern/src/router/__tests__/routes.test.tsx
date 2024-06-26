@@ -683,7 +683,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.samtykke.title')
+          await screen.findByText('stegvisning.samtykke_pensjonsavtaler.title')
         ).toBeInTheDocument()
       })
     })

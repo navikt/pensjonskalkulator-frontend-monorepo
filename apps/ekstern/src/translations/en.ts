@@ -66,18 +66,25 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_ja': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_nei': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.validation_error': 'MANGLER_TEKST',
-  'stegvisning.samtykke.title': 'MANGLER_TEKST',
-  'stegvisning.samtykke.ingress': 'MANGLER_TEKST',
-  'stegvisning.samtykke.readmore_title': 'MANGLER_TEKST',
-  'stegvisning.samtykke.readmore_ingress': 'MANGLER_TEKST',
-  'stegvisning.samtykke.readmore_list_title': 'MANGLER_TEKST',
-  'stegvisning.samtykke.readmore_list_item1': 'MANGLER_TEKST',
-  'stegvisning.samtykke.readmore_list_item2': 'MANGLER_TEKST',
-  'stegvisning.samtykke.readmore_list_item3': 'MANGLER_TEKST',
-  'stegvisning.samtykke.radio_label': 'MANGLER_TEKST',
-  'stegvisning.samtykke.radio_ja': 'MANGLER_TEKST',
-  'stegvisning.samtykke.radio_nei': 'MANGLER_TEKST',
-  'stegvisning.samtykke.validation_error': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.title': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.ingress': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.radio_label': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.validation_error': 'MANGLER_TEKST',
   'stegvisning.afp.title': 'MANGLER_TEKST',
   'stegvisning.afp.ingress': 'MANGLER_TEKST',
   'stegvisning.afp.readmore_privat_title': 'MANGLER_TEKST',

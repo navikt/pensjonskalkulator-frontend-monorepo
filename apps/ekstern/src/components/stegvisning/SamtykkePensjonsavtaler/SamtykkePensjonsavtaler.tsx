@@ -6,8 +6,9 @@ import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore/ReadMore'
 import { logger, wrapLogger } from '@/utils/logging'
+import { getFormatMessageValues } from '@/utils/translations'
 
-import styles from './Samtykke.module.scss'
+import styles from './SamtykkePensjonsavtaler.module.scss'
 
 interface Props {
   harSamtykket: boolean | null
@@ -16,7 +17,7 @@ interface Props {
   onNext: (samtykkeData: BooleanRadio) => void
 }
 
-export function Samtykke({
+export function SamtykkePensjonsavtaler({
   harSamtykket,
   onCancel,
   onPrevious,
@@ -33,12 +34,12 @@ export function Samtykke({
 
     if (!samtykkeData) {
       const tekst = intl.formatMessage({
-        id: 'stegvisning.samtykke.validation_error',
+        id: 'stegvisning.samtykke_pensjonsavtaler.validation_error',
       })
       setValidationError(tekst)
       logger('valideringsfeil', {
         data: intl.formatMessage({
-          id: 'stegvisning.samtykke.radio_label',
+          id: 'stegvisning.samtykke_pensjonsavtaler.radio_label',
         }),
         tekst,
       })
@@ -62,35 +63,49 @@ export function Samtykke({
     <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
-          <FormattedMessage id="stegvisning.samtykke.title" />
+          <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.title" />
         </Heading>
         <BodyLong size="large">
-          <FormattedMessage id="stegvisning.samtykke.ingress" />
+          <FormattedMessage
+            id="stegvisning.samtykke_pensjonsavtaler.ingress"
+            values={{ ...getFormatMessageValues(intl) }}
+          />
         </BodyLong>
         <ReadMore
-          name="Disse opplysningene henter vi"
-          className={styles.readmore}
-          header={<FormattedMessage id="stegvisning.samtykke.readmore_title" />}
+          name="Dette sjekker vi om tjenestepensjon i offentlig sektor"
+          className={styles.readmoreOffentlig}
+          header={
+            <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title" />
+          }
         >
-          <FormattedMessage id="stegvisning.samtykke.readmore_list_title" />
+          <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress" />
+        </ReadMore>
+        <ReadMore
+          name="Dette henter vi om pensjonsavtaler fra privat sektor"
+          className={styles.readmorePrivat}
+          header={
+            <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_title" />
+          }
+        >
+          <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress" />
           <ul className={styles.list}>
             <li>
-              <FormattedMessage id="stegvisning.samtykke.readmore_list_item1" />
+              <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1" />
             </li>
             <li>
-              <FormattedMessage id="stegvisning.samtykke.readmore_list_item2" />
+              <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2" />
             </li>
             <li>
-              <FormattedMessage id="stegvisning.samtykke.readmore_list_item3" />
+              <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3" />
             </li>
           </ul>
-
-          <FormattedMessage id="stegvisning.samtykke.readmore_ingress" />
         </ReadMore>
 
         <RadioGroup
           className={styles.radiogroup}
-          legend={<FormattedMessage id="stegvisning.samtykke.radio_label" />}
+          legend={
+            <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.radio_label" />
+          }
           name="samtykke"
           defaultValue={
             harSamtykket ? 'ja' : harSamtykket === false ? 'nei' : null
@@ -101,10 +116,10 @@ export function Samtykke({
           aria-required="true"
         >
           <Radio value="ja">
-            <FormattedMessage id="stegvisning.samtykke.radio_ja" />
+            <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.radio_ja" />
           </Radio>
           <Radio value="nei">
-            <FormattedMessage id="stegvisning.samtykke.radio_nei" />
+            <FormattedMessage id="stegvisning.samtykke_pensjonsavtaler.radio_nei" />
           </Radio>
         </RadioGroup>
 

@@ -1,1 +1,0 @@
-export { StepSamtykke } from './StepSamtykke'
