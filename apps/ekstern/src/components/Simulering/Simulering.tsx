@@ -4,10 +4,9 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import {
   ChevronLeftCircleIcon,
   ChevronRightCircleIcon,
-  ExclamationmarkTriangleFillIcon,
   InformationSquareFillIcon,
 } from '@navikt/aksel-icons'
-import { BodyLong, Button, Heading, HeadingProps, Link } from '@navikt/ds-react'
+import { Alert, Button, Heading, HeadingProps, Link } from '@navikt/ds-react'
 import clsx from 'clsx'
 import Highcharts, {
   SeriesColumnOptions,
@@ -20,6 +19,7 @@ import { TabellVisning } from '@/components/TabellVisning'
 import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   usePensjonsavtalerQuery,
+  useGetTpoMedlemskapQuery,
 } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -91,6 +91,9 @@ export function Simulering(props: {
       intl
     )
   )
+  const [pensjonsavtalerAlert, setPensjonsavtalerAlert] = React.useState<
+    { variant: 'info' | 'warning'; text: string } | undefined
+  >(undefined)
   const [isPensjonsavtaleFlagVisible, setIsPensjonsavtaleFlagVisible] =
     React.useState<boolean>(false)
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
@@ -105,6 +108,10 @@ export function Simulering(props: {
       skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
     }
   )
+  const { data: tpoMedlemskap, isError: isTpoMedlemskapError } =
+    useGetTpoMedlemskapQuery(undefined, {
+      skip: !harSamtykket,
+    })
 
   React.useEffect(() => {
     /* c8 ignore next 3 */
@@ -167,6 +174,69 @@ export function Simulering(props: {
       )
     }
   }, [alderspensjonListe, pensjonsavtaler])
+
+  React.useEffect(() => {
+    if (tpoMedlemskap) {
+      if (tpoMedlemskap?.harTjenestepensjonsforhold) {
+        if (isPensjonsavtalerError) {
+          setPensjonsavtalerAlert({
+            variant: 'warning',
+            text: 'beregning.tpo.info.pensjonsavtaler.error',
+          })
+        } else if (isPensjonsavtalerSuccess) {
+          if (pensjonsavtaler.partialResponse) {
+            setPensjonsavtalerAlert({
+              variant: 'warning',
+              text: 'beregning.tpo.info.pensjonsavtaler.partial',
+            })
+          } else {
+            setPensjonsavtalerAlert({
+              variant: 'info',
+              text: 'beregning.tpo.info',
+            })
+          }
+        }
+      } else {
+        if (isPensjonsavtalerError) {
+          setPensjonsavtalerAlert({
+            variant: 'warning',
+            text: 'beregning.pensjonsavtaler.error',
+          })
+        } else if (pensjonsavtaler?.partialResponse) {
+          setPensjonsavtalerAlert({
+            variant: 'warning',
+            text: 'beregning.pensjonsavtaler.partial',
+          })
+        }
+      }
+    } else {
+      if (isTpoMedlemskapError && isPensjonsavtalerError) {
+        setPensjonsavtalerAlert({
+          variant: 'warning',
+          text: 'beregning.tpo.error.pensjonsavtaler.error',
+        })
+      }
+      if (isTpoMedlemskapError && isPensjonsavtalerSuccess) {
+        if (pensjonsavtaler.partialResponse) {
+          setPensjonsavtalerAlert({
+            variant: 'warning',
+            text: 'beregning.tpo.error.pensjonsavtaler.partial',
+          })
+        } else {
+          setPensjonsavtalerAlert({
+            variant: 'warning',
+            text: 'beregning.tpo.error',
+          })
+        }
+      }
+    }
+  }, [
+    isTpoMedlemskapError,
+    tpoMedlemskap,
+    isPensjonsavtalerSuccess,
+    isPensjonsavtalerError,
+    pensjonsavtaler,
+  ])
 
   // Redraws the graph when the x-axis has changed
   React.useEffect(() => {
@@ -345,25 +415,17 @@ export function Simulering(props: {
           </div>
         </div>
       )}
-      {(isPensjonsavtalerError || pensjonsavtaler?.partialResponse) && (
-        <div className={styles.error}>
-          <ExclamationmarkTriangleFillIcon
-            className={styles.errorIcon}
-            fontSize="1.5rem"
-            aria-hidden
+      {pensjonsavtalerAlert && (
+        <Alert
+          variant={pensjonsavtalerAlert?.variant}
+          data-testid="pensjonsavtaler-alert"
+          className={styles.alert}
+        >
+          <FormattedMessage
+            id={pensjonsavtalerAlert.text}
+            // values= TODO får lenke med scrollTo til ref
           />
-          <BodyLong className={styles.errorText}>
-            <FormattedMessage
-              id={
-                isPensjonsavtalerError ||
-                (pensjonsavtaler?.partialResponse &&
-                  pensjonsavtaler.avtaler.length === 0)
-                  ? 'beregning.pensjonsavtaler.error'
-                  : 'beregning.pensjonsavtaler.error.partial'
-              }
-            />
-          </BodyLong>
-        </div>
+        </Alert>
       )}
       {!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible && (
         <div className={styles.info} aria-live="assertive">

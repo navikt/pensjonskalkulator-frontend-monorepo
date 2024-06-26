@@ -215,13 +215,16 @@ const translations = {
   'beregning.livsvarig': 'MANGLER_TEKST',
   'beregning.lav_opptjening.aar':
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
-
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
-  'beregning.pensjonsavtaler.error':
-    'Vi klarte ikkje å hente pensjonsavtalene dine',
-  'beregning.pensjonsavtaler.error.partial':
-    'Vi klarte ikkje å hente alle pensjonsavtalene dine',
+  'beregning.tpo.info': 'MANGLER_TEKST',
+  'beregning.tpo.info.pensjonsavtaler.error': 'MANGLER_TEKST',
+  'beregning.tpo.info.pensjonsavtaler.partial': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.error': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.partial': 'MANGLER_TEKST',
+  'beregning.tpo.error': 'MANGLER_TEKST',
+  'beregning.tpo.error.pensjonsavtaler.error': 'MANGLER_TEKST',
+  'beregning.tpo.error.pensjonsavtaler.partial': 'MANGLER_TEKST',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'Utrekning',

@@ -245,10 +245,22 @@ const translations = {
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
+  'beregning.tpo.info':
+    'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under pensjonsavtaler.',
+  'beregning.tpo.info.pensjonsavtaler.error':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under pensjonsavtaler.',
+  'beregning.tpo.info.pensjonsavtaler.partial':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under pensjonsavtaler.',
   'beregning.pensjonsavtaler.error':
-    'Vi klarte ikke å hente pensjonsavtalene dine',
-  'beregning.pensjonsavtaler.error.partial':
-    'Vi klarte ikke å hente alle pensjonsavtalene dine',
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler.',
+  'beregning.pensjonsavtaler.partial':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler.',
+  'beregning.tpo.error':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor. Se hvorfor under pensjonsavtaler.',
+  'beregning.tpo.error.pensjonsavtaler.error':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente dine private pensjonsavtaler.',
+  'beregning.tpo.error.pensjonsavtaler.partial':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle dine private pensjonsavtaler.',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
