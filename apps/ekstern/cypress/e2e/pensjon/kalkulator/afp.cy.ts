@@ -41,7 +41,7 @@ describe('AFP', () => {
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
-        cy.contains('AFP (Avtalefestet pensjon)').should('not.exist')
+        cy.contains('AFP (avtalefestet pensjon)').should('not.exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
         cy.contains('Alderspensjon (NAV)').should('exist')
         cy.contains('Tusen kroner').should('exist')
@@ -128,7 +128,7 @@ describe('AFP', () => {
         cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
           'not.exist'
         )
-        cy.contains('Samtykke').should('exist')
+        cy.contains('Pensjonsavtaler').should('exist')
       })
 
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt, AFP, Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt.', () => {
@@ -139,7 +139,7 @@ describe('AFP', () => {
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
-        cy.contains('AFP (Avtalefestet pensjon)').should('exist')
+        cy.contains('AFP (avtalefestet pensjon)').should('exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
         cy.contains('Alderspensjon (NAV)').should('exist')
         cy.contains('Tusen kroner').should('exist')

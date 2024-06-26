@@ -246,7 +246,12 @@ describe('Hovedhistorie', () => {
         it('forventer jeg å bli spurt om mitt samtykke, og få informasjon om hva samtykket innebærer.', () => {
           cy.contains('h2', 'Pensjonsavtaler').should('exist')
           cy.contains('Skal vi hente pensjonsavtalene dine?').should('exist')
-          cy.contains('Disse opplysningene henter vi').should('exist')
+          cy.contains(
+            'Dette sjekker vi om tjenestepensjon i offentlig sektor'
+          ).should('exist')
+          cy.contains(
+            'Dette henter vi om pensjonsavtaler fra privat sektor'
+          ).should('exist')
         })
         it('forventer jeg å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
           cy.contains('button', 'Beregn pensjon').click()

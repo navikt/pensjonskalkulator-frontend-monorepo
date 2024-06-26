@@ -52,11 +52,13 @@ beforeEach(() => {
     { fixture: 'decorator-ops.json' }
   ).as('getDecoratorOpsMessages')
 
+  // /env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start
+  // https://dekoratoren.ekstern.dev.nav.no/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start
   cy.intercept(
     {
       method: 'GET',
       url: `${Cypress.env(
-        'DECORATOR_URL'
+        'DEV_DECORATOR_URL'
       )}/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start`,
     },
     { fixture: 'decorator-env-features.json' }
