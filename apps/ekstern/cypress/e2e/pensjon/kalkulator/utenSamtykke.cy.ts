@@ -13,7 +13,7 @@ describe('Uten samtykke', () => {
           cy.wait('@fetchAlderspensjon')
           cy.contains('Beregning').should('exist')
           cy.contains('Pensjonsgivende inntekt').should('exist')
-          cy.contains('AFP (Avtalefestet pensjon)').should('exist')
+          cy.contains('AFP (avtalefestet pensjon)').should('exist')
           cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
             'not.exist'
           )
@@ -35,7 +35,7 @@ describe('Uten samtykke', () => {
             .click({ force: true })
           cy.contains('0').should('exist')
           cy.contains('dt', 'Pensjonsgivende inntekt').should('exist')
-          cy.contains('dt', 'AFP (Avtalefestet pensjon)').should('exist')
+          cy.contains('dt', 'AFP (avtalefestet pensjon)').should('exist')
           cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
             'not.exist'
           )

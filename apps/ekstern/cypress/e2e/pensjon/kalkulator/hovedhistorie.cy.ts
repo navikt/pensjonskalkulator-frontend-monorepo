@@ -158,9 +158,9 @@ describe('Hovedhistorie', () => {
           cy.contains('button', 'Neste').click()
         })
         it('forventer jeg å få informasjon om AFP og muligheten for å velge om jeg ønsker å beregne AFP.', () => {
-          cy.contains('h2', 'Avtalefestet pensjon').should('exist')
-          cy.contains('Om avtalefestet pensjon i offentlig sektor').click()
-          cy.contains('Om avtalefestet pensjon i privat sektor').click()
+          cy.contains('h2', 'AFP (avtalefestet pensjon)').should('exist')
+          cy.contains('Om AFP i offentlig sektor').click()
+          cy.contains('Om AFP i privat sektor').click()
           cy.contains('a', 'AFP i privat sektor på afp.no')
             .should('have.attr', 'href')
             .and('include', 'https://www.afp.no')
@@ -206,7 +206,7 @@ describe('Hovedhistorie', () => {
           it('forventer jeg å bli spurt om mitt samtykke for beregning av offentlig-AFP, og få informasjon om hva samtykket innebærer.', () => {
             cy.contains(
               'h2',
-              'Samtykke til at NAV beregner avtalefestet pensjon'
+              'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
             ).should('exist')
             cy.contains('Vil du at NAV skal beregne AFP for deg?').should(
               'exist'
@@ -349,7 +349,7 @@ describe('Hovedhistorie', () => {
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
-        cy.contains('AFP (Avtalefestet pensjon)').should('exist')
+        cy.contains('AFP (avtalefestet pensjon)').should('exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
         cy.contains('Alderspensjon (NAV)').should('exist')
         cy.contains('Tusen kroner').should('be.visible')
@@ -418,7 +418,7 @@ describe('Hovedhistorie', () => {
           .click({ force: true })
         cy.contains('0').should('exist')
         cy.contains('dt', 'Pensjonsgivende inntekt').should('exist')
-        cy.contains('dt', 'AFP (Avtalefestet pensjon)').should('exist')
+        cy.contains('dt', 'AFP (avtalefestet pensjon)').should('exist')
         cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
           'exist'
         )

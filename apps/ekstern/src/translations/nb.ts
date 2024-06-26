@@ -77,7 +77,7 @@ const translations = {
   'stegvisning.start.ingress':
     'Velkommen til pensjonskalkulatoren som kan vise deg:',
   'stegvisning.start.list_item1': 'Alderspensjon (NAV)',
-  'stegvisning.start.list_item2': 'AFP (Avtalefestet pensjon)',
+  'stegvisning.start.list_item2': 'AFP (avtalefestet pensjon)',
   'stegvisning.start.list_item3': 'Pensjonsavtaler',
   'stegvisning.start.ingress_2':
     'For å beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
@@ -116,7 +116,7 @@ const translations = {
   'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, fortsett uten',
   'stegvisning.samtykke_pensjonsavtaler.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
-  'stegvisning.afp.title': 'AFP (Avtalefestet pensjon)',
+  'stegvisning.afp.title': 'AFP (avtalefestet pensjon)',
   'stegvisning.afp.ingress':
     'For å få AFP (avtalefestet pensjon) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
   'stegvisning.afp.readmore_privat_title': 'Om AFP i privat sektor',
@@ -260,7 +260,7 @@ const translations = {
   'beregning.highcharts.yaxis.mobile': 'Tusen kroner',
   'beregning.highcharts.serie.inntekt.name': 'Pensjonsgivende inntekt',
   'beregning.highcharts.serie.tp.name': 'Pensjonsavtaler (arbeidsgivere m.m.)',
-  'beregning.highcharts.serie.afp.name': 'AFP (Avtalefestet pensjon)',
+  'beregning.highcharts.serie.afp.name': 'AFP (avtalefestet pensjon)',
   'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (NAV)',
   'beregning.highcharts.tooltip.inntekt': 'Inntekt når du er',
   'beregning.highcharts.tooltip.pensjon': 'Pensjon når du er',

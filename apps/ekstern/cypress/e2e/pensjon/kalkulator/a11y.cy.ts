@@ -21,8 +21,8 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker AFP steg
-    cy.contains('Avtalefestet pensjon')
-    cy.contains('button', 'Om avtalefestet pensjon i privat sektor').click()
+    cy.contains('AFP (avtalefestet pensjon)')
+    cy.contains('button', 'Om AFP i privat sektor').click()
     cy.get('[type="radio"]').first().check()
     cy.checkA11y('main')
     cy.contains('button', 'Neste').click()
@@ -30,7 +30,7 @@ describe('Pensjonskalkulator', () => {
     // Hopper over AFP + Uføre steg
 
     // Sjekker AFP Samtykke steg
-    cy.contains('Samtykke til at NAV beregner avtalefestet pensjon')
+    cy.contains('Samtykke til at NAV beregner AFP (avtalefestet pensjon)')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
     cy.contains('button', 'Neste').click()

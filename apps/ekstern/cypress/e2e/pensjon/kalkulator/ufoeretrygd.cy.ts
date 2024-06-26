@@ -52,7 +52,9 @@ describe('med ufoeretrygd', () => {
           cy.contains('Vet ikke').should('exist')
           cy.get('[type="radio"]').eq(3).check()
           cy.contains('button', 'Neste').click()
-          cy.contains('Uføretrygd og avtalefestet pensjon').should('exist')
+          cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
+            'exist'
+          )
           cy.contains(
             'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')
@@ -81,7 +83,9 @@ describe('med ufoeretrygd', () => {
           cy.contains('Vet ikke').should('exist')
           cy.get('[type="radio"]').eq(0).check()
           cy.contains('button', 'Neste').click()
-          cy.contains('Uføretrygd og avtalefestet pensjon').should('exist')
+          cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
+            'exist'
+          )
           cy.contains(
             'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')
@@ -113,7 +117,9 @@ describe('med ufoeretrygd', () => {
           cy.contains('Vet ikke').should('exist')
           cy.get('[type="radio"]').eq(1).check()
           cy.contains('button', 'Neste').click()
-          cy.contains('Uføretrygd og avtalefestet pensjon').should('exist')
+          cy.contains('Uføretrygd og AFP (avtalefestet pensjon)').should(
+            'exist'
+          )
           cy.contains(
             'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')

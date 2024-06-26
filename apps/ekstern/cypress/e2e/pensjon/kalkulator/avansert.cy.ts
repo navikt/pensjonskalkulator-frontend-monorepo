@@ -568,7 +568,7 @@ describe('Avansert', () => {
       it('forventer jeg samme visninger av graf og tabell som i enkel', () => {
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
-        cy.contains('AFP (Avtalefestet pensjon)').should('exist')
+        cy.contains('AFP (avtalefestet pensjon)').should('exist')
         cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
         cy.contains('Alderspensjon (NAV)').should('exist')
         cy.contains('Tusen kroner').should('exist')
