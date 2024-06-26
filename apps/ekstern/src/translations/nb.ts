@@ -75,7 +75,12 @@ const translations = {
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
-    'Velkommen til pensjonskalkulatoren som er under utvikling. For å kunne beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
+    'Velkommen til pensjonskalkulatoren som kan vise deg:',
+  'stegvisning.start.list_item1': 'Alderspensjon (NAV)',
+  'stegvisning.start.list_item2': 'AFP (Avtalefestet pensjon)',
+  'stegvisning.start.list_item3': 'Pensjonsavtaler',
+  'stegvisning.start.ingress_2':
+    'For å beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysninger som brukes i pensjonskalkulator',

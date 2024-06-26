@@ -70,6 +70,10 @@ const translations = {
   'stegvisning.beregn': 'Rekne ut pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress': 'MANGLER_TEKST',
+  'stegvisning.start.list_item1': 'MANGLER_TEKST',
+  'stegvisning.start.list_item2': 'MANGLER_TEKST',
+  'stegvisning.start.list_item3': 'MANGLER_TEKST',
+  'stegvisning.start.ingress_2': 'MANGLER_TEKST',
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysningar som vert brukt i enkel kalkulator',
