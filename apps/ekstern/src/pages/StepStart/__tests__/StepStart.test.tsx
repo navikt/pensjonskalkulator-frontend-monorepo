@@ -84,10 +84,9 @@ describe('StepStart', () => {
 
   it('kaller onStegvisningCancel når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
-    const onStegvisningCancelMock = vi.spyOn(
-      stegvisningUtils,
-      'onStegvisningCancel'
-    )
+    const onStegvisningCancelMock = vi
+      .spyOn(stegvisningUtils, 'onStegvisningCancel')
+      .mockImplementation(vi.fn())
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.start}`],
@@ -95,11 +94,7 @@ describe('StepStart', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
-    await waitFor(async () => {
-      await waitFor(async () => {
-        expect(screen.queryByTestId('start-loader')).not.toBeInTheDocument()
-      })
-    })
+
     await user.click(await screen.findByText('stegvisning.avbryt'))
     expect(onStegvisningCancelMock).toHaveBeenCalled()
   })

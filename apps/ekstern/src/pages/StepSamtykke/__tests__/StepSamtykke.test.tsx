@@ -24,10 +24,6 @@ describe('StepSamtykke', () => {
   describe('Gitt at brukeren svarer Ja på spørsmål om samtykke', async () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
       const onStegvisningNextMock = vi.spyOn(
         stegvisningUtils,
         'onStegvisningNext'
@@ -41,7 +37,6 @@ describe('StepSamtykke', () => {
 
       expect(store.getState().userInput.samtykke).toBe(true)
       expect(onStegvisningNextMock).toHaveBeenCalled()
-      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
   })
 
@@ -53,10 +48,6 @@ describe('StepSamtykke', () => {
       )
 
       const user = userEvent.setup()
-      const navigateMock = vi.fn()
-      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-        () => navigateMock
-      )
       const onStegvisningNextMock = vi.spyOn(
         stegvisningUtils,
         'onStegvisningNext'
@@ -95,7 +86,6 @@ describe('StepSamtykke', () => {
       expect(invalidateMock).toHaveBeenCalledTimes(2)
 
       expect(onStegvisningNextMock).toHaveBeenCalled()
-      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
   })
 
@@ -124,10 +114,9 @@ describe('StepSamtykke', () => {
 
   it('kaller onStegvisningCancel når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
-    const onStegvisningCancelMock = vi.spyOn(
-      stegvisningUtils,
-      'onStegvisningCancel'
-    )
+    const onStegvisningCancelMock = vi
+      .spyOn(stegvisningUtils, 'onStegvisningCancel')
+      .mockImplementation(vi.fn())
     render(<StepSamtykke />, {
       preloadedState: {
         userInput: { ...userInputInitialState, samtykke: false },

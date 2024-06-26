@@ -128,10 +128,9 @@ describe('StepAFP', () => {
 
   it('kaller onStegvisningCancel når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
-    const onStegvisningCancelMock = vi.spyOn(
-      stegvisningUtils,
-      'onStegvisningCancel'
-    )
+    const onStegvisningCancelMock = vi
+      .spyOn(stegvisningUtils, 'onStegvisningCancel')
+      .mockImplementation(vi.fn())
     const router = createMemoryRouter(routes, {
       basename: BASE_PATH,
       initialEntries: [`${BASE_PATH}${paths.afp}`],

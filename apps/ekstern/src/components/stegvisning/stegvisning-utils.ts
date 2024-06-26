@@ -4,7 +4,6 @@ import { paths, stegvisningOrder } from '@/router/constants'
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
-// TODO skrive tester
 export const onStegvisningCancel = (
   dispatch: AppDispatch,
   navigate: NavigateFunction
@@ -13,7 +12,6 @@ export const onStegvisningCancel = (
   navigate(paths.login)
 }
 
-// TODO skrive tester
 export const onStegvisningNext = (
   navigate: NavigateFunction,
   currentPath: Path
