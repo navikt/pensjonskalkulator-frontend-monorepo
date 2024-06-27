@@ -27,7 +27,7 @@ describe('OffentligTjenestepensjon', () => {
     })
   })
 
-  it('Når brukeren har tp-medlemskap, viser riktig heading på riktig level og riktig infotekst', async () => {
+  it('Når brukeren har tp-medlemskap, viser riktig heading på riktig level og riktig infotekst med tp-leverandør', async () => {
     mockResponse('/v1/tpo-medlemskap', {
       status: 200,
       json: {
@@ -46,7 +46,9 @@ describe('OffentligTjenestepensjon', () => {
         await screen.findByRole('heading', { level: 3 })
       ).toHaveTextContent('pensjonsavtaler.tpo.title')
       expect(
-        await screen.findByText('pensjonsavtaler.tpo.er_medlem')
+        await screen.findByText(
+          'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens Pensjonsakasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
+        )
       ).toBeInTheDocument()
     })
   })

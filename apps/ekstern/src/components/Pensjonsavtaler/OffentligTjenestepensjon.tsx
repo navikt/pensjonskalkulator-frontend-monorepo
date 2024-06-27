@@ -16,8 +16,17 @@ export const OffentligTjenestepensjon = (props: {
 }) => {
   const { headingLevel, showDivider } = props
   const intl = useIntl()
+  const [leverandoererString, setleverandoererString] =
+    React.useState<string>('')
 
   const { data: tpo, isError, isLoading } = useGetTpoMedlemskapQuery()
+
+  React.useEffect(() => {
+    if (tpo?.tpLeverandoerListe && tpo.tpLeverandoerListe.length > 0) {
+      const joinedLeverandoerer = tpo?.tpLeverandoerListe.join(', ')
+      setleverandoererString(joinedLeverandoerer)
+    }
+  }, [tpo])
 
   if (isLoading) {
     return (
@@ -52,7 +61,12 @@ export const OffentligTjenestepensjon = (props: {
           {!isError &&
             tpo?.tpLeverandoerListe &&
             tpo.tpLeverandoerListe.length > 0 && (
-              <FormattedMessage id="pensjonsavtaler.tpo.er_medlem" />
+              <FormattedMessage
+                id="pensjonsavtaler.tpo.er_medlem"
+                values={{
+                  chunk: leverandoererString,
+                }}
+              />
             )}
         </BodyLong>
       </div>
