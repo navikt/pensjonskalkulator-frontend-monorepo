@@ -429,17 +429,23 @@ describe('Typeguards', () => {
     it('returnerer true når typen er riktig', () => {
       expect(
         isTpoMedlemskap({
-          harTjenestepensjonsforhold: false,
+          tpLeverandoerListe: [],
+        })
+      ).toBeTruthy()
+      expect(
+        isTpoMedlemskap({
+          tpLeverandoerListe: ['lorem ipsum'],
         })
       ).toBeTruthy()
     })
-    it('returnerer false når typen er undefined eller at UnleashToggle inneholder noe annet', () => {
+    it('returnerer false når typen er undefined eller at tpLeverandoerListe inneholder noe annet', () => {
       expect(isTpoMedlemskap(undefined)).toBeFalsy()
       expect(isTpoMedlemskap([])).toBeFalsy()
       expect(isTpoMedlemskap({})).toBeFalsy()
+      expect(isTpoMedlemskap({ somethingElse: [] })).toBeFalsy()
       expect(
         isTpoMedlemskap({
-          harTjenestepensjonsforhold: 'string',
+          tpLeverandoerListe: 'string',
         })
       ).toBeFalsy()
     })

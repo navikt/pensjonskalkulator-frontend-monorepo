@@ -11,10 +11,10 @@ describe('OffentligTjenestepensjon', () => {
   })
 
   it('Når brukeren ikke har tp-medlemskap, viser ingenting ', async () => {
-    mockResponse('/tpo-medlemskap', {
+    mockResponse('/v1/tpo-medlemskap', {
       status: 200,
       json: {
-        harTjenestepensjonsforhold: false,
+        tpLeverandoerListe: [],
       },
     })
     render(<OffentligTjenestepensjon headingLevel="3" />)
@@ -28,10 +28,14 @@ describe('OffentligTjenestepensjon', () => {
   })
 
   it('Når brukeren har tp-medlemskap, viser riktig heading på riktig level og riktig infotekst', async () => {
-    mockResponse('/tpo-medlemskap', {
+    mockResponse('/v1/tpo-medlemskap', {
       status: 200,
       json: {
-        harTjenestepensjonsforhold: true,
+        tpLeverandoerListe: [
+          'Statens Pensjonsakasse',
+          'Kommunal Landspensjonskasse',
+          'Oslo Pensjonsforsikring',
+        ],
       },
     })
     render(<OffentligTjenestepensjon headingLevel="3" />)
@@ -48,7 +52,7 @@ describe('OffentligTjenestepensjon', () => {
   })
 
   it('Når kall til tp-medlemskap feiler, viser riktig heading på riktig level og riktig feilmelding', async () => {
-    mockErrorResponse('/tpo-medlemskap')
+    mockErrorResponse('/v1/tpo-medlemskap')
     render(<OffentligTjenestepensjon headingLevel="3" />)
 
     await waitFor(async () => {

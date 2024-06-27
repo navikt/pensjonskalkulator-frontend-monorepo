@@ -17,7 +17,7 @@ export const OffentligTjenestepensjon = (props: {
   const { headingLevel, showDivider } = props
   const intl = useIntl()
 
-  const { data: tpoMedlemskap, isError, isLoading } = useGetTpoMedlemskapQuery()
+  const { data: tpo, isError, isLoading } = useGetTpoMedlemskapQuery()
 
   if (isLoading) {
     return (
@@ -31,11 +31,7 @@ export const OffentligTjenestepensjon = (props: {
     )
   }
 
-  if (
-    !isLoading &&
-    !isError &&
-    tpoMedlemskap?.harTjenestepensjonsforhold === false
-  ) {
+  if (!isLoading && !isError && tpo?.tpLeverandoerListe.length === 0) {
     return
   }
 
@@ -53,9 +49,11 @@ export const OffentligTjenestepensjon = (props: {
         />
         <BodyLong className={styles.infoText}>
           {isError && <FormattedMessage id="pensjonsavtaler.tpo.error" />}
-          {!isError && tpoMedlemskap?.harTjenestepensjonsforhold && (
-            <FormattedMessage id="pensjonsavtaler.tpo.er_medlem" />
-          )}
+          {!isError &&
+            tpo?.tpLeverandoerListe &&
+            tpo.tpLeverandoerListe.length > 0 && (
+              <FormattedMessage id="pensjonsavtaler.tpo.er_medlem" />
+            )}
         </BodyLong>
       </div>
     </>

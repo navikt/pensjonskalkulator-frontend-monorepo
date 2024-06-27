@@ -219,7 +219,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse('/tpo-medlemskap')
+      mockErrorResponse('/v1/tpo-medlemskap')
       return storeRef
         .dispatch<any>(apiSlice.endpoints.getTpoMedlemskap.initiate())
         .then((result: FetchBaseQueryError) => {
@@ -230,7 +230,7 @@ describe('apiSlice', () => {
 
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
-      mockResponse('/tpo-medlemskap', {
+      mockResponse('/v1/tpo-medlemskap', {
         status: 200,
         json: { lorem: 'ipsum' },
       })

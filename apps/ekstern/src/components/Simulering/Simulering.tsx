@@ -108,10 +108,12 @@ export function Simulering(props: {
       skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
     }
   )
-  const { data: tpoMedlemskap, isError: isTpoMedlemskapError } =
-    useGetTpoMedlemskapQuery(undefined, {
+  const { data: tpo, isError: isTpoError } = useGetTpoMedlemskapQuery(
+    undefined,
+    {
       skip: !harSamtykket,
-    })
+    }
+  )
 
   React.useEffect(() => {
     /* c8 ignore next 3 */
@@ -179,8 +181,8 @@ export function Simulering(props: {
     const isPartialWith0Avtaler =
       pensjonsavtaler?.partialResponse && pensjonsavtaler?.avtaler.length === 0
 
-    if (tpoMedlemskap) {
-      if (tpoMedlemskap?.harTjenestepensjonsforhold) {
+    if (tpo) {
+      if (tpo?.tpLeverandoerListe.length > 0) {
         if (isPensjonsavtalerError || isPartialWith0Avtaler) {
           setPensjonsavtalerAlert({
             variant: 'warning',
@@ -213,15 +215,12 @@ export function Simulering(props: {
         }
       }
     } else {
-      if (
-        isTpoMedlemskapError &&
-        (isPensjonsavtalerError || isPartialWith0Avtaler)
-      ) {
+      if (isTpoError && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
         setPensjonsavtalerAlert({
           variant: 'warning',
           text: 'beregning.tpo.error.pensjonsavtaler.error',
         })
-      } else if (isTpoMedlemskapError && isPensjonsavtalerSuccess) {
+      } else if (isTpoError && isPensjonsavtalerSuccess) {
         if (pensjonsavtaler.partialResponse) {
           setPensjonsavtalerAlert({
             variant: 'warning',
@@ -236,8 +235,8 @@ export function Simulering(props: {
       }
     }
   }, [
-    isTpoMedlemskapError,
-    tpoMedlemskap,
+    isTpoError,
+    tpo,
     isPensjonsavtalerSuccess,
     isPensjonsavtalerError,
     pensjonsavtaler,
