@@ -428,7 +428,17 @@ export function Simulering(props: {
         >
           <FormattedMessage
             id={pensjonsavtalerAlert.text}
-            // values= TODO får lenke med scrollTo til ref
+            values={{
+              scrollTo: (chunk) => (
+                <Link
+                  href="#"
+                  data-testid="pensjonsavtaler-alert-link"
+                  onClick={handlePensjonsavtalerLinkClick}
+                >
+                  {chunk}
+                </Link>
+              ),
+            }}
           />
         </Alert>
       )}

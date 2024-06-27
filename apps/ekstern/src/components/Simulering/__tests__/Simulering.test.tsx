@@ -726,12 +726,7 @@ describe('Simulering', () => {
           )
         ).toBeVisible()
       })
-
-      const pensjonsavtalerScrollToLink = await screen.findByTestId(
-        'pensjonsavtaler-info-link'
-      )
-      await user.click(pensjonsavtalerScrollToLink)
-
+      await user.click(await screen.findByTestId('pensjonsavtaler-info-link'))
       expect(scrollToMock).toHaveBeenCalledWith({
         behavior: 'smooth',
         top: -15,
@@ -759,9 +754,12 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.tpo.info', {
-            exact: false,
-          })
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon.',
+            {
+              exact: false,
+            }
+          )
         ).toBeVisible()
       })
 
@@ -790,9 +788,12 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.tpo.info.pensjonsavtaler.error', {
-            exact: false,
-          })
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
+            {
+              exact: false,
+            }
+          )
         ).toBeVisible()
       })
 
@@ -838,7 +839,10 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.tpo.info.pensjonsavtaler.partial')
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
+            { exact: false }
+          )
         ).toBeVisible()
       })
 
@@ -870,7 +874,10 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.tpo.info.pensjonsavtaler.error')
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
+            { exact: false }
+          )
         ).toBeVisible()
       })
     })
@@ -909,9 +916,12 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.pensjonsavtaler.error', {
-            exact: false,
-          })
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente',
+            {
+              exact: false,
+            }
+          )
         ).toBeVisible()
       })
 
@@ -957,7 +967,10 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.pensjonsavtaler.partial')
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle',
+            { exact: false }
+          )
         ).toBeVisible()
       })
 
@@ -989,7 +1002,10 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.pensjonsavtaler.error')
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente',
+            { exact: false }
+          )
         ).toBeVisible()
       })
     })
@@ -1019,9 +1035,12 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.tpo.error', {
-            exact: false,
-          })
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor.',
+            {
+              exact: false,
+            }
+          )
         ).toBeVisible()
       })
 
@@ -1050,9 +1069,12 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.tpo.error.pensjonsavtaler.error', {
-            exact: false,
-          })
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente',
+            {
+              exact: false,
+            }
+          )
         ).toBeVisible()
       })
 
@@ -1098,7 +1120,10 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.tpo.error.pensjonsavtaler.partial')
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle',
+            { exact: false }
+          )
         ).toBeVisible()
       })
 
@@ -1130,7 +1155,10 @@ describe('Simulering', () => {
           }
         )
         expect(
-          await screen.findByText('beregning.tpo.error.pensjonsavtaler.error')
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente',
+            { exact: false }
+          )
         ).toBeVisible()
       })
     })
