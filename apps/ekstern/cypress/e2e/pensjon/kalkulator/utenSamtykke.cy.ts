@@ -1,17 +1,5 @@
 describe('Uten samtykke', () => {
   describe('Som bruker som har logget inn på kalkulatoren,', () => {
-    // TODO få inn disse testene?
-    // Når brukeren har medlemskap til tp-registret og pensjonsavtaler ble hentet
-    // Når brukeren har medlemskap til tp-registret og pensjonsavtaler feilet
-    // Når brukeren har medlemskap til tp-registret og pensjonsavtaler svarer delvis
-
-    // Når brukeren ikke har noe medlemskap til tp-registret og pensjonsavtaler feilet
-    // Når brukeren ikke har medlemskap til tp-registret og pensjonsavtaler svarer delvis
-
-    // Når kall tp-registret feilet og pensjonsavtaler ble hentet
-    // Når kall tp-registret feilet og pensjonsavtaler feilet
-    // Når kall tp-registret feilet og pensjonsavtaler svarer delvis
-
     describe('Gitt at jeg ikke samtykker til innhenting av avtaler,', () => {
       describe('Når jeg er kommet til beregningssiden og velger hvilken alder jeg ønsker beregning fra,', () => {
         beforeEach(() => {

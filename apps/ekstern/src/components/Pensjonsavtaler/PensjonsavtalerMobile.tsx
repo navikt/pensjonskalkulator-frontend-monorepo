@@ -7,6 +7,7 @@ import { Divider } from '@/components/common/Divider'
 import { formatInntekt } from '@/utils/inntekt'
 import { capitalize } from '@/utils/string'
 
+import { OffentligTjenestepensjon } from './OffentligTjenestepensjon'
 import * as utils from './utils'
 
 interface IPensjonsavtalerProps {
@@ -96,22 +97,28 @@ export const PensjonsavtalerMobil: React.FC<IProps> = ({
   }, [pensjonsavtaler])
 
   return (
-    <VStack data-testid="pensjonsavtaler-mobile">
-      {Object.entries(gruppertePensjonsavtaler).map(
-        ([avtaleGruppe, gruppePensjonsavtaler]) => (
-          <div key={`${avtaleGruppe}-gruppe-mobil`}>
-            <AvtaleGruppe
-              headingLevel={headingLevel}
-              avtale={avtaleGruppe}
-              pensjonsavtaler={gruppePensjonsavtaler}
-            />
-            <Divider />
-          </div>
-        )
-      )}
+    <>
+      <VStack data-testid="pensjonsavtaler-mobile">
+        {Object.entries(gruppertePensjonsavtaler).map(
+          ([avtaleGruppe, gruppePensjonsavtaler]) => (
+            <div key={`${avtaleGruppe}-gruppe-mobil`}>
+              <AvtaleGruppe
+                headingLevel={headingLevel}
+                avtale={avtaleGruppe}
+                pensjonsavtaler={gruppePensjonsavtaler}
+              />
+              <Divider />
+            </div>
+          )
+        )}
+      </VStack>
+      <VStack gap="3">
+        <OffentligTjenestepensjon headingLevel={headingLevel} />
+      </VStack>
+      <Divider />
       <BodyLong>
         <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
       </BodyLong>
-    </VStack>
+    </>
   )
 }

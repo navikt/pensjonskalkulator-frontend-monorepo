@@ -29,7 +29,7 @@ describe('Pensjonsavtaler', () => {
     },
   }
   describe('Gitt at brukeren ikke har samtykket', () => {
-    it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress og tabell', async () => {
+    it('viser riktig header og melding med lenke tilbake til start, og skjuler ingress, tabell og info om offentlig tjenestepensjon', async () => {
       const user = userEvent.setup()
       const navigateMock = vi.fn()
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -57,8 +57,6 @@ describe('Pensjonsavtaler', () => {
           { exact: false }
         )
       ).toBeVisible()
-
-      screen.debug()
       expect(
         await screen.findAllByText(
           'pensjonsavtaler.ingress.error.samtykke_link',
@@ -74,6 +72,9 @@ describe('Pensjonsavtaler', () => {
           exact: false,
         })
       ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('pensjonsavtaler.tpo.title')
+      ).not.toBeInTheDocument()
 
       await user.click(
         await screen.findByText('pensjonsavtaler.ingress.error.samtykke_link_1')
@@ -85,7 +86,7 @@ describe('Pensjonsavtaler', () => {
   })
 
   describe('Gitt at brukeren har samtykket', () => {
-    it('Når pensjonsavtaler laster, viser riktig header og melding', async () => {
+    it('Når pensjonsavtaler laster, viser riktig header og melding og info om offentlig tjenestepensjon', async () => {
       render(<Pensjonsavtaler headingLevel="3" />, {
         preloadedState: {
           api: {
@@ -105,6 +106,9 @@ describe('Pensjonsavtaler', () => {
       expect(
         await screen.findByRole('heading', { level: 3 })
       ).toHaveTextContent('pensjonsavtaler.title')
+      expect(
+        await screen.findByText('pensjonsavtaler.tpo.title')
+      ).toBeInTheDocument()
     })
 
     it('Når brukeren har valgt AFP privat, gradert periode og inntekt, kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
@@ -207,6 +211,7 @@ describe('Pensjonsavtaler', () => {
       })
       expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)
     })
+
     it('Når brukeren har valgt noe annet enn afp privat kalles endepunktet for pensjonsavtaler med riktig payload', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.pensjonsavtaler,
@@ -232,7 +237,7 @@ describe('Pensjonsavtaler', () => {
       expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)
     })
 
-    it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell', async () => {
+    it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell og info om offentlig tjenestepensjon', async () => {
       mockErrorResponse('/v2/pensjonsavtaler', {
         method: 'post',
       })
@@ -258,9 +263,12 @@ describe('Pensjonsavtaler', () => {
       expect(
         screen.queryByTestId('pensjonsavtaler-list')
       ).not.toBeInTheDocument()
+      expect(
+        await screen.findByText('pensjonsavtaler.tpo.title')
+      ).toBeInTheDocument()
     })
 
-    it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress og tabell', async () => {
+    it('Når pensjonsavtaler har delvis svar, viser riktig header og melding, og viser ingress, tabell og info om offentlig tjenestepensjon', async () => {
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -306,7 +314,9 @@ describe('Pensjonsavtaler', () => {
           'pensjonsavtaler.ingress.error.pensjonsavtaler.partial'
         )
       ).toBeVisible()
-      expect(await screen.findByTestId('pensjonsavtaler-list')).toBeVisible()
+      expect(
+        screen.queryByTestId('pensjonsavtaler-list')
+      ).not.toBeInTheDocument()
       expect(
         await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
           exact: false,
@@ -318,9 +328,12 @@ describe('Pensjonsavtaler', () => {
       expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(
         1
       )
+      expect(
+        await screen.findByText('pensjonsavtaler.tpo.title')
+      ).toBeInTheDocument()
     })
 
-    it('Når pensjonsavtaler har delvis svar og ingen avtaler, viser riktig header og melding, og viser ingress og tabell', async () => {
+    it('Når pensjonsavtaler har delvis svar og ingen avtaler, viser riktig header og melding, og viser ingress, tabell og info om offentlig tjenestepensjon', async () => {
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -370,9 +383,12 @@ describe('Pensjonsavtaler', () => {
       expect(
         await screen.findByRole('heading', { level: 3 })
       ).toHaveTextContent('pensjonsavtaler.title')
+      expect(
+        await screen.findByText('pensjonsavtaler.tpo.title')
+      ).toBeInTheDocument()
     })
 
-    it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell', async () => {
+    it('Når brukeren har 0 pensjonsavtaler, viser riktig infomelding, og skjuler ingress og tabell. Info om offentlig tjenestepensjon vises.', async () => {
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -410,6 +426,9 @@ describe('Pensjonsavtaler', () => {
           exact: false,
         })
       ).toBeVisible()
+      expect(
+        await screen.findByText('pensjonsavtaler.tpo.title')
+      ).toBeInTheDocument()
     })
   })
 })

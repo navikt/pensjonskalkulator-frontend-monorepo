@@ -13,6 +13,7 @@ import clsx from 'clsx'
 import { formatInntekt } from '@/utils/inntekt'
 import { capitalize } from '@/utils/string'
 
+import { OffentligTjenestepensjon } from './OffentligTjenestepensjon'
 import {
   formaterLivsvarigString,
   formaterSluttAlderString,
@@ -126,22 +127,27 @@ export const PensjonsavtalerTable: React.FC<IProps> = ({
   }, [pensjonsavtaler])
 
   return (
-    <VStack gap="6">
-      <VStack gap="2" data-testid="pensjonsavtaler-table">
-        {Object.entries(gruppertePensjonsavtaler).map(
-          ([avtaleGruppeNavn, gruppePensjonsavtaler]) => (
-            <AvtaleGruppe
-              headingLevel={headingLevel}
-              key={`${avtaleGruppeNavn}-gruppe-table`}
-              avtaleGruppeNavn={avtaleGruppeNavn}
-              pensjonsavtaler={gruppePensjonsavtaler}
-            />
-          )
-        )}
+    <>
+      <VStack gap="6">
+        <VStack gap="2" data-testid="pensjonsavtaler-table">
+          {Object.entries(gruppertePensjonsavtaler).map(
+            ([avtaleGruppeNavn, gruppePensjonsavtaler]) => (
+              <AvtaleGruppe
+                headingLevel={headingLevel}
+                key={`${avtaleGruppeNavn}-gruppe-table`}
+                avtaleGruppeNavn={avtaleGruppeNavn}
+                pensjonsavtaler={gruppePensjonsavtaler}
+              />
+            )
+          )}
+        </VStack>
+        <VStack gap="3">
+          <OffentligTjenestepensjon headingLevel={headingLevel} />
+          <BodyLong>
+            <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
+          </BodyLong>
+        </VStack>
       </VStack>
-      <BodyLong>
-        <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
-      </BodyLong>
-    </VStack>
+    </>
   )
 }

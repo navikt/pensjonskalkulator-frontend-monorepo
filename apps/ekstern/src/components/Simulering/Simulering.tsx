@@ -176,9 +176,12 @@ export function Simulering(props: {
   }, [alderspensjonListe, pensjonsavtaler])
 
   React.useEffect(() => {
+    const isPartialWith0Avtaler =
+      pensjonsavtaler?.partialResponse && pensjonsavtaler?.avtaler.length === 0
+
     if (tpoMedlemskap) {
       if (tpoMedlemskap?.harTjenestepensjonsforhold) {
-        if (isPensjonsavtalerError) {
+        if (isPensjonsavtalerError || isPartialWith0Avtaler) {
           setPensjonsavtalerAlert({
             variant: 'warning',
             text: 'beregning.tpo.info.pensjonsavtaler.error',
@@ -197,7 +200,7 @@ export function Simulering(props: {
           }
         }
       } else {
-        if (isPensjonsavtalerError) {
+        if (isPensjonsavtalerError || isPartialWith0Avtaler) {
           setPensjonsavtalerAlert({
             variant: 'warning',
             text: 'beregning.pensjonsavtaler.error',
@@ -210,13 +213,15 @@ export function Simulering(props: {
         }
       }
     } else {
-      if (isTpoMedlemskapError && isPensjonsavtalerError) {
+      if (
+        isTpoMedlemskapError &&
+        (isPensjonsavtalerError || isPartialWith0Avtaler)
+      ) {
         setPensjonsavtalerAlert({
           variant: 'warning',
           text: 'beregning.tpo.error.pensjonsavtaler.error',
         })
-      }
-      if (isTpoMedlemskapError && isPensjonsavtalerSuccess) {
+      } else if (isTpoMedlemskapError && isPensjonsavtalerSuccess) {
         if (pensjonsavtaler.partialResponse) {
           setPensjonsavtalerAlert({
             variant: 'warning',

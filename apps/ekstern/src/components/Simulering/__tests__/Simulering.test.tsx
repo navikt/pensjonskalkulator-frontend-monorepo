@@ -841,6 +841,38 @@ describe('Simulering', () => {
           await screen.findByText('beregning.tpo.info.pensjonsavtaler.partial')
         ).toBeVisible()
       })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [],
+            utilgjengeligeSelskap: ['Something'],
+          },
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText('beregning.tpo.info.pensjonsavtaler.error')
+        ).toBeVisible()
+      })
     })
 
     describe('Gitt at brukeren ikke har noe tp-medlemskap', () => {
@@ -926,6 +958,38 @@ describe('Simulering', () => {
         )
         expect(
           await screen.findByText('beregning.pensjonsavtaler.partial')
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selska og 0 avtalerp, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [],
+            utilgjengeligeSelskap: ['Something'],
+          },
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText('beregning.pensjonsavtaler.error')
         ).toBeVisible()
       })
     })
@@ -1035,6 +1099,38 @@ describe('Simulering', () => {
         )
         expect(
           await screen.findByText('beregning.tpo.error.pensjonsavtaler.partial')
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [],
+            utilgjengeligeSelskap: ['Something'],
+          },
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText('beregning.tpo.error.pensjonsavtaler.error')
         ).toBeVisible()
       })
     })
