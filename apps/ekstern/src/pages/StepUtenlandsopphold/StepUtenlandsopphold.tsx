@@ -2,10 +2,7 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import {
-  onStegvisningCancel,
-  onStegvisningNext,
-} from '@/components/stegvisning/stegvisning-utils'
+import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'
 import { paths, henvisningUrlParams } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -24,6 +21,10 @@ export function StepUtenlandsopphold() {
   const harSamboerFraSivilstand = useAppSelector(selectSamboerFraSivilstand)
   const isVeileder = useAppSelector(selectIsVeileder)
 
+  const [{ onStegvisningNext, onStegvisningCancel }] = useStegvisningNavigation(
+    paths.utenlandsopphold
+  )
+
   React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.utenlandsopphold',
@@ -36,7 +37,7 @@ export function StepUtenlandsopphold() {
       navigate(`${paths.henvisning}/${henvisningUrlParams.utland}`)
     } else {
       dispatch(userInputActions.setUtenlandsopphold(utenlandsopphold))
-      onStegvisningNext(navigate, paths.utenlandsopphold)
+      onStegvisningNext()
     }
   }
 
@@ -44,14 +45,10 @@ export function StepUtenlandsopphold() {
     navigate(harSamboerFraSivilstand ? -2 : -1)
   }
 
-  const onCancel = () => {
-    onStegvisningCancel(dispatch, navigate)
-  }
-
   return (
     <Utenlandsopphold
       harUtenlandsopphold={harUtenlandsopphold}
-      onCancel={isVeileder ? undefined : onCancel}
+      onCancel={isVeileder ? undefined : onStegvisningCancel}
       onPrevious={onPrevious}
       onNext={onNext}
     />

@@ -3,7 +3,6 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepSamtykkeOffentligAFP } from '..'
-import * as stegvisningUtils from '@/components/stegvisning/stegvisning-utils'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
@@ -71,19 +70,5 @@ describe('StepSamtykkeOffentligAFP', () => {
 
     expect(navigateMock).toHaveBeenCalledWith(-1)
     expect(store.getState().userInput.samtykkeOffentligAFP).toBe(null)
-  })
-
-  it('kaller onStegvisningCancel når brukeren klikker på Avbryt', async () => {
-    const user = userEvent.setup()
-    const onStegvisningCancelMock = vi
-      .spyOn(stegvisningUtils, 'onStegvisningCancel')
-      .mockImplementation(vi.fn())
-    render(<StepSamtykkeOffentligAFP />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState },
-      },
-    })
-    await user.click(screen.getByText('stegvisning.avbryt'))
-    expect(onStegvisningCancelMock).toHaveBeenCalled()
   })
 })

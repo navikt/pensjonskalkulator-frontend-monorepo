@@ -31,7 +31,7 @@ describe('PensjonsavtalerMobile', () => {
     },
   ]
 
-  it('rendrer riktig header for pensjonsavtaler of offentlig tjenestepensjon', async () => {
+  it('rendrer riktig header for pensjonsavtaler og offentlig tjenestepensjon', async () => {
     render(<PensjonsavtalerMobil headingLevel="4" pensjonsavtaler={avtaler} />)
     expect(await screen.findAllByRole('heading', { level: 5 })).toHaveLength(2)
     expect(await screen.findByText('pensjonsavtaler.tpo.title')).toBeVisible()

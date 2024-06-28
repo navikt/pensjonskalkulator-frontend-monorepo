@@ -1,13 +1,10 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate, Await } from 'react-router-dom'
+import { Await } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { Start } from '@/components/stegvisning/Start'
-import {
-  onStegvisningCancel,
-  onStegvisningNext,
-} from '@/components/stegvisning/stegvisning-utils'
+import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
 import { useStepStartAccessData } from '@/router/loaders'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -16,9 +13,13 @@ import { selectIsVeileder } from '@/state/userInput/selectors'
 
 export function StepStart() {
   const intl = useIntl()
-  const navigate = useNavigate()
+
   const dispatch = useAppDispatch()
   const loaderData = useStepStartAccessData()
+
+  const [{ onStegvisningNext, onStegvisningCancel }] = useStegvisningNavigation(
+    paths.start
+  )
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -30,14 +31,6 @@ export function StepStart() {
   }, [])
 
   const isVeileder = useAppSelector(selectIsVeileder)
-
-  const onNext = (): void => {
-    onStegvisningNext(navigate, paths.start)
-  }
-
-  const onCancel = () => {
-    onStegvisningCancel(dispatch, navigate)
-  }
 
   return (
     <React.Suspense
@@ -70,8 +63,8 @@ export function StepStart() {
                   ? (getPersonQuery.data as Person).navn
                   : ''
               }
-              onCancel={isVeileder ? undefined : onCancel}
-              onNext={onNext}
+              onCancel={isVeileder ? undefined : onStegvisningCancel}
+              onNext={onStegvisningNext}
             />
           )
         }}

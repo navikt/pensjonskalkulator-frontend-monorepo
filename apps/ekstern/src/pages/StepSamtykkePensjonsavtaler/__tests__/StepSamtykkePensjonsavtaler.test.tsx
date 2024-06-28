@@ -3,12 +3,12 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepSamtykkePensjonsavtaler } from '..'
-import * as stegvisningUtils from '@/components/stegvisning/stegvisning-utils'
 import {
   fulfilledGetTpoMedlemskap,
   fulfilledGetUfoeregrad,
   fulfilledPensjonsavtaler,
 } from '@/mocks/mockedRTKQueryApiCalls'
+import { paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { selectHarHentetTpoMedlemskap } from '@/state/userInput/selectors'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -23,9 +23,10 @@ describe('StepSamtykkePensjonsavtaler', () => {
   describe('Gitt at brukeren svarer Ja på spørsmål om samtykke', async () => {
     it('registrerer samtykke og navigerer videre til riktig side når brukeren klikker på Neste', async () => {
       const user = userEvent.setup()
-      const onStegvisningNextMock = vi.spyOn(
-        stegvisningUtils,
-        'onStegvisningNext'
+
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
       )
 
       const { store } = render(<StepSamtykkePensjonsavtaler />)
@@ -35,7 +36,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
       await user.click(screen.getByText('stegvisning.beregn'))
 
       expect(store.getState().userInput.samtykke).toBe(true)
-      expect(onStegvisningNextMock).toHaveBeenCalled()
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
   })
 
@@ -45,12 +46,12 @@ describe('StepSamtykkePensjonsavtaler', () => {
         apiSliceUtils.apiSlice.util.invalidateTags,
         'match'
       )
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
 
       const user = userEvent.setup()
-      const onStegvisningNextMock = vi.spyOn(
-        stegvisningUtils,
-        'onStegvisningNext'
-      )
 
       const { store } = render(<StepSamtykkePensjonsavtaler />, {
         preloadedState: {
@@ -84,7 +85,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
       expect(store.getState().userInput.samtykke).toBe(false)
       expect(invalidateMock).toHaveBeenCalledTimes(2)
 
-      expect(onStegvisningNextMock).toHaveBeenCalled()
+      expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
     })
   })
 
@@ -109,22 +110,5 @@ describe('StepSamtykkePensjonsavtaler', () => {
       await user.click(screen.getByText('stegvisning.tilbake'))
       expect(navigateMock).toHaveBeenCalledWith(-1)
     })
-  })
-
-  it('kaller onStegvisningCancel når brukeren klikker på Avbryt', async () => {
-    const user = userEvent.setup()
-    const onStegvisningCancelMock = vi
-      .spyOn(stegvisningUtils, 'onStegvisningCancel')
-      .mockImplementation(vi.fn())
-    render(<StepSamtykkePensjonsavtaler />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: false },
-      },
-    })
-    const radioButtons = screen.getAllByRole('radio')
-    expect(radioButtons[1]).toBeChecked()
-
-    await user.click(screen.getByText('stegvisning.avbryt'))
-    expect(onStegvisningCancelMock).toHaveBeenCalled()
   })
 })

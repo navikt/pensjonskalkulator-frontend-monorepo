@@ -1,13 +1,10 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate, Await } from 'react-router-dom'
+import { Await } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { Sivilstand } from '@/components/stegvisning/Sivilstand'
-import {
-  onStegvisningCancel,
-  onStegvisningNext,
-} from '@/components/stegvisning/stegvisning-utils'
+import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
 import { useStepSivilstandAccessData } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -19,11 +16,14 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function StepSivilstand() {
   const intl = useIntl()
-  const navigate = useNavigate()
+
   const dispatch = useAppDispatch()
   const loaderData = useStepSivilstandAccessData()
   const isVeileder = useAppSelector(selectIsVeileder)
   const samboerSvar = useAppSelector(selectSamboerFraBrukerInput)
+
+  const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
+    useStegvisningNavigation(paths.sivilstand)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -33,15 +33,7 @@ export function StepSivilstand() {
 
   const onNext = (sivilstandData: BooleanRadio): void => {
     dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
-    onStegvisningNext(navigate, paths.sivilstand)
-  }
-
-  const onPrevious = (): void => {
-    navigate(-1)
-  }
-
-  const onCancel = () => {
-    onStegvisningCancel(dispatch, navigate)
+    onStegvisningNext()
   }
 
   return (
@@ -76,8 +68,8 @@ export function StepSivilstand() {
                   : 'UNKNOWN'
               }
               harSamboer={samboerSvar}
-              onCancel={isVeileder ? undefined : onCancel}
-              onPrevious={onPrevious}
+              onCancel={isVeileder ? undefined : onStegvisningCancel}
+              onPrevious={onStegvisningPrevious}
               onNext={onNext}
             />
           )

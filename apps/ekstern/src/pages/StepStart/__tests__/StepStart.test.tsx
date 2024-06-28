@@ -3,7 +3,6 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import * as stegvisningUtils from '@/components/stegvisning/stegvisning-utils'
 import { mockErrorResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -80,22 +79,5 @@ describe('StepStart', () => {
       await user.click(await screen.findByText('stegvisning.start.button'))
       expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
     })
-  })
-
-  it('kaller onStegvisningCancel når brukeren klikker på Avbryt', async () => {
-    const user = userEvent.setup()
-    const onStegvisningCancelMock = vi
-      .spyOn(stegvisningUtils, 'onStegvisningCancel')
-      .mockImplementation(vi.fn())
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.start}`],
-    })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-
-    await user.click(await screen.findByText('stegvisning.avbryt'))
-    expect(onStegvisningCancelMock).toHaveBeenCalled()
   })
 })

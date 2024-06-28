@@ -3,7 +3,6 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepUtenlandsopphold } from '..'
-import * as stegvisningUtils from '@/components/stegvisning/stegvisning-utils'
 import { mockResponse } from '@/mocks/server'
 import { paths, henvisningUrlParams } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -101,19 +100,5 @@ describe('StepUtenlandsopphold', () => {
     await user.click(await screen.findByText('stegvisning.tilbake'))
     expect(store.getState().userInput.utenlandsopphold).toBeNull()
     expect(navigateMock).toHaveBeenCalledWith(-2)
-  })
-
-  it('kaller onStegvisningCancel når brukeren klikker på Avbryt', async () => {
-    const user = userEvent.setup()
-    const onStegvisningCancelMock = vi
-      .spyOn(stegvisningUtils, 'onStegvisningCancel')
-      .mockImplementation(vi.fn())
-    render(<StepUtenlandsopphold />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, utenlandsopphold: false },
-      },
-    })
-    await user.click(screen.getByText('stegvisning.avbryt'))
-    expect(onStegvisningCancelMock).toHaveBeenCalled()
   })
 })

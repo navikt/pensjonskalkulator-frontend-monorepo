@@ -32,7 +32,7 @@ describe('PensjonsavtalerTable', () => {
     },
   ]
 
-  it('rendrer riktig header for pensjonsavtaler of offentlig tjenestepensjon', async () => {
+  it('rendrer riktig header for pensjonsavtaler og offentlig tjenestepensjon', async () => {
     render(<PensjonsavtalerTable headingLevel="4" pensjonsavtaler={avtaler} />)
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
     expect(await screen.findByText('pensjonsavtaler.tpo.title')).toBeVisible()

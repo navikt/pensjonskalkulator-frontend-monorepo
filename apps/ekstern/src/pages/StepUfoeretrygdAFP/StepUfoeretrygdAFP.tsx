@@ -1,20 +1,17 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
 
-import {
-  onStegvisningCancel,
-  onStegvisningNext,
-} from '@/components/stegvisning/stegvisning-utils'
+import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { Ufoere } from '@/components/stegvisning/Ufoere'
 import { paths } from '@/router/constants'
-import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { useAppSelector } from '@/state/hooks'
 import { selectIsVeileder } from '@/state/userInput/selectors'
 
 export function StepUfoeretrygdAFP() {
   const intl = useIntl()
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+
+  const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
+    useStegvisningNavigation(paths.ufoeretrygdAFP)
 
   const isVeileder = useAppSelector(selectIsVeileder)
 
@@ -24,23 +21,11 @@ export function StepUfoeretrygdAFP() {
     })
   }, [])
 
-  const onNext = (): void => {
-    onStegvisningNext(navigate, paths.ufoeretrygdAFP)
-  }
-
-  const onPrevious = () => {
-    navigate(-1)
-  }
-
-  const onCancel = () => {
-    onStegvisningCancel(dispatch, navigate)
-  }
-
   return (
     <Ufoere
-      onCancel={isVeileder ? undefined : onCancel}
-      onPrevious={onPrevious}
-      onNext={onNext}
+      onCancel={isVeileder ? undefined : onStegvisningCancel}
+      onPrevious={onStegvisningPrevious}
+      onNext={onStegvisningNext}
     />
   )
 }
