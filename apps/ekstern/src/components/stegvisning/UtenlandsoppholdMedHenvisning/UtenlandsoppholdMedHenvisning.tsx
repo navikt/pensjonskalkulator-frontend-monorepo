@@ -4,10 +4,9 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
-import { ReadMore } from '@/components/common/ReadMore'
 import { logger, wrapLogger } from '@/utils/logging'
 
-import styles from './Utenlandsopphold.module.scss'
+import styles from './UtenlandsoppholdMedHenvisning.module.scss'
 
 interface Props {
   harUtenlandsopphold: boolean | null
@@ -16,7 +15,7 @@ interface Props {
   onNext: (utenlandsoppholdData: BooleanRadio) => void
 }
 
-export function Utenlandsopphold({
+export function UtenlandsoppholdMedHenvisning({
   harUtenlandsopphold,
   onCancel,
   onPrevious,
@@ -64,36 +63,15 @@ export function Utenlandsopphold({
     <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
-          <FormattedMessage id="stegvisning.utenlandsopphold.title" />
+          <FormattedMessage id="stegvisning.utenlandsopphold_med_henvisning.title" />
         </Heading>
         <BodyLong size="large">
           <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
         </BodyLong>
-        <ReadMore
-          name="Om hva som er opphold utenfor Norge"
-          className={styles.readmore1}
-          header={
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress" />
-        </ReadMore>
-        <ReadMore
-          name="Om konsekvenser av opphold i utlandet"
-          className={styles.readmore2}
-          header={
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.ingress" />
-        </ReadMore>
         <RadioGroup
           className={styles.radiogroup}
           legend={
-            <FormattedMessage id="stegvisning.utenlandsopphold.radio_label" />
-          }
-          description={
-            <FormattedMessage id="stegvisning.utenlandsopphold.radio_label.description" />
+            <FormattedMessage id="stegvisning.utenlandsopphold_med_henvisning.radio_label" />
           }
           name="utenlandsopphold"
           defaultValue={

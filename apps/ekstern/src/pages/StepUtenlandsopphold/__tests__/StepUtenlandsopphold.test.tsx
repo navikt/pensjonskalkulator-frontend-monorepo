@@ -24,10 +24,10 @@ describe('StepUtenlandsopphold', () => {
       () => navigateMock
     )
     render(<StepUtenlandsopphold />, {})
-    const radioButtons = screen.getAllByRole('radio')
+    const radioButtons = await screen.findAllByRole('radio')
 
     await user.click(radioButtons[0])
-    await user.click(screen.getByText('stegvisning.neste'))
+    await user.click(await screen.findByText('stegvisning.neste'))
 
     expect(navigateMock).toHaveBeenCalledWith(
       `${paths.henvisning}/${henvisningUrlParams.utland}`
@@ -41,10 +41,10 @@ describe('StepUtenlandsopphold', () => {
       () => navigateMock
     )
     const { store } = render(<StepUtenlandsopphold />, {})
-    const radioButtons = screen.getAllByRole('radio')
+    const radioButtons = await screen.findAllByRole('radio')
 
     await user.click(radioButtons[1])
-    await user.click(screen.getByText('stegvisning.neste'))
+    await user.click(await screen.findByText('stegvisning.neste'))
 
     expect(store.getState().userInput.utenlandsopphold).toBe(false)
     expect(navigateMock).toHaveBeenCalledWith(paths.afp)
@@ -61,13 +61,12 @@ describe('StepUtenlandsopphold', () => {
         userInput: { ...userInputInitialState, utenlandsopphold: null },
       },
     })
-    const radioButtons = screen.getAllByRole('radio')
+    const radioButtons = await screen.findAllByRole('radio')
 
     await user.click(radioButtons[0])
-
     expect(radioButtons[0]).toBeChecked()
 
-    await user.click(screen.getByText('stegvisning.tilbake'))
+    await user.click(await screen.findByText('stegvisning.tilbake'))
 
     expect(store.getState().userInput.utenlandsopphold).toBeNull()
     expect(navigateMock).toHaveBeenCalledWith(-1)

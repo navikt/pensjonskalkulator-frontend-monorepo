@@ -84,11 +84,25 @@ const translations = {
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysninger som brukes i pensjonskalkulator',
-  'stegvisning.utenlandsopphold.title': 'Utenlandsopphold',
-  'stegvisning.utenlandsopphold.ingress':
+  'stegvisning.utenlandsopphold_med_henvisning.title': 'Utenlandsopphold',
+  'stegvisning.utenlandsopphold_med_henvisning.ingress':
     'Enkel kalkulator er under utvikling og støtter ikke beregning med lengre utenlandsopphold.',
-  'stegvisning.utenlandsopphold.radio_label':
+  'stegvisning.utenlandsopphold_med_henvisning.radio_label':
     'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?',
+  'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
+  'stegvisning.utenlandsopphold.ingress':
+    'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.',
+  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title':
+    'Om hva som er opphold utenfor Norge',
+  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_konsekvenser.title':
+    'Om konsekvenser av opphold i utlandet',
+  'stegvisning.utenlandsopphold.readmore_konsekvenser.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.radio_label':
+    'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?',
+  'stegvisning.utenlandsopphold.radio_label.description':
+    'Fra du fylte 16 år til du tar ut pensjon',
   'stegvisning.utenlandsopphold.radio_ja': 'Ja',
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
