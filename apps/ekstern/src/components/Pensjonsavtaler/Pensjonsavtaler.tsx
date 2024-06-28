@@ -159,9 +159,9 @@ export const Pensjonsavtaler = (props: {
           )}
 
         {
-          // Når private pensjonsavtaler feiler delvis eller helt
+          // Når private pensjonsavtaler feiler helt eller er partial med 0 avtaler
         }
-        {(isError || pensjonsavtaler?.partialResponse) && (
+        {(isError || isPartialWith0Avtaler) && (
           <>
             <div className={styles.info}>
               <ExclamationmarkTriangleFillIcon
@@ -194,10 +194,20 @@ export const Pensjonsavtaler = (props: {
           </>
         )}
 
-        {harSamtykket &&
-          isSuccess &&
-          !pensjonsavtaler?.partialResponse &&
-          pensjonsavtaler?.avtaler.length > 0 && (
+        {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
+          <>
+            {pensjonsavtaler?.partialResponse && (
+              <div className={styles.info}>
+                <ExclamationmarkTriangleFillIcon
+                  className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
+                  fontSize="1.5rem"
+                  aria-hidden
+                />
+                <BodyLong className={styles.infoText}>
+                  <FormattedMessage id="pensjonsavtaler.ingress.error.pensjonsavtaler.partial" />
+                </BodyLong>
+              </div>
+            )}
             <ShowMore
               aria-labelledby="pensjonsavtaler-heading"
               collapsedHeight={
@@ -234,7 +244,8 @@ export const Pensjonsavtaler = (props: {
                 </BodyLong>
               </VStack>
             </ShowMore>
-          )}
+          </>
+        )}
       </>
     </section>
   )
