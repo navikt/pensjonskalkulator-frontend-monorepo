@@ -32,10 +32,9 @@ describe('PensjonsavtalerTable', () => {
     },
   ]
 
-  it('rendrer riktig header', async () => {
+  it('rendrer riktig header for pensjonsavtaler', async () => {
     render(<PensjonsavtalerTable headingLevel="4" pensjonsavtaler={avtaler} />)
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
-
     expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
   })
 
@@ -66,8 +65,6 @@ describe('PensjonsavtalerTable', () => {
     expect(await screen.findAllByText('12 345 kr')).toHaveLength(2)
     const rows = container.querySelectorAll('tr')
     expect(rows?.length).toBe(3)
-
-    expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
   })
 
   it('rendrer riktig med avtaler som har både start- og sluttdato', async () => {

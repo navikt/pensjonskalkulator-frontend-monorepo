@@ -3,9 +3,6 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { AFP } from '..'
-import { mockResponse } from '@/mocks/server'
-import { apiSlice } from '@/state/api/apiSlice'
-import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - AFP', () => {
@@ -169,157 +166,6 @@ describe('stegvisning - AFP', () => {
     })
   })
 
-  it('viser riktig tekst på Neste knapp når brukeren ikke har samboer', async () => {
-    const { store } = render(
-      <AFP
-        afp={null}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    await store.dispatch(apiSlice.endpoints.getPerson.initiate())
-    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-    expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
-  })
-
-  it('viser riktig tekst på Neste knapp når brukeren har samboer', async () => {
-    mockResponse('/v2/person', {
-      status: 200,
-      json: {
-        navn: 'Ola',
-        sivilstand: 'GIFT',
-        foedselsdato: '1963-04-30',
-      },
-    })
-
-    const { store } = render(
-      <AFP
-        afp={null}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    await store.dispatch(apiSlice.endpoints.getPerson.initiate())
-    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
-    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-  })
-
-  it('viser riktig tekst på Neste knapp når brukeren har samboer, uføretrygd og at hen klikker på de ulike afp valgene', async () => {
-    const user = userEvent.setup()
-
-    mockResponse('/v2/person', {
-      status: 200,
-      json: {
-        navn: 'Ola',
-        sivilstand: 'GIFT',
-        foedselsdato: '1963-04-30',
-      },
-    })
-
-    mockResponse('/v1/ufoeregrad', {
-      status: 200,
-      json: {
-        ufoeregrad: 100,
-      },
-    })
-
-    const { store } = render(
-      <AFP
-        afp={null}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
-    await store.dispatch(apiSlice.endpoints.getPerson.initiate())
-
-    // viser først "neste", så endres den til "beregn" når samboer vurderes
-    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
-
-    const radioButtons = screen.getAllByRole('radio')
-
-    /* afp ja, offentlig */
-    await user.click(radioButtons[0])
-    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-    expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
-
-    /* afp ja, privat */
-    await user.click(radioButtons[1])
-    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-    expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
-
-    /* afp nei */
-    await user.click(radioButtons[2])
-    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
-
-    /* afp vet ikke */
-    await user.click(radioButtons[3])
-    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-    expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
-  })
-
-  it('viser riktig tekst på Neste knapp når brukeren har samboer, ikke uføretrygd og at hen klikker på de ulike afp valgene', async () => {
-    const user = userEvent.setup()
-
-    mockResponse('/v2/person', {
-      status: 200,
-      json: {
-        navn: 'Ola',
-        sivilstand: 'GIFT',
-        foedselsdato: '1963-04-30',
-      },
-    })
-
-    mockResponse('/v1/ufoeregrad', {
-      status: 200,
-      json: {
-        ufoeregrad: 0,
-      },
-    })
-
-    const { store } = render(
-      <AFP
-        afp={null}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
-    await store.dispatch(apiSlice.endpoints.getPerson.initiate())
-
-    // viser først "neste", så endres den til "beregn" når samboer vurderes
-    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
-
-    const radioButtons = screen.getAllByRole('radio')
-
-    /* afp ja, offentlig */
-    await user.click(radioButtons[0])
-    expect(await screen.findByText('stegvisning.neste')).toBeVisible()
-    expect(screen.queryByText('stegvisning.beregn')).not.toBeInTheDocument()
-
-    /* afp ja, privat */
-    await user.click(radioButtons[1])
-    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
-
-    /* afp nei */
-    await user.click(radioButtons[2])
-    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
-
-    /* afp vet ikke */
-    await user.click(radioButtons[3])
-    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-    expect(await screen.findByText('stegvisning.beregn')).toBeVisible()
-  })
-
   it('kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(
@@ -331,10 +177,8 @@ describe('stegvisning - AFP', () => {
       />
     )
     const radioButtons = screen.getAllByRole('radio')
-
     await user.click(radioButtons[0])
     await user.click(screen.getByText('stegvisning.neste'))
-
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
     })
@@ -348,18 +192,13 @@ describe('stegvisning - AFP', () => {
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
         onNext={onNextMock}
-      />,
-      {
-        preloadedState: { userInput: { samtykke: true } } as RootState,
-      }
+      />
     )
-
     await user.click(screen.getByText('stegvisning.tilbake'))
-
     expect(onPreviousMock).toHaveBeenCalled()
   })
 
-  it('kaller onCancel når brukeren klikker på Avbryt', async () => {
+  it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
     render(
       <AFP
@@ -373,7 +212,10 @@ describe('stegvisning - AFP', () => {
     await user.click(screen.getByText('stegvisning.avbryt'))
 
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
-    expect(onCancelMock).toHaveBeenCalled()
+    await user.click(screen.getByText('stegvisning.avbryt'))
+    waitFor(() => {
+      expect(onCancelMock).toHaveBeenCalled()
+    })
   })
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {

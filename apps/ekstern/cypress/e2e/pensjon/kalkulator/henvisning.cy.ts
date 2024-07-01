@@ -56,6 +56,9 @@ describe('Henvisning', () => {
     })
     it('Forventer jeg informasjon om at jeg ikke kan bruke enkel kalkulator. Jeg ønsker å kunne gå til detaljert kalkulator eller avbryte.', () => {
       cy.contains('button', 'Kom i gang').click()
+      cy.contains('h2', 'Din sivilstand').should('exist')
+      cy.get('[type="radio"]').last().check()
+      cy.contains('button', 'Neste').click()
       cy.contains('h2', 'Utenlandsopphold').should('exist')
       cy.contains(
         'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?'
@@ -74,6 +77,8 @@ describe('Henvisning', () => {
       )
       cy.contains('button', 'Pensjonskalkulator').click()
       cy.contains('button', 'Kom i gang').click()
+      cy.get('[type="radio"]').last().check()
+      cy.contains('button', 'Neste').click()
       cy.get('[type="radio"]').first().check()
       cy.contains('button', 'Neste').click()
       cy.contains('button', 'Detaljert pensjonskalkulator').click()

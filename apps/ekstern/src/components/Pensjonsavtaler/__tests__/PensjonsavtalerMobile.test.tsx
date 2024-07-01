@@ -31,11 +31,10 @@ describe('PensjonsavtalerMobile', () => {
     },
   ]
 
-  it('rendrer riktig header', async () => {
+  it('rendrer riktig header for pensjonsavtaler', async () => {
     render(<PensjonsavtalerMobil headingLevel="4" pensjonsavtaler={avtaler} />)
-
-    expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
     expect(await screen.findAllByRole('heading', { level: 5 })).toHaveLength(2)
+    expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
   })
 
   it('rendrer riktig med avtaler som bare har start dato', async () => {

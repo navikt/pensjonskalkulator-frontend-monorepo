@@ -77,7 +77,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     const aar = (body as PensjonsavtalerRequestBody).uttaksperioder[0]
       ?.startAlder.aar
     const data = await import(`./data/pensjonsavtaler/${aar}.json`)
-
     return HttpResponse.json(data)
   }),
 
