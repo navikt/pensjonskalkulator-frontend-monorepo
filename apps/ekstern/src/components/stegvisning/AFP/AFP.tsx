@@ -15,8 +15,6 @@ import {
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { useGetUfoeregradQuery } from '@/state/api/apiSlice'
-import { useAppSelector } from '@/state/hooks'
-import { selectSamboerFraSivilstand } from '@/state/userInput/selectors'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -40,17 +38,9 @@ export function AFP({
   const intl = useIntl()
   const navigate = useNavigate()
 
-  const harSamboer = useAppSelector(selectSamboerFraSivilstand)
   const { data: ufoeregrad } = useGetUfoeregradQuery()
   const [validationError, setValidationError] = React.useState<string>('')
   const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
-  const [isLastStep, setIsLastStep] = React.useState<boolean>(!!harSamboer)
-
-  React.useEffect(() => {
-    if (harSamboer) {
-      setIsLastStep(true)
-    }
-  }, [harSamboer])
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -110,13 +100,8 @@ export function AFP({
   const handleRadioChange = (value: AfpRadio): void => {
     setShowAlert(value)
     setValidationError('')
-    if (harSamboer) {
-      const viserInfoOmUfoeregrad = ufoeregrad?.ufoeregrad && value !== 'nei'
-      const viserInfoOmAFPoffentlig =
-        ufoeregrad?.ufoeregrad === 0 && value === 'ja_offentlig'
-      setIsLastStep(!viserInfoOmUfoeregrad && !viserInfoOmAFPoffentlig)
-    }
   }
+
   if (shouldRedirectTo) {
     return null
   }
@@ -209,9 +194,7 @@ export function AFP({
           )}
         </RadioGroup>
         <Button type="submit" className={styles.button}>
-          <FormattedMessage
-            id={isLastStep ? 'stegvisning.beregn' : 'stegvisning.neste'}
-          />
+          <FormattedMessage id="stegvisning.neste" />
         </Button>
         <Button
           type="button"
