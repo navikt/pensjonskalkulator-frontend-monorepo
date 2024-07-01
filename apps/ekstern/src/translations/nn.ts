@@ -77,11 +77,19 @@ const translations = {
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysningar som vert brukt i enkel kalkulator',
-  'stegvisning.utenlandsopphold.title': 'Utanlandsopphald',
-  'stegvisning.utenlandsopphold.ingress':
-    'Enkel kalkulator er under utvikling og støttar ikkje utrekning med lengre utanlandsopphald.',
-  'stegvisning.utenlandsopphold.radio_label':
-    'Har du budd eller jobba utanfor Noreg i mer enn fem år etter fylte 16 år?',
+  'stegvisning.utenlandsopphold_med_henvisning.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold_med_henvisning.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold_med_henvisning.radio_label': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_konsekvenser.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_konsekvenser.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.radio_label': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.radio_label.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_ja': 'Ja',
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
