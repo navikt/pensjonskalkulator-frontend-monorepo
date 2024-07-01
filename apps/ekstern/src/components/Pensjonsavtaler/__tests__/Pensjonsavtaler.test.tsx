@@ -237,6 +237,34 @@ describe('Pensjonsavtaler', () => {
       expect(initiateMock.mock.calls[0][0].harAfp).toStrictEqual(false)
     })
 
+    it('Når pensjonsavtaler er hentet, viser riktig header og melding, og viser ingress og tabell og info om offentlig tjenestepensjon', async () => {
+      render(<Pensjonsavtaler headingLevel="3" />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetInntekt,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: true,
+            currentSimulation: currentSimulation,
+          },
+        },
+      })
+      expect(await screen.findByTestId('pensjonsavtaler-list')).toBeVisible()
+      expect(
+        await screen.findByText('pensjonsavtaler.fra_og_med_forklaring')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('Alle avtaler i privat sektor hentes fra ', {
+          exact: false,
+        })
+      ).toBeVisible()
+      expect(await screen.findByText('pensjonsavtaler.tpo.title')).toBeVisible()
+    })
     it('Når pensjonsavtaler har feilet, viser riktig header og melding, og skjuler ingress og tabell og info om offentlig tjenestepensjon', async () => {
       mockErrorResponse('/v2/pensjonsavtaler', {
         method: 'post',

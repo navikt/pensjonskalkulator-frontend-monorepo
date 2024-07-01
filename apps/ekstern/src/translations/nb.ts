@@ -118,7 +118,7 @@ const translations = {
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
   'stegvisning.afp.title': 'AFP (avtalefestet pensjon)',
   'stegvisning.afp.ingress':
-    'For å få AFP (avtalefestet pensjon) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
+    'For å få AFP må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
   'stegvisning.afp.readmore_privat_title': 'Om AFP i privat sektor',
   'stegvisning.afp.readmore_privat_list_title': 'AFP i privat sektor:',
   'stegvisning.afp.readmore_privat_list_item1': 'er en livsvarig pensjon',
@@ -442,7 +442,7 @@ const translations = {
   'pensjonsavtaler.tpo.er_medlem':
     'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
   'pensjonsavtaler.tpo.error':
-    'Vi klarte ikke å sekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+    'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':

@@ -234,6 +234,8 @@ export const Pensjonsavtaler = (props: {
                     )}
                   </div>
                 )}
+
+                <OffentligTjenestepensjon headingLevel={subHeadingLevel} />
                 <BodyLong className={styles.paragraph} size="small">
                   <FormattedMessage
                     id="pensjonsavtaler.ingress.norsk_pensjon"
