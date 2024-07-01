@@ -1,13 +1,10 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate, Await } from 'react-router-dom'
+import { Await } from 'react-router-dom'
 
 import { Loader } from '@/components/common/Loader'
 import { AFP } from '@/components/stegvisning/AFP'
-import {
-  onStegvisningCancel,
-  onStegvisningNext,
-} from '@/components/stegvisning/stegvisning-utils'
+import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
 import { useStepAFPAccessData } from '@/router/loaders'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -16,11 +13,13 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function StepAFP() {
   const intl = useIntl()
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const loaderData = useStepAFPAccessData()
   const previousAfp = useAppSelector(selectAfp)
   const isVeileder = useAppSelector(selectIsVeileder)
+
+  const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
+    useStegvisningNavigation(paths.afp)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -30,15 +29,7 @@ export function StepAFP() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    onStegvisningNext(navigate, paths.afp)
-  }
-
-  const onPrevious = () => {
-    navigate(-1)
-  }
-
-  const onCancel = () => {
-    onStegvisningCancel(dispatch, navigate)
+    onStegvisningNext()
   }
 
   return (
@@ -60,8 +51,8 @@ export function StepAFP() {
             <AFP
               shouldRedirectTo={shouldRedirectTo}
               afp={previousAfp}
-              onCancel={isVeileder ? undefined : onCancel}
-              onPrevious={onPrevious}
+              onCancel={isVeileder ? undefined : onStegvisningCancel}
+              onPrevious={onStegvisningPrevious}
               onNext={onNext}
             />
           )

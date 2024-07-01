@@ -1,12 +1,8 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
 
 import { SamtykkePensjonsavtaler } from '@/components/stegvisning/SamtykkePensjonsavtaler'
-import {
-  onStegvisningCancel,
-  onStegvisningNext,
-} from '@/components/stegvisning/stegvisning-utils'
+import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
@@ -19,11 +15,13 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function StepSamtykkePensjonsavtaler() {
   const intl = useIntl()
-  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
   const shouldFlush = useAppSelector(selectHarHentetTpoMedlemskap)
   const isVeileder = useAppSelector(selectIsVeileder)
+
+  const [{ onStegvisningNext, onStegvisningPrevious, onStegvisningCancel }] =
+    useStegvisningNavigation(paths.samtykke)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -37,22 +35,14 @@ export function StepSamtykkePensjonsavtaler() {
     if (shouldFlush && !samtykke) {
       apiSlice.util.invalidateTags(['TpoMedlemskap', 'Pensjonsavtaler'])
     }
-    onStegvisningNext(navigate, paths.samtykke)
-  }
-
-  const onPrevious = () => {
-    navigate(-1)
-  }
-
-  const onCancel = () => {
-    onStegvisningCancel(dispatch, navigate)
+    onStegvisningNext()
   }
 
   return (
     <SamtykkePensjonsavtaler
       harSamtykket={harSamtykket}
-      onCancel={isVeileder ? undefined : onCancel}
-      onPrevious={onPrevious}
+      onCancel={isVeileder ? undefined : onStegvisningCancel}
+      onPrevious={onStegvisningPrevious}
       onNext={onNext}
     />
   )

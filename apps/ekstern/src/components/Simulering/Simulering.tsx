@@ -91,9 +91,7 @@ export function Simulering(props: {
       intl
     )
   )
-  const [pensjonsavtalerAlert, setPensjonsavtalerAlert] = React.useState<
-    { variant: 'info' | 'warning'; text: string } | undefined
-  >(undefined)
+
   const [isPensjonsavtaleFlagVisible, setIsPensjonsavtaleFlagVisible] =
     React.useState<boolean>(false)
   const chartRef = React.useRef<HighchartsReact.RefObject>(null)
@@ -177,60 +175,62 @@ export function Simulering(props: {
     }
   }, [alderspensjonListe, pensjonsavtaler])
 
-  React.useEffect(() => {
+  const pensjonsavtalerAlert = React.useMemo(():
+    | { variant: 'info' | 'warning'; text: string }
+    | undefined => {
     const isPartialWith0Avtaler =
       pensjonsavtaler?.partialResponse && pensjonsavtaler?.avtaler.length === 0
 
     if (tpo) {
       if (tpo?.tpLeverandoerListe.length > 0) {
         if (isPensjonsavtalerError || isPartialWith0Avtaler) {
-          setPensjonsavtalerAlert({
+          return {
             variant: 'warning',
             text: 'beregning.tpo.info.pensjonsavtaler.error',
-          })
+          }
         } else if (isPensjonsavtalerSuccess) {
           if (pensjonsavtaler.partialResponse) {
-            setPensjonsavtalerAlert({
+            return {
               variant: 'warning',
               text: 'beregning.tpo.info.pensjonsavtaler.partial',
-            })
+            }
           } else {
-            setPensjonsavtalerAlert({
+            return {
               variant: 'info',
               text: 'beregning.tpo.info',
-            })
+            }
           }
         }
       } else {
         if (isPensjonsavtalerError || isPartialWith0Avtaler) {
-          setPensjonsavtalerAlert({
+          return {
             variant: 'warning',
             text: 'beregning.pensjonsavtaler.error',
-          })
+          }
         } else if (pensjonsavtaler?.partialResponse) {
-          setPensjonsavtalerAlert({
+          return {
             variant: 'warning',
             text: 'beregning.pensjonsavtaler.partial',
-          })
+          }
         }
       }
     } else {
       if (isTpoError && (isPensjonsavtalerError || isPartialWith0Avtaler)) {
-        setPensjonsavtalerAlert({
+        return {
           variant: 'warning',
           text: 'beregning.tpo.error.pensjonsavtaler.error',
-        })
+        }
       } else if (isTpoError && isPensjonsavtalerSuccess) {
         if (pensjonsavtaler.partialResponse) {
-          setPensjonsavtalerAlert({
+          return {
             variant: 'warning',
             text: 'beregning.tpo.error.pensjonsavtaler.partial',
-          })
+          }
         } else {
-          setPensjonsavtalerAlert({
+          return {
             variant: 'warning',
             text: 'beregning.tpo.error',
-          })
+          }
         }
       }
     }

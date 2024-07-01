@@ -70,7 +70,7 @@ export const fulfilledGetTpoMedlemskap = {
     startedTimeStamp: 1688046411971,
     data: {
       tpLeverandoerListe: [
-        'Statens Pensjonsakasse',
+        'Statens pensjonskasse',
         'Kommunal Landspensjonskasse',
         'Oslo Pensjonsforsikring',
       ],

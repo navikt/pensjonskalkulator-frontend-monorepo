@@ -32,7 +32,7 @@ describe('OffentligTjenestepensjon', () => {
       status: 200,
       json: {
         tpLeverandoerListe: [
-          'Statens Pensjonsakasse',
+          'Statens pensjonskasse',
           'Kommunal Landspensjonskasse',
           'Oslo Pensjonsforsikring',
         ],
@@ -47,7 +47,7 @@ describe('OffentligTjenestepensjon', () => {
       ).toHaveTextContent('pensjonsavtaler.tpo.title')
       expect(
         await screen.findByText(
-          'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens Pensjonsakasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
+          'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (Statens pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).'
         )
       ).toBeInTheDocument()
     })

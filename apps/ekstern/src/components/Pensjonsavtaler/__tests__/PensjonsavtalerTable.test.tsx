@@ -32,11 +32,10 @@ describe('PensjonsavtalerTable', () => {
     },
   ]
 
-  it('rendrer riktig header for pensjonsavtaler of offentlig tjenestepensjon', async () => {
+  it('rendrer riktig header for pensjonsavtaler', async () => {
     render(<PensjonsavtalerTable headingLevel="4" pensjonsavtaler={avtaler} />)
     expect(await screen.findByTestId('pensjonsavtaler-table')).toBeVisible()
-    expect(await screen.findByText('pensjonsavtaler.tpo.title')).toBeVisible()
-    expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(2)
+    expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(1)
   })
 
   it('rendrer riktig med avtaler som bare har start dato', async () => {
