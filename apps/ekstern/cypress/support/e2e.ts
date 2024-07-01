@@ -52,11 +52,13 @@ beforeEach(() => {
     { fixture: 'decorator-ops.json' }
   ).as('getDecoratorOpsMessages')
 
+  // /env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start
+  // https://dekoratoren.ekstern.dev.nav.no/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start
   cy.intercept(
     {
       method: 'GET',
       url: `${Cypress.env(
-        'DECORATOR_URL'
+        'DEV_DECORATOR_URL'
       )}/env?chatbot=false&logoutWarning=true&redirectToUrl=https://www.nav.no/pensjon/kalkulator/start`,
     },
     { fixture: 'decorator-env-features.json' }
@@ -153,7 +155,7 @@ Cypress.Commands.add('login', () => {
   // TODO reaktivere når dekoratøren er i produksjon
   // cy.wait('@getDecoratorMainMenu')
   cy.contains('button', 'Pensjonskalkulator').click()
-  // På steg 0 kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
+  // På start steget kjøres automatisk kall til  /person, /ekskludert, /inntekt, /loepende-omstillingsstoenad-eller-gjenlevendeytelse
   cy.wait('@getPerson')
   cy.wait('@getEkskludertStatus')
   cy.wait('@getInntekt')
@@ -172,15 +174,8 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
     .its('store')
     .invoke('dispatch', userInputActions.setSamtykke(samtykke))
 
-  if (samtykke) {
-    // Kaller /tpo-medlemskap som vanligvis gjøres på steg 2 ila. stegvisningen
-    cy.window()
-      .its('store')
-      .invoke('dispatch', apiSlice.endpoints.getTpoMedlemskap.initiate())
-  }
-
   if (afp === 'ja_offentlig') {
-    // Setter santykke til beregning av AFP-offentlig når brukeren har valgt AFP-offentlig
+    // Setter samtykke til beregning av AFP-offentlig når brukeren har valgt AFP-offentlig
     cy.window()
       .its('store')
       .invoke(
@@ -189,7 +184,7 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
       )
   }
 
-  // Kaller /ufoeregrad som vanligvis gjøres på steg 4 ila. stegvisningen
+  // Kaller /ufoeregrad som vanligvis gjøres på steg 3 ila. stegvisningen
   cy.window()
     .its('store')
     .invoke('dispatch', apiSlice.endpoints.getUfoeregrad.initiate())

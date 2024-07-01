@@ -7,8 +7,9 @@ declare global {
 
   type Locales = 'nb' | 'nn' | 'en'
 
-  type BooleanRadio = 'ja' | 'nei'
+  type Path = (typeof paths)[number]
 
+  type BooleanRadio = 'ja' | 'nei'
   type AfpRadio = 'ja_offentlig' | 'ja_privat' | 'nei' | 'vet_ikke'
   type Alder = components['schemas']['Alder']
   type UnleashToggle = components['schemas']['EnablementDto']

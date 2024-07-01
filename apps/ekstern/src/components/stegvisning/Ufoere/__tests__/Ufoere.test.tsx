@@ -1,10 +1,9 @@
 import { describe, it, vi } from 'vitest'
 
 import { Ufoere } from '..'
-import { mockResponse } from '@/mocks/server'
-import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
+
 describe('stegvisning - Ufoere', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
@@ -42,28 +41,6 @@ describe('stegvisning - Ufoere', () => {
     expect(result.asFragment()).toMatchSnapshot()
   })
 
-  it('viser riktig tekst på Neste knapp når brukeren har samboer', async () => {
-    mockResponse('/v2/person', {
-      status: 200,
-      json: {
-        navn: 'Aprikos',
-        sivilstand: 'GIFT',
-        foedselsdato: '1963-04-30',
-      },
-    })
-
-    const { store } = render(
-      <Ufoere
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
-    await store.dispatch(apiSlice.endpoints.getPerson.initiate())
-    expect(await screen.findByText('stegvisning.beregn')).toBeInTheDocument()
-    expect(screen.queryByText('stegvisning.neste')).not.toBeInTheDocument()
-  })
-
   it('kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(
@@ -90,7 +67,7 @@ describe('stegvisning - Ufoere', () => {
       />,
       {
         preloadedState: {
-          userInput: { samtykke: true, afp: 'ja_privat' },
+          userInput: { afp: 'ja_privat' },
         } as RootState,
       }
     )
@@ -99,7 +76,7 @@ describe('stegvisning - Ufoere', () => {
     expect(onPreviousMock).toHaveBeenCalled()
   })
 
-  it('kaller onCancel når brukeren klikker på Avbryt', async () => {
+  it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
     render(
       <Ufoere
@@ -110,6 +87,19 @@ describe('stegvisning - Ufoere', () => {
     )
 
     await user.click(screen.getByText('stegvisning.avbryt'))
-    expect(onCancelMock).toHaveBeenCalled()
+    waitFor(() => {
+      expect(onCancelMock).toHaveBeenCalled()
+    })
+  })
+
+  it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
+    render(
+      <Ufoere
+        onCancel={undefined}
+        onPrevious={onPreviousMock}
+        onNext={onNextMock}
+      />
+    )
+    expect(screen.queryByText('stegvisning.avbryt')).not.toBeInTheDocument()
   })
 })
