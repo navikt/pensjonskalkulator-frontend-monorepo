@@ -1,3 +1,7 @@
 {
-  "harTjenestepensjonsforhold": true
+  "tpLeverandoerListe": [
+    "Statens pensjonskasse",
+    "Kommunal Landspensjonskasse",
+    "Oslo Pensjonsforsikring"
+  ]
 }

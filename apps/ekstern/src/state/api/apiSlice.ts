@@ -87,7 +87,7 @@ export const apiSlice = createApi({
       },
     }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
-      query: () => '/tpo-medlemskap',
+      query: () => '/v1/tpo-medlemskap',
       providesTags: ['TpoMedlemskap'],
       transformResponse: (response: TpoMedlemskap) => {
         if (!isTpoMedlemskap(response)) {

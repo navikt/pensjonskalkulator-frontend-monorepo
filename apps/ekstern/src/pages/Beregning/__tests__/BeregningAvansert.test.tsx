@@ -428,7 +428,7 @@ describe('BeregningAvansert', () => {
         )
       })
 
-      it('Når simuleringen svarer med en beregning, vises det resultatkort og simulering med tabell, Grunnlag og Forbhold', async () => {
+      it('Når simuleringen svarer med en beregning, vises det resultatkort og simulering med tabell, Grunnlag og Forbehold', async () => {
         const user = userEvent.setup()
         const initiateMock = vi.spyOn(
           apiSliceUtils.apiSlice.endpoints.alderspensjon,
