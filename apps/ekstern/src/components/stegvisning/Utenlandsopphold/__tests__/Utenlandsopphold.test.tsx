@@ -115,9 +115,7 @@ describe('stegvisning - Utenlandsopphold', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[1]).toBeChecked()
-
     await user.click(screen.getByText('stegvisning.tilbake'))
-
     waitFor(() => {
       expect(onPreviousMock).toHaveBeenCalled()
     })
@@ -133,10 +131,8 @@ describe('stegvisning - Utenlandsopphold', () => {
         onNext={onNextMock}
       />
     )
-
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })

@@ -29,6 +29,7 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
       expect(result.asFragment()).toMatchSnapshot()
     })
   })
+
   describe('rendrer slik den skal når samtykket er oppgitt', async () => {
     it('når samtykket er true', async () => {
       render(
@@ -116,9 +117,7 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[0]).toBeChecked()
-
     await user.click(screen.getByText('stegvisning.tilbake'))
-
     waitFor(() => {
       expect(onPreviousMock).toHaveBeenCalled()
     })
@@ -134,10 +133,8 @@ describe('stegvisning - SamtykkeOffentligAFP', () => {
         onNext={onNextMock}
       />
     )
-
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })

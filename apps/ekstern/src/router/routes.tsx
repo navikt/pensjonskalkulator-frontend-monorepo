@@ -6,15 +6,14 @@ import { Forbehold } from '@/pages/Forbehold'
 import { Henvisning } from '@/pages/Henvisning'
 import { LandingPage } from '@/pages/LandingPage'
 import { Personopplysninger } from '@/pages/Personopplysninger'
-import { Step0 } from '@/pages/Step0'
-import { Step1 } from '@/pages/Step1'
-import { Step2 } from '@/pages/Step2'
-import { Step3 } from '@/pages/Step3'
-import { Step4 } from '@/pages/Step4'
-import { Step5 } from '@/pages/Step5'
-import { Step6 } from '@/pages/Step6'
-import { Step7 } from '@/pages/Step7'
+import { StepAFP } from '@/pages/StepAFP'
 import { StepFeil } from '@/pages/StepFeil'
+import { StepSamtykkeOffentligAFP } from '@/pages/StepSamtykkeOffentligAFP'
+import { StepSamtykkePensjonsavtaler } from '@/pages/StepSamtykkePensjonsavtaler'
+import { StepSivilstand } from '@/pages/StepSivilstand'
+import { StepStart } from '@/pages/StepStart'
+import { StepUfoeretrygdAFP } from '@/pages/StepUfoeretrygdAFP'
+import { StepUtenlandsopphold } from '@/pages/StepUtenlandsopphold'
 import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 
 import { paths } from './constants'
@@ -22,12 +21,11 @@ import {
   directAccessGuard,
   authenticationGuard,
   landingPageAccessGuard,
-  step0AccessGuard,
-  step3AccessGuard,
-  step4AccessGuard,
-  step5AccessGuard,
-  step6AccessGuard,
-  step7AccessGuard,
+  stepStartAccessGuard,
+  stepSivilstandAccessGuard,
+  stepAFPAccessGuard,
+  stepUfoeretrygdAFPAccessGuard,
+  stepSamtykkeOffentligAFPAccessGuard,
 } from './loaders'
 
 export const routes: RouteObject[] = [
@@ -69,9 +67,9 @@ export const routes: RouteObject[] = [
     ErrorBoundary: RouteErrorBoundary,
     children: [
       {
-        loader: step0AccessGuard,
+        loader: stepStartAccessGuard,
         path: paths.start,
-        element: <Step0 />,
+        element: <StepStart />,
       },
       {
         path: `${paths.henvisning}/:id`,
@@ -82,39 +80,34 @@ export const routes: RouteObject[] = [
         element: <Forbehold />,
       },
       {
+        loader: stepSivilstandAccessGuard,
+        path: paths.sivilstand,
+        element: <StepSivilstand />,
+      },
+      {
         loader: directAccessGuard,
         path: paths.utenlandsopphold,
-        element: <Step1 />,
+        element: <StepUtenlandsopphold />,
+      },
+      {
+        loader: stepAFPAccessGuard,
+        path: paths.afp,
+        element: <StepAFP />,
+      },
+      {
+        loader: stepUfoeretrygdAFPAccessGuard,
+        path: paths.ufoeretrygdAFP,
+        element: <StepUfoeretrygdAFP />,
+      },
+      {
+        loader: stepSamtykkeOffentligAFPAccessGuard,
+        path: paths.samtykkeOffentligAFP,
+        element: <StepSamtykkeOffentligAFP />,
       },
       {
         loader: directAccessGuard,
         path: paths.samtykke,
-        element: <Step2 />,
-      },
-      {
-        loader: step3AccessGuard,
-        path: paths.offentligTp,
-        element: <Step3 />,
-      },
-      {
-        loader: step4AccessGuard,
-        path: paths.afp,
-        element: <Step4 />,
-      },
-      {
-        loader: step5AccessGuard,
-        path: paths.ufoeretrygdAFP,
-        element: <Step5 />,
-      },
-      {
-        loader: step6AccessGuard,
-        path: paths.samtykkeOffentligAFP,
-        element: <Step6 />,
-      },
-      {
-        loader: step7AccessGuard,
-        path: paths.sivilstand,
-        element: <Step7 />,
+        element: <StepSamtykkePensjonsavtaler />,
       },
       {
         loader: directAccessGuard,

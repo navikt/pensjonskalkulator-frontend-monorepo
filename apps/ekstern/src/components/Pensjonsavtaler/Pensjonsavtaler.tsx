@@ -25,6 +25,7 @@ import { userInputActions } from '@/state/userInput/userInputReducer'
 import { getFormatMessageValues } from '@/utils/translations'
 import { useIsMobile } from '@/utils/useIsMobile'
 
+import { OffentligTjenestepensjon } from './OffentligTjenestepensjon'
 import { PensjonsavtalerMobil } from './PensjonsavtalerMobile'
 import { PensjonsavtalerTable } from './PensjonsavtalerTable'
 
@@ -35,6 +36,8 @@ export const Pensjonsavtaler = (props: {
 }) => {
   const { headingLevel } = props
   const intl = useIntl()
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const harSamtykket = useAppSelector(selectSamtykke)
   const sivilstand = useAppSelector(selectSivilstand)
   const aarligInntektFoerUttakBeloep = useAppSelector(
@@ -86,8 +89,6 @@ export const Pensjonsavtaler = (props: {
       skip: !pensjonsavtalerRequestBody || !harSamtykket || !uttaksalder,
     }
   )
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
 
   const onCancel = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault()
@@ -104,6 +105,9 @@ export const Pensjonsavtaler = (props: {
         {intl.formatMessage({ id: 'pensjonsavtaler.title' })}
       </Heading>
       <>
+        {
+          // Når brukeren ikke har samtykket
+        }
         {!harSamtykket && (
           <BodyLong>
             <FormattedMessage id="pensjonsavtaler.ingress.error.samtykke_ingress" />
@@ -120,23 +124,44 @@ export const Pensjonsavtaler = (props: {
             />
           </BodyLong>
         )}
+
+        {
+          // Når brukeren har samtykket og har ingen private pensjonsavtaler
+        }
         {harSamtykket &&
           isSuccess &&
           !pensjonsavtaler?.partialResponse &&
           pensjonsavtaler?.avtaler.length === 0 && (
-            <div className={`${styles.info}`}>
-              <InformationSquareFillIcon
-                className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
-                fontSize="1.5rem"
-                aria-hidden
-              />
-              <BodyLong className={styles.infoText}>
-                <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+            <>
+              <div className={`${styles.info}`}>
+                <InformationSquareFillIcon
+                  className={`${styles.infoIcon} ${styles.infoIcon__blue}`}
+                  fontSize="1.5rem"
+                  aria-hidden
+                />
+                <BodyLong className={styles.infoText}>
+                  <FormattedMessage id="pensjonsavtaler.ingress.ingen" />
+                </BodyLong>
+              </div>
+              <BodyLong className={styles.paragraph} size="small">
+                <FormattedMessage
+                  id="pensjonsavtaler.ingress.norsk_pensjon"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
               </BodyLong>
-            </div>
+              <OffentligTjenestepensjon
+                headingLevel={subHeadingLevel}
+                showDivider
+              />
+            </>
           )}
 
-        {(isError || pensjonsavtaler?.partialResponse) && (
+        {
+          // Når private pensjonsavtaler feiler helt eller er partial med 0 avtaler
+        }
+        {(isError || isPartialWith0Avtaler) && (
           <>
             <div className={styles.info}>
               <ExclamationmarkTriangleFillIcon
@@ -154,46 +179,74 @@ export const Pensjonsavtaler = (props: {
                 />
               </BodyLong>
             </div>
+            <BodyLong className={styles.paragraph} size="small">
+              <FormattedMessage
+                id="pensjonsavtaler.ingress.norsk_pensjon"
+                values={{
+                  ...getFormatMessageValues(intl),
+                }}
+              />
+            </BodyLong>
+            <OffentligTjenestepensjon
+              headingLevel={subHeadingLevel}
+              showDivider
+            />
           </>
         )}
 
-        {harSamtykket && !isError && (
-          <ShowMore
-            aria-labelledby="pensjonsavtaler-heading"
-            collapsedHeight={
-              (pensjonsavtaler?.avtaler?.length ?? 0) > 1 ? '20rem' : '10rem'
-            }
-          >
-            <VStack gap="4">
-              {isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
-                <div data-testid="pensjonsavtaler-list">
-                  {isMobile ? (
-                    <div data-testid="pensjonsavtaler-mobil">
-                      <PensjonsavtalerMobil
-                        headingLevel={subHeadingLevel}
-                        pensjonsavtaler={pensjonsavtaler.avtaler}
-                      />
-                    </div>
-                  ) : (
-                    <div data-testid="pensjonsavtaler-table">
-                      <PensjonsavtalerTable
-                        headingLevel={subHeadingLevel}
-                        pensjonsavtaler={pensjonsavtaler.avtaler}
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-              <BodyLong className={styles.paragraph} size="small">
-                <FormattedMessage
-                  id="pensjonsavtaler.ingress"
-                  values={{
-                    ...getFormatMessageValues(intl),
-                  }}
+        {harSamtykket && isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
+          <>
+            {pensjonsavtaler?.partialResponse && (
+              <div className={styles.info}>
+                <ExclamationmarkTriangleFillIcon
+                  className={`${styles.infoIcon} ${styles.infoIcon__orange}`}
+                  fontSize="1.5rem"
+                  aria-hidden
                 />
-              </BodyLong>
-            </VStack>
-          </ShowMore>
+                <BodyLong className={styles.infoText}>
+                  <FormattedMessage id="pensjonsavtaler.ingress.error.pensjonsavtaler.partial" />
+                </BodyLong>
+              </div>
+            )}
+            <ShowMore
+              aria-labelledby="pensjonsavtaler-heading"
+              collapsedHeight={
+                (pensjonsavtaler?.avtaler?.length ?? 0) > 1 ? '20rem' : '10rem'
+              }
+            >
+              <VStack gap="4">
+                {isSuccess && pensjonsavtaler?.avtaler.length > 0 && (
+                  <div data-testid="pensjonsavtaler-list">
+                    {isMobile ? (
+                      <div data-testid="pensjonsavtaler-mobil">
+                        <PensjonsavtalerMobil
+                          headingLevel={subHeadingLevel}
+                          pensjonsavtaler={pensjonsavtaler.avtaler}
+                        />
+                      </div>
+                    ) : (
+                      <div data-testid="pensjonsavtaler-table">
+                        <PensjonsavtalerTable
+                          headingLevel={subHeadingLevel}
+                          pensjonsavtaler={pensjonsavtaler.avtaler}
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <OffentligTjenestepensjon headingLevel={subHeadingLevel} />
+                <BodyLong className={styles.paragraph} size="small">
+                  <FormattedMessage
+                    id="pensjonsavtaler.ingress.norsk_pensjon"
+                    values={{
+                      ...getFormatMessageValues(intl),
+                    }}
+                  />
+                </BodyLong>
+              </VStack>
+            </ShowMore>
+          </>
         )}
       </>
     </section>

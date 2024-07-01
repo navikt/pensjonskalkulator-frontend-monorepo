@@ -47,6 +47,35 @@ export function Start({ shouldRedirectTo, navn, onCancel, onNext }: Props) {
           <BodyLong size="large">
             <FormattedMessage id="stegvisning.start.ingress" />
           </BodyLong>
+          <ul className={styles.list}>
+            <li>
+              <BodyLong size="large">
+                <span
+                  className={`${styles.ellipse} ${styles.ellipse__blue}`}
+                ></span>
+                <FormattedMessage id="stegvisning.start.list_item1" />
+              </BodyLong>
+            </li>
+            <li>
+              <BodyLong size="large">
+                <span
+                  className={`${styles.ellipse} ${styles.ellipse__purple}`}
+                ></span>
+                <FormattedMessage id="stegvisning.start.list_item2" />{' '}
+              </BodyLong>
+            </li>
+            <li>
+              <BodyLong size="large">
+                <span
+                  className={`${styles.ellipse} ${styles.ellipse__green}`}
+                ></span>
+                <FormattedMessage id="stegvisning.start.list_item3" />{' '}
+              </BodyLong>
+            </li>
+          </ul>
+          <BodyLong size="large">
+            <FormattedMessage id="stegvisning.start.ingress_2" />
+          </BodyLong>
           <Button
             type="submit"
             className={styles.button}
