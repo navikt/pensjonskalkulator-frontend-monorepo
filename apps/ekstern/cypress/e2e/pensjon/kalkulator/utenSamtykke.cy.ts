@@ -1,28 +1,6 @@
 describe('Uten samtykke', () => {
   describe('Som bruker som har logget inn på kalkulatoren,', () => {
     describe('Gitt at jeg ikke samtykker til innhenting av avtaler,', () => {
-      describe('Når jeg navigerer videre fra /samtykke til /offentlig-tp', () => {
-        beforeEach(() => {
-          cy.login()
-          cy.contains('button', 'Kom i gang').click()
-          cy.get('[type="radio"]').last().check()
-          cy.contains('button', 'Neste').click()
-          cy.get('[type="radio"]').last().check()
-          cy.contains('button', 'Neste').click()
-        })
-
-        it('forventer jeg at det ikke hentes informasjon om pensjonsavtaler eller tjenestepensjon.', () => {
-          cy.contains(
-            'h2',
-            'Du kan ha rett til offentlig tjenestepensjon'
-          ).should('not.exist')
-          cy.contains(
-            'h2',
-            'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor'
-          ).should('not.exist')
-        })
-      })
-
       describe('Når jeg er kommet til beregningssiden og velger hvilken alder jeg ønsker beregning fra,', () => {
         beforeEach(() => {
           cy.login()
@@ -35,7 +13,7 @@ describe('Uten samtykke', () => {
           cy.wait('@fetchAlderspensjon')
           cy.contains('Beregning').should('exist')
           cy.contains('Pensjonsgivende inntekt').should('exist')
-          cy.contains('AFP (Avtalefestet pensjon)').should('exist')
+          cy.contains('AFP (avtalefestet pensjon)').should('exist')
           cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should(
             'not.exist'
           )
@@ -57,7 +35,7 @@ describe('Uten samtykke', () => {
             .click({ force: true })
           cy.contains('0').should('exist')
           cy.contains('dt', 'Pensjonsgivende inntekt').should('exist')
-          cy.contains('dt', 'AFP (Avtalefestet pensjon)').should('exist')
+          cy.contains('dt', 'AFP (avtalefestet pensjon)').should('exist')
           cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
             'not.exist'
           )

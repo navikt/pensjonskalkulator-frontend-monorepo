@@ -109,7 +109,7 @@ export function Sivilstand({
           </Radio>
         </RadioGroup>
         <Button type="submit" className={styles.button}>
-          <FormattedMessage id="stegvisning.beregn" />
+          <FormattedMessage id="stegvisning.neste" />
         </Button>
         <Button
           type="button"

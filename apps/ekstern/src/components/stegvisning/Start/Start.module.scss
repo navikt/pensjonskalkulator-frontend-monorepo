@@ -39,3 +39,37 @@
     margin-top: 0;
   }
 }
+
+.list {
+  text-align: left;
+  list-style: none;
+  padding-left: 20%;
+
+  @media (min-width: $a-breakpoint-sm) {
+    padding-left: 30%;
+  }
+
+  @media (min-width: $a-breakpoint-md) {
+    padding-left: 0;
+  }
+}
+
+.ellipse {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  margin-right: var(--a-spacing-4);
+
+  &__blue {
+    background-color: var(--a-deepblue-500);
+  }
+
+  &__purple {
+    background-color: var(--a-purple-400);
+  }
+
+  &__green {
+    background-color: var(--a-green-400);
+  }
+}

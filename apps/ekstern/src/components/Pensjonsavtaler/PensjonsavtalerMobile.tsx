@@ -96,22 +96,24 @@ export const PensjonsavtalerMobil: React.FC<IProps> = ({
   }, [pensjonsavtaler])
 
   return (
-    <VStack data-testid="pensjonsavtaler-mobile">
-      {Object.entries(gruppertePensjonsavtaler).map(
-        ([avtaleGruppe, gruppePensjonsavtaler]) => (
-          <div key={`${avtaleGruppe}-gruppe-mobil`}>
-            <AvtaleGruppe
-              headingLevel={headingLevel}
-              avtale={avtaleGruppe}
-              pensjonsavtaler={gruppePensjonsavtaler}
-            />
-            <Divider />
-          </div>
-        )
-      )}
+    <>
+      <VStack data-testid="pensjonsavtaler-mobile">
+        {Object.entries(gruppertePensjonsavtaler).map(
+          ([avtaleGruppe, gruppePensjonsavtaler]) => (
+            <div key={`${avtaleGruppe}-gruppe-mobil`}>
+              <AvtaleGruppe
+                headingLevel={headingLevel}
+                avtale={avtaleGruppe}
+                pensjonsavtaler={gruppePensjonsavtaler}
+              />
+              <Divider />
+            </div>
+          )
+        )}
+      </VStack>
       <BodyLong>
         <FormattedMessage id="pensjonsavtaler.fra_og_med_forklaring" />
       </BodyLong>
-    </VStack>
+    </>
   )
 }
