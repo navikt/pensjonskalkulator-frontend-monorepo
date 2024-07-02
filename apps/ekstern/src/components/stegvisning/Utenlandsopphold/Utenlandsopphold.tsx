@@ -2,7 +2,6 @@ import React from 'react'
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { PlusCircleIcon } from '@navikt/aksel-icons'
 import {
   BodyLong,
   BodyShort,
@@ -14,6 +13,7 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
+import { OmOppholdetDitt } from '@/components/OmOppholdetDitt'
 import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './Utenlandsopphold.module.scss'
@@ -135,9 +135,7 @@ export function Utenlandsopphold({
             <BodyShort size="medium" className={styles.bodyshort}>
               <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
             </BodyShort>
-            <Button icon={<PlusCircleIcon aria-hidden />}>
-              <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.button" />
-            </Button>
+            <OmOppholdetDitt buttonLabel="stegvisning.utenlandsopphold.oppholdene.button" />
           </section>
         )}
 

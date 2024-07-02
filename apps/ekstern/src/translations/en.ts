@@ -79,6 +79,8 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':

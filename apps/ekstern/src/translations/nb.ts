@@ -112,6 +112,8 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description':
     'Legg til gjennomførte og planlagte opphold',
   'stegvisning.utenlandsopphold.oppholdene.button': 'Legg til opphold',
+  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button': 'Legg til opphold',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og AFP (avtalefestet pensjon).',
