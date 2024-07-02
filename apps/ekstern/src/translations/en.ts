@@ -76,6 +76,9 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_ja': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_nei': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.validation_error': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':

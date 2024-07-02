@@ -94,6 +94,9 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har budd eller jobba utanfor Noreg i meir enn fem år etter fylte 16 år.',
+  'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonen din',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'I kalkulatoren får du fram alderspensjon fra folketrygden (NAV) og eventuell avtalefesta pensjon (AFP) i privat sektor. For å vise andre pensjonsavtalar og tenestepensjon frå arbeidsgjevarar, må vi ha ditt samtykke til å hente pensjonsavtalane dine.',
