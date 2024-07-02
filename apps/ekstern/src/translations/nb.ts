@@ -107,6 +107,13 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.',
+  'stegvisning.utenlandsopphold.oppholdene.title':
+    'Oppholdene dine utenfor Norge',
+  'stegvisning.utenlandsopphold.oppholdene.description':
+    'Legg til gjennomførte og planlagte opphold',
+  'stegvisning.utenlandsopphold.oppholdene.button': 'Legg til opphold',
+  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button': 'Legg til opphold',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og AFP (avtalefestet pensjon).',

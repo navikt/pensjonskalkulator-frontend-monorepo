@@ -1,10 +1,19 @@
+import React from 'react'
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
+import {
+  BodyLong,
+  BodyShort,
+  Button,
+  Heading,
+  Radio,
+  RadioGroup,
+} from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
+import { OmOppholdetDitt } from '@/components/OmOppholdetDitt'
 import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './Utenlandsopphold.module.scss'
@@ -24,6 +33,8 @@ export function Utenlandsopphold({
 }: Props) {
   const intl = useIntl()
   const [validationError, setValidationError] = useState<string>('')
+  const [showOppholdene, setShowOppholdene] =
+    React.useState<boolean>(!!harUtenlandsopphold)
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -56,7 +67,8 @@ export function Utenlandsopphold({
     }
   }
 
-  const handleRadioChange = (): void => {
+  const handleRadioChange = (value: BooleanRadio): void => {
+    setShowOppholdene(value === 'ja')
     setValidationError('')
   }
 
@@ -115,6 +127,17 @@ export function Utenlandsopphold({
             <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
           </Radio>
         </RadioGroup>
+        {showOppholdene && (
+          <section className={styles.oppholdene}>
+            <Heading size="small" level="3">
+              <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.title" />
+            </Heading>
+            <BodyShort size="medium" className={styles.bodyshort}>
+              <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
+            </BodyShort>
+            <OmOppholdetDitt buttonLabel="stegvisning.utenlandsopphold.oppholdene.button" />
+          </section>
+        )}
 
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.neste" />
