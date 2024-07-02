@@ -74,93 +74,103 @@ export function Utenlandsopphold({
 
   return (
     <Card hasLargePadding hasMargin>
-      <form onSubmit={onSubmit}>
-        <Heading level="2" size="medium" spacing>
-          <FormattedMessage id="stegvisning.utenlandsopphold.title" />
-        </Heading>
-        <BodyLong size="large">
-          <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
-        </BodyLong>
-        <ReadMore
-          name="Om hva som er opphold utenfor Norge"
-          className={styles.readmore1}
-          header={
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress" />
-        </ReadMore>
-        <ReadMore
-          name="Om konsekvenser av opphold i utlandet"
-          className={styles.readmore2}
-          header={
-            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.title" />
-          }
-        >
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.ingress" />
-        </ReadMore>
-        <RadioGroup
-          className={styles.radiogroup}
-          legend={
-            <FormattedMessage id="stegvisning.utenlandsopphold.radio_label" />
-          }
-          description={
-            <FormattedMessage id="stegvisning.utenlandsopphold.radio_label.description" />
-          }
-          name="utenlandsopphold"
-          defaultValue={
-            harUtenlandsopphold
-              ? 'ja'
-              : harUtenlandsopphold === false
-                ? 'nei'
-                : null
-          }
-          onChange={handleRadioChange}
-          error={validationError}
-          role="radiogroup"
-          aria-required="true"
-        >
-          <Radio value="ja">
-            <FormattedMessage id="stegvisning.utenlandsopphold.radio_ja" />
-          </Radio>
-          <Radio value="nei">
-            <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
-          </Radio>
-        </RadioGroup>
-        {showOppholdene && (
-          <section className={styles.oppholdene}>
-            <Heading size="small" level="3">
-              <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.title" />
-            </Heading>
-            <BodyShort size="medium" className={styles.bodyshort}>
-              <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
-            </BodyShort>
-            <OmOppholdetDitt buttonLabel="stegvisning.utenlandsopphold.oppholdene.button" />
-          </section>
-        )}
+      <form id="utenlandsopphold" onSubmit={onSubmit}></form>
+      <Heading level="2" size="medium" spacing>
+        <FormattedMessage id="stegvisning.utenlandsopphold.title" />
+      </Heading>
+      <BodyLong size="large">
+        <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
+      </BodyLong>
+      <ReadMore
+        name="Om hva som er opphold utenfor Norge"
+        className={styles.readmore1}
+        header={
+          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title" />
+        }
+      >
+        <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress" />
+      </ReadMore>
+      <ReadMore
+        name="Om konsekvenser av opphold i utlandet"
+        className={styles.readmore2}
+        header={
+          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.title" />
+        }
+      >
+        <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.ingress" />
+      </ReadMore>
+      <RadioGroup
+        id="utenlandsopphold"
+        className={styles.radiogroup}
+        legend={
+          <FormattedMessage id="stegvisning.utenlandsopphold.radio_label" />
+        }
+        description={
+          <FormattedMessage id="stegvisning.utenlandsopphold.radio_label.description" />
+        }
+        name="utenlandsopphold"
+        defaultValue={
+          harUtenlandsopphold
+            ? 'ja'
+            : harUtenlandsopphold === false
+              ? 'nei'
+              : null
+        }
+        onChange={handleRadioChange}
+        error={validationError}
+        role="radiogroup"
+        aria-required="true"
+      >
+        <Radio value="ja">
+          <FormattedMessage id="stegvisning.utenlandsopphold.radio_ja" />
+        </Radio>
+        <Radio value="nei">
+          <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
+        </Radio>
+      </RadioGroup>
+      {showOppholdene && (
+        <section className={styles.oppholdene}>
+          <Heading size="small" level="3">
+            <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.title" />
+          </Heading>
+          <BodyShort size="medium" className={styles.bodyshort}>
+            <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
+          </BodyShort>
+          <OmOppholdetDitt
+            buttonLabel="stegvisning.utenlandsopphold.oppholdene.button"
+            // opphold={undefined}
+            opphold={{
+              // TODO legge opphold som ved endring
+              land: 'Kina',
+              harJobbet: null,
+              startdato: new Date('2018-01-01'),
+              sluttdato: new Date('2021-01-31'),
+            }}
+          />
+        </section>
+      )}
 
-        <Button type="submit" className={styles.button}>
-          <FormattedMessage id="stegvisning.neste" />
-        </Button>
+      <Button form="utenlandsopphold" type="submit" className={styles.button}>
+        <FormattedMessage id="stegvisning.neste" />
+      </Button>
+      <Button
+        type="button"
+        className={styles.button}
+        variant="secondary"
+        onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+      >
+        <FormattedMessage id="stegvisning.tilbake" />
+      </Button>
+      {onCancel && (
         <Button
           type="button"
           className={styles.button}
-          variant="secondary"
-          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+          variant="tertiary"
+          onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
         >
-          <FormattedMessage id="stegvisning.tilbake" />
+          <FormattedMessage id="stegvisning.avbryt" />
         </Button>
-        {onCancel && (
-          <Button
-            type="button"
-            className={styles.button}
-            variant="tertiary"
-            onClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(onCancel)}
-          >
-            <FormattedMessage id="stegvisning.avbryt" />
-          </Button>
-        )}
-      </form>
+      )}
     </Card>
   )
 }

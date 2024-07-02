@@ -1,5 +1,6 @@
-import globalClassNames from "../../style";
+import globalClassNames from "../../style.d";
 declare const classNames: typeof globalClassNames & {
-  readonly textfield: "textfield";
+  readonly select: "select";
+  readonly "navds-select__container": "navds-select__container";
 };
 export = classNames;

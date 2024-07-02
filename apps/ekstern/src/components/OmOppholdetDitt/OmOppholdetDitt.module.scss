@@ -1,5 +1,14 @@
 @import '../../scss/variables';
 
-.textfield input {
-  width: $input-width-m;
+.select {
+  :global {
+    select,
+    .navds-select__container {
+      width: $input-width-s;
+    }
+  }
 }
+
+// .textfield input {
+//   width: $input-width-m;
+// }
