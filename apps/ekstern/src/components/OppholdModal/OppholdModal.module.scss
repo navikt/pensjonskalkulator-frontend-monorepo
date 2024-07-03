@@ -1,5 +1,11 @@
 @import '../../scss/variables';
 
+.datepicker {
+  input {
+    width: $input-width-s;
+  }
+}
+
 .select {
   :global {
     select,
@@ -8,7 +14,3 @@
     }
   }
 }
-
-// .textfield input {
-//   width: $input-width-m;
-// }

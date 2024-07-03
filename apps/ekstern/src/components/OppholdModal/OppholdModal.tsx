@@ -18,13 +18,13 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 import { UTENLANDSOPPHOLD_FORM_NAMES } from './utils'
 
-import styles from './OmOppholdetDitt.module.scss'
+import styles from './OppholdModal.module.scss'
 
 interface Props {
   modalRef: React.RefObject<HTMLDialogElement>
   opphold?: Opphold
 }
-export const OmOppholdetDitt: React.FC<Props> = ({ modalRef, opphold }) => {
+export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
   const intl = useIntl()
 
   const [localOpphold, setLocalOpphold] = React.useState<
@@ -186,7 +186,7 @@ export const OmOppholdetDitt: React.FC<Props> = ({ modalRef, opphold }) => {
             method="dialog"
             onSubmit={onSubmit}
           >
-            <VStack gap="4">
+            <VStack gap="6">
               <Select
                 form={UTENLANDSOPPHOLD_FORM_NAMES.form}
                 name={UTENLANDSOPPHOLD_FORM_NAMES.land}
@@ -229,7 +229,6 @@ export const OmOppholdetDitt: React.FC<Props> = ({ modalRef, opphold }) => {
                     id={UTENLANDSOPPHOLD_FORM_NAMES.harJobbet}
                     name={UTENLANDSOPPHOLD_FORM_NAMES.harJobbet}
                     data-testid={UTENLANDSOPPHOLD_FORM_NAMES.harJobbet}
-                    // className={styles.radiogroup}
                     legend={
                       <FormattedMessage
                         id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label"
@@ -277,6 +276,7 @@ export const OmOppholdetDitt: React.FC<Props> = ({ modalRef, opphold }) => {
                   >
                     <DatePicker.Input
                       {...datepickerStartdato.inputProps}
+                      className={styles.datepicker}
                       name={UTENLANDSOPPHOLD_FORM_NAMES.startdato}
                       label={intl.formatMessage({
                         id: 'utenlandsopphold.om_oppholdet_ditt_modal.startdato.label',
@@ -292,6 +292,7 @@ export const OmOppholdetDitt: React.FC<Props> = ({ modalRef, opphold }) => {
                   >
                     <DatePicker.Input
                       {...datepickerSluttdato.inputProps}
+                      className={styles.datepicker}
                       name={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
                       label={intl.formatMessage({
                         id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',

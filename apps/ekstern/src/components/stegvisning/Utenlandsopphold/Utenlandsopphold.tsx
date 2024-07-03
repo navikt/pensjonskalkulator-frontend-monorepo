@@ -14,7 +14,7 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
-import { OmOppholdetDitt } from '@/components/OmOppholdetDitt'
+import { OppholdModal } from '@/components/OppholdModal'
 import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './Utenlandsopphold.module.scss'
@@ -39,7 +39,7 @@ export function Utenlandsopphold({
   const [showOppholdene, setShowOppholdene] =
     React.useState<boolean>(!!harUtenlandsopphold)
 
-  const openOmOppholdetDittModal = () => {
+  const openOppholdModal = () => {
     logger('modal åpnet', {
       tekst: `Modal: Om oppholdet ditt`,
     })
@@ -50,10 +50,9 @@ export function Utenlandsopphold({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const utenlandsoppholdData = data.get('utenlandsopphold') as
+    const utenlandsoppholdData = data.get('utenlandsopphold-radio') as
       | BooleanRadio
       | undefined
-
     if (!utenlandsoppholdData) {
       const tekst = intl.formatMessage({
         id: 'stegvisning.utenlandsopphold.validation_error',
@@ -110,7 +109,7 @@ export function Utenlandsopphold({
         <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.ingress" />
       </ReadMore>
       <RadioGroup
-        id="utenlandsopphold"
+        name="utenlandsopphold-radio"
         className={styles.radiogroup}
         legend={
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_label" />
@@ -118,7 +117,6 @@ export function Utenlandsopphold({
         description={
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_label.description" />
         }
-        name="utenlandsopphold"
         defaultValue={
           harUtenlandsopphold
             ? 'ja'
@@ -131,10 +129,10 @@ export function Utenlandsopphold({
         role="radiogroup"
         aria-required="true"
       >
-        <Radio value="ja">
+        <Radio form="utenlandsopphold" value="ja">
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_ja" />
         </Radio>
-        <Radio value="nei">
+        <Radio form="utenlandsopphold" value="nei">
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
         </Radio>
       </RadioGroup>
@@ -146,7 +144,7 @@ export function Utenlandsopphold({
           <BodyShort size="medium" className={styles.bodyshort}>
             <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
           </BodyShort>
-          <OmOppholdetDitt
+          <OppholdModal
             modalRef={oppholdModalRef}
             opphold={undefined}
             // TODO setState for valgt opphold
@@ -160,7 +158,7 @@ export function Utenlandsopphold({
           <Button
             type="button"
             icon={<PlusCircleIcon aria-hidden />}
-            onClick={openOmOppholdetDittModal}
+            onClick={openOppholdModal}
           >
             {intl.formatMessage({
               id: 'stegvisning.utenlandsopphold.oppholdene.button',
