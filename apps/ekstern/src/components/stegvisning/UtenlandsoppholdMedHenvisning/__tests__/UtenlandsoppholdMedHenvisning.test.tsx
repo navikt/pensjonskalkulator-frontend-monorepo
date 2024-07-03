@@ -1,17 +1,17 @@
 import { describe, it, vi } from 'vitest'
 
-import { Utenlandsopphold } from '..'
+import { UtenlandsoppholdMedHenvisning } from '..'
 import { RootState } from '@/state/store'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
-describe('stegvisning - Utenlandsopphold', () => {
+describe('stegvisning - UtenlandsoppholdMedHenvisning', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
 
   it('rendrer slik den skal når spørsmålet om utenlandsopphold ikke er besvart', async () => {
     const result = render(
-      <Utenlandsopphold
+      <UtenlandsoppholdMedHenvisning
         harUtenlandsopphold={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -19,21 +19,8 @@ describe('stegvisning - Utenlandsopphold', () => {
       />
     )
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'stegvisning.utenlandsopphold.title'
+      'stegvisning.utenlandsopphold_med_henvisning.title'
     )
-    expect(
-      screen.getByText('stegvisning.utenlandsopphold.ingress')
-    ).toBeVisible()
-    expect(
-      screen.getByText(
-        'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title'
-      )
-    ).toBeVisible()
-    expect(
-      screen.getByText(
-        'stegvisning.utenlandsopphold.readmore_konsekvenser.title'
-      )
-    ).toBeVisible()
     const radioButtons = screen.getAllByRole('radio')
 
     await waitFor(() => {
@@ -47,7 +34,7 @@ describe('stegvisning - Utenlandsopphold', () => {
   describe('rendrer slik den skal når spørsmålet om utenlandsopphold er besvart', async () => {
     it('Når utenlandsopphold er false', async () => {
       render(
-        <Utenlandsopphold
+        <UtenlandsoppholdMedHenvisning
           harUtenlandsopphold={false}
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
@@ -59,15 +46,12 @@ describe('stegvisning - Utenlandsopphold', () => {
         expect(screen.getAllByRole('radio')).toHaveLength(2)
         expect(radioButtons[0]).not.toBeChecked()
         expect(radioButtons[1]).toBeChecked()
-        expect(
-          screen.queryByText('stegvisning.utenlandsopphold.oppholdene.title')
-        ).not.toBeInTheDocument()
       })
     })
 
     it('Når utenlandsopphold er true', async () => {
       render(
-        <Utenlandsopphold
+        <UtenlandsoppholdMedHenvisning
           harUtenlandsopphold={true}
           onCancel={onCancelMock}
           onPrevious={onPreviousMock}
@@ -75,25 +59,10 @@ describe('stegvisning - Utenlandsopphold', () => {
         />
       )
       const radioButtons = screen.getAllByRole('radio')
-      await waitFor(async () => {
+      await waitFor(() => {
         expect(screen.getAllByRole('radio')).toHaveLength(2)
         expect(radioButtons[0]).toBeChecked()
         expect(radioButtons[1]).not.toBeChecked()
-        expect(
-          await screen.findByText(
-            'stegvisning.utenlandsopphold.oppholdene.title'
-          )
-        ).toBeVisible()
-        expect(
-          await screen.findByText(
-            'stegvisning.utenlandsopphold.oppholdene.description'
-          )
-        ).toBeVisible()
-        expect(
-          await screen.findByText(
-            'stegvisning.utenlandsopphold.oppholdene.button'
-          )
-        ).toBeVisible()
       })
     })
   })
@@ -101,7 +70,7 @@ describe('stegvisning - Utenlandsopphold', () => {
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(
-      <Utenlandsopphold
+      <UtenlandsoppholdMedHenvisning
         harUtenlandsopphold={null}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -134,7 +103,7 @@ describe('stegvisning - Utenlandsopphold', () => {
   it('kaller onPrevious når brukeren klikker på Tilbake', async () => {
     const user = userEvent.setup()
     render(
-      <Utenlandsopphold
+      <UtenlandsoppholdMedHenvisning
         harUtenlandsopphold={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -155,7 +124,7 @@ describe('stegvisning - Utenlandsopphold', () => {
   it('kaller onCancelMock når brukeren klikker på Avbryt', async () => {
     const user = userEvent.setup()
     render(
-      <Utenlandsopphold
+      <UtenlandsoppholdMedHenvisning
         harUtenlandsopphold={false}
         onCancel={onCancelMock}
         onPrevious={onPreviousMock}
@@ -171,7 +140,7 @@ describe('stegvisning - Utenlandsopphold', () => {
 
   it('viser ikke avbryt knapp når onCancel ikke er definert', async () => {
     render(
-      <Utenlandsopphold
+      <UtenlandsoppholdMedHenvisning
         harUtenlandsopphold={null}
         onCancel={undefined}
         onPrevious={onPreviousMock}

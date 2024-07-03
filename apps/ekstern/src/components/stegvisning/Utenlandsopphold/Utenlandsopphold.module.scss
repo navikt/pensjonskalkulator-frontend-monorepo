@@ -1,5 +1,25 @@
+.readmore1 {
+  margin-top: var(--a-spacing-1);
+}
+
+.readmore2 {
+  margin: var(--a-spacing-2) 0 var(--a-spacing-6) 0;
+}
+
 .radiogroup {
   margin-top: var(--a-spacing-6);
+  margin-bottom: var(--a-spacing-2);
+}
+
+.bodyshort {
+  color: var(--a-text-subtle);
+  margin-bottom: var(--a-spacing-4);
+}
+
+.oppholdene {
+  margin-top: var(--a-spacing-4);
+  padding-bottom: var(--a-spacing-10);
+  border-bottom: 1px solid var(--a-border-divider);
   margin-bottom: var(--a-spacing-2);
 }
 
