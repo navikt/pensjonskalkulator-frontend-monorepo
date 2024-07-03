@@ -91,6 +91,14 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-utland',
+    },
+    { fixture: 'toggle-enable-utland.json' }
+  ).as('getFeatureToggleUtland')
+
+  cy.intercept(
+    {
+      method: 'GET',
       url: '/pensjon/kalkulator/api/v2/ekskludert',
     },
     { fixture: 'ekskludert-status.json' }
