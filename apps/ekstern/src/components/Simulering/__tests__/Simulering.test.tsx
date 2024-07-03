@@ -726,124 +726,441 @@ describe('Simulering', () => {
           )
         ).toBeVisible()
       })
-
-      const pensjonsavtalerScrollToLink = await screen.findByTestId(
-        'pensjonsavtaler-info-link'
-      )
-      await user.click(pensjonsavtalerScrollToLink)
-
+      await user.click(await screen.findByTestId('pensjonsavtaler-info-link'))
       expect(scrollToMock).toHaveBeenCalledWith({
         behavior: 'smooth',
         top: -15,
       })
     })
 
-    it('Når brukeren har samtykket og pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
-      mockErrorResponse('/v2/pensjonsavtaler', {
-        status: 500,
-        json: "Beep boop I'm an error!",
-        method: 'post',
-      })
-      render(
-        <Simulering
-          isLoading={false}
-          headingLevel="3"
-          aarligInntektFoerUttakBeloep="0"
-          showButtonsAndTable={false}
-        />,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-              samtykke: true,
-              afp: 'nei',
-              currentSimulation: { ...currentSimulation },
+    describe('Gitt at brukeren har tp-medlemskap', () => {
+      it('Når pensjonsavtaler hentes, vises det riktig infomelding for tp-ordning', async () => {
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
             },
-          },
-        }
-      )
-      expect(
-        await screen.findByText('beregning.pensjonsavtaler.error', {
-          exact: false,
-        })
-      ).toBeVisible()
-    })
-
-    it('Når brukeren har samtykket og pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
-        status: 200,
-        json: {
-          avtaler: [
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon.',
             {
-              produktbetegnelse: 'Oslo Pensjonsforsikring (livsvarig eksempel)',
-              kategori: 'PRIVAT_TJENESTEPENSJON',
-              startAar: 69,
-              utbetalingsperioder: [
-                {
-                  startAlder: { aar: 69, maaneder: 0 },
-                  aarligUtbetaling: 175000,
-                  grad: 100,
-                },
-              ],
-            },
-          ],
-          utilgjengeligeSelskap: ['Something'],
-        },
-        method: 'post',
+              exact: false,
+            }
+          )
+        ).toBeVisible()
       })
-      render(
-        <Simulering
-          isLoading={false}
-          headingLevel="3"
-          aarligInntektFoerUttakBeloep="0"
-          showButtonsAndTable={false}
-        />,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-              samtykke: true,
-              afp: 'nei',
-              currentSimulation: { ...currentSimulation },
+
+      it('Når pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
+        mockErrorResponse('/v2/pensjonsavtaler', {
+          status: 500,
+          json: "Beep boop I'm an error!",
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
             },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
+            {
+              exact: false,
+            }
+          )
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [
+              {
+                produktbetegnelse:
+                  'Oslo Pensjonsforsikring (livsvarig eksempel)',
+                kategori: 'PRIVAT_TJENESTEPENSJON',
+                startAar: 69,
+                utbetalingsperioder: [
+                  {
+                    startAlder: { aar: 69, maaneder: 0 },
+                    aarligUtbetaling: 175000,
+                    grad: 100,
+                  },
+                ],
+              },
+            ],
+            utilgjengeligeSelskap: ['Something'],
           },
-        }
-      )
-      expect(
-        await screen.findByText('beregning.pensjonsavtaler.error.partial')
-      ).toBeVisible()
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [],
+            utilgjengeligeSelskap: ['Something'],
+          },
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon.',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
     })
 
-    it('Når brukeren har samtykket, har ingen pensjonsavtale men har utilgjengelig selskap, vises det riktig feilmelding som sender til Grunnlag', async () => {
-      mockResponse('/v2/pensjonsavtaler', {
-        status: 200,
-        json: {
-          avtaler: [],
-          utilgjengeligeSelskap: ['Something'],
-        },
-        method: 'post',
-      })
-      render(
-        <Simulering
-          isLoading={false}
-          headingLevel="3"
-          aarligInntektFoerUttakBeloep="0"
-          showButtonsAndTable={false}
-        />,
-        {
-          preloadedState: {
-            userInput: {
-              ...userInputInitialState,
-              samtykke: true,
-              afp: 'nei',
-              currentSimulation: { ...currentSimulation },
-            },
+    describe('Gitt at brukeren ikke har noe tp-medlemskap', () => {
+      beforeEach(() => {
+        mockResponse('/tpo-medlemskap', {
+          status: 200,
+          json: {
+            harTjenestepensjonsforhold: false,
           },
-        }
-      )
-      expect(
-        await screen.findByText('beregning.pensjonsavtaler.error')
-      ).toBeVisible()
+        })
+      })
+      it('Når pensjonsavtaler feiler, vises det riktig feilmelding', async () => {
+        mockErrorResponse('/v2/pensjonsavtaler', {
+          status: 500,
+          json: "Beep boop I'm an error!",
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente',
+            {
+              exact: false,
+            }
+          )
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [
+              {
+                produktbetegnelse:
+                  'Oslo Pensjonsforsikring (livsvarig eksempel)',
+                kategori: 'PRIVAT_TJENESTEPENSJON',
+                startAar: 69,
+                utbetalingsperioder: [
+                  {
+                    startAlder: { aar: 69, maaneder: 0 },
+                    aarligUtbetaling: 175000,
+                    grad: 100,
+                  },
+                ],
+              },
+            ],
+            utilgjengeligeSelskap: ['Something'],
+          },
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selska og 0 avtalerp, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [],
+            utilgjengeligeSelskap: ['Something'],
+          },
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
+    })
+
+    describe('Gitt at kall til tp-medlemskap feiler', () => {
+      beforeEach(() => {
+        mockErrorResponse('/tpo-medlemskap')
+      })
+
+      it('Når pensjonsavtaler hentes, vises det riktig feilmelding for tp-ordninger', async () => {
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor.',
+            {
+              exact: false,
+            }
+          )
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler feiler, vises det riktig feilmelding for tp-ordninger og pensjonsvtaler', async () => {
+        mockErrorResponse('/v2/pensjonsavtaler', {
+          status: 500,
+          json: "Beep boop I'm an error!",
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente',
+            {
+              exact: false,
+            }
+          )
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selskap, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [
+              {
+                produktbetegnelse:
+                  'Oslo Pensjonsforsikring (livsvarig eksempel)',
+                kategori: 'PRIVAT_TJENESTEPENSJON',
+                startAar: 69,
+                utbetalingsperioder: [
+                  {
+                    startAlder: { aar: 69, maaneder: 0 },
+                    aarligUtbetaling: 175000,
+                    grad: 100,
+                  },
+                ],
+              },
+            ],
+            utilgjengeligeSelskap: ['Something'],
+          },
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
+
+      it('Når pensjonsavtaler kommer med utilgjengelig selskap og 0 avtaler, vises det riktig feilmelding', async () => {
+        mockResponse('/v2/pensjonsavtaler', {
+          status: 200,
+          json: {
+            avtaler: [],
+            utilgjengeligeSelskap: ['Something'],
+          },
+          method: 'post',
+        })
+        render(
+          <Simulering
+            isLoading={false}
+            headingLevel="3"
+            aarligInntektFoerUttakBeloep="0"
+            showButtonsAndTable={false}
+          />,
+          {
+            preloadedState: {
+              userInput: {
+                ...userInputInitialState,
+                samtykke: true,
+                afp: 'nei',
+                currentSimulation: { ...currentSimulation },
+              },
+            },
+          }
+        )
+        expect(
+          await screen.findByText(
+            'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
     })
   })
 

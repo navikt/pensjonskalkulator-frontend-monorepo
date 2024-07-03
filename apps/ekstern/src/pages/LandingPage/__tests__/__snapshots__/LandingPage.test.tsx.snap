@@ -32,12 +32,12 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
       >
         <div
           class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10); --__ac-stack-direction-xs: column;"
+          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10); --__ac-stack-direction-xs: column; --__ac-stack-align-xs: stretch;"
         >
           <section>
             <div
               class="navds-stack navds-vstack"
-              style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column;"
+              style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column; --__ac-stack-align-xs: stretch;"
             >
               <h2
                 class="navds-heading navds-heading--medium"
@@ -70,7 +70,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
                 </p>
                 <div
                   class="navds-stack navds-hstack"
-                  style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
+                  style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: stretch;"
                 >
                   <button
                     class="_button_6ae597 navds-button navds-button--primary navds-button--medium"
@@ -164,12 +164,12 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
       >
         <div
           class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10); --__ac-stack-direction-xs: column;"
+          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-10); --__ac-stack-direction-xs: column; --__ac-stack-align-xs: stretch;"
         >
           <section>
             <div
               class="navds-stack navds-vstack"
-              style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column;"
+              style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column; --__ac-stack-align-xs: stretch;"
             >
               <h2
                 class="navds-heading navds-heading--medium"
@@ -202,7 +202,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
                 </p>
                 <div
                   class="navds-stack navds-hstack"
-                  style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
+                  style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: stretch;"
                 >
                   <button
                     class="_button_6ae597 navds-button navds-button--primary navds-button--medium"
@@ -231,7 +231,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           <section>
             <div
               class="navds-stack navds-vstack"
-              style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
+              style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column; --__ac-stack-align-xs: stretch;"
             >
               <h2
                 class="navds-heading navds-heading--medium"
@@ -260,7 +260,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
           <section>
             <div
               class="navds-stack navds-vstack"
-              style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column;"
+              style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: column; --__ac-stack-align-xs: stretch;"
             >
               <h2
                 class="navds-heading navds-heading--medium"

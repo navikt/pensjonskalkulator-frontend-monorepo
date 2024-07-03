@@ -1,15 +1,13 @@
 const translations = {
   'application.title': 'Pensjonskalkulator - Pensjon',
-  'application.title.stegvisning.step0': 'Start - Pensjonskalkulator',
-  'application.title.stegvisning.step1':
+  'application.title.stegvisning.start': 'Start - Pensjonskalkulator',
+  'application.title.stegvisning.sivilstand': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.utenlandsopphold':
     'Utanlandsopphald - Pensjonskalkulator',
-  'application.title.stegvisning.step2': 'Samtykke - Penjonskalkulator',
-  'application.title.stegvisning.step3':
-    'Offentleg tenestepensjon - Pensjonskalkulator',
-  'application.title.stegvisning.step4': 'AFP -Pensjonskalkulator',
-  'application.title.stegvisning.step5': 'MANGLER_TEKST',
-  'application.title.stegvisning.step6': 'MANGLER_TEKST',
-  'application.title.stegvisning.step7': 'Sivilstand - Pensjonskalkulator',
+  'application.title.stegvisning.afp': 'AFP - Pensjonskalkulator',
+  'application.title.stegvisning.ufoeretryg_AFP': 'MANGLER_TEKST',
+  'application.title.stegvisning.samtykke_offentlig_AFP': 'MANGLER_TEKST',
+  'application.title.stegvisning.samtykke': 'Samtykke - Penjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventa feil - Pensjonskalkulator',
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
@@ -72,46 +70,57 @@ const translations = {
   'stegvisning.beregn': 'Rekne ut pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress': 'MANGLER_TEKST',
+  'stegvisning.start.list_item1': 'MANGLER_TEKST',
+  'stegvisning.start.list_item2': 'MANGLER_TEKST',
+  'stegvisning.start.list_item3': 'MANGLER_TEKST',
+  'stegvisning.start.ingress_2': 'MANGLER_TEKST',
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysningar som vert brukt i enkel kalkulator',
-  'stegvisning.utenlandsopphold.title': 'Utanlandsopphald',
-  'stegvisning.utenlandsopphold.ingress':
-    'Enkel kalkulator er under utvikling og støttar ikkje utrekning med lengre utanlandsopphald.',
-  'stegvisning.utenlandsopphold.radio_label':
-    'Har du budd eller jobba utanfor Noreg i mer enn fem år etter fylte 16 år?',
+  'stegvisning.utenlandsopphold_med_henvisning.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold_med_henvisning.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold_med_henvisning.radio_label': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_konsekvenser.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_konsekvenser.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.radio_label': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.radio_label.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_ja': 'Ja',
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har budd eller jobba utanfor Noreg i meir enn fem år etter fylte 16 år.',
-  'stegvisning.samtykke.title': 'Pensjonen din',
-  'stegvisning.samtykke.ingress':
+  'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonen din',
+  'stegvisning.samtykke_pensjonsavtaler.ingress':
     'I kalkulatoren får du fram alderspensjon fra folketrygden (NAV) og eventuell avtalefesta pensjon (AFP) i privat sektor. For å vise andre pensjonsavtalar og tenestepensjon frå arbeidsgjevarar, må vi ha ditt samtykke til å hente pensjonsavtalane dine.',
-  'stegvisning.samtykke.readmore_title': 'Desse opplysningane hentar vi',
-  'stegvisning.samtykke.readmore_ingress':
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
+    'Desse opplysningane hentar vi',
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
     'Samtykket er frivillig. Om du svarar nei får du rekna ut alderspensjon (NAV) og eventuell avtalefesta pensjon (AFP) i privat sektor.',
-  'stegvisning.samtykke.readmore_list_title': 'Viss du samtykkjer: ',
-  'stegvisning.samtykke.readmore_list_item1':
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title': 'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
+    'MANGLER_TEKST',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
     'tenestepensjon frå arbeidsgjevar (innskots-, ytings- eller hybridpensjon), fripolisar og einskilde avtalar om pensjonssparing.',
-  'stegvisning.samtykke.readmore_list_item2':
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
     'sjekkar vi om du er eller har vore medlem i offentleg tenestepensjonsordning, og viser at du kan ha rettar, utan å hente avtalane. ',
-  'stegvisning.samtykke.readmore_list_item3':
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3':
     'gjeld samtykket kun for denne utrekninga.',
-  'stegvisning.samtykke.radio_label': 'Skal vi hente dine pensjonsavtalar?',
-  'stegvisning.samtykke.radio_ja': 'Ja',
-  'stegvisning.samtykke.radio_nei': 'Nei, hald fram utan',
-  'stegvisning.samtykke.validation_error':
+  'stegvisning.samtykke_pensjonsavtaler.radio_label':
+    'Skal vi hente dine pensjonsavtalar?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
+  'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, hald fram utan',
+  'stegvisning.samtykke_pensjonsavtaler.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtalar.',
-  'stegvisning.offentligtp.title':
-    'Du kan ha rett til offentleg tenestepensjon',
-  'stegvisning.offentligtp.loading':
-    'Hentar informasjon om medlemskap til offentleg tenestepensjon',
-  'stegvisning.offentligtp.ingress':
-    'Du er eller har vore tilsett i offentleg sektor, men vi kan dessverre ikkje hente inn tenestepensjonen din. Du kan sjekke dine avtalar hos aktuell tenestepensjonsordning (til dømes Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).{br}{br}Gå vidare for utrekning av alderspensjon frå NAV og sjå pensjonsavtalar i privat sektor.',
-  'stegvisning.offentligtp.error.title':
-    'Vi klarte ikkje å sjekke om du har pensjonsavtalar frå offentleg sektor',
-  'stegvisning.offentligtp.error.ingress':
-    'Gå vidare for utrekning av alderspensjon frå NAV og pensjonsavtalar frå privat sektor.{br}{br}Har du vore eller er tilsett i offentleg sektor, kan du sjekke tenestepensjonsavtalane dine hos aktuell tenestepensjonsordning (til dømes Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
   'stegvisning.afp.title': 'Avtalefesta pensjon',
   'stegvisning.afp.ingress':
     'For å få avtalefesta pensjon (AFP) må arbeidsgjevaren din ha ein slik avtale og du må kvalifisere til å få den.',
@@ -219,13 +228,16 @@ const translations = {
   'beregning.livsvarig': 'MANGLER_TEKST',
   'beregning.lav_opptjening.aar':
     'Du har ikkje høg nok opptening til å kunne starte uttak ved 63 år. Prøv ein høgare alder.',
-
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Fleire år',
-  'beregning.pensjonsavtaler.error':
-    'Vi klarte ikkje å hente pensjonsavtalene dine',
-  'beregning.pensjonsavtaler.error.partial':
-    'Vi klarte ikkje å hente alle pensjonsavtalene dine',
+  'beregning.tpo.info': 'MANGLER_TEKST',
+  'beregning.tpo.info.pensjonsavtaler.error': 'MANGLER_TEKST',
+  'beregning.tpo.info.pensjonsavtaler.partial': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.error': 'MANGLER_TEKST',
+  'beregning.pensjonsavtaler.partial': 'MANGLER_TEKST',
+  'beregning.tpo.error': 'MANGLER_TEKST',
+  'beregning.tpo.error.pensjonsavtaler.error': 'MANGLER_TEKST',
+  'beregning.tpo.error.pensjonsavtaler.partial': 'MANGLER_TEKST',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtalar som startar før valgt alder. Sjå detaljar i grunnlaget under.',
   'beregning.title': 'Utrekning',
@@ -357,7 +369,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.open.button': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
-  'pensjonsavtaler.ingress':
+  'pensjonsavtaler.ingress.norsk_pensjon':
     'Alle avtalar frå privat sektor vert henta frå <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikkje ansvarleg for beløpa som er oppgitt. Du kan ha andre avtalar enn det som fins i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikkje hente pensjonsavtaler frå offentleg sektor. Sjekk aktuell tenestepensjonsordning.',
   'pensjonsavtaler.ingress.error.pensjonsavtaler':
     'Vi klarte ikkje å hente pensjonsavtalane dine frå Norsk Pensjon. Prøv igjen seinare.',
@@ -373,6 +385,9 @@ const translations = {
   'pensjonsavtaler.tabell.title.left': 'Avtalar',
   'pensjonsavtaler.tabell.title.right': 'Årleg beløp',
   'pensjonsavtaler.title': 'Pensjonsavtalar',
+  'pensjonsavtaler.tpo.title': 'MANGLER_TEKST',
+  'pensjonsavtaler.tpo.er_medlem': 'MANGLER_TEKST',
+  'pensjonsavtaler.tpo.error': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':

@@ -1,17 +1,15 @@
 const translations = {
   'application.title': 'Pensjonskalkulator – Pensjon',
-  'application.title.stegvisning.step0': 'Start – Pensjonskalkulator',
-  'application.title.stegvisning.step1':
+  'application.title.stegvisning.start': 'Start – Pensjonskalkulator',
+  'application.title.stegvisning.sivilstand': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.utenlandsopphold':
     'Utenlandsopphold – Pensjonskalkulator',
-  'application.title.stegvisning.step2': 'Samtykke – Pensjonskalkulator',
-  'application.title.stegvisning.step3':
-    'Offentlig tjenestepensjon – Pensjonskalkulator',
-  'application.title.stegvisning.step4': 'AFP – Pensjonskalkulator',
-  'application.title.stegvisning.step5':
+  'application.title.stegvisning.afp': 'AFP – Pensjonskalkulator',
+  'application.title.stegvisning.ufoeretryg_AFP':
     'Uføretrygd og AFP – Pensjonskalkulator',
-  'application.title.stegvisning.step6':
+  'application.title.stegvisning.samtykke_offentlig_AFP':
     'Samtykke AFP offentlig – Pensjonskalkulator',
-  'application.title.stegvisning.step7': 'Sivilstand – Pensjonskalkulator',
+  'application.title.stegvisning.samtykke': 'Samtykke – Pensjonskalkulator',
   'application.title.stegvisning.uventet_feil':
     'Uventet feil – Pensjonskalkulator',
   'application.title.beregning': 'Beregning – Pensjonskalkulator',
@@ -40,7 +38,7 @@ const translations = {
   'error.404.button.link_2': 'Les om pensjon',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
-    'Du må bruke vår detaljerte kalkulator. Den gir deg en beregning av alderspensjon fra folketrygden (NAV), avtalefestet pensjon (AFP) fra offentlig og privat sektor og pensjonsavtaler (arbeidsgivere og sparing).',
+    'Du må bruke vår detaljerte kalkulator. Den gir deg en beregning av alderspensjon fra folketrygden (NAV), AFP (avtalefestet pensjon) fra offentlig og privat sektor og pensjonsavtaler (arbeidsgivere og sparing).',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'I pensjonskalkulatoren kan du sjekke alderspensjon fra NAV, tjenestepensjon fra privat sektor og AFP fra offentlig og privat sektor.',
@@ -77,52 +75,72 @@ const translations = {
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
-    'Velkommen til pensjonskalkulatoren som er under utvikling. For å kunne beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
+    'Velkommen til pensjonskalkulatoren som kan vise deg:',
+  'stegvisning.start.list_item1': 'Alderspensjon (NAV)',
+  'stegvisning.start.list_item2': 'AFP (avtalefestet pensjon)',
+  'stegvisning.start.list_item3': 'Pensjonsavtaler',
+  'stegvisning.start.ingress_2':
+    'For å beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysninger som brukes i pensjonskalkulator',
-  'stegvisning.utenlandsopphold.title': 'Utenlandsopphold',
-  'stegvisning.utenlandsopphold.ingress':
+  'stegvisning.utenlandsopphold_med_henvisning.title': 'Utenlandsopphold',
+  'stegvisning.utenlandsopphold_med_henvisning.ingress':
     'Enkel kalkulator er under utvikling og støtter ikke beregning med lengre utenlandsopphold.',
-  'stegvisning.utenlandsopphold.radio_label':
+  'stegvisning.utenlandsopphold_med_henvisning.radio_label':
     'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?',
+  'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
+  'stegvisning.utenlandsopphold.ingress':
+    'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.',
+  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title':
+    'Om hva som er opphold utenfor Norge',
+  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_konsekvenser.title':
+    'Om konsekvenser av opphold i utlandet',
+  'stegvisning.utenlandsopphold.readmore_konsekvenser.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.radio_label':
+    'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?',
+  'stegvisning.utenlandsopphold.radio_label.description':
+    'Fra du fylte 16 år til du tar ut pensjon',
   'stegvisning.utenlandsopphold.radio_ja': 'Ja',
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.',
-  'stegvisning.samtykke.title': 'Pensjonsavtaler',
-  'stegvisning.samtykke.ingress':
-    'I kalkulatoren kan du se alderspensjon fra folketrygden (NAV) og eventuell avtalefestet pensjon (AFP). For å vise andre pensjonsavtaler og tjenestepensjon fra arbeidsgivere må vi ha ditt samtykke til å hente pensjonsavtalene dine.',
-  'stegvisning.samtykke.readmore_title': 'Disse opplysningene henter vi',
-  'stegvisning.samtykke.readmore_ingress':
-    'Samtykket er frivillig. Hvis du svarer nei får du beregnet alderspensjon (NAV) og eventuell avtalefestet pensjon (AFP).',
-  'stegvisning.samtykke.readmore_list_title': 'Hvis du samtykker:',
-  'stegvisning.samtykke.readmore_list_item1':
-    'henter vi opplysninger om pensjonsavtaler i privat sektor fra Norsk Pensjon som tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon), fripoliser og enkelte avtaler om pensjonssparing.',
-  'stegvisning.samtykke.readmore_list_item2':
-    'sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning, og viser at du kan ha rettigheter, uten å hente avtalene.',
-  'stegvisning.samtykke.readmore_list_item3':
-    'gjelder samtykket kun beregninger i denne kalkulatoren.',
-  'stegvisning.samtykke.radio_label': 'Skal vi hente pensjonsavtalene dine?',
-  'stegvisning.samtykke.radio_ja': 'Ja',
-  'stegvisning.samtykke.radio_nei': 'Nei, fortsett uten',
-  'stegvisning.samtykke.validation_error':
+  'stegvisning.utenlandsopphold.oppholdene.title':
+    'Oppholdene dine utenfor Norge',
+  'stegvisning.utenlandsopphold.oppholdene.description':
+    'Legg til gjennomførte og planlagte opphold',
+  'stegvisning.utenlandsopphold.oppholdene.button': 'Legg til opphold',
+  'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button': 'Legg til opphold',
+  'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
+  'stegvisning.samtykke_pensjonsavtaler.ingress':
+    'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og AFP (avtalefestet pensjon).',
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
+    'Dette sjekker vi om tjenestepensjon i offentlig sektor',
+  'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
+    'Hvis du samtykker sjekker vi om du er eller har vært medlem i en offentlig tjenestepensjonsordning og informerer deg om det. Vi kan dessverre ikke hente inn offentlige pensjonsavtaler.',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_title':
+    'Dette henter vi om pensjonsavtaler fra privat sektor',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_ingress':
+    'Hvis du samtykker henter vi opplysninger om pensjonsavtaler i privat sektor fra Norsk Pensjon:',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item1':
+    'tjenestepensjon fra arbeidsgiver (innskudds-, ytelses- eller hybridpensjon)',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item2':
+    'fripoliser',
+  'stegvisning.samtykke_pensjonsavtaler.privat.readmore_list_item3':
+    'enkelte pensjonssparingsavtaler som du har tegnet selv',
+  'stegvisning.samtykke_pensjonsavtaler.radio_label':
+    'Skal vi hente pensjonsavtalene dine?',
+  'stegvisning.samtykke_pensjonsavtaler.radio_ja': 'Ja',
+  'stegvisning.samtykke_pensjonsavtaler.radio_nei': 'Nei, fortsett uten',
+  'stegvisning.samtykke_pensjonsavtaler.validation_error':
     'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.',
-  'stegvisning.offentligtp.title':
-    'Du kan ha rett til offentlig tjenestepensjon',
-  'stegvisning.offentligtp.loading':
-    'Henter informasjon om medlemskap til offentlig tjenestepensjon',
-  'stegvisning.offentligtp.ingress':
-    'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn tjenestepensjonen din. Du kan sjekke dine avtaler hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).{br}{br}Gå videre for å beregne alderspensjon fra NAV og se pensjonsavtaler i privat sektor.',
-  'stegvisning.offentligtp.error.title':
-    'Vi klarte ikke å sjekke om du har pensjonsavtaler fra offentlig sektor',
-  'stegvisning.offentligtp.error.ingress':
-    'Gå videre for å beregne alderspensjon fra NAV og pensjonsavtaler fra privat sektor.{br}{br}Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
-  'stegvisning.afp.title': 'Avtalefestet pensjon',
+  'stegvisning.afp.title': 'AFP (avtalefestet pensjon)',
   'stegvisning.afp.ingress':
-    'For å få avtalefestet pensjon (AFP) må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
-  'stegvisning.afp.readmore_privat_title':
-    'Om avtalefestet pensjon i privat sektor',
+    'For å få AFP må arbeidsgiveren din ha en slik avtale og du må kvalifisere til å få den.',
+  'stegvisning.afp.readmore_privat_title': 'Om AFP i privat sektor',
   'stegvisning.afp.readmore_privat_list_title': 'AFP i privat sektor:',
   'stegvisning.afp.readmore_privat_list_item1': 'er en livsvarig pensjon',
   'stegvisning.afp.readmore_privat_list_item2': 'kan tas ut sammen med arbeid',
@@ -132,8 +150,7 @@ const translations = {
     'kan tas ut sammen med tjenestepensjon',
   'stegvisning.afp.readmore_privat_link':
     'Les om vilkårene til <afpLink>AFP i privat sektor på afp.no</afpLink>',
-  'stegvisning.afp.readmore_offentlig_title':
-    'Om avtalefestet pensjon i offentlig sektor',
+  'stegvisning.afp.readmore_offentlig_title': 'Om AFP i offentlig sektor',
   'stegvisning.afp.readmore_offentlig_list_title': 'AFP i offentlig sektor:',
   'stegvisning.afp.readmore_offentlig_list_item1': 'er en livsvarig pensjon',
   'stegvisning.afp.readmore_offentlig_list_item2':
@@ -150,11 +167,10 @@ const translations = {
   'stegvisning.afp.alert_vet_ikke':
     'Er du usikker, bør du sjekke med arbeidsgiveren din.',
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
-  'stegvisning.ufoere.title': 'Uføretrygd og avtalefestet pensjon',
+  'stegvisning.ufoere.title': 'Uføretrygd og AFP (avtalefestet pensjon)',
   'stegvisning.ufoere.info':
-    'Du kan ikke kombinere uføretrygd og avtalefestet pensjon (AFP). Du må velge før du fyller 62 år.',
-  'stegvisning.ufoere.readmore_1.title':
-    'Om uføretrygd og avtalefestet pensjon',
+    'Du kan ikke kombinere uføretrygd og AFP. Du må velge før du fyller 62 år.',
+  'stegvisning.ufoere.readmore_1.title': 'Om uføretrygd og AFP',
   'stegvisning.ufoere.readmore_1.body':
     'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra NAV etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.{br}{br}Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.',
   'stegvisning.ufoere.readmore_2.title':
@@ -164,7 +180,7 @@ const translations = {
   'stegvisning.ufoere.ingress':
     'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.samtykke_offentlig_afp.title':
-    'Samtykke til at NAV beregner avtalefestet pensjon',
+    'Samtykke til at NAV beregner AFP (avtalefestet pensjon)',
   'stegvisning.samtykke_offentlig_afp.ingress':
     'Tjenestepensjonsordningen din har ansvar for AFP i offentlig sektor. De vil vurdere om du fyller vilkårene og gjør den endelige beregningen når du søker om AFP. Kontakt dem hvis du har spørsmål.{br}{br}NAV vurderer ikke om du har rett til AFP, men kan gi deg en foreløpig beregning på AFP i denne kalkulatoren. ',
   'stegvisning.samtykke_offentlig_afp.radio_label':
@@ -250,10 +266,22 @@ const translations = {
     'Du har ikke høy nok opptjening til å kunne starte uttak ved {startAar} år. Prøv en høyere alder.',
   'beregning.button.faerre_aar': 'Færre år',
   'beregning.button.flere_aar': 'Flere år',
+  'beregning.tpo.info':
+    'Denne beregningen viser kanskje ikke alt. Du kan ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.tpo.info.pensjonsavtaler.error':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.tpo.info.pensjonsavtaler.partial':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle dine private pensjonsavtaler. Du kan også ha rett til offentlig tjenestepensjon. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
   'beregning.pensjonsavtaler.error':
-    'Vi klarte ikke å hente pensjonsavtalene dine',
-  'beregning.pensjonsavtaler.error.partial':
-    'Vi klarte ikke å hente alle pensjonsavtalene dine',
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente <scrollTo>dine private pensjonsavtaler</scrollTo>.',
+  'beregning.pensjonsavtaler.partial':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å hente alle <scrollTo>dine private pensjonsavtaler</scrollTo>.',
+  'beregning.tpo.error':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor. Se hvorfor under <scrollTo>pensjonsavtaler</scrollTo>.',
+  'beregning.tpo.error.pensjonsavtaler.error':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente <scrollTo>dine private pensjonsavtaler</scrollTo>.',
+  'beregning.tpo.error.pensjonsavtaler.partial':
+    'Denne beregningen viser kanskje ikke alt. Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor og vi klarte ikke å hente alle <scrollTo>dine private pensjonsavtaler</scrollTo>.',
   'beregning.pensjonsavtaler.info':
     'Du har pensjonsavtaler som starter før valgt alder. Se perioder under <scrollTo>Pensjonsavtaler</scrollTo>.',
   'beregning.title': 'Beregning',
@@ -265,7 +293,7 @@ const translations = {
   'beregning.highcharts.yaxis.mobile': 'Tusen kroner',
   'beregning.highcharts.serie.inntekt.name': 'Pensjonsgivende inntekt',
   'beregning.highcharts.serie.tp.name': 'Pensjonsavtaler (arbeidsgivere m.m.)',
-  'beregning.highcharts.serie.afp.name': 'AFP (Avtalefestet pensjon)',
+  'beregning.highcharts.serie.afp.name': 'AFP (avtalefestet pensjon)',
   'beregning.highcharts.serie.alderspensjon.name': 'Alderspensjon (NAV)',
   'beregning.highcharts.tooltip.inntekt': 'Inntekt når du er',
   'beregning.highcharts.tooltip.pensjon': 'Pensjon når du er',
@@ -411,12 +439,12 @@ const translations = {
     'Denne kalkulatoren er under utvikling. Har du behov for å lagre beregninger og se flere detaljer, kan du gjøre det i <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'pensjonsavtaler.fra_og_med_forklaring':
     '«Fra» betyr «fra og med». «Til» betyr «til og med».',
-  'pensjonsavtaler.ingress':
-    'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikke ansvarlig for beløpene som er oppgitt. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.{br}{br}Vi kan ikke hente pensjonsavtaler fra offentlig sektor. Sjekk aktuell tjenestepensjonsordning.',
+  'pensjonsavtaler.ingress.norsk_pensjon':
+    'Alle avtaler i privat sektor hentes fra <norskPensjonLink>Norsk Pensjon</norskPensjonLink>. NAV er ikke ansvarlig for beløpene som er oppgitt. Du kan ha andre avtaler enn det som finnes i Norsk Pensjon. Kontakt aktuell pensjonsordning.',
   'pensjonsavtaler.ingress.error.pensjonsavtaler':
-    'Vi klarte ikke å hente pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
+    'Vi klarte ikke å hente dine private pensjonsavtaler. Prøv igjen senere.',
   'pensjonsavtaler.ingress.error.pensjonsavtaler.partial':
-    'Vi klarte ikke å hente alle pensjonsavtalene dine fra Norsk Pensjon. Prøv igjen senere.',
+    'Vi klarte ikke å hente alle dine private pensjonsavtaler. Prøv igjen senere.',
   'pensjonsavtaler.ingress.error.samtykke_ingress':
     'Du har ikke samtykket til å hente inn pensjonsavtaler. ',
   'pensjonsavtaler.ingress.error.samtykke_link_1': 'Start en ny beregning',
@@ -431,6 +459,11 @@ const translations = {
   'pensjonsavtaler.tabell.title.right': 'Årlig beløp',
   'pensjonsavtaler.til': 'til',
   'pensjonsavtaler.title': 'Pensjonsavtaler',
+  'pensjonsavtaler.tpo.title': 'Offentlig tjenestepensjon',
+  'pensjonsavtaler.tpo.er_medlem':
+    'Du er eller har vært ansatt i offentlig sektor, men vi kan dessverre ikke hente inn offentlige pensjonsavtaler. Sjekk tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
+  'pensjonsavtaler.tpo.error':
+    'Vi klarte ikke å sjekke om du har offentlige pensjonsavtaler. Har du vært eller er ansatt i offentlig sektor, kan du sjekke tjenestepensjonsavtalene dine hos aktuell tjenestepensjonsordning (f.eks. Statens Pensjonskasse, Kommunal Landspensjonskasse, Oslo Pensjonsforsikring).',
   'inntekt.endre_inntekt_modal.open.button': 'Endre inntekt',
   'inntekt.endre_inntekt_modal.title': 'Pensjonsgivende inntekt',
   'inntekt.endre_inntekt_modal.textfield.label':

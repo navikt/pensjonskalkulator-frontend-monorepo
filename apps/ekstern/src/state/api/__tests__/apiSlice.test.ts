@@ -15,6 +15,7 @@ const omstillingsstoenadOgGjenlevendeResponse = require('../../../mocks/data/oms
 const ufoeregradResponse = require('../../../mocks/data/ufoeregrad.json')
 const spraakvelgerToggleResponse = require('../../../mocks/data/unleash-disable-spraakvelger.json')
 const highchartsAccessibilityPluginToggleResponse = require('../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json')
+const utlandToggleResponse = require('../../../mocks/data/unleash-enable-utland.json')
 
 describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
@@ -604,6 +605,48 @@ describe('apiSlice', () => {
           .dispatch<any>(
             apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
           )
+          .then((result: FetchBaseQueryError) => {
+            expect(result).toThrow(Error)
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+    })
+  })
+
+  describe('getUtlandFeatureToggle', () => {
+    it('returnerer data ved vellykket query', async () => {
+      const storeRef = setupStore(undefined, true)
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getUtlandFeatureToggle.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('fulfilled')
+          expect(result.data).toMatchObject(utlandToggleResponse)
+        })
+    })
+
+    it('returnerer undefined ved feilende query', async () => {
+      const storeRef = setupStore(undefined, true)
+      mockErrorResponse('/feature/pensjonskalkulator.enable-utland')
+      return storeRef
+        .dispatch<any>(apiSlice.endpoints.getUtlandFeatureToggle.initiate())
+        .then((result: FetchBaseQueryError) => {
+          expect(result.status).toBe('rejected')
+          expect(result.data).toBe(undefined)
+        })
+    })
+
+    it('kaster feil ved uventet format på responsen', async () => {
+      const storeRef = setupStore(undefined, true)
+
+      mockResponse('/feature/pensjonskalkulator.enable-utland', {
+        status: 200,
+        json: { lorem: 'ipsum' },
+      })
+
+      await swallowErrorsAsync(async () => {
+        await storeRef
+          .dispatch<any>(apiSlice.endpoints.getUtlandFeatureToggle.initiate())
           .then((result: FetchBaseQueryError) => {
             expect(result).toThrow(Error)
             expect(result.status).toBe('rejected')

@@ -21,6 +21,19 @@ describe('stegvisning - Utenlandsopphold', () => {
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       'stegvisning.utenlandsopphold.title'
     )
+    expect(
+      screen.getByText('stegvisning.utenlandsopphold.ingress')
+    ).toBeVisible()
+    expect(
+      screen.getByText(
+        'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title'
+      )
+    ).toBeVisible()
+    expect(
+      screen.getByText(
+        'stegvisning.utenlandsopphold.readmore_konsekvenser.title'
+      )
+    ).toBeVisible()
     const radioButtons = screen.getAllByRole('radio')
 
     await waitFor(() => {
@@ -46,6 +59,9 @@ describe('stegvisning - Utenlandsopphold', () => {
         expect(screen.getAllByRole('radio')).toHaveLength(2)
         expect(radioButtons[0]).not.toBeChecked()
         expect(radioButtons[1]).toBeChecked()
+        expect(
+          screen.queryByText('stegvisning.utenlandsopphold.oppholdene.title')
+        ).not.toBeInTheDocument()
       })
     })
 
@@ -59,10 +75,25 @@ describe('stegvisning - Utenlandsopphold', () => {
         />
       )
       const radioButtons = screen.getAllByRole('radio')
-      await waitFor(() => {
+      await waitFor(async () => {
         expect(screen.getAllByRole('radio')).toHaveLength(2)
         expect(radioButtons[0]).toBeChecked()
         expect(radioButtons[1]).not.toBeChecked()
+        expect(
+          await screen.findByText(
+            'stegvisning.utenlandsopphold.oppholdene.title'
+          )
+        ).toBeVisible()
+        expect(
+          await screen.findByText(
+            'stegvisning.utenlandsopphold.oppholdene.description'
+          )
+        ).toBeVisible()
+        expect(
+          await screen.findByText(
+            'stegvisning.utenlandsopphold.oppholdene.button'
+          )
+        ).toBeVisible()
       })
     })
   })
@@ -115,9 +146,7 @@ describe('stegvisning - Utenlandsopphold', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
     expect(radioButtons[1]).toBeChecked()
-
     await user.click(screen.getByText('stegvisning.tilbake'))
-
     waitFor(() => {
       expect(onPreviousMock).toHaveBeenCalled()
     })
@@ -133,10 +162,8 @@ describe('stegvisning - Utenlandsopphold', () => {
         onNext={onNextMock}
       />
     )
-
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })

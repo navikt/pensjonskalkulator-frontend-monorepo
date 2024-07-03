@@ -1,27 +1,23 @@
 import React from 'react'
 import { useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
 
 import { Card } from '@/components/common/Card'
+import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
-import { useAppDispatch } from '@/state/hooks'
-import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export function StepFeil() {
   const intl = useIntl()
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const [{ onStegvisningCancel }] = useStegvisningNavigation(paths.start)
+
+  const a = () => {
+    onStegvisningCancel()
+  }
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.uventet_feil',
     })
   }, [])
-
-  const onCancel = (): void => {
-    dispatch(userInputActions.flush())
-    navigate(paths.login)
-  }
 
   return (
     <Card
@@ -37,7 +33,7 @@ export function StepFeil() {
           ingress: 'error.global.ingress',
           primaryButton: 'error.global.button',
         }}
-        onPrimaryButtonClick={onCancel}
+        onPrimaryButtonClick={a}
       />
     </Card>
   )

@@ -10,6 +10,7 @@ describe('stegvisning - Sivilstand', () => {
   const onCancelMock = vi.fn()
   const onPreviousMock = vi.fn()
   const onNextMock = vi.fn()
+
   it('rendrer slik den skal når sivilstand ikke er oppgitt', async () => {
     const result = render(
       <Sivilstand
@@ -107,7 +108,7 @@ describe('stegvisning - Sivilstand', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await user.click(screen.getByText('stegvisning.beregn'))
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(
@@ -122,7 +123,7 @@ describe('stegvisning - Sivilstand', () => {
       screen.queryByText('stegvisning.sivilstand.validation_error')
     ).not.toBeInTheDocument()
 
-    await user.click(screen.getByText('stegvisning.beregn'))
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
@@ -164,10 +165,8 @@ describe('stegvisning - Sivilstand', () => {
         onNext={onNextMock}
       />
     )
-
     expect(screen.getByText('stegvisning.avbryt')).toBeInTheDocument()
     await user.click(screen.getByText('stegvisning.avbryt'))
-
     waitFor(() => {
       expect(onCancelMock).toHaveBeenCalled()
     })

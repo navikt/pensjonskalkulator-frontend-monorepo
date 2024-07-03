@@ -9,9 +9,7 @@ declare const classNames: typeof globalClassNames & {
   readonly info: "info";
   readonly infoIcon: "infoIcon";
   readonly infoText: "infoText";
-  readonly error: "error";
-  readonly errorIcon: "errorIcon";
-  readonly errorText: "errorText";
+  readonly alert: "alert";
   readonly tooltip: "tooltip";
   readonly tooltipTable: "tooltipTable";
   readonly tooltipLine: "tooltipLine";

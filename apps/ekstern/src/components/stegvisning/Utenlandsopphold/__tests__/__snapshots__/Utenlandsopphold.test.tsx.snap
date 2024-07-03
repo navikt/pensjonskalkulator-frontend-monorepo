@@ -16,6 +16,82 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
       >
         stegvisning.utenlandsopphold.ingress
       </p>
+      <div
+        class="navds-read-more navds-read-more--medium _readmore1_30e252"
+      >
+        <button
+          aria-expanded="false"
+          class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title
+          </span>
+        </button>
+        <div
+          aria-hidden="true"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+        >
+          stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress
+        </div>
+      </div>
+      <div
+        class="navds-read-more navds-read-more--medium _readmore2_30e252"
+      >
+        <button
+          aria-expanded="false"
+          class="navds-read-more__button navds-body-short"
+          data-testid="readmore"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="navds-read-more__expand-icon"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M5.97 9.47a.75.75 0 0 1 1.06 0L12 14.44l4.97-4.97a.75.75 0 1 1 1.06 1.06l-5.5 5.5a.75.75 0 0 1-1.06 0l-5.5-5.5a.75.75 0 0 1 0-1.06"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span>
+            stegvisning.utenlandsopphold.readmore_konsekvenser.title
+          </span>
+        </button>
+        <div
+          aria-hidden="true"
+          class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
+        >
+          stegvisning.utenlandsopphold.readmore_konsekvenser.ingress
+        </div>
+      </div>
       <fieldset
         aria-required="true"
         class="_radiogroup_30e252 navds-radio-group navds-radio-group--medium navds-fieldset navds-fieldset--medium"
@@ -27,22 +103,28 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           stegvisning.utenlandsopphold.radio_label
         </legend>
         <div
+          class="navds-fieldset__description navds-body-short navds-body-short--medium"
+          id="fieldset-description-r3"
+        >
+          stegvisning.utenlandsopphold.radio_label.description
+        </div>
+        <div
           class="navds-radio-buttons"
         >
           <div
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r3"
+              aria-labelledby="r5"
               class="navds-radio__input"
-              id="radio-r2"
+              id="radio-r4"
               name="utenlandsopphold"
               type="radio"
               value="ja"
             />
             <label
               class="navds-radio__label"
-              for="radio-r2"
+              for="radio-r4"
             >
               <span
                 class="navds-radio__content"
@@ -50,7 +132,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r3"
+                  id="r5"
                 >
                   stegvisning.utenlandsopphold.radio_ja
                 </span>
@@ -61,16 +143,16 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
             class="navds-radio navds-radio--medium"
           >
             <input
-              aria-labelledby="r6"
+              aria-labelledby="r8"
               class="navds-radio__input"
-              id="radio-r5"
+              id="radio-r7"
               name="utenlandsopphold"
               type="radio"
               value="nei"
             />
             <label
               class="navds-radio__label"
-              for="radio-r5"
+              for="radio-r7"
             >
               <span
                 class="navds-radio__content"
@@ -78,7 +160,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
                 <span
                   aria-hidden="true"
                   class="navds-body-short navds-body-short--medium"
-                  id="r6"
+                  id="r8"
                 >
                   stegvisning.utenlandsopphold.radio_nei
                 </span>
@@ -90,7 +172,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           aria-live="polite"
           aria-relevant="additions removals"
           class="navds-fieldset__error"
-          id="fieldset-error-r1"
+          id="fieldset-error-r3"
         />
       </fieldset>
       <button

@@ -12,6 +12,7 @@ import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'j
 import ufoeregradResponse from './data/ufoeregrad.json' assert { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
+import enableUtlandPluginToggleResponse from './data/unleash-enable-utland.json' assert { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
@@ -77,7 +78,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     const aar = (body as PensjonsavtalerRequestBody).uttaksperioder[0]
       ?.startAlder.aar
     const data = await import(`./data/pensjonsavtaler/${aar}.json`)
-
     return HttpResponse.json(data)
   }),
 
@@ -137,6 +137,11 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
       return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
     }
   ),
+
+  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-utland`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(enableUtlandPluginToggleResponse)
+  }),
 
   http.post('http://localhost:12347/collect', async ({ request }) => {
     await request.json()

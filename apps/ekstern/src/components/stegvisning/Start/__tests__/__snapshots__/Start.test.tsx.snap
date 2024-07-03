@@ -26,6 +26,45 @@ exports[`stegvisning - Start > rendrer slik den skal med navn, med riktig headin
         >
           stegvisning.start.ingress
         </p>
+        <ul
+          class="_list_09901f"
+        >
+          <li>
+            <p
+              class="navds-body-long navds-body-long--large"
+            >
+              <span
+                class="_ellipse_09901f _ellipse__blue_09901f"
+              />
+              stegvisning.start.list_item1
+            </p>
+          </li>
+          <li>
+            <p
+              class="navds-body-long navds-body-long--large"
+            >
+              <span
+                class="_ellipse_09901f _ellipse__purple_09901f"
+              />
+              stegvisning.start.list_item2 
+            </p>
+          </li>
+          <li>
+            <p
+              class="navds-body-long navds-body-long--large"
+            >
+              <span
+                class="_ellipse_09901f _ellipse__green_09901f"
+              />
+              stegvisning.start.list_item3 
+            </p>
+          </li>
+        </ul>
+        <p
+          class="navds-body-long navds-body-long--large"
+        >
+          stegvisning.start.ingress_2
+        </p>
         <button
           class="_button_09901f navds-button navds-button--primary navds-button--medium"
           type="submit"
@@ -106,6 +145,45 @@ exports[`stegvisning - Start > rendrer slik den skal uten navn, med riktig headi
           class="navds-body-long navds-body-long--large"
         >
           stegvisning.start.ingress
+        </p>
+        <ul
+          class="_list_09901f"
+        >
+          <li>
+            <p
+              class="navds-body-long navds-body-long--large"
+            >
+              <span
+                class="_ellipse_09901f _ellipse__blue_09901f"
+              />
+              stegvisning.start.list_item1
+            </p>
+          </li>
+          <li>
+            <p
+              class="navds-body-long navds-body-long--large"
+            >
+              <span
+                class="_ellipse_09901f _ellipse__purple_09901f"
+              />
+              stegvisning.start.list_item2 
+            </p>
+          </li>
+          <li>
+            <p
+              class="navds-body-long navds-body-long--large"
+            >
+              <span
+                class="_ellipse_09901f _ellipse__green_09901f"
+              />
+              stegvisning.start.list_item3 
+            </p>
+          </li>
+        </ul>
+        <p
+          class="navds-body-long navds-body-long--large"
+        >
+          stegvisning.start.ingress_2
         </p>
         <button
           class="_button_09901f navds-button navds-button--primary navds-button--medium"
