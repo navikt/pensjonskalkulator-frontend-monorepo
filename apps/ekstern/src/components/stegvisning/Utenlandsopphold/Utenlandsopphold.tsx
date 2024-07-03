@@ -2,6 +2,7 @@ import React from 'react'
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
+import { PlusCircleIcon } from '@navikt/aksel-icons'
 import {
   BodyLong,
   BodyShort,
@@ -32,9 +33,18 @@ export function Utenlandsopphold({
   onNext,
 }: Props) {
   const intl = useIntl()
+
+  const oppholdModalRef = React.useRef<HTMLDialogElement>(null)
   const [validationError, setValidationError] = useState<string>('')
   const [showOppholdene, setShowOppholdene] =
     React.useState<boolean>(!!harUtenlandsopphold)
+
+  const openOmOppholdetDittModal = () => {
+    logger('modal åpnet', {
+      tekst: `Modal: Om oppholdet ditt`,
+    })
+    oppholdModalRef.current?.showModal()
+  }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
@@ -137,16 +147,25 @@ export function Utenlandsopphold({
             <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
           </BodyShort>
           <OmOppholdetDitt
-            buttonLabel="stegvisning.utenlandsopphold.oppholdene.button"
-            // opphold={undefined}
-            opphold={{
-              // TODO legge opphold som ved endring
-              land: 'Kina',
-              harJobbet: null,
-              startdato: new Date('2018-01-01'),
-              sluttdato: new Date('2021-01-31'),
-            }}
+            modalRef={oppholdModalRef}
+            opphold={undefined}
+            // TODO setState for valgt opphold
+            // opphold={{
+            //   land: 'Kina',
+            //   harJobbet: null,
+            //   startdato: new Date('2018-01-01'),
+            //   sluttdato: new Date('2021-01-31'),
+            // }}
           />
+          <Button
+            type="button"
+            icon={<PlusCircleIcon aria-hidden />}
+            onClick={openOmOppholdetDittModal}
+          >
+            {intl.formatMessage({
+              id: 'stegvisning.utenlandsopphold.oppholdene.button',
+            })}
+          </Button>
         </section>
       )}
 

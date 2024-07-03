@@ -1,7 +1,6 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { PlusCircleIcon } from '@navikt/aksel-icons'
 import {
   Button,
   DatePicker,
@@ -22,13 +21,12 @@ import { UTENLANDSOPPHOLD_FORM_NAMES } from './utils'
 import styles from './OmOppholdetDitt.module.scss'
 
 interface Props {
-  buttonLabel?: string
+  modalRef: React.RefObject<HTMLDialogElement>
   opphold?: Opphold
 }
-export const OmOppholdetDitt: React.FC<Props> = ({ buttonLabel, opphold }) => {
+export const OmOppholdetDitt: React.FC<Props> = ({ modalRef, opphold }) => {
   const intl = useIntl()
 
-  const oppholdModalRef = React.useRef<HTMLDialogElement>(null)
   const [localOpphold, setLocalOpphold] = React.useState<
     RecursivePartial<Opphold>
   >({ ...opphold })
@@ -47,55 +45,6 @@ export const OmOppholdetDitt: React.FC<Props> = ({ buttonLabel, opphold }) => {
       [UTENLANDSOPPHOLD_FORM_NAMES.harJobbet]: '',
       [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: '',
       [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: '',
-    })
-  }
-
-  const openOmOppholdetDittModal = () => {
-    logger('modal åpnet', {
-      tekst: `Modal: Om oppholdet ditt`,
-    })
-    oppholdModalRef.current?.showModal()
-  }
-
-  React.useEffect(() => {
-    setLocalOpphold({ ...opphold })
-  }, [opphold])
-
-  const muligeLand: string[] = [
-    'Argentina',
-    'Belgia',
-    'Kina',
-    'Sør-Afrika',
-    'Tanzania',
-  ]
-
-  const handleLandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-        [UTENLANDSOPPHOLD_FORM_NAMES.land]: '',
-      }
-    })
-    setLocalOpphold((previous) => {
-      return {
-        ...previous,
-        land: e.target.value,
-      }
-    })
-  }
-
-  const handleHarJobbetChange = (s: BooleanRadio) => {
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-        [UTENLANDSOPPHOLD_FORM_NAMES.harJobbet]: '',
-      }
-    })
-    setLocalOpphold((previous) => {
-      return {
-        ...previous,
-        harJobbet: s === 'ja',
-      }
     })
   }
 
@@ -141,6 +90,50 @@ export const OmOppholdetDitt: React.FC<Props> = ({ buttonLabel, opphold }) => {
     // onValidate: (val: DateValidationT) => void;
   })
 
+  React.useEffect(() => {
+    setLocalOpphold({ ...opphold })
+    datepickerStartdato.setSelected(opphold?.startdato)
+    datepickerSluttdato.setSelected(opphold?.sluttdato)
+  }, [opphold])
+
+  const muligeLand: string[] = [
+    'Argentina',
+    'Belgia',
+    'Kina',
+    'Sør-Afrika',
+    'Tanzania',
+  ]
+
+  const handleLandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        [UTENLANDSOPPHOLD_FORM_NAMES.land]: '',
+      }
+    })
+    setLocalOpphold((previous) => {
+      return {
+        ...previous,
+        land: e.target.value,
+      }
+    })
+  }
+
+  const handleHarJobbetChange = (s: BooleanRadio) => {
+    setValidationErrors((prevState) => {
+      return {
+        ...prevState,
+        [UTENLANDSOPPHOLD_FORM_NAMES.harJobbet]: '',
+      }
+    })
+    setLocalOpphold((previous) => {
+      return {
+        ...previous,
+        harJobbet: s === 'ja',
+      }
+    })
+  }
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
@@ -159,26 +152,26 @@ export const OmOppholdetDitt: React.FC<Props> = ({ buttonLabel, opphold }) => {
     })
     // window.scrollTo(0, 0)
     /* c8 ignore next 3 */
-    if (oppholdModalRef.current?.open) {
-      oppholdModalRef.current?.close()
+    if (modalRef.current?.open) {
+      modalRef.current?.close()
     }
     // }
   }
 
   const onCancel = (): void => {
-    // setLocalOpphold({})
+    setLocalOpphold({ ...opphold })
+    datepickerStartdato.setSelected(opphold?.startdato)
+    datepickerSluttdato.setSelected(opphold?.sluttdato)
     resetValidationErrors()
-    // datepickerStartdato.setSelected()
-    // datepickerSluttdato.setSelected()
-    if (oppholdModalRef.current?.open) {
-      oppholdModalRef.current?.close()
+    if (modalRef.current?.open) {
+      modalRef.current?.close()
     }
   }
 
   return (
     <>
       <Modal
-        ref={oppholdModalRef}
+        ref={modalRef}
         header={{
           heading: intl.formatMessage({
             id: 'utenlandsopphold.om_oppholdet_ditt_modal.title',
@@ -280,11 +273,6 @@ export const OmOppholdetDitt: React.FC<Props> = ({ buttonLabel, opphold }) => {
                   </RadioGroup>
                   <DatePicker
                     {...datepickerStartdato.datepickerProps}
-                    // selected={
-                    //   localOpphold?.startdato
-                    //     ? (localOpphold?.startdato as Date)
-                    //     : undefined
-                    // }
                     dropdownCaption
                   >
                     <DatePicker.Input
@@ -328,19 +316,6 @@ export const OmOppholdetDitt: React.FC<Props> = ({ buttonLabel, opphold }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      {
-        // TODO flytte denne knappen utenfor komponenten og legge om slik at opphold sendes dynamisk til modalen
-      }
-      <Button
-        type="button"
-        icon={<PlusCircleIcon aria-hidden />}
-        onClick={openOmOppholdetDittModal}
-      >
-        {intl.formatMessage({
-          id: buttonLabel,
-        })}
-      </Button>
     </>
   )
 }
