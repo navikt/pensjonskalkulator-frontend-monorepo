@@ -30,7 +30,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er den defaul
       />
     </svg>
     <div
-      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+      class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
     >
       beregning.vilkaarsproeving.intro
       <br />
@@ -71,7 +71,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er lik uttaks
       />
     </svg>
     <div
-      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+      class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
     >
       beregning.vilkaarsproeving.introDu må øke alderen eller sette ned uttaksgraden.
       <br />
@@ -118,7 +118,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er ulik uttak
       />
     </svg>
     <div
-      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+      class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
     >
       beregning.vilkaarsproeving.introDu må øke alderen eller sette ned uttaksgraden.
       <br />
@@ -171,7 +171,7 @@ exports[`VilkaarsproevingAlert > Når det foreslåtte alternativet er uttaksalde
       />
     </svg>
     <div
-      class="navds-alert__wrapper navds-body-long navds-body-long--medium"
+      class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
     >
       beregning.vilkaarsproeving.introDu må øke alderen eller sette ned uttaksgraden.
       <br />
