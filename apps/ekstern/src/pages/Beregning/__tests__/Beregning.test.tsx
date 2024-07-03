@@ -30,6 +30,7 @@ describe('Beregning', () => {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: {
+              utenlandsperioder: [],
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
@@ -210,6 +211,7 @@ describe('Beregning', () => {
               ...userInputInitialState,
               samtykke: true,
               currentSimulation: {
+                utenlandsperioder: [],
                 formatertUttaksalderReadOnly:
                   '70 alder.aar string.og 4 alder.maaned',
                 uttaksalder: { aar: 70, maaneder: 4 },

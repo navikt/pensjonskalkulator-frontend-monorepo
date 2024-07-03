@@ -2,6 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Utenlandsopphold } from '..'
 import { RootState } from '@/state/store'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
 describe('stegvisning - Utenlandsopphold', () => {
@@ -45,7 +46,7 @@ describe('stegvisning - Utenlandsopphold', () => {
   })
 
   describe('rendrer slik den skal når spørsmålet om utenlandsopphold er besvart', async () => {
-    it('Når utenlandsopphold er false', async () => {
+    it('Når harUtenlandsopphold er false', async () => {
       render(
         <Utenlandsopphold
           harUtenlandsopphold={false}
@@ -65,7 +66,7 @@ describe('stegvisning - Utenlandsopphold', () => {
       })
     })
 
-    it('Når utenlandsopphold er true', async () => {
+    it('Når harUtenlandsopphold er true', async () => {
       render(
         <Utenlandsopphold
           harUtenlandsopphold={true}
@@ -141,7 +142,9 @@ describe('stegvisning - Utenlandsopphold', () => {
         onNext={onNextMock}
       />,
       {
-        preloadedState: { userInput: { utenlandsopphold: false } } as RootState,
+        preloadedState: {
+          userInput: { ...userInputInitialState, harUtenlandsopphold: false },
+        } as RootState,
       }
     )
     const radioButtons = screen.getAllByRole('radio')

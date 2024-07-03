@@ -14,7 +14,9 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
-import { OppholdModal } from '@/components/OppholdModal'
+import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
+import { useAppSelector } from '@/state/hooks'
+import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
 import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './Utenlandsopphold.module.scss'
@@ -34,23 +36,26 @@ export function Utenlandsopphold({
 }: Props) {
   const intl = useIntl()
 
-  const oppholdModalRef = React.useRef<HTMLDialogElement>(null)
+  const utenlandsperioder = useAppSelector(
+    selectCurrentSimulationUtenlandsperioder
+  )
+  const utenlandsoppholdModalRef = React.useRef<HTMLDialogElement>(null)
   const [validationError, setValidationError] = useState<string>('')
   const [showOppholdene, setShowOppholdene] =
     React.useState<boolean>(!!harUtenlandsopphold)
 
-  const openOppholdModal = () => {
+  const openUtenlandsoppholdModal = () => {
     logger('modal åpnet', {
       tekst: `Modal: Om oppholdet ditt`,
     })
-    oppholdModalRef.current?.showModal()
+    utenlandsoppholdModalRef.current?.showModal()
   }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const utenlandsoppholdData = data.get('utenlandsopphold-radio') as
+    const utenlandsoppholdData = data.get('har-utenlandsopphold-radio') as
       | BooleanRadio
       | undefined
     if (!utenlandsoppholdData) {
@@ -83,7 +88,7 @@ export function Utenlandsopphold({
 
   return (
     <Card hasLargePadding hasMargin>
-      <form id="utenlandsopphold" onSubmit={onSubmit}></form>
+      <form id="har-utenlandsopphold" onSubmit={onSubmit}></form>
       <Heading level="2" size="medium" spacing>
         <FormattedMessage id="stegvisning.utenlandsopphold.title" />
       </Heading>
@@ -109,7 +114,7 @@ export function Utenlandsopphold({
         <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.ingress" />
       </ReadMore>
       <RadioGroup
-        name="utenlandsopphold-radio"
+        name="har-utenlandsopphold-radio"
         className={styles.radiogroup}
         legend={
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_label" />
@@ -129,10 +134,10 @@ export function Utenlandsopphold({
         role="radiogroup"
         aria-required="true"
       >
-        <Radio form="utenlandsopphold" value="ja">
+        <Radio form="har-utenlandsopphold" value="ja">
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_ja" />
         </Radio>
-        <Radio form="utenlandsopphold" value="nei">
+        <Radio form="har-utenlandsopphold" value="nei">
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
         </Radio>
       </RadioGroup>
@@ -144,21 +149,37 @@ export function Utenlandsopphold({
           <BodyShort size="medium" className={styles.bodyshort}>
             <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
           </BodyShort>
-          <OppholdModal
-            modalRef={oppholdModalRef}
-            opphold={undefined}
+          <UtenlandsoppholdModal
+            modalRef={utenlandsoppholdModalRef}
+            utenlandsperiode={undefined}
             // TODO setState for valgt opphold
             // opphold={{
             //   land: 'Kina',
-            //   harJobbet: null,
+            //   arbeidetUtenlands: null,
             //   startdato: new Date('2018-01-01'),
             //   sluttdato: new Date('2021-01-31'),
             // }}
           />
+          <dl>
+            {utenlandsperioder.length > 0 &&
+              utenlandsperioder.map((utenlandsperiode, index) => {
+                return (
+                  <div key={index}>
+                    <dt>id: {utenlandsperiode.id}</dt>
+                    <dd>{utenlandsperiode.land}</dd>
+                    <dd>
+                      {utenlandsperiode.startdato} -{utenlandsperiode.sluttdato}
+                    </dd>
+                  </div>
+                )
+              })}
+          </dl>
+
           <Button
             type="button"
+            variant="secondary"
             icon={<PlusCircleIcon aria-hidden />}
-            onClick={openOppholdModal}
+            onClick={openUtenlandsoppholdModal}
           >
             {intl.formatMessage({
               id: 'stegvisning.utenlandsopphold.oppholdene.button',
@@ -167,7 +188,11 @@ export function Utenlandsopphold({
         </section>
       )}
 
-      <Button form="utenlandsopphold" type="submit" className={styles.button}>
+      <Button
+        form="har-utenlandsopphold"
+        type="submit"
+        className={styles.button}
+      >
         <FormattedMessage id="stegvisning.neste" />
       </Button>
       <Button

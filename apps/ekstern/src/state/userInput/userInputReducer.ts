@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { formatInntekt } from '@/utils/inntekt'
 
 export interface Simulation {
+  utenlandsperioder: Utenlandsperiode[]
   formatertUttaksalderReadOnly: string | null // (!) Obs READONLY - string i format "YY alder.aar string.og M alder.maaneder" - oppdateres automatisk basert på uttaksalder - se uttaksalderListener
   uttaksalder: Alder | null // valgt uttaksalder for 100% alderspensjon (alder perioden gjelder FRA) - aar heltall, maaneder heltall mellom 0-11
   aarligInntektFoerUttakBeloep: string | null // inntekt før uttak av pensjon - formatert string i nok - overskriver beløp fra Skatteetaten
@@ -12,7 +13,7 @@ export interface Simulation {
 
 export interface UserInputState {
   veilederBorgerFnr?: string
-  utenlandsopphold: boolean | null
+  harUtenlandsopphold: boolean | null
   samtykke: boolean | null
   samtykkeOffentligAFP: boolean | null
   afp: AfpRadio | null
@@ -22,12 +23,13 @@ export interface UserInputState {
 
 export const userInputInitialState: UserInputState = {
   veilederBorgerFnr: undefined,
-  utenlandsopphold: null,
+  harUtenlandsopphold: null,
   samtykke: null,
   samtykkeOffentligAFP: null,
   afp: null,
   samboer: null,
   currentSimulation: {
+    utenlandsperioder: [],
     formatertUttaksalderReadOnly: null,
     uttaksalder: null,
     aarligInntektFoerUttakBeloep: null,
@@ -42,8 +44,8 @@ export const userInputSlice = createSlice({
     setVeilederBorgerFnr: (state, action: PayloadAction<string>) => {
       state.veilederBorgerFnr = action.payload
     },
-    setUtenlandsopphold: (state, action: PayloadAction<boolean>) => {
-      state.utenlandsopphold = action.payload
+    setHarUtenlandsopphold: (state, action: PayloadAction<boolean>) => {
+      state.harUtenlandsopphold = action.payload
     },
     setSamtykke: (state, action: PayloadAction<boolean>) => {
       state.samtykke = action.payload
@@ -57,6 +59,60 @@ export const userInputSlice = createSlice({
     setSamboer: (state, action: PayloadAction<boolean>) => {
       state.samboer = action.payload
     },
+    setCurrentSimulationUtenlandsperioder: (
+      state,
+      action: PayloadAction<Utenlandsperiode>
+    ) => {
+      const previousUtenlandsperioderArray =
+        state.currentSimulation.utenlandsperioder
+      const index = previousUtenlandsperioderArray.findIndex(
+        (item) => item.id === action.payload.id
+      )
+
+      if (index !== -1) {
+        console.log('Updating existing object in array', index, action.payload)
+        // Update the existing object
+        previousUtenlandsperioderArray[index] = action.payload
+      } else {
+        console.log('Addind new object in array', index, action.payload)
+        // Add the new object
+        previousUtenlandsperioderArray.push(action.payload)
+      }
+
+      state.currentSimulation = {
+        ...state.currentSimulation,
+        utenlandsperioder: previousUtenlandsperioderArray,
+      }
+    },
+    // addCurrentSimulationUtenlandsopphold: (
+    //   state,
+    //   action: PayloadAction<Utenlandsperiode>
+    // ) => {
+    //   const previousUtenlandsperioderArray =
+    //     state.currentSimulation.utenlandsopphold
+    //   const oppdatertUtenlandsoppholdArray = [
+    //     ...previousUtenlandsperioderArray,
+    //     action.payload,
+    //   ]
+    //   state.currentSimulation = {
+    //     ...state.currentSimulation,
+    //     utenlandsopphold: oppdatertUtenlandsoppholdArray,
+    //   }
+    // },
+    // updateCurrentSimulationUtenlandsopphold: (
+    //   state,
+    //   action: PayloadAction<Utenlandsperiode>
+    // ) => {
+    //   const previousUtenlandsperioderArray =
+    //     state.currentSimulation.utenlandsopphold
+    //   const oppdatertUtenlandsoppholdArray = previousUtenlandsperioderArray.map(
+    //     (item) => (item.id === action.payload.id ? action.payload : item)
+    //   )
+    //   state.currentSimulation = {
+    //     ...state.currentSimulation,
+    //     utenlandsopphold: oppdatertUtenlandsoppholdArray,
+    //   }
+    // },
     setCurrentSimulationUttaksalder: (
       state,
       action: PayloadAction<{
@@ -111,7 +167,7 @@ export const userInputSlice = createSlice({
       }
     },
     flush: (state) => {
-      state.utenlandsopphold = null
+      state.harUtenlandsopphold = null
       state.samtykke = null
       state.samtykkeOffentligAFP = null
       state.afp = null

@@ -11,30 +11,36 @@ import {
   VStack,
   useDatepicker,
 } from '@navikt/ds-react'
-import { add, sub } from 'date-fns'
+import { add, sub, parse, format } from 'date-fns'
 
+import { useAppDispatch } from '@/state/hooks'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import { UTENLANDSOPPHOLD_FORM_NAMES } from './utils'
 
-import styles from './OppholdModal.module.scss'
+import styles from './UtenlandsoppholdModal.module.scss'
 
 interface Props {
   modalRef: React.RefObject<HTMLDialogElement>
-  opphold?: Opphold
+  utenlandsperiode?: Utenlandsperiode
 }
-export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
+export const UtenlandsoppholdModal: React.FC<Props> = ({
+  modalRef,
+  utenlandsperiode,
+}) => {
   const intl = useIntl()
+  const dispatch = useAppDispatch()
 
-  const [localOpphold, setLocalOpphold] = React.useState<
-    RecursivePartial<Opphold>
-  >({ ...opphold })
+  const [localUtenlandsperiode, setLocalUtenlandsperiode] = React.useState<
+    RecursivePartial<Utenlandsperiode>
+  >({ ...utenlandsperiode })
   const [validationErrors, setValidationErrors] = React.useState<
     Record<string, string>
   >({
     [UTENLANDSOPPHOLD_FORM_NAMES.land]: '',
-    [UTENLANDSOPPHOLD_FORM_NAMES.harJobbet]: '',
+    [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: '',
     [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: '',
     [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: '',
   })
@@ -42,7 +48,7 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
   const resetValidationErrors = () => {
     setValidationErrors({
       [UTENLANDSOPPHOLD_FORM_NAMES.land]: '',
-      [UTENLANDSOPPHOLD_FORM_NAMES.harJobbet]: '',
+      [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: '',
       [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: '',
       [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: '',
     })
@@ -55,14 +61,19 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
     toDate: add(new Date(), {
       years: 20,
     }),
-    defaultSelected: localOpphold?.startdato
-      ? (localOpphold?.startdato as Date)
+    defaultSelected: localUtenlandsperiode?.startdato
+      ? parse(localUtenlandsperiode?.startdato, 'dd.MM.yyyy', new Date())
       : undefined,
     onDateChange: (value): void => {
-      setLocalOpphold((previous) => {
+      console.log('>>> onDateChange startdato', typeof value, value)
+      if (value) {
+        const a = format(value, 'dd.MM.yyyy')
+        console.log('format: ', a)
+      }
+      setLocalUtenlandsperiode((previous) => {
         return {
           ...previous,
-          startdato: value,
+          startdato: value ? format(value, 'dd.MM.yyyy') : undefined,
         }
       })
     },
@@ -76,14 +87,19 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
     toDate: add(new Date(), {
       years: 20,
     }),
-    defaultSelected: localOpphold?.sluttdato
-      ? (localOpphold?.sluttdato as Date)
+    defaultSelected: localUtenlandsperiode?.sluttdato
+      ? parse(localUtenlandsperiode?.sluttdato, 'dd.MM.yyyy', new Date())
       : undefined,
     onDateChange: (value): void => {
-      setLocalOpphold((previous) => {
+      console.log('>>> onDateChange sluttdato', typeof value, value)
+      if (value) {
+        const a = format(value, 'dd.MM.yyyy')
+        console.log('format: ', a)
+      }
+      setLocalUtenlandsperiode((previous) => {
         return {
           ...previous,
-          sluttdato: value,
+          sluttdato: value ? format(value, 'dd.MM.yyyy') : undefined,
         }
       })
     },
@@ -91,10 +107,18 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
   })
 
   React.useEffect(() => {
-    setLocalOpphold({ ...opphold })
-    datepickerStartdato.setSelected(opphold?.startdato)
-    datepickerSluttdato.setSelected(opphold?.sluttdato)
-  }, [opphold])
+    setLocalUtenlandsperiode({ ...utenlandsperiode })
+    if (utenlandsperiode?.startdato) {
+      datepickerStartdato.setSelected(
+        parse(utenlandsperiode?.startdato, 'dd.MM.yyyy', new Date())
+      )
+    }
+    if (utenlandsperiode?.sluttdato) {
+      datepickerSluttdato.setSelected(
+        parse(utenlandsperiode?.sluttdato, 'dd.MM.yyyy', new Date())
+      )
+    }
+  }, [utenlandsperiode])
 
   const muligeLand: string[] = [
     'Argentina',
@@ -111,7 +135,7 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
         [UTENLANDSOPPHOLD_FORM_NAMES.land]: '',
       }
     })
-    setLocalOpphold((previous) => {
+    setLocalUtenlandsperiode((previous) => {
       return {
         ...previous,
         land: e.target.value,
@@ -119,32 +143,56 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
     })
   }
 
-  const handleHarJobbetChange = (s: BooleanRadio) => {
+  const handleArbeidetUtenlandsChange = (s: BooleanRadio) => {
     setValidationErrors((prevState) => {
       return {
         ...prevState,
-        [UTENLANDSOPPHOLD_FORM_NAMES.harJobbet]: '',
+        [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: '',
       }
     })
-    setLocalOpphold((previous) => {
+    setLocalUtenlandsperiode((previous) => {
       return {
         ...previous,
-        harJobbet: s === 'ja',
+        arbeidetUtenlands: s === 'ja',
       }
     })
   }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    console.log('>>>> onSubmit')
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
     const landData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.land)
-    const harJobbetData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.harJobbet)
+    const arbeidetUtenlandsData = data.get(
+      UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
+    )
     const startdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.startdato)
     const sluttdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.sluttdato)
-    console.log('data', landData, harJobbetData, startdatoData, sluttdatoData)
+
+    console.log('- landData', landData)
+    console.log('- arbeidetUtenlandsData', arbeidetUtenlandsData)
+    console.log('- startdatoData', startdatoData)
+    console.log('- sluttdatoData', sluttdatoData)
 
     // if (validateOpphold(oppholdData, updateValidationErrorMessage)) {
+
+    const updatedUtenlandsperiode = {
+      id: utenlandsperiode?.id
+        ? utenlandsperiode.id
+        : `${Date.now()}-${Math.random()}`,
+      land: landData as string,
+      arbeidetUtenlands: arbeidetUtenlandsData === 'ja',
+      startdato: startdatoData as string,
+      sluttdato: sluttdatoData ? (sluttdatoData as string) : undefined,
+    }
+
+    dispatch(
+      userInputActions.setCurrentSimulationUtenlandsperioder({
+        ...updatedUtenlandsperiode,
+      })
+    )
+
     // TODO Push to Redux
     logger('button klikk', {
       // TODO logge forskjell om det er endring eller nytt opphold?
@@ -159,9 +207,17 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
   }
 
   const onCancel = (): void => {
-    setLocalOpphold({ ...opphold })
-    datepickerStartdato.setSelected(opphold?.startdato)
-    datepickerSluttdato.setSelected(opphold?.sluttdato)
+    setLocalUtenlandsperiode({ ...utenlandsperiode })
+    if (utenlandsperiode?.startdato) {
+      datepickerStartdato.setSelected(
+        parse(utenlandsperiode?.startdato, 'dd.MM.yyyy', new Date())
+      )
+    }
+    if (utenlandsperiode?.sluttdato) {
+      datepickerSluttdato.setSelected(
+        parse(utenlandsperiode?.sluttdato, 'dd.MM.yyyy', new Date())
+      )
+    }
     resetValidationErrors()
     if (modalRef.current?.open) {
       modalRef.current?.close()
@@ -178,7 +234,7 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
           }),
         }}
         onClose={onCancel}
-        width="small"
+        // width="small"
       >
         <Modal.Body>
           <form
@@ -195,7 +251,9 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
                 label={intl.formatMessage({
                   id: 'utenlandsopphold.om_oppholdet_ditt_modal.land.label',
                 })}
-                value={localOpphold?.land ? localOpphold?.land : ''}
+                value={
+                  localUtenlandsperiode?.land ? localUtenlandsperiode?.land : ''
+                }
                 onChange={handleLandChange}
                 error={
                   validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.land]
@@ -222,36 +280,38 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
                   </option>
                 ))}
               </Select>
-              {localOpphold?.land && (
+              {localUtenlandsperiode?.land && (
                 <>
                   <RadioGroup
                     form={UTENLANDSOPPHOLD_FORM_NAMES.form}
-                    id={UTENLANDSOPPHOLD_FORM_NAMES.harJobbet}
-                    name={UTENLANDSOPPHOLD_FORM_NAMES.harJobbet}
-                    data-testid={UTENLANDSOPPHOLD_FORM_NAMES.harJobbet}
+                    id={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
+                    name={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
+                    data-testid={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
                     legend={
                       <FormattedMessage
                         id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label"
-                        values={{ land: localOpphold.land }}
+                        values={{ land: localUtenlandsperiode.land }}
                       />
                     }
                     description={
                       <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description" />
                     }
                     defaultValue={
-                      localOpphold.harJobbet
+                      localUtenlandsperiode.arbeidetUtenlands
                         ? 'ja'
-                        : localOpphold.harJobbet === false
+                        : localUtenlandsperiode.arbeidetUtenlands === false
                           ? 'nei'
                           : null
                     }
-                    onChange={handleHarJobbetChange}
+                    onChange={handleArbeidetUtenlandsChange}
                     error={
-                      validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.harJobbet]
+                      validationErrors[
+                        UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
+                      ]
                         ? intl.formatMessage(
                             {
                               id: validationErrors[
-                                UTENLANDSOPPHOLD_FORM_NAMES.harJobbet
+                                UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
                               ],
                             },
                             {
@@ -277,6 +337,7 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
                     <DatePicker.Input
                       {...datepickerStartdato.inputProps}
                       className={styles.datepicker}
+                      form={UTENLANDSOPPHOLD_FORM_NAMES.form}
                       name={UTENLANDSOPPHOLD_FORM_NAMES.startdato}
                       label={intl.formatMessage({
                         id: 'utenlandsopphold.om_oppholdet_ditt_modal.startdato.label',
@@ -293,6 +354,7 @@ export const OppholdModal: React.FC<Props> = ({ modalRef, opphold }) => {
                     <DatePicker.Input
                       {...datepickerSluttdato.inputProps}
                       className={styles.datepicker}
+                      form={UTENLANDSOPPHOLD_FORM_NAMES.form}
                       name={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
                       label={intl.formatMessage({
                         id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',

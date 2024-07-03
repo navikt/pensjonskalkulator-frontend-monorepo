@@ -1,5 +1,5 @@
 import {
-  selectUtenlandsopphold,
+  selectHarUtenlandsopphold,
   selectSamtykke,
   selectSamtykkeOffentligAFP,
   selectAfp,
@@ -10,6 +10,7 @@ import {
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloep,
+  selectCurrentSimulationUtenlandsperioder,
   selectFormatertUttaksalderReadOnly,
   selectCurrentSimulation,
   selectHarHentetTpoMedlemskap,
@@ -30,21 +31,22 @@ describe('userInput selectors', () => {
   const initialState = store.getState()
 
   const currentSimulation: Simulation = {
+    utenlandsperioder: [],
     formatertUttaksalderReadOnly: '62 alder.aar string.og 5 alder.maaneder',
     uttaksalder: { aar: 62, maaneder: 5 },
     aarligInntektFoerUttakBeloep: '0',
     gradertUttaksperiode: null,
   }
 
-  it('selectUtenlandsopphold', () => {
+  it('selectHarUtenlandsopphold', () => {
     const state: RootState = {
       ...initialState,
       userInput: {
         ...initialState.userInput,
-        utenlandsopphold: true,
+        harUtenlandsopphold: true,
       },
     }
-    expect(selectUtenlandsopphold(state)).toBe(true)
+    expect(selectHarUtenlandsopphold(state)).toBe(true)
   })
 
   it('selectSamtykke', () => {
@@ -272,6 +274,33 @@ describe('userInput selectors', () => {
       }
       expect(selectAarligInntektFoerUttakBeloep(state)).toBe('521 338')
     })
+  })
+
+  it('selectCurrentSimulationUtenlandsperioder', () => {
+    const utenlandsperiode: Utenlandsperiode = {
+      id: '123',
+      land: 'Kina',
+      arbeidetUtenlands: null,
+      startdato: '01.01.2018',
+      sluttdato: '31-01.2021',
+    }
+    const state: RootState = {
+      ...initialState,
+      userInput: {
+        ...initialState.userInput,
+        currentSimulation: {
+          ...currentSimulation,
+          utenlandsperioder: [
+            {
+              ...utenlandsperiode,
+            },
+          ],
+        },
+      },
+    }
+    expect(selectCurrentSimulationUtenlandsperioder(state)).toStrictEqual([
+      utenlandsperiode,
+    ])
   })
 
   it('selectFormatertUttaksalder', () => {

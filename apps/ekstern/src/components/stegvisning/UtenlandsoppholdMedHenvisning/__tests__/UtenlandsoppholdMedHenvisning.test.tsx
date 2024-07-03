@@ -110,7 +110,9 @@ describe('stegvisning - UtenlandsoppholdMedHenvisning', () => {
         onNext={onNextMock}
       />,
       {
-        preloadedState: { userInput: { utenlandsopphold: false } } as RootState,
+        preloadedState: {
+          userInput: { harUtenlandsopphold: false },
+        } as RootState,
       }
     )
     const radioButtons = screen.getAllByRole('radio')
