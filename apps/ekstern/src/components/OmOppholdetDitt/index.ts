@@ -1,1 +1,0 @@
-export { OmOppholdetDitt } from './OmOppholdetDitt'

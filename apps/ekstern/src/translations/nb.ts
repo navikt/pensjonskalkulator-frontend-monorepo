@@ -114,6 +114,17 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.button': 'Legg til opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',
   'utenlandsopphold.om_oppholdet_ditt_modal.button': 'Legg til opphold',
+  'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
+  'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
+    'Har du jobbet i {land}?',
+  'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description':
+    'Hvis du jobbet i deler av oppholdet, bør du legge til perioden du jobbet og perioden du ikke jobbet som to ulike opphold.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja': 'Ja',
+  'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_nei': 'Nei',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.label': 'Oppgi startdato',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
+    'Hvis du ikke vet nøyaktige datoer, oppgi omtrentlige datoer.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'Oppgi sluttdato',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og AFP (avtalefestet pensjon).',
