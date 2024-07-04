@@ -1,7 +1,7 @@
 export const UTENLANDSOPPHOLD_FORM_NAMES = {
   form: 'oppholdet-ditt',
   land: 'land',
-  harJobbet: 'har-jobbet',
+  arbeidetUtenlands: 'arbeidet-utenlands',
   startdato: 'startdato',
   sluttdato: 'sluttdato',
 }

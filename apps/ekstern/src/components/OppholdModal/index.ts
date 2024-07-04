@@ -1,1 +1,0 @@
-export { OppholdModal } from './OppholdModal'

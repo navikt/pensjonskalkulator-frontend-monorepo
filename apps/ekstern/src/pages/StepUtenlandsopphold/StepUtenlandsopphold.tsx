@@ -9,7 +9,7 @@ import { UtenlandsoppholdMedHenvisning } from '@/components/stegvisning/Utenland
 import { paths, henvisningUrlParams } from '@/router/constants'
 import { useGetUtlandFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectUtenlandsopphold } from '@/state/userInput/selectors'
+import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
 import {
   selectIsVeileder,
   selectSamboerFraSivilstand,
@@ -20,7 +20,7 @@ export function StepUtenlandsopphold() {
   const intl = useIntl()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const harUtenlandsopphold = useAppSelector(selectUtenlandsopphold)
+  const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
   const harSamboerFraSivilstand = useAppSelector(selectSamboerFraSivilstand)
   const isVeileder = useAppSelector(selectIsVeileder)
 
@@ -38,11 +38,12 @@ export function StepUtenlandsopphold() {
   }, [])
 
   const onNext = (utenlandsoppholdData: BooleanRadio) => {
-    const utenlandsopphold = utenlandsoppholdData === 'ja'
-    if (utenlandsopphold) {
+    dispatch(
+      userInputActions.setHarUtenlandsopphold(utenlandsoppholdData === 'ja')
+    )
+    if (!utlandFeatureToggle?.enabled && utenlandsoppholdData === 'ja') {
       navigate(`${paths.henvisning}/${henvisningUrlParams.utland}`)
     } else {
-      dispatch(userInputActions.setUtenlandsopphold(utenlandsopphold))
       onStegvisningNext()
     }
   }

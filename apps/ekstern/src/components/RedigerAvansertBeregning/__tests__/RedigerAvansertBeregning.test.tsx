@@ -1903,6 +1903,7 @@ describe('RedigerAvansertBeregning', () => {
       })
 
       const currentSimulation: Simulation = {
+        utenlandsperioder: [],
         formatertUttaksalderReadOnly: '62 år string.og 0 alder.maaned',
         uttaksalder: { aar: 62, maaneder: 0 },
         aarligInntektFoerUttakBeloep: null,

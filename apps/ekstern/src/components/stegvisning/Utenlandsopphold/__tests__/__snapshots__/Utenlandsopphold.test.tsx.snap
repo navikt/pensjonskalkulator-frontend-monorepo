@@ -6,7 +6,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
     class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
   >
     <form
-      id="utenlandsopphold"
+      id="har-utenlandsopphold"
     />
     <h2
       class="navds-heading navds-heading--medium navds-typo--spacing"
@@ -119,9 +119,9 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           <input
             aria-labelledby="r5"
             class="navds-radio__input"
-            form="utenlandsopphold"
+            form="har-utenlandsopphold"
             id="radio-r4"
-            name="utenlandsopphold-radio"
+            name="har-utenlandsopphold-radio"
             type="radio"
             value="ja"
           />
@@ -148,9 +148,9 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           <input
             aria-labelledby="r8"
             class="navds-radio__input"
-            form="utenlandsopphold"
+            form="har-utenlandsopphold"
             id="radio-r7"
-            name="utenlandsopphold-radio"
+            name="har-utenlandsopphold-radio"
             type="radio"
             value="nei"
           />
@@ -181,7 +181,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
     </fieldset>
     <button
       class="_button_30e252 navds-button navds-button--primary navds-button--medium"
-      form="utenlandsopphold"
+      form="har-utenlandsopphold"
       type="submit"
     >
       <span
