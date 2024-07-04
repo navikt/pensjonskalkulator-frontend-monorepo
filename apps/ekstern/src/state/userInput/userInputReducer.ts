@@ -68,51 +68,32 @@ export const userInputSlice = createSlice({
       const index = previousUtenlandsperioderArray.findIndex(
         (item) => item.id === action.payload.id
       )
-
       if (index !== -1) {
-        console.log('Updating existing object in array', index, action.payload)
         // Update the existing object
         previousUtenlandsperioderArray[index] = action.payload
       } else {
-        console.log('Addind new object in array', index, action.payload)
         // Add the new object
         previousUtenlandsperioderArray.push(action.payload)
       }
-
       state.currentSimulation = {
         ...state.currentSimulation,
         utenlandsperioder: previousUtenlandsperioderArray,
       }
     },
-    // addCurrentSimulationUtenlandsopphold: (
-    //   state,
-    //   action: PayloadAction<Utenlandsperiode>
-    // ) => {
-    //   const previousUtenlandsperioderArray =
-    //     state.currentSimulation.utenlandsopphold
-    //   const oppdatertUtenlandsoppholdArray = [
-    //     ...previousUtenlandsperioderArray,
-    //     action.payload,
-    //   ]
-    //   state.currentSimulation = {
-    //     ...state.currentSimulation,
-    //     utenlandsopphold: oppdatertUtenlandsoppholdArray,
-    //   }
-    // },
-    // updateCurrentSimulationUtenlandsopphold: (
-    //   state,
-    //   action: PayloadAction<Utenlandsperiode>
-    // ) => {
-    //   const previousUtenlandsperioderArray =
-    //     state.currentSimulation.utenlandsopphold
-    //   const oppdatertUtenlandsoppholdArray = previousUtenlandsperioderArray.map(
-    //     (item) => (item.id === action.payload.id ? action.payload : item)
-    //   )
-    //   state.currentSimulation = {
-    //     ...state.currentSimulation,
-    //     utenlandsopphold: oppdatertUtenlandsoppholdArray,
-    //   }
-    // },
+    // TDOO skrive tester
+    deleteCurrentSimulationUtenlandsperioder: (
+      state,
+      action: PayloadAction<string>
+    ) => {
+      const updatedUtenlandsperioderArray =
+        state.currentSimulation.utenlandsperioder.filter(
+          (utenlandsperiode) => utenlandsperiode.id !== action.payload
+        )
+      state.currentSimulation = {
+        ...state.currentSimulation,
+        utenlandsperioder: updatedUtenlandsperioderArray,
+      }
+    },
     setCurrentSimulationUttaksalder: (
       state,
       action: PayloadAction<{

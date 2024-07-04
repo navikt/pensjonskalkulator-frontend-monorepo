@@ -2,7 +2,7 @@ import React from 'react'
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { PlusCircleIcon, PencilIcon } from '@navikt/aksel-icons'
+import { PlusCircleIcon, PencilIcon, TrashIcon } from '@navikt/aksel-icons'
 import {
   BodyLong,
   BodyShort,
@@ -16,7 +16,9 @@ import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
 import { useAppSelector } from '@/state/hooks'
+import { useAppDispatch } from '@/state/hooks'
 import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './Utenlandsopphold.module.scss'
@@ -35,7 +37,7 @@ export function Utenlandsopphold({
   onNext,
 }: Props) {
   const intl = useIntl()
-
+  const dispatch = useAppDispatch()
   const utenlandsperioder = useAppSelector(
     selectCurrentSimulationUtenlandsperioder
   )
@@ -183,7 +185,6 @@ export function Utenlandsopphold({
                     </dd>
                     <dd>
                       <Button
-                        className={styles.button}
                         variant="tertiary"
                         size="small"
                         icon={<PencilIcon aria-hidden />}
@@ -193,7 +194,23 @@ export function Utenlandsopphold({
                         }}
                       >
                         {intl.formatMessage({
-                          id: 'beregning.avansert.resultatkort.button',
+                          id: 'stegvisning.utenlandsopphold.oppholdene.button.endre',
+                        })}
+                      </Button>
+                      <Button
+                        variant="tertiary"
+                        size="small"
+                        icon={<TrashIcon aria-hidden />}
+                        onClick={() => {
+                          dispatch(
+                            userInputActions.deleteCurrentSimulationUtenlandsperioder(
+                              utenlandsperiode.id
+                            )
+                          )
+                        }}
+                      >
+                        {intl.formatMessage({
+                          id: 'stegvisning.utenlandsopphold.oppholdene.button.slette',
                         })}
                       </Button>
                     </dd>
@@ -209,7 +226,7 @@ export function Utenlandsopphold({
             onClick={openUtenlandsoppholdModal}
           >
             {intl.formatMessage({
-              id: 'stegvisning.utenlandsopphold.oppholdene.button',
+              id: 'stegvisning.utenlandsopphold.oppholdene.button.legg_til',
             })}
           </Button>
         </section>
