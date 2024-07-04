@@ -79,15 +79,27 @@ export const VeilederInput = () => {
   }
 
   const exlucdedPaths = [
-    `/veileder/${paths.forbehold}`,
-    `/veileder/${paths.personopplysninger}`,
+    `/veileder${paths.forbehold}`,
+    `/veileder${paths.personopplysninger}`,
   ]
   const isExcludedPath = exlucdedPaths.some((path) =>
     window.location.pathname.includes(path)
   )
 
+  // Unntak for rutene som skal serveres uten å slå opp bruker
   if (isExcludedPath) {
-    return <RouterProvider router={router} />
+    return (
+      <div>
+        <InternalHeader>
+          <InternalHeader.Title onClick={onTitleClick}>
+            Pensjonskalkulator
+          </InternalHeader.Title>
+          <Spacer />
+          <InternalHeader.User name={ansatt?.id ?? ''} />
+        </InternalHeader>
+        <RouterProvider router={router} />
+      </div>
+    )
   }
 
   if ((!personSuccess && !veilederBorgerFnr) || personError || personLoading) {
