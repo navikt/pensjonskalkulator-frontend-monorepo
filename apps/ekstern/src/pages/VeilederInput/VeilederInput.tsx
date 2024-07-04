@@ -20,7 +20,7 @@ import {
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework/FrameComponent'
 import BorgerInformasjon from '@/components/veileder/BorgerInformasjon'
-import { BASE_PATH, paths } from '@/router/constants'
+import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
 import {
   apiSlice,
