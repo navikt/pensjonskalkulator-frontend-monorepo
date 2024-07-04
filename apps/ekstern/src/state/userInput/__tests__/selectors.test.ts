@@ -281,8 +281,8 @@ describe('userInput selectors', () => {
       id: '123',
       land: 'Kina',
       arbeidetUtenlands: null,
-      startdato: '01.01.2018',
-      sluttdato: '31-01.2021',
+      startdato: '2018-01-01',
+      sluttdato: '2021-01-31',
     }
     const state: RootState = {
       ...initialState,

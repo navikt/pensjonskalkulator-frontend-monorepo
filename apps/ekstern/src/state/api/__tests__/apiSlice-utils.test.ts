@@ -1,5 +1,6 @@
 import {
   getAfpSimuleringstypeFromRadio,
+  transformUtenlandsperioderArray,
   generateTidligstMuligHeltUttakRequestBody,
   generateAlderspensjonEnkelRequestBody,
   generateAlderspensjonRequestBody,
@@ -7,6 +8,14 @@ import {
 } from '../utils'
 
 describe('apiSlice - utils', () => {
+  const utenlandsperiode: Utenlandsperiode = {
+    id: '12345',
+    land: 'Kina',
+    arbeidetUtenlands: null,
+    startdato: '2018-01-01',
+    sluttdato: '2021-01-28',
+  }
+
   describe('getAfpSimuleringstypeFromRadio', () => {
     it('returnerer riktig simuleringstype', () => {
       expect(getAfpSimuleringstypeFromRadio(null)).toEqual('ALDERSPENSJON')
@@ -23,11 +32,52 @@ describe('apiSlice - utils', () => {
     })
   })
 
+  describe('transformUtenlandsperioderArray', () => {
+    it('returnerer riktig array', () => {
+      expect(transformUtenlandsperioderArray([])).toEqual([])
+      expect(
+        transformUtenlandsperioderArray([{ ...utenlandsperiode }])
+      ).toStrictEqual([
+        {
+          land: 'Kina',
+          arbeidetUtenlands: false,
+          fom: '2018-01-01',
+          tom: '2021-01-28',
+        },
+      ])
+      expect(
+        transformUtenlandsperioderArray([
+          { ...utenlandsperiode },
+          {
+            id: '98765',
+            land: 'Belgia',
+            arbeidetUtenlands: true,
+            startdato: '2005-02-07',
+          },
+        ])
+      ).toStrictEqual([
+        {
+          land: 'Kina',
+          arbeidetUtenlands: false,
+          fom: '2018-01-01',
+          tom: '2021-01-28',
+        },
+        {
+          land: 'Belgia',
+          arbeidetUtenlands: true,
+          fom: '2005-02-07',
+          tom: undefined,
+        },
+      ])
+    })
+  })
+
   describe('generateTidligstMuligHeltUttakRequestBody', () => {
     const requestBody = {
       afp: null,
       harSamboer: null,
       aarligInntektFoerUttakBeloep: '0',
+      utenlandsperioder: [],
     }
     it('returnerer riktig simuleringstype', () => {
       expect(
@@ -132,6 +182,22 @@ describe('apiSlice - utils', () => {
         sluttAlder: { aar: 75, maaneder: 0 },
       })
     })
+
+    it('returnerer riktig utenlandsperioder', () => {
+      expect(
+        generateTidligstMuligHeltUttakRequestBody({
+          ...requestBody,
+          utenlandsperioder: [{ ...utenlandsperiode }],
+        })?.utenlandsperiodeListe
+      ).toStrictEqual([
+        {
+          land: 'Kina',
+          arbeidetUtenlands: false,
+          fom: '2018-01-01',
+          tom: '2021-01-28',
+        },
+      ])
+    })
   })
 
   describe('generateAlderspensjonEnkelRequestBody', () => {
@@ -144,6 +210,7 @@ describe('apiSlice - utils', () => {
       foedselsdato: '1963-04-30',
       uttaksalder: { aar: 68, maaneder: 3 },
       uttaksgrad: 100,
+      utenlandsperioder: [],
     }
     it('returnerer undefined når foedselsdato, eller startAlder er null', () => {
       expect(
@@ -277,6 +344,22 @@ describe('apiSlice - utils', () => {
         generateAlderspensjonEnkelRequestBody(requestBody)?.foedselsdato
       ).toBe('1963-04-30')
     })
+
+    it('returnerer riktig utenlandsperioder', () => {
+      expect(
+        generateAlderspensjonEnkelRequestBody({
+          ...requestBody,
+          utenlandsperioder: [{ ...utenlandsperiode }],
+        })?.utenlandsperiodeListe
+      ).toStrictEqual([
+        {
+          land: 'Kina',
+          arbeidetUtenlands: false,
+          fom: '2018-01-01',
+          tom: '2021-01-28',
+        },
+      ])
+    })
   })
 
   describe('generateAlderspensjonRequestBody', () => {
@@ -294,6 +377,7 @@ describe('apiSlice - utils', () => {
           sluttAlder: { aar: 75, maaneder: 0 },
         },
       },
+      utenlandsperioder: [],
     }
     it('returnerer undefined når foedselsdato, eller heltUttak er null/undefined', () => {
       expect(
@@ -426,6 +510,22 @@ describe('apiSlice - utils', () => {
       expect(generateAlderspensjonRequestBody(requestBody)?.foedselsdato).toBe(
         '1963-04-30'
       )
+    })
+
+    it('returnerer riktig utenlandsperioder', () => {
+      expect(
+        generateAlderspensjonRequestBody({
+          ...requestBody,
+          utenlandsperioder: [{ ...utenlandsperiode }],
+        })?.utenlandsperiodeListe
+      ).toStrictEqual([
+        {
+          land: 'Kina',
+          arbeidetUtenlands: false,
+          fom: '2018-01-01',
+          tom: '2021-01-28',
+        },
+      ])
     })
   })
 

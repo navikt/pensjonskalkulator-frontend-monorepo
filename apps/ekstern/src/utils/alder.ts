@@ -3,6 +3,8 @@ import { IntlShape } from 'react-intl'
 import { format, isBefore, isSameDay, startOfMonth } from 'date-fns'
 import { nb, nn, enGB } from 'date-fns/locale'
 
+import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
+
 export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
   aar: 62,
   maaneder: 0,
@@ -127,7 +129,7 @@ export const transformUttaksalderToDate = (
     foedselsdatoDate.getDate()
   )
 
-  return format(startOfMonth(calculatedDate), 'dd.MM.yyyy')
+  return format(startOfMonth(calculatedDate), DATE_ENDUSER_FORMAT)
 }
 
 export const transformMaanedToDate = (

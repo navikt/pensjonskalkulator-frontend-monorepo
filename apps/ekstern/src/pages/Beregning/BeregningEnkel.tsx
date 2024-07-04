@@ -72,7 +72,9 @@ export const BeregningEnkel: React.FC = () => {
     skip: !tidligstMuligHeltUttakRequestBody || !!ufoeregrad,
   })
 
-  const { uttaksalder } = useAppSelector(selectCurrentSimulation)
+  const { uttaksalder, utenlandsperioder } = useAppSelector(
+    selectCurrentSimulation
+  )
   const [alderspensjonEnkelRequestBody, setAlderspensjonEnkelRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
   const [showInntektAlert, setShowInntektAlert] = React.useState<boolean>(false)
@@ -91,6 +93,7 @@ export const BeregningEnkel: React.FC = () => {
         sivilstand: sivilstand,
         harSamboer,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
+        utenlandsperioder,
       })
       setTidligstMuligHeltUttakRequestBody(requestBody)
     }
@@ -106,6 +109,7 @@ export const BeregningEnkel: React.FC = () => {
         foedselsdato: person?.foedselsdato,
         aarligInntektFoerUttakBeloep: aarligInntektFoerUttakBeloep ?? '0',
         uttaksalder,
+        utenlandsperioder,
       })
       setAlderspensjonEnkelRequestBody(requestBody)
     }

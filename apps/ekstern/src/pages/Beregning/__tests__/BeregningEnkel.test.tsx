@@ -51,6 +51,7 @@ describe('BeregningEnkel', () => {
           harEps: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -96,6 +97,7 @@ describe('BeregningEnkel', () => {
           harEps: false,
           simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -295,6 +297,7 @@ describe('BeregningEnkel', () => {
           },
           simuleringstype: 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -376,6 +379,7 @@ describe('BeregningEnkel', () => {
           },
           simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -464,6 +468,7 @@ describe('BeregningEnkel', () => {
           },
           simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,

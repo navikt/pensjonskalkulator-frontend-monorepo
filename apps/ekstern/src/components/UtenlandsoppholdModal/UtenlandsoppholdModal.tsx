@@ -15,6 +15,7 @@ import { add, sub, parse, format } from 'date-fns'
 
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -64,13 +65,13 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       years: 20,
     }),
     defaultSelected: localUtenlandsperiode?.startdato
-      ? parse(localUtenlandsperiode?.startdato, 'dd.MM.yyyy', new Date())
+      ? parse(localUtenlandsperiode?.startdato, DATE_BACKEND_FORMAT, new Date())
       : undefined,
     onDateChange: (value): void => {
       setLocalUtenlandsperiode((previous) => {
         return {
           ...previous,
-          startdato: value ? format(value, 'dd.MM.yyyy') : undefined,
+          startdato: value ? format(value, DATE_BACKEND_FORMAT) : undefined,
         }
       })
     },
@@ -85,13 +86,13 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       years: 20,
     }),
     defaultSelected: localUtenlandsperiode?.sluttdato
-      ? parse(localUtenlandsperiode?.sluttdato, 'dd.MM.yyyy', new Date())
+      ? parse(localUtenlandsperiode?.sluttdato, DATE_BACKEND_FORMAT, new Date())
       : undefined,
     onDateChange: (value): void => {
       setLocalUtenlandsperiode((previous) => {
         return {
           ...previous,
-          sluttdato: value ? format(value, 'dd.MM.yyyy') : undefined,
+          sluttdato: value ? format(value, DATE_BACKEND_FORMAT) : undefined,
         }
       })
     },
@@ -102,12 +103,12 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     setLocalUtenlandsperiode({ ...utenlandsperiode })
     if (utenlandsperiode?.startdato) {
       datepickerStartdato.setSelected(
-        parse(utenlandsperiode?.startdato, 'dd.MM.yyyy', new Date())
+        parse(utenlandsperiode?.startdato, DATE_BACKEND_FORMAT, new Date())
       )
     }
     if (utenlandsperiode?.sluttdato) {
       datepickerSluttdato.setSelected(
-        parse(utenlandsperiode?.sluttdato, 'dd.MM.yyyy', new Date())
+        parse(utenlandsperiode?.sluttdato, DATE_BACKEND_FORMAT, new Date())
       )
     }
   }, [utenlandsperiode])

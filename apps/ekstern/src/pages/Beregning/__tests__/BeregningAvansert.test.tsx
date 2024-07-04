@@ -44,10 +44,7 @@ describe('BeregningAvansert', () => {
         samboer: false,
         afp: 'ja_privat',
         currentSimulation: {
-          formatertUttaksalderReadOnly: null,
-          uttaksalder: null,
-          aarligInntektFoerUttakBeloep: null,
-          gradertUttaksperiode: null,
+          ...userInputInitialState.currentSimulation,
         },
       } as UserInputState,
     }
@@ -146,6 +143,7 @@ describe('BeregningAvansert', () => {
             },
             simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
             sivilstand: 'UGIFT',
+            utenlandsperiodeListe: [],
           },
           {
             forceRefetch: undefined,
@@ -243,6 +241,7 @@ describe('BeregningAvansert', () => {
             },
             simuleringstype: 'ALDERSPENSJON',
             sivilstand: 'UGIFT',
+            utenlandsperiodeListe: [],
           },
           {
             forceRefetch: undefined,
@@ -329,6 +328,7 @@ describe('BeregningAvansert', () => {
             },
             simuleringstype: 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG',
             sivilstand: 'UGIFT',
+            utenlandsperiodeListe: [],
           },
           {
             forceRefetch: undefined,
@@ -415,6 +415,7 @@ describe('BeregningAvansert', () => {
             },
             simuleringstype: 'ALDERSPENSJON',
             sivilstand: 'UGIFT',
+            utenlandsperiodeListe: [],
           },
           {
             forceRefetch: undefined,
