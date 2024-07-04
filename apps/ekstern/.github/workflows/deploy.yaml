@@ -258,7 +258,7 @@ jobs:
 
   deploy-catbox:
     name: Deploy to catbox
-    needs: [build]
+    needs: [build, run-unit-tests, run-integration-tests]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
