@@ -3,7 +3,7 @@
 exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
 <DocumentFragment>
   <div
-    class="navds-box"
+    class="navds-box navds-box-bg navds-box-border-color navds-box-border-width"
     style="--__ac-box-background: var(--a-bg-default); --__ac-box-border-color: var(--a-border-divider); --__ac-box-border-width: 0px 0px 1px 0px;"
   >
     <div
