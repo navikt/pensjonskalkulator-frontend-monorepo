@@ -156,7 +156,7 @@ app.get('/internal/health/readiness', (_req, res) => {
 // For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
 app.get('/pensjon/kalkulator/veileder?*', (_req, res) => {
   if (AUTH_PROVIDER === 'azure') {
-    return res.sendFile(__dirname + '/index-veileder.html')
+    return res.sendFile(__dirname + 'veileder/index.html')
   } else {
     return res.redirect('/pensjon/kalkulator')
   }

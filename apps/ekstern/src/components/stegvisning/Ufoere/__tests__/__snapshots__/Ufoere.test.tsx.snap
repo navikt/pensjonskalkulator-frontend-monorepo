@@ -39,7 +39,7 @@ exports[`stegvisning - Ufoere > rendrer slik den skal 1`] = `
           />
         </svg>
         <div
-          class="navds-alert__wrapper navds-alert__wrapper--maxwidth navds-body-long navds-body-long--medium"
+          class="navds-alert__wrapper navds-body-long navds-body-long--medium"
         >
           stegvisning.ufoere.info
         </div>

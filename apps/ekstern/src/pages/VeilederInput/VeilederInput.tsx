@@ -16,7 +16,7 @@ import {
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework/FrameComponent'
 import BorgerInformasjon from '@/components/veileder/BorgerInformasjon'
-import { BASE_PATH } from '@/router/constants'
+import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import {
   apiSlice,
@@ -54,10 +54,6 @@ export const VeilederInput = () => {
     return queryParams.has('timeout')
   }, [])
 
-  const onTitleClick = () => {
-    window.location.href = `${BASE_PATH}/veileder`
-  }
-
   // Redirect etter 1 time
   React.useEffect(() => {
     if (hasTimedOut) return
@@ -71,11 +67,27 @@ export const VeilederInput = () => {
     return () => clearTimeout(timer)
   }, [])
 
+  const onTitleClick = () => {
+    window.location.href = `${BASE_PATH}/veileder`
+  }
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const nyFnr = event.currentTarget.veilederBorgerFnr.value
     dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
     dispatch(apiSlice.util.invalidateTags(['Person']))
+  }
+
+  const exlucdedPaths = [
+    `/veileder/${paths.forbehold}`,
+    `/veileder/${paths.personopplysninger}`,
+  ]
+  const isExcludedPath = exlucdedPaths.some((path) =>
+    window.location.pathname.includes(path)
+  )
+
+  if (isExcludedPath) {
+    return <RouterProvider router={router} />
   }
 
   if ((!personSuccess && !veilederBorgerFnr) || personError || personLoading) {
