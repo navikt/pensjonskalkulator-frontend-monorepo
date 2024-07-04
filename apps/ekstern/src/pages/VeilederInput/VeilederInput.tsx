@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  RouteObject,
-  RouterProvider,
-  createBrowserRouter,
-} from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import {
   Alert,
@@ -30,6 +26,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { findRoutesWithoutLoaders } from '@/utils/veileder'
 
 import { VeilederInputRequestError } from './VeilederInputRequestError'
 
@@ -38,19 +35,6 @@ import styles from './VeilederInput.module.scss'
 const router = createBrowserRouter(routes, {
   basename: `${BASE_PATH}/veileder`,
 })
-
-const findRoutesWithoutLoaders = (routerRoutes: RouteObject[]): string[] => {
-  return routerRoutes
-    .map((route) => {
-      if (route.children) {
-        return findRoutesWithoutLoaders(route.children)
-      }
-      return route.loader ? undefined : route.path
-    })
-    .flat()
-    .filter((path) => path !== undefined)
-    .filter((path) => path !== '/')
-}
 
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
@@ -97,7 +81,7 @@ export const VeilederInput = () => {
 
   const excludedPaths = findRoutesWithoutLoaders(routes)
   const isExcludedPath = excludedPaths.some((path) =>
-    window.location.pathname.includes(path)
+    window.location.pathname.includes(`/veileder${path}`)
   )
 
   // Unntak for rutene som skal serveres uten å slå opp bruker
