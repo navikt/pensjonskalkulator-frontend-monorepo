@@ -2,7 +2,7 @@ import React from 'react'
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { PlusCircleIcon } from '@navikt/aksel-icons'
+import { PlusCircleIcon, PencilIcon } from '@navikt/aksel-icons'
 import {
   BodyLong,
   BodyShort,
@@ -41,7 +41,9 @@ export function Utenlandsopphold({
   )
   const utenlandsoppholdModalRef = React.useRef<HTMLDialogElement>(null)
   const [validationError, setValidationError] = useState<string>('')
-  const [showOppholdene, setShowOppholdene] =
+  const [valgtUtenlandsperiodeId, setValgtUtenlandsperiodeId] =
+    React.useState<string>('')
+  const [showUtenlandsperioder, setShowUtenlandsperioder] =
     React.useState<boolean>(!!harUtenlandsopphold)
 
   const openUtenlandsoppholdModal = () => {
@@ -82,7 +84,7 @@ export function Utenlandsopphold({
   }
 
   const handleRadioChange = (value: BooleanRadio): void => {
-    setShowOppholdene(value === 'ja')
+    setShowUtenlandsperioder(value === 'ja')
     setValidationError('')
   }
 
@@ -141,8 +143,8 @@ export function Utenlandsopphold({
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
         </Radio>
       </RadioGroup>
-      {showOppholdene && (
-        <section className={styles.oppholdene}>
+      {showUtenlandsperioder && (
+        <section className={styles.section}>
           <Heading size="small" level="3">
             <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.title" />
           </Heading>
@@ -151,24 +153,49 @@ export function Utenlandsopphold({
           </BodyShort>
           <UtenlandsoppholdModal
             modalRef={utenlandsoppholdModalRef}
-            utenlandsperiode={undefined}
-            // TODO setState for valgt opphold
-            // opphold={{
-            //   land: 'Kina',
-            //   arbeidetUtenlands: null,
-            //   startdato: new Date('2018-01-01'),
-            //   sluttdato: new Date('2021-01-31'),
-            // }}
+            utenlandsperiode={
+              valgtUtenlandsperiodeId
+                ? utenlandsperioder.find(
+                    (utenlandsperiode) =>
+                      utenlandsperiode.id === valgtUtenlandsperiodeId
+                  )
+                : undefined
+            }
+            onSubmitCallback={() => {
+              setValgtUtenlandsperiodeId('')
+            }}
           />
-          <dl>
+          <dl className={styles.utenlandsperioder}>
             {utenlandsperioder.length > 0 &&
               utenlandsperioder.map((utenlandsperiode, index) => {
                 return (
-                  <div key={index}>
-                    <dt>id: {utenlandsperiode.id}</dt>
-                    <dd>{utenlandsperiode.land}</dd>
+                  <div key={index} className={styles.utenlandsperioder__item}>
                     <dd>
-                      {utenlandsperiode.startdato} -{utenlandsperiode.sluttdato}
+                      <b>{utenlandsperiode.land}</b>
+                    </dd>
+                    <dd>
+                      Periode: {utenlandsperiode.startdato} -
+                      {utenlandsperiode.sluttdato}
+                    </dd>
+                    <dd>
+                      Jobbet:{' '}
+                      {utenlandsperiode.arbeidetUtenlands ? 'Ja' : 'Nei'}
+                    </dd>
+                    <dd>
+                      <Button
+                        className={styles.button}
+                        variant="tertiary"
+                        size="small"
+                        icon={<PencilIcon aria-hidden />}
+                        onClick={() => {
+                          setValgtUtenlandsperiodeId(utenlandsperiode.id)
+                          utenlandsoppholdModalRef.current?.showModal()
+                        }}
+                      >
+                        {intl.formatMessage({
+                          id: 'beregning.avansert.resultatkort.button',
+                        })}
+                      </Button>
                     </dd>
                   </div>
                 )

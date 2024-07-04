@@ -25,10 +25,12 @@ import styles from './UtenlandsoppholdModal.module.scss'
 interface Props {
   modalRef: React.RefObject<HTMLDialogElement>
   utenlandsperiode?: Utenlandsperiode
+  onSubmitCallback: () => void
 }
 export const UtenlandsoppholdModal: React.FC<Props> = ({
   modalRef,
   utenlandsperiode,
+  onSubmitCallback,
 }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
@@ -65,7 +67,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       ? parse(localUtenlandsperiode?.startdato, 'dd.MM.yyyy', new Date())
       : undefined,
     onDateChange: (value): void => {
-      console.log('>>> onDateChange startdato', typeof value, value)
       if (value) {
         const a = format(value, 'dd.MM.yyyy')
         console.log('format: ', a)
@@ -91,7 +92,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       ? parse(localUtenlandsperiode?.sluttdato, 'dd.MM.yyyy', new Date())
       : undefined,
     onDateChange: (value): void => {
-      console.log('>>> onDateChange sluttdato', typeof value, value)
       if (value) {
         const a = format(value, 'dd.MM.yyyy')
         console.log('format: ', a)
@@ -159,7 +159,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
   }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    console.log('>>>> onSubmit')
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
@@ -169,11 +168,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     )
     const startdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.startdato)
     const sluttdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.sluttdato)
-
-    console.log('- landData', landData)
-    console.log('- arbeidetUtenlandsData', arbeidetUtenlandsData)
-    console.log('- startdatoData', startdatoData)
-    console.log('- sluttdatoData', sluttdatoData)
 
     // if (validateOpphold(oppholdData, updateValidationErrorMessage)) {
 
@@ -192,14 +186,13 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
         ...updatedUtenlandsperiode,
       })
     )
-
     // TODO Push to Redux
     logger('button klikk', {
-      // TODO logge forskjell om det er endring eller nytt opphold?
-      tekst: `legger til opphold`,
+      tekst: utenlandsperiode
+        ? `endrer utenlandsperiode`
+        : `legger til utenlandsperiode`,
     })
-    // window.scrollTo(0, 0)
-    /* c8 ignore next 3 */
+    onSubmitCallback()
     if (modalRef.current?.open) {
       modalRef.current?.close()
     }
@@ -208,17 +201,10 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
 
   const onCancel = (): void => {
     setLocalUtenlandsperiode({ ...utenlandsperiode })
-    if (utenlandsperiode?.startdato) {
-      datepickerStartdato.setSelected(
-        parse(utenlandsperiode?.startdato, 'dd.MM.yyyy', new Date())
-      )
-    }
-    if (utenlandsperiode?.sluttdato) {
-      datepickerSluttdato.setSelected(
-        parse(utenlandsperiode?.sluttdato, 'dd.MM.yyyy', new Date())
-      )
-    }
+    datepickerStartdato.setSelected(undefined)
+    datepickerSluttdato.setSelected(undefined)
     resetValidationErrors()
+    onSubmitCallback()
     if (modalRef.current?.open) {
       modalRef.current?.close()
     }
@@ -234,7 +220,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
           }),
         }}
         onClose={onCancel}
-        // width="small"
+        width="small"
       >
         <Modal.Body>
           <form
