@@ -1,5 +1,9 @@
 import React from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {
+  RouteObject,
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom'
 
 import {
   Alert,
@@ -34,6 +38,19 @@ import styles from './VeilederInput.module.scss'
 const router = createBrowserRouter(routes, {
   basename: `${BASE_PATH}/veileder`,
 })
+
+const findRoutesWithoutLoaders = (routerRoutes: RouteObject[]): string[] => {
+  return routerRoutes
+    .map((route) => {
+      if (route.children) {
+        return findRoutesWithoutLoaders(route.children)
+      }
+      return route.loader ? undefined : route.path
+    })
+    .flat()
+    .filter((path) => path !== undefined)
+    .filter((path) => path !== '/')
+}
 
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
@@ -78,11 +95,8 @@ export const VeilederInput = () => {
     dispatch(apiSlice.util.invalidateTags(['Person']))
   }
 
-  const exlucdedPaths = [
-    `/veileder${paths.forbehold}`,
-    `/veileder${paths.personopplysninger}`,
-  ]
-  const isExcludedPath = exlucdedPaths.some((path) =>
+  const excludedPaths = findRoutesWithoutLoaders(routes)
+  const isExcludedPath = excludedPaths.some((path) =>
     window.location.pathname.includes(path)
   )
 
