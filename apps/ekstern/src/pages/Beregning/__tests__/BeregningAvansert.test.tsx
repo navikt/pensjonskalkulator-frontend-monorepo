@@ -4,7 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningAvansert } from '../BeregningAvansert'
-import { FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
+import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
@@ -104,7 +104,7 @@ describe('BeregningAvansert', () => {
         // Fyller ut feltene for 100 % uttak
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ),
           {
             target: { value: '67' },
@@ -112,17 +112,22 @@ describe('BeregningAvansert', () => {
         )
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ),
           {
             target: { value: '6' },
           }
         )
-        fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-          target: { value: '100 %' },
-        })
+        fireEvent.change(
+          await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+          {
+            target: { value: '100 %' },
+          }
+        )
         await user.click(
-          screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+          screen.getByTestId(
+            `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+          )
         )
 
         await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -202,7 +207,7 @@ describe('BeregningAvansert', () => {
         // Fyller ut feltene for 100 % uttak
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ),
           {
             target: { value: '67' },
@@ -210,17 +215,22 @@ describe('BeregningAvansert', () => {
         )
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ),
           {
             target: { value: '6' },
           }
         )
-        fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-          target: { value: '100 %' },
-        })
+        fireEvent.change(
+          await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+          {
+            target: { value: '100 %' },
+          }
+        )
         await user.click(
-          screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+          screen.getByTestId(
+            `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+          )
         )
 
         await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -289,7 +299,7 @@ describe('BeregningAvansert', () => {
         // Fyller ut feltene for 100 % uttak
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ),
           {
             target: { value: '67' },
@@ -297,17 +307,22 @@ describe('BeregningAvansert', () => {
         )
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ),
           {
             target: { value: '6' },
           }
         )
-        fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-          target: { value: '100 %' },
-        })
+        fireEvent.change(
+          await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+          {
+            target: { value: '100 %' },
+          }
+        )
         await user.click(
-          screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+          screen.getByTestId(
+            `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+          )
         )
 
         await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -376,7 +391,7 @@ describe('BeregningAvansert', () => {
         // Fyller ut feltene for 100 % uttak
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ),
           {
             target: { value: '67' },
@@ -384,17 +399,22 @@ describe('BeregningAvansert', () => {
         )
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ),
           {
             target: { value: '6' },
           }
         )
-        fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-          target: { value: '100 %' },
-        })
+        fireEvent.change(
+          await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+          {
+            target: { value: '100 %' },
+          }
+        )
         await user.click(
-          screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+          screen.getByTestId(
+            `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+          )
         )
 
         await user.click(screen.getByText('beregning.avansert.button.beregn'))

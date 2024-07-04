@@ -6,7 +6,7 @@ import { DEFAULT_UBETINGET_UTTAKSALDER } from '@/utils/alder'
 import { getFormatMessageValues } from '@/utils/translations'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
-import { FORM_NAMES } from './utils'
+import { AvansertFormNames, AVANSERT_FORM_NAMES } from './utils'
 
 export const useFormLocalState = (initialValues: {
   ufoeregrad: number
@@ -211,11 +211,11 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   const intl = useIntl()
 
   const [validationErrors, setValidationErrors] = React.useState<
-    Record<string, string>
+    Record<AvansertFormNames, string>
   >({
-    [FORM_NAMES.uttaksalderHeltUttak]: '',
-    [FORM_NAMES.uttaksalderGradertUttak]: '',
-    [FORM_NAMES.inntektVsaGradertUttak]: '',
+    [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
+    [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: '',
+    [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
   })
 
   React.useEffect(() => {
@@ -236,11 +236,11 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   }, [validationErrors])
 
   const gradertUttakAgePickerError = React.useMemo(() => {
-    return validationErrors[FORM_NAMES.uttaksalderGradertUttak] ? (
+    return validationErrors[AVANSERT_FORM_NAMES.uttaksalderGradertUttak] ? (
       <>
         {intl.formatMessage(
           {
-            id: validationErrors[FORM_NAMES.uttaksalderGradertUttak],
+            id: validationErrors[AVANSERT_FORM_NAMES.uttaksalderGradertUttak],
           },
           { ...getFormatMessageValues(intl) }
         )}{' '}
@@ -258,17 +258,17 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
   }, [validationErrors, initialValues])
 
   const heltUttakAgePickerError = React.useMemo(() => {
-    return validationErrors[FORM_NAMES.uttaksalderHeltUttak] ? (
+    return validationErrors[AVANSERT_FORM_NAMES.uttaksalderHeltUttak] ? (
       <>
         {intl.formatMessage(
           {
-            id: validationErrors[FORM_NAMES.uttaksalderHeltUttak],
+            id: validationErrors[AVANSERT_FORM_NAMES.uttaksalderHeltUttak],
           },
           { ...getFormatMessageValues(intl) }
         )}{' '}
-        {(validationErrors[FORM_NAMES.uttaksalderHeltUttak] ===
+        {(validationErrors[AVANSERT_FORM_NAMES.uttaksalderHeltUttak] ===
           'agepicker.validation_error.aar' ||
-          validationErrors[FORM_NAMES.uttaksalderHeltUttak] ===
+          validationErrors[AVANSERT_FORM_NAMES.uttaksalderHeltUttak] ===
             'agepicker.validation_error.maaneder') && (
           <FormattedMessage
             id={
@@ -292,7 +292,7 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
         setValidationErrors((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderHeltUttak]: s,
+            [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: s,
           }
         })
       },
@@ -300,7 +300,7 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
         setValidationErrors((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderGradertUttak]: s,
+            [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: s,
           }
         })
       },
@@ -308,7 +308,7 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
         setValidationErrors((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.inntektVsaHeltUttak]: s,
+            [AVANSERT_FORM_NAMES.inntektVsaHeltUttak]: s,
           }
         })
       },
@@ -316,7 +316,7 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
         setValidationErrors((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: s,
+            [AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder]: s,
           }
         })
       },
@@ -324,16 +324,16 @@ export const useFormValidationErrors = (initialValues: { grad?: number }) => {
         setValidationErrors((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.inntektVsaGradertUttak]: s,
+            [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: s,
           }
         })
       },
       resetValidationErrors: () => {
         setValidationErrors(() => {
           return {
-            [FORM_NAMES.uttaksalderHeltUttak]: '',
-            [FORM_NAMES.uttaksalderGradertUttak]: '',
-            [FORM_NAMES.inntektVsaGradertUttak]: '',
+            [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: '',
+            [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: '',
+            [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
           }
         })
       },

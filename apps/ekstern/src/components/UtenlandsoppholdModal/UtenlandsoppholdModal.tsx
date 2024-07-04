@@ -19,7 +19,11 @@ import { DATE_BACKEND_FORMAT } from '@/utils/dates'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
-import { UTENLANDSOPPHOLD_FORM_NAMES } from './utils'
+import {
+  UtenlandsoppholdFormNames,
+  UTENLANDSOPPHOLD_FORM_NAMES,
+  UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS,
+} from './utils'
 
 import styles from './UtenlandsoppholdModal.module.scss'
 
@@ -28,6 +32,7 @@ interface Props {
   utenlandsperiode?: Utenlandsperiode
   onSubmitCallback: () => void
 }
+
 export const UtenlandsoppholdModal: React.FC<Props> = ({
   modalRef,
   utenlandsperiode,
@@ -40,21 +45,11 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     RecursivePartial<Utenlandsperiode>
   >({ ...utenlandsperiode })
   const [validationErrors, setValidationErrors] = React.useState<
-    Record<string, string>
-  >({
-    [UTENLANDSOPPHOLD_FORM_NAMES.land]: '',
-    [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: '',
-    [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: '',
-    [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: '',
-  })
+    Record<UtenlandsoppholdFormNames, string>
+  >(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
 
   const resetValidationErrors = () => {
-    setValidationErrors({
-      [UTENLANDSOPPHOLD_FORM_NAMES.land]: '',
-      [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: '',
-      [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: '',
-      [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: '',
-    })
+    setValidationErrors(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
   }
 
   const datepickerStartdato = useDatepicker({

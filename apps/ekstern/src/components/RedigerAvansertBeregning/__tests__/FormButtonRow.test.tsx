@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { FormButtonRow } from '../FormButtonRow'
-import { FORM_NAMES } from '../utils'
+import { AVANSERT_FORM_NAMES } from '../utils'
 import {
   BeregningContext,
   AvansertBeregningModus,
@@ -185,7 +185,11 @@ describe('FormButtonRow', () => {
           ...contextMockedValues,
         }}
       >
-        <form id={FORM_NAMES.form} method="dialog" onSubmit={onSubmitMock}>
+        <form
+          id={AVANSERT_FORM_NAMES.form}
+          method="dialog"
+          onSubmit={onSubmitMock}
+        >
           <FormButtonRow resetForm={vi.fn()} gaaTilResultat={vi.fn()} />
         </form>
       </BeregningContext.Provider>
