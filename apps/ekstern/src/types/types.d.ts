@@ -81,6 +81,13 @@ declare global {
     sluttAlder: Alder
   }
 
+  type Opphold = {
+    land: string
+    harJobbet: boolean | null
+    startdato: Date
+    sluttdato: Date
+  }
+
   type HeltUttak = Omit<
     components['schemas']['IngressSimuleringHeltUttakV6'],
     'aarligInntektVsaPensjon'
