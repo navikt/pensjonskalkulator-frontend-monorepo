@@ -115,7 +115,10 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Endre opphold',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Slett opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',
-  'utenlandsopphold.om_oppholdet_ditt_modal.button': 'Legg til opphold',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til':
+    'Legg til opphold',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater':
+    'Oppdater opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
     'Har du jobbet i {land}?',

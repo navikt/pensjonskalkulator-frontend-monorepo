@@ -76,7 +76,7 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('setCurrentSimulationUtenlandsperioder', () => {
+    it('setCurrentSimulationUtenlandsperiode', () => {
       const utenlandsperiode: Utenlandsperiode = {
         id: '12345',
         land: 'Kina',
@@ -85,12 +85,12 @@ describe('userInputSlice', () => {
         sluttdato: '31.01.2021',
       }
 
-      const updatedState = userInputSlice(
+      const updatedState_1 = userInputSlice(
         userInputInitialState,
-        userInputActions.setCurrentSimulationUtenlandsperioder(utenlandsperiode)
+        userInputActions.setCurrentSimulationUtenlandsperiode(utenlandsperiode)
       )
 
-      expect(updatedState).toStrictEqual({
+      expect(updatedState_1).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
           utenlandsperioder: [{ ...utenlandsperiode }],
@@ -109,17 +109,20 @@ describe('userInputSlice', () => {
         sluttdato: '11.10.2012',
       }
 
-      const updatedState_1 = userInputSlice(
-        userInputInitialState,
-        userInputActions.setCurrentSimulationUtenlandsperioder(
+      const updatedState_2 = userInputSlice(
+        updatedState_1,
+        userInputActions.setCurrentSimulationUtenlandsperiode(
           addedUtenlandsperiode
         )
       )
 
-      expect(updatedState_1).toStrictEqual({
+      expect(updatedState_2).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
-          utenlandsperioder: [{ ...utenlandsperiode }, addedUtenlandsperiode],
+          utenlandsperioder: [
+            { ...utenlandsperiode },
+            { ...addedUtenlandsperiode },
+          ],
           formatertUttaksalderReadOnly: null,
           uttaksalder: null,
           aarligInntektFoerUttakBeloep: null,
@@ -135,19 +138,106 @@ describe('userInputSlice', () => {
         sluttdato: '20.12.2013',
       }
 
-      const updatedState_2 = userInputSlice(
-        userInputInitialState,
-        userInputActions.setCurrentSimulationUtenlandsperioder(
+      const updatedState_3 = userInputSlice(
+        updatedState_2,
+        userInputActions.setCurrentSimulationUtenlandsperiode(
           overwrittenUtenlandsperiode
         )
       )
-      expect(updatedState_2).toStrictEqual({
+      expect(updatedState_3).toStrictEqual({
         ...userInputInitialState,
         currentSimulation: {
           utenlandsperioder: [
             { ...overwrittenUtenlandsperiode },
             addedUtenlandsperiode,
           ],
+          formatertUttaksalderReadOnly: null,
+          uttaksalder: null,
+          aarligInntektFoerUttakBeloep: null,
+          gradertUttaksperiode: null,
+        },
+      })
+    })
+
+    it('deleteCurrentSimulationUtenlandsperiode', () => {
+      const utenlandsperiode_1: Utenlandsperiode = {
+        id: '12345',
+        land: 'Kina',
+        arbeidetUtenlands: null,
+        startdato: '01.01.2018',
+        sluttdato: '31.01.2021',
+      }
+
+      const utenlandsperiode_2: Utenlandsperiode = {
+        id: '98765',
+        land: 'Belgia',
+        arbeidetUtenlands: true,
+        startdato: '08.02.2005',
+        sluttdato: '11.10.2012',
+      }
+
+      const updatedState_1 = userInputSlice(
+        {
+          ...userInputInitialState,
+          currentSimulation: {
+            utenlandsperioder: [
+              { ...utenlandsperiode_1 },
+              { ...utenlandsperiode_2 },
+            ],
+            formatertUttaksalderReadOnly: null,
+            uttaksalder: null,
+            aarligInntektFoerUttakBeloep: null,
+            gradertUttaksperiode: null,
+          },
+        },
+        userInputActions.deleteCurrentSimulationUtenlandsperiode(
+          'random string'
+        )
+      )
+
+      expect(updatedState_1).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          utenlandsperioder: [
+            { ...utenlandsperiode_1 },
+            { ...utenlandsperiode_2 },
+          ],
+          formatertUttaksalderReadOnly: null,
+          uttaksalder: null,
+          aarligInntektFoerUttakBeloep: null,
+          gradertUttaksperiode: null,
+        },
+      })
+
+      const updatedState_2 = userInputSlice(
+        {
+          ...updatedState_1,
+        },
+        userInputActions.deleteCurrentSimulationUtenlandsperiode('98765')
+      )
+
+      expect(updatedState_2).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          utenlandsperioder: [{ ...utenlandsperiode_1 }],
+          formatertUttaksalderReadOnly: null,
+          uttaksalder: null,
+          aarligInntektFoerUttakBeloep: null,
+          gradertUttaksperiode: null,
+        },
+      })
+
+      const updatedState_3 = userInputSlice(
+        {
+          ...updatedState_2,
+        },
+        userInputActions.deleteCurrentSimulationUtenlandsperiode('12345')
+      )
+
+      expect(updatedState_3).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          utenlandsperioder: [],
           formatertUttaksalderReadOnly: null,
           uttaksalder: null,
           aarligInntektFoerUttakBeloep: null,

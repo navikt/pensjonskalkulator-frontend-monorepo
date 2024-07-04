@@ -59,7 +59,7 @@ export const userInputSlice = createSlice({
     setSamboer: (state, action: PayloadAction<boolean>) => {
       state.samboer = action.payload
     },
-    setCurrentSimulationUtenlandsperioder: (
+    setCurrentSimulationUtenlandsperiode: (
       state,
       action: PayloadAction<Utenlandsperiode>
     ) => {
@@ -80,8 +80,7 @@ export const userInputSlice = createSlice({
         utenlandsperioder: previousUtenlandsperioderArray,
       }
     },
-    // TDOO skrive tester
-    deleteCurrentSimulationUtenlandsperioder: (
+    deleteCurrentSimulationUtenlandsperiode: (
       state,
       action: PayloadAction<string>
     ) => {

@@ -75,9 +75,9 @@ describe('stegvisning - Utenlandsopphold', () => {
           onNext={onNextMock}
         />
       )
-      const radioButtons = screen.getAllByRole('radio')
+      const radioButtons = await screen.findAllByRole('radio')
       await waitFor(async () => {
-        expect(screen.getAllByRole('radio')).toHaveLength(2)
+        expect(radioButtons).toHaveLength(2)
         expect(radioButtons[0]).toBeChecked()
         expect(radioButtons[1]).not.toBeChecked()
         expect(
@@ -92,7 +92,7 @@ describe('stegvisning - Utenlandsopphold', () => {
         ).toBeVisible()
         expect(
           await screen.findByText(
-            'stegvisning.utenlandsopphold.oppholdene.button'
+            'stegvisning.utenlandsopphold.oppholdene.button.legg_til'
           )
         ).toBeVisible()
       })

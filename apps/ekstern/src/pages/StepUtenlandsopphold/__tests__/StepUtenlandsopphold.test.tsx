@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepUtenlandsopphold } from '..'
+import { mockErrorResponse } from '@/mocks/server'
 import { mockResponse } from '@/mocks/server'
 import { paths, henvisningUrlParams } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -18,6 +19,7 @@ describe('StepUtenlandsopphold', () => {
   })
 
   it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren sendes videre til riktig side når hen klikker på Neste', async () => {
+    mockErrorResponse('/feature/pensjonskalkulator.enable-utland')
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(

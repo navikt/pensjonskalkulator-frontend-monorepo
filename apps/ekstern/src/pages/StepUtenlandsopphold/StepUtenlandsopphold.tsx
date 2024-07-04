@@ -38,11 +38,12 @@ export function StepUtenlandsopphold() {
   }, [])
 
   const onNext = (utenlandsoppholdData: BooleanRadio) => {
-    if (utenlandsoppholdData === 'ja') {
-      dispatch(userInputActions.setHarUtenlandsopphold(true))
+    dispatch(
+      userInputActions.setHarUtenlandsopphold(utenlandsoppholdData === 'ja')
+    )
+    if (!utlandFeatureToggle?.enabled && utenlandsoppholdData === 'ja') {
       navigate(`${paths.henvisning}/${henvisningUrlParams.utland}`)
     } else {
-      dispatch(userInputActions.setHarUtenlandsopphold(false))
       onStegvisningNext()
     }
   }

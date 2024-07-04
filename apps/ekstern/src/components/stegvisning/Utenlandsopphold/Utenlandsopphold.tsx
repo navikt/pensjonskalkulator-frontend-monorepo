@@ -203,7 +203,7 @@ export function Utenlandsopphold({
                         icon={<TrashIcon aria-hidden />}
                         onClick={() => {
                           dispatch(
-                            userInputActions.deleteCurrentSimulationUtenlandsperioder(
+                            userInputActions.deleteCurrentSimulationUtenlandsperiode(
                               utenlandsperiode.id
                             )
                           )

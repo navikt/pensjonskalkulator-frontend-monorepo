@@ -67,10 +67,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       ? parse(localUtenlandsperiode?.startdato, 'dd.MM.yyyy', new Date())
       : undefined,
     onDateChange: (value): void => {
-      if (value) {
-        const a = format(value, 'dd.MM.yyyy')
-        console.log('format: ', a)
-      }
       setLocalUtenlandsperiode((previous) => {
         return {
           ...previous,
@@ -92,10 +88,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       ? parse(localUtenlandsperiode?.sluttdato, 'dd.MM.yyyy', new Date())
       : undefined,
     onDateChange: (value): void => {
-      if (value) {
-        const a = format(value, 'dd.MM.yyyy')
-        console.log('format: ', a)
-      }
       setLocalUtenlandsperiode((previous) => {
         return {
           ...previous,
@@ -170,7 +162,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     const sluttdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.sluttdato)
 
     // if (validateOpphold(oppholdData, updateValidationErrorMessage)) {
-
     const updatedUtenlandsperiode = {
       id: utenlandsperiode?.id
         ? utenlandsperiode.id
@@ -182,11 +173,11 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     }
 
     dispatch(
-      userInputActions.setCurrentSimulationUtenlandsperioder({
+      userInputActions.setCurrentSimulationUtenlandsperiode({
         ...updatedUtenlandsperiode,
       })
     )
-    // TODO Push to Redux
+
     logger('button klikk', {
       tekst: utenlandsperiode
         ? `endrer utenlandsperiode`
@@ -355,7 +346,9 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
         <Modal.Footer>
           <Button form={UTENLANDSOPPHOLD_FORM_NAMES.form}>
             {intl.formatMessage({
-              id: 'utenlandsopphold.om_oppholdet_ditt_modal.button',
+              id: utenlandsperiode
+                ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater'
+                : 'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til',
             })}
           </Button>
           <Button type="button" variant="secondary" onClick={onCancel}>
