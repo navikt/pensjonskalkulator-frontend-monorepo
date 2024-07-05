@@ -26,6 +26,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { findRoutesWithoutLoaders } from '@/utils/veileder'
 
 import { VeilederInputRequestError } from './VeilederInputRequestError'
 
@@ -54,10 +55,6 @@ export const VeilederInput = () => {
     return queryParams.has('timeout')
   }, [])
 
-  const onTitleClick = () => {
-    window.location.href = `${BASE_PATH}/veileder`
-  }
-
   // Redirect etter 1 time
   React.useEffect(() => {
     if (hasTimedOut) return
@@ -71,11 +68,36 @@ export const VeilederInput = () => {
     return () => clearTimeout(timer)
   }, [])
 
+  const onTitleClick = () => {
+    window.location.href = `${BASE_PATH}/veileder`
+  }
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const nyFnr = event.currentTarget.veilederBorgerFnr.value
     dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
     dispatch(apiSlice.util.invalidateTags(['Person']))
+  }
+
+  const excludedPaths = findRoutesWithoutLoaders(routes)
+  const isExcludedPath = excludedPaths.some((path) =>
+    window.location.pathname.includes(`/veileder${path}`)
+  )
+
+  // Unntak for rutene som skal serveres uten å slå opp bruker
+  if (isExcludedPath) {
+    return (
+      <div>
+        <InternalHeader>
+          <InternalHeader.Title onClick={onTitleClick}>
+            Pensjonskalkulator
+          </InternalHeader.Title>
+          <Spacer />
+          <InternalHeader.User name={ansatt?.id ?? ''} />
+        </InternalHeader>
+        <RouterProvider router={router} />
+      </div>
+    )
   }
 
   if ((!personSuccess && !veilederBorgerFnr) || personError || personLoading) {
@@ -88,52 +110,47 @@ export const VeilederInput = () => {
         </InternalHeader>
 
         <FrameComponent>
-          <>
-            <Card>
-              <Heading level="2" size="medium" spacing>
-                Veiledertilgang
-              </Heading>
-              <VStack gap="4">
-                {hasTimedOut && (
-                  <Alert variant="warning" data-testid="inaktiv-alert">
-                    Du var for lenge inaktiv og sesjonen for bruker har derfor
-                    løpt ut.
-                    <br /> Logg inn på bruker på nytt.
-                  </Alert>
-                )}
-                <VeilederInputRequestError personError={personError} />
-                <BodyLong>
-                  Logg inn i pensjonskalkulator på vegne av bruker.
-                </BodyLong>
-                <form onSubmit={onSubmit} className={styles.form}>
-                  <VStack gap="2">
-                    <TextField
-                      data-testid="borger-fnr-input"
-                      label="Fødselsnummer"
-                      name="veilederBorgerFnr"
-                      description="11 siffer"
-                    ></TextField>
-                    <HStack gap="2">
-                      <Button
-                        type="submit"
-                        data-testid="veileder-submit"
-                        loading={personLoading}
-                      >
-                        Logg inn
-                      </Button>
-                      <Button
-                        type="reset"
-                        data-testid="veileder-reset"
-                        variant="tertiary"
-                      >
-                        Avbryt
-                      </Button>
-                    </HStack>
-                  </VStack>
-                </form>
-              </VStack>
-            </Card>
-          </>
+          <Card hasMargin>
+            <Heading level="2" size="medium" spacing>
+              Veiledertilgang
+            </Heading>
+            <VStack gap="6">
+              {hasTimedOut && (
+                <Alert variant="warning" data-testid="inaktiv-alert">
+                  Du var for lenge inaktiv og sesjonen for bruker har derfor
+                  løpt ut.
+                  <br /> Logg inn på bruker på nytt.
+                </Alert>
+              )}
+              <VeilederInputRequestError personError={personError} />
+              <BodyLong>
+                Logg inn i pensjonskalkulator på vegne av bruker.
+              </BodyLong>
+              <form onSubmit={onSubmit} className={styles.form}>
+                <VStack gap="6">
+                  <TextField
+                    data-testid="borger-fnr-input"
+                    label="Fødselsnummer"
+                    name="veilederBorgerFnr"
+                    description="11 siffer"
+                  ></TextField>
+                  <HStack gap="2">
+                    <Button
+                      type="submit"
+                      data-testid="veileder-submit"
+                      loading={personLoading}
+                    >
+                      Logg inn
+                    </Button>
+                  </HStack>
+                </VStack>
+              </form>
+              <BodyLong>
+                Denne pensjonskalkulatoren kan foreløpig kun brukes til
+                veiledning.
+              </BodyLong>
+            </VStack>
+          </Card>
         </FrameComponent>
       </div>
     )

@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client'
 import { LanguageProvider } from '@/context/LanguageProvider'
 import { initializeLogs } from '@/faro'
 
-import { VeilederInput } from './pages/VeilederInput/VeilederInput.js'
+import { VeilederInput } from './pages/VeilederInput/VeilederInput'
 import { store } from './state/store'
 
 import './scss/designsystem.scss'
