@@ -18,6 +18,9 @@ export const externalUrls = {
   kontaktOss: 'https://www.nav.no/kontaktoss',
   planleggePensjon:
     'https://www.nav.no/planlegger-pensjon#noe-du-ikke-finner-svaret-p-her',
+  trygdetid:
+    'https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden',
+  kortBotid: 'https://www.nav.no/alderspensjon#kort-botid',
 }
 
 export const paths = {

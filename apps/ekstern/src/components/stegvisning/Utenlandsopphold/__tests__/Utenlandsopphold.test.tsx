@@ -29,9 +29,7 @@ describe('stegvisning - Utenlandsopphold', () => {
       screen.getByText('stegvisning.utenlandsopphold.readmore_1.title')
     ).toBeVisible()
     expect(
-      screen.getByText(
-        'stegvisning.utenlandsopphold.readmore_konsekvenser.title'
-      )
+      screen.getByText('stegvisning.utenlandsopphold.readmore_2.title')
     ).toBeVisible()
     const radioButtons = screen.getAllByRole('radio')
 

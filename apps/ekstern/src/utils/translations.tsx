@@ -193,6 +193,36 @@ export const getFormatMessageValues = (
         />
       </Link>
     ),
+    trygdetidLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.trygdetid}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
+    kortBotidLink: (chunks: string) => (
+      <Link
+        onClick={logOpenLink}
+        href={externalUrls.kortBotid}
+        target="_blank"
+        inlineText
+      >
+        {chunks}
+        <ExternalLinkIcon
+          title={intl.formatMessage({ id: 'application.global.external_link' })}
+          width="1.25rem"
+          height="1.25rem"
+        />
+      </Link>
+    ),
     br: <br />,
     strong: (chunks: string) => <strong>{chunks}</strong>,
     nowrap: (chunks: string) => <span className="nowrap">{chunks}</span>,

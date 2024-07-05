@@ -93,12 +93,32 @@ const translations = {
   'stegvisning.utenlandsopphold.ingress':
     'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.',
   'stegvisning.utenlandsopphold.readmore_1.title':
-    'Om hva som er opphold utenfor Norge',
-  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
-    'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.readmore_konsekvenser.title':
-    'Om konsekvenser av opphold i utlandet',
-  'stegvisning.utenlandsopphold.readmore_konsekvenser.ingress': 'MANGLER_TEKST',
+    'Hva som er opphold utenfor Norge',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.subtitle':
+    'Som hovedregel er dette opphold utenfor Norge:',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item1':
+    'Opphold i mer enn 12 måneder.',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item2':
+    'Opphold med jobb for utenlandsk arbeidsgiver uansett varighet.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle':
+    'Som hovedregel er dette ikke opphold utenfor Norge:',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1': 'Ferier',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2':
+    'Opphold uten jobb på under 12 måneder.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3':
+    'Studier på under 12 måneder eller med støtte fra Lånekassen.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4':
+    'Ansatt for norsk arbeidsgiver avhengig av hvilket land du jobber i.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5':
+    'Ansatt i Forsvarets tjeneste.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6':
+    'Norsk statsborger og arbeidstaker på et norskregistrert skip eller i et norsk sivilt luftfartsselskap.',
+  'stegvisning.utenlandsopphold.readmore_1.ingress':
+    'Listene er ikke uttømmende. Er du usikker på hva som gjelder for deg, se <trygdetidLink>nav.no</trygdetidLink>.',
+  'stegvisning.utenlandsopphold.readmore_2.title':
+    'Betydning av opphold utenfor Norge for pensjon',
+  'stegvisning.utenlandsopphold.readmore_2.ingress':
+    'Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års botid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. Årsaken til det er at du ikke når full trygdetid (40 år) i Norge. <kortBotidLink>Mer om kort botid i Norge</kortBotidLink>.{br}{br}Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.{br}{br}For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har bodd utenfor Norge. ',
   'stegvisning.utenlandsopphold.radio_label':
     'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?',
   'stegvisning.utenlandsopphold.radio_label.description':
