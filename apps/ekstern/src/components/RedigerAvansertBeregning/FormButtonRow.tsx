@@ -8,7 +8,7 @@ import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
 
-import { FORM_NAMES } from './utils'
+import { AVANSERT_FORM_NAMES } from './utils'
 
 import styles from './FormButtonRow.module.scss'
 
@@ -26,7 +26,7 @@ export const FormButtonRow: React.FC<{
       <hr className={styles.separator} />
       <div>
         <Button
-          form={FORM_NAMES.form}
+          form={AVANSERT_FORM_NAMES.form}
           className={`${styles.button} ${styles.buttonSubmit}`}
         >
           {intl.formatMessage({
