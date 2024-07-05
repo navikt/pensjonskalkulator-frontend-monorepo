@@ -884,10 +884,10 @@ describe('Simulering', () => {
 
     describe('Gitt at brukeren ikke har noe tp-medlemskap', () => {
       beforeEach(() => {
-        mockResponse('/tpo-medlemskap', {
+        mockResponse('/v1/tpo-medlemskap', {
           status: 200,
           json: {
-            harTjenestepensjonsforhold: false,
+            tpLeverandoerListe: [],
           },
         })
       })
@@ -1012,7 +1012,7 @@ describe('Simulering', () => {
 
     describe('Gitt at kall til tp-medlemskap feiler', () => {
       beforeEach(() => {
-        mockErrorResponse('/tpo-medlemskap')
+        mockErrorResponse('/v1/tpo-medlemskap')
       })
 
       it('Når pensjonsavtaler hentes, vises det riktig feilmelding for tp-ordninger', async () => {
