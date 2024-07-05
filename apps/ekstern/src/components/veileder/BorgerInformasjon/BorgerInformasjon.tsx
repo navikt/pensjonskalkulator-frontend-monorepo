@@ -37,7 +37,7 @@ export const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({
       borderColor="border-divider"
     >
       <HStack align="center" gap="2" className={styles.wrapper} style={{}}>
-        <BodyLong size="small" weight="semibold">
+        <BodyLong weight="semibold">
           {isPersonFetching ? <Loader /> : person?.navn}
         </BodyLong>
         <span aria-hidden="true">/</span>
