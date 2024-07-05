@@ -37,10 +37,12 @@ export const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({
       borderColor="border-divider"
     >
       <HStack align="center" gap="2" className={styles.wrapper} style={{}}>
-        <BodyLong>{isPersonFetching ? <Loader /> : person?.navn}</BodyLong>
+        <BodyLong size="small" weight="semibold">
+          {isPersonFetching ? <Loader /> : person?.navn}
+        </BodyLong>
         <span aria-hidden="true">/</span>
         <HStack align="center" gap="1">
-          <BodyShort data-testid="borger-fnr">
+          <BodyShort data-testid="borger-fnr" size="small" weight="semibold">
             F.nr.: {formatFnr(fnr)}
           </BodyShort>
           <CopyButton size="small" copyText={fnr} />
