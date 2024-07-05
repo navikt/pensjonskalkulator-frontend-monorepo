@@ -5,6 +5,8 @@ import {
   CopyButton,
   Spacer,
   Button,
+  BodyShort,
+  BodyLong,
 } from '@navikt/ds-react'
 
 import { BASE_PATH } from '@/router/constants'
@@ -14,6 +16,9 @@ import styles from './BorgerInformasjon.module.scss'
 
 interface IBorgerInformasjonProps {
   fnr: string
+}
+const formatFnr = (fnr: string) => {
+  return `${fnr.slice(0, 6)} ${fnr.slice(6)}`
 }
 
 export const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({
@@ -28,14 +33,18 @@ export const BorgerInformasjon: React.FC<IBorgerInformasjonProps> = ({
   return (
     <Box
       background="bg-default"
-      borderWidth="0 0 2 0"
+      borderWidth="0 0 1 0"
       borderColor="border-divider"
     >
       <HStack align="center" gap="2" className={styles.wrapper} style={{}}>
-        {isPersonFetching ? <Loader /> : person?.navn}
+        <BodyLong weight="semibold">
+          {isPersonFetching ? <Loader /> : person?.navn}
+        </BodyLong>
         <span aria-hidden="true">/</span>
         <HStack align="center" gap="1">
-          <div data-testid="borger-fnr">F.nr.: {fnr}</div>
+          <BodyShort data-testid="borger-fnr" size="small" weight="semibold">
+            F.nr.: {formatFnr(fnr)}
+          </BodyShort>
           <CopyButton size="small" copyText={fnr} />
         </HStack>
         <Spacer />

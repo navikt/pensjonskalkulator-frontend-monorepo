@@ -87,7 +87,6 @@ jobs:
     outputs:
       image: ${{ steps.image-creation.outputs.image }}
 
-
   run-unit-tests:
     name: Run unit tests
     runs-on: ubuntu-latest

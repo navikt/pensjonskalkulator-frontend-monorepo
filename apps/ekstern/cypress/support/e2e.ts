@@ -131,7 +131,7 @@ beforeEach(() => {
   ).as('getInntekt')
 
   cy.intercept(
-    { method: 'GET', url: '/pensjon/kalkulator/api/tpo-medlemskap' },
+    { method: 'GET', url: '/pensjon/kalkulator/api/v1/tpo-medlemskap' },
     { fixture: 'tpo-medlemskap.json' }
   ).as('getTpoMedlemskap')
 

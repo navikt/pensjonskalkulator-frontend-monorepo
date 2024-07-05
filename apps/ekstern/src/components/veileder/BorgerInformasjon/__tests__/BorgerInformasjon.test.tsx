@@ -13,7 +13,7 @@ describe('veileder - BorgerInformasjon', async () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('borger-fnr')).toHaveTextContent(
-        'F.nr.: 12345678901'
+        'F.nr.: 123456 78901'
       )
     })
     expect(result.asFragment()).toMatchSnapshot()
