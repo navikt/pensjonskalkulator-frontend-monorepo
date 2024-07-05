@@ -65,8 +65,7 @@ const translations = {
   'stegvisning.utenlandsopphold_med_henvisning.radio_label': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.ingress': 'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title':
-    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.readmore_konsekvenser.title': 'MANGLER_TEKST',

@@ -92,7 +92,7 @@ const translations = {
   'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
   'stegvisning.utenlandsopphold.ingress':
     'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.',
-  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title':
+  'stegvisning.utenlandsopphold.readmore_1.title':
     'Om hva som er opphold utenfor Norge',
   'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
     'MANGLER_TEKST',

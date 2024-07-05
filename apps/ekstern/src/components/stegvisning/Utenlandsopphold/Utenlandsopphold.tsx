@@ -103,10 +103,39 @@ export function Utenlandsopphold({
         name="Om hva som er opphold utenfor Norge"
         className={styles.readmore1}
         header={
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title" />
+          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.title" />
         }
       >
-        <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress" />
+        <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle" />
+        <ul>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item1" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item2" />
+          </li>
+        </ul>
+        <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle" />
+        <ul>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6" />
+          </li>
+        </ul>
       </ReadMore>
       <ReadMore
         name="Om konsekvenser av opphold i utlandet"
@@ -218,7 +247,6 @@ export function Utenlandsopphold({
                 )
               })}
           </dl>
-
           <Button
             type="button"
             variant="secondary"

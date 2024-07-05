@@ -46,7 +46,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           />
         </svg>
         <span>
-          stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title
+          stegvisning.utenlandsopphold.readmore_1.title
         </span>
       </button>
       <div
