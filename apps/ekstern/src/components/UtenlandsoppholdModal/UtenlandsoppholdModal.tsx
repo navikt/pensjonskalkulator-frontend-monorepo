@@ -15,7 +15,7 @@ import { add, sub, parse, format } from 'date-fns'
 
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { DATE_BACKEND_FORMAT } from '@/utils/dates'
+import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -60,13 +60,13 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       years: 20,
     }),
     defaultSelected: localUtenlandsperiode?.startdato
-      ? parse(localUtenlandsperiode?.startdato, DATE_BACKEND_FORMAT, new Date())
+      ? parse(localUtenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
       : undefined,
     onDateChange: (value): void => {
       setLocalUtenlandsperiode((previous) => {
         return {
           ...previous,
-          startdato: value ? format(value, DATE_BACKEND_FORMAT) : undefined,
+          startdato: value ? format(value, DATE_ENDUSER_FORMAT) : undefined,
         }
       })
     },
@@ -81,13 +81,13 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       years: 20,
     }),
     defaultSelected: localUtenlandsperiode?.sluttdato
-      ? parse(localUtenlandsperiode?.sluttdato, DATE_BACKEND_FORMAT, new Date())
+      ? parse(localUtenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
       : undefined,
     onDateChange: (value): void => {
       setLocalUtenlandsperiode((previous) => {
         return {
           ...previous,
-          sluttdato: value ? format(value, DATE_BACKEND_FORMAT) : undefined,
+          sluttdato: value ? format(value, DATE_ENDUSER_FORMAT) : undefined,
         }
       })
     },
@@ -98,12 +98,12 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     setLocalUtenlandsperiode({ ...utenlandsperiode })
     if (utenlandsperiode?.startdato) {
       datepickerStartdato.setSelected(
-        parse(utenlandsperiode?.startdato, DATE_BACKEND_FORMAT, new Date())
+        parse(utenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
       )
     }
     if (utenlandsperiode?.sluttdato) {
       datepickerSluttdato.setSelected(
-        parse(utenlandsperiode?.sluttdato, DATE_BACKEND_FORMAT, new Date())
+        parse(utenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
       )
     }
   }, [utenlandsperiode])
@@ -158,6 +158,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     const sluttdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.sluttdato)
 
     // if (validateOpphold(oppholdData, updateValidationErrorMessage)) {
+
     const updatedUtenlandsperiode = {
       id: utenlandsperiode?.id
         ? utenlandsperiode.id

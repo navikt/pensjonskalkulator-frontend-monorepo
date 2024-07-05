@@ -1,6 +1,7 @@
 import { checkHarSamboer } from '@/utils/sivilstand'
 import { formatInntektToNumber } from '@/utils/inntekt'
-import { format, parseISO } from 'date-fns'
+import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { parse, format, parseISO } from 'date-fns'
 
 export const getAfpSimuleringstypeFromRadio = (
   afp: AfpRadio | null
@@ -15,7 +16,6 @@ export const getAfpSimuleringstypeFromRadio = (
   }
 }
 
-// TODO skrive tester
 export const transformUtenlandsperioderArray = (
   utenlandsperioder: Utenlandsperiode[]
 ) => {
@@ -23,8 +23,24 @@ export const transformUtenlandsperioderArray = (
     ? utenlandsperioder.map((utenlandsperiode) => ({
         land: utenlandsperiode.land,
         arbeidetUtenlands: !!utenlandsperiode.arbeidetUtenlands,
-        fom: utenlandsperiode.startdato,
-        tom: utenlandsperiode.sluttdato ?? undefined,
+        fom: format(
+          parse(
+            utenlandsperiode.startdato as string,
+            DATE_ENDUSER_FORMAT,
+            new Date()
+          ),
+          'yyyy-MM-dd'
+        ),
+        tom: utenlandsperiode.sluttdato
+          ? format(
+              parse(
+                utenlandsperiode.sluttdato as string,
+                DATE_ENDUSER_FORMAT,
+                new Date()
+              ),
+              'yyyy-MM-dd'
+            )
+          : undefined,
       }))
     : []
 }

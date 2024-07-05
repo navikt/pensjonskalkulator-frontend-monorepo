@@ -69,7 +69,11 @@ export const fulfilledGetTpoMedlemskap = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      harTjenestepensjonsforhold: 'true',
+      tpLeverandoerListe: [
+        'Statens pensjonskasse',
+        'Kommunal Landspensjonskasse',
+        'Oslo Pensjonsforsikring',
+      ],
     },
     fulfilledTimeStamp: 1688046412103,
   },

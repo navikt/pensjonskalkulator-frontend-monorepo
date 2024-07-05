@@ -12,8 +12,8 @@ describe('apiSlice - utils', () => {
     id: '12345',
     land: 'Kina',
     arbeidetUtenlands: null,
-    startdato: '2018-01-01',
-    sluttdato: '2021-01-28',
+    startdato: '01.01.2018',
+    sluttdato: '28.01.2018',
   }
 
   describe('getAfpSimuleringstypeFromRadio', () => {
@@ -42,7 +42,7 @@ describe('apiSlice - utils', () => {
           land: 'Kina',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
-          tom: '2021-01-28',
+          tom: '2018-01-28',
         },
       ])
       expect(
@@ -52,7 +52,7 @@ describe('apiSlice - utils', () => {
             id: '98765',
             land: 'Belgia',
             arbeidetUtenlands: true,
-            startdato: '2005-02-07',
+            startdato: '07.02.2005',
           },
         ])
       ).toStrictEqual([
@@ -60,7 +60,7 @@ describe('apiSlice - utils', () => {
           land: 'Kina',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
-          tom: '2021-01-28',
+          tom: '2018-01-28',
         },
         {
           land: 'Belgia',
@@ -194,7 +194,7 @@ describe('apiSlice - utils', () => {
           land: 'Kina',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
-          tom: '2021-01-28',
+          tom: '2018-01-28',
         },
       ])
     })
@@ -356,7 +356,7 @@ describe('apiSlice - utils', () => {
           land: 'Kina',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
-          tom: '2021-01-28',
+          tom: '2018-01-28',
         },
       ])
     })
@@ -523,7 +523,7 @@ describe('apiSlice - utils', () => {
           land: 'Kina',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
-          tom: '2021-01-28',
+          tom: '2018-01-28',
         },
       ])
     })

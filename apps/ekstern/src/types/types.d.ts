@@ -48,7 +48,8 @@ declare global {
     void,
     BaseQueryFn<Record<string, unknown>, TpoMedlemskap>
   >
-  type TpoMedlemskap = components['schemas']['TjenestepensjonsforholdDto']
+  type TpoMedlemskap =
+    components['schemas']['MedlemskapITjenestepensjonsordningDto']
 
   // /tidligste-uttaksalder
   type TidligstMuligHeltUttakRequestBody =
