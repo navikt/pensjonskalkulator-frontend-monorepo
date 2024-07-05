@@ -196,6 +196,9 @@ export function Utenlandsopphold({
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
         </Radio>
       </RadioGroup>
+      {
+        //  TODO skrive tester for å dekke visning av utenlandsperioder
+      }
       {showUtenlandsperioder && (
         <section className={styles.section}>
           <Heading size="small" level="3">
@@ -269,6 +272,9 @@ export function Utenlandsopphold({
                 )
               })}
           </dl>
+          {
+            //  TODO skrive tester for å dekke åpning av Modal
+          }
           <Button
             type="button"
             variant="secondary"
