@@ -6,8 +6,8 @@ import { Simulation } from '@/state/userInput/userInputReducer'
 import { formatInntekt } from '@/utils/inntekt'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
-export const selectUtenlandsopphold = (state: RootState): boolean | null =>
-  state.userInput.utenlandsopphold
+export const selectHarUtenlandsopphold = (state: RootState): boolean | null =>
+  state.userInput.harUtenlandsopphold
 
 export const selectSamtykke = (state: RootState): boolean | null =>
   state.userInput.samtykke
@@ -84,6 +84,10 @@ export const selectAarligInntektFoerUttakBeloep = (
   }
   return aarligInntektFoerUttakBeloepFraBrukerInput
 }
+
+export const selectCurrentSimulationUtenlandsperioder = (
+  state: RootState
+): Utenlandsperiode[] => state.userInput.currentSimulation.utenlandsperioder
 
 export const selectFormatertUttaksalderReadOnly = (
   state: RootState

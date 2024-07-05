@@ -47,6 +47,7 @@ describe('SavnerDuNoe', () => {
         userInput: {
           ...userInputInitialState,
           currentSimulation: {
+            utenlandsperioder: [],
             formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
             uttaksalder: { aar: 67, maaneder: 1 },
             aarligInntektFoerUttakBeloep: '0',
@@ -59,6 +60,7 @@ describe('SavnerDuNoe', () => {
     await user.click(screen.getByText('savnerdunoe.button'))
     expect(navigateMock).toHaveBeenCalledWith(paths.beregningAvansert)
     expect(store.getState().userInput.currentSimulation).toStrictEqual({
+      utenlandsperioder: [],
       aarligInntektFoerUttakBeloep: null,
       formatertUttaksalderReadOnly: null,
       gradertUttaksperiode: null,

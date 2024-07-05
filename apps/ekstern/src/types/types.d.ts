@@ -82,11 +82,12 @@ declare global {
     sluttAlder: Alder
   }
 
-  type Opphold = {
+  type Utenlandsperiode = {
+    id: string
     land: string
-    harJobbet: boolean | null
-    startdato: Date
-    sluttdato: Date
+    arbeidetUtenlands: boolean | null
+    startdato: string
+    sluttdato?: string
   }
 
   type HeltUttak = Omit<

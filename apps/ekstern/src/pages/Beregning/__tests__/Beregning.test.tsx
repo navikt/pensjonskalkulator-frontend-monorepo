@@ -3,7 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
-import { FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
+import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
@@ -30,6 +30,7 @@ describe('Beregning', () => {
             ...userInputInitialState,
             samtykke: true,
             currentSimulation: {
+              utenlandsperioder: [],
               formatertUttaksalderReadOnly:
                 '70 alder.aar string.og 4 alder.maaned',
               uttaksalder: { aar: 70, maaneder: 4 },
@@ -59,7 +60,7 @@ describe('Beregning', () => {
 
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '67' },
@@ -90,7 +91,7 @@ describe('Beregning', () => {
 
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '67' },
@@ -98,7 +99,7 @@ describe('Beregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '0' },
@@ -210,6 +211,7 @@ describe('Beregning', () => {
               ...userInputInitialState,
               samtykke: true,
               currentSimulation: {
+                utenlandsperioder: [],
                 formatertUttaksalderReadOnly:
                   '70 alder.aar string.og 4 alder.maaned',
                 uttaksalder: { aar: 70, maaneder: 4 },
@@ -239,7 +241,7 @@ describe('Beregning', () => {
 
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '67' },
@@ -263,7 +265,7 @@ describe('Beregning', () => {
 
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '67' },
@@ -271,7 +273,7 @@ describe('Beregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '0' },

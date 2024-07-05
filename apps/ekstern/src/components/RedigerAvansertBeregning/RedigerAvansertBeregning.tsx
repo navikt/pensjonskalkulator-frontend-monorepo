@@ -38,7 +38,7 @@ import { getFormatMessageValues } from '@/utils/translations'
 import { FormButtonRow } from './FormButtonRow'
 import { useFormLocalState, useFormValidationErrors } from './hooks'
 import { ReadMoreOmPensjonsalder } from './ReadMoreOmPensjonsalder'
-import { FORM_NAMES, onAvansertBeregningSubmit } from './utils'
+import { AVANSERT_FORM_NAMES, onAvansertBeregningSubmit } from './utils'
 
 import styles from './RedigerAvansertBeregning.module.scss'
 
@@ -168,10 +168,10 @@ export const RedigerAvansertBeregning: React.FC<{
     setValidationErrors((prevState) => {
       return {
         ...prevState,
-        [FORM_NAMES.uttaksgrad]: '',
-        [FORM_NAMES.uttaksalderGradertUttak]: '',
-        [FORM_NAMES.inntektVsaGradertUttakRadio]: '',
-        [FORM_NAMES.inntektVsaGradertUttak]: '',
+        [AVANSERT_FORM_NAMES.uttaksgrad]: '',
+        [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: '',
+        [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
+        [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
       }
     })
     const avansertBeregningFormatertUttaksgradAsNumber = parseInt(
@@ -226,9 +226,9 @@ export const RedigerAvansertBeregning: React.FC<{
   const handleInntektVsaHeltUttakRadioChange = (s: BooleanRadio) => {
     setLocalHarInntektVsaHeltUttakRadio(s === 'ja' ? true : false)
     setValidationErrors({
-      [FORM_NAMES.inntektVsaHeltUttakRadio]: '',
-      [FORM_NAMES.inntektVsaHeltUttak]: '',
-      [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: '',
+      [AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio]: '',
+      [AVANSERT_FORM_NAMES.inntektVsaHeltUttak]: '',
+      [AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder]: '',
     })
     if (s === 'nei') {
       setLocalHeltUttak((previous) => {
@@ -243,8 +243,8 @@ export const RedigerAvansertBeregning: React.FC<{
   const handleInntektVsaGradertUttakRadioChange = (s: BooleanRadio) => {
     setLocalHarInntektVsaGradertUttakRadio(s === 'ja' ? true : false)
     setValidationErrors({
-      [FORM_NAMES.inntektVsaGradertUttakRadio]: '',
-      [FORM_NAMES.inntektVsaGradertUttak]: '',
+      [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]: '',
+      [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: '',
     })
     if (s === 'nei') {
       setLocalGradertUttak((previous) => {
@@ -321,7 +321,7 @@ export const RedigerAvansertBeregning: React.FC<{
     >
       <div className={styles.form}>
         <form
-          id={FORM_NAMES.form}
+          id={AVANSERT_FORM_NAMES.form}
           method="dialog"
           onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
@@ -390,8 +390,8 @@ export const RedigerAvansertBeregning: React.FC<{
         <div>
           {localGradertUttak?.grad && localGradertUttak?.grad !== 100 ? (
             <AgePicker
-              form={FORM_NAMES.form}
-              name={FORM_NAMES.uttaksalderGradertUttak}
+              form={AVANSERT_FORM_NAMES.form}
+              name={AVANSERT_FORM_NAMES.uttaksalderGradertUttak}
               label={<FormattedMessage id="velguttaksalder.title" />}
               value={localGradertUttak?.uttaksalder}
               onChange={handleGradertUttaksalderChange}
@@ -402,8 +402,8 @@ export const RedigerAvansertBeregning: React.FC<{
             />
           ) : (
             <AgePicker
-              form={FORM_NAMES.form}
-              name={FORM_NAMES.uttaksalderHeltUttak}
+              form={AVANSERT_FORM_NAMES.form}
+              name={AVANSERT_FORM_NAMES.uttaksalderHeltUttak}
               label={<FormattedMessage id="velguttaksalder.title" />}
               value={localHeltUttak?.uttaksalder}
               onChange={handleHeltUttaksalderChange}
@@ -418,9 +418,9 @@ export const RedigerAvansertBeregning: React.FC<{
         </div>
         <div>
           <Select
-            form={FORM_NAMES.form}
-            name={FORM_NAMES.uttaksgrad}
-            data-testid={FORM_NAMES.uttaksgrad}
+            form={AVANSERT_FORM_NAMES.form}
+            name={AVANSERT_FORM_NAMES.uttaksgrad}
+            data-testid={AVANSERT_FORM_NAMES.uttaksgrad}
             className={styles.select}
             label={intl.formatMessage({
               id: 'beregning.avansert.rediger.uttaksgrad.label',
@@ -431,10 +431,10 @@ export const RedigerAvansertBeregning: React.FC<{
             value={localGradertUttak?.grad ? `${localGradertUttak.grad} %` : ''}
             onChange={handleUttaksgradChange}
             error={
-              validationErrors[FORM_NAMES.uttaksgrad]
+              validationErrors[AVANSERT_FORM_NAMES.uttaksgrad]
                 ? intl.formatMessage(
                     {
-                      id: validationErrors[FORM_NAMES.uttaksgrad],
+                      id: validationErrors[AVANSERT_FORM_NAMES.uttaksgrad],
                     },
                     {
                       ...getFormatMessageValues(intl),
@@ -504,8 +504,8 @@ export const RedigerAvansertBeregning: React.FC<{
                       }
                     />
                   }
-                  name={FORM_NAMES.inntektVsaGradertUttakRadio}
-                  data-testid={FORM_NAMES.inntektVsaGradertUttakRadio}
+                  name={AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}
+                  data-testid={AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}
                   value={
                     localHarInntektVsaGradertUttakRadio === null
                       ? null
@@ -515,11 +515,13 @@ export const RedigerAvansertBeregning: React.FC<{
                   }
                   onChange={handleInntektVsaGradertUttakRadioChange}
                   error={
-                    validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
+                    validationErrors[
+                      AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio
+                    ]
                       ? intl.formatMessage(
                           {
                             id: validationErrors[
-                              FORM_NAMES.inntektVsaGradertUttakRadio
+                              AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio
                             ],
                           },
                           {
@@ -533,18 +535,20 @@ export const RedigerAvansertBeregning: React.FC<{
                   aria-required="true"
                 >
                   <Radio
-                    form={FORM_NAMES.form}
-                    data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`}
+                    form={AVANSERT_FORM_NAMES.form}
+                    data-testid={`${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`}
                     value="ja"
                     aria-invalid={
-                      !!validationErrors[FORM_NAMES.inntektVsaGradertUttakRadio]
+                      !!validationErrors[
+                        AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio
+                      ]
                     }
                   >
                     <FormattedMessage id="stegvisning.radio_ja" />
                   </Radio>
                   <Radio
-                    form={FORM_NAMES.form}
-                    data-testid={`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`}
+                    form={AVANSERT_FORM_NAMES.form}
+                    data-testid={`${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-nei`}
                     value="nei"
                   >
                     <FormattedMessage id="stegvisning.radio_nei" />
@@ -575,9 +579,9 @@ export const RedigerAvansertBeregning: React.FC<{
                 <div>
                   <TextField
                     ref={inntektVsaGradertUttakInputRef}
-                    form={FORM_NAMES.form}
-                    name={FORM_NAMES.inntektVsaGradertUttak}
-                    data-testid={FORM_NAMES.inntektVsaGradertUttak}
+                    form={AVANSERT_FORM_NAMES.form}
+                    name={AVANSERT_FORM_NAMES.inntektVsaGradertUttak}
+                    data-testid={AVANSERT_FORM_NAMES.inntektVsaGradertUttak}
                     type="text"
                     inputMode="numeric"
                     className={styles.textfield}
@@ -594,11 +598,13 @@ export const RedigerAvansertBeregning: React.FC<{
                       id: 'inntekt.endre_inntekt_modal.textfield.description',
                     })}
                     error={
-                      validationErrors[FORM_NAMES.inntektVsaGradertUttak]
+                      validationErrors[
+                        AVANSERT_FORM_NAMES.inntektVsaGradertUttak
+                      ]
                         ? intl.formatMessage(
                             {
                               id: validationErrors[
-                                FORM_NAMES.inntektVsaGradertUttak
+                                AVANSERT_FORM_NAMES.inntektVsaGradertUttak
                               ],
                             },
                             {
@@ -618,8 +624,8 @@ export const RedigerAvansertBeregning: React.FC<{
               <Divider noMargin />
               <div>
                 <AgePicker
-                  form={FORM_NAMES.form}
-                  name={FORM_NAMES.uttaksalderHeltUttak}
+                  form={AVANSERT_FORM_NAMES.form}
+                  name={AVANSERT_FORM_NAMES.uttaksalderHeltUttak}
                   label={
                     <FormattedMessage
                       id="beregning.avansert.rediger.heltuttak.agepicker.label"
@@ -653,8 +659,8 @@ export const RedigerAvansertBeregning: React.FC<{
                 description={
                   <FormattedMessage id="beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description" />
                 }
-                name={FORM_NAMES.inntektVsaHeltUttakRadio}
-                data-testid={FORM_NAMES.inntektVsaHeltUttakRadio}
+                name={AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}
+                data-testid={AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}
                 value={
                   localHarInntektVsaHeltUttakRadio === null
                     ? null
@@ -664,11 +670,11 @@ export const RedigerAvansertBeregning: React.FC<{
                 }
                 onChange={handleInntektVsaHeltUttakRadioChange}
                 error={
-                  validationErrors[FORM_NAMES.inntektVsaHeltUttakRadio]
+                  validationErrors[AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio]
                     ? intl.formatMessage(
                         {
                           id: validationErrors[
-                            FORM_NAMES.inntektVsaHeltUttakRadio
+                            AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio
                           ],
                         },
                         { ...getFormatMessageValues(intl) }
@@ -679,18 +685,20 @@ export const RedigerAvansertBeregning: React.FC<{
                 aria-required="true"
               >
                 <Radio
-                  form={FORM_NAMES.form}
-                  data-testid={`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`}
+                  form={AVANSERT_FORM_NAMES.form}
+                  data-testid={`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`}
                   value="ja"
                   aria-invalid={
-                    !!validationErrors[FORM_NAMES.inntektVsaHeltUttakRadio]
+                    !!validationErrors[
+                      AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio
+                    ]
                   }
                 >
                   <FormattedMessage id="stegvisning.radio_ja" />
                 </Radio>
                 <Radio
-                  form={FORM_NAMES.form}
-                  data-testid={`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`}
+                  form={AVANSERT_FORM_NAMES.form}
+                  data-testid={`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`}
                   value="nei"
                 >
                   <FormattedMessage id="stegvisning.radio_nei" />
@@ -706,9 +714,9 @@ export const RedigerAvansertBeregning: React.FC<{
               <div>
                 <TextField
                   ref={inntektVsaHeltUttakInputRef}
-                  form={FORM_NAMES.form}
-                  name={FORM_NAMES.inntektVsaHeltUttak}
-                  data-testid={FORM_NAMES.inntektVsaHeltUttak}
+                  form={AVANSERT_FORM_NAMES.form}
+                  name={AVANSERT_FORM_NAMES.inntektVsaHeltUttak}
+                  data-testid={AVANSERT_FORM_NAMES.inntektVsaHeltUttak}
                   type="text"
                   inputMode="numeric"
                   className={styles.textfield}
@@ -722,11 +730,11 @@ export const RedigerAvansertBeregning: React.FC<{
                     id: 'inntekt.endre_inntekt_vsa_pensjon_modal.textfield.description',
                   })}
                   error={
-                    validationErrors[FORM_NAMES.inntektVsaHeltUttak]
+                    validationErrors[AVANSERT_FORM_NAMES.inntektVsaHeltUttak]
                       ? intl.formatMessage(
                           {
                             id: validationErrors[
-                              FORM_NAMES.inntektVsaHeltUttak
+                              AVANSERT_FORM_NAMES.inntektVsaHeltUttak
                             ],
                           },
                           { ...getFormatMessageValues(intl) }
@@ -741,8 +749,8 @@ export const RedigerAvansertBeregning: React.FC<{
               </div>
               <div>
                 <AgePicker
-                  form={FORM_NAMES.form}
-                  name={FORM_NAMES.inntektVsaHeltUttakSluttAlder}
+                  form={AVANSERT_FORM_NAMES.form}
+                  name={AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}
                   label={intl.formatMessage({
                     id: 'inntekt.endre_inntekt_vsa_pensjon_modal.agepicker.label',
                   })}
@@ -751,10 +759,12 @@ export const RedigerAvansertBeregning: React.FC<{
                   maxAlder={DEFAULT_MAX_OPPTJENINGSALDER}
                   onChange={handleInntektVsaHeltUttakSluttAlderChange}
                   error={
-                    validationErrors[FORM_NAMES.inntektVsaHeltUttakSluttAlder]
+                    validationErrors[
+                      AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder
+                    ]
                       ? `${intl.formatMessage({
                           id: validationErrors[
-                            FORM_NAMES.inntektVsaHeltUttakSluttAlder
+                            AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder
                           ],
                         })}.`
                       : ''

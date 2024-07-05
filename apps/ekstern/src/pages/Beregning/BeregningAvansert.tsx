@@ -51,8 +51,12 @@ export const BeregningAvansert: React.FC = () => {
   )
   const { data: person } = useGetPersonQuery()
 
-  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
-    useAppSelector(selectCurrentSimulation)
+  const {
+    uttaksalder,
+    aarligInntektVsaHelPensjon,
+    gradertUttaksperiode,
+    utenlandsperioder,
+  } = useAppSelector(selectCurrentSimulation)
 
   const [alderspensjonRequestBody, setAlderspensjonRequestBody] =
     React.useState<AlderspensjonRequestBody | undefined>(undefined)
@@ -79,6 +83,7 @@ export const BeregningAvansert: React.FC = () => {
           uttaksalder,
           aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
+        utenlandsperioder,
       })
       setAlderspensjonRequestBody(requestBody)
     }

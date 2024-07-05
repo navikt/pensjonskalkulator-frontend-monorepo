@@ -15,6 +15,7 @@ import { render, screen, userEvent } from '@/test-utils'
 
 describe('Pensjonsavtaler', () => {
   const currentSimulation: Simulation = {
+    utenlandsperioder: [],
     formatertUttaksalderReadOnly: '67 år string.og 1 alder.maaned',
     uttaksalder: { aar: 70, maaneder: 0 },
     aarligInntektVsaHelPensjon: {

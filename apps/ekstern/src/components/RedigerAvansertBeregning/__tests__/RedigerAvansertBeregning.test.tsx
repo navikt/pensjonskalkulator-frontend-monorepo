@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { RedigerAvansertBeregning } from '../RedigerAvansertBeregning'
-import { FORM_NAMES } from '../utils'
+import { AVANSERT_FORM_NAMES } from '../utils'
 import * as RedigerAvansertBeregningUtils from '../utils'
 import { mockResponse } from '@/mocks/server'
 import {
@@ -64,73 +64,91 @@ describe('RedigerAvansertBeregning', () => {
       screen.getByText('beregning.avansert.rediger.uttaksgrad.label')
     ).toBeVisible()
     expect(
-      screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`)
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      )
     ).toBeVisible()
     expect(
       screen.getByText('beregning.read_more.pensjonsalder.label')
     ).toBeVisible()
     expect(
-      screen.queryByTestId(FORM_NAMES.inntektVsaHeltUttakRadio)
+      screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio)
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByTestId(FORM_NAMES.inntektVsaHeltUttak)
+      screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaHeltUttak)
     ).not.toBeInTheDocument()
     expect(
       screen.queryByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
       )
     ).not.toBeInTheDocument()
 
     // Fyller inn uttaksalder og grad slik at RadioGroup vises
     fireEvent.change(
-      screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      ),
       {
         target: { value: '65' },
       }
     )
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '5' },
       }
     )
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '100 %' },
-    })
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '100 %' },
+      }
+    )
 
     // Hukker av for inntekt vsa. helt uttak og viser felt for beløp og sluttalder
     const heltRadioGroup = screen.getByTestId(
-      FORM_NAMES.inntektVsaHeltUttakRadio
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio
     )
     expect(heltRadioGroup).toBeVisible()
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
-    expect(screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)).toBeVisible()
+    expect(
+      screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaHeltUttak)
+    ).toBeVisible()
     expect(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
       )
     ).toBeVisible()
 
     // Velger gradert uttak
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '80 %' },
-    })
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '80 %' },
+      }
+    )
     expect(
-      screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`)
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
+      )
     ).toBeVisible()
     expect(
-      screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttak)
+      screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak)
     ).not.toBeInTheDocument()
 
     // Hukker av for inntekt vsa. gradert uttak og viser felt for beløp
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+      screen.getByTestId(
+        `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`
+      )
     )
-    expect(screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak)).toBeVisible()
+    expect(
+      screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak)
+    ).toBeVisible()
   })
 
   it('readmore med tilleggsinformasjon til bruker vises riktig', async () => {
@@ -164,9 +182,12 @@ describe('RedigerAvansertBeregning', () => {
       })
     ).toBeVisible()
 
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '80 %' },
-    })
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '80 %' },
+      }
+    )
 
     user.click(screen.getByText('beregning.read_more.pensjonsalder.label'))
     expect(
@@ -211,7 +232,7 @@ describe('RedigerAvansertBeregning', () => {
     // Fyller ut feltene for 100 % uttak + inntekt vsa 100 % uttak
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '67' },
@@ -219,22 +240,27 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '2' },
       }
     )
     // Endrer uttaksgrad
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '60 %' },
-    })
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '60 %' },
+      }
+    )
 
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+      screen.getByTestId(
+        `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`
+      )
     )
     await user.type(
-      screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
+      screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak),
       '100000'
     )
 
@@ -242,7 +268,7 @@ describe('RedigerAvansertBeregning', () => {
     // Fyller ut feltene for helt uttak + inntekt vsa gradert uttak
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '70' },
@@ -250,7 +276,7 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '6' },
@@ -258,9 +284,11 @@ describe('RedigerAvansertBeregning', () => {
     )
 
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
-    const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+    const inputField = screen.getByTestId(
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+    )
     await user.type(inputField, '1')
     await user.type(inputField, '2')
     await user.type(inputField, '3')
@@ -270,13 +298,13 @@ describe('RedigerAvansertBeregning', () => {
 
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
       ),
       { target: { value: '75' } }
     )
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
       ),
       { target: { value: '0' } }
     )
@@ -288,35 +316,35 @@ describe('RedigerAvansertBeregning', () => {
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         )) as HTMLSelectElement
       ).value
     ).toBe('67')
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         )) as HTMLSelectElement
       ).value
     ).toBe('2')
     expect(
       (
         screen.queryByTestId(
-          FORM_NAMES.inntektVsaGradertUttak
+          AVANSERT_FORM_NAMES.inntektVsaGradertUttak
         ) as HTMLInputElement
       ).value
     ).toBe('100 000')
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         )) as HTMLSelectElement
       ).value
     ).toBe('70')
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         )) as HTMLSelectElement
       ).value
     ).toBe('6')
@@ -330,46 +358,46 @@ describe('RedigerAvansertBeregning', () => {
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         )) as HTMLSelectElement
       ).value
     ).toBe('')
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         )) as HTMLSelectElement
       ).value
     ).toBe('')
     expect(
-      screen.queryByTestId(FORM_NAMES.inntektVsaHeltUttakRadio)
+      screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio)
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByTestId(FORM_NAMES.inntektVsaHeltUttak)
+      screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaHeltUttak)
     ).not.toBeInTheDocument()
     expect(
       screen.queryByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
       )
     ).not.toBeInTheDocument()
     expect(
       screen.queryByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
       )
     ).not.toBeInTheDocument()
     expect(
       screen.queryByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
       )
     ).not.toBeInTheDocument()
     expect(
-      screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttak)
+      screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak)
     ).not.toBeInTheDocument()
 
     // Fyller uttaksalder igjen
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '70' },
@@ -377,26 +405,33 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '6' },
       }
     )
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '60 %' },
-    })
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '60 %' },
+      }
+    )
     // sjekker at radio knappen for gradert uttak er nullstilt
     expect(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+      screen.getByTestId(
+        `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`
+      )
     ).not.toBeChecked()
     expect(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`)
+      screen.getByTestId(
+        `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-nei`
+      )
     ).not.toBeChecked()
     // Fyller uttaksalder igjen
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '73' },
@@ -404,7 +439,7 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '3' },
@@ -412,10 +447,10 @@ describe('RedigerAvansertBeregning', () => {
     )
     // sjekker at radio knappen for helt uttaker nullstilt
     expect(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     ).not.toBeChecked()
     expect(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
     ).not.toBeChecked()
   })
 
@@ -435,7 +470,7 @@ describe('RedigerAvansertBeregning', () => {
     // Fyller ut feltene for 100 % uttak + inntekt vsa 100 % uttak
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '67' },
@@ -443,20 +478,25 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '2' },
       }
     )
     // Endrer uttaksgrad
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '100 %' },
-    })
-    await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '100 %' },
+      }
     )
-    const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+    await user.click(
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+    )
+    const inputField = screen.getByTestId(
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+    )
     await user.type(inputField, '1')
     await user.type(inputField, '2')
     await user.type(inputField, '3')
@@ -465,31 +505,31 @@ describe('RedigerAvansertBeregning', () => {
     await user.type(inputField, '0')
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
       ),
       { target: { value: '72' } }
     )
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
       ),
       { target: { value: '0' } }
     )
 
     // Endrer radio knappen til "nei"
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
     )
 
     // Sjekker at feltene for sluttAlder er skjult
     expect(
       screen.queryByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
       )
     ).not.toBeInTheDocument()
 
     expect(
-      screen.queryByTestId(FORM_NAMES.inntektVsaHeltUttak)
+      screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaHeltUttak)
     ).not.toBeInTheDocument()
   })
 
@@ -509,7 +549,7 @@ describe('RedigerAvansertBeregning', () => {
     // Fyller ut feltene for 100 % uttak
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '67' },
@@ -517,7 +557,7 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '2' },
@@ -525,15 +565,18 @@ describe('RedigerAvansertBeregning', () => {
     )
 
     // Endrer uttaksgrad
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '60 %' },
-    })
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '60 %' },
+      }
+    )
 
     // Verdien er overført til gradert uttak.
     // Fyller ut feltene for helt uttak + inntekt vsa gradert uttak
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '70' },
@@ -541,23 +584,27 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '6' },
       }
     )
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+      screen.getByTestId(
+        `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`
+      )
     )
     await user.type(
-      screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
+      screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak),
       '100000'
     )
 
     // Endrer radio knappen til "nei"
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`)
+      screen.getByTestId(
+        `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-nei`
+      )
     )
 
     // Sjekker at feltene er fylt ut og inputfelt for inntekt er skjult
@@ -565,14 +612,14 @@ describe('RedigerAvansertBeregning', () => {
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         )) as HTMLSelectElement
       ).value
     ).toBe('67')
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         )) as HTMLSelectElement
       ).value
     ).toBe('2')
@@ -580,19 +627,19 @@ describe('RedigerAvansertBeregning', () => {
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         )) as HTMLSelectElement
       ).value
     ).toBe('70')
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         )) as HTMLSelectElement
       ).value
     ).toBe('6')
     expect(
-      screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttak)
+      screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak)
     ).not.toBeInTheDocument()
   })
 
@@ -612,7 +659,7 @@ describe('RedigerAvansertBeregning', () => {
     // Fyller ut feltene for 100 % uttak + inntekt vsa 100 % uttak
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '67' },
@@ -620,20 +667,25 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '2' },
       }
     )
     // Endrer uttaksgrad
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '100 %' },
-    })
-    await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '100 %' },
+      }
     )
-    const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+    await user.click(
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+    )
+    const inputField = screen.getByTestId(
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+    )
     await user.type(inputField, '1')
     await user.type(inputField, '2')
     await user.type(inputField, '3')
@@ -642,13 +694,13 @@ describe('RedigerAvansertBeregning', () => {
     await user.type(inputField, '0')
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
       ),
       { target: { value: '72' } }
     )
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
       ),
       { target: { value: '0' } }
     )
@@ -656,7 +708,7 @@ describe('RedigerAvansertBeregning', () => {
     // Endrer uttaksalder til en alder som er større enn sluttAlder for inntekt
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
         target: { value: '73' },
@@ -664,7 +716,7 @@ describe('RedigerAvansertBeregning', () => {
     )
     fireEvent.change(
       await screen.findByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '2' },
@@ -676,14 +728,14 @@ describe('RedigerAvansertBeregning', () => {
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         )) as HTMLSelectElement
       ).value
     ).toBe('73')
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         )) as HTMLSelectElement
       ).value
     ).toBe('2')
@@ -691,20 +743,20 @@ describe('RedigerAvansertBeregning', () => {
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
         )) as HTMLSelectElement
       ).value
     ).toBe('')
     expect(
       (
         (await screen.findByTestId(
-          `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
         )) as HTMLSelectElement
       ).value
     ).toBe('')
-    expect(screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)).toHaveValue(
-      '123 000'
-    )
+    expect(
+      screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaHeltUttak)
+    ).toHaveValue('123 000')
   })
 
   describe('Når uttaksgrad endres', () => {
@@ -720,35 +772,40 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '65' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '80 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '80 %' },
+        }
+      )
 
       // Sjekker at feltene for 100 % uttak er tomme
       expect(
         (
           screen.getByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ) as HTMLSelectElement
         ).value
       ).toBe('')
       expect(
         (
           screen.getByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ) as HTMLSelectElement
         ).value
       ).toBe('')
@@ -757,14 +814,14 @@ describe('RedigerAvansertBeregning', () => {
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
           )) as HTMLSelectElement
         ).value
       ).toBe('65')
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
           )) as HTMLSelectElement
         ).value
       ).toBe('5')
@@ -790,7 +847,7 @@ describe('RedigerAvansertBeregning', () => {
       // Fyller ut feltene for 100 % uttak + inntekt vsa 100 % uttak
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '67' },
@@ -798,7 +855,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '2' },
@@ -806,14 +863,17 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       // Endrer uttaksgrad
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '60 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '60 %' },
+        }
+      )
 
       // Fyller ut feltene for helt uttak + inntekt vsa gradert uttak
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '70' },
@@ -821,7 +881,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '6' },
@@ -829,9 +889,11 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+        screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
       )
-      const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+      const inputField = screen.getByTestId(
+        AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+      )
       await user.type(inputField, '1')
       await user.type(inputField, '2')
       await user.type(inputField, '3')
@@ -840,60 +902,65 @@ describe('RedigerAvansertBeregning', () => {
       await user.type(inputField, '0')
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
         ),
         { target: { value: '75' } }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
         ),
         { target: { value: '0' } }
       )
 
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`
+        )
       )
       await user.type(
-        screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
+        screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak),
         '100000'
       )
 
       // Endrer uttaksgrad
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '100 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '100 %' },
+        }
+      )
 
       // Sjekker at feltene for gradert uttak er skjult
       expect(
         screen.queryByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         )
       ).not.toBeInTheDocument()
       expect(
         screen.queryByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         )
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttakRadio)
+        screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio)
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttak)
+        screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak)
       ).not.toBeInTheDocument()
 
       // Sjekker at uttaksalderen ble overført tilbake til helt uttak
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           )) as HTMLSelectElement
         ).value
       ).toBe('67')
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           )) as HTMLSelectElement
         ).value
       ).toBe('2')
@@ -922,7 +989,7 @@ describe('RedigerAvansertBeregning', () => {
       // Fyller ut feltene for helt uttak
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '67' },
@@ -930,7 +997,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '6' },
@@ -938,23 +1005,28 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       // Endrer uttaksgrad uten å ha fylt ut noe uttaksalder
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '60 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '60 %' },
+        }
+      )
 
       // Legger til inntekt vsa gradert uttak
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`
+        )
       )
       await user.type(
-        screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
+        screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak),
         '100000'
       )
 
       // Fyller ut feltene for helt uttak
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '70' },
@@ -962,7 +1034,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '6' },
@@ -970,36 +1042,39 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       // Endrer uttaksgrad til en annen grad (ikke 100 %)
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '40 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '40 %' },
+        }
+      )
 
       // Sjekker at uttaksalderene ikke ble endret
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
           )) as HTMLSelectElement
         ).value
       ).toBe('67')
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
           )) as HTMLSelectElement
         ).value
       ).toBe('6')
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           )) as HTMLSelectElement
         ).value
       ).toBe('70')
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           )) as HTMLSelectElement
         ).value
       ).toBe('6')
@@ -1007,7 +1082,7 @@ describe('RedigerAvansertBeregning', () => {
       // Endrer feltene for gradert uttaksalder
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
         {
           target: { value: '68' },
@@ -1015,7 +1090,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         ),
         {
           target: { value: '6' },
@@ -1026,14 +1101,14 @@ describe('RedigerAvansertBeregning', () => {
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           )) as HTMLSelectElement
         ).value
       ).toBe('70')
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           )) as HTMLSelectElement
         ).value
       ).toBe('6')
@@ -1041,7 +1116,7 @@ describe('RedigerAvansertBeregning', () => {
       expect(
         (
           (await screen.findByTestId(
-            `${FORM_NAMES.inntektVsaGradertUttak}`
+            `${AVANSERT_FORM_NAMES.inntektVsaGradertUttak}`
           )) as HTMLSelectElement
         ).value
       ).toBe('100 000')
@@ -1066,7 +1141,7 @@ describe('RedigerAvansertBeregning', () => {
       // Fyller ut feltene for 100 % uttak + inntekt vsa 100 % uttak
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '67' },
@@ -1074,7 +1149,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '2' },
@@ -1082,14 +1157,17 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       // Endrer uttaksgrad
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '60 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '60 %' },
+        }
+      )
 
       // Fyller ut feltene for helt uttak + inntekt vsa gradert uttak
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
         ),
         {
           target: { value: '70' },
@@ -1097,7 +1175,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         await screen.findByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '6' },
@@ -1105,9 +1183,11 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+        screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
       )
-      const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+      const inputField = screen.getByTestId(
+        AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+      )
       await user.type(inputField, '1')
       await user.type(inputField, '2')
       await user.type(inputField, '3')
@@ -1116,60 +1196,65 @@ describe('RedigerAvansertBeregning', () => {
       await user.type(inputField, '0')
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
         ),
         { target: { value: '75' } }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
         ),
         { target: { value: '0' } }
       )
 
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`
+        )
       )
       await user.type(
-        screen.getByTestId(FORM_NAMES.inntektVsaGradertUttak),
+        screen.getByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak),
         '100000'
       )
 
       // Endrer uttaksgrad
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: 'noe ugyldig' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: 'noe ugyldig' },
+        }
+      )
 
       // Sjekker at feltene for gradert uttak er skjult
       expect(
         screen.queryByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         )
       ).not.toBeInTheDocument()
       expect(
         screen.queryByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         )
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttakRadio)
+        screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio)
       ).not.toBeInTheDocument()
       expect(
-        screen.queryByTestId(FORM_NAMES.inntektVsaGradertUttak)
+        screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak)
       ).not.toBeInTheDocument()
 
       // Sjekker at uttaksalderen ble overført tilbake til helt uttak
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           )) as HTMLSelectElement
         ).value
       ).toBe('67')
       expect(
         (
           (await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           )) as HTMLSelectElement
         ).value
       ).toBe('2')
@@ -1220,7 +1305,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeVisible()
 
       const selectAarElement = screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       )
       const optionAarElements = selectAarElement?.querySelectorAll('option')
       expect(optionAarElements?.[0].value).toBe('')
@@ -1229,26 +1314,31 @@ describe('RedigerAvansertBeregning', () => {
 
       // Fyller ut uttaksalder
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '67' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
       // Velger gradert uttak
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '50 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '50 %' },
+        }
+      )
 
       const selectAarElementHelt = screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       )
       const optionAarElementsHelt =
         selectAarElementHelt?.querySelectorAll('option')
@@ -1257,7 +1347,7 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionAarElementsHelt?.[9].value).toBe('75')
 
       const selectAarElementGradert = screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
       )
       const optionAarElementsGradert =
         selectAarElementGradert?.querySelectorAll('option')
@@ -1300,7 +1390,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeInTheDocument()
 
       const selectAarElement = screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       )
       const optionAarElements = selectAarElement?.querySelectorAll('option')
       expect(optionAarElements?.[0].value).toBe('')
@@ -1309,26 +1399,31 @@ describe('RedigerAvansertBeregning', () => {
 
       // Fyller ut uttaksalder
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '64' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
       // Velger gradert uttak
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '20 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '20 %' },
+        }
+      )
 
       const selectAarElementHelt = screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       )
       const optionAarElementsHelt =
         selectAarElementHelt?.querySelectorAll('option')
@@ -1337,7 +1432,7 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionAarElementsHelt?.[9].value).toBe('75')
 
       const selectAarElementGradert = screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
       )
       const optionAarElementsGradert =
         selectAarElementGradert?.querySelectorAll('option')
@@ -1366,23 +1461,28 @@ describe('RedigerAvansertBeregning', () => {
 
       // Fyller ut uttaksalder
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '64' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
       // Velger gradert uttak
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '20 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '20 %' },
+        }
+      )
 
       expect(
         await screen.findByText(
@@ -1419,7 +1519,9 @@ describe('RedigerAvansertBeregning', () => {
       )
       await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
-      const selectUttaksgradElement = screen.getByTestId(FORM_NAMES.uttaksgrad)
+      const selectUttaksgradElement = screen.getByTestId(
+        AVANSERT_FORM_NAMES.uttaksgrad
+      )
       const optionUttaksgradElements =
         selectUttaksgradElement?.querySelectorAll('option')
       expect(optionUttaksgradElements?.[0].value).toBe('')
@@ -1429,14 +1531,16 @@ describe('RedigerAvansertBeregning', () => {
 
       // Fyller ut uttaksalder
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '64' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
@@ -1444,7 +1548,7 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       const selectOppdatertUttaksgradElement = screen.getByTestId(
-        FORM_NAMES.uttaksgrad
+        AVANSERT_FORM_NAMES.uttaksgrad
       )
       const optionOppdatertUttaksgradElements =
         selectOppdatertUttaksgradElement?.querySelectorAll('option')
@@ -1473,14 +1577,17 @@ describe('RedigerAvansertBeregning', () => {
       await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
 
       // Velger gradert uttak som etterhvert blir ugyldig
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '80 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '80 %' },
+        }
+      )
 
       // Fyller ut uttaksalder
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
         {
           target: { value: '64' },
@@ -1488,14 +1595,16 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
 
-      const selectUttaksgradElement = screen.getByTestId(FORM_NAMES.uttaksgrad)
+      const selectUttaksgradElement = screen.getByTestId(
+        AVANSERT_FORM_NAMES.uttaksgrad
+      )
       const optionUttaksgradElements =
         selectUttaksgradElement?.querySelectorAll('option')
       expect(optionUttaksgradElements?.[0].value).toBe('')
@@ -1505,24 +1614,30 @@ describe('RedigerAvansertBeregning', () => {
 
       // Fyller ut de andre påkrevde feltene
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`)
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-nei`
+        )
       )
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '70' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+        )
       )
 
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -1556,14 +1671,16 @@ describe('RedigerAvansertBeregning', () => {
 
       // Fyller ut uttaksalder
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '70' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
@@ -1571,14 +1688,17 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       // Velger gradert uttak som etterhvert blir ugyldig
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '80 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '80 %' },
+        }
+      )
 
       // Endrer uttaksalder
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
         {
           target: { value: '64' },
@@ -1586,14 +1706,16 @@ describe('RedigerAvansertBeregning', () => {
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
 
-      const selectUttaksgradElement = screen.getByTestId(FORM_NAMES.uttaksgrad)
+      const selectUttaksgradElement = screen.getByTestId(
+        AVANSERT_FORM_NAMES.uttaksgrad
+      )
       const optionUttaksgradElements =
         selectUttaksgradElement?.querySelectorAll('option')
       expect(optionUttaksgradElements?.[0].value).toBe('')
@@ -1603,24 +1725,30 @@ describe('RedigerAvansertBeregning', () => {
 
       // Fyller ut de andre påkrevde feltene
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-nei`)
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-nei`
+        )
       )
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '70' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
         }
       )
       await user.click(
-        screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+        )
       )
 
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -1653,14 +1781,16 @@ describe('RedigerAvansertBeregning', () => {
 
       // Fyller ut uttaksalder
       fireEvent.change(
-        screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
         {
           target: { value: '64' },
         }
       )
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
         ),
         {
           target: { value: '5' },
@@ -1668,11 +1798,16 @@ describe('RedigerAvansertBeregning', () => {
       )
 
       // Velger avgrenset uttaksgrad
-      fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-        target: { value: '20 %' },
-      })
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '20 %' },
+        }
+      )
 
-      const selectUttaksgradElement = screen.getByTestId(FORM_NAMES.uttaksgrad)
+      const selectUttaksgradElement = screen.getByTestId(
+        AVANSERT_FORM_NAMES.uttaksgrad
+      )
       const optionUttaksgradElements =
         selectUttaksgradElement?.querySelectorAll('option')
       expect(optionUttaksgradElements?.length).toBe(4)
@@ -1680,7 +1815,7 @@ describe('RedigerAvansertBeregning', () => {
       // Endrer uttaksalder for gradert uttak med noe høyere alder
       fireEvent.change(
         screen.getByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         ),
         {
           target: { value: '70' },
@@ -1689,17 +1824,17 @@ describe('RedigerAvansertBeregning', () => {
 
       expect(
         screen.queryByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-aar`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
         )
       ).not.toBeInTheDocument()
       expect(
         screen.queryByTestId(
-          `age-picker-${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
         )
       ).not.toBeInTheDocument()
 
       const selectOppdatertUttaksgradElement = screen.getByTestId(
-        FORM_NAMES.uttaksgrad
+        AVANSERT_FORM_NAMES.uttaksgrad
       )
       const optionOppdatertUttaksgradElements =
         selectOppdatertUttaksgradElement?.querySelectorAll('option')
@@ -1739,19 +1874,21 @@ describe('RedigerAvansertBeregning', () => {
       )
     ).toBeVisible()
     expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
-      `${FORM_NAMES.uttaksalderHeltUttak}-aar`
+      `${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
     )
 
     // Fyller inn uttaksalder slik at RadioGroup vises
     fireEvent.change(
-      screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      ),
       {
         target: { value: '65' },
       }
     )
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '5' },
@@ -1759,9 +1896,12 @@ describe('RedigerAvansertBeregning', () => {
     )
 
     // Velger gradert uttak
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '100 %' },
-    })
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '100 %' },
+      }
+    )
 
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
     // Feilmelding for radioknapp inntekt vsa 100 % uttak
@@ -1771,12 +1911,12 @@ describe('RedigerAvansertBeregning', () => {
       })
     ).toBeVisible()
     expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
-      FORM_NAMES.inntektVsaHeltUttakRadio
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio
     )
 
     // Hukker av for inntekt vsa. gradert uttak og viser felt for beløp
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-ja`)
     )
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
     // Feilmelding for inntekt vsa 100 % uttak
@@ -1789,11 +1929,13 @@ describe('RedigerAvansertBeregning', () => {
       )
     ).toBeVisible()
     expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
-      FORM_NAMES.inntektVsaHeltUttak
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttak
     )
 
     // Fylle ut inntekt vsa 100 % uttak
-    const inputField = screen.getByTestId(FORM_NAMES.inntektVsaHeltUttak)
+    const inputField = screen.getByTestId(
+      AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+    )
     await user.type(inputField, '1')
     await user.type(inputField, '2')
     await user.type(inputField, '3')
@@ -1808,18 +1950,21 @@ describe('RedigerAvansertBeregning', () => {
       })
     ).toBeVisible()
     expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
-      `${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+      `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
     )
 
     // Hukker av nei for inntekt vsa. helt uttak og skjuler feltene
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
     )
 
     // Velger gradert uttak
-    fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-      target: { value: '80 %' },
-    })
+    fireEvent.change(
+      await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+      {
+        target: { value: '80 %' },
+      }
+    )
 
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
@@ -1832,14 +1977,16 @@ describe('RedigerAvansertBeregning', () => {
 
     // fyller ut 100 % uttaksalder
     fireEvent.change(
-      screen.getByTestId(`age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`),
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      ),
       {
         target: { value: '67' },
       }
     )
     fireEvent.change(
       screen.getByTestId(
-        `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
       ),
       {
         target: { value: '5' },
@@ -1847,7 +1994,7 @@ describe('RedigerAvansertBeregning', () => {
     )
     // Hukker av nei for inntekt vsa. gradert uttak
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+      screen.getByTestId(`${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
     )
 
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -1862,12 +2009,14 @@ describe('RedigerAvansertBeregning', () => {
       )
     ).toBeVisible()
     expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
-      FORM_NAMES.inntektVsaGradertUttakRadio
+      AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio
     )
 
     // Hukker av ja for inntekt vsa. gradert uttak
     await user.click(
-      screen.getByTestId(`${FORM_NAMES.inntektVsaGradertUttakRadio}-ja`)
+      screen.getByTestId(
+        `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-ja`
+      )
     )
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
@@ -1880,7 +2029,7 @@ describe('RedigerAvansertBeregning', () => {
     ).toBeVisible()
 
     expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
-      FORM_NAMES.inntektVsaGradertUttak
+      AVANSERT_FORM_NAMES.inntektVsaGradertUttak
     )
   })
 
@@ -1903,6 +2052,7 @@ describe('RedigerAvansertBeregning', () => {
       })
 
       const currentSimulation: Simulation = {
+        utenlandsperioder: [],
         formatertUttaksalderReadOnly: '62 år string.og 0 alder.maaned',
         uttaksalder: { aar: 62, maaneder: 0 },
         aarligInntektFoerUttakBeloep: null,

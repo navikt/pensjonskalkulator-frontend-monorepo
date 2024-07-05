@@ -109,27 +109,6 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v2/alderspensjon/simulering': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Simuler alderspensjon
-     *
-     * @description Lag en prognose for framtidig alderspensjon. Feltet 'epsHarInntektOver2G' brukes til å angi om ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet eller ei.
-     */
-    post: operations['simulerAlderspensjonV2']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/api/v1/tidligste-hel-uttaksalder': {
     parameters: {
       query?: never
@@ -256,27 +235,6 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v1/person': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Hent personinformasjon
-     *
-     * @description Henter personinformasjon for person-ID-en angitt i tilgangstokenet eller i HTTP-header.
-     */
-    get: operations['person']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/api/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse': {
     parameters: {
       query?: never
@@ -290,6 +248,27 @@ export interface paths {
      * @description Hvorvidt den innloggede brukeren mottar omstillingsstønad eller gjenlevende ytelse
      */
     get: operations['mottarOmstillingsstoenadEllerGjenlevendeYtelse']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/v1/land-liste': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Hent land-liste
+     *
+     * @description Henter liste over land med navn og status som avtaleland.
+     */
+    get: operations['landListe']
     put?: never
     post?: never
     delete?: never
@@ -498,6 +477,15 @@ export interface components {
         | 'SAMBOER'
       gradertUttak?: components['schemas']['IngressSimuleringGradertUttakV6']
       heltUttak: components['schemas']['IngressSimuleringHeltUttakV6']
+      utenlandsperiodeListe?: components['schemas']['UtenlandsperiodeSpecV6'][]
+    }
+    UtenlandsperiodeSpecV6: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
+      land: string
+      arbeidetUtenlands: boolean
     }
     AlderV6: {
       /** Format: int32 */
@@ -862,67 +850,6 @@ export interface components {
       /** Format: int32 */
       grad: number
     }
-    IngressSimuleringAlderV2: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    IngressSimuleringGradertUttakV2: {
-      /** Format: int32 */
-      grad: number
-      uttaksalder: components['schemas']['IngressSimuleringAlderV2']
-      /** Format: int32 */
-      aarligInntektVsaPensjonBeloep?: number
-    }
-    IngressSimuleringHeltUttakV2: {
-      uttaksalder: components['schemas']['IngressSimuleringAlderV2']
-      aarligInntektVsaPensjon?: components['schemas']['IngressSimuleringInntektV2']
-    }
-    IngressSimuleringInntektV2: {
-      /** Format: int32 */
-      beloep: number
-      sluttAlder: components['schemas']['IngressSimuleringAlderV2']
-    }
-    IngressSimuleringSpecV2: {
-      /** @enum {string} */
-      simuleringstype:
-        | 'ALDERSPENSJON'
-        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      /** Format: date */
-      foedselsdato: string
-      epsHarInntektOver2G: boolean
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-      gradertUttak?: components['schemas']['IngressSimuleringGradertUttakV2']
-      heltUttak: components['schemas']['IngressSimuleringHeltUttakV2']
-    }
-    PensjonsberegningDto: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-    }
-    SimuleringsresultatDto: {
-      alderspensjon: components['schemas']['PensjonsberegningDto'][]
-      afpPrivat: components['schemas']['PensjonsberegningDto'][]
-      vilkaarErOppfylt: boolean
-    }
     IngressUttaksalderAlderV1: {
       /** Format: int32 */
       aar: number
@@ -958,6 +885,15 @@ export interface components {
       /** Format: int32 */
       aarligInntektFoerUttakBeloep?: number
       aarligInntektVsaPensjon?: components['schemas']['IngressUttaksalderInntektV1']
+      utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV1'][]
+    }
+    UttaksalderUtenlandsperiodeSpecV1: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
+      land: string
+      arbeidetUtenlands: boolean
     }
     AlderDto: {
       /** Format: int32 */
@@ -1000,6 +936,7 @@ export interface components {
       aarligInntektFoerUttakBeloep?: number
       gradertUttak: components['schemas']['IngressUttaksalderGradertUttakV1']
       heltUttak: components['schemas']['IngressUttaksalderHeltUttakV1']
+      utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV1'][]
     }
     PersonV2: {
       navn: string
@@ -1031,66 +968,15 @@ export interface components {
     MedlemskapITjenestepensjonsordningDto: {
       tpLeverandoerListe: string[]
     }
-    UttaksalderAlderDto: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    UttaksalderGradertUttakIngressDto: {
-      /** Format: int32 */
-      grad: number
-      /** Format: int32 */
-      aarligInntektVsaPensjon?: number
-      heltUttakAlder: components['schemas']['UttaksalderAlderDto']
-      /** Format: date */
-      foedselsdato: string
-    }
-    UttaksalderIngressSpecDto: {
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-      harEps?: boolean
-      /** Format: int32 */
-      sisteInntekt?: number
-      /** @enum {string} */
-      simuleringstype?:
-        | 'ALDERSPENSJON'
-        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      gradertUttak?: components['schemas']['UttaksalderGradertUttakIngressDto']
-    }
-    ApiPersonDto: {
-      fornavn: string
-      /** Format: date */
-      foedselsdato: string
-      /** @enum {string} */
-      sivilstand:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-    }
     BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse: {
       harLoependeSak: boolean
+    }
+    LandInfo: {
+      landkode: string
+      erAvtaleland: boolean
+      bokmaalNavn: string
+      nynorskNavn: string
+      engelskNavn: string
     }
     EkskluderingStatusV1: {
       ekskludert: boolean
@@ -1296,39 +1182,6 @@ export interface operations {
       }
     }
   }
-  simulerAlderspensjonV2: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['IngressSimuleringSpecV2']
-      }
-    }
-    responses: {
-      /** @description Simulering utført (men dersom vilkår ikke oppfylt vil responsen ikke inneholde pensjonsbeløp). */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['SimuleringsresultatDto']
-        }
-      }
-      /** @description Simulering kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': unknown
-        }
-      }
-    }
-  }
   finnTidligsteHelUttaksalderV1: {
     parameters: {
       query?: never
@@ -1511,37 +1364,6 @@ export interface operations {
       }
     }
   }
-  person: {
-    parameters: {
-      query?: {
-        spec?: components['schemas']['UttaksalderIngressSpecDto']
-      }
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      /** @description Henting av personinformasjon utført. */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['ApiPersonDto']
-        }
-      }
-      /** @description Henting av personinformasjon kunne ikke utføres av tekniske årsaker. */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': unknown
-        }
-      }
-    }
-  }
   mottarOmstillingsstoenadEllerGjenlevendeYtelse: {
     parameters: {
       query?: never
@@ -1561,6 +1383,35 @@ export interface operations {
         }
       }
       /** @description Henting av omstillingsstønad eller gjenlevende ytelse kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  landListe: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Henting av land-liste utført. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['LandInfo'][]
+        }
+      }
+      /** @description Henting av land-liste kunne ikke utføres av tekniske årsaker. */
       503: {
         headers: {
           [name: string]: unknown

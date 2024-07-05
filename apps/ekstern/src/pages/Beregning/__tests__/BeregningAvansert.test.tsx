@@ -4,7 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, expect, it, vi } from 'vitest'
 
 import { BeregningAvansert } from '../BeregningAvansert'
-import { FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
+import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
@@ -44,10 +44,7 @@ describe('BeregningAvansert', () => {
         samboer: false,
         afp: 'ja_privat',
         currentSimulation: {
-          formatertUttaksalderReadOnly: null,
-          uttaksalder: null,
-          aarligInntektFoerUttakBeloep: null,
-          gradertUttaksperiode: null,
+          ...userInputInitialState.currentSimulation,
         },
       } as UserInputState,
     }
@@ -107,7 +104,7 @@ describe('BeregningAvansert', () => {
         // Fyller ut feltene for 100 % uttak
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ),
           {
             target: { value: '67' },
@@ -115,17 +112,22 @@ describe('BeregningAvansert', () => {
         )
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ),
           {
             target: { value: '6' },
           }
         )
-        fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-          target: { value: '100 %' },
-        })
+        fireEvent.change(
+          await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+          {
+            target: { value: '100 %' },
+          }
+        )
         await user.click(
-          screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+          screen.getByTestId(
+            `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+          )
         )
 
         await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -146,6 +148,7 @@ describe('BeregningAvansert', () => {
             },
             simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
             sivilstand: 'UGIFT',
+            utenlandsperiodeListe: [],
           },
           {
             forceRefetch: undefined,
@@ -204,7 +207,7 @@ describe('BeregningAvansert', () => {
         // Fyller ut feltene for 100 % uttak
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ),
           {
             target: { value: '67' },
@@ -212,17 +215,22 @@ describe('BeregningAvansert', () => {
         )
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ),
           {
             target: { value: '6' },
           }
         )
-        fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-          target: { value: '100 %' },
-        })
+        fireEvent.change(
+          await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+          {
+            target: { value: '100 %' },
+          }
+        )
         await user.click(
-          screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+          screen.getByTestId(
+            `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+          )
         )
 
         await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -243,6 +251,7 @@ describe('BeregningAvansert', () => {
             },
             simuleringstype: 'ALDERSPENSJON',
             sivilstand: 'UGIFT',
+            utenlandsperiodeListe: [],
           },
           {
             forceRefetch: undefined,
@@ -290,7 +299,7 @@ describe('BeregningAvansert', () => {
         // Fyller ut feltene for 100 % uttak
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ),
           {
             target: { value: '67' },
@@ -298,17 +307,22 @@ describe('BeregningAvansert', () => {
         )
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ),
           {
             target: { value: '6' },
           }
         )
-        fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-          target: { value: '100 %' },
-        })
+        fireEvent.change(
+          await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+          {
+            target: { value: '100 %' },
+          }
+        )
         await user.click(
-          screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+          screen.getByTestId(
+            `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+          )
         )
 
         await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -329,6 +343,7 @@ describe('BeregningAvansert', () => {
             },
             simuleringstype: 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG',
             sivilstand: 'UGIFT',
+            utenlandsperiodeListe: [],
           },
           {
             forceRefetch: undefined,
@@ -376,7 +391,7 @@ describe('BeregningAvansert', () => {
         // Fyller ut feltene for 100 % uttak
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-aar`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
           ),
           {
             target: { value: '67' },
@@ -384,17 +399,22 @@ describe('BeregningAvansert', () => {
         )
         fireEvent.change(
           await screen.findByTestId(
-            `age-picker-${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+            `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
           ),
           {
             target: { value: '6' },
           }
         )
-        fireEvent.change(await screen.findByTestId(FORM_NAMES.uttaksgrad), {
-          target: { value: '100 %' },
-        })
+        fireEvent.change(
+          await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+          {
+            target: { value: '100 %' },
+          }
+        )
         await user.click(
-          screen.getByTestId(`${FORM_NAMES.inntektVsaHeltUttakRadio}-nei`)
+          screen.getByTestId(
+            `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+          )
         )
 
         await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -415,6 +435,7 @@ describe('BeregningAvansert', () => {
             },
             simuleringstype: 'ALDERSPENSJON',
             sivilstand: 'UGIFT',
+            utenlandsperiodeListe: [],
           },
           {
             forceRefetch: undefined,
@@ -456,6 +477,7 @@ describe('BeregningAvansert', () => {
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
+                  utenlandsperioder: [],
                   formatertUttaksalderReadOnly:
                     '67 år string.og 6 alder.maaned',
                   uttaksalder: { aar: 67, maaneder: 6 },
@@ -552,6 +574,7 @@ describe('BeregningAvansert', () => {
                 ...preloadedState.userInput,
 
                 currentSimulation: {
+                  utenlandsperioder: [],
                   formatertUttaksalderReadOnly:
                     '67 år string.og 6 alder.maaned',
                   uttaksalder: { aar: 67, maaneder: 6 },
@@ -609,6 +632,7 @@ describe('BeregningAvansert', () => {
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
+                  utenlandsperioder: [],
                   formatertUttaksalderReadOnly:
                     '67 år string.og 6 alder.maaned',
                   uttaksalder: { aar: 67, maaneder: 6 },
@@ -679,6 +703,7 @@ describe('BeregningAvansert', () => {
             userInput: {
               ...preloadedState.userInput,
               currentSimulation: {
+                utenlandsperioder: [],
                 formatertUttaksalderReadOnly: '67 år string.og 6 alder.maaned',
                 uttaksalder: { aar: 67, maaneder: 6 },
                 aarligInntektFoerUttakBeloep: null,

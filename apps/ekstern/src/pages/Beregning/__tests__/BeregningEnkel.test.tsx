@@ -51,6 +51,7 @@ describe('BeregningEnkel', () => {
           harEps: false,
           simuleringstype: 'ALDERSPENSJON_MED_AFP_PRIVAT',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -96,6 +97,7 @@ describe('BeregningEnkel', () => {
           harEps: false,
           simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -259,6 +261,7 @@ describe('BeregningEnkel', () => {
             samtykkeOffentligAFP: true,
             afp: 'ja_offentlig',
             currentSimulation: {
+              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '0',
@@ -294,6 +297,7 @@ describe('BeregningEnkel', () => {
           },
           simuleringstype: 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -339,6 +343,7 @@ describe('BeregningEnkel', () => {
             samtykkeOffentligAFP: false,
             afp: 'ja_offentlig',
             currentSimulation: {
+              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '0',
@@ -374,6 +379,7 @@ describe('BeregningEnkel', () => {
           },
           simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -426,6 +432,7 @@ describe('BeregningEnkel', () => {
             samtykke: false,
             afp: 'ja_privat',
             currentSimulation: {
+              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '68 år string.og 0 alder.maaned',
               uttaksalder: { aar: 68, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '0',
@@ -461,6 +468,7 @@ describe('BeregningEnkel', () => {
           },
           simuleringstype: 'ALDERSPENSJON',
           sivilstand: 'UGIFT',
+          utenlandsperiodeListe: [],
         },
         {
           forceRefetch: undefined,
@@ -599,6 +607,7 @@ describe('BeregningEnkel', () => {
             samtykke: true,
             samboer: false,
             currentSimulation: {
+              utenlandsperioder: [],
               formatertUttaksalderReadOnly: '63 alder.aar',
               uttaksalder: { aar: 63, maaneder: 0 },
               aarligInntektFoerUttakBeloep: '0',

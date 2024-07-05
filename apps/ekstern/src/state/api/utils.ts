@@ -1,6 +1,7 @@
 import { checkHarSamboer } from '@/utils/sivilstand'
 import { formatInntektToNumber } from '@/utils/inntekt'
-import { format, parseISO } from 'date-fns'
+import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { parse, format, parseISO } from 'date-fns'
 
 export const getAfpSimuleringstypeFromRadio = (
   afp: AfpRadio | null
@@ -15,12 +16,42 @@ export const getAfpSimuleringstypeFromRadio = (
   }
 }
 
+export const transformUtenlandsperioderArray = (
+  utenlandsperioder: Utenlandsperiode[]
+) => {
+  return utenlandsperioder.length > 0
+    ? utenlandsperioder.map((utenlandsperiode) => ({
+        land: utenlandsperiode.land,
+        arbeidetUtenlands: !!utenlandsperiode.arbeidetUtenlands,
+        fom: format(
+          parse(
+            utenlandsperiode.startdato as string,
+            DATE_ENDUSER_FORMAT,
+            new Date()
+          ),
+          'yyyy-MM-dd'
+        ),
+        tom: utenlandsperiode.sluttdato
+          ? format(
+              parse(
+                utenlandsperiode.sluttdato as string,
+                DATE_ENDUSER_FORMAT,
+                new Date()
+              ),
+              'yyyy-MM-dd'
+            )
+          : undefined,
+      }))
+    : []
+}
+
 export const generateTidligstMuligHeltUttakRequestBody = (args: {
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
   aarligInntektFoerUttakBeloep: string
   aarligInntektVsaPensjon?: { beloep: string; sluttAlder: Alder }
+  utenlandsperioder: Utenlandsperiode[]
 }): TidligstMuligHeltUttakRequestBody => {
   const {
     afp,
@@ -28,6 +59,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
     harSamboer,
     aarligInntektFoerUttakBeloep,
     aarligInntektVsaPensjon,
+    utenlandsperioder,
   } = args
 
   return {
@@ -49,6 +81,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
             beloep: formatInntektToNumber(aarligInntektVsaPensjon.beloep),
           }
         : undefined,
+    utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
   }
 }
 
@@ -61,6 +94,7 @@ export const generateAlderspensjonRequestBody = (args: {
   aarligInntektFoerUttakBeloep: string
   gradertUttak?: GradertUttak
   heltUttak?: HeltUttak
+  utenlandsperioder: Utenlandsperiode[]
 }): AlderspensjonRequestBody | undefined => {
   const {
     ufoeregrad,
@@ -71,6 +105,7 @@ export const generateAlderspensjonRequestBody = (args: {
     aarligInntektFoerUttakBeloep,
     gradertUttak,
     heltUttak,
+    utenlandsperioder,
   } = args
 
   if (!foedselsdato || !heltUttak) {
@@ -111,6 +146,7 @@ export const generateAlderspensjonRequestBody = (args: {
           }
         : undefined,
     },
+    utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
   }
 }
 
@@ -122,6 +158,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
   foedselsdato: string | null | undefined
   aarligInntektFoerUttakBeloep: string
   uttaksalder: Alder | null
+  utenlandsperioder: Utenlandsperiode[]
 }): AlderspensjonRequestBody | undefined => {
   const {
     ufoeregrad,
@@ -131,6 +168,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     foedselsdato,
     aarligInntektFoerUttakBeloep,
     uttaksalder,
+    utenlandsperioder,
   } = args
 
   if (!foedselsdato || !uttaksalder) {
@@ -155,6 +193,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     heltUttak: {
       uttaksalder,
     },
+    utenlandsperiodeListe: transformUtenlandsperioderArray(utenlandsperioder),
   }
 }
 

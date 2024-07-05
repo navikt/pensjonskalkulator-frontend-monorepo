@@ -10,7 +10,10 @@ import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
-export const FORM_NAMES = {
+export type AvansertFormNames =
+  (typeof AVANSERT_FORM_NAMES)[keyof typeof AVANSERT_FORM_NAMES]
+
+export const AVANSERT_FORM_NAMES = {
   form: 'avansert-beregning',
   uttaksgrad: 'uttaksgrad',
   uttaksalderHeltUttak: 'uttaksalder-helt-uttak',
@@ -51,7 +54,7 @@ const validateAlderForGradertUttak = (
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderGradertUttak]: tekst,
+            [AVANSERT_FORM_NAMES.uttaksalderGradertUttak]: tekst,
           }
         })
       }
@@ -70,7 +73,7 @@ const validateAlderForGradertUttak = (
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderHeltUttak]: tekst,
+            [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: tekst,
           }
         })
       }
@@ -87,7 +90,7 @@ const validateAlderForGradertUttak = (
       updateValidationErrorMessage((prevState) => {
         return {
           ...prevState,
-          [FORM_NAMES.uttaksalderHeltUttak]:
+          [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]:
             'beregning.avansert.rediger.agepicker.validation_error.maxAlder',
         }
       })
@@ -153,7 +156,7 @@ export const validateAvansertBeregningSkjema = (
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.uttaksalderHeltUttak]: tekst,
+            [AVANSERT_FORM_NAMES.uttaksalderHeltUttak]: tekst,
           }
         })
       }
@@ -175,7 +178,7 @@ export const validateAvansertBeregningSkjema = (
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
-        [FORM_NAMES.uttaksgrad]:
+        [AVANSERT_FORM_NAMES.uttaksgrad]:
           'beregning.avansert.rediger.uttaksgrad.validation_error',
       }
     })
@@ -253,7 +256,7 @@ export const validateAvansertBeregningSkjema = (
           updateValidationErrorMessage((prevState) => {
             return {
               ...prevState,
-              [FORM_NAMES.uttaksgrad]:
+              [AVANSERT_FORM_NAMES.uttaksgrad]:
                 'beregning.avansert.rediger.uttaksgrad.ufoeretrygd.validation_error',
             }
           })
@@ -278,7 +281,7 @@ export const validateAvansertBeregningSkjema = (
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
-        [FORM_NAMES.inntektVsaHeltUttakRadio]:
+        [AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio]:
           'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description.validation_error',
       }
     })
@@ -298,7 +301,7 @@ export const validateAvansertBeregningSkjema = (
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.inntektVsaHeltUttak]: tekst,
+            [AVANSERT_FORM_NAMES.inntektVsaHeltUttak]: tekst,
           }
         })
       },
@@ -324,7 +327,7 @@ export const validateAvansertBeregningSkjema = (
         updateValidationErrorMessage((prevState) => {
           return {
             ...prevState,
-            [FORM_NAMES.inntektVsaHeltUttakSluttAlder]: tekst,
+            [AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder]: tekst,
           }
         })
       }
@@ -344,7 +347,7 @@ export const validateAvansertBeregningSkjema = (
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
-        [FORM_NAMES.inntektVsaGradertUttakRadio]:
+        [AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio]:
           'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error',
       }
     })
@@ -368,7 +371,7 @@ export const validateAvansertBeregningSkjema = (
           updateValidationErrorMessage((prevState) => {
             return {
               ...prevState,
-              [FORM_NAMES.inntektVsaGradertUttak]: tekst,
+              [AVANSERT_FORM_NAMES.inntektVsaGradertUttak]: tekst,
             }
           })
         },
@@ -408,33 +411,35 @@ export const onAvansertBeregningSubmit = (
   } = previousData
 
   const gradertUttakAarFormData = data.get(
-    `${FORM_NAMES.uttaksalderGradertUttak}-aar`
+    `${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
   )
   const gradertUttakMaanederFormData = data.get(
-    `${FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+    `${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
   )
   const heltUttakAarFormData = data.get(
-    `${FORM_NAMES.uttaksalderHeltUttak}-aar`
+    `${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
   )
   const heltUttakMaanederFormData = data.get(
-    `${FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+    `${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
   )
   const uttaksgradFormData = data.get('uttaksgrad')
   const inntektVsaHeltUttakRadioFormData = data.get(
-    `${FORM_NAMES.inntektVsaHeltUttakRadio}`
+    `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}`
   )
   const inntektVsaGradertUttakRadioFormData = data.get(
-    `${FORM_NAMES.inntektVsaGradertUttakRadio}`
+    `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}`
   )
-  const inntektVsaHeltUttakFormData = data.get(FORM_NAMES.inntektVsaHeltUttak)
+  const inntektVsaHeltUttakFormData = data.get(
+    AVANSERT_FORM_NAMES.inntektVsaHeltUttak
+  )
   const inntektVsaHeltUttakSluttAlderAarFormData = data.get(
-    `${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
+    `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-aar`
   )
   const inntektVsaHeltUttakSluttAlderMaanederFormData = data.get(
-    `${FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
+    `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakSluttAlder}-maaneder`
   )
   const inntektVsaGradertUttakFormData = data.get(
-    FORM_NAMES.inntektVsaGradertUttak
+    AVANSERT_FORM_NAMES.inntektVsaGradertUttak
   )
   if (
     validateAvansertBeregningSkjema(

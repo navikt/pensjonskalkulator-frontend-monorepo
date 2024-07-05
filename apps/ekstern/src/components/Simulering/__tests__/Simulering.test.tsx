@@ -14,6 +14,7 @@ import { act, render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
+    utenlandsperioder: [],
     formatertUttaksalderReadOnly: '67 år string.og 0 alder.maaned',
     uttaksalder: { aar: 67, maaneder: 0 },
     aarligInntektFoerUttakBeloep: '0',
