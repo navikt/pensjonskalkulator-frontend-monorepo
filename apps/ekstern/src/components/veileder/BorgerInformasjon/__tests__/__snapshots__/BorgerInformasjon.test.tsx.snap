@@ -11,7 +11,7 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
       style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: center;"
     >
       <p
-        class="navds-body-long navds-body-long--medium"
+        class="navds-body-long navds-body-long--medium navds-typo--semibold"
       >
         <svg
           aria-labelledby="loader-r0"
@@ -53,7 +53,7 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
         style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-1); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: center;"
       >
         <p
-          class="navds-body-short navds-body-short--medium"
+          class="navds-body-short navds-body-short--small navds-typo--semibold"
           data-testid="borger-fnr"
         >
           F.nr.: 123456 78901
