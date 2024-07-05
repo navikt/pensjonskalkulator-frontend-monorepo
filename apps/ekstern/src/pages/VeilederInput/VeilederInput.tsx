@@ -110,49 +110,47 @@ export const VeilederInput = () => {
         </InternalHeader>
 
         <FrameComponent>
-          <>
-            <Card>
-              <Heading level="2" size="medium" spacing>
-                Veiledertilgang
-              </Heading>
-              <VStack gap="6">
-                {hasTimedOut && (
-                  <Alert variant="warning" data-testid="inaktiv-alert">
-                    Du var for lenge inaktiv og sesjonen for bruker har derfor
-                    løpt ut.
-                    <br /> Logg inn på bruker på nytt.
-                  </Alert>
-                )}
-                <VeilederInputRequestError personError={personError} />
-                <BodyLong>
-                  Logg inn i pensjonskalkulator på vegne av bruker.
-                </BodyLong>
-                <form onSubmit={onSubmit} className={styles.form}>
-                  <VStack gap="6">
-                    <TextField
-                      data-testid="borger-fnr-input"
-                      label="Fødselsnummer"
-                      name="veilederBorgerFnr"
-                      description="11 siffer"
-                    ></TextField>
-                    <HStack gap="2">
-                      <Button
-                        type="submit"
-                        data-testid="veileder-submit"
-                        loading={personLoading}
-                      >
-                        Logg inn
-                      </Button>
-                    </HStack>
-                  </VStack>
-                </form>
-                <BodyLong>
-                  Denne pensjonskalkulatoren kan foreløpig kun brukes til
-                  veiledning.
-                </BodyLong>
-              </VStack>
-            </Card>
-          </>
+          <Card hasMargin>
+            <Heading level="2" size="medium" spacing>
+              Veiledertilgang
+            </Heading>
+            <VStack gap="6">
+              {hasTimedOut && (
+                <Alert variant="warning" data-testid="inaktiv-alert">
+                  Du var for lenge inaktiv og sesjonen for bruker har derfor
+                  løpt ut.
+                  <br /> Logg inn på bruker på nytt.
+                </Alert>
+              )}
+              <VeilederInputRequestError personError={personError} />
+              <BodyLong>
+                Logg inn i pensjonskalkulator på vegne av bruker.
+              </BodyLong>
+              <form onSubmit={onSubmit} className={styles.form}>
+                <VStack gap="6">
+                  <TextField
+                    data-testid="borger-fnr-input"
+                    label="Fødselsnummer"
+                    name="veilederBorgerFnr"
+                    description="11 siffer"
+                  ></TextField>
+                  <HStack gap="2">
+                    <Button
+                      type="submit"
+                      data-testid="veileder-submit"
+                      loading={personLoading}
+                    >
+                      Logg inn
+                    </Button>
+                  </HStack>
+                </VStack>
+              </form>
+              <BodyLong>
+                Denne pensjonskalkulatoren kan foreløpig kun brukes til
+                veiledning.
+              </BodyLong>
+            </VStack>
+          </Card>
         </FrameComponent>
       </div>
     )
