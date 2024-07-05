@@ -81,8 +81,8 @@ describe('userInputSlice', () => {
         id: '12345',
         land: 'Kina',
         arbeidetUtenlands: null,
-        startdato: '2018-01-01',
-        sluttdato: '2021-01-28',
+        startdato: '01.01.2018',
+        sluttdato: '28.01.2021',
       }
 
       const updatedState_1 = userInputSlice(
@@ -105,8 +105,8 @@ describe('userInputSlice', () => {
         id: '98765',
         land: 'Belgia',
         arbeidetUtenlands: true,
-        startdato: '2005-02-07',
-        sluttdato: '2012-10-11',
+        startdato: '07.02.2005',
+        sluttdato: '11.10.2012',
       }
 
       const updatedState_2 = userInputSlice(
@@ -134,8 +134,8 @@ describe('userInputSlice', () => {
         id: '12345',
         land: 'Sverige',
         arbeidetUtenlands: null,
-        startdato: '2010-06-12',
-        sluttdato: '2013-12-20',
+        startdato: '12.06.2010',
+        sluttdato: '20.12.2013',
       }
 
       const updatedState_3 = userInputSlice(
@@ -164,8 +164,8 @@ describe('userInputSlice', () => {
         id: '12345',
         land: 'Kina',
         arbeidetUtenlands: null,
-        startdato: '2018-01-02',
-        sluttdato: '2021-08-20',
+        startdato: '02.01.2018',
+        sluttdato: '20.08.2021',
       }
 
       const utenlandsperiode_2: Utenlandsperiode = {
