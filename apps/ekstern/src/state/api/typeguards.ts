@@ -110,7 +110,10 @@ export const isTpoMedlemskap = (data?: any): data is TpoMedlemskap => {
     typeof data === 'object' &&
     data !== null &&
     !Array.isArray(data) &&
-    typeof data.harTjenestepensjonsforhold === 'boolean'
+    Array.isArray(data.tpLeverandoerListe) &&
+    data.tpLeverandoerListe.every(
+      (tpLeverandoer: string) => typeof tpLeverandoer === 'string'
+    )
   )
 }
 

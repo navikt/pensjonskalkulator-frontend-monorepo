@@ -62,7 +62,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(ansattIdResponse)
   }),
 
-  http.get(`${baseUrl}/tpo-medlemskap`, async () => {
+  http.get(`${baseUrl}/v1/tpo-medlemskap`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(tpoMedlemskapResponse)
   }),

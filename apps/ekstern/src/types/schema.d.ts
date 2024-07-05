@@ -235,6 +235,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v1/tpo-medlemskap': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Hent medlemskap i offentlige tjenestepensjonsordninger
+     *
+     * @description Henter både aktive og inaktive medlemskap til brukeren i offentlige tjenestepensjonsordninger
+     */
+    get: operations['hentMedlemskapITjenestepensjonsordninger']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v1/person': {
     parameters: {
       query?: never
@@ -1007,6 +1028,9 @@ export interface components {
       /** Format: int32 */
       ufoeregrad: number
     }
+    MedlemskapITjenestepensjonsordningDto: {
+      tpLeverandoerListe: string[]
+    }
     UttaksalderAlderDto: {
       /** Format: int32 */
       aar: number
@@ -1463,6 +1487,26 @@ export interface operations {
         }
         content: {
           '*/*': unknown
+        }
+      }
+    }
+  }
+  hentMedlemskapITjenestepensjonsordninger: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['MedlemskapITjenestepensjonsordningDto']
         }
       }
     }
