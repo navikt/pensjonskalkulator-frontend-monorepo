@@ -34,7 +34,12 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage id="stegvisning.ufoere.title" />
         </Heading>
 
-        <Alert className={styles.alert} variant="info" aria-live="polite">
+        <Alert
+          data-testid="ufoere-info"
+          className={styles.alert}
+          variant="info"
+          aria-live="polite"
+        >
           <FormattedMessage
             id="stegvisning.ufoere.info"
             values={{ ...getFormatMessageValues(intl) }}
@@ -52,7 +57,11 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
           />
         </ReadMore>
 
-        <BodyLong size="large" className={styles.paragraph}>
+        <BodyLong
+          size="large"
+          data-testid="ufoere-ingress"
+          className={styles.paragraph}
+        >
           <FormattedMessage
             id="stegvisning.ufoere.ingress"
             values={{ ...getFormatMessageValues(intl) }}
