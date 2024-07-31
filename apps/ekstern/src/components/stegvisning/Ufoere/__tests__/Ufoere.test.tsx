@@ -31,12 +31,6 @@ describe('stegvisning - Ufoere', () => {
         { exact: false }
       )
     ).toBeVisible()
-    await user.click(screen.getByText('stegvisning.ufoere.readmore_2.title'))
-    expect(
-      await screen.findByText('Hvis du jobber i privat sektor,', {
-        exact: false,
-      })
-    ).toBeVisible()
     expect(await screen.findByText('stegvisning.ufoere.ingress')).toBeVisible()
     expect(result.asFragment()).toMatchSnapshot()
   })

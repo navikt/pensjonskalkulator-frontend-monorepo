@@ -172,8 +172,6 @@ const translations = {
   'stegvisning.ufoere.info': 'MANGLER_TEKST',
   'stegvisning.ufoere.readmore_1.title': 'MANGLER_TEKST',
   'stegvisning.ufoere.readmore_1.body': 'MANGLER_TEKST',
-  'stegvisning.ufoere.readmore_2.title': 'MANGLER_TEKST',
-  'stegvisning.ufoere.readmore_2.body': 'MANGLER_TEKST',
   'stegvisning.ufoere.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.ingress': 'MANGLER_TEKST',
