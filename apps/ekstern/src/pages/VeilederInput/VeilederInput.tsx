@@ -76,7 +76,7 @@ export const VeilederInput = () => {
   const encryptFnr = (fnr: string) => {
     return fetch(`${API_BASEURL}/v1/encrypt`, {
       method: 'POST',
-      body: JSON.stringify({ text: fnr }),
+      body: fnr,
     }).then((res) => res.text())
   }
 
