@@ -122,6 +122,17 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     })
   }),
 
+  http.post(`${baseUrl}/v1/encrypt`, async ({ request }) => {
+    await delay(TEST_DELAY)
+    // const FAILING_FNR = '40100000000'
+    // const reqFnr = request.body.fnr
+    // if (reqFnr === FAILING_FNR) {
+    //   return HttpResponse.json({}, { status: 401 })
+    // }
+
+    return HttpResponse.text('this-is-just-jibbrish-encrypted-fnr')
+  }),
+
   http.get(
     `${baseUrl}/feature/pensjonskalkulator.disable-spraakvelger`,
     async () => {

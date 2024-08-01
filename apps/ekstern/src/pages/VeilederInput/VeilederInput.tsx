@@ -16,6 +16,7 @@ import {
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework/FrameComponent'
 import BorgerInformasjon from '@/components/veileder/BorgerInformasjon'
+import { API_BASEURL } from '@/paths'
 import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
 import {
@@ -47,7 +48,7 @@ export const VeilederInput = () => {
     isFetching: personLoading,
     error: personError,
   } = useGetPersonQuery(undefined, {
-    skip: !veilederBorgerFnr,
+    skip: !veilederBorgerFnr.fnr || !veilederBorgerFnr.encryptedFnr,
   })
 
   const hasTimedOut = React.useMemo(() => {
@@ -72,11 +73,26 @@ export const VeilederInput = () => {
     window.location.href = `${BASE_PATH}/veileder`
   }
 
+  const encryptFnr = (fnr: string) => {
+    return fetch(`${API_BASEURL}/v1/encrypt`, {
+      method: 'POST',
+      body: JSON.stringify({ text: fnr }),
+    }).then((res) => res.text())
+  }
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
     const nyFnr = event.currentTarget.veilederBorgerFnr.value
-    dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
-    dispatch(apiSlice.util.invalidateTags(['Person']))
+    encryptFnr(nyFnr).then((encryptedFnr) => {
+      dispatch(
+        userInputActions.setVeilederBorgerFnr({
+          fnr: nyFnr,
+          encryptedFnr,
+        })
+      )
+      dispatch(apiSlice.util.invalidateTags(['Person']))
+    })
   }
 
   const excludedPaths = findRoutesWithoutLoaders(routes)
@@ -100,7 +116,11 @@ export const VeilederInput = () => {
     )
   }
 
-  if ((!personSuccess && !veilederBorgerFnr) || personError || personLoading) {
+  if (
+    (!personSuccess && !veilederBorgerFnr.fnr) ||
+    personError ||
+    personLoading
+  ) {
     return (
       <div data-testid="veileder-uten-borger">
         <InternalHeader>
@@ -110,7 +130,7 @@ export const VeilederInput = () => {
         </InternalHeader>
 
         <FrameComponent>
-          <Card hasMargin>
+          <Card>
             <Heading level="2" size="medium" spacing>
               Veiledertilgang
             </Heading>
@@ -164,7 +184,7 @@ export const VeilederInput = () => {
           <Spacer />
           <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
-        <BorgerInformasjon fnr={veilederBorgerFnr!} />
+        <BorgerInformasjon fnr={veilederBorgerFnr!.fnr!} />
 
         <RouterProvider router={router} />
       </div>
