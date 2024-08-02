@@ -51,6 +51,15 @@ export const VeilederInput = () => {
     skip: !veilederBorgerFnr.fnr || !veilederBorgerFnr.encryptedFnr,
   })
 
+  const [encryptedRequestLoading, setEncryptedRequestLoading] = React.useState<
+    'IDLE' | 'LOADING' | 'SUCCESS' | 'ERROR'
+  >('IDLE')
+
+  const isLoading = React.useMemo(
+    () => personLoading || encryptedRequestLoading === 'LOADING',
+    [personLoading, encryptedRequestLoading]
+  )
+
   const hasTimedOut = React.useMemo(() => {
     const queryParams = new URLSearchParams(window.location.search)
     return queryParams.has('timeout')
@@ -74,10 +83,19 @@ export const VeilederInput = () => {
   }
 
   const encryptFnr = (fnr: string) => {
+    setEncryptedRequestLoading('LOADING')
     return fetch(`${API_BASEURL}/v1/encrypt`, {
       method: 'POST',
       body: fnr,
-    }).then((res) => res.text())
+    })
+      .then((res) => {
+        setEncryptedRequestLoading('SUCCESS')
+        return res.text()
+      })
+      .catch(() => {
+        setEncryptedRequestLoading('ERROR')
+        throw new Error('Kunne ikke hente kryptert fnr.')
+      })
   }
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -116,11 +134,7 @@ export const VeilederInput = () => {
     )
   }
 
-  if (
-    (!personSuccess && !veilederBorgerFnr.fnr) ||
-    personError ||
-    personLoading
-  ) {
+  if ((!personSuccess && !veilederBorgerFnr.fnr) || personError || isLoading) {
     return (
       <div data-testid="veileder-uten-borger">
         <InternalHeader>
@@ -140,6 +154,11 @@ export const VeilederInput = () => {
                   Du var for lenge inaktiv og sesjonen for bruker har derfor
                   løpt ut.
                   <br /> Logg inn på bruker på nytt.
+                </Alert>
+              )}
+              {encryptedRequestLoading === 'ERROR' && (
+                <Alert variant="error" data-testid="inaktiv-alert">
+                  Feil ved kryptering av fødselsnummer
                 </Alert>
               )}
               <VeilederInputRequestError personError={personError} />
