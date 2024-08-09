@@ -39,6 +39,8 @@ type IExtendedAmpltitudeEvents =
   | AmplitudeEvent<'alert', { tekst: string }>
   | AmplitudeEvent<'feilside', { tekst: string }>
   | AmplitudeEvent<'link åpnet', { href?: string; target?: string }>
+  | AmplitudeEvent<'show more åpnet', { tekst: string }>
+  | AmplitudeEvent<'show more lukket', { tekst: string }>
 
 export const logger =
   getAmplitudeInstance<IExtendedAmpltitudeEvents>('dekoratoren')
