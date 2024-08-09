@@ -360,6 +360,7 @@ describe('userInput selectors', () => {
         userInput: {
           ...initialState.userInput,
           veilederBorgerFnr: '81549300',
+          veilederBorgerEncryptedFnr: 'dette-er-kryptert-fnr',
         },
       }
       expect(selectIsVeileder(state)).toBe(true)
@@ -369,19 +370,27 @@ describe('userInput selectors', () => {
   describe('selectVeilederBorgerFnr', () => {
     it('er undefined når veilederBorgerFnr ikke er satt', () => {
       const state: RootState = initialState
-      expect(selectVeilederBorgerFnr(state)).toBeUndefined()
+      expect(selectVeilederBorgerFnr(state)).toStrictEqual({
+        fnr: undefined,
+        encryptedFnr: undefined,
+      })
     })
 
     it('er fnr når veilederBorgerFnr er satt', () => {
       const testFnr = '81549300'
+      const encryptetFnr = 'dette-er-kryptert-fnr'
       const state: RootState = {
         ...initialState,
         userInput: {
           ...initialState.userInput,
           veilederBorgerFnr: testFnr,
+          veilederBorgerEncryptedFnr: encryptetFnr,
         },
       }
-      expect(selectVeilederBorgerFnr(state)).toBe(testFnr)
+      expect(selectVeilederBorgerFnr(state)).toStrictEqual({
+        fnr: testFnr,
+        encryptedFnr: encryptetFnr,
+      })
     })
   })
 

@@ -16,6 +16,7 @@ import {
 import { Card } from '@/components/common/Card'
 import { FrameComponent } from '@/components/common/PageFramework/FrameComponent'
 import BorgerInformasjon from '@/components/veileder/BorgerInformasjon'
+import { API_BASEURL } from '@/paths'
 import { BASE_PATH } from '@/router/constants'
 import { routes } from '@/router/routes'
 import {
@@ -47,8 +48,17 @@ export const VeilederInput = () => {
     isFetching: personLoading,
     error: personError,
   } = useGetPersonQuery(undefined, {
-    skip: !veilederBorgerFnr,
+    skip: !veilederBorgerFnr.fnr || !veilederBorgerFnr.encryptedFnr,
   })
+
+  const [encryptedRequestLoading, setEncryptedRequestLoading] = React.useState<
+    'IDLE' | 'LOADING' | 'SUCCESS' | 'ERROR'
+  >('IDLE')
+
+  const isLoading = React.useMemo(
+    () => personLoading || encryptedRequestLoading === 'LOADING',
+    [personLoading, encryptedRequestLoading]
+  )
 
   const hasTimedOut = React.useMemo(() => {
     const queryParams = new URLSearchParams(window.location.search)
@@ -72,11 +82,35 @@ export const VeilederInput = () => {
     window.location.href = `${BASE_PATH}/veileder`
   }
 
+  const encryptFnr = (fnr: string) => {
+    setEncryptedRequestLoading('LOADING')
+    return fetch(`${API_BASEURL}/v1/encrypt`, {
+      method: 'POST',
+      body: fnr,
+    })
+      .then((res) => {
+        setEncryptedRequestLoading('SUCCESS')
+        return res.text()
+      })
+      .catch(() => {
+        setEncryptedRequestLoading('ERROR')
+        throw new Error('Kunne ikke hente kryptert fnr.')
+      })
+  }
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+
     const nyFnr = event.currentTarget.veilederBorgerFnr.value
-    dispatch(userInputActions.setVeilederBorgerFnr(nyFnr))
-    dispatch(apiSlice.util.invalidateTags(['Person']))
+    encryptFnr(nyFnr).then((encryptedFnr) => {
+      dispatch(
+        userInputActions.setVeilederBorgerFnr({
+          fnr: nyFnr,
+          encryptedFnr,
+        })
+      )
+      dispatch(apiSlice.util.invalidateTags(['Person']))
+    })
   }
 
   const excludedPaths = findRoutesWithoutLoaders(routes)
@@ -100,7 +134,7 @@ export const VeilederInput = () => {
     )
   }
 
-  if ((!personSuccess && !veilederBorgerFnr) || personError || personLoading) {
+  if ((!personSuccess && !veilederBorgerFnr.fnr) || personError || isLoading) {
     return (
       <div data-testid="veileder-uten-borger">
         <InternalHeader>
@@ -110,7 +144,7 @@ export const VeilederInput = () => {
         </InternalHeader>
 
         <FrameComponent>
-          <Card hasMargin>
+          <Card>
             <Heading level="2" size="medium" spacing>
               Veiledertilgang
             </Heading>
@@ -120,6 +154,11 @@ export const VeilederInput = () => {
                   Du var for lenge inaktiv og sesjonen for bruker har derfor
                   løpt ut.
                   <br /> Logg inn på bruker på nytt.
+                </Alert>
+              )}
+              {encryptedRequestLoading === 'ERROR' && (
+                <Alert variant="error" data-testid="inaktiv-alert">
+                  Feil ved kryptering av fødselsnummer
                 </Alert>
               )}
               <VeilederInputRequestError personError={personError} />
@@ -164,7 +203,7 @@ export const VeilederInput = () => {
           <Spacer />
           <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
-        <BorgerInformasjon fnr={veilederBorgerFnr!} />
+        <BorgerInformasjon fnr={veilederBorgerFnr!.fnr!} />
 
         <RouterProvider router={router} />
       </div>

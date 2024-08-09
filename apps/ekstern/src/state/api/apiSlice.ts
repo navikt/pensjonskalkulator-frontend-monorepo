@@ -22,8 +22,8 @@ export const apiSlice = createApi({
     baseUrl: API_BASEURL,
     prepareHeaders: (headers, { getState }) => {
       const veilederBorgerFnr = selectVeilederBorgerFnr(getState() as RootState)
-      if (veilederBorgerFnr) {
-        headers.set('fnr', veilederBorgerFnr)
+      if (veilederBorgerFnr.fnr && veilederBorgerFnr.encryptedFnr) {
+        headers.set('fnr', veilederBorgerFnr.encryptedFnr)
       }
     },
   }),
