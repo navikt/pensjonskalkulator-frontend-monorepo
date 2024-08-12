@@ -58,7 +58,7 @@ const translations = {
   'landingsside.text.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.button.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.body.uinnlogget_kalkulator':
-    'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv og den beregner kun alderspensjon fra folketrygden (NAV).',
+    'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv. Kalkulatoren beregner alderspensjon fra folketrygden (NAV) og AFP (avtalefestet pensjon) i privat sektor.',
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i pensjonskalkulator',
   'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
