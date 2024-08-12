@@ -185,16 +185,12 @@ const translations = {
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
   'stegvisning.ufoere.title': 'Uføretrygd og AFP (avtalefestet pensjon)',
   'stegvisning.ufoere.info':
-    'Du kan ikke kombinere uføretrygd og AFP. Du må velge før du fyller 62 år.',
+    'Før du fyller 62 år må du velge mellom å få AFP eller å beholde uføretrygden. {br}{br} AFP og uføretrygd kan ikke kombineres. Hvis du ikke gir oss beskjed, mister du retten til AFP (men beholder uføretrygden).',
   'stegvisning.ufoere.readmore_1.title': 'Om uføretrygd og AFP',
   'stegvisning.ufoere.readmore_1.body':
     'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra NAV etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.{br}{br}Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.',
-  'stegvisning.ufoere.readmore_2.title':
-    'Få hjelp til å finne ut hva som lønner seg',
-  'stegvisning.ufoere.readmore_2.body':
-    'Hvis du jobber i privat sektor, <planleggePensjonLink>kontakt NAV</planleggePensjonLink>. Hvis du jobber i offentlig sektor, kontakt din tjenestepensjonsordning.',
   'stegvisning.ufoere.ingress':
-    'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
+    'Du kan få hjelp til å finne ut hva som lønner seg. <planleggePensjonLink>Kontakt NAV</planleggePensjonLink> hvis du jobber i privat sektor. Kontakt tjenestepensjonsordningen din hvis du jobber i offentlig sektor. {br}{br} Kalkulatoren beregner ikke AFP for deg som får uføretrygd.{br}{br} Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.samtykke_offentlig_afp.title':
     'Samtykke til at NAV beregner AFP (avtalefestet pensjon)',
   'stegvisning.samtykke_offentlig_afp.ingress':
