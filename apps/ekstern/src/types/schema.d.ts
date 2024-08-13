@@ -25,69 +25,6 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/api/v5/alderspensjon/simulering': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Simuler alderspensjon
-     *
-     * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
-     */
-    post: operations['simulerAlderspensjonV5']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v4/alderspensjon/simulering': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Simuler alderspensjon
-     *
-     * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
-     */
-    post: operations['simulerAlderspensjonV4']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/api/v3/alderspensjon/simulering': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Simuler alderspensjon
-     *
-     * @description Lag en prognose for framtidig alderspensjon. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
-     */
-    post: operations['simulerAlderspensjonV3']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/api/v2/pensjonsavtaler': {
     parameters: {
       query?: never
@@ -145,6 +82,27 @@ export interface paths {
      * @description Finn første mulige uttaksalder for innlogget bruker ved gradert (20–80 %) uttak. Feltet 'harEps' brukes til å angi om brukeren har ektefelle/partner/samboer eller ei
      */
     post: operations['finnTidligsteGradertUttaksalderV1']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/v1/encrypt': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Krypter tekst
+     *
+     * @description Krypterer angitt tekst (typisk brukstilfelle er for fødselsnumre)
+     */
+    post: operations['encrypt']
     delete?: never
     options?: never
     head?: never
@@ -521,262 +479,6 @@ export interface components {
       vilkaarErOppfylt: boolean
       alternativ?: components['schemas']['AlternativV6']
     }
-    IngressSimuleringAlderV5: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    IngressSimuleringGradertUttakV5: {
-      /** Format: int32 */
-      grad: number
-      uttaksalder: components['schemas']['IngressSimuleringAlderV5']
-      /** Format: int32 */
-      aarligInntektVsaPensjonBeloep?: number
-    }
-    IngressSimuleringHeltUttakV5: {
-      uttaksalder: components['schemas']['IngressSimuleringAlderV5']
-      aarligInntektVsaPensjon?: components['schemas']['IngressSimuleringInntektV5']
-    }
-    IngressSimuleringInntektV5: {
-      /** Format: int32 */
-      beloep: number
-      sluttAlder: components['schemas']['IngressSimuleringAlderV5']
-    }
-    IngressSimuleringSpecV5: {
-      /** @enum {string} */
-      simuleringstype:
-        | 'ALDERSPENSJON'
-        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      /** Format: date */
-      foedselsdato: string
-      epsHarInntektOver2G: boolean
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-      gradertUttak?: components['schemas']['IngressSimuleringGradertUttakV5']
-      heltUttak: components['schemas']['IngressSimuleringHeltUttakV5']
-    }
-    AfpOffentligV5: {
-      afpLeverandoer: string
-      afpOffentligListe: components['schemas']['PensjonsberegningAfpOffentligV5'][]
-    }
-    AfpPrivatV5: {
-      afpPrivatListe: components['schemas']['PensjonsberegningV5'][]
-    }
-    AlderV5: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    AlternativV5: {
-      gradertUttaksalder?: components['schemas']['AlderV5']
-      /** Format: int32 */
-      uttaksgrad?: number
-      heltUttaksalder: components['schemas']['AlderV5']
-    }
-    PensjonsberegningAfpOffentligV5: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-    }
-    PensjonsberegningV5: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-    }
-    SimuleringResultatV5: {
-      alderspensjon: components['schemas']['PensjonsberegningV5'][]
-      afpPrivat?: components['schemas']['AfpPrivatV5']
-      afpOffentlig?: components['schemas']['AfpOffentligV5']
-      vilkaarsproeving: components['schemas']['VilkaarsproevingV5']
-    }
-    VilkaarsproevingV5: {
-      vilkaarErOppfylt: boolean
-      alternativ?: components['schemas']['AlternativV5']
-    }
-    IngressSimuleringAlderV4: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    IngressSimuleringGradertUttakV4: {
-      /** Format: int32 */
-      grad: number
-      uttaksalder: components['schemas']['IngressSimuleringAlderV4']
-      /** Format: int32 */
-      aarligInntektVsaPensjonBeloep?: number
-    }
-    IngressSimuleringHeltUttakV4: {
-      uttaksalder: components['schemas']['IngressSimuleringAlderV4']
-      aarligInntektVsaPensjon?: components['schemas']['IngressSimuleringInntektV4']
-    }
-    IngressSimuleringInntektV4: {
-      /** Format: int32 */
-      beloep: number
-      sluttAlder: components['schemas']['IngressSimuleringAlderV4']
-    }
-    IngressSimuleringSpecV4: {
-      /** @enum {string} */
-      simuleringstype:
-        | 'ALDERSPENSJON'
-        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      /** Format: date */
-      foedselsdato: string
-      epsHarInntektOver2G: boolean
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-      gradertUttak?: components['schemas']['IngressSimuleringGradertUttakV4']
-      heltUttak: components['schemas']['IngressSimuleringHeltUttakV4']
-    }
-    AfpOffentligV4: {
-      afpLeverandoer: string
-      afpOffentligListe: components['schemas']['PensjonsberegningAfpOffentligV4'][]
-    }
-    AlderV4: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    AlternativV4: {
-      gradertUttaksalder?: components['schemas']['AlderV4']
-      /** Format: int32 */
-      uttaksgrad?: number
-      heltUttaksalder: components['schemas']['AlderV4']
-    }
-    PensjonsberegningAfpOffentligV4: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-    }
-    PensjonsberegningV4: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-    }
-    SimuleringResultatV4: {
-      alderspensjon: components['schemas']['PensjonsberegningV4'][]
-      afpPrivat: components['schemas']['PensjonsberegningV4'][]
-      afpOffentlig?: components['schemas']['AfpOffentligV4']
-      vilkaarsproeving: components['schemas']['VilkaarsproevingV4']
-    }
-    VilkaarsproevingV4: {
-      vilkaarErOppfylt: boolean
-      alternativ?: components['schemas']['AlternativV4']
-    }
-    IngressSimuleringAlderV3: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    IngressSimuleringGradertUttakV3: {
-      /** Format: int32 */
-      grad: number
-      uttaksalder: components['schemas']['IngressSimuleringAlderV3']
-      /** Format: int32 */
-      aarligInntektVsaPensjonBeloep?: number
-    }
-    IngressSimuleringHeltUttakV3: {
-      uttaksalder: components['schemas']['IngressSimuleringAlderV3']
-      aarligInntektVsaPensjon?: components['schemas']['IngressSimuleringInntektV3']
-    }
-    IngressSimuleringInntektV3: {
-      /** Format: int32 */
-      beloep: number
-      sluttAlder: components['schemas']['IngressSimuleringAlderV3']
-    }
-    IngressSimuleringSpecV3: {
-      /** @enum {string} */
-      simuleringstype:
-        | 'ALDERSPENSJON'
-        | 'ALDERSPENSJON_MED_AFP_PRIVAT'
-        | 'ALDERSPENSJON_MED_AFP_OFFENTLIG_LIVSVARIG'
-      /** Format: date */
-      foedselsdato: string
-      epsHarInntektOver2G: boolean
-      /** Format: int32 */
-      aarligInntektFoerUttakBeloep?: number
-      /** @enum {string} */
-      sivilstand?:
-        | 'UNKNOWN'
-        | 'UOPPGITT'
-        | 'UGIFT'
-        | 'GIFT'
-        | 'ENKE_ELLER_ENKEMANN'
-        | 'SKILT'
-        | 'SEPARERT'
-        | 'REGISTRERT_PARTNER'
-        | 'SEPARERT_PARTNER'
-        | 'SKILT_PARTNER'
-        | 'GJENLEVENDE_PARTNER'
-        | 'SAMBOER'
-      gradertUttak?: components['schemas']['IngressSimuleringGradertUttakV3']
-      heltUttak: components['schemas']['IngressSimuleringHeltUttakV3']
-    }
-    AlderV3: {
-      /** Format: int32 */
-      aar: number
-      /** Format: int32 */
-      maaneder: number
-    }
-    AlternativV3: {
-      gradertUttaksalder?: components['schemas']['AlderV3']
-      /** Format: int32 */
-      uttaksgrad?: number
-      heltUttaksalder: components['schemas']['AlderV3']
-    }
-    PensjonsberegningV3: {
-      /** Format: int32 */
-      alder: number
-      /** Format: int32 */
-      beloep: number
-    }
-    SimuleringResultatV3: {
-      alderspensjon: components['schemas']['PensjonsberegningV3'][]
-      afpPrivat: components['schemas']['PensjonsberegningV3'][]
-      vilkaarsproeving: components['schemas']['VilkaarsproevingV3']
-    }
-    VilkaarsproevingV3: {
-      vilkaarErOppfylt: boolean
-      alternativ?: components['schemas']['AlternativV3']
-    }
     PensjonsavtaleAlderSpecV2: {
       /** Format: int32 */
       aar: number
@@ -1050,105 +752,6 @@ export interface operations {
       }
     }
   }
-  simulerAlderspensjonV5: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['IngressSimuleringSpecV5']
-      }
-    }
-    responses: {
-      /** @description Simulering utført */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['SimuleringResultatV5']
-        }
-      }
-      /** @description Simulering kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': unknown
-        }
-      }
-    }
-  }
-  simulerAlderspensjonV4: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['IngressSimuleringSpecV4']
-      }
-    }
-    responses: {
-      /** @description Simulering utført */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['SimuleringResultatV4']
-        }
-      }
-      /** @description Simulering kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': unknown
-        }
-      }
-    }
-  }
-  simulerAlderspensjonV3: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['IngressSimuleringSpecV3']
-      }
-    }
-    responses: {
-      /** @description Simulering utført */
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': components['schemas']['SimuleringResultatV3']
-        }
-      }
-      /** @description Simulering kunne ikke utføres av tekniske årsaker */
-      503: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          '*/*': unknown
-        }
-      }
-    }
-  }
   fetchAvtalerV2: {
     parameters: {
       query?: never
@@ -1238,6 +841,39 @@ export interface operations {
         }
       }
       /** @description Søk etter uttaksalder kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  encrypt: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': string
+      }
+    }
+    responses: {
+      /** @description Kryptering utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': string
+        }
+      }
+      /** @description Kryptering kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown
