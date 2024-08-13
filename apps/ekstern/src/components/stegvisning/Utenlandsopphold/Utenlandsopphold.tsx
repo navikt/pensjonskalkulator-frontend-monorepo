@@ -20,6 +20,7 @@ import { useAppDispatch } from '@/state/hooks'
 import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { logger, wrapLogger } from '@/utils/logging'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './Utenlandsopphold.module.scss'
 
@@ -100,22 +101,72 @@ export function Utenlandsopphold({
         <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
       </BodyLong>
       <ReadMore
-        name="Om hva som er opphold utenfor Norge"
+        name="Hva som er opphold utenfor Norge"
         className={styles.readmore1}
         header={
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title" />
+          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.title" />
         }
       >
-        <FormattedMessage id="stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress" />
+        <FormattedMessage
+          id="stegvisning.utenlandsopphold.readmore_1.opphold.subtitle"
+          values={{
+            ...getFormatMessageValues(intl),
+          }}
+        />
+        <ul>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item1" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.opphold.list_item2" />
+          </li>
+        </ul>
+        <FormattedMessage
+          id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle"
+          values={{
+            ...getFormatMessageValues(intl),
+          }}
+        />
+        <ul>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5" />
+          </li>
+          <li>
+            <FormattedMessage id="stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6" />
+          </li>
+        </ul>
+        <FormattedMessage
+          id="stegvisning.utenlandsopphold.readmore_1.ingress"
+          values={{
+            ...getFormatMessageValues(intl),
+          }}
+        />
       </ReadMore>
       <ReadMore
-        name="Om konsekvenser av opphold i utlandet"
+        name="Betydning av opphold utenfor Norge for pensjon"
         className={styles.readmore2}
         header={
-          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.title" />
+          <FormattedMessage id="stegvisning.utenlandsopphold.readmore_2.title" />
         }
       >
-        <FormattedMessage id="stegvisning.utenlandsopphold.readmore_konsekvenser.ingress" />
+        <FormattedMessage
+          id="stegvisning.utenlandsopphold.readmore_2.ingress"
+          values={{
+            ...getFormatMessageValues(intl),
+          }}
+        />
       </ReadMore>
       <RadioGroup
         name="har-utenlandsopphold-radio"
@@ -145,6 +196,9 @@ export function Utenlandsopphold({
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
         </Radio>
       </RadioGroup>
+      {
+        //  TODO skrive tester for å dekke visning av utenlandsperioder
+      }
       {showUtenlandsperioder && (
         <section className={styles.section}>
           <Heading size="small" level="3">
@@ -218,7 +272,9 @@ export function Utenlandsopphold({
                 )
               })}
           </dl>
-
+          {
+            //  TODO skrive tester for å dekke åpning av Modal
+          }
           <Button
             type="button"
             variant="secondary"
