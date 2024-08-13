@@ -46,14 +46,74 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           />
         </svg>
         <span>
-          stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title
+          stegvisning.utenlandsopphold.readmore_1.title
         </span>
       </button>
       <div
         aria-hidden="true"
         class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
       >
-        stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress
+        stegvisning.utenlandsopphold.readmore_1.opphold.subtitle
+        <ul>
+          <li>
+            stegvisning.utenlandsopphold.readmore_1.opphold.list_item1
+          </li>
+          <li>
+            stegvisning.utenlandsopphold.readmore_1.opphold.list_item2
+          </li>
+        </ul>
+        stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle
+        <ul>
+          <li>
+            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1
+          </li>
+          <li>
+            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2
+          </li>
+          <li>
+            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3
+          </li>
+          <li>
+            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4
+          </li>
+          <li>
+            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5
+          </li>
+          <li>
+            stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6
+          </li>
+        </ul>
+        Listene er ikke uttømmende. Er du usikker på hva som gjelder for deg, se 
+        <a
+          class="navds-link navds-link--action navds-link--inline-text"
+          href="https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden"
+          target="_blank"
+        >
+          nav.no
+          <svg
+            aria-labelledby="title-r1"
+            fill="none"
+            focusable="false"
+            height="1.25rem"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1.25rem"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title
+              id="title-r1"
+            >
+              application.global.external_link
+            </title>
+            <path
+              clip-rule="evenodd"
+              d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </a>
+        .
       </div>
     </div>
     <div
@@ -84,14 +144,50 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           />
         </svg>
         <span>
-          stegvisning.utenlandsopphold.readmore_konsekvenser.title
+          stegvisning.utenlandsopphold.readmore_2.title
         </span>
       </button>
       <div
         aria-hidden="true"
         class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
       >
-        stegvisning.utenlandsopphold.readmore_konsekvenser.ingress
+        Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års botid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. Årsaken til det er at du ikke når full trygdetid (40 år) i Norge. 
+        <a
+          class="navds-link navds-link--action navds-link--inline-text"
+          href="https://www.nav.no/alderspensjon#kort-botid"
+          target="_blank"
+        >
+          Mer om kort botid i Norge
+          <svg
+            aria-labelledby="title-r3"
+            fill="none"
+            focusable="false"
+            height="1.25rem"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1.25rem"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title
+              id="title-r3"
+            >
+              application.global.external_link
+            </title>
+            <path
+              clip-rule="evenodd"
+              d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
+              fill="currentColor"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </a>
+        .
+        <br />
+        <br />
+        Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.
+        <br />
+        <br />
+        For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har bodd utenfor Norge. 
       </div>
     </div>
     <fieldset
@@ -106,7 +202,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
       </legend>
       <div
         class="navds-fieldset__description navds-body-short navds-body-short--medium"
-        id="fieldset-description-r3"
+        id="fieldset-description-r5"
       >
         stegvisning.utenlandsopphold.radio_label.description
       </div>
@@ -117,17 +213,17 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           class="navds-radio navds-radio--medium"
         >
           <input
-            aria-labelledby="r5"
+            aria-labelledby="r7"
             class="navds-radio__input"
             form="har-utenlandsopphold"
-            id="radio-r4"
+            id="radio-r6"
             name="har-utenlandsopphold-radio"
             type="radio"
             value="ja"
           />
           <label
             class="navds-radio__label"
-            for="radio-r4"
+            for="radio-r6"
           >
             <span
               class="navds-radio__content"
@@ -135,7 +231,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
               <span
                 aria-hidden="true"
                 class="navds-body-short navds-body-short--medium"
-                id="r5"
+                id="r7"
               >
                 stegvisning.utenlandsopphold.radio_ja
               </span>
@@ -146,17 +242,17 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
           class="navds-radio navds-radio--medium"
         >
           <input
-            aria-labelledby="r8"
+            aria-labelledby="ra"
             class="navds-radio__input"
             form="har-utenlandsopphold"
-            id="radio-r7"
+            id="radio-r9"
             name="har-utenlandsopphold-radio"
             type="radio"
             value="nei"
           />
           <label
             class="navds-radio__label"
-            for="radio-r7"
+            for="radio-r9"
           >
             <span
               class="navds-radio__content"
@@ -164,7 +260,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
               <span
                 aria-hidden="true"
                 class="navds-body-short navds-body-short--medium"
-                id="r8"
+                id="ra"
               >
                 stegvisning.utenlandsopphold.radio_nei
               </span>
@@ -176,7 +272,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
         aria-live="polite"
         aria-relevant="additions removals"
         class="navds-fieldset__error"
-        id="fieldset-error-r3"
+        id="fieldset-error-r5"
       />
     </fieldset>
     <button

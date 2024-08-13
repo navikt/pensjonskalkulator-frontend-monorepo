@@ -4,7 +4,9 @@ import React, { forwardRef, useMemo, useRef, useState } from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from '@navikt/aksel-icons'
 import { Button, Heading, HeadingProps, useId } from '@navikt/ds-react'
 import cl from 'clsx'
+
 import './ShowMore.styles.css'
+import { logger } from '@/utils/logging'
 
 type PossibleRef<T> = React.Ref<T> | undefined
 export function mergeRefs<T>(refs: PossibleRef<T>[]): React.RefCallback<T> {
@@ -71,6 +73,11 @@ export interface ShowMoreProps
    * @default true
    */
   scrollBackOnCollapse?: boolean
+  /**
+   * Navn på på innhold.
+   * Brukes til logging i amplitude
+   */
+  name: string
 }
 
 /**
@@ -97,6 +104,7 @@ export const ShowMore = forwardRef<HTMLElement, ShowMoreProps>(
       headingLevel = '1',
       scrollBackOnCollapse = true,
       className,
+      name,
       'aria-labelledby': ariaLabelledby,
       ...rest
     },
@@ -108,6 +116,19 @@ export const ShowMore = forwardRef<HTMLElement, ShowMoreProps>(
     const ariaLabelId = useId()
 
     const ChevronIcon = isOpen ? ChevronUpIcon : ChevronDownIcon
+
+    const toggleOpen = () => {
+      if (isOpen) {
+        logger('show more lukket', { tekst: name })
+        setIsOpen(false)
+        if (scrollBackOnCollapse) {
+          localRef.current?.scrollIntoView()
+        }
+      } else {
+        logger('show more åpnet', { tekst: name })
+        setIsOpen(true)
+      }
+    }
 
     return (
       <Component
@@ -139,12 +160,7 @@ export const ShowMore = forwardRef<HTMLElement, ShowMoreProps>(
               icon={<ChevronIcon aria-hidden />}
               iconPosition="right"
               size={size}
-              onClick={() => {
-                setIsOpen(!isOpen)
-                if (scrollBackOnCollapse && isOpen) {
-                  localRef.current?.scrollIntoView()
-                }
-              }}
+              onClick={toggleOpen}
             >
               {isOpen ? 'Vis mindre' : 'Vis mer'}
             </Button>

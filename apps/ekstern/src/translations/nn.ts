@@ -82,12 +82,27 @@ const translations = {
   'stegvisning.utenlandsopphold_med_henvisning.radio_label': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.ingress': 'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title':
+  'stegvisning.utenlandsopphold.readmore_1.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.subtitle': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item1': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item2': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.readmore_konsekvenser.title': 'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.readmore_konsekvenser.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_2.title': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_2.ingress': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_label': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_label.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_ja': 'Ja',
@@ -172,8 +187,6 @@ const translations = {
   'stegvisning.ufoere.info': 'MANGLER_TEKST',
   'stegvisning.ufoere.readmore_1.title': 'MANGLER_TEKST',
   'stegvisning.ufoere.readmore_1.body': 'MANGLER_TEKST',
-  'stegvisning.ufoere.readmore_2.title': 'MANGLER_TEKST',
-  'stegvisning.ufoere.readmore_2.body': 'MANGLER_TEKST',
   'stegvisning.ufoere.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_offentlig_afp.ingress': 'MANGLER_TEKST',

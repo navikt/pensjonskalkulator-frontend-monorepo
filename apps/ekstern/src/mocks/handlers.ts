@@ -122,6 +122,11 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     })
   }),
 
+  http.post(`${baseUrl}/v1/encrypt`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.text('this-is-just-jibbrish-encrypted-fnr')
+  }),
+
   http.get(
     `${baseUrl}/feature/pensjonskalkulator.disable-spraakvelger`,
     async () => {

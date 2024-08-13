@@ -15,11 +15,14 @@ export const selectSamtykke = (state: RootState): boolean | null =>
 export const selectSamtykkeOffentligAFP = (state: RootState): boolean | null =>
   state.userInput.samtykkeOffentligAFP
 
-export const selectVeilederBorgerFnr = (state: RootState) =>
-  state.userInput.veilederBorgerFnr
+export const selectVeilederBorgerFnr = (state: RootState) => ({
+  encryptedFnr: state.userInput.veilederBorgerEncryptedFnr,
+  fnr: state.userInput.veilederBorgerFnr,
+})
 
 export const selectIsVeileder = (state: RootState) =>
-  !!state.userInput.veilederBorgerFnr
+  !!state.userInput.veilederBorgerFnr ||
+  !!state.userInput.veilederBorgerEncryptedFnr
 
 export const selectAfp = (state: RootState): AfpRadio | null =>
   state.userInput.afp

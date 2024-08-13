@@ -34,8 +34,16 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
           <FormattedMessage id="stegvisning.ufoere.title" />
         </Heading>
 
-        <Alert className={styles.alert} variant="info" aria-live="polite">
-          <FormattedMessage id="stegvisning.ufoere.info" />
+        <Alert
+          data-testid="ufoere-info"
+          className={styles.alert}
+          variant="info"
+          aria-live="polite"
+        >
+          <FormattedMessage
+            id="stegvisning.ufoere.info"
+            values={{ ...getFormatMessageValues(intl) }}
+          />
         </Alert>
 
         <ReadMore
@@ -49,19 +57,15 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
           />
         </ReadMore>
 
-        <ReadMore
-          name="Få hjelp til å finne ut hva som lønner seg"
-          className={styles.readmore2}
-          header={<FormattedMessage id="stegvisning.ufoere.readmore_2.title" />}
+        <BodyLong
+          size="large"
+          data-testid="ufoere-ingress"
+          className={styles.paragraph}
         >
           <FormattedMessage
-            id="stegvisning.ufoere.readmore_2.body"
+            id="stegvisning.ufoere.ingress"
             values={{ ...getFormatMessageValues(intl) }}
           />
-        </ReadMore>
-
-        <BodyLong size="large" className={styles.paragraph}>
-          <FormattedMessage id="stegvisning.ufoere.ingress" />
         </BodyLong>
 
         <Button type="submit" className={styles.button}>
