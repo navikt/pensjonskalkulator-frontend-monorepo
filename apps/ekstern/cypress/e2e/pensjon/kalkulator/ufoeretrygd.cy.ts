@@ -56,7 +56,7 @@ describe('med ufoeretrygd', () => {
             'exist'
           )
           cy.contains(
-            'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+            'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')
           cy.contains('button', 'Neste').click()
         })
@@ -87,7 +87,7 @@ describe('med ufoeretrygd', () => {
             'exist'
           )
           cy.contains(
-            'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+            'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')
           cy.contains('button', 'Neste').click()
         })
@@ -121,7 +121,7 @@ describe('med ufoeretrygd', () => {
             'exist'
           )
           cy.contains(
-            'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
+            'Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.'
           ).should('exist')
           cy.contains('button', 'Neste').click()
         })

@@ -112,26 +112,6 @@ describe('translations-utils', () => {
       ).toBeInTheDocument()
     })
 
-    it('formaterer <garantiPensjonLink> med riktig url og ikon', async () => {
-      render(
-        <FormattedMessage
-          id="translation.test.garantiPensjonLink"
-          values={{ ...getFormatMessageValues(intlMock) }}
-        />
-      )
-      expect(
-        screen.getByText('lorem ipsum dolor', { exact: false })
-      ).toBeInTheDocument()
-      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
-      expect(screen.queryByRole('link')).toHaveAttribute(
-        'href',
-        'https://www.nav.no/minstepensjon'
-      )
-      expect(
-        await screen.findByRole('img', { hidden: true })
-      ).toBeInTheDocument()
-    })
-
     it('formaterer <afpLink> med riktig url og ikon', async () => {
       render(
         <FormattedMessage
@@ -146,6 +126,26 @@ describe('translations-utils', () => {
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         'https://www.afp.no'
+      )
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <afpPrivatLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.afpPrivatLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        'https://www.nav.no/afp-i-privat-sektor'
       )
       expect(
         await screen.findByRole('img', { hidden: true })
@@ -234,6 +234,75 @@ describe('translations-utils', () => {
       expect(screen.queryByRole('link')).toHaveAttribute(
         'href',
         externalUrls.kontaktOss
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <planleggePensjonLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.planleggePensjonLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.planleggePensjon
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <trygdetidLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.trygdetidLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.trygdetid
+      )
+
+      expect(
+        await screen.findByRole('img', { hidden: true })
+      ).toBeInTheDocument()
+    })
+
+    it('formaterer <kortBotidLink> med riktig url og ikon', async () => {
+      render(
+        <FormattedMessage
+          id="translation.test.kortBotidLink"
+          values={{ ...getFormatMessageValues(intlMock) }}
+        />
+      )
+      expect(
+        screen.getByText('lorem ipsum dolor', { exact: false })
+      ).toBeInTheDocument()
+
+      expect(screen.getByText('my link', { exact: false })).toBeInTheDocument()
+
+      expect(screen.queryByRole('link')).toHaveAttribute(
+        'href',
+        externalUrls.kortBotid
       )
 
       expect(

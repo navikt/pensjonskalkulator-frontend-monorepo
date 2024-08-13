@@ -58,7 +58,7 @@ const translations = {
   'landingsside.text.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.button.uinnlogget_kalkulator': 'Uinnlogget kalkulator',
   'landingsside.body.uinnlogget_kalkulator':
-    'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv og den beregner kun alderspensjon fra folketrygden (NAV).',
+    'For deg som ikke kan logge inn på nav.no. Kalkulatoren henter ikke inn eller lagrer noen opplysninger om deg. Du må finne og oppgi alle opplysningene selv. Kalkulatoren beregner alderspensjon fra folketrygden (NAV) og AFP (avtalefestet pensjon) i privat sektor.',
   'landingsside.link.personopplysninger':
     'Personopplysninger som brukes i pensjonskalkulator',
   'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
@@ -92,13 +92,33 @@ const translations = {
   'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
   'stegvisning.utenlandsopphold.ingress':
     'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.',
-  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.title':
-    'Om hva som er opphold utenfor Norge',
-  'stegvisning.utenlandsopphold.readmore_opphold_utenfor_norge.ingress':
-    'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.readmore_konsekvenser.title':
-    'Om konsekvenser av opphold i utlandet',
-  'stegvisning.utenlandsopphold.readmore_konsekvenser.ingress': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.readmore_1.title':
+    'Hva som er opphold utenfor Norge',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.subtitle':
+    'Som hovedregel er dette opphold utenfor Norge:',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item1':
+    'Opphold i mer enn 12 måneder.',
+  'stegvisning.utenlandsopphold.readmore_1.opphold.list_item2':
+    'Opphold med jobb for utenlandsk arbeidsgiver uansett varighet.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.subtitle':
+    'Som hovedregel er dette ikke opphold utenfor Norge:',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item1': 'Ferier',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item2':
+    'Opphold uten jobb på under 12 måneder.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item3':
+    'Studier på under 12 måneder eller med støtte fra Lånekassen.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item4':
+    'Ansatt for norsk arbeidsgiver avhengig av hvilket land du jobber i.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item5':
+    'Ansatt i Forsvarets tjeneste.',
+  'stegvisning.utenlandsopphold.readmore_1.ikke_opphold.list_item6':
+    'Norsk statsborger og arbeidstaker på et norskregistrert skip eller i et norsk sivilt luftfartsselskap.',
+  'stegvisning.utenlandsopphold.readmore_1.ingress':
+    'Listene er ikke uttømmende. Er du usikker på hva som gjelder for deg, se <trygdetidLink>nav.no</trygdetidLink>.',
+  'stegvisning.utenlandsopphold.readmore_2.title':
+    'Betydning av opphold utenfor Norge for pensjon',
+  'stegvisning.utenlandsopphold.readmore_2.ingress':
+    'Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års botid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. Årsaken til det er at du ikke når full trygdetid (40 år) i Norge. <kortBotidLink>Mer om kort botid i Norge</kortBotidLink>.{br}{br}Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.{br}{br}For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har bodd utenfor Norge. ',
   'stegvisning.utenlandsopphold.radio_label':
     'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?',
   'stegvisning.utenlandsopphold.radio_label.description':
@@ -185,16 +205,12 @@ const translations = {
   'stegvisning.afp.validation_error': 'Du må svare på om du har rett til AFP.',
   'stegvisning.ufoere.title': 'Uføretrygd og AFP (avtalefestet pensjon)',
   'stegvisning.ufoere.info':
-    'Du kan ikke kombinere uføretrygd og AFP. Du må velge før du fyller 62 år.',
+    'Før du fyller 62 år må du velge mellom å få AFP eller å beholde uføretrygden. {br}{br} AFP og uføretrygd kan ikke kombineres. Hvis du ikke gir oss beskjed, mister du retten til AFP (men beholder uføretrygden).',
   'stegvisning.ufoere.readmore_1.title': 'Om uføretrygd og AFP',
   'stegvisning.ufoere.readmore_1.body':
     'For å ha rett til AFP, kan du ikke ha fått utbetalt uføretrygd fra NAV etter den måneden du fyller 62 år. Det gjelder uansett om du har mottatt hel eller gradert uføretrygd, hvor lenge du har hatt uføretrygd og hvor mye du har fått utbetalt i uføretrygd.{br}{br}Hvis du er under 62 år, må du altså si fra deg uføretrygden innen utgangen av måneden du fyller 62 år for å få utbetalt AFP. Husk at alle de andre vilkårene for å ha rett til AFP også må være oppfylt.',
-  'stegvisning.ufoere.readmore_2.title':
-    'Få hjelp til å finne ut hva som lønner seg',
-  'stegvisning.ufoere.readmore_2.body':
-    'Hvis du jobber i privat sektor, <planleggePensjonLink>kontakt NAV</planleggePensjonLink>. Hvis du jobber i offentlig sektor, kontakt din tjenestepensjonsordning.',
   'stegvisning.ufoere.ingress':
-    'Du kan ikke beregne AFP i kalkulatoren. Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
+    'Du kan få hjelp til å finne ut hva som lønner seg. <planleggePensjonLink>Kontakt NAV</planleggePensjonLink> hvis du jobber i privat sektor. Kontakt tjenestepensjonsordningen din hvis du jobber i offentlig sektor. {br}{br} Kalkulatoren beregner ikke AFP for deg som får uføretrygd.{br}{br} Gå videre for å se alderspensjon fra NAV og pensjonsavtaler i privat sektor.',
   'stegvisning.samtykke_offentlig_afp.title':
     'Samtykke til at NAV beregner AFP (avtalefestet pensjon)',
   'stegvisning.samtykke_offentlig_afp.ingress':

@@ -22,7 +22,9 @@ describe('stegvisning - Ufoere', () => {
       'stegvisning.ufoere.title'
     )
 
-    expect(await screen.findByText('stegvisning.ufoere.info')).toBeVisible()
+    expect(screen.getByTestId('ufoere-info')).toHaveTextContent(
+      'Før du fyller 62 år må du'
+    )
 
     await user.click(screen.getByText('stegvisning.ufoere.readmore_1.title'))
     expect(
@@ -31,13 +33,9 @@ describe('stegvisning - Ufoere', () => {
         { exact: false }
       )
     ).toBeVisible()
-    await user.click(screen.getByText('stegvisning.ufoere.readmore_2.title'))
-    expect(
-      await screen.findByText('Hvis du jobber i privat sektor,', {
-        exact: false,
-      })
-    ).toBeVisible()
-    expect(await screen.findByText('stegvisning.ufoere.ingress')).toBeVisible()
+    expect(screen.getByTestId('ufoere-ingress')).toHaveTextContent(
+      'Du kan få hjelp til å finne ut hva som lønner seg'
+    )
     expect(result.asFragment()).toMatchSnapshot()
   })
 

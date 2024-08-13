@@ -8,11 +8,15 @@ describe('userInputSlice', () => {
     it('setVeilederBorgerFnr', () => {
       const updatedState = userInputSlice(
         userInputInitialState,
-        userInputActions.setVeilederBorgerFnr('01067428733')
+        userInputActions.setVeilederBorgerFnr({
+          fnr: '01067428733',
+          encryptedFnr: 'dette-er kryptert-fnr',
+        })
       )
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
         veilederBorgerFnr: '01067428733',
+        veilederBorgerEncryptedFnr: 'dette-er kryptert-fnr',
       })
     })
 

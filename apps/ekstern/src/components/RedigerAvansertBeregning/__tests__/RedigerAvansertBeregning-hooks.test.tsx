@@ -841,12 +841,14 @@ describe('RedigerAvansertBeregning-hooks', () => {
                 "garantiPensjonLink": [Function],
                 "grad": undefined,
                 "kontaktOssLink": [Function],
+                "kortBotidLink": [Function],
                 "navPersonvernerklaeringKontaktOssLink": [Function],
                 "navPersonvernerklaeringLink": [Function],
                 "norskPensjonLink": [Function],
                 "nowrap": [Function],
                 "planleggePensjonLink": [Function],
                 "strong": [Function],
+                "trygdetidLink": [Function],
               }
             }
           />

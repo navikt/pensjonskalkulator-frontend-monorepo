@@ -209,6 +209,7 @@ export const Pensjonsavtaler = (props: {
               </div>
             )}
             <ShowMore
+              name="pensjonsavtaler"
               aria-labelledby="pensjonsavtaler-heading"
               collapsedHeight={
                 (pensjonsavtaler?.avtaler?.length ?? 0) > 1 ? '20rem' : '10rem'
