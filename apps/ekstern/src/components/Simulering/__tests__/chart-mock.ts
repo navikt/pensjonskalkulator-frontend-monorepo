@@ -3,9 +3,9 @@ import { Mock } from 'vitest'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const getChartMock = (
-  pointUpdateMock: Mock<any[], any>,
-  tooltipUpdateMock: Mock<any[], any>,
-  tooltipRefreshMock: Mock<any[], any>
+  pointUpdateMock: Mock<any>,
+  tooltipUpdateMock: Mock<any>,
+  tooltipRefreshMock: Mock<any>
 ) => {
   const data1 = [
     {
