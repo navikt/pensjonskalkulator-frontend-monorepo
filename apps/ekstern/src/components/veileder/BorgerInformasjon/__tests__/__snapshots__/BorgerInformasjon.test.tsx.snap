@@ -7,8 +7,8 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
     style="--__ac-box-background: var(--a-bg-default); --__ac-box-border-color: var(--a-border-divider); --__ac-box-border-width: 0px 0px 1px 0px;"
   >
     <div
-      class="navds-stack _wrapper_f04f26 navds-hstack"
-      style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: center;"
+      class="navds-stack _wrapper_f04f26 navds-hstack navds-stack-gap navds-stack-align navds-stack-direction navds-stack-wrap"
+      style="--__ac-stack-gap-xs: var(--a-spacing-2); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: center;"
     >
       <p
         class="navds-body-long navds-body-long--medium navds-typo--semibold"
@@ -49,8 +49,8 @@ exports[`veileder - BorgerInformasjon > viser informasjon og fnr 1`] = `
         /
       </span>
       <div
-        class="navds-stack navds-hstack"
-        style="--__ac-stack-wrap: wrap; --__ac-stack-gap-xs: var(--a-spacing-1); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: center;"
+        class="navds-stack navds-hstack navds-stack-gap navds-stack-align navds-stack-direction navds-stack-wrap"
+        style="--__ac-stack-gap-xs: var(--a-spacing-1); --__ac-stack-direction-xs: row; --__ac-stack-align-xs: center;"
       >
         <p
           class="navds-body-short navds-body-short--small navds-typo--semibold"
