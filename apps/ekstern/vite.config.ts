@@ -51,7 +51,11 @@ export default defineConfig(() => ({
   },
   plugins: [
     tsconfigPaths(),
-    react(),
+    react({
+      babel: {
+        plugins: ['@babel/plugin-syntax-import-attributes'],
+      },
+    }),
     process.env.NODE_ENV !== 'test' && eslint(),
     process.env.NODE_ENV !== 'test' && stylelint({ fix: true }),
     process.env.NODE_ENV !== 'test' &&

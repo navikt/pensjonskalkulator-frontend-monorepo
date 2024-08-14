@@ -6,10 +6,11 @@
   "scripts": {
     "start": "vite",
     "start:production": "vite --mode production",
+    "fetch-land-liste": "node --experimental-fetch ./scripts/FetchLandListe.js",
     "fetch-dev-types": "openapi-typescript https://pensjonskalkulator-backend.intern.dev.nav.no/v3/api-docs/current -o ./src/types/schema.d.ts",
     "postfetch-dev-types": "npm run format:types",
     "format:types": "prettier --write ./src/types/schema.d.ts && eslint ./src/types/schema.d.ts --fix",
-    "prebuild": "npm run eslint:check && npm run prettier:check && npm run stylelint:check",
+    "prebuild": "npm run fetch-land-liste && npm run eslint:check && npm run prettier:check && npm run stylelint:check",
     "build": "tsc && vite build --mode staging",
     "build:server": "tsc -p tsconfig.server.json",
     "build:production": "tsc && vite build --mode production",
@@ -39,6 +40,7 @@
     "winston": "^3.14.1"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-import-attributes": "^7.24.7",
     "@formatjs/intl-datetimeformat": "^6.12.5",
     "@formatjs/intl-numberformat": "^8.10.3",
     "@grafana/faro-web-sdk": "^1.8.0",
