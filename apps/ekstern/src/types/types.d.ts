@@ -90,6 +90,8 @@ declare global {
     sluttdato?: string
   }
 
+  type Land = components['schemas']['LandInfo']
+
   type HeltUttak = Omit<
     components['schemas']['IngressSimuleringHeltUttakV6'],
     'aarligInntektVsaPensjon'

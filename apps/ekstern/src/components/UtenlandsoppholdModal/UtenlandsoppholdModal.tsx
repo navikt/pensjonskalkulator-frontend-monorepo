@@ -13,6 +13,8 @@ import {
 } from '@navikt/ds-react'
 import { add, sub, parse, format } from 'date-fns'
 
+import landListeData from '../../assets/land-liste.json' with { type: 'json' }
+import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
@@ -23,6 +25,7 @@ import {
   UtenlandsoppholdFormNames,
   UTENLANDSOPPHOLD_FORM_NAMES,
   UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS,
+  getTranslatedLand,
 } from './utils'
 
 import styles from './UtenlandsoppholdModal.module.scss'
@@ -47,6 +50,8 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
   const [validationErrors, setValidationErrors] = React.useState<
     Record<UtenlandsoppholdFormNames, string>
   >(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
+
+  const locale = getSelectedLanguage()
 
   const resetValidationErrors = () => {
     setValidationErrors(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
@@ -107,14 +112,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       )
     }
   }, [utenlandsperiode])
-
-  const muligeLand: string[] = [
-    'Argentina',
-    'Belgia',
-    'Kina',
-    'Sør-Afrika',
-    'Tanzania',
-  ]
 
   const handleLandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValidationErrors((prevState) => {
@@ -248,9 +245,9 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                 <option disabled selected value="">
                   {' '}
                 </option>
-                {muligeLand.map((land) => (
-                  <option key={land} value={land}>
-                    {land}
+                {landListeData.map((land) => (
+                  <option key={land.landkode} value={land.landkode}>
+                    {getTranslatedLand(land, locale)}
                   </option>
                 ))}
               </Select>
