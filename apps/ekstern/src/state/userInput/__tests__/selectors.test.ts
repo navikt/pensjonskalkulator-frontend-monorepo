@@ -279,7 +279,7 @@ describe('userInput selectors', () => {
   it('selectCurrentSimulationUtenlandsperioder', () => {
     const utenlandsperiode: Utenlandsperiode = {
       id: '123',
-      land: 'Kina',
+      landkode: 'URY',
       arbeidetUtenlands: null,
       startdato: '01.01.2018',
       sluttdato: '31.02.2021',

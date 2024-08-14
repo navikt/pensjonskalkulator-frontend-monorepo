@@ -18,14 +18,3 @@ export const UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS: Record<
   [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: '',
   [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: '',
 }
-
-export const getTranslatedLand = (land: Land, locale: Locales) => {
-  switch (locale) {
-    case 'en':
-      return land.engelskNavn
-    case 'nn':
-      return land.nynorskNavn
-    default:
-      return land.bokmaalNavn
-  }
-}

@@ -82,15 +82,14 @@ declare global {
     sluttAlder: Alder
   }
 
+  type Land = components['schemas']['LandInfo']
   type Utenlandsperiode = {
     id: string
-    land: string
+    landkode: string
     arbeidetUtenlands: boolean | null
     startdato: string
     sluttdato?: string
   }
-
-  type Land = components['schemas']['LandInfo']
 
   type HeltUttak = Omit<
     components['schemas']['IngressSimuleringHeltUttakV6'],

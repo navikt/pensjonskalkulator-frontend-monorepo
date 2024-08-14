@@ -83,7 +83,7 @@ describe('userInputSlice', () => {
     it('setCurrentSimulationUtenlandsperiode', () => {
       const utenlandsperiode: Utenlandsperiode = {
         id: '12345',
-        land: 'Kina',
+        landkode: 'URY',
         arbeidetUtenlands: null,
         startdato: '01.01.2018',
         sluttdato: '28.01.2021',
@@ -107,7 +107,7 @@ describe('userInputSlice', () => {
 
       const addedUtenlandsperiode: Utenlandsperiode = {
         id: '98765',
-        land: 'Belgia',
+        landkode: 'BFA',
         arbeidetUtenlands: true,
         startdato: '07.02.2005',
         sluttdato: '11.10.2012',
@@ -136,7 +136,7 @@ describe('userInputSlice', () => {
 
       const overwrittenUtenlandsperiode: Utenlandsperiode = {
         id: '12345',
-        land: 'Sverige',
+        landkode: 'NLD',
         arbeidetUtenlands: null,
         startdato: '12.06.2010',
         sluttdato: '20.12.2013',
@@ -166,7 +166,7 @@ describe('userInputSlice', () => {
     it('deleteCurrentSimulationUtenlandsperiode', () => {
       const utenlandsperiode_1: Utenlandsperiode = {
         id: '12345',
-        land: 'Kina',
+        landkode: 'URY',
         arbeidetUtenlands: null,
         startdato: '02.01.2018',
         sluttdato: '20.08.2021',
@@ -174,7 +174,7 @@ describe('userInputSlice', () => {
 
       const utenlandsperiode_2: Utenlandsperiode = {
         id: '98765',
-        land: 'Belgia',
+        landkode: 'BFA',
         arbeidetUtenlands: true,
         startdato: '2005-08-02.',
         sluttdato: '2012-11-10',

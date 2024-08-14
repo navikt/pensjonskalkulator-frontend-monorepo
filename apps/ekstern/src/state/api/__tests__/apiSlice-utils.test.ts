@@ -10,7 +10,7 @@ import {
 describe('apiSlice - utils', () => {
   const utenlandsperiode: Utenlandsperiode = {
     id: '12345',
-    land: 'Kina',
+    landkode: 'URY',
     arbeidetUtenlands: null,
     startdato: '01.01.2018',
     sluttdato: '28.01.2018',
@@ -39,7 +39,7 @@ describe('apiSlice - utils', () => {
         transformUtenlandsperioderArray([{ ...utenlandsperiode }])
       ).toStrictEqual([
         {
-          land: 'Kina',
+          land: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
@@ -50,20 +50,20 @@ describe('apiSlice - utils', () => {
           { ...utenlandsperiode },
           {
             id: '98765',
-            land: 'Belgia',
+            landkode: 'BFA',
             arbeidetUtenlands: true,
             startdato: '07.02.2005',
           },
         ])
       ).toStrictEqual([
         {
-          land: 'Kina',
+          land: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
         },
         {
-          land: 'Belgia',
+          land: 'BFA',
           arbeidetUtenlands: true,
           fom: '2005-02-07',
           tom: undefined,
@@ -191,7 +191,7 @@ describe('apiSlice - utils', () => {
         })?.utenlandsperiodeListe
       ).toStrictEqual([
         {
-          land: 'Kina',
+          land: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
@@ -353,7 +353,7 @@ describe('apiSlice - utils', () => {
         })?.utenlandsperiodeListe
       ).toStrictEqual([
         {
-          land: 'Kina',
+          land: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
@@ -520,7 +520,7 @@ describe('apiSlice - utils', () => {
         })?.utenlandsperiodeListe
       ).toStrictEqual([
         {
-          land: 'Kina',
+          land: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
