@@ -105,8 +105,8 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
           </ul>
         </div>
         <div
-          class="navds-stack navds-vstack"
-          style="--__ac-stack-wrap: nowrap; --__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column; --__ac-stack-align-xs: stretch;"
+          class="navds-stack navds-vstack navds-stack-gap navds-stack-direction"
+          style="--__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: column;"
         >
           <a
             class="navds-link navds-link--action"
