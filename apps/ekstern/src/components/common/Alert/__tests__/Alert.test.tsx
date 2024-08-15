@@ -24,6 +24,6 @@ describe('Alert', () => {
     expect(screen.getByTestId('alert')).toBeVisible()
     await user.click(screen.getByText('application.global.retry'))
     expect(asFragment()).toMatchSnapshot()
-    expect(onRetryMock).toHaveBeenCalled
+    expect(onRetryMock).toHaveBeenCalled()
   })
 })
