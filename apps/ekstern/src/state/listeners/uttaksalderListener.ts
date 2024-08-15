@@ -2,7 +2,10 @@ import { createIntl, createIntlCache } from 'react-intl'
 
 import { Unsubscribe } from '@reduxjs/toolkit'
 
-import { getCookie, getTranslations } from '@/context/LanguageProvider/utils'
+import {
+  getSelectedLanguage,
+  getTranslations,
+} from '@/context/LanguageProvider/utils'
 import { AppListenerEffectAPI, AppStartListening } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { formatUttaksalder } from '@/utils/alder'
@@ -22,7 +25,7 @@ async function onSetCurrentSimulationStartAlder(
   { dispatch /* , getState*/ }: AppListenerEffectAPI
 ) {
   /* c8 ignore next 1 */
-  const locale = (getCookie('decorator-language') as Locales) || 'nb'
+  const locale = getSelectedLanguage()
   const cache = createIntlCache()
   const intl = createIntl(
     {

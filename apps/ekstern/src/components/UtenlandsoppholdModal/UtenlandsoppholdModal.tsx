@@ -13,9 +13,12 @@ import {
 } from '@navikt/ds-react'
 import { add, sub, parse, format } from 'date-fns'
 
+import landListeData from '../../assets/land-liste.json' with { type: 'json' }
+import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { getTranslatedLand, getTranslatedLandFromLandkode } from '@/utils/land'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -47,6 +50,8 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
   const [validationErrors, setValidationErrors] = React.useState<
     Record<UtenlandsoppholdFormNames, string>
   >(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
+
+  const locale = getSelectedLanguage()
 
   const resetValidationErrors = () => {
     setValidationErrors(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
@@ -108,14 +113,6 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     }
   }, [utenlandsperiode])
 
-  const muligeLand: string[] = [
-    'Argentina',
-    'Belgia',
-    'Kina',
-    'Sør-Afrika',
-    'Tanzania',
-  ]
-
   const handleLandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setValidationErrors((prevState) => {
       return {
@@ -126,7 +123,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     setLocalUtenlandsperiode((previous) => {
       return {
         ...previous,
-        land: e.target.value,
+        landkode: e.target.value,
       }
     })
   }
@@ -163,7 +160,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       id: utenlandsperiode?.id
         ? utenlandsperiode.id
         : `${Date.now()}-${Math.random()}`,
-      land: landData as string,
+      landkode: landData as string,
       arbeidetUtenlands: arbeidetUtenlandsData === 'ja',
       startdato: startdatoData as string,
       sluttdato: sluttdatoData ? (sluttdatoData as string) : undefined,
@@ -226,7 +223,9 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                   id: 'utenlandsopphold.om_oppholdet_ditt_modal.land.label',
                 })}
                 value={
-                  localUtenlandsperiode?.land ? localUtenlandsperiode?.land : ''
+                  localUtenlandsperiode?.landkode
+                    ? localUtenlandsperiode?.landkode
+                    : ''
                 }
                 onChange={handleLandChange}
                 error={
@@ -248,13 +247,13 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                 <option disabled selected value="">
                   {' '}
                 </option>
-                {muligeLand.map((land) => (
-                  <option key={land} value={land}>
-                    {land}
+                {landListeData.map((land) => (
+                  <option key={land.landkode} value={land.landkode}>
+                    {getTranslatedLand(land, locale)}
                   </option>
                 ))}
               </Select>
-              {localUtenlandsperiode?.land && (
+              {localUtenlandsperiode?.landkode && (
                 <>
                   <RadioGroup
                     form={UTENLANDSOPPHOLD_FORM_NAMES.form}
@@ -264,7 +263,12 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     legend={
                       <FormattedMessage
                         id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label"
-                        values={{ land: localUtenlandsperiode.land }}
+                        values={{
+                          land: getTranslatedLandFromLandkode(
+                            localUtenlandsperiode.landkode,
+                            locale
+                          ),
+                        }}
                       />
                     }
                     description={

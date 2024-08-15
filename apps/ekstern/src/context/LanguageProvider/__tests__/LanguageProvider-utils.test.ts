@@ -1,7 +1,13 @@
 import * as enMessagesModule from '../../../translations/en'
 import * as nbMessagesModule from '../../../translations/nb'
 import * as nnMessagesModule from '../../../translations/nn'
-import { getCookie, setCookie, getTranslations, updateLanguage } from '../utils'
+import {
+  getCookie,
+  setCookie,
+  getSelectedLanguage,
+  getTranslations,
+  updateLanguage,
+} from '../utils'
 
 describe('LanguageProvider-utils', () => {
   afterEach(() => {
@@ -11,6 +17,7 @@ describe('LanguageProvider-utils', () => {
         .replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/')
     })
   })
+
   describe('getCookie', () => {
     it('returnerer undefined når cookie ikke finnes', () => {
       const cookie = getCookie('my-cookie')
@@ -31,6 +38,19 @@ describe('LanguageProvider-utils', () => {
 
       const cookie = getCookie('my-cookie')
       expect(cookie).toBe('updatedValue')
+    })
+  })
+
+  describe('getSelectedLanguage', () => {
+    it('returnerer undefined når cookie ikke finnes', () => {
+      const locale = getSelectedLanguage()
+      expect(locale).toBe('nb')
+    })
+
+    it('returnerer riktig cookie når den finnes', () => {
+      setCookie('decorator-language', 'en')
+      const locale = getSelectedLanguage()
+      expect(locale).toBe('en')
     })
   })
 
