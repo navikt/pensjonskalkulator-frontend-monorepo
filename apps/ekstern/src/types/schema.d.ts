@@ -224,7 +224,7 @@ export interface paths {
     /**
      * Hent land-liste
      *
-     * @description Henter liste over land med navn og status som avtaleland.
+     * @description Henter liste over land med navn og status som avtaleland. Denne tjenesten er åpen - krever ikke autentisering.
      */
     get: operations['landListe']
     put?: never
@@ -442,7 +442,8 @@ export interface components {
       fom: string
       /** Format: date */
       tom?: string
-      land: string
+      land?: string
+      landkode?: string
       arbeidetUtenlands: boolean
     }
     AlderV6: {
@@ -594,7 +595,8 @@ export interface components {
       fom: string
       /** Format: date */
       tom?: string
-      land: string
+      land?: string
+      landkode?: string
       arbeidetUtenlands: boolean
     }
     AlderDto: {

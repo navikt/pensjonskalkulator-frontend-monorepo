@@ -39,7 +39,7 @@ describe('apiSlice - utils', () => {
         transformUtenlandsperioderArray([{ ...utenlandsperiode }])
       ).toStrictEqual([
         {
-          land: 'URY',
+          landkode: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
@@ -57,13 +57,13 @@ describe('apiSlice - utils', () => {
         ])
       ).toStrictEqual([
         {
-          land: 'URY',
+          landkode: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
         },
         {
-          land: 'BFA',
+          landkode: 'BFA',
           arbeidetUtenlands: true,
           fom: '2005-02-07',
           tom: undefined,
@@ -191,7 +191,7 @@ describe('apiSlice - utils', () => {
         })?.utenlandsperiodeListe
       ).toStrictEqual([
         {
-          land: 'URY',
+          landkode: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
@@ -353,7 +353,7 @@ describe('apiSlice - utils', () => {
         })?.utenlandsperiodeListe
       ).toStrictEqual([
         {
-          land: 'URY',
+          landkode: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',
@@ -520,7 +520,7 @@ describe('apiSlice - utils', () => {
         })?.utenlandsperiodeListe
       ).toStrictEqual([
         {
-          land: 'URY',
+          landkode: 'URY',
           arbeidetUtenlands: false,
           fom: '2018-01-01',
           tom: '2018-01-28',

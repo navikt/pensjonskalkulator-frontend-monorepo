@@ -21,7 +21,7 @@ export const transformUtenlandsperioderArray = (
 ) => {
   return utenlandsperioder.length > 0
     ? utenlandsperioder.map((utenlandsperiode) => ({
-        land: utenlandsperiode.landkode,
+        landkode: utenlandsperiode.landkode,
         arbeidetUtenlands: !!utenlandsperiode.arbeidetUtenlands,
         fom: format(
           parse(
