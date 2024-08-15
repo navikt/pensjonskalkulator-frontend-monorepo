@@ -15,10 +15,12 @@ import {
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
+import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppSelector } from '@/state/hooks'
 import { useAppDispatch } from '@/state/hooks'
 import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { getTranslatedLandFromLandkode } from '@/utils/land'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -48,7 +50,7 @@ export function Utenlandsopphold({
     React.useState<string>('')
   const [showUtenlandsperioder, setShowUtenlandsperioder] =
     React.useState<boolean>(!!harUtenlandsopphold)
-
+  const locale = getSelectedLanguage()
   const openUtenlandsoppholdModal = () => {
     logger('modal åpnet', {
       tekst: `Modal: Om oppholdet ditt`,
@@ -227,7 +229,12 @@ export function Utenlandsopphold({
                 return (
                   <div key={index} className={styles.utenlandsperioder__item}>
                     <dd>
-                      <b>{utenlandsperiode.land}</b>
+                      <b>
+                        {getTranslatedLandFromLandkode(
+                          utenlandsperiode.landkode,
+                          locale
+                        )}
+                      </b>
                     </dd>
                     <dd>
                       Periode: {utenlandsperiode.startdato} -

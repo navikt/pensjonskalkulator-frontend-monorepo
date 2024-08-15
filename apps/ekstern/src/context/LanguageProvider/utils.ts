@@ -26,6 +26,10 @@ export function getCookie(name: string): string {
   }, '')
 }
 
+export function getSelectedLanguage(): Locales {
+  return (getCookie('decorator-language') as Locales) || 'nb'
+}
+
 export function getTranslations(locale: Locales): Record<string, string> {
   let messages = getTranslation_nb()
   if (locale === 'en') {
