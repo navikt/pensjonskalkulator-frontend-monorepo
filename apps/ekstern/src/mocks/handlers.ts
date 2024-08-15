@@ -2,17 +2,17 @@ import { delay, http, HttpResponse } from 'msw'
 
 import { API_PATH, HOST_BASEURL } from '@/paths'
 
-import ansattIdResponse from './data/ansatt-id.json' assert { type: 'json' }
-import ekskludertStatusResponse from './data/ekskludert-status.json' assert { type: 'json' }
-import inntektResponse from './data/inntekt.json' assert { type: 'json' }
-import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' assert { type: 'json' }
-import personResponse from './data/person.json' assert { type: 'json' }
-import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' assert { type: 'json' }
-import tpoMedlemskapResponse from './data/tpo-medlemskap.json' assert { type: 'json' }
-import ufoeregradResponse from './data/ufoeregrad.json' assert { type: 'json' }
-import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' assert { type: 'json' }
-import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' assert { type: 'json' }
-import enableUtlandPluginToggleResponse from './data/unleash-enable-utland.json' assert { type: 'json' }
+import ansattIdResponse from './data/ansatt-id.json' with { type: 'json' }
+import ekskludertStatusResponse from './data/ekskludert-status.json' with { type: 'json' }
+import inntektResponse from './data/inntekt.json' with { type: 'json' }
+import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
+import personResponse from './data/person.json' with { type: 'json' }
+import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
+import tpoMedlemskapResponse from './data/tpo-medlemskap.json' with { type: 'json' }
+import ufoeregradResponse from './data/ufoeregrad.json' with { type: 'json' }
+import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
+import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' with { type: 'json' }
+import enableUtlandPluginToggleResponse from './data/unleash-enable-utland.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 

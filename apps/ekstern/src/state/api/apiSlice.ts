@@ -12,7 +12,6 @@ import {
   isUfoeregrad,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
-import { logger } from '@/utils/logging'
 import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
 import { RootState } from '@/state/store'
 
