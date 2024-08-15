@@ -1,4 +1,4 @@
-describe('Hovedhistorie', () => {
+describe('Pensjonsavtaler', () => {
   describe('Som bruker som har samtykket til innhenting av avtaler,', () => {
     beforeEach(() => {
       cy.login()
