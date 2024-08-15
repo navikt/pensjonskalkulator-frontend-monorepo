@@ -31,7 +31,7 @@ import {
   selectAfp,
 } from '@/state/userInput/selectors'
 import { formatInntektToNumber } from '@/utils/inntekt'
-import { wrapLogger } from '@/utils/logging'
+import { logger, wrapLogger } from '@/utils/logging'
 
 import { SERIES_DEFAULT } from './constants'
 import {
@@ -112,6 +112,19 @@ export function Simulering(props: {
       skip: !harSamtykket,
     }
   )
+
+  React.useEffect(() => {
+    if (isTpoError) {
+      logger('alert', {
+        tekst:
+          'TPO infoboks: Vi klarte ikke å sjekke om du har pensjonsavtaler i offentlig sektor',
+      })
+    } else if (tpo?.tpLeverandoerListe && tpo?.tpLeverandoerListe.length > 0) {
+      logger('alert', {
+        tekst: 'TPO infoboks: Du kan ha rett til offentlig tjenestepensjon',
+      })
+    }
+  }, [tpo, isTpoError])
 
   React.useEffect(() => {
     /* c8 ignore next 3 */
