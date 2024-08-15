@@ -131,11 +131,12 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
                   maaneder: shouldResetMonth ? undefined : prevState.maaneder,
                 }
               })
-              onChange &&
+              if (onChange) {
                 onChange({
                   aar,
                   maaneder: shouldResetMonth ? undefined : valgtAlder.maaneder,
                 })
+              }
             }}
             aria-describedby={error ? `${name}-error` : undefined}
             aria-invalid={!!error && !valgtAlder.aar}
@@ -172,7 +173,9 @@ export const AgePicker = forwardRef<HTMLDivElement, AgePickerProps>(
                   maaneder,
                 }
               })
-              onChange && onChange({ aar: valgtAlder.aar, maaneder })
+              if (onChange) {
+                onChange({ aar: valgtAlder.aar, maaneder })
+              }
             }}
             disabled={!valgtAlder.aar}
             aria-describedby={error ? `${name}-error` : undefined}

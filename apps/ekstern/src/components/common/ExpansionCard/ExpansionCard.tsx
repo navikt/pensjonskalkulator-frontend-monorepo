@@ -45,7 +45,9 @@ export const ExpansionCard: React.FC<ExpansionCardProps & IProps> = ({
   const wrappedOnClick = React.useCallback(() => {
     // Inversert da det er en antagelse at onClick endrer state
     logIsOpen(name, !open as boolean)
-    !!onClick && onClick()
+    if (onClick) {
+      onClick()
+    }
   }, [onClick])
 
   return (
