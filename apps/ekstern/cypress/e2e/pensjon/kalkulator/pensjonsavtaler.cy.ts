@@ -909,7 +909,46 @@ describe('Hovedhistorie', () => {
       })
     })
 
-    // TODO Fortsette med case 19
+    describe('Som bruker som har en pensjonsavtale som begynner før valgt alder,', () => {
+      describe('Når jeg er kommet til beregningssiden og har valgt alder jeg ønsker beregning fra,', () => {
+        beforeEach(() => {
+          cy.contains('button', '70 år').click()
+          cy.wait('@fetchPensjonsavtaler')
+        })
+
+        it('forventer jeg at pensjonsavtaler vises i graf og tabell.', () => {
+          cy.contains('Pensjonsgivende inntekt').should('exist')
+          cy.contains('AFP (avtalefestet pensjon)').should('exist')
+          cy.contains('Pensjonsavtaler (arbeidsgivere m.m.)').should('exist')
+          cy.contains('Alderspensjon (NAV)').should('exist')
+          cy.contains('Vis tabell av beregningen').click({ force: true })
+          cy.get('.navds-table__toggle-expand-button')
+            .first()
+            .click({ force: true })
+          cy.contains('dt', 'Pensjonsgivende inntekt').should('exist')
+          cy.contains('dt', 'AFP (avtalefestet pensjon)').should('exist')
+          cy.contains('dt', 'Pensjonsavtaler (arbeidsgivere m.m.)').should(
+            'exist'
+          )
+          cy.contains('dt', 'Alderspensjon (NAV)').should('exist')
+        })
+
+        it('forventer jeg at pensjonsavtalene listes opp under «Pensjonsavtaler.', () => {
+          cy.get('[data-testid="showmore-button"]').click()
+          cy.contains('Andre avtaler').should('be.visible')
+          cy.contains('Privat tjenestepensjon').should('be.visible')
+          cy.contains('Individuelle ordninger').should('be.visible')
+          cy.contains('Vis mindre').should('be.visible')
+        })
+
+        it('forventer jeg informasjon om at jeg har pensjonsavtaler som starter før valgt alder. ', () => {
+          cy.contains('Beregning').should('exist')
+          cy.contains(
+            'Du har pensjonsavtaler som starter før valgt alder. Se perioder under Pensjonsavtaler.'
+          ).should('exist')
+        })
+      })
+    })
   })
 })
 
