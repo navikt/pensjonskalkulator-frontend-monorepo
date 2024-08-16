@@ -46,6 +46,7 @@ export function Utenlandsopphold({
   )
   const utenlandsoppholdModalRef = React.useRef<HTMLDialogElement>(null)
   const [validationError, setValidationError] = useState<string>('')
+  const [bottomValidationError, setBottomValidationError] = useState<string>('')
   const [valgtUtenlandsperiodeId, setValgtUtenlandsperiodeId] =
     React.useState<string>('')
   const [showUtenlandsperioder, setShowUtenlandsperioder] =
@@ -58,6 +59,14 @@ export function Utenlandsopphold({
     utenlandsoppholdModalRef.current?.showModal()
   }
 
+  // TODO legge til test
+  React.useEffect(() => {
+    if (bottomValidationError && utenlandsperioder.length > 0) {
+      setBottomValidationError('')
+    }
+  }, [utenlandsperioder])
+
+  // TODO skrive test
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
@@ -70,6 +79,20 @@ export function Utenlandsopphold({
         id: 'stegvisning.utenlandsopphold.validation_error',
       })
       setValidationError(tekst)
+      logger('valideringsfeil', {
+        data: intl.formatMessage({
+          id: 'stegvisning.utenlandsopphold.radio_label',
+        }),
+        tekst,
+      })
+    } else if (
+      utenlandsoppholdData === 'ja' &&
+      utenlandsperioder.length === 0
+    ) {
+      const tekst = intl.formatMessage({
+        id: 'stegvisning.utenlandsopphold.mangler_opphold.validation_error',
+      })
+      setBottomValidationError(tekst)
       logger('valideringsfeil', {
         data: intl.formatMessage({
           id: 'stegvisning.utenlandsopphold.radio_label',
@@ -91,6 +114,7 @@ export function Utenlandsopphold({
   const handleRadioChange = (value: BooleanRadio): void => {
     setShowUtenlandsperioder(value === 'ja')
     setValidationError('')
+    setBottomValidationError('')
   }
 
   return (
@@ -198,6 +222,7 @@ export function Utenlandsopphold({
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
         </Radio>
       </RadioGroup>
+
       {
         //  TODO skrive tester for å dekke visning av utenlandsperioder
       }
@@ -292,6 +317,17 @@ export function Utenlandsopphold({
               id: 'stegvisning.utenlandsopphold.oppholdene.button.legg_til',
             })}
           </Button>
+
+          {bottomValidationError && (
+            <>
+              <BodyShort
+                size="medium"
+                className={`navds-error-message navds-label ${styles.error}`}
+              >
+                {bottomValidationError}
+              </BodyShort>
+            </>
+          )}
         </section>
       )}
 

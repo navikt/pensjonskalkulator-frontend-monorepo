@@ -11,13 +11,18 @@ import {
   VStack,
   useDatepicker,
 } from '@navikt/ds-react'
-import { add, sub, parse, format } from 'date-fns'
+import { add, parse, format, isValid } from 'date-fns'
 
 import landListeData from '../../assets/land-liste.json' with { type: 'json' }
 import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppDispatch } from '@/state/hooks'
+import { useAppSelector } from '@/state/hooks'
+import {
+  selectFoedselsdato,
+  selectCurrentSimulationUtenlandsperioder,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { getTranslatedLand, getTranslatedLandFromLandkode } from '@/utils/land'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -26,6 +31,7 @@ import {
   UtenlandsoppholdFormNames,
   UTENLANDSOPPHOLD_FORM_NAMES,
   UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS,
+  validateOpphold,
 } from './utils'
 
 import styles from './UtenlandsoppholdModal.module.scss'
@@ -44,6 +50,11 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const utenlandsperioder = useAppSelector(
+    selectCurrentSimulationUtenlandsperioder
+  )
+
   const [localUtenlandsperiode, setLocalUtenlandsperiode] = React.useState<
     RecursivePartial<Utenlandsperiode>
   >({ ...utenlandsperiode })
@@ -57,13 +68,19 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     setValidationErrors(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
   }
 
+  const maxDate = React.useMemo(() => {
+    return foedselsdato
+      ? add(parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date()), {
+          years: 100,
+        })
+      : add(new Date(), { years: 100 })
+  }, [foedselsdato])
+
   const datepickerStartdato = useDatepicker({
-    fromDate: sub(new Date(), {
-      years: 100,
-    }),
-    toDate: add(new Date(), {
-      years: 20,
-    }),
+    fromDate: foedselsdato
+      ? parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
+      : add(new Date(), { years: -100 }),
+    toDate: maxDate,
     defaultSelected: localUtenlandsperiode?.startdato
       ? parse(localUtenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
       : undefined,
@@ -75,16 +92,31 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
         }
       })
     },
-    // onValidate: (val: DateValidationT) => void;
+    onValidate: () => {
+      setValidationErrors((prevState) => {
+        return {
+          ...prevState,
+          [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: '',
+        }
+      })
+    },
   })
 
   const datepickerSluttdato = useDatepicker({
-    fromDate: sub(new Date(), {
-      years: 100,
-    }),
-    toDate: add(new Date(), {
-      years: 20,
-    }),
+    fromDate:
+      localUtenlandsperiode?.startdato &&
+      isValid(
+        parse(localUtenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
+      )
+        ? parse(
+            localUtenlandsperiode?.startdato,
+            DATE_ENDUSER_FORMAT,
+            new Date()
+          )
+        : foedselsdato
+          ? parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
+          : new Date(),
+    toDate: maxDate,
     defaultSelected: localUtenlandsperiode?.sluttdato
       ? parse(localUtenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
       : undefined,
@@ -96,7 +128,14 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
         }
       })
     },
-    // onValidate: (val: DateValidationT) => void;
+    onValidate: () => {
+      setValidationErrors((prevState) => {
+        return {
+          ...prevState,
+          [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: '',
+        }
+      })
+    },
   })
 
   React.useEffect(() => {
@@ -147,41 +186,54 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const landData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.land)
-    const arbeidetUtenlandsData = data.get(
+    const landFormData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.land)
+    const arbeidetUtenlandsFormData = data.get(
       UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
     )
-    const startdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.startdato)
-    const sluttdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.sluttdato)
+    const startdatoFormData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.startdato)
+    const sluttdatoFormData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.sluttdato)
 
-    // if (validateOpphold(oppholdData, updateValidationErrorMessage)) {
+    if (
+      validateOpphold(
+        {
+          landFormData,
+          arbeidetUtenlandsFormData,
+          startdatoFormData,
+          sluttdatoFormData,
+        },
+        foedselsdato,
+        utenlandsperioder,
+        setValidationErrors
+      )
+    ) {
+      const updatedUtenlandsperiode = {
+        id: utenlandsperiode?.id
+          ? utenlandsperiode.id
+          : `${Date.now()}-${Math.random()}`,
+        landkode: landFormData as string,
+        arbeidetUtenlands: arbeidetUtenlandsFormData === 'ja',
+        startdato: startdatoFormData as string,
+        sluttdato: sluttdatoFormData
+          ? (sluttdatoFormData as string)
+          : undefined,
+      }
 
-    const updatedUtenlandsperiode = {
-      id: utenlandsperiode?.id
-        ? utenlandsperiode.id
-        : `${Date.now()}-${Math.random()}`,
-      landkode: landData as string,
-      arbeidetUtenlands: arbeidetUtenlandsData === 'ja',
-      startdato: startdatoData as string,
-      sluttdato: sluttdatoData ? (sluttdatoData as string) : undefined,
-    }
+      dispatch(
+        userInputActions.setCurrentSimulationUtenlandsperiode({
+          ...updatedUtenlandsperiode,
+        })
+      )
 
-    dispatch(
-      userInputActions.setCurrentSimulationUtenlandsperiode({
-        ...updatedUtenlandsperiode,
+      logger('button klikk', {
+        tekst: utenlandsperiode
+          ? `endrer utenlandsperiode`
+          : `legger til utenlandsperiode`,
       })
-    )
-
-    logger('button klikk', {
-      tekst: utenlandsperiode
-        ? `endrer utenlandsperiode`
-        : `legger til utenlandsperiode`,
-    })
-    onSubmitCallback()
-    if (modalRef.current?.open) {
-      modalRef.current?.close()
+      onSubmitCallback()
+      if (modalRef.current?.open) {
+        modalRef.current?.close()
+      }
     }
-    // }
   }
 
   const onCancel = (): void => {
@@ -323,6 +375,21 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                       description={intl.formatMessage({
                         id: 'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description',
                       })}
+                      error={
+                        validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.startdato]
+                          ? intl.formatMessage(
+                              {
+                                id: validationErrors[
+                                  UTENLANDSOPPHOLD_FORM_NAMES.startdato
+                                ],
+                              },
+                              {
+                                ...getFormatMessageValues(intl),
+                                maxDato: format(maxDate, DATE_ENDUSER_FORMAT),
+                              }
+                            )
+                          : ''
+                      }
                     />
                   </DatePicker>
                   <DatePicker
@@ -337,6 +404,21 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                       label={intl.formatMessage({
                         id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',
                       })}
+                      error={
+                        validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]
+                          ? intl.formatMessage(
+                              {
+                                id: validationErrors[
+                                  UTENLANDSOPPHOLD_FORM_NAMES.sluttdato
+                                ],
+                              },
+                              {
+                                ...getFormatMessageValues(intl),
+                                maxDato: format(maxDate, DATE_ENDUSER_FORMAT),
+                              }
+                            )
+                          : ''
+                      }
                     />
                   </DatePicker>
                 </>

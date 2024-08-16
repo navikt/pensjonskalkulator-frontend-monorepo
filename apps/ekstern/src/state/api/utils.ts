@@ -1,6 +1,6 @@
 import { checkHarSamboer } from '@/utils/sivilstand'
 import { formatInntektToNumber } from '@/utils/inntekt'
-import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { parse, format, parseISO } from 'date-fns'
 
 export const getAfpSimuleringstypeFromRadio = (
@@ -29,7 +29,7 @@ export const transformUtenlandsperioderArray = (
             DATE_ENDUSER_FORMAT,
             new Date()
           ),
-          'yyyy-MM-dd'
+          DATE_BACKEND_FORMAT
         ),
         tom: utenlandsperiode.sluttdato
           ? format(
@@ -38,7 +38,7 @@ export const transformUtenlandsperioderArray = (
                 DATE_ENDUSER_FORMAT,
                 new Date()
               ),
-              'yyyy-MM-dd'
+              DATE_BACKEND_FORMAT
             )
           : undefined,
       }))
@@ -116,7 +116,7 @@ export const generateAlderspensjonRequestBody = (args: {
     simuleringstype: ufoeregrad
       ? 'ALDERSPENSJON'
       : getAfpSimuleringstypeFromRadio(afp),
-    foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
+    foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep
@@ -179,7 +179,7 @@ export const generateAlderspensjonEnkelRequestBody = (args: {
     simuleringstype: ufoeregrad
       ? 'ALDERSPENSJON'
       : getAfpSimuleringstypeFromRadio(afp),
-    foedselsdato: format(parseISO(foedselsdato), 'yyyy-MM-dd'),
+    foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
     epsHarInntektOver2G: true, // Fast i MVP1 - Har ektefelle/partner/samboer inntekt over 2 ganger grunnbeløpet
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
       aarligInntektFoerUttakBeloep

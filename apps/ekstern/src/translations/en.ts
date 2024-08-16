@@ -91,6 +91,8 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_ja': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_nei': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.validation_error': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.mangler_opphold.validation_error':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'MANGLER_TEKST',
@@ -111,6 +113,22 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
+    'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
