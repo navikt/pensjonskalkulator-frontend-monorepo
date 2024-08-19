@@ -109,6 +109,8 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har budd eller jobba utanfor Noreg i meir enn fem år etter fylte 16 år.',
+  'stegvisning.utenlandsopphold.mangler_opphold.validation_error':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'MANGLER_TEKST',
@@ -129,6 +131,22 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
+    'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonen din',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'I kalkulatoren får du fram alderspensjon fra folketrygden (NAV) og eventuell avtalefesta pensjon (AFP) i privat sektor. For å vise andre pensjonsavtalar og tenestepensjon frå arbeidsgjevarar, må vi ha ditt samtykke til å hente pensjonsavtalane dine.',

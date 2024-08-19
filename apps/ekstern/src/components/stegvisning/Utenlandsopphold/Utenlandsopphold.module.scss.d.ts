@@ -8,5 +8,6 @@ declare const classNames: typeof globalClassNames & {
   readonly utenlandsperioder: "utenlandsperioder";
   readonly utenlandsperioder__item: "utenlandsperioder__item";
   readonly button: "button";
+  readonly error: "error";
 };
 export = classNames;

@@ -3,6 +3,7 @@ import {
   selectSamtykke,
   selectSamtykkeOffentligAFP,
   selectAfp,
+  selectFoedselsdato,
   selectSivilstand,
   selectSamboerFraBrukerInput,
   selectSamboerFraSivilstand,
@@ -80,6 +81,26 @@ describe('userInput selectors', () => {
       },
     }
     expect(selectAfp(state)).toBe('nei')
+  })
+
+  describe('selectFoedselsdato', () => {
+    it('returnerer undefined fødselsdato når /person har ikke blitt kalt eller har feilet', () => {
+      const state: RootState = {
+        ...initialState,
+      }
+      expect(selectFoedselsdato(state)).toBe(undefined)
+    })
+    it('returnerer riktig fødselsdato når queryen er vellykket', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetPerson },
+        },
+      }
+      expect(selectFoedselsdato(state)).toBe('1963-04-30')
+    })
   })
 
   it('selectSamboerFraBrukerInput', () => {
