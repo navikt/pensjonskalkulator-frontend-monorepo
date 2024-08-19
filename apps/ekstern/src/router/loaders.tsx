@@ -13,16 +13,15 @@ import { checkHarSamboer } from '@/utils/sivilstand'
 export interface LoginContext {
   isLoggedIn: boolean
 }
-
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useDeferAuthenticationAccessData<
   TReturnedValue extends ReturnType<typeof authenticationDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function authenticationDeferredLoader<
   TData extends {
     oauth2Query: Response
@@ -54,15 +53,15 @@ export const directAccessGuard = async () => {
 
 // ////////////////////////////////////////
 
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useLandingPageAccessData<
   TReturnedValue extends ReturnType<typeof landingPageDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function landingPageDeferredLoader<
   TData extends {
     shouldRedirectTo: string | undefined
@@ -110,16 +109,15 @@ export const landingPageAccessGuard = async () => {
 }
 
 /// ////////////////////////////////////////////////////////////////////////
-
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useStepStartAccessData<
   TReturnedValue extends ReturnType<typeof stepStartDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function stepStartDeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
@@ -179,16 +177,15 @@ export const stepStartAccessGuard = async () => {
 }
 
 // ///////////////////////////////////////////
-
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useStepSivilstandAccessData<
   TReturnedValue extends ReturnType<typeof stepSivilstandDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function stepSivilstandDeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
@@ -276,17 +273,15 @@ export const stepSivilstandAccessGuard = async () => {
 
 /// ////////////////////////////////////////////////////////////////////////
 
-/// ////////////////////////////////////////////////////////////////////////
-
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useStepAFPAccessData<
   TReturnedValue extends ReturnType<typeof stepAFPDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function stepAFPDeferredLoader<
   TData extends {
     shouldRedirectTo: string | undefined

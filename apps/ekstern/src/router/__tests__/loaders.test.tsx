@@ -7,11 +7,12 @@ import {
   landingPageAccessGuard,
   stepStartAccessGuard,
   stepSivilstandAccessGuard,
+  stepAFPAccessGuard,
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
 } from '../loaders'
 import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
-import { mockResponse } from '@/mocks/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
@@ -434,6 +435,322 @@ describe('Loaders', () => {
         externalUrls.detaljertKalkulator,
         '_self'
       )
+    })
+  })
+
+  describe('stepAFPAccessGuard', async () => {
+    it('Gitt at alle kallene er vellykket, er brukeren ikke redirigert', async () => {
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe('')
+    })
+
+    it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
+      const mockedState = {
+        api: {
+          queries: {},
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await stepAFPAccessGuard()
+      expect(returnedFromLoader).not.toBeNull()
+      expect(returnedFromLoader).toMatchSnapshot()
+    })
+
+    it('Gitt at getUfoeregrad feiler, er brukeren redirigert', async () => {
+      mockErrorResponse('/v1/ufoeregrad')
+      const mockedState = {
+        api: {
+          queries: {
+            ['getUfoeregrad(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getUfoeregrad',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+
+      expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
+    })
+
+    it('Gitt at getInntekt har tidligere feilet kalles den på nytt. Når den er vellykket i tillegg til de to andre kallene, er brukeren ikke redirigert', async () => {
+      mockResponse('/inntekt', {
+        status: 200,
+        json: {
+          beloep: 521338,
+          aar: 2021,
+        },
+      })
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getInntekt(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getInntekt',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getOmstillingsstoenadOgGjenlevende',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe('')
+    })
+
+    it('Gitt at getInntekt har tidligere feilet og at den feiler igjen ved nytt kall, er brukeren redirigert', async () => {
+      mockErrorResponse('/inntekt')
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getInntekt(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getInntekt',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
+    })
+
+    it('Gitt at getOmstillingsstoenadOgGjenlevende har tidligere feilet kalles den på nytt. Når den er vellykket i tillegg til de to andre kallene, er brukeren ikke redirigert', async () => {
+      mockResponse('/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse', {
+        status: 200,
+        json: {
+          harLoependeSak: true,
+        },
+      })
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getOmstillingsstoenadOgGjenlevende',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getInntekt(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getInntekt',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getEkskludertStatus(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe('')
+    })
+
+    it('Gitt at getOmstillingsstoenadOgGjenlevende har tidligere feilet og at den feiler igjen ved nytt kall, er brukeren redirigert', async () => {
+      mockErrorResponse(
+        '/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse'
+      )
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getOmstillingsstoenadOgGjenlevende',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
+    })
+
+    it('Gitt at getEkskludertStatus har tidligere feilet kalles den på nytt. Når den er vellykket i tillegg til de to andre kallene, er brukeren ikke redirigert', async () => {
+      mockResponse('/v2/ekskludert', {
+        status: 200,
+        json: {
+          ekskludert: false,
+          aarsak: 'NONE',
+        },
+      })
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getInntekt(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getInntekt',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getOmstillingsstoenadOgGjenlevende',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe('')
+    })
+
+    it('Gitt at getEkskludertStatus har tidligere feilet og at den feiler igjen ved nytt kall, er brukeren redirigert', async () => {
+      mockErrorResponse('/v2/ekskludert')
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
   })
 
