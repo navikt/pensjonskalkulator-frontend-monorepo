@@ -191,6 +191,33 @@ describe('Loaders', () => {
       expect(initiateGetEkskludertStatusMock).toHaveBeenCalled()
     })
 
+    it('Når brukeren er født før 1963, returneres det riktig redirect url', async () => {
+      const open = vi.fn()
+      vi.stubGlobal('open', open)
+
+      mockResponse('/v2/person', {
+        status: 200,
+        json: {
+          navn: 'Ola',
+          sivilstand: 'GIFT',
+          foedselsdato: '1960-04-30',
+        },
+      })
+
+      const mockedState = {
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await stepStartAccessGuard()
+      await returnedFromLoader.data.getPersonQuery
+      expect(open).toHaveBeenCalledWith(
+        externalUrls.detaljertKalkulator,
+        '_self'
+      )
+    })
+
     it('Når brukeren har bruker har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
       mockResponse('/v2/ekskludert', {
         json: {
@@ -436,6 +463,42 @@ describe('Loaders', () => {
         '_self'
       )
     })
+
+    it('Gitt at getPerson har tidligere feilet og at den feiler igjen ved nytt kall, er brukeren redirigert', async () => {
+      mockErrorResponse('/v2/person')
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getPerson(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getPerson',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepSivilstandAccessGuard()
+      const getPersonResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.getPersonQuery
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect((getPersonResponse as GetPersonQuery).isError).toBeTruthy()
+      expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
+    })
   })
 
   describe('stepAFPAccessGuard', async () => {
@@ -665,6 +728,62 @@ describe('Loaders', () => {
         returnedFromLoader as UNSAFE_DeferredData
       ).data.shouldRedirectTo
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
+    })
+
+    it('Gitt at getEkskludertStatus har tidligere feilet kalles den på nytt. Når den er vellykket og viser at brukeren er apoteker, er brukeren redirigert', async () => {
+      mockResponse('/v2/ekskludert', {
+        status: 200,
+        json: {
+          ekskludert: true,
+          aarsak: 'ER_APOTEKER',
+        },
+      })
+
+      const mockedState = {
+        api: {
+          queries: {
+            ['getEkskludertStatus(undefined)']: {
+              status: 'rejected',
+              endpointName: 'getEkskludertStatus',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              error: {
+                status: 'FETCH_ERROR',
+                error: 'TypeError: Failed to fetch',
+              },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getInntekt(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getInntekt',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+              status: 'fulfilled',
+              endpointName: 'getOmstillingsstoenadOgGjenlevende',
+              requestId: 't1wLPiRKrfe_vchftk8s8',
+              data: { ufoeregrad: 50 },
+              startedTimeStamp: 1714725797072,
+              fulfilledTimeStamp: 1714725797669,
+            },
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe(
+        `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+      )
     })
 
     it('Gitt at getEkskludertStatus har tidligere feilet kalles den på nytt. Når den er vellykket i tillegg til de to andre kallene, er brukeren ikke redirigert', async () => {

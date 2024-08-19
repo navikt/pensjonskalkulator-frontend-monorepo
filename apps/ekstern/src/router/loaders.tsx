@@ -74,9 +74,7 @@ export function landingPageDeferredLoader<
 }
 
 export const landingPageAccessGuard = async () => {
-  let resolveRedirectUrl: (
-    value: string | PromiseLike<string>
-  ) => void = () => {}
+  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
@@ -157,14 +155,10 @@ export const stepStartAccessGuard = async () => {
   )
 
   getEkskludertStatusQuery.then((res) => {
-    if (res?.data?.ekskludert) {
-      if (res?.data?.aarsak === 'ER_APOTEKER') {
-        resolveRedirectUrl(
-          `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-        )
-      } else {
-        resolveRedirectUrl('')
-      }
+    if (res?.data?.ekskludert && res?.data?.aarsak === 'ER_APOTEKER') {
+      resolveRedirectUrl(
+        `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+      )
     } else {
       resolveRedirectUrl('')
     }
@@ -202,9 +196,7 @@ export const stepSivilstandAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
-  let resolveRedirectUrl: (
-    value: string | PromiseLike<string>
-  ) => void = () => {}
+  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
@@ -212,7 +204,7 @@ export const stepSivilstandAccessGuard = async () => {
 
   let resolveGetPerson: (
     value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
-  ) => void = () => {}
+  ) => void
 
   const getPersonQuery: Promise<null | GetPersonQuery> = new Promise(
     (resolve) => {
@@ -297,9 +289,7 @@ export const stepAFPAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
-  let resolveRedirectUrl: (
-    value: string | PromiseLike<string>
-  ) => void = () => {}
+  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
