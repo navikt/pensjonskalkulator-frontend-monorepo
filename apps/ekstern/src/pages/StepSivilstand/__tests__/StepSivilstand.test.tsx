@@ -8,8 +8,10 @@ import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
+
 const initialGetState = store.getState
 
 describe('StepSivilstand', () => {
@@ -124,5 +126,25 @@ describe('StepSivilstand', () => {
 
     expect(navigateMock).toHaveBeenCalledWith(-1)
     expect(store.getState().userInput.samboer).toBe(null)
+  })
+
+  describe('Gitt at brukeren er logget på som veileder', async () => {
+    it('vises ikke Avbryt knapp', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
+      })
+      render(<RouterProvider router={router} />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            veilederBorgerFnr: '81549300',
+          },
+        },
+        hasRouter: false,
+      })
+
+      expect(await screen.findAllByRole('button')).toHaveLength(2)
+    })
   })
 })

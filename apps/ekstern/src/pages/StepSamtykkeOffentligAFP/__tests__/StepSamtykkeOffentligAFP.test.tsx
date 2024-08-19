@@ -71,4 +71,18 @@ describe('StepSamtykkeOffentligAFP', () => {
     expect(navigateMock).toHaveBeenCalledWith(-1)
     expect(store.getState().userInput.samtykkeOffentligAFP).toBe(null)
   })
+
+  describe('Gitt at brukeren er logget på som veileder', async () => {
+    it('vises ikke Avbryt knapp', async () => {
+      render(<StepSamtykkeOffentligAFP />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            veilederBorgerFnr: '81549300',
+          },
+        },
+      })
+      expect(await screen.findAllByRole('button')).toHaveLength(2)
+    })
+  })
 })

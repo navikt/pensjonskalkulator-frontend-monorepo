@@ -83,6 +83,7 @@ export const landingPageAccessGuard = async () => {
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   getPersonQuery
     .then((res) => {
+      console.log('>>> res', res)
       if (
         res?.isSuccess &&
         isFoedtFoer1963(res?.data?.foedselsdato as string)
@@ -90,6 +91,11 @@ export const landingPageAccessGuard = async () => {
         resolveRedirectUrl('')
         window.open(externalUrls.detaljertKalkulator, '_self')
       } else {
+        console.log(
+          '>>> ELSE',
+          store.getState(),
+          selectIsVeileder(store.getState())
+        )
         if (selectIsVeileder(store.getState())) {
           resolveRedirectUrl(paths.start)
         } else {
@@ -196,15 +202,16 @@ export const stepSivilstandAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
-  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
+  let resolveRedirectUrl: (
+    value: string | PromiseLike<string>
+  ) => void = () => {}
+  let resolveGetPerson: (
+    value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
+  ) => void = () => {}
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
   })
-
-  let resolveGetPerson: (
-    value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
-  ) => void
 
   const getPersonQuery: Promise<null | GetPersonQuery> = new Promise(
     (resolve) => {

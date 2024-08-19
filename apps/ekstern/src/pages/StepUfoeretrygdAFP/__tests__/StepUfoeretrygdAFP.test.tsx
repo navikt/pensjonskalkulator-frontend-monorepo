@@ -4,6 +4,7 @@ import { describe, it, vi } from 'vitest'
 
 import { StepUfoeretrygdAFP } from '..'
 import { paths } from '@/router/constants'
+import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
 
 describe('StepUfoeretrygdAFP', () => {
@@ -33,5 +34,19 @@ describe('StepUfoeretrygdAFP', () => {
     render(<StepUfoeretrygdAFP />)
     await user.click(await screen.findByText('stegvisning.tilbake'))
     expect(navigateMock).toHaveBeenCalledWith(-1)
+  })
+
+  describe('Gitt at brukeren er logget på som veileder', async () => {
+    it('vises ikke Avbryt knapp', async () => {
+      render(<StepUfoeretrygdAFP />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            veilederBorgerFnr: '81549300',
+          },
+        },
+      })
+      expect(await screen.findAllByRole('button')).toHaveLength(3)
+    })
   })
 })
