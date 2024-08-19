@@ -77,7 +77,9 @@ describe('useRequest', () => {
 
     act(() => result.current.reload())
     await waitFor(() => expect(result.current.isLoading).toBe(true))
-    expect(result.current.data).toBeUndefined()
+    expect(result.current.data).toStrictEqual({
+      data: 'ok',
+    })
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     expect(result.current.data).not.toBeUndefined()
   })
