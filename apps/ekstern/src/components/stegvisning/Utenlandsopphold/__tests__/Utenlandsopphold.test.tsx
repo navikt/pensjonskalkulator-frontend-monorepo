@@ -95,6 +95,31 @@ describe('stegvisning - Utenlandsopphold', () => {
     })
   })
 
+  describe('Når brukeren vil legge til en ny utenlandsperiode', async () => {
+    it('åpner modalen ved å trykke på knappen', async () => {
+      const user = userEvent.setup()
+      render(
+        <Utenlandsopphold
+          harUtenlandsopphold={true}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />
+      )
+
+      await user.click(
+        await screen.findByText(
+          'stegvisning.utenlandsopphold.oppholdene.button.legg_til'
+        )
+      )
+      expect(
+        await screen.findByText(
+          'utenlandsopphold.om_oppholdet_ditt_modal.title'
+        )
+      ).toBeVisible()
+    })
+  })
+
   it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
     const user = userEvent.setup()
     render(

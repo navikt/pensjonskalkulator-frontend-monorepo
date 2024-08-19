@@ -304,9 +304,6 @@ export function Utenlandsopphold({
                 )
               })}
           </dl>
-          {
-            //  TODO skrive tester for å dekke åpning av Modal
-          }
           <Button
             type="button"
             variant="secondary"
