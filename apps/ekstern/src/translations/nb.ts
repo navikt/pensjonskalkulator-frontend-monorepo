@@ -148,6 +148,9 @@ const translations = {
     'Legg til opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater':
     'Oppdater opphold',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'Avbryt',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
+    'Avbryt endring',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
     'Har du jobbet i {land}?',

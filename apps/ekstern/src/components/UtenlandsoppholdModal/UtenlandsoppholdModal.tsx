@@ -436,7 +436,9 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
           </Button>
           <Button type="button" variant="secondary" onClick={onCancel}>
             {intl.formatMessage({
-              id: 'stegvisning.avbryt',
+              id: utenlandsperiode
+                ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'
+                : 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt',
             })}
           </Button>
         </Modal.Footer>

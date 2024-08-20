@@ -24,7 +24,7 @@ describe('UtenlandsoppholdModal-utils', () => {
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
     })
 
-    describe.skip('Gitt at landFormData ikke er gyldig', () => {
+    describe('Gitt at landFormData ikke er gyldig', () => {
       it('returnerer false når landFormData er null', () => {
         const loggerMock = vi.spyOn(loggerUtils, 'logger')
         const updateErrorMessageMock = vi.fn()
@@ -63,7 +63,7 @@ describe('UtenlandsoppholdModal-utils', () => {
       })
     })
 
-    describe.skip('Gitt at arbeidetUtenlandsFormData ikke er gyldig', () => {
+    describe('Gitt at arbeidetUtenlandsFormData ikke er gyldig', () => {
       it('returnerer false når arbeidetUtenlandsFormData er null', () => {
         const loggerMock = vi.spyOn(loggerUtils, 'logger')
         const updateErrorMessageMock = vi.fn()
@@ -120,7 +120,7 @@ describe('UtenlandsoppholdModal-utils', () => {
       })
     })
 
-    describe.skip('Gitt at startdato ikke er gyldig', () => {
+    describe('Gitt at startdato ikke er gyldig', () => {
       it('returnerer false når startdatoFormData er null', () => {
         const loggerMock = vi.spyOn(loggerUtils, 'logger')
         const updateErrorMessageMock = vi.fn()
