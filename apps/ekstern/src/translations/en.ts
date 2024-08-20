@@ -144,6 +144,9 @@ const translations = {
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
     'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.title': 'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.button.avbryt': 'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.button.slett': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':

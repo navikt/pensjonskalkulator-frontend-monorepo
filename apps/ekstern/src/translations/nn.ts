@@ -162,6 +162,9 @@ const translations = {
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
     'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.title': 'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.button.avbryt': 'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.button.slett': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonen din',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'I kalkulatoren får du fram alderspensjon fra folketrygden (NAV) og eventuell avtalefesta pensjon (AFP) i privat sektor. For å vise andre pensjonsavtalar og tenestepensjon frå arbeidsgjevarar, må vi ha ditt samtykke til å hente pensjonsavtalane dine.',

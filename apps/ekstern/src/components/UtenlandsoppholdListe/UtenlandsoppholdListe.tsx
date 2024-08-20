@@ -2,7 +2,7 @@ import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon, PlusCircleIcon } from '@navikt/aksel-icons'
-import { BodyShort, Button, Heading } from '@navikt/ds-react'
+import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
 import { parse, compareAsc } from 'date-fns'
 
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
@@ -21,6 +21,7 @@ interface Props {
 
 export function UtenlandsoppholdListe({ validationError }: Props) {
   const intl = useIntl()
+  const avbrytModalRef = React.useRef<HTMLDialogElement>(null)
   const utenlandsoppholdModalRef = React.useRef<HTMLDialogElement>(null)
   const utenlandsperioder = useAppSelector(
     selectCurrentSimulationUtenlandsperioder
@@ -44,7 +45,8 @@ export function UtenlandsoppholdListe({ validationError }: Props) {
   }
 
   const onDeleteClick = (id: string) => {
-    dispatch(userInputActions.deleteCurrentSimulationUtenlandsperiode(id))
+    setValgtUtenlandsperiodeId(id)
+    avbrytModalRef.current?.showModal()
   }
 
   // TODO skrive tester
@@ -64,6 +66,47 @@ export function UtenlandsoppholdListe({ validationError }: Props) {
 
   return (
     <section className={styles.section}>
+      <Modal
+        ref={avbrytModalRef}
+        header={{
+          heading: intl.formatMessage({
+            id: 'utenlandsopphold.slette_modal.title',
+          }),
+        }}
+        width="medium"
+        onClose={() => {
+          setValgtUtenlandsperiodeId('')
+        }}
+      >
+        <Modal.Footer>
+          <Button
+            type="button"
+            onClick={() => {
+              dispatch(
+                userInputActions.deleteCurrentSimulationUtenlandsperiode(
+                  valgtUtenlandsperiodeId
+                )
+              )
+              avbrytModalRef.current?.close('returnValue')
+            }}
+          >
+            {intl.formatMessage({
+              id: 'utenlandsopphold.slette_modal.button.slett',
+            })}
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => {
+              avbrytModalRef.current?.close()
+            }}
+          >
+            {intl.formatMessage({
+              id: 'utenlandsopphold.slette_modal.button.avbryt',
+            })}
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Heading size="small" level="3">
         <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.title" />
       </Heading>

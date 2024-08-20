@@ -178,6 +178,10 @@ const translations = {
     'Sluttdato kan ikke være før startdato.',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
     'Du kan bare ha ett varig opphold. Fyll ut sluttdato for oppholdet ditt.',
+  'utenlandsopphold.slette_modal.title':
+    'Er du sikker på at du vil slette oppholdet ditt?',
+  'utenlandsopphold.slette_modal.button.avbryt': 'Avbryt',
+  'utenlandsopphold.slette_modal.button.slett': 'Slett opphold',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og AFP (avtalefestet pensjon).',
