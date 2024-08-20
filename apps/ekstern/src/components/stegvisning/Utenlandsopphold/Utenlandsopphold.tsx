@@ -2,7 +2,7 @@ import React from 'react'
 import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { PlusCircleIcon, PencilIcon, TrashIcon } from '@navikt/aksel-icons'
+import { PlusCircleIcon, PencilIcon } from '@navikt/aksel-icons'
 import {
   BodyLong,
   BodyShort,
@@ -252,28 +252,43 @@ export function Utenlandsopphold({
             {utenlandsperioder.length > 0 &&
               utenlandsperioder.map((utenlandsperiode, index) => {
                 return (
-                  <div key={index} className={styles.utenlandsperioder__item}>
-                    <dd>
-                      <b>
-                        {getTranslatedLandFromLandkode(
-                          utenlandsperiode.landkode,
-                          locale
+                  <div key={index} className={styles.utenlandsperioderItem}>
+                    <div className={styles.utenlandsperioderText}>
+                      <dd>
+                        <b>
+                          {getTranslatedLandFromLandkode(
+                            utenlandsperiode.landkode,
+                            locale
+                          )}
+                        </b>
+                      </dd>
+                      <dd>
+                        <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode" />
+                        {utenlandsperiode.startdato}–
+                        {utenlandsperiode.sluttdato ? (
+                          utenlandsperiode.sluttdato
+                        ) : (
+                          <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode.naa" />
                         )}
-                      </b>
-                    </dd>
-                    <dd>
-                      Periode: {utenlandsperiode.startdato} -
-                      {utenlandsperiode.sluttdato}
-                    </dd>
-                    <dd>
-                      Jobbet:{' '}
-                      {utenlandsperiode.arbeidetUtenlands ? 'Ja' : 'Nei'}
-                    </dd>
-                    <dd>
+                      </dd>
+                      <dd>
+                        <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.har_jobbet" />
+                        <FormattedMessage
+                          id={
+                            utenlandsperiode.arbeidetUtenlands
+                              ? 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja'
+                              : 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei'
+                          }
+                        />
+                      </dd>
+                    </div>
+
+                    <dd className={styles.utenlandsperioderButtons}>
                       <Button
                         variant="tertiary"
                         size="small"
                         icon={<PencilIcon aria-hidden />}
+                        className={styles.utenlandsperioderButtons__endre}
                         onClick={() => {
                           setValgtUtenlandsperiodeId(utenlandsperiode.id)
                           utenlandsoppholdModalRef.current?.showModal()
@@ -286,7 +301,7 @@ export function Utenlandsopphold({
                       <Button
                         variant="tertiary"
                         size="small"
-                        icon={<TrashIcon aria-hidden />}
+                        className={styles.utenlandsperioderButtons__slette}
                         onClick={() => {
                           dispatch(
                             userInputActions.deleteCurrentSimulationUtenlandsperiode(
@@ -311,7 +326,10 @@ export function Utenlandsopphold({
             onClick={openUtenlandsoppholdModal}
           >
             {intl.formatMessage({
-              id: 'stegvisning.utenlandsopphold.oppholdene.button.legg_til',
+              id:
+                utenlandsperioder.length > 0
+                  ? 'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt'
+                  : 'stegvisning.utenlandsopphold.oppholdene.button.legg_til',
             })}
           </Button>
 

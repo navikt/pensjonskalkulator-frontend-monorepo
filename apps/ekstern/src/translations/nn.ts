@@ -113,7 +113,19 @@ const translations = {
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.title': 'MANGLER_TEKST',

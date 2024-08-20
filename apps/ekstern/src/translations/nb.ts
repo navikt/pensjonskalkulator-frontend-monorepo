@@ -133,7 +133,14 @@ const translations = {
     'Oppholdene dine utenfor Norge',
   'stegvisning.utenlandsopphold.oppholdene.description':
     'Legg til gjennomførte og planlagte opphold',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode': 'Periode: ',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa': 'nå',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet': 'Jobbet: ',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja': 'Ja',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'Nei',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'Legg til opphold',
+  'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
+    'Legg til nytt opphold',
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Endre opphold',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Slett opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',

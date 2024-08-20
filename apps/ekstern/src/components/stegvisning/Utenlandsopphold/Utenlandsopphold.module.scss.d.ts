@@ -5,8 +5,12 @@ declare const classNames: typeof globalClassNames & {
   readonly radiogroup: "radiogroup";
   readonly bodyshort: "bodyshort";
   readonly section: "section";
+  readonly utenlandsperioderItem: "utenlandsperioderItem";
   readonly utenlandsperioder: "utenlandsperioder";
-  readonly utenlandsperioder__item: "utenlandsperioder__item";
+  readonly utenlandsperioderButtons: "utenlandsperioderButtons";
+  readonly utenlandsperioderButtons__endre: "utenlandsperioderButtons__endre";
+  readonly utenlandsperioderButtons__slette: "utenlandsperioderButtons__slette";
+  readonly utenlandsperioderText: "utenlandsperioderText";
   readonly button: "button";
   readonly error: "error";
 };
