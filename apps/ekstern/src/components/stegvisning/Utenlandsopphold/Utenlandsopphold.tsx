@@ -11,6 +11,7 @@ import {
   Radio,
   RadioGroup,
 } from '@navikt/ds-react'
+import { parse, compareAsc } from 'date-fns'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
@@ -64,6 +65,21 @@ export function Utenlandsopphold({
     if (bottomValidationError && utenlandsperioder.length > 0) {
       setBottomValidationError('')
     }
+  }, [utenlandsperioder])
+
+  // TODO skrive tester
+  const sortedUtenlandsperioder = React.useMemo(() => {
+    return [...utenlandsperioder].sort((a, b) => {
+      // If a has no sluttdato and b has, a comes first
+      if (!a.sluttdato) return -1
+      if (!b.sluttdato) return 1
+
+      // If both have sluttdato, compare them
+      const dateA = parse(a.sluttdato, 'dd.MM.yyyy', new Date())
+      const dateB = parse(b.sluttdato, 'dd.MM.yyyy', new Date())
+
+      return compareAsc(dateB, dateA)
+    })
   }, [utenlandsperioder])
 
   // TODO skrive test
@@ -249,8 +265,8 @@ export function Utenlandsopphold({
             }}
           />
           <dl className={styles.utenlandsperioder}>
-            {utenlandsperioder.length > 0 &&
-              utenlandsperioder.map((utenlandsperiode, index) => {
+            {sortedUtenlandsperioder.length > 0 &&
+              sortedUtenlandsperioder.map((utenlandsperiode, index) => {
                 return (
                   <div key={index} className={styles.utenlandsperioderItem}>
                     <div className={styles.utenlandsperioderText}>
