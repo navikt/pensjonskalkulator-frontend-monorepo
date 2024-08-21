@@ -366,6 +366,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     className={styles.datepicker}
                     form={UTENLANDSOPPHOLD_FORM_NAMES.form}
                     name={UTENLANDSOPPHOLD_FORM_NAMES.startdato}
+                    data-testid={UTENLANDSOPPHOLD_FORM_NAMES.startdato}
                     label={intl.formatMessage({
                       id: 'utenlandsopphold.om_oppholdet_ditt_modal.startdato.label',
                     })}
@@ -398,6 +399,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     className={styles.datepicker}
                     form={UTENLANDSOPPHOLD_FORM_NAMES.form}
                     name={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
+                    data-testid={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
                     label={intl.formatMessage({
                       id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',
                     })}

@@ -1,6 +1,4 @@
-import React from 'react'
-
-import { describe, it, vi } from 'vitest'
+import { describe, it } from 'vitest'
 
 import { UtenlandsoppholdListe } from '..'
 import { screen, render } from '@/test-utils'
