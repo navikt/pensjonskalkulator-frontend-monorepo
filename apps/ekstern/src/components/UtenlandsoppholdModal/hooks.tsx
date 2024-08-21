@@ -11,7 +11,6 @@ import {
   UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS,
 } from './utils'
 
-// TODO skrive tester
 export const useFormLocalState = (initialValues: {
   modalRef: React.RefObject<HTMLDialogElement>
   foedselsdato?: string
@@ -130,6 +129,7 @@ export const useFormLocalState = (initialValues: {
 
   const onCancel = (): void => {
     setLocalUtenlandsperiode({ ...utenlandsperiode })
+    // Datoene nullstilles eksplisitt her, slik at datepickeren ikke husker dem til neste utenlandsperiode
     datepickerStartdato.setSelected(undefined)
     datepickerSluttdato.setSelected(undefined)
     setValidationErrors(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
