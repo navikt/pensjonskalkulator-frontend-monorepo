@@ -1,5 +1,7 @@
 import { parse, isBefore, addYears } from 'date-fns'
 
+import { AppDispatch } from '@/state/store'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
   DATE_BACKEND_FORMAT,
   DATE_ENDUSER_FORMAT,
@@ -11,11 +13,11 @@ export type UtenlandsoppholdFormNames =
   (typeof UTENLANDSOPPHOLD_FORM_NAMES)[keyof typeof UTENLANDSOPPHOLD_FORM_NAMES]
 
 export const UTENLANDSOPPHOLD_FORM_NAMES = {
-  form: 'oppholdet-ditt',
-  land: 'land',
-  arbeidetUtenlands: 'arbeidet-utenlands',
-  startdato: 'startdato',
-  sluttdato: 'sluttdato',
+  form: 'utenlandsopphold-oppholdet-ditt',
+  land: 'utenlandsopphold-land',
+  arbeidetUtenlands: 'utenlandsopphold-arbeidet-utenlands',
+  startdato: 'utenlandsopphold-startdato',
+  sluttdato: 'utenlandsopphold-sluttdato',
 }
 
 export const UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS: Record<
@@ -241,4 +243,68 @@ export const validateOpphold = (
 
   // TODO mangler logikk for overlappende perioder
   return isValid
+}
+
+export const onUtenlandsoppholdSubmit = (
+  data: FormData,
+  dispatch: AppDispatch,
+  setValidationErrors: React.Dispatch<
+    React.SetStateAction<Record<string, string>>
+  >,
+  modalRef: React.RefObject<HTMLDialogElement>,
+  onSubmitCallback: () => void,
+  previousData: {
+    foedselsdato?: string
+    utenlandsperiodeId?: string
+    utenlandsperioder: Utenlandsperiode[]
+  }
+): void => {
+  const { foedselsdato, utenlandsperiodeId, utenlandsperioder } = previousData
+
+  const landFormData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.land)
+  const arbeidetUtenlandsFormData = data.get(
+    UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
+  )
+  const startdatoFormData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.startdato)
+  const sluttdatoFormData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.sluttdato)
+
+  if (
+    validateOpphold(
+      {
+        landFormData,
+        arbeidetUtenlandsFormData,
+        startdatoFormData,
+        sluttdatoFormData,
+      },
+      foedselsdato,
+      utenlandsperioder,
+      setValidationErrors
+    )
+  ) {
+    const updatedUtenlandsperiode = {
+      id: utenlandsperiodeId
+        ? utenlandsperiodeId
+        : `${Date.now()}-${Math.random()}`,
+      landkode: landFormData as string,
+      arbeidetUtenlands: arbeidetUtenlandsFormData === 'ja',
+      startdato: startdatoFormData as string,
+      sluttdato: sluttdatoFormData ? (sluttdatoFormData as string) : undefined,
+    }
+
+    dispatch(
+      userInputActions.setCurrentSimulationUtenlandsperiode({
+        ...updatedUtenlandsperiode,
+      })
+    )
+
+    logger('button klikk', {
+      tekst: utenlandsperiodeId
+        ? `endrer utenlandsperiode`
+        : `legger til utenlandsperiode`,
+    })
+    onSubmitCallback()
+    if (modalRef.current?.open) {
+      modalRef.current?.close()
+    }
+  }
 }
