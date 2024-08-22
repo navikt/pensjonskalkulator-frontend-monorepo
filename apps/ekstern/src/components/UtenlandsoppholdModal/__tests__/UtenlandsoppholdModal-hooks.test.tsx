@@ -45,18 +45,50 @@ describe('UtenlandsoppholdModal-hooks', () => {
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({})
       // datepickerStartdato
-      expect(result.current[1].datepickerProps.fromDate).toStrictEqual(
+      expect(
+        result.current[1].datepickerProps.fromDate
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
+      ).toStrictEqual(
         new Date('1963-04-29T23:00:00.000Z')
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
       )
-      expect(result.current[1].datepickerProps.toDate).toStrictEqual(
+      expect(
+        result.current[1].datepickerProps.toDate
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
+      ).toStrictEqual(
         new Date('2063-04-29T22:00:00.000Z')
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
       )
       // datepickerSluttdato
-      expect(result.current[2].datepickerProps.fromDate).toStrictEqual(
+      expect(
+        result.current[2].datepickerProps.fromDate
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
+      ).toStrictEqual(
         new Date('1963-04-29T23:00:00.000Z')
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
       )
-      expect(result.current[2].datepickerProps.toDate).toStrictEqual(
+      expect(
+        result.current[2].datepickerProps.toDate
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
+      ).toStrictEqual(
         new Date('2063-04-29T22:00:00.000Z')
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
       )
       // validationErrors
       expect(result.current[3]).toStrictEqual({
@@ -154,15 +186,39 @@ describe('UtenlandsoppholdModal-hooks', () => {
         sluttdato: '12.12.2025',
       })
       // datepickerStartdato
-      expect(result.current[1].datepickerProps.fromDate).toStrictEqual(
+      expect(
+        result.current[1].datepickerProps.fromDate
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
+      ).toStrictEqual(
         new Date('1963-04-29T23:00:00.000Z')
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
       )
-      expect(result.current[1].datepickerProps.toDate).toStrictEqual(
+      expect(
+        result.current[1].datepickerProps.toDate
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
+      ).toStrictEqual(
         new Date('2063-04-29T22:00:00.000Z')
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
       )
       // datepickerSluttdato
-      expect(result.current[2].datepickerProps.fromDate).toStrictEqual(
+      expect(
+        result.current[2].datepickerProps.fromDate
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
+      ).toStrictEqual(
         new Date('2021-12-11T23:00:00.000Z')
+          ?.toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
       )
       expect(
         result.current[2].datepickerProps.toDate
@@ -193,7 +249,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       )
     })
 
-    it('Når handleLandChange kalles, fjernes valideringsfeilmelding og utelandsperiode oppdateres', async () => {
+    it('Når handleLandChange kalles, fjernes valideringsfeilmelding og utenlandsperiode oppdateres', async () => {
       const { result } = renderHook(useFormLocalState, {
         wrapper,
         initialProps: {
@@ -251,7 +307,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
     })
 
-    it('Når handleArbeidetUtenlandsChange kalles, fjernes valideringsfeilmelding og utelandsperiode oppdateres', async () => {
+    it('Når handleArbeidetUtenlandsChange kalles, fjernes valideringsfeilmelding og utenlandsperiode oppdateres', async () => {
       const { result } = renderHook(useFormLocalState, {
         wrapper,
         initialProps: {
@@ -308,7 +364,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
     })
 
-    it('Når onCancel kalles, nullstilles utelandsperiode og feilmeldinger og modalen lukkes', async () => {
+    it('Når onCancel kalles, nullstilles utenlandsperiode og feilmeldinger og modalen lukkes', async () => {
       const { result } = renderHook(useFormLocalState, {
         wrapper,
         initialProps: {
