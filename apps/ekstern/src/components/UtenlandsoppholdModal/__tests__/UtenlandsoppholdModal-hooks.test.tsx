@@ -93,26 +93,52 @@ describe('UtenlandsoppholdModal-hooks', () => {
         },
       })
 
-      const hundredYearsBeforeNow = new Date()
+      const date = new Date()
+      const now_utc = Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        date.getUTCHours(),
+        date.getUTCMinutes(),
+        date.getUTCSeconds()
+      )
+
+      const hundredYearsBeforeNow = new Date(now_utc)
       hundredYearsBeforeNow.setFullYear(
         hundredYearsBeforeNow.getFullYear() - 100
       )
-      const hundredYearsFromNow = new Date()
+      const hundredYearsFromNow = new Date(now_utc)
       hundredYearsFromNow.setFullYear(hundredYearsFromNow.getFullYear() + 100)
 
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({})
       // datepickerStartdato
+      const datepickerStartdato_fromDate__utc = Date.UTC(
+        (result.current[1].datepickerProps.fromDate as Date).getUTCFullYear(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCMonth(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCDate(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCHours(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCMinutes(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCSeconds()
+      )
       expect(
-        result.current[1].datepickerProps.fromDate
+        new Date(datepickerStartdato_fromDate__utc)
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(
         hundredYearsBeforeNow?.toISOString().slice(0, 10).replace(/-/g, '')
       )
+      const datepickerStartdato_toDate__utc = Date.UTC(
+        (result.current[1].datepickerProps.toDate as Date).getUTCFullYear(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCMonth(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCDate(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCHours(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCMinutes(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCSeconds()
+      )
       expect(
-        result.current[1].datepickerProps.toDate
+        new Date(datepickerStartdato_toDate__utc)
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
@@ -120,14 +146,30 @@ describe('UtenlandsoppholdModal-hooks', () => {
         hundredYearsFromNow?.toISOString().slice(0, 10).replace(/-/g, '')
       )
       // datepickerSluttdato
+      const datepickerSluttdato_fromDate__utc = Date.UTC(
+        (result.current[2].datepickerProps.fromDate as Date).getUTCFullYear(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCMonth(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCDate(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCHours(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCMinutes(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCSeconds()
+      )
       expect(
-        result.current[2].datepickerProps.fromDate
+        new Date(datepickerSluttdato_fromDate__utc)
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(new Date().toISOString().slice(0, 10).replace(/-/g, ''))
+      const datepickerSluttdato_toDate__utc = Date.UTC(
+        (result.current[2].datepickerProps.toDate as Date).getUTCFullYear(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCMonth(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCDate(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCHours(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCMinutes(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCSeconds()
+      )
       expect(
-        result.current[2].datepickerProps.toDate
+        new Date(datepickerSluttdato_toDate__utc)
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
@@ -142,8 +184,16 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-startdato': '',
       })
       // maxDate
+      const maxDate__utc = Date.UTC(
+        (result.current[4] as Date).getUTCFullYear(),
+        (result.current[4] as Date).getUTCMonth(),
+        (result.current[4] as Date).getUTCDate(),
+        (result.current[4] as Date).getUTCHours(),
+        (result.current[4] as Date).getUTCMinutes(),
+        (result.current[4] as Date).getUTCSeconds()
+      )
       expect(
-        result.current[4]?.toISOString().slice(0, 10).replace(/-/g, '')
+        new Date(maxDate__utc)?.toISOString().slice(0, 10).replace(/-/g, '')
       ).toStrictEqual(
         hundredYearsFromNow?.toISOString().slice(0, 10).replace(/-/g, '')
       )
@@ -166,27 +216,59 @@ describe('UtenlandsoppholdModal-hooks', () => {
         sluttdato: '12.12.2025',
       })
       // datepickerStartdato
+      const datepickerStartdato_fromDate__utc = Date.UTC(
+        (result.current[1].datepickerProps.fromDate as Date).getUTCFullYear(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCMonth(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCDate(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCHours(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCMinutes(),
+        (result.current[1].datepickerProps.fromDate as Date).getUTCSeconds()
+      )
       expect(
-        result.current[1].datepickerProps.fromDate
+        new Date(datepickerStartdato_fromDate__utc)
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual('19630429')
+      const datepickerStartdato_toDate__utc = Date.UTC(
+        (result.current[1].datepickerProps.toDate as Date).getUTCFullYear(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCMonth(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCDate(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCHours(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCMinutes(),
+        (result.current[1].datepickerProps.toDate as Date).getUTCSeconds()
+      )
       expect(
-        result.current[1].datepickerProps.toDate
+        new Date(datepickerStartdato_toDate__utc)
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual('20630429')
       // datepickerSluttdato
+      const datepickerSluttdato_fromDate__utc = Date.UTC(
+        (result.current[2].datepickerProps.fromDate as Date).getUTCFullYear(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCMonth(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCDate(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCHours(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCMinutes(),
+        (result.current[2].datepickerProps.fromDate as Date).getUTCSeconds()
+      )
       expect(
-        result.current[2].datepickerProps.fromDate
+        new Date(datepickerSluttdato_fromDate__utc)
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual('20211211')
+      const datepickerSluttdato_toDate__utc = Date.UTC(
+        (result.current[2].datepickerProps.toDate as Date).getUTCFullYear(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCMonth(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCDate(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCHours(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCMinutes(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCSeconds()
+      )
       expect(
-        result.current[2].datepickerProps.toDate
+        new Date(datepickerSluttdato_toDate__utc)
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
@@ -199,8 +281,16 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-startdato': '',
       })
       // maxDate
+      const maxDate__utc = Date.UTC(
+        (result.current[4] as Date).getUTCFullYear(),
+        (result.current[4] as Date).getUTCMonth(),
+        (result.current[4] as Date).getUTCDate(),
+        (result.current[4] as Date).getUTCHours(),
+        (result.current[4] as Date).getUTCMinutes(),
+        (result.current[4] as Date).getUTCSeconds()
+      )
       expect(
-        result.current[4]?.toISOString().slice(0, 10).replace(/-/g, '')
+        new Date(maxDate__utc).toISOString().slice(0, 10).replace(/-/g, '')
       ).toStrictEqual('20630429')
     })
 
