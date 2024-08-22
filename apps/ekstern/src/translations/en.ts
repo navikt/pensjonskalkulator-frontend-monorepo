@@ -95,12 +95,27 @@ const translations = {
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.title': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
+    'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description':
@@ -129,6 +144,9 @@ const translations = {
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
     'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.title': 'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.button.avbryt': 'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.button.slett': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
