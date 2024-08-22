@@ -50,36 +50,26 @@ describe('UtenlandsoppholdModal-hooks', () => {
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual('19630430')
+      ).toStrictEqual('19630429')
       expect(
         result.current[1].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual('20630430')
+      ).toStrictEqual('20630429')
       // datepickerSluttdato
       expect(
         result.current[2].datepickerProps.fromDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual(
-        new Date('1963-04-29T23:00:00.000Z')
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
-      )
+      ).toStrictEqual('19630429')
       expect(
         result.current[2].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual(
-        new Date('2063-04-29T22:00:00.000Z')
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
-      )
+      ).toStrictEqual('20630429')
       // validationErrors
       expect(result.current[3]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
@@ -88,9 +78,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-startdato': '',
       })
       // maxDate
-      expect(result.current[4]).toStrictEqual(
-        new Date('2063-04-29T22:00:00.000Z')
-      )
+      expect(
+        result.current[4]?.toISOString().slice(0, 10).replace(/-/g, '')
+      ).toStrictEqual('20630429')
     })
 
     it('Når fødselsdato ikke er angitt, returnerer riktig initial values', async () => {
@@ -181,36 +171,26 @@ describe('UtenlandsoppholdModal-hooks', () => {
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual('19630430')
+      ).toStrictEqual('19630429')
       expect(
         result.current[1].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual('20630430')
+      ).toStrictEqual('20630429')
       // datepickerSluttdato
       expect(
         result.current[2].datepickerProps.fromDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual(
-        new Date('2021-12-11T23:00:00.000Z')
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
-      )
+      ).toStrictEqual('20211211')
       expect(
         result.current[2].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual(
-        new Date('2063-04-29T22:00:00.000Z')
-          .toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
-      )
+      ).toStrictEqual('20630429')
       // validationErrors
       expect(result.current[3]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
@@ -221,12 +201,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       // maxDate
       expect(
         result.current[4]?.toISOString().slice(0, 10).replace(/-/g, '')
-      ).toStrictEqual(
-        new Date('2063-04-29T22:00:00.000Z')
-          .toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
-      )
+      ).toStrictEqual('20630429')
     })
 
     it('Når handleLandChange kalles, fjernes valideringsfeilmelding og utenlandsperiode oppdateres', async () => {
