@@ -57,8 +57,7 @@
     &Buttons {
       flex-direction: column;
       flex-basis: 0;
-      align-self: end;
-      align-items: end;
+      justify-content: space-between;
       text-wrap: nowrap;
     }
   }
