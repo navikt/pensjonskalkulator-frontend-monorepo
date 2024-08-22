@@ -193,6 +193,7 @@ export const validateOpphold = (
         }
       })
     } else if (
+      foedselsdato &&
       isBefore(
         addYears(
           parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date()),
