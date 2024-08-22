@@ -8,7 +8,7 @@ import { setupStore } from '../../../state/store'
 import { useFormLocalState } from '../hooks'
 import { UTENLANDSOPPHOLD_FORM_NAMES } from '../utils'
 import { act, renderHook } from '@/test-utils'
-import { DATE_BACKEND_FORMAT } from '@/utils/dates'
+import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 
 describe('UtenlandsoppholdModal-hooks', () => {
   const foedselsdato = '1963-04-30'
@@ -225,7 +225,12 @@ describe('UtenlandsoppholdModal-hooks', () => {
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual('20211211')
+      ).toStrictEqual(
+        parse('12.12.2021', DATE_ENDUSER_FORMAT, new Date())
+          .toISOString()
+          .slice(0, 10)
+          .replace(/-/g, '')
+      )
       expect(
         result.current[2].datepickerProps.toDate
           ?.toISOString()
