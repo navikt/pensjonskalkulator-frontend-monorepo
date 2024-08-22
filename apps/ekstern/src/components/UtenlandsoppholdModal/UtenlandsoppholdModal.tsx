@@ -81,9 +81,9 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
       <Modal.Body>
         <form
           id={UTENLANDSOPPHOLD_FORM_NAMES.form}
-          method="dialog"
           onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
+            e.stopPropagation()
             const data = new FormData(e.currentTarget)
             onUtenlandsoppholdSubmit(
               data,

@@ -40,7 +40,7 @@ export const validateOpphold = (
   foedselsdato: string | undefined,
   utenlandsperioder: Utenlandsperiode[],
   updateValidationErrorMessage: React.Dispatch<
-    React.SetStateAction<Record<string, string>>
+    React.SetStateAction<Record<UtenlandsoppholdFormNames, string>>
   >
 ) => {
   const {
@@ -55,15 +55,15 @@ export const validateOpphold = (
     isValid = false
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error'
-    logger('valideringsfeil', {
-      data: 'Utenlandsopphold - land',
-      tekst,
-    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.land]: tekst,
       }
+    })
+    logger('valideringsfeil', {
+      data: 'Utenlandsopphold - land',
+      tekst,
     })
   }
 
@@ -74,15 +74,15 @@ export const validateOpphold = (
     isValid = false
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error'
-    logger('valideringsfeil', {
-      data: 'Utenlandsopphold - arbeidet utenlands',
-      tekst,
-    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: tekst,
       }
+    })
+    logger('valideringsfeil', {
+      data: 'Utenlandsopphold - arbeidet utenlands',
+      tekst,
     })
   }
 
@@ -90,29 +90,29 @@ export const validateOpphold = (
     isValid = false
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required'
-    logger('valideringsfeil', {
-      data: 'Utenlandsopphold - startdato',
-      tekst,
-    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
       }
+    })
+    logger('valideringsfeil', {
+      data: 'Utenlandsopphold - startdato',
+      tekst,
     })
   } else if (!validateDateEndUserFormat(startdatoFormData as string)) {
     isValid = false
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format'
-    logger('valideringsfeil', {
-      data: 'Utenlandsopphold - startdato',
-      tekst,
-    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
       }
+    })
+    logger('valideringsfeil', {
+      data: 'Utenlandsopphold - startdato',
+      tekst,
     })
   } else if (
     isBefore(
@@ -123,15 +123,15 @@ export const validateOpphold = (
     isValid = false
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min'
-    logger('valideringsfeil', {
-      data: 'Utenlandsopphold - startdato',
-      tekst,
-    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
       }
+    })
+    logger('valideringsfeil', {
+      data: 'Utenlandsopphold - startdato',
+      tekst,
     })
   } else if (
     isBefore(
@@ -145,15 +145,15 @@ export const validateOpphold = (
     isValid = false
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max'
-    logger('valideringsfeil', {
-      data: 'Utenlandsopphold - startdato',
-      tekst,
-    })
     updateValidationErrorMessage((prevState) => {
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
       }
+    })
+    logger('valideringsfeil', {
+      data: 'Utenlandsopphold - startdato',
+      tekst,
     })
   }
 
@@ -249,7 +249,7 @@ export const onUtenlandsoppholdSubmit = (
   data: FormData,
   dispatch: AppDispatch,
   setValidationErrors: React.Dispatch<
-    React.SetStateAction<Record<string, string>>
+    React.SetStateAction<Record<UtenlandsoppholdFormNames, string>>
   >,
   modalRef: React.RefObject<HTMLDialogElement>,
   onSubmitCallback: () => void,
