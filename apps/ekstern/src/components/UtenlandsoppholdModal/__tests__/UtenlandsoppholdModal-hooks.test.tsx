@@ -50,12 +50,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual(
-        new Date('1963-04-29T23:00:00.000Z')
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
-      )
+      ).toStrictEqual('19630430')
       expect(
         result.current[1].datepickerProps.toDate
           ?.toISOString()
@@ -191,12 +186,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
-      ).toStrictEqual(
-        new Date('1963-04-29T23:00:00.000Z')
-          ?.toISOString()
-          .slice(0, 10)
-          .replace(/-/g, '')
-      )
+      ).toStrictEqual('19630430')
       expect(
         result.current[1].datepickerProps.toDate
           ?.toISOString()
