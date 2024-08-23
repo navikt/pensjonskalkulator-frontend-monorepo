@@ -4,6 +4,7 @@ import { useDatepicker } from '@navikt/ds-react'
 import { add, parse, format, isValid } from 'date-fns'
 
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { isAvtalelandFromLandkode } from '@/utils/land'
 
 import {
   UtenlandsoppholdFormNames,
@@ -26,6 +27,12 @@ export const useFormLocalState = (initialValues: {
   const [validationErrors, setValidationErrors] = React.useState<
     Record<UtenlandsoppholdFormNames, string>
   >(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
+
+  const isLocalLandAvtaleland = React.useMemo(() => {
+    return localUtenlandsperiode?.landkode
+      ? isAvtalelandFromLandkode(localUtenlandsperiode?.landkode)
+      : undefined
+  }, [localUtenlandsperiode])
 
   const maxDate = React.useMemo(() => {
     return foedselsdato
@@ -108,6 +115,7 @@ export const useFormLocalState = (initialValues: {
       return {
         ...previous,
         landkode: e.target.value,
+        arbeidetUtenlands: undefined,
       }
     })
   }
@@ -165,6 +173,7 @@ export const useFormLocalState = (initialValues: {
 
   return [
     localUtenlandsperiode,
+    isLocalLandAvtaleland,
     datepickerStartdato,
     datepickerSluttdato,
     validationErrors,
