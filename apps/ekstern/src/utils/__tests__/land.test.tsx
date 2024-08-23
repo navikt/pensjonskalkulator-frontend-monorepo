@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { getTranslatedLand, getTranslatedLandFromLandkode } from '../land'
+import {
+  getTranslatedLand,
+  getTranslatedLandFromLandkode,
+  isAvtalelandFromLandkode,
+} from '../land'
 
 describe('translations-utils', () => {
   describe('getTranslatedLand', () => {
@@ -47,6 +51,20 @@ describe('translations-utils', () => {
     it('returnerer riktig streng med en locale', () => {
       const locale = getTranslatedLandFromLandkode('NLD', 'en')
       expect(locale).toBe('Netherlands')
+    })
+  })
+
+  describe('isAvtalelandFromLandkode', () => {
+    it('returnerer false når landet ikke finnes', () => {
+      expect(isAvtalelandFromLandkode('RANDOM')).toBeFalsy()
+    })
+
+    it('returnerer true når landet er avtaleland', () => {
+      expect(isAvtalelandFromLandkode('NLD')).toBeTruthy()
+    })
+
+    it('returnerer false når landet ikke er avtaleland', () => {
+      expect(isAvtalelandFromLandkode('NPL')).toBeFalsy()
     })
   })
 })

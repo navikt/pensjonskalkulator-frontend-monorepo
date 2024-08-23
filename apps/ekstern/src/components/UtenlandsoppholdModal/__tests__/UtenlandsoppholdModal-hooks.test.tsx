@@ -80,20 +80,22 @@ describe('UtenlandsoppholdModal-hooks', () => {
 
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({})
+      // isLocalLandAvtaleland
+      expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
       expect(
-        result.current[1].datepickerProps.fromDate
+        result.current[2].datepickerProps.fromDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedFoedselsdato) // server expects 19630430
       const datepickerStartdato_toDate__utc = Date.UTC(
-        (result.current[1].datepickerProps.toDate as Date).getUTCFullYear(),
-        (result.current[1].datepickerProps.toDate as Date).getUTCMonth(),
-        (result.current[1].datepickerProps.toDate as Date).getUTCDate(),
-        (result.current[1].datepickerProps.toDate as Date).getUTCHours(),
-        (result.current[1].datepickerProps.toDate as Date).getUTCMinutes(),
-        (result.current[1].datepickerProps.toDate as Date).getUTCSeconds()
+        (result.current[2].datepickerProps.toDate as Date).getUTCFullYear(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCMonth(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCDate(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCHours(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCMinutes(),
+        (result.current[2].datepickerProps.toDate as Date).getUTCSeconds()
       )
       expect(
         new Date(datepickerStartdato_toDate__utc)
@@ -103,19 +105,19 @@ describe('UtenlandsoppholdModal-hooks', () => {
       ).toStrictEqual(expectedFoedselsdatoAdded100Years)
       // datepickerSluttdato
       expect(
-        result.current[2].datepickerProps.fromDate
+        result.current[3].datepickerProps.fromDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedFoedselsdato)
       expect(
-        result.current[2].datepickerProps.toDate
+        result.current[3].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedFoedselsdatoAdded100Years)
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
@@ -123,7 +125,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
       // maxDate
       expect(
-        result.current[4].toISOString().slice(0, 10).replace(/-/g, '')
+        result.current[5].toISOString().slice(0, 10).replace(/-/g, '')
       ).toStrictEqual(expectedFoedselsdatoAdded100Years)
     })
 
@@ -137,34 +139,26 @@ describe('UtenlandsoppholdModal-hooks', () => {
         },
       })
 
-      const date = new Date()
-      const now_utc = Date.UTC(
-        date.getUTCFullYear(),
-        date.getUTCMonth(),
-        date.getUTCDate(),
-        date.getUTCHours(),
-        date.getUTCMinutes(),
-        date.getUTCSeconds()
-      )
-
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({})
+      // isLocalLandAvtaleland
+      expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
       expect(
-        result.current[1].datepickerProps.fromDate
+        result.current[2].datepickerProps.fromDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedHundredYearsBeforeNow)
       expect(
-        result.current[1].datepickerProps.toDate
+        result.current[2].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedHundredYearsAfterNow)
       // datepickerSluttdato
       expect(
-        result.current[2].datepickerProps.fromDate
+        result.current[3].datepickerProps.fromDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
@@ -172,13 +166,13 @@ describe('UtenlandsoppholdModal-hooks', () => {
         endOfDay(new Date()).toISOString().slice(0, 10).replace(/-/g, '')
       )
       expect(
-        result.current[2].datepickerProps.toDate
+        result.current[3].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedHundredYearsAfterNow)
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
@@ -186,7 +180,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
       // maxDate
       expect(
-        result.current[4]?.toISOString().slice(0, 10).replace(/-/g, '')
+        result.current[5]?.toISOString().slice(0, 10).replace(/-/g, '')
       ).toStrictEqual(expectedHundredYearsAfterNow)
     })
 
@@ -206,22 +200,24 @@ describe('UtenlandsoppholdModal-hooks', () => {
         startdato: '12.12.2021',
         sluttdato: '12.12.2025',
       })
+      // isLocalLandAvtaleland
+      expect(result.current[1]).toBeTruthy()
       // datepickerStartdato
       expect(
-        result.current[1].datepickerProps.fromDate
+        result.current[2].datepickerProps.fromDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedFoedselsdato)
       expect(
-        result.current[1].datepickerProps.toDate
+        result.current[3].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedFoedselsdatoAdded100Years)
       // datepickerSluttdato
       expect(
-        result.current[2].datepickerProps.fromDate
+        result.current[3].datepickerProps.fromDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
@@ -232,13 +228,13 @@ describe('UtenlandsoppholdModal-hooks', () => {
           .replace(/-/g, '')
       )
       expect(
-        result.current[2].datepickerProps.toDate
+        result.current[3].datepickerProps.toDate
           ?.toISOString()
           .slice(0, 10)
           .replace(/-/g, '')
       ).toStrictEqual(expectedFoedselsdatoAdded100Years)
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
@@ -246,7 +242,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
       // maxDate
       expect(
-        result.current[4].toISOString().slice(0, 10).replace(/-/g, '')
+        result.current[5].toISOString().slice(0, 10).replace(/-/g, '')
       ).toStrictEqual(expectedFoedselsdatoAdded100Years)
     })
 
@@ -258,7 +254,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
         },
       })
       // handlers
-      const { setValidationErrors, handleLandChange } = result.current[5]
+      const { setValidationErrors, handleLandChange } = result.current[6]
 
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({
@@ -277,7 +273,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
         })
       })
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
         'utenlandsopphold-land': 'something-random',
         'utenlandsopphold-sluttdato': '',
@@ -291,7 +287,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
@@ -300,7 +296,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
 
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({
-        arbeidetUtenlands: true,
+        arbeidetUtenlands: undefined,
         id: '1',
         landkode: 'ETH',
         startdato: '12.12.2021',
@@ -317,7 +313,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
       // handlers
       const { setValidationErrors, handleArbeidetUtenlandsChange } =
-        result.current[5]
+        result.current[6]
 
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({
@@ -336,7 +332,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
         })
       })
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': 'something-random',
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
@@ -348,7 +344,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
@@ -374,7 +370,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
       // handlers
       const { setValidationErrors, handleLandChange, onCancel } =
-        result.current[5]
+        result.current[6]
 
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({
@@ -399,7 +395,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': 'something-random',
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': 'something-random',
@@ -408,7 +404,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
 
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({
-        arbeidetUtenlands: true,
+        arbeidetUtenlands: undefined,
         id: '1',
         landkode: 'ETH',
         startdato: '12.12.2021',
@@ -420,7 +416,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       // validationErrors
-      expect(result.current[3]).toStrictEqual({
+      expect(result.current[4]).toStrictEqual({
         'utenlandsopphold-arbeidet-utenlands': '',
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',

@@ -23,3 +23,13 @@ export const getTranslatedLandFromLandkode = (
   }
   return getTranslatedLand(selectedLand, locale)
 }
+
+export const isAvtalelandFromLandkode = (landkode: string) => {
+  const selectedLand = landListeData.find(
+    (land: Land) => land.landkode === landkode
+  )
+  if (!selectedLand) {
+    return false
+  }
+  return selectedLand.erAvtaleland
+}
