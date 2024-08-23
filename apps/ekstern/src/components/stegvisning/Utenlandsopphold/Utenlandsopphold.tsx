@@ -44,7 +44,6 @@ export function Utenlandsopphold({
   const [showUtenlandsperioder, setShowUtenlandsperioder] =
     React.useState<boolean>(!!harUtenlandsopphold)
 
-  // TODO legge til test
   React.useEffect(() => {
     if (validationErrors.bottom && utenlandsperioder.length > 0) {
       setValidationErrors((prevState) => {
@@ -179,9 +178,7 @@ export function Utenlandsopphold({
           <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
         </Radio>
       </RadioGroup>
-      {
-        //  TODO skrive tester for å dekke visning av utenlandsperioder
-      }
+
       {showUtenlandsperioder && (
         <UtenlandsoppholdListe validationError={validationErrors.bottom} />
       )}

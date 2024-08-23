@@ -2,6 +2,7 @@ import { describe, it, vi } from 'vitest'
 
 import { Utenlandsopphold } from '..'
 import { RootState } from '@/state/store'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, waitFor, userEvent } from '@/test-utils'
 
@@ -62,7 +63,7 @@ describe('stegvisning - Utenlandsopphold', () => {
       })
     })
 
-    it('Når harUtenlandsopphold er true', async () => {
+    it('Når harUtenlandsopphold er true, vises listen over utenlandsperioder', async () => {
       render(
         <Utenlandsopphold
           harUtenlandsopphold={true}
@@ -120,36 +121,130 @@ describe('stegvisning - Utenlandsopphold', () => {
     })
   })
 
-  it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext når brukeren klikker på Neste', async () => {
-    const user = userEvent.setup()
-    render(
-      <Utenlandsopphold
-        harUtenlandsopphold={null}
-        onCancel={onCancelMock}
-        onPrevious={onPreviousMock}
-        onNext={onNextMock}
-      />
-    )
+  describe('Når brukeren klikker på Neste', async () => {
+    it('validerer, viser feilmelding, fjerner feilmelding og kaller onNext', async () => {
+      const user = userEvent.setup()
+      render(
+        <Utenlandsopphold
+          harUtenlandsopphold={null}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />
+      )
 
-    await user.click(screen.getByText('stegvisning.neste'))
+      await user.click(screen.getByText('stegvisning.neste'))
 
-    expect(
-      await screen.findByText('stegvisning.utenlandsopphold.validation_error')
-    ).toBeInTheDocument()
-    expect(onNextMock).not.toHaveBeenCalled()
+      expect(
+        await screen.findByText('stegvisning.utenlandsopphold.validation_error')
+      ).toBeInTheDocument()
+      expect(onNextMock).not.toHaveBeenCalled()
 
-    const radioButtons = screen.getAllByRole('radio')
+      const radioButtons = screen.getAllByRole('radio')
 
-    await user.click(radioButtons[1])
+      await user.click(radioButtons[1])
 
-    expect(
-      screen.queryByText('stegvisning.utenlandsopphold.validation_error')
-    ).not.toBeInTheDocument()
+      expect(
+        screen.queryByText('stegvisning.utenlandsopphold.validation_error')
+      ).not.toBeInTheDocument()
 
-    await user.click(screen.getByText('stegvisning.neste'))
+      await user.click(screen.getByText('stegvisning.neste'))
 
-    waitFor(() => {
-      expect(onNextMock).toHaveBeenCalled()
+      waitFor(() => {
+        expect(onNextMock).toHaveBeenCalled()
+      })
+    })
+
+    it('viser valideringsteksten i bunnen når harUtenlandsopphold er true og at brukeren ikke har registrert utenlandsperioder, og skjuler den når brukeren setter harUtenlandsopphold til false', async () => {
+      const user = userEvent.setup()
+      render(
+        <Utenlandsopphold
+          harUtenlandsopphold={true}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                utenlandsperioder: [],
+              },
+            },
+          },
+        }
+      )
+
+      await user.click(screen.getByText('stegvisning.neste'))
+
+      expect(
+        await screen.findByText(
+          'stegvisning.utenlandsopphold.mangler_opphold.validation_error'
+        )
+      ).toBeInTheDocument()
+
+      const radioButtons = await screen.findAllByRole('radio')
+      await user.click(radioButtons[1])
+
+      expect(
+        screen.queryByText(
+          'stegvisning.utenlandsopphold.mangler_opphold.validation_error'
+        )
+      ).not.toBeInTheDocument()
+    })
+
+    it('viser valideringsteksten i bunnen når harUtenlandsopphold er true og at brukeren ikke har registrert utenlandsperioder, og skjuler den når brukeren legger til en periode', async () => {
+      const user = userEvent.setup()
+      const { store } = render(
+        <Utenlandsopphold
+          harUtenlandsopphold={true}
+          onCancel={onCancelMock}
+          onPrevious={onPreviousMock}
+          onNext={onNextMock}
+        />,
+        {
+          preloadedState: {
+            userInput: {
+              ...userInputInitialState,
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+                utenlandsperioder: [],
+              },
+            },
+          },
+        }
+      )
+
+      await user.click(screen.getByText('stegvisning.neste'))
+
+      expect(
+        await screen.findByText(
+          'stegvisning.utenlandsopphold.mangler_opphold.validation_error'
+        )
+      ).toBeInTheDocument()
+
+      await waitFor(() => {
+        store.dispatch(
+          userInputActions.setCurrentSimulationUtenlandsperiode({
+            id: '1',
+            landkode: 'AFG',
+            arbeidetUtenlands: true,
+            startdato: '20-01-2021',
+          })
+        )
+      })
+
+      expect(
+        await screen.findByText('stegvisning.utenlandsopphold.oppholdene.title')
+      ).toBeVisible()
+
+      expect(
+        screen.queryByText(
+          'stegvisning.utenlandsopphold.mangler_opphold.validation_error'
+        )
+      ).not.toBeInTheDocument()
     })
   })
 
