@@ -68,58 +68,88 @@ describe('UtenlandsoppholdModal-utils', () => {
     })
 
     describe('Gitt at arbeidetUtenlandsFormData ikke er gyldig', () => {
-      it('returnerer false når arbeidetUtenlandsFormData er null', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
-        const updateErrorMessageMock = vi.fn()
-        expect(
-          validateOpphold(
-            { ...correctInputData, arbeidetUtenlandsFormData: null },
-            foedselsdato,
-            [],
-            updateErrorMessageMock
-          )
-        ).toBeFalsy()
-        expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
-          data: 'Utenlandsopphold - arbeidet utenlands',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+      describe('Når land ikke er avtaleland', () => {
+        it('returnerer true når arbeidetUtenlandsFormData er null', () => {
+          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const updateErrorMessageMock = vi.fn()
+          expect(
+            validateOpphold(
+              { ...correctInputData, arbeidetUtenlandsFormData: null },
+              foedselsdato,
+              [],
+              updateErrorMessageMock
+            )
+          ).toBeTruthy()
+          expect(updateErrorMessageMock).not.toHaveBeenCalled()
+          expect(loggerMock).not.toHaveBeenCalled()
         })
       })
-      it('returnerer false når arbeidetUtenlandsFormData er tom', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
-        const updateErrorMessageMock = vi.fn()
-        expect(
-          validateOpphold(
-            { ...correctInputData, arbeidetUtenlandsFormData: '' },
-            foedselsdato,
-            [],
-            updateErrorMessageMock
-          )
-        ).toBeFalsy()
-        expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
-          data: 'Utenlandsopphold - arbeidet utenlands',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+      describe('Når land er avtaleland', () => {
+        it('returnerer false når arbeidetUtenlandsFormData er null', () => {
+          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const updateErrorMessageMock = vi.fn()
+          expect(
+            validateOpphold(
+              {
+                ...correctInputData,
+                landFormData: 'NLD',
+                arbeidetUtenlandsFormData: null,
+              },
+              foedselsdato,
+              [],
+              updateErrorMessageMock
+            )
+          ).toBeFalsy()
+          expect(updateErrorMessageMock).toHaveBeenCalled()
+          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+            data: 'Utenlandsopphold - arbeidet utenlands',
+            tekst:
+              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+          })
         })
-      })
-      it('returnerer false når arbeidetUtenlandsFormData er ulik "ja" eller "nei"', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
-        const updateErrorMessageMock = vi.fn()
-        expect(
-          validateOpphold(
-            { ...correctInputData, arbeidetUtenlandsFormData: 'lorem' },
-            foedselsdato,
-            [],
-            updateErrorMessageMock
-          )
-        ).toBeFalsy()
-        expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
-          data: 'Utenlandsopphold - arbeidet utenlands',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+        it('returnerer false når arbeidetUtenlandsFormData er tom', () => {
+          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const updateErrorMessageMock = vi.fn()
+          expect(
+            validateOpphold(
+              {
+                ...correctInputData,
+                landFormData: 'NLD',
+                arbeidetUtenlandsFormData: '',
+              },
+              foedselsdato,
+              [],
+              updateErrorMessageMock
+            )
+          ).toBeFalsy()
+          expect(updateErrorMessageMock).toHaveBeenCalled()
+          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+            data: 'Utenlandsopphold - arbeidet utenlands',
+            tekst:
+              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+          })
+        })
+        it('returnerer false når arbeidetUtenlandsFormData er ulik "ja" eller "nei"', () => {
+          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const updateErrorMessageMock = vi.fn()
+          expect(
+            validateOpphold(
+              {
+                ...correctInputData,
+                landFormData: 'NLD',
+                arbeidetUtenlandsFormData: 'lorem',
+              },
+              foedselsdato,
+              [],
+              updateErrorMessageMock
+            )
+          ).toBeFalsy()
+          expect(updateErrorMessageMock).toHaveBeenCalled()
+          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+            data: 'Utenlandsopphold - arbeidet utenlands',
+            tekst:
+              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+          })
         })
       })
     })

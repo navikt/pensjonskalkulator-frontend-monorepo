@@ -7,6 +7,7 @@ import {
   DATE_ENDUSER_FORMAT,
   validateDateEndUserFormat,
 } from '@/utils/dates'
+import { isAvtalelandFromLandkode } from '@/utils/land'
 import { logger } from '@/utils/logging'
 
 export type UtenlandsoppholdFormNames =
@@ -65,11 +66,15 @@ export const validateOpphold = (
       data: 'Utenlandsopphold - land',
       tekst,
     })
+    // Hvis land ikke er fylt ut return. Det er ikke nødvendig å sjekke resten
+    return isValid
   }
 
   if (
-    !arbeidetUtenlandsFormData ||
-    (arbeidetUtenlandsFormData !== 'ja' && arbeidetUtenlandsFormData !== 'nei')
+    isAvtalelandFromLandkode(landFormData as string) &&
+    (!arbeidetUtenlandsFormData ||
+      (arbeidetUtenlandsFormData !== 'ja' &&
+        arbeidetUtenlandsFormData !== 'nei'))
   ) {
     isValid = false
     const tekst =
