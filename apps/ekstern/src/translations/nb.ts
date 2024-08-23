@@ -153,7 +153,7 @@ const translations = {
     'Avbryt endring',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
-    'Har du jobbet i {land}?',
+    'Jobbet du i {land}?',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description':
     'Hvis du jobbet i deler av oppholdet, bør du legge til perioden du jobbet og perioden du ikke jobbet som to ulike opphold.',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja': 'Ja',

@@ -44,6 +44,11 @@ export function StepUtenlandsopphold() {
     if (!utlandFeatureToggle?.enabled && utenlandsoppholdData === 'ja') {
       navigate(`${paths.henvisning}/${henvisningUrlParams.utland}`)
     } else {
+      if (utenlandsoppholdData === 'nei') {
+        dispatch(
+          userInputActions.deleteCurrentSimulationAlleUtenlandsperioder()
+        )
+      }
       onStegvisningNext()
     }
   }

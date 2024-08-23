@@ -250,6 +250,52 @@ describe('userInputSlice', () => {
       })
     })
 
+    it('deleteCurrentSimulationAlleUtenlandsperioder', () => {
+      const utenlandsperiode_1: Utenlandsperiode = {
+        id: '12345',
+        landkode: 'URY',
+        arbeidetUtenlands: null,
+        startdato: '02.01.2018',
+        sluttdato: '20.08.2021',
+      }
+
+      const utenlandsperiode_2: Utenlandsperiode = {
+        id: '98765',
+        landkode: 'BFA',
+        arbeidetUtenlands: true,
+        startdato: '2005-08-02.',
+        sluttdato: '2012-11-10',
+      }
+
+      const updatedState_1 = userInputSlice(
+        {
+          ...userInputInitialState,
+          currentSimulation: {
+            utenlandsperioder: [
+              { ...utenlandsperiode_1 },
+              { ...utenlandsperiode_2 },
+            ],
+            formatertUttaksalderReadOnly: null,
+            uttaksalder: null,
+            aarligInntektFoerUttakBeloep: null,
+            gradertUttaksperiode: null,
+          },
+        },
+        userInputActions.deleteCurrentSimulationAlleUtenlandsperioder()
+      )
+
+      expect(updatedState_1).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          utenlandsperioder: [],
+          formatertUttaksalderReadOnly: null,
+          uttaksalder: null,
+          aarligInntektFoerUttakBeloep: null,
+          gradertUttaksperiode: null,
+        },
+      })
+    })
+
     it('setCurrentSimulationUttaksalder', () => {
       const updatedState = userInputSlice(
         userInputInitialState,

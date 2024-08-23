@@ -99,6 +99,12 @@ export const userInputSlice = createSlice({
         utenlandsperioder: updatedUtenlandsperioderArray,
       }
     },
+    deleteCurrentSimulationAlleUtenlandsperioder: (state) => {
+      state.currentSimulation = {
+        ...state.currentSimulation,
+        utenlandsperioder: [],
+      }
+    },
     setCurrentSimulationUttaksalder: (
       state,
       action: PayloadAction<{

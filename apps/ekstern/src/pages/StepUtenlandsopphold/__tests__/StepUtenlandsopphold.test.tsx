@@ -37,19 +37,46 @@ describe('StepUtenlandsopphold', () => {
     )
   })
 
-  it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {
+  it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret, slettes utenlandsoppholdene og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    const { store } = render(<StepUtenlandsopphold />, {})
+    const { store } = render(<StepUtenlandsopphold />, {
+      preloadedState: {
+        userInput: {
+          ...userInputInitialState,
+          currentSimulation: {
+            ...userInputInitialState.currentSimulation,
+            utenlandsperioder: [
+              {
+                id: '1',
+                landkode: 'SWE',
+                startdato: '12.12.2012',
+                sluttdato: '12.12.2013',
+                arbeidetUtenlands: true,
+              },
+              {
+                id: '2',
+                landkode: 'SWE',
+                startdato: '12.12.2020',
+                arbeidetUtenlands: true,
+              },
+            ],
+          },
+        },
+      },
+    })
     const radioButtons = await screen.findAllByRole('radio')
 
     await user.click(radioButtons[1])
     await user.click(await screen.findByText('stegvisning.neste'))
 
     expect(store.getState().userInput.harUtenlandsopphold).toBe(false)
+    expect(
+      store.getState().userInput.currentSimulation.utenlandsperioder
+    ).toStrictEqual([])
     expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
