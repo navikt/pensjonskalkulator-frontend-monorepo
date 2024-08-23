@@ -85,6 +85,7 @@ export function AFP({
     }
   }, [showAlert])
 
+  /* c8 ignore start */
   React.useEffect(() => {
     logger('info', {
       tekst: 'hent uføregrad',
@@ -96,6 +97,7 @@ export function AFP({
             : `Gradert uføretrygd`,
     })
   }, [ufoeregrad])
+  /* c8 ignore end */
 
   const handleRadioChange = (value: AfpRadio): void => {
     setShowAlert(value)

@@ -1,0 +1,68 @@
+@import '../../scss/variables';
+
+.section {
+  margin-top: var(--a-spacing-4);
+  padding-bottom: var(--a-spacing-10);
+  border-bottom: 1px solid var(--a-border-divider);
+  margin-bottom: var(--a-spacing-2);
+}
+
+.bodyshort {
+  color: var(--a-text-subtle);
+  margin-bottom: var(--a-spacing-4);
+}
+
+.utenlandsperioder {
+  &Item {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--a-border-default);
+    border-radius: var(--a-border-radius-medium);
+    padding: var(--a-spacing-4);
+
+    &:not(:last-child) {
+      margin-bottom: var(--a-spacing-4);
+    }
+  }
+
+  dd {
+    margin-left: 0;
+    line-height: var(--a-font-line-height-xlarge);
+  }
+
+  &Buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__endre {
+      margin: 0;
+    }
+
+    &__slette {
+      margin-top: 0;
+      align-self: end;
+    }
+  }
+
+  @media (min-width: $a-breakpoint-md) {
+    &Item {
+      flex-direction: row;
+    }
+
+    &Text {
+      flex-grow: 1;
+    }
+
+    &Buttons {
+      flex-direction: column;
+      flex-basis: 0;
+      justify-content: space-between;
+      text-wrap: nowrap;
+    }
+  }
+}
+
+.error {
+  margin-top: var(--a-spacing-4);
+}

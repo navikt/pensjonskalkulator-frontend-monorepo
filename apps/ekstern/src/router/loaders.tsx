@@ -13,16 +13,15 @@ import { checkHarSamboer } from '@/utils/sivilstand'
 export interface LoginContext {
   isLoggedIn: boolean
 }
-
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useDeferAuthenticationAccessData<
   TReturnedValue extends ReturnType<typeof authenticationDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function authenticationDeferredLoader<
   TData extends {
     oauth2Query: Response
@@ -54,15 +53,15 @@ export const directAccessGuard = async () => {
 
 // ////////////////////////////////////////
 
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useLandingPageAccessData<
   TReturnedValue extends ReturnType<typeof landingPageDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function landingPageDeferredLoader<
   TData extends {
     shouldRedirectTo: string | undefined
@@ -75,9 +74,7 @@ export function landingPageDeferredLoader<
 }
 
 export const landingPageAccessGuard = async () => {
-  let resolveRedirectUrl: (
-    value: string | PromiseLike<string>
-  ) => void = () => {}
+  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
@@ -110,16 +107,15 @@ export const landingPageAccessGuard = async () => {
 }
 
 /// ////////////////////////////////////////////////////////////////////////
-
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useStepStartAccessData<
   TReturnedValue extends ReturnType<typeof stepStartDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function stepStartDeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
@@ -159,14 +155,10 @@ export const stepStartAccessGuard = async () => {
   )
 
   getEkskludertStatusQuery.then((res) => {
-    if (res?.data?.ekskludert) {
-      if (res?.data?.aarsak === 'ER_APOTEKER') {
-        resolveRedirectUrl(
-          `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-        )
-      } else {
-        resolveRedirectUrl('')
-      }
+    if (res?.data?.ekskludert && res?.data?.aarsak === 'ER_APOTEKER') {
+      resolveRedirectUrl(
+        `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+      )
     } else {
       resolveRedirectUrl('')
     }
@@ -179,16 +171,15 @@ export const stepStartAccessGuard = async () => {
 }
 
 // ///////////////////////////////////////////
-
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useStepSivilstandAccessData<
   TReturnedValue extends ReturnType<typeof stepSivilstandDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function stepSivilstandDeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
@@ -208,14 +199,13 @@ export const stepSivilstandAccessGuard = async () => {
   let resolveRedirectUrl: (
     value: string | PromiseLike<string>
   ) => void = () => {}
+  let resolveGetPerson: (
+    value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
+  ) => void = () => {}
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
   })
-
-  let resolveGetPerson: (
-    value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
-  ) => void = () => {}
 
   const getPersonQuery: Promise<null | GetPersonQuery> = new Promise(
     (resolve) => {
@@ -276,17 +266,15 @@ export const stepSivilstandAccessGuard = async () => {
 
 /// ////////////////////////////////////////////////////////////////////////
 
-/// ////////////////////////////////////////////////////////////////////////
-
+{
+  /* c8 ignore next 17 - Dette er kun for typing */
+}
 export function useStepAFPAccessData<
   TReturnedValue extends ReturnType<typeof stepAFPDeferredLoader>,
 >() {
   return useLoaderData() as ReturnType<TReturnedValue>['data']
 }
 
-{
-  /* c8 ignore next 11 - Dette er kun for typing */
-}
 export function stepAFPDeferredLoader<
   TData extends {
     shouldRedirectTo: string | undefined
@@ -302,9 +290,7 @@ export const stepAFPAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
-  let resolveRedirectUrl: (
-    value: string | PromiseLike<string>
-  ) => void = () => {}
+  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve

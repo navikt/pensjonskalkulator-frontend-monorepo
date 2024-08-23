@@ -127,11 +127,20 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_nei': 'Nei',
   'stegvisning.utenlandsopphold.validation_error':
     'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.',
+  'stegvisning.utenlandsopphold.mangler_opphold.validation_error':
+    'Du må legge til minst ett opphold eller svare «Nei» på om du har bodd eller jobbet utenfor Norge i mer enn 5 år.',
   'stegvisning.utenlandsopphold.oppholdene.title':
     'Oppholdene dine utenfor Norge',
   'stegvisning.utenlandsopphold.oppholdene.description':
     'Legg til gjennomførte og planlagte opphold',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode': 'Periode: ',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa': 'nå',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet': 'Jobbet: ',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja': 'Ja',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'Nei',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'Legg til opphold',
+  'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
+    'Legg til nytt opphold',
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'Endre opphold',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'Slett opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.title': 'Om oppholdet ditt',
@@ -139,6 +148,9 @@ const translations = {
     'Legg til opphold',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater':
     'Oppdater opphold',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'Avbryt',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
+    'Avbryt endring',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
     'Har du jobbet i {land}?',
@@ -150,6 +162,26 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'Hvis du ikke vet nøyaktige datoer, oppgi omtrentlige datoer.',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'Oppgi sluttdato',
+  'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
+    'Du må velge land for oppholdet ditt.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
+    'Du må svare «Ja» eller «Nei» på om du jobbet under oppholdet.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format':
+    'Oppgi dag, måned og år som DD.MM.ÅÅÅÅ.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max':
+    'Sluttdato kan ikke være senere enn {maxDato}.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required':
+    'Du må oppgi startdato for oppholdet ditt.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min':
+    'Startdato kan ikke være før fødselsdatoen din.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min':
+    'Sluttdato kan ikke være før startdato.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
+    'Du kan bare ha ett varig opphold. Fyll ut sluttdato for oppholdet ditt.',
+  'utenlandsopphold.slette_modal.title':
+    'Er du sikker på at du vil slette oppholdet ditt?',
+  'utenlandsopphold.slette_modal.button.avbryt': 'Avbryt',
+  'utenlandsopphold.slette_modal.button.slett': 'Slett opphold',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
     'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og AFP (avtalefestet pensjon).',

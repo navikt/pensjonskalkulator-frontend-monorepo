@@ -25,6 +25,11 @@ declare global {
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 
   // /inntekt
+  export type GetInntektQuery = TypedUseQueryStateResult<
+    Inntekt,
+    void,
+    BaseQueryFn<Record<string, unknown>, Inntekt>
+  >
   type Inntekt = components['schemas']['InntektDto']
 
   // /ekskludert-status

@@ -9,24 +9,22 @@ import {
   RadioGroup,
   Select,
   VStack,
-  useDatepicker,
 } from '@navikt/ds-react'
-import { add, sub, parse, format } from 'date-fns'
+import { format } from 'date-fns'
 
 import landListeData from '../../assets/land-liste.json' with { type: 'json' }
 import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
-import { useAppDispatch } from '@/state/hooks'
-import { userInputActions } from '@/state/userInput/userInputReducer'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import {
+  selectFoedselsdato,
+  selectCurrentSimulationUtenlandsperioder,
+} from '@/state/userInput/selectors'
 import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { getTranslatedLand, getTranslatedLandFromLandkode } from '@/utils/land'
-import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
-import {
-  UtenlandsoppholdFormNames,
-  UTENLANDSOPPHOLD_FORM_NAMES,
-  UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS,
-} from './utils'
+import { useFormLocalState } from './hooks'
+import { UTENLANDSOPPHOLD_FORM_NAMES, onUtenlandsoppholdSubmit } from './utils'
 
 import styles from './UtenlandsoppholdModal.module.scss'
 
@@ -43,322 +41,241 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
 }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
-
-  const [localUtenlandsperiode, setLocalUtenlandsperiode] = React.useState<
-    RecursivePartial<Utenlandsperiode>
-  >({ ...utenlandsperiode })
-  const [validationErrors, setValidationErrors] = React.useState<
-    Record<UtenlandsoppholdFormNames, string>
-  >(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
-
   const locale = getSelectedLanguage()
 
-  const resetValidationErrors = () => {
-    setValidationErrors(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
-  }
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const utenlandsperioder = useAppSelector(
+    selectCurrentSimulationUtenlandsperioder
+  )
 
-  const datepickerStartdato = useDatepicker({
-    fromDate: sub(new Date(), {
-      years: 100,
-    }),
-    toDate: add(new Date(), {
-      years: 20,
-    }),
-    defaultSelected: localUtenlandsperiode?.startdato
-      ? parse(localUtenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
-      : undefined,
-    onDateChange: (value): void => {
-      setLocalUtenlandsperiode((previous) => {
-        return {
-          ...previous,
-          startdato: value ? format(value, DATE_ENDUSER_FORMAT) : undefined,
-        }
-      })
+  const [
+    localUtenlandsperiode,
+    datepickerStartdato,
+    datepickerSluttdato,
+    validationErrors,
+    maxDate,
+    {
+      setValidationErrors,
+      handleLandChange,
+      handleArbeidetUtenlandsChange,
+      onCancel,
     },
-    // onValidate: (val: DateValidationT) => void;
+  ] = useFormLocalState({
+    modalRef,
+    foedselsdato,
+    utenlandsperiode,
+    onSubmitCallback,
   })
-
-  const datepickerSluttdato = useDatepicker({
-    fromDate: sub(new Date(), {
-      years: 100,
-    }),
-    toDate: add(new Date(), {
-      years: 20,
-    }),
-    defaultSelected: localUtenlandsperiode?.sluttdato
-      ? parse(localUtenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
-      : undefined,
-    onDateChange: (value): void => {
-      setLocalUtenlandsperiode((previous) => {
-        return {
-          ...previous,
-          sluttdato: value ? format(value, DATE_ENDUSER_FORMAT) : undefined,
-        }
-      })
-    },
-    // onValidate: (val: DateValidationT) => void;
-  })
-
-  React.useEffect(() => {
-    setLocalUtenlandsperiode({ ...utenlandsperiode })
-    if (utenlandsperiode?.startdato) {
-      datepickerStartdato.setSelected(
-        parse(utenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
-      )
-    }
-    if (utenlandsperiode?.sluttdato) {
-      datepickerSluttdato.setSelected(
-        parse(utenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
-      )
-    }
-  }, [utenlandsperiode])
-
-  const handleLandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-        [UTENLANDSOPPHOLD_FORM_NAMES.land]: '',
-      }
-    })
-    setLocalUtenlandsperiode((previous) => {
-      return {
-        ...previous,
-        landkode: e.target.value,
-      }
-    })
-  }
-
-  const handleArbeidetUtenlandsChange = (s: BooleanRadio) => {
-    setValidationErrors((prevState) => {
-      return {
-        ...prevState,
-        [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: '',
-      }
-    })
-    setLocalUtenlandsperiode((previous) => {
-      return {
-        ...previous,
-        arbeidetUtenlands: s === 'ja',
-      }
-    })
-  }
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault()
-
-    const data = new FormData(e.currentTarget)
-    const landData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.land)
-    const arbeidetUtenlandsData = data.get(
-      UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
-    )
-    const startdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.startdato)
-    const sluttdatoData = data.get(UTENLANDSOPPHOLD_FORM_NAMES.sluttdato)
-
-    // if (validateOpphold(oppholdData, updateValidationErrorMessage)) {
-
-    const updatedUtenlandsperiode = {
-      id: utenlandsperiode?.id
-        ? utenlandsperiode.id
-        : `${Date.now()}-${Math.random()}`,
-      landkode: landData as string,
-      arbeidetUtenlands: arbeidetUtenlandsData === 'ja',
-      startdato: startdatoData as string,
-      sluttdato: sluttdatoData ? (sluttdatoData as string) : undefined,
-    }
-
-    dispatch(
-      userInputActions.setCurrentSimulationUtenlandsperiode({
-        ...updatedUtenlandsperiode,
-      })
-    )
-
-    logger('button klikk', {
-      tekst: utenlandsperiode
-        ? `endrer utenlandsperiode`
-        : `legger til utenlandsperiode`,
-    })
-    onSubmitCallback()
-    if (modalRef.current?.open) {
-      modalRef.current?.close()
-    }
-    // }
-  }
-
-  const onCancel = (): void => {
-    setLocalUtenlandsperiode({ ...utenlandsperiode })
-    datepickerStartdato.setSelected(undefined)
-    datepickerSluttdato.setSelected(undefined)
-    resetValidationErrors()
-    onSubmitCallback()
-    if (modalRef.current?.open) {
-      modalRef.current?.close()
-    }
-  }
 
   return (
-    <>
-      <Modal
-        ref={modalRef}
-        header={{
-          heading: intl.formatMessage({
-            id: 'utenlandsopphold.om_oppholdet_ditt_modal.title',
-          }),
-        }}
-        onClose={onCancel}
-        width="small"
-      >
-        <Modal.Body>
-          <form
-            id={UTENLANDSOPPHOLD_FORM_NAMES.form}
-            method="dialog"
-            onSubmit={onSubmit}
-          >
-            <VStack gap="6">
-              <Select
-                form={UTENLANDSOPPHOLD_FORM_NAMES.form}
-                name={UTENLANDSOPPHOLD_FORM_NAMES.land}
-                data-testid={UTENLANDSOPPHOLD_FORM_NAMES.land}
-                className={styles.select}
-                label={intl.formatMessage({
-                  id: 'utenlandsopphold.om_oppholdet_ditt_modal.land.label',
-                })}
-                value={
-                  localUtenlandsperiode?.landkode
-                    ? localUtenlandsperiode?.landkode
-                    : ''
-                }
-                onChange={handleLandChange}
-                error={
-                  validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.land]
-                    ? intl.formatMessage(
-                        {
-                          id: validationErrors[
-                            UTENLANDSOPPHOLD_FORM_NAMES.land
-                          ],
-                        },
-                        {
-                          ...getFormatMessageValues(intl),
-                        }
-                      )
-                    : ''
-                }
-                aria-required="true"
-              >
-                <option disabled selected value="">
-                  {' '}
+    <Modal
+      ref={modalRef}
+      header={{
+        heading: intl.formatMessage({
+          id: 'utenlandsopphold.om_oppholdet_ditt_modal.title',
+        }),
+      }}
+      onClose={onCancel}
+      width="small"
+    >
+      <Modal.Body>
+        <form
+          id={UTENLANDSOPPHOLD_FORM_NAMES.form}
+          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+            e.stopPropagation()
+            const data = new FormData(e.currentTarget)
+            onUtenlandsoppholdSubmit(
+              data,
+              dispatch,
+              setValidationErrors,
+              modalRef,
+              onSubmitCallback,
+              {
+                foedselsdato,
+                utenlandsperiodeId: localUtenlandsperiode.id,
+                utenlandsperioder,
+              }
+            )
+          }}
+        >
+          <VStack gap="6">
+            <Select
+              form={UTENLANDSOPPHOLD_FORM_NAMES.form}
+              name={UTENLANDSOPPHOLD_FORM_NAMES.land}
+              data-testid={UTENLANDSOPPHOLD_FORM_NAMES.land}
+              className={styles.select}
+              label={intl.formatMessage({
+                id: 'utenlandsopphold.om_oppholdet_ditt_modal.land.label',
+              })}
+              value={
+                localUtenlandsperiode?.landkode
+                  ? localUtenlandsperiode?.landkode
+                  : ''
+              }
+              onChange={handleLandChange}
+              error={
+                validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.land]
+                  ? intl.formatMessage(
+                      {
+                        id: validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.land],
+                      },
+                      {
+                        ...getFormatMessageValues(intl),
+                      }
+                    )
+                  : ''
+              }
+              aria-required="true"
+            >
+              <option disabled selected value="">
+                {' '}
+              </option>
+              {landListeData.map((land) => (
+                <option key={land.landkode} value={land.landkode}>
+                  {getTranslatedLand(land, locale)}
                 </option>
-                {landListeData.map((land) => (
-                  <option key={land.landkode} value={land.landkode}>
-                    {getTranslatedLand(land, locale)}
-                  </option>
-                ))}
-              </Select>
-              {localUtenlandsperiode?.landkode && (
-                <>
-                  <RadioGroup
+              ))}
+            </Select>
+            {localUtenlandsperiode?.landkode && (
+              <>
+                <RadioGroup
+                  form={UTENLANDSOPPHOLD_FORM_NAMES.form}
+                  id={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
+                  name={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
+                  data-testid={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
+                  legend={
+                    <FormattedMessage
+                      id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label"
+                      values={{
+                        land: getTranslatedLandFromLandkode(
+                          localUtenlandsperiode.landkode,
+                          locale
+                        ),
+                      }}
+                    />
+                  }
+                  description={
+                    <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description" />
+                  }
+                  defaultValue={
+                    localUtenlandsperiode.arbeidetUtenlands
+                      ? 'ja'
+                      : localUtenlandsperiode.arbeidetUtenlands === false
+                        ? 'nei'
+                        : null
+                  }
+                  onChange={handleArbeidetUtenlandsChange}
+                  error={
+                    validationErrors[
+                      UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
+                    ]
+                      ? intl.formatMessage(
+                          {
+                            id: validationErrors[
+                              UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
+                            ],
+                          },
+                          {
+                            ...getFormatMessageValues(intl),
+                          }
+                        )
+                      : ''
+                  }
+                  role="radiogroup"
+                  aria-required="true"
+                >
+                  <Radio value="ja">
+                    <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja" />
+                  </Radio>
+                  <Radio value="nei">
+                    <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_nei" />
+                  </Radio>
+                </RadioGroup>
+                <DatePicker
+                  {...datepickerStartdato.datepickerProps}
+                  dropdownCaption
+                >
+                  <DatePicker.Input
+                    {...datepickerStartdato.inputProps}
+                    className={styles.datepicker}
                     form={UTENLANDSOPPHOLD_FORM_NAMES.form}
-                    id={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
-                    name={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
-                    data-testid={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
-                    legend={
-                      <FormattedMessage
-                        id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label"
-                        values={{
-                          land: getTranslatedLandFromLandkode(
-                            localUtenlandsperiode.landkode,
-                            locale
-                          ),
-                        }}
-                      />
-                    }
-                    description={
-                      <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description" />
-                    }
-                    defaultValue={
-                      localUtenlandsperiode.arbeidetUtenlands
-                        ? 'ja'
-                        : localUtenlandsperiode.arbeidetUtenlands === false
-                          ? 'nei'
-                          : null
-                    }
-                    onChange={handleArbeidetUtenlandsChange}
+                    name={UTENLANDSOPPHOLD_FORM_NAMES.startdato}
+                    data-testid={UTENLANDSOPPHOLD_FORM_NAMES.startdato}
+                    label={intl.formatMessage({
+                      id: 'utenlandsopphold.om_oppholdet_ditt_modal.startdato.label',
+                    })}
+                    description={intl.formatMessage({
+                      id: 'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description',
+                    })}
                     error={
-                      validationErrors[
-                        UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
-                      ]
+                      validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.startdato]
                         ? intl.formatMessage(
                             {
                               id: validationErrors[
-                                UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
+                                UTENLANDSOPPHOLD_FORM_NAMES.startdato
                               ],
                             },
                             {
                               ...getFormatMessageValues(intl),
+                              maxDato: format(maxDate, DATE_ENDUSER_FORMAT),
                             }
                           )
                         : ''
                     }
-                    role="radiogroup"
-                    aria-required="true"
-                  >
-                    <Radio value="ja">
-                      <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja" />
-                    </Radio>
-                    <Radio value="nei">
-                      <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_nei" />
-                    </Radio>
-                  </RadioGroup>
-                  <DatePicker
-                    {...datepickerStartdato.datepickerProps}
-                    dropdownCaption
-                  >
-                    <DatePicker.Input
-                      {...datepickerStartdato.inputProps}
-                      className={styles.datepicker}
-                      form={UTENLANDSOPPHOLD_FORM_NAMES.form}
-                      name={UTENLANDSOPPHOLD_FORM_NAMES.startdato}
-                      label={intl.formatMessage({
-                        id: 'utenlandsopphold.om_oppholdet_ditt_modal.startdato.label',
-                      })}
-                      description={intl.formatMessage({
-                        id: 'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description',
-                      })}
-                    />
-                  </DatePicker>
-                  <DatePicker
-                    {...datepickerSluttdato.datepickerProps}
-                    dropdownCaption
-                  >
-                    <DatePicker.Input
-                      {...datepickerSluttdato.inputProps}
-                      className={styles.datepicker}
-                      form={UTENLANDSOPPHOLD_FORM_NAMES.form}
-                      name={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
-                      label={intl.formatMessage({
-                        id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',
-                      })}
-                    />
-                  </DatePicker>
-                </>
-              )}
-            </VStack>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button form={UTENLANDSOPPHOLD_FORM_NAMES.form}>
-            {intl.formatMessage({
-              id: utenlandsperiode
-                ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater'
-                : 'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til',
-            })}
-          </Button>
-          <Button type="button" variant="secondary" onClick={onCancel}>
-            {intl.formatMessage({
-              id: 'stegvisning.avbryt',
-            })}
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+                  />
+                </DatePicker>
+                <DatePicker
+                  {...datepickerSluttdato.datepickerProps}
+                  dropdownCaption
+                >
+                  <DatePicker.Input
+                    {...datepickerSluttdato.inputProps}
+                    className={styles.datepicker}
+                    form={UTENLANDSOPPHOLD_FORM_NAMES.form}
+                    name={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
+                    data-testid={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
+                    label={intl.formatMessage({
+                      id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',
+                    })}
+                    error={
+                      validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]
+                        ? intl.formatMessage(
+                            {
+                              id: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES.sluttdato
+                              ],
+                            },
+                            {
+                              ...getFormatMessageValues(intl),
+                              maxDato: format(maxDate, DATE_ENDUSER_FORMAT),
+                            }
+                          )
+                        : ''
+                    }
+                  />
+                </DatePicker>
+              </>
+            )}
+          </VStack>
+        </form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button form={UTENLANDSOPPHOLD_FORM_NAMES.form}>
+          {intl.formatMessage({
+            id: utenlandsperiode
+              ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater'
+              : 'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til',
+          })}
+        </Button>
+        <Button type="button" variant="secondary" onClick={onCancel}>
+          {intl.formatMessage({
+            id: utenlandsperiode
+              ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'
+              : 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt',
+          })}
+        </Button>
+      </Modal.Footer>
+    </Modal>
   )
 }

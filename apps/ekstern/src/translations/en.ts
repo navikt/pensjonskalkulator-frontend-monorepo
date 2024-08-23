@@ -91,14 +91,31 @@ const translations = {
   'stegvisning.utenlandsopphold.radio_ja': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.radio_nei': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.validation_error': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.mangler_opphold.validation_error':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.legg_til': 'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.button.legg_til_nytt':
+    'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.endre': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.button.slette': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.title': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring':
+    'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label': 'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description':
@@ -111,6 +128,25 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
+    'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.title': 'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.button.avbryt': 'MANGLER_TEKST',
+  'utenlandsopphold.slette_modal.button.slett': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.title': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.ingress': 'MANGLER_TEKST',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
