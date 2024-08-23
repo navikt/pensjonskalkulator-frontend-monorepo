@@ -56,14 +56,21 @@ export const processInntektArray = (args: {
 
   if (gradertUttak) {
     const { fra, til, beloep } = gradertUttak
+    const hasInntektVsaPensjonOnlyOneYear = beloep && fra.aar === til?.aar
     const startAgeIndex = 1
     const endAgeIndex = til.aar - fra.aar + 1
 
-    const firstYearPartialAmount = fra.maaneder * (inntektFoerUttakBeloep / 12)
+    const firstYearPartialAmountFromInntektFoerUttak =
+      fra.maaneder * (inntektFoerUttakBeloep / 12)
 
-    const firstYearAmount = beloep
-      ? firstYearPartialAmount + beloep * ((12 - fra.maaneder) / 12)
-      : firstYearPartialAmount
+    const firstYearPartialAmountFromInntektVsaPensjon =
+      hasInntektVsaPensjonOnlyOneYear
+        ? (til?.maaneder - fra.maaneder) * (beloep / 12)
+        : (beloep ?? 0) * ((12 - fra.maaneder) / 12)
+
+    const firstYearAmount =
+      firstYearPartialAmountFromInntektFoerUttak +
+      firstYearPartialAmountFromInntektVsaPensjon
 
     dataArray[startAgeIndex] += firstYearAmount
 
@@ -71,7 +78,11 @@ export const processInntektArray = (args: {
       dataArray[i] += beloep ? beloep : 0
     }
 
-    if (til.maaneder > 0 && endAgeIndex + 1 < length) {
+    if (
+      !hasInntektVsaPensjonOnlyOneYear &&
+      til.maaneder > 0 &&
+      endAgeIndex + 1 < length
+    ) {
       dataArray[endAgeIndex] += beloep ? (beloep / 12) * til.maaneder : 0
     }
     brekkpunktIndex = endAgeIndex
@@ -79,19 +90,25 @@ export const processInntektArray = (args: {
 
   if (heltUttak) {
     const { fra, til, beloep } = heltUttak
+    const hasInntektVsaPensjonOnlyOneYear = beloep && fra.aar === til?.aar
     const startAgeIndex = brekkpunktIndex ? brekkpunktIndex : 1
     const endAgeIndex = til
       ? startAgeIndex + (til.aar - fra.aar)
       : dataArray.length
 
-    const firstYearPartialAmount =
+    const firstYearPartialAmountFromInntektFoerUttak =
       brekkpunktIndex === undefined
         ? heltUttak.fra.maaneder * (inntektFoerUttakBeloep / 12)
         : 0
 
-    const firstYearAmount = beloep
-      ? firstYearPartialAmount + beloep * ((12 - fra.maaneder) / 12)
-      : firstYearPartialAmount
+    const firstYearPartialAmountFromInntektVsaPensjon =
+      hasInntektVsaPensjonOnlyOneYear
+        ? (til?.maaneder - fra.maaneder) * (beloep / 12)
+        : (beloep ?? 0) * ((12 - fra.maaneder) / 12)
+
+    const firstYearAmount =
+      firstYearPartialAmountFromInntektFoerUttak +
+      firstYearPartialAmountFromInntektVsaPensjon
 
     dataArray[startAgeIndex] += firstYearAmount
 
@@ -99,11 +116,15 @@ export const processInntektArray = (args: {
       dataArray[i] += beloep ? beloep : 0
     }
 
-    if (til && til.maaneder > 0 && endAgeIndex + 1 < length) {
+    if (
+      !hasInntektVsaPensjonOnlyOneYear &&
+      til &&
+      til.maaneder > 0 &&
+      endAgeIndex + 1 < length
+    ) {
       dataArray[endAgeIndex] += beloep ? (beloep / 12) * til.maaneder : 0
     }
   }
-
   return dataArray
 }
 

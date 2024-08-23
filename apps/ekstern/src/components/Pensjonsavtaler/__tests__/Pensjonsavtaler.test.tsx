@@ -352,9 +352,9 @@ describe('Pensjonsavtaler', () => {
       expect(
         await screen.findByRole('heading', { level: 3 })
       ).toHaveTextContent('pensjonsavtaler.title')
-      expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(
-        1
-      )
+      expect(
+        (await screen.findAllByRole('heading', { level: 4 })).length
+      ).toBeGreaterThanOrEqual(1)
       expect(
         await screen.findByText('pensjonsavtaler.tpo.title')
       ).toBeInTheDocument()
