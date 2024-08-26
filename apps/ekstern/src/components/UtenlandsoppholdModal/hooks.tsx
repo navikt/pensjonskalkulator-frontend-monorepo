@@ -136,7 +136,7 @@ export const useFormLocalState = (initialValues: {
   }
 
   const onCancel = (): void => {
-    setLocalUtenlandsperiode({ ...utenlandsperiode })
+    setLocalUtenlandsperiode({})
     // Datoene nullstilles eksplisitt her, slik at datepickeren ikke husker dem til neste utenlandsperiode
     datepickerStartdato.setSelected(undefined)
     datepickerSluttdato.setSelected(undefined)
