@@ -134,7 +134,10 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description':
     'Legg til gjennomførte og planlagte opphold',
   'stegvisning.utenlandsopphold.oppholdene.description.periode': 'Periode: ',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa': 'nå',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak':
+    'til uttak av pensjon',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak':
+    'uttak av pensjon',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet': 'Jobbet: ',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja': 'Ja',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'Nei',
@@ -162,6 +165,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'Hvis du ikke vet nøyaktige datoer, oppgi omtrentlige datoer.',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'Oppgi sluttdato',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
+    'Ved varig opphold, lar du feltet stå tomt.',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
     'Du må velge land for oppholdet ditt.',
   'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
@@ -178,6 +183,14 @@ const translations = {
     'Sluttdato kan ikke være før startdato.',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
     'Du kan bare ha ett varig opphold. Fyll ut sluttdato for oppholdet ditt.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland':
+    'Du har allerede registrert at du har bodd i {land} fra {periodestart} til {periodeslutt}. Du kan ikke ha overlappende opphold med landet {land}.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land':
+    'Du har allerede registrert at du har bodd i {land} fra {periodestart} til {periodeslutt}. Du kan ikke ha overlappende opphold i to ulike land.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus':
+    'Du har allerede registrert at du har bodd i {land} fra {periodestart} til {periodeslutt}. Du kan ikke ha overlappende boopphold.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus':
+    'Du har allerede registrert at du har jobbet i {land} fra {periodestart} til {periodeslutt}. Du kan ikke ha overlappende jobbperioder.',
   'utenlandsopphold.slette_modal.title':
     'Er du sikker på at du vil slette oppholdet ditt?',
   'utenlandsopphold.slette_modal.button.avbryt': 'Avbryt',

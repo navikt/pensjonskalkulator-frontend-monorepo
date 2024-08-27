@@ -79,7 +79,10 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       // localUtenlandsperiode
-      expect(result.current[0]).toStrictEqual({})
+      expect(result.current[0]).toStrictEqual({
+        sluttdato: undefined,
+        startdato: undefined,
+      })
       // isLocalLandAvtaleland
       expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
@@ -122,6 +125,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
         'utenlandsopphold-startdato': '',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
       // maxDate
       expect(
@@ -140,7 +146,10 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       // localUtenlandsperiode
-      expect(result.current[0]).toStrictEqual({})
+      expect(result.current[0]).toStrictEqual({
+        sluttdato: undefined,
+        startdato: undefined,
+      })
       // isLocalLandAvtaleland
       expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
@@ -177,6 +186,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
         'utenlandsopphold-startdato': '',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
       // maxDate
       expect(
@@ -239,6 +251,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
         'utenlandsopphold-startdato': '',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
       // maxDate
       expect(
@@ -278,6 +293,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': 'something-random',
         'utenlandsopphold-sluttdato': '',
         'utenlandsopphold-startdato': '',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
 
       act(() => {
@@ -292,6 +310,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
         'utenlandsopphold-startdato': '',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
 
       // localUtenlandsperiode
@@ -337,6 +358,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
         'utenlandsopphold-startdato': '',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
 
       act(() => {
@@ -349,6 +373,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
         'utenlandsopphold-startdato': '',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
 
       // localUtenlandsperiode
@@ -377,8 +404,8 @@ describe('UtenlandsoppholdModal-hooks', () => {
         arbeidetUtenlands: true,
         id: '1',
         landkode: 'SWE',
-        startdato: '12.12.2021',
         sluttdato: '12.12.2025',
+        startdato: '12.12.2021',
       })
       act(() => {
         setValidationErrors((prevState) => {
@@ -400,6 +427,9 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': 'something-random',
         'utenlandsopphold-startdato': 'something-random',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
 
       // localUtenlandsperiode
@@ -421,15 +451,15 @@ describe('UtenlandsoppholdModal-hooks', () => {
         'utenlandsopphold-land': '',
         'utenlandsopphold-sluttdato': '',
         'utenlandsopphold-startdato': '',
+        'utenlandsopphold-overlappende-land': '',
+        'utenlandsopphold-overlappende-periodeslutt': '',
+        'utenlandsopphold-overlappende-periodestart': '',
       })
 
       // localUtenlandsperiode
       expect(result.current[0]).toStrictEqual({
-        arbeidetUtenlands: true,
-        id: '1',
-        landkode: 'SWE',
-        startdato: undefined,
         sluttdato: undefined,
+        startdato: undefined,
       })
 
       expect(onSubmitCallbackMock).toHaveBeenCalled()

@@ -1,4 +1,4 @@
-import { parse, isBefore, addYears } from 'date-fns'
+import { addYears, areIntervalsOverlapping, isBefore, parse } from 'date-fns'
 
 import { AppDispatch } from '@/state/store'
 import { userInputActions } from '@/state/userInput/userInputReducer'
@@ -7,7 +7,10 @@ import {
   DATE_ENDUSER_FORMAT,
   validateDateEndUserFormat,
 } from '@/utils/dates'
-import { isAvtalelandFromLandkode } from '@/utils/land'
+import {
+  getTranslatedLandFromLandkode,
+  isAvtalelandFromLandkode,
+} from '@/utils/land'
 import { logger } from '@/utils/logging'
 
 export type UtenlandsoppholdFormNames =
@@ -19,6 +22,9 @@ export const UTENLANDSOPPHOLD_FORM_NAMES = {
   arbeidetUtenlands: 'utenlandsopphold-arbeidet-utenlands',
   startdato: 'utenlandsopphold-startdato',
   sluttdato: 'utenlandsopphold-sluttdato',
+  overlappende_land: 'utenlandsopphold-overlappende-land',
+  overlappende_periodestart: 'utenlandsopphold-overlappende-periodestart',
+  overlappende_periodeslutt: 'utenlandsopphold-overlappende-periodeslutt',
 }
 
 export const UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS: Record<
@@ -29,6 +35,9 @@ export const UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS: Record<
   [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: '',
   [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: '',
   [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: '',
+  [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land]: '',
+  [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodestart]: '',
+  [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodeslutt]: '',
 }
 
 export const validateOpphold = (
@@ -39,10 +48,12 @@ export const validateOpphold = (
     sluttdatoFormData: FormDataEntryValue | null
   },
   foedselsdato: string | undefined,
+  utenlandsperiodeId: string | undefined,
   utenlandsperioder: Utenlandsperiode[],
   updateValidationErrorMessage: React.Dispatch<
     React.SetStateAction<Record<UtenlandsoppholdFormNames, string>>
-  >
+  >,
+  locale: Locales
 ) => {
   const {
     landFormData,
@@ -57,6 +68,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.land]: tekst,
@@ -80,6 +92,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: tekst,
@@ -96,6 +109,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -110,6 +124,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -129,6 +144,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -151,6 +167,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -172,6 +189,7 @@ export const validateOpphold = (
         tekst,
       })
       updateValidationErrorMessage((prevState) => {
+        /* c8 ignore next 4 */
         return {
           ...prevState,
           [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: tekst,
@@ -192,6 +210,7 @@ export const validateOpphold = (
         tekst,
       })
       updateValidationErrorMessage((prevState) => {
+        /* c8 ignore next 4 */
         return {
           ...prevState,
           [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: tekst,
@@ -215,30 +234,7 @@ export const validateOpphold = (
         tekst,
       })
       updateValidationErrorMessage((prevState) => {
-        return {
-          ...prevState,
-          [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: tekst,
-        }
-      })
-    }
-  } else {
-    // Sjekker om det finnes et annet utenlandsopphold uten sluttdato på et annet land
-    // TODO bør logikken utvides? F.eks.:
-    // sjekke at det ikke er flere enn 2 opphold
-    // sjekke at den ene har svart nei på jobb eller motsatt?
-    if (
-      utenlandsperioder.some(
-        (opphold) => !opphold.sluttdato && opphold.landkode !== landFormData
-      )
-    ) {
-      isValid = false
-      const tekst =
-        'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required'
-      logger('valideringsfeil', {
-        data: 'Utenlandsopphold - sluttdato',
-        tekst,
-      })
-      updateValidationErrorMessage((prevState) => {
+        /* c8 ignore next 4 */
         return {
           ...prevState,
           [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: tekst,
@@ -247,7 +243,172 @@ export const validateOpphold = (
     }
   }
 
-  // TODO mangler logikk for overlappende perioder
+  // Hvis alt er gyldig hittil, sjekk overlappende perioder
+  if (isValid && utenlandsperioder.length > 0) {
+    const currentInterval = {
+      start: parse(
+        startdatoFormData as string,
+        DATE_ENDUSER_FORMAT,
+        new Date()
+      ),
+      end: sluttdatoFormData
+        ? parse(sluttdatoFormData as string, DATE_ENDUSER_FORMAT, new Date())
+        : new Date(),
+    }
+
+    for (let i = 0; i < utenlandsperioder.length; i++) {
+      if (!isValid) {
+        return
+      }
+      // Når det er overlapping med en annen registrerte periode
+      if (
+        utenlandsperiodeId !== utenlandsperioder[i].id &&
+        areIntervalsOverlapping(
+          { ...currentInterval },
+          {
+            start: parse(
+              utenlandsperioder[i].startdato,
+              DATE_ENDUSER_FORMAT,
+              new Date()
+            ),
+            end: utenlandsperioder[i].sluttdato
+              ? parse(
+                  utenlandsperioder[i].sluttdato as string,
+                  DATE_ENDUSER_FORMAT,
+                  new Date()
+                )
+              : new Date(),
+          }
+        )
+      ) {
+        // Når det allerede er registrert et opphold med et ikke-avtaleland
+        if (!isAvtalelandFromLandkode(utenlandsperioder[i].landkode)) {
+          isValid = false
+          const tekst =
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland'
+          logger('valideringsfeil', {
+            data: 'Utenlandsopphold - overlappende perioder',
+            tekst,
+          })
+          updateValidationErrorMessage((prevState) => {
+            /* c8 ignore next 15 */
+            return {
+              ...prevState,
+              [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land]:
+                getTranslatedLandFromLandkode(
+                  utenlandsperioder[i].landkode,
+                  locale
+                ),
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodestart]:
+                utenlandsperioder[i].startdato,
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodeslutt]:
+                utenlandsperioder[i].sluttdato
+                  ? (utenlandsperioder[i].sluttdato as string)
+                  : '',
+            }
+          })
+          break
+        }
+
+        // Når oppholdet som redigeres er i et annet land som det overlappende oppholdet
+        if (utenlandsperioder[i].landkode !== landFormData) {
+          isValid = false
+          const tekst =
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land'
+          logger('valideringsfeil', {
+            data: 'Utenlandsopphold - overlappende perioder',
+            tekst,
+          })
+          updateValidationErrorMessage((prevState) => {
+            /* c8 ignore next 15 */
+            return {
+              ...prevState,
+              [UTENLANDSOPPHOLD_FORM_NAMES.land]: tekst,
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land]:
+                getTranslatedLandFromLandkode(
+                  utenlandsperioder[i].landkode,
+                  locale
+                ),
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodestart]:
+                utenlandsperioder[i].startdato,
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodeslutt]:
+                utenlandsperioder[i].sluttdato
+                  ? (utenlandsperioder[i].sluttdato as string)
+                  : '',
+            }
+          })
+          break
+        }
+
+        // Når oppholdet som redigeres er i samme land som det overlappende oppholdet og med samme bo-status
+        if (
+          arbeidetUtenlandsFormData === 'nei' &&
+          !utenlandsperioder[i].arbeidetUtenlands
+        ) {
+          isValid = false
+          const tekst =
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus'
+          logger('valideringsfeil', {
+            data: 'Utenlandsopphold - overlappende perioder',
+            tekst,
+          })
+          updateValidationErrorMessage((prevState) => {
+            /* c8 ignore next 15 */
+            return {
+              ...prevState,
+              [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: tekst,
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land]:
+                getTranslatedLandFromLandkode(
+                  utenlandsperioder[i].landkode,
+                  locale
+                ),
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodestart]:
+                utenlandsperioder[i].startdato,
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodeslutt]:
+                utenlandsperioder[i].sluttdato
+                  ? (utenlandsperioder[i].sluttdato as string)
+                  : '',
+            }
+          })
+          break
+        }
+
+        // Når oppholdet som redigeres er i samme land som det overlappende oppholdet og med samme jobb-status
+        if (
+          arbeidetUtenlandsFormData === 'ja' &&
+          utenlandsperioder[i].arbeidetUtenlands
+        ) {
+          isValid = false
+          const tekst =
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus'
+          logger('valideringsfeil', {
+            data: 'Utenlandsopphold - overlappende perioder',
+            tekst,
+          })
+          updateValidationErrorMessage((prevState) => {
+            /* c8 ignore next 15 */
+            return {
+              ...prevState,
+              [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: tekst,
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land]:
+                getTranslatedLandFromLandkode(
+                  utenlandsperioder[i].landkode,
+                  locale
+                ),
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodestart]:
+                utenlandsperioder[i].startdato,
+              [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodeslutt]:
+                utenlandsperioder[i].sluttdato
+                  ? (utenlandsperioder[i].sluttdato as string)
+                  : '',
+            }
+          })
+          break
+        }
+      }
+    }
+  }
   return isValid
 }
 
@@ -259,6 +420,7 @@ export const onUtenlandsoppholdSubmit = (
   >,
   modalRef: React.RefObject<HTMLDialogElement>,
   onSubmitCallback: () => void,
+  locale: Locales,
   previousData: {
     foedselsdato?: string
     utenlandsperiodeId?: string
@@ -283,8 +445,10 @@ export const onUtenlandsoppholdSubmit = (
         sluttdatoFormData,
       },
       foedselsdato,
+      utenlandsperiodeId,
       utenlandsperioder,
-      setValidationErrors
+      setValidationErrors,
+      locale
     )
   ) {
     const updatedUtenlandsperiode = {

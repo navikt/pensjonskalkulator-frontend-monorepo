@@ -115,7 +115,9 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa':
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
     'MANGLER_TEKST',
@@ -146,6 +148,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
+    'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
@@ -161,6 +165,14 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus':
     'MANGLER_TEKST',
   'utenlandsopphold.slette_modal.title': 'MANGLER_TEKST',
   'utenlandsopphold.slette_modal.button.avbryt': 'MANGLER_TEKST',

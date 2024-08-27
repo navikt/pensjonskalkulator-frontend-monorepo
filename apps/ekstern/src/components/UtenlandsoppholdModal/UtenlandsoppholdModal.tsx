@@ -92,6 +92,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
               setValidationErrors,
               modalRef,
               onSubmitCallback,
+              locale,
               {
                 foedselsdato,
                 utenlandsperiodeId: localUtenlandsperiode.id,
@@ -123,6 +124,24 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                       },
                       {
                         ...getFormatMessageValues(intl),
+                        land: validationErrors[
+                          UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
+                        ],
+                        periodestart:
+                          validationErrors[
+                            UTENLANDSOPPHOLD_FORM_NAMES
+                              .overlappende_periodestart
+                          ],
+                        periodeslutt: validationErrors[
+                          UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodeslutt
+                        ]
+                          ? validationErrors[
+                              UTENLANDSOPPHOLD_FORM_NAMES
+                                .overlappende_periodeslutt
+                            ]
+                          : intl.formatMessage({
+                              id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                            }),
                       }
                     )
                   : ''
@@ -180,6 +199,25 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                             },
                             {
                               ...getFormatMessageValues(intl),
+                              land: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
+                              ],
+                              periodestart:
+                                validationErrors[
+                                  UTENLANDSOPPHOLD_FORM_NAMES
+                                    .overlappende_periodestart
+                                ],
+                              periodeslutt: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES
+                                  .overlappende_periodeslutt
+                              ]
+                                ? validationErrors[
+                                    UTENLANDSOPPHOLD_FORM_NAMES
+                                      .overlappende_periodeslutt
+                                  ]
+                                : intl.formatMessage({
+                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                                  }),
                             }
                           )
                         : ''
@@ -222,6 +260,25 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                             {
                               ...getFormatMessageValues(intl),
                               maxDato: format(maxDate, DATE_ENDUSER_FORMAT),
+                              land: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
+                              ],
+                              periodestart:
+                                validationErrors[
+                                  UTENLANDSOPPHOLD_FORM_NAMES
+                                    .overlappende_periodestart
+                                ],
+                              periodeslutt: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES
+                                  .overlappende_periodeslutt
+                              ]
+                                ? validationErrors[
+                                    UTENLANDSOPPHOLD_FORM_NAMES
+                                      .overlappende_periodeslutt
+                                  ]
+                                : intl.formatMessage({
+                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                                  }),
                             }
                           )
                         : ''
@@ -240,6 +297,9 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     data-testid={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
                     label={intl.formatMessage({
                       id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',
+                    })}
+                    description={intl.formatMessage({
+                      id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description',
                     })}
                     error={
                       validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]

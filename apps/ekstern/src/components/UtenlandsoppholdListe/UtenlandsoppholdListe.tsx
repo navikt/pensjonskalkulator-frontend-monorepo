@@ -87,7 +87,7 @@ export function UtenlandsoppholdListe({ validationError }: Props) {
                   valgtUtenlandsperiodeId
                 )
               )
-              avbrytModalRef.current?.close('returnValue')
+              avbrytModalRef.current?.close()
             }}
           >
             {intl.formatMessage({
@@ -143,12 +143,10 @@ export function UtenlandsoppholdListe({ validationError }: Props) {
                   </dd>
                   <dd>
                     <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode" />
-                    {utenlandsperiode.startdato}–
-                    {utenlandsperiode.sluttdato ? (
-                      utenlandsperiode.sluttdato
-                    ) : (
-                      <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode.naa" />
-                    )}
+                    {utenlandsperiode.startdato}
+                    {utenlandsperiode.sluttdato
+                      ? `–${utenlandsperiode.sluttdato}`
+                      : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak' })}`}
                   </dd>
                   <dd>
                     <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.har_jobbet" />
