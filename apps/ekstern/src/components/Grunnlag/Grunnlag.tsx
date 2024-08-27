@@ -12,7 +12,10 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
-import { useGetPersonQuery } from '@/state/api/apiSlice'
+import {
+  useGetPersonQuery,
+  useGetUtlandFeatureToggleQuery,
+} from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -28,6 +31,7 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 import { GrunnlagInntekt } from './GrunnlagInntekt'
 import { GrunnlagSection } from './GrunnlagSection'
+import { GrunnlagUtenlandsopphold } from './GrunnlagUtenlandsopphold'
 
 import styles from './Grunnlag.module.scss'
 
@@ -55,6 +59,7 @@ export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
   const intl = useIntl()
 
   const { data: person, isSuccess } = useGetPersonQuery()
+  const { data: utlandFeatureToggle } = useGetUtlandFeatureToggleQuery()
   const afp = useAppSelector(selectAfp)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const harSamboer = useAppSelector(selectSamboer)
@@ -141,25 +146,31 @@ export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
             </BodyLong>
           </GrunnlagSection>
         </AccordionItem>
-        <AccordionItem name="Grunnlag: Utenlandsopphold">
-          <GrunnlagSection
-            headerTitle={intl.formatMessage({
-              id: 'grunnlag.opphold.title',
-            })}
-            headerValue={intl.formatMessage({
-              id: 'grunnlag.opphold.value',
-            })}
-          >
-            <BodyLong>
-              <FormattedMessage
-                id="grunnlag.opphold.ingress"
-                values={{
-                  ...getFormatMessageValues(intl),
-                }}
-              />
-            </BodyLong>
-          </GrunnlagSection>
-        </AccordionItem>
+
+        {utlandFeatureToggle?.enabled ? (
+          <GrunnlagUtenlandsopphold />
+        ) : (
+          <AccordionItem name="Grunnlag: Utenlandsopphold">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.opphold.title',
+              })}
+              headerValue={intl.formatMessage({
+                id: 'grunnlag.opphold.value',
+              })}
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.opphold.ingress"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+        )}
+
         <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
           <GrunnlagSection
             headerTitle={intl.formatMessage({
