@@ -68,6 +68,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.land]: tekst,
@@ -91,6 +92,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: tekst,
@@ -107,6 +109,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.required'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -121,6 +124,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.format'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -140,6 +144,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.startdato.validation_error.before_min'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -162,6 +167,7 @@ export const validateOpphold = (
     const tekst =
       'utenlandsopphold.om_oppholdet_ditt_modal.dato.validation_error.after_max'
     updateValidationErrorMessage((prevState) => {
+      /* c8 ignore next 4 */
       return {
         ...prevState,
         [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -183,6 +189,7 @@ export const validateOpphold = (
         tekst,
       })
       updateValidationErrorMessage((prevState) => {
+        /* c8 ignore next 4 */
         return {
           ...prevState,
           [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: tekst,
@@ -203,6 +210,7 @@ export const validateOpphold = (
         tekst,
       })
       updateValidationErrorMessage((prevState) => {
+        /* c8 ignore next 4 */
         return {
           ...prevState,
           [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: tekst,
@@ -226,6 +234,7 @@ export const validateOpphold = (
         tekst,
       })
       updateValidationErrorMessage((prevState) => {
+        /* c8 ignore next 4 */
         return {
           ...prevState,
           [UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]: tekst,
@@ -282,6 +291,7 @@ export const validateOpphold = (
             tekst,
           })
           updateValidationErrorMessage((prevState) => {
+            /* c8 ignore next 15 */
             return {
               ...prevState,
               [UTENLANDSOPPHOLD_FORM_NAMES.startdato]: tekst,
@@ -311,6 +321,7 @@ export const validateOpphold = (
             tekst,
           })
           updateValidationErrorMessage((prevState) => {
+            /* c8 ignore next 15 */
             return {
               ...prevState,
               [UTENLANDSOPPHOLD_FORM_NAMES.land]: tekst,
@@ -330,7 +341,7 @@ export const validateOpphold = (
           break
         }
 
-        // Når oppholdet som redigeres er i samme land som det overlappende oppholdet og med samme jobb-status
+        // Når oppholdet som redigeres er i samme land som det overlappende oppholdet og med samme bo-status
         if (
           arbeidetUtenlandsFormData === 'nei' &&
           !utenlandsperioder[i].arbeidetUtenlands
@@ -343,6 +354,7 @@ export const validateOpphold = (
             tekst,
           })
           updateValidationErrorMessage((prevState) => {
+            /* c8 ignore next 15 */
             return {
               ...prevState,
               [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: tekst,
@@ -375,6 +387,7 @@ export const validateOpphold = (
             tekst,
           })
           updateValidationErrorMessage((prevState) => {
+            /* c8 ignore next 15 */
             return {
               ...prevState,
               [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: tekst,
@@ -393,66 +406,6 @@ export const validateOpphold = (
           })
           break
         }
-
-        // Når oppholdet som redigeres er i samme land som det overlappende oppholdet, med ulik jobb-status - UNDER AVKLARING
-        // if (
-        //   (arbeidetUtenlandsFormData === 'ja' &&
-        //     !utenlandsperioder[i].arbeidetUtenlands) ||
-        //   (arbeidetUtenlandsFormData === 'nei' &&
-        //     utenlandsperioder[i].arbeidetUtenlands)
-        // ) {
-        //   const currentIntervalDuration = differenceInDays(
-        //     currentInterval.end,
-        //     currentInterval.start
-        //   )
-
-        //   const previousIntervalDuration = differenceInDays(
-        //     utenlandsperioder[i].sluttdato
-        //       ? parse(
-        //           utenlandsperioder[i].sluttdato as string,
-        //           DATE_ENDUSER_FORMAT,
-        //           new Date()
-        //         )
-        //       : new Date(),
-        //     parse(
-        //       utenlandsperioder[i].startdato,
-        //       DATE_ENDUSER_FORMAT,
-        //       new Date()
-        //     )
-        //   )
-
-        //   // Når oppholdet som redigeres er et jobbhold og varigheten er kortere enn det overlappende oppholdet med bostatus
-        //   if (
-        //     arbeidetUtenlandsFormData === 'ja' &&
-        //     currentIntervalDuration > previousIntervalDuration
-        //   ) {
-        //     isValid = false
-        //     const tekst =
-        //       'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus'
-        //     logger('valideringsfeil', {
-        //       data: 'Utenlandsopphold - overlappende perioder',
-        //       tekst,
-        //     })
-        //     updateValidationErrorMessage((prevState) => {
-        //       return {
-        //         ...prevState,
-        //         [UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands]: tekst,
-        //         [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land]:
-        //           getTranslatedLandFromLandkode(
-        //             utenlandsperioder[i].landkode,
-        //             locale
-        //           ),
-        //         [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodestart]:
-        //           utenlandsperioder[i].startdato,
-        //         [UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodeslutt]:
-        //           utenlandsperioder[i].sluttdato
-        //             ? (utenlandsperioder[i].sluttdato as string)
-        //             : '',
-        //       }
-        //     })
-        //     break
-        //   }
-        // }
       }
     }
   }

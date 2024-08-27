@@ -351,58 +351,145 @@ describe('UtenlandsoppholdModal-utils', () => {
       })
     })
 
-    /*
     describe('Gitt at det er overlappende perioder', () => {
-        it('returnerer true når sluttdatoFormData er null og at et annet opphold med samme land også er registrert uten sluttdato', () => {
+      const registrertePerioder = [
+        {
+          id: '0',
+          landkode: 'DZA',
+          arbeidetUtenlands: false,
+          startdato: '01.04.1980',
+          sluttdato: '31.12.2000',
+        },
+        {
+          id: '0',
+          landkode: 'BEL',
+          arbeidetUtenlands: false,
+          startdato: '01.04.2024',
+        },
+      ]
+
+      it('returnerer true når den nye perioden overlapper så lenge de er i samme avtaleland og har ulik jobb-status', () => {
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
-            { ...correctInputData, sluttdatoFormData: null },
+            {
+              landFormData: 'BEL',
+              arbeidetUtenlandsFormData: 'ja',
+              startdatoFormData: '12.08.2024',
+              sluttdatoFormData: null,
+            },
             foedselsdato,
             undefined,
-            [
-              {
-                id: '0',
-                landkode: 'DZA',
-                arbeidetUtenlands: false,
-                startdato: '01.04.1980',
-              },
-            ],
+            [...registrertePerioder],
             updateErrorMessageMock,
             'nb'
           )
         ).toBeTruthy()
         expect(updateErrorMessageMock).not.toHaveBeenCalled()
       })
-      it('returnerer false når sluttdatoFormData er null og at et annet opphold med et annet land land også er registrert uten sluttdato', () => {
+
+      it('returnerer false når den nye perioden overlapper med et ikke-avtale-land', () => {
         const loggerMock = vi.spyOn(loggerUtils, 'logger')
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
-            { ...correctInputData, sluttdatoFormData: null },
+            {
+              ...correctInputData,
+              landFormData: 'FRA',
+            },
             foedselsdato,
             undefined,
-            [
-              {
-                id: '0',
-                landkode: 'FLK',
-                arbeidetUtenlands: false,
-                startdato: '01.04.1980',
-              },
-            ],
+            [...registrertePerioder],
             updateErrorMessageMock,
             'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
         expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
-          data: 'Utenlandsopphold - sluttdato',
+          data: 'Utenlandsopphold - overlappende perioder',
           tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required',
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland',
+        })
+      })
+
+      it('returnerer false når den nye perioden som overlapper er i et annet land', () => {
+        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const updateErrorMessageMock = vi.fn()
+        expect(
+          validateOpphold(
+            {
+              landFormData: 'FRA',
+              arbeidetUtenlandsFormData: 'nei',
+              startdatoFormData: '01.06.2024',
+              sluttdatoFormData: null,
+            },
+            foedselsdato,
+            undefined,
+            [...registrertePerioder],
+            updateErrorMessageMock,
+            'nb'
+          )
+        ).toBeFalsy()
+        expect(updateErrorMessageMock).toHaveBeenCalled()
+        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          data: 'Utenlandsopphold - overlappende perioder',
+          tekst:
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land',
+        })
+      })
+
+      it('returnerer false når den nye perioden som overlapper er i samme land med lik bostatus', () => {
+        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const updateErrorMessageMock = vi.fn()
+        expect(
+          validateOpphold(
+            {
+              landFormData: 'BEL',
+              arbeidetUtenlandsFormData: 'nei',
+              startdatoFormData: '01.06.2024',
+              sluttdatoFormData: null,
+            },
+            foedselsdato,
+            undefined,
+            [...registrertePerioder],
+            updateErrorMessageMock,
+            'nb'
+          )
+        ).toBeFalsy()
+        expect(updateErrorMessageMock).toHaveBeenCalled()
+        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          data: 'Utenlandsopphold - overlappende perioder',
+          tekst:
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus',
+        })
+      })
+
+      it('returnerer false når den nye perioden som overlapper er i samme land med lik jobbstatus', () => {
+        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const updateErrorMessageMock = vi.fn()
+        expect(
+          validateOpphold(
+            {
+              landFormData: 'BEL',
+              arbeidetUtenlandsFormData: 'ja',
+              startdatoFormData: '01.06.2024',
+              sluttdatoFormData: null,
+            },
+            foedselsdato,
+            undefined,
+            [{ ...registrertePerioder[1], arbeidetUtenlands: true }],
+            updateErrorMessageMock,
+            'nb'
+          )
+        ).toBeFalsy()
+        expect(updateErrorMessageMock).toHaveBeenCalled()
+        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          data: 'Utenlandsopphold - overlappende perioder',
+          tekst:
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus',
         })
       })
     })
-              */
   })
 
   describe('onUtenlandsoppholdSubmit', () => {
