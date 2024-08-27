@@ -409,9 +409,19 @@ const translations = {
   'grunnlag.sivilstand.ingress':
     'Viss du har låg opptening kan storleiken på alderspensjonen din avhenge av om du bur åleine eller samen med andre.{br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title': 'Opphald i Noreg',
+  'grunnlag.opphold.title.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.title.mer_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.title.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.value': 'Minst 40 år',
+  'grunnlag.opphold.value.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.value.mer_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.value.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress':
     'Utrekninga føreset at du har budd eller jobba i Noreg i minst 40 år frå du fylte 16 år og fram til du tek ut pensjon. Ved utlandsopphald over fem år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+  'grunnlag.opphold.ingress.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.mindre_enn_5_aar.link': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.for_lite_trygdetid': 'MANGLER_TEKST',
+  'grunnlag.opphold.bunntekst': 'MANGLER_TEKST',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':

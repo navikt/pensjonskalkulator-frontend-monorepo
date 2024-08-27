@@ -473,9 +473,22 @@ const translations = {
   'grunnlag.sivilstand.ingress':
     'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen. {br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title': 'Opphold i Norge',
+  'grunnlag.opphold.title.mindre_enn_5_aar': 'Opphold utenfor Norge',
+  'grunnlag.opphold.title.mer_enn_5_aar': 'Opphold utenfor Norge',
+  'grunnlag.opphold.title.for_lite_trygdetid': 'Opphold i Norge',
   'grunnlag.opphold.value': 'Minst 40 år',
+  'grunnlag.opphold.value.mindre_enn_5_aar': '5 år eller mindre',
+  'grunnlag.opphold.value.mer_enn_5_aar': 'Mer enn 5 år',
+  'grunnlag.opphold.value.for_lite_trygdetid': 'Mindre enn 5 år',
   'grunnlag.opphold.ingress':
     'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+  'grunnlag.opphold.ingress.mindre_enn_5_aar':
+    'Beregningen forutsetter at du ikke har bodd eller jobbet utenfor Norge i mer enn 5 år fra fylte 16 år frem til du tar ut pensjon. {br}{br}Du kan endre oppholdene dine ved å gå tilbake til {link}.',
+  'grunnlag.opphold.ingress.mindre_enn_5_aar.link': 'Opphold utenfor Norge',
+  'grunnlag.opphold.ingress.for_lite_trygdetid':
+    'Du har bodd mindre enn 5 år i Norge. Beregningen din kan være mangelfull.',
+  'grunnlag.opphold.bunntekst':
+    'Når du søker om alderspensjon vil opplysninger om opphold utenfor Norge sjekkes mot pensjonsmyndigheter i avtaleland. Den endelige pensjonen din kan derfor bli annerledes.',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':
