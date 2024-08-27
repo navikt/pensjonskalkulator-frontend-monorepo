@@ -162,6 +162,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'Hvis du ikke vet nøyaktige datoer, oppgi omtrentlige datoer.',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'Oppgi sluttdato',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
+    'Ved varig opphold, lar du feltet stå tomt.',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
     'Du må velge land for oppholdet ditt.',
   'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':

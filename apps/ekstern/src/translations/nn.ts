@@ -146,6 +146,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
+    'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':

@@ -241,6 +241,9 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     label={intl.formatMessage({
                       id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',
                     })}
+                    description={intl.formatMessage({
+                      id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description',
+                    })}
                     error={
                       validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]
                         ? intl.formatMessage(
