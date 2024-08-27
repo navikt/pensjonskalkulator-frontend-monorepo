@@ -52,6 +52,8 @@
 
     &Text {
       flex-grow: 1;
+      min-height: 5.25rem;
+      align-content: center;
     }
 
     &Buttons {
