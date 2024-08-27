@@ -148,17 +148,17 @@ export const useFormLocalState = (initialValues: {
   }
 
   React.useEffect(() => {
-    setLocalUtenlandsperiode({ ...utenlandsperiode })
-    if (utenlandsperiode?.startdato) {
-      datepickerStartdato.setSelected(
-        parse(utenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
-      )
-    }
-    if (utenlandsperiode?.sluttdato) {
-      datepickerSluttdato.setSelected(
-        parse(utenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
-      )
-    }
+    setLocalUtenlandsperiode(utenlandsperiode ? { ...utenlandsperiode } : {})
+    datepickerStartdato.setSelected(
+      utenlandsperiode?.startdato
+        ? parse(utenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
+        : undefined
+    )
+    datepickerSluttdato.setSelected(
+      utenlandsperiode?.sluttdato
+        ? parse(utenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
+        : undefined
+    )
   }, [utenlandsperiode])
 
   const handlers = React.useMemo(
