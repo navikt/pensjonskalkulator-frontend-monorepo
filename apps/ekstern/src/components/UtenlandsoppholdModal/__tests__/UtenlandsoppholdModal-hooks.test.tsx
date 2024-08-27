@@ -79,7 +79,10 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       // localUtenlandsperiode
-      expect(result.current[0]).toStrictEqual({})
+      expect(result.current[0]).toStrictEqual({
+        sluttdato: undefined,
+        startdato: undefined,
+      })
       // isLocalLandAvtaleland
       expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
@@ -143,7 +146,10 @@ describe('UtenlandsoppholdModal-hooks', () => {
       })
 
       // localUtenlandsperiode
-      expect(result.current[0]).toStrictEqual({})
+      expect(result.current[0]).toStrictEqual({
+        sluttdato: undefined,
+        startdato: undefined,
+      })
       // isLocalLandAvtaleland
       expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
