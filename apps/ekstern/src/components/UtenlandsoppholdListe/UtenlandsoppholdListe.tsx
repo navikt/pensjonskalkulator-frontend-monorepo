@@ -147,7 +147,7 @@ export function UtenlandsoppholdListe({ validationError }: Props) {
                     {utenlandsperiode.sluttdato ? (
                       utenlandsperiode.sluttdato
                     ) : (
-                      <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode.naa" />
+                      <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak" />
                     )}
                   </dd>
                   <dd>
