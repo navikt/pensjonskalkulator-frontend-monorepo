@@ -10,7 +10,10 @@ import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppSelector, useAppDispatch } from '@/state/hooks'
 import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
-import { getTranslatedLandFromLandkode } from '@/utils/land'
+import {
+  getTranslatedLandFromLandkode,
+  isAvtalelandFromLandkode,
+} from '@/utils/land'
 import { logger } from '@/utils/logging'
 
 import styles from './UtenlandsoppholdListe.module.scss'
@@ -130,6 +133,9 @@ export function UtenlandsoppholdListe({ validationError }: Props) {
       <dl className={styles.utenlandsperioder}>
         {sortedUtenlandsperioder.length > 0 &&
           sortedUtenlandsperioder.map((utenlandsperiode, index) => {
+            const isLocalLandAvtaleland = isAvtalelandFromLandkode(
+              utenlandsperiode.landkode
+            )
             return (
               <div key={index} className={styles.utenlandsperioderItem}>
                 <div className={styles.utenlandsperioderText}>
@@ -148,16 +154,18 @@ export function UtenlandsoppholdListe({ validationError }: Props) {
                       ? `–${utenlandsperiode.sluttdato}`
                       : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak' })}`}
                   </dd>
-                  <dd>
-                    <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.har_jobbet" />
-                    <FormattedMessage
-                      id={
-                        utenlandsperiode.arbeidetUtenlands
-                          ? 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja'
-                          : 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei'
-                      }
-                    />
-                  </dd>
+                  {isLocalLandAvtaleland && (
+                    <dd>
+                      <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.har_jobbet" />
+                      <FormattedMessage
+                        id={
+                          utenlandsperiode.arbeidetUtenlands
+                            ? 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja'
+                            : 'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei'
+                        }
+                      />
+                    </dd>
+                  )}
                 </div>
 
                 <dd className={styles.utenlandsperioderButtons}>
