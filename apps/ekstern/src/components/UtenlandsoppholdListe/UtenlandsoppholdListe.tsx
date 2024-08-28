@@ -57,7 +57,6 @@ export function UtenlandsoppholdListe({
     avbrytModalRef.current?.showModal()
   }
 
-  // TODO skrive tester
   const sortedUtenlandsperioder = React.useMemo(() => {
     return [...utenlandsperioder].sort((a, b) => {
       // If a has no sluttdato and b has, a comes first
