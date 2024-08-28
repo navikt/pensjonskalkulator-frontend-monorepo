@@ -481,10 +481,13 @@ const translations = {
   'grunnlag.opphold.value.mer_enn_5_aar': 'Mer enn 5 år',
   'grunnlag.opphold.value.for_lite_trygdetid': 'Mindre enn 5 år',
   'grunnlag.opphold.ingress':
-    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+  'grunnlag.opphold.ingress.endre_opphold':
+    'Du kan endre oppholdene dine ved å gå tilbake til {link}.',
+  'grunnlag.opphold.ingress.endre_opphold.link': 'Opphold utenfor Norge',
   'grunnlag.opphold.ingress.mindre_enn_5_aar':
-    'Beregningen forutsetter at du ikke har bodd eller jobbet utenfor Norge i mer enn 5 år fra fylte 16 år frem til du tar ut pensjon. {br}{br}Du kan endre oppholdene dine ved å gå tilbake til {link}.',
-  'grunnlag.opphold.ingress.mindre_enn_5_aar.link': 'Opphold utenfor Norge',
+    'Beregningen forutsetter at du ikke har bodd eller jobbet utenfor Norge i mer enn 5 år fra fylte 16 år frem til du tar ut pensjon.',
+
   'grunnlag.opphold.ingress.for_lite_trygdetid':
     'Du har bodd mindre enn 5 år i Norge. Beregningen din kan være mangelfull.',
   'grunnlag.opphold.bunntekst':

@@ -9,28 +9,39 @@ import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { paths } from '@/router/constants'
+import { apiSlice } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagUtenlandsopphold.module.scss'
 
-// interface Props {}
-
 export const GrunnlagUtenlandsopphold: React.FC = () => {
   const intl = useIntl()
   const navigate = useNavigate()
-  // const dispatch = useAppDispatch()
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
+
+  const cachedQueries = useAppSelector(
+    (state) => state[apiSlice.reducerPath].queries
+  )
+
+  const harForLiteTrygdetid = React.useMemo(() => {
+    const latestAlerspensjonQuery = Object.entries(cachedQueries || {}).find(
+      ([key]) => key.includes('alderspensjon')
+    ) || [null, null]
+    return latestAlerspensjonQuery[1]?.data
+      ? (latestAlerspensjonQuery[1]?.data as AlderspensjonResponseBody)
+          .harForLiteTrygdetid
+      : null
+  }, [cachedQueries])
 
   const oppholdUtenforNorge = React.useMemo(():
     | 'mindre_enn_5_aar'
     | 'mer_enn_5_aar'
     | 'for_lite_trygdetid' => {
-    // "mindre_enn_5_aar" = hvis harUtenlandsopphold er false
-    // "mer_enn_5_aar" = hvis harUtenlandsopphold er true
-    // "for_lite_trygdetid" = hvis harUtenlandsopphold er true + avhengig av backend
-    // TODO logikk for 5 år eller mindre / Mer enn 5 år og Mindre enn 5 år
+    if (harForLiteTrygdetid) {
+      return 'for_lite_trygdetid'
+    }
     return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
   }, [])
 
@@ -53,26 +64,19 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
           })}
         >
           <>
-            {
-              // TODO ved legg til,endring eller sletting av opphold bør det trigges nytt kall til TMU, simulering og NP
-              // TODO avklare visning
-            }
-            {oppholdUtenforNorge === 'mindre_enn_5_aar' ? (
-              <BodyLong>
+            {oppholdUtenforNorge === 'mindre_enn_5_aar' && (
+              <BodyLong spacing>
                 <FormattedMessage
                   id="grunnlag.opphold.ingress.mindre_enn_5_aar"
                   values={{
                     ...getFormatMessageValues(intl),
-                    link: (
-                      <Link href="#" onClick={goToUtenlandsoppholdStep}>
-                        <FormattedMessage id="grunnlag.opphold.ingress.mindre_enn_5_aar.link" />
-                      </Link>
-                    ),
                   }}
                 />
               </BodyLong>
-            ) : (
-              <UtenlandsoppholdListe />
+            )}
+
+            {harUtenlandsopphold && (
+              <UtenlandsoppholdListe harRedigeringsmuligheter={false} />
             )}
 
             {oppholdUtenforNorge === 'for_lite_trygdetid' && (
@@ -93,7 +97,22 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
               </div>
             )}
 
-            {harUtenlandsopphold && (
+            <BodyLong>
+              <FormattedMessage
+                id="grunnlag.opphold.ingress.endre_opphold"
+                values={{
+                  ...getFormatMessageValues(intl),
+                  link: (
+                    <Link href="#" onClick={goToUtenlandsoppholdStep}>
+                      <FormattedMessage id="grunnlag.opphold.ingress.endre_opphold.link" />
+                    </Link>
+                  ),
+                }}
+              />
+            </BodyLong>
+
+            {(harUtenlandsopphold ||
+              oppholdUtenforNorge === 'for_lite_trygdetid') && (
               <BodyLong className={styles.bunntekst}>
                 <FormattedMessage
                   id="grunnlag.opphold.bunntekst"
