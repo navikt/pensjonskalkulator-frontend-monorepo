@@ -93,6 +93,37 @@ export const fulfilledPensjonsavtaler = {
   },
 }
 
+export const fulfilledAlderspensjonForLiteTrygdetid = {
+  ['alderspensjon(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'alderspensjon',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: [
+        {
+          alder: 75,
+          beloep: 384120,
+        },
+        {
+          alder: 76,
+          beloep: 384440,
+        },
+        {
+          alder: 77,
+          beloep: 384492,
+        },
+      ],
+      vilkaarsproeving: {
+        vilkaarErOppfylt: true,
+      },
+      harForLiteTrygdetid: true,
+    },
+
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
 export const rejectedGetPerson = {
   ['getPerson(undefined)']: {
     status: 'rejected',
