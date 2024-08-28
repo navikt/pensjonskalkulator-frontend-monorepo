@@ -2048,6 +2048,7 @@ describe('RedigerAvansertBeregning', () => {
         json: {
           alderspensjon: [],
           vilkaarsproeving: vilkaarsproevingMock,
+          harForLiteTrygdetid: false,
         },
       })
 

@@ -587,6 +587,7 @@ describe('BeregningEnkel', () => {
               uttaksgrad: 100,
             },
           },
+          harForLiteTrygdetid: false,
         },
       })
       mockErrorResponse('/v1/tidligste-hel-uttaksalder', {

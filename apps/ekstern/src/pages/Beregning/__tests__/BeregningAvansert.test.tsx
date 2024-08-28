@@ -542,6 +542,7 @@ describe('BeregningAvansert', () => {
                 uttaksgrad: 100,
               },
             },
+            harForLiteTrygdetid: false,
           },
         })
 
