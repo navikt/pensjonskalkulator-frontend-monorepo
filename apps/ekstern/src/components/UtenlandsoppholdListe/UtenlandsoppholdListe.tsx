@@ -141,7 +141,10 @@ export function UtenlandsoppholdListe({
           setValgtUtenlandsperiodeId('')
         }}
       />
-      <dl className={styles.utenlandsperioder}>
+      <dl
+        data-testid="utenlandsperiode-liste"
+        className={styles.utenlandsperioder}
+      >
         {sortedUtenlandsperioder.length > 0 &&
           sortedUtenlandsperioder.map((utenlandsperiode, index) => {
             const isLocalLandAvtaleland = isAvtalelandFromLandkode(

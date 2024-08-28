@@ -109,6 +109,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v1/alderspensjon/anonym-simulering': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Simuler alderspensjon anonymt (ikke innlogget)
+     *
+     * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
+     */
+    post: operations['simulerAnonymAlderspensjonV1']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v2/person': {
     parameters: {
       query?: never
@@ -442,8 +463,7 @@ export interface components {
       fom: string
       /** Format: date */
       tom?: string
-      land?: string
-      landkode?: string
+      landkode: string
       arbeidetUtenlands: boolean
     }
     AlderV6: {
@@ -475,7 +495,7 @@ export interface components {
       afpPrivat?: components['schemas']['PensjonsberegningV6'][]
       afpOffentlig?: components['schemas']['PensjonsberegningAfpOffentligV6'][]
       vilkaarsproeving: components['schemas']['VilkaarsproevingV6']
-      harForLiteTrygdetid?: boolean
+      harForLiteTrygdetid: boolean
     }
     VilkaarsproevingV6: {
       vilkaarErOppfylt: boolean
@@ -596,8 +616,7 @@ export interface components {
       fom: string
       /** Format: date */
       tom?: string
-      land?: string
-      landkode?: string
+      landkode: string
       arbeidetUtenlands: boolean
     }
     AlderDto: {
@@ -642,6 +661,78 @@ export interface components {
       gradertUttak: components['schemas']['IngressUttaksalderGradertUttakV1']
       heltUttak: components['schemas']['IngressUttaksalderHeltUttakV1']
       utenlandsperiodeListe?: components['schemas']['UttaksalderUtenlandsperiodeSpecV1'][]
+    }
+    AnonymSimuleringAlderV1: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    AnonymSimuleringGradertUttakV1: {
+      /** Format: int32 */
+      grad: number
+      uttakAlder: components['schemas']['AnonymSimuleringAlderV1']
+      /** Format: int32 */
+      aarligInntektVsaPensjonBeloep?: number
+    }
+    AnonymSimuleringHeltUttakV1: {
+      uttakAlder: components['schemas']['AnonymSimuleringAlderV1']
+      aarligInntektVsaPensjon?: components['schemas']['AnonymSimuleringInntektV1']
+    }
+    AnonymSimuleringInntektV1: {
+      /** Format: int32 */
+      beloep: number
+      sluttAlder: components['schemas']['AnonymSimuleringAlderV1']
+    }
+    AnonymSimuleringSpecV1: {
+      simuleringType?: string
+      /** Format: int32 */
+      foedselAar: number
+      sivilstand?: string
+      epsHarInntektOver2G?: boolean
+      epsHarPensjon?: boolean
+      /** Format: int32 */
+      utenlandsAntallAar?: number
+      /** Format: int32 */
+      inntektOver1GAntallAar?: number
+      /** Format: int32 */
+      aarligInntektFoerUttakBeloep?: number
+      gradertUttak?: components['schemas']['AnonymSimuleringGradertUttakV1']
+      heltUttak: components['schemas']['AnonymSimuleringHeltUttakV1']
+    }
+    AnonymAlderV1: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      maaneder: number
+    }
+    AnonymAlternativV1: {
+      gradertUttaksalder?: components['schemas']['AnonymAlderV1']
+      /** Format: int32 */
+      uttaksgrad?: number
+      heltUttaksalder: components['schemas']['AnonymAlderV1']
+    }
+    AnonymPensjonsberegningAfpOffentligV1: {
+      /** Format: int32 */
+      alder: number
+      /** Format: int32 */
+      beloep: number
+    }
+    AnonymPensjonsberegningV1: {
+      /** Format: int32 */
+      alder: number
+      /** Format: int32 */
+      beloep: number
+    }
+    AnonymSimuleringResultV1: {
+      alderspensjon: components['schemas']['AnonymPensjonsberegningV1'][]
+      afpPrivat?: components['schemas']['AnonymPensjonsberegningV1'][]
+      afpOffentlig?: components['schemas']['AnonymPensjonsberegningAfpOffentligV1'][]
+      vilkaarsproeving: components['schemas']['AnonymVilkaarsproevingV1']
+    }
+    AnonymVilkaarsproevingV1: {
+      vilkaarErOppfylt: boolean
+      alternativ?: components['schemas']['AnonymAlternativV1']
     }
     PersonV2: {
       navn: string
@@ -877,6 +968,39 @@ export interface operations {
         }
       }
       /** @description Kryptering kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  simulerAnonymAlderspensjonV1: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['AnonymSimuleringSpecV1']
+      }
+    }
+    responses: {
+      /** @description Simulering utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['AnonymSimuleringResultV1']
+        }
+      }
+      /** @description Simulering kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown
