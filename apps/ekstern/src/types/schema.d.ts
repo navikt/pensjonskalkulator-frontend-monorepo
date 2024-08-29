@@ -512,6 +512,12 @@ export interface components {
       beloep: number
       sluttAlder?: components['schemas']['PensjonsavtaleAlderSpecV2']
     }
+    PensjonsavtaleOppholdSpecV2: {
+      /** Format: date */
+      fom: string
+      /** Format: date */
+      tom?: string
+    }
     PensjonsavtaleSpecV2: {
       /** Format: int32 */
       aarligInntektFoerUttakBeloep: number
@@ -521,6 +527,7 @@ export interface components {
       harEpsPensjonsgivendeInntektOver2G?: boolean
       /** Format: int32 */
       antallAarIUtlandetEtter16?: number
+      utenlandsperioder?: components['schemas']['PensjonsavtaleOppholdSpecV2'][]
       /** @enum {string} */
       sivilstand?:
         | 'UNKNOWN'

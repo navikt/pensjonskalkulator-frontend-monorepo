@@ -537,6 +537,7 @@ describe('apiSlice - utils', () => {
           ufoeregrad: 0,
           afp: 'vet_ikke',
           heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
+          utenlandsperioder: [],
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
@@ -549,6 +550,7 @@ describe('apiSlice - utils', () => {
             aarligInntektVsaPensjon: undefined,
           },
         ],
+        utenlandsperioder: [],
       })
     })
     it('returnerer riktig requestBody når brukeren har uføretrygd og valgt afp privat', () => {
@@ -558,6 +560,7 @@ describe('apiSlice - utils', () => {
           ufoeregrad: 50,
           afp: 'ja_privat',
           heltUttak: { uttaksalder: { aar: 67, maaneder: 0 } },
+          utenlandsperioder: [],
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
@@ -570,6 +573,7 @@ describe('apiSlice - utils', () => {
             aarligInntektVsaPensjon: undefined,
           },
         ],
+        utenlandsperioder: [],
       })
     })
     it('returnerer riktig requestBody når uttaksalder består av både år og måned', () => {
@@ -586,6 +590,7 @@ describe('apiSlice - utils', () => {
               sluttAlder: { aar: 75, maaneder: 0 },
             },
           },
+          utenlandsperioder: [],
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
@@ -601,9 +606,10 @@ describe('apiSlice - utils', () => {
             },
           },
         ],
+        utenlandsperioder: [],
       })
     })
-    it('returnerer riktig requestBodymed gradert periode', () => {
+    it('returnerer riktig requestBody med gradert periode', () => {
       expect(
         generatePensjonsavtalerRequestBody({
           aarligInntektFoerUttakBeloep: '500 000',
@@ -622,6 +628,7 @@ describe('apiSlice - utils', () => {
             grad: 20,
             aarligInntektVsaPensjonBeloep: '123 000',
           },
+          utenlandsperioder: [],
         })
       ).toEqual({
         aarligInntektFoerUttakBeloep: 500000,
@@ -643,6 +650,61 @@ describe('apiSlice - utils', () => {
               beloep: 99000,
               sluttAlder: { aar: 75, maaneder: 0 },
             },
+          },
+        ],
+        utenlandsperioder: [],
+      })
+    })
+    it('returnerer riktig requestBody med utenlandsperioder', () => {
+      expect(
+        generatePensjonsavtalerRequestBody({
+          aarligInntektFoerUttakBeloep: '500 000',
+          ufoeregrad: 0,
+          afp: 'ja_privat',
+          sivilstand: 'GIFT',
+          heltUttak: {
+            uttaksalder: { aar: 62, maaneder: 0 },
+          },
+          utenlandsperioder: [
+            {
+              id: '1',
+              landkode: 'URY',
+              arbeidetUtenlands: false,
+              startdato: '01.01.2018',
+              sluttdato: '28.02.2018',
+            },
+            {
+              id: '2',
+              landkode: 'BEL',
+              arbeidetUtenlands: true,
+              startdato: '01.01.1990',
+              sluttdato: '28.02.2020',
+            },
+          ],
+        })
+      ).toEqual({
+        aarligInntektFoerUttakBeloep: 500000,
+        harAfp: true,
+        sivilstand: 'GIFT',
+        uttaksperioder: [
+          {
+            startAlder: { aar: 62, maaneder: 0 },
+            aarligInntektVsaPensjon: undefined,
+            grad: 100,
+          },
+        ],
+        utenlandsperioder: [
+          {
+            arbeidetUtenlands: false,
+            fom: '2018-01-01',
+            landkode: 'URY',
+            tom: '2018-02-28',
+          },
+          {
+            arbeidetUtenlands: true,
+            fom: '1990-01-01',
+            landkode: 'BEL',
+            tom: '2020-02-28',
           },
         ],
       })
