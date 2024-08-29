@@ -89,34 +89,24 @@ describe('VeilederInput', () => {
       expect(invalidateMock).toHaveBeenCalled()
     })
 
-    it('Når en feil oppstår ved fnr encription, vises det riktig feilmelding', async () => {
+    it('Når en feil oppstår ved fnr-encryption, vises det riktig feilmelding', async () => {
       const fetchMock = vi
         .spyOn(global, 'fetch')
         .mockResolvedValueOnce({
-          // headers: Headers,
           ok: true,
           status: 200,
           statusText: 'fullfilled',
           type: 'default',
           url: 'http://localhost:8088/pensjon/kalkulator/oauth2/session',
           redirected: false,
-          // clone: () => Resp
-          //  error (): Response
-          // json(data: any, init?: ResponseInit): Response
-          // redirect (url: string | URL, status: ResponseRedirectStatus): Response } as unknown as Response)
         } as Response)
         .mockResolvedValue({
-          // headers: Headers,
           ok: false,
           status: 503,
           statusText: 'error',
           type: 'default',
-          url: 'http://localhost:8088/pensjon/kalkulator/v1/encrypt',
+          url: 'http://localhost:8088/pensjon/kalkulator/api/v1/encrypt',
           redirected: false,
-          // clone: () => Resp
-          //  error (): Response
-          // json(data: any, init?: ResponseInit): Response
-          // redirect (url: string | URL, status: ResponseRedirectStatus): Response } as unknown as Response)
         } as Response)
 
       const user = userEvent.setup()
@@ -200,7 +190,7 @@ describe('VeilederInput', () => {
       expect(window.location.href).toBe(`${BASE_PATH}/veileder`)
     })
 
-    it('viser inaktivet alert', async () => {
+    it('viser inaktiv-alert', async () => {
       vi.spyOn(URLSearchParams.prototype, 'has').mockImplementation(() => true)
       render(<VeilederInput />, {
         hasRouter: false,

@@ -423,7 +423,9 @@ describe('userInput selectors', () => {
           veilederBorgerEncryptedFnr: encryptetFnr,
         },
       }
-      expect(selectVeilederBorgerFnr(state)).toStrictEqual(encryptetFnr)
+      expect(selectVeilederBorgerEncryptedFnr(state)).toStrictEqual(
+        encryptetFnr
+      )
     })
   })
 
