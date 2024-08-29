@@ -70,5 +70,6 @@
     "alternativ": {
       "heltUttaksalder": { "aar": 67, "maaneder": 0 }
     }
-  }
+  },
+  "harForLiteTrygdetid": false
 }

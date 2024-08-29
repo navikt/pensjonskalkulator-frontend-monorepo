@@ -180,7 +180,10 @@ export function Utenlandsopphold({
       </RadioGroup>
 
       {showUtenlandsperioder && (
-        <UtenlandsoppholdListe validationError={validationErrors.bottom} />
+        <UtenlandsoppholdListe
+          validationError={validationErrors.bottom}
+          harRedigeringsmuligheter
+        />
       )}
       <Button
         form="har-utenlandsopphold"

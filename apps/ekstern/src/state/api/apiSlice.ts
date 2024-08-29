@@ -152,6 +152,7 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Alderspensjon'],
       transformResponse: (response: AlderspensjonResponseBody) => {
+        // TODO PEK-483 - utvide med sjekk på harForLiteTrygdetid flagg
         if (
           !isPensjonsberegningArray(response?.alderspensjon) ||
           (response.afpPrivat &&

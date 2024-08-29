@@ -17,7 +17,9 @@ describe('Grunnlag', () => {
     expect(await screen.findByText('grunnlag.uttaksgrad.title')).toBeVisible()
     expect(await screen.findByText('grunnlag.inntekt.title')).toBeVisible()
     expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
-    expect(await screen.findByText('grunnlag.opphold.title')).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.opphold.title.mindre_enn_5_aar')
+    ).toBeVisible()
     expect(
       await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
@@ -34,7 +36,9 @@ describe('Grunnlag', () => {
     ).not.toBeInTheDocument()
     expect(screen.queryByText('grunnlag.inntekt.title')).not.toBeInTheDocument()
     expect(await screen.findByText('grunnlag.sivilstand.title')).toBeVisible()
-    expect(await screen.findByText('grunnlag.opphold.title')).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.opphold.title.mindre_enn_5_aar')
+    ).toBeVisible()
     expect(
       await screen.findByText('grunnlag.alderspensjon.title')
     ).toBeVisible()
@@ -213,20 +217,9 @@ describe('Grunnlag', () => {
 
   describe('Grunnlag - opphold', () => {
     it('viser riktig tittel med formatert inntekt og tekst', async () => {
-      const user = userEvent.setup()
       render(<Grunnlag headingLevel="2" visning="enkel" />)
       expect(screen.getByText('grunnlag.opphold.title')).toBeVisible()
       expect(screen.getByText('grunnlag.opphold.value')).toBeVisible()
-      const buttons = screen.getAllByRole('button')
-
-      await user.click(buttons[4])
-
-      expect(
-        await screen.findByText(
-          'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år',
-          { exact: false }
-        )
-      ).toBeVisible()
     })
   })
 

@@ -240,9 +240,16 @@
   {
     "landkode": "CAN",
     "erAvtaleland": true,
-    "bokmaalNavn": "Canada",
-    "nynorskNavn": "Canada",
-    "engelskNavn": "Canada"
+    "bokmaalNavn": "Canada (utenom Quebec)",
+    "nynorskNavn": "Canada (utenom Quebec)",
+    "engelskNavn": "Canada (except Quebec)"
+  },
+  {
+    "landkode": "QEB",
+    "erAvtaleland": true,
+    "bokmaalNavn": "Canada (Quebec)",
+    "nynorskNavn": "Canada (Quebec)",
+    "engelskNavn": "Canada (Quebec)"
   },
   {
     "landkode": "CYM",
@@ -1148,13 +1155,6 @@
     "engelskNavn": "Norfolk Island"
   },
   {
-    "landkode": "NOR",
-    "erAvtaleland": true,
-    "bokmaalNavn": "Norge",
-    "nynorskNavn": "Norge",
-    "engelskNavn": "Norway"
-  },
-  {
     "landkode": "NCL",
     "erAvtaleland": false,
     "bokmaalNavn": "Ny-Caledonia",
@@ -1251,13 +1251,6 @@
     "bokmaalNavn": "Qatar",
     "nynorskNavn": "Qatar",
     "engelskNavn": "Qatar"
-  },
-  {
-    "landkode": "QEB",
-    "erAvtaleland": true,
-    "bokmaalNavn": "Quebec",
-    "nynorskNavn": "Quebec",
-    "engelskNavn": "Quebec"
   },
   {
     "landkode": "REU",

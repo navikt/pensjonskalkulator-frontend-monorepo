@@ -204,6 +204,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
   sivilstand?: Sivilstand
   heltUttak: HeltUttak
   gradertUttak?: GradertUttak
+  utenlandsperioder: Utenlandsperiode[]
 }): PensjonsavtalerRequestBody => {
   const {
     aarligInntektFoerUttakBeloep,
@@ -212,6 +213,7 @@ export const generatePensjonsavtalerRequestBody = (args: {
     sivilstand,
     heltUttak,
     gradertUttak,
+    utenlandsperioder,
   } = args
   return {
     aarligInntektFoerUttakBeloep: formatInntektToNumber(
@@ -262,9 +264,9 @@ export const generatePensjonsavtalerRequestBody = (args: {
       },
     ],
     harAfp: !ufoeregrad && afp === 'ja_privat',
+    utenlandsperioder: transformUtenlandsperioderArray(utenlandsperioder),
     // harEpsPensjon: Bruker kan angi om E/P/S har pensjon (støttes i detaljert kalkulator) – her bruker backend hardkodet false i MVP
     // harEpsPensjonsgivendeInntektOver2G: Bruker kan angi om E/P/S har inntekt >2G (støttes i detaljert kalkulator) – her bruker backend true i MVP hvis samboer/gift
-    // antallAarIUtlandetEtter16: Bruker kan angi et antall (støttes i detaljert kalkulator) – her bruker backend hardkodet 0 i MVP
     sivilstand,
   }
 }
