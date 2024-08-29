@@ -72,6 +72,10 @@ const translations = {
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
   'stegvisning.tilbake_start': 'Tilbake til start',
+  'stegvisning.tilbake_start.modal.title':
+    'Hvis du går tilbake til start, mister du alle valgene dine.',
+  'stegvisning.tilbake_start.modal.bekreft': 'Gå tilbake til start',
+  'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':

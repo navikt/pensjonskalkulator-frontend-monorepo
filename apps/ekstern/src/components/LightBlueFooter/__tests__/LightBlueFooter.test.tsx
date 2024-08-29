@@ -14,20 +14,41 @@ describe('LightBlueFooter', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('nullstiller input fra brukeren og redirigerer til første steg av stegvisning når brukeren klikker på Start ny beregning', async () => {
-    const user = userEvent.setup()
-    const navigateMock = vi.fn()
-    vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
-      () => navigateMock
-    )
-    const { store } = render(<LightBlueFooter />, {
-      preloadedState: {
-        userInput: { ...userInputInitialState, samtykke: true },
-      },
-    })
+  describe('Gitt at brukeren klikker på knappen, åpnes det modalen og brukeren kan avbryte eller gå tilbake til start ved bekreftelse', async () => {
+    it('Når brukeren bekrefter, nullstiller input fra brukeren og redirigerer til første steg av stegvisning', async () => {
+      const user = userEvent.setup()
+      const navigateMock = vi.fn()
+      vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
+        () => navigateMock
+      )
 
-    await user.click(screen.getByText('stegvisning.tilbake_start'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.start)
-    expect(store.getState().userInput.samtykke).toBe(null)
+      const { store } = render(<LightBlueFooter />, {
+        preloadedState: {
+          userInput: { ...userInputInitialState, samtykke: true },
+        },
+      })
+
+      await user.click(screen.getByText('stegvisning.tilbake_start'))
+      expect(
+        await screen.findByText('stegvisning.tilbake_start.modal.title')
+      ).toBeVisible()
+      expect(
+        await screen.findByText('stegvisning.tilbake_start.modal.avbryt')
+      ).toBeVisible()
+      expect(navigateMock).not.toHaveBeenCalled()
+      expect(
+        await screen.findByText('stegvisning.tilbake_start.modal.bekreft')
+      ).toBeVisible()
+      await user.click(
+        screen.getByText('stegvisning.tilbake_start.modal.avbryt')
+      )
+      await user.click(screen.getByText('stegvisning.tilbake_start'))
+      await user.click(
+        screen.getByText('stegvisning.tilbake_start.modal.bekreft')
+      )
+
+      expect(navigateMock).toHaveBeenCalledWith(paths.start)
+      expect(store.getState().userInput.samtykke).toBe(null)
+    })
   })
 })
