@@ -495,7 +495,7 @@ export interface components {
       afpPrivat?: components['schemas']['PensjonsberegningV6'][]
       afpOffentlig?: components['schemas']['PensjonsberegningAfpOffentligV6'][]
       vilkaarsproeving: components['schemas']['VilkaarsproevingV6']
-      harForLiteTrygdetid: boolean
+      harForLiteTrygdetid?: boolean
     }
     VilkaarsproevingV6: {
       vilkaarErOppfylt: boolean
