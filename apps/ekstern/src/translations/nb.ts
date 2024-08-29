@@ -72,6 +72,10 @@ const translations = {
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
   'stegvisning.tilbake_start': 'Tilbake til start',
+  'stegvisning.tilbake_start.modal.title':
+    'Hvis du går tilbake til start, mister du alle valgene dine.',
+  'stegvisning.tilbake_start.modal.bekreft': 'Gå tilbake til start',
+  'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress':
@@ -134,7 +138,10 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description':
     'Legg til gjennomførte og planlagte opphold',
   'stegvisning.utenlandsopphold.oppholdene.description.periode': 'Periode: ',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa': 'nå',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak':
+    'til uttak av pensjon',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak':
+    'uttak av pensjon',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet': 'Jobbet: ',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja': 'Ja',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'Nei',
@@ -153,7 +160,7 @@ const translations = {
     'Avbryt endring',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.label': 'Velg land',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label':
-    'Har du jobbet i {land}?',
+    'Jobbet du i {land}?',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description':
     'Hvis du jobbet i deler av oppholdet, bør du legge til perioden du jobbet og perioden du ikke jobbet som to ulike opphold.',
   'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja': 'Ja',
@@ -162,6 +169,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'Hvis du ikke vet nøyaktige datoer, oppgi omtrentlige datoer.',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'Oppgi sluttdato',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
+    'Ved varig opphold, lar du feltet stå tomt.',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
     'Du må velge land for oppholdet ditt.',
   'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
@@ -178,6 +187,14 @@ const translations = {
     'Sluttdato kan ikke være før startdato.',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
     'Du kan bare ha ett varig opphold. Fyll ut sluttdato for oppholdet ditt.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland':
+    'Du har allerede registrert at du har bodd i {land} fra {periodestart} til {periodeslutt}. Du kan ikke ha overlappende opphold med landet {land}.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land':
+    'Du har allerede registrert at du har bodd i {land} fra {periodestart} til {periodeslutt}. Du kan ikke ha overlappende opphold i to ulike land.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus':
+    'Du har allerede registrert at du har bodd i {land} fra {periodestart} til {periodeslutt}. Du kan ikke ha overlappende boopphold.',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus':
+    'Du har allerede registrert at du har jobbet i {land} fra {periodestart} til {periodeslutt}. Du kan ikke ha overlappende jobbperioder.',
   'utenlandsopphold.slette_modal.title':
     'Er du sikker på at du vil slette oppholdet ditt?',
   'utenlandsopphold.slette_modal.button.avbryt': 'Avbryt',
@@ -460,9 +477,25 @@ const translations = {
   'grunnlag.sivilstand.ingress':
     'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen. {br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title': 'Opphold i Norge',
+  'grunnlag.opphold.title.mindre_enn_5_aar': 'Opphold utenfor Norge',
+  'grunnlag.opphold.title.mer_enn_5_aar': 'Opphold utenfor Norge',
+  'grunnlag.opphold.title.for_lite_trygdetid': 'Opphold i Norge',
   'grunnlag.opphold.value': 'Minst 40 år',
+  'grunnlag.opphold.value.mindre_enn_5_aar': '5 år eller mindre',
+  'grunnlag.opphold.value.mer_enn_5_aar': 'Mer enn 5 år',
+  'grunnlag.opphold.value.for_lite_trygdetid': 'Mindre enn 5 år',
   'grunnlag.opphold.ingress':
-    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved  utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+  'grunnlag.opphold.ingress.endre_opphold':
+    'Du kan endre oppholdene dine ved å gå tilbake til {link}.',
+  'grunnlag.opphold.ingress.endre_opphold.link': 'Opphold utenfor Norge',
+  'grunnlag.opphold.ingress.mindre_enn_5_aar':
+    'Beregningen forutsetter at du ikke har bodd eller jobbet utenfor Norge i mer enn 5 år fra fylte 16 år frem til du tar ut pensjon.',
+
+  'grunnlag.opphold.ingress.for_lite_trygdetid':
+    'Du har bodd mindre enn 5 år i Norge. Beregningen din kan være mangelfull.',
+  'grunnlag.opphold.bunntekst':
+    'Når du søker om alderspensjon vil opplysninger om opphold utenfor Norge sjekkes mot pensjonsmyndigheter i avtaleland. Den endelige pensjonen din kan derfor bli annerledes.',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':

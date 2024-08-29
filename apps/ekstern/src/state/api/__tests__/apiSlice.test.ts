@@ -464,10 +464,10 @@ describe('apiSlice', () => {
               beloep: 234756,
             },
           ],
-
           vilkaarsproeving: {
             vilkaarErOppfylt: true,
           },
+          harForLiteTrygdetid: false,
         },
         method: 'post',
       })
@@ -496,6 +496,7 @@ describe('apiSlice', () => {
           vilkaarsproeving: {
             vilkaarErOppfylt: true,
           },
+          harForLiteTrygdetid: false,
         },
         method: 'post',
       })

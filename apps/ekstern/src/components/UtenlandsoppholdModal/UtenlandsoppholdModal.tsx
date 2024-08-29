@@ -50,6 +50,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
 
   const [
     localUtenlandsperiode,
+    isLocalLandAvtaleland,
     datepickerStartdato,
     datepickerSluttdato,
     validationErrors,
@@ -91,6 +92,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
               setValidationErrors,
               modalRef,
               onSubmitCallback,
+              locale,
               {
                 foedselsdato,
                 utenlandsperiodeId: localUtenlandsperiode.id,
@@ -122,6 +124,24 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                       },
                       {
                         ...getFormatMessageValues(intl),
+                        land: validationErrors[
+                          UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
+                        ],
+                        periodestart:
+                          validationErrors[
+                            UTENLANDSOPPHOLD_FORM_NAMES
+                              .overlappende_periodestart
+                          ],
+                        periodeslutt: validationErrors[
+                          UTENLANDSOPPHOLD_FORM_NAMES.overlappende_periodeslutt
+                        ]
+                          ? validationErrors[
+                              UTENLANDSOPPHOLD_FORM_NAMES
+                                .overlappende_periodeslutt
+                            ]
+                          : intl.formatMessage({
+                              id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                            }),
                       }
                     )
                   : ''
@@ -139,59 +159,80 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
             </Select>
             {localUtenlandsperiode?.landkode && (
               <>
-                <RadioGroup
-                  form={UTENLANDSOPPHOLD_FORM_NAMES.form}
-                  id={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
-                  name={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
-                  data-testid={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
-                  legend={
-                    <FormattedMessage
-                      id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label"
-                      values={{
-                        land: getTranslatedLandFromLandkode(
-                          localUtenlandsperiode.landkode,
-                          locale
-                        ),
-                      }}
-                    />
-                  }
-                  description={
-                    <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description" />
-                  }
-                  defaultValue={
-                    localUtenlandsperiode.arbeidetUtenlands
-                      ? 'ja'
-                      : localUtenlandsperiode.arbeidetUtenlands === false
-                        ? 'nei'
-                        : null
-                  }
-                  onChange={handleArbeidetUtenlandsChange}
-                  error={
-                    validationErrors[
-                      UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
-                    ]
-                      ? intl.formatMessage(
-                          {
-                            id: validationErrors[
-                              UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
-                            ],
-                          },
-                          {
-                            ...getFormatMessageValues(intl),
-                          }
-                        )
-                      : ''
-                  }
-                  role="radiogroup"
-                  aria-required="true"
-                >
-                  <Radio value="ja">
-                    <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja" />
-                  </Radio>
-                  <Radio value="nei">
-                    <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_nei" />
-                  </Radio>
-                </RadioGroup>
+                {isLocalLandAvtaleland && (
+                  <RadioGroup
+                    form={UTENLANDSOPPHOLD_FORM_NAMES.form}
+                    id={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
+                    name={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
+                    data-testid={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
+                    legend={
+                      <FormattedMessage
+                        id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.label"
+                        values={{
+                          land: getTranslatedLandFromLandkode(
+                            localUtenlandsperiode.landkode,
+                            locale
+                          ),
+                        }}
+                      />
+                    }
+                    description={
+                      <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description" />
+                    }
+                    defaultValue={
+                      localUtenlandsperiode.arbeidetUtenlands
+                        ? 'ja'
+                        : localUtenlandsperiode.arbeidetUtenlands === false
+                          ? 'nei'
+                          : null
+                    }
+                    onChange={handleArbeidetUtenlandsChange}
+                    error={
+                      validationErrors[
+                        UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
+                      ]
+                        ? intl.formatMessage(
+                            {
+                              id: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands
+                              ],
+                            },
+                            {
+                              ...getFormatMessageValues(intl),
+                              land: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
+                              ],
+                              periodestart:
+                                validationErrors[
+                                  UTENLANDSOPPHOLD_FORM_NAMES
+                                    .overlappende_periodestart
+                                ],
+                              periodeslutt: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES
+                                  .overlappende_periodeslutt
+                              ]
+                                ? validationErrors[
+                                    UTENLANDSOPPHOLD_FORM_NAMES
+                                      .overlappende_periodeslutt
+                                  ]
+                                : intl.formatMessage({
+                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                                  }),
+                            }
+                          )
+                        : ''
+                    }
+                    role="radiogroup"
+                    aria-required="true"
+                  >
+                    <Radio value="ja">
+                      <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja" />
+                    </Radio>
+                    <Radio value="nei">
+                      <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_nei" />
+                    </Radio>
+                  </RadioGroup>
+                )}
                 <DatePicker
                   {...datepickerStartdato.datepickerProps}
                   dropdownCaption
@@ -219,6 +260,25 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                             {
                               ...getFormatMessageValues(intl),
                               maxDato: format(maxDate, DATE_ENDUSER_FORMAT),
+                              land: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES.overlappende_land
+                              ],
+                              periodestart:
+                                validationErrors[
+                                  UTENLANDSOPPHOLD_FORM_NAMES
+                                    .overlappende_periodestart
+                                ],
+                              periodeslutt: validationErrors[
+                                UTENLANDSOPPHOLD_FORM_NAMES
+                                  .overlappende_periodeslutt
+                              ]
+                                ? validationErrors[
+                                    UTENLANDSOPPHOLD_FORM_NAMES
+                                      .overlappende_periodeslutt
+                                  ]
+                                : intl.formatMessage({
+                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                                  }),
                             }
                           )
                         : ''
@@ -237,6 +297,9 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     data-testid={UTENLANDSOPPHOLD_FORM_NAMES.sluttdato}
                     label={intl.formatMessage({
                       id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label',
+                    })}
+                    description={intl.formatMessage({
+                      id: 'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description',
                     })}
                     error={
                       validationErrors[UTENLANDSOPPHOLD_FORM_NAMES.sluttdato]

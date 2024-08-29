@@ -67,6 +67,9 @@ const translations = {
   'stegvisning.tilbake': 'Tilbake',
   'stegvisning.avbryt': 'Avbryt',
   'stegvisning.tilbake_start': 'Tilbake til start',
+  'stegvisning.tilbake_start.modal.title': 'MANGLER_TEKST',
+  'stegvisning.tilbake_start.modal.bekreft': 'MANGLER_TEKST',
+  'stegvisning.tilbake_start.modal.avbryt': 'MANGLER_TEKST',
   'stegvisning.beregn': 'Rekne ut pensjon',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.ingress': 'MANGLER_TEKST',
@@ -115,7 +118,9 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa':
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
     'MANGLER_TEKST',
@@ -146,6 +151,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
+    'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
@@ -161,6 +168,14 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus':
     'MANGLER_TEKST',
   'utenlandsopphold.slette_modal.title': 'MANGLER_TEKST',
   'utenlandsopphold.slette_modal.button.avbryt': 'MANGLER_TEKST',
@@ -397,9 +412,20 @@ const translations = {
   'grunnlag.sivilstand.ingress':
     'Viss du har låg opptening kan storleiken på alderspensjonen din avhenge av om du bur åleine eller samen med andre.{br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
   'grunnlag.opphold.title': 'Opphald i Noreg',
+  'grunnlag.opphold.title.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.title.mer_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.title.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.value': 'Minst 40 år',
+  'grunnlag.opphold.value.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.value.mer_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.value.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress':
     'Utrekninga føreset at du har budd eller jobba i Noreg i minst 40 år frå du fylte 16 år og fram til du tek ut pensjon. Ved utlandsopphald over fem år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
+  'grunnlag.opphold.ingress.endre_opphold': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.endre_opphold.link': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.for_lite_trygdetid': 'MANGLER_TEKST',
+  'grunnlag.opphold.bunntekst': 'MANGLER_TEKST',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':

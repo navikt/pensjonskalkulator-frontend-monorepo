@@ -45,8 +45,12 @@ export const Pensjonsavtaler = (props: {
   )
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
-  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
-    useAppSelector(selectCurrentSimulation)
+  const {
+    uttaksalder,
+    aarligInntektVsaHelPensjon,
+    gradertUttaksperiode,
+    utenlandsperioder,
+  } = useAppSelector(selectCurrentSimulation)
 
   const isMobile = useIsMobile()
 
@@ -66,6 +70,7 @@ export const Pensjonsavtaler = (props: {
           aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
         gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+        utenlandsperioder,
       })
       setPensjonsavtalerRequestBody(requestBody)
     }

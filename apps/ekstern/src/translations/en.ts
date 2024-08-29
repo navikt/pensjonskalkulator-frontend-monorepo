@@ -51,6 +51,9 @@ const translations = {
   'stegvisning.tilbake': 'MANGLER_TEKST',
   'stegvisning.avbryt': 'MANGLER_TEKST',
   'stegvisning.tilbake_start': 'MANGLER_TEKST',
+  'stegvisning.tilbake_start.modal.title': 'MANGLER_TEKST',
+  'stegvisning.tilbake_start.modal.bekreft': 'MANGLER_TEKST',
+  'stegvisning.tilbake_start.modal.avbryt': 'MANGLER_TEKST',
   'stegvisning.beregn': 'MANGLER_TEKST',
   'stegvisning.start.title': 'MANGLER_TEKST',
   'stegvisning.start.ingress': 'MANGLER_TEKST',
@@ -97,7 +100,9 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.naa':
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak':
+    'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
     'MANGLER_TEKST',
@@ -128,6 +133,8 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.startdato.description':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.label': 'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.description':
+    'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.land.validation_error':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error':
@@ -143,6 +150,14 @@ const translations = {
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.before_min':
     'MANGLER_TEKST',
   'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus':
+    'MANGLER_TEKST',
+  'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus':
     'MANGLER_TEKST',
   'utenlandsopphold.slette_modal.title': 'MANGLER_TEKST',
   'utenlandsopphold.slette_modal.button.avbryt': 'MANGLER_TEKST',
@@ -350,7 +365,6 @@ const translations = {
   'grunnlag.sivilstand.title': 'MANGLER_TEKST',
   'grunnlag.sivilstand.title.error': 'MANGLER_TEKST',
   'grunnlag.sivilstand.ingress': 'MANGLER_TEKST',
-  'grunnlag.opphold.title': 'MANGLER_TEKST',
   'grunnlag.afp.title': 'MANGLER_TEKST',
   'grunnlag.afp.ikke_beregnet': 'MANGLER_TEKST',
   'grunnlag.afp.ingress.null': '-',
@@ -366,8 +380,20 @@ const translations = {
   'grunnlag.alderspensjon.ingress': 'MANGLER_TEKST',
   'grunnlag.alderspensjon.title': 'MANGLER_TEKST',
   'grunnlag.alderspensjon.value': 'MANGLER_TEKST',
-  'grunnlag.opphold.ingress': 'MANGLER_TEKST',
+  'grunnlag.opphold.title': 'MANGLER_TEKST',
+  'grunnlag.opphold.title.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.title.mer_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.title.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.value': 'MANGLER_TEKST',
+  'grunnlag.opphold.value.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.value.mer_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.value.for_lite_trygdetid': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.endre_opphold': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.endre_opphold.link': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.mindre_enn_5_aar': 'MANGLER_TEKST',
+  'grunnlag.opphold.ingress.for_lite_trygdetid': 'MANGLER_TEKST',
+  'grunnlag.opphold.bunntekst': 'MANGLER_TEKST',
   'grunnlag.forbehold.ingress_1': 'MANGLER_TEKST',
   'grunnlag.forbehold.link': 'MANGLER_TEKST',
   'grunnlag.forbehold.title': 'MANGLER_TEKST',

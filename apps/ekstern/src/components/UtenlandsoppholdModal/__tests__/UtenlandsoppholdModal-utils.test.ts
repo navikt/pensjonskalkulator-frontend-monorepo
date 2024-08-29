@@ -21,8 +21,10 @@ describe('UtenlandsoppholdModal-utils', () => {
         validateOpphold(
           correctInputData,
           foedselsdato,
+          undefined,
           [],
-          updateErrorMessageMock
+          updateErrorMessageMock,
+          'nb'
         )
       ).toBeTruthy()
       expect(updateErrorMessageMock).not.toHaveBeenCalled()
@@ -36,8 +38,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, landFormData: null },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -54,8 +58,11 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, landFormData: '' },
             foedselsdato,
+            undefined,
+
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -68,58 +75,98 @@ describe('UtenlandsoppholdModal-utils', () => {
     })
 
     describe('Gitt at arbeidetUtenlandsFormData ikke er gyldig', () => {
-      it('returnerer false når arbeidetUtenlandsFormData er null', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
-        const updateErrorMessageMock = vi.fn()
-        expect(
-          validateOpphold(
-            { ...correctInputData, arbeidetUtenlandsFormData: null },
-            foedselsdato,
-            [],
-            updateErrorMessageMock
-          )
-        ).toBeFalsy()
-        expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
-          data: 'Utenlandsopphold - arbeidet utenlands',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+      describe('Når land ikke er avtaleland', () => {
+        it('returnerer true når arbeidetUtenlandsFormData er null', () => {
+          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const updateErrorMessageMock = vi.fn()
+          expect(
+            validateOpphold(
+              { ...correctInputData, arbeidetUtenlandsFormData: null },
+              foedselsdato,
+              undefined,
+
+              [],
+              updateErrorMessageMock,
+              'nb'
+            )
+          ).toBeTruthy()
+          expect(updateErrorMessageMock).not.toHaveBeenCalled()
+          expect(loggerMock).not.toHaveBeenCalled()
         })
       })
-      it('returnerer false når arbeidetUtenlandsFormData er tom', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
-        const updateErrorMessageMock = vi.fn()
-        expect(
-          validateOpphold(
-            { ...correctInputData, arbeidetUtenlandsFormData: '' },
-            foedselsdato,
-            [],
-            updateErrorMessageMock
-          )
-        ).toBeFalsy()
-        expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
-          data: 'Utenlandsopphold - arbeidet utenlands',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+      describe('Når land er avtaleland', () => {
+        it('returnerer false når arbeidetUtenlandsFormData er null', () => {
+          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const updateErrorMessageMock = vi.fn()
+          expect(
+            validateOpphold(
+              {
+                ...correctInputData,
+                landFormData: 'NLD',
+                arbeidetUtenlandsFormData: null,
+              },
+              foedselsdato,
+              undefined,
+
+              [],
+              updateErrorMessageMock,
+              'nb'
+            )
+          ).toBeFalsy()
+          expect(updateErrorMessageMock).toHaveBeenCalled()
+          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+            data: 'Utenlandsopphold - arbeidet utenlands',
+            tekst:
+              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+          })
         })
-      })
-      it('returnerer false når arbeidetUtenlandsFormData er ulik "ja" eller "nei"', () => {
-        const loggerMock = vi.spyOn(loggerUtils, 'logger')
-        const updateErrorMessageMock = vi.fn()
-        expect(
-          validateOpphold(
-            { ...correctInputData, arbeidetUtenlandsFormData: 'lorem' },
-            foedselsdato,
-            [],
-            updateErrorMessageMock
-          )
-        ).toBeFalsy()
-        expect(updateErrorMessageMock).toHaveBeenCalled()
-        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
-          data: 'Utenlandsopphold - arbeidet utenlands',
-          tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+        it('returnerer false når arbeidetUtenlandsFormData er tom', () => {
+          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const updateErrorMessageMock = vi.fn()
+          expect(
+            validateOpphold(
+              {
+                ...correctInputData,
+                landFormData: 'NLD',
+                arbeidetUtenlandsFormData: '',
+              },
+              foedselsdato,
+              undefined,
+              [],
+              updateErrorMessageMock,
+              'nb'
+            )
+          ).toBeFalsy()
+          expect(updateErrorMessageMock).toHaveBeenCalled()
+          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+            data: 'Utenlandsopphold - arbeidet utenlands',
+            tekst:
+              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+          })
+        })
+        it('returnerer false når arbeidetUtenlandsFormData er ulik "ja" eller "nei"', () => {
+          const loggerMock = vi.spyOn(loggerUtils, 'logger')
+          const updateErrorMessageMock = vi.fn()
+          expect(
+            validateOpphold(
+              {
+                ...correctInputData,
+                landFormData: 'NLD',
+                arbeidetUtenlandsFormData: 'lorem',
+              },
+              foedselsdato,
+              undefined,
+              [],
+              updateErrorMessageMock,
+              'nb'
+            )
+          ).toBeFalsy()
+          expect(updateErrorMessageMock).toHaveBeenCalled()
+          expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+            data: 'Utenlandsopphold - arbeidet utenlands',
+            tekst:
+              'utenlandsopphold.om_oppholdet_ditt_modal.arbeidet_utenlands.validation_error',
+          })
         })
       })
     })
@@ -132,8 +179,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, startdatoFormData: null },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -150,8 +199,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, startdatoFormData: '' },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -168,8 +219,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, startdatoFormData: '1977-12-03' },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -186,8 +239,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, startdatoFormData: '01.01.1963' },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -204,8 +259,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, startdatoFormData: '01.01.2064' },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -225,8 +282,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, sluttdatoFormData: '1977-12-03' },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -243,8 +302,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, sluttdatoFormData: '12.02.1975' },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -261,8 +322,10 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, sluttdatoFormData: '01.01.2064' },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
@@ -278,61 +341,159 @@ describe('UtenlandsoppholdModal-utils', () => {
           validateOpphold(
             { ...correctInputData, sluttdatoFormData: null },
             foedselsdato,
+            undefined,
             [],
-            updateErrorMessageMock
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeTruthy()
         expect(updateErrorMessageMock).not.toHaveBeenCalled()
       })
-      it('returnerer true når sluttdatoFormData er null og at et annet opphold med samme land også er registrert uten sluttdato', () => {
+    })
+
+    describe('Gitt at det er overlappende perioder', () => {
+      const registrertePerioder = [
+        {
+          id: '0',
+          landkode: 'DZA',
+          arbeidetUtenlands: false,
+          startdato: '01.04.1980',
+          sluttdato: '31.12.2000',
+        },
+        {
+          id: '0',
+          landkode: 'BEL',
+          arbeidetUtenlands: false,
+          startdato: '01.04.2024',
+        },
+      ]
+
+      it('returnerer true når den nye perioden overlapper så lenge de er i samme avtaleland og har ulik jobb-status', () => {
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
-            { ...correctInputData, sluttdatoFormData: null },
+            {
+              landFormData: 'BEL',
+              arbeidetUtenlandsFormData: 'ja',
+              startdatoFormData: '12.08.2024',
+              sluttdatoFormData: null,
+            },
             foedselsdato,
-            [
-              {
-                id: '0',
-                landkode: 'DZA',
-                arbeidetUtenlands: false,
-                startdato: '01.04.1980',
-              },
-            ],
-            updateErrorMessageMock
+            undefined,
+            [...registrertePerioder],
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeTruthy()
         expect(updateErrorMessageMock).not.toHaveBeenCalled()
       })
-      it('returnerer false når sluttdatoFormData er null og at et annet opphold med et annet land land også er registrert uten sluttdato', () => {
+
+      it('returnerer false når den nye perioden overlapper med et ikke-avtale-land', () => {
         const loggerMock = vi.spyOn(loggerUtils, 'logger')
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
-            { ...correctInputData, sluttdatoFormData: null },
+            {
+              ...correctInputData,
+              landFormData: 'FRA',
+            },
             foedselsdato,
-            [
-              {
-                id: '0',
-                landkode: 'FLK',
-                arbeidetUtenlands: false,
-                startdato: '01.04.1980',
-              },
-            ],
-            updateErrorMessageMock
+            undefined,
+            [...registrertePerioder],
+            updateErrorMessageMock,
+            'nb'
           )
         ).toBeFalsy()
         expect(updateErrorMessageMock).toHaveBeenCalled()
         expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
-          data: 'Utenlandsopphold - sluttdato',
+          data: 'Utenlandsopphold - overlappende perioder',
           tekst:
-            'utenlandsopphold.om_oppholdet_ditt_modal.sluttdato.validation_error.required',
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland',
+        })
+      })
+
+      it('returnerer false når den nye perioden som overlapper er i et annet land', () => {
+        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const updateErrorMessageMock = vi.fn()
+        expect(
+          validateOpphold(
+            {
+              landFormData: 'FRA',
+              arbeidetUtenlandsFormData: 'nei',
+              startdatoFormData: '01.06.2024',
+              sluttdatoFormData: null,
+            },
+            foedselsdato,
+            undefined,
+            [...registrertePerioder],
+            updateErrorMessageMock,
+            'nb'
+          )
+        ).toBeFalsy()
+        expect(updateErrorMessageMock).toHaveBeenCalled()
+        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          data: 'Utenlandsopphold - overlappende perioder',
+          tekst:
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ulike_land',
+        })
+      })
+
+      it('returnerer false når den nye perioden som overlapper er i samme land med lik bostatus', () => {
+        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const updateErrorMessageMock = vi.fn()
+        expect(
+          validateOpphold(
+            {
+              landFormData: 'BEL',
+              arbeidetUtenlandsFormData: 'nei',
+              startdatoFormData: '01.06.2024',
+              sluttdatoFormData: null,
+            },
+            foedselsdato,
+            undefined,
+            [...registrertePerioder],
+            updateErrorMessageMock,
+            'nb'
+          )
+        ).toBeFalsy()
+        expect(updateErrorMessageMock).toHaveBeenCalled()
+        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          data: 'Utenlandsopphold - overlappende perioder',
+          tekst:
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.bostatus',
+        })
+      })
+
+      it('returnerer false når den nye perioden som overlapper er i samme land med lik jobbstatus', () => {
+        const loggerMock = vi.spyOn(loggerUtils, 'logger')
+        const updateErrorMessageMock = vi.fn()
+        expect(
+          validateOpphold(
+            {
+              landFormData: 'BEL',
+              arbeidetUtenlandsFormData: 'ja',
+              startdatoFormData: '01.06.2024',
+              sluttdatoFormData: null,
+            },
+            foedselsdato,
+            undefined,
+            [{ ...registrertePerioder[1], arbeidetUtenlands: true }],
+            updateErrorMessageMock,
+            'nb'
+          )
+        ).toBeFalsy()
+        expect(updateErrorMessageMock).toHaveBeenCalled()
+        expect(loggerMock).toHaveBeenCalledWith('valideringsfeil', {
+          data: 'Utenlandsopphold - overlappende perioder',
+          tekst:
+            'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.jobbstatus',
         })
       })
     })
   })
 
   describe('onUtenlandsoppholdSubmit', () => {
-    it.skip('Når onUtenlandsoppholdSubmit kalles, hentes det riktig data fra formen. Dersom validering feiler lagres det ikke data og validationErrors vises', () => {
+    it('Når onUtenlandsoppholdSubmit kalles, hentes det riktig data fra formen. Dersom validering feiler lagres det ikke data og validationErrors vises', () => {
       const dispatchMock = vi.fn()
       const onSubmitCallbackMock = vi.fn()
       const modalRefMock = {} as React.RefObject<HTMLDialogElement>
@@ -347,6 +508,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         setValidationErrorsMock,
         modalRefMock,
         onSubmitCallbackMock,
+        'nb',
         {
           foedselsdato: '1963-04-30',
           utenlandsperiodeId: '',
@@ -364,7 +526,7 @@ describe('UtenlandsoppholdModal-utils', () => {
 
       expect(dispatchMock).not.toHaveBeenCalled()
       expect(onSubmitCallbackMock).not.toHaveBeenCalled()
-      expect(setValidationErrorsMock).toHaveBeenCalledTimes(3)
+      expect(setValidationErrorsMock).toHaveBeenCalledTimes(2)
     })
 
     describe('Gitt at onUtenlandsoppholdSubmit kalles, og at validering er vellykket', () => {
@@ -403,6 +565,7 @@ describe('UtenlandsoppholdModal-utils', () => {
           setValidationErrorsMock,
           modalRefMock,
           onSubmitCallbackMock,
+          'nb',
           {
             foedselsdato: '1963-04-30',
             utenlandsperiodeId: '',
@@ -470,6 +633,7 @@ describe('UtenlandsoppholdModal-utils', () => {
           setValidationErrorsMock,
           modalRefMock,
           onSubmitCallbackMock,
+          'nb',
           {
             foedselsdato: '1963-04-30',
             utenlandsperiodeId: '1',

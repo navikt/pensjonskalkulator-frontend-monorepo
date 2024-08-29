@@ -4,6 +4,7 @@ import { useDatepicker } from '@navikt/ds-react'
 import { add, parse, format, isValid } from 'date-fns'
 
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { isAvtalelandFromLandkode } from '@/utils/land'
 
 import {
   UtenlandsoppholdFormNames,
@@ -26,6 +27,12 @@ export const useFormLocalState = (initialValues: {
   const [validationErrors, setValidationErrors] = React.useState<
     Record<UtenlandsoppholdFormNames, string>
   >(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
+
+  const isLocalLandAvtaleland = React.useMemo(() => {
+    return localUtenlandsperiode?.landkode
+      ? isAvtalelandFromLandkode(localUtenlandsperiode?.landkode)
+      : undefined
+  }, [localUtenlandsperiode])
 
   const maxDate = React.useMemo(() => {
     return foedselsdato
@@ -108,6 +115,7 @@ export const useFormLocalState = (initialValues: {
       return {
         ...previous,
         landkode: e.target.value,
+        arbeidetUtenlands: undefined,
       }
     })
   }
@@ -128,7 +136,7 @@ export const useFormLocalState = (initialValues: {
   }
 
   const onCancel = (): void => {
-    setLocalUtenlandsperiode({ ...utenlandsperiode })
+    setLocalUtenlandsperiode({})
     // Datoene nullstilles eksplisitt her, slik at datepickeren ikke husker dem til neste utenlandsperiode
     datepickerStartdato.setSelected(undefined)
     datepickerSluttdato.setSelected(undefined)
@@ -140,17 +148,17 @@ export const useFormLocalState = (initialValues: {
   }
 
   React.useEffect(() => {
-    setLocalUtenlandsperiode({ ...utenlandsperiode })
-    if (utenlandsperiode?.startdato) {
-      datepickerStartdato.setSelected(
-        parse(utenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
-      )
-    }
-    if (utenlandsperiode?.sluttdato) {
-      datepickerSluttdato.setSelected(
-        parse(utenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
-      )
-    }
+    setLocalUtenlandsperiode(utenlandsperiode ? { ...utenlandsperiode } : {})
+    datepickerStartdato.setSelected(
+      utenlandsperiode?.startdato
+        ? parse(utenlandsperiode?.startdato, DATE_ENDUSER_FORMAT, new Date())
+        : undefined
+    )
+    datepickerSluttdato.setSelected(
+      utenlandsperiode?.sluttdato
+        ? parse(utenlandsperiode?.sluttdato, DATE_ENDUSER_FORMAT, new Date())
+        : undefined
+    )
   }, [utenlandsperiode])
 
   const handlers = React.useMemo(
@@ -165,6 +173,7 @@ export const useFormLocalState = (initialValues: {
 
   return [
     localUtenlandsperiode,
+    isLocalLandAvtaleland,
     datepickerStartdato,
     datepickerSluttdato,
     validationErrors,

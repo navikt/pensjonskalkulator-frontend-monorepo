@@ -78,8 +78,12 @@ export function Simulering(props: {
     React.useState<boolean>(false)
   const [showVisFaerreAarButton, setShowVisFaerreAarButton] =
     React.useState<boolean>(false)
-  const { uttaksalder, aarligInntektVsaHelPensjon, gradertUttaksperiode } =
-    useAppSelector(selectCurrentSimulation)
+  const {
+    uttaksalder,
+    aarligInntektVsaHelPensjon,
+    gradertUttaksperiode,
+    utenlandsperioder,
+  } = useAppSelector(selectCurrentSimulation)
 
   const [pensjonsavtalerRequestBody, setPensjonsavtalerRequestBody] =
     React.useState<PensjonsavtalerRequestBody | undefined>(undefined)
@@ -149,6 +153,7 @@ export function Simulering(props: {
           aarligInntektVsaPensjon: aarligInntektVsaHelPensjon,
         },
         gradertUttak: gradertUttaksperiode ? gradertUttaksperiode : undefined,
+        utenlandsperioder,
       })
       setPensjonsavtalerRequestBody(requestBody)
     }

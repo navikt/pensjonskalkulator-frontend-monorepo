@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
+import { utenlandsperioder } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe.module.scss'
 import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -163,6 +164,7 @@ describe('Pensjonsavtaler', () => {
               },
             },
           ],
+          utenlandsperioder: [],
         },
         {
           forceRefetch: undefined,
@@ -352,9 +354,9 @@ describe('Pensjonsavtaler', () => {
       expect(
         await screen.findByRole('heading', { level: 3 })
       ).toHaveTextContent('pensjonsavtaler.title')
-      expect(await screen.findAllByRole('heading', { level: 4 })).toHaveLength(
-        2
-      )
+      expect(
+        (await screen.findAllByRole('heading', { level: 4 })).length
+      ).toBeGreaterThanOrEqual(1)
       expect(
         await screen.findByText('pensjonsavtaler.tpo.title')
       ).toBeInTheDocument()

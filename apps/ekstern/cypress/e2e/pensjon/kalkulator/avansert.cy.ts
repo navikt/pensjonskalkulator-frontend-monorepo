@@ -32,6 +32,7 @@ describe('Avansert', () => {
         })
         cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
         cy.contains('button', 'Tilbake til start').click({ force: true })
+        cy.contains('button', 'Gå tilbake til start').click({ force: true })
         cy.location('href').should('include', '/pensjon/kalkulator/start')
       })
     })
@@ -524,6 +525,7 @@ describe('Avansert', () => {
       it('ønsker jeg å kunne starte ny beregning', () => {
         cy.contains('Beregning').should('not.exist')
         cy.contains('button', 'Tilbake til start').click({ force: true })
+        cy.contains('button', 'Gå tilbake til start').click({ force: true })
         cy.location('href').should('include', '/pensjon/kalkulator/start')
       })
     })

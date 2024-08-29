@@ -317,6 +317,7 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
+          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -386,6 +387,7 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
+          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -450,6 +452,7 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
+          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -507,6 +510,7 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
+          utenlandsperioder: [],
         },
         { skip: false }
       )
@@ -580,6 +584,7 @@ describe('Simulering', () => {
               grad: 100,
             },
           ],
+          utenlandsperioder: [],
         },
         { skip: false }
       )
