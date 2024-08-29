@@ -400,6 +400,7 @@ describe('Hovedhistorie', () => {
       it('ønsker jeg å kunne starte ny beregning.', () => {
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('button', 'Tilbake til start').click({ force: true })
+        cy.contains('button', 'Gå tilbake til start').click({ force: true })
         cy.location('href').should('include', '/pensjon/kalkulator/start')
       })
     })
@@ -528,7 +529,8 @@ describe('Hovedhistorie', () => {
         cy.contains('button', '70').click()
         cy.contains('Inntekt frem til uttak: 100 000 kr').should('exist')
 
-        cy.contains('button', 'Tilbake').click({ force: true })
+        cy.contains('button', 'Tilbake til start').click({ force: true })
+        cy.contains('button', 'Gå tilbake til start').click({ force: true })
         cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
         cy.wait('@fetchTidligsteUttaksalder')
         cy.contains('button', '70').click()
