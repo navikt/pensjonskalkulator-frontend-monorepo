@@ -100,7 +100,7 @@ export const VeilederInput = () => {
       })
       .catch(() => {
         setEncryptedRequestLoading('ERROR')
-        throw new Error('Kunne ikke hente kryptert fnr.')
+        console.error('Kunne ikke hente kryptert fnr.')
       })
   }
 
@@ -111,12 +111,14 @@ export const VeilederInput = () => {
 
     if (nyFnr) {
       encryptFnr(nyFnr as string).then((encryptedFnr) => {
-        dispatch(
-          userInputActions.setVeilederBorgerFnr({
-            fnr: nyFnr as string,
-            encryptedFnr,
-          })
-        )
+        if (encryptedFnr) {
+          dispatch(
+            userInputActions.setVeilederBorgerFnr({
+              fnr: nyFnr as string,
+              encryptedFnr,
+            })
+          )
+        }
         dispatch(apiSlice.util.invalidateTags(['Person']))
       })
     }

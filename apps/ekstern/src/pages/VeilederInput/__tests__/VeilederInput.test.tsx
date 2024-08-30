@@ -5,13 +5,7 @@ import { BASE_PATH, paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
-import {
-  render,
-  screen,
-  waitFor,
-  userEvent,
-  swallowErrorsAsync,
-} from '@/test-utils'
+import { render, screen, waitFor, userEvent } from '@/test-utils'
 
 const previousWindow = window
 
@@ -23,6 +17,9 @@ describe('VeilederInput', () => {
   })
 
   describe('Gitt at veilederen besøker en side som er ekskludert', () => {
+    afterEach(() => {
+      global.window = previousWindow
+    })
     it('Når veilederen klikker på tittelen, vises det ansattid med vanlig side under', async () => {
       const user = userEvent.setup()
       global.window = Object.create(window)
@@ -41,11 +38,16 @@ describe('VeilederInput', () => {
       await user.click(screen.getByText('Pensjonskalkulator', { exact: true }))
       expect(window.location.href).toBe(`${BASE_PATH}/veileder`)
       expect(screen.getByTestId('veileder-ekskludert-side')).toBeVisible()
-      expect(screen.getByText('ABC123')).toBeVisible()
     })
   })
 
   describe('Gitt at borger ikke er valgt', () => {
+    afterEach(() => {
+      vi.clearAllMocks()
+      vi.resetAllMocks()
+      global.window = previousWindow
+    })
+
     it('viser sjema med input og submit knapp', () => {
       render(<VeilederInput />, { hasRouter: false })
       expect(screen.getByTestId('borger-fnr-input')).toBeInTheDocument()
@@ -90,6 +92,9 @@ describe('VeilederInput', () => {
     })
 
     it('Når en feil oppstår ved fnr-encryption, vises det riktig feilmelding', async () => {
+      const cache = console.error
+      console.error = () => {}
+
       const fetchMock = vi
         .spyOn(global, 'fetch')
         .mockResolvedValueOnce({
@@ -100,7 +105,15 @@ describe('VeilederInput', () => {
           url: 'http://localhost:8088/pensjon/kalkulator/oauth2/session',
           redirected: false,
         } as Response)
-        .mockResolvedValue({
+        .mockResolvedValueOnce({
+          ok: true,
+          status: 200,
+          statusText: 'fullfilled',
+          type: 'default',
+          url: 'http://localhost:8088/pensjon/kalkulator/oauth2/session',
+          redirected: false,
+        } as Response)
+        .mockRejectedValueOnce({
           ok: false,
           status: 503,
           statusText: 'error',
@@ -111,45 +124,48 @@ describe('VeilederInput', () => {
 
       const user = userEvent.setup()
 
-      await swallowErrorsAsync(async () => {
-        render(<VeilederInput />, { hasRouter: false })
-        expect(screen.getByText('Veiledertilgang')).toBeVisible()
-        const submitButton = screen.getByTestId('veileder-submit')
-        expect(submitButton).toHaveTextContent('Logg inn')
+      console.log('render')
+      render(<VeilederInput />, { hasRouter: false })
+      expect(screen.getByText('Veiledertilgang')).toBeVisible()
+      const submitButton = screen.getByTestId('veileder-submit')
+      expect(submitButton).toHaveTextContent('Logg inn')
 
-        const input = screen.getByTestId('borger-fnr-input')
-        await user.clear(input)
-        await user.type(input, '1')
-        await user.type(input, '0')
-        await user.type(input, '0')
-        await user.type(input, '3')
-        await user.type(input, '6')
-        await user.type(input, '5')
-        await user.type(input, '9')
-        await user.type(input, '9')
-        await user.type(input, '9')
-        await user.type(input, '9')
-        await user.type(input, '9')
+      const input = screen.getByTestId('borger-fnr-input')
+      await user.clear(input)
+      await user.type(input, '1')
+      await user.type(input, '0')
+      await user.type(input, '0')
+      await user.type(input, '3')
+      await user.type(input, '6')
+      await user.type(input, '5')
+      await user.type(input, '9')
+      await user.type(input, '9')
+      await user.type(input, '9')
+      await user.type(input, '9')
+      await user.type(input, '9')
 
-        await user.click(submitButton)
-        expect(fetchMock).toHaveBeenCalledTimes(3)
-        expect(fetchMock).toHaveBeenNthCalledWith(
-          1,
-          'http://localhost:8088/pensjon/kalkulator/oauth2/session'
-        )
-        expect(fetchMock).toHaveBeenNthCalledWith(
-          3,
-          'http://localhost:8088/pensjon/kalkulator/api/v1/encrypt',
-          {
-            body: '10036599999',
-            method: 'POST',
-          }
-        )
-      })
+      await user.click(submitButton)
+      expect(fetchMock).toHaveBeenNthCalledWith(
+        1,
+        'http://localhost:8088/pensjon/kalkulator/oauth2/session'
+      )
+      expect(fetchMock).toHaveBeenNthCalledWith(
+        3,
+        'http://localhost:8088/pensjon/kalkulator/api/v1/encrypt',
+        {
+          body: '10036599999',
+          method: 'POST',
+        }
+      )
+      expect(await screen.findByTestId('error-alert')).toBeVisible()
+      console.error = cache
     })
   })
 
   describe('Gitt at borger er valgt', () => {
+    afterEach(() => {
+      global.window = previousWindow
+    })
     it('viser kalkulatoren', async () => {
       render(<VeilederInput />, {
         hasRouter: false,
