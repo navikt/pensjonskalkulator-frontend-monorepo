@@ -30,6 +30,9 @@ exports[`Simulering-utils-highcharts > onPointClick og onPointUnclick > getChart
       },
     },
     "align": "left",
+    "events": {
+      "itemClick": [Function],
+    },
     "itemDistance": 24,
     "itemHoverStyle": {
       "color": "#000000",

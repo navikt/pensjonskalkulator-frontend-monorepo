@@ -391,6 +391,12 @@ export const getChartOptions = (
       },
       itemHoverStyle: { color: '#000000' },
       itemMarginBottom: 5,
+      events: {
+        itemClick: function (e) {
+          e.preventDefault()
+          return false
+        },
+      },
     },
     plotOptions: {
       series: {
@@ -406,6 +412,7 @@ export const getChartOptions = (
           /* c8 ignore next 3 */
           legendItemClick: function (e) {
             e.preventDefault()
+            return false
           },
         },
       },
