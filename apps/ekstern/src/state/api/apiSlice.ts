@@ -12,7 +12,10 @@ import {
   isUfoeregrad,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
-import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
+import {
+  selectVeilederBorgerFnr,
+  selectVeilederBorgerEncryptedFnr,
+} from '@/state/userInput/selectors'
 import { RootState } from '@/state/store'
 
 export const apiSlice = createApi({
@@ -21,8 +24,12 @@ export const apiSlice = createApi({
     baseUrl: API_BASEURL,
     prepareHeaders: (headers, { getState }) => {
       const veilederBorgerFnr = selectVeilederBorgerFnr(getState() as RootState)
-      if (veilederBorgerFnr.fnr && veilederBorgerFnr.encryptedFnr) {
-        headers.set('fnr', veilederBorgerFnr.encryptedFnr)
+      const veilederBorgerEncryptedFnr = selectVeilederBorgerEncryptedFnr(
+        getState() as RootState
+      )
+
+      if (veilederBorgerFnr && veilederBorgerEncryptedFnr) {
+        headers.set('fnr', veilederBorgerEncryptedFnr)
       }
     },
   }),

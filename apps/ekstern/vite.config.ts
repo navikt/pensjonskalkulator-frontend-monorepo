@@ -133,6 +133,7 @@ export default defineConfig(() => ({
         'src/state/hooks.ts',
         'src/components/common/ShowMore',
         'src/types',
+        'src/paths.ts',
       ],
       perFile: true,
       thresholds: {
