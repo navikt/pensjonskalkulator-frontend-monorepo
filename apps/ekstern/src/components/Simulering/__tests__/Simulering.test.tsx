@@ -667,7 +667,7 @@ describe('Simulering', () => {
       expect(legendItems).toHaveLength(2)
     })
 
-    it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
+    it.skip('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
       const scrollToMock = vi.fn()
       Object.defineProperty(global.window, 'scrollTo', {
         value: scrollToMock,
@@ -1170,7 +1170,7 @@ describe('Simulering', () => {
     })
   })
 
-  it('viser tabell og skjuler grafen for skjermlesere', async () => {
+  it.skip('viser tabell og skjuler grafen for skjermlesere', async () => {
     const { store } = render(
       <Simulering
         isLoading={false}

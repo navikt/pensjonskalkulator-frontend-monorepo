@@ -17,6 +17,7 @@ import {
   selectHarHentetTpoMedlemskap,
   selectIsVeileder,
   selectVeilederBorgerFnr,
+  selectVeilederBorgerEncryptedFnr,
   selectUfoeregrad,
 } from '../selectors'
 import {
@@ -391,27 +392,40 @@ describe('userInput selectors', () => {
   describe('selectVeilederBorgerFnr', () => {
     it('er undefined når veilederBorgerFnr ikke er satt', () => {
       const state: RootState = initialState
-      expect(selectVeilederBorgerFnr(state)).toStrictEqual({
-        fnr: undefined,
-        encryptedFnr: undefined,
-      })
+      expect(selectVeilederBorgerFnr(state)).toBeUndefined()
     })
 
     it('er fnr når veilederBorgerFnr er satt', () => {
       const testFnr = '81549300'
-      const encryptetFnr = 'dette-er-kryptert-fnr'
       const state: RootState = {
         ...initialState,
         userInput: {
           ...initialState.userInput,
           veilederBorgerFnr: testFnr,
+        },
+      }
+      expect(selectVeilederBorgerFnr(state)).toStrictEqual(testFnr)
+    })
+  })
+
+  describe('selectVeilederBorgerEncryptedFnr', () => {
+    it('er undefined når selectVeilederBorgerEncryptedFnr ikke er satt', () => {
+      const state: RootState = initialState
+      expect(selectVeilederBorgerEncryptedFnr(state)).toBeUndefined()
+    })
+
+    it('er fnr når veilederBorgerEncryptedFnr er satt', () => {
+      const encryptetFnr = 'dette-er-kryptert-fnr'
+      const state: RootState = {
+        ...initialState,
+        userInput: {
+          ...initialState.userInput,
           veilederBorgerEncryptedFnr: encryptetFnr,
         },
       }
-      expect(selectVeilederBorgerFnr(state)).toStrictEqual({
-        fnr: testFnr,
-        encryptedFnr: encryptetFnr,
-      })
+      expect(selectVeilederBorgerEncryptedFnr(state)).toStrictEqual(
+        encryptetFnr
+      )
     })
   })
 
