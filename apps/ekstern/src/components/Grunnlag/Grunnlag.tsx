@@ -52,7 +52,7 @@ export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
-    dispatch(userInputActions.flushCurrentSimulation())
+    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
     navigate(paths.beregningAvansert)
   }
 

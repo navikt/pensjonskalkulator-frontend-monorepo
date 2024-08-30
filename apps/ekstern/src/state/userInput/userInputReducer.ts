@@ -166,8 +166,13 @@ export const userInputSlice = createSlice({
       state.samboer = null
       state.currentSimulation = { ...userInputInitialState.currentSimulation }
     },
-    flushCurrentSimulation: (state) => {
-      state.currentSimulation = { ...userInputInitialState.currentSimulation }
+    // TODO skrive tester
+    flushCurrentSimulationUtenomUtenlandsperioder: (state) => {
+      const utenlandsperioder = state.currentSimulation.utenlandsperioder
+      state.currentSimulation = {
+        ...userInputInitialState.currentSimulation,
+        utenlandsperioder,
+      }
     },
   },
 })

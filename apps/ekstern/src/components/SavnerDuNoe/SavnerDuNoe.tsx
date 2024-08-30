@@ -22,7 +22,7 @@ export function SavnerDuNoe(props: {
   const navigate = useNavigate()
 
   const onClick = (): void => {
-    dispatch(userInputActions.flushCurrentSimulation())
+    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
     navigate(paths.beregningAvansert)
   }
 

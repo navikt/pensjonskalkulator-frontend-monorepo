@@ -99,7 +99,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
 
   const navigateToTab = (v: BeregningVisning) => {
     navigate(v === 'enkel' ? paths.beregningEnkel : paths.beregningAvansert)
-    dispatch(userInputActions.flushCurrentSimulation())
+    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
     setAvansertSkjemaModus('redigering')
     setHarAvansertSkjemaUnsavedChanges(false)
   }
