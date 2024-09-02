@@ -82,7 +82,7 @@ describe('Grunnlag', () => {
     it('brukeren kan gå til avansert fane og starte en ny beregning', async () => {
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulation'
+        'flushCurrentSimulationUtenomUtenlandsperioder'
       )
       const navigateMock = vi.fn()
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(

@@ -9,31 +9,22 @@ import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { paths } from '@/router/constants'
-import { apiSlice } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagUtenlandsopphold.module.scss'
 
-export const GrunnlagUtenlandsopphold: React.FC = () => {
+interface Props {
+  harForLiteTrygdetid?: boolean
+}
+
+export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
+  harForLiteTrygdetid,
+}) => {
   const intl = useIntl()
   const navigate = useNavigate()
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
-
-  const cachedQueries = useAppSelector(
-    (state) => state[apiSlice.reducerPath].queries
-  )
-
-  const harForLiteTrygdetid = React.useMemo(() => {
-    const latestAlerspensjonQuery = Object.entries(cachedQueries || {}).find(
-      ([key]) => key.includes('alderspensjon')
-    ) || [null, null]
-    return latestAlerspensjonQuery[1]?.data
-      ? (latestAlerspensjonQuery[1]?.data as AlderspensjonResponseBody)
-          .harForLiteTrygdetid
-      : null
-  }, [cachedQueries])
 
   const oppholdUtenforNorge = React.useMemo(():
     | 'mindre_enn_5_aar'
@@ -43,7 +34,7 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
       return 'for_lite_trygdetid'
     }
     return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
-  }, [])
+  }, [harForLiteTrygdetid, harUtenlandsopphold])
 
   const goToUtenlandsoppholdStep: React.MouseEventHandler<HTMLAnchorElement> = (
     e
