@@ -665,13 +665,6 @@
     "engelskNavn": "Iceland"
   },
   {
-    "landkode": "IMN",
-    "erAvtaleland": true,
-    "bokmaalNavn": "Isle of Man",
-    "nynorskNavn": "Isle of Man",
-    "engelskNavn": "Isle of Man"
-  },
-  {
     "landkode": "ISR",
     "erAvtaleland": true,
     "bokmaalNavn": "Israel",
@@ -957,6 +950,13 @@
     "bokmaalNavn": "Malta",
     "nynorskNavn": "Malta",
     "engelskNavn": "Malta"
+  },
+  {
+    "landkode": "IMN",
+    "erAvtaleland": true,
+    "bokmaalNavn": "Man",
+    "nynorskNavn": "Man",
+    "engelskNavn": "Isle of Man"
   },
   {
     "landkode": "MAR",
@@ -1758,7 +1758,7 @@
   },
   {
     "landkode": "ALA",
-    "erAvtaleland": false,
+    "erAvtaleland": true,
     "bokmaalNavn": "Åland",
     "nynorskNavn": "Åland",
     "engelskNavn": "Åland"
