@@ -61,6 +61,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
     e
   ) => {
     e.preventDefault()
+    logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
     navigate(paths.utenlandsopphold)
   }
 
