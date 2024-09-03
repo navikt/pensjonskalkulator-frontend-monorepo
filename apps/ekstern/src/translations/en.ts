@@ -96,6 +96,7 @@ const translations = {
   'stegvisning.utenlandsopphold.validation_error': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.mangler_opphold.validation_error':
     'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.ingress.bottom': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode':

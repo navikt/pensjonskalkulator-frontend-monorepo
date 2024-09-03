@@ -114,6 +114,7 @@ const translations = {
     'Du må svare på om du har budd eller jobba utanfor Noreg i meir enn fem år etter fylte 16 år.',
   'stegvisning.utenlandsopphold.mangler_opphold.validation_error':
     'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.ingress.bottom': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode':

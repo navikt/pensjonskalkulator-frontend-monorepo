@@ -40,6 +40,10 @@ describe('stegvisning - Utenlandsopphold', () => {
       expect(radioButtons[1]).not.toBeChecked()
       expect(result.asFragment()).toMatchSnapshot()
     })
+
+    expect(
+      screen.queryByText('stegvisning.utenlandsopphold.ingress.bottom')
+    ).not.toBeInTheDocument()
   })
 
   describe('rendrer slik den skal når spørsmålet om utenlandsopphold er besvart', async () => {
@@ -59,6 +63,9 @@ describe('stegvisning - Utenlandsopphold', () => {
         expect(radioButtons[1]).toBeChecked()
         expect(
           screen.queryByText('stegvisning.utenlandsopphold.oppholdene.title')
+        ).not.toBeInTheDocument()
+        expect(
+          screen.queryByText('stegvisning.utenlandsopphold.ingress.bottom')
         ).not.toBeInTheDocument()
       })
     })
@@ -91,6 +98,9 @@ describe('stegvisning - Utenlandsopphold', () => {
           await screen.findByText(
             'stegvisning.utenlandsopphold.oppholdene.button.legg_til'
           )
+        ).toBeVisible()
+        expect(
+          await screen.findByText('stegvisning.utenlandsopphold.ingress.bottom')
         ).toBeVisible()
       })
     })

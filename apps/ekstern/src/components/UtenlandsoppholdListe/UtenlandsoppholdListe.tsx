@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon, PlusCircleIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
-import clsx from 'clsx'
 import { parse, compareAsc } from 'date-fns'
 
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
@@ -72,11 +71,7 @@ export function UtenlandsoppholdListe({
   }, [utenlandsperioder])
 
   return (
-    <section
-      className={clsx(styles.section, {
-        [styles.section__hasBottomLine]: harRedigeringsmuligheter,
-      })}
-    >
+    <section className={styles.section}>
       <Modal
         ref={avbrytModalRef}
         header={{

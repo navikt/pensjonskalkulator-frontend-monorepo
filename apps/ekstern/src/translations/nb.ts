@@ -122,7 +122,7 @@ const translations = {
   'stegvisning.utenlandsopphold.readmore_2.title':
     'Betydning av opphold utenfor Norge for pensjon',
   'stegvisning.utenlandsopphold.readmore_2.ingress':
-    'Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års botid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. Årsaken til det er at du ikke når full trygdetid (40 år) i Norge. <kortBotidLink>Mer om kort botid i Norge</kortBotidLink>.{br}{br}Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.{br}{br}For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har bodd utenfor Norge. ',
+    'Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års trygdetid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. <kortBotidLink>Mer om kort botid i Norge</kortBotidLink>.{br}{br}Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.{br}{br}For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har oppholdt deg utenfor Norge. ',
   'stegvisning.utenlandsopphold.radio_label':
     'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?',
   'stegvisning.utenlandsopphold.radio_label.description':
@@ -133,6 +133,8 @@ const translations = {
     'Du må svare på om du har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år.',
   'stegvisning.utenlandsopphold.mangler_opphold.validation_error':
     'Du må legge til minst ett opphold eller svare «Nei» på om du har bodd eller jobbet utenfor Norge i mer enn 5 år.',
+  'stegvisning.utenlandsopphold.ingress.bottom':
+    'Hvis du ikke skal bo i Norge når du mottar pensjon, bør du undersøke reglene for eksport. Kalkulatoren vurderer ikke om du har rett til å motta hele alderspensjonen hvis du er bosatt utenfor Norge.',
   'stegvisning.utenlandsopphold.oppholdene.title':
     'Oppholdene dine utenfor Norge',
   'stegvisning.utenlandsopphold.oppholdene.description':
