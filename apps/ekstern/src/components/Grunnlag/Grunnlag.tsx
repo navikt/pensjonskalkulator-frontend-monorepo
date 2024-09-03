@@ -38,9 +38,14 @@ import styles from './Grunnlag.module.scss'
 interface Props {
   visning: BeregningVisning
   headingLevel: HeadingProps['level']
+  harForLiteTrygdetid?: boolean
 }
 
-export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
+export const Grunnlag: React.FC<Props> = ({
+  visning,
+  headingLevel,
+  harForLiteTrygdetid,
+}) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
@@ -52,7 +57,7 @@ export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
 
   const goToAvansert: React.MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
-    dispatch(userInputActions.flushCurrentSimulation())
+    dispatch(userInputActions.flushCurrentSimulationUtenomUtenlandsperioder())
     navigate(paths.beregningAvansert)
   }
 
@@ -148,7 +153,7 @@ export const Grunnlag: React.FC<Props> = ({ visning, headingLevel }) => {
         </AccordionItem>
 
         {utlandFeatureToggle?.enabled ? (
-          <GrunnlagUtenlandsopphold />
+          <GrunnlagUtenlandsopphold harForLiteTrygdetid={harForLiteTrygdetid} />
         ) : (
           <AccordionItem name="Grunnlag: Utenlandsopphold">
             <GrunnlagSection

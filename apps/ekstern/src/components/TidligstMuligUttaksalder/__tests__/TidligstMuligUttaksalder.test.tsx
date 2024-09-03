@@ -256,7 +256,7 @@ describe('TidligstMuligUttaksalder', () => {
     it('viser riktig innhold med gradert ufoeretrygd', async () => {
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulation'
+        'flushCurrentSimulationUtenomUtenlandsperioder'
       )
       const navigateMock = vi.fn()
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(

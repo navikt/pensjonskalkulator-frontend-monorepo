@@ -276,7 +276,11 @@ export const BeregningEnkel: React.FC = () => {
                 }
               />
               <Pensjonsavtaler headingLevel="3" />
-              <Grunnlag visning="enkel" headingLevel="3" />
+              <Grunnlag
+                visning="enkel"
+                headingLevel="3"
+                harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
+              />
             </>
           )}
         </div>

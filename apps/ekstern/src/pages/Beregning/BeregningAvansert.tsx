@@ -212,7 +212,11 @@ export const BeregningAvansert: React.FC = () => {
                   onButtonClick={() => setAvansertSkjemaModus('redigering')}
                 />
                 <Pensjonsavtaler headingLevel="2" />
-                <Grunnlag visning="avansert" headingLevel="2" />
+                <Grunnlag
+                  visning="avansert"
+                  headingLevel="2"
+                  harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
+                />
               </div>
               <>
                 <div

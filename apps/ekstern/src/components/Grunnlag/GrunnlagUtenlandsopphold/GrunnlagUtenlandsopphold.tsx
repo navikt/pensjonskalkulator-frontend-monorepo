@@ -9,7 +9,6 @@ import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { paths } from '@/router/constants'
-import { apiSlice } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
 import {
   selectHarUtenlandsopphold,
@@ -20,7 +19,13 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagUtenlandsopphold.module.scss'
 
-export const GrunnlagUtenlandsopphold: React.FC = () => {
+interface Props {
+  harForLiteTrygdetid?: boolean
+}
+
+export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
+  harForLiteTrygdetid,
+}) => {
   const intl = useIntl()
   const navigate = useNavigate()
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
@@ -28,37 +33,28 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
     selectCurrentSimulation
   )
 
-  const cachedQueries = useAppSelector(
-    (state) => state[apiSlice.reducerPath].queries
-  )
-
-  const harForLiteTrygdetid = React.useMemo(() => {
-    const latestAlerspensjonQuery = Object.entries(cachedQueries || {}).find(
-      ([key]) => key.includes('alderspensjon')
-    ) || [null, null]
-    return latestAlerspensjonQuery[1]?.data
-      ? (latestAlerspensjonQuery[1]?.data as AlderspensjonResponseBody)
-          .harForLiteTrygdetid
-      : null
-  }, [cachedQueries])
-
   const oppholdUtenforNorge = React.useMemo(():
     | 'mindre_enn_5_aar'
     | 'mer_enn_5_aar'
     | 'for_lite_trygdetid' => {
     if (harForLiteTrygdetid) {
+      return 'for_lite_trygdetid'
+    }
+    return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
+  }, [harForLiteTrygdetid, harUtenlandsopphold])
+
+  React.useEffect(() => {
+    if (oppholdUtenforNorge === 'for_lite_trygdetid') {
       logger('grunnlag for beregningen', {
         tekst: 'trygdetid',
         data: 'under 5 år',
       })
-      return 'for_lite_trygdetid'
+    } else {
+      logger('grunnlag for beregningen', {
+        tekst: 'trygdetid',
+        data: harUtenlandsopphold ? '5-40 år' : 'over 40 år',
+      })
     }
-
-    logger('grunnlag for beregningen', {
-      tekst: 'trygdetid',
-      data: harUtenlandsopphold ? '5-40 år' : 'over 40 år',
-    })
-    return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
   }, [formatertUttaksalderReadOnly])
 
   const goToUtenlandsoppholdStep: React.MouseEventHandler<HTMLAnchorElement> = (

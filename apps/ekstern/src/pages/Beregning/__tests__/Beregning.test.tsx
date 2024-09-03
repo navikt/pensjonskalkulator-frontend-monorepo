@@ -22,7 +22,7 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulation'
+        'flushCurrentSimulationUtenomUtenlandsperioder'
       )
       render(<Beregning visning="enkel" />, {
         preloadedState: {
@@ -54,7 +54,7 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulation'
+        'flushCurrentSimulationUtenomUtenlandsperioder'
       )
       render(<Beregning visning="avansert" />)
 

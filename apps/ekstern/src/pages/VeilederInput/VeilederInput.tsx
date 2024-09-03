@@ -25,7 +25,10 @@ import {
   useGetPersonQuery,
 } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
+import {
+  selectVeilederBorgerFnr,
+  selectVeilederBorgerEncryptedFnr,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { findRoutesWithoutLoaders } from '@/utils/veileder'
 
@@ -40,6 +43,9 @@ const router = createBrowserRouter(routes, {
 export const VeilederInput = () => {
   const dispatch = useAppDispatch()
   const veilederBorgerFnr = useAppSelector(selectVeilederBorgerFnr)
+  const veilederBorgerEncryptedFnr = useAppSelector(
+    selectVeilederBorgerEncryptedFnr
+  )
 
   const { data: ansatt } = useGetAnsattIdQuery()
 
@@ -48,7 +54,7 @@ export const VeilederInput = () => {
     isFetching: personLoading,
     error: personError,
   } = useGetPersonQuery(undefined, {
-    skip: !veilederBorgerFnr.fnr || !veilederBorgerFnr.encryptedFnr,
+    skip: !veilederBorgerFnr || !veilederBorgerEncryptedFnr,
   })
 
   const [encryptedRequestLoading, setEncryptedRequestLoading] = React.useState<
@@ -94,23 +100,28 @@ export const VeilederInput = () => {
       })
       .catch(() => {
         setEncryptedRequestLoading('ERROR')
-        throw new Error('Kunne ikke hente kryptert fnr.')
+        console.error('Kunne ikke hente kryptert fnr.')
       })
   }
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    const nyFnr = data.get(`veilederBorgerFnr`)
 
-    const nyFnr = event.currentTarget.veilederBorgerFnr.value
-    encryptFnr(nyFnr).then((encryptedFnr) => {
-      dispatch(
-        userInputActions.setVeilederBorgerFnr({
-          fnr: nyFnr,
-          encryptedFnr,
-        })
-      )
-      dispatch(apiSlice.util.invalidateTags(['Person']))
-    })
+    if (nyFnr) {
+      encryptFnr(nyFnr as string).then((encryptedFnr) => {
+        if (encryptedFnr) {
+          dispatch(
+            userInputActions.setVeilederBorgerFnr({
+              fnr: nyFnr as string,
+              encryptedFnr,
+            })
+          )
+        }
+        dispatch(apiSlice.util.invalidateTags(['Person']))
+      })
+    }
   }
 
   const excludedPaths = findRoutesWithoutLoaders(routes)
@@ -121,7 +132,7 @@ export const VeilederInput = () => {
   // Unntak for rutene som skal serveres uten å slå opp bruker
   if (isExcludedPath) {
     return (
-      <div>
+      <div data-testid="veileder-ekskludert-side">
         <InternalHeader>
           <InternalHeader.Title onClick={onTitleClick}>
             Pensjonskalkulator
@@ -134,7 +145,7 @@ export const VeilederInput = () => {
     )
   }
 
-  if ((!personSuccess && !veilederBorgerFnr.fnr) || personError || isLoading) {
+  if ((!personSuccess && !veilederBorgerFnr) || personError || isLoading) {
     return (
       <div data-testid="veileder-uten-borger">
         <InternalHeader>
@@ -157,7 +168,7 @@ export const VeilederInput = () => {
                 </Alert>
               )}
               {encryptedRequestLoading === 'ERROR' && (
-                <Alert variant="error" data-testid="inaktiv-alert">
+                <Alert variant="error" data-testid="error-alert">
                   Feil ved kryptering av fødselsnummer
                 </Alert>
               )}
@@ -203,8 +214,7 @@ export const VeilederInput = () => {
           <Spacer />
           <InternalHeader.User name={ansatt?.id ?? ''} />
         </InternalHeader>
-        <BorgerInformasjon fnr={veilederBorgerFnr!.fnr!} />
-
+        {veilederBorgerFnr && <BorgerInformasjon fnr={veilederBorgerFnr} />}
         <RouterProvider router={router} />
       </div>
     )
