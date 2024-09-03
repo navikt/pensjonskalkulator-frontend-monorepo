@@ -689,7 +689,7 @@ export interface components {
     AnonymSimuleringInntektV1: {
       /** Format: int32 */
       beloep: number
-      sluttAlder: components['schemas']['AnonymSimuleringAlderV1']
+      sluttAlder?: components['schemas']['AnonymSimuleringAlderV1']
     }
     AnonymSimuleringSpecV1: {
       simuleringType?: string
