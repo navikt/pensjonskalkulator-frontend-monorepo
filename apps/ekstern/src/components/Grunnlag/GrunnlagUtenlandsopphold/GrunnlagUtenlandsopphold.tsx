@@ -11,7 +11,11 @@ import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/Utenla
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { useAppSelector } from '@/state/hooks'
-import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
+import {
+  selectHarUtenlandsopphold,
+  selectCurrentSimulation,
+} from '@/state/userInput/selectors'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagUtenlandsopphold.module.scss'
@@ -20,6 +24,9 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
   const intl = useIntl()
   const navigate = useNavigate()
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
+  const { formatertUttaksalderReadOnly } = useAppSelector(
+    selectCurrentSimulation
+  )
 
   const cachedQueries = useAppSelector(
     (state) => state[apiSlice.reducerPath].queries
@@ -40,10 +47,19 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
     | 'mer_enn_5_aar'
     | 'for_lite_trygdetid' => {
     if (harForLiteTrygdetid) {
+      logger('grunnlag for beregningen', {
+        tekst: 'trygdetid',
+        data: 'under 5 år',
+      })
       return 'for_lite_trygdetid'
     }
+
+    logger('grunnlag for beregningen', {
+      tekst: 'trygdetid',
+      data: harUtenlandsopphold ? '5-40 år' : 'over 40 år',
+    })
     return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
-  }, [])
+  }, [formatertUttaksalderReadOnly])
 
   const goToUtenlandsoppholdStep: React.MouseEventHandler<HTMLAnchorElement> = (
     e
@@ -76,7 +92,7 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
             )}
 
             {harUtenlandsopphold && (
-              <UtenlandsoppholdListe harRedigeringsmuligheter={false} />
+              <UtenlandsoppholdListe erVisningIGrunnlag />
             )}
 
             {oppholdUtenforNorge === 'for_lite_trygdetid' && (

@@ -9,7 +9,10 @@ import { parse, compareAsc } from 'date-fns'
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
 import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppSelector, useAppDispatch } from '@/state/hooks'
-import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
+import {
+  selectCurrentSimulation,
+  selectCurrentSimulationUtenlandsperioder,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
   getTranslatedLandFromLandkode,
@@ -20,12 +23,12 @@ import { logger } from '@/utils/logging'
 import styles from './UtenlandsoppholdListe.module.scss'
 
 interface Props {
-  harRedigeringsmuligheter?: boolean
+  erVisningIGrunnlag?: boolean
   validationError?: string
 }
 
 export function UtenlandsoppholdListe({
-  harRedigeringsmuligheter,
+  erVisningIGrunnlag,
   validationError,
 }: Props) {
   const intl = useIntl()
@@ -33,6 +36,9 @@ export function UtenlandsoppholdListe({
   const utenlandsoppholdModalRef = React.useRef<HTMLDialogElement>(null)
   const utenlandsperioder = useAppSelector(
     selectCurrentSimulationUtenlandsperioder
+  )
+  const { formatertUttaksalderReadOnly } = useAppSelector(
+    selectCurrentSimulation
   )
   const dispatch = useAppDispatch()
   const [valgtUtenlandsperiodeId, setValgtUtenlandsperiodeId] =
@@ -49,6 +55,9 @@ export function UtenlandsoppholdListe({
 
   const onEditClick = (id: string) => {
     setValgtUtenlandsperiodeId(id)
+    logger('button klikk', {
+      tekst: `endre utenlandsopphold`,
+    })
     utenlandsoppholdModalRef.current?.showModal()
   }
 
@@ -71,10 +80,22 @@ export function UtenlandsoppholdListe({
     })
   }, [utenlandsperioder])
 
+  React.useEffect(() => {
+    if (erVisningIGrunnlag) {
+      utenlandsperioder.forEach((utenlandsperiode) => {
+        logger('grunnlag for beregningen', {
+          tekst: 'utenlandsopphold',
+          data: utenlandsperiode.landkode,
+          valg: utenlandsperiode.arbeidetUtenlands,
+        })
+      })
+    }
+  }, [formatertUttaksalderReadOnly, utenlandsperioder])
+
   return (
     <section
       className={clsx(styles.section, {
-        [styles.section__hasBottomLine]: harRedigeringsmuligheter,
+        [styles.section__hasBottomLine]: !erVisningIGrunnlag,
       })}
     >
       <Modal
@@ -98,6 +119,9 @@ export function UtenlandsoppholdListe({
                   valgtUtenlandsperiodeId
                 )
               )
+              logger('button klikk', {
+                tekst: `sletter utenlandsopphold`,
+              })
               avbrytModalRef.current?.close()
             }}
           >
@@ -121,7 +145,7 @@ export function UtenlandsoppholdListe({
       <Heading size="small" level="3">
         <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.title" />
       </Heading>
-      {harRedigeringsmuligheter && (
+      {!erVisningIGrunnlag && (
         <BodyShort size="medium" className={styles.bodyshort}>
           <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
         </BodyShort>
@@ -180,7 +204,7 @@ export function UtenlandsoppholdListe({
                     </dd>
                   )}
                 </div>
-                {harRedigeringsmuligheter && (
+                {!erVisningIGrunnlag && (
                   <dd className={styles.utenlandsperioderButtons}>
                     <Button
                       variant="tertiary"
@@ -213,7 +237,7 @@ export function UtenlandsoppholdListe({
             )
           })}
       </dl>
-      {harRedigeringsmuligheter && (
+      {!erVisningIGrunnlag && (
         <Button
           type="button"
           variant="secondary"

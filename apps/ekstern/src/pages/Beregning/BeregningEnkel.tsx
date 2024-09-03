@@ -131,6 +131,10 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (alderspensjon && alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
       logger('resultat vist', { tekst: 'Beregning enkel' })
+      logger('grunnlag for beregningen', {
+        tekst: 'antall opphold',
+        data: utenlandsperioder?.length ?? 0,
+      })
     }
   }, [alderspensjon])
 
