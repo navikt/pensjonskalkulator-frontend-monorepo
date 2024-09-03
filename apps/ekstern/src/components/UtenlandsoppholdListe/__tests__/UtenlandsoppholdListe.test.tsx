@@ -23,7 +23,7 @@ describe('UtenlandsoppholdListe', () => {
   ]
   describe('Gitt at listen ikke har redigeringsmuligheter', () => {
     it('Når ingen utenlandsperiode er registert, rendres slik den skal', async () => {
-      render(<UtenlandsoppholdListe />)
+      render(<UtenlandsoppholdListe erVisningIGrunnlag />)
 
       expect(
         await screen.findByText('stegvisning.utenlandsopphold.oppholdene.title')
@@ -51,7 +51,7 @@ describe('UtenlandsoppholdListe', () => {
     })
 
     it('Når utenlandsperioder er registert, rendres slik den skal', async () => {
-      render(<UtenlandsoppholdListe />, {
+      render(<UtenlandsoppholdListe erVisningIGrunnlag />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -150,7 +150,7 @@ describe('UtenlandsoppholdListe', () => {
 
   describe('Gitt at listen har redigeringsmuligheter', () => {
     it('Når ingen utenlandsperiode er registert, rendres slik den skal', async () => {
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />)
+      render(<UtenlandsoppholdListe />)
 
       expect(
         screen.getByText('stegvisning.utenlandsopphold.oppholdene.title')
@@ -186,7 +186,7 @@ describe('UtenlandsoppholdListe', () => {
     })
 
     it('Når utenlandsperioder er registert, rendres slik den skal', async () => {
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />, {
+      render(<UtenlandsoppholdListe />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -368,7 +368,7 @@ describe('UtenlandsoppholdListe', () => {
 
     it('Når brukeren ønsker å legge til et opphold, åpnes det modalen', async () => {
       const user = userEvent.setup()
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />)
+      render(<UtenlandsoppholdListe />)
 
       await user.click(
         screen.getByText(
@@ -384,7 +384,7 @@ describe('UtenlandsoppholdListe', () => {
 
     it('Når brukeren ønsker å endre et opphold, åpnes det modalen med riktig opphold', async () => {
       const user = userEvent.setup()
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />, {
+      render(<UtenlandsoppholdListe />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -415,7 +415,7 @@ describe('UtenlandsoppholdListe', () => {
 
     it('Når brukeren ønsker å slette et opphold, åpnes det modalen og oppholdet slettes ved bekreftelse', async () => {
       const user = userEvent.setup()
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />, {
+      render(<UtenlandsoppholdListe />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -476,7 +476,7 @@ describe('UtenlandsoppholdListe', () => {
   })
 
   it('Når utenlandsperioder er registert, vises de i riktig rekkefølgen', async () => {
-    render(<UtenlandsoppholdListe />, {
+    render(<UtenlandsoppholdListe erVisningIGrunnlag />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
@@ -574,7 +574,13 @@ describe('UtenlandsoppholdListe', () => {
   })
 
   it('Når validationError er oppgitt, vises den nederst', async () => {
-    render(<UtenlandsoppholdListe validationError="lorem ipsum" />, {})
+    render(
+      <UtenlandsoppholdListe
+        erVisningIGrunnlag
+        validationError="lorem ipsum"
+      />,
+      {}
+    )
     expect(await screen.findByText('lorem ipsum')).toBeVisible()
   })
 })
