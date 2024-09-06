@@ -140,10 +140,8 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description':
     'Legg til gjennomførte og planlagte opphold',
   'stegvisning.utenlandsopphold.oppholdene.description.periode': 'Periode: ',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak':
-    'til uttak av pensjon',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak':
-    'uttak av pensjon',
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold':
+    '(Varig opphold)',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet': 'Jobbet: ',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja': 'Ja',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.nei': 'Nei',

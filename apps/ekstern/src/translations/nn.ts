@@ -119,9 +119,7 @@ const translations = {
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak':
-    'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak':
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
     'MANGLER_TEKST',

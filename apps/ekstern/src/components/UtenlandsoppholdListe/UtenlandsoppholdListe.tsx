@@ -160,7 +160,7 @@ export function UtenlandsoppholdListe({
                     {utenlandsperiode.startdato}
                     {utenlandsperiode.sluttdato
                       ? `–${utenlandsperiode.sluttdato}`
-                      : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak' })}`}
+                      : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold' })}`}
                   </dd>
                   {isLocalLandAvtaleland && (
                     <dd>
