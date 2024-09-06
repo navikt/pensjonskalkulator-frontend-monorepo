@@ -9,7 +9,7 @@ import {
 } from '@/utils/dates'
 import {
   getTranslatedLandFromLandkode,
-  isAvtalelandFromLandkode,
+  harKravOmArbeidFromLandkode,
 } from '@/utils/land'
 import { logger } from '@/utils/logging'
 
@@ -83,7 +83,7 @@ export const validateOpphold = (
   }
 
   if (
-    isAvtalelandFromLandkode(landFormData as string) &&
+    harKravOmArbeidFromLandkode(landFormData as string) &&
     (!arbeidetUtenlandsFormData ||
       (arbeidetUtenlandsFormData !== 'ja' &&
         arbeidetUtenlandsFormData !== 'nei'))
@@ -281,8 +281,8 @@ export const validateOpphold = (
           }
         )
       ) {
-        // Når det allerede er registrert et opphold med et ikke-avtaleland
-        if (!isAvtalelandFromLandkode(utenlandsperioder[i].landkode)) {
+        // Når det allerede er registrert et opphold med et land uten krav om arbeid
+        if (!harKravOmArbeidFromLandkode(utenlandsperioder[i].landkode)) {
           isValid = false
           const tekst =
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland'

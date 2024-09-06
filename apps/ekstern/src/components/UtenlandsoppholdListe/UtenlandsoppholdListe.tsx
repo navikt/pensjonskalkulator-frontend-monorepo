@@ -16,7 +16,7 @@ import {
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
   getTranslatedLandFromLandkode,
-  isAvtalelandFromLandkode,
+  harKravOmArbeidFromLandkode,
 } from '@/utils/land'
 import { logger } from '@/utils/logging'
 
@@ -170,7 +170,7 @@ export function UtenlandsoppholdListe({
       >
         {sortedUtenlandsperioder.length > 0 &&
           sortedUtenlandsperioder.map((utenlandsperiode, index) => {
-            const isLocalLandAvtaleland = isAvtalelandFromLandkode(
+            const harLocalLandKravOmArbeid = harKravOmArbeidFromLandkode(
               utenlandsperiode.landkode
             )
             return (
@@ -191,7 +191,7 @@ export function UtenlandsoppholdListe({
                       ? `–${utenlandsperiode.sluttdato}`
                       : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak' })}`}
                   </dd>
-                  {isLocalLandAvtaleland && (
+                  {harLocalLandKravOmArbeid && (
                     <dd>
                       <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.har_jobbet" />
                       <FormattedMessage

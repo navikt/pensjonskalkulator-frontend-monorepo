@@ -3,7 +3,6 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
-import { utenlandsperioder } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe.module.scss'
 import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'

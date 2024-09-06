@@ -21,15 +21,15 @@ export const getTranslatedLandFromLandkode = (
   if (!selectedLand) {
     return landkode
   }
-  return getTranslatedLand(selectedLand, locale)
+  return getTranslatedLand(selectedLand as Land, locale)
 }
 
-export const isAvtalelandFromLandkode = (landkode: string) => {
+export const harKravOmArbeidFromLandkode = (landkode: string) => {
   const selectedLand = landListeData.find(
     (land: Land) => land.landkode === landkode
   )
   if (!selectedLand) {
     return false
   }
-  return selectedLand.erAvtaleland
+  return !!selectedLand.kravOmArbeid
 }

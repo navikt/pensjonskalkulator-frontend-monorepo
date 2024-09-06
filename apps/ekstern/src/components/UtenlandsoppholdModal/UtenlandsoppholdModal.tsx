@@ -50,7 +50,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
 
   const [
     localUtenlandsperiode,
-    isLocalLandAvtaleland,
+    harLocalLandKravOmArbeid,
     datepickerStartdato,
     datepickerSluttdato,
     validationErrors,
@@ -159,7 +159,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
             </Select>
             {localUtenlandsperiode?.landkode && (
               <>
-                {isLocalLandAvtaleland && (
+                {harLocalLandKravOmArbeid && (
                   <RadioGroup
                     form={UTENLANDSOPPHOLD_FORM_NAMES.form}
                     id={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}

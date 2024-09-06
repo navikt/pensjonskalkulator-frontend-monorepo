@@ -69,7 +69,7 @@ describe('UtenlandsoppholdModal', () => {
       expect(onSubmitCallbackMock).not.toHaveBeenCalled()
     })
 
-    it('viser resten av skjemaet kun etter at land er valgt, og viser radio om jobbopphold kun når landet er avtaleland', async () => {
+    it('viser resten av skjemaet kun etter at land er valgt, og viser radio om jobbopphold kun når landet har krav om arbeid', async () => {
       const modalRef = React.createRef<HTMLDialogElement>()
 
       render(

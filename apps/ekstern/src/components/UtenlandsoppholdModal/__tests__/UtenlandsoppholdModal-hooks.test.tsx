@@ -83,7 +83,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
         sluttdato: undefined,
         startdato: undefined,
       })
-      // isLocalLandAvtaleland
+      // harLocalLandKravOmArbeid
       expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
       expect(
@@ -150,7 +150,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
         sluttdato: undefined,
         startdato: undefined,
       })
-      // isLocalLandAvtaleland
+      // harLocalLandKravOmArbeid
       expect(result.current[1]).toBeUndefined()
       // datepickerStartdato
       expect(
@@ -212,7 +212,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
         startdato: '12.12.2021',
         sluttdato: '12.12.2025',
       })
-      // isLocalLandAvtaleland
+      // harLocalLandKravOmArbeid
       expect(result.current[1]).toBeTruthy()
       // datepickerStartdato
       expect(

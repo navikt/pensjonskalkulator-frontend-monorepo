@@ -776,7 +776,7 @@ export interface components {
     }
     LandInfo: {
       landkode: string
-      erAvtaleland: boolean
+      kravOmArbeid?: boolean
       bokmaalNavn: string
       nynorskNavn: string
       engelskNavn: string
