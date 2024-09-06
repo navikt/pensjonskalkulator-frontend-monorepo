@@ -10,7 +10,11 @@ import { AccordionItem } from '@/components/common/AccordionItem'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { paths } from '@/router/constants'
 import { useAppSelector } from '@/state/hooks'
-import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
+import {
+  selectHarUtenlandsopphold,
+  selectCurrentSimulation,
+} from '@/state/userInput/selectors'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagUtenlandsopphold.module.scss'
@@ -25,6 +29,9 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
   const intl = useIntl()
   const navigate = useNavigate()
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
+  const { formatertUttaksalderReadOnly } = useAppSelector(
+    selectCurrentSimulation
+  )
 
   const oppholdUtenforNorge = React.useMemo(():
     | 'mindre_enn_5_aar'
@@ -36,10 +43,25 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
     return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
   }, [harForLiteTrygdetid, harUtenlandsopphold])
 
+  React.useEffect(() => {
+    if (oppholdUtenforNorge === 'for_lite_trygdetid') {
+      logger('grunnlag for beregningen', {
+        tekst: 'trygdetid',
+        data: 'under 5 år',
+      })
+    } else {
+      logger('grunnlag for beregningen', {
+        tekst: 'trygdetid',
+        data: harUtenlandsopphold ? '5-40 år' : 'over 40 år',
+      })
+    }
+  }, [formatertUttaksalderReadOnly])
+
   const goToUtenlandsoppholdStep: React.MouseEventHandler<HTMLAnchorElement> = (
     e
   ) => {
     e.preventDefault()
+    logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
     navigate(paths.utenlandsopphold)
   }
 
@@ -67,7 +89,7 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
             )}
 
             {harUtenlandsopphold && (
-              <UtenlandsoppholdListe harRedigeringsmuligheter={false} />
+              <UtenlandsoppholdListe erVisningIGrunnlag />
             )}
 
             {oppholdUtenforNorge === 'for_lite_trygdetid' && (

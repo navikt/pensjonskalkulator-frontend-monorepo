@@ -182,10 +182,7 @@ export function Utenlandsopphold({
 
       {showUtenlandsperioder && (
         <>
-          <UtenlandsoppholdListe
-            validationError={validationErrors.bottom}
-            harRedigeringsmuligheter
-          />
+          <UtenlandsoppholdListe validationError={validationErrors.bottom} />
           <BodyLong size="medium" className={styles.ingressBottom}>
             <FormattedMessage id="stegvisning.utenlandsopphold.ingress.bottom" />
           </BodyLong>

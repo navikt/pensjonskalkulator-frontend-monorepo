@@ -133,6 +133,10 @@ export const BeregningAvansert: React.FC = () => {
     }
     if (alderspensjon && alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
       logger('resultat vist', { tekst: 'Beregning avansert' })
+      logger('grunnlag for beregningen', {
+        tekst: 'antall opphold',
+        data: utenlandsperioder?.length ?? 0,
+      })
     }
   }, [alderspensjon])
 
