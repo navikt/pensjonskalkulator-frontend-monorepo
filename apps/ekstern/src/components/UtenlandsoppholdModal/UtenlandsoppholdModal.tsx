@@ -140,7 +140,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                 .overlappende_periodeslutt
                             ]
                           : intl.formatMessage({
-                              id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                              id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
                             }),
                       }
                     )
@@ -216,7 +216,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                       .overlappende_periodeslutt
                                   ]
                                 : intl.formatMessage({
-                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
                                   }),
                             }
                           )
@@ -277,7 +277,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                       .overlappende_periodeslutt
                                   ]
                                 : intl.formatMessage({
-                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
                                   }),
                             }
                           )

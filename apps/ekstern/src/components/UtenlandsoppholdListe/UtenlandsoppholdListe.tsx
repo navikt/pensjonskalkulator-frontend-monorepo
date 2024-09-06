@@ -3,7 +3,6 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon, PlusCircleIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
-import clsx from 'clsx'
 import { parse, compareAsc } from 'date-fns'
 
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
@@ -93,11 +92,7 @@ export function UtenlandsoppholdListe({
   }, [formatertUttaksalderReadOnly, utenlandsperioder])
 
   return (
-    <section
-      className={clsx(styles.section, {
-        [styles.section__hasBottomLine]: !erVisningIGrunnlag,
-      })}
-    >
+    <section className={styles.section}>
       <Modal
         ref={avbrytModalRef}
         header={{
@@ -189,7 +184,7 @@ export function UtenlandsoppholdListe({
                     {utenlandsperiode.startdato}
                     {utenlandsperiode.sluttdato
                       ? `–${utenlandsperiode.sluttdato}`
-                      : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak' })}`}
+                      : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold' })}`}
                   </dd>
                   {harLocalLandKravOmArbeid && (
                     <dd>
