@@ -563,10 +563,6 @@ describe('UtenlandsoppholdListe', () => {
               01.01.1970
               –31.12.1990
             </dd>
-            <dd>
-              stegvisning.utenlandsopphold.oppholdene.description.har_jobbet
-              stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja
-            </dd>
           </div>
         </div>
       </dl>

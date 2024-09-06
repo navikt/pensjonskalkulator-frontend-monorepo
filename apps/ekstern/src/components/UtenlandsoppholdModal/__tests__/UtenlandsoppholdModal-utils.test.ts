@@ -102,7 +102,7 @@ describe('UtenlandsoppholdModal-utils', () => {
             validateOpphold(
               {
                 ...correctInputData,
-                landFormData: 'NLD',
+                landFormData: 'FRA',
                 arbeidetUtenlandsFormData: null,
               },
               foedselsdato,
@@ -127,7 +127,7 @@ describe('UtenlandsoppholdModal-utils', () => {
             validateOpphold(
               {
                 ...correctInputData,
-                landFormData: 'NLD',
+                landFormData: 'FRA',
                 arbeidetUtenlandsFormData: '',
               },
               foedselsdato,
@@ -151,7 +151,7 @@ describe('UtenlandsoppholdModal-utils', () => {
             validateOpphold(
               {
                 ...correctInputData,
-                landFormData: 'NLD',
+                landFormData: 'FRA',
                 arbeidetUtenlandsFormData: 'lorem',
               },
               foedselsdato,

@@ -56,7 +56,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       foedselsdato: foedselsdato,
       utenlandsperiode: {
         id: '1',
-        landkode: 'SWE',
+        landkode: 'FRA',
         arbeidetUtenlands: true,
         startdato: '12.12.2021',
         sluttdato: '12.12.2025',
@@ -208,7 +208,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       expect(result.current[0]).toStrictEqual({
         arbeidetUtenlands: true,
         id: '1',
-        landkode: 'SWE',
+        landkode: 'FRA',
         startdato: '12.12.2021',
         sluttdato: '12.12.2025',
       })
@@ -275,7 +275,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       expect(result.current[0]).toStrictEqual({
         arbeidetUtenlands: true,
         id: '1',
-        landkode: 'SWE',
+        landkode: 'FRA',
         startdato: '12.12.2021',
         sluttdato: '12.12.2025',
       })
@@ -340,7 +340,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       expect(result.current[0]).toStrictEqual({
         arbeidetUtenlands: true,
         id: '1',
-        landkode: 'SWE',
+        landkode: 'FRA',
         startdato: '12.12.2021',
         sluttdato: '12.12.2025',
       })
@@ -382,7 +382,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       expect(result.current[0]).toStrictEqual({
         arbeidetUtenlands: false,
         id: '1',
-        landkode: 'SWE',
+        landkode: 'FRA',
         startdato: '12.12.2021',
         sluttdato: '12.12.2025',
       })
@@ -403,7 +403,7 @@ describe('UtenlandsoppholdModal-hooks', () => {
       expect(result.current[0]).toStrictEqual({
         arbeidetUtenlands: true,
         id: '1',
-        landkode: 'SWE',
+        landkode: 'FRA',
         sluttdato: '12.12.2025',
         startdato: '12.12.2021',
       })
