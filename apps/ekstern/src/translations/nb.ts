@@ -491,11 +491,14 @@ const translations = {
   'grunnlag.opphold.ingress.endre_opphold.link': 'Opphold utenfor Norge',
   'grunnlag.opphold.ingress.mindre_enn_5_aar':
     'Beregningen forutsetter at du ikke har bodd eller jobbet utenfor Norge i mer enn 5 år fra fylte 16 år frem til du tar ut pensjon.',
-
   'grunnlag.opphold.ingress.for_lite_trygdetid':
     'Du har bodd mindre enn 5 år i Norge. Beregningen din kan være mangelfull.',
   'grunnlag.opphold.bunntekst':
     'Når du søker om alderspensjon vil opplysninger om opphold utenfor Norge sjekkes mot pensjonsmyndigheter i avtaleland. Den endelige pensjonen din kan derfor bli annerledes.',
+  'grunnlag.opphold.avbryt_modal.title':
+    'Hvis du går tilbake for å endre oppholdene dine, mister du alle valgene dine i beregningen.',
+  'grunnlag.opphold.avbryt_modal.bekreft': 'Gå tilbake til opphold',
+  'grunnlag.opphold.avbryt_modal.avbryt': 'Avbryt',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':

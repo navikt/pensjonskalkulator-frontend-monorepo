@@ -3,17 +3,18 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
-import { BodyLong, Link } from '@navikt/ds-react'
+import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
 
 import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { paths } from '@/router/constants'
-import { useAppSelector } from '@/state/hooks'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectHarUtenlandsopphold,
   selectCurrentSimulation,
 } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -27,7 +28,9 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
   harForLiteTrygdetid,
 }) => {
   const intl = useIntl()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const avbrytModalRef = React.useRef<HTMLDialogElement>(null)
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
   const { formatertUttaksalderReadOnly } = useAppSelector(
     selectCurrentSimulation
@@ -61,12 +64,49 @@ export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
     e
   ) => {
     e.preventDefault()
-    logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
-    navigate(paths.utenlandsopphold)
+    avbrytModalRef.current?.showModal()
   }
 
   return (
     <>
+      <Modal
+        ref={avbrytModalRef}
+        header={{
+          heading: intl.formatMessage({
+            id: 'grunnlag.opphold.avbryt_modal.title',
+          }),
+        }}
+        width="medium"
+      >
+        <Modal.Footer>
+          <Button
+            type="button"
+            onClick={() => {
+              logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
+              dispatch(
+                userInputActions.flushCurrentSimulationUtenomUtenlandsperioder()
+              )
+              avbrytModalRef.current?.close()
+              navigate(paths.utenlandsopphold)
+            }}
+          >
+            {intl.formatMessage({
+              id: 'grunnlag.opphold.avbryt_modal.bekreft',
+            })}
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => {
+              avbrytModalRef.current?.close()
+            }}
+          >
+            {intl.formatMessage({
+              id: 'grunnlag.opphold.avbryt_modal.avbryt',
+            })}
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <AccordionItem name="Grunnlag: Utenlandsopphold">
         <GrunnlagSection
           headerTitle={intl.formatMessage({
