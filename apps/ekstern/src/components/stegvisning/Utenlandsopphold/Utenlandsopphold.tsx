@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
+import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { useAppSelector } from '@/state/hooks'
@@ -180,8 +181,15 @@ export function Utenlandsopphold({
       </RadioGroup>
 
       {showUtenlandsperioder && (
-        <UtenlandsoppholdListe validationError={validationErrors.bottom} />
+        <>
+          <UtenlandsoppholdListe validationError={validationErrors.bottom} />
+          <BodyLong size="medium" className={styles.ingressBottom}>
+            <FormattedMessage id="stegvisning.utenlandsopphold.ingress.bottom" />
+          </BodyLong>
+          <Divider smallMargin />
+        </>
       )}
+
       <Button
         form="har-utenlandsopphold"
         type="submit"

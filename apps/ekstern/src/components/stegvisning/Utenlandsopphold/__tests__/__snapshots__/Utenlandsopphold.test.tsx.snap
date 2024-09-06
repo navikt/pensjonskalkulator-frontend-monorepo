@@ -151,7 +151,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
         aria-hidden="true"
         class="navds-read-more__content navds-read-more__content--closed navds-body-long navds-body-long--medium"
       >
-        Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års botid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. Årsaken til det er at du ikke når full trygdetid (40 år) i Norge. 
+        Hvis du oppholder deg i utlandet i mer enn 12 måneder, er du som hovedregel ikke medlem av folketrygden i den perioden. Har du bodd eller jobbet utenfor Norge så lenge at du ikke får 40 års trygdetid i Norge mellom fylte 16 år og uttak av alderspensjon, kan utenlandsoppholdet føre til lavere pensjon i Norge. 
         <a
           class="navds-link navds-link--action navds-link--inline-text"
           href="https://www.nav.no/alderspensjon#kort-botid"
@@ -187,7 +187,7 @@ exports[`stegvisning - Utenlandsopphold > rendrer slik den skal når spørsmåle
         Det er flere faktorer som avgjør om opphold utenfor Norge påvirker pensjonen. Blant annet lengden på oppholdet, trygdeavtaler med landet, og årsak til oppholdet som arbeid, ferie og studier.
         <br />
         <br />
-        For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har bodd utenfor Norge. 
+        For en mest mulig riktig beregning bør du derfor legge inn alle periodene du har oppholdt deg utenfor Norge. 
       </div>
     </div>
     <fieldset

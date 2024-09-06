@@ -97,7 +97,7 @@ describe('UtenlandsoppholdListe', () => {
               <dd>
                 stegvisning.utenlandsopphold.oppholdene.description.periode
                 01.04.2024
-                 stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak
+                 stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold
               </dd>
               <dd>
                 stegvisning.utenlandsopphold.oppholdene.description.har_jobbet
@@ -230,7 +230,7 @@ describe('UtenlandsoppholdListe', () => {
               <dd>
                 stegvisning.utenlandsopphold.oppholdene.description.periode
                 01.04.2024
-                 stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak
+                 stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold
               </dd>
               <dd>
                 stegvisning.utenlandsopphold.oppholdene.description.har_jobbet
@@ -521,7 +521,7 @@ describe('UtenlandsoppholdListe', () => {
             <dd>
               stegvisning.utenlandsopphold.oppholdene.description.periode
               01.04.2024
-               stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak
+               stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold
             </dd>
             <dd>
               stegvisning.utenlandsopphold.oppholdene.description.har_jobbet
