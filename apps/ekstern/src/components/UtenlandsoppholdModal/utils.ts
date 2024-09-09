@@ -242,7 +242,11 @@ export const validateOpphold = (
       })
     }
   }
-
+  console.log(
+    'isValid && utenlandsperioder.length > 0',
+    isValid,
+    utenlandsperioder.length
+  )
   // Hvis alt er gyldig hittil, sjekk overlappende perioder
   if (isValid && utenlandsperioder.length > 0) {
     const currentInterval = {

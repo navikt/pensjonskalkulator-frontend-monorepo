@@ -121,9 +121,9 @@ describe('Hovedhistorie', () => {
           cy.contains('button', 'Kom i gang').click()
         })
         it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge.', () => {
-          cy.contains('h2', 'Utenlandsopphold').should('exist')
+          cy.contains('h2', 'Opphold utenfor Norge').should('exist')
           cy.contains(
-            'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?'
+            'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?'
           ).should('exist')
         })
         it('forventer jeg å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {

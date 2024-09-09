@@ -234,6 +234,7 @@ export function UtenlandsoppholdListe({
       </dl>
       {!erVisningIGrunnlag && (
         <Button
+          data-testid="legg-til-utenlandsopphold"
           type="button"
           variant="secondary"
           icon={<PlusCircleIcon aria-hidden />}
