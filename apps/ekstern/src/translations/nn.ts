@@ -425,6 +425,9 @@ const translations = {
   'grunnlag.opphold.ingress.mindre_enn_5_aar': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.bunntekst': 'MANGLER_TEKST',
+  'grunnlag.opphold.avbryt_modal.title': 'MANGLER_TEKST',
+  'grunnlag.opphold.avbryt_modal.bekreft': 'MANGLER_TEKST',
+  'grunnlag.opphold.avbryt_modal.avbryt': 'MANGLER_TEKST',
   'grunnlag.alderspensjon.title': 'Alderspensjon',
   'grunnlag.alderspensjon.value': 'Folketrygden (NAV)',
   'grunnlag.alderspensjon.ingress':

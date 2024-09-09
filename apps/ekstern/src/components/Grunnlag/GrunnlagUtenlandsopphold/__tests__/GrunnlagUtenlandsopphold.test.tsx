@@ -150,6 +150,22 @@ describe('GrunnlagUtenlandsopphold', () => {
       await screen.findByText('grunnlag.opphold.ingress.endre_opphold.link')
     )
 
+    expect(
+      await screen.findByText('grunnlag.opphold.avbryt_modal.title')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.opphold.avbryt_modal.avbryt')
+    ).toBeVisible()
+    expect(navigateMock).not.toHaveBeenCalled()
+    expect(
+      await screen.findByText('grunnlag.opphold.avbryt_modal.bekreft')
+    ).toBeVisible()
+    await user.click(screen.getByText('grunnlag.opphold.avbryt_modal.avbryt'))
+    await user.click(
+      screen.getByText('grunnlag.opphold.ingress.endre_opphold.link')
+    )
+    await user.click(screen.getByText('grunnlag.opphold.avbryt_modal.bekreft'))
+
     expect(navigateMock).toHaveBeenCalledWith('/utenlandsopphold')
   })
 })
