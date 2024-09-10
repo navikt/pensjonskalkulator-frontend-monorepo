@@ -242,7 +242,6 @@ export const validateOpphold = (
       })
     }
   }
-
   // Hvis alt er gyldig hittil, sjekk overlappende perioder
   if (isValid && utenlandsperioder.length > 0) {
     const currentInterval = {
@@ -253,7 +252,10 @@ export const validateOpphold = (
       ),
       end: sluttdatoFormData
         ? parse(sluttdatoFormData as string, DATE_ENDUSER_FORMAT, new Date())
-        : new Date(),
+        : addYears(
+            parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date()),
+            100
+          ),
     }
 
     for (let i = 0; i < utenlandsperioder.length; i++) {
@@ -277,7 +279,14 @@ export const validateOpphold = (
                   DATE_ENDUSER_FORMAT,
                   new Date()
                 )
-              : new Date(),
+              : addYears(
+                  parse(
+                    foedselsdato as string,
+                    DATE_BACKEND_FORMAT,
+                    new Date()
+                  ),
+                  100
+                ),
           }
         )
       ) {
