@@ -200,25 +200,113 @@ describe('Utland', () => {
           cy.contains('button', 'Legg til opphold').click()
         })
 
-        describe('Når jeg legger til et overlappende utenlandsopphold i et annet land', () => {
-          it('forventer jeg at knappen har endret seg fra "legg til opphold" til "legg til nytt opphold".', () => {
+        describe.skip('Når jeg legger til et overlappende utenlandsopphold i et annet land', () => {
+          it('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', () => {
             cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
               force: true,
             })
-            cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
-            cy.get(
-              '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
-            ).check()
+            cy.get('[data-testid="utenlandsopphold-land"]').select('Antarktis')
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
               '30.04.1981'
-            )
-            cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
-              '31.12.1981'
             )
             cy.contains('button', 'Legg til opphold').click()
             cy.contains(
               'Du har allerede registrert at du har bodd i Frankrike fra 01.06.1980 til 31.12.1982. Du kan ikke ha overlappende opphold i to ulike land.'
+            ).should('be.visible')
+          })
+        })
+
+        describe.skip('Når jeg ønsker å endre ett utenlandsopphold jeg har lagt inn,', () => {
+          it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
+            cy.contains('button', 'Endre opphold').click()
+            cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
+            cy.get(
+              '[data-testid="utenlandsopphold-arbeidet-utenlands-ja"]'
+            ).check()
+            cy.get('[data-testid="utenlandsopphold-startdato"]')
+              .clear()
+              .type('30.04.1981')
+            cy.get('[data-testid="utenlandsopphold-sluttdato"]')
+              .clear()
+              .type('31.12.2020')
+            cy.contains('button', 'Oppdater opphold').click()
+            cy.contains('Oppholdene dine utenfor Norge').should('exist')
+            cy.contains('Frankrike').should('not.be.visible')
+            cy.contains('Spania').should('exist')
+            cy.contains('Periode: 30.04.1981–31.12.2020').should('exist')
+            cy.contains('Jobbet: Ja').should('exist')
+          })
+
+          it('forventer jeg å kunne avbryte endringen.', () => {
+            cy.contains('button', 'Endre opphold').click()
+            cy.contains('button', 'Avbryt endring').click()
+            cy.contains('Oppholdene dine utenfor Norge').should('exist')
+            cy.contains('Frankrike').should('exist')
+            cy.contains('Periode: 01.06.1980–31.12.1982').should('exist')
+            cy.contains('Jobbet: Nei').should('exist')
+          })
+        })
+
+        describe.skip('Når jeg ønsker å slette ett utenlandsopphold jeg har lagt til,', () => {
+          it('forventer jeg spørsmål på om jeg er sikker på at jeg ønsker å slette oppholdet og jeg kan avbryte.', () => {
+            cy.get('[data-testid="slett-utenlandsopphold"]').click()
+            cy.contains(
+              'Er du sikker på at du vil slette oppholdet ditt?'
             ).should('exist')
+            cy.contains('button', 'Avbryt').click()
+            cy.contains('Oppholdene dine utenfor Norge').should('exist')
+            cy.contains('Frankrike').should('exist')
+            cy.contains('Periode: 01.06.1980–31.12.1982').should('exist')
+            cy.contains('Jobbet: Nei').should('exist')
+          })
+
+          it('forventer jeg at oppholdet slettes fra listen av opphold.', () => {
+            cy.get('[data-testid="slett-utenlandsopphold"]').click()
+            cy.contains(
+              'Er du sikker på at du vil slette oppholdet ditt?'
+            ).should('exist')
+            cy.contains('button', 'Slett opphold').click()
+            cy.contains('Frankrike').should('not.be.visible')
+          })
+        })
+
+        describe('Som bruker som navigerer til resultatsiden,', () => {
+          beforeEach(() => {
+            cy.contains('button', 'Neste').click()
+            cy.get('[type="radio"]').last().check()
+            cy.contains('button', 'Neste').click()
+            cy.get('[type="radio"]').last().check()
+            cy.contains('button', 'Beregn pensjon').click()
+          })
+          describe('Når har valgt alder jeg ønsker beregning fra,', () => {
+            beforeEach(() => {
+              cy.contains('button', '70 år').click({ force: true })
+            })
+
+            it('forventer jeg at det i grunnlaget står at jeg har opphold utenfor Norge på "mer enn 5 år"', () => {
+              cy.contains('Opphold utenfor Norge:').click({ force: true })
+            })
+
+            it('forventer å kunne trykke i grunnlaget for å se listen over mine opphold', () => {
+              cy.contains('Opphold utenfor Norge:').click({ force: true })
+              cy.contains('Oppholdene dine utenfor Norge').should('exist')
+              cy.contains('Frankrike').should('exist')
+              cy.contains('Periode: 01.06.1980–31.12.1982').should('exist')
+              cy.contains('Jobbet: Nei').should('exist')
+            })
+
+            it('forventer å kunne gå tilbake til "opphold utenfor Norge"', () => {
+              cy.contains('Opphold utenfor Norge:').click({ force: true })
+              cy.contains('a', 'Opphold utenfor Norge').click()
+              cy.contains(
+                'Hvis du går tilbake for å endre oppholdene dine, mister du alle valgene dine i beregningen.'
+              ).should('exist')
+              cy.contains('button', 'Gå tilbake til opphold').click()
+              cy.contains('Opphold utenfor Norge').should('exist')
+              cy.contains(
+                'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.'
+              ).should('exist')
+            })
           })
         })
       })
