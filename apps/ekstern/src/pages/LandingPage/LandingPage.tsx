@@ -91,44 +91,47 @@ export const LandingPage = () => {
               id: 'landingsside.velge_mellom_detaljert_og_enkel',
             })}
           </BodyLong>
+          <HStack gap="4">
+            <Button
+              data-testid="landingside-enkel-kalkulator-button"
+              variant="primary"
+              onClick={wrapLogger('button klikk', {
+                tekst: 'Enkel kalkulator',
+              })(gaaTilEnkelKalkulator)}
+            >
+              {enkelKalkulatorButtonText}
+            </Button>
+          </HStack>
+          <Link
+            onClick={logOpenLink}
+            className={styles.link}
+            as={ReactRouterLink}
+            to={paths.personopplysninger}
+            target="_blank"
+            inlineText
+          >
+            <FormattedMessage id="landingsside.link.personopplysninger" />
+            <ExternalLinkIcon
+              title={intl.formatMessage({
+                id: 'application.global.external_link',
+              })}
+              width="1.25rem"
+              height="1.25rem"
+            />
+          </Link>
+
           <div>
             <BodyLong>
               {intl.formatMessage({
                 id: 'landingsside.velge_mellom_detaljert_og_enkel_2',
               })}
             </BodyLong>
-            <ul>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.1',
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  id: 'landingsside.liste.2',
-                })}
-              </li>
-            </ul>
-            <BodyLong className={styles.paragraph}>
-              {intl.formatMessage({
-                id: 'landingsside.velge_mellom_detaljert_og_enkel_3',
-              })}
-            </BodyLong>
+          </div>
+          <div>
             <HStack gap="4">
-              <Button
-                data-testid="landingside-enkel-kalkulator-button"
-                variant="primary"
-                className={styles.button}
-                onClick={wrapLogger('button klikk', {
-                  tekst: 'Enkel kalkulator',
-                })(gaaTilEnkelKalkulator)}
-              >
-                {enkelKalkulatorButtonText}
-              </Button>
               <Button
                 data-testid="landingside-detaljert-kalkulator-button"
                 variant="secondary"
-                className={styles.button}
                 onClick={wrapLogger('button klikk', {
                   tekst: 'Detaljert pensjonskalkulator',
                 })(gaaTilDetaljertKalkulator)}
@@ -141,26 +144,6 @@ export const LandingPage = () => {
       </section>
     )
   }
-
-  const BottomLink: React.FC = () => (
-    <Link
-      onClick={logOpenLink}
-      className={styles.link}
-      as={ReactRouterLink}
-      to={paths.personopplysninger}
-      target="_blank"
-      inlineText
-    >
-      <FormattedMessage id="landingsside.link.personopplysninger" />
-      <ExternalLinkIcon
-        title={intl.formatMessage({
-          id: 'application.global.external_link',
-        })}
-        width="1.25rem"
-        height="1.25rem"
-      />
-    </Link>
-  )
 
   return isLoggedIn ? (
     <React.Suspense
@@ -178,7 +161,6 @@ export const LandingPage = () => {
             <VStack gap="10">
               <TopSection shouldRedirectTo={shouldRedirectTo} />
             </VStack>
-            <BottomLink />
           </div>
         )}
       </Await>
@@ -243,7 +225,6 @@ export const LandingPage = () => {
           </VStack>
         </section>
       </VStack>
-      <BottomLink />
     </div>
   )
 }

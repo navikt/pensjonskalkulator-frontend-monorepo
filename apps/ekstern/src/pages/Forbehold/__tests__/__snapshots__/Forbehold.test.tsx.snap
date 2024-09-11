@@ -42,40 +42,19 @@ exports[`Forbehold > rendrer riktig 1`] = `
       <p
         class="navds-body-long navds-body-long--medium navds-typo--spacing"
       >
-        Kalkulatoren forutsetter at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon.
+        Hvis du ikke har registrert utenlandsopphold i kalkulatoren, forutsetter kalkulatoren at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon.
         <br />
         <br />
-        Hvis du har mindre enn 40 års trygdetid kan det påvirke hvor mye du får i alderspensjon, og når du kan ta ut alderspensjon. I denne utgaven av kalkulatoren kan du foreløpig ikke registrere opphold utenfor Norge. For å få beregnet alderspensjonen din så riktig som mulig, må du derfor benytte 
-        <a
-          class="navds-link navds-link--action navds-link--inline-text"
-          href="https://www.nav.no/pselv/simulering.jsf"
-          target="_blank"
-        >
-          detaljert pensjonskalkulator
-          <svg
-            aria-labelledby="title-r1"
-            fill="none"
-            focusable="false"
-            height="1.25rem"
-            role="img"
-            viewBox="0 0 24 24"
-            width="1.25rem"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title
-              id="title-r1"
-            >
-              application.global.external_link
-            </title>
-            <path
-              clip-rule="evenodd"
-              d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </a>
-        .
+        Har du bodd eller jobbet utenfor Norge kan beregning og tidspunktet du tidligst kan ta ut pensjon være unøyaktig. NAV fastsetter endelig trygdetid når du søker om pensjon. NAV kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon. Merk at det kan komme endringer i trygdeavtaler med andre land.
+        <br />
+        <br />
+        Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi kalkulatoren da bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du også ha rett til garantipensjon.
+        <br />
+        <br />
+        Kalkulatoren tar ikke hensyn til regler om eksport. Den vurderer dermed ikke om du har rett til å motta garantipensjon hvis du er bosatt utenfor Norge.
+        <br />
+        <br />
+        Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen.
       </p>
     </section>
     <section>

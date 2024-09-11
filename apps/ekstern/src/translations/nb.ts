@@ -38,17 +38,12 @@ const translations = {
   'error.404.button.link_2': 'Les om pensjon',
   'landingsside.for.deg.foedt.foer.1963': 'For deg født før 1963',
   'landingsside.du.maa.bruke.detaljert':
-    'Du må bruke vår detaljerte kalkulator. Den gir deg en beregning av alderspensjon fra folketrygden (NAV), AFP (avtalefestet pensjon) fra offentlig og privat sektor og pensjonsavtaler (arbeidsgivere og sparing).',
+    'Du må bruke vår detaljerte kalkulator. Den gir deg en beregning av alderspensjon fra folketrygden (NAV), AFP (avtalefestet pensjon) i offentlig og privat sektor og pensjonsavtaler (arbeidsgivere og sparing).',
   'landingsside.for.deg.foedt.etter.1963': 'For deg født i 1963 eller senere',
   'landingsside.velge_mellom_detaljert_og_enkel':
     'I pensjonskalkulatoren kan du sjekke alderspensjon fra NAV, tjenestepensjon fra privat sektor og AFP fra offentlig og privat sektor.',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
-    'Pensjonskalkulatoren er under utvikling. Derfor må du bruke detaljert pensjonskalkulator hvis du: ',
-  'landingsside.velge_mellom_detaljert_og_enkel_3':
-    'Detaljert pensjonskalkulator støtter ikke AFP i offentlig sektor.',
-  'landingsside.liste.1':
-    'har bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år',
-  'landingsside.liste.2': 'vil ha en mer detaljert beregning',
+    'Hvis du trenger å lagre beregningen din eller se detaljert beregning kan du bruke detaljert pensjonskalkulator. Den viser ikke livsvarig AFP i offentlig sektor.',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert pensjonskalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
@@ -627,9 +622,9 @@ const translations = {
   'forbehold.inntekt.title': 'Inntekt',
   'forbehold.inntekt.ingress':
     'I beregningen benytter vi din siste registrerte pensjonsgivende årsinntekt som NAV har mottatt fra Skatteetaten. Den blir brukt som din fremtidige inntekt frem til du starter uttak av alderspensjon, med mindre du selv endrer inntekten i kalkulatoren.',
-  'forbehold.utenlandsopphold.title': 'Utenlandsopphold',
+  'forbehold.utenlandsopphold.title': 'Opphold utenfor Norge',
   'forbehold.utenlandsopphold.ingress':
-    'Kalkulatoren forutsetter at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon.{br}{br}Hvis du har mindre enn 40 års trygdetid kan det påvirke hvor mye du får i alderspensjon, og når du kan ta ut alderspensjon. I denne utgaven av kalkulatoren kan du foreløpig ikke registrere opphold utenfor Norge. For å få beregnet alderspensjonen din så riktig som mulig, må du derfor benytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
+    'Hvis du ikke har registrert utenlandsopphold i kalkulatoren, forutsetter kalkulatoren at du på tidspunktet for uttak av alderspensjon har bodd i Norge i minst 40 år fra fylte 16 år og frem til du tar ut pensjon.{br}{br}Har du bodd eller jobbet utenfor Norge kan beregning og tidspunktet du tidligst kan ta ut pensjon være unøyaktig. NAV fastsetter endelig trygdetid når du søker om pensjon. NAV kan også være avhengig av å innhente opplysninger fra utenlandske pensjonsmyndigheter for å vurdere når du kan starte uttak av pensjon. Merk at det kan komme endringer i trygdeavtaler med andre land.{br}{br}Har du mindre enn 5 års trygdetid i Norge kan beregningen være mangelfull fordi kalkulatoren da bare viser inntektspensjon. Har du bodd eller jobbet i et avtaleland, kan du også ha rett til garantipensjon.{br}{br}Kalkulatoren tar ikke hensyn til regler om eksport. Den vurderer dermed ikke om du har rett til å motta garantipensjon hvis du er bosatt utenfor Norge.{br}{br}Du kan ha rett til pensjon fra andre land du har arbeidet eller bodd i. Pensjon fra andre land er ikke med i beregningen.',
   'forbehold.sivilstand.title': 'Sivilstand',
   'forbehold.sivilstand.ingress':
     'Hvis du er gift har vi forutsatt at du bor sammen med ektefellen din. Er du gift eller har bekreftet at du har samboer, har vi forutsatt at den du bor sammen med har egen inntekt høyere enn 2 ganger grunnbeløpet eller mottar egen pensjon når du tar ut pensjon. Er du samboer forutsetter vi i beregningen at dere har bodd sammen i 12 av de siste 18 månedene når du tar ut pensjon. Beregningen benytter ordinær sats for beregning av garantipensjon. Dersom ektefelle eller samboer har lavere inntekt og ikke mottar egen pensjon kan du ha rett på høy sats for garantipensjon, som for noen betyr en høyere alderspensjon.{br}{br}Om du har bekreftet at du bor alene er alderspensjon beregnet etter høy sats for garantipensjon. Om du på uttakstidspunktet for pensjon likevel har samboer eller er gift, kan det gi lavere alderspensjon grunnet at ordinær sats for garantipensjon skal benyttes. ',
@@ -684,7 +679,7 @@ const translations = {
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.9':
     'Hvis du har gjenlevendepensjon eller omstillingsstønad, bruker vi opplysningen til å informere deg om at gjenlevendepensjon og omstillingsstønad ikke kan kombineres med alderspensjon.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.10':
-    'Vi spør deg om utenlandsopphold. Kalkulatoren tar ikke høyde for lengre utenlandsopphold. Hvis du har bodd eller jobbet utenfor Norge i mer enn 5 år, henviser vi deg derfor til detaljert pensjonskalkulator.',
+    'Vi spør deg om opphold utenfor Norge. Vi bruker opplysningen til å beregne alderspensjon med riktig trygdetid i Norge. Vi spør om hvilket land oppholdet gjelder og om arbeid i landet, for å legge riktig trygdeavtale til grunn.',
   'personopplysninger.section.hvilke_opplysninger.veiledningsplikt.list.11':
     'Vi spør deg om du har rett til AFP i enten offentlig eller privat sektor. Vi bruker opplysningen til å identifisere om vi skal beregne alderspensjonen din med AFP. Opplysningen brukes også til å informere om når du kan ta ut alderspensjon. Videre bruker vi opplysningen til å beregne AFP.',
   'personopplysninger.section.hvilke_opplysninger.gpdr.list.header':

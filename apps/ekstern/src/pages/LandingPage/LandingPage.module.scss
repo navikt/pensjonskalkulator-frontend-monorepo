@@ -9,19 +9,11 @@
   }
 }
 
-.paragraph {
-  margin-bottom: var(--a-spacing-4);
-}
-
 .button {
   margin-top: var(--a-spacing-2);
 }
 
 .link {
   display: block;
-  margin: var(--a-spacing-8) 0;
-
-  @media (min-width: $a-breakpoint-md) {
-    margin-top: var(--a-spacing-10);
-  }
+  margin: var(--a-spacing-1) 0;
 }
