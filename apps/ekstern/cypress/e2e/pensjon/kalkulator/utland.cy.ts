@@ -78,26 +78,18 @@ describe('Utland', () => {
             cy.contains('Oppgi sluttdato').should('be.visible')
           })
 
-          it('forventer jeg å kunne trykk «legg til opphold» og registrere opphold med eller uten sluttdato.', () => {
+          it('forventer jeg å kunne trykke på «legg til opphold» og registrere opphold med eller uten sluttdato.', () => {
             cy.get(
               '[data-testid="utenlandsopphold-arbeidet-utenlands-ja"]'
             ).check()
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
               '12.01.1990'
             )
-            cy.contains('button', 'Legg til opphold').click()
-
-            cy.contains('button', 'Legg til nytt opphold').click()
-            cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
-            cy.get(
-              '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
-            ).check()
-            cy.get('[data-testid="utenlandsopphold-startdato"]').type(
-              '01.06.1980'
-            )
             cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
               '31.12.1982'
             )
+            cy.get('[data-testid="utenlandsopphold-sluttdato"]').clear()
+
             cy.contains('button', 'Legg til opphold').click()
           })
         })
@@ -121,22 +113,14 @@ describe('Utland', () => {
             cy.contains('Oppgi sluttdato').should('be.visible')
           })
 
-          it('forventer jeg å kunne trykk «legg til opphold» og registrere opphold med eller uten sluttdato.', () => {
+          it('forventer jeg å kunne trykke på «legg til opphold» og registrere opphold med eller uten sluttdato.', () => {
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
               '12.01.1990'
-            )
-            cy.contains('button', 'Legg til opphold').click()
-
-            cy.contains('button', 'Legg til nytt opphold').click()
-            cy.get('[data-testid="utenlandsopphold-land"]').select(
-              'Afghanistan'
-            )
-            cy.get('[data-testid="utenlandsopphold-startdato"]').type(
-              '01.06.1980'
             )
             cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
               '31.12.1982'
             )
+            cy.get('[data-testid="utenlandsopphold-sluttdato"]').clear()
             cy.contains('button', 'Legg til opphold').click()
           })
         })
