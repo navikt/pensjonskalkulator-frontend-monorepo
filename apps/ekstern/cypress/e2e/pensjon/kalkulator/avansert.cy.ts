@@ -1,20 +1,20 @@
 describe('Avansert', () => {
   describe('Gitt at jeg som bruker har gjort en enkel beregning,', () => {
-    describe('Når jeg ønsker en avansert beregning', () => {
+    describe('Når jeg ønsker en avansert beregning,', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
       })
 
-      it('forventer jeg å kunne velge «Avansert fane» for å få flere valgmuligheter', () => {
+      it('forventer jeg å kunne velge «Avansert fane» for å få flere valgmuligheter.', () => {
         cy.get('[data-testid="toggle-avansert"]').within(() => {
           cy.contains('Avansert').click()
         })
         cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
       })
 
-      it('forventer også å kunne gå til Avansert fra «Uttaksgrad» og «Inntekt frem til uttak» i Grunnlaget', () => {
+      it('forventer også å kunne gå til Avansert fra «Uttaksgrad» og «Inntekt frem til uttak» i Grunnlaget.', () => {
         cy.contains('button', '70').click()
         cy.contains('Uttaksgrad:').click({ force: true })
         cy.contains('Gå til avansert kalkulator').click({ force: true })
@@ -26,7 +26,7 @@ describe('Avansert', () => {
         cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
       })
 
-      it('ønsker jeg å kunne starte ny beregning', () => {
+      it('ønsker jeg å kunne starte ny beregning.', () => {
         cy.get('[data-testid="toggle-avansert"]').within(() => {
           cy.contains('Avansert').click()
         })
@@ -39,7 +39,7 @@ describe('Avansert', () => {
   })
 
   describe('Gitt at jeg som bruker har valgt "Avansert",', () => {
-    describe('Når jeg er kommet inn i avansert', () => {
+    describe('Når jeg er kommet inn i avansert,', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({})
@@ -107,7 +107,7 @@ describe('Avansert', () => {
         })
       })
 
-      it('forventer jeg å kunne nullstille mine valg', () => {
+      it('forventer jeg å kunne nullstille mine valg.', () => {
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
           '65'
         )
@@ -172,7 +172,7 @@ describe('Avansert', () => {
         ).should('not.exist')
       })
 
-      it('forventer jeg kunne forlate siden med tilbakeknappog gå tilbake til Enkel', () => {
+      it('forventer jeg kunne forlate siden med tilbakeknappog gå tilbake til Enkel.', () => {
         cy.go('back')
         cy.contains(
           'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
@@ -180,7 +180,7 @@ describe('Avansert', () => {
       })
     })
 
-    describe('Når jeg har valgt ut pensjonsalder og ønsker 100 % alderspensjon', () => {
+    describe('Når jeg har valgt ut pensjonsalder og ønsker 100 % alderspensjon,', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({})
@@ -248,7 +248,7 @@ describe('Avansert', () => {
         })
       })
 
-      it('forventer jeg å kunne svare nei på spørsmål om inntekt vsa. 100 % alderspensjon og beregne pensjon', () => {
+      it('forventer jeg å kunne svare nei på spørsmål om inntekt vsa. 100 % alderspensjon og beregne pensjon.', () => {
         cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
         cy.contains('Beregn pensjon').click()
         cy.contains('Beregning').should('exist')
@@ -257,7 +257,7 @@ describe('Avansert', () => {
         cy.contains('Alderspensjon: 100 %').should('exist')
       })
 
-      it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp etter å ha begynt utfyllingen', () => {
+      it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp etter å ha begynt utfyllingen.', () => {
         cy.go('back')
         cy.contains(
           'Hvis du går ut av Avansert, mister du alle valgene dine.'
@@ -269,7 +269,7 @@ describe('Avansert', () => {
       })
     })
 
-    describe('Når jeg har valgt ut pensjonsalder og ønsker en annen uttaksgrad enn 100% alderspensjon', () => {
+    describe('Når jeg har valgt ut pensjonsalder og ønsker en annen uttaksgrad enn 100% alderspensjon,', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({})
@@ -320,7 +320,7 @@ describe('Avansert', () => {
         })
       })
 
-      it('forventer jeg å kunne oppgi inntekt mens jeg tar ut gradert alderspensjon og 100 % alderspensjon og beregne pensjon', () => {
+      it('forventer jeg å kunne oppgi inntekt mens jeg tar ut gradert alderspensjon og 100 % alderspensjon og beregne pensjon.', () => {
         cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-ja"]').check()
         cy.get('[data-testid="inntekt-vsa-gradert-uttak"]').type('300000')
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
@@ -343,7 +343,7 @@ describe('Avansert', () => {
         cy.contains('Beregning').should('exist')
       })
 
-      it('forventer jeg å kunne svare nei på spørsmål om inntekt vsa. gradert alderspensjon og beregne pensjon', () => {
+      it('forventer jeg å kunne svare nei på spørsmål om inntekt vsa. gradert alderspensjon og beregne pensjon.', () => {
         cy.get('[data-testid="inntekt-vsa-gradert-uttak-radio-nei"]').check()
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').select(
           '67'
@@ -375,7 +375,7 @@ describe('Avansert', () => {
         cy.get('[data-testid="inntekt-vsa-helt-uttak-radio-nei"]').check()
       })
 
-      it('forventer jeg informasjon om at jeg ikke har høy nok opptjening, og at jeg må øke alderen eller sette ned uttaksgraden', () => {
+      it('forventer jeg informasjon om at jeg ikke har høy nok opptjening, og at jeg må øke alderen eller sette ned uttaksgraden.', () => {
         cy.intercept(
           {
             method: 'POST',
@@ -400,7 +400,7 @@ describe('Avansert', () => {
         ).should('exist')
       })
 
-      it('forventer jeg informasjon, dersom jeg ikke har nok opptjening for uttak før 67 år', () => {
+      it('forventer jeg informasjon, dersom jeg ikke har nok opptjening for uttak før 67 år.', () => {
         cy.intercept(
           {
             method: 'POST',
@@ -423,7 +423,7 @@ describe('Avansert', () => {
         )
       })
 
-      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet helt uttak', () => {
+      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet helt uttak.', () => {
         cy.intercept(
           {
             method: 'POST',
@@ -446,7 +446,7 @@ describe('Avansert', () => {
         ).should('exist')
       })
 
-      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet gradert uttak', () => {
+      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet gradert uttak.', () => {
         cy.intercept(
           {
             method: 'POST',
@@ -472,7 +472,7 @@ describe('Avansert', () => {
         ).should('exist')
       })
 
-      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet gradert uttak med helt uttak', () => {
+      it('forventer jeg informasjon om et alternativt uttak, dersom jeg oppfyller vilkårene til et annet gradert uttak med helt uttak.', () => {
         cy.intercept(
           {
             method: 'POST',
@@ -497,7 +497,7 @@ describe('Avansert', () => {
         ).should('exist')
       })
 
-      it('forventer jeg å kunne endre på inntekt, pensjonsalder og uttaksgrad, og å kunne beregne pensjon', () => {
+      it('forventer jeg å kunne endre på inntekt, pensjonsalder og uttaksgrad, og å kunne beregne pensjon.', () => {
         cy.contains('Beregning').should('not.exist')
         cy.contains('Pensjonsgivende inntekt frem til pensjon').should('exist')
         cy.contains('button', 'Endre inntekt').should('exist')
@@ -522,7 +522,7 @@ describe('Avansert', () => {
         cy.contains('Beregning').should('exist')
       })
 
-      it('ønsker jeg å kunne starte ny beregning', () => {
+      it('ønsker jeg å kunne starte ny beregning.', () => {
         cy.contains('Beregning').should('not.exist')
         cy.contains('button', 'Tilbake til start').click({ force: true })
         cy.contains('button', 'Gå tilbake til start').click({ force: true })
@@ -531,8 +531,8 @@ describe('Avansert', () => {
     })
   })
 
-  describe('Gitt at jeg som bruker har valgt "Avansert", fylt ut skjemaet og klikket på "Beregn Pensjon"', () => {
-    describe('Når jeg er kommet til beregningssiden', () => {
+  describe('Gitt at jeg som bruker har valgt "Avansert", fylt ut skjemaet og klikket på "Beregn Pensjon",', () => {
+    describe('Når jeg er kommet til beregningssiden,', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
@@ -567,7 +567,7 @@ describe('Avansert', () => {
         cy.contains('Beregn pensjon').click()
       })
 
-      it('forventer jeg samme visninger av graf og tabell som i enkel', () => {
+      it('forventer jeg samme visninger av graf og tabell som i enkel.', () => {
         cy.contains('Beregning').should('exist')
         cy.contains('Pensjonsgivende inntekt').should('exist')
         cy.contains('AFP (avtalefestet pensjon)').should('exist')
@@ -585,17 +585,17 @@ describe('Avansert', () => {
         cy.contains('Vis mindre').should('exist')
       })
 
-      it('forventer jeg å få informasjon om øvrig grunnlag for beregningen uten "Uttaksgrad" og "Inntekt"', () => {
+      it('forventer jeg å få informasjon om øvrig grunnlag for beregningen uten "Uttaksgrad" og "Inntekt".', () => {
         cy.contains('Beregning').should('exist')
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
         cy.contains('Uttaksgrad:').should('not.exist')
         cy.contains('Inntekt frem til uttak:').should('not.exist')
         cy.contains('Sivilstand:').click({ force: true })
-        cy.contains('Opphold i Norge:').click({ force: true })
+        cy.contains('Opphold utenfor Norge:').click({ force: true })
         cy.contains('AFP:').click({ force: true })
       })
 
-      it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg', () => {
+      it('forventer jeg ett resultatkort hvor jeg ser mine valg og kan endre mine valg.', () => {
         cy.contains('Beregning').should('exist')
         cy.contains('Se og endre dine valg').click({ force: true })
         cy.contains('62 år og 3 md. (01.08.2025)').should('exist')
@@ -611,7 +611,7 @@ describe('Avansert', () => {
       })
     })
 
-    describe('Når jeg ønsker å endre mine valg', () => {
+    describe('Når jeg ønsker å endre mine valg,', () => {
       beforeEach(() => {
         cy.login()
         cy.fillOutStegvisning({ afp: 'ja_privat', samtykke: true })
@@ -651,7 +651,7 @@ describe('Avansert', () => {
         cy.contains('Endre valg').click()
       })
 
-      it('forventer jeg at mine tidligere valg er lagret', () => {
+      it('forventer jeg at mine tidligere valg er lagret.', () => {
         cy.contains('500 000 kr per år før skatt').should('exist')
         cy.get(
           '[data-testid="age-picker-uttaksalder-gradert-uttak-aar"]'
@@ -683,7 +683,7 @@ describe('Avansert', () => {
         )
       })
 
-      it('forventer jeg å kunne endre inntekt, pensjonsalder og uttaksgrad, og oppdatere min beregning', () => {
+      it('forventer jeg å kunne endre inntekt, pensjonsalder og uttaksgrad, og oppdatere min beregning.', () => {
         cy.contains('button', 'Endre inntekt').click()
         cy.get('[data-testid="inntekt-textfield"]').clear().type('550000')
         cy.contains('button', 'Oppdater inntekt').click()
@@ -724,7 +724,7 @@ describe('Avansert', () => {
         ).should('exist')
       })
 
-      it('forventer jeg å kunne nullstille mine valg', () => {
+      it('forventer jeg å kunne nullstille mine valg.', () => {
         cy.contains('Nullstill valg').click()
 
         cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').should(
@@ -764,12 +764,12 @@ describe('Avansert', () => {
         ).should('not.exist')
       })
 
-      it('forventer jeg å kunne avbryte og komme tilbake til beregningen', () => {
+      it('forventer jeg å kunne avbryte og komme tilbake til beregningen.', () => {
         cy.contains('Avbryt endring').click({ force: true })
         cy.contains('Se og endre dine valg').should('exist')
       })
 
-      it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp', () => {
+      it('forventer jeg å få varsel om at min beregning ikke blir lagret dersom jeg forlater siden med tilbakeknapp.', () => {
         cy.go('back')
         cy.contains(
           'Hvis du går ut av Avansert, mister du alle valgene dine.'

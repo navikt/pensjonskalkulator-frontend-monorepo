@@ -9,7 +9,7 @@ describe('AFP', () => {
       cy.contains('button', 'Neste').click()
     })
 
-    describe('Når jeg svarer "vet ikke" på spørsmål om AFP', () => {
+    describe('Når jeg svarer "vet ikke" på spørsmål om AFP,', () => {
       beforeEach(() => {
         cy.get('[type="radio"]').eq(3).check()
       })
@@ -22,7 +22,7 @@ describe('AFP', () => {
         cy.contains('button', 'Neste').click()
       })
 
-      it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom', () => {
+      it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom.', () => {
         cy.contains('button', 'Neste').click()
         cy.contains(
           'Samtykke til at NAV beregner AFP (avtalefestet pensjon)'
@@ -64,12 +64,12 @@ describe('AFP', () => {
       })
     })
 
-    describe('Når jeg svarer "nei" på spørsmål om AFP', () => {
+    describe('Når jeg svarer "nei" på spørsmål om AFP,', () => {
       beforeEach(() => {
         cy.get('[type="radio"]').eq(2).check()
       })
 
-      it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom', () => {
+      it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom.', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
         cy.contains(
@@ -114,12 +114,12 @@ describe('AFP', () => {
       })
     })
 
-    describe('Når jeg svarer "ja, privat" på spørsmål om AFP', () => {
+    describe('Når jeg svarer "ja, privat" på spørsmål om AFP,', () => {
       beforeEach(() => {
         cy.get('[type="radio"]').eq(1).check()
       })
 
-      it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom', () => {
+      it('forventer jeg å kunne gå videre til neste steg uten noe infosteg imellom.', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
         cy.contains(
@@ -165,12 +165,12 @@ describe('AFP', () => {
       })
     })
 
-    describe('Når jeg svarer "ja, offentlig" på spørsmål om AFP og samtykker til beregning av AFP-offentlig', () => {
+    describe('Når jeg svarer "ja, offentlig" på spørsmål om AFP og samtykker til beregning av AFP-offentlig,', () => {
       beforeEach(() => {
         cy.get('[type="radio"]').eq(0).check()
       })
 
-      it('forventer jeg å bli spurt om samtykke før jeg kan gå videre til neste steg', () => {
+      it('forventer jeg å bli spurt om samtykke før jeg kan gå videre til neste steg.', () => {
         cy.contains('Har du rett til AFP?').should('exist')
         cy.contains('button', 'Neste').click()
         cy.contains(

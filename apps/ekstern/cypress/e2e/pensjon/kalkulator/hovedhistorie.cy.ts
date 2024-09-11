@@ -275,7 +275,7 @@ describe('Hovedhistorie', () => {
     })
 
     describe('Når jeg venter på at resultatet kommer fram,', () => {
-      it('forventer jeg en melding dersom det tar tid før resultatet kommer opp. ', () => {
+      it('forventer jeg en melding dersom det tar tid før resultatet kommer opp.', () => {
         cy.login()
         cy.intercept(
           {
@@ -326,7 +326,7 @@ describe('Hovedhistorie', () => {
           'exist'
         )
       })
-      it('må jeg kunne trykke på Readmore for å få mer informasjon om pensjonsalder', () => {
+      it('må jeg kunne trykke på Readmore for å få mer informasjon om pensjonsalder.', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
@@ -382,7 +382,7 @@ describe('Hovedhistorie', () => {
         cy.contains('Uttaksgrad:').click({ force: true })
         cy.contains('Inntekt frem til uttak:').click({ force: true })
         cy.contains('Sivilstand:').click({ force: true })
-        cy.contains('Opphold i Norge:').click({ force: true })
+        cy.contains('Opphold utenfor Norge:').click({ force: true })
         cy.contains('AFP:').click({ force: true })
       })
 
