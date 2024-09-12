@@ -424,7 +424,7 @@ const translations = {
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
     'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description':
-    'Alderspensjonen påvirker ikke inntektsgrensen  for uføretrygden din.',
+    'Alderspensjonen påvirker ikke inntektsgrensen for uføretrygden din.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':

@@ -368,7 +368,10 @@ describe('med ufoeretrygd', () => {
           cy.contains(
             'Alderspensjonen påvirker ikke inntektsgrensen for uføretrygden din.'
           ).should('exist')
-          cy.contains('button', 'Om inntekt og uføretrygd').click()
+          cy.contains(
+            'button',
+            'Om alderspensjon og inntektsgrensen for uføretrygd'
+          ).click()
           cy.contains(
             'Alderspensjon er ikke pensjonsgivende inntekt og påvirker ikke inntektsgrensen for uføretrygden din. Du beholder inntektsgrensen din ved kombinasjon av uføretrygd og alderspensjon fra folketrygden.'
           ).should('exist')
