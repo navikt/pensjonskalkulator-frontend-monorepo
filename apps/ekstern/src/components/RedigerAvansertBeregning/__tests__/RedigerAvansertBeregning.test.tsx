@@ -53,6 +53,11 @@ describe('RedigerAvansertBeregning', () => {
       </BeregningContext.Provider>
     )
     expect(
+      screen.queryByText(
+        'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere'
+      )
+    ).not.toBeInTheDocument()
+    expect(
       screen.getByText(
         'beregning.avansert.rediger.inntekt_frem_til_uttak.label'
       )
@@ -1290,6 +1295,11 @@ describe('RedigerAvansertBeregning', () => {
       )
       await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
       expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere'
+        )
+      ).toBeVisible()
+      expect(
         await screen.findByText('omufoeretrygd.readmore.title')
       ).toBeVisible()
       await user.click(
@@ -1375,6 +1385,11 @@ describe('RedigerAvansertBeregning', () => {
         </BeregningContext.Provider>
       )
       await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere'
+        )
+      ).toBeVisible()
       expect(
         await screen.findByText('omufoeretrygd.readmore.title')
       ).toBeVisible()
