@@ -5,6 +5,7 @@ import { Alert, BodyLong, Button, Heading } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
+import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -22,7 +23,7 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
     logger('button klikk', {
-      tekst: 'Neste',
+      tekst: `Neste fra ${paths.ufoeretrygdAFP}`,
     })
     onNext()
   }
@@ -75,7 +76,9 @@ export function Ufoere({ onCancel, onPrevious, onNext }: Props) {
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+          onClick={wrapLogger('button klikk', {
+            tekst: `Tilbake fra ${paths.ufoeretrygdAFP}`,
+          })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>

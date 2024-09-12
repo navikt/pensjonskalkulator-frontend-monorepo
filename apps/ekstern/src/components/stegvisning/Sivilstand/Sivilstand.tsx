@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
+import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
 import { formatSivilstand } from '@/utils/sivilstand'
 
@@ -66,7 +67,7 @@ export function Sivilstand({
         valg: sivilstandData,
       })
       logger('button klikk', {
-        tekst: 'Neste',
+        tekst: `Neste fra ${paths.sivilstand}`,
       })
       onNext(sivilstandData)
     }
@@ -115,7 +116,9 @@ export function Sivilstand({
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+          onClick={wrapLogger('button klikk', {
+            tekst: `Tilbake fra ${paths.sivilstand}`,
+          })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>

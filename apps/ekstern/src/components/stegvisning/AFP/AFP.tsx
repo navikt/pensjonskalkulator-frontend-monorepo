@@ -14,6 +14,7 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
+import { paths } from '@/router/constants'
 import { useGetUfoeregradQuery } from '@/state/api/apiSlice'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
@@ -71,7 +72,7 @@ export function AFP({
         valg: afpData,
       })
       logger('button klikk', {
-        tekst: 'Neste',
+        tekst: `Neste fra ${paths.afp}`,
       })
       onNext(afpData)
     }
@@ -202,7 +203,9 @@ export function AFP({
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+          onClick={wrapLogger('button klikk', {
+            tekst: `Tilbake fra ${paths.afp}`,
+          })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>

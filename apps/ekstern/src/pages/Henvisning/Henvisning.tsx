@@ -56,9 +56,9 @@ export const Henvisning: React.FC = () => {
           primaryButton: 'henvisning.detaljert_kalkulator',
           secondaryButton: 'stegvisning.avbryt',
         }}
-        onPrimaryButtonClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(
-          gaaTilDetaljertKalkulator
-        )}
+        onPrimaryButtonClick={wrapLogger('button klikk', {
+          tekst: `Tilbake fra ${paths.henvisning}`,
+        })(gaaTilDetaljertKalkulator)}
         onSecondaryButtonClick={wrapLogger('button klikk', { tekst: 'Avbryt' })(
           onAvbryt
         )}

@@ -1,5 +1,6 @@
 import { IntlShape } from 'react-intl'
 
+import { paths } from '@/router/constants'
 import { logger } from '@/utils/logging'
 
 export const onSubmit = (
@@ -52,7 +53,7 @@ export const onSubmit = (
         valg: utenlandsoppholdData,
       })
       logger('button klikk', {
-        tekst: 'Neste',
+        tekst: `Neste fra ${paths.utenlandsopphold}`,
       })
       onNext(utenlandsoppholdData)
     }
