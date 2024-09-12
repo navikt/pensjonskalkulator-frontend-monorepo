@@ -361,7 +361,7 @@ describe('Hovedhistorie', () => {
         cy.contains('61').should('be.visible')
         cy.contains('87+').should('exist')
         cy.contains('button', '70 år').click({ force: true })
-        cy.contains('61').should('not.be.visible')
+        cy.contains('61').should('not.exist')
         cy.contains('69').should('be.visible')
         cy.contains('87+').should('exist')
       })
