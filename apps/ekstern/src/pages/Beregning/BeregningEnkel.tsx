@@ -35,7 +35,15 @@ import {
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
   selectUfoeregrad,
 } from '@/state/userInput/selectors'
-import { DEFAULT_UBETINGET_UTTAKSALDER, isFoedtFoer1964 } from '@/utils/alder'
+import {
+  DEFAULT_TIDLIGST_UTTAKSALDER,
+  DEFAULT_UBETINGET_UTTAKSALDER,
+  getAlderMinus1Maaned,
+  getAlderPlus1Maaned,
+  isAlderOverMinUttaksaar,
+  isFoedtFoer1964,
+  transformFoedselsdatoToAlder,
+} from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
 import styles from './BeregningEnkel.module.scss'
@@ -164,6 +172,16 @@ export const BeregningEnkel: React.FC = () => {
     return isPersonSuccess && isFoedtFoer1964(person?.foedselsdato)
   }, [person])
 
+  const brukerensAlderPlus1Maaned = React.useMemo(() => {
+    const brukerensAlder = isPersonSuccess
+      ? transformFoedselsdatoToAlder(person?.foedselsdato)
+      : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
+    const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
+    return isAlderOverMinUttaksaar(beregnetMinAlder)
+      ? beregnetMinAlder
+      : DEFAULT_TIDLIGST_UTTAKSALDER
+  }, [person])
+
   const onRetry = (): void => {
     dispatch(apiSlice.util.invalidateTags(['Alderspensjon']))
     if (alderspensjonEnkelRequestBody) {
@@ -222,7 +240,7 @@ export const BeregningEnkel: React.FC = () => {
               ? { ...DEFAULT_UBETINGET_UTTAKSALDER }
               : isTidligstMuligUttakSuccess
                 ? tidligstMuligUttak
-                : undefined
+                : brukerensAlderPlus1Maaned
           }
         />
       </div>
