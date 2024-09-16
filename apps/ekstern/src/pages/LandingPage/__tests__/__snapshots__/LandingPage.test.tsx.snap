@@ -44,11 +44,47 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
               >
                 landingsside.for.deg.foedt.etter.1963
               </h2>
-              <p
-                class="navds-body-long navds-body-long--medium"
-              >
-                landingsside.velge_mellom_detaljert_og_enkel
-              </p>
+              <div>
+                <p
+                  class="navds-body-long navds-body-long--medium"
+                >
+                  landingsside.velge_mellom_detaljert_og_enkel
+                </p>
+                <ul
+                  class="_list_6ae597"
+                >
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__blue_6ae597"
+                      />
+                      stegvisning.start.list_item1
+                    </p>
+                  </li>
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__purple_6ae597"
+                      />
+                      stegvisning.start.list_item2 
+                    </p>
+                  </li>
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__green_6ae597"
+                      />
+                      stegvisning.start.list_item3 
+                    </p>
+                  </li>
+                </ul>
+              </div>
               <div
                 class="navds-stack navds-hstack navds-stack-gap navds-stack-direction navds-stack-wrap"
                 style="--__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
@@ -170,11 +206,47 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               >
                 landingsside.for.deg.foedt.etter.1963
               </h2>
-              <p
-                class="navds-body-long navds-body-long--medium"
-              >
-                landingsside.velge_mellom_detaljert_og_enkel
-              </p>
+              <div>
+                <p
+                  class="navds-body-long navds-body-long--medium"
+                >
+                  landingsside.velge_mellom_detaljert_og_enkel
+                </p>
+                <ul
+                  class="_list_6ae597"
+                >
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__blue_6ae597"
+                      />
+                      stegvisning.start.list_item1
+                    </p>
+                  </li>
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__purple_6ae597"
+                      />
+                      stegvisning.start.list_item2 
+                    </p>
+                  </li>
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__green_6ae597"
+                      />
+                      stegvisning.start.list_item3 
+                    </p>
+                  </li>
+                </ul>
+              </div>
               <div
                 class="navds-stack navds-hstack navds-stack-gap navds-stack-direction navds-stack-wrap"
                 style="--__ac-stack-gap-xs: var(--a-spacing-4); --__ac-stack-direction-xs: row;"
@@ -255,11 +327,47 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
               >
                 landingsside.for.deg.foedt.foer.1963
               </h2>
-              <p
-                class="navds-body-long navds-body-long--medium"
-              >
-                landingsside.du.maa.bruke.detaljert
-              </p>
+              <div>
+                <p
+                  class="navds-body-long navds-body-long--medium"
+                >
+                  landingsside.du.maa.bruke.detaljert
+                </p>
+                <ul
+                  class="_list_6ae597"
+                >
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__blue_6ae597"
+                      />
+                      stegvisning.start.list_item1
+                    </p>
+                  </li>
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__purple_6ae597"
+                      />
+                      stegvisning.start.list_item2 
+                    </p>
+                  </li>
+                  <li>
+                    <p
+                      class="navds-body-long navds-body-long--medium"
+                    >
+                      <span
+                        class="_ellipse_6ae597 _ellipse__green_6ae597"
+                      />
+                      stegvisning.start.list_item3 
+                    </p>
+                  </li>
+                </ul>
+              </div>
               <div>
                 <button
                   class="_button_6ae597 navds-button navds-button--secondary navds-button--medium"

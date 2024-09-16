@@ -86,11 +86,39 @@ export const LandingPage = () => {
               id: 'landingsside.for.deg.foedt.etter.1963',
             })}
           </Heading>
-          <BodyLong>
-            {intl.formatMessage({
-              id: 'landingsside.velge_mellom_detaljert_og_enkel',
-            })}
-          </BodyLong>
+          <div>
+            <BodyLong>
+              {intl.formatMessage({
+                id: 'landingsside.velge_mellom_detaljert_og_enkel',
+              })}
+            </BodyLong>
+            <ul className={styles.list}>
+              <li>
+                <BodyLong>
+                  <span
+                    className={`${styles.ellipse} ${styles.ellipse__blue}`}
+                  ></span>
+                  <FormattedMessage id="stegvisning.start.list_item1" />
+                </BodyLong>
+              </li>
+              <li>
+                <BodyLong>
+                  <span
+                    className={`${styles.ellipse} ${styles.ellipse__purple}`}
+                  ></span>
+                  <FormattedMessage id="stegvisning.start.list_item2" />{' '}
+                </BodyLong>
+              </li>
+              <li>
+                <BodyLong>
+                  <span
+                    className={`${styles.ellipse} ${styles.ellipse__green}`}
+                  ></span>
+                  <FormattedMessage id="stegvisning.start.list_item3" />{' '}
+                </BodyLong>
+              </li>
+            </ul>
+          </div>
           <HStack gap="4">
             <Button
               data-testid="landingside-enkel-kalkulator-button"
@@ -176,11 +204,39 @@ export const LandingPage = () => {
                 id: 'landingsside.for.deg.foedt.foer.1963',
               })}
             </Heading>
-            <BodyLong>
-              {intl.formatMessage({
-                id: 'landingsside.du.maa.bruke.detaljert',
-              })}
-            </BodyLong>
+            <div>
+              <BodyLong>
+                {intl.formatMessage({
+                  id: 'landingsside.du.maa.bruke.detaljert',
+                })}
+              </BodyLong>
+              <ul className={styles.list}>
+                <li>
+                  <BodyLong>
+                    <span
+                      className={`${styles.ellipse} ${styles.ellipse__blue}`}
+                    ></span>
+                    <FormattedMessage id="stegvisning.start.list_item1" />
+                  </BodyLong>
+                </li>
+                <li>
+                  <BodyLong>
+                    <span
+                      className={`${styles.ellipse} ${styles.ellipse__purple}`}
+                    ></span>
+                    <FormattedMessage id="stegvisning.start.list_item2" />{' '}
+                  </BodyLong>
+                </li>
+                <li>
+                  <BodyLong>
+                    <span
+                      className={`${styles.ellipse} ${styles.ellipse__green}`}
+                    ></span>
+                    <FormattedMessage id="stegvisning.start.list_item3" />{' '}
+                  </BodyLong>
+                </li>
+              </ul>
+            </div>
             <div>
               <Button
                 className={styles.button}
