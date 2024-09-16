@@ -225,10 +225,16 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     role="radiogroup"
                     aria-required="true"
                   >
-                    <Radio value="ja">
+                    <Radio
+                      value="ja"
+                      data-testid={`${UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}-ja`}
+                    >
                       <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja" />
                     </Radio>
-                    <Radio value="nei">
+                    <Radio
+                      value="nei"
+                      data-testid={`${UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}-nei`}
+                    >
                       <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_nei" />
                     </Radio>
                   </RadioGroup>

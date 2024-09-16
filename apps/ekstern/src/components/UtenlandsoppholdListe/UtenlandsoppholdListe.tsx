@@ -201,6 +201,7 @@ export function UtenlandsoppholdListe({
                     <Button
                       variant="tertiary"
                       size="small"
+                      data-testid="endre-utenlandsopphold"
                       icon={<PencilIcon aria-hidden />}
                       className={styles.utenlandsperioderButtons__endre}
                       onClick={() => {
@@ -214,6 +215,7 @@ export function UtenlandsoppholdListe({
                     <Button
                       variant="tertiary"
                       size="small"
+                      data-testid="slett-utenlandsopphold"
                       className={styles.utenlandsperioderButtons__slette}
                       onClick={() => {
                         onDeleteClick(utenlandsperiode.id)
@@ -231,6 +233,7 @@ export function UtenlandsoppholdListe({
       </dl>
       {!erVisningIGrunnlag && (
         <Button
+          data-testid="legg-til-utenlandsopphold"
           type="button"
           variant="secondary"
           icon={<PlusCircleIcon aria-hidden />}

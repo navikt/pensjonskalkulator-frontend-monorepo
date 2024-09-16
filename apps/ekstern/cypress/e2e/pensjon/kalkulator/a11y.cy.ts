@@ -1,5 +1,5 @@
 describe('Pensjonskalkulator', () => {
-  it('rendrer stegsvisning', () => {
+  it('rendrer stegsvisning.', () => {
     cy.login()
     cy.injectAxe()
 
@@ -15,10 +15,24 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Neste').click()
 
     // Sjekker utenlandsopphold steg
-    cy.contains('Utenlandsopphold')
+    cy.contains('Opphold utenfor Norge')
     cy.checkA11y('main')
-    cy.get('[type="radio"]').last().check()
-    cy.contains('button', 'Neste').click()
+    cy.get('[type="radio"]').first().check()
+    cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
+      force: true,
+    })
+    cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
+    cy.get('[data-testid="utenlandsopphold-arbeidet-utenlands-ja"]').check()
+    cy.get('[data-testid="utenlandsopphold-startdato"]')
+      .clear()
+      .type('30.04.1981')
+    cy.checkA11y('main')
+    cy.contains('button', 'Legg til opphold').click({
+      force: true,
+    })
+    cy.contains('button', 'Neste').click({
+      force: true,
+    })
 
     // Sjekker AFP steg
     cy.contains('AFP (avtalefestet pensjon)')
@@ -42,7 +56,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Beregn pensjon').click()
   })
 
-  it('rendrer resultatsside for enkel uten a11y-feil', () => {
+  it('rendrer resultatsside for enkel uten a11y-feil.', () => {
     cy.login()
     cy.fillOutStegvisning({})
 
@@ -57,13 +71,13 @@ describe('Pensjonskalkulator', () => {
     cy.contains('button', 'Uttaksgrad').click({ force: true })
     cy.contains('button', 'Inntekt frem til uttak').click({ force: true })
     cy.contains('button', 'Sivilstand').click({ force: true })
-    cy.contains('button', 'Opphold i Norge').click({ force: true })
+    cy.contains('button', 'Opphold utenfor Norge').click({ force: true })
     cy.contains('button', 'Alderspensjon').click({ force: true })
     cy.contains('button', 'AFP').click({ force: true })
     cy.checkA11y('main')
   })
 
-  it('rendrer skjemaet og resultatsside for avansert uten a11y-feil', () => {
+  it('rendrer skjemaet og resultatsside for avansert uten a11y-feil.', () => {
     cy.login()
     cy.fillOutStegvisning({})
     cy.wait('@fetchTidligsteUttaksalder')
@@ -101,7 +115,7 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
   })
 
-  it('når brukeren ikke oppfyller vilkaar for valgt uttaksalder, rendrer skjemaet med forslag om annet uttak uten a11y-feil', () => {
+  it('Når brukeren ikke oppfyller vilkaar for valgt uttaksalder, rendrer skjemaet med forslag om annet uttak uten a11y-feil.', () => {
     cy.login()
     cy.fillOutStegvisning({})
     cy.wait('@fetchTidligsteUttaksalder')
@@ -141,7 +155,7 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
   })
 
-  it('rendrer henvisning stegene uten a11y-feil', () => {
+  it('rendrer henvisning stegene uten a11y-feil.', () => {
     // Navigate til henvisning-1963
     cy.visit('/pensjon/kalkulator/henvisning-1963')
     cy.injectAxe()
@@ -153,7 +167,7 @@ describe('Pensjonskalkulator', () => {
     cy.checkA11y('main')
   })
 
-  it('rendrer andre sider uten a11y-feil', () => {
+  it('rendrer andre sider uten a11y-feil.', () => {
     // Navigate til forbehold
     cy.visit('/pensjon/kalkulator/forbehold')
     cy.injectAxe()
