@@ -45,7 +45,8 @@ import styles from './RedigerAvansertBeregning.module.scss'
 export const RedigerAvansertBeregning: React.FC<{
   gaaTilResultat: () => void
   vilkaarsproeving?: Vilkaarsproeving
-}> = ({ gaaTilResultat, vilkaarsproeving }) => {
+  brukerensAlderPlus1Maaned?: Alder
+}> = ({ gaaTilResultat, vilkaarsproeving, brukerensAlderPlus1Maaned }) => {
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
@@ -397,7 +398,9 @@ export const RedigerAvansertBeregning: React.FC<{
               onChange={handleGradertUttaksalderChange}
               error={gradertUttakAgePickerError}
               minAlder={
-                ufoeregrad === 100 ? DEFAULT_UBETINGET_UTTAKSALDER : undefined
+                ufoeregrad === 100
+                  ? DEFAULT_UBETINGET_UTTAKSALDER
+                  : brukerensAlderPlus1Maaned
               }
             />
           ) : (
@@ -409,7 +412,9 @@ export const RedigerAvansertBeregning: React.FC<{
               onChange={handleHeltUttaksalderChange}
               error={heltUttakAgePickerError}
               minAlder={
-                ufoeregrad === 100 ? DEFAULT_UBETINGET_UTTAKSALDER : undefined
+                ufoeregrad === 100
+                  ? DEFAULT_UBETINGET_UTTAKSALDER
+                  : brukerensAlderPlus1Maaned
               }
             />
           )}
@@ -638,7 +643,9 @@ export const RedigerAvansertBeregning: React.FC<{
                   onChange={handleHeltUttaksalderChange}
                   error={heltUttakAgePickerError}
                   minAlder={
-                    ufoeregrad ? DEFAULT_UBETINGET_UTTAKSALDER : undefined
+                    ufoeregrad
+                      ? DEFAULT_UBETINGET_UTTAKSALDER
+                      : brukerensAlderPlus1Maaned
                   }
                 />
               </div>
