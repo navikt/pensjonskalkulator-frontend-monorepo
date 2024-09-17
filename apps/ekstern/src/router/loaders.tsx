@@ -82,20 +82,20 @@ export const landingPageAccessGuard = async () => {
 
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   getPersonQuery
-    .then((res) => {
-      if (
-        res?.isSuccess &&
-        isFoedtFoer1963(res?.data?.foedselsdato as string)
-      ) {
-        resolveRedirectUrl('')
-        window.open(externalUrls.detaljertKalkulator, '_self')
+    .then((/* res*/) => {
+      // if (
+      //   res?.isSuccess &&
+      //   isFoedtFoer1963(res?.data?.foedselsdato as string)
+      // ) {
+      //   resolveRedirectUrl('')
+      //   window.open(externalUrls.detaljertKalkulator, '_self')
+      // } else {
+      if (selectIsVeileder(store.getState())) {
+        resolveRedirectUrl(paths.start)
       } else {
-        if (selectIsVeileder(store.getState())) {
-          resolveRedirectUrl(paths.start)
-        } else {
-          resolveRedirectUrl('')
-        }
+        resolveRedirectUrl('')
       }
+      // }
     })
     .catch(() => {
       resolveRedirectUrl('')
@@ -136,11 +136,11 @@ export const stepStartAccessGuard = async () => {
   })
 
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  getPersonQuery.then((res) => {
-    if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
-      window.open(externalUrls.detaljertKalkulator, '_self')
-    }
-  })
+  // getPersonQuery.then((res) => {
+  //   if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
+  //     window.open(externalUrls.detaljertKalkulator, '_self')
+  //   }
+  // })
 
   // Henter inntekt til senere
   store.dispatch(apiSlice.endpoints.getInntekt.initiate())

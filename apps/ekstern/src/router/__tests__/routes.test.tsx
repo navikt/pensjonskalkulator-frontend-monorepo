@@ -110,7 +110,7 @@ describe('routes', () => {
         ).not.toBeInTheDocument()
       })
 
-      it('Når brukeren er pålogget og født før 1963, redirigerer brukeren til detaljert kalkulator', async () => {
+      it.skip('Når brukeren er pålogget og født før 1963, redirigerer brukeren til detaljert kalkulator', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
         mockResponse('/v2/person', {
@@ -177,7 +177,7 @@ describe('routes', () => {
         })
       })
 
-      it('redirigerer brukeren til detaljert kalkulator, hvis brukeren er pålogget og født før 1963', async () => {
+      it.skip('redirigerer brukeren til detaljert kalkulator, hvis brukeren er pålogget og født før 1963', async () => {
         const open = vi.fn()
         vi.stubGlobal('open', open)
         mockResponse('/v2/person', {

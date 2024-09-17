@@ -88,7 +88,7 @@ describe('Loaders', () => {
       expect(initiateMock).toHaveBeenCalled()
     })
 
-    it('redirigerer til detaljert kalkulator dersom brukeren er født før 1963', async () => {
+    it.skip('redirigerer til detaljert kalkulator dersom brukeren er født før 1963', async () => {
       const open = vi.fn()
       vi.stubGlobal('open', open)
 
@@ -191,7 +191,7 @@ describe('Loaders', () => {
       expect(initiateGetEkskludertStatusMock).toHaveBeenCalled()
     })
 
-    it('Når brukeren er født før 1963, returneres det riktig redirect url', async () => {
+    it.skip('Når brukeren er født før 1963, returneres det riktig redirect url', async () => {
       const open = vi.fn()
       vi.stubGlobal('open', open)
 
@@ -411,7 +411,7 @@ describe('Loaders', () => {
       expect(shouldRedirectToResponse).toBe(paths.utenlandsopphold)
     })
 
-    it('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren er født før 1963, er hen redirigert', async () => {
+    it.skip('Gitt at getPerson har tidligere feilet kalles den på nytt. Når brukeren er født før 1963, er hen redirigert', async () => {
       const open = vi.fn()
       vi.stubGlobal('open', open)
 
