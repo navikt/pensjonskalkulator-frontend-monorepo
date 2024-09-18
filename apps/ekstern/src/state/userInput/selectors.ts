@@ -120,7 +120,15 @@ export const selectHarHentetTpoMedlemskap = createSelector(
 export const selectUfoeregrad = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return apiSlice.endpoints.getUfoeregrad.select(undefined)(state)?.data
-      ?.ufoeregrad as number
+    return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+      ?.ufoeretrygd.grad as number
+  }
+)
+
+export const selectIsEndring = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+      ?.alderspensjon?.grad
   }
 )

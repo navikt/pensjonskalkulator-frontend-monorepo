@@ -5,11 +5,11 @@ import { API_PATH, HOST_BASEURL } from '@/paths'
 import ansattIdResponse from './data/ansatt-id.json' with { type: 'json' }
 import ekskludertStatusResponse from './data/ekskludert-status.json' with { type: 'json' }
 import inntektResponse from './data/inntekt.json' with { type: 'json' }
+import loependeVedtakResponse from './data/loepende-vedtak.json' with { type: 'json' }
 import omstillingsstoenadOgGjenlevendeResponse from './data/omstillingsstoenad-og-gjenlevende.json' with { type: 'json' }
 import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' with { type: 'json' }
-import ufoeregradResponse from './data/ufoeregrad.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' with { type: 'json' }
 import enableUtlandPluginToggleResponse from './data/unleash-enable-utland.json' with { type: 'json' }
@@ -40,11 +40,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     }
   ),
 
-  http.get(`${baseUrl}/v1/ufoeregrad`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(ufoeregradResponse)
-  }),
-
   http.get(`${baseUrl}/v2/person`, async ({ request }) => {
     await delay(TEST_DELAY)
     if (request.headers.get('fnr') === '40100000000') {
@@ -65,6 +60,11 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   http.get(`${baseUrl}/v1/tpo-medlemskap`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(tpoMedlemskapResponse)
+  }),
+
+  http.get(`${baseUrl}/v1/vedtak/loepende-vedtak`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(loependeVedtakResponse)
   }),
 
   http.post(`${baseUrl}/v1/tidligste-hel-uttaksalder`, async () => {

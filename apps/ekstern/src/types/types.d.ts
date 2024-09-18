@@ -44,8 +44,15 @@ declare global {
   type OmstillingsstoenadOgGjenlevende =
     components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
 
-  // /ufoeregrad
-  type Ufoeregrad = components['schemas']['UfoeregradDto']
+  // /v1/vedtak/loepende-vedtak
+  export type GetLoependeVedtakQuery = TypedUseQueryStateResult<
+    LoependeVedtak,
+    void,
+    BaseQueryFn<Record<string, unknown>, LoependeVedtak>
+  >
+
+  // LoependeVedtakDto
+  type LoependeVedtak = components['schemas']['LoependeVedtakDto']
 
   // /tpo-medlemskap
   export type TpoMedlemskapQuery = TypedUseQueryStateResult<

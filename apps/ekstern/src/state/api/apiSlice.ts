@@ -9,7 +9,7 @@ import {
   isAlder,
   isEkskludertStatus,
   isOmstillingsstoenadOgGjenlevende,
-  isUfoeregrad,
+  isLoependeVedtak,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
 import {
@@ -82,22 +82,21 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getUfoeregrad: builder.query<Ufoeregrad, void>({
-      query: () => '/v1/ufoeregrad',
-      transformResponse: (response: any) => {
-        if (!isUfoeregrad(response)) {
-          throw new Error(`Mottok ugyldig ufoeregrad response:`, response)
-        }
-
-        return response
-      },
-    }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
       query: () => '/v1/tpo-medlemskap',
       providesTags: ['TpoMedlemskap'],
       transformResponse: (response: TpoMedlemskap) => {
         if (!isTpoMedlemskap(response)) {
           throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
+        }
+        return response
+      },
+    }),
+    getLoependeVedtak: builder.query<LoependeVedtak, void>({
+      query: () => '/v1/vedtak/loepende-vedtak',
+      transformResponse: (response: any) => {
+        if (!isLoependeVedtak(response)) {
+          throw new Error(`Mottok ugyldig løpende vedtak response:`, response)
         }
         return response
       },
@@ -206,6 +205,15 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getEndringFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-endring',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
@@ -218,7 +226,7 @@ export const {
   useGetPersonQuery,
   useGetEkskludertStatusQuery,
   useGetOmstillingsstoenadOgGjenlevendeQuery,
-  useGetUfoeregradQuery,
+  useGetLoependeVedtakQuery,
   useGetTpoMedlemskapQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
