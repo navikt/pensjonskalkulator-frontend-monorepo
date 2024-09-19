@@ -230,29 +230,6 @@ _Response {
 }
 `;
 
-exports[`Loaders > stepStartAccessGuard > kaller getPersonQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
-DeferredData {
-  "abortPromise": Promise {},
-  "controller": AbortController {
-    Symbol(SameObject caches): {
-      "signal": AbortSignal {},
-    },
-  },
-  "data": {
-    "getPersonQuery": Promise {},
-    "shouldRedirectTo": Promise {},
-  },
-  "deferredKeys": [
-    "getPersonQuery",
-    "shouldRedirectTo",
-  ],
-  "init": {},
-  "pendingKeysSet": Set {},
-  "subscribers": Set {},
-  "unlistenAbortSignal": [Function],
-}
-`;
-
 exports[`Loaders > stepStartAccessGuard > kaller getPersonQuery, getLoependeVedtakQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
 DeferredData {
   "abortPromise": Promise {},

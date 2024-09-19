@@ -143,7 +143,7 @@ export const stepStartAccessGuard = async () => {
       window.open(externalUrls.detaljertKalkulator, '_self')
     }
   })
-  // Henter løpende vedtak for endring - TODO hva gjør vi om den feiler?
+  // Henter løpende vedtak for endring
   const getLoependeVedtakQuery = store.dispatch(
     apiSlice.endpoints.getLoependeVedtak.initiate()
   )

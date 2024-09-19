@@ -11,8 +11,9 @@ import personResponse from './data/person.json' with { type: 'json' }
 import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' with { type: 'json' }
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
+import enableEndringToggleResponse from './data/unleash-enable-endring.json' with { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' with { type: 'json' }
-import enableUtlandPluginToggleResponse from './data/unleash-enable-utland.json' with { type: 'json' }
+import enableUtlandToggleResponse from './data/unleash-enable-utland.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
@@ -145,7 +146,12 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
 
   http.get(`${baseUrl}/feature/pensjonskalkulator.enable-utland`, async () => {
     await delay(TEST_DELAY)
-    return HttpResponse.json(enableUtlandPluginToggleResponse)
+    return HttpResponse.json(enableUtlandToggleResponse)
+  }),
+
+  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-endring`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(enableEndringToggleResponse)
   }),
 
   http.post('http://localhost:12347/collect', async ({ request }) => {
