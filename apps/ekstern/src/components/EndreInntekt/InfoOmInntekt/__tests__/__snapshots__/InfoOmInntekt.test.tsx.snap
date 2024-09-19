@@ -5,7 +5,7 @@ exports[`InfoModalInntekt > viser fast info om inntekt 1`] = `
   <p
     class="navds-body-long navds-body-long--medium"
   >
-    Vi bruker siste tilgjengelige årsinntekt fra  Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet.
+    Vi bruker siste tilgjengelige årsinntekt fra Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet.
     <br />
     <br />
   </p>

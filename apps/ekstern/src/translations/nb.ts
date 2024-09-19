@@ -605,7 +605,7 @@ const translations = {
     'Alderspensjon er ikke pensjonsgivende inntekt og påvirker ikke inntektsgrensen for uføretrygden din. Du beholder inntektsgrensen din ved kombinasjon av uføretrygd og alderspensjon fra folketrygden.',
   'inntekt.info_om_inntekt.open.link': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_om_inntekt.intro':
-    'Vi bruker siste tilgjengelige årsinntekt fra  Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet.{br}{br}',
+    'Vi bruker siste tilgjengelige årsinntekt fra Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet.{br}{br}',
   'inntekt.info_om_inntekt.subtitle_1': 'Dette er pensjonsgivende inntekt:',
   'inntekt.info_om_inntekt.list_item1': 'all lønnsinntekt for lønnstakere',
   'inntekt.info_om_inntekt.list_item2':
