@@ -9,17 +9,25 @@ import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './Start.module.scss'
 
 interface Props {
   shouldRedirectTo?: string
   navn: string
+  loependeVedtak?: LoependeVedtak
   onCancel?: () => void
   onNext: () => void
 }
 
-export function Start({ shouldRedirectTo, navn, onCancel, onNext }: Props) {
+export function Start({
+  shouldRedirectTo,
+  navn,
+  loependeVedtak,
+  onCancel,
+  onNext,
+}: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
   const navnString = navn !== '' ? ` ${navn}!` : '!'
@@ -44,38 +52,85 @@ export function Start({ shouldRedirectTo, navn, onCancel, onNext }: Props) {
               id: 'stegvisning.start.title',
             })}${navnString}`}
           </Heading>
-          <BodyLong size="large">
-            <FormattedMessage id="stegvisning.start.ingress" />
-          </BodyLong>
-          <ul className={styles.list}>
-            <li>
+          {loependeVedtak?.alderspensjon.grad ? (
+            <>
               <BodyLong size="large">
-                <span
-                  className={`${styles.ellipse} ${styles.ellipse__blue}`}
-                ></span>
-                <FormattedMessage id="stegvisning.start.list_item1" />
+                <FormattedMessage
+                  id="stegvisning.start.endring.ingress"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                    grad: loependeVedtak.alderspensjon?.grad,
+                    ufoeretrygd: loependeVedtak.ufoeretrygd.grad
+                      ? intl.formatMessage(
+                          {
+                            id: 'stegvisning.start.endring.ufoeretrygd',
+                          },
+                          {
+                            ...getFormatMessageValues(intl),
+                            grad: loependeVedtak.ufoeretrygd.grad,
+                          }
+                        )
+                      : undefined,
+                    afpPrivat: loependeVedtak.afpPrivat.grad
+                      ? intl.formatMessage(
+                          {
+                            id: 'stegvisning.start.endring.afp.privat',
+                          },
+                          { ...getFormatMessageValues(intl) }
+                        )
+                      : undefined,
+                    afpOffentlig: loependeVedtak.afpOffentlig.grad
+                      ? intl.formatMessage(
+                          {
+                            id: 'stegvisning.start.endring.afp.offentlig',
+                          },
+                          { ...getFormatMessageValues(intl) }
+                        )
+                      : undefined,
+                  }}
+                />
               </BodyLong>
-            </li>
-            <li>
+              <BodyLong size="medium">
+                <FormattedMessage id="stegvisning.start.endring.ingress_2" />
+              </BodyLong>
+            </>
+          ) : (
+            <>
               <BodyLong size="large">
-                <span
-                  className={`${styles.ellipse} ${styles.ellipse__purple}`}
-                ></span>
-                <FormattedMessage id="stegvisning.start.list_item2" />{' '}
+                <FormattedMessage id="stegvisning.start.ingress" />
               </BodyLong>
-            </li>
-            <li>
+              <ul className={styles.list}>
+                <li>
+                  <BodyLong size="large">
+                    <span
+                      className={`${styles.ellipse} ${styles.ellipse__blue}`}
+                    ></span>
+                    <FormattedMessage id="stegvisning.start.list_item1" />
+                  </BodyLong>
+                </li>
+                <li>
+                  <BodyLong size="large">
+                    <span
+                      className={`${styles.ellipse} ${styles.ellipse__purple}`}
+                    ></span>
+                    <FormattedMessage id="stegvisning.start.list_item2" />{' '}
+                  </BodyLong>
+                </li>
+                <li>
+                  <BodyLong size="large">
+                    <span
+                      className={`${styles.ellipse} ${styles.ellipse__green}`}
+                    ></span>
+                    <FormattedMessage id="stegvisning.start.list_item3" />{' '}
+                  </BodyLong>
+                </li>
+              </ul>
               <BodyLong size="large">
-                <span
-                  className={`${styles.ellipse} ${styles.ellipse__green}`}
-                ></span>
-                <FormattedMessage id="stegvisning.start.list_item3" />{' '}
+                <FormattedMessage id="stegvisning.start.ingress_2" />
               </BodyLong>
-            </li>
-          </ul>
-          <BodyLong size="large">
-            <FormattedMessage id="stegvisning.start.ingress_2" />
-          </BodyLong>
+            </>
+          )}
+
           <Button
             type="submit"
             className={styles.button}
