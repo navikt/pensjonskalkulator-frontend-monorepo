@@ -1,3 +1,4 @@
+import { paths } from './router/constants'
 import { components } from './schema'
 
 declare global {
