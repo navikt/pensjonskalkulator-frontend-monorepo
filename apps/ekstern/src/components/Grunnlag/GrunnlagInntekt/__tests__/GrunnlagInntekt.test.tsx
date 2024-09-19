@@ -128,7 +128,10 @@ describe('GrunnlagInntekt', () => {
       await screen.findByText('grunnlag.inntekt.info_om_inntekt')
     ).toBeVisible()
     expect(
-      await screen.findByText('inntekt.info_om_inntekt.subtitle')
+      await screen.findByText('inntekt.info_om_inntekt.subtitle_1')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('inntekt.info_om_inntekt.subtitle_2')
     ).toBeVisible()
     await user.click(
       await screen.findByText('grunnlag.inntekt.info_om_inntekt.lukk')

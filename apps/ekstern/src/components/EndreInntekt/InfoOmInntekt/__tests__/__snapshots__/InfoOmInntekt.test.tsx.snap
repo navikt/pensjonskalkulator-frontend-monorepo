@@ -5,14 +5,14 @@ exports[`InfoModalInntekt > viser fast info om inntekt 1`] = `
   <p
     class="navds-body-long navds-body-long--medium"
   >
-    Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. Hvis du endrer fremtidig inntekt i kalkulatoren, brukes den i stedet.
+    Vi bruker siste tilgjengelige årsinntekt fra Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet.
     <br />
     <br />
   </p>
   <h2
     class="navds-label"
   >
-    inntekt.info_om_inntekt.subtitle
+    inntekt.info_om_inntekt.subtitle_1
   </h2>
   <ul>
     <li>
@@ -42,17 +42,33 @@ exports[`InfoModalInntekt > viser fast info om inntekt 1`] = `
     <li>
       inntekt.info_om_inntekt.list_item9
     </li>
+  </ul>
+  <h2
+    class="navds-label"
+  >
+    inntekt.info_om_inntekt.subtitle_2
+  </h2>
+  <ul>
     <li>
-      inntekt.info_om_inntekt.list_item10
+      inntekt.info_om_inntekt.ikke_inntekt.list_item1
+    </li>
+    <li>
+      inntekt.info_om_inntekt.ikke_inntekt.list_item2
+    </li>
+    <li>
+      inntekt.info_om_inntekt.ikke_inntekt.list_item3
+    </li>
+    <li>
+      inntekt.info_om_inntekt.ikke_inntekt.list_item4
     </li>
   </ul>
   <p
     class="navds-body-long navds-body-long--medium"
   >
-    Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.
+    Listen er ikke uttømmende.
     <br />
     <br />
-    Uføretrygd regnes ikke som pensjonsgivende inntekt. Uføretrygd gir opptjening til alderspensjon basert på antatt inntekt til og med året du fyller 61 år.
+    Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser.
   </p>
 </DocumentFragment>
 `;

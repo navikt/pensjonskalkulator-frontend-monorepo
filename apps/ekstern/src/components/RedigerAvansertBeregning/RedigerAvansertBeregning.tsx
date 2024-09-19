@@ -345,6 +345,13 @@ export const RedigerAvansertBeregning: React.FC<{
           <Label className={styles.label}>
             <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.label" />
           </Label>
+          {!!ufoeregrad && (
+            <div className={styles.description}>
+              <span className={styles.descriptionText}>
+                <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere" />
+              </span>
+            </div>
+          )}
           <div className={styles.description}>
             <span className={styles.descriptionText}>
               <span
