@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { StepSamtykkePensjonsavtaler } from '..'
 import {
   fulfilledGetTpoMedlemskap,
-  fulfilledGetUfoeregrad,
+  fulfilledGetLoependeVedtakUfoeregrad,
   fulfilledPensjonsavtaler,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
@@ -61,7 +61,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
             queries: {
               ...fulfilledGetTpoMedlemskap,
               ...fulfilledPensjonsavtaler,
-              ...fulfilledGetUfoeregrad,
+              ...fulfilledGetLoependeVedtakUfoeregrad,
             },
           },
           userInput: {
@@ -104,7 +104,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
       hasRouter: false,
     })
     await store.dispatch(
-      apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate()
+      apiSliceUtils.apiSlice.endpoints.getLoependeVedtak.initiate()
     )
     await waitFor(async () => {
       await user.click(screen.getByText('stegvisning.tilbake'))

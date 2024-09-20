@@ -19,12 +19,14 @@ import {
   selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
   selectUfoeregrad,
+  selectIsEndring,
 } from '../selectors'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
   fulfilledGetTpoMedlemskap,
-  fulfilledGetUfoeregrad,
+  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtakEndring,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -441,10 +443,41 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
         },
       }
       expect(selectUfoeregrad(state)).toBe(75)
+    })
+  })
+
+  describe('selectIsEndring', () => {
+    it('er false når løpende vedtak ikke er kalt enda', () => {
+      const state: RootState = initialState
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
+    it('er false når kallet er vellykket og brukeren ikke har alderspensjon', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+        },
+      }
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har alderspensjon', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakEndring },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
     })
   })
 })

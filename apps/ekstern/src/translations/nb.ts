@@ -78,11 +78,21 @@ const translations = {
   'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.start.title': 'Hei',
+  'stegvisning.start.endring.ingress':
+    'Du har nå <strong>{grad} % alderspensjon</strong>{ufoeretrygd}{afpPrivat}{afpOffentlig}. Her kan du sjekke hva du kan få hvis du vil endre alderspensjonen din.{br}{br}',
+  'stegvisning.start.endring.ufoeretrygd':
+    ' og <strong>{grad} % uføretrygd</strong>',
+  'stegvisning.start.endring.afp.privat':
+    ' og <strong>AFP i privat sektor</strong>',
+  'stegvisning.start.endring.afp.offentlig':
+    ' og <strong>AFP i offentlig sektor</strong>',
   'stegvisning.start.ingress':
     'Velkommen til pensjonskalkulatoren som kan vise deg:',
   'stegvisning.start.list_item1': 'Alderspensjon (NAV)',
   'stegvisning.start.list_item2': 'AFP (avtalefestet pensjon)',
   'stegvisning.start.list_item3': 'Pensjonsavtaler',
+  'stegvisning.start.endring.ingress_2':
+    'Du må svare på alle spørsmålene som kommer.',
   'stegvisning.start.ingress_2':
     'For å beregne pensjonen din, må du svare på alle spørsmålene som kommer.',
   'stegvisning.start.button': 'Kom i gang',

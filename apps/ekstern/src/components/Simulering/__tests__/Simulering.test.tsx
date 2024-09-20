@@ -23,13 +23,24 @@ describe('Simulering', () => {
 
   const fakeApiCallUfoere = {
     queries: {
-      ['getUfoeregrad(undefined)']: {
+      ['getLoependeVedtak(undefined)']: {
         status: 'fulfilled',
-        endpointName: 'getUfoeregrad',
+        endpointName: 'getLoependeVedtak',
         requestId: 'xTaE6mOydr5ZI75UXq4Wi',
         startedTimeStamp: 1688046411971,
         data: {
-          ufoeregrad: 75,
+          alderspensjon: {
+            grad: 0,
+          },
+          ufoeretrygd: {
+            grad: 75,
+          },
+          afpPrivat: {
+            grad: 0,
+          },
+          afpOffentlig: {
+            grad: 0,
+          },
         },
         fulfilledTimeStamp: 1688046412103,
       },

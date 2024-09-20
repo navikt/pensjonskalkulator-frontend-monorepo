@@ -147,12 +147,31 @@ export const isOmstillingsstoenadOgGjenlevende = (
   )
 }
 
-export const isUfoeregrad = (data?: any): data is Ufoeregrad => {
+export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
+  if (data === null || data === undefined) {
+    return false
+  }
+
+  if (
+    data.alderspensjon === null ||
+    data.ufoeretrygd === null ||
+    data.afpPrivat === null ||
+    data.afpOffentlig === null
+  ) {
+    return false
+  }
+
   return (
     typeof data === 'object' &&
-    data !== null &&
     !Array.isArray(data) &&
-    typeof data.ufoeregrad === 'number'
+    typeof data.alderspensjon === 'object' &&
+    typeof data.ufoeretrygd === 'object' &&
+    typeof data.afpPrivat === 'object' &&
+    typeof data.afpOffentlig === 'object' &&
+    typeof data.alderspensjon.grad === 'number' &&
+    typeof data.ufoeretrygd.grad === 'number' &&
+    typeof data.afpPrivat.grad === 'number' &&
+    typeof data.afpOffentlig.grad === 'number'
   )
 }
 

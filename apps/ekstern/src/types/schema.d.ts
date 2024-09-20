@@ -172,6 +172,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/api/v1/vedtak/loepende-vedtak': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Har løpende saker
+     *
+     * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP privat eller offentlig
+     */
+    get: operations['hentLoependeVedtak']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/api/v1/ufoeregrad': {
     parameters: {
       query?: never
@@ -764,6 +785,16 @@ export interface components {
       /** @enum {string} */
       aarsak: 'NONE' | 'ER_APOTEKER'
     }
+    LoependeSakDto: {
+      /** Format: int32 */
+      grad: number
+    }
+    LoependeVedtakDto: {
+      alderspensjon: components['schemas']['LoependeSakDto']
+      ufoeretrygd: components['schemas']['LoependeSakDto']
+      afpPrivat: components['schemas']['LoependeSakDto']
+      afpOffentlig: components['schemas']['LoependeSakDto']
+    }
     UfoeregradDto: {
       /** Format: int32 */
       ufoeregrad: number
@@ -1075,6 +1106,35 @@ export interface operations {
         }
       }
       /** @description Sjekking av ekskludering kunne ikke utføres av tekniske årsaker */
+      503: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': unknown
+        }
+      }
+    }
+  }
+  hentLoependeVedtak: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Sjekking av saker utført */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          '*/*': components['schemas']['LoependeVedtakDto']
+        }
+      }
+      /** @description Sjekking av saker kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

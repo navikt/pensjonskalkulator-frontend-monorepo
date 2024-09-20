@@ -17,6 +17,7 @@ import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
+import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { waitFor } from '@/test-utils'
 
 describe('Loaders', () => {
@@ -149,9 +150,13 @@ describe('Loaders', () => {
   })
 
   describe('stepStartAccessGuard', () => {
-    it('kaller getPersonQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url', async () => {
+    it('kaller getPersonQuery, getLoependeVedtakQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url', async () => {
       const initiateGetPersonMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.getPerson,
+        'initiate'
+      )
+      const initiateGetLoependeVedtakQueryMock = vi.spyOn(
+        apiSliceUtils.apiSlice.endpoints.getLoependeVedtak,
         'initiate'
       )
       const initiateGetInntektMock = vi.spyOn(
@@ -175,6 +180,8 @@ describe('Loaders', () => {
       const returnedFromLoader = await stepStartAccessGuard()
       const getPersonQueryResponse =
         await returnedFromLoader.data.getPersonQuery
+      const getLoependeVedtakQueryResponse =
+        await returnedFromLoader.data.getLoependeVedtakQuery
       const shouldRedirectToResponse =
         await returnedFromLoader.data.shouldRedirectTo
 
@@ -182,10 +189,17 @@ describe('Loaders', () => {
         expect(
           (getPersonQueryResponse as GetPersonQuery).data.foedselsdato
         ).toBe('1963-04-30')
+        expect(
+          (getLoependeVedtakQueryResponse as GetLoependeVedtakQuery).data
+            .alderspensjon.grad
+        ).toBe(0)
+
         expect(shouldRedirectToResponse).toEqual('')
       })
+
       expect(returnedFromLoader).toMatchSnapshot()
       expect(initiateGetPersonMock).toHaveBeenCalled()
+      expect(initiateGetLoependeVedtakQueryMock).toHaveBeenCalled()
       expect(initiateGetInntektMock).toHaveBeenCalled()
       expect(initiateGetOmstillingsstoenadOgGjenlevendeMock).toHaveBeenCalled()
       expect(initiateGetEkskludertStatusMock).toHaveBeenCalled()
@@ -502,13 +516,32 @@ describe('Loaders', () => {
   })
 
   describe('stepAFPAccessGuard', async () => {
-    it('Gitt at alle kallene er vellykket, er brukeren ikke redirigert', async () => {
-      const returnedFromLoader = await stepAFPAccessGuard()
-      const shouldRedirectToResponse = await (
-        returnedFromLoader as UNSAFE_DeferredData
-      ).data.shouldRedirectTo
-      expect(shouldRedirectToResponse).toBe('')
-    })
+    const mockedVellykketQueries = {
+      ['getInntekt(undefined)']: {
+        status: 'fulfilled',
+        endpointName: 'getInntekt',
+        requestId: 't1wLPiRKrfe_vchftk8s8',
+        data: { beloep: 521338, aar: 2021 },
+        startedTimeStamp: 1714725797072,
+        fulfilledTimeStamp: 1714725797669,
+      },
+      ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+        status: 'fulfilled',
+        endpointName: 'getOmstillingsstoenadOgGjenlevende',
+        requestId: 't1wLPiRKrfe_vchftk8s8',
+        data: { harLoependeSak: false },
+        startedTimeStamp: 1714725797072,
+        fulfilledTimeStamp: 1714725797669,
+      },
+      ['getEkskludertStatus(undefined)']: {
+        status: 'fulfilled',
+        endpointName: 'getEkskludertStatus',
+        requestId: 't1wLPiRKrfe_vchftk8s8',
+        data: { ekskludert: false, aarsak: 'NONE' },
+        startedTimeStamp: 1714725797072,
+        fulfilledTimeStamp: 1714725797669,
+      },
+    }
 
     it('returnerer redirect til /start location når ingen api kall er registrert', async () => {
       const mockedState = {
@@ -525,14 +558,34 @@ describe('Loaders', () => {
       expect(returnedFromLoader).toMatchSnapshot()
     })
 
-    it('Gitt at getUfoeregrad feiler, er brukeren redirigert', async () => {
-      mockErrorResponse('/v1/ufoeregrad')
+    it('Gitt at alle kallene er vellykket, er brukeren ikke redirigert', async () => {
       const mockedState = {
         api: {
           queries: {
-            ['getUfoeregrad(undefined)']: {
+            ...mockedVellykketQueries,
+          },
+        },
+        userInput: { ...userInputInitialState, samtykke: null },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(shouldRedirectToResponse).toBe('')
+    })
+
+    it('Gitt at alle kallene er vellykket og getLoependeVedtak feiler, er brukeren redirigert', async () => {
+      mockErrorResponse('/v1/vedtak/loepende-vedtak')
+      const mockedState = {
+        api: {
+          queries: {
+            ...mockedVellykketQueries,
+            ['getLoependeVedtak(undefined)']: {
               status: 'rejected',
-              endpointName: 'getUfoeregrad',
+              endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               error: {
                 status: 'FETCH_ERROR',
@@ -557,6 +610,92 @@ describe('Loaders', () => {
       expect(shouldRedirectToResponse).toBe(paths.uventetFeil)
     })
 
+    it('Gitt at alle kallene er vellykket og brukeren har et vedtak med alderspensjon, kalles det flushSamboerOgUtenlandsperioder og brukeren er ikke redirigert', async () => {
+      mockResponse('/v1/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: {
+            grad: 50,
+          },
+          ufoeretrygd: {
+            grad: 0,
+          },
+          afpPrivat: {
+            grad: 0,
+          },
+          afpOffentlig: {
+            grad: 0,
+          },
+        },
+      })
+      const flushSamboerOgUtenlandsperioderMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushSamboerOgUtenlandsperioder'
+      )
+      const mockedState = {
+        api: {
+          queries: {
+            ...mockedVellykketQueries,
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(flushSamboerOgUtenlandsperioderMock).toHaveBeenCalled()
+
+      expect(shouldRedirectToResponse).toBe('')
+    })
+
+    it('Gitt at alle kallene er vellykket og brukeren har et vedtak med AFP, kalles det flushSamboerOgUtenlandsperioder og brukeren er redirigert til beregning avansert', async () => {
+      mockResponse('/v1/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: {
+            grad: 0,
+          },
+          ufoeretrygd: {
+            grad: 0,
+          },
+          afpPrivat: {
+            grad: 50,
+          },
+          afpOffentlig: {
+            grad: 0,
+          },
+        },
+      })
+      const flushSamboerOgUtenlandsperioderMock = vi.spyOn(
+        userInputReducerUtils.userInputActions,
+        'flushSamboerOgUtenlandsperioder'
+      )
+      const mockedState = {
+        api: {
+          queries: {
+            ...mockedVellykketQueries,
+          },
+        },
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+
+      const returnedFromLoader = await stepAFPAccessGuard()
+      const shouldRedirectToResponse = await (
+        returnedFromLoader as UNSAFE_DeferredData
+      ).data.shouldRedirectTo
+      expect(flushSamboerOgUtenlandsperioderMock).toHaveBeenCalled()
+
+      expect(shouldRedirectToResponse).toBe(paths.beregningAvansert)
+    })
+
     it('Gitt at getInntekt har tidligere feilet kalles den på nytt. Når den er vellykket i tillegg til de to andre kallene, er brukeren ikke redirigert', async () => {
       mockResponse('/inntekt', {
         status: 200,
@@ -569,6 +708,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
+            ...mockedVellykketQueries,
             ['getInntekt(undefined)']: {
               status: 'rejected',
               endpointName: 'getInntekt',
@@ -577,22 +717,6 @@ describe('Loaders', () => {
                 status: 'FETCH_ERROR',
                 error: 'TypeError: Failed to fetch',
               },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getOmstillingsstoenadOgGjenlevende',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-            ['getEkskludertStatus(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getEkskludertStatus',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
@@ -654,6 +778,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
+            ...mockedVellykketQueries,
             ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
               status: 'rejected',
               endpointName: 'getOmstillingsstoenadOgGjenlevende',
@@ -662,22 +787,6 @@ describe('Loaders', () => {
                 status: 'FETCH_ERROR',
                 error: 'TypeError: Failed to fetch',
               },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-            ['getInntekt(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getInntekt',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-            ['getEkskludertStatus(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getEkskludertStatus',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
@@ -742,6 +851,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
+            ...mockedVellykketQueries,
             ['getEkskludertStatus(undefined)']: {
               status: 'rejected',
               endpointName: 'getEkskludertStatus',
@@ -750,22 +860,6 @@ describe('Loaders', () => {
                 status: 'FETCH_ERROR',
                 error: 'TypeError: Failed to fetch',
               },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-            ['getInntekt(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getInntekt',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getOmstillingsstoenadOgGjenlevende',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
@@ -798,6 +892,7 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
+            ...mockedVellykketQueries,
             ['getEkskludertStatus(undefined)']: {
               status: 'rejected',
               endpointName: 'getEkskludertStatus',
@@ -806,22 +901,6 @@ describe('Loaders', () => {
                 status: 'FETCH_ERROR',
                 error: 'TypeError: Failed to fetch',
               },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-            ['getInntekt(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getInntekt',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
-              startedTimeStamp: 1714725797072,
-              fulfilledTimeStamp: 1714725797669,
-            },
-            ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
-              status: 'fulfilled',
-              endpointName: 'getOmstillingsstoenadOgGjenlevende',
-              requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
@@ -893,11 +972,24 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ['getUfoeregrad(undefined)']: {
+            ['getLoependeVedtak(undefined)']: {
               status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
+              endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
+              data: {
+                alderspensjon: {
+                  grad: 0,
+                },
+                ufoeretrygd: {
+                  grad: 50,
+                },
+                afpPrivat: {
+                  grad: 0,
+                },
+                afpOffentlig: {
+                  grad: 0,
+                },
+              },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
@@ -917,11 +1009,24 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ['getUfoeregrad(undefined)']: {
+            ['getLoependeVedtak(undefined)']: {
               status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
+              endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
+              data: {
+                alderspensjon: {
+                  grad: 0,
+                },
+                ufoeretrygd: {
+                  grad: 50,
+                },
+                afpPrivat: {
+                  grad: 0,
+                },
+                afpOffentlig: {
+                  grad: 0,
+                },
+              },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
@@ -984,11 +1089,24 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ['getUfoeregrad(undefined)']: {
+            ['getLoependeVedtak(undefined)']: {
               status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
+              endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 0 },
+              data: {
+                alderspensjon: {
+                  grad: 0,
+                },
+                ufoeretrygd: {
+                  grad: 0,
+                },
+                afpPrivat: {
+                  grad: 0,
+                },
+                afpOffentlig: {
+                  grad: 0,
+                },
+              },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
@@ -1008,11 +1126,24 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ['getUfoeregrad(undefined)']: {
+            ['getLoependeVedtak(undefined)']: {
               status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
+              endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 50 },
+              data: {
+                alderspensjon: {
+                  grad: 0,
+                },
+                ufoeretrygd: {
+                  grad: 50,
+                },
+                afpPrivat: {
+                  grad: 0,
+                },
+                afpOffentlig: {
+                  grad: 0,
+                },
+              },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },
@@ -1033,11 +1164,24 @@ describe('Loaders', () => {
       const mockedState = {
         api: {
           queries: {
-            ['getUfoeregrad(undefined)']: {
+            ['getLoependeVedtak(undefined)']: {
               status: 'fulfilled',
-              endpointName: 'getUfoeregrad',
+              endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
-              data: { ufoeregrad: 0 },
+              data: {
+                alderspensjon: {
+                  grad: 0,
+                },
+                ufoeretrygd: {
+                  grad: 0,
+                },
+                afpPrivat: {
+                  grad: 0,
+                },
+                afpOffentlig: {
+                  grad: 0,
+                },
+              },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
             },

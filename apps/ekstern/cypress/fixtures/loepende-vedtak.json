@@ -1,0 +1,14 @@
+{
+  "alderspensjon": {
+    "grad": 0
+  },
+  "ufoeretrygd": {
+    "grad": 0
+  },
+  "afpPrivat": {
+    "grad": 0
+  },
+  "afpOffentlig": {
+    "grad": 0
+  }
+}
