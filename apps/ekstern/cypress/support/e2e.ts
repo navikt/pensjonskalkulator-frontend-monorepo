@@ -115,10 +115,10 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/v1/ufoeregrad',
+      url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
     },
-    { fixture: 'ufoeregrad.json' }
-  ).as('getUfoeregrad')
+    { fixture: 'loepende-vedtak.json' }
+  ).as('getLoependeVedtak')
 
   cy.intercept(
     { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
@@ -168,6 +168,7 @@ Cypress.Commands.add('login', () => {
   cy.wait('@getEkskludertStatus')
   cy.wait('@getInntekt')
   cy.wait('@getOmstillingsstoenadOgGjenlevende')
+  cy.wait('@getLoependeVedtak')
 })
 
 Cypress.Commands.add('fillOutStegvisning', (args) => {
@@ -191,11 +192,6 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
         userInputActions.setSamtykkeOffentligAFP(samtykkeAfpOffentlig)
       )
   }
-
-  // Kaller /ufoeregrad som vanligvis gjøres på steg 3 ila. stegvisningen
-  cy.window()
-    .its('store')
-    .invoke('dispatch', apiSlice.endpoints.getUfoeregrad.initiate())
 
   cy.window().its('store').invoke('dispatch', userInputActions.setAfp(afp))
 
