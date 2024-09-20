@@ -12,7 +12,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -32,7 +32,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -58,7 +58,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke",
         },
       },
@@ -78,7 +78,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke",
         },
       },
@@ -104,7 +104,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke",
         },
       },
@@ -124,7 +124,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke",
         },
       },
@@ -150,7 +150,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -170,7 +170,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -196,7 +196,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -216,7 +216,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -267,7 +267,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke-offentlig-afp",
         },
       },
@@ -287,7 +287,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke-offentlig-afp",
         },
       },
@@ -313,7 +313,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke-offentlig-afp",
         },
       },
@@ -333,7 +333,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke-offentlig-afp",
         },
       },
@@ -359,7 +359,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -379,7 +379,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },

@@ -403,6 +403,8 @@ const translations = {
   'beregning.avansert.resultatkort.alderspensjon': 'Alderspensjon: ',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.label':
     'Pensjonsgivende inntekt frem til pensjon',
+  'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere':
+    'Uten uføretrygd og uførepensjon.',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
     'kr per år før skatt',
   'beregning.avansert.rediger.uttaksgrad.label':
@@ -432,7 +434,7 @@ const translations = {
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description':
     'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description':
-    'Alderspensjonen påvirker ikke inntektsgrensen  for uføretrygden din.',
+    'Alderspensjonen påvirker ikke inntektsgrensen for uføretrygden din.',
   'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.description.validation_error':
     'Du må svare på om du forventer å ha inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
@@ -608,14 +610,13 @@ const translations = {
   'inntekt.endre_inntekt_vsa_pensjon_modal.button.endre': 'Oppdater inntekt',
   'inntekt.info_om_inntekt.read_more.label': 'Om pensjonsgivende inntekt',
   'inntekt.info_om_inntekt.ufoeretrygd.read_more.label':
-    'Om inntekt og uføretrygd',
+    'Om alderspensjon og inntektsgrensen for uføretrygd',
   'inntekt.info_om_inntekt.ufoeretrygd.read_more.body':
     'Alderspensjon er ikke pensjonsgivende inntekt og påvirker ikke inntektsgrensen for uføretrygden din. Du beholder inntektsgrensen din ved kombinasjon av uføretrygd og alderspensjon fra folketrygden.',
   'inntekt.info_om_inntekt.open.link': 'Hva er pensjonsgivende inntekt?',
   'inntekt.info_om_inntekt.intro':
-    'Kalkulatoren bruker siste tilgjengelige årsinntekt fastsatt av Skatteetaten som fremtidig inntekt. Hvis du endrer fremtidig inntekt i kalkulatoren, brukes den i stedet.{br}{br}',
-  'inntekt.info_om_inntekt.subtitle':
-    'Dette regnes som pensjonsgivende inntekt:',
+    'Vi bruker siste tilgjengelige årsinntekt fra Skatteetaten som fremtidig inntekt. Hvis du endrer den i kalkulatoren, bruker vi den i stedet.{br}{br}',
+  'inntekt.info_om_inntekt.subtitle_1': 'Dette er pensjonsgivende inntekt:',
   'inntekt.info_om_inntekt.list_item1': 'all lønnsinntekt for lønnstakere',
   'inntekt.info_om_inntekt.list_item2':
     'personinntekt fra næring for selvstendige',
@@ -627,10 +628,18 @@ const translations = {
   'inntekt.info_om_inntekt.list_item8': 'omsorgsstønad',
   'inntekt.info_om_inntekt.list_item9':
     'fosterhjemsgodtgjørelse (den delen som utgjør arbeidsgodtgjørelse)',
-  'inntekt.info_om_inntekt.list_item10':
-    'førstegangstjeneste (hvis påbegynt tidligst i 2010)',
+  'inntekt.info_om_inntekt.subtitle_2':
+    'Dette er ikke pensjonsgivende inntekt:',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item1':
+    'uføretrygd fra NAV gir opptjening til alderspensjon, men er ikke pensjonsgivende inntekt',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item2':
+    'uførepensjon og annen pensjon fra tjenestepensjonsordning',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item3':
+    'inntekt og pensjon fra utlandet',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item4':
+    'førstegangstjeneste (hvis påbegynt tidligst i 2010) gir opptjening til alderspensjon, men er ikke pensjonsgivende inntekt',
   'inntekt.info_om_inntekt.ingress':
-    'Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser. Den pensjonsgivende inntekten beregnes av Skatteetaten.{br}{br}Uføretrygd regnes ikke som pensjonsgivende inntekt. Uføretrygd gir opptjening til alderspensjon basert på antatt inntekt til og med året du fyller 61 år.',
+    'Listen er ikke uttømmende.{br}{br}Pensjonsgivende inntekt har betydning for retten til og størrelsen på alderspensjon og andre pensjonsytelser.',
   'forbehold.title': 'Forbehold',
   'forbehold.intro':
     'Pensjonen er beregnet med de opplysningene vi har om deg, i tillegg til de opplysningene du har oppgitt selv, på tidspunktet for beregningen. Dette er derfor en foreløpig beregning av hva du kan forvente deg i pensjon. Pensjonsberegningen er vist i dagens kroneverdi før skatt. Vi har benyttet dagens satser for beregning av garantipensjon. Satsene reguleres hvert år og blir ikke fastsatt før de skal brukes. Fremtidige reguleringer kan ha betydning for når du tidligst kan starte uttak av alderspensjon.{br}{br}Vi anbefaler at du gjør en ny beregning i pensjonskalkulatoren når du nærmer deg ønsket pensjonsalder hvis det er lenge til du skal ta ut pensjon. Det vil blant annet kunne skje endringer i din opptjening og endringer i regelverket.{br}{br}Pensjonsgivende inntekt er gjeldende i beregning av alderspensjon fra januar året etter at den er fastsatt av Skatteetaten. Alderspensjonen vil derfor normalt øke som følge av ny opptjening de to første årene etter uttak. Dersom du fortsetter i jobb etter uttak av alderspensjon, vil alderspensjon fortsette å øke etter hvert som ny opptjening legges til. Du kan tjene opp til alderspensjon til og med året du fyller 75 år.',
