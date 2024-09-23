@@ -1,10 +1,20 @@
 import { EndreInntekt } from '..'
 import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
+import { mockResponse } from '@/mocks/server'
+import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
-import { render, screen, userEvent } from '@/test-utils'
+import { render, screen, userEvent, waitFor } from '@/test-utils'
 
 describe('EndreInntekt', () => {
   describe('Gitt at brukeren har inntekt hentet fra Skatteetaten', () => {
+    it('viser riktig tekst', async () => {
+      render(<EndreInntekt visning="enkel" value="123" onSubmit={vi.fn()} />)
+
+      expect(
+        screen.getByText('inntekt.endre_inntekt_modal.textfield.description')
+      ).toBeInTheDocument()
+    })
+
     it('brukeren kan overskrive den', async () => {
       const scrollToMock = vi.fn()
       const oppdatereInntektMock = vi.fn()
@@ -132,6 +142,30 @@ describe('EndreInntekt', () => {
 
       await user.click(screen.getByText('inntekt.endre_inntekt_modal.button'))
       expect(oppdatereInntektMock).toHaveBeenCalledWith('123 000')
+    })
+  })
+
+  describe('Gitt at brukeren har uføretrygd', () => {
+    it('viser riktig tekst', async () => {
+      mockResponse('/v1/ufoeregrad', {
+        status: 200,
+        json: {
+          ufoeregrad: 100,
+        },
+      })
+
+      const { store } = render(
+        <EndreInntekt visning="enkel" value="123" onSubmit={vi.fn()} />
+      )
+      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+
+      await waitFor(async () => {
+        expect(
+          await screen.findByText(
+            'inntekt.endre_inntekt_modal.textfield.description.ufoere'
+          )
+        ).toBeInTheDocument()
+      })
     })
   })
 
