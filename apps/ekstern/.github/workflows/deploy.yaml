@@ -6,7 +6,8 @@ on:
       - main
       - sandbox
       - catbox
-      - magixbox
+      - magicbox
+      - dreambox
     paths-ignore:
       - '.gitignore'
       - 'CODEOWNERS'
@@ -312,6 +313,33 @@ jobs:
           CLUSTER: dev-gcp
           IMAGE: ${{ needs.build.outputs.image }}
           RESOURCE: .nais/deploy-veiledning-magicbox.yml        
+  deploy-dreambox:
+    name: Deploy to dreambox
+    needs: [build, run-unit-tests, run-integration-tests]
+    permissions: write-all
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      github.ref == 'refs/heads/dreambox'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to dreambox
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
+          RESOURCE: .nais/deploy-dreambox.yml
+
+      - name: Deploy veiledning to dreambox
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
+          RESOURCE: .nais/deploy-veiledning-dreambox.yml  
 
   deploy-prod:
     name: Deploy to prod-gcp

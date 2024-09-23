@@ -602,7 +602,7 @@ export const RedigerAvansertBeregning: React.FC<{
                       />
                     }
                     description={intl.formatMessage({
-                      id: 'inntekt.endre_inntekt_modal.textfield.description',
+                      id: 'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.description',
                     })}
                     error={
                       validationErrors[

@@ -90,6 +90,7 @@ declare global {
     components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
   type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV6']
   type Vilkaarsproeving = components['schemas']['VilkaarsproevingV6']
+  type VilkaarsproevingAlternativ = components['schemas']['AlternativV6']
   type AarligInntektVsaPensjon = {
     beloep: string
     sluttAlder: Alder

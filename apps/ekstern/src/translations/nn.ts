@@ -382,6 +382,8 @@ const translations = {
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.description':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt.button': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.validation_error': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.grad.validation_error': 'MANGLER_TEKST',
@@ -489,6 +491,7 @@ const translations = {
   'pensjonsavtaler.tpo.er_medlem': 'MANGLER_TEKST',
   'pensjonsavtaler.tpo.error': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.textfield.description.ufoere': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':
     'MANGLER_TEKST',
