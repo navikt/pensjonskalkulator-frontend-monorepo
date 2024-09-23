@@ -103,6 +103,12 @@ describe('stegvisning - Start', () => {
     )
 
     await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Vil du sjekke hva kan få hvis du endrer uttaket, må du gå til',
+          { exact: false }
+        )
+      ).toBeVisible()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.start.title Ola!'
       )
@@ -138,6 +144,12 @@ describe('stegvisning - Start', () => {
     )
 
     await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Vil du sjekke hva kan få hvis du endrer uttaket, må du gå til',
+          { exact: false }
+        )
+      ).toBeVisible()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.start.title Ola!'
       )
@@ -176,6 +188,12 @@ describe('stegvisning - Start', () => {
     )
 
     await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Vil du sjekke hva kan få hvis du endrer uttaket, må du gå til',
+          { exact: false }
+        )
+      ).toBeVisible()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.start.title Ola!'
       )
@@ -214,6 +232,12 @@ describe('stegvisning - Start', () => {
     )
 
     await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Vil du sjekke hva kan få hvis du endrer uttaket, må du gå til',
+          { exact: false }
+        )
+      ).toBeVisible()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.start.title Ola!'
       )
@@ -224,6 +248,7 @@ describe('stegvisning - Start', () => {
       expect(
         screen.getByText('AFP i offentlig sektor', { exact: false })
       ).toBeVisible()
+
       expect(result.asFragment()).toMatchSnapshot()
     })
   })

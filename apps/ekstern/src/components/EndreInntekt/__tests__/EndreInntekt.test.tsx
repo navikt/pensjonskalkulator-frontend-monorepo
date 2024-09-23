@@ -147,17 +147,28 @@ describe('EndreInntekt', () => {
 
   describe('Gitt at brukeren har uføretrygd', () => {
     it('viser riktig tekst', async () => {
-      mockResponse('/v1/ufoeregrad', {
+      mockResponse('/v1/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          ufoeregrad: 100,
+          alderspensjon: {
+            grad: 0,
+          },
+          ufoeretrygd: {
+            grad: 100,
+          },
+          afpPrivat: {
+            grad: 0,
+          },
+          afpOffentlig: {
+            grad: 0,
+          },
         },
       })
 
       const { store } = render(
         <EndreInntekt visning="enkel" value="123" onSubmit={vi.fn()} />
       )
-      await store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate())
+      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
 
       await waitFor(async () => {
         expect(

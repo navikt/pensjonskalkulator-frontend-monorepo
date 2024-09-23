@@ -1,20 +1,24 @@
 import React from 'react'
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
+import { Alert, Button, Modal, ToggleGroup } from '@navikt/ds-react'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
-import { useGetHighchartsAccessibilityPluginFeatureToggleQuery } from '@/state/api/apiSlice'
+import {
+  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
+  useGetLoependeVedtakQuery,
+} from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { logger } from '@/utils/logging'
+import { getFormatMessageValues } from '@/utils/translations'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
@@ -41,6 +45,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
 
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
+  const { data: loependeVedtak } = useGetLoependeVedtakQuery()
 
   React.useEffect(() => {
     /* c8 ignore next 3 */
@@ -179,6 +184,21 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         </Modal.Footer>
       </Modal>
       <div className={styles.beregning}>
+        {(loependeVedtak?.alderspensjon.grad ||
+          loependeVedtak?.afpPrivat.grad) && (
+          <div className={styles.container}>
+            <Alert
+              className={styles.alert}
+              variant="warning"
+              aria-live="polite"
+            >
+              <FormattedMessage
+                id="stegvisning.endring.alert"
+                values={{ ...getFormatMessageValues(intl) }}
+              />
+            </Alert>
+          </div>
+        )}
         <div
           className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
         >

@@ -4,7 +4,9 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
 import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
+import { mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
+import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
@@ -15,6 +17,56 @@ describe('Beregning', () => {
   it('har riktig sidetittel', () => {
     render(<Beregning visning="enkel" />)
     expect(document.title).toBe('application.title.beregning')
+  })
+
+  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
+    it('viser alert på toppen av siden', async () => {
+      mockResponse('/v1/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: {
+            grad: 50,
+          },
+          ufoeretrygd: {
+            grad: 0,
+          },
+          afpPrivat: {
+            grad: 0,
+          },
+          afpOffentlig: {
+            grad: 0,
+          },
+        },
+      })
+
+      const { store } = render(<Beregning visning="enkel" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: {
+              utenlandsperioder: [],
+              formatertUttaksalderReadOnly:
+                '70 alder.aar string.og 4 alder.maaned',
+              uttaksalder: { aar: 70, maaneder: 4 },
+              aarligInntektFoerUttakBeloep: '300 000',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+
+      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+
+      await waitFor(() => {
+        expect(
+          screen.getByText(
+            'Vil du sjekke hva kan få hvis du endrer uttaket, må du gå til',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
+    })
   })
 
   describe('Gitt at brukeren navigerer mellom fanene', () => {

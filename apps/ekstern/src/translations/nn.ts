@@ -71,6 +71,7 @@ const translations = {
   'stegvisning.tilbake_start.modal.bekreft': 'MANGLER_TEKST',
   'stegvisning.tilbake_start.modal.avbryt': 'MANGLER_TEKST',
   'stegvisning.beregn': 'Rekne ut pensjon',
+  'stegvisning.endring.alert': 'MANGLER_TEKST',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.endring.ingress': 'MANGLER_TEKST',
   'stegvisning.start.endring.ufoeretrygd': 'MANGLER_TEKST',
