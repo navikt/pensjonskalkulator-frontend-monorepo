@@ -15,6 +15,7 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
+import { Simuleringsdetaljer } from '@/components/Simulering/Simuleringsdetaljer'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
@@ -51,10 +52,14 @@ export function Simulering(props: {
   isLoading: boolean
   headingLevel: HeadingProps['level']
   aarligInntektFoerUttakBeloep: string
-  alderspensjonListe?: Pensjonsberegning[]
+  alderspensjonListe?: PensjonsberegningMedDetaljer[]
   afpPrivatListe?: Pensjonsberegning[]
   afpOffentligListe?: Pensjonsberegning[]
   showButtonsAndTable?: boolean
+  detaljer?: {
+    trygdetid?: number
+    opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[]
+  }
 }) {
   const intl = useIntl()
   const {
@@ -65,6 +70,7 @@ export function Simulering(props: {
     afpPrivatListe,
     afpOffentligListe,
     showButtonsAndTable,
+    detaljer,
   } = props
   const harSamtykket = useAppSelector(selectSamtykke)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
@@ -393,7 +399,6 @@ export function Simulering(props: {
           options={chartOptions}
         />
       </div>
-
       {showButtonsAndTable && (
         <div
           className={clsx(styles.buttonRow, {
@@ -488,6 +493,13 @@ export function Simulering(props: {
         <TabellVisning
           series={chartOptions.series as SeriesColumnOptions[]}
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
+        />
+      )}
+      /* c8 ignore next 6 - detaljer skal kun vises i dev for test formål */
+      {detaljer && (
+        <Simuleringsdetaljer
+          alderspensjonListe={alderspensjonListe}
+          detaljer={detaljer}
         />
       )}
     </section>
