@@ -441,6 +441,8 @@ const translations = {
     'Du må fylle ut forventet inntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> pensjon.',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label':
     'Hva er din forventede årsinntekt samtidig som du tar ut <nowrap>{grad} %</nowrap> alderspensjon?',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.description':
+    'Dagens kroneverdi før skatt',
   'beregning.avansert.rediger.inntekt.button': 'Endre inntekt',
   'beregning.avansert.rediger.agepicker.validation_error':
     ' for når du vil ta ut alderspensjon.',
@@ -582,6 +584,8 @@ const translations = {
     'Hva er din forventede årsinntekt frem til du tar ut pensjon?',
   'inntekt.endre_inntekt_modal.textfield.description':
     'Dagens kroneverdi før skatt',
+  'inntekt.endre_inntekt_modal.textfield.description.ufoere':
+    'Ikke uføretrygd og uførepensjon. Dagens kroneverdi før skatt',
   'inntekt.endre_inntekt_modal.paragraph':
     'Når du oppdaterer inntekten, må du velge alder på nytt.',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   isInntekt,
-  isPensjonsberegningArray,
+  isAlderspensjonSimulering,
   isPerson,
   isPensjonsavtale,
   isTpoMedlemskap,
@@ -158,17 +158,8 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Alderspensjon'],
       transformResponse: (response: AlderspensjonResponseBody) => {
-        // TODO PEK-483 - utvide med sjekk på harForLiteTrygdetid flagg
-        if (
-          !isPensjonsberegningArray(response?.alderspensjon) ||
-          (response.afpPrivat &&
-            !isPensjonsberegningArray(response?.afpPrivat)) ||
-          (response.afpOffentlig &&
-            !isPensjonsberegningArray(response?.afpOffentlig))
-        ) {
-          throw new Error(
-            `Mottok ugyldig alderspensjon: ${response?.alderspensjon}`
-          )
+        if (!isAlderspensjonSimulering(response)) {
+          throw new Error(`Mottok ugyldig alderspensjon: ${response}`)
         }
         return response
       },

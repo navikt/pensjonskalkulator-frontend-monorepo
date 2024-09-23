@@ -5,6 +5,8 @@ import {
   isInntekt,
   isPensjonsavtale,
   isPensjonsberegningArray,
+  isVilkaarsproeving,
+  isAlderspensjonSimulering,
   isPerson,
   isEkskludertStatus,
   isOmstillingsstoenadOgGjenlevende,
@@ -278,6 +280,246 @@ describe('Typeguards', () => {
             alder: 'abc',
           },
         ])
+      ).toBeFalsy()
+    })
+  })
+
+  describe('isVilkaarsproeving', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(
+        isVilkaarsproeving({ vilkaarErOppfylt: false, alternativ: undefined })
+      ).toBeTruthy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: false,
+          alternativ: {
+            gradertUttaksalder: {
+              aar: 12,
+              maaneder: 2,
+            },
+            uttaksgrad: 50,
+            heltUttaksalder: {
+              aar: 12,
+              maaneder: 2,
+            },
+          },
+        })
+      ).toBeTruthy()
+    })
+
+    it('returnerer false når typen er undefined eller at vilkaarErOppfylt inneholder noe annet enn boolean', () => {
+      expect(isVilkaarsproeving(undefined)).toBeFalsy()
+      expect(isVilkaarsproeving(null)).toBeFalsy()
+      expect(
+        isVilkaarsproeving({ vilkaarErOppfylt: null, alternativ: undefined })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: undefined,
+          alternativ: undefined,
+        })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({ vilkaarErOppfylt: 'loren', alternativ: undefined })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({ vilkaarErOppfylt: 123, alternativ: undefined })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når et gradertUttaksalder eller heltUttaksalder ikke er Alder', () => {
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: false,
+          alternativ: {
+            gradertUttaksalder: [],
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: false,
+          alternativ: {
+            gradertUttaksalder: { lorem: '123' },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: false,
+          alternativ: {
+            gradertUttaksalder: {
+              aar: 2,
+              maaneder: 'string',
+            },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: false,
+          alternativ: {
+            heltUttaksalder: [],
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: false,
+          alternativ: {
+            heltUttaksalder: { lorem: '123' },
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: false,
+          alternativ: {
+            heltUttaksalder: {
+              aar: 2,
+              maaneder: 'string',
+            },
+          },
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når et uttaksgrad er noe annet enn number', () => {
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: null,
+          alternativ: { uttaksgrad: null },
+        })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: null,
+          alternativ: { uttaksgrad: true },
+        })
+      ).toBeFalsy()
+      expect(
+        isVilkaarsproeving({
+          vilkaarErOppfylt: null,
+          alternativ: { uttaksgrad: 'lorem' },
+        })
+      ).toBeFalsy()
+    })
+  })
+
+  describe('isAlderspensjonSimulering', () => {
+    it('returnerer true når typen er riktig', () => {
+      expect(
+        isAlderspensjonSimulering({
+          alderspensjon: [],
+          afpPrivat: [],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            alternativ: undefined,
+          },
+        })
+      ).toBeTruthy()
+      expect(
+        isAlderspensjonSimulering({
+          alderspensjon: [
+            {
+              alder: 76,
+              beloep: 172476,
+            },
+            {
+              alder: 77,
+              beloep: 172476,
+            },
+          ],
+          afpPrivat: [
+            {
+              alder: 76,
+              beloep: 80000,
+            },
+            {
+              alder: 77,
+              beloep: 80000,
+            },
+          ],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: true,
+          },
+          harForLiteTrygdetid: false,
+        })
+      ).toBeTruthy()
+    })
+
+    it('returnerer false når alderspensjon eller afpPrivat ikke er gyldig PensjonsberegningArray', () => {
+      expect(
+        isAlderspensjonSimulering({
+          alderspensjon: [
+            {
+              beloep: 1,
+            },
+          ],
+          afpPrivat: [],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            alternativ: undefined,
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isAlderspensjonSimulering({
+          alderspensjon: [],
+          afpPrivat: [
+            {
+              beloep: 1,
+              alder: 'abc',
+            },
+          ],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            alternativ: undefined,
+          },
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når vilkaarsproeving ikke er gyldig', () => {
+      expect(
+        isAlderspensjonSimulering({
+          alderspensjon: [],
+          afpPrivat: [],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: 'lorem',
+            alternativ: undefined,
+          },
+        })
+      ).toBeFalsy()
+      expect(
+        isAlderspensjonSimulering({
+          alderspensjon: [],
+          afpPrivat: [],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: false,
+            alternativ: {
+              gradertUttaksalder: {
+                aar: '12',
+                maaneder: 2,
+              },
+              uttaksgrad: null,
+            },
+          },
+        })
+      ).toBeFalsy()
+    })
+
+    it('returnerer false når harForLiteTrygdetid ikke er gyldig', () => {
+      expect(
+        isAlderspensjonSimulering({
+          alderspensjon: [],
+          afpPrivat: [],
+          vilkaarsproeving: {
+            vilkaarErOppfylt: true,
+            alternativ: undefined,
+          },
+          harForLiteTrygdetid: null,
+        })
       ).toBeFalsy()
     })
   })

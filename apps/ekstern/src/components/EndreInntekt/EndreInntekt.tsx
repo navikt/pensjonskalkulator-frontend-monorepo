@@ -12,7 +12,10 @@ import {
 } from '@navikt/ds-react'
 
 import { useAppSelector } from '@/state/hooks'
-import { selectAarligInntektFoerUttakBeloepFraSkatt } from '@/state/userInput/selectors'
+import {
+  selectUfoeregrad,
+  selectAarligInntektFoerUttakBeloepFraSkatt,
+} from '@/state/userInput/selectors'
 import { updateAndFormatInntektFromInputField } from '@/utils/inntekt'
 import { validateInntekt } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
@@ -39,6 +42,7 @@ export const EndreInntekt: React.FC<Props> = ({
   const inntektModalRef = React.useRef<HTMLDialogElement>(null)
   const inntektInputRef = React.useRef<HTMLInputElement>(null)
 
+  const ufoeregrad = useAppSelector(selectUfoeregrad)
   const aarligInntektFoerUttakBeloepFraSkatt = useAppSelector(
     selectAarligInntektFoerUttakBeloepFraSkatt
   )
@@ -151,7 +155,9 @@ export const EndreInntekt: React.FC<Props> = ({
                   id: 'inntekt.endre_inntekt_modal.textfield.label',
                 })}
                 description={intl.formatMessage({
-                  id: 'inntekt.endre_inntekt_modal.textfield.description',
+                  id: ufoeregrad
+                    ? 'inntekt.endre_inntekt_modal.textfield.description.ufoere'
+                    : 'inntekt.endre_inntekt_modal.textfield.description',
                 })}
                 error={validationError}
                 onChange={handleTextfieldChange}
