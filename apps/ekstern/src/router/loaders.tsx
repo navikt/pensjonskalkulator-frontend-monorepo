@@ -332,7 +332,7 @@ export const stepAFPAccessGuard = async () => {
         ) {
           store.dispatch(userInputActions.flushSamboerOgUtenlandsperioder())
         }
-        // Hvis brukeren skal simulere endring og sat en mottar AFP skal hen direkte til avansert beregning
+        // Hvis brukeren skal simulere endring og at hen mottar AFP skal hen direkte til avansert beregning
         if (res.data.afpPrivat.grad || res.data.afpOffentlig.grad) {
           resolveRedirectUrl(paths.beregningAvansert)
         }
