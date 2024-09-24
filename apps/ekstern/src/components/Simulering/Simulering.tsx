@@ -21,6 +21,7 @@ import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   usePensjonsavtalerQuery,
   useGetTpoMedlemskapQuery,
+  useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -78,6 +79,8 @@ export function Simulering(props: {
   const sivilstand = useAppSelector(selectSivilstand)
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
+  const { data: utvidetSimuleringsresultatFeatureToggle } =
+    useGetUtvidetSimuleringsresultatFeatureToggleQuery()
 
   const [XAxis, setXAxis] = React.useState<string[]>([])
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
@@ -496,7 +499,7 @@ export function Simulering(props: {
         />
       )}
       /* c8 ignore next 6 - detaljer skal kun vises i dev for test formål */
-      {detaljer && (
+      {utvidetSimuleringsresultatFeatureToggle?.enabled && detaljer && (
         <Simuleringsdetaljer
           alderspensjonListe={alderspensjonListe}
           detaljer={detaljer}
