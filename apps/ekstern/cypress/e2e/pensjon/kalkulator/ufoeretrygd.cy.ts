@@ -8,15 +8,19 @@ describe('Med ufoeretrygd', () => {
         },
         {
           alderspensjon: {
+            loepende: false,
             grad: 0,
           },
           ufoeretrygd: {
+            loepende: true,
             grad: 100,
           },
           afpPrivat: {
+            loepende: false,
             grad: 0,
           },
           afpOffentlig: {
+            loepende: false,
             grad: 0,
           },
         }
@@ -156,15 +160,19 @@ describe('Med ufoeretrygd', () => {
         },
         {
           alderspensjon: {
+            loepende: false,
             grad: 0,
           },
           ufoeretrygd: {
+            loepende: true,
             grad: 100,
           },
           afpPrivat: {
+            loepende: false,
             grad: 0,
           },
           afpOffentlig: {
+            loepende: false,
             grad: 0,
           },
         }
@@ -208,15 +216,19 @@ describe('Med ufoeretrygd', () => {
         },
         {
           alderspensjon: {
+            loepende: false,
             grad: 0,
           },
           ufoeretrygd: {
+            loepende: true,
             grad: 75,
           },
           afpPrivat: {
+            loepende: false,
             grad: 0,
           },
           afpOffentlig: {
+            loepende: false,
             grad: 0,
           },
         }
@@ -263,15 +275,19 @@ describe('Med ufoeretrygd', () => {
         },
         {
           alderspensjon: {
+            loepende: false,
             grad: 0,
           },
           ufoeretrygd: {
+            loepende: true,
             grad: 100,
           },
           afpPrivat: {
+            loepende: false,
             grad: 0,
           },
           afpOffentlig: {
+            loepende: false,
             grad: 0,
           },
         }
@@ -338,15 +354,19 @@ describe('Med ufoeretrygd', () => {
         },
         {
           alderspensjon: {
+            loepende: false,
             grad: 0,
           },
           ufoeretrygd: {
+            loepende: true,
             grad: 40,
           },
           afpPrivat: {
+            loepende: false,
             grad: 0,
           },
           afpOffentlig: {
+            loepende: false,
             grad: 0,
           },
         }

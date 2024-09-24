@@ -53,15 +53,19 @@ describe('med omstillingsstønad og gjenlevende', () => {
           },
           {
             alderspensjon: {
+              loepende: false,
               grad: 0,
             },
             ufoeretrygd: {
+              loepende: true,
               grad: 75,
             },
             afpPrivat: {
+              loepende: false,
               grad: 0,
             },
             afpOffentlig: {
+              loepende: false,
               grad: 0,
             },
           }
