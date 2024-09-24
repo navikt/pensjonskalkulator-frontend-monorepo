@@ -2,7 +2,6 @@
 
 exports[`stegvisning - Start > rendrer slik den skal med navn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
-  0
   <section
     class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
   >
@@ -755,7 +754,6 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
 
 exports[`stegvisning - Start > rendrer slik den skal uten navn, med riktig heading, bilde, tekst og knapper 1`] = `
 <DocumentFragment>
-  0
   <section
     class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
   >

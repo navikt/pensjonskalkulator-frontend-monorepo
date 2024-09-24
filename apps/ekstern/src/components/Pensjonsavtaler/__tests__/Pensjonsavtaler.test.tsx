@@ -198,15 +198,19 @@ describe('Pensjonsavtaler', () => {
                 startedTimeStamp: 1688046411971,
                 data: {
                   alderspensjon: {
+                    loepende: false,
                     grad: 0,
                   },
                   ufoeretrygd: {
+                    loepende: true,
                     grad: 75,
                   },
                   afpPrivat: {
+                    loepende: false,
                     grad: 0,
                   },
                   afpOffentlig: {
+                    loepende: false,
                     grad: 0,
                   },
                 },

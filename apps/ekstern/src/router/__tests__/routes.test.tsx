@@ -615,15 +615,19 @@ describe('routes', () => {
                 requestId: 't1wLPiRKrfe_vchftk8s8',
                 data: {
                   alderspensjon: {
+                    loepende: false,
                     grad: 0,
                   },
                   ufoeretrygd: {
+                    loepende: false,
                     grad: 0,
                   },
                   afpPrivat: {
+                    loepende: false,
                     grad: 0,
                   },
                   afpOffentlig: {
+                    loepende: false,
                     grad: 0,
                   },
                 },

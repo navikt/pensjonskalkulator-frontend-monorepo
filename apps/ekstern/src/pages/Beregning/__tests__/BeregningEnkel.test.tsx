@@ -425,15 +425,19 @@ describe('BeregningEnkel', () => {
         status: 200,
         json: {
           alderspensjon: {
+            loepende: false,
             grad: 0,
           },
           ufoeretrygd: {
+            loepende: true,
             grad: 100,
           },
           afpPrivat: {
+            loepende: false,
             grad: 0,
           },
           afpOffentlig: {
+            loepende: false,
             grad: 0,
           },
         },

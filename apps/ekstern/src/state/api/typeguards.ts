@@ -216,6 +216,10 @@ export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
     typeof data.ufoeretrygd === 'object' &&
     typeof data.afpPrivat === 'object' &&
     typeof data.afpOffentlig === 'object' &&
+    typeof data.alderspensjon.loepende === 'boolean' &&
+    typeof data.ufoeretrygd.loepende === 'boolean' &&
+    typeof data.afpPrivat.loepende === 'boolean' &&
+    typeof data.afpOffentlig.loepende === 'boolean' &&
     typeof data.alderspensjon.grad === 'number' &&
     typeof data.ufoeretrygd.grad === 'number' &&
     typeof data.afpPrivat.grad === 'number' &&

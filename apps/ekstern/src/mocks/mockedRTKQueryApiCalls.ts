@@ -57,15 +57,19 @@ export const fulfilledGetLoependeVedtakUfoeregrad = {
     startedTimeStamp: 1688046411971,
     data: {
       alderspensjon: {
+        loepende: false,
         grad: 0,
       },
       ufoeretrygd: {
+        loepende: true,
         grad: 75,
       },
       afpPrivat: {
+        loepende: false,
         grad: 0,
       },
       afpOffentlig: {
+        loepende: false,
         grad: 0,
       },
     },
@@ -81,15 +85,19 @@ export const fulfilledGetLoependeVedtakEndring = {
     startedTimeStamp: 1688046411971,
     data: {
       alderspensjon: {
+        loepende: true,
         grad: 100,
       },
       ufoeretrygd: {
+        loepende: false,
         grad: 0,
       },
       afpPrivat: {
+        loepende: false,
         grad: 0,
       },
       afpOffentlig: {
+        loepende: false,
         grad: 0,
       },
     },

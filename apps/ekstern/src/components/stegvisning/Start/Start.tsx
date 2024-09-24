@@ -44,8 +44,8 @@ export function Start({
 
   return (
     <>
-      {(loependeVedtak?.alderspensjon.grad ||
-        loependeVedtak?.afpPrivat.grad) && (
+      {(loependeVedtak?.alderspensjon.loepende ||
+        loependeVedtak?.afpPrivat.loepende) && (
         <Alert className={styles.alert} variant="warning" aria-live="polite">
           <FormattedMessage
             id="stegvisning.endring.alert"
@@ -62,6 +62,9 @@ export function Start({
                 id: 'stegvisning.start.title',
               })}${navnString}`}
             </Heading>
+            {
+              // TODO hva gjør vi dersom brukeren har loepende true man ikke alderspensjon eller afp? Kan det i det hele tatt oppstå?
+            }
             {loependeVedtak?.alderspensjon.grad ? (
               <>
                 <BodyLong size="large">

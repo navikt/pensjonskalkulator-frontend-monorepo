@@ -1,3 +1,5 @@
+import { truncate } from 'fs/promises'
+
 import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
@@ -72,15 +74,19 @@ describe('StepStart', () => {
         status: 200,
         json: {
           alderspensjon: {
+            loepende: true,
             grad: 50,
           },
           ufoeretrygd: {
+            loepende: false,
             grad: 0,
           },
           afpPrivat: {
+            loepende: false,
             grad: 0,
           },
           afpOffentlig: {
+            loepende: false,
             grad: 0,
           },
         },

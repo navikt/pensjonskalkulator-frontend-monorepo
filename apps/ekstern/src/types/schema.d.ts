@@ -180,11 +180,11 @@ export interface paths {
       cookie?: never
     }
     /**
-     * Har løpende saker
+     * Har løpende vedtak
      *
-     * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP privat eller offentlig
+     * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
      */
-    get: operations['hentLoependeVedtak']
+    get: operations['hentLoependeVedtakV1']
     put?: never
     post?: never
     delete?: never
@@ -493,6 +493,20 @@ export interface components {
       /** Format: int32 */
       maaneder: number
     }
+    AlderspensjonsberegningV6: {
+      /** Format: int32 */
+      alder: number
+      /** Format: int32 */
+      beloep: number
+      /** Format: int32 */
+      inntektspensjonBeloep?: number
+      /** Format: int32 */
+      garantipensjonBeloep?: number
+      /** Format: double */
+      delingstall?: number
+      /** Format: int32 */
+      pensjonBeholdningFoerUttakBeloep?: number
+    }
     AlternativV6: {
       gradertUttaksalder?: components['schemas']['AlderV6']
       /** Format: int32 */
@@ -512,11 +526,20 @@ export interface components {
       beloep: number
     }
     SimuleringResultatV6: {
-      alderspensjon: components['schemas']['PensjonsberegningV6'][]
+      alderspensjon: components['schemas']['AlderspensjonsberegningV6'][]
       afpPrivat?: components['schemas']['PensjonsberegningV6'][]
       afpOffentlig?: components['schemas']['PensjonsberegningAfpOffentligV6'][]
       vilkaarsproeving: components['schemas']['VilkaarsproevingV6']
       harForLiteTrygdetid?: boolean
+      /** Format: int32 */
+      trygdetid?: number
+      opptjeningGrunnlagListe?: components['schemas']['SimulertOpptjeningGrunnlagV6'][]
+    }
+    SimulertOpptjeningGrunnlagV6: {
+      /** Format: int32 */
+      aar: number
+      /** Format: int32 */
+      pensjonsgivendeInntektBeloep: number
     }
     VilkaarsproevingV6: {
       vilkaarErOppfylt: boolean
@@ -785,15 +808,18 @@ export interface components {
       /** @enum {string} */
       aarsak: 'NONE' | 'ER_APOTEKER'
     }
-    LoependeSakDto: {
+    LoependeVedtakDetaljerV1: {
+      loepende: boolean
       /** Format: int32 */
       grad: number
+      /** Format: date */
+      fom?: string
     }
-    LoependeVedtakDto: {
-      alderspensjon: components['schemas']['LoependeSakDto']
-      ufoeretrygd: components['schemas']['LoependeSakDto']
-      afpPrivat: components['schemas']['LoependeSakDto']
-      afpOffentlig: components['schemas']['LoependeSakDto']
+    LoependeVedtakV1: {
+      alderspensjon: components['schemas']['LoependeVedtakDetaljerV1']
+      ufoeretrygd: components['schemas']['LoependeVedtakDetaljerV1']
+      afpPrivat: components['schemas']['LoependeVedtakDetaljerV1']
+      afpOffentlig: components['schemas']['LoependeVedtakDetaljerV1']
     }
     UfoeregradDto: {
       /** Format: int32 */
@@ -1116,7 +1142,7 @@ export interface operations {
       }
     }
   }
-  hentLoependeVedtak: {
+  hentLoependeVedtakV1: {
     parameters: {
       query?: never
       header?: never
@@ -1125,16 +1151,16 @@ export interface operations {
     }
     requestBody?: never
     responses: {
-      /** @description Sjekking av saker utført */
+      /** @description Henting av løpende vedtak utført */
       200: {
         headers: {
           [name: string]: unknown
         }
         content: {
-          '*/*': components['schemas']['LoependeVedtakDto']
+          '*/*': components['schemas']['LoependeVedtakV1']
         }
       }
-      /** @description Sjekking av saker kunne ikke utføres av tekniske årsaker */
+      /** @description Henting av løpende vedtak kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

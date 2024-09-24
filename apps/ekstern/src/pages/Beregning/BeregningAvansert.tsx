@@ -20,7 +20,6 @@ import {
   useGetPersonQuery,
   apiSlice,
   useAlderspensjonQuery,
-  useGetLoependeVedtakQuery,
 } from '@/state/api/apiSlice'
 import { generateAlderspensjonRequestBody } from '@/state/api/utils'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'

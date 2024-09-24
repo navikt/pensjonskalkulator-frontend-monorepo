@@ -184,8 +184,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         </Modal.Footer>
       </Modal>
       <div className={styles.beregning}>
-        {(loependeVedtak?.alderspensjon.grad ||
-          loependeVedtak?.afpPrivat.grad) && (
+        {(loependeVedtak?.alderspensjon.loepende ||
+          loependeVedtak?.afpPrivat.loepende) && (
           <div className={styles.container}>
             <Alert
               className={styles.alert}
