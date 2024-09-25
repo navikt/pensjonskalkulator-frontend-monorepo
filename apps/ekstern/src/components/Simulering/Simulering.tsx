@@ -498,7 +498,7 @@ export function Simulering(props: {
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
         />
       )}
-      /* c8 ignore next 6 - detaljer skal kun vises i dev for test formål */
+      {/* c8 ignore next 6 - detaljer skal kun vises i dev for test formål */}
       {utvidetSimuleringsresultatFeatureToggle?.enabled && detaljer && (
         <Simuleringsdetaljer
           alderspensjonListe={alderspensjonListe}
