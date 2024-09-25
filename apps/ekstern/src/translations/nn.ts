@@ -342,6 +342,8 @@ const translations = {
   'beregning.avansert.rediger.inntekt_frem_til_uttak.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
     'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
@@ -370,6 +372,8 @@ const translations = {
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.description':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt.button': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.validation_error': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.grad.validation_error': 'MANGLER_TEKST',
@@ -477,6 +481,7 @@ const translations = {
   'pensjonsavtaler.tpo.er_medlem': 'MANGLER_TEKST',
   'pensjonsavtaler.tpo.error': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.textfield.description.ufoere': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':
     'MANGLER_TEKST',
@@ -502,8 +507,7 @@ const translations = {
   'inntekt.info_om_inntekt.ufoeretrygd.read_more.body': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.open.link': 'Kva er pensjonsgjevande inntekt?',
   'inntekt.info_om_inntekt.intro': 'MANGLER_TEKST',
-  'inntekt.info_om_inntekt.subtitle':
-    'Dette vert rekna som pensjonsgjevande inntekt',
+  'inntekt.info_om_inntekt.subtitle_1': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.list_item1': 'All lønsinntekt for lønstakarar',
   'inntekt.info_om_inntekt.list_item2':
     'Personinntekt frå næring frå sjølvstendige',
@@ -515,8 +519,11 @@ const translations = {
   'inntekt.info_om_inntekt.list_item8': 'Omsorgsstønad',
   'inntekt.info_om_inntekt.list_item9':
     'Fosterheimsgodtgjersle (den delen som utgjer arbeidsgodtgjersle)',
-  'inntekt.info_om_inntekt.list_item10':
-    'Førstegongsteneste (viss påbegynt tidlegast i 2010)',
+  'inntekt.info_om_inntekt.subtitle_2': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item1': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item2': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item3': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item4': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.ingress':
     'Pensjonsgjvande inntekt verkar inn på retten til storleiken på alderspensjonen og andre pensjonsytingar. Pensjonsgjevande inntekt vert rekna ut av Skatteetaten.{br}{br}Uføretrygd gjer opptening til alderspensjon, men vert ikkje rekna som pensjonsgjevande inntekt.',
   'forbehold.title': 'Atterhald',

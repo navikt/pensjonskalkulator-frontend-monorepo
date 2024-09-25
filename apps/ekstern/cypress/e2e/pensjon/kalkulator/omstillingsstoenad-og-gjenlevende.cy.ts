@@ -16,19 +16,19 @@ describe('med omstillingsstønad og gjenlevende', () => {
         cy.wait('@fetchTidligsteUttaksalder')
       })
 
-      it('ønsker jeg informasjon om når jeg tidligst kan starte uttak av pensjon', () => {
+      it('ønsker jeg informasjon om når jeg tidligst kan starte uttak av pensjon.', () => {
         cy.contains(
           'Din opptjening gjør at du tidligst kan ta ut 100 % alderspensjon når du er'
         )
       })
 
-      it('forventer jeg å få informasjon om at alderspensjon ikke kan kombineres med omstillingsstønad eller gjenlevendepensjon', () => {
+      it('forventer jeg å få informasjon om at alderspensjon ikke kan kombineres med omstillingsstønad eller gjenlevendepensjon.', () => {
         cy.contains(
           'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad'
         )
       })
 
-      it('må jeg kunne trykke på Readmore for informasjon om pensjonsalder', () => {
+      it('må jeg kunne trykke på Readmore for informasjon om pensjonsalder.', () => {
         cy.contains('Om pensjonsalder')
         cy.contains('Om pensjonsalder').click()
         cy.contains('Den oppgitte alderen er et estimat').should('exist')
@@ -61,13 +61,13 @@ describe('med omstillingsstønad og gjenlevende', () => {
         cy.contains('Du har 75 % uføretrygd.')
       })
 
-      it('forventer jeg å få informasjon om at alderspensjon ikke kan kombineres med omstillingsstønad eller gjenlevendepensjon', () => {
+      it('forventer jeg å få informasjon om at alderspensjon ikke kan kombineres med omstillingsstønad eller gjenlevendepensjon.', () => {
         cy.contains(
           'Alderspensjon kan ikke kombineres med gjenlevendepensjon eller omstillingsstønad'
         )
       })
 
-      it('forventer jeg tilpasset informasjon i Readmore «om pensjonsalder og uføretrygd»', () => {
+      it('forventer jeg tilpasset informasjon i Readmore «om pensjonsalder og uføretrygd».', () => {
         cy.contains('Om pensjonsalder og uføretrygd')
         cy.contains('Om pensjonsalder og uføretrygd').click()
         cy.contains('Det er mulig å kombinere gradert uføretrygd').should(

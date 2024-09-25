@@ -7,6 +7,7 @@ import { Card } from '@/components/common/Card'
 import { Divider } from '@/components/common/Divider'
 import { ReadMore } from '@/components/common/ReadMore'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
+import { paths } from '@/router/constants'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
@@ -201,7 +202,9 @@ export function Utenlandsopphold({
         type="button"
         className={styles.button}
         variant="secondary"
-        onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+        onClick={wrapLogger('button klikk', {
+          tekst: `Tilbake fra ${paths.utenlandsopphold}`,
+        })(onPrevious)}
       >
         <FormattedMessage id="stegvisning.tilbake" />
       </Button>

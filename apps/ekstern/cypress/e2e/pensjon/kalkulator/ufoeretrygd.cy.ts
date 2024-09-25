@@ -1,4 +1,4 @@
-describe('med ufoeretrygd', () => {
+describe('Med ufoeretrygd', () => {
   describe('Som bruker som har logget inn på kalkulatoren,', () => {
     beforeEach(() => {
       cy.login()
@@ -30,7 +30,7 @@ describe('med ufoeretrygd', () => {
           cy.get('[type="radio"]').eq(2).check()
           cy.contains('button', 'Neste').click()
         })
-        it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg ', () => {
+        it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg.', () => {
           cy.get('[type="radio"]').eq(2).check()
           cy.contains('button', 'Neste').click()
           cy.get('[type="radio"]').eq(1).check()
@@ -60,7 +60,7 @@ describe('med ufoeretrygd', () => {
           ).should('exist')
           cy.contains('button', 'Neste').click()
         })
-        it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg ', () => {
+        it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg.', () => {
           cy.get('[type="radio"]').eq(3).check()
           cy.contains('button', 'Neste').click()
           cy.contains('button', 'Neste').click()
@@ -91,7 +91,7 @@ describe('med ufoeretrygd', () => {
           ).should('exist')
           cy.contains('button', 'Neste').click()
         })
-        it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg', () => {
+        it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg.', () => {
           cy.get('[type="radio"]').eq(0).check()
           cy.contains('button', 'Neste').click()
           cy.contains('button', 'Neste').click()
@@ -125,7 +125,7 @@ describe('med ufoeretrygd', () => {
           ).should('exist')
           cy.contains('button', 'Neste').click()
         })
-        it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg', () => {
+        it('forventer jeg å få informasjon i grunnlaget tilpasset valgt svar på AFP steg.', () => {
           cy.get('[type="radio"]').eq(1).check()
           cy.contains('button', 'Neste').click()
           cy.contains('button', 'Neste').click()
@@ -144,7 +144,7 @@ describe('med ufoeretrygd', () => {
     })
 
     describe('Som bruker som mottar 100 % uføretrygd og som ikke har rett til AFP', () => {
-      describe('Når jeg er kommet til beregningssiden', () => {
+      describe('Når jeg er kommet til beregningssiden,', () => {
         beforeEach(() => {
           cy.intercept(
             { method: 'GET', url: '/pensjon/kalkulator/api/v1/ufoeregrad' },
@@ -159,7 +159,7 @@ describe('med ufoeretrygd', () => {
           cy.contains('Du har 100 % uføretrygd.').should('exist')
         })
 
-        it('forventer jeg tilpasset informasjon i read more «om pensjonsalder og uføretrygd»', () => {
+        it('forventer jeg tilpasset informasjon i read more «om pensjonsalder og uføretrygd».', () => {
           cy.contains('Om pensjonsalder og uføretrygd').click()
           cy.contains(
             '100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon.'
@@ -178,8 +178,8 @@ describe('med ufoeretrygd', () => {
       })
     })
 
-    describe('Som bruker som mottar gradert uføretrygd og som ikke har rett til AFP', () => {
-      describe('Når jeg er kommet til beregningssiden', () => {
+    describe('Som bruker som mottar gradert uføretrygd og som ikke har rett til AFP,', () => {
+      describe('Når jeg er kommet til beregningssiden,', () => {
         beforeEach(() => {
           cy.intercept(
             { method: 'GET', url: '/pensjon/kalkulator/api/v1/ufoeregrad' },
@@ -196,7 +196,7 @@ describe('med ufoeretrygd', () => {
           ).should('exist')
         })
 
-        it('forventer jeg tilpasset informasjon i read more «om pensjonsalder og uføretrygd»', () => {
+        it('forventer jeg tilpasset informasjon i read more «om pensjonsalder og uføretrygd».', () => {
           cy.contains('Om pensjonsalder og uføretrygd').click()
           cy.contains(
             'Det er mulig å kombinere gradert uføretrygd og gradert alderspensjon fra 62 år, så lenge du har høy nok opptjening til å ta ut alderspensjon. Graden av uføretrygd og alderspensjon kan ikke overstige 100 %.'
@@ -215,7 +215,7 @@ describe('med ufoeretrygd', () => {
       })
     })
 
-    describe('Som bruker som mottar 100 % uføretrygd, som ikke har rett til AFP og som ønsker en avansert beregning', () => {
+    describe('Som bruker som mottar 100 % uføretrygd, som ikke har rett til AFP og som ønsker en avansert beregning,', () => {
       beforeEach(() => {
         cy.intercept(
           { method: 'GET', url: '/pensjon/kalkulator/api/v1/ufoeregrad' },
@@ -230,7 +230,7 @@ describe('med ufoeretrygd', () => {
       })
 
       describe('Når jeg er kommet til avansert beregning,', () => {
-        it('forventer jeg å kunne velge pensjonsalder mellom 67 år + 0 md og 75 år og 0 md', () => {
+        it('forventer jeg å kunne velge pensjonsalder mellom 67 år + 0 md og 75 år og 0 md.', () => {
           cy.contains('Når vil du ta ut alderspensjon?').should('exist')
           cy.contains('Velg år').should('exist')
           cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').then(
@@ -266,7 +266,7 @@ describe('med ufoeretrygd', () => {
           )
         })
 
-        it('forventer jeg å få tilpasset informasjon i read more «Om pensjonsalder og uføretrygd»', () => {
+        it('forventer jeg å få tilpasset informasjon i read more «Om pensjonsalder og uføretrygd».', () => {
           cy.contains('Om pensjonsalder og uføretrygd').click()
           cy.contains(
             '100 % uføretrygd kan ikke kombineres med alderspensjon. Det er derfor ikke mulig å beregne alderspensjon før 67 år i kalkulatoren. Ved 67 år går 100 % uføretrygd automatisk over til 100 % alderspensjon.'
@@ -275,7 +275,7 @@ describe('med ufoeretrygd', () => {
       })
     })
 
-    describe('Som bruker som mottar gradert uføretrygd, som ikke har rett til AFP og som ønsker en avansert beregning', () => {
+    describe('Som bruker som mottar gradert uføretrygd, som ikke har rett til AFP og som ønsker en avansert beregning,', () => {
       beforeEach(() => {
         cy.intercept(
           { method: 'GET', url: '/pensjon/kalkulator/api/v1/ufoeregrad' },
@@ -290,7 +290,7 @@ describe('med ufoeretrygd', () => {
       })
 
       describe('Når jeg er kommet til avansert beregning,', () => {
-        it('forventer jeg å kunne velge pensjonsalder mellom 62 år + 0 md og 75 år og 0 md, og jeg kan velge pensjonsalder mellom 67 år + 0 md og 75 år og 0 md for når jeg ønsker øke til hel alderspensjon', () => {
+        it('forventer jeg å kunne velge pensjonsalder mellom 62 år + 0 md og 75 år og 0 md, og jeg kan velge pensjonsalder mellom 67 år + 0 md og 75 år og 0 md for når jeg ønsker øke til hel alderspensjon.', () => {
           cy.contains('Når vil du ta ut alderspensjon?').should('exist')
           cy.contains('Velg år').should('exist')
           cy.get('[data-testid="age-picker-uttaksalder-helt-uttak-aar"]').then(
@@ -326,7 +326,7 @@ describe('med ufoeretrygd', () => {
           )
         })
 
-        it('forventer jeg å få tilpasset informasjon i read more «Om pensjonsalder og uføretrygd»', () => {
+        it('forventer jeg å få tilpasset informasjon i read more «Om pensjonsalder og uføretrygd».', () => {
           cy.contains('Om pensjonsalder og uføretrygd').click()
           cy.contains(
             'Din opptjening i folketrygden bestemmer når du kan ta ut alderspensjon. Ved 67 år må pensjonen minst tilsvare garantipensjon. Uttak før 67 år betyr at du fordeler pensjonen din over flere år, og dermed får du mindre hvert år.'
@@ -334,7 +334,7 @@ describe('med ufoeretrygd', () => {
         })
       })
 
-      describe('Når jeg har valgt pensjonsalder mellom 62 år og 0 md og 66 år og 11 md.', () => {
+      describe('Når jeg har valgt pensjonsalder mellom 62 år og 0 md og 66 år og 11 md.,', () => {
         beforeEach(() => {
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -353,7 +353,7 @@ describe('med ufoeretrygd', () => {
           })
         })
 
-        it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd"', () => {
+        it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd".', () => {
           cy.contains('button', 'Om uttaksgrad og uføretrygd').click()
           cy.contains(
             'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'
@@ -368,14 +368,17 @@ describe('med ufoeretrygd', () => {
           cy.contains(
             'Alderspensjonen påvirker ikke inntektsgrensen for uføretrygden din.'
           ).should('exist')
-          cy.contains('button', 'Om inntekt og uføretrygd').click()
+          cy.contains(
+            'button',
+            'Om alderspensjon og inntektsgrensen for uføretrygd'
+          ).click()
           cy.contains(
             'Alderspensjon er ikke pensjonsgivende inntekt og påvirker ikke inntektsgrensen for uføretrygden din. Du beholder inntektsgrensen din ved kombinasjon av uføretrygd og alderspensjon fra folketrygden.'
           ).should('exist')
         })
       })
 
-      describe('Når jeg har valgt pensjonsalder etter 67 år og 0 md', () => {
+      describe('Når jeg har valgt pensjonsalder etter 67 år og 0 md.,', () => {
         beforeEach(() => {
           cy.get(
             '[data-testid="age-picker-uttaksalder-helt-uttak-aar"]'
@@ -394,7 +397,7 @@ describe('med ufoeretrygd', () => {
           })
         })
 
-        it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd"', () => {
+        it('forventer jeg å få tilpasset informasjon i read more "om uttaksgrad og uføretrygd".', () => {
           cy.contains('button', 'Om uttaksgrad og uføretrygd').click()
           cy.contains(
             'Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).'

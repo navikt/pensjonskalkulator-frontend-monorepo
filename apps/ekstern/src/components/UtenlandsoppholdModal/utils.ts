@@ -478,8 +478,8 @@ export const onUtenlandsoppholdSubmit = (
 
     logger('button klikk', {
       tekst: utenlandsperiodeId
-        ? `endrer utenlandsperiode`
-        : `legger til utenlandsperiode`,
+        ? `endrer utenlandsopphold`
+        : `legger til utenlandsopphold`,
     })
     onSubmitCallback()
     if (modalRef.current?.open) {

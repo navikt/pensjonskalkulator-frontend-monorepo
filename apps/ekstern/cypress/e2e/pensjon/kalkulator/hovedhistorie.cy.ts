@@ -121,9 +121,9 @@ describe('Hovedhistorie', () => {
           cy.contains('button', 'Kom i gang').click()
         })
         it('forventer jeg å bli spurt om jeg har bodd/jobbet mer enn 5 år utenfor Norge.', () => {
-          cy.contains('h2', 'Utenlandsopphold').should('exist')
+          cy.contains('h2', 'Opphold utenfor Norge').should('exist')
           cy.contains(
-            'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?'
+            'Har du bodd eller jobbet utenfor Norge i mer enn 5 år?'
           ).should('exist')
         })
         it('forventer jeg å måtte svare ja/nei på spørsmål om tid utenfor Norge.', () => {
@@ -275,7 +275,7 @@ describe('Hovedhistorie', () => {
     })
 
     describe('Når jeg venter på at resultatet kommer fram,', () => {
-      it('forventer jeg en melding dersom det tar tid før resultatet kommer opp. ', () => {
+      it('forventer jeg en melding dersom det tar tid før resultatet kommer opp.', () => {
         cy.login()
         cy.intercept(
           {
@@ -326,7 +326,7 @@ describe('Hovedhistorie', () => {
           'exist'
         )
       })
-      it('må jeg kunne trykke på Readmore for å få mer informasjon om pensjonsalder', () => {
+      it('må jeg kunne trykke på Readmore for å få mer informasjon om pensjonsalder.', () => {
         cy.login()
         cy.fillOutStegvisning({})
         cy.wait('@fetchTidligsteUttaksalder')
@@ -361,7 +361,7 @@ describe('Hovedhistorie', () => {
         cy.contains('61').should('be.visible')
         cy.contains('87+').should('exist')
         cy.contains('button', '70 år').click({ force: true })
-        cy.contains('61').should('not.be.visible')
+        cy.contains('61').should('not.exist')
         cy.contains('69').should('be.visible')
         cy.contains('87+').should('exist')
       })
@@ -382,7 +382,7 @@ describe('Hovedhistorie', () => {
         cy.contains('Uttaksgrad:').click({ force: true })
         cy.contains('Inntekt frem til uttak:').click({ force: true })
         cy.contains('Sivilstand:').click({ force: true })
-        cy.contains('Opphold i Norge:').click({ force: true })
+        cy.contains('Opphold utenfor Norge:').click({ force: true })
         cy.contains('AFP:').click({ force: true })
       })
 
