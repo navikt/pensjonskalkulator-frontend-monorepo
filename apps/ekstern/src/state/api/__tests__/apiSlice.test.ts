@@ -675,9 +675,7 @@ describe('apiSlice', () => {
 
     it('returnerer undefined ved feilende query', async () => {
       const storeRef = setupStore(undefined, true)
-      mockErrorResponse(
-        '/feature/pensjonskalkulator.utvidet-simuleringsresultat'
-      )
+      mockErrorResponse('/feature/utvidet-simuleringsresultat')
       return storeRef
         .dispatch<any>(
           apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
@@ -691,7 +689,7 @@ describe('apiSlice', () => {
     it('kaster feil ved uventet format på responsen', async () => {
       const storeRef = setupStore(undefined, true)
 
-      mockResponse('/feature/pensjonskalkulator.utvidet-simuleringsresultat', {
+      mockResponse('/feature/utvidet-simuleringsresultat', {
         status: 200,
         json: { lorem: 'ipsum' },
       })

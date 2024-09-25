@@ -149,15 +149,12 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     return HttpResponse.json(enableUtlandPluginToggleResponse)
   }),
 
-  http.get(
-    `${baseUrl}/feature/pensjonskalkulator.utvidet-simuleringsresultat`,
-    async () => {
-      await delay(TEST_DELAY)
-      return HttpResponse.json(
-        enableUtvidetSimuleringsresultatPluginToggleResponse
-      )
-    }
-  ),
+  http.get(`${baseUrl}/feature/utvidet-simuleringsresultat`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(
+      enableUtvidetSimuleringsresultatPluginToggleResponse
+    )
+  }),
 
   http.post('http://localhost:12347/collect', async ({ request }) => {
     await request.json()

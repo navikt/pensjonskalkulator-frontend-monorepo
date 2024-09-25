@@ -201,7 +201,7 @@ export const apiSlice = createApi({
       UnleashToggle,
       void
     >({
-      query: () => '/feature/pensjonskalkulator.utvidet-simuleringsresultat',
+      query: () => '/feature/utvidet-simuleringsresultat',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
