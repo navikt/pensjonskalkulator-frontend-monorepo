@@ -32,7 +32,7 @@ spec:
       mountPath: /app/src/nais.js
   prometheus:
     enabled: true
-    path: /metrics@
+    path: /metrics
   observability:
     autoInstrumentation:
       enabled: true
