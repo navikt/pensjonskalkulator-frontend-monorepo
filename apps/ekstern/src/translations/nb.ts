@@ -78,7 +78,7 @@ const translations = {
   'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
   'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.endring.alert':
-    'Du har pensjon. Vil du sjekke hva du kan få hvis du endrer uttaket, må du gå til <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
+    'Du har pensjon. Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.endring.ingress':
     'Du har nå <strong>{grad} % alderspensjon</strong>{ufoeretrygd}{afpPrivat}{afpOffentlig}. Her kan du sjekke hva du kan få hvis du vil endre alderspensjonen din.{br}{br}',

@@ -113,7 +113,7 @@ describe('stegvisning - Start', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Vil du sjekke hva du kan få hvis du endrer uttaket, må du gå til',
+          'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
           { exact: false }
         )
       ).toBeVisible()
@@ -158,7 +158,7 @@ describe('stegvisning - Start', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Vil du sjekke hva du kan få hvis du endrer uttaket, må du gå til',
+          'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
           { exact: false }
         )
       ).toBeVisible()
@@ -206,7 +206,7 @@ describe('stegvisning - Start', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Vil du sjekke hva du kan få hvis du endrer uttaket, må du gå til',
+          'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
           { exact: false }
         )
       ).toBeVisible()
@@ -254,7 +254,7 @@ describe('stegvisning - Start', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Vil du sjekke hva du kan få hvis du endrer uttaket, må du gå til',
+          'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
           { exact: false }
         )
       ).toBeVisible()
