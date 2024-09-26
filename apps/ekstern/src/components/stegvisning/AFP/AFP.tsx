@@ -41,7 +41,9 @@ export function AFP({
 
   const { data: ufoeregrad } = useGetUfoeregradQuery()
   const [validationError, setValidationError] = React.useState<string>('')
-  const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
+  const [showVetIkkeAlert, setShowVetIkkeAlert] = React.useState<boolean>(
+    afp === 'vet_ikke'
+  )
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -78,14 +80,6 @@ export function AFP({
     }
   }
 
-  React.useEffect(() => {
-    if (showAlert === 'vet_ikke') {
-      logger('alert', {
-        tekst: 'Rett til AFP: Vet ikke',
-      })
-    }
-  }, [showAlert])
-
   /* c8 ignore start */
   React.useEffect(() => {
     logger('info', {
@@ -101,8 +95,13 @@ export function AFP({
   /* c8 ignore end */
 
   const handleRadioChange = (value: AfpRadio): void => {
-    setShowAlert(value)
     setValidationError('')
+    setShowVetIkkeAlert(value === 'vet_ikke')
+    if (value === 'vet_ikke') {
+      logger('alert', {
+        tekst: 'Rett til AFP: Vet ikke',
+      })
+    }
   }
 
   if (shouldRedirectTo) {
@@ -190,7 +189,7 @@ export function AFP({
           <Radio value="vet_ikke">
             <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
           </Radio>
-          {showAlert === 'vet_ikke' && (
+          {showVetIkkeAlert && (
             <Alert className={styles.alert} variant="info" aria-live="polite">
               <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
             </Alert>
