@@ -17,6 +17,7 @@ const spraakvelgerToggleResponse = require('../../../mocks/data/unleash-disable-
 const highchartsAccessibilityPluginToggleResponse = require('../../../mocks/data/unleash-enable-highcharts-accessibility-plugin.json')
 const utlandToggleResponse = require('../../../mocks/data/unleash-enable-utland.json')
 const endringToggleResponse = require('../../../mocks/data/unleash-enable-endring.json')
+const utvidetSimuleringsresultatToggleResponse = require('../../../mocks/data/unleash-utvidet-simuleringsresultat.json')
 
 describe('apiSlice', () => {
   it('eksponerer riktig endepunkter', async () => {
@@ -696,6 +697,56 @@ describe('apiSlice', () => {
             expect(result.status).toBe('rejected')
             expect(result.data).toBe(undefined)
           })
+      })
+    })
+
+    describe('getUtvidetSimuleringsresultatFeatureToggle', () => {
+      it('returnerer data ved vellykket query', async () => {
+        const storeRef = setupStore(undefined, true)
+        return storeRef
+          .dispatch<any>(
+            apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
+          )
+          .then((result: FetchBaseQueryError) => {
+            expect(result.status).toBe('fulfilled')
+            expect(result.data).toMatchObject(
+              utvidetSimuleringsresultatToggleResponse
+            )
+          })
+      })
+
+      it('returnerer undefined ved feilende query', async () => {
+        const storeRef = setupStore(undefined, true)
+        mockErrorResponse('/feature/utvidet-simuleringsresultat')
+        return storeRef
+          .dispatch<any>(
+            apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
+          )
+          .then((result: FetchBaseQueryError) => {
+            expect(result.status).toBe('rejected')
+            expect(result.data).toBe(undefined)
+          })
+      })
+
+      it('kaster feil ved uventet format på responsen', async () => {
+        const storeRef = setupStore(undefined, true)
+
+        mockResponse('/feature/utvidet-simuleringsresultat', {
+          status: 200,
+          json: { lorem: 'ipsum' },
+        })
+
+        await swallowErrorsAsync(async () => {
+          await storeRef
+            .dispatch<any>(
+              apiSlice.endpoints.getUtvidetSimuleringsresultatFeatureToggle.initiate()
+            )
+            .then((result: FetchBaseQueryError) => {
+              expect(result).toThrow(Error)
+              expect(result.status).toBe('rejected')
+              expect(result.data).toBe(undefined)
+            })
+        })
       })
     })
   })

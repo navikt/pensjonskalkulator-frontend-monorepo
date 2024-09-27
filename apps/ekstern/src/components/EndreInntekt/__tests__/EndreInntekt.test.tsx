@@ -168,7 +168,6 @@ describe('EndreInntekt', () => {
           },
         },
       })
-
       const { store } = render(
         <EndreInntekt visning="enkel" value="123" onSubmit={vi.fn()} />
       )

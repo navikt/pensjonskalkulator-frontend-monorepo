@@ -205,6 +205,18 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getUtvidetSimuleringsresultatFeatureToggle: builder.query<
+      UnleashToggle,
+      void
+    >({
+      query: () => '/feature/utvidet-simuleringsresultat',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
@@ -226,4 +238,5 @@ export const {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetUtlandFeatureToggleQuery,
   useGetEndringFeatureToggleQuery,
+  useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice
