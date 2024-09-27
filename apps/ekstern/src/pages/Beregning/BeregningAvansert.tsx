@@ -207,6 +207,16 @@ export const BeregningAvansert: React.FC = () => {
                   showButtonsAndTable={
                     !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                   }
+                  detaljer={
+                    alderspensjon?.trygdetid ||
+                    alderspensjon?.opptjeningGrunnlagListe
+                      ? {
+                          trygdetid: alderspensjon?.trygdetid,
+                          opptjeningsgrunnlag:
+                            alderspensjon?.opptjeningGrunnlagListe,
+                        }
+                      : undefined
+                  }
                 />
                 <ResultatkortAvansertBeregning
                   onButtonClick={() => setAvansertSkjemaModus('redigering')}

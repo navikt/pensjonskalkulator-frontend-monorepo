@@ -13,6 +13,7 @@ import ufoeregradResponse from './data/ufoeregrad.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' with { type: 'json' }
 import enableUtlandPluginToggleResponse from './data/unleash-enable-utland.json' with { type: 'json' }
+import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
 
@@ -146,6 +147,13 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   http.get(`${baseUrl}/feature/pensjonskalkulator.enable-utland`, async () => {
     await delay(TEST_DELAY)
     return HttpResponse.json(enableUtlandPluginToggleResponse)
+  }),
+
+  http.get(`${baseUrl}/feature/utvidet-simuleringsresultat`, async () => {
+    await delay(TEST_DELAY)
+    return HttpResponse.json(
+      enableUtvidetSimuleringsresultatPluginToggleResponse
+    )
   }),
 
   http.post('http://localhost:12347/collect', async ({ request }) => {
