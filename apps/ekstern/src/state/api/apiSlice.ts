@@ -225,4 +225,5 @@ export const {
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetUtlandFeatureToggleQuery,
+  useGetEndringFeatureToggleQuery,
 } = apiSlice

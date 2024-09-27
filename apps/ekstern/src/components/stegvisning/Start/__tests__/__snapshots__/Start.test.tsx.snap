@@ -221,16 +221,6 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
           stegvisning.start.endring.ingress_2
         </p>
         <button
-          class="_button_09901f navds-button navds-button--primary navds-button--medium"
-          type="submit"
-        >
-          <span
-            class="navds-label"
-          >
-            stegvisning.start.button
-          </span>
-        </button>
-        <button
           class="navds-button navds-button--tertiary navds-button--medium"
           type="button"
         >
@@ -379,16 +369,6 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
         >
           stegvisning.start.endring.ingress_2
         </p>
-        <button
-          class="_button_09901f navds-button navds-button--primary navds-button--medium"
-          type="submit"
-        >
-          <span
-            class="navds-label"
-          >
-            stegvisning.start.button
-          </span>
-        </button>
         <button
           class="navds-button navds-button--tertiary navds-button--medium"
           type="button"
@@ -539,16 +519,6 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
           stegvisning.start.endring.ingress_2
         </p>
         <button
-          class="_button_09901f navds-button navds-button--primary navds-button--medium"
-          type="submit"
-        >
-          <span
-            class="navds-label"
-          >
-            stegvisning.start.button
-          </span>
-        </button>
-        <button
           class="navds-button navds-button--tertiary navds-button--medium"
           type="button"
         >
@@ -697,16 +667,6 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
         >
           stegvisning.start.endring.ingress_2
         </p>
-        <button
-          class="_button_09901f navds-button navds-button--primary navds-button--medium"
-          type="submit"
-        >
-          <span
-            class="navds-label"
-          >
-            stegvisning.start.button
-          </span>
-        </button>
         <button
           class="navds-button navds-button--tertiary navds-button--medium"
           type="button"

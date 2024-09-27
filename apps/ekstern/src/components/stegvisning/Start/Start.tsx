@@ -8,6 +8,7 @@ import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react'
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
+import { useGetEndringFeatureToggleQuery } from '@/state/api/apiSlice'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -31,6 +32,8 @@ export function Start({
   const intl = useIntl()
   const navigate = useNavigate()
   const navnString = navn !== '' ? ` ${navn}!` : '!'
+
+  const { data: endringFeatureToggle } = useGetEndringFeatureToggleQuery()
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -62,10 +65,8 @@ export function Start({
                 id: 'stegvisning.start.title',
               })}${navnString}`}
             </Heading>
-            {
-              // TODO hva gjør vi dersom brukeren har loepende true man ikke alderspensjon eller afp? Kan det i det hele tatt oppstå?
-            }
-            {loependeVedtak?.alderspensjon.grad ? (
+
+            {loependeVedtak?.alderspensjon.loepende ? (
               <>
                 <BodyLong size="large">
                   <FormattedMessage
@@ -144,15 +145,19 @@ export function Start({
               </>
             )}
 
-            <Button
-              type="submit"
-              className={styles.button}
-              onClick={wrapLogger('button klikk', { tekst: 'Kom i gang' })(
-                onNext
-              )}
-            >
-              <FormattedMessage id="stegvisning.start.button" />
-            </Button>
+            {(!loependeVedtak?.alderspensjon.loepende ||
+              (loependeVedtak?.alderspensjon.loepende &&
+                endringFeatureToggle?.enabled)) && (
+              <Button
+                type="submit"
+                className={styles.button}
+                onClick={wrapLogger('button klikk', {
+                  tekst: 'Kom i gang',
+                })(onNext)}
+              >
+                <FormattedMessage id="stegvisning.start.button" />
+              </Button>
+            )}
             {onCancel && (
               <Button
                 type="button"

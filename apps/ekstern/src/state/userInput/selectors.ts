@@ -129,6 +129,6 @@ export const selectIsEndring = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
     return !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-      ?.alderspensjon?.grad
+      ?.alderspensjon?.loepende
   }
 )
