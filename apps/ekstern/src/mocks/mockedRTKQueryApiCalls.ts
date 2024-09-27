@@ -77,7 +77,7 @@ export const fulfilledGetLoependeVedtakUfoeregrad = {
   },
 }
 
-export const fulfilledGetLoependeVedtakEndring = {
+export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
   ['getLoependeVedtak(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getLoependeVedtak',
@@ -99,6 +99,62 @@ export const fulfilledGetLoependeVedtakEndring = {
       afpOffentlig: {
         loepende: false,
         grad: 0,
+      },
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        loepende: false,
+        grad: 0,
+      },
+      ufoeretrygd: {
+        loepende: false,
+        grad: 0,
+      },
+      afpPrivat: {
+        loepende: true,
+        grad: 100,
+      },
+      afpOffentlig: {
+        loepende: false,
+        grad: 0,
+      },
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        loepende: false,
+        grad: 0,
+      },
+      ufoeretrygd: {
+        loepende: false,
+        grad: 0,
+      },
+      afpPrivat: {
+        loepende: false,
+        grad: 0,
+      },
+      afpOffentlig: {
+        loepende: true,
+        grad: 100,
       },
     },
     fulfilledTimeStamp: 1688046412103,

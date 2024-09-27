@@ -1,5 +1,3 @@
-import { truncate } from 'fs/promises'
-
 import * as ReactRouterUtils from 'react-router'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 

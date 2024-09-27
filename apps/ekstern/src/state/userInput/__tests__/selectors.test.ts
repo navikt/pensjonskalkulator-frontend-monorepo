@@ -26,7 +26,9 @@ import {
   fulfilledGetPerson,
   fulfilledGetTpoMedlemskap,
   fulfilledGetLoependeVedtakUfoeregrad,
-  fulfilledGetLoependeVedtakEndring,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -456,7 +458,7 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
-    it('er false når kallet er vellykket og brukeren ikke har alderspensjon', () => {
+    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon eller AFP', () => {
       const state: RootState = {
         ...initialState,
         api: {
@@ -468,13 +470,37 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
-    it('er true når kallet er vellykket og brukeren har alderspensjon', () => {
+    it('er true når kallet er vellykket og brukeren har løpende alderspensjon', () => {
       const state: RootState = {
         ...initialState,
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakEndring },
+          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende AFP-privat', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAFPprivat },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende AFP-offentlig', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
         },
       }
       expect(selectIsEndring(state)).toBeTruthy()

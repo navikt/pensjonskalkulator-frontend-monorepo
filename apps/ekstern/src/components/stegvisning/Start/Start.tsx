@@ -41,14 +41,21 @@ export function Start({
     }
   }, [shouldRedirectTo])
 
+  const isEndring = React.useMemo(() => {
+    return (
+      loependeVedtak?.alderspensjon?.loepende ||
+      loependeVedtak?.afpPrivat?.loepende ||
+      loependeVedtak?.afpOffentlig?.loepende
+    )
+  }, [loependeVedtak])
+
   if (shouldRedirectTo) {
     return null
   }
 
   return (
     <>
-      {(loependeVedtak?.alderspensjon.loepende ||
-        loependeVedtak?.afpPrivat.loepende) && (
+      {isEndring && (
         <Alert className={styles.alert} variant="warning" aria-live="polite">
           <FormattedMessage
             id="stegvisning.endring.alert"
@@ -66,7 +73,7 @@ export function Start({
               })}${navnString}`}
             </Heading>
 
-            {loependeVedtak?.alderspensjon.loepende ? (
+            {isEndring ? (
               <>
                 <BodyLong size="large">
                   <FormattedMessage
@@ -145,9 +152,7 @@ export function Start({
               </>
             )}
 
-            {(!loependeVedtak?.alderspensjon.loepende ||
-              (loependeVedtak?.alderspensjon.loepende &&
-                endringFeatureToggle?.enabled)) && (
+            {(!isEndring || (isEndring && endringFeatureToggle?.enabled)) && (
               <Button
                 type="submit"
                 className={styles.button}
