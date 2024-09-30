@@ -6,6 +6,7 @@ import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { store } from '@/state/store'
 import { selectIsVeileder, selectAfp } from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
 import { isFoedtFoer1963 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 import { checkHarSamboer } from '@/utils/sivilstand'
@@ -119,6 +120,7 @@ export function useStepStartAccessData<
 export function stepStartDeferredLoader<
   TData extends {
     getPersonQuery: GetPersonQuery
+    getLoependeVedtakQuery: GetLoependeVedtakQuery
     shouldRedirectTo: string | undefined
   },
 >(dataFunc: (args?: LoaderFunctionArgs) => TData) {
@@ -141,6 +143,10 @@ export const stepStartAccessGuard = async () => {
       window.open(externalUrls.detaljertKalkulator, '_self')
     }
   })
+  // Henter løpende vedtak for endring
+  const getLoependeVedtakQuery = store.dispatch(
+    apiSlice.endpoints.getLoependeVedtak.initiate()
+  )
 
   // Henter inntekt til senere
   store.dispatch(apiSlice.endpoints.getInntekt.initiate())
@@ -153,7 +159,6 @@ export const stepStartAccessGuard = async () => {
   const getEkskludertStatusQuery = store.dispatch(
     apiSlice.endpoints.getEkskludertStatus.initiate()
   )
-
   getEkskludertStatusQuery.then((res) => {
     if (res?.data?.ekskludert && res?.data?.aarsak === 'ER_APOTEKER') {
       resolveRedirectUrl(
@@ -166,6 +171,7 @@ export const stepStartAccessGuard = async () => {
 
   return defer({
     getPersonQuery,
+    getLoependeVedtakQuery,
     shouldRedirectTo,
   })
 }
@@ -212,7 +218,6 @@ export const stepSivilstandAccessGuard = async () => {
       resolveGetPerson = resolve
     }
   )
-
   const getPersonPreviousResponse = apiSlice.endpoints.getPerson.select(
     undefined
   )(store.getState())
@@ -290,7 +295,9 @@ export const stepAFPAccessGuard = async () => {
   if (await directAccessGuard()) {
     return redirect(paths.start)
   }
-  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
+  let resolveRedirectUrl: (
+    value: string | PromiseLike<string>
+  ) => void = () => {}
 
   const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
     resolveRedirectUrl = resolve
@@ -310,97 +317,112 @@ export const stepAFPAccessGuard = async () => {
       store.getState()
     ).isError
 
-  store.dispatch(apiSlice.endpoints.getUfoeregrad.initiate()).then((res) => {
-    if (res.isError) {
-      resolveRedirectUrl(paths.uventetFeil)
-    }
-    if (res.isSuccess) {
-      // Hvis alle kallene er vellykket, resolve
-      if (
-        !hasInntektPreviouslyFailed &&
-        !hasOmstillingsstoenadOgGjenlevendePreviouslyFailed &&
-        !hasEkskludertStatusPreviouslyFailed
-      ) {
-        resolveRedirectUrl('')
+  store
+    .dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+    .then((res) => {
+      if (res.isError) {
+        resolveRedirectUrl(paths.uventetFeil)
       }
-      // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-      if (hasInntektPreviouslyFailed) {
-        store
-          .dispatch(apiSlice.endpoints.getInntekt.initiate())
-          .then((inntektRes) => {
-            if (inntektRes.isError) {
-              resolveRedirectUrl(paths.uventetFeil)
-            } else if (
-              apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
-                undefined
-              )(store.getState()).isSuccess &&
-              apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-                store.getState()
-              ).isSuccess
-            ) {
-              resolveRedirectUrl('')
-            }
-          })
-      }
-
-      // Hvis omstillingsstønad-og-gjenlevende har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-      if (hasOmstillingsstoenadOgGjenlevendePreviouslyFailed) {
-        store
-          .dispatch(
-            apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
-          )
-          .then((omstillingsstoenadOgGjenlevendeRes) => {
-            if (omstillingsstoenadOgGjenlevendeRes.isError) {
-              logger('info', {
-                tekst: 'omstillingsstønad og gjenlevende feilet',
-              })
-              resolveRedirectUrl(paths.uventetFeil)
-            } else if (
-              apiSlice.endpoints.getInntekt.select(undefined)(store.getState())
-                .isSuccess &&
-              apiSlice.endpoints.getEkskludertStatus.select(undefined)(
-                store.getState()
-              ).isSuccess
-            ) {
-              resolveRedirectUrl('')
-            }
-          })
-      }
-
-      // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-      if (hasEkskludertStatusPreviouslyFailed) {
-        store
-          .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
-          .then((ekskludertStatusRes) => {
-            if (ekskludertStatusRes.isError) {
-              logger('info', {
-                tekst: 'ekskludert feilet',
-              })
-              resolveRedirectUrl(paths.uventetFeil)
-            }
-            if (res.isSuccess) {
-              if (
-                ekskludertStatusRes?.data?.ekskludert &&
-                ekskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+      if (res.isSuccess) {
+        // Hvis brukeren skal simulere endring tømmer vi tidligere input i tilfelle noe det ble fylt ut da getLoepende vedtak kan ha feilet
+        if (
+          res.data.alderspensjon.loepende ||
+          res.data.afpPrivat.loepende ||
+          res.data.afpOffentlig.loepende
+        ) {
+          store.dispatch(userInputActions.flushSamboerOgUtenlandsperioder())
+        }
+        // Hvis brukeren skal simulere endring og at hen mottar AFP skal hen direkte til avansert beregning
+        if (res.data.afpPrivat.loepende || res.data.afpOffentlig.loepende) {
+          resolveRedirectUrl(paths.beregningAvansert)
+        }
+        // Hvis alle kallene er vellykket, resolve
+        if (
+          !hasInntektPreviouslyFailed &&
+          !hasOmstillingsstoenadOgGjenlevendePreviouslyFailed &&
+          !hasEkskludertStatusPreviouslyFailed
+        ) {
+          resolveRedirectUrl('')
+        }
+        // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+        if (hasInntektPreviouslyFailed) {
+          store
+            .dispatch(apiSlice.endpoints.getInntekt.initiate())
+            .then((inntektRes) => {
+              if (inntektRes.isError) {
+                resolveRedirectUrl(paths.uventetFeil)
+              } else if (
+                apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
+                  undefined
+                )(store.getState()).isSuccess &&
+                apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+                  store.getState()
+                ).isSuccess
               ) {
-                resolveRedirectUrl(
-                  `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-                )
+                resolveRedirectUrl('')
+              }
+            })
+        }
+
+        // Hvis omstillingsstønad-og-gjenlevende har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+        if (hasOmstillingsstoenadOgGjenlevendePreviouslyFailed) {
+          store
+            .dispatch(
+              apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
+            )
+            .then((omstillingsstoenadOgGjenlevendeRes) => {
+              if (omstillingsstoenadOgGjenlevendeRes.isError) {
+                logger('info', {
+                  tekst: 'omstillingsstønad og gjenlevende feilet',
+                })
+                resolveRedirectUrl(paths.uventetFeil)
               } else if (
                 apiSlice.endpoints.getInntekt.select(undefined)(
                   store.getState()
                 ).isSuccess &&
-                apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
-                  undefined
-                )(store.getState()).isSuccess
+                apiSlice.endpoints.getEkskludertStatus.select(undefined)(
+                  store.getState()
+                ).isSuccess
               ) {
                 resolveRedirectUrl('')
               }
-            }
-          })
+            })
+        }
+
+        // Hvis ekskludertStatus har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
+        if (hasEkskludertStatusPreviouslyFailed) {
+          store
+            .dispatch(apiSlice.endpoints.getEkskludertStatus.initiate())
+            .then((ekskludertStatusRes) => {
+              if (ekskludertStatusRes.isError) {
+                logger('info', {
+                  tekst: 'ekskludert feilet',
+                })
+                resolveRedirectUrl(paths.uventetFeil)
+              }
+              if (ekskludertStatusRes.isSuccess) {
+                if (
+                  ekskludertStatusRes?.data?.ekskludert &&
+                  ekskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+                ) {
+                  resolveRedirectUrl(
+                    `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+                  )
+                } else if (
+                  apiSlice.endpoints.getInntekt.select(undefined)(
+                    store.getState()
+                  ).isSuccess &&
+                  apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.select(
+                    undefined
+                  )(store.getState()).isSuccess
+                ) {
+                  resolveRedirectUrl('')
+                }
+              }
+            })
+        }
       }
-    }
-  })
+    })
 
   return defer({
     shouldRedirectTo,
@@ -415,11 +437,11 @@ export const stepUfoeretrygdAFPAccessGuard = async () => {
   }
 
   const afp = selectAfp(store.getState())
-  const ufoereGradResponse = apiSlice.endpoints.getUfoeregrad.select(undefined)(
-    store.getState()
-  ).data
+  const loependeVedtakResponse = apiSlice.endpoints.getLoependeVedtak.select(
+    undefined
+  )(store.getState()).data
 
-  if (ufoereGradResponse?.ufoeregrad && afp !== 'nei') {
+  if (loependeVedtakResponse?.ufoeretrygd.grad && afp !== 'nei') {
     return null
   }
   return redirect(paths.samtykkeOffentligAFP)
@@ -433,11 +455,14 @@ export const stepSamtykkeOffentligAFPAccessGuard = async () => {
   }
 
   const afp = selectAfp(store.getState())
-  const ufoereGradResponse = apiSlice.endpoints.getUfoeregrad.select(undefined)(
-    store.getState()
-  ).data
+  const loependeVedtakResponse = apiSlice.endpoints.getLoependeVedtak.select(
+    undefined
+  )(store.getState()).data
 
-  if (ufoereGradResponse?.ufoeregrad === 0 && afp === 'ja_offentlig') {
+  if (
+    loependeVedtakResponse?.ufoeretrygd.grad === 0 &&
+    afp === 'ja_offentlig'
+  ) {
     return null
   }
   return redirect(paths.samtykke)

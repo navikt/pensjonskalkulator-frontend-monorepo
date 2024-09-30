@@ -180,11 +180,11 @@ export interface paths {
       cookie?: never
     }
     /**
-     * Har løpende saker
+     * Har løpende vedtak
      *
      * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
      */
-    get: operations['hentLoependeVedtak']
+    get: operations['hentLoependeVedtakV1']
     put?: never
     post?: never
     delete?: never
@@ -808,16 +808,18 @@ export interface components {
       /** @enum {string} */
       aarsak: 'NONE' | 'ER_APOTEKER'
     }
-    LoependeSakV1: {
+    LoependeVedtakDetaljerV1: {
       loepende: boolean
       /** Format: int32 */
       grad: number
+      /** Format: date */
+      fom?: string
     }
     LoependeVedtakV1: {
-      alderspensjon?: components['schemas']['LoependeSakV1']
-      ufoeretrygd?: components['schemas']['LoependeSakV1']
-      afpPrivat?: components['schemas']['LoependeSakV1']
-      afpOffentlig?: components['schemas']['LoependeSakV1']
+      alderspensjon: components['schemas']['LoependeVedtakDetaljerV1']
+      ufoeretrygd: components['schemas']['LoependeVedtakDetaljerV1']
+      afpPrivat: components['schemas']['LoependeVedtakDetaljerV1']
+      afpOffentlig: components['schemas']['LoependeVedtakDetaljerV1']
     }
     UfoeregradDto: {
       /** Format: int32 */
@@ -1140,7 +1142,7 @@ export interface operations {
       }
     }
   }
-  hentLoependeVedtak: {
+  hentLoependeVedtakV1: {
     parameters: {
       query?: never
       header?: never
@@ -1149,7 +1151,7 @@ export interface operations {
     }
     requestBody?: never
     responses: {
-      /** @description Sjekking av saker utført */
+      /** @description Henting av løpende vedtak utført */
       200: {
         headers: {
           [name: string]: unknown
@@ -1158,7 +1160,7 @@ export interface operations {
           '*/*': components['schemas']['LoependeVedtakV1']
         }
       }
-      /** @description Sjekking av saker kunne ikke utføres av tekniske årsaker */
+      /** @description Henting av løpende vedtak kunne ikke utføres av tekniske årsaker */
       503: {
         headers: {
           [name: string]: unknown

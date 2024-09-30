@@ -9,7 +9,7 @@ import {
   paths,
 } from '../constants'
 import { routes } from '../routes'
-import { fulfilledGetUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetLoependeVedtakUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -203,7 +203,7 @@ describe('routes', () => {
         })
       })
 
-      it('viser Steg 1', async () => {
+      it('viser start steget', async () => {
         mockResponse('/oauth2/session', {
           baseUrl: `${HOST_BASEURL}`,
         })
@@ -484,7 +484,7 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-      it('viser Steg 4 når brukeren kommer til steget gjennom stegvisningen og at /inntekt  og /ekskludert ikke har feilet', async () => {
+      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /inntekt  og /ekskludert ikke har feilet', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
@@ -545,7 +545,7 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ...fulfilledGetUfoeregrad,
+              ...fulfilledGetLoependeVedtakUfoeregrad,
             },
           },
           userInput: { ...userInputInitialState },
@@ -609,11 +609,28 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ['getUfoeregrad(undefined)']: {
+              ['getLoependeVedtak(undefined)']: {
                 status: 'fulfilled',
-                endpointName: 'getUfoeregrad',
+                endpointName: 'getLoependeVedtak',
                 requestId: 't1wLPiRKrfe_vchftk8s8',
-                data: { ufoeregrad: 0 },
+                data: {
+                  alderspensjon: {
+                    loepende: false,
+                    grad: 0,
+                  },
+                  ufoeretrygd: {
+                    loepende: false,
+                    grad: 0,
+                  },
+                  afpPrivat: {
+                    loepende: false,
+                    grad: 0,
+                  },
+                  afpOffentlig: {
+                    loepende: false,
+                    grad: 0,
+                  },
+                },
                 startedTimeStamp: 1714725797072,
                 fulfilledTimeStamp: 1714725797669,
               },

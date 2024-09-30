@@ -19,12 +19,16 @@ import {
   selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
   selectUfoeregrad,
+  selectIsEndring,
 } from '../selectors'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
   fulfilledGetTpoMedlemskap,
-  fulfilledGetUfoeregrad,
+  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -441,10 +445,65 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
         },
       }
       expect(selectUfoeregrad(state)).toBe(75)
+    })
+  })
+
+  describe('selectIsEndring', () => {
+    it('er false når løpende vedtak ikke er kalt enda', () => {
+      const state: RootState = initialState
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
+    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon eller AFP', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+        },
+      }
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende alderspensjon', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende AFP-privat', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAFPprivat },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende AFP-offentlig', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
     })
   })
 })

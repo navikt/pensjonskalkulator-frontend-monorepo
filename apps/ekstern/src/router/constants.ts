@@ -58,3 +58,10 @@ export const stegvisningOrder = [
   paths.samtykke,
   paths.beregningEnkel,
 ] as const
+
+export const stegvisningOrderEndring = [
+  paths.login,
+  paths.start,
+  paths.afp,
+  paths.beregningAvansert,
+] as const
