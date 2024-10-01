@@ -16,4 +16,5 @@ cypress
 src/nais.js
 public/src/nais.js
 scripts/FetchLandListe.js
+sanity.cli.ts
 

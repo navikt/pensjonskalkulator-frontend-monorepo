@@ -10,6 +10,7 @@ lerna-debug.log*
 # Generated
 node_modules
 dist
+dist-sanity
 dist-ssr
 coverage
 *.local
@@ -18,6 +19,7 @@ cypress/videos
 cypress/screenshots
 analice.html
 vite.config.ts.*
+.sanity
 
 # Editor directories and files
 .vscode/*

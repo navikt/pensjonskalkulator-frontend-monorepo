@@ -5,7 +5,11 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     parser: '@typescript-eslint/parser',
-    project: ['./tsconfig.json', './tsconfig.server.json'],
+    project: [
+      './tsconfig.json',
+      './tsconfig.server.json',
+      './tsconfig.sanity.json',
+    ],
     tsconfigRootDir: __dirname,
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -37,7 +41,6 @@ module.exports = {
     ],
     'no-irregular-whitespace': 'warn',
     'no-shadow': 'off',
-
     'import/order': [
       'warn',
       {
