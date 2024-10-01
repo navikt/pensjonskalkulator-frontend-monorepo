@@ -2,7 +2,7 @@ import path from 'path'
 
 import { ecsFormat } from '@elastic/ecs-winston-format'
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis'
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import promBundle from 'express-prom-bundle'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import winston from 'winston'
@@ -100,41 +100,47 @@ app.use('/pensjon/kalkulator/src', (req, res, next) => {
 })
 
 // Proxy til backend med token exchange
-app.use('/pensjon/kalkulator/api', async (req, res, next) => {
-  const token = getToken(req)
-  if (!token) {
-    logger.info('No token found in request', {
-      'x_correlation-id': req.headers['x_correlation-id'],
-    })
-    return res.sendStatus(403)
-  }
-  const validationResult = await validateToken(token)
-  if (!validationResult.ok) {
-    logger.error('Failed to validate token', {
-      error: validationResult.error.message,
-      errorType: validationResult.errorType,
-      'x_correlation-id': req.headers['x_correlation-id'],
-    })
-    return res.sendStatus(401)
-  }
+app.use(
+  '/pensjon/kalkulator/api',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const token = getToken(req)
+    if (!token) {
+      logger.info('No token found in request', {
+        'x_correlation-id': req.headers['x_correlation-id'],
+      })
+      res.sendStatus(403)
+      return
+    }
+    const validationResult = await validateToken(token)
+    if (!validationResult.ok) {
+      logger.error('Failed to validate token', {
+        error: validationResult.error.message,
+        errorType: validationResult.errorType,
+        'x_correlation-id': req.headers['x_correlation-id'],
+      })
+      res.sendStatus(401)
+      return
+    }
 
-  const obo = await requestOboToken(token, OBO_AUDIENCE)
-  if (!obo.ok) {
-    logger.error('Failed to get OBO token', {
-      error: obo.error.message,
-      'x_correlation-id': req.headers['x_correlation-id'],
-    })
-    return res.sendStatus(401)
-  }
+    const obo = await requestOboToken(token, OBO_AUDIENCE)
+    if (!obo.ok) {
+      logger.error('Failed to get OBO token', {
+        error: obo.error.message,
+        'x_correlation-id': req.headers['x_correlation-id'],
+      })
+      res.sendStatus(401)
+      return
+    }
 
-  return createProxyMiddleware({
-    target: `${PENSJONSKALKULATOR_BACKEND}/api`,
-    headers: {
-      Authorization: `Bearer ${obo.token}`,
-    },
-    logger: logger,
-  })(req, res, next)
-})
+    createProxyMiddleware({
+      target: `${PENSJONSKALKULATOR_BACKEND}/api`,
+      headers: {
+        Authorization: `Bearer ${obo.token}`,
+      },
+      logger: logger,
+    })(req, res, next)
+  }
+)
 
 app.use(
   '/pensjon/kalkulator/v3/api-docs',
@@ -146,11 +152,13 @@ app.use(
 
 // Kubernetes probes
 app.get('/internal/health/liveness', (_req, res) => {
-  return res.sendStatus(200)
+  // Fjerner return slik at den returnerer void
+  res.sendStatus(200)
 })
 
 app.get('/internal/health/readiness', (_req, res) => {
-  return res.sendStatus(200)
+  // Fjerner return slik at den returnerer void
+  res.sendStatus(200)
 })
 
 // For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
