@@ -1,6 +1,8 @@
 import { redirect } from 'react-router'
 import { defer, LoaderFunctionArgs, useLoaderData } from 'react-router-dom'
 
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+
 import { HOST_BASEURL } from '@/paths'
 import { externalUrls, henvisningUrlParams, paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -139,6 +141,11 @@ export const stepStartAccessGuard = async () => {
 
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   getPersonQuery.then((res) => {
+    // Håndtere at bruker ikke har tilgang (inntreffer for fullmakt)
+    if (res.isError && (res.error as FetchBaseQueryError).status === 403) {
+      resolveRedirectUrl(paths.ingenTilgang)
+    }
+
     if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
       window.open(externalUrls.detaljertKalkulator, '_self')
     }
@@ -241,7 +248,11 @@ export const stepSivilstandAccessGuard = async () => {
     )
     newGetPersonQuery.then((res) => {
       if (res.isError) {
-        resolveRedirectUrl(paths.uventetFeil)
+        if ((res.error as FetchBaseQueryError).status === 403) {
+          resolveRedirectUrl(paths.ingenTilgang)
+        } else {
+          resolveRedirectUrl(paths.uventetFeil)
+        }
         resolveGetPerson(res)
       }
       if (res.isSuccess) {

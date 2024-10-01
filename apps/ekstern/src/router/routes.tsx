@@ -27,6 +27,7 @@ import {
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
 } from './loaders'
+import { IngenTilgang } from '@/pages/IngenTilgang'
 
 export const routes: RouteObject[] = [
   {
@@ -113,6 +114,11 @@ export const routes: RouteObject[] = [
         loader: directAccessGuard,
         path: paths.uventetFeil,
         element: <StepFeil />,
+      },
+      {
+        loader: directAccessGuard,
+        path: paths.ingenTilgang,
+        element: <IngenTilgang />,
       },
     ],
   },

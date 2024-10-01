@@ -33,6 +33,7 @@ export const FrameComponent: React.FC<{
         })}
       >
         <div className={styles.headerGroup}>
+          <representasjon-banner representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"></representasjon-banner>
           <div
             className={clsx(styles.headerGroupTitle, {
               [styles.headerGroupTitle__isFramed]: !isFullWidth,
