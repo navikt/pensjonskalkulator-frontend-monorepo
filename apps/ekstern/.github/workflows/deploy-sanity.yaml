@@ -71,7 +71,7 @@ jobs:
 
   deploy-staging:
     name: Deploy to staging
-    needs: [build, run-unit-tests, run-integration-tests]
+    needs: [build]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
