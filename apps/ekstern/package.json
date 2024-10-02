@@ -8,7 +8,7 @@
     "start:production": "vite --mode production",
     "sanity-dev": "sanity dev -- --port 3333",
     "sanity-start": "sanity start dist-sanity",
-    "sanity-build": "sanity build dist-sanity",
+    "sanity-build": "sanity build -y dist-sanity",
     "sanity-deploy": "sanity deploy",
     "sanity-deploy-graphql": "sanity graphql deploy",
     "fetch-land-liste": "node --experimental-fetch ./scripts/FetchLandListe.js",
