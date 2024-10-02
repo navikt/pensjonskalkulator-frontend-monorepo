@@ -2,7 +2,7 @@ import path from 'path'
 
 import { ecsFormat } from '@elastic/ecs-winston-format'
 import { getToken, requestOboToken, validateToken } from '@navikt/oasis'
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import promBundle from 'express-prom-bundle'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import winston from 'winston'
@@ -88,53 +88,71 @@ app.use((req, res, next) => {
   next()
 })
 // Server hele assets mappen uten autentisering
-app.use('/pensjon/kalkulator/assets', (req, res, next) => {
-  const assetFolder = path.join(__dirname, 'assets')
-  return express.static(assetFolder)(req, res, next)
-})
+app.use(
+  '/pensjon/kalkulator/assets',
+  (req: Request, res: Response, next: NextFunction) => {
+    const assetFolder = path.join(__dirname, 'assets')
+    return express.static(assetFolder)(req, res, next)
+  }
+)
 
 // Dunno, nais.js. Vet ikke hva den gjør
-app.use('/pensjon/kalkulator/src', (req, res, next) => {
-  const srcFolder = path.join(__dirname, 'src')
-  return express.static(srcFolder)(req, res, next)
+app.use(
+  '/pensjon/kalkulator/src',
+  (req: Request, res: Response, next: NextFunction) => {
+    const srcFolder = path.join(__dirname, 'src')
+    return express.static(srcFolder)(req, res, next)
+  }
+)
+
+const apiProxy = createProxyMiddleware({
+  target: `${PENSJONSKALKULATOR_BACKEND}/api`,
+  changeOrigin: true,
+  logger: logger,
 })
 
 // Proxy til backend med token exchange
-app.use('/pensjon/kalkulator/api', async (req, res, next) => {
-  const token = getToken(req)
-  if (!token) {
-    logger.info('No token found in request', {
-      'x_correlation-id': req.headers['x_correlation-id'],
-    })
-    return res.sendStatus(403)
-  }
-  const validationResult = await validateToken(token)
-  if (!validationResult.ok) {
-    logger.error('Failed to validate token', {
-      error: validationResult.error.message,
-      errorType: validationResult.errorType,
-      'x_correlation-id': req.headers['x_correlation-id'],
-    })
-    return res.sendStatus(401)
-  }
+app.use(
+  '/pensjon/kalkulator/api',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const token = getToken(req)
+    if (!token) {
+      logger.info('No token found in request', {
+        'x_correlation-id': req.headers['x_correlation-id'],
+      })
+      res.sendStatus(403)
+      return
+    }
+    const validationResult = await validateToken(token)
+    if (!validationResult.ok) {
+      logger.error('Failed to validate token', {
+        error: validationResult.error.message,
+        errorType: validationResult.errorType,
+        'x_correlation-id': req.headers['x_correlation-id'],
+      })
+      res.sendStatus(401)
+      return
+    }
 
-  const obo = await requestOboToken(token, OBO_AUDIENCE)
-  if (!obo.ok) {
-    logger.error('Failed to get OBO token', {
-      error: obo.error.message,
-      'x_correlation-id': req.headers['x_correlation-id'],
-    })
-    return res.sendStatus(401)
-  }
+    const obo = await requestOboToken(token, OBO_AUDIENCE)
+    if (!obo.ok) {
+      logger.error('Failed to get OBO token', {
+        error: obo.error.message,
+        'x_correlation-id': req.headers['x_correlation-id'],
+      })
+      res.sendStatus(401)
+      return
+    }
 
-  return createProxyMiddleware({
-    target: `${PENSJONSKALKULATOR_BACKEND}/api`,
-    headers: {
-      Authorization: `Bearer ${obo.token}`,
-    },
-    logger: logger,
-  })(req, res, next)
-})
+    createProxyMiddleware({
+      target: `${PENSJONSKALKULATOR_BACKEND}/api`,
+      headers: {
+        Authorization: `Bearer ${obo.token}`,
+      },
+      logger: logger,
+    })(req, res, next)
+  }
+)
 
 app.use(
   '/pensjon/kalkulator/v3/api-docs',
@@ -145,16 +163,16 @@ app.use(
 )
 
 // Kubernetes probes
-app.get('/internal/health/liveness', (_req, res) => {
-  return res.sendStatus(200)
+app.get('/internal/health/liveness', (_req: Request, res: Response) => {
+  res.sendStatus(200)
 })
 
-app.get('/internal/health/readiness', (_req, res) => {
-  return res.sendStatus(200)
+app.get('/internal/health/readiness', (_req: Request, res: Response) => {
+  res.sendStatus(200)
 })
 
 // For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
-app.get('/pensjon/kalkulator/veileder?*', (_req, res) => {
+app.get('/pensjon/kalkulator/veileder?*', (_req: Request, res: Response) => {
   if (AUTH_PROVIDER === 'azure') {
     return res.sendFile(__dirname + '/veileder/index.html')
   } else {
@@ -162,7 +180,7 @@ app.get('/pensjon/kalkulator/veileder?*', (_req, res) => {
   }
 })
 
-app.get('*', (_req, res) => {
+app.get('*', (_req: Request, res: Response) => {
   if (AUTH_PROVIDER === 'idporten') {
     return res.sendFile(__dirname + '/index.html')
   } else if (AUTH_PROVIDER === 'azure') {
