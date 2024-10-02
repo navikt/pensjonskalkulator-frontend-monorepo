@@ -7,6 +7,7 @@ metadata:
     team: pensjonskalkulator
   annotations:
     nais.io/run-as-user: "101" # nginx
+    nais.io/read-only-file-system: "false"
 spec:
   image: "{{ image }}"
   ingresses:
