@@ -41,10 +41,6 @@ const translations = {
     'Du kan velgje mellom enkel eller detaljert kalkulator. Enkel kalkulator passar for deg som vil ha eit rask oversyn. Detaljert pensjonskalkulator passar for deg som vil ha ei meir spesifisert utrekning.',
   'landingsside.velge_mellom_detaljert_og_enkel_2':
     'Enkel kalkulator er under utvikling. Du må du bruke detaljert pensjonskalkulator viss du:',
-  'landingsside.velge_mellom_detaljert_og_enkel_3': 'MANGLER_TEKST',
-  'landingsside.liste.1':
-    'har budd eller arbeidd utanfor Noreg i meir enn fem år etter fylte 16 år',
-  'landingsside.liste.2': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget':
     'Logg inn i detaljert pensjonskalkulator',
   'landingsside.button.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
