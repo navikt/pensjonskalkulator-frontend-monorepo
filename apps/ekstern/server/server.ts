@@ -88,15 +88,27 @@ app.use((req, res, next) => {
   next()
 })
 // Server hele assets mappen uten autentisering
-app.use('/pensjon/kalkulator/assets', (req, res, next) => {
-  const assetFolder = path.join(__dirname, 'assets')
-  return express.static(assetFolder)(req, res, next)
-})
+app.use(
+  '/pensjon/kalkulator/assets',
+  (req: Request, res: Response, next: NextFunction) => {
+    const assetFolder = path.join(__dirname, 'assets')
+    return express.static(assetFolder)(req, res, next)
+  }
+)
 
 // Dunno, nais.js. Vet ikke hva den gjør
-app.use('/pensjon/kalkulator/src', (req, res, next) => {
-  const srcFolder = path.join(__dirname, 'src')
-  return express.static(srcFolder)(req, res, next)
+app.use(
+  '/pensjon/kalkulator/src',
+  (req: Request, res: Response, next: NextFunction) => {
+    const srcFolder = path.join(__dirname, 'src')
+    return express.static(srcFolder)(req, res, next)
+  }
+)
+
+const apiProxy = createProxyMiddleware({
+  target: `${PENSJONSKALKULATOR_BACKEND}/api`,
+  changeOrigin: true,
+  logger: logger,
 })
 
 // Proxy til backend med token exchange
@@ -151,18 +163,16 @@ app.use(
 )
 
 // Kubernetes probes
-app.get('/internal/health/liveness', (_req, res) => {
-  // Fjerner return slik at den returnerer void
+app.get('/internal/health/liveness', (_req: Request, res: Response) => {
   res.sendStatus(200)
 })
 
-app.get('/internal/health/readiness', (_req, res) => {
-  // Fjerner return slik at den returnerer void
+app.get('/internal/health/readiness', (_req: Request, res: Response) => {
   res.sendStatus(200)
 })
 
 // For alle andre endepunkt svar med /veileder/veileder.html (siden vi bruker react-router)
-app.get('/pensjon/kalkulator/veileder?*', (_req, res) => {
+app.get('/pensjon/kalkulator/veileder?*', (_req: Request, res: Response) => {
   if (AUTH_PROVIDER === 'azure') {
     return res.sendFile(__dirname + '/veileder/index.html')
   } else {
@@ -170,7 +180,7 @@ app.get('/pensjon/kalkulator/veileder?*', (_req, res) => {
   }
 })
 
-app.get('*', (_req, res) => {
+app.get('*', (_req: Request, res: Response) => {
   if (AUTH_PROVIDER === 'idporten') {
     return res.sendFile(__dirname + '/index.html')
   } else if (AUTH_PROVIDER === 'azure') {
