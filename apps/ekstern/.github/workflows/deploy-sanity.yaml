@@ -1,0 +1,111 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.gitignore'
+      - 'CODEOWNERS'
+      - 'LICENSE.md'
+      - 'README.md'
+  workflow_dispatch:
+    inputs:
+      prod:
+        description: Deploy to production
+        type: boolean
+        required: false
+
+jobs:
+  build:
+    name: Build application
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js v20.9.0
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.9.0'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Cache node modules
+        id: cache-node
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache-node.outputs.cache-hit != 'true'
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+
+      - name: Build staging application
+        run: npm run build-sanity
+
+      - name: Save build folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-sanity
+          path: dist-sanity
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Create Docker image
+        id: image-creation
+        uses: nais/docker-build-push@v0
+        with:
+          dockerfile: .docker/Dockerfile-sanity
+          team: pensjonskalkulator
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+    outputs:
+      image: ${{ steps.image-creation.outputs.image }}
+
+  deploy-staging:
+    name: Deploy to staging
+    needs: [build, run-unit-tests, run-integration-tests]
+    permissions: write-all
+    runs-on: ubuntu-latest
+    if: |
+      (github.event_name == 'push' ||
+      github.event_name == 'workflow_dispatch') &&
+      github.event.inputs.prod != 'true' &&
+      github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to staging
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          IMAGE: ${{ needs.build.outputs.image }}
+          RESOURCE: .nais/deploy-sanity-staging.yml
+
+
+  #  deploy-prod:
+  #    name: Deploy to prod-gcp
+  #    needs: [build, run-unit-tests, run-integration-tests]
+  #    permissions: write-all
+  #    runs-on: ubuntu-latest
+  #    if: |
+  #      github.ref == 'refs/heads/main' &&
+  #      github.event_name == 'workflow_dispatch' &&
+  #      github.event.inputs.prod == 'true'
+  #    steps:
+  #      - name: Checkout
+  #        uses: actions/checkout@v4
+  #
+  #      - name: Deploy to prod-gcp
+  #        uses: nais/deploy/actions/deploy@v2
+  #        env:
+  #          CLUSTER: prod-gcp
+  #          IMAGE: ${{ needs.build.outputs.image }}
+  #          RESOURCE: .nais/deploy-sanity-prod.yml
