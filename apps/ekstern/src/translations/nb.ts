@@ -208,7 +208,7 @@ const translations = {
   'utenlandsopphold.slette_modal.button.slett': 'Slett opphold',
   'stegvisning.samtykke_pensjonsavtaler.title': 'Pensjonsavtaler',
   'stegvisning.samtykke_pensjonsavtaler.ingress':
-    'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og AFP (avtalefestet pensjon).',
+    'Vi må ha ditt samtykke for å hente tjenestepensjon og andre pensjonsavtaler fra arbeidsgivere. Hvis du svarer nei får du beregnet alderspensjon (NAV) og eventuell AFP (avtalefestet pensjon).',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_title':
     'Dette sjekker vi om tjenestepensjon i offentlig sektor',
   'stegvisning.samtykke_pensjonsavtaler.offentlig.readmore_ingress':
