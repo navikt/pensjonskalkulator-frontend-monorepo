@@ -1,3 +1,4 @@
+import { paths } from './router/constants'
 import { components } from './schema'
 
 declare global {
@@ -44,8 +45,15 @@ declare global {
   type OmstillingsstoenadOgGjenlevende =
     components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
 
-  // /ufoeregrad
-  type Ufoeregrad = components['schemas']['UfoeregradDto']
+  // /v1/vedtak/loepende-vedtak
+  export type GetLoependeVedtakQuery = TypedUseQueryStateResult<
+    LoependeVedtak,
+    void,
+    BaseQueryFn<Record<string, unknown>, LoependeVedtak>
+  >
+
+  // LoependeVedtakDto
+  type LoependeVedtak = components['schemas']['LoependeVedtakDto']
 
   // /tpo-medlemskap
   export type TpoMedlemskapQuery = TypedUseQueryStateResult<
@@ -83,6 +91,8 @@ declare global {
   type AlderspensjonResponseBody = components['schemas']['SimuleringResultatV6']
   type Vilkaarsproeving = components['schemas']['VilkaarsproevingV6']
   type VilkaarsproevingAlternativ = components['schemas']['AlternativV6']
+  type SimulertOpptjeningGrunnlag =
+    components['schemas']['SimulertOpptjeningGrunnlagV6']
   type AarligInntektVsaPensjon = {
     beloep: string
     sluttAlder: Alder
@@ -114,6 +124,8 @@ declare global {
   type Simuleringstype =
     components['schemas']['IngressSimuleringSpecV6']['simuleringstype']
   type Pensjonsberegning = components['schemas']['PensjonsberegningV6']
+  type PensjonsberegningMedDetaljer =
+    components['schemas']['AlderspensjonsberegningV6']
 
   type Ansatt = components['schemas']['AnsattV1']
 

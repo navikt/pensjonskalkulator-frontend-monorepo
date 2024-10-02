@@ -124,7 +124,6 @@ describe('VeilederInput', () => {
 
       const user = userEvent.setup()
 
-      console.log('render')
       render(<VeilederInput />, { hasRouter: false })
       expect(screen.getByText('Veiledertilgang')).toBeVisible()
       const submitButton = screen.getByTestId('veileder-submit')

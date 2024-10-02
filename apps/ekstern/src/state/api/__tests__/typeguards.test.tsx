@@ -10,7 +10,7 @@ import {
   isPerson,
   isEkskludertStatus,
   isOmstillingsstoenadOgGjenlevende,
-  isUfoeregrad,
+  isLoependeVedtak,
   isTpoMedlemskap,
   isUtbetalingsperiode,
   isUnleashToggle,
@@ -647,23 +647,137 @@ describe('Typeguards', () => {
     })
   })
 
-  describe('isUfoeregrad', () => {
-    it('returnerer true når input er et Ufoeregrad-objekt', () => {
+  describe('isLoependeVedtak', () => {
+    const correctResponse = {
+      alderspensjon: {
+        loepende: false,
+        grad: 0,
+      },
+      ufoeretrygd: {
+        loepende: true,
+        grad: 75,
+      },
+      afpPrivat: {
+        loepende: false,
+        grad: 0,
+      },
+      afpOffentlig: {
+        loepende: false,
+        grad: 0,
+      },
+    }
+    it('returnerer true når input er et LoependeVedtak-objekt', () => {
       expect(
-        isUfoeregrad({
-          ufoeregrad: 75,
+        isLoependeVedtak({
+          ...correctResponse,
         })
       ).toEqual(true)
     })
 
-    it('returnerer false når input ikke er et Ufoeregrad-objekt', () => {
-      expect(isUfoeregrad(undefined)).toEqual(false)
-      expect(isUfoeregrad(null)).toEqual(false)
-      expect(isUfoeregrad({})).toEqual(false)
-      expect(isUfoeregrad({ random: 75 })).toEqual(false)
-      expect(isUfoeregrad({ ufoeregrad: null })).toEqual(false)
-      expect(isUfoeregrad({ ufoeregrad: {} })).toEqual(false)
-      expect(isUfoeregrad({ ufoeregrad: '75' })).toEqual(false)
+    it('returnerer false når input ikke er et LoependeVedtak-objekt', () => {
+      expect(isLoependeVedtak(undefined)).toEqual(false)
+      expect(isLoependeVedtak(null)).toEqual(false)
+      expect(isLoependeVedtak({})).toEqual(false)
+      expect(isLoependeVedtak({ random: 75 })).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          alderspensjon: null,
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          ufoeretrygd: null,
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpPrivat: null,
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpOffentlig: null,
+        })
+      ).toEqual(false)
+
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          alderspensjon: {},
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          ufoeretrygd: {},
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpPrivat: {},
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpOffentlig: {},
+        })
+      ).toEqual(false)
+
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          alderspensjon: { loepende: 'lorem', grad: 100 },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          ufoeretrygd: { loepende: 'lorem', grad: 100 },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpPrivat: { loepende: 'lorem', grad: 100 },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpOffentlig: { loepende: 'lorem', grad: 100 },
+        })
+      ).toEqual(false)
+
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          alderspensjon: { grad: '75' },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          ufoeretrygd: { grad: '75' },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpPrivat: { grad: '75' },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpOffentlig: { grad: '75' },
+        })
+      ).toEqual(false)
     })
   })
 

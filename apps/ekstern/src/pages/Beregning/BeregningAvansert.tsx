@@ -6,7 +6,7 @@ import { Heading } from '@navikt/ds-react'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import clsx from 'clsx'
 
-import { Alert } from '@/components/common/Alert'
+import { Alert as AlertDashBorder } from '@/components/common/Alert'
 import { Grunnlag } from '@/components/Grunnlag'
 import { GrunnlagForbehold } from '@/components/GrunnlagForbehold'
 import { Pensjonsavtaler } from '@/components/Pensjonsavtaler'
@@ -170,9 +170,9 @@ export const BeregningAvansert: React.FC = () => {
               <Heading level="2" size="small">
                 <FormattedMessage id="beregning.title" />
               </Heading>
-              <Alert onRetry={isError ? onRetry : undefined}>
+              <AlertDashBorder onRetry={isError ? onRetry : undefined}>
                 {isError && <FormattedMessage id="beregning.error" />}
-              </Alert>
+              </AlertDashBorder>
               <ResultatkortAvansertBeregning
                 onButtonClick={() => setAvansertSkjemaModus('redigering')}
               />
@@ -206,6 +206,16 @@ export const BeregningAvansert: React.FC = () => {
                   }
                   showButtonsAndTable={
                     !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
+                  }
+                  detaljer={
+                    alderspensjon?.trygdetid ||
+                    alderspensjon?.opptjeningGrunnlagListe
+                      ? {
+                          trygdetid: alderspensjon?.trygdetid,
+                          opptjeningsgrunnlag:
+                            alderspensjon?.opptjeningGrunnlagListe,
+                        }
+                      : undefined
                   }
                 />
                 <ResultatkortAvansertBeregning

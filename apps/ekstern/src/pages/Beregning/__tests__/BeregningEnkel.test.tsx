@@ -7,7 +7,7 @@ import { BeregningEnkel } from '../BeregningEnkel'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
-  fulfilledGetUfoeregrad,
+  fulfilledGetLoependeVedtakUfoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -178,7 +178,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
-              ...fulfilledGetUfoeregrad,
+              ...fulfilledGetLoependeVedtakUfoeregrad,
             },
           },
           userInput: {
@@ -203,7 +203,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
-              ...fulfilledGetUfoeregrad,
+              ...fulfilledGetLoependeVedtakUfoeregrad,
             },
           },
           userInput: {
@@ -270,7 +270,9 @@ describe('BeregningEnkel', () => {
           },
         },
       })
-      store.dispatch(apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate())
+      store.dispatch(
+        apiSliceUtils.apiSlice.endpoints.getLoependeVedtak.initiate()
+      )
       await user.click(await screen.findByText('68 alder.aar'))
       const buttons = await screen.findAllByRole('button', { pressed: true })
       expect(buttons[0]).toHaveTextContent('68 alder.aar')
@@ -352,7 +354,9 @@ describe('BeregningEnkel', () => {
           },
         },
       })
-      store.dispatch(apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate())
+      store.dispatch(
+        apiSliceUtils.apiSlice.endpoints.getLoependeVedtak.initiate()
+      )
       await user.click(await screen.findByText('68 alder.aar'))
       const buttons = await screen.findAllByRole('button', { pressed: true })
       expect(buttons[0]).toHaveTextContent('68 alder.aar')
@@ -417,10 +421,25 @@ describe('BeregningEnkel', () => {
         'initiate'
       )
 
-      mockResponse('/v1/ufoeregrad', {
+      mockResponse('/v1/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          ufoeregrad: 100,
+          alderspensjon: {
+            loepende: false,
+            grad: 0,
+          },
+          ufoeretrygd: {
+            loepende: true,
+            grad: 100,
+          },
+          afpPrivat: {
+            loepende: false,
+            grad: 0,
+          },
+          afpOffentlig: {
+            loepende: false,
+            grad: 0,
+          },
         },
       })
 
@@ -441,7 +460,9 @@ describe('BeregningEnkel', () => {
           },
         },
       })
-      store.dispatch(apiSliceUtils.apiSlice.endpoints.getUfoeregrad.initiate())
+      store.dispatch(
+        apiSliceUtils.apiSlice.endpoints.getLoependeVedtak.initiate()
+      )
       await user.click(await screen.findByText('68 alder.aar'))
       const buttons = await screen.findAllByRole('button', { pressed: true })
       expect(buttons[0]).toHaveTextContent('68 alder.aar')

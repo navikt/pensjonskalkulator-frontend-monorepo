@@ -47,11 +47,29 @@ describe('med omstillingsstønad og gjenlevende', () => {
           }
         ).as('getOmstillingsstoenadOgGjenlevende')
         cy.intercept(
-          { method: 'GET', url: '/pensjon/kalkulator/api/v1/ufoeregrad' },
           {
-            ufoeregrad: 75,
+            method: 'GET',
+            url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          },
+          {
+            alderspensjon: {
+              loepende: false,
+              grad: 0,
+            },
+            ufoeretrygd: {
+              loepende: true,
+              grad: 75,
+            },
+            afpPrivat: {
+              loepende: false,
+              grad: 0,
+            },
+            afpOffentlig: {
+              loepende: false,
+              grad: 0,
+            },
           }
-        ).as('getUfoeregrad')
+        ).as('getLoependeVedtak')
 
         cy.login()
         cy.fillOutStegvisning({})
