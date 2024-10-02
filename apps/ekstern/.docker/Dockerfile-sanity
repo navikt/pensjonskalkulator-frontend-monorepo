@@ -1,3 +1,6 @@
 FROM nginxinc/nginx-unprivileged
+
+ENV NGINX_ENVSUBST_OUTPUT_DIR /tmp
+
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY dist-sanity/ /usr/share/nginx/html
