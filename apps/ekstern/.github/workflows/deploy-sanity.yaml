@@ -74,11 +74,12 @@ jobs:
     needs: [build]
     permissions: write-all
     runs-on: ubuntu-latest
+    # TODO: Fjern github.ref dreambox
     if: |
       (github.event_name == 'push' ||
       github.event_name == 'workflow_dispatch') &&
       github.event.inputs.prod != 'true' &&
-      github.ref == 'refs/heads/main'
+      (github.ref == 'refs/heads/dreambox' || github.ref == 'refs/heads/main' )
     steps:
       - name: Checkout
         uses: actions/checkout@v4
