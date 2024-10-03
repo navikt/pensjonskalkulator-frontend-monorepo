@@ -288,7 +288,7 @@ jobs:
 
   deploy-magicbox:
     name: Deploy to magicbox
-    needs: [build, run-unit-tests]
+    needs: [build, run-unit-tests, run-integration-tests]
     permissions: write-all
     runs-on: ubuntu-latest
     if: |
