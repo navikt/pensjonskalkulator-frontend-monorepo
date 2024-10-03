@@ -12,7 +12,7 @@ spec:
   image: "{{ image }}"
   ingresses:
     - https://pensjonskalkulator-sanity.ansatt.dev.nav.no
-  port: 8080
+  port: 3333
   replicas:
     min: 1
     max: 1
