@@ -11,6 +11,9 @@ exports[`Henvisning  > rendrer henvisning til apotekerne 1`] = `
       <div
         class="_headerGroup_55ef1a"
       >
+        <representasjon-banner
+          representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
+        />
         <div
           class="_headerGroupTitle_55ef1a _headerGroupTitle__isFramed_55ef1a"
         >
@@ -75,6 +78,9 @@ exports[`Henvisning  > rendrer henvisning til utland 1`] = `
       <div
         class="_headerGroup_55ef1a"
       >
+        <representasjon-banner
+          representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
+        />
         <div
           class="_headerGroupTitle_55ef1a _headerGroupTitle__isFramed_55ef1a"
         >
