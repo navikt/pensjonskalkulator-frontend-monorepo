@@ -191,8 +191,8 @@ describe('Loaders', () => {
         ).toBe('1963-04-30')
         expect(
           (getLoependeVedtakQueryResponse as GetLoependeVedtakQuery).data
-            .alderspensjon.grad
-        ).toBe(0)
+            .alderspensjon
+        ).toBe(undefined)
 
         expect(shouldRedirectToResponse).toEqual('')
       })
@@ -648,15 +648,18 @@ describe('Loaders', () => {
       expect(shouldRedirectToResponse).toBe('')
     })
 
-    it('Gitt at alle kallene er vellykket og brukeren har et vedtak med AFP, kalles det flushSamboerOgUtenlandsperioder og brukeren er redirigert til beregning avansert', async () => {
+    it('Gitt at alle kallene er vellykket og brukeren har et vedtak med AFP i fortid, kalles det flushSamboerOgUtenlandsperioder og brukeren er redirigert til beregning avansert', async () => {
       mockResponse('/v1/vedtak/loepende-vedtak', {
         status: 200,
         json: {
+          alderspensjon: {
+            grad: 0,
+            fom: '2020-10-02',
+          },
           ufoeretrygd: {
             grad: 0,
           },
           afpPrivat: {
-            grad: 50,
             fom: '2020-10-02',
           },
         },

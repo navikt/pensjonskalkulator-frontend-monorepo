@@ -112,10 +112,6 @@ export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      alderspensjon: {
-        grad: 0,
-        fom: '2020-10-02',
-      },
       ufoeretrygd: {
         grad: 0,
       },

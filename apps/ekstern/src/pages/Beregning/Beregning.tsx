@@ -15,6 +15,7 @@ import {
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import { selectIsEndring } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { logger } from '@/utils/logging'
@@ -46,6 +47,8 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
   const { data: loependeVedtak } = useGetLoependeVedtakQuery()
+
+  const isEndring = useAppSelector(selectIsEndring)
 
   React.useEffect(() => {
     /* c8 ignore next 3 */
@@ -184,8 +187,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         </Modal.Footer>
       </Modal>
       <div className={styles.beregning}>
-        {(loependeVedtak?.alderspensjon.loepende ||
-          loependeVedtak?.afpPrivat.loepende) && (
+        {isEndring && (
           <div className={styles.container}>
             <Alert
               className={styles.alert}

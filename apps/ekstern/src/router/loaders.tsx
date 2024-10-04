@@ -8,6 +8,7 @@ import { store } from '@/state/store'
 import { selectIsVeileder, selectAfp } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { isFoedtFoer1963 } from '@/utils/alder'
+import { isVedtakBeforeNow } from '@/utils/dates'
 import { logger } from '@/utils/logging'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
@@ -326,16 +327,17 @@ export const stepAFPAccessGuard = async () => {
       if (res.isSuccess) {
         // Hvis brukeren skal simulere endring tømmer vi tidligere input i tilfelle noe det ble fylt ut da getLoepende vedtak kan ha feilet
         if (
-          res.data.alderspensjon.loepende ||
-          res.data.afpPrivat.loepende ||
-          res.data.afpOffentlig.loepende
+          res.data.alderspensjon &&
+          res.data.alderspensjon.fom &&
+          isVedtakBeforeNow(res.data.alderspensjon.fom)
         ) {
           store.dispatch(userInputActions.flushSamboerOgUtenlandsperioder())
+          // Hvis brukeren mottar AFP skal hen direkte til avansert beregning
+          if (res.data.afpPrivat || res.data.afpOffentlig) {
+            resolveRedirectUrl(paths.beregningAvansert)
+          }
         }
-        // Hvis brukeren skal simulere endring og at hen mottar AFP skal hen direkte til avansert beregning
-        if (res.data.afpPrivat.loepende || res.data.afpOffentlig.loepende) {
-          resolveRedirectUrl(paths.beregningAvansert)
-        }
+
         // Hvis alle kallene er vellykket, resolve
         if (
           !hasInntektPreviouslyFailed &&
