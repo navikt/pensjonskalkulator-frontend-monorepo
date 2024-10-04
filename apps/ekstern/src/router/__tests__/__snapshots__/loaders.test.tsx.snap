@@ -230,31 +230,6 @@ _Response {
 }
 `;
 
-exports[`Loaders > stepStartAccessGuard > kaller getPersonQuery, getLoependeVedtakQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
-DeferredData {
-  "abortPromise": Promise {},
-  "controller": AbortController {
-    Symbol(SameObject caches): {
-      "signal": AbortSignal {},
-    },
-  },
-  "data": {
-    "getLoependeVedtakQuery": Promise {},
-    "getPersonQuery": Promise {},
-    "shouldRedirectTo": Promise {},
-  },
-  "deferredKeys": [
-    "getPersonQuery",
-    "getLoependeVedtakQuery",
-    "shouldRedirectTo",
-  ],
-  "init": {},
-  "pendingKeysSet": Set {},
-  "subscribers": Set {},
-  "unlistenAbortSignal": [Function],
-}
-`;
-
 exports[`Loaders > stepUfoeretrygdAFPAccessGuard > Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert 1`] = `
 _Response {
   Symbol(realm): {

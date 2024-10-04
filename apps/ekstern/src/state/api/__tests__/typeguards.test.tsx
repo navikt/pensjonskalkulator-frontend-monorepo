@@ -650,20 +650,17 @@ describe('Typeguards', () => {
   describe('isLoependeVedtak', () => {
     const correctResponse = {
       alderspensjon: {
-        loepende: false,
         grad: 0,
+        fom: '2020-10-02',
       },
       ufoeretrygd: {
-        loepende: true,
         grad: 75,
       },
       afpPrivat: {
-        loepende: false,
-        grad: 0,
+        fom: '2020-10-02',
       },
       afpOffentlig: {
-        loepende: false,
-        grad: 0,
+        fom: '2020-10-02',
       },
     }
     it('returnerer true når input er et LoependeVedtak-objekt', () => {
@@ -726,31 +723,6 @@ describe('Typeguards', () => {
         isLoependeVedtak({
           ...correctResponse,
           afpOffentlig: {},
-        })
-      ).toEqual(false)
-
-      expect(
-        isLoependeVedtak({
-          ...correctResponse,
-          alderspensjon: { loepende: 'lorem', grad: 100 },
-        })
-      ).toEqual(false)
-      expect(
-        isLoependeVedtak({
-          ...correctResponse,
-          ufoeretrygd: { loepende: 'lorem', grad: 100 },
-        })
-      ).toEqual(false)
-      expect(
-        isLoependeVedtak({
-          ...correctResponse,
-          afpPrivat: { loepende: 'lorem', grad: 100 },
-        })
-      ).toEqual(false)
-      expect(
-        isLoependeVedtak({
-          ...correctResponse,
-          afpOffentlig: { loepende: 'lorem', grad: 100 },
         })
       ).toEqual(false)
 

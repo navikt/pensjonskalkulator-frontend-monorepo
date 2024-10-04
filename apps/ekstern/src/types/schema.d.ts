@@ -809,17 +809,20 @@ export interface components {
       aarsak: 'NONE' | 'ER_APOTEKER'
     }
     LoependeVedtakDetaljerV1: {
-      loepende: boolean
       /** Format: int32 */
       grad: number
       /** Format: date */
       fom?: string
     }
     LoependeVedtakV1: {
-      alderspensjon: components['schemas']['LoependeVedtakDetaljerV1']
-      ufoeretrygd: components['schemas']['LoependeVedtakDetaljerV1']
-      afpPrivat: components['schemas']['LoependeVedtakDetaljerV1']
-      afpOffentlig: components['schemas']['LoependeVedtakDetaljerV1']
+      ufoeretrygd: { grad: number }
+      alderspensjon?: components['schemas']['LoependeVedtakDetaljerV1']
+      afpPrivat?: {
+        fom: string
+      }
+      afpOffentlig?: {
+        fom: string
+      }
     }
     UfoeregradDto: {
       /** Format: int32 */

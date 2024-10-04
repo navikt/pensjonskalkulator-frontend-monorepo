@@ -72,19 +72,10 @@ describe('StepStart', () => {
         status: 200,
         json: {
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
-            grad: 0,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
             grad: 0,
           },
         },

@@ -615,19 +615,10 @@ describe('Loaders', () => {
         status: 200,
         json: {
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
-            grad: 0,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
             grad: 0,
           },
         },
@@ -661,21 +652,12 @@ describe('Loaders', () => {
       mockResponse('/v1/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: false,
             grad: 0,
           },
           afpPrivat: {
-            loepende: true,
             grad: 50,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
+            fom: '2020-10-02',
           },
         },
       })
@@ -985,21 +967,8 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: true,
                   grad: 50,
-                },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
                 },
               },
               startedTimeStamp: 1714725797072,
@@ -1026,21 +995,8 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: true,
                   grad: 50,
-                },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
                 },
               },
               startedTimeStamp: 1714725797072,
@@ -1110,20 +1066,7 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
                   grad: 0,
                 },
               },
@@ -1151,21 +1094,8 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: true,
                   grad: 50,
-                },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
                 },
               },
               startedTimeStamp: 1714725797072,
@@ -1193,20 +1123,7 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
                   grad: 0,
                 },
               },
