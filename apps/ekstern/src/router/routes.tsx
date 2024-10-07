@@ -4,6 +4,7 @@ import { PageFramework } from '@/components/common/PageFramework'
 import { Beregning } from '@/pages/Beregning'
 import { Forbehold } from '@/pages/Forbehold'
 import { Henvisning } from '@/pages/Henvisning'
+import { IngenTilgang } from '@/pages/IngenTilgang'
 import { LandingPage } from '@/pages/LandingPage'
 import { Personopplysninger } from '@/pages/Personopplysninger'
 import { StepAFP } from '@/pages/StepAFP'
@@ -27,7 +28,6 @@ import {
   stepUfoeretrygdAFPAccessGuard,
   stepSamtykkeOffentligAFPAccessGuard,
 } from './loaders'
-import { IngenTilgang } from '@/pages/IngenTilgang'
 
 export const routes: RouteObject[] = [
   {
