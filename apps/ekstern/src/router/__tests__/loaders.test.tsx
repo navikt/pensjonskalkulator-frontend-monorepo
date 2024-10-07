@@ -578,7 +578,7 @@ describe('Loaders', () => {
     })
 
     it('Gitt at alle kallene er vellykket og getLoependeVedtak feiler, er brukeren redirigert', async () => {
-      mockErrorResponse('/v1/vedtak/loepende-vedtak')
+      mockErrorResponse('/v2/vedtak/loepende-vedtak')
       const mockedState = {
         api: {
           queries: {
@@ -611,7 +611,7 @@ describe('Loaders', () => {
     })
 
     it('Gitt at alle kallene er vellykket og brukeren har et vedtak med alderspensjon, kalles det flushSamboerOgUtenlandsperioder og brukeren er ikke redirigert', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
@@ -649,7 +649,7 @@ describe('Loaders', () => {
     })
 
     it('Gitt at alle kallene er vellykket og brukeren har et vedtak med AFP i fortid, kalles det flushSamboerOgUtenlandsperioder og brukeren er redirigert til beregning avansert', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {

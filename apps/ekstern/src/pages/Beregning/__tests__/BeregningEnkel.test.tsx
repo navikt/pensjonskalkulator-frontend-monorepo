@@ -421,7 +421,7 @@ describe('BeregningEnkel', () => {
         'initiate'
       )
 
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           ufoeretrygd: {

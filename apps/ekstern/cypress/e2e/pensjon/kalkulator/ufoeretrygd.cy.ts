@@ -4,7 +4,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
           ufoeretrygd: {
@@ -143,7 +143,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
           ufoeretrygd: {
@@ -186,7 +186,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
           ufoeretrygd: {
@@ -232,7 +232,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
           ufoeretrygd: {
@@ -298,7 +298,7 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
           ufoeretrygd: {
