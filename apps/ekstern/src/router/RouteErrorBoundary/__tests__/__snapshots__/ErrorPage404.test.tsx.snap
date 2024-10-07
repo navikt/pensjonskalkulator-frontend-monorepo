@@ -12,6 +12,7 @@ exports[`ErrorPage404 > rendrer med riktig tekst og knapper 1`] = `
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
+          redirectto="localhost/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div

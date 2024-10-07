@@ -12,6 +12,7 @@ exports[`Henvisning  > rendrer henvisning til apotekerne 1`] = `
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
+          redirectto="localhost/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div
@@ -79,6 +80,7 @@ exports[`Henvisning  > rendrer henvisning til utland 1`] = `
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
+          redirectto="localhost/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div
