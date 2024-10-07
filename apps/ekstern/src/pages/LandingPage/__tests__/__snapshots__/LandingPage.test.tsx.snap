@@ -12,7 +12,7 @@ exports[`LandingPage > rendrer innlogget side 1`] = `
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
-          redirectto="localhost/pensjon/kalkulator/start"
+          redirectto="http://localhost:3000/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div
@@ -178,7 +178,7 @@ exports[`LandingPage > rendrer utlogget side 1`] = `
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
-          redirectto="localhost/pensjon/kalkulator/start"
+          redirectto="http://localhost:3000/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div

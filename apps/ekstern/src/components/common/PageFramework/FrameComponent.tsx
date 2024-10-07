@@ -36,7 +36,7 @@ export const FrameComponent: React.FC<{
         <div className={styles.headerGroup}>
           <representasjon-banner
             representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
-            redirectTo={`${window.location.hostname}${BASE_PATH}/start`}
+            redirectTo={`${window.location.origin}${BASE_PATH}/start`}
           ></representasjon-banner>
           <div
             className={clsx(styles.headerGroupTitle, {

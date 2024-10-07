@@ -12,7 +12,7 @@ exports[`PageFramework > rendrer slik den skal i full bredde 1`] = `
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
-          redirectto="localhost/pensjon/kalkulator/start"
+          redirectto="http://localhost:3000/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div
@@ -42,7 +42,7 @@ exports[`PageFramework > rendrer slik den skal med hvit bakgrunn 1`] = `
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
-          redirectto="localhost/pensjon/kalkulator/start"
+          redirectto="http://localhost:3000/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div
@@ -72,7 +72,7 @@ exports[`PageFramework > rendrer slik den skal med logo 1`] = `
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
-          redirectto="localhost/pensjon/kalkulator/start"
+          redirectto="http://localhost:3000/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div
@@ -108,7 +108,7 @@ exports[`PageFramework > rendrer slik den skal, med wrapper og Heading på rikti
         class="_headerGroup_55ef1a"
       >
         <representasjon-banner
-          redirectto="localhost/pensjon/kalkulator/start"
+          redirectto="http://localhost:3000/pensjon/kalkulator/start"
           representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
         />
         <div
