@@ -19,7 +19,7 @@ export const InfoOmInntekt = () => {
         />
       </BodyLong>
       <Label as="h2">
-        <FormattedMessage id="inntekt.info_om_inntekt.subtitle" />
+        <FormattedMessage id="inntekt.info_om_inntekt.subtitle_1" />
       </Label>
       <ul>
         <li>
@@ -49,8 +49,22 @@ export const InfoOmInntekt = () => {
         <li>
           <FormattedMessage id="inntekt.info_om_inntekt.list_item9" />
         </li>
+      </ul>
+      <Label as="h2">
+        <FormattedMessage id="inntekt.info_om_inntekt.subtitle_2" />
+      </Label>
+      <ul>
         <li>
-          <FormattedMessage id="inntekt.info_om_inntekt.list_item10" />
+          <FormattedMessage id="inntekt.info_om_inntekt.ikke_inntekt.list_item1" />
+        </li>
+        <li>
+          <FormattedMessage id="inntekt.info_om_inntekt.ikke_inntekt.list_item2" />
+        </li>
+        <li>
+          <FormattedMessage id="inntekt.info_om_inntekt.ikke_inntekt.list_item3" />
+        </li>
+        <li>
+          <FormattedMessage id="inntekt.info_om_inntekt.ikke_inntekt.list_item4" />
         </li>
       </ul>
       <BodyLong>

@@ -4,7 +4,9 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
 import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
+import { mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
+import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
@@ -17,12 +19,66 @@ describe('Beregning', () => {
     expect(document.title).toBe('application.title.beregning')
   })
 
+  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
+    it('viser alert på toppen av siden', async () => {
+      mockResponse('/v1/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: {
+            loepende: true,
+            grad: 50,
+          },
+          ufoeretrygd: {
+            loepende: false,
+            grad: 0,
+          },
+          afpPrivat: {
+            loepende: false,
+            grad: 0,
+          },
+          afpOffentlig: {
+            loepende: false,
+            grad: 0,
+          },
+        },
+      })
+
+      const { store } = render(<Beregning visning="enkel" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: {
+              utenlandsperioder: [],
+              formatertUttaksalderReadOnly:
+                '70 alder.aar string.og 4 alder.maaned',
+              uttaksalder: { aar: 70, maaneder: 4 },
+              aarligInntektFoerUttakBeloep: '300 000',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+
+      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+
+      await waitFor(() => {
+        expect(
+          screen.getByText(
+            'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
+            { exact: false }
+          )
+        ).toBeVisible()
+      })
+    })
+  })
+
   describe('Gitt at brukeren navigerer mellom fanene', () => {
     it('når brukeren har gjort en Enkel simulering og bytter fane, nullstiller det pågående simulering', async () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulation'
+        'flushCurrentSimulationUtenomUtenlandsperioder'
       )
       render(<Beregning visning="enkel" />, {
         preloadedState: {
@@ -54,7 +110,7 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulation'
+        'flushCurrentSimulationUtenomUtenlandsperioder'
       )
       render(<Beregning visning="avansert" />)
 

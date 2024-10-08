@@ -1,11 +1,11 @@
 describe('Graf Horizontal scroll', () => {
-  context('Gitt at grafen rendres på desktop', () => {
+  context('Gitt at grafen rendres på desktop,', () => {
     beforeEach(() => {
       cy.login()
       cy.fillOutStegvisning({})
     })
 
-    it('Brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde', () => {
+    it('brukeren kan se og bruke navigasjonsknappene når antall søyler passer i skjermens bredde.', () => {
       cy.wait('@fetchTidligsteUttaksalder')
 
       cy.contains('button', '70 år').click()
@@ -14,7 +14,7 @@ describe('Graf Horizontal scroll', () => {
       cy.contains('button', 'Flere år').should('not.exist')
     })
 
-    it('Brukeren kan se og bruke navigasjonsknappene når det er flere søyler enn skjermens bredde', () => {
+    it('brukeren kan se og bruke navigasjonsknappene når det er flere søyler enn skjermens bredde.', () => {
       cy.wait('@fetchTidligsteUttaksalder')
 
       cy.viewport('iphone-xr')

@@ -23,7 +23,7 @@ describe('UtenlandsoppholdListe', () => {
   ]
   describe('Gitt at listen ikke har redigeringsmuligheter', () => {
     it('Når ingen utenlandsperiode er registert, rendres slik den skal', async () => {
-      render(<UtenlandsoppholdListe />)
+      render(<UtenlandsoppholdListe erVisningIGrunnlag />)
 
       expect(
         await screen.findByText('stegvisning.utenlandsopphold.oppholdene.title')
@@ -51,7 +51,7 @@ describe('UtenlandsoppholdListe', () => {
     })
 
     it('Når utenlandsperioder er registert, rendres slik den skal', async () => {
-      render(<UtenlandsoppholdListe />, {
+      render(<UtenlandsoppholdListe erVisningIGrunnlag />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -97,7 +97,7 @@ describe('UtenlandsoppholdListe', () => {
               <dd>
                 stegvisning.utenlandsopphold.oppholdene.description.periode
                 01.04.2024
-                 stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak
+                 stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold
               </dd>
               <dd>
                 stegvisning.utenlandsopphold.oppholdene.description.har_jobbet
@@ -150,7 +150,7 @@ describe('UtenlandsoppholdListe', () => {
 
   describe('Gitt at listen har redigeringsmuligheter', () => {
     it('Når ingen utenlandsperiode er registert, rendres slik den skal', async () => {
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />)
+      render(<UtenlandsoppholdListe />)
 
       expect(
         screen.getByText('stegvisning.utenlandsopphold.oppholdene.title')
@@ -186,7 +186,7 @@ describe('UtenlandsoppholdListe', () => {
     })
 
     it('Når utenlandsperioder er registert, rendres slik den skal', async () => {
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />, {
+      render(<UtenlandsoppholdListe />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -230,7 +230,7 @@ describe('UtenlandsoppholdListe', () => {
               <dd>
                 stegvisning.utenlandsopphold.oppholdene.description.periode
                 01.04.2024
-                 stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak
+                 stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold
               </dd>
               <dd>
                 stegvisning.utenlandsopphold.oppholdene.description.har_jobbet
@@ -242,6 +242,7 @@ describe('UtenlandsoppholdListe', () => {
             >
               <button
                 class="_utenlandsperioderButtons__endre_6a3650 navds-button navds-button--tertiary navds-button--small"
+                data-testid="endre-utenlandsopphold"
               >
                 <span
                   class="navds-button__icon"
@@ -272,6 +273,7 @@ describe('UtenlandsoppholdListe', () => {
               </button>
               <button
                 class="_utenlandsperioderButtons__slette_6a3650 navds-button navds-button--tertiary navds-button--small"
+                data-testid="slett-utenlandsopphold"
               >
                 <span
                   class="navds-label navds-label--small"
@@ -303,6 +305,7 @@ describe('UtenlandsoppholdListe', () => {
             >
               <button
                 class="_utenlandsperioderButtons__endre_6a3650 navds-button navds-button--tertiary navds-button--small"
+                data-testid="endre-utenlandsopphold"
               >
                 <span
                   class="navds-button__icon"
@@ -333,6 +336,7 @@ describe('UtenlandsoppholdListe', () => {
               </button>
               <button
                 class="_utenlandsperioderButtons__slette_6a3650 navds-button navds-button--tertiary navds-button--small"
+                data-testid="slett-utenlandsopphold"
               >
                 <span
                   class="navds-label navds-label--small"
@@ -368,7 +372,7 @@ describe('UtenlandsoppholdListe', () => {
 
     it('Når brukeren ønsker å legge til et opphold, åpnes det modalen', async () => {
       const user = userEvent.setup()
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />)
+      render(<UtenlandsoppholdListe />)
 
       await user.click(
         screen.getByText(
@@ -384,7 +388,7 @@ describe('UtenlandsoppholdListe', () => {
 
     it('Når brukeren ønsker å endre et opphold, åpnes det modalen med riktig opphold', async () => {
       const user = userEvent.setup()
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />, {
+      render(<UtenlandsoppholdListe />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -415,7 +419,7 @@ describe('UtenlandsoppholdListe', () => {
 
     it('Når brukeren ønsker å slette et opphold, åpnes det modalen og oppholdet slettes ved bekreftelse', async () => {
       const user = userEvent.setup()
-      render(<UtenlandsoppholdListe harRedigeringsmuligheter />, {
+      render(<UtenlandsoppholdListe />, {
         preloadedState: {
           userInput: {
             ...userInputInitialState,
@@ -476,7 +480,7 @@ describe('UtenlandsoppholdListe', () => {
   })
 
   it('Når utenlandsperioder er registert, vises de i riktig rekkefølgen', async () => {
-    render(<UtenlandsoppholdListe />, {
+    render(<UtenlandsoppholdListe erVisningIGrunnlag />, {
       preloadedState: {
         userInput: {
           ...userInputInitialState,
@@ -521,7 +525,7 @@ describe('UtenlandsoppholdListe', () => {
             <dd>
               stegvisning.utenlandsopphold.oppholdene.description.periode
               01.04.2024
-               stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak
+               stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold
             </dd>
             <dd>
               stegvisning.utenlandsopphold.oppholdene.description.har_jobbet
@@ -563,10 +567,6 @@ describe('UtenlandsoppholdListe', () => {
               01.01.1970
               –31.12.1990
             </dd>
-            <dd>
-              stegvisning.utenlandsopphold.oppholdene.description.har_jobbet
-              stegvisning.utenlandsopphold.oppholdene.description.har_jobbet.ja
-            </dd>
           </div>
         </div>
       </dl>
@@ -574,7 +574,13 @@ describe('UtenlandsoppholdListe', () => {
   })
 
   it('Når validationError er oppgitt, vises den nederst', async () => {
-    render(<UtenlandsoppholdListe validationError="lorem ipsum" />, {})
+    render(
+      <UtenlandsoppholdListe
+        erVisningIGrunnlag
+        validationError="lorem ipsum"
+      />,
+      {}
+    )
     expect(await screen.findByText('lorem ipsum')).toBeVisible()
   })
 })

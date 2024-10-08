@@ -131,6 +131,10 @@ export const BeregningEnkel: React.FC = () => {
   React.useEffect(() => {
     if (alderspensjon && alderspensjon.vilkaarsproeving.vilkaarErOppfylt) {
       logger('resultat vist', { tekst: 'Beregning enkel' })
+      logger('grunnlag for beregningen', {
+        tekst: 'antall opphold',
+        data: utenlandsperioder?.length ?? 0,
+      })
     }
   }, [alderspensjon])
 
@@ -270,9 +274,23 @@ export const BeregningEnkel: React.FC = () => {
                 showButtonsAndTable={
                   !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
+                detaljer={
+                  alderspensjon?.trygdetid ||
+                  alderspensjon?.opptjeningGrunnlagListe
+                    ? {
+                        trygdetid: alderspensjon?.trygdetid,
+                        opptjeningsgrunnlag:
+                          alderspensjon?.opptjeningGrunnlagListe,
+                      }
+                    : undefined
+                }
               />
               <Pensjonsavtaler headingLevel="3" />
-              <Grunnlag visning="enkel" headingLevel="3" />
+              <Grunnlag
+                visning="enkel"
+                headingLevel="3"
+                harForLiteTrygdetid={alderspensjon?.harForLiteTrygdetid}
+              />
             </>
           )}
         </div>

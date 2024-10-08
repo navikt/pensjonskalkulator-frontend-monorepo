@@ -17,13 +17,18 @@ import {
   selectHarHentetTpoMedlemskap,
   selectIsVeileder,
   selectVeilederBorgerFnr,
+  selectVeilederBorgerEncryptedFnr,
   selectUfoeregrad,
+  selectIsEndring,
 } from '../selectors'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
   fulfilledGetTpoMedlemskap,
-  fulfilledGetUfoeregrad,
+  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAFPprivat,
+  fulfilledGetLoependeVedtakLoependeAFPoffentlig,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -391,27 +396,40 @@ describe('userInput selectors', () => {
   describe('selectVeilederBorgerFnr', () => {
     it('er undefined når veilederBorgerFnr ikke er satt', () => {
       const state: RootState = initialState
-      expect(selectVeilederBorgerFnr(state)).toStrictEqual({
-        fnr: undefined,
-        encryptedFnr: undefined,
-      })
+      expect(selectVeilederBorgerFnr(state)).toBeUndefined()
     })
 
     it('er fnr når veilederBorgerFnr er satt', () => {
       const testFnr = '81549300'
-      const encryptetFnr = 'dette-er-kryptert-fnr'
       const state: RootState = {
         ...initialState,
         userInput: {
           ...initialState.userInput,
           veilederBorgerFnr: testFnr,
+        },
+      }
+      expect(selectVeilederBorgerFnr(state)).toStrictEqual(testFnr)
+    })
+  })
+
+  describe('selectVeilederBorgerEncryptedFnr', () => {
+    it('er undefined når selectVeilederBorgerEncryptedFnr ikke er satt', () => {
+      const state: RootState = initialState
+      expect(selectVeilederBorgerEncryptedFnr(state)).toBeUndefined()
+    })
+
+    it('er fnr når veilederBorgerEncryptedFnr er satt', () => {
+      const encryptetFnr = 'dette-er-kryptert-fnr'
+      const state: RootState = {
+        ...initialState,
+        userInput: {
+          ...initialState.userInput,
           veilederBorgerEncryptedFnr: encryptetFnr,
         },
       }
-      expect(selectVeilederBorgerFnr(state)).toStrictEqual({
-        fnr: testFnr,
-        encryptedFnr: encryptetFnr,
-      })
+      expect(selectVeilederBorgerEncryptedFnr(state)).toStrictEqual(
+        encryptetFnr
+      )
     })
   })
 
@@ -427,10 +445,65 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
         },
       }
       expect(selectUfoeregrad(state)).toBe(75)
+    })
+  })
+
+  describe('selectIsEndring', () => {
+    it('er false når løpende vedtak ikke er kalt enda', () => {
+      const state: RootState = initialState
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
+    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon eller AFP', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+        },
+      }
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende alderspensjon', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende AFP-privat', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAFPprivat },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende AFP-offentlig', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
     })
   })
 })

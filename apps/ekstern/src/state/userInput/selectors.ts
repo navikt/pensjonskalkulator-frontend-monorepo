@@ -15,10 +15,11 @@ export const selectSamtykke = (state: RootState): boolean | null =>
 export const selectSamtykkeOffentligAFP = (state: RootState): boolean | null =>
   state.userInput.samtykkeOffentligAFP
 
-export const selectVeilederBorgerFnr = (state: RootState) => ({
-  encryptedFnr: state.userInput.veilederBorgerEncryptedFnr,
-  fnr: state.userInput.veilederBorgerFnr,
-})
+export const selectVeilederBorgerFnr = (state: RootState) =>
+  state.userInput.veilederBorgerFnr
+
+export const selectVeilederBorgerEncryptedFnr = (state: RootState) =>
+  state.userInput.veilederBorgerEncryptedFnr
 
 export const selectIsVeileder = (state: RootState) =>
   !!state.userInput.veilederBorgerFnr ||
@@ -119,7 +120,21 @@ export const selectHarHentetTpoMedlemskap = createSelector(
 export const selectUfoeregrad = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return apiSlice.endpoints.getUfoeregrad.select(undefined)(state)?.data
-      ?.ufoeregrad as number
+    return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+      ?.ufoeretrygd.grad as number
+  }
+)
+
+export const selectIsEndring = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return (
+      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+        ?.alderspensjon?.loepende ||
+      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+        ?.afpPrivat?.loepende ||
+      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+        ?.afpOffentlig?.loepende
+    )
   }
 )

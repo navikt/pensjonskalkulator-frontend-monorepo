@@ -3,29 +3,31 @@ import { FormattedMessage, useIntl } from 'react-intl'
 
 import { PencilIcon, PlusCircleIcon } from '@navikt/aksel-icons'
 import { BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
-import clsx from 'clsx'
 import { parse, compareAsc } from 'date-fns'
 
 import { UtenlandsoppholdModal } from '@/components/UtenlandsoppholdModal'
 import { getSelectedLanguage } from '@/context/LanguageProvider/utils'
 import { useAppSelector, useAppDispatch } from '@/state/hooks'
-import { selectCurrentSimulationUtenlandsperioder } from '@/state/userInput/selectors'
+import {
+  selectCurrentSimulation,
+  selectCurrentSimulationUtenlandsperioder,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
   getTranslatedLandFromLandkode,
-  isAvtalelandFromLandkode,
+  harKravOmArbeidFromLandkode,
 } from '@/utils/land'
 import { logger } from '@/utils/logging'
 
 import styles from './UtenlandsoppholdListe.module.scss'
 
 interface Props {
-  harRedigeringsmuligheter?: boolean
+  erVisningIGrunnlag?: boolean
   validationError?: string
 }
 
 export function UtenlandsoppholdListe({
-  harRedigeringsmuligheter,
+  erVisningIGrunnlag,
   validationError,
 }: Props) {
   const intl = useIntl()
@@ -33,6 +35,9 @@ export function UtenlandsoppholdListe({
   const utenlandsoppholdModalRef = React.useRef<HTMLDialogElement>(null)
   const utenlandsperioder = useAppSelector(
     selectCurrentSimulationUtenlandsperioder
+  )
+  const { formatertUttaksalderReadOnly } = useAppSelector(
+    selectCurrentSimulation
   )
   const dispatch = useAppDispatch()
   const [valgtUtenlandsperiodeId, setValgtUtenlandsperiodeId] =
@@ -71,12 +76,20 @@ export function UtenlandsoppholdListe({
     })
   }, [utenlandsperioder])
 
+  React.useEffect(() => {
+    if (erVisningIGrunnlag) {
+      utenlandsperioder.forEach((utenlandsperiode) => {
+        logger('grunnlag for beregningen', {
+          tekst: 'utenlandsopphold',
+          data: utenlandsperiode.landkode,
+          valg: utenlandsperiode.arbeidetUtenlands,
+        })
+      })
+    }
+  }, [formatertUttaksalderReadOnly, utenlandsperioder])
+
   return (
-    <section
-      className={clsx(styles.section, {
-        [styles.section__hasBottomLine]: harRedigeringsmuligheter,
-      })}
-    >
+    <section className={styles.section}>
       <Modal
         ref={avbrytModalRef}
         header={{
@@ -98,6 +111,9 @@ export function UtenlandsoppholdListe({
                   valgtUtenlandsperiodeId
                 )
               )
+              logger('button klikk', {
+                tekst: `sletter utenlandsopphold`,
+              })
               avbrytModalRef.current?.close()
             }}
           >
@@ -121,7 +137,7 @@ export function UtenlandsoppholdListe({
       <Heading size="small" level="3">
         <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.title" />
       </Heading>
-      {harRedigeringsmuligheter && (
+      {!erVisningIGrunnlag && (
         <BodyShort size="medium" className={styles.bodyshort}>
           <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description" />
         </BodyShort>
@@ -146,7 +162,7 @@ export function UtenlandsoppholdListe({
       >
         {sortedUtenlandsperioder.length > 0 &&
           sortedUtenlandsperioder.map((utenlandsperiode, index) => {
-            const isLocalLandAvtaleland = isAvtalelandFromLandkode(
+            const harLocalLandKravOmArbeid = harKravOmArbeidFromLandkode(
               utenlandsperiode.landkode
             )
             return (
@@ -165,9 +181,9 @@ export function UtenlandsoppholdListe({
                     {utenlandsperiode.startdato}
                     {utenlandsperiode.sluttdato
                       ? `–${utenlandsperiode.sluttdato}`
-                      : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak' })}`}
+                      : ` ${intl.formatMessage({ id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold' })}`}
                   </dd>
-                  {isLocalLandAvtaleland && (
+                  {harLocalLandKravOmArbeid && (
                     <dd>
                       <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.har_jobbet" />
                       <FormattedMessage
@@ -180,11 +196,12 @@ export function UtenlandsoppholdListe({
                     </dd>
                   )}
                 </div>
-                {harRedigeringsmuligheter && (
+                {!erVisningIGrunnlag && (
                   <dd className={styles.utenlandsperioderButtons}>
                     <Button
                       variant="tertiary"
                       size="small"
+                      data-testid="endre-utenlandsopphold"
                       icon={<PencilIcon aria-hidden />}
                       className={styles.utenlandsperioderButtons__endre}
                       onClick={() => {
@@ -198,6 +215,7 @@ export function UtenlandsoppholdListe({
                     <Button
                       variant="tertiary"
                       size="small"
+                      data-testid="slett-utenlandsopphold"
                       className={styles.utenlandsperioderButtons__slette}
                       onClick={() => {
                         onDeleteClick(utenlandsperiode.id)
@@ -213,8 +231,9 @@ export function UtenlandsoppholdListe({
             )
           })}
       </dl>
-      {harRedigeringsmuligheter && (
+      {!erVisningIGrunnlag && (
         <Button
+          data-testid="legg-til-utenlandsopphold"
           type="button"
           variant="secondary"
           icon={<PlusCircleIcon aria-hidden />}

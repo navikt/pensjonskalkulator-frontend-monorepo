@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import {
   isInntekt,
-  isPensjonsberegningArray,
+  isAlderspensjonSimulering,
   isPerson,
   isPensjonsavtale,
   isTpoMedlemskap,
@@ -9,10 +9,13 @@ import {
   isAlder,
   isEkskludertStatus,
   isOmstillingsstoenadOgGjenlevende,
-  isUfoeregrad,
+  isLoependeVedtak,
 } from './typeguards'
 import { API_BASEURL } from '@/paths'
-import { selectVeilederBorgerFnr } from '@/state/userInput/selectors'
+import {
+  selectVeilederBorgerFnr,
+  selectVeilederBorgerEncryptedFnr,
+} from '@/state/userInput/selectors'
 import { RootState } from '@/state/store'
 
 export const apiSlice = createApi({
@@ -21,8 +24,12 @@ export const apiSlice = createApi({
     baseUrl: API_BASEURL,
     prepareHeaders: (headers, { getState }) => {
       const veilederBorgerFnr = selectVeilederBorgerFnr(getState() as RootState)
-      if (veilederBorgerFnr.fnr && veilederBorgerFnr.encryptedFnr) {
-        headers.set('fnr', veilederBorgerFnr.encryptedFnr)
+      const veilederBorgerEncryptedFnr = selectVeilederBorgerEncryptedFnr(
+        getState() as RootState
+      )
+
+      if (veilederBorgerFnr && veilederBorgerEncryptedFnr) {
+        headers.set('fnr', veilederBorgerEncryptedFnr)
       }
     },
   }),
@@ -75,22 +82,21 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getUfoeregrad: builder.query<Ufoeregrad, void>({
-      query: () => '/v1/ufoeregrad',
-      transformResponse: (response: any) => {
-        if (!isUfoeregrad(response)) {
-          throw new Error(`Mottok ugyldig ufoeregrad response:`, response)
-        }
-
-        return response
-      },
-    }),
     getTpoMedlemskap: builder.query<TpoMedlemskap, void>({
       query: () => '/v1/tpo-medlemskap',
       providesTags: ['TpoMedlemskap'],
       transformResponse: (response: TpoMedlemskap) => {
         if (!isTpoMedlemskap(response)) {
           throw new Error(`Mottok ugyldig tpo-medlemskap:`, response)
+        }
+        return response
+      },
+    }),
+    getLoependeVedtak: builder.query<LoependeVedtak, void>({
+      query: () => '/v1/vedtak/loepende-vedtak',
+      transformResponse: (response: any) => {
+        if (!isLoependeVedtak(response)) {
+          throw new Error(`Mottok ugyldig løpende vedtak response:`, response)
         }
         return response
       },
@@ -152,17 +158,8 @@ export const apiSlice = createApi({
       }),
       providesTags: ['Alderspensjon'],
       transformResponse: (response: AlderspensjonResponseBody) => {
-        // TODO PEK-483 - utvide med sjekk på harForLiteTrygdetid flagg
-        if (
-          !isPensjonsberegningArray(response?.alderspensjon) ||
-          (response.afpPrivat &&
-            !isPensjonsberegningArray(response?.afpPrivat)) ||
-          (response.afpOffentlig &&
-            !isPensjonsberegningArray(response?.afpOffentlig))
-        ) {
-          throw new Error(
-            `Mottok ugyldig alderspensjon: ${response?.alderspensjon}`
-          )
+        if (!isAlderspensjonSimulering(response)) {
+          throw new Error(`Mottok ugyldig alderspensjon: ${response}`)
         }
         return response
       },
@@ -199,6 +196,27 @@ export const apiSlice = createApi({
         return response
       },
     }),
+    getEndringFeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-endring',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
+    getUtvidetSimuleringsresultatFeatureToggle: builder.query<
+      UnleashToggle,
+      void
+    >({
+      query: () => '/feature/utvidet-simuleringsresultat',
+      transformResponse: (response: UnleashToggle) => {
+        if (!isUnleashToggle(response)) {
+          throw new Error(`Mottok ugyldig unleash response:`, response)
+        }
+        return response
+      },
+    }),
     getAnsattId: builder.query<Ansatt, void>({
       query: () => '/v1/ansatt-id',
     }),
@@ -211,7 +229,7 @@ export const {
   useGetPersonQuery,
   useGetEkskludertStatusQuery,
   useGetOmstillingsstoenadOgGjenlevendeQuery,
-  useGetUfoeregradQuery,
+  useGetLoependeVedtakQuery,
   useGetTpoMedlemskapQuery,
   useTidligstMuligHeltUttakQuery,
   useAlderspensjonQuery,
@@ -219,4 +237,6 @@ export const {
   useGetSpraakvelgerFeatureToggleQuery,
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   useGetUtlandFeatureToggleQuery,
+  useGetEndringFeatureToggleQuery,
+  useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

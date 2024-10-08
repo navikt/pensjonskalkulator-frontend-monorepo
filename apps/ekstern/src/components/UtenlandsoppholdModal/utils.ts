@@ -9,7 +9,7 @@ import {
 } from '@/utils/dates'
 import {
   getTranslatedLandFromLandkode,
-  isAvtalelandFromLandkode,
+  harKravOmArbeidFromLandkode,
 } from '@/utils/land'
 import { logger } from '@/utils/logging'
 
@@ -83,7 +83,7 @@ export const validateOpphold = (
   }
 
   if (
-    isAvtalelandFromLandkode(landFormData as string) &&
+    harKravOmArbeidFromLandkode(landFormData as string) &&
     (!arbeidetUtenlandsFormData ||
       (arbeidetUtenlandsFormData !== 'ja' &&
         arbeidetUtenlandsFormData !== 'nei'))
@@ -242,7 +242,6 @@ export const validateOpphold = (
       })
     }
   }
-
   // Hvis alt er gyldig hittil, sjekk overlappende perioder
   if (isValid && utenlandsperioder.length > 0) {
     const currentInterval = {
@@ -253,7 +252,10 @@ export const validateOpphold = (
       ),
       end: sluttdatoFormData
         ? parse(sluttdatoFormData as string, DATE_ENDUSER_FORMAT, new Date())
-        : new Date(),
+        : addYears(
+            parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date()),
+            100
+          ),
     }
 
     for (let i = 0; i < utenlandsperioder.length; i++) {
@@ -277,12 +279,19 @@ export const validateOpphold = (
                   DATE_ENDUSER_FORMAT,
                   new Date()
                 )
-              : new Date(),
+              : addYears(
+                  parse(
+                    foedselsdato as string,
+                    DATE_BACKEND_FORMAT,
+                    new Date()
+                  ),
+                  100
+                ),
           }
         )
       ) {
-        // Når det allerede er registrert et opphold med et ikke-avtaleland
-        if (!isAvtalelandFromLandkode(utenlandsperioder[i].landkode)) {
+        // Når det allerede er registrert et opphold med et land uten krav om arbeid
+        if (!harKravOmArbeidFromLandkode(utenlandsperioder[i].landkode)) {
           isValid = false
           const tekst =
             'utenlandsopphold.om_oppholdet_ditt_modal.overlappende_perioder.validation_error.ikke_avtaleland'
@@ -469,8 +478,8 @@ export const onUtenlandsoppholdSubmit = (
 
     logger('button klikk', {
       tekst: utenlandsperiodeId
-        ? `endrer utenlandsperiode`
-        : `legger til utenlandsperiode`,
+        ? `endrer utenlandsopphold`
+        : `legger til utenlandsopphold`,
     })
     onSubmitCallback()
     if (modalRef.current?.open) {

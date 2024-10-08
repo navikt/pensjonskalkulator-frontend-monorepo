@@ -3,37 +3,38 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { ExclamationmarkTriangleFillIcon } from '@navikt/aksel-icons'
-import { BodyLong, Link } from '@navikt/ds-react'
+import { BodyLong, Button, Link, Modal } from '@navikt/ds-react'
 
 import { GrunnlagSection } from '../GrunnlagSection'
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { UtenlandsoppholdListe } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe'
 import { paths } from '@/router/constants'
-import { apiSlice } from '@/state/api/apiSlice'
-import { useAppSelector } from '@/state/hooks'
-import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import {
+  selectHarUtenlandsopphold,
+  selectCurrentSimulation,
+} from '@/state/userInput/selectors'
+import { userInputActions } from '@/state/userInput/userInputReducer'
+import { logger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
 import styles from './GrunnlagUtenlandsopphold.module.scss'
 
-export const GrunnlagUtenlandsopphold: React.FC = () => {
+interface Props {
+  harForLiteTrygdetid?: boolean
+}
+
+export const GrunnlagUtenlandsopphold: React.FC<Props> = ({
+  harForLiteTrygdetid,
+}) => {
   const intl = useIntl()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const avbrytModalRef = React.useRef<HTMLDialogElement>(null)
   const harUtenlandsopphold = useAppSelector(selectHarUtenlandsopphold)
-
-  const cachedQueries = useAppSelector(
-    (state) => state[apiSlice.reducerPath].queries
+  const { formatertUttaksalderReadOnly } = useAppSelector(
+    selectCurrentSimulation
   )
-
-  const harForLiteTrygdetid = React.useMemo(() => {
-    const latestAlerspensjonQuery = Object.entries(cachedQueries || {}).find(
-      ([key]) => key.includes('alderspensjon')
-    ) || [null, null]
-    return latestAlerspensjonQuery[1]?.data
-      ? (latestAlerspensjonQuery[1]?.data as AlderspensjonResponseBody)
-          .harForLiteTrygdetid
-      : null
-  }, [cachedQueries])
 
   const oppholdUtenforNorge = React.useMemo(():
     | 'mindre_enn_5_aar'
@@ -43,17 +44,69 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
       return 'for_lite_trygdetid'
     }
     return harUtenlandsopphold ? 'mer_enn_5_aar' : 'mindre_enn_5_aar'
-  }, [])
+  }, [harForLiteTrygdetid, harUtenlandsopphold])
+
+  React.useEffect(() => {
+    if (oppholdUtenforNorge === 'for_lite_trygdetid') {
+      logger('grunnlag for beregningen', {
+        tekst: 'trygdetid',
+        data: 'under 5 år',
+      })
+    } else {
+      logger('grunnlag for beregningen', {
+        tekst: 'trygdetid',
+        data: harUtenlandsopphold ? '5-40 år' : 'over 40 år',
+      })
+    }
+  }, [formatertUttaksalderReadOnly])
 
   const goToUtenlandsoppholdStep: React.MouseEventHandler<HTMLAnchorElement> = (
     e
   ) => {
     e.preventDefault()
-    navigate(paths.utenlandsopphold)
+    avbrytModalRef.current?.showModal()
   }
 
   return (
     <>
+      <Modal
+        ref={avbrytModalRef}
+        header={{
+          heading: intl.formatMessage({
+            id: 'grunnlag.opphold.avbryt_modal.title',
+          }),
+        }}
+        width="medium"
+      >
+        <Modal.Footer>
+          <Button
+            type="button"
+            onClick={() => {
+              logger('button klikk', { tekst: 'Tilbake til utenlandsopphold' })
+              dispatch(
+                userInputActions.flushCurrentSimulationUtenomUtenlandsperioder()
+              )
+              avbrytModalRef.current?.close()
+              navigate(paths.utenlandsopphold)
+            }}
+          >
+            {intl.formatMessage({
+              id: 'grunnlag.opphold.avbryt_modal.bekreft',
+            })}
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => {
+              avbrytModalRef.current?.close()
+            }}
+          >
+            {intl.formatMessage({
+              id: 'grunnlag.opphold.avbryt_modal.avbryt',
+            })}
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <AccordionItem name="Grunnlag: Utenlandsopphold">
         <GrunnlagSection
           headerTitle={intl.formatMessage({
@@ -76,7 +129,7 @@ export const GrunnlagUtenlandsopphold: React.FC = () => {
             )}
 
             {harUtenlandsopphold && (
-              <UtenlandsoppholdListe harRedigeringsmuligheter={false} />
+              <UtenlandsoppholdListe erVisningIGrunnlag />
             )}
 
             {oppholdUtenforNorge === 'for_lite_trygdetid' && (

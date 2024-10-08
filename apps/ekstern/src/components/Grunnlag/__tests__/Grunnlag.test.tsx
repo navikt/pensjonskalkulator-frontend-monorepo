@@ -1,7 +1,7 @@
 import * as ReactRouterUtils from 'react-router'
 
 import { Grunnlag } from '@/components/Grunnlag'
-import { fulfilledGetUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetLoependeVedtakUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -82,7 +82,7 @@ describe('Grunnlag', () => {
     it('brukeren kan gå til avansert fane og starte en ny beregning', async () => {
       const flushCurrentSimulationMock = vi.spyOn(
         userInputReducerUtils.userInputActions,
-        'flushCurrentSimulation'
+        'flushCurrentSimulationUtenomUtenlandsperioder'
       )
       const navigateMock = vi.fn()
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -298,7 +298,7 @@ describe('Grunnlag', () => {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
-            queries: { ...fulfilledGetUfoeregrad },
+            queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -348,7 +348,7 @@ describe('Grunnlag', () => {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
-            queries: { ...fulfilledGetUfoeregrad },
+            queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -408,7 +408,7 @@ describe('Grunnlag', () => {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
-            queries: { ...fulfilledGetUfoeregrad },
+            queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -450,7 +450,7 @@ describe('Grunnlag', () => {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
-            queries: { ...fulfilledGetUfoeregrad },
+            queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
           },
           userInput: {
             ...userInputInitialState,

@@ -8,6 +8,7 @@ describe('veileder - BorgerInformasjon', async () => {
   afterEach(() => {
     global.window = previousWindow
   })
+
   it('viser informasjon og fnr', async () => {
     const result = render(<BorgerInformasjon fnr="12345678901" />)
 

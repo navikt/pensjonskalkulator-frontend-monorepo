@@ -14,7 +14,8 @@ import {
 
 import { Card } from '@/components/common/Card'
 import { ReadMore } from '@/components/common/ReadMore'
-import { useGetUfoeregradQuery } from '@/state/api/apiSlice'
+import { paths } from '@/router/constants'
+import { useGetLoependeVedtakQuery } from '@/state/api/apiSlice'
 import { logger, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -38,9 +39,11 @@ export function AFP({
   const intl = useIntl()
   const navigate = useNavigate()
 
-  const { data: ufoeregrad } = useGetUfoeregradQuery()
+  const { data: loependeVedtak } = useGetLoependeVedtakQuery()
   const [validationError, setValidationError] = React.useState<string>('')
-  const [showAlert, setShowAlert] = React.useState<AfpRadio | ''>('')
+  const [showVetIkkeAlert, setShowVetIkkeAlert] = React.useState<boolean>(
+    afp === 'vet_ikke'
+  )
 
   React.useEffect(() => {
     if (shouldRedirectTo) {
@@ -71,37 +74,34 @@ export function AFP({
         valg: afpData,
       })
       logger('button klikk', {
-        tekst: 'Neste',
+        tekst: `Neste fra ${paths.afp}`,
       })
       onNext(afpData)
     }
   }
-
-  React.useEffect(() => {
-    if (showAlert === 'vet_ikke') {
-      logger('alert', {
-        tekst: 'Rett til AFP: Vet ikke',
-      })
-    }
-  }, [showAlert])
 
   /* c8 ignore start */
   React.useEffect(() => {
     logger('info', {
       tekst: 'hent uføregrad',
       data:
-        ufoeregrad?.ufoeregrad === 0
+        loependeVedtak?.ufoeretrygd.grad === 0
           ? 'Ingen uføretrygd'
-          : ufoeregrad?.ufoeregrad === 100
+          : loependeVedtak?.ufoeretrygd.grad === 100
             ? 'Hel uføretrygd'
             : `Gradert uføretrygd`,
     })
-  }, [ufoeregrad])
+  }, [loependeVedtak])
   /* c8 ignore end */
 
   const handleRadioChange = (value: AfpRadio): void => {
-    setShowAlert(value)
     setValidationError('')
+    setShowVetIkkeAlert(value === 'vet_ikke')
+    if (value === 'vet_ikke') {
+      logger('alert', {
+        tekst: 'Rett til AFP: Vet ikke',
+      })
+    }
   }
 
   if (shouldRedirectTo) {
@@ -189,7 +189,7 @@ export function AFP({
           <Radio value="vet_ikke">
             <FormattedMessage id="stegvisning.afp.radio_vet_ikke" />
           </Radio>
-          {showAlert === 'vet_ikke' && (
+          {showVetIkkeAlert && (
             <Alert className={styles.alert} variant="info" aria-live="polite">
               <FormattedMessage id="stegvisning.afp.alert_vet_ikke" />
             </Alert>
@@ -202,7 +202,9 @@ export function AFP({
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+          onClick={wrapLogger('button klikk', {
+            tekst: `Tilbake fra ${paths.afp}`,
+          })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>

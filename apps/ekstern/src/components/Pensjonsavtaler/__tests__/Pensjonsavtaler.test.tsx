@@ -3,7 +3,6 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { Pensjonsavtaler } from '../Pensjonsavtaler'
-import { utenlandsperioder } from '@/components/UtenlandsoppholdListe/UtenlandsoppholdListe.module.scss'
 import { fulfilledGetInntekt } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -190,15 +189,30 @@ describe('Pensjonsavtaler', () => {
           api: {
             queries: {
               ...fulfilledGetInntekt,
-              ['getUfoeregrad(undefined)']: {
+              ['getLoependeVedtak(undefined)']: {
                 /* eslint-disable @typescript-eslint/ban-ts-comment */
                 // @ts-ignore
                 status: 'fulfilled',
-                endpointName: 'getUfoeregrad',
+                endpointName: 'getLoependeVedtak',
                 requestId: 'xTaE6mOydr5ZI75UXq4Wi',
                 startedTimeStamp: 1688046411971,
                 data: {
-                  ufoeregrad: 75,
+                  alderspensjon: {
+                    loepende: false,
+                    grad: 0,
+                  },
+                  ufoeretrygd: {
+                    loepende: true,
+                    grad: 75,
+                  },
+                  afpPrivat: {
+                    loepende: false,
+                    grad: 0,
+                  },
+                  afpOffentlig: {
+                    loepende: false,
+                    grad: 0,
+                  },
                 },
                 fulfilledTimeStamp: 1688046412103,
               },

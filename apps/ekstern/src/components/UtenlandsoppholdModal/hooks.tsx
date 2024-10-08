@@ -4,7 +4,7 @@ import { useDatepicker } from '@navikt/ds-react'
 import { add, parse, format, isValid } from 'date-fns'
 
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
-import { isAvtalelandFromLandkode } from '@/utils/land'
+import { harKravOmArbeidFromLandkode } from '@/utils/land'
 
 import {
   UtenlandsoppholdFormNames,
@@ -28,9 +28,9 @@ export const useFormLocalState = (initialValues: {
     Record<UtenlandsoppholdFormNames, string>
   >(UTENLANDSOPPHOLD_INITIAL_FORM_VALIDATION_ERRORS)
 
-  const isLocalLandAvtaleland = React.useMemo(() => {
+  const harLocalLandKravOmArbeid = React.useMemo(() => {
     return localUtenlandsperiode?.landkode
-      ? isAvtalelandFromLandkode(localUtenlandsperiode?.landkode)
+      ? harKravOmArbeidFromLandkode(localUtenlandsperiode?.landkode)
       : undefined
   }, [localUtenlandsperiode])
 
@@ -173,7 +173,7 @@ export const useFormLocalState = (initialValues: {
 
   return [
     localUtenlandsperiode,
-    isLocalLandAvtaleland,
+    harLocalLandKravOmArbeid,
     datepickerStartdato,
     datepickerSluttdato,
     validationErrors,

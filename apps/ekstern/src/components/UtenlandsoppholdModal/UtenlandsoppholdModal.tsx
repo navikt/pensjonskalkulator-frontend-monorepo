@@ -50,7 +50,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
 
   const [
     localUtenlandsperiode,
-    isLocalLandAvtaleland,
+    harLocalLandKravOmArbeid,
     datepickerStartdato,
     datepickerSluttdato,
     validationErrors,
@@ -140,7 +140,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                 .overlappende_periodeslutt
                             ]
                           : intl.formatMessage({
-                              id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                              id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
                             }),
                       }
                     )
@@ -159,7 +159,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
             </Select>
             {localUtenlandsperiode?.landkode && (
               <>
-                {isLocalLandAvtaleland && (
+                {harLocalLandKravOmArbeid && (
                   <RadioGroup
                     form={UTENLANDSOPPHOLD_FORM_NAMES.form}
                     id={UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}
@@ -216,7 +216,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                       .overlappende_periodeslutt
                                   ]
                                 : intl.formatMessage({
-                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
                                   }),
                             }
                           )
@@ -225,10 +225,16 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                     role="radiogroup"
                     aria-required="true"
                   >
-                    <Radio value="ja">
+                    <Radio
+                      value="ja"
+                      data-testid={`${UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}-ja`}
+                    >
                       <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_ja" />
                     </Radio>
-                    <Radio value="nei">
+                    <Radio
+                      value="nei"
+                      data-testid={`${UTENLANDSOPPHOLD_FORM_NAMES.arbeidetUtenlands}-nei`}
+                    >
                       <FormattedMessage id="utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.radio_nei" />
                     </Radio>
                   </RadioGroup>
@@ -277,7 +283,7 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
                                       .overlappende_periodeslutt
                                   ]
                                 : intl.formatMessage({
-                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak',
+                                    id: 'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold',
                                   }),
                             }
                           )

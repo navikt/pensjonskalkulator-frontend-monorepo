@@ -48,12 +48,14 @@ export function StepStart() {
       <Await
         resolve={Promise.all([
           loaderData.getPersonQuery,
+          loaderData.getLoependeVedtakQuery,
           loaderData.shouldRedirectTo,
         ])}
       >
-        {(queries: [GetPersonQuery, string]) => {
+        {(queries: [GetPersonQuery, GetLoependeVedtakQuery, string]) => {
           const getPersonQuery = queries[0]
-          const shouldRedirectTo = queries[1]
+          const getVedtakQuery = queries[1]
+          const shouldRedirectTo = queries[2]
 
           return (
             <Start
@@ -65,6 +67,7 @@ export function StepStart() {
               }
               onCancel={isVeileder ? undefined : onStegvisningCancel}
               onNext={onStegvisningNext}
+              loependeVedtak={getVedtakQuery.data}
             />
           )
         }}

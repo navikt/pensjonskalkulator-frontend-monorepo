@@ -4,6 +4,7 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
+import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
 
 import styles from './UtenlandsoppholdMedHenvisning.module.scss'
@@ -49,7 +50,7 @@ export function UtenlandsoppholdMedHenvisning({
         valg: utenlandsoppholdData,
       })
       logger('button klikk', {
-        tekst: 'Neste',
+        tekst: `Neste fra ${paths.utenlandsopphold}`,
       })
       onNext(utenlandsoppholdData)
     }
@@ -101,7 +102,9 @@ export function UtenlandsoppholdMedHenvisning({
           type="button"
           className={styles.button}
           variant="secondary"
-          onClick={wrapLogger('button klikk', { tekst: 'Tilbake' })(onPrevious)}
+          onClick={wrapLogger('button klikk', {
+            tekst: `Tilbake fra ${paths.utenlandsopphold}`,
+          })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />
         </Button>

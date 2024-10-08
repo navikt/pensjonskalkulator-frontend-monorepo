@@ -471,7 +471,16 @@ describe('userInputSlice', () => {
       })
     })
 
-    it('flushCurrentSimulation', () => {
+    it('flushCurrentSimulationUtenomUtenlandsperioder', () => {
+      const utenlandsperioder = [
+        {
+          id: '1',
+          landkode: 'URY',
+          arbeidetUtenlands: false,
+          startdato: '01.01.2012',
+          sluttdato: '28.01.2015',
+        },
+      ]
       const updatedState = userInputSlice(
         {
           ...userInputInitialState,
@@ -480,23 +489,69 @@ describe('userInputSlice', () => {
           afp: 'ja_offentlig',
           samboer: false,
           currentSimulation: {
-            utenlandsperioder: [],
             formatertUttaksalderReadOnly:
               '66 alder.aar string.og 4 alder.maaneder',
             uttaksalder: { aar: 66, maaneder: 4 },
             aarligInntektFoerUttakBeloep: '300 000',
             gradertUttaksperiode: null,
+            utenlandsperioder: [...utenlandsperioder],
           },
         },
-        userInputActions.flushCurrentSimulation()
+        userInputActions.flushCurrentSimulationUtenomUtenlandsperioder()
       )
 
       expect(updatedState).toStrictEqual({
         ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          utenlandsperioder: [...utenlandsperioder],
+        },
         harUtenlandsopphold: true,
         samtykke: true,
         afp: 'ja_offentlig',
         samboer: false,
+      })
+    })
+
+    it('flushSamboerOgUtenlandsperioder', () => {
+      const utenlandsperioder = [
+        {
+          id: '1',
+          landkode: 'URY',
+          arbeidetUtenlands: false,
+          startdato: '01.01.2012',
+          sluttdato: '28.01.2015',
+        },
+      ]
+      const updatedState = userInputSlice(
+        {
+          ...userInputInitialState,
+          harUtenlandsopphold: true,
+          samtykke: true,
+          afp: 'ja_offentlig',
+          samboer: false,
+          currentSimulation: {
+            formatertUttaksalderReadOnly:
+              '66 alder.aar string.og 4 alder.maaneder',
+            uttaksalder: { aar: 66, maaneder: 4 },
+            aarligInntektFoerUttakBeloep: '300 000',
+            gradertUttaksperiode: null,
+            utenlandsperioder: [...utenlandsperioder],
+          },
+        },
+        userInputActions.flushSamboerOgUtenlandsperioder()
+      )
+
+      expect(updatedState).toStrictEqual({
+        ...userInputInitialState,
+        currentSimulation: {
+          ...userInputInitialState.currentSimulation,
+          utenlandsperioder: [],
+        },
+        harUtenlandsopphold: true,
+        samtykke: true,
+        afp: 'ja_offentlig',
+        samboer: null,
       })
     })
   })

@@ -31,9 +31,6 @@ const translations = {
   'landingsside.for.deg.foedt.etter.1963': 'MANGLER_TEKST',
   'landingsside.velge_mellom_detaljert_og_enkel': 'MANGLER_TEKST',
   'landingsside.velge_mellom_detaljert_og_enkel_2': 'MANGLER_TEKST',
-  'landingsside.velge_mellom_detaljert_og_enkel_3': 'MANGLER_TEKST',
-  'landingsside.liste.1': 'MANGLER_TEKST',
-  'landingsside.liste.2': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator_utlogget': 'MANGLER_TEKST',
   'landingsside.button.detaljert_kalkulator': 'MANGLER_TEKST',
   'landingsside.button.enkel_kalkulator_utlogget': 'MANGLER_TEKST',
@@ -55,11 +52,17 @@ const translations = {
   'stegvisning.tilbake_start.modal.bekreft': 'MANGLER_TEKST',
   'stegvisning.tilbake_start.modal.avbryt': 'MANGLER_TEKST',
   'stegvisning.beregn': 'MANGLER_TEKST',
+  'stegvisning.endring.alert': 'MANGLER_TEKST',
   'stegvisning.start.title': 'MANGLER_TEKST',
+  'stegvisning.start.endring.ingress': 'MANGLER_TEKST',
+  'stegvisning.start.endring.ufoeretrygd': 'MANGLER_TEKST',
+  'stegvisning.start.endring.afp.privat': 'MANGLER_TEKST',
+  'stegvisning.start.endring.afp.offentlig': 'MANGLER_TEKST',
   'stegvisning.start.ingress': 'MANGLER_TEKST',
   'stegvisning.start.list_item1': 'MANGLER_TEKST',
   'stegvisning.start.list_item2': 'MANGLER_TEKST',
   'stegvisning.start.list_item3': 'MANGLER_TEKST',
+  'stegvisning.start.endring.ingress_2': 'MANGLER_TEKST',
   'stegvisning.start.ingress_2': 'MANGLER_TEKST',
   'stegvisning.start.button': 'MANGLER_TEKST',
   'stegvisning.start.link': 'MANGLER_TEKST',
@@ -96,13 +99,12 @@ const translations = {
   'stegvisning.utenlandsopphold.validation_error': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.mangler_opphold.validation_error':
     'MANGLER_TEKST',
+  'stegvisning.utenlandsopphold.ingress.bottom': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.periode':
     'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.til_uttak':
-    'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold.oppholdene.description.periode.frem_til_uttak':
+  'stegvisning.utenlandsopphold.oppholdene.description.periode.varig_opphold':
     'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.oppholdene.description.har_jobbet':
     'MANGLER_TEKST',
@@ -307,6 +309,8 @@ const translations = {
   'beregning.avansert.rediger.inntekt_frem_til_uttak.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_frem_til_uttak.description':
     'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.label': 'MANGLER_TEKST',
   'beregning.avansert.rediger.uttaksgrad.description': 'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.label': 'MANGLER_TEKST',
@@ -335,6 +339,8 @@ const translations = {
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.beloep.validation_error':
     'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.label': 'MANGLER_TEKST',
+  'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.description':
+    'MANGLER_TEKST',
   'beregning.avansert.rediger.inntekt.button': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.validation_error': 'MANGLER_TEKST',
   'beregning.avansert.rediger.agepicker.grad.validation_error': 'MANGLER_TEKST',
@@ -394,6 +400,9 @@ const translations = {
   'grunnlag.opphold.ingress.mindre_enn_5_aar': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress.for_lite_trygdetid': 'MANGLER_TEKST',
   'grunnlag.opphold.bunntekst': 'MANGLER_TEKST',
+  'grunnlag.opphold.avbryt_modal.title': 'MANGLER_TEKST',
+  'grunnlag.opphold.avbryt_modal.bekreft': 'MANGLER_TEKST',
+  'grunnlag.opphold.avbryt_modal.avbryt': 'MANGLER_TEKST',
   'grunnlag.forbehold.ingress_1': 'MANGLER_TEKST',
   'grunnlag.forbehold.link': 'MANGLER_TEKST',
   'grunnlag.forbehold.title': 'MANGLER_TEKST',
@@ -420,6 +429,7 @@ const translations = {
   'inntekt.endre_inntekt_modal.title': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.label': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.description': 'MANGLER_TEKST',
+  'inntekt.endre_inntekt_modal.textfield.description.ufoere': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.paragraph': 'MANGLER_TEKST',
   'inntekt.endre_inntekt_modal.textfield.validation_error.required':
     'MANGLER_TEKST',
@@ -445,7 +455,7 @@ const translations = {
   'inntekt.info_om_inntekt.ufoeretrygd.read_more.body': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.open.link': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.intro': 'MANGLER_TEKST',
-  'inntekt.info_om_inntekt.subtitle': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.subtitle_1': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.list_item1': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.list_item2': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.list_item3': 'MANGLER_TEKST',
@@ -455,7 +465,11 @@ const translations = {
   'inntekt.info_om_inntekt.list_item7': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.list_item8': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.list_item9': 'MANGLER_TEKST',
-  'inntekt.info_om_inntekt.list_item10': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.subtitle_2': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item1': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item2': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item3': 'MANGLER_TEKST',
+  'inntekt.info_om_inntekt.ikke_inntekt.list_item4': 'MANGLER_TEKST',
   'inntekt.info_om_inntekt.ingress': 'MANGLER_TEKST',
   'forbehold.title': 'MANGLER_TEKST',
   'forbehold.intro': 'MANGLER_TEKST',

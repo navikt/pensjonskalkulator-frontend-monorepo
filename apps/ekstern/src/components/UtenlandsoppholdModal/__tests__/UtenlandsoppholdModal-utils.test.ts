@@ -75,7 +75,7 @@ describe('UtenlandsoppholdModal-utils', () => {
     })
 
     describe('Gitt at arbeidetUtenlandsFormData ikke er gyldig', () => {
-      describe('Når land ikke er avtaleland', () => {
+      describe('Når land ikke har krav om arbeid', () => {
         it('returnerer true når arbeidetUtenlandsFormData er null', () => {
           const loggerMock = vi.spyOn(loggerUtils, 'logger')
           const updateErrorMessageMock = vi.fn()
@@ -94,7 +94,7 @@ describe('UtenlandsoppholdModal-utils', () => {
           expect(loggerMock).not.toHaveBeenCalled()
         })
       })
-      describe('Når land er avtaleland', () => {
+      describe('Når land har krav om arbeid', () => {
         it('returnerer false når arbeidetUtenlandsFormData er null', () => {
           const loggerMock = vi.spyOn(loggerUtils, 'logger')
           const updateErrorMessageMock = vi.fn()
@@ -102,7 +102,7 @@ describe('UtenlandsoppholdModal-utils', () => {
             validateOpphold(
               {
                 ...correctInputData,
-                landFormData: 'NLD',
+                landFormData: 'FRA',
                 arbeidetUtenlandsFormData: null,
               },
               foedselsdato,
@@ -127,7 +127,7 @@ describe('UtenlandsoppholdModal-utils', () => {
             validateOpphold(
               {
                 ...correctInputData,
-                landFormData: 'NLD',
+                landFormData: 'FRA',
                 arbeidetUtenlandsFormData: '',
               },
               foedselsdato,
@@ -151,7 +151,7 @@ describe('UtenlandsoppholdModal-utils', () => {
             validateOpphold(
               {
                 ...correctInputData,
-                landFormData: 'NLD',
+                landFormData: 'FRA',
                 arbeidetUtenlandsFormData: 'lorem',
               },
               foedselsdato,
@@ -368,7 +368,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         },
       ]
 
-      it('returnerer true når den nye perioden overlapper så lenge de er i samme avtaleland og har ulik jobb-status', () => {
+      it('returnerer true når den nye perioden overlapper så lenge de er i samme jobb som har krav om arbeid og har ulik jobb-status', () => {
         const updateErrorMessageMock = vi.fn()
         expect(
           validateOpphold(
@@ -593,7 +593,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         expect(onSubmitCallbackMock).toHaveBeenCalled()
         expect(closeMock).toHaveBeenCalled()
         expect(loggerMock).toHaveBeenCalledWith('button klikk', {
-          tekst: 'legger til utenlandsperiode',
+          tekst: 'legger til utenlandsopphold',
         })
         expect(setValidationErrorsMock).not.toHaveBeenCalled()
       })
@@ -668,7 +668,7 @@ describe('UtenlandsoppholdModal-utils', () => {
         expect(onSubmitCallbackMock).toHaveBeenCalled()
         expect(closeMock).toHaveBeenCalled()
         expect(loggerMock).toHaveBeenCalledWith('button klikk', {
-          tekst: 'endrer utenlandsperiode',
+          tekst: 'endrer utenlandsopphold',
         })
         expect(setValidationErrorsMock).not.toHaveBeenCalled()
       })

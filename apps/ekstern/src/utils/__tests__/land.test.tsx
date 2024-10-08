@@ -3,13 +3,14 @@ import { describe, expect, it } from 'vitest'
 import {
   getTranslatedLand,
   getTranslatedLandFromLandkode,
-  isAvtalelandFromLandkode,
+  harKravOmArbeidFromLandkode,
 } from '../land'
 
 describe('translations-utils', () => {
   describe('getTranslatedLand', () => {
     const land = {
       landkode: 'NLD',
+      kravOmArbeid: true,
       erAvtaleland: true,
       bokmaalNavn: 'Nederland',
       nynorskNavn: 'Noe på nynorsk',
@@ -54,17 +55,18 @@ describe('translations-utils', () => {
     })
   })
 
-  describe('isAvtalelandFromLandkode', () => {
+  describe('harKravOmArbeidFromLandkode', () => {
     it('returnerer false når landet ikke finnes', () => {
-      expect(isAvtalelandFromLandkode('RANDOM')).toBeFalsy()
+      expect(harKravOmArbeidFromLandkode('RANDOM')).toBeFalsy()
     })
 
-    it('returnerer true når landet er avtaleland', () => {
-      expect(isAvtalelandFromLandkode('NLD')).toBeTruthy()
+    it('returnerer true når landet er har krav om arbeid', () => {
+      expect(harKravOmArbeidFromLandkode('FRA')).toBeTruthy()
     })
 
     it('returnerer false når landet ikke er avtaleland', () => {
-      expect(isAvtalelandFromLandkode('NPL')).toBeFalsy()
+      expect(harKravOmArbeidFromLandkode('NLD')).toBeFalsy()
+      expect(harKravOmArbeidFromLandkode('NPL')).toBeFalsy()
     })
   })
 })

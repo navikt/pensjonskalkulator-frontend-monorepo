@@ -69,7 +69,7 @@ describe('UtenlandsoppholdModal', () => {
       expect(onSubmitCallbackMock).not.toHaveBeenCalled()
     })
 
-    it('viser resten av skjemaet kun etter at land er valgt, og viser radio om jobbopphold kun når landet er avtaleland', async () => {
+    it('viser resten av skjemaet kun etter at land er valgt, og viser radio om jobbopphold kun når landet har krav om arbeid', async () => {
       const modalRef = React.createRef<HTMLDialogElement>()
 
       render(
@@ -124,7 +124,7 @@ describe('UtenlandsoppholdModal', () => {
           utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
         ),
         {
-          target: { value: 'NLD' },
+          target: { value: 'FRA' },
         }
       )
 
@@ -154,7 +154,7 @@ describe('UtenlandsoppholdModal', () => {
             utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
           ),
           {
-            target: { value: 'NLD' },
+            target: { value: 'FRA' },
           }
         )
       })
@@ -205,7 +205,7 @@ describe('UtenlandsoppholdModal', () => {
           onSubmitCallback={vi.fn()}
           utenlandsperiode={{
             id: '1',
-            landkode: 'NLD',
+            landkode: 'FRA',
             arbeidetUtenlands: true,
             startdato: '20.01.2001',
             sluttdato: '20.01.2011',
@@ -225,7 +225,7 @@ describe('UtenlandsoppholdModal', () => {
             utenlandsoppholdModalUtils.UTENLANDSOPPHOLD_FORM_NAMES.land
           )) as HTMLSelectElement
         ).value
-      ).toBe('NLD')
+      ).toBe('FRA')
       expect(
         await screen.findByText(
           'utenlandsopphold.om_oppholdet_ditt_modal.har_jobbet.description'
@@ -283,7 +283,7 @@ describe('UtenlandsoppholdModal', () => {
           onSubmitCallback={onSubmitCallbackMock}
           utenlandsperiode={{
             id: '1',
-            landkode: 'NLD',
+            landkode: 'FRA',
             arbeidetUtenlands: false,
             startdato: '20.01.2001',
             sluttdato: '20.01.2011',

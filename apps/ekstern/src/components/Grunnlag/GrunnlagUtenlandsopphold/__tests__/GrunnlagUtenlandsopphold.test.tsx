@@ -1,7 +1,6 @@
 import * as ReactRouterUtils from 'react-router'
 
 import { GrunnlagUtenlandsopphold } from '..'
-import { fulfilledAlderspensjonForLiteTrygdetid } from '@/mocks/mockedRTKQueryApiCalls'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent } from '@/test-utils'
 
@@ -88,19 +87,9 @@ describe('GrunnlagUtenlandsopphold', () => {
   describe('Gitt at brukeren har for lite trygdetid', () => {
     it('viser riktig tittel og innhold og liste over utenlandsopphold vises', async () => {
       const user = userEvent.setup()
-      render(<GrunnlagUtenlandsopphold />, {
+      render(<GrunnlagUtenlandsopphold harForLiteTrygdetid={true} />, {
         preloadedState: {
-          api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            queries: {
-              ...fulfilledAlderspensjonForLiteTrygdetid,
-            },
-          },
-          userInput: {
-            ...userInputInitialState,
-            harUtenlandsopphold: true,
-          },
+          userInput: { ...userInputInitialState, harUtenlandsopphold: true },
         },
       })
 
@@ -160,6 +149,22 @@ describe('GrunnlagUtenlandsopphold', () => {
     await user.click(
       await screen.findByText('grunnlag.opphold.ingress.endre_opphold.link')
     )
+
+    expect(
+      await screen.findByText('grunnlag.opphold.avbryt_modal.title')
+    ).toBeVisible()
+    expect(
+      await screen.findByText('grunnlag.opphold.avbryt_modal.avbryt')
+    ).toBeVisible()
+    expect(navigateMock).not.toHaveBeenCalled()
+    expect(
+      await screen.findByText('grunnlag.opphold.avbryt_modal.bekreft')
+    ).toBeVisible()
+    await user.click(screen.getByText('grunnlag.opphold.avbryt_modal.avbryt'))
+    await user.click(
+      screen.getByText('grunnlag.opphold.ingress.endre_opphold.link')
+    )
+    await user.click(screen.getByText('grunnlag.opphold.avbryt_modal.bekreft'))
 
     expect(navigateMock).toHaveBeenCalledWith('/utenlandsopphold')
   })
