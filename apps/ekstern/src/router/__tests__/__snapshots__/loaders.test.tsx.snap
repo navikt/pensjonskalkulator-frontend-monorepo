@@ -12,7 +12,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -32,7 +32,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -58,7 +58,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke",
         },
       },
@@ -78,7 +78,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke",
         },
       },
@@ -104,7 +104,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke",
         },
       },
@@ -124,7 +124,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke",
         },
       },
@@ -150,7 +150,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -170,7 +170,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -196,7 +196,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -216,7 +216,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -230,7 +230,7 @@ _Response {
 }
 `;
 
-exports[`Loaders > stepStartAccessGuard > kaller getPersonQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
+exports[`Loaders > stepStartAccessGuard > kaller getPersonQuery, getLoependeVedtakQuery, getInntekt, getOmstillingsstoenadOgGjenlevende og getEkskludertStatus og returnerer en defered response med getPerson og en redirect url 1`] = `
 DeferredData {
   "abortPromise": Promise {},
   "controller": AbortController {
@@ -239,11 +239,13 @@ DeferredData {
     },
   },
   "data": {
+    "getLoependeVedtakQuery": Promise {},
     "getPersonQuery": Promise {},
     "shouldRedirectTo": Promise {},
   },
   "deferredKeys": [
     "getPersonQuery",
+    "getLoependeVedtakQuery",
     "shouldRedirectTo",
   ],
   "init": {},
@@ -265,7 +267,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke-offentlig-afp",
         },
       },
@@ -285,7 +287,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke-offentlig-afp",
         },
       },
@@ -311,7 +313,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke-offentlig-afp",
         },
       },
@@ -331,7 +333,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/samtykke-offentlig-afp",
         },
       },
@@ -357,7 +359,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },
@@ -377,7 +379,7 @@ _Response {
       "cookies": null,
       Symbol(headers map): Map {
         "location" => {
-          "name": "location",
+          "name": "Location",
           "value": "/start",
         },
       },

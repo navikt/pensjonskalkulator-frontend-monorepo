@@ -15,11 +15,13 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
+import { Simuleringsdetaljer } from '@/components/Simulering/Simuleringsdetaljer'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
   useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   usePensjonsavtalerQuery,
   useGetTpoMedlemskapQuery,
+  useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } from '@/state/api/apiSlice'
 import { generatePensjonsavtalerRequestBody } from '@/state/api/utils'
 import { useAppSelector } from '@/state/hooks'
@@ -51,10 +53,14 @@ export function Simulering(props: {
   isLoading: boolean
   headingLevel: HeadingProps['level']
   aarligInntektFoerUttakBeloep: string
-  alderspensjonListe?: Pensjonsberegning[]
+  alderspensjonListe?: PensjonsberegningMedDetaljer[]
   afpPrivatListe?: Pensjonsberegning[]
   afpOffentligListe?: Pensjonsberegning[]
   showButtonsAndTable?: boolean
+  detaljer?: {
+    trygdetid?: number
+    opptjeningsgrunnlag?: SimulertOpptjeningGrunnlag[]
+  }
 }) {
   const intl = useIntl()
   const {
@@ -65,6 +71,7 @@ export function Simulering(props: {
     afpPrivatListe,
     afpOffentligListe,
     showButtonsAndTable,
+    detaljer,
   } = props
   const harSamtykket = useAppSelector(selectSamtykke)
   const ufoeregrad = useAppSelector(selectUfoeregrad)
@@ -72,6 +79,8 @@ export function Simulering(props: {
   const sivilstand = useAppSelector(selectSivilstand)
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
+  const { data: utvidetSimuleringsresultatFeatureToggle } =
+    useGetUtvidetSimuleringsresultatFeatureToggleQuery()
 
   const [XAxis, setXAxis] = React.useState<string[]>([])
   const [showVisFlereAarButton, setShowVisFlereAarButton] =
@@ -393,7 +402,6 @@ export function Simulering(props: {
           options={chartOptions}
         />
       </div>
-
       {showButtonsAndTable && (
         <div
           className={clsx(styles.buttonRow, {
@@ -488,6 +496,13 @@ export function Simulering(props: {
         <TabellVisning
           series={chartOptions.series as SeriesColumnOptions[]}
           aarArray={(chartOptions?.xAxis as XAxisOptions).categories}
+        />
+      )}
+      {/* c8 ignore next 6 - detaljer skal kun vises i dev for test formål */}
+      {utvidetSimuleringsresultatFeatureToggle?.enabled && detaljer && (
+        <Simuleringsdetaljer
+          alderspensjonListe={alderspensjonListe}
+          detaljer={detaljer}
         />
       )}
     </section>

@@ -346,6 +346,13 @@ export const RedigerAvansertBeregning: React.FC<{
           <Label className={styles.label}>
             <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.label" />
           </Label>
+          {!!ufoeregrad && (
+            <div className={styles.description}>
+              <span className={styles.descriptionText}>
+                <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere" />
+              </span>
+            </div>
+          )}
           <div className={styles.description}>
             <span className={styles.descriptionText}>
               <span
@@ -600,7 +607,7 @@ export const RedigerAvansertBeregning: React.FC<{
                       />
                     }
                     description={intl.formatMessage({
-                      id: 'inntekt.endre_inntekt_modal.textfield.description',
+                      id: 'beregning.avansert.rediger.inntekt_vsa_gradert_uttak.description',
                     })}
                     error={
                       validationErrors[

@@ -12,6 +12,15 @@
   }
 }
 
+.alert {
+  max-width: $container-max-width;
+  margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
+
+  @media (min-width: $a-breakpoint-lg) {
+    margin: 0 0 var(--a-spacing-6) 0;
+  }
+}
+
 .toggle {
   padding: 0 var(--a-spacing-6) 0 var(--a-spacing-6);
   background-color: var(--a-white);

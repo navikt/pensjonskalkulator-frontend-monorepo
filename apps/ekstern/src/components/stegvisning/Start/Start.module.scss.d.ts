@@ -5,6 +5,7 @@ declare const classNames: typeof globalClassNames & {
   readonly button: "button";
   readonly link: "link";
   readonly list: "list";
+  readonly alert: "alert";
   readonly image: "image";
   readonly ellipse: "ellipse";
   readonly ellipse__blue: "ellipse__blue";

@@ -292,6 +292,16 @@ export const BeregningEnkel: React.FC = () => {
                 showButtonsAndTable={
                   !isError && alderspensjon?.vilkaarsproeving.vilkaarErOppfylt
                 }
+                detaljer={
+                  alderspensjon?.trygdetid ||
+                  alderspensjon?.opptjeningGrunnlagListe
+                    ? {
+                        trygdetid: alderspensjon?.trygdetid,
+                        opptjeningsgrunnlag:
+                          alderspensjon?.opptjeningGrunnlagListe,
+                      }
+                    : undefined
+                }
               />
               <Pensjonsavtaler headingLevel="3" />
               <Grunnlag

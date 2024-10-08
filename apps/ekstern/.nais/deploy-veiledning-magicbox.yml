@@ -1,7 +1,7 @@
 apiVersion: nais.io/v1alpha1
 kind: Application
 metadata:
-  name: pensjonskalkulator-frontend
+  name: pensjonskalkulator-veiledning-frontend-magicbox
   namespace: pensjonskalkulator
   labels:
     team: pensjonskalkulator
@@ -10,11 +10,11 @@ metadata:
 spec:
   image: "{{ image }}"
   ingresses:
-    - https://www.nav.no/pensjon/kalkulator
+    - https://pensjonskalkulator-veiledning-frontend-magicbox.ansatt.dev.nav.no/pensjon/kalkulator
   port: 8080
   replicas:
-    min: 2
-    max: 4
+    min: 1
+    max: 1
   liveness:
     path: /internal/health/liveness
     initialDelay: 20
@@ -33,14 +33,18 @@ spec:
   prometheus:
     enabled: true
     path: /metrics
-  observability:
-    autoInstrumentation:
+  azure:
+    application:
       enabled: true
-      runtime: nodejs
-  tokenx:
-    enabled: true
-  idporten:
-    enabled: true
+      claims:
+        groups:
+          - id: "8bb9b8d1-f46a-4ade-8ee8-5895eccdf8cf" # 0000-GA-PENSJON_SAKSBEHANDLER
+          - id: "a3f91493-1ab8-4b64-a544-0a77cbba9240" # 0000-GA-Pensjon_VEILEDER
+          - id: "dbe4ad45-320b-4e9a-aaa1-73cca4ee124d" # 0000-GA-Egne_ansatte
+          - id: "ea930b6b-9397-44d9-b9e6-f4cf527a632a" # 0000-GA-Fortrolig_Adresse
+          - id: "5ef775f2-61f8-4283-bf3d-8d03f428aa14" # 0000-GA-Strengt_Fortrolig_Adresse
+        extra:
+          - NAVident
     sidecar:
       enabled: true
       autoLogin: true
@@ -48,20 +52,17 @@ spec:
         - /internal/ping
         - /pensjon/kalkulator
         - /pensjon/kalkulator/login
+        - /pensjon/kalkulator/personopplysninger
         - /pensjon/kalkulator/assets/*
         - /pensjon/kalkulator/api/status
         - /pensjon/kalkulator/api/feature/*
-        - /pensjon/kalkulator/personopplysninger
         - /pensjon/kalkulator/src/*
-        - /pensjon/kalkulator/v3/api-docs/current
   accessPolicy:
     outbound:
       rules:
         - application: pensjonskalkulator-backend
-      external:
-        - host: www.nav.no
   env:
     - name: "PENSJONSKALKULATOR_BACKEND"
       value: "http://pensjonskalkulator-backend"
-    - name: "TOKEN_X_OBO_AUDIENCE"
-      value: "prod-gcp:pensjonskalkulator:pensjonskalkulator-backend"
+    - name: "ENTRA_ID_OBO_SCOPE"
+      value: "api://dev-gcp.pensjonskalkulator.pensjonskalkulator-backend/.default"

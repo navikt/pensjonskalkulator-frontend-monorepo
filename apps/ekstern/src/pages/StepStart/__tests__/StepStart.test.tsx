@@ -3,7 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse } from '@/mocks/server'
+import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
@@ -36,30 +36,92 @@ describe('StepStart', () => {
     expect(screen.getByTestId('start-loader')).toBeVisible()
   })
 
-  it('henter personopplysninger og viser hilsen med navnet til brukeren', async () => {
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.start}`],
+  describe('Gitt at brukeren ikke har noe vedtak om alderspensjon eller AFP', () => {
+    it('henter personopplysninger og viser hilsen med navnet til brukeren', async () => {
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await waitFor(() => {
+        expect(
+          screen.getByText('stegvisning.start.title Aprikos!')
+        ).toBeVisible()
+      })
     })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-    await waitFor(() => {
-      expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
+
+    it('rendrer hilsen uten navn når henting av personopplysninger feiler', async () => {
+      mockErrorResponse('/v2/person')
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await waitFor(() => {
+        expect(screen.getByText('stegvisning.start.title!')).toBeVisible()
+      })
     })
   })
+  describe('Gitt at brukeren har et vedtak om alderspensjon eller AFP', () => {
+    it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med navnet til brukeren', async () => {
+      mockResponse('/v1/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: {
+            loepende: true,
+            grad: 50,
+          },
+          ufoeretrygd: {
+            loepende: false,
+            grad: 0,
+          },
+          afpPrivat: {
+            loepende: false,
+            grad: 0,
+          },
+          afpOffentlig: {
+            loepende: false,
+            grad: 0,
+          },
+        },
+      })
 
-  it('rendrer hilsen uten navn når henting av personopplysninger feiler', async () => {
-    mockErrorResponse('/v2/person')
-    const router = createMemoryRouter(routes, {
-      basename: BASE_PATH,
-      initialEntries: [`${BASE_PATH}${paths.start}`],
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await waitFor(() => {
+        expect(
+          screen.getByText('stegvisning.start.title Aprikos!')
+        ).toBeVisible()
+        expect(screen.getByText('Du har nå', { exact: false })).toBeVisible()
+        expect(
+          screen.getByText('50 % alderspensjon', { exact: false })
+        ).toBeVisible()
+      })
     })
-    render(<RouterProvider router={router} />, {
-      hasRouter: false,
-    })
-    await waitFor(() => {
-      expect(screen.getByText('stegvisning.start.title!')).toBeVisible()
+    it('viser vanlig startsisde når henting av vedtak feiler', async () => {
+      mockErrorResponse('/v1/vedtak/loepende-vedtak')
+      const router = createMemoryRouter(routes, {
+        basename: BASE_PATH,
+        initialEntries: [`${BASE_PATH}${paths.start}`],
+      })
+      render(<RouterProvider router={router} />, {
+        hasRouter: false,
+      })
+      await waitFor(() => {
+        expect(
+          screen.getByText('stegvisning.start.title Aprikos!')
+        ).toBeVisible()
+        expect(screen.getByText('stegvisning.start.ingress')).toBeVisible()
+      })
     })
   })
 
