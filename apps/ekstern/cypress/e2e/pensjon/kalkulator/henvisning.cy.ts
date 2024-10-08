@@ -1,5 +1,5 @@
 describe('Henvisning', () => {
-  describe.skip('Når jeg som bruker født før 1963 logger inn,', () => {
+  describe('Når jeg som bruker født før 1963 logger inn,', () => {
     it('forventer jeg å bli redirigert til detaljert kalkulator.', () => {
       cy.intercept(
         { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
