@@ -83,20 +83,20 @@ export const landingPageAccessGuard = async () => {
 
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   getPersonQuery
-    .then((/* res*/) => {
-      // if (
-      //   res?.isSuccess &&
-      //   isFoedtFoer1963(res?.data?.foedselsdato as string)
-      // ) {
-      //   resolveRedirectUrl('')
-      //   window.open(externalUrls.detaljertKalkulator, '_self')
-      // } else {
-      if (selectIsVeileder(store.getState())) {
-        resolveRedirectUrl(paths.start)
-      } else {
+    .then((res) => {
+      if (
+        res?.isSuccess &&
+        isFoedtFoer1963(res?.data?.foedselsdato as string)
+      ) {
         resolveRedirectUrl('')
+        window.open(externalUrls.detaljertKalkulator, '_self')
+      } else {
+        if (selectIsVeileder(store.getState())) {
+          resolveRedirectUrl(paths.start)
+        } else {
+          resolveRedirectUrl('')
+        }
       }
-      // }
     })
     .catch(() => {
       resolveRedirectUrl('')
