@@ -606,7 +606,7 @@ describe('BeregningEnkel', () => {
         expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       })
       await user.click(await screen.findByText('application.global.retry'))
-      expect(initiateMock).toHaveBeenCalledTimes(2)
+      expect(initiateMock).toHaveBeenCalledTimes(3)
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
 
