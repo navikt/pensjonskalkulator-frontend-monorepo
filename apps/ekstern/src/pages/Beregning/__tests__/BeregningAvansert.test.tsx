@@ -658,7 +658,7 @@ describe('BeregningAvansert', () => {
           tekst: 'Beregning avansert: Klarte ikke beregne pensjon',
         })
         await user.click(await screen.findByText('application.global.retry'))
-        expect(initiateMock).toHaveBeenCalledTimes(2)
+        expect(initiateMock).toHaveBeenCalledTimes(3)
         await user.click(
           screen.getByText('beregning.avansert.resultatkort.button')
         )

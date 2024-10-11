@@ -177,9 +177,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Install cypress
-        if: |
-          steps.cache-cypress.outputs.cache-hit != 'true' &&
-          github.event.inputs.prod != 'true'
+        if: steps.cache-cypress.outputs.cache-hit != 'true'
         run: npx cypress install
 
       - name: Rebuild node-sass

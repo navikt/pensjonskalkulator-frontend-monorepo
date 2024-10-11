@@ -1,5 +1,6 @@
 import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const isInntekt = (data?: any): data is Inntekt => {
   if (
     data === null ||

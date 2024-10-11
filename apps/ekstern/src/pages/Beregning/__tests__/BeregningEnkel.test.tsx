@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, expect, it, vi } from 'vitest'
 
+import alderspensjonResponse from '../../../mocks/data/alderspensjon/68.json' with { type: 'json' }
 import { BeregningEnkel } from '../BeregningEnkel'
 import {
   fulfilledGetInntekt,
@@ -15,8 +16,6 @@ import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
-
-const alderspensjonResponse = require('../../../mocks/data/alderspensjon/68.json')
 
 describe('BeregningEnkel', () => {
   describe('Gitt at en bruker ikke mottar uføretrygd', () => {
@@ -593,7 +592,7 @@ describe('BeregningEnkel', () => {
         expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       })
       await user.click(await screen.findByText('application.global.retry'))
-      expect(initiateMock).toHaveBeenCalledTimes(2)
+      expect(initiateMock).toHaveBeenCalledTimes(3)
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
 

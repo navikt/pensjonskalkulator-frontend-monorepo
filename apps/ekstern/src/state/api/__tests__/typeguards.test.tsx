@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
 import {
   isInntekt,
@@ -17,6 +16,7 @@ import {
   isAlder,
   isSomeEnumKey,
 } from '../typeguards'
+import { pensjonsavtalerKategoriMapObj } from '@/utils/pensjonsavtaler'
 
 describe('Typeguards', () => {
   describe('isInntekt', () => {

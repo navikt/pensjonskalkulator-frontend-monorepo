@@ -1,4 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
+import { API_BASEURL } from '@/paths'
+import { RootState } from '@/state/store'
+import {
+  selectVeilederBorgerFnr,
+  selectVeilederBorgerEncryptedFnr,
+} from '@/state/userInput/selectors'
+
 import {
   isInntekt,
   isAlderspensjonSimulering,
@@ -11,12 +19,6 @@ import {
   isOmstillingsstoenadOgGjenlevende,
   isLoependeVedtak,
 } from './typeguards'
-import { API_BASEURL } from '@/paths'
-import {
-  selectVeilederBorgerFnr,
-  selectVeilederBorgerEncryptedFnr,
-} from '@/state/userInput/selectors'
-import { RootState } from '@/state/store'
 
 export const apiSlice = createApi({
   reducerPath: 'api',
@@ -60,9 +62,12 @@ export const apiSlice = createApi({
     }),
     getEkskludertStatus: builder.query<EkskludertStatus, void>({
       query: () => '/v2/ekskludert',
-      transformResponse: (response: any) => {
+      transformResponse: (response) => {
         if (!isEkskludertStatus(response)) {
-          throw new Error(`Mottok ugyldig ekskludert response:`, response)
+          throw new Error(
+            `Mottok ugyldig ekskludert response:`,
+            response as ErrorOptions
+          )
         }
         return response
       },
@@ -72,11 +77,11 @@ export const apiSlice = createApi({
       void
     >({
       query: () => '/v1/loepende-omstillingsstoenad-eller-gjenlevendeytelse',
-      transformResponse: (response: any) => {
+      transformResponse: (response) => {
         if (!isOmstillingsstoenadOgGjenlevende(response)) {
           throw new Error(
             `Mottok ugyldig omstillingsstoenad og gjenlevende response:`,
-            response
+            response as ErrorOptions
           )
         }
         return response
@@ -94,9 +99,12 @@ export const apiSlice = createApi({
     }),
     getLoependeVedtak: builder.query<LoependeVedtak, void>({
       query: () => '/v2/vedtak/loepende-vedtak',
-      transformResponse: (response: any) => {
+      transformResponse: (response) => {
         if (!isLoependeVedtak(response)) {
-          throw new Error(`Mottok ugyldig løpende vedtak response:`, response)
+          throw new Error(
+            `Mottok ugyldig løpende vedtak response:`,
+            response as ErrorOptions
+          )
         }
         return response
       },
