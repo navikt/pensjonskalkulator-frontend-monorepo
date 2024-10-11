@@ -35,7 +35,7 @@ export const FrameComponent: React.FC<{
       >
         <div className={styles.headerGroup}>
           <representasjon-banner
-            representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_BEGRENSET"
+            representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_SKRIV,PENSJON_PENGEMOTTAKER,PENSJON_VERGE,PENSJON_VERGE_PENGEMOTTAKER"
             redirectTo={`${window.location.origin}${BASE_PATH}/start`}
             style={{
               marginBottom: 'var(--a-spacing-6)',
