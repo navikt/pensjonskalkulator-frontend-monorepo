@@ -13,6 +13,7 @@ describe('stegvisning - Start', () => {
     ufoeretrygd: {
       grad: 0,
     },
+    harFremtidigLoependeVedtak: false,
   }
 
   it('kaller navigate når shouldRedirectTo er angitt', async () => {
@@ -78,10 +79,12 @@ describe('stegvisning - Start', () => {
           alderspensjon: {
             grad: 50,
             fom: '2020-10-02',
+            myTemporaryFlag: false,
           },
           ufoeretrygd: {
             grad: 0,
           },
+          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -114,10 +117,12 @@ describe('stegvisning - Start', () => {
           alderspensjon: {
             grad: 50,
             fom: '2020-10-02',
+            myTemporaryFlag: false,
           },
           ufoeretrygd: {
             grad: 80,
           },
+          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -153,6 +158,7 @@ describe('stegvisning - Start', () => {
           alderspensjon: {
             grad: 50,
             fom: '2020-10-02',
+            myTemporaryFlag: false,
           },
           ufoeretrygd: {
             grad: 0,
@@ -160,6 +166,7 @@ describe('stegvisning - Start', () => {
           afpPrivat: {
             fom: '2020-10-02',
           },
+          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -195,6 +202,7 @@ describe('stegvisning - Start', () => {
           alderspensjon: {
             grad: 50,
             fom: '2020-10-02',
+            myTemporaryFlag: false,
           },
           ufoeretrygd: {
             grad: 0,
@@ -202,6 +210,7 @@ describe('stegvisning - Start', () => {
           afpOffentlig: {
             fom: '2020-10-02',
           },
+          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}

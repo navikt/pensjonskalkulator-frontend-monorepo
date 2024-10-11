@@ -59,6 +59,7 @@ export const fulfilledGetLoependeVedtakUfoeregrad = {
       ufoeretrygd: {
         grad: 75,
       },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -74,10 +75,12 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
       alderspensjon: {
         grad: 100,
         fom: '2020-10-02',
+        myTemporaryFlag: false,
       },
       ufoeretrygd: {
         grad: 0,
       },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -93,6 +96,7 @@ export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
+        myTemporaryFlag: false,
       },
       ufoeretrygd: {
         grad: 0,
@@ -100,6 +104,7 @@ export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
       afpPrivat: {
         fom: '2020-10-02',
       },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -118,6 +123,7 @@ export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
       afpOffentlig: {
         fom: '2020-10-02',
       },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },

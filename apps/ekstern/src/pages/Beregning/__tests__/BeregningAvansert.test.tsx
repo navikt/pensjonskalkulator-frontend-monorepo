@@ -198,6 +198,7 @@ describe('BeregningAvansert', () => {
                       ufoeretrygd: {
                         grad: 75,
                       },
+                      harFremtidigLoependeVedtak: false,
                     },
                     fulfilledTimeStamp: 1688046412103,
                   },

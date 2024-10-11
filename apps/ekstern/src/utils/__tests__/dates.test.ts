@@ -1,4 +1,4 @@
-import { validateDateEndUserFormat, isVedtakBeforeNow } from '../dates'
+import { validateDateEndUserFormat } from '../dates'
 
 describe('dates-utils', () => {
   describe('validateDateEndUserFormat', () => {
@@ -17,26 +17,6 @@ describe('dates-utils', () => {
     })
     it('returnerer true når datoen har riktig format', () => {
       expect(validateDateEndUserFormat('30.04.1963')).toBeTruthy()
-    })
-  })
-
-  describe('isVedtakBeforeNow', () => {
-    it('returnerer false når datoen er 1 md frem i tid', () => {
-      const date = new Date()
-      expect(
-        isVedtakBeforeNow(new Date(date.setMonth(date.getMonth() + 1)))
-      ).toBeFalsy()
-    })
-
-    it('returnerer true når datoen er samme måned', () => {
-      expect(isVedtakBeforeNow(new Date())).toBeTruthy()
-    })
-
-    it('returnerer true når datoen er i fortid', () => {
-      const date = new Date()
-      expect(
-        isVedtakBeforeNow(new Date(date.setMonth(date.getMonth() - 1)))
-      ).toBeTruthy()
     })
   })
 })

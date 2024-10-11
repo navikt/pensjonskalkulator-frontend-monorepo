@@ -471,6 +471,7 @@ describe('BeregningEnkel', () => {
           ufoeretrygd: {
             grad: 100,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
 

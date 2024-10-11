@@ -153,6 +153,7 @@ describe('EndreInntekt', () => {
           ufoeretrygd: {
             grad: 100,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(

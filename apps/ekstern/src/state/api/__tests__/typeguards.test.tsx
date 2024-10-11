@@ -652,6 +652,7 @@ describe('Typeguards', () => {
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
+        myTemporaryFlag: false,
       },
       ufoeretrygd: {
         grad: 75,
@@ -662,6 +663,7 @@ describe('Typeguards', () => {
       afpOffentlig: {
         fom: '2020-10-02',
       },
+      harFremtidigLoependeVedtak: false,
     }
     it('returnerer true når input er et LoependeVedtak-objekt', () => {
       expect(

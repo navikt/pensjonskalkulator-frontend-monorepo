@@ -617,6 +617,7 @@ describe('routes', () => {
                   ufoeretrygd: {
                     grad: 0,
                   },
+                  harFremtidigLoependeVedtak: false,
                 },
                 startedTimeStamp: 1714725797072,
                 fulfilledTimeStamp: 1714725797669,

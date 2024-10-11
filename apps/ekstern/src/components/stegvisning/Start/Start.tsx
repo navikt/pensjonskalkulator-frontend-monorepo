@@ -4,13 +4,11 @@ import { Link as ReactRouterLink, useNavigate } from 'react-router-dom'
 
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { Alert, BodyLong, Button, Heading, Link } from '@navikt/ds-react'
-import { parse } from 'date-fns'
 
 import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { useGetEndringFeatureToggleQuery } from '@/state/api/apiSlice'
-import { DATE_BACKEND_FORMAT, isVedtakBeforeNow } from '@/utils/dates'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -43,26 +41,13 @@ export function Start({
     }
   }, [shouldRedirectTo])
 
-  const isEndring = React.useMemo(() => {
-    if (!loependeVedtak?.alderspensjon || !loependeVedtak?.alderspensjon.fom) {
-      return false
-    }
-    return isVedtakBeforeNow(
-      parse(
-        loependeVedtak?.alderspensjon.fom as string,
-        DATE_BACKEND_FORMAT,
-        new Date()
-      )
-    )
-  }, [loependeVedtak])
-
   if (shouldRedirectTo) {
     return null
   }
 
   return (
     <>
-      {isEndring && (
+      {loependeVedtak?.alderspensjon && (
         <Alert className={styles.alert} variant="warning" aria-live="polite">
           <FormattedMessage
             id="stegvisning.endring.alert"
@@ -80,7 +65,7 @@ export function Start({
               })}${navnString}`}
             </Heading>
 
-            {isEndring ? (
+            {loependeVedtak?.alderspensjon ? (
               <>
                 <BodyLong size="large">
                   <FormattedMessage
@@ -159,7 +144,9 @@ export function Start({
               </>
             )}
 
-            {(!isEndring || (isEndring && endringFeatureToggle?.enabled)) && (
+            {(!loependeVedtak?.alderspensjon ||
+              (loependeVedtak?.alderspensjon &&
+                endringFeatureToggle?.enabled)) && (
               <Button
                 type="submit"
                 className={styles.button}

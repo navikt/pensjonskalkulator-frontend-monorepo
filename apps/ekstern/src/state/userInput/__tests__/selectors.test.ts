@@ -458,6 +458,19 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
+    it('er true når kallet er vellykket og brukeren har vedtak om løpende alderspensjon', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
+        },
+      }
+
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
     it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon', () => {
       const state: RootState = {
         ...initialState,
@@ -480,81 +493,6 @@ describe('userInput selectors', () => {
         },
       }
       expect(selectIsEndring(state)).toBeFalsy()
-    })
-
-    it('er false når kallet er vellykket og brukeren ikke har noe vedtak dato for alderspensjon', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          queries: {
-            ['getLoependeVedtak(undefined)']: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
-              // @ts-ignore
-              status: 'fulfilled',
-              endpointName: 'getLoependeVedtak',
-              requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-              startedTimeStamp: 1688046411971,
-              data: {
-                alderspensjon: {
-                  grad: 75,
-                },
-              },
-              fulfilledTimeStamp: 1688046412103,
-            },
-          },
-        },
-      }
-      expect(selectIsEndring(state)).toBeFalsy()
-    })
-
-    it('er false når kallet er vellykket og brukeren har vedtak om løpende alderspensjon i fremtid', () => {
-      vi.useFakeTimers()
-
-      const state: RootState = {
-        ...initialState,
-        api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
-        },
-      }
-      // Noen år før vedtak
-      vi.setSystemTime(new Date(2015, 10, 2, 13))
-      expect(selectIsEndring(state)).toBeFalsy()
-
-      // Én måned før vedtak
-      vi.setSystemTime(new Date(2020, 9, 2, 13))
-      expect(selectIsEndring(state)).toBeFalsy()
-
-      vi.useRealTimers()
-    })
-
-    it('er true når kallet er vellykket og brukeren har vedtak om løpende alderspensjon samme måned', () => {
-      vi.useFakeTimers()
-
-      const state: RootState = {
-        ...initialState,
-        api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
-        },
-      }
-      vi.setSystemTime(new Date(2020, 10, 2, 13))
-      expect(selectIsEndring(state)).toBeTruthy()
-      vi.useRealTimers()
-    })
-
-    it('er true når kallet er vellykket og brukeren har vedtak om løpende alderspensjon i fortid', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
-        },
-      }
-      expect(selectIsEndring(state)).toBeTruthy()
     })
 
     it('er true når kallet er vellykket og brukeren har løpende AFP-privat', () => {

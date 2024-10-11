@@ -1353,6 +1353,7 @@ describe('RedigerAvansertBeregning', () => {
           ufoeretrygd: {
             grad: 100,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(
@@ -1446,6 +1447,7 @@ describe('RedigerAvansertBeregning', () => {
           ufoeretrygd: {
             grad: 50,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(
@@ -1539,6 +1541,7 @@ describe('RedigerAvansertBeregning', () => {
           ufoeretrygd: {
             grad: 50,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(
@@ -1601,6 +1604,7 @@ describe('RedigerAvansertBeregning', () => {
           ufoeretrygd: {
             grad: 50,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(
@@ -1659,6 +1663,7 @@ describe('RedigerAvansertBeregning', () => {
           ufoeretrygd: {
             grad: 50,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const user = userEvent.setup()
@@ -1754,6 +1759,7 @@ describe('RedigerAvansertBeregning', () => {
           ufoeretrygd: {
             grad: 50,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const user = userEvent.setup()
@@ -1867,6 +1873,7 @@ describe('RedigerAvansertBeregning', () => {
           ufoeretrygd: {
             grad: 50,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(

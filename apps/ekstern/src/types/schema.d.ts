@@ -15,7 +15,6 @@ export interface paths {
     put?: never
     /**
      * Simuler alderspensjon
-     *
      * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
      */
     post: operations['simulerAlderspensjonV6']
@@ -36,7 +35,6 @@ export interface paths {
     put?: never
     /**
      * Hent pensjonsavtaler (versjon 2)
-     *
      * @description Henter pensjonsavtalene til den innloggede/angitte brukeren. I request må verdi av 'maaneder' være 0..11.
      */
     post: operations['fetchAvtalerV2']
@@ -57,7 +55,6 @@ export interface paths {
     put?: never
     /**
      * Første mulige uttaksalder ved helt uttak
-     *
      * @description Finn første mulige uttaksalder for innlogget bruker ved helt (100 %) uttak. Feltet 'harEps' brukes til å angi om brukeren har ektefelle/partner/samboer eller ei
      */
     post: operations['finnTidligsteHelUttaksalderV1']
@@ -78,7 +75,6 @@ export interface paths {
     put?: never
     /**
      * Første mulige uttaksalder ved gradert uttak
-     *
      * @description Finn første mulige uttaksalder for innlogget bruker ved gradert (20–80 %) uttak. Feltet 'harEps' brukes til å angi om brukeren har ektefelle/partner/samboer eller ei
      */
     post: operations['finnTidligsteGradertUttaksalderV1']
@@ -99,7 +95,6 @@ export interface paths {
     put?: never
     /**
      * Krypter tekst
-     *
      * @description Krypterer angitt tekst (typisk brukstilfelle er for fødselsnumre)
      */
     post: operations['encrypt']
@@ -120,7 +115,6 @@ export interface paths {
     put?: never
     /**
      * Simuler alderspensjon anonymt (ikke innlogget)
-     *
      * @description Lag en prognose for framtidig alderspensjon med støtte for AFP i offentlig sektor. Feltet 'epsHarInntektOver2G' brukes til å angi hvorvidt ektefelle/partner/samboer har inntekt over 2 ganger grunnbeløpet. Dersom simulering med de angitte parametre resulterer i avslag i vilkårsprøvingen, vil responsen inneholde alternative parametre som vil gi et innvilget simuleringsresultat
      */
     post: operations['simulerAnonymAlderspensjonV1']
@@ -139,7 +133,6 @@ export interface paths {
     }
     /**
      * Har løpende vedtak
-     *
      * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
      */
     get: operations['hentLoependeVedtakV2']
@@ -160,7 +153,6 @@ export interface paths {
     }
     /**
      * Hent personinformasjon
-     *
      * @description Henter personinformasjon om den innloggede brukeren.
      */
     get: operations['personV2']
@@ -181,7 +173,6 @@ export interface paths {
     }
     /**
      * Om personen er ekskludert fra å bruke kalkulatoren
-     *
      * @description Eksludering kan skyldes medlemskap i Apotekerforeningen
      */
     get: operations['erEkskludertV2']
@@ -202,7 +193,6 @@ export interface paths {
     }
     /**
      * Har løpende vedtak
-     *
      * @description Hvorvidt den innloggede brukeren har løpende uføretrygd med uttaksgrad, alderspensjon med uttaksgrad, AFP i privat eller offentlig sektor
      */
     get: operations['hentLoependeVedtakV1']
@@ -223,7 +213,6 @@ export interface paths {
     }
     /**
      * Hente gjeldende uføregrad
-     *
      * @description Hente gjeldende uføregrad fra løpende vedtak om uføretrygd om det finnes
      */
     get: operations['hentUfoeregrad']
@@ -244,7 +233,6 @@ export interface paths {
     }
     /**
      * Hent medlemskap i offentlige tjenestepensjonsordninger
-     *
      * @description Henter både aktive og inaktive medlemskap til brukeren i offentlige tjenestepensjonsordninger
      */
     get: operations['hentMedlemskapITjenestepensjonsordninger']
@@ -265,7 +253,6 @@ export interface paths {
     }
     /**
      * Mottar omstillingsstønad eller gjenlevende ytelse
-     *
      * @description Hvorvidt den innloggede brukeren mottar omstillingsstønad eller gjenlevende ytelse
      */
     get: operations['mottarOmstillingsstoenadEllerGjenlevendeYtelse']
@@ -286,7 +273,6 @@ export interface paths {
     }
     /**
      * Hent land-liste
-     *
      * @description Henter liste over land med navn og status som avtaleland. Denne tjenesten er åpen - krever ikke autentisering.
      */
     get: operations['landListe']
@@ -307,7 +293,6 @@ export interface paths {
     }
     /**
      * Om personen er ekskludert fra å bruke kalkulatoren
-     *
      * @description Eksludering kan skyldes løpende uføretrygd, gjenlevendeytelse eller medlemskap i Apotekerforeningen
      */
     get: operations['erEkskludertV1']
@@ -328,7 +313,6 @@ export interface paths {
     }
     /**
      * Hent ansatt-ID
-     *
      * @description Henter informasjon som identifiserer den innloggede ansatte.
      */
     get: operations['ansattId']
@@ -349,7 +333,6 @@ export interface paths {
     }
     /**
      * Har offentlig tjenestepensjonsforhold
-     *
      * @description Hvorvidt den innloggede brukeren har offentlig tjenestepensjonsforhold
      */
     get: operations['harTjenestepensjonsforhold']
@@ -370,7 +353,6 @@ export interface paths {
     }
     /**
      * Sjekk status
-     *
      * @description Hent status for applikasjonens helsetilstand
      */
     get: operations['status']
@@ -391,7 +373,6 @@ export interface paths {
     }
     /**
      * Har uføretrygd/gjenlevendeytelse
-     *
      * @description Hvorvidt den innloggede brukeren har løpende uføretrygd eller gjenlevendeytelse
      */
     get: operations['harRelevantSak']
@@ -412,7 +393,6 @@ export interface paths {
     }
     /**
      * Siste pensjonsgivende inntekt
-     *
      * @description Henter den innloggede brukerens sist skattelignede pensjonsgivende inntekt
      */
     get: operations['sistePensjonsgivendeInntekt']
@@ -433,7 +413,6 @@ export interface paths {
     }
     /**
      * Hvorvidt en gitt funksjonsbryter er skrudd på
-     *
      * @description Hent status for en gitt funksjonsbryter (hvorvidt funksjonen er skrudd på)
      */
     get: operations['isEnabled']
@@ -810,7 +789,9 @@ export interface components {
       /** Format: int32 */
       grad: number
       /** Format: date */
-      fom?: string
+      fom: string
+      sisteUtbetaling?: components['schemas']['UtbetalingSisteMaanedV2']
+      myTemporaryFlag: boolean
     }
     LoependeFraV2: {
       /** Format: date */
@@ -818,6 +799,7 @@ export interface components {
     }
     LoependeVedtakV2: {
       alderspensjon?: components['schemas']['AlderspensjonDetaljerV2']
+      harFremtidigLoependeVedtak: boolean
       ufoeretrygd: components['schemas']['UfoeretrygdDetaljerV2']
       afpPrivat?: components['schemas']['LoependeFraV2']
       afpOffentlig?: components['schemas']['LoependeFraV2']
@@ -825,6 +807,12 @@ export interface components {
     UfoeretrygdDetaljerV2: {
       /** Format: int32 */
       grad: number
+    }
+    UtbetalingSisteMaanedV2: {
+      /** Format: int32 */
+      beloep: number
+      /** Format: date */
+      utbetalingsdato: string
     }
     PersonV2: {
       navn: string

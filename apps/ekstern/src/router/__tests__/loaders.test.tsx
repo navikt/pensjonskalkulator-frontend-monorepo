@@ -617,10 +617,12 @@ describe('Loaders', () => {
           alderspensjon: {
             grad: 50,
             fom: '2020-10-02',
+            myTemporaryFlag: false,
           },
           ufoeretrygd: {
             grad: 0,
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const flushSamboerOgUtenlandsperioderMock = vi.spyOn(
@@ -655,6 +657,7 @@ describe('Loaders', () => {
           alderspensjon: {
             grad: 0,
             fom: '2020-10-02',
+            myTemporaryFlag: false,
           },
           ufoeretrygd: {
             grad: 0,
@@ -662,6 +665,7 @@ describe('Loaders', () => {
           afpPrivat: {
             fom: '2020-10-02',
           },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const flushSamboerOgUtenlandsperioderMock = vi.spyOn(
@@ -973,6 +977,7 @@ describe('Loaders', () => {
                 ufoeretrygd: {
                   grad: 50,
                 },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1001,6 +1006,7 @@ describe('Loaders', () => {
                 ufoeretrygd: {
                   grad: 50,
                 },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1072,6 +1078,7 @@ describe('Loaders', () => {
                 ufoeretrygd: {
                   grad: 0,
                 },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1100,6 +1107,7 @@ describe('Loaders', () => {
                 ufoeretrygd: {
                   grad: 50,
                 },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1129,6 +1137,7 @@ describe('Loaders', () => {
                 ufoeretrygd: {
                   grad: 0,
                 },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,

@@ -8,10 +8,7 @@ import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
-import {
-  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetLoependeVedtakQuery,
-} from '@/state/api/apiSlice'
+import { useGetHighchartsAccessibilityPluginFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
@@ -46,7 +43,6 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
 
   const { data: highchartsAccessibilityFeatureToggle } =
     useGetHighchartsAccessibilityPluginFeatureToggleQuery()
-  const { data: loependeVedtak } = useGetLoependeVedtakQuery()
 
   const isEndring = useAppSelector(selectIsEndring)
 

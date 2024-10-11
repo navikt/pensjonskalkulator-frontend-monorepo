@@ -1,10 +1,8 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { parse } from 'date-fns'
 
 import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
-import { DATE_BACKEND_FORMAT, isVedtakBeforeNow } from '@/utils/dates'
 import { formatInntekt } from '@/utils/inntekt'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
@@ -130,22 +128,7 @@ export const selectUfoeregrad = createSelector(
 export const selectIsEndring = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    if (
-      !apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.alderspensjon ||
-      !apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.alderspensjon.fom
-    ) {
-      return false
-    }
-
-    return isVedtakBeforeNow(
-      parse(
-        apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-          ?.alderspensjon.fom as string,
-        DATE_BACKEND_FORMAT,
-        new Date()
-      )
-    )
+    return !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+      ?.alderspensjon
   }
 )
