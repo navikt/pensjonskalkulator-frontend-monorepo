@@ -49,7 +49,10 @@ describe('RedigerAvansertBeregning', () => {
           ...contextMockedValues,
         }}
       >
-        <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        <RedigerAvansertBeregning
+          gaaTilResultat={vi.fn()}
+          brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
+        />
       </BeregningContext.Provider>
     )
     expect(
@@ -89,14 +92,30 @@ describe('RedigerAvansertBeregning', () => {
     ).not.toBeInTheDocument()
 
     // Fyller inn uttaksalder og grad slik at RadioGroup vises
+    const selectAarElement = screen.getByTestId(
+      `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+    )
+    const optionAarElements = selectAarElement?.querySelectorAll('option')
+    expect(optionAarElements?.[0].value).toBe('')
+    expect(optionAarElements?.[1].value).toBe('64')
+
     fireEvent.change(
       screen.getByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
       ),
       {
-        target: { value: '65' },
+        target: { value: '64' },
       }
     )
+
+    const selectMaanederElement = screen.getByTestId(
+      `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+    )
+    const optionMaanederElements =
+      selectMaanederElement?.querySelectorAll('option')
+    expect(optionMaanederElements?.[0].value).toBe('')
+    expect(optionMaanederElements?.[1].value).toBe('5')
+
     fireEvent.change(
       screen.getByTestId(
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
@@ -141,6 +160,54 @@ describe('RedigerAvansertBeregning', () => {
         `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
       )
     ).toBeVisible()
+    const selectAarElement2 = screen.getByTestId(
+      `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+    )
+    const optionAarElements2 = selectAarElement2?.querySelectorAll('option')
+    expect(optionAarElements2?.[0].value).toBe('')
+    expect(optionAarElements2?.[1].value).toBe('64')
+
+    fireEvent.change(
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      ),
+      {
+        target: { value: '64' },
+      }
+    )
+
+    const selectMaanederElement2 = screen.getByTestId(
+      `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+    )
+    const optionMaanederElements2 =
+      selectMaanederElement2?.querySelectorAll('option')
+    expect(optionMaanederElements2?.[0].value).toBe('')
+    expect(optionMaanederElements2?.[1].value).toBe('5')
+
+    const selectAarElement3 = screen.getByTestId(
+      `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
+    )
+    const optionAarElements3 = selectAarElement3?.querySelectorAll('option')
+    expect(optionAarElements3?.[0].value).toBe('')
+    expect(optionAarElements3?.[1].value).toBe('64')
+
+    fireEvent.change(
+      screen.getByTestId(
+        `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-aar`
+      ),
+      {
+        target: { value: '64' },
+      }
+    )
+
+    const selectMaanederElement3 = screen.getByTestId(
+      `age-picker-${AVANSERT_FORM_NAMES.uttaksalderGradertUttak}-maaneder`
+    )
+    const optionMaanederElements3 =
+      selectMaanederElement3?.querySelectorAll('option')
+    expect(optionMaanederElements3?.[0].value).toBe('')
+    expect(optionMaanederElements3?.[1].value).toBe('5')
+
     expect(
       screen.queryByTestId(AVANSERT_FORM_NAMES.inntektVsaGradertUttak)
     ).not.toBeInTheDocument()
@@ -979,6 +1046,7 @@ describe('RedigerAvansertBeregning', () => {
         localInntektFremTilUttak: null,
       })
     })
+
     it('oppdaterer uttaksgrad uten å nullstille uttaksaldere når grad endres fra en verdi lavere enn 100 % til en annen verdi lavere enn 100 %', async () => {
       const user = userEvent.setup()
       render(
@@ -1126,6 +1194,7 @@ describe('RedigerAvansertBeregning', () => {
         ).value
       ).toBe('100 000')
     })
+
     it('når uttaksgrad er ugyldig, håndteres den som om den var 100% og nullstiller feltene for gradert', async () => {
       const onSubmitMock = vi.spyOn(
         RedigerAvansertBeregningUtils,
@@ -1276,7 +1345,7 @@ describe('RedigerAvansertBeregning', () => {
   })
 
   describe('Gitt at en bruker mottar 100 % uføretrygd', () => {
-    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubentinget uttaksalderen', async () => {
+    it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubetinget uttaksalderen', async () => {
       const user = userEvent.setup()
       mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
@@ -1385,7 +1454,10 @@ describe('RedigerAvansertBeregning', () => {
             ...contextMockedValues,
           }}
         >
-          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+          <RedigerAvansertBeregning
+            gaaTilResultat={vi.fn()}
+            brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
+          />
         </BeregningContext.Provider>
       )
       await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
@@ -1413,8 +1485,8 @@ describe('RedigerAvansertBeregning', () => {
       )
       const optionAarElements = selectAarElement?.querySelectorAll('option')
       expect(optionAarElements?.[0].value).toBe('')
-      expect(optionAarElements?.[1].value).toBe('62')
-      expect(optionAarElements?.[14].value).toBe('75')
+      expect(optionAarElements?.[1].value).toBe('64')
+      expect(optionAarElements?.[12].value).toBe('75')
 
       // Fyller ut uttaksalder
       fireEvent.change(
@@ -1456,8 +1528,8 @@ describe('RedigerAvansertBeregning', () => {
       const optionAarElementsGradert =
         selectAarElementGradert?.querySelectorAll('option')
       expect(optionAarElementsGradert?.[0].value).toBe('')
-      expect(optionAarElementsGradert?.[1].value).toBe('62')
-      expect(optionAarElementsGradert?.[14].value).toBe('75')
+      expect(optionAarElementsGradert?.[1].value).toBe('64')
+      expect(optionAarElementsGradert?.[12].value).toBe('75')
     })
 
     it('vises ekstra informasjon om inntekt vsa pensjon og gradertuføretrygd når brukeren velger en alder før ubetinget uttaksalderen', async () => {

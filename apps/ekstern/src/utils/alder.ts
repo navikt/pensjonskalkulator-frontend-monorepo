@@ -1,9 +1,18 @@
 import { IntlShape } from 'react-intl'
 
-import { format, isBefore, isSameDay, startOfMonth } from 'date-fns'
+import {
+  differenceInYears,
+  differenceInMonths,
+  endOfDay,
+  format,
+  isBefore,
+  isSameDay,
+  parse,
+  startOfMonth,
+} from 'date-fns'
 import { nb, nn, enGB } from 'date-fns/locale'
 
-import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
+import { DATE_ENDUSER_FORMAT, DATE_BACKEND_FORMAT } from '@/utils/dates'
 
 export const DEFAULT_TIDLIGST_UTTAKSALDER: Alder = {
   aar: 62,
@@ -112,6 +121,16 @@ export const getAlderMinus1Maaned = (alder: Alder) => {
         maaneder: alder.maaneder - 1,
       }
     : { aar: alder.aar - 1, maaneder: 11 }
+}
+
+export const transformFoedselsdatoToAlder = (foedselsdato: string): Alder => {
+  const birtdateJs = startOfMonth(
+    parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
+  )
+  const currentDate = endOfDay(new Date())
+  const aar = differenceInYears(currentDate, birtdateJs)
+  const maaneder = differenceInMonths(currentDate, birtdateJs) % 12
+  return getAlderMinus1Maaned({ aar, maaneder })
 }
 
 export const transformUttaksalderToDate = (
