@@ -791,7 +791,6 @@ export interface components {
       /** Format: date */
       fom: string
       sisteUtbetaling?: components['schemas']['UtbetalingSisteMaanedV2']
-      myTemporaryFlag: boolean
     }
     LoependeFraV2: {
       /** Format: date */

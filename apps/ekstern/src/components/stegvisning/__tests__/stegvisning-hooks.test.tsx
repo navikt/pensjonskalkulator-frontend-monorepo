@@ -70,7 +70,6 @@ describe('stegvisning - hooks', () => {
                   alderspensjon: {
                     grad: 50,
                     fom: '2020-10-02',
-                    myTemporaryFlag: false,
                   },
                   ufoeretrygd: {
                     grad: 0,

@@ -75,7 +75,6 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
       alderspensjon: {
         grad: 100,
         fom: '2020-10-02',
-        myTemporaryFlag: false,
       },
       ufoeretrygd: {
         grad: 0,
@@ -96,7 +95,6 @@ export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
-        myTemporaryFlag: false,
       },
       ufoeretrygd: {
         grad: 0,

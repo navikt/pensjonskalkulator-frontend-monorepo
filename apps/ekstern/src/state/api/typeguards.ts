@@ -195,7 +195,6 @@ export const isOmstillingsstoenadOgGjenlevende = (
     typeof data.harLoependeSak === 'boolean'
   )
 }
-// TODO: legge til sjekk på sisteUtbetaling og rename myTemporaryFlag
 export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
   if (data === null || data === undefined || data.ufoeretrygd === null) {
     return false
@@ -215,10 +214,6 @@ export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
       (data.alderspensjon &&
         data.alderspensjon.fom &&
         typeof data.alderspensjon.fom === 'string')) &&
-    (!data.alderspensjon ||
-      (data.alderspensjon &&
-        data.alderspensjon.myTemporaryFlag !== undefined &&
-        typeof data.alderspensjon.myTemporaryFlag === 'boolean')) &&
     (!data.afpPrivat ||
       (data.afpPrivat &&
         typeof data.afpPrivat === 'object' &&

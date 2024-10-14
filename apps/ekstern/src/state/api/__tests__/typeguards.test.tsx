@@ -652,7 +652,6 @@ describe('Typeguards', () => {
       alderspensjon: {
         grad: 0,
         fom: '2020-10-02',
-        myTemporaryFlag: false,
       },
       ufoeretrygd: {
         grad: 75,
