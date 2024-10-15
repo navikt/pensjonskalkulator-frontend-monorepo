@@ -223,7 +223,7 @@ describe('RedigerAvansertBeregning', () => {
     ).toBeVisible()
   })
 
-  it('readmore med tilleggsinformasjon til bruker vises riktig', async () => {
+  it('Readmore med tilleggsinformasjon til bruker vises riktig', async () => {
     const user = userEvent.setup()
     render(
       <BeregningContext.Provider
@@ -269,7 +269,7 @@ describe('RedigerAvansertBeregning', () => {
     ).toBeVisible()
   })
 
-  it('når alle feltene fylles ut og resetForm kalles, nullstilles det alle feltene', async () => {
+  it('Når alle feltene fylles ut og resetForm kalles, nullstilles det alle feltene', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <BeregningContext.Provider
@@ -526,7 +526,7 @@ describe('RedigerAvansertBeregning', () => {
     ).not.toBeChecked()
   })
 
-  it('når alle feltene for 100 % uttak fylles ut og at radioknappen for inntekt endres til nei, skjules det inntekt og sluttAlder', async () => {
+  it('Når alle feltene for 100 % uttak fylles ut og at radioknappen for inntekt endres til nei, skjules det inntekt og sluttAlder', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <BeregningContext.Provider
@@ -605,7 +605,7 @@ describe('RedigerAvansertBeregning', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('når alle feltene for gradert uttak fylles ut og at radioknappen for inntekt endres til nei, skjules det inputfeltet for inntekt', async () => {
+  it('Når alle feltene for gradert uttak fylles ut og at radioknappen for inntekt endres til nei, skjules det inputfeltet for inntekt', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <BeregningContext.Provider
@@ -715,7 +715,7 @@ describe('RedigerAvansertBeregning', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('når feltene for 100 % uttak fylles ut og uttaksalder endres til en alder større enn sluttAlder for inntekt, nullstilles det sluttAlder feltet', async () => {
+  it('Når feltene for 100 % uttak fylles ut og uttaksalder endres til en alder større enn sluttAlder for inntekt, nullstilles det sluttAlder feltet', async () => {
     const user = userEvent.setup()
     const { store } = render(
       <BeregningContext.Provider
@@ -831,7 +831,7 @@ describe('RedigerAvansertBeregning', () => {
     ).toHaveValue('123 000')
   })
 
-  describe('Når uttaksgrad endres', () => {
+  describe('Når uttaksgrad endres,', () => {
     it('overfører uttaksalder til gradert uttak når en grad lavere enn 100 % oppgis', async () => {
       render(
         <BeregningContext.Provider
@@ -1041,7 +1041,7 @@ describe('RedigerAvansertBeregning', () => {
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
         harAvansertSkjemaUnsavedChanges: false,
-        ufoeregrad: undefined,
+        ufoeregrad: 0,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
       })
@@ -1195,7 +1195,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBe('100 000')
     })
 
-    it('når uttaksgrad er ugyldig, håndteres den som om den var 100% og nullstiller feltene for gradert', async () => {
+    it('Når uttaksgrad er ugyldig, håndteres den som om den var 100% og nullstiller feltene for gradert', async () => {
       const onSubmitMock = vi.spyOn(
         RedigerAvansertBeregningUtils,
         'onAvansertBeregningSubmit'
@@ -1337,7 +1337,7 @@ describe('RedigerAvansertBeregning', () => {
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
         harAvansertSkjemaUnsavedChanges: false,
-        ufoeregrad: undefined,
+        ufoeregrad: 0,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
       })
@@ -1597,7 +1597,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeInTheDocument()
     })
 
-    it('når brukeren velger en alder før ubetinget uttaksalderen, begrenses valgene for uttaksgrad basert på uføregraden', async () => {
+    it('Når brukeren velger en alder før ubetinget uttaksalderen, begrenses valgene for uttaksgrad basert på uføregraden', async () => {
       mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
@@ -1656,7 +1656,7 @@ describe('RedigerAvansertBeregning', () => {
       expect(optionOppdatertUttaksgradElements?.length).toBe(4)
     })
 
-    it('når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
+    it('Når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
@@ -1752,7 +1752,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
+    it('Når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
@@ -1866,7 +1866,7 @@ describe('RedigerAvansertBeregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
+    it('Når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
       mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
@@ -2192,6 +2192,161 @@ describe('RedigerAvansertBeregning', () => {
       expect(
         screen.getByText('beregning.vilkaarsproeving.intro', { exact: false })
       ).toBeVisible()
+    })
+  })
+
+  describe('Gitt at en bruker har vedtak om alderspensjon', () => {
+    it('vises informasjon om vedtaket', async () => {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: { grad: 100, fom: '2020-12-01' },
+          ufoeretrygd: {
+            grad: 0,
+          },
+          harFremtidigLoependeVedtak: false,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning
+            gaaTilResultat={vi.fn()}
+            brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
+          />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+      expect(
+        await screen.findByText('beregning.endring.rediger.title')
+      ).toBeVisible()
+      expect(
+        await screen.findByText(
+          'Fra 01.12.2020 har du mottatt 100 % alderspensjon.'
+        )
+      ).toBeVisible()
+    })
+
+    it('vises det riktig label på feltene', async () => {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: { grad: 100, fom: '2020-12-01' },
+          ufoeretrygd: {
+            grad: 0,
+          },
+          harFremtidigLoependeVedtak: false,
+        },
+      })
+      const { store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning
+            gaaTilResultat={vi.fn()}
+            brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
+          />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.inntekt_frem_til_endring.label'
+        )
+      ).toBeVisible()
+      expect(
+        screen.queryByText(
+          'beregning.avansert.rediger.inntekt_frem_til_uttak.label'
+        )
+      ).not.toBeInTheDocument()
+
+      expect(
+        await screen.findByText('velguttaksalder.endring.title')
+      ).toBeVisible()
+      expect(
+        screen.queryByText('velguttaksalder.title')
+      ).not.toBeInTheDocument()
+
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.uttaksgrad.endring.description'
+        )
+      ).toBeVisible()
+      expect(
+        screen.queryByText('beregning.avansert.rediger.uttaksgrad.description')
+      ).not.toBeInTheDocument()
+
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.endring.body'
+        )
+      ).toBeVisible()
+      expect(
+        screen.queryByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.body'
+        )
+      ).not.toBeInTheDocument()
+    })
+
+    it('Når brukeren har gradert uføretrygd, vises det riktig label på feltene', async () => {
+      const user = userEvent.setup()
+
+      mockResponse('/v2/vedtak/loepende-vedtak', {
+        status: 200,
+        json: {
+          alderspensjon: { grad: 100, fom: '2020-12-01' },
+          ufoeretrygd: {
+            grad: 40,
+          },
+          harFremtidigLoependeVedtak: false,
+        },
+      })
+      const { asFragment, store } = render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning
+            gaaTilResultat={vi.fn()}
+            brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
+          />
+        </BeregningContext.Provider>
+      )
+      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+      expect(
+        await screen.findByText(
+          'beregning.avansert.rediger.inntekt_frem_til_endring.label'
+        )
+      ).toBeVisible()
+      expect(asFragment()).toMatchSnapshot()
+      await user.click(
+        await screen.findByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
+        )
+      )
+      expect(await screen.findByTestId('om-uttaksgrad')).toMatchInlineSnapshot(`
+        <p
+          class="navds-body-long navds-body-long--medium"
+          data-testid="om-uttaksgrad"
+        >
+          Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).
+          <br />
+          <br />
+          Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til 0 % når du vil.
+        </p>
+      `)
+
+      expect(
+        screen.queryByText(
+          'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
+        )
+      ).not.toBeInTheDocument()
     })
   })
 })

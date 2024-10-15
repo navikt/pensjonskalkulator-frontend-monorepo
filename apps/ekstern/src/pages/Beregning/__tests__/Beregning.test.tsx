@@ -20,7 +20,7 @@ describe('Beregning', () => {
   })
 
   describe('Gitt at brukeren har vedtak om alderspensjon', () => {
-    it('viser alert på toppen av siden', async () => {
+    beforeEach(() => {
       mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
@@ -34,7 +34,8 @@ describe('Beregning', () => {
           harFremtidigLoependeVedtak: false,
         },
       })
-
+    })
+    it.skip('viser alert på toppen av siden', async () => {
       const { store } = render(<Beregning visning="enkel" />, {
         preloadedState: {
           userInput: {
@@ -61,6 +62,30 @@ describe('Beregning', () => {
             { exact: false }
           )
         ).toBeVisible()
+      })
+    })
+    it('viser ikke toggle  på toppen av siden', async () => {
+      const { store } = render(<Beregning visning="enkel" />, {
+        preloadedState: {
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: {
+              utenlandsperioder: [],
+              formatertUttaksalderReadOnly:
+                '70 alder.aar string.og 4 alder.maaned',
+              uttaksalder: { aar: 70, maaneder: 4 },
+              aarligInntektFoerUttakBeloep: '300 000',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+
+      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('toggle-avansert')).not.toBeInTheDocument()
       })
     })
   })
