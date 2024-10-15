@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, expect, it, vi } from 'vitest'
 
+import alderspensjonResponse from '../../../mocks/data/alderspensjon/68.json' with { type: 'json' }
 import { BeregningEnkel } from '../BeregningEnkel'
 import {
   fulfilledGetInntekt,
@@ -15,8 +16,6 @@ import { RouteErrorBoundary } from '@/router/RouteErrorBoundary'
 import * as apiSliceUtils from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { render, screen, userEvent, waitFor } from '@/test-utils'
-
-const alderspensjonResponse = require('../../../mocks/data/alderspensjon/68.json')
 
 describe('BeregningEnkel', () => {
   describe('Gitt at en bruker ikke mottar uføretrygd', () => {
@@ -125,45 +124,90 @@ describe('BeregningEnkel', () => {
       expect(screen.queryByTestId('om-ufoeretrygd')).not.toBeInTheDocument()
     })
 
-    it('når kallet til TMU feiler, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
-      mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
-        method: 'post',
+    describe('Når kallet til TMU feiler,', () => {
+      beforeEach(() => {
+        mockErrorResponse('/v1/tidligste-hel-uttaksalder', {
+          method: 'post',
+        })
+        mockResponse('/v6/alderspensjon/simulering', {
+          status: 200,
+          method: 'post',
+          json: {
+            ...alderspensjonResponse,
+          },
+        })
       })
-      mockResponse('/v6/alderspensjon/simulering', {
-        status: 200,
-        method: 'post',
-        json: {
-          ...alderspensjonResponse,
-        },
-      })
-      render(<BeregningEnkel />, {
-        preloadedState: {
-          api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              ...fulfilledGetInntekt,
+      it('hvis brukeren er yngre enn 62 ved uttak, viser det feilmelding og alle knappene fra 62 år. Resten av siden er som vanlig', async () => {
+        render(<BeregningEnkel />, {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              samboer: false,
             },
           },
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            samboer: false,
-          },
-        },
+        })
+
+        expect(
+          await screen.findByText('tidligstmuliguttak.error')
+        ).toBeInTheDocument()
+
+        expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+        const buttons = screen.getAllByRole('button')
+        expect(buttons).toHaveLength(15)
+        expect(buttons[1]).toHaveTextContent('62 alder.aar')
       })
 
-      expect(
-        await screen.findByText('tidligstmuliguttak.error')
-      ).toBeInTheDocument()
+      it('hvis brukeren er 62 år eller mer ved uttak viser det feilmelding og alle knappene fra brukerens alder + 1 år. Resten av siden er som vanlig', async () => {
+        vi.setSystemTime(new Date('2027-09-16'))
 
-      expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(15)
+        render(<BeregningEnkel />, {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+                ...fulfilledGetInntekt,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              samboer: false,
+            },
+          },
+        })
+
+        expect(
+          await screen.findByText('tidligstmuliguttak.error')
+        ).toBeInTheDocument()
+
+        expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
+        const buttons = screen.getAllByRole('button')
+        expect(buttons).toHaveLength(13)
+        expect(buttons[1]).toHaveTextContent(
+          '64 alder.aar string.og 5 alder.md'
+        )
+        vi.setSystemTime(new Date())
+        vi.useRealTimers()
+      })
     })
   })
 
   describe('Gitt at en bruker mottar uføretrygd', () => {
+    beforeEach(() => {
+      vi.setSystemTime(new Date())
+      vi.useRealTimers()
+    })
     it('hentes det ikke tidligst mulig uttaksalder', async () => {
       const initiateMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.tidligstMuligHeltUttak,
@@ -561,7 +605,7 @@ describe('BeregningEnkel', () => {
         expect(screen.queryByText('grunnlag.title')).not.toBeInTheDocument()
       })
       await user.click(await screen.findByText('application.global.retry'))
-      expect(initiateMock).toHaveBeenCalledTimes(2)
+      expect(initiateMock).toHaveBeenCalledTimes(3)
       expect(screen.queryByText('beregning.tabell.vis')).not.toBeInTheDocument()
     })
 
