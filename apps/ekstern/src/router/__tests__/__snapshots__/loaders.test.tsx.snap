@@ -2,6 +2,9 @@
 
 exports[`Loaders > stepAFPAccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
 Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
@@ -24,12 +27,30 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {},
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "Location",
+          "value": "/start",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
 }
 `;
 
 exports[`Loaders > stepSamtykkeOffentligAFPAccessGuard > Når brukeren har uføretrygd og har valgt ja_offentlig til spørsmål om afp, er hen redirigert 1`] = `
 Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
@@ -52,12 +73,30 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {},
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "Location",
+          "value": "/samtykke",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
 }
 `;
 
 exports[`Loaders > stepSamtykkeOffentligAFPAccessGuard > Når brukeren ikke har uføretrygd og har valgt afp nei, er hen redirigert 1`] = `
 Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
@@ -80,12 +119,30 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {},
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "Location",
+          "value": "/samtykke",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
 }
 `;
 
 exports[`Loaders > stepSamtykkeOffentligAFPAccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
 Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
@@ -108,12 +165,30 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {},
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "Location",
+          "value": "/start",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
 }
 `;
 
 exports[`Loaders > stepSivilstandAccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
 Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
@@ -136,7 +211,22 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {},
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "Location",
+          "value": "/start",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
 }
 `;
 
@@ -167,6 +257,9 @@ DeferredData {
 
 exports[`Loaders > stepUfoeretrygdAFPAccessGuard > Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert 1`] = `
 Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
@@ -189,12 +282,30 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {},
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "Location",
+          "value": "/samtykke-offentlig-afp",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
 }
 `;
 
 exports[`Loaders > stepUfoeretrygdAFPAccessGuard > Når brukeren ikke har uføretrygd, er hen redirigert 1`] = `
 Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
@@ -217,12 +328,30 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {},
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "Location",
+          "value": "/samtykke-offentlig-afp",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
 }
 `;
 
 exports[`Loaders > stepUfoeretrygdAFPAccessGuard > returnerer redirect til /start location når ingen api kall er registrert 1`] = `
 Response {
+  Symbol(realm): {
+    "settingsObject": {},
+  },
   Symbol(state): {
     "aborted": false,
     "cacheState": "",
@@ -245,6 +374,21 @@ Response {
     "type": "default",
     "urlList": [],
   },
-  Symbol(headers): Headers {},
+  Symbol(headers): Headers {
+    Symbol(headers list): HeadersList {
+      "cookies": null,
+      Symbol(headers map): Map {
+        "location" => {
+          "name": "Location",
+          "value": "/start",
+        },
+      },
+      Symbol(headers map sorted): null,
+    },
+    Symbol(guard): "response",
+    Symbol(realm): {
+      "settingsObject": {},
+    },
+  },
 }
 `;
