@@ -18,6 +18,7 @@ import {
   selectIsVeileder,
   selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
+  selectLoependeVedtak,
   selectUfoeregrad,
   selectIsEndring,
 } from '../selectors'
@@ -433,8 +434,34 @@ describe('userInput selectors', () => {
     })
   })
 
+  describe('selectLoependeVedtak', () => {
+    it('er undefined når loepende vedtak ikke er kalt enda', () => {
+      const state: RootState = initialState
+      expect(selectLoependeVedtak(state)).toBeUndefined()
+    })
+
+    it('returnerer vedtaket når kallet er vellykket', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+        },
+      }
+      expect(selectLoependeVedtak(state)).toMatchInlineSnapshot(`
+        {
+          "harFremtidigLoependeVedtak": false,
+          "ufoeretrygd": {
+            "grad": 75,
+          },
+        }
+      `)
+    })
+  })
+
   describe('selectUfoeregrad', () => {
-    it('er undefined når ufoeregrad ikke er kalt enda', () => {
+    it('er undefined når loepende vedtak ikke er kalt enda', () => {
       const state: RootState = initialState
       expect(selectUfoeregrad(state)).toBeUndefined()
     })

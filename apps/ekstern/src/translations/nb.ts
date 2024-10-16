@@ -484,6 +484,8 @@ const translations = {
     'Hvis du går ut av Avansert, mister du alle valgene dine.',
   'beregning.avansert.avbryt_modal.button.avslutt': 'Gå ut av Avansert',
   'beregning.avansert.avbryt_modal.button.avbryt': 'Avbryt',
+  'beregning.endring.alert.uttaksdato':
+    'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra {dato}.',
   'beregning.endring.rediger.title': 'Beregn endring av alderspensjon',
   'beregning.endring.rediger.vedtak_status':
     'Fra {dato} har du mottatt {grad} % alderspensjon.',
