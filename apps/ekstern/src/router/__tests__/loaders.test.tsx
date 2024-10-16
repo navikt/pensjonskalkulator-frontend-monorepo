@@ -232,6 +232,30 @@ describe('Loaders', () => {
       )
     })
 
+    it('Når bruker feiler /person kall med 403 status redirigeres brukes til ingen-tilgang', async () => {
+      mockErrorResponse('/v2/person', {
+        status: 403,
+      })
+
+      const mockedState = {
+        userInput: { ...userInputInitialState },
+      }
+      store.getState = vi.fn().mockImplementation(() => {
+        return mockedState
+      })
+      const returnedFromLoader = await stepStartAccessGuard()
+      await returnedFromLoader.data.getPersonQuery
+
+      const shouldRedirectToResponse =
+        await returnedFromLoader.data.shouldRedirectTo
+
+      console.log('data from loader', returnedFromLoader.data)
+
+      await waitFor(async () => {
+        expect(shouldRedirectToResponse).toEqual(paths.ingenTilgang)
+      })
+    })
+
     it('Når brukeren har bruker har medlemskap til apoterkerne, returneres det riktig redirect url', async () => {
       mockResponse('/v2/ekskludert', {
         json: {

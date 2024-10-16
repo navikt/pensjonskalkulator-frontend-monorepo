@@ -46,7 +46,10 @@ export const mockErrorResponse = (
 
   server.use(
     http[method](`${baseUrl}${path}`, async () => {
-      return HttpResponse.text('lorem ipsum dolor sit amet', { status })
+      return HttpResponse.json(
+        { data: 'lorem ipsum dolor sit amet' },
+        { status }
+      )
     })
   )
 }

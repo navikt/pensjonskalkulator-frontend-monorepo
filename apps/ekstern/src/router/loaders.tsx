@@ -133,19 +133,8 @@ export function stepStartDeferredLoader<
 }
 
 export const stepStartAccessGuard = async () => {
-  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
-
-  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
-    resolveRedirectUrl = resolve
-  })
-
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   getPersonQuery.then((res) => {
-    // Håndtere at bruker ikke har tilgang (inntreffer for fullmakt)
-    if (res.isError && (res.error as FetchBaseQueryError).status === 403) {
-      resolveRedirectUrl(paths.ingenTilgang)
-    }
-
     if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
       window.open(externalUrls.detaljertKalkulator, '_self')
     }
@@ -166,14 +155,24 @@ export const stepStartAccessGuard = async () => {
   const getEkskludertStatusQuery = store.dispatch(
     apiSlice.endpoints.getEkskludertStatus.initiate()
   )
-  getEkskludertStatusQuery.then((res) => {
-    if (res?.data?.ekskludert && res?.data?.aarsak === 'ER_APOTEKER') {
-      resolveRedirectUrl(
-        `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-      )
-    } else {
-      resolveRedirectUrl('')
+
+  const shouldRedirectTo = Promise.all([
+    getPersonQuery,
+    getEkskludertStatusQuery,
+  ]).then(([getPersonRes, getEkskludertStatusRes]) => {
+    if (
+      getEkskludertStatusRes?.data?.ekskludert &&
+      getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+    ) {
+      return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+    } else if (
+      getPersonRes.status === 'rejected' &&
+      (getPersonRes.error as FetchBaseQueryError).status === 403
+    ) {
+      // Håndtere at bruker ikke har tilgang (inntreffer for fullmakt)
+      return paths.ingenTilgang
     }
+    return ''
   })
 
   return defer({
