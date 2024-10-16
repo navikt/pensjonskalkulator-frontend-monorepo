@@ -325,17 +325,14 @@ export const stepAFPAccessGuard = async () => {
       }
       if (res.isSuccess) {
         // Hvis brukeren skal simulere endring tømmer vi tidligere input i tilfelle noe det ble fylt ut da getLoepende vedtak kan ha feilet
-        if (
-          res.data.alderspensjon.loepende ||
-          res.data.afpPrivat.loepende ||
-          res.data.afpOffentlig.loepende
-        ) {
+        if (res.data.alderspensjon) {
           store.dispatch(userInputActions.flushSamboerOgUtenlandsperioder())
+          // Hvis brukeren mottar AFP skal hen direkte til avansert beregning
+          if (res.data.afpPrivat || res.data.afpOffentlig) {
+            resolveRedirectUrl(paths.beregningAvansert)
+          }
         }
-        // Hvis brukeren skal simulere endring og at hen mottar AFP skal hen direkte til avansert beregning
-        if (res.data.afpPrivat.loepende || res.data.afpOffentlig.loepende) {
-          resolveRedirectUrl(paths.beregningAvansert)
-        }
+
         // Hvis alle kallene er vellykket, resolve
         if (
           !hasInntektPreviouslyFailed &&

@@ -68,25 +68,17 @@ describe('StepStart', () => {
   })
   describe('Gitt at brukeren har et vedtak om alderspensjon eller AFP', () => {
     it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med navnet til brukeren', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
             grad: 0,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
 
@@ -108,7 +100,7 @@ describe('StepStart', () => {
       })
     })
     it('viser vanlig startsisde når henting av vedtak feiler', async () => {
-      mockErrorResponse('/v1/vedtak/loepende-vedtak')
+      mockErrorResponse('/v2/vedtak/loepende-vedtak')
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],

@@ -147,25 +147,13 @@ describe('EndreInntekt', () => {
 
   describe('Gitt at brukeren har uføretrygd', () => {
     it('viser riktig tekst', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 100,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(

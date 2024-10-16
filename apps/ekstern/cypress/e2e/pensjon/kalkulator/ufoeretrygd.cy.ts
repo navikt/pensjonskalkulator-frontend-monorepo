@@ -4,24 +4,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 100,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -156,24 +143,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 100,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -212,24 +186,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 75,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -271,24 +232,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 100,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')
@@ -350,24 +298,11 @@ describe('Med ufoeretrygd', () => {
       cy.intercept(
         {
           method: 'GET',
-          url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
+          url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
         },
         {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 40,
-          },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
           },
         }
       ).as('getLoependeVedtak')

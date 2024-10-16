@@ -21,25 +21,17 @@ describe('Beregning', () => {
 
   describe('Gitt at brukeren har vedtak om alderspensjon', () => {
     it('viser alert på toppen av siden', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
             grad: 0,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
 
