@@ -3,6 +3,11 @@ import { describe, expect, it } from 'vitest'
 import { RedigerAvansertBeregning } from '../RedigerAvansertBeregning'
 import { AVANSERT_FORM_NAMES } from '../utils'
 import * as RedigerAvansertBeregningUtils from '../utils'
+import {
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import {
   BeregningContext,
@@ -36,7 +41,19 @@ describe('RedigerAvansertBeregning', () => {
         }}
       >
         <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-      </BeregningContext.Provider>
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
     expect(scrollToMock).toHaveBeenCalledWith(0, 0)
   })
@@ -53,7 +70,19 @@ describe('RedigerAvansertBeregning', () => {
           gaaTilResultat={vi.fn()}
           brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
         />
-      </BeregningContext.Provider>
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
     expect(
       screen.queryByText(
@@ -232,7 +261,19 @@ describe('RedigerAvansertBeregning', () => {
         }}
       >
         <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-      </BeregningContext.Provider>
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
 
     expect(
@@ -278,7 +319,19 @@ describe('RedigerAvansertBeregning', () => {
         }}
       >
         <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-      </BeregningContext.Provider>
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
     store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
@@ -535,7 +588,19 @@ describe('RedigerAvansertBeregning', () => {
         }}
       >
         <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-      </BeregningContext.Provider>
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
     store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
@@ -614,7 +679,19 @@ describe('RedigerAvansertBeregning', () => {
         }}
       >
         <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-      </BeregningContext.Provider>
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
     store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
@@ -724,7 +801,19 @@ describe('RedigerAvansertBeregning', () => {
         }}
       >
         <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-      </BeregningContext.Provider>
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
     store.dispatch(apiSlice.endpoints.getInntekt.initiate())
 
@@ -840,7 +929,19 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       fireEvent.change(
@@ -913,7 +1014,19 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       // Fyller ut feltene for 100 % uttak + inntekt vsa 100 % uttak
@@ -1056,7 +1169,19 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       // Fyller ut feltene for helt uttak
@@ -1209,7 +1334,19 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       // Fyller ut feltene for 100 % uttak + inntekt vsa 100 % uttak
@@ -1347,15 +1484,7 @@ describe('RedigerAvansertBeregning', () => {
   describe('Gitt at en bruker mottar 100 % uføretrygd', () => {
     it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubetinget uttaksalderen', async () => {
       const user = userEvent.setup()
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          ufoeretrygd: {
-            grad: 100,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
+
       const { store } = render(
         <BeregningContext.Provider
           value={{
@@ -1363,7 +1492,19 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak100Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
       expect(
@@ -1441,16 +1582,7 @@ describe('RedigerAvansertBeregning', () => {
 
   describe('Gitt at en bruker mottar gradert uføretrygd', () => {
     it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra ubetinget uttaksalderen', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          ufoeretrygd: {
-            grad: 50,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
-      const { store } = render(
+      render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
@@ -1460,9 +1592,20 @@ describe('RedigerAvansertBeregning', () => {
             gaaTilResultat={vi.fn()}
             brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
           />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
       expect(
         await screen.findByText(
           'beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere'
@@ -1535,25 +1678,27 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('vises ekstra informasjon om inntekt vsa pensjon og gradertuføretrygd når brukeren velger en alder før ubetinget uttaksalderen', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          ufoeretrygd: {
-            grad: 50,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
-      const { store } = render(
+      render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
 
       // Fyller ut uttaksalder
       fireEvent.change(
@@ -1598,15 +1743,6 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('Når brukeren velger en alder før ubetinget uttaksalderen, begrenses valgene for uttaksgrad basert på uføregraden', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          ufoeretrygd: {
-            grad: 50,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
       const { store } = render(
         <BeregningContext.Provider
           value={{
@@ -1614,9 +1750,20 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
 
       const selectUttaksgradElement = screen.getByTestId(
         AVANSERT_FORM_NAMES.uttaksgrad
@@ -1657,15 +1804,6 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('Når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          ufoeretrygd: {
-            grad: 50,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
       const user = userEvent.setup()
       const { store } = render(
         <BeregningContext.Provider
@@ -1674,9 +1812,20 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
 
       // Velger gradert uttak som etterhvert blir ugyldig
       fireEvent.change(
@@ -1753,15 +1902,6 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('Når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          ufoeretrygd: {
-            grad: 50,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
       const user = userEvent.setup()
       const { store } = render(
         <BeregningContext.Provider
@@ -1770,9 +1910,20 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
 
       // Fyller ut uttaksalder
       fireEvent.change(
@@ -1867,15 +2018,6 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('Når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          ufoeretrygd: {
-            grad: 50,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
       const { store } = render(
         <BeregningContext.Provider
           value={{
@@ -1883,9 +2025,20 @@ describe('RedigerAvansertBeregning', () => {
           }}
         >
           <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
 
       // Fyller ut uttaksalder
       fireEvent.change(
@@ -1962,7 +2115,19 @@ describe('RedigerAvansertBeregning', () => {
         }}
       >
         <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
-      </BeregningContext.Provider>
+      </BeregningContext.Provider>,
+      {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      }
     )
 
     await user.click(screen.getByText('beregning.avansert.button.beregn'))
@@ -2181,6 +2346,11 @@ describe('RedigerAvansertBeregning', () => {
         </BeregningContext.Provider>,
         {
           preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -2217,7 +2387,19 @@ describe('RedigerAvansertBeregning', () => {
             gaaTilResultat={vi.fn()}
             brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
           />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
       expect(
@@ -2251,7 +2433,19 @@ describe('RedigerAvansertBeregning', () => {
             gaaTilResultat={vi.fn()}
             brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
           />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
       expect(
@@ -2316,7 +2510,19 @@ describe('RedigerAvansertBeregning', () => {
             gaaTilResultat={vi.fn()}
             brukerensAlderPlus1Maaned={{ aar: 64, maaneder: 5 }}
           />
-        </BeregningContext.Provider>
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
       await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
       expect(

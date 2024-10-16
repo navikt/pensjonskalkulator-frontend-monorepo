@@ -26,7 +26,7 @@ import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
   fulfilledGetTpoMedlemskap,
-  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
@@ -446,7 +446,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
       }
       expect(selectLoependeVedtak(state)).toMatchInlineSnapshot(`
@@ -472,7 +472,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
       }
       expect(selectUfoeregrad(state)).toBe(75)
@@ -504,7 +504,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
       }
       expect(selectIsEndring(state)).toBeFalsy()

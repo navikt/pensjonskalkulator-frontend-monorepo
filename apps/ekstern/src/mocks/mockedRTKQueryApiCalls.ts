@@ -49,7 +49,39 @@ export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
   },
 }
 
-export const fulfilledGetLoependeVedtakUfoeregrad = {
+export const fulfilledGetLoependeVedtak0Ufoeregrad = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtak100Ufoeregrad = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      ufoeretrygd: {
+        grad: 10,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtak75Ufoeregrad = {
   ['getLoependeVedtak(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getLoependeVedtak',
