@@ -1,8 +1,8 @@
 import React from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Alert, Button, Modal, ToggleGroup } from '@navikt/ds-react'
+import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
 import Highcharts from 'highcharts'
 import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
