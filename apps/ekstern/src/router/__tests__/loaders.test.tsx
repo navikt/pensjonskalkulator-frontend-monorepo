@@ -244,7 +244,6 @@ describe('Loaders', () => {
         return mockedState
       })
       const returnedFromLoader = await stepStartAccessGuard()
-      await returnedFromLoader.data.getPersonQuery
 
       const shouldRedirectToResponse =
         await returnedFromLoader.data.shouldRedirectTo
