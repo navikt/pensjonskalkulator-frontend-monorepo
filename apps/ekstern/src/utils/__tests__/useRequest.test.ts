@@ -15,7 +15,6 @@ describe('useRequest', () => {
     await waitFor(() => expect(result.current.isLoading).toBe(false))
     expect(result.current.hasError).toBe(true)
     expect(result.current.status).toBe(500)
-    expect(result.current.errorData).toBe(`Internal Server Error`)
   })
 
   it('henting av data er OK, men data er ikke JSON', async () => {

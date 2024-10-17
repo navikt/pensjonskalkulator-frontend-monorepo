@@ -24,6 +24,11 @@ const translations = {
   'application.global.retry': 'Prøv på nytt',
   'pageframework.title': 'Pensjonskalkulator',
   'pageframework.loading': 'Vent litt mens vi henter informasjon.',
+  'error.fullmakt.title':
+    'Du kan ikke bruke kalkulatoren på vegne av denne brukeren',
+  'error.fullmakt.ingress':
+    'Gå videre for å se hva du kan gjøre på vegne av denne brukeren eller bytte bruker.',
+  'error.fullmakt.bytt_bruker': 'Gå videre til Bytt bruker',
   'error.global.title': 'Oops! Det har oppstått en uventet feil.',
   'error.global.ingress': 'Vi jobber med å rette feilen. Prøv igjen senere.',
   'error.global.button': 'Avbryt',
