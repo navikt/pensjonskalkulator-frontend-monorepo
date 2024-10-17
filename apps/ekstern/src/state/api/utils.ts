@@ -114,7 +114,7 @@ export const generateAlderspensjonRequestBody = (args: {
   }
 
   return {
-    simuleringstype: loependeVedtak.ufoeretrygd
+    simuleringstype: loependeVedtak.ufoeretrygd.grad
       ? 'ALDERSPENSJON'
       : getAfpSimuleringstypeFromRadio(afp),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
