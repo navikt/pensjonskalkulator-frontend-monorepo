@@ -22,7 +22,7 @@ declare global {
     BaseQueryFn<Record<string, unknown>, Person>
   >
   type Person = components['schemas']['PersonV2']
-  type Sivilstand = components['schemas']['ApiPersonDto']['sivilstand']
+  type Sivilstand = components['schemas']['PersonV2']['sivilstand']
   type UtvidetSivilstand = Sivilstand | 'SAMBOER'
 
   // /inntekt
