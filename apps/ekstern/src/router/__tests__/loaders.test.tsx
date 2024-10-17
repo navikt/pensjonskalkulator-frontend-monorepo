@@ -249,8 +249,6 @@ describe('Loaders', () => {
       const shouldRedirectToResponse =
         await returnedFromLoader.data.shouldRedirectTo
 
-      console.log('data from loader', returnedFromLoader.data)
-
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual(paths.ingenTilgang)
       })
