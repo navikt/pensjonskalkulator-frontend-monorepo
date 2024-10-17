@@ -14,7 +14,7 @@ import styles from './Sivilstand.module.scss'
 
 interface Props {
   shouldRedirectTo?: string
-  sivilstand: Sivilstand
+  sivilstand?: Sivilstand
   harSamboer: boolean | null
   onCancel?: () => void
   onPrevious: () => void
@@ -40,7 +40,7 @@ export function Sivilstand({
   }, [shouldRedirectTo])
 
   const formatertSivilstand = useMemo(
-    () => formatSivilstand(intl, sivilstand).toLowerCase(),
+    () => (sivilstand ? formatSivilstand(intl, sivilstand).toLowerCase() : ''),
     [sivilstand]
   )
 

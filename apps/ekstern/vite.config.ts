@@ -94,15 +94,7 @@ export default defineConfig(() => ({
     },
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles" as common;`,
-        importer(...args) {
-          if (args[0] !== '@/styles') {
-            return
-          }
-          return {
-            file: `${path.resolve(__dirname, './public')}`,
-          }
-        },
+        api: 'modern-compiler',
       },
     },
   },

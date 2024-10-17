@@ -21,6 +21,7 @@ export const externalUrls = {
   trygdetid:
     'https://www.nav.no/no/person/flere-tema/arbeid-og-opphold-i-norge/relatert-informasjon/medlemskap-i-folketrygden',
   kortBotid: 'https://www.nav.no/alderspensjon#kort-botid',
+  byttBruker: import.meta.env.VITE_BYTT_BRUKER_URL,
 }
 
 export const paths = {
@@ -35,6 +36,7 @@ export const paths = {
   ufoeretrygdAFP: '/ufoeretrygd-afp',
   sivilstand: '/sivilstand',
   uventetFeil: '/uventet-feil',
+  ingenTilgang: '/ingen-tilgang',
   beregningEnkel: '/beregning',
   beregningAvansert: '/beregning-detaljert',
   forbehold: '/forbehold',

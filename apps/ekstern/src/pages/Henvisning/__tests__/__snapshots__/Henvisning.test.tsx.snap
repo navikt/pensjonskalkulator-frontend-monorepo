@@ -11,6 +11,10 @@ exports[`Henvisning  > rendrer henvisning til apotekerne 1`] = `
       <div
         class="_headerGroup_55ef1a"
       >
+        <representasjon-banner
+          redirectto="http://localhost:3000/pensjon/kalkulator/start"
+          representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_SKRIV,PENSJON_PENGEMOTTAKER,PENSJON_VERGE,PENSJON_VERGE_PENGEMOTTAKER"
+        />
         <div
           class="_headerGroupTitle_55ef1a _headerGroupTitle__isFramed_55ef1a"
         >
@@ -75,6 +79,10 @@ exports[`Henvisning  > rendrer henvisning til utland 1`] = `
       <div
         class="_headerGroup_55ef1a"
       >
+        <representasjon-banner
+          redirectto="http://localhost:3000/pensjon/kalkulator/start"
+          representasjonstyper="PENSJON_FULLSTENDIG,PENSJON_SKRIV,PENSJON_PENGEMOTTAKER,PENSJON_VERGE,PENSJON_VERGE_PENGEMOTTAKER"
+        />
         <div
           class="_headerGroupTitle_55ef1a _headerGroupTitle__isFramed_55ef1a"
         >

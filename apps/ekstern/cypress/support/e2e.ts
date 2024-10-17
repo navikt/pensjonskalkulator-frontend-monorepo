@@ -1,7 +1,7 @@
 import 'cypress-axe'
 
-import { userInputActions } from '../../src/state/userInput/userInputReducer'
 import { apiSlice } from '../../src/state/api/apiSlice'
+import { userInputActions } from '../../src/state/userInput/userInputReducer'
 
 beforeEach(() => {
   cy.intercept(
@@ -205,5 +205,13 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   if (err.message.includes('Amplitude')) {
     // prevents Amplitude errors to fail tests
     return false
+  } else if (
+    err.stack?.includes(
+      'https://representasjon-banner-frontend-borger-q2.ekstern.dev.nav.no'
+    )
+  ) {
+    // prevents Representasjon banner errors to fail tests
+    return false
   }
+  return true
 })
