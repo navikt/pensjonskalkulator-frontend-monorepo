@@ -7,6 +7,8 @@ import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtak100Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import {
@@ -1153,10 +1155,16 @@ describe('RedigerAvansertBeregning', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
+        foedselsdato: '1963-04-30',
         harAvansertSkjemaUnsavedChanges: false,
-        ufoeregrad: 0,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
+        loependeVedtak: {
+          harFremtidigLoependeVedtak: false,
+          ufoeretrygd: {
+            grad: 0,
+          },
+        },
       })
     })
 
@@ -1473,10 +1481,16 @@ describe('RedigerAvansertBeregning', () => {
       await user.click(screen.getByText('beregning.avansert.button.beregn'))
 
       expect(onSubmitMock.mock.calls[0][4]).toStrictEqual({
+        foedselsdato: '1963-04-30',
         harAvansertSkjemaUnsavedChanges: false,
-        ufoeregrad: 0,
         hasVilkaarIkkeOppfylt: false,
         localInntektFremTilUttak: null,
+        loependeVedtak: {
+          harFremtidigLoependeVedtak: false,
+          ufoeretrygd: {
+            grad: 0,
+          },
+        },
       })
     })
   })
@@ -1800,7 +1814,7 @@ describe('RedigerAvansertBeregning', () => {
         selectOppdatertUttaksgradElement?.querySelectorAll('option')
       expect(optionOppdatertUttaksgradElements?.[0].value).toBe('')
       expect(optionOppdatertUttaksgradElements?.[1].value).toBe('20 %')
-      expect(optionOppdatertUttaksgradElements?.length).toBe(4)
+      expect(optionOppdatertUttaksgradElements?.length).toBe(2)
     })
 
     it('Når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
@@ -2071,7 +2085,7 @@ describe('RedigerAvansertBeregning', () => {
       )
       const optionUttaksgradElements =
         selectUttaksgradElement?.querySelectorAll('option')
-      expect(optionUttaksgradElements?.length).toBe(4)
+      expect(optionUttaksgradElements?.length).toBe(2)
 
       // Endrer uttaksalder for gradert uttak med noe høyere alder
       fireEvent.change(
@@ -2367,17 +2381,7 @@ describe('RedigerAvansertBeregning', () => {
 
   describe('Gitt at en bruker har vedtak om alderspensjon', () => {
     it('vises informasjon om vedtaket', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          alderspensjon: { grad: 100, fom: '2020-12-01' },
-          ufoeretrygd: {
-            grad: 0,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
-      const { store } = render(
+      render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
@@ -2393,7 +2397,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
             },
             userInput: {
               ...userInputInitialState,
@@ -2401,28 +2405,17 @@ describe('RedigerAvansertBeregning', () => {
           },
         }
       )
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
       expect(
         await screen.findByText('beregning.endring.rediger.title')
       ).toBeVisible()
       expect(
         await screen.findByText(
-          'Fra 01.12.2020 har du mottatt 100 % alderspensjon.'
+          'Fra 02.10.2020 har du mottatt 100 % alderspensjon.'
         )
       ).toBeVisible()
     })
 
     it('vises det riktig label på feltene', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          alderspensjon: { grad: 100, fom: '2020-12-01' },
-          ufoeretrygd: {
-            grad: 0,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
       const { store } = render(
         <BeregningContext.Provider
           value={{
@@ -2439,7 +2432,7 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
             },
             userInput: {
               ...userInputInitialState,
@@ -2490,16 +2483,6 @@ describe('RedigerAvansertBeregning', () => {
     it('Når brukeren har gradert uføretrygd, vises det riktig label på feltene', async () => {
       const user = userEvent.setup()
 
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          alderspensjon: { grad: 100, fom: '2020-12-01' },
-          ufoeretrygd: {
-            grad: 40,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
       const { asFragment, store } = render(
         <BeregningContext.Provider
           value={{
@@ -2516,7 +2499,9 @@ describe('RedigerAvansertBeregning', () => {
             api: {
               /* eslint-disable @typescript-eslint/ban-ts-comment */
               // @ts-ignore
-              queries: { ...fulfilledGetLoependeVedtak0Ufoeregrad },
+              queries: {
+                ...fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd,
+              },
             },
             userInput: {
               ...userInputInitialState,
