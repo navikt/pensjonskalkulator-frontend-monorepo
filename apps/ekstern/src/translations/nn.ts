@@ -368,8 +368,6 @@ const translations = {
     'MANGLER_TEKST',
   'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body':
     'MANGLER_TEKST',
-  'beregning.avansert.rediger.read_more.uttaksgrad.endring.gradert_ufoeretrygd.body':
-    'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak': 'MANGLER_TEKST',
   'beregning.avansert.rediger.radio.inntekt_vsa_helt_uttak.description':
     'MANGLER_TEKST',
