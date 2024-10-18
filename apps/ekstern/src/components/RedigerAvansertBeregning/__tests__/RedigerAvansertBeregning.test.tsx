@@ -2526,10 +2526,7 @@ describe('RedigerAvansertBeregning', () => {
           class="navds-body-long navds-body-long--medium"
           data-testid="om-uttaksgrad"
         >
-          Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).
-          <br />
-          <br />
-          Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til 0 % når du vil.
+          beregning.avansert.rediger.read_more.uttaksgrad.endring.gradert_ufoeretrygd.body
         </p>
       `)
 
