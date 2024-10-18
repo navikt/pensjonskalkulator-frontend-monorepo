@@ -484,6 +484,108 @@ describe('RedigerAvansertBeregning-utils', () => {
           updateErrorMessageMock
         )
       ).toBeFalsy()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, uttaksgradFormData: '0 %' },
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, uttaksgradFormData: '100 %' },
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+    })
+
+    it('returnerer false når uttaksgrad er endret til en grad mellom 20-80 før 12 md fra datoen til vedtaket', () => {
+      const mockedLoependeVedtakEndring = {
+        alderspensjon: {
+          fom: '2025-10-01',
+          grad: 100,
+        },
+        ufoeretrygd: {
+          grad: 0,
+        },
+        harFremtidigLoependeVedtak: false,
+      }
+
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '62',
+            gradertUttakMaanederFormData: '0',
+          },
+          mockedFoedselsdato,
+          mockedLoependeVedtakEndring,
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '0 %',
+            gradertUttakAarFormData: '62',
+            gradertUttakMaanederFormData: '0',
+          },
+          mockedFoedselsdato,
+          mockedLoependeVedtakEndring,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '100 %',
+            gradertUttakAarFormData: '62',
+            gradertUttakMaanederFormData: '0',
+          },
+          mockedFoedselsdato,
+          mockedLoependeVedtakEndring,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '63',
+            gradertUttakMaanederFormData: '5',
+          },
+          mockedFoedselsdato,
+          mockedLoependeVedtakEndring,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '62',
+            gradertUttakMaanederFormData: '0',
+          },
+          mockedFoedselsdato,
+          {
+            alderspensjon: {
+              fom: '2025-10-01',
+              grad: 40,
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
     })
 
     it('returnerer false når gradertUttakAar eller gradertUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm)', () => {

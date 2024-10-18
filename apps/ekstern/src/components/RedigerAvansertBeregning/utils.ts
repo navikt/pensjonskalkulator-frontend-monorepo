@@ -109,9 +109,6 @@ const validateAlderForGradertUttak = (
   return isValid
 }
 
-{
-  // TODO PEK-593 skrive tester for validateEndringGradertUttak
-}
 const validateEndringGradertUttak = (
   forrigeGrad: number,
   forrigeEndringsdato: string,
@@ -143,7 +140,6 @@ const validateEndringGradertUttak = (
         }
       )
     )
-
     if (isBefore(uttaksdato, fremtidigMuligEndring)) {
       const formatertDato = format(fremtidigMuligEndring, DATE_ENDUSER_FORMAT)
       updateValidationErrorMessage((prevState) => {
@@ -228,7 +224,7 @@ export const validateAvansertBeregningSkjema = (
   // Sjekker at uttaksgrad er fylt ut med en prosent
   if (
     !uttaksgradFormData ||
-    /^(?!(100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
+    /^(?!(0 %|100 %|[1-9][0-9]? %)$).*$/.test(uttaksgradFormData as string)
   ) {
     isValid = false
     logger('valideringsfeil', {
@@ -244,12 +240,10 @@ export const validateAvansertBeregningSkjema = (
     })
   }
 
-  {
-    // TODO PEK-593 utvide tester for validateEndringGradertUttak
-  }
   // Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
   if (
-    loependeVedtak.alderspensjon?.grad &&
+    loependeVedtak.alderspensjon &&
+    uttaksgradFormData !== '0 %' &&
     uttaksgradFormData !== '100 %' &&
     !validateEndringGradertUttak(
       loependeVedtak.alderspensjon.grad,
