@@ -1,6 +1,5 @@
 import * as ReactRouterUtils from 'react-router'
 
-import { p } from 'msw/lib/core/GraphQLHandler-Cu4Xvg4S'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'

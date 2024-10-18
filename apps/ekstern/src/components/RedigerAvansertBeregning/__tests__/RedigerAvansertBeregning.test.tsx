@@ -1757,7 +1757,7 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('Når brukeren velger en alder før ubetinget uttaksalderen, begrenses valgene for uttaksgrad basert på uføregraden', async () => {
-      const { store } = render(
+      render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
@@ -1819,7 +1819,7 @@ describe('RedigerAvansertBeregning', () => {
 
     it('Når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       const user = userEvent.setup()
-      const { store } = render(
+      render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
@@ -1917,7 +1917,7 @@ describe('RedigerAvansertBeregning', () => {
 
     it('Når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
       const user = userEvent.setup()
-      const { store } = render(
+      render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
@@ -2032,7 +2032,7 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('Når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
-      const { store } = render(
+      render(
         <BeregningContext.Provider
           value={{
             ...contextMockedValues,
