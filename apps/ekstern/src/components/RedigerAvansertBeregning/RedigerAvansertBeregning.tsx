@@ -427,9 +427,6 @@ export const RedigerAvansertBeregning: React.FC<{
           </ReadMore>
         </div>
         <Divider noMargin />
-        {
-          // TODO PEK-593 skrive tester for visning av alert
-        }
         {validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato] && (
           <Alert variant="warning" aria-live="polite">
             <FormattedMessage
@@ -559,7 +556,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   isEndring
                     ? loependeVedtak.ufoeretrygd.grad &&
                       loependeVedtak.ufoeretrygd.grad !== 100
-                      ? 'beregning.avansert.rediger.read_more.uttaksgrad.endring.gradert_ufoeretrygd.body'
+                      ? 'omufoeretrygd.readmore.endring.ingress'
                       : 'beregning.avansert.rediger.read_more.uttaksgrad.endring.body'
                     : loependeVedtak.ufoeretrygd.grad &&
                         loependeVedtak.ufoeretrygd.grad !== 100

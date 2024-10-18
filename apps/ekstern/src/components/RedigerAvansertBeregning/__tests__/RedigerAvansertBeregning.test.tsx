@@ -4,6 +4,7 @@ import { RedigerAvansertBeregning } from '../RedigerAvansertBeregning'
 import { AVANSERT_FORM_NAMES } from '../utils'
 import * as RedigerAvansertBeregningUtils from '../utils'
 import {
+  fulfilledGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtak100Ufoeregrad,
@@ -2320,6 +2321,96 @@ describe('RedigerAvansertBeregning', () => {
     )
   })
 
+  describe('Gitt at en bruker har vedtak om alderspensjon', () => {
+    it('Når brukeren klikker på beregn mens datoen på vedtaket er mindre enn 12 md. til ønskesuttak, vises det alert og siden scrolles opp til toppen', async () => {
+      const user = userEvent.setup()
+
+      render(
+        <BeregningContext.Provider
+          value={{
+            ...contextMockedValues,
+          }}
+        >
+          <RedigerAvansertBeregning gaaTilResultat={vi.fn()} />
+        </BeregningContext.Provider>,
+        {
+          preloadedState: {
+            api: {
+              queries: {
+                ...fulfilledGetPerson,
+                ['getLoependeVedtak(undefined)']: {
+                  /* eslint-disable @typescript-eslint/ban-ts-comment */
+                  // @ts-ignore
+                  status: 'fulfilled',
+                  endpointName: 'getLoependeVedtak',
+                  requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+                  startedTimeStamp: 1688046411971,
+                  data: {
+                    alderspensjon: {
+                      grad: 100,
+                      fom: new Date().toLocaleDateString('en-CA'), // dette gir dato i format yyyy-mm-dd
+                    },
+                    ufoeretrygd: {
+                      grad: 0,
+                    },
+                    harFremtidigLoependeVedtak: false,
+                  },
+                  fulfilledTimeStamp: 1688046412103,
+                },
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
+      )
+
+      // expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
+      //   `${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+      // )
+
+      // Fyller inn uttaksalder slik at RadioGroup vises
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '62' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '0' },
+        }
+      )
+
+      // Velger gradert uttak
+      fireEvent.change(
+        await screen.findByTestId(AVANSERT_FORM_NAMES.uttaksgrad),
+        {
+          target: { value: '40 %' },
+        }
+      )
+
+      await user.click(
+        screen.getByText('beregning.avansert.button.beregn.endring')
+      )
+
+      expect(
+        screen.getByText(
+          'Du kan tidligst endre uttaksgrad til 20, 40, 50, 60 eller 80 % fra',
+          {
+            exact: false,
+          }
+        )
+      ).toBeVisible()
+    })
+  })
+
   describe('Når simuleringen svarer med vilkaarIkkeOppfylt', () => {
     it('viser alert med informasjon om alternativer', async () => {
       const vilkaarsproevingMock = {
@@ -2526,7 +2617,10 @@ describe('RedigerAvansertBeregning', () => {
           class="navds-body-long navds-body-long--medium"
           data-testid="om-uttaksgrad"
         >
-          beregning.avansert.rediger.read_more.uttaksgrad.endring.gradert_ufoeretrygd.body
+          Uttaksgrad angir hvor stor del av månedlig alderspensjon du ønsker å ta ut. Grad av uføretrygd og alderspensjon kan til sammen ikke overstige 100 %. Fra 67 år kan du fritt velge gradert uttak (20, 40, 50, 60 eller 80 %), eller hel alderspensjon (100 %).
+          <br />
+          <br />
+          Hvis du vil endre gradering må det ha gått minimum 12 måneder siden du startet uttak av alderspensjon eller endret uttaksgrad. Du kan likevel endre til 0 % når du vil.
         </p>
       `)
 
