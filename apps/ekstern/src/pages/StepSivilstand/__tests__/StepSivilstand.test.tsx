@@ -109,7 +109,7 @@ describe('StepSivilstand', () => {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
-            ...rejectedGetPerson,
+            ...fulfilledGetPerson,
           },
         },
         userInput: {

@@ -9,7 +9,10 @@ import {
   paths,
 } from '../constants'
 import { routes } from '../routes'
-import { fulfilledGetLoependeVedtakUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetPerson,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -334,7 +337,9 @@ describe('routes', () => {
       it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fulfilledGetPerson,
+            },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -343,6 +348,16 @@ describe('routes', () => {
           initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
         })
         render(<RouterProvider router={router} />, {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: { ...userInputInitialState },
+          },
           hasRouter: false,
         })
         expect(
