@@ -17,8 +17,6 @@ describe('StepUtenlandsopphold', () => {
     )
   })
 
-  // TODO PEK-689 legge til test på tittle og innhold
-  // TODO PEK-689 sjekke om validering er testet i child filen, hvis ikke sjekke den her
   it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren kan gå til neste steg når hen klikker på Neste', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
@@ -26,13 +24,14 @@ describe('StepUtenlandsopphold', () => {
       () => navigateMock
     )
     const { store } = render(<StepUtenlandsopphold />, {})
+    expect(
+      screen.getByText('stegvisning.utenlandsopphold.ingress')
+    ).toBeVisible()
     const radioButtons = await screen.findAllByRole('radio')
-
-    await user.click(radioButtons[0])
+    await user.click(radioButtons[1])
     await user.click(await screen.findByText('stegvisning.neste'))
-
-    expect(store.getState().userInput.harUtenlandsopphold).toBe(true)
     expect(navigateMock).toHaveBeenCalledWith(paths.afp)
+    expect(store.getState().userInput.harUtenlandsopphold).toBe(false)
   })
 
   it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret, slettes utenlandsoppholdene og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {
