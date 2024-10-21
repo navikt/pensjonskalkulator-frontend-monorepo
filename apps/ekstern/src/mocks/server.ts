@@ -46,7 +46,8 @@ export const mockErrorResponse = (
 
   server.use(
     http[method](`${baseUrl}${path}`, async () => {
-      return HttpResponse.text('lorem ipsum dolor sit amet', { status })
+      // Må sende tom streng slik at ikke rtk-query prøver å parse JSON
+      return HttpResponse.text('', { status })
     })
   )
 }
