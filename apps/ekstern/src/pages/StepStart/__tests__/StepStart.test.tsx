@@ -3,7 +3,10 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetPerson,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -14,7 +17,6 @@ import { userEvent, render, screen, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
 
-// TODO PEK-689 legge til fullfilledGetPerson i preloadedState
 describe('StepStart', () => {
   afterEach(() => {
     store.dispatch(apiSliceUtils.apiSlice.util.resetApiState())
@@ -45,29 +47,13 @@ describe('StepStart', () => {
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
-        preloadedState: {
-          api: {
-            /* eslint-disable @typescript-eslint/ban-ts-comment */
-            // @ts-ignore
-            queries: {
-              ...fulfilledGetPerson,
-              // ...fulfilledGetInntekt,
-            },
-          },
-          userInput: {
-            ...userInputInitialState,
-          },
-        },
         hasRouter: false,
       })
-      await waitFor(() => {
-        expect(
-          screen.getByText('stegvisning.start.title Aprikos!')
-        ).toBeVisible()
-      })
+      expect(await screen.findByText('stegvisning.start.ingress')).toBeVisible()
+      expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
     })
 
-    it('rendrer hilsen uten navn når henting av personopplysninger feiler', async () => {
+    it('rendrer ikke siden når henting av personopplysninger feiler', async () => {
       mockErrorResponse('/v2/person')
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
@@ -77,7 +63,7 @@ describe('StepStart', () => {
         hasRouter: false,
       })
       await waitFor(() => {
-        expect(screen.getByText('stegvisning.start.title!')).toBeVisible()
+        expect(screen.getByText('error.global.title')).toBeVisible()
       })
     })
   })

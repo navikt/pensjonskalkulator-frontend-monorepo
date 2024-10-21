@@ -49,6 +49,22 @@ export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
   },
 }
 
+export const fulfilledGetLoependeVedtak0Ufoeregrad = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
 export const fulfilledGetLoependeVedtakUfoeregrad = {
   ['getLoependeVedtak(undefined)']: {
     status: 'fulfilled',

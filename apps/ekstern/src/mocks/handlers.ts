@@ -43,7 +43,7 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   ),
 
   http.get(`${baseUrl}/v2/person`, async ({ request }) => {
-    await delay(5000)
+    await delay(TEST_DELAY)
     if (request.headers.get('fnr') === '40100000000') {
       return HttpResponse.json({}, { status: 401 })
     } else if (request.headers.get('fnr') === '40400000000') {
