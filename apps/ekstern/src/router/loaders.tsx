@@ -83,13 +83,17 @@ export const landingPageAccessGuard = async () => {
     resolveRedirectUrl = resolve
   })
 
+  const getRedirect1963FeatureToggleQuery = store.dispatch(
+    apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
+  )
+
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  getPersonQuery
-    .then((res) => {
-      // TODO PEK-689 innføre feature-toggle
+  Promise.all([getRedirect1963FeatureToggleQuery, getPersonQuery])
+    .then(([getRedirect1963FeatureToggleRes, getPersonRes]) => {
       if (
-        res?.isSuccess &&
-        isFoedtFoer1963(res?.data?.foedselsdato as string)
+        getRedirect1963FeatureToggleRes.data?.enabled &&
+        getPersonRes?.isSuccess &&
+        isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
       ) {
         resolveRedirectUrl('')
         window.open(externalUrls.detaljertKalkulator, '_self')
@@ -134,6 +138,9 @@ export function stepStartDeferredLoader<
 }
 
 export const stepStartAccessGuard = async () => {
+  const getRedirect1963FeatureToggleQuery = store.dispatch(
+    apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
+  )
   // Sørger for at brukeren er redirigert til henvisningsside iht. fødselsdato
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
   // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
@@ -153,31 +160,40 @@ export const stepStartAccessGuard = async () => {
   )
 
   const shouldRedirectTo = Promise.all([
+    getRedirect1963FeatureToggleQuery,
     getPersonQuery,
     getEkskludertStatusQuery,
-  ]).then(([getPersonRes, getEkskludertStatusRes]) => {
-    if (
-      getEkskludertStatusRes?.data?.ekskludert &&
-      getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
-    ) {
-      return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-    }
+  ]).then(
+    ([
+      getRedirect1963FeatureToggleRes,
+      getPersonRes,
+      getEkskludertStatusRes,
+    ]) => {
+      if (
+        getEkskludertStatusRes?.data?.ekskludert &&
+        getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+      ) {
+        return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+      }
 
-    if (getPersonRes.isError) {
-      if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
-        return paths.ingenTilgang
-      } else {
-        return paths.uventetFeil
+      if (getPersonRes.isError) {
+        if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
+          return paths.ingenTilgang
+        } else {
+          return paths.uventetFeil
+        }
+      }
+      if (getPersonRes.isSuccess) {
+        if (
+          getRedirect1963FeatureToggleRes?.data?.enabled &&
+          isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
+        ) {
+          window.open(externalUrls.detaljertKalkulator, '_self')
+        }
+        return ''
       }
     }
-    if (getPersonRes.isSuccess) {
-      // TODO PEK-689 innføre feature-toggle
-      if (isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)) {
-        window.open(externalUrls.detaljertKalkulator, '_self')
-      }
-      return ''
-    }
-  })
+  )
 
   return defer({
     getPersonQuery,
