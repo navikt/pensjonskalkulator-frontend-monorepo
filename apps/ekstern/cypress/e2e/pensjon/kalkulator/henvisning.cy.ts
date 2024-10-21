@@ -14,6 +14,10 @@ describe('Henvisning', () => {
       cy.wait('@getAuthSession')
 
       cy.origin('https://login.idporten.no', () => {
+        Cypress.on('uncaught:exception', (err) => {
+          // prevents Cypress from failing when catching errors in uinnlogget kalkulator
+          return false
+        })
         cy.contains('Kom i gang').should('not.exist')
         cy.get('h1').contains('Velg elektronisk ID')
       })
