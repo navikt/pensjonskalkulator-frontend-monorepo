@@ -191,8 +191,8 @@ describe('Loaders', () => {
         ).toBe('1963-04-30')
         expect(
           (getLoependeVedtakQueryResponse as GetLoependeVedtakQuery).data
-            .alderspensjon.grad
-        ).toBe(0)
+            .alderspensjon
+        ).toBe(undefined)
 
         expect(shouldRedirectToResponse).toEqual('')
       })
@@ -599,7 +599,7 @@ describe('Loaders', () => {
     })
 
     it('Gitt at alle kallene er vellykket og getLoependeVedtak feiler, er brukeren redirigert', async () => {
-      mockErrorResponse('/v1/vedtak/loepende-vedtak')
+      mockErrorResponse('/v2/vedtak/loepende-vedtak')
       const mockedState = {
         api: {
           queries: {
@@ -632,25 +632,17 @@ describe('Loaders', () => {
     })
 
     it('Gitt at alle kallene er vellykket og brukeren har et vedtak med alderspensjon, kalles det flushSamboerOgUtenlandsperioder og brukeren er ikke redirigert', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
             grad: 0,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const flushSamboerOgUtenlandsperioderMock = vi.spyOn(
@@ -678,26 +670,21 @@ describe('Loaders', () => {
       expect(shouldRedirectToResponse).toBe('')
     })
 
-    it('Gitt at alle kallene er vellykket og brukeren har et vedtak med AFP, kalles det flushSamboerOgUtenlandsperioder og brukeren er redirigert til beregning avansert', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+    it('Gitt at alle kallene er vellykket og brukeren har et vedtak med AFP i fortid, kalles det flushSamboerOgUtenlandsperioder og brukeren er redirigert til beregning avansert', async () => {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
-            loepende: false,
             grad: 0,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
             grad: 0,
           },
           afpPrivat: {
-            loepende: true,
-            grad: 50,
+            fom: '2020-10-02',
           },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const flushSamboerOgUtenlandsperioderMock = vi.spyOn(
@@ -1006,22 +993,10 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: true,
                   grad: 50,
                 },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1047,22 +1022,10 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: true,
                   grad: 50,
                 },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1131,22 +1094,10 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: false,
                   grad: 0,
                 },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1172,22 +1123,10 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: true,
                   grad: 50,
                 },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,
@@ -1214,22 +1153,10 @@ describe('Loaders', () => {
               endpointName: 'getLoependeVedtak',
               requestId: 't1wLPiRKrfe_vchftk8s8',
               data: {
-                alderspensjon: {
-                  loepende: false,
-                  grad: 0,
-                },
                 ufoeretrygd: {
-                  loepende: false,
                   grad: 0,
                 },
-                afpPrivat: {
-                  loepende: false,
-                  grad: 0,
-                },
-                afpOffentlig: {
-                  loepende: false,
-                  grad: 0,
-                },
+                harFremtidigLoependeVedtak: false,
               },
               startedTimeStamp: 1714725797072,
               fulfilledTimeStamp: 1714725797669,

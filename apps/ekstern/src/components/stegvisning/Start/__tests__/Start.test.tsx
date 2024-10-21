@@ -10,22 +10,10 @@ describe('stegvisning - Start', () => {
   const onNextMock = vi.fn()
 
   const loependeVedtak = {
-    alderspensjon: {
-      loepende: false,
-      grad: 0,
-    },
     ufoeretrygd: {
-      loepende: false,
       grad: 0,
     },
-    afpPrivat: {
-      loepende: false,
-      grad: 0,
-    },
-    afpOffentlig: {
-      loepende: false,
-      grad: 0,
-    },
+    harFremtidigLoependeVedtak: false,
   }
 
   it('kaller navigate når shouldRedirectTo er angitt', async () => {
@@ -71,21 +59,13 @@ describe('stegvisning - Start', () => {
         navn="Ola"
         loependeVedtak={{
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
             grad: 0,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -116,21 +96,13 @@ describe('stegvisning - Start', () => {
         navn="Ola"
         loependeVedtak={{
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: true,
             grad: 80,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -164,21 +136,16 @@ describe('stegvisning - Start', () => {
         navn="Ola"
         loependeVedtak={{
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
             grad: 0,
           },
           afpPrivat: {
-            loepende: true,
-            grad: 100,
+            fom: '2020-10-02',
           },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}
@@ -212,21 +179,16 @@ describe('stegvisning - Start', () => {
         navn="Ola"
         loependeVedtak={{
           alderspensjon: {
-            loepende: true,
             grad: 50,
+            fom: '2020-10-02',
           },
           ufoeretrygd: {
-            loepende: false,
-            grad: 0,
-          },
-          afpPrivat: {
-            loepende: false,
             grad: 0,
           },
           afpOffentlig: {
-            loepende: true,
-            grad: 100,
+            fom: '2020-10-02',
           },
+          harFremtidigLoependeVedtak: false,
         }}
         onCancel={onCancelMock}
         onNext={onNextMock}

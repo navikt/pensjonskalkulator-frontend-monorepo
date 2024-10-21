@@ -40,21 +40,13 @@ export function Start({
     }
   }, [shouldRedirectTo])
 
-  const isEndring = React.useMemo(() => {
-    return (
-      loependeVedtak?.alderspensjon?.loepende ||
-      loependeVedtak?.afpPrivat?.loepende ||
-      loependeVedtak?.afpOffentlig?.loepende
-    )
-  }, [loependeVedtak])
-
   if (shouldRedirectTo) {
     return null
   }
 
   return (
     <>
-      {isEndring && (
+      {loependeVedtak?.alderspensjon && (
         <Alert className={styles.alert} variant="warning" aria-live="polite">
           <FormattedMessage
             id="stegvisning.endring.alert"
@@ -72,7 +64,7 @@ export function Start({
               })} ${navn}!`}
             </Heading>
 
-            {isEndring ? (
+            {loependeVedtak?.alderspensjon ? (
               <>
                 <BodyLong size="large">
                   <FormattedMessage
@@ -91,7 +83,7 @@ export function Start({
                             }
                           )
                         : undefined,
-                      afpPrivat: loependeVedtak.afpPrivat.grad
+                      afpPrivat: loependeVedtak.afpPrivat
                         ? intl.formatMessage(
                             {
                               id: 'stegvisning.start.endring.afp.privat',
@@ -99,7 +91,7 @@ export function Start({
                             { ...getFormatMessageValues(intl) }
                           )
                         : undefined,
-                      afpOffentlig: loependeVedtak.afpOffentlig.grad
+                      afpOffentlig: loependeVedtak.afpOffentlig
                         ? intl.formatMessage(
                             {
                               id: 'stegvisning.start.endring.afp.offentlig',
@@ -151,7 +143,9 @@ export function Start({
               </>
             )}
 
-            {(!isEndring || (isEndring && endringFeatureToggle?.enabled)) && (
+            {(!loependeVedtak?.alderspensjon ||
+              (loependeVedtak?.alderspensjon &&
+                endringFeatureToggle?.enabled)) && (
               <Button
                 type="submit"
                 className={styles.button}

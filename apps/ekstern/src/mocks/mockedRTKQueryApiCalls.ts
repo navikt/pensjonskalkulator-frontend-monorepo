@@ -56,22 +56,10 @@ export const fulfilledGetLoependeVedtakUfoeregrad = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      alderspensjon: {
-        loepende: false,
-        grad: 0,
-      },
       ufoeretrygd: {
-        loepende: true,
         grad: 75,
       },
-      afpPrivat: {
-        loepende: false,
-        grad: 0,
-      },
-      afpOffentlig: {
-        loepende: false,
-        grad: 0,
-      },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -85,21 +73,13 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
     startedTimeStamp: 1688046411971,
     data: {
       alderspensjon: {
-        loepende: true,
         grad: 100,
+        fom: '2020-10-02',
       },
       ufoeretrygd: {
-        loepende: false,
         grad: 0,
       },
-      afpPrivat: {
-        loepende: false,
-        grad: 0,
-      },
-      afpOffentlig: {
-        loepende: false,
-        grad: 0,
-      },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -113,21 +93,16 @@ export const fulfilledGetLoependeVedtakLoependeAFPprivat = {
     startedTimeStamp: 1688046411971,
     data: {
       alderspensjon: {
-        loepende: false,
         grad: 0,
+        fom: '2020-10-02',
       },
       ufoeretrygd: {
-        loepende: false,
         grad: 0,
       },
       afpPrivat: {
-        loepende: true,
-        grad: 100,
+        fom: '2020-10-02',
       },
-      afpOffentlig: {
-        loepende: false,
-        grad: 0,
-      },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
@@ -140,22 +115,13 @@ export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
     requestId: 'xTaE6mOydr5ZI75UXq4Wi',
     startedTimeStamp: 1688046411971,
     data: {
-      alderspensjon: {
-        loepende: false,
-        grad: 0,
-      },
       ufoeretrygd: {
-        loepende: false,
-        grad: 0,
-      },
-      afpPrivat: {
-        loepende: false,
         grad: 0,
       },
       afpOffentlig: {
-        loepende: true,
-        grad: 100,
+        fom: '2020-10-02',
       },
+      harFremtidigLoependeVedtak: false,
     },
     fulfilledTimeStamp: 1688046412103,
   },
