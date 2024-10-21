@@ -3,9 +3,8 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepUtenlandsopphold } from '..'
-import { mockErrorResponse } from '@/mocks/server'
 import { mockResponse } from '@/mocks/server'
-import { paths, henvisningUrlParams } from '@/router/constants'
+import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
@@ -18,8 +17,9 @@ describe('StepUtenlandsopphold', () => {
     )
   })
 
-  it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren sendes videre til riktig side når hen klikker på Neste', async () => {
-    mockErrorResponse('/feature/pensjonskalkulator.enable-utland')
+  // TODO PEK-689 legge til test på tittle og innhold
+  // TODO PEK-689 sjekke om validering er testet i child filen, hvis ikke sjekke den her
+  it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren kan gå til neste steg når hen klikker på Neste', async () => {
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
@@ -32,9 +32,7 @@ describe('StepUtenlandsopphold', () => {
     await user.click(await screen.findByText('stegvisning.neste'))
 
     expect(store.getState().userInput.harUtenlandsopphold).toBe(true)
-    expect(navigateMock).toHaveBeenCalledWith(
-      `${paths.henvisning}/${henvisningUrlParams.utland}`
-    )
+    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
   })
 
   it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret, slettes utenlandsoppholdene og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {

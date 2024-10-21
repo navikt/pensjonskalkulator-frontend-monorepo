@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
+import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -13,6 +14,7 @@ import { userEvent, render, screen, waitFor } from '@/test-utils'
 
 const initialGetState = store.getState
 
+// TODO PEK-689 legge til fullfilledGetPerson i preloadedState
 describe('StepStart', () => {
   afterEach(() => {
     store.dispatch(apiSliceUtils.apiSlice.util.resetApiState())
@@ -43,6 +45,19 @@ describe('StepStart', () => {
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              // ...fulfilledGetInntekt,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
         hasRouter: false,
       })
       await waitFor(() => {

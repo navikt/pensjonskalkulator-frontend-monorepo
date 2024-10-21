@@ -215,6 +215,7 @@ describe('Grunnlag', () => {
     })
   })
 
+  // TODO PEK-689 tilpasse tekst
   describe('Grunnlag - opphold', () => {
     it('viser riktig tittel med formatert inntekt og tekst', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />)
