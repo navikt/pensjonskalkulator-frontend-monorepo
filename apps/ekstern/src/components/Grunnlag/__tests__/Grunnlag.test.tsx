@@ -215,12 +215,15 @@ describe('Grunnlag', () => {
     })
   })
 
-  // TODO PEK-689 tilpasse tekst
-  describe('Grunnlag - opphold', () => {
-    it('viser riktig tittel med formatert inntekt og tekst', async () => {
+  describe('Grunnlag - utenlandsopphold', () => {
+    it('viser riktig tittel og tekst', async () => {
       render(<Grunnlag headingLevel="2" visning="enkel" />)
-      expect(screen.getByText('grunnlag.opphold.title')).toBeVisible()
-      expect(screen.getByText('grunnlag.opphold.value')).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.opphold.title.mindre_enn_5_aar')
+      ).toBeVisible()
+      expect(
+        screen.getByText('grunnlag.opphold.value.mindre_enn_5_aar')
+      ).toBeVisible()
     })
   })
 
