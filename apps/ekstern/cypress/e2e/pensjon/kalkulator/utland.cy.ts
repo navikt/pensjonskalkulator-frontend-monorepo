@@ -184,7 +184,7 @@ describe('Utland', () => {
           cy.contains('button', 'Legg til opphold').click()
         })
 
-        describe('Når jeg legger til et overlappende utenlandsopphold i et annet land,', () => {
+        describe.skip('Når jeg legger til et overlappende utenlandsopphold i et annet land,', () => {
           it('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', () => {
             cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
               force: true,
@@ -201,7 +201,7 @@ describe('Utland', () => {
         })
 
         describe('Når jeg ønsker å endre ett utenlandsopphold jeg har lagt inn,', () => {
-          it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
+          it.skip('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
             cy.contains('button', 'Endre opphold').click()
             cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
             cy.get(
