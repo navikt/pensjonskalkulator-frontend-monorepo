@@ -77,36 +77,33 @@ export function landingPageDeferredLoader<
 }
 
 export const landingPageAccessGuard = async () => {
-  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
-
-  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
-    resolveRedirectUrl = resolve
-  })
-
   const getRedirect1963FeatureToggleQuery = store.dispatch(
     apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
   )
 
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  Promise.all([getRedirect1963FeatureToggleQuery, getPersonQuery])
+  const shouldRedirectTo = Promise.all([
+    getRedirect1963FeatureToggleQuery,
+    getPersonQuery,
+  ])
     .then(([getRedirect1963FeatureToggleRes, getPersonRes]) => {
       if (
         getRedirect1963FeatureToggleRes.data?.enabled &&
         getPersonRes?.isSuccess &&
         isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
       ) {
-        resolveRedirectUrl('')
         window.open(externalUrls.detaljertKalkulator, '_self')
+        return ''
       } else {
         if (selectIsVeileder(store.getState())) {
-          resolveRedirectUrl(paths.start)
+          return paths.start
         } else {
-          resolveRedirectUrl('')
+          return ''
         }
       }
     })
     .catch(() => {
-      resolveRedirectUrl('')
+      return ''
     })
 
   return defer({
@@ -239,22 +236,22 @@ export const stepSivilstandAccessGuard = async () => {
     resolveRedirectUrl = resolve
   })
 
-  const getPersonPreviousResponse = apiSlice.endpoints.getPerson.select(
-    undefined
-  )(store.getState())
+  const getPersonResponse = apiSlice.endpoints.getPerson.select(undefined)(
+    store.getState()
+  )
   if (
-    getPersonPreviousResponse?.data?.sivilstand &&
-    checkHarSamboer(getPersonPreviousResponse.data.sivilstand)
+    getPersonResponse?.data?.sivilstand &&
+    checkHarSamboer(getPersonResponse.data.sivilstand)
   ) {
     resolveRedirectUrl(paths.utenlandsopphold)
-    resolveGetPerson(getPersonPreviousResponse)
+    resolveGetPerson(getPersonResponse)
   } else {
     resolveRedirectUrl('')
-    resolveGetPerson(getPersonPreviousResponse)
+    resolveGetPerson(getPersonResponse)
   }
 
   return defer({
-    getPersonQuery: getPersonPreviousResponse,
+    getPersonQuery: getPersonResponse,
     shouldRedirectTo,
   })
 }
