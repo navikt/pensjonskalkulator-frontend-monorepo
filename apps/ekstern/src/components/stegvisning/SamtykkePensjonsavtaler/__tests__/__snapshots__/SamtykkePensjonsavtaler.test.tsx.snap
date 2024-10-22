@@ -189,7 +189,7 @@ exports[`stegvisning - SamtykkePensjonsavtaler > rendrer slik den skal når samt
         <span
           class="navds-label"
         >
-          stegvisning.beregn
+          stegvisning.neste
         </span>
       </button>
       <button

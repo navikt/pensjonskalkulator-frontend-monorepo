@@ -18,7 +18,6 @@ import HighchartsReact from 'highcharts-react-official'
 import { Simuleringsdetaljer } from '@/components/Simulering/Simuleringsdetaljer'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
-  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
   usePensjonsavtalerQuery,
   useGetTpoMedlemskapQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
@@ -77,8 +76,6 @@ export function Simulering(props: {
   const ufoeregrad = useAppSelector(selectUfoeregrad)
   const afp = useAppSelector(selectAfp)
   const sivilstand = useAppSelector(selectSivilstand)
-  const { data: highchartsAccessibilityFeatureToggle } =
-    useGetHighchartsAccessibilityPluginFeatureToggleQuery()
   const { data: utvidetSimuleringsresultatFeatureToggle } =
     useGetUtvidetSimuleringsresultatFeatureToggleQuery()
 
@@ -392,10 +389,7 @@ export function Simulering(props: {
       <Heading level={headingLevel} size="medium" visuallyHidden>
         <FormattedMessage id="beregning.highcharts.title" />
       </Heading>
-      <div
-        data-testid="highcharts-aria-wrapper"
-        aria-hidden={!highchartsAccessibilityFeatureToggle?.enabled}
-      >
+      <div data-testid="highcharts-aria-wrapper" aria-hidden={true}>
         <HighchartsReact
           ref={chartRef}
           highcharts={Highcharts}

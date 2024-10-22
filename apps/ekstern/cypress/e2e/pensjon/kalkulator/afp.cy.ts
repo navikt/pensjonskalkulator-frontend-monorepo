@@ -36,7 +36,7 @@ describe('AFP', () => {
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt,Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt. AFP vises ikke.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
@@ -52,7 +52,7 @@ describe('AFP', () => {
       it('forventer jeg å få informasjon i grunnlaget om at AFP kan påvirke min uttaksalder.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
@@ -84,7 +84,7 @@ describe('AFP', () => {
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt,Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt. AFP vises ikke.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
@@ -100,7 +100,7 @@ describe('AFP', () => {
       it('forventer jeg å få informasjon i grunnlaget om at jeg bør gjøre ny beregning hvis jeg starter i jobb hos arbeidsgiver med AFP.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
@@ -134,7 +134,7 @@ describe('AFP', () => {
       it('ønsker jeg en graf som viser utviklingen av total pensjon (Inntekt, AFP, Pensjonsavtaler, alderspensjon) fra uttaksalderen jeg har valgt.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
@@ -150,7 +150,7 @@ describe('AFP', () => {
       it('forventer jeg å få informasjon i grunnlaget om at vilkårene for AFP ikke vurderes av NAV, men av Fellesordningen.', () => {
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
@@ -191,7 +191,7 @@ describe('AFP', () => {
         cy.get('[type="radio"]').eq(0).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
@@ -209,7 +209,7 @@ describe('AFP', () => {
         cy.get('[type="radio"]').eq(0).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')
@@ -239,7 +239,7 @@ describe('AFP', () => {
         cy.get('[type="radio"]').eq(1).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '62 år og 10 md.').click()
         cy.contains('Beregning').should('exist')
@@ -257,7 +257,7 @@ describe('AFP', () => {
         cy.get('[type="radio"]').eq(1).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').first().check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
 
         cy.contains('button', '70').click()
         cy.contains('Øvrig grunnlag for beregningen').should('exist')

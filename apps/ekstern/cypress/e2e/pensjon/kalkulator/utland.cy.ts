@@ -260,7 +260,7 @@ describe('Utland', () => {
             cy.get('[type="radio"]').last().check()
             cy.contains('button', 'Neste').click()
             cy.get('[type="radio"]').last().check()
-            cy.contains('button', 'Beregn pensjon').click()
+            cy.contains('button', 'Neste').click()
           })
           describe('Når har valgt alder jeg ønsker beregning fra,', () => {
             beforeEach(() => {
@@ -316,7 +316,7 @@ describe('Utland', () => {
             cy.get('[type="radio"]').last().check()
             cy.contains('button', 'Neste').click()
             cy.get('[type="radio"]').last().check()
-            cy.contains('button', 'Beregn pensjon').click()
+            cy.contains('button', 'Neste').click()
           })
 
           describe('Når har valgt alder jeg ønsker beregning fra,', () => {
@@ -377,7 +377,7 @@ describe('Utland', () => {
           cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
           cy.get('[type="radio"]').last().check()
-          cy.contains('button', 'Beregn pensjon').click()
+          cy.contains('button', 'Neste').click()
         })
 
         describe('Når har valgt alder jeg ønsker beregning fra,', () => {

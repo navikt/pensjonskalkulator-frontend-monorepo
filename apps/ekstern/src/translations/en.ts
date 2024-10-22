@@ -52,7 +52,6 @@ const translations = {
   'stegvisning.tilbake_start.modal.title': 'MANGLER_TEKST',
   'stegvisning.tilbake_start.modal.bekreft': 'MANGLER_TEKST',
   'stegvisning.tilbake_start.modal.avbryt': 'MANGLER_TEKST',
-  'stegvisning.beregn': 'MANGLER_TEKST',
   'stegvisning.endring.alert': 'MANGLER_TEKST',
   'stegvisning.start.title': 'MANGLER_TEKST',
   'stegvisning.start.endring.ingress': 'MANGLER_TEKST',

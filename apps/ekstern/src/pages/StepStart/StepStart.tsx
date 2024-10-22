@@ -7,14 +7,12 @@ import { Start } from '@/components/stegvisning/Start'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { paths } from '@/router/constants'
 import { useStepStartAccessData } from '@/router/loaders'
-import { apiSlice } from '@/state/api/apiSlice'
-import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import { useAppSelector } from '@/state/hooks'
 import { selectIsVeileder } from '@/state/userInput/selectors'
 
 export function StepStart() {
   const intl = useIntl()
 
-  const dispatch = useAppDispatch()
   const loaderData = useStepStartAccessData()
 
   const [{ onStegvisningNext, onStegvisningCancel }] = useStegvisningNavigation(
@@ -25,9 +23,6 @@ export function StepStart() {
     document.title = intl.formatMessage({
       id: 'application.title.stegvisning.start',
     })
-    dispatch(
-      apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
-    )
   }, [])
 
   const isVeileder = useAppSelector(selectIsVeileder)

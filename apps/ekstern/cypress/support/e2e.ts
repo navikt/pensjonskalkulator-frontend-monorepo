@@ -1,6 +1,5 @@
 import 'cypress-axe'
 
-import { apiSlice } from '../../src/state/api/apiSlice'
 import { userInputActions } from '../../src/state/userInput/userInputReducer'
 
 beforeEach(() => {
@@ -79,14 +78,6 @@ beforeEach(() => {
     },
     { fixture: 'toggle-disable-spraakvelger.json' }
   ).as('getFeatureToggleSpraakvelger')
-
-  cy.intercept(
-    {
-      method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
-    },
-    { fixture: 'toggle-enable-highcharts-accessibility-plugin.json' }
-  ).as('getFeatureToggleHighcharts')
 
   cy.intercept(
     {
@@ -201,7 +192,7 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
   cy.window().its('router').invoke('navigate', '/beregning')
 })
 
-Cypress.on('uncaught:exception', (err, runnable) => {
+Cypress.on('uncaught:exception', (err) => {
   if (err.message.includes('Amplitude')) {
     // prevents Amplitude errors to fail tests
     return false
