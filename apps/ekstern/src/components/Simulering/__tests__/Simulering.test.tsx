@@ -1186,7 +1186,7 @@ describe('Simulering', () => {
   })
 
   it('viser tabell og skjuler grafen for skjermlesere', async () => {
-    const { store } = render(
+    render(
       <Simulering
         isLoading={false}
         headingLevel="3"
@@ -1205,50 +1205,12 @@ describe('Simulering', () => {
         },
       }
     )
-    store.dispatch(
-      apiSliceUtils.apiSlice.endpoints.getHighchartsAccessibilityPluginFeatureToggle.initiate()
-    )
     expect(await screen.findByText('beregning.tabell.vis')).toBeVisible()
     const highChartsWrapper = await screen.findByTestId(
       'highcharts-aria-wrapper'
     )
     await waitFor(() => {
       expect(highChartsWrapper.getAttribute('aria-hidden')).toBe('true')
-    })
-  })
-
-  it('setter aria-hidden attribute iht feature toggle', async () => {
-    mockResponse(
-      '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
-      {
-        status: 200,
-        json: { enabled: true },
-      }
-    )
-
-    render(
-      <Simulering
-        isLoading={false}
-        headingLevel="3"
-        aarligInntektFoerUttakBeloep="0"
-        afpPrivatListe={afpPrivatData.afpPrivat}
-        showButtonsAndTable={true}
-      />,
-      {
-        preloadedState: {
-          userInput: {
-            ...userInputInitialState,
-            samtykke: true,
-            currentSimulation: { ...currentSimulation },
-          },
-        },
-      }
-    )
-    await waitFor(async () => {
-      const highchartsWrapper = await screen.findByTestId(
-        'highcharts-aria-wrapper'
-      )
-      expect(highchartsWrapper.getAttribute('aria-hidden')).toBe('false')
     })
   })
 })

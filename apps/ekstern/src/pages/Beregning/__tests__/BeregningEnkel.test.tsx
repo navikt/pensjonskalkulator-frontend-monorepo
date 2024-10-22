@@ -110,7 +110,7 @@ describe('BeregningEnkel', () => {
       )
     })
 
-    it('viser loading og deretter riktig header, tekst og alle knappene fra tidligst mulig uttaksalderen', async () => {
+    it('viser loading og deretter riktig header, TMU og Velg uttaksalder områder', async () => {
       render(<BeregningEnkel />)
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
       await waitFor(async () => {
@@ -120,7 +120,7 @@ describe('BeregningEnkel', () => {
       })
       expect(await screen.findByTestId('tidligst-mulig-uttak')).toBeVisible()
       expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1)
-      expect(screen.getAllByRole('button')).toHaveLength(12)
+      expect(await screen.findByText('velguttaksalder.title')).toBeVisible()
       expect(screen.queryByTestId('om-ufoeretrygd')).not.toBeInTheDocument()
     })
 
