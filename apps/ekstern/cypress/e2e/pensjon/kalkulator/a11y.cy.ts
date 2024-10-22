@@ -53,7 +53,7 @@ describe('Pensjonskalkulator', () => {
     cy.contains('Pensjonsavtaler')
     cy.checkA11y('main')
     cy.get('[type="radio"]').first().check()
-    cy.contains('button', 'Beregn pensjon').click()
+    cy.contains('button', 'Neste').click()
   })
 
   it('rendrer resultatsside for enkel uten a11y-feil.', () => {
