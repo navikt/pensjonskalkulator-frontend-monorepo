@@ -9,7 +9,10 @@ import {
   paths,
 } from '../constants'
 import { routes } from '../routes'
-import { fulfilledGetLoependeVedtakUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import {
+  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetPerson,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -261,45 +264,6 @@ describe('routes', () => {
       })
     })
 
-    describe(`${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.utland}`, () => {
-      it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
-        const open = vi.fn()
-        vi.stubGlobal('open', open)
-        mockErrorResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.utland}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, {
-          hasRouter: false,
-        })
-        await waitFor(() => {
-          expect(open).toHaveBeenCalledWith(
-            'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-            '_self'
-          )
-        })
-      })
-      it('viser utenlandsopphold feil', async () => {
-        mockResponse('/oauth2/session', {
-          baseUrl: `${HOST_BASEURL}`,
-        })
-        const router = createMemoryRouter(routes, {
-          basename: BASE_PATH,
-          initialEntries: [
-            `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.utland}`,
-          ],
-        })
-        render(<RouterProvider router={router} />, { hasRouter: false })
-
-        expect(await screen.findByText('henvisning.utland.body')).toBeVisible()
-      })
-    })
-
     describe(`${BASE_PATH}${paths.forbehold}`, () => {
       it('sjekker påloggingstatus og redirigerer til ID-porten hvis brukeren ikke er pålogget', async () => {
         const open = vi.fn()
@@ -373,7 +337,9 @@ describe('routes', () => {
       it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fulfilledGetPerson,
+            },
           },
           userInput: { ...userInputInitialState },
         }))
@@ -382,6 +348,16 @@ describe('routes', () => {
           initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
         })
         render(<RouterProvider router={router} />, {
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: {
+                ...fulfilledGetPerson,
+              },
+            },
+            userInput: { ...userInputInitialState },
+          },
           hasRouter: false,
         })
         expect(

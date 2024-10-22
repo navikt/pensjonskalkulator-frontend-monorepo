@@ -13,6 +13,21 @@ export const fulfilledGetPerson = {
   },
 }
 
+export const fulfilledGetPersonMedSamboer = {
+  ['getPerson(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getPerson',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      navn: 'Aprikos',
+      sivilstand: 'GIFT',
+      foedselsdato: '1963-04-30',
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
 export const fulfilledGetInntekt = {
   ['getInntekt(undefined)']: {
     status: 'fulfilled',
@@ -46,6 +61,22 @@ export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
     data: { harLoependeSak: true },
     startedTimeStamp: 1714725797072,
     fulfilledTimeStamp: 1714725797669,
+  },
+}
+
+export const fulfilledGetLoependeVedtak0Ufoeregrad = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
   },
 }
 

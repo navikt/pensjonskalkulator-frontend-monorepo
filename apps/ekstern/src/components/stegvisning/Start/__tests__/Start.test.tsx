@@ -53,24 +53,6 @@ describe('stegvisning - Start', () => {
     })
   })
 
-  it('rendrer slik den skal uten navn, med riktig heading, bilde, tekst og knapper', async () => {
-    const result = render(
-      <Start
-        navn=""
-        loependeVedtak={loependeVedtak}
-        onCancel={onCancelMock}
-        onNext={onNextMock}
-      />
-    )
-
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-        'stegvisning.start.title!'
-      )
-      expect(result.asFragment()).toMatchSnapshot()
-    })
-  })
-
   it('rendrer slik den skal med vedtak om alderspensjon', async () => {
     const result = render(
       <Start

@@ -127,7 +127,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
     class="_alert_09901f navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r2"
+      aria-labelledby="title-r1"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -138,7 +138,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r2"
+        id="title-r1"
       >
         Advarsel
       </title>
@@ -160,7 +160,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
       >
         detaljert pensjonskalkulator
         <svg
-          aria-labelledby="title-r3"
+          aria-labelledby="title-r2"
           fill="none"
           focusable="false"
           height="1.25rem"
@@ -170,7 +170,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="title-r3"
+            id="title-r2"
           >
             application.global.external_link
           </title>
@@ -239,7 +239,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
     >
       stegvisning.start.link
       <svg
-        aria-labelledby="title-r4"
+        aria-labelledby="title-r3"
         fill="none"
         focusable="false"
         height="1.25rem"
@@ -249,7 +249,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="title-r4"
+          id="title-r3"
         >
           application.global.external_link
         </title>
@@ -272,7 +272,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
     class="_alert_09901f navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-rb"
+      aria-labelledby="title-ra"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -283,7 +283,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-rb"
+        id="title-ra"
       >
         Advarsel
       </title>
@@ -305,7 +305,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
       >
         detaljert pensjonskalkulator
         <svg
-          aria-labelledby="title-rc"
+          aria-labelledby="title-rb"
           fill="none"
           focusable="false"
           height="1.25rem"
@@ -315,7 +315,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="title-rc"
+            id="title-rb"
           >
             application.global.external_link
           </title>
@@ -388,7 +388,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
     >
       stegvisning.start.link
       <svg
-        aria-labelledby="title-rd"
+        aria-labelledby="title-rc"
         fill="none"
         focusable="false"
         height="1.25rem"
@@ -398,7 +398,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="title-rd"
+          id="title-rc"
         >
           application.global.external_link
         </title>
@@ -421,7 +421,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
     class="_alert_09901f navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r8"
+      aria-labelledby="title-r7"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -432,7 +432,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r8"
+        id="title-r7"
       >
         Advarsel
       </title>
@@ -454,7 +454,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
       >
         detaljert pensjonskalkulator
         <svg
-          aria-labelledby="title-r9"
+          aria-labelledby="title-r8"
           fill="none"
           focusable="false"
           height="1.25rem"
@@ -464,7 +464,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="title-r9"
+            id="title-r8"
           >
             application.global.external_link
           </title>
@@ -537,7 +537,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
     >
       stegvisning.start.link
       <svg
-        aria-labelledby="title-ra"
+        aria-labelledby="title-r9"
         fill="none"
         focusable="false"
         height="1.25rem"
@@ -547,7 +547,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="title-ra"
+          id="title-r9"
         >
           application.global.external_link
         </title>
@@ -570,7 +570,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
     class="_alert_09901f navds-alert navds-alert--warning navds-alert--medium"
   >
     <svg
-      aria-labelledby="title-r5"
+      aria-labelledby="title-r4"
       class="navds-alert__icon"
       fill="none"
       focusable="false"
@@ -581,7 +581,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
       xmlns="http://www.w3.org/2000/svg"
     >
       <title
-        id="title-r5"
+        id="title-r4"
       >
         Advarsel
       </title>
@@ -603,7 +603,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
       >
         detaljert pensjonskalkulator
         <svg
-          aria-labelledby="title-r6"
+          aria-labelledby="title-r5"
           fill="none"
           focusable="false"
           height="1.25rem"
@@ -613,7 +613,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
           xmlns="http://www.w3.org/2000/svg"
         >
           <title
-            id="title-r6"
+            id="title-r5"
           >
             application.global.external_link
           </title>
@@ -686,7 +686,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
     >
       stegvisning.start.link
       <svg
-        aria-labelledby="title-r7"
+        aria-labelledby="title-r6"
         fill="none"
         focusable="false"
         height="1.25rem"
@@ -696,127 +696,7 @@ exports[`stegvisning - Start > rendrer slik den skal med vedtak om alderspensjon
         xmlns="http://www.w3.org/2000/svg"
       >
         <title
-          id="title-r7"
-        >
-          application.global.external_link
-        </title>
-        <path
-          clip-rule="evenodd"
-          d="M20.532 3.471A.75.75 0 0 1 20.75 4v7.5a.75.75 0 0 1-1.5 0V5.81l-8.72 8.72a.75.75 0 1 1-1.06-1.06l8.72-8.72H12.5a.75.75 0 0 1 0-1.5H20c.206 0 .393.083.529.218l.001.002zM4.75 9A.25.25 0 0 1 5 8.75h7a.75.75 0 0 0 0-1.5H5A1.75 1.75 0 0 0 3.25 9v10c0 .966.784 1.75 1.75 1.75h10A1.75 1.75 0 0 0 16.75 19v-7a.75.75 0 0 0-1.5 0v7a.25.25 0 0 1-.25.25H5a.25.25 0 0 1-.25-.25z"
-          fill="currentColor"
-          fill-rule="evenodd"
-        />
-      </svg>
-    </a>
-  </section>
-</DocumentFragment>
-`;
-
-exports[`stegvisning - Start > rendrer slik den skal uten navn, med riktig heading, bilde, tekst og knapper 1`] = `
-<DocumentFragment>
-  <section
-    class="_section_67454f _section__largePadding_67454f _section__marginBotton_67454f"
-  >
-    <div
-      class="_wrapper_09901f"
-    >
-      <img
-        alt=""
-        class="_image_09901f"
-        src="/pensjon/kalkulator/src/assets/frida.svg"
-      />
-      <div
-        class="_wrapperText_09901f"
-      >
-        <h2
-          class="navds-heading navds-heading--medium navds-typo--spacing"
-        >
-          stegvisning.start.title!
-        </h2>
-        <p
-          class="navds-body-long navds-body-long--large"
-        >
-          stegvisning.start.ingress
-        </p>
-        <ul
-          class="_list_09901f"
-        >
-          <li>
-            <p
-              class="navds-body-long navds-body-long--large"
-            >
-              <span
-                class="_ellipse_09901f _ellipse__blue_09901f"
-              />
-              stegvisning.start.list_item1
-            </p>
-          </li>
-          <li>
-            <p
-              class="navds-body-long navds-body-long--large"
-            >
-              <span
-                class="_ellipse_09901f _ellipse__purple_09901f"
-              />
-              stegvisning.start.list_item2 
-            </p>
-          </li>
-          <li>
-            <p
-              class="navds-body-long navds-body-long--large"
-            >
-              <span
-                class="_ellipse_09901f _ellipse__green_09901f"
-              />
-              stegvisning.start.list_item3 
-            </p>
-          </li>
-        </ul>
-        <p
-          class="navds-body-long navds-body-long--large"
-        >
-          stegvisning.start.ingress_2
-        </p>
-        <button
-          class="_button_09901f navds-button navds-button--primary navds-button--medium"
-          type="submit"
-        >
-          <span
-            class="navds-label"
-          >
-            stegvisning.start.button
-          </span>
-        </button>
-        <button
-          class="navds-button navds-button--tertiary navds-button--medium"
-          type="button"
-        >
-          <span
-            class="navds-label"
-          >
-            stegvisning.avbryt
-          </span>
-        </button>
-      </div>
-    </div>
-    <a
-      class="navds-link _link_09901f navds-link--action navds-link--inline-text"
-      href="/personopplysninger"
-      target="_blank"
-    >
-      stegvisning.start.link
-      <svg
-        aria-labelledby="title-r1"
-        fill="none"
-        focusable="false"
-        height="1.25rem"
-        role="img"
-        viewBox="0 0 24 24"
-        width="1.25rem"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <title
-          id="title-r1"
+          id="title-r6"
         >
           application.global.external_link
         </title>
