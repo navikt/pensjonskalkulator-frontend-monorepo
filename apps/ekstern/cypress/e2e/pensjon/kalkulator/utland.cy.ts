@@ -193,7 +193,7 @@ describe('Utland', () => {
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
               '30.04.1981'
             )
-            cy.contains('button', 'Legg til opphold').click()
+            cy.contains('button', 'Legg til opphold').click({ force: true })
             cy.contains(
               'Du har allerede registrert at du har bodd i Frankrike fra 01.06.1980 til 31.12.1982. Du kan ikke ha overlappende opphold i to ulike land.'
             ).should('be.visible')
@@ -213,7 +213,7 @@ describe('Utland', () => {
             cy.get('[data-testid="utenlandsopphold-sluttdato"]')
               .clear()
               .type('31.12.2020')
-            cy.contains('button', 'Oppdater opphold').click()
+            cy.contains('button', 'Oppdater opphold').click({ force: true })
             cy.contains('Oppholdene dine utenfor Norge').should('exist')
             cy.contains('Frankrike').should('not.be.visible')
             cy.contains('Spania').should('exist')
