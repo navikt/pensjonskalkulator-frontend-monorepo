@@ -83,14 +83,6 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
-    },
-    { fixture: 'toggle-enable-highcharts-accessibility-plugin.json' }
-  ).as('getFeatureToggleHighcharts')
-
-  cy.intercept(
-    {
-      method: 'GET',
       url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-utland',
     },
     { fixture: 'toggle-enable-utland.json' }

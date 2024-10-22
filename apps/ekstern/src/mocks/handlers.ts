@@ -12,7 +12,6 @@ import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' 
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableEndringToggleResponse from './data/unleash-enable-endring.json' with { type: 'json' }
-import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' with { type: 'json' }
 import enableUtlandToggleResponse from './data/unleash-enable-utland.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
@@ -135,14 +134,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     async () => {
       await delay(TEST_DELAY)
       return HttpResponse.json(disableSpraakvelgerToggleResponse)
-    }
-  ),
-
-  http.get(
-    `${baseUrl}/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin`,
-    async () => {
-      await delay(TEST_DELAY)
-      return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
     }
   ),
 

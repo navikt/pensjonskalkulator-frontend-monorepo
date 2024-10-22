@@ -4,14 +4,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { Alert, Button, Modal, ToggleGroup } from '@navikt/ds-react'
 import Highcharts from 'highcharts'
-import HighchartsAccessibility from 'highcharts/modules/accessibility'
 
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
-import {
-  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetLoependeVedtakQuery,
-} from '@/state/api/apiSlice'
+import { useGetLoependeVedtakQuery } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
@@ -43,15 +39,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const [harAvansertSkjemaUnsavedChanges, setHarAvansertSkjemaUnsavedChanges] =
     React.useState<boolean>(false)
 
-  const { data: highchartsAccessibilityFeatureToggle } =
-    useGetHighchartsAccessibilityPluginFeatureToggleQuery()
   const { data: loependeVedtak } = useGetLoependeVedtakQuery()
 
   React.useEffect(() => {
-    /* c8 ignore next 3 */
-    if (highchartsAccessibilityFeatureToggle?.enabled) {
-      HighchartsAccessibility(Highcharts)
-    }
     document.title = intl.formatMessage({
       id: 'application.title.beregning',
     })
