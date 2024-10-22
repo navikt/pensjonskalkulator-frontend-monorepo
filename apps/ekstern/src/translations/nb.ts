@@ -76,7 +76,6 @@ const translations = {
     'Hvis du går tilbake til start, mister du alle valgene dine.',
   'stegvisning.tilbake_start.modal.bekreft': 'Gå tilbake til start',
   'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
-  'stegvisning.beregn': 'Beregn pensjon',
   'stegvisning.endring.alert':
     'Du har pensjon. Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
   'stegvisning.start.title': 'Hei',

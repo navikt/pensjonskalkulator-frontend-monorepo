@@ -254,7 +254,7 @@ describe('Hovedhistorie', () => {
           ).should('exist')
         })
         it('forventer jeg å måtte svare ja/nei på spørsmål om samtykke for å hente mine avtaler eller om jeg ønsker å gå videre med bare alderspensjon.', () => {
-          cy.contains('button', 'Beregn pensjon').click()
+          cy.contains('button', 'Neste').click()
           cy.contains(
             'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
           ).should('exist')
@@ -262,7 +262,7 @@ describe('Hovedhistorie', () => {
           cy.contains(
             'Du må svare på om du vil at vi skal hente dine pensjonsavtaler.'
           ).should('not.exist')
-          cy.contains('button', 'Beregn pensjon').click()
+          cy.contains('button', 'Neste').click()
         })
         it('ønsker jeg å kunne gå tilbake til forrige steg, eller avbryte beregningen.', () => {
           cy.contains('button', 'Tilbake').click()
