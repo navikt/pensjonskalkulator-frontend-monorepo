@@ -3,7 +3,6 @@ import { useIntl, FormattedMessage } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
 import { Alert, Button, Modal, ToggleGroup } from '@navikt/ds-react'
-import Highcharts from 'highcharts'
 
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
