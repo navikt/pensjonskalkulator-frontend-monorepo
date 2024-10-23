@@ -166,24 +166,38 @@ describe('Utland', () => {
       })
 
       describe('Som bruker som har allerede lagt til et utenlandsopphold,', () => {
-        beforeEach(() => {
-          cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
-          cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
-          cy.get(
-            '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
-          ).check()
-          cy.get('[data-testid="utenlandsopphold-startdato"]').type(
-            '10.06.1980'
-          )
-          cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
-            '16.12.1982'
-          )
-          cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
-        })
+        // beforeEach(() => {
+        //   cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
+        //   cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
+        //   cy.get(
+        //     '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
+        //   ).check()
+        //   cy.get('[data-testid="utenlandsopphold-startdato"]').type(
+        //     '10.06.1980'
+        //   )
+        //   cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
+        //     '16.12.1982'
+        //   )
+        //   cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
+        // })
 
         // TODO følges opp pga ustabilitet
         describe('Når jeg legger til et overlappende utenlandsopphold i et annet land,', () => {
           it('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', () => {
+            // Start of beforeEach
+            cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
+            cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
+            cy.get(
+              '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
+            ).check()
+            cy.get('[data-testid="utenlandsopphold-startdato"]').type(
+              '10.06.1980'
+            )
+            cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
+              '16.12.1982'
+            )
+            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
+            // End of beforeEach
             cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
             cy.get('[data-testid="utenlandsopphold-land"]').select('Antarktis')
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
@@ -200,6 +214,20 @@ describe('Utland', () => {
         describe('Når jeg ønsker å endre ett utenlandsopphold jeg har lagt inn,', () => {
           // TODO følges opp pga ustabilitet
           it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
+            // Start of beforeEach
+            cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
+            cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
+            cy.get(
+              '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
+            ).check()
+            cy.get('[data-testid="utenlandsopphold-startdato"]').type(
+              '10.06.1980'
+            )
+            cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
+              '16.12.1982'
+            )
+            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
+            // End of beforeEach
             cy.contains('button', 'Endre opphold').click()
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
@@ -221,6 +249,20 @@ describe('Utland', () => {
           })
 
           it('forventer jeg å kunne avbryte endringen.', () => {
+            // Start of beforeEach
+            cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
+            cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
+            cy.get(
+              '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
+            ).check()
+            cy.get('[data-testid="utenlandsopphold-startdato"]').type(
+              '10.06.1980'
+            )
+            cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
+              '16.12.1982'
+            )
+            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
+            // End of beforeEach
             cy.contains('button', 'Endre opphold').click()
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.contains('button', 'Avbryt endring').click()
