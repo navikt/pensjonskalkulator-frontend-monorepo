@@ -167,9 +167,7 @@ describe('Utland', () => {
 
       describe('Som bruker som har allerede lagt til et utenlandsopphold,', () => {
         beforeEach(() => {
-          cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
-            force: true,
-          })
+          cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
           cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
           cy.get(
             '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
@@ -180,17 +178,13 @@ describe('Utland', () => {
           cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
             '16.12.1982'
           )
-          cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click({
-            force: true,
-          })
+          cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
         })
 
         // TODO følges opp pga ustabilitet
         describe('Når jeg legger til et overlappende utenlandsopphold i et annet land,', () => {
           it('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', () => {
-            cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
-              force: true,
-            })
+            cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
             cy.get('[data-testid="utenlandsopphold-land"]').select('Antarktis')
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
               '20.04.1981'
