@@ -179,7 +179,6 @@ describe('Utland', () => {
             '16.12.1982'
           )
           cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
-          cy.screenshot()
         })
 
         // TODO følges opp pga ustabilitet
