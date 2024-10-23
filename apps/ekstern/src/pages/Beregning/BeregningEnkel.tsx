@@ -40,7 +40,7 @@ import {
   DEFAULT_UBETINGET_UTTAKSALDER,
   getAlderMinus1Maaned,
   getAlderPlus1Maaned,
-  isAlderOverMinUttaksaar,
+  isAlderOverMinUttaksalder,
   isFoedtFoer1964,
   transformFoedselsdatoToAlder,
 } from '@/utils/alder'
@@ -177,7 +177,7 @@ export const BeregningEnkel: React.FC = () => {
       ? transformFoedselsdatoToAlder(person?.foedselsdato)
       : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksaar(beregnetMinAlder)
+    return isAlderOverMinUttaksalder(beregnetMinAlder)
       ? beregnetMinAlder
       : DEFAULT_TIDLIGST_UTTAKSALDER
   }, [person])

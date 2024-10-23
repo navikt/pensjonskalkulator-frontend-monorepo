@@ -35,7 +35,7 @@ import {
   DEFAULT_TIDLIGST_UTTAKSALDER,
   getAlderMinus1Maaned,
   getAlderPlus1Maaned,
-  isAlderOverMinUttaksaar,
+  isAlderOverMinUttaksalder,
   transformFoedselsdatoToAlder,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
@@ -152,7 +152,7 @@ export const BeregningAvansert: React.FC = () => {
       ? transformFoedselsdatoToAlder(person.foedselsdato)
       : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
-    return isAlderOverMinUttaksaar(beregnetMinAlder)
+    return isAlderOverMinUttaksalder(beregnetMinAlder)
       ? beregnetMinAlder
       : DEFAULT_TIDLIGST_UTTAKSALDER
   }, [person])

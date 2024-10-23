@@ -92,7 +92,7 @@ export const isAlderLikEllerOverUbetingetUttaksalder = (
   }
 }
 
-export const isAlderOverMinUttaksaar = (alder: Alder) => {
+export const isAlderOverMinUttaksalder = (alder: Alder) => {
   if (alder.aar > DEFAULT_TIDLIGST_UTTAKSALDER.aar) {
     return true
   } else if (
