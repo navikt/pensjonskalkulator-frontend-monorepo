@@ -54,6 +54,9 @@ export function UtenlandsoppholdListe({
 
   const onEditClick = (id: string) => {
     setValgtUtenlandsperiodeId(id)
+    logger('modal åpnet', {
+      tekst: `Modal: Om oppholdet ditt`,
+    })
     utenlandsoppholdModalRef.current?.showModal()
   }
 
