@@ -222,7 +222,6 @@ describe('Utland', () => {
             cy.contains('Spania').should('exist')
             cy.contains('Periode: 20.04.1981–16.12.2020').should('exist')
             cy.contains('Jobbet: Ja').should('exist')
-            cy.get('[data-testid="legg-til-utenlandsopphold-avbryt"]').click()
           })
 
           it('forventer jeg å kunne avbryte endringen.', () => {
