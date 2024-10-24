@@ -195,7 +195,7 @@ describe('Utland', () => {
             cy.contains(
               'Du har allerede registrert at du har bodd i Frankrike '
             ).should('be.visible')
-            cy.contains('button', 'Avbryt').click()
+            cy.get('[data-testid="legg-til-utenlandsopphold-avbryt"]').click()
           })
         })
 
@@ -203,7 +203,7 @@ describe('Utland', () => {
           // TODO følges opp pga ustabilitet
           it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
             cy.contains('button', 'Endre opphold').click()
-            cy.get('[data-testid="utenlandsopphold-land"]').scrollTo('top')
+            cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
             cy.get(
@@ -221,19 +221,19 @@ describe('Utland', () => {
             cy.contains('Spania').should('exist')
             cy.contains('Periode: 20.04.1981–16.12.2020').should('exist')
             cy.contains('Jobbet: Ja').should('exist')
-            cy.contains('button', 'Avbryt').click()
+            cy.get('[data-testid="legg-til-utenlandsopphold-avbryt"]').click()
           })
 
           it('forventer jeg å kunne avbryte endringen.', () => {
             cy.contains('button', 'Endre opphold').click()
-            cy.get('[data-testid="utenlandsopphold-land"]').scrollTo('top')
+            cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.contains('button', 'Avbryt endring').click()
             cy.contains('Oppholdene dine utenfor Norge').should('exist')
             cy.contains('Frankrike').should('exist')
             cy.contains('Periode: 10.06.1980–16.12.1982').should('exist')
             cy.contains('Jobbet: Nei').should('exist')
-            cy.contains('button', 'Avbryt').click()
+            cy.get('[data-testid="legg-til-utenlandsopphold-avbryt"]').click()
           })
         })
 
