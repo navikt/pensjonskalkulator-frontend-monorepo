@@ -192,14 +192,15 @@ describe('Utland', () => {
         // TODO følges opp pga ustabilitet
         describe('Når jeg legger til et overlappende utenlandsopphold i et annet land,', () => {
           it('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', () => {
+            cy.wait(500)
+            cy.screenshot()
             cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
+            cy.contains('Velg land').should('be.visible')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Antarktis')
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
               '20.04.1981'
             )
-            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click({
-              force: true,
-            })
+            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
             // Full tekst 'Du har allerede registrert at du har bodd i Frankrike fra 01.06.1980 til 31.12.1982. Du kan ikke ha overlappende opphold i to ulike land.'
             cy.contains(
               'Du har allerede registrert at du har bodd i Frankrike '
