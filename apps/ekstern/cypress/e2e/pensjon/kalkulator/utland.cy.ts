@@ -204,6 +204,7 @@ describe('Utland', () => {
           it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
             cy.contains('button', 'Endre opphold').click()
             cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
+            cy.contains('Jobbet du i Frankrike?').should('exist')
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
             cy.get(
@@ -233,7 +234,6 @@ describe('Utland', () => {
             cy.contains('Frankrike').should('exist')
             cy.contains('Periode: 10.06.1980–16.12.1982').should('exist')
             cy.contains('Jobbet: Nei').should('exist')
-            cy.get('[data-testid="legg-til-utenlandsopphold-avbryt"]').click()
           })
         })
 
