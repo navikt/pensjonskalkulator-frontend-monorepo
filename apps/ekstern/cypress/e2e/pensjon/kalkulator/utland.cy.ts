@@ -179,7 +179,6 @@ describe('Utland', () => {
             '16.12.1982'
           )
           cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
-          cy.wait(500)
         })
 
         // TODO følges opp pga ustabilitet
@@ -203,7 +202,9 @@ describe('Utland', () => {
           // TODO følges opp pga ustabilitet
           it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
             cy.contains('button', 'Endre opphold').click()
+            cy.screenshot()
             cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
+            cy.screenshot()
             cy.contains('Jobbet du i Frankrike?').should('exist')
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
@@ -226,7 +227,9 @@ describe('Utland', () => {
 
           it('forventer jeg å kunne avbryte endringen.', () => {
             cy.contains('button', 'Endre opphold').click()
+            cy.screenshot()
             cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
+            cy.screenshot()
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.contains('button', 'Avbryt endring').click()
             cy.contains('Oppholdene dine utenfor Norge').should('exist')
