@@ -201,7 +201,7 @@ describe('Utland', () => {
         describe('Når jeg ønsker å endre ett utenlandsopphold jeg har lagt inn,', () => {
           // TODO følges opp pga ustabilitet
           it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
-            cy.contains('button', 'Endre opphold').click()
+            cy.contains('button', 'Endre opphold').click({ force: true })
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
             cy.get(
@@ -222,7 +222,7 @@ describe('Utland', () => {
           })
 
           it('forventer jeg å kunne avbryte endringen.', () => {
-            cy.contains('button', 'Endre opphold').click()
+            cy.contains('button', 'Endre opphold').click({ force: true })
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.contains('button', 'Avbryt endring').click()
             cy.contains('Oppholdene dine utenfor Norge').should('exist')

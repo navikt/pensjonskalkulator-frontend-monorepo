@@ -175,6 +175,7 @@ export function UtenlandsoppholdListe({
                         locale
                       )}
                     </b>
+                    <p>{utenlandsperiode.id}</p>
                   </dd>
                   <dd>
                     <FormattedMessage id="stegvisning.utenlandsopphold.oppholdene.description.periode" />
@@ -225,6 +226,7 @@ export function UtenlandsoppholdListe({
                         id: 'stegvisning.utenlandsopphold.oppholdene.button.slette',
                       })}
                     </Button>
+                    <p>VALGT UTENLANDSPERIODE: {valgtUtenlandsperiodeId}</p>
                   </dd>
                 )}
               </div>
