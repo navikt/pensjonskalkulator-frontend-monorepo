@@ -8,7 +8,7 @@ import { BeregningEnkel } from '../BeregningEnkel'
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
-  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -222,7 +222,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtakUfoeregrad,
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
           },
           userInput: {
@@ -247,7 +247,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
-              ...fulfilledGetLoependeVedtakUfoeregrad,
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
           },
           userInput: {

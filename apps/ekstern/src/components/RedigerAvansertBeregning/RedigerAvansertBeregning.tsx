@@ -2,13 +2,17 @@ import React from 'react'
 import { useIntl, FormattedMessage } from 'react-intl'
 
 import {
+  Alert,
   BodyLong,
+  Heading,
   Label,
   Radio,
   RadioGroup,
   Select,
   TextField,
 } from '@navikt/ds-react'
+import clsx from 'clsx'
+import { format } from 'date-fns'
 
 import { AgePicker } from '@/components/common/AgePicker'
 import { Divider } from '@/components/common/Divider'
@@ -19,8 +23,10 @@ import { VilkaarsproevingAlert } from '@/components/VilkaarsproevingAlert'
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
-  selectUfoeregrad,
+  selectFoedselsdato,
+  selectLoependeVedtak,
   selectCurrentSimulation,
+  selectIsEndring,
   selectAarligInntektFoerUttakBeloep,
   selectAarligInntektFoerUttakBeloepFraSkatt,
   selectAarligInntektFoerUttakBeloepFraBrukerInput,
@@ -29,6 +35,7 @@ import {
   DEFAULT_MAX_OPPTJENINGSALDER,
   DEFAULT_UBETINGET_UTTAKSALDER,
 } from '@/utils/alder'
+import { DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import {
   formatInntekt,
   updateAndFormatInntektFromInputField,
@@ -50,9 +57,11 @@ export const RedigerAvansertBeregning: React.FC<{
   const intl = useIntl()
   const dispatch = useAppDispatch()
 
+  const foedselsdato = useAppSelector(selectFoedselsdato)
+  const isEndring = useAppSelector(selectIsEndring)
   const inntektVsaHeltUttakInputRef = React.useRef<HTMLInputElement>(null)
   const inntektVsaGradertUttakInputRef = React.useRef<HTMLInputElement>(null)
-  const ufoeregrad = useAppSelector(selectUfoeregrad)
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const { uttaksalder, gradertUttaksperiode, aarligInntektVsaHelPensjon } =
     useAppSelector(selectCurrentSimulation)
   const aarligInntektFoerUttakBeloepFraBrukerInput = useAppSelector(
@@ -86,7 +95,7 @@ export const RedigerAvansertBeregning: React.FC<{
       setLocalHarInntektVsaGradertUttakRadio,
     },
   ] = useFormLocalState({
-    ufoeregrad,
+    ufoeregrad: loependeVedtak.ufoeretrygd.grad,
     aarligInntektFoerUttakBeloepFraBrukerSkattBeloep:
       aarligInntektFoerUttakBeloepFraBrukerSkatt?.beloep,
     aarligInntektFoerUttakBeloepFraBrukerInput,
@@ -139,8 +148,8 @@ export const RedigerAvansertBeregning: React.FC<{
   ) => {
     // Dersom brukeren har uføregrad og endrer alderen til en alder som tillater flere graderinger, skal gradert uttak nullstilles
     const shouldResetGradertUttak =
-      ufoeregrad &&
-      ufoeregrad !== 100 &&
+      loependeVedtak.ufoeretrygd.grad &&
+      loependeVedtak.ufoeretrygd.grad !== 100 &&
       alder?.aar &&
       alder?.maaneder !== undefined &&
       alder?.aar >= DEFAULT_UBETINGET_UTTAKSALDER.aar
@@ -321,32 +330,63 @@ export const RedigerAvansertBeregning: React.FC<{
       className={`${styles.container} ${styles.container__hasMobilePadding}`}
     >
       <div className={styles.form}>
-        <form
-          id={AVANSERT_FORM_NAMES.form}
-          method="dialog"
-          onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-            e.preventDefault()
-            const data = new FormData(e.currentTarget)
-            onAvansertBeregningSubmit(
-              data,
-              dispatch,
-              setValidationErrors,
-              gaaTilResultat,
-              {
-                localInntektFremTilUttak,
-                ufoeregrad,
-                hasVilkaarIkkeOppfylt:
-                  vilkaarsproeving?.vilkaarErOppfylt === false,
-                harAvansertSkjemaUnsavedChanges,
-              }
-            )
-          }}
-        ></form>
         <div>
-          <Label className={styles.label}>
-            <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.label" />
+          <form
+            id={AVANSERT_FORM_NAMES.form}
+            method="dialog"
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault()
+              const data = new FormData(e.currentTarget)
+              onAvansertBeregningSubmit(
+                data,
+                dispatch,
+                setValidationErrors,
+                gaaTilResultat,
+                {
+                  foedselsdato: foedselsdato as string,
+                  loependeVedtak,
+                  localInntektFremTilUttak,
+                  hasVilkaarIkkeOppfylt:
+                    vilkaarsproeving?.vilkaarErOppfylt === false,
+                  harAvansertSkjemaUnsavedChanges,
+                }
+              )
+            }}
+          ></form>
+          {isEndring && (
+            <>
+              <Heading level="2" size="medium">
+                <FormattedMessage id={'beregning.endring.rediger.title'} />
+              </Heading>
+              <BodyLong>
+                <FormattedMessage
+                  id={'beregning.endring.rediger.vedtak_status'}
+                  values={{
+                    dato: format(
+                      loependeVedtak?.alderspensjon?.fom as string,
+                      DATE_ENDUSER_FORMAT
+                    ),
+                    grad: loependeVedtak?.alderspensjon?.grad,
+                  }}
+                />
+              </BodyLong>
+              <Divider />
+            </>
+          )}
+          <Label
+            className={clsx(styles.label, {
+              [styles.label__margin]: !isEndring,
+            })}
+          >
+            <FormattedMessage
+              id={
+                isEndring
+                  ? 'beregning.avansert.rediger.inntekt_frem_til_endring.label'
+                  : 'beregning.avansert.rediger.inntekt_frem_til_uttak.label'
+              }
+            />
           </Label>
-          {!!ufoeregrad && (
+          {!!loependeVedtak.ufoeretrygd.grad && (
             <div className={styles.description}>
               <span className={styles.descriptionText}>
                 <FormattedMessage id="beregning.avansert.rediger.inntekt_frem_til_uttak.description_ufoere" />
@@ -387,6 +427,19 @@ export const RedigerAvansertBeregning: React.FC<{
           </ReadMore>
         </div>
         <Divider noMargin />
+        {validationErrors[AVANSERT_FORM_NAMES.endringAlertFremtidigDato] && (
+          <Alert variant="warning" aria-live="polite">
+            <FormattedMessage
+              id="beregning.endring.alert.uttaksdato"
+              values={{
+                ...getFormatMessageValues(intl),
+                dato: validationErrors[
+                  AVANSERT_FORM_NAMES.endringAlertFremtidigDato
+                ],
+              }}
+            />
+          </Alert>
+        )}
         {vilkaarsproeving &&
           !vilkaarsproeving?.vilkaarErOppfylt &&
           uttaksalder && (
@@ -400,12 +453,20 @@ export const RedigerAvansertBeregning: React.FC<{
             <AgePicker
               form={AVANSERT_FORM_NAMES.form}
               name={AVANSERT_FORM_NAMES.uttaksalderGradertUttak}
-              label={<FormattedMessage id="velguttaksalder.title" />}
+              label={
+                <FormattedMessage
+                  id={
+                    isEndring
+                      ? 'velguttaksalder.endring.title'
+                      : 'velguttaksalder.title'
+                  }
+                />
+              }
               value={localGradertUttak?.uttaksalder}
               onChange={handleGradertUttaksalderChange}
               error={gradertUttakAgePickerError}
               minAlder={
-                ufoeregrad === 100
+                loependeVedtak.ufoeretrygd.grad === 100
                   ? DEFAULT_UBETINGET_UTTAKSALDER
                   : brukerensAlderPlus1Maaned
               }
@@ -414,19 +475,30 @@ export const RedigerAvansertBeregning: React.FC<{
             <AgePicker
               form={AVANSERT_FORM_NAMES.form}
               name={AVANSERT_FORM_NAMES.uttaksalderHeltUttak}
-              label={<FormattedMessage id="velguttaksalder.title" />}
+              label={
+                <FormattedMessage
+                  id={
+                    isEndring
+                      ? 'velguttaksalder.endring.title'
+                      : 'velguttaksalder.title'
+                  }
+                />
+              }
               value={localHeltUttak?.uttaksalder}
               onChange={handleHeltUttaksalderChange}
               error={heltUttakAgePickerError}
               minAlder={
-                ufoeregrad === 100
+                loependeVedtak.ufoeretrygd.grad === 100
                   ? DEFAULT_UBETINGET_UTTAKSALDER
                   : brukerensAlderPlus1Maaned
               }
             />
           )}
           <div className={styles.spacer__small} />
-          <ReadMoreOmPensjonsalder ufoeregrad={ufoeregrad} />
+          <ReadMoreOmPensjonsalder
+            ufoeregrad={loependeVedtak.ufoeretrygd.grad}
+            isEndring={isEndring}
+          />
         </div>
         <div>
           <Select
@@ -438,7 +510,9 @@ export const RedigerAvansertBeregning: React.FC<{
               id: 'beregning.avansert.rediger.uttaksgrad.label',
             })}
             description={intl.formatMessage({
-              id: 'beregning.avansert.rediger.uttaksgrad.description',
+              id: isEndring
+                ? 'beregning.avansert.rediger.uttaksgrad.endring.description'
+                : 'beregning.avansert.rediger.uttaksgrad.description',
             })}
             value={localGradertUttak?.grad ? `${localGradertUttak.grad} %` : ''}
             onChange={handleUttaksgradChange}
@@ -470,17 +544,24 @@ export const RedigerAvansertBeregning: React.FC<{
             name="Om uttaksgrad"
             header={intl.formatMessage({
               id:
-                ufoeregrad && ufoeregrad !== 100
+                loependeVedtak.ufoeretrygd.grad &&
+                loependeVedtak.ufoeretrygd.grad !== 100
                   ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.label'
                   : 'beregning.avansert.rediger.read_more.uttaksgrad.label',
             })}
           >
-            <BodyLong>
+            <BodyLong data-testid="om-uttaksgrad">
               <FormattedMessage
                 id={
-                  ufoeregrad && ufoeregrad !== 100
-                    ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
-                    : 'beregning.avansert.rediger.read_more.uttaksgrad.body'
+                  isEndring
+                    ? loependeVedtak.ufoeretrygd.grad &&
+                      loependeVedtak.ufoeretrygd.grad !== 100
+                      ? 'omufoeretrygd.readmore.endring.ingress'
+                      : 'beregning.avansert.rediger.read_more.uttaksgrad.endring.body'
+                    : loependeVedtak.ufoeretrygd.grad &&
+                        loependeVedtak.ufoeretrygd.grad !== 100
+                      ? 'beregning.avansert.rediger.read_more.uttaksgrad.gradert_ufoeretrygd.body'
+                      : 'beregning.avansert.rediger.read_more.uttaksgrad.body'
                 }
                 values={{
                   ...getFormatMessageValues(intl),
@@ -508,7 +589,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   description={
                     <FormattedMessage
                       id={
-                        ufoeregrad &&
+                        loependeVedtak.ufoeretrygd.grad &&
                         localGradertUttak.uttaksalder.aar <
                           DEFAULT_UBETINGET_UTTAKSALDER.aar
                           ? 'beregning.avansert.rediger.radio.inntekt_vsa_gradert_uttak.ufoeretrygd.description'
@@ -566,7 +647,7 @@ export const RedigerAvansertBeregning: React.FC<{
                     <FormattedMessage id="stegvisning.radio_nei" />
                   </Radio>
                 </RadioGroup>
-                {ufoeregrad &&
+                {loependeVedtak.ufoeretrygd.grad &&
                 localGradertUttak.uttaksalder.aar <
                   DEFAULT_UBETINGET_UTTAKSALDER.aar ? (
                   <ReadMore
@@ -650,7 +731,7 @@ export const RedigerAvansertBeregning: React.FC<{
                   onChange={handleHeltUttaksalderChange}
                   error={heltUttakAgePickerError}
                   minAlder={
-                    ufoeregrad
+                    loependeVedtak.ufoeretrygd.grad
                       ? DEFAULT_UBETINGET_UTTAKSALDER
                       : brukerensAlderPlus1Maaned
                   }
