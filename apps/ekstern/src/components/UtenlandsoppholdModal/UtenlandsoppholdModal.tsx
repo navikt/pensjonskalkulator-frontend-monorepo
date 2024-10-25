@@ -340,7 +340,12 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
               : 'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til',
           })}
         </Button>
-        <Button type="button" variant="secondary" onClick={onCancel}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={onCancel}
+          data-testid="legg-til-utenlandsopphold-avbryt"
+        >
           {intl.formatMessage({
             id: utenlandsperiode
               ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'

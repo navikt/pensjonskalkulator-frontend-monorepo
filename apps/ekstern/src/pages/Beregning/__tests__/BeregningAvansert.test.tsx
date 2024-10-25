@@ -8,6 +8,8 @@ import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils
 import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import {
@@ -36,6 +38,7 @@ describe('BeregningAvansert', () => {
         queries: {
           ...fulfilledGetPerson,
           ...fulfilledGetInntekt,
+          ...fulfilledGetLoependeVedtak0Ufoeregrad,
         },
       },
       userInput: {
@@ -55,7 +58,13 @@ describe('BeregningAvansert', () => {
         value: scrollToMock,
         writable: true,
       })
-      render(<BeregningAvansert />)
+      render(<BeregningAvansert />, {
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        preloadedState: {
+          ...preloadedState,
+        },
+      })
       expect(scrollToMock).toHaveBeenCalledWith(0, 0)
     })
 
@@ -184,24 +193,12 @@ describe('BeregningAvansert', () => {
             preloadedState: {
               ...preloadedState,
               api: {
+                /* eslint-disable @typescript-eslint/ban-ts-comment */
+                // @ts-ignore
                 queries: {
                   ...fulfilledGetPerson,
                   ...fulfilledGetInntekt,
-                  ['getLoependeVedtak(undefined)']: {
-                    /* eslint-disable @typescript-eslint/ban-ts-comment */
-                    // @ts-ignore
-                    status: 'fulfilled',
-                    endpointName: 'getLoependeVedtak',
-                    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
-                    startedTimeStamp: 1688046411971,
-                    data: {
-                      ufoeretrygd: {
-                        grad: 75,
-                      },
-                      harFremtidigLoependeVedtak: false,
-                    },
-                    fulfilledTimeStamp: 1688046412103,
-                  },
+                  ...fulfilledGetLoependeVedtak75Ufoeregrad,
                 },
               },
             },
@@ -469,14 +466,9 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                /* eslint-disable @typescript-eslint/ban-ts-comment */
-                // @ts-ignore
-                queries: {
-                  ...fulfilledGetPerson,
-                  ...fulfilledGetInntekt,
-                },
-              },
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              api: { ...preloadedState.api },
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
@@ -566,14 +558,9 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                /* eslint-disable @typescript-eslint/ban-ts-comment */
-                // @ts-ignore
-                queries: {
-                  ...fulfilledGetPerson,
-                  ...fulfilledGetInntekt,
-                },
-              },
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              api: { ...preloadedState.api },
               userInput: {
                 ...preloadedState.userInput,
 
@@ -625,14 +612,9 @@ describe('BeregningAvansert', () => {
           </BeregningContext.Provider>,
           {
             preloadedState: {
-              api: {
-                /* eslint-disable @typescript-eslint/ban-ts-comment */
-                // @ts-ignore
-                queries: {
-                  ...fulfilledGetPerson,
-                  ...fulfilledGetInntekt,
-                },
-              },
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              api: { ...preloadedState.api },
               userInput: {
                 ...preloadedState.userInput,
                 currentSimulation: {
@@ -694,16 +676,10 @@ describe('BeregningAvansert', () => {
         ])
         render(<RouterProvider router={router} />, {
           hasRouter: false,
-
           preloadedState: {
-            api: {
-              /* eslint-disable @typescript-eslint/ban-ts-comment */
-              // @ts-ignore
-              queries: {
-                ...fulfilledGetPerson,
-                ...fulfilledGetInntekt,
-              },
-            },
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: { ...preloadedState.api },
             userInput: {
               ...preloadedState.userInput,
               currentSimulation: {

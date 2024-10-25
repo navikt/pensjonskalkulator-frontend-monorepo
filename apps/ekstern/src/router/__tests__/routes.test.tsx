@@ -10,7 +10,8 @@ import {
 } from '../constants'
 import { routes } from '../routes'
 import {
-  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
@@ -521,7 +522,7 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ...fulfilledGetLoependeVedtakUfoeregrad,
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
           },
           userInput: { ...userInputInitialState },
@@ -832,6 +833,7 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
           },
           userInput: { ...userInputInitialState },
         }))
@@ -841,6 +843,25 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: {
+                ...fakeApiCalls,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              samboer: false,
+              afp: 'ja_privat',
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+              },
+            },
+          },
         })
 
         await waitFor(async () => {

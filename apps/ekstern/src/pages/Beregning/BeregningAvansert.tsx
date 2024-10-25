@@ -29,7 +29,7 @@ import {
   selectCurrentSimulation,
   selectSamtykkeOffentligAFP,
   selectAarligInntektFoerUttakBeloep,
-  selectUfoeregrad,
+  selectLoependeVedtak,
 } from '@/state/userInput/selectors'
 import {
   DEFAULT_TIDLIGST_UTTAKSALDER,
@@ -52,7 +52,7 @@ export const BeregningAvansert: React.FC = () => {
   const harSamboer = useAppSelector(selectSamboer)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const afp = useAppSelector(selectAfp)
-  const ufoeregrad = useAppSelector(selectUfoeregrad)
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
   const aarligInntektFoerUttakBeloep = useAppSelector(
     selectAarligInntektFoerUttakBeloep
   )
@@ -75,7 +75,7 @@ export const BeregningAvansert: React.FC = () => {
   React.useEffect(() => {
     if (uttaksalder) {
       const requestBody = generateAlderspensjonRequestBody({
-        ufoeregrad,
+        loependeVedtak,
         afp: afp === 'ja_offentlig' && !harSamtykketOffentligAFP ? null : afp,
         sivilstand: person?.sivilstand,
         harSamboer,
@@ -208,14 +208,14 @@ export const BeregningAvansert: React.FC = () => {
                   }
                   alderspensjonListe={alderspensjon?.alderspensjon}
                   afpPrivatListe={
-                    !ufoeregrad &&
+                    !loependeVedtak.ufoeretrygd.grad &&
                     afp === 'ja_privat' &&
                     alderspensjon?.afpPrivat
                       ? alderspensjon?.afpPrivat
                       : undefined
                   }
                   afpOffentligListe={
-                    !ufoeregrad &&
+                    !loependeVedtak.ufoeretrygd.grad &&
                     afp === 'ja_offentlig' &&
                     harSamtykketOffentligAFP &&
                     alderspensjon?.afpOffentlig

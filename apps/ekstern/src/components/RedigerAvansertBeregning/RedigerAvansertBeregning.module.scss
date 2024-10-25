@@ -52,6 +52,10 @@
 
 .label {
   display: block;
+
+  &__margin {
+    margin-top: var(--a-spacing-6);
+  }
 }
 
 .description {
@@ -71,10 +75,6 @@
   button {
     vertical-align: middle;
   }
-}
-
-.alert {
-  margin-bottom: var(--a-spacing-8);
 }
 
 .ingress {

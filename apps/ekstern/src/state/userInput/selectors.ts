@@ -117,6 +117,14 @@ export const selectHarHentetTpoMedlemskap = createSelector(
   }
 )
 
+export const selectLoependeVedtak = createSelector(
+  [(state) => state, (_, params = undefined) => params],
+  (state) => {
+    return apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
+      ?.data as LoependeVedtak
+  }
+)
+
 export const selectUfoeregrad = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {

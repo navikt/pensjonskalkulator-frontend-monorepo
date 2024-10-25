@@ -5,7 +5,10 @@ import { Button } from '@navikt/ds-react'
 
 import { BeregningContext } from '@/pages/Beregning/context'
 import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import {
+  selectCurrentSimulation,
+  selectIsEndring,
+} from '@/state/userInput/selectors'
 import { wrapLogger } from '@/utils/logging'
 
 import { AVANSERT_FORM_NAMES } from './utils'
@@ -20,6 +23,7 @@ export const FormButtonRow: React.FC<{
   const intl = useIntl()
   const { harAvansertSkjemaUnsavedChanges } = React.useContext(BeregningContext)
   const { uttaksalder } = useAppSelector(selectCurrentSimulation)
+  const isEndring = useAppSelector(selectIsEndring)
 
   return (
     <div className={styles.wrapper}>
@@ -35,7 +39,9 @@ export const FormButtonRow: React.FC<{
               !hasVilkaarIkkeOppfylt &&
               harAvansertSkjemaUnsavedChanges
                 ? 'beregning.avansert.button.oppdater'
-                : 'beregning.avansert.button.beregn',
+                : isEndring
+                  ? 'beregning.avansert.button.beregn.endring'
+                  : 'beregning.avansert.button.beregn',
           })}
         </Button>
         <Button

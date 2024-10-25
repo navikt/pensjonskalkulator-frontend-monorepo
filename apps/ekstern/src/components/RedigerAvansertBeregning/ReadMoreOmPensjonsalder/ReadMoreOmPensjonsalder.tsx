@@ -8,8 +8,12 @@ import { getFormatMessageValues } from '@/utils/translations'
 
 interface Props {
   ufoeregrad: number
+  isEndring: boolean
 }
-export const ReadMoreOmPensjonsalder: React.FC<Props> = ({ ufoeregrad }) => {
+export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
+  ufoeregrad,
+  isEndring,
+}) => {
   const intl = useIntl()
 
   return (
@@ -25,9 +29,11 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({ ufoeregrad }) => {
         <BodyLong>
           <FormattedMessage
             id={
-              ufoeregrad === 100
-                ? 'omufoeretrygd.readmore.hel.ingress'
-                : 'omufoeretrygd.readmore.gradert.avansert.ingress'
+              isEndring
+                ? 'omufoeretrygd.readmore.endring.ingress'
+                : ufoeregrad === 100
+                  ? 'omufoeretrygd.readmore.hel.ingress'
+                  : 'omufoeretrygd.readmore.gradert.avansert.ingress'
             }
             values={{
               ...getFormatMessageValues(intl),
@@ -38,7 +44,11 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({ ufoeregrad }) => {
         <>
           <BodyLong>
             <FormattedMessage
-              id="beregning.read_more.pensjonsalder.body"
+              id={
+                isEndring
+                  ? 'beregning.read_more.pensjonsalder.endring.body'
+                  : 'beregning.read_more.pensjonsalder.body'
+              }
               values={{
                 ...getFormatMessageValues(intl),
               }}

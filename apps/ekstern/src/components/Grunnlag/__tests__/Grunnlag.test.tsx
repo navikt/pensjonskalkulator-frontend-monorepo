@@ -1,7 +1,7 @@
 import * as ReactRouterUtils from 'react-router'
 
 import { Grunnlag } from '@/components/Grunnlag'
-import { fulfilledGetLoependeVedtakUfoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { fulfilledGetLoependeVedtak75Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
@@ -302,7 +302,7 @@ describe('Grunnlag', () => {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+            queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -352,7 +352,7 @@ describe('Grunnlag', () => {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+            queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -412,7 +412,7 @@ describe('Grunnlag', () => {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+            queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
           },
           userInput: {
             ...userInputInitialState,
@@ -454,7 +454,7 @@ describe('Grunnlag', () => {
           api: {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
-            queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+            queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
           },
           userInput: {
             ...userInputInitialState,

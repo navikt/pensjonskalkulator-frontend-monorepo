@@ -80,7 +80,23 @@ export const fulfilledGetLoependeVedtak0Ufoeregrad = {
   },
 }
 
-export const fulfilledGetLoependeVedtakUfoeregrad = {
+export const fulfilledGetLoependeVedtak100Ufoeregrad = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      ufoeretrygd: {
+        grad: 100,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtak75Ufoeregrad = {
   ['getLoependeVedtak(undefined)']: {
     status: 'fulfilled',
     endpointName: 'getLoependeVedtak',
@@ -109,6 +125,26 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
       },
       ufoeretrygd: {
         grad: 0,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        grad: 100,
+        fom: '2020-10-02',
+      },
+      ufoeretrygd: {
+        grad: 40,
       },
       harFremtidigLoependeVedtak: false,
     },

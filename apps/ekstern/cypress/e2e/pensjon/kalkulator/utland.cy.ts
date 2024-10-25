@@ -130,6 +130,7 @@ describe('Utland', () => {
           cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
             force: true,
           })
+          cy.contains('Velg land').should('be.visible')
           cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
           cy.get(
             '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
@@ -167,7 +168,10 @@ describe('Utland', () => {
 
       describe('Som bruker som har allerede lagt til et utenlandsopphold,', () => {
         beforeEach(() => {
-          cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
+          cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
+            force: true,
+          })
+          cy.contains('Velg land').should('be.visible')
           cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
           cy.get(
             '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
@@ -179,12 +183,19 @@ describe('Utland', () => {
             '16.12.1982'
           )
           cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
+          cy.contains('Oppholdene dine utenfor Norge').should('exist')
+          cy.contains('Frankrike').should('exist')
+          cy.contains('Periode: 10.06.1980–16.12.1982').should('exist')
+          cy.contains('Jobbet: Nei').should('exist')
         })
 
         // TODO følges opp pga ustabilitet
         describe('Når jeg legger til et overlappende utenlandsopphold i et annet land,', () => {
           it('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', () => {
+            cy.wait(500)
+            cy.screenshot()
             cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
+            cy.contains('Velg land').should('be.visible')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Antarktis')
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
               '20.04.1981'
@@ -194,14 +205,24 @@ describe('Utland', () => {
             cy.contains(
               'Du har allerede registrert at du har bodd i Frankrike '
             ).should('be.visible')
+            cy.get('[data-testid="legg-til-utenlandsopphold-avbryt"]').click({
+              force: true,
+            })
           })
         })
 
         describe('Når jeg ønsker å endre ett utenlandsopphold jeg har lagt inn,', () => {
           // TODO følges opp pga ustabilitet
           it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
-            cy.contains('button', 'Endre opphold').click()
-            cy.contains('Jobbet du i Frankrike?').should('be.visible')
+            cy.wait(500)
+            cy.screenshot()
+            cy.get('[data-testid="endre-utenlandsopphold"]').click()
+            cy.screenshot()
+            cy.contains('Velg land').should('be.visible')
+            cy.screenshot()
+            cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
+            cy.screenshot()
+            cy.contains('Jobbet du i Frankrike?').should('exist')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
             cy.get(
               '[data-testid="utenlandsopphold-arbeidet-utenlands-ja"]'
@@ -221,7 +242,14 @@ describe('Utland', () => {
           })
 
           it('forventer jeg å kunne avbryte endringen.', () => {
-            cy.contains('button', 'Endre opphold').click()
+            cy.wait(500)
+            cy.screenshot()
+            cy.get('[data-testid="endre-utenlandsopphold"]').click()
+            cy.screenshot()
+            cy.contains('Velg land').should('be.visible')
+            cy.screenshot()
+            cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
+            cy.screenshot()
             cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.contains('button', 'Avbryt endring').click()
             cy.contains('Oppholdene dine utenfor Norge').should('exist')

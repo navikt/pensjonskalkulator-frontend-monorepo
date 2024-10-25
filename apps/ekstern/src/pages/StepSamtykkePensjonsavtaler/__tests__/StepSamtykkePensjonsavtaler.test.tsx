@@ -5,7 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { StepSamtykkePensjonsavtaler } from '..'
 import {
   fulfilledGetTpoMedlemskap,
-  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledPensjonsavtaler,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
@@ -61,7 +61,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
             queries: {
               ...fulfilledGetTpoMedlemskap,
               ...fulfilledPensjonsavtaler,
-              ...fulfilledGetLoependeVedtakUfoeregrad,
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
           },
           userInput: {

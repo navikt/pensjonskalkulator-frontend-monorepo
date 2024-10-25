@@ -1,19 +1,19 @@
 import React from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
+import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
-import { Alert, Button, Modal, ToggleGroup } from '@navikt/ds-react'
+import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
 
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
-import { useAppDispatch } from '@/state/hooks'
-import { useAppSelector } from '@/state/hooks'
-import { selectCurrentSimulation } from '@/state/userInput/selectors'
-import { selectIsEndring } from '@/state/userInput/selectors'
+import { useAppDispatch, useAppSelector } from '@/state/hooks'
+import {
+  selectCurrentSimulation,
+  selectIsEndring,
+} from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { logger } from '@/utils/logging'
-import { getFormatMessageValues } from '@/utils/translations'
 
 import { BeregningAvansert } from './BeregningAvansert'
 import { BeregningEnkel } from './BeregningEnkel'
@@ -173,7 +173,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         </Modal.Footer>
       </Modal>
       <div className={styles.beregning}>
-        {isEndring && (
+        {/* {isEndring && (
           <div className={styles.container}>
             <Alert
               className={styles.alert}
@@ -186,29 +186,31 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
               />
             </Alert>
           </div>
-        )}
-        <div
-          className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
-        >
-          <div className={styles.container} data-testid="toggle-avansert">
-            <ToggleGroup
-              value={visning}
-              variant="neutral"
-              onChange={onToggleChange}
-            >
-              <ToggleGroup.Item value="enkel">
-                {intl.formatMessage({
-                  id: 'beregning.toggle.enkel',
-                })}
-              </ToggleGroup.Item>
-              <ToggleGroup.Item value="avansert">
-                {intl.formatMessage({
-                  id: 'beregning.toggle.avansert',
-                })}
-              </ToggleGroup.Item>
-            </ToggleGroup>
+        )} */}
+        {!isEndring && (
+          <div
+            className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
+          >
+            <div className={styles.container} data-testid="toggle-avansert">
+              <ToggleGroup
+                value={visning}
+                variant="neutral"
+                onChange={onToggleChange}
+              >
+                <ToggleGroup.Item value="enkel">
+                  {intl.formatMessage({
+                    id: 'beregning.toggle.enkel',
+                  })}
+                </ToggleGroup.Item>
+                <ToggleGroup.Item value="avansert">
+                  {intl.formatMessage({
+                    id: 'beregning.toggle.avansert',
+                  })}
+                </ToggleGroup.Item>
+              </ToggleGroup>
+            </div>
           </div>
-        </div>
+        )}
         {visning === 'enkel' && <BeregningEnkel />}
         {visning === 'avansert' && <BeregningAvansert />}
         <div className={`${styles.background} ${styles.background__lightblue}`}>

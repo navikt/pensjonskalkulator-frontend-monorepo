@@ -364,7 +364,10 @@ describe('apiSlice - utils', () => {
 
   describe('generateAlderspensjonRequestBody', () => {
     const requestBody = {
-      ufoeregrad: 0,
+      loependeVedtak: {
+        ufoeretrygd: { grad: 0 },
+        harFremtidigLoependeVedtak: false,
+      },
       afp: 'ja_privat' as AfpRadio,
       sivilstand: 'GIFT' as Sivilstand,
       harSamboer: false,
@@ -433,14 +436,20 @@ describe('apiSlice - utils', () => {
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
-          ufoeregrad: 60,
+          loependeVedtak: {
+            ufoeretrygd: { grad: 60 },
+            harFremtidigLoependeVedtak: false,
+          },
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
       expect(
         generateAlderspensjonRequestBody({
           ...requestBody,
           afp: 'ja_offentlig',
-          ufoeregrad: 60,
+          loependeVedtak: {
+            ufoeretrygd: { grad: 60 },
+            harFremtidigLoependeVedtak: false,
+          },
         })?.simuleringstype
       ).toEqual('ALDERSPENSJON')
     })
