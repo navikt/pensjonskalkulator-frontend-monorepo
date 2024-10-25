@@ -128,13 +128,7 @@ export const selectUfoeregrad = createSelector(
 export const selectIsEndring = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return (
-      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.alderspensjon?.loepende ||
-      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.afpPrivat?.loepende ||
-      !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-        ?.afpOffentlig?.loepende
-    )
+    return !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
+      ?.alderspensjon
   }
 )
