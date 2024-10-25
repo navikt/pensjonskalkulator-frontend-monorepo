@@ -42,7 +42,7 @@ import {
   getAlderPlus1Maaned,
   isAlderOverMinUttaksalder,
   isFoedtFoer1964,
-  transformFoedselsdatoToAlder,
+  transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 
@@ -174,7 +174,7 @@ export const BeregningEnkel: React.FC = () => {
 
   const brukerensAlderPlus1Maaned = React.useMemo(() => {
     const brukerensAlder = isPersonSuccess
-      ? transformFoedselsdatoToAlder(person?.foedselsdato)
+      ? transformFoedselsdatoToAlderMinus1md(person?.foedselsdato)
       : getAlderMinus1Maaned(DEFAULT_TIDLIGST_UTTAKSALDER)
     const beregnetMinAlder = getAlderPlus1Maaned(brukerensAlder)
     return isAlderOverMinUttaksalder(beregnetMinAlder)

@@ -98,7 +98,8 @@ describe('StepStart', () => {
         ).toBeVisible()
       })
     })
-    it('viser vanlig startsisde når henting av vedtak feiler', async () => {
+
+    it('rendrer ikke siden når henting av loepende-vedtak feiler', async () => {
       mockErrorResponse('/v2/vedtak/loepende-vedtak')
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
@@ -108,10 +109,7 @@ describe('StepStart', () => {
         hasRouter: false,
       })
       await waitFor(() => {
-        expect(
-          screen.getByText('stegvisning.start.title Aprikos!')
-        ).toBeVisible()
-        expect(screen.getByText('stegvisning.start.ingress')).toBeVisible()
+        expect(screen.getByText('error.global.title')).toBeVisible()
       })
     })
   })

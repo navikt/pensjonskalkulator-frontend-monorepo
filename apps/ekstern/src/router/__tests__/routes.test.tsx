@@ -10,9 +10,12 @@ import {
 } from '../constants'
 import { routes } from '../routes'
 import {
+  fulfilledGetPerson,
+  fulfilledGetInntekt,
+  fulfilledGetEkskludertStatus,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
-  fulfilledGetPerson,
+  fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
 import { HOST_BASEURL } from '@/paths'
@@ -461,13 +464,22 @@ describe('routes', () => {
           await screen.findByText('stegvisning.start.button')
         ).toBeInTheDocument()
       })
-      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /inntekt  og /ekskludert ikke har feilet', async () => {
-        store.getState = vi.fn().mockImplementation(() => ({
+      it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /person, /loepende-vedtak, /inntekt og /ekskludert ikke har feilet', async () => {
+        const mockedState = {
           api: {
-            ...fakeApiCalls,
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetEkskludertStatus,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              ...fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak,
+            },
           },
-          userInput: { ...userInputInitialState },
-        }))
+          userInput: { ...userInputInitialState, samtykke: null },
+        }
+        store.getState = vi.fn().mockImplementation(() => {
+          return mockedState
+        })
         const router = createMemoryRouter(routes, {
           basename: BASE_PATH,
           initialEntries: [`${BASE_PATH}${paths.afp}`],
@@ -522,6 +534,7 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
+              ...fulfilledGetPerson,
               ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
           },

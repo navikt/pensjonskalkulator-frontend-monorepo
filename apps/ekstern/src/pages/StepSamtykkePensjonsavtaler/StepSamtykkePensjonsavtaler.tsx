@@ -17,7 +17,7 @@ import {
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import {
   isAlderOverMinUttaksalder,
-  transformFoedselsdatoToAlder,
+  transformFoedselsdatoToAlderMinus1md,
 } from '@/utils/alder'
 
 export function StepSamtykkePensjonsavtaler() {
@@ -49,13 +49,14 @@ export function StepSamtykkePensjonsavtaler() {
     onStegvisningNext()
   }
 
-  // TODO PEK-630 utvide test
   const onPrevious = (): void => {
     let navigateBackAntallStep = -1
     if (
       ufoeregrad &&
       foedselsdato &&
-      isAlderOverMinUttaksalder(transformFoedselsdatoToAlder(foedselsdato))
+      isAlderOverMinUttaksalder(
+        transformFoedselsdatoToAlderMinus1md(foedselsdato)
+      )
     ) {
       navigateBackAntallStep = -2
     }

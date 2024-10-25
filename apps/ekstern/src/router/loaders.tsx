@@ -19,9 +19,8 @@ import {
   selectFoedselsdato,
 } from '@/state/userInput/selectors'
 import {
-  isAlderOverMinUttaksalder,
+  isFoedselsdatoOverEllerLikMinUttaksalder,
   isFoedtFoer1963,
-  transformFoedselsdatoToAlder,
 } from '@/utils/alder'
 import { logger } from '@/utils/logging'
 import { checkHarSamboer } from '@/utils/sivilstand'
@@ -336,13 +335,12 @@ export const stepAFPAccessGuard = async () => {
 
   // Hvis brukeren mottar AFP skal hen ikke se AFP steget
   // Hvis brukeren har uføretrygd og er eldre enn min uttaksalder skal hen ikke se AFP steget
-  // TODO PEK-630 teste med ulike fødselsdatoer og skrive test
   if (
     afpPrivat ||
     afpOffentlig ||
     (ufoeretrygd.grad &&
       foedselsdato &&
-      isAlderOverMinUttaksalder(transformFoedselsdatoToAlder(foedselsdato)))
+      isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato))
   ) {
     resolveRedirectUrl(stepArrays[stepArrays.indexOf(paths.afp) + 1])
   }
@@ -452,13 +450,11 @@ export const stepUfoeretrygdAFPAccessGuard = async () => {
     getLoependeVedtakResponse.data as LoependeVedtak
   const stepArrays = alderspensjon ? stegvisningOrderEndring : stegvisningOrder
 
-  // TODO PEK-630 utvide test
+  // Bruker med uføretrygd, som svarer ja til afp, og som er under 62 kan se steget
   if (
     ufoeretrygd.grad &&
     afp !== 'nei' &&
-    !isAlderOverMinUttaksalder(
-      transformFoedselsdatoToAlder(foedselsdato as string)
-    )
+    !isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato as string)
   ) {
     return null
   }

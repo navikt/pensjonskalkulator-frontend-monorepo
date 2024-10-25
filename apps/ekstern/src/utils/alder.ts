@@ -105,6 +105,17 @@ export const isAlderOverMinUttaksalder = (alder: Alder) => {
   }
 }
 
+export const isFoedselsdatoOverEllerLikMinUttaksalder = (
+  foedselsdato: string
+) => {
+  const birtdateJs = endOfDay(
+    parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
+  )
+  const currentDate = endOfDay(new Date())
+  const aar = differenceInYears(currentDate, birtdateJs)
+  return aar >= DEFAULT_TIDLIGST_UTTAKSALDER.aar
+}
+
 export const getAlderPlus1Maaned = (alder: Alder) => {
   return alder.maaneder !== 11
     ? {
@@ -123,7 +134,9 @@ export const getAlderMinus1Maaned = (alder: Alder) => {
     : { aar: alder.aar - 1, maaneder: 11 }
 }
 
-export const transformFoedselsdatoToAlder = (foedselsdato: string): Alder => {
+export const transformFoedselsdatoToAlderMinus1md = (
+  foedselsdato: string
+): Alder => {
   const birtdateJs = startOfMonth(
     parse(foedselsdato as string, DATE_BACKEND_FORMAT, new Date())
   )

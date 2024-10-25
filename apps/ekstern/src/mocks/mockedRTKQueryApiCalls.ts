@@ -53,6 +53,16 @@ export const fulfilledGetEkskludertStatus = {
   },
 }
 
+export const fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak = {
+  ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getOmstillingsstoenadOgGjenlevende',
+    requestId: 't1wLPiRKrfe_vchftk8s8',
+    data: { harLoependeSak: false },
+    startedTimeStamp: 1714725797072,
+    fulfilledTimeStamp: 1714725797669,
+  },
+}
 export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
   ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
     status: 'fulfilled',
