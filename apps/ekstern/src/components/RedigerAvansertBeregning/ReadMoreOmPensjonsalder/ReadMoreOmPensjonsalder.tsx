@@ -29,11 +29,9 @@ export const ReadMoreOmPensjonsalder: React.FC<Props> = ({
         <BodyLong>
           <FormattedMessage
             id={
-              isEndring
-                ? 'omufoeretrygd.readmore.endring.ingress'
-                : ufoeregrad === 100
-                  ? 'omufoeretrygd.readmore.hel.ingress'
-                  : 'omufoeretrygd.readmore.gradert.avansert.ingress'
+              ufoeregrad === 100
+                ? 'omufoeretrygd.readmore.hel.ingress'
+                : 'omufoeretrygd.readmore.gradert.avansert.ingress'
             }
             values={{
               ...getFormatMessageValues(intl),
