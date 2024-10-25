@@ -33,9 +33,7 @@ describe('StepStart', () => {
     await waitFor(async () => {
       expect(document.title).toBe('application.title.stegvisning.start')
     })
-    await waitFor(async () => {
-      expect(screen.getByTestId('start-loader')).toBeVisible()
-    })
+    expect(screen.getByTestId('start-loader')).toBeVisible()
   })
 
   describe('Gitt at brukeren ikke har noe vedtak om alderspensjon eller AFP', () => {
@@ -47,11 +45,14 @@ describe('StepStart', () => {
       render(<RouterProvider router={router} />, {
         hasRouter: false,
       })
-      expect(await screen.findByText('stegvisning.start.ingress')).toBeVisible()
-      expect(screen.getByText('stegvisning.start.title Aprikos!')).toBeVisible()
+      await waitFor(() => {
+        expect(
+          screen.getByText('stegvisning.start.title Aprikos!')
+        ).toBeVisible()
+      })
     })
 
-    it('rendrer ikke siden når henting av personopplysninger feiler', async () => {
+    it('rendrer hilsen uten navn når henting av personopplysninger feiler', async () => {
       mockErrorResponse('/v2/person')
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
@@ -61,23 +62,31 @@ describe('StepStart', () => {
         hasRouter: false,
       })
       await waitFor(() => {
-        expect(screen.getByText('error.global.title')).toBeVisible()
+        expect(screen.getByText('stegvisning.start.title!')).toBeVisible()
       })
     })
   })
   describe('Gitt at brukeren har et vedtak om alderspensjon eller AFP', () => {
     it('viser informasjon om dagens alderspensjon og AFP i tillegg til hilsen med navnet til brukeren', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
+      mockResponse('/v1/vedtak/loepende-vedtak', {
         status: 200,
         json: {
           alderspensjon: {
+            loepende: true,
             grad: 50,
-            fom: '2020-10-02',
           },
           ufoeretrygd: {
+            loepende: false,
             grad: 0,
           },
-          harFremtidigLoependeVedtak: false,
+          afpPrivat: {
+            loepende: false,
+            grad: 0,
+          },
+          afpOffentlig: {
+            loepende: false,
+            grad: 0,
+          },
         },
       })
 
@@ -99,7 +108,7 @@ describe('StepStart', () => {
       })
     })
     it('viser vanlig startsisde når henting av vedtak feiler', async () => {
-      mockErrorResponse('/v2/vedtak/loepende-vedtak')
+      mockErrorResponse('/v1/vedtak/loepende-vedtak')
       const router = createMemoryRouter(routes, {
         basename: BASE_PATH,
         initialEntries: [`${BASE_PATH}${paths.start}`],
@@ -130,8 +139,7 @@ describe('StepStart', () => {
       hasRouter: false,
     })
     await waitFor(async () => {
-      const startButton = await screen.findByText('stegvisning.start.button')
-      await user.click(startButton)
+      await user.click(await screen.findByText('stegvisning.start.button'))
       expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
     })
   })

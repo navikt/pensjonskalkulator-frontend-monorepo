@@ -330,22 +330,14 @@ export const UtenlandsoppholdModal: React.FC<Props> = ({
         </form>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          form={UTENLANDSOPPHOLD_FORM_NAMES.form}
-          data-testid="legg-til-utenlandsopphold-submit"
-        >
+        <Button form={UTENLANDSOPPHOLD_FORM_NAMES.form}>
           {intl.formatMessage({
             id: utenlandsperiode
               ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.oppdater'
               : 'utenlandsopphold.om_oppholdet_ditt_modal.button.legg_til',
           })}
         </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          onClick={onCancel}
-          data-testid="legg-til-utenlandsopphold-avbryt"
-        >
+        <Button type="button" variant="secondary" onClick={onCancel}>
           {intl.formatMessage({
             id: utenlandsperiode
               ? 'utenlandsopphold.om_oppholdet_ditt_modal.button.avbryt_endring'

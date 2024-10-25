@@ -3,8 +3,9 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepUtenlandsopphold } from '..'
+import { mockErrorResponse } from '@/mocks/server'
 import { mockResponse } from '@/mocks/server'
-import { paths } from '@/router/constants'
+import { paths, henvisningUrlParams } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
@@ -17,21 +18,23 @@ describe('StepUtenlandsopphold', () => {
     )
   })
 
-  it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren kan gå til neste steg når hen klikker på Neste', async () => {
+  it('Når brukeren svarer ja på utenlandsopphold, registreres det svaret og brukeren sendes videre til riktig side når hen klikker på Neste', async () => {
+    mockErrorResponse('/feature/pensjonskalkulator.enable-utland')
     const user = userEvent.setup()
     const navigateMock = vi.fn()
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
     const { store } = render(<StepUtenlandsopphold />, {})
-    expect(
-      screen.getByText('stegvisning.utenlandsopphold.ingress')
-    ).toBeVisible()
     const radioButtons = await screen.findAllByRole('radio')
-    await user.click(radioButtons[1])
+
+    await user.click(radioButtons[0])
     await user.click(await screen.findByText('stegvisning.neste'))
-    expect(navigateMock).toHaveBeenCalledWith(paths.afp)
-    expect(store.getState().userInput.harUtenlandsopphold).toBe(false)
+
+    expect(store.getState().userInput.harUtenlandsopphold).toBe(true)
+    expect(navigateMock).toHaveBeenCalledWith(
+      `${paths.henvisning}/${henvisningUrlParams.utland}`
+    )
   })
 
   it('Når brukeren svarer nei på utenlandsopphold, registreres det svaret, slettes utenlandsoppholdene og brukeren er sendt videre til riktig side når hen klikker på Neste', async () => {

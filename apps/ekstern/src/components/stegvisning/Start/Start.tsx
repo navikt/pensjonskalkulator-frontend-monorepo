@@ -31,6 +31,7 @@ export function Start({
 }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
+  const navnString = navn !== '' ? ` ${navn}!` : '!'
 
   const { data: endringFeatureToggle } = useGetEndringFeatureToggleQuery()
 
@@ -40,13 +41,21 @@ export function Start({
     }
   }, [shouldRedirectTo])
 
+  const isEndring = React.useMemo(() => {
+    return (
+      loependeVedtak?.alderspensjon?.loepende ||
+      loependeVedtak?.afpPrivat?.loepende ||
+      loependeVedtak?.afpOffentlig?.loepende
+    )
+  }, [loependeVedtak])
+
   if (shouldRedirectTo) {
     return null
   }
 
   return (
     <>
-      {loependeVedtak?.alderspensjon && (
+      {isEndring && (
         <Alert className={styles.alert} variant="warning" aria-live="polite">
           <FormattedMessage
             id="stegvisning.endring.alert"
@@ -61,10 +70,10 @@ export function Start({
             <Heading level="2" size="medium" spacing>
               {`${intl.formatMessage({
                 id: 'stegvisning.start.title',
-              })} ${navn}!`}
+              })}${navnString}`}
             </Heading>
 
-            {loependeVedtak?.alderspensjon ? (
+            {isEndring ? (
               <>
                 <BodyLong size="large">
                   <FormattedMessage
@@ -83,7 +92,7 @@ export function Start({
                             }
                           )
                         : undefined,
-                      afpPrivat: loependeVedtak.afpPrivat
+                      afpPrivat: loependeVedtak.afpPrivat.grad
                         ? intl.formatMessage(
                             {
                               id: 'stegvisning.start.endring.afp.privat',
@@ -91,7 +100,7 @@ export function Start({
                             { ...getFormatMessageValues(intl) }
                           )
                         : undefined,
-                      afpOffentlig: loependeVedtak.afpOffentlig
+                      afpOffentlig: loependeVedtak.afpOffentlig.grad
                         ? intl.formatMessage(
                             {
                               id: 'stegvisning.start.endring.afp.offentlig',
@@ -143,9 +152,7 @@ export function Start({
               </>
             )}
 
-            {(!loependeVedtak?.alderspensjon ||
-              (loependeVedtak?.alderspensjon &&
-                endringFeatureToggle?.enabled)) && (
+            {(!isEndring || (isEndring && endringFeatureToggle?.enabled)) && (
               <Button
                 type="submit"
                 className={styles.button}

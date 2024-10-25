@@ -59,12 +59,10 @@ describe('StepAFP', () => {
     render(<RouterProvider router={router} />, {
       hasRouter: false,
     })
-    await waitFor(async () => {
-      expect(document.title).toBe('application.title.stegvisning.afp')
-    })
 
     await waitFor(async () => {
       expect(await screen.findByTestId('afp-loader')).toBeVisible()
+      expect(document.title).toBe('application.title.stegvisning.afp')
     })
   })
 

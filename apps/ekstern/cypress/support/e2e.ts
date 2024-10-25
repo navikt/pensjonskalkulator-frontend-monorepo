@@ -1,5 +1,6 @@
 import 'cypress-axe'
 
+import { apiSlice } from '../../src/state/api/apiSlice'
 import { userInputActions } from '../../src/state/userInput/userInputReducer'
 
 beforeEach(() => {
@@ -82,10 +83,10 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-redirect-1963',
+      url: '/pensjon/kalkulator/api/feature/pensjonskalkulator.enable-utland',
     },
-    { fixture: 'toggle-enable-redirect-1963.json' }
-  ).as('getFeatureToggleRedirect1963')
+    { fixture: 'toggle-enable-utland.json' }
+  ).as('getFeatureToggleUtland')
 
   cy.intercept(
     {
@@ -106,7 +107,7 @@ beforeEach(() => {
   cy.intercept(
     {
       method: 'GET',
-      url: '/pensjon/kalkulator/api/v2/vedtak/loepende-vedtak',
+      url: '/pensjon/kalkulator/api/v1/vedtak/loepende-vedtak',
     },
     { fixture: 'loepende-vedtak.json' }
   ).as('getLoependeVedtak')
@@ -192,7 +193,7 @@ Cypress.Commands.add('fillOutStegvisning', (args) => {
   cy.window().its('router').invoke('navigate', '/beregning')
 })
 
-Cypress.on('uncaught:exception', (err) => {
+Cypress.on('uncaught:exception', (err, runnable) => {
   if (err.message.includes('Amplitude')) {
     // prevents Amplitude errors to fail tests
     return false

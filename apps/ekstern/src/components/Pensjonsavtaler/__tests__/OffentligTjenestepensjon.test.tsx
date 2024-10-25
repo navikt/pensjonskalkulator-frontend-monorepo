@@ -18,9 +18,7 @@ describe('OffentligTjenestepensjon', () => {
       },
     })
     render(<OffentligTjenestepensjon headingLevel="3" />)
-    await waitFor(async () => {
-      expect(await screen.findByTestId('tpo-loader')).toBeVisible()
-    })
+    expect(await screen.findByTestId('tpo-loader')).toBeVisible()
     await waitFor(async () => {
       expect(screen.queryByTestId('tpo-loader')).not.toBeInTheDocument()
       expect(

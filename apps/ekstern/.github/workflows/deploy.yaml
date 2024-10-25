@@ -195,8 +195,8 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: screenshots
-          path: cypress/screenshots
+          name: videos
+          path: cypress/videos
 
   deploy-staging:
     name: Deploy to staging

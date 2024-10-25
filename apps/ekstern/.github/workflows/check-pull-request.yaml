@@ -13,8 +13,8 @@ jobs:
       - name: Use Node.js v20
         uses: actions/setup-node@v4
         with:
-          node-version: '20.9.0'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: "20.9.0"
+          registry-url: "https://npm.pkg.github.com"
 
       - name: Cache node modules
         id: cache-node
@@ -58,8 +58,8 @@ jobs:
       - name: Use Node.js v20.9.0
         uses: actions/setup-node@v4
         with:
-          node-version: '20.9.0'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: "20.9.0"
+          registry-url: "https://npm.pkg.github.com"
 
       - name: Cache node modules
         id: cache-node
@@ -101,8 +101,8 @@ jobs:
       - name: Use Node.js v20.9.0
         uses: actions/setup-node@v4
         with:
-          node-version: '20.9.0'
-          registry-url: 'https://npm.pkg.github.com'
+          node-version: "20.9.0"
+          registry-url: "https://npm.pkg.github.com"
 
       - name: Cache node modules
         id: cache-node
@@ -146,5 +146,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: screenshots
-          path: cypress/screenshots
+          name: videos
+          path: cypress/videos

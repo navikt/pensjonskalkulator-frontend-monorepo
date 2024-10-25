@@ -458,20 +458,7 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
-    it('er true når kallet er vellykket og brukeren har vedtak om løpende alderspensjon', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
-        },
-      }
-
-      expect(selectIsEndring(state)).toBeTruthy()
-    })
-
-    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon', () => {
+    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon eller AFP', () => {
       const state: RootState = {
         ...initialState,
         api: {
@@ -483,16 +470,16 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
-    it('er false når kallet er vellykket og brukeren har løpende AFP-offentlig uten alderspensjon', () => {
+    it('er true når kallet er vellykket og brukeren har løpende alderspensjon', () => {
       const state: RootState = {
         ...initialState,
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
+          queries: { ...fulfilledGetLoependeVedtakLoependeAlderspensjon },
         },
       }
-      expect(selectIsEndring(state)).toBeFalsy()
+      expect(selectIsEndring(state)).toBeTruthy()
     })
 
     it('er true når kallet er vellykket og brukeren har løpende AFP-privat', () => {
@@ -502,6 +489,18 @@ describe('userInput selectors', () => {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: { ...fulfilledGetLoependeVedtakLoependeAFPprivat },
+        },
+      }
+      expect(selectIsEndring(state)).toBeTruthy()
+    })
+
+    it('er true når kallet er vellykket og brukeren har løpende AFP-offentlig', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtakLoependeAFPoffentlig },
         },
       }
       expect(selectIsEndring(state)).toBeTruthy()

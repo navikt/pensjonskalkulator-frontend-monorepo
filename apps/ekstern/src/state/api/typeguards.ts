@@ -195,33 +195,36 @@ export const isOmstillingsstoenadOgGjenlevende = (
     typeof data.harLoependeSak === 'boolean'
   )
 }
+
 export const isLoependeVedtak = (data?: any): data is LoependeVedtak => {
-  if (data === null || data === undefined || data.ufoeretrygd === null) {
+  if (data === null || data === undefined) {
+    return false
+  }
+
+  if (
+    data.alderspensjon === null ||
+    data.ufoeretrygd === null ||
+    data.afpPrivat === null ||
+    data.afpOffentlig === null
+  ) {
     return false
   }
 
   return (
     typeof data === 'object' &&
     !Array.isArray(data) &&
+    typeof data.alderspensjon === 'object' &&
     typeof data.ufoeretrygd === 'object' &&
+    typeof data.afpPrivat === 'object' &&
+    typeof data.afpOffentlig === 'object' &&
+    typeof data.alderspensjon.loepende === 'boolean' &&
+    typeof data.ufoeretrygd.loepende === 'boolean' &&
+    typeof data.afpPrivat.loepende === 'boolean' &&
+    typeof data.afpOffentlig.loepende === 'boolean' &&
+    typeof data.alderspensjon.grad === 'number' &&
     typeof data.ufoeretrygd.grad === 'number' &&
-    (!data.alderspensjon ||
-      (data.alderspensjon &&
-        typeof data.alderspensjon === 'object' &&
-        data.alderspensjon.grad !== undefined &&
-        typeof data.alderspensjon.grad === 'number')) &&
-    (!data.alderspensjon ||
-      (data.alderspensjon &&
-        data.alderspensjon.fom &&
-        typeof data.alderspensjon.fom === 'string')) &&
-    (!data.afpPrivat ||
-      (data.afpPrivat &&
-        typeof data.afpPrivat === 'object' &&
-        typeof data.afpPrivat.fom === 'string')) &&
-    (!data.afpOffentlig ||
-      (data.afpOffentlig &&
-        typeof data.afpOffentlig === 'object' &&
-        typeof data.afpOffentlig.fom === 'string'))
+    typeof data.afpPrivat.grad === 'number' &&
+    typeof data.afpOffentlig.grad === 'number'
   )
 }
 

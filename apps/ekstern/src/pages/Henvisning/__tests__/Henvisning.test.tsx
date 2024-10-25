@@ -40,6 +40,21 @@ describe('Henvisning ', async () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
+  it('rendrer henvisning til utland', async () => {
+    const router = createMemoryRouter(routes, {
+      basename: BASE_PATH,
+      initialEntries: [
+        `${BASE_PATH}${paths.henvisning}/${henvisningUrlParams.utland}`,
+      ],
+    })
+    const { asFragment } = render(<RouterProvider router={router} />, {
+      hasRouter: false,
+    })
+    expect(await screen.findByText('henvisning.utland.body')).toBeVisible()
+    expect(document.title).toBe('application.title.henvisning.utland')
+    expect(asFragment()).toMatchSnapshot()
+  })
+
   it('trykker avbryt knapp', async () => {
     const flushMock = vi.spyOn(userInputReducerUtils.userInputActions, 'flush')
     const user = userEvent.setup()

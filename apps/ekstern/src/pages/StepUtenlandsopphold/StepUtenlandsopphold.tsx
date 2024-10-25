@@ -2,9 +2,12 @@ import React from 'react'
 import { useIntl } from 'react-intl'
 import { useNavigate } from 'react-router-dom'
 
+import { Loader } from '@/components/common/Loader'
 import { useStegvisningNavigation } from '@/components/stegvisning/stegvisning-hooks'
 import { Utenlandsopphold } from '@/components/stegvisning/Utenlandsopphold'
-import { paths } from '@/router/constants'
+import { UtenlandsoppholdMedHenvisning } from '@/components/stegvisning/UtenlandsoppholdMedHenvisning'
+import { paths, henvisningUrlParams } from '@/router/constants'
+import { useGetUtlandFeatureToggleQuery } from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import { selectHarUtenlandsopphold } from '@/state/userInput/selectors'
 import {
@@ -21,6 +24,9 @@ export function StepUtenlandsopphold() {
   const harSamboerFraSivilstand = useAppSelector(selectSamboerFraSivilstand)
   const isVeileder = useAppSelector(selectIsVeileder)
 
+  const { data: utlandFeatureToggle, isLoading } =
+    useGetUtlandFeatureToggleQuery()
+
   const [{ onStegvisningNext, onStegvisningCancel }] = useStegvisningNavigation(
     paths.utenlandsopphold
   )
@@ -35,19 +41,43 @@ export function StepUtenlandsopphold() {
     dispatch(
       userInputActions.setHarUtenlandsopphold(utenlandsoppholdData === 'ja')
     )
-
-    if (utenlandsoppholdData === 'nei') {
-      dispatch(userInputActions.deleteCurrentSimulationAlleUtenlandsperioder())
+    if (!utlandFeatureToggle?.enabled && utenlandsoppholdData === 'ja') {
+      navigate(`${paths.henvisning}/${henvisningUrlParams.utland}`)
+    } else {
+      if (utenlandsoppholdData === 'nei') {
+        dispatch(
+          userInputActions.deleteCurrentSimulationAlleUtenlandsperioder()
+        )
+      }
+      onStegvisningNext()
     }
-    onStegvisningNext()
   }
 
   const onPrevious = (): void => {
     navigate(harSamboerFraSivilstand ? -2 : -1)
   }
 
-  return (
+  if (isLoading) {
+    return (
+      <Loader
+        data-testid="oppholdutenfornorge-loader"
+        size="3xlarge"
+        title={intl.formatMessage({
+          id: 'beregning.loading',
+        })}
+      />
+    )
+  }
+
+  return utlandFeatureToggle?.enabled ? (
     <Utenlandsopphold
+      harUtenlandsopphold={harUtenlandsopphold}
+      onCancel={isVeileder ? undefined : onStegvisningCancel}
+      onPrevious={onPrevious}
+      onNext={onNext}
+    />
+  ) : (
+    <UtenlandsoppholdMedHenvisning
       harUtenlandsopphold={harUtenlandsopphold}
       onCancel={isVeileder ? undefined : onStegvisningCancel}
       onPrevious={onPrevious}
