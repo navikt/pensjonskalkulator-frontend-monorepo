@@ -12,8 +12,7 @@ import tidligstMuligHeltUttakResponse from './data/tidligstMuligHeltUttak.json' 
 import tpoMedlemskapResponse from './data/tpo-medlemskap.json' with { type: 'json' }
 import disableSpraakvelgerToggleResponse from './data/unleash-disable-spraakvelger.json' with { type: 'json' }
 import enableEndringToggleResponse from './data/unleash-enable-endring.json' with { type: 'json' }
-import highchartsAccessibilityPluginToggleResponse from './data/unleash-enable-highcharts-accessibility-plugin.json' with { type: 'json' }
-import enableUtlandToggleResponse from './data/unleash-enable-utland.json' with { type: 'json' }
+import enableRedirect1963ToggleResponse from './data/unleash-enable-redirect-1963.json' with { type: 'json' }
 import enableUtvidetSimuleringsresultatPluginToggleResponse from './data/unleash-utvidet-simuleringsresultat.json' with { type: 'json' }
 
 const TEST_DELAY = process.env.NODE_ENV === 'test' ? 0 : 30
@@ -51,7 +50,6 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
     } else if (request.headers.get('fnr') === '40300000000') {
       return HttpResponse.json({}, { status: 403 })
     }
-
     return HttpResponse.json(personResponse)
   }),
 
@@ -139,17 +137,12 @@ export const getHandlers = (baseUrl: string = API_PATH) => [
   ),
 
   http.get(
-    `${baseUrl}/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin`,
+    `${baseUrl}/feature/pensjonskalkulator.enable-redirect-1963`,
     async () => {
       await delay(TEST_DELAY)
-      return HttpResponse.json(highchartsAccessibilityPluginToggleResponse)
+      return HttpResponse.json(enableRedirect1963ToggleResponse)
     }
   ),
-
-  http.get(`${baseUrl}/feature/pensjonskalkulator.enable-utland`, async () => {
-    await delay(TEST_DELAY)
-    return HttpResponse.json(enableUtlandToggleResponse)
-  }),
 
   http.get(`${baseUrl}/feature/pensjonskalkulator.enable-endring`, async () => {
     await delay(TEST_DELAY)

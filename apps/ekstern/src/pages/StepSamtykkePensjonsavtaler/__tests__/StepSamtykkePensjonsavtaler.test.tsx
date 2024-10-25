@@ -33,7 +33,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
       const radioButtons = screen.getAllByRole('radio')
 
       await user.click(radioButtons[0])
-      await user.click(screen.getByText('stegvisning.beregn'))
+      await user.click(screen.getByText('stegvisning.neste'))
 
       expect(store.getState().userInput.samtykke).toBe(true)
       expect(navigateMock).toHaveBeenCalledWith(paths.beregningEnkel)
@@ -80,7 +80,7 @@ describe('StepSamtykkePensjonsavtaler', () => {
       const radioButtons = screen.getAllByRole('radio')
 
       await user.click(radioButtons[1])
-      await user.click(screen.getByText('stegvisning.beregn'))
+      await user.click(screen.getByText('stegvisning.neste'))
 
       expect(store.getState().userInput.samtykke).toBe(false)
       expect(invalidateMock).toHaveBeenCalledTimes(2)

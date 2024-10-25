@@ -154,7 +154,6 @@ export const apiSlice = createApi({
         }
       },
     }),
-
     alderspensjon: builder.query<
       AlderspensjonResponseBody,
       AlderspensjonRequestBody
@@ -172,7 +171,6 @@ export const apiSlice = createApi({
         return response
       },
     }),
-
     getSpraakvelgerFeatureToggle: builder.query<UnleashToggle, void>({
       query: () => '/feature/pensjonskalkulator.disable-spraakvelger',
       transformResponse: (response: UnleashToggle) => {
@@ -182,21 +180,8 @@ export const apiSlice = createApi({
         return response
       },
     }),
-    getHighchartsAccessibilityPluginFeatureToggle: builder.query<
-      UnleashToggle,
-      void
-    >({
-      query: () =>
-        '/feature/pensjonskalkulator.enable-highcharts-accessibility-plugin',
-      transformResponse: (response: UnleashToggle) => {
-        if (!isUnleashToggle(response)) {
-          throw new Error(`Mottok ugyldig unleash response:`, response)
-        }
-        return response
-      },
-    }),
-    getUtlandFeatureToggle: builder.query<UnleashToggle, void>({
-      query: () => '/feature/pensjonskalkulator.enable-utland',
+    getRedirect1963FeatureToggle: builder.query<UnleashToggle, void>({
+      query: () => '/feature/pensjonskalkulator.enable-redirect-1963',
       transformResponse: (response: UnleashToggle) => {
         if (!isUnleashToggle(response)) {
           throw new Error(`Mottok ugyldig unleash response:`, response)
@@ -243,8 +228,7 @@ export const {
   useAlderspensjonQuery,
   usePensjonsavtalerQuery,
   useGetSpraakvelgerFeatureToggleQuery,
-  useGetHighchartsAccessibilityPluginFeatureToggleQuery,
-  useGetUtlandFeatureToggleQuery,
+  useGetRedirect1963FeatureToggleQuery,
   useGetEndringFeatureToggleQuery,
   useGetUtvidetSimuleringsresultatFeatureToggleQuery,
 } = apiSlice

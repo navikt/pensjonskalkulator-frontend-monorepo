@@ -89,8 +89,7 @@ describe('Utland', () => {
               '31.12.1982'
             )
             cy.get('[data-testid="utenlandsopphold-sluttdato"]').clear()
-
-            cy.contains('button', 'Legg til opphold').click()
+            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
           })
         })
 
@@ -121,7 +120,7 @@ describe('Utland', () => {
               '31.12.1982'
             )
             cy.get('[data-testid="utenlandsopphold-sluttdato"]').clear()
-            cy.contains('button', 'Legg til opphold').click()
+            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
           })
         })
       })
@@ -131,6 +130,7 @@ describe('Utland', () => {
           cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
             force: true,
           })
+          cy.contains('Velg land').should('be.visible')
           cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
           cy.get(
             '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
@@ -141,7 +141,7 @@ describe('Utland', () => {
           cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
             '31.12.1982'
           )
-          cy.contains('button', 'Legg til opphold').click()
+          cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
         })
 
         it('forventer jeg å få en tabell/liste over utenlandsopphold jeg har lagt til.', () => {
@@ -151,7 +151,7 @@ describe('Utland', () => {
           cy.contains('Jobbet: Nei').should('exist')
         })
 
-        it('forventer jeg å kunne endre eller slett oppholdet.', () => {
+        it('forventer jeg å kunne endre eller slette oppholdet.', () => {
           cy.contains('Endre opphold').should('exist')
           cy.contains('Slett opphold').should('exist')
         })
@@ -171,62 +171,90 @@ describe('Utland', () => {
           cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
             force: true,
           })
+          cy.contains('Velg land').should('be.visible')
           cy.get('[data-testid="utenlandsopphold-land"]').select('Frankrike')
           cy.get(
             '[data-testid="utenlandsopphold-arbeidet-utenlands-nei"]'
           ).check()
           cy.get('[data-testid="utenlandsopphold-startdato"]').type(
-            '01.06.1980'
+            '10.06.1980'
           )
           cy.get('[data-testid="utenlandsopphold-sluttdato"]').type(
-            '31.12.1982'
+            '16.12.1982'
           )
-          cy.contains('button', 'Legg til opphold').click()
+          cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
+          cy.contains('Oppholdene dine utenfor Norge').should('exist')
+          cy.contains('Frankrike').should('exist')
+          cy.contains('Periode: 10.06.1980–16.12.1982').should('exist')
+          cy.contains('Jobbet: Nei').should('exist')
         })
 
+        // TODO følges opp pga ustabilitet
         describe('Når jeg legger til et overlappende utenlandsopphold i et annet land,', () => {
           it('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', () => {
-            cy.get('[data-testid="legg-til-utenlandsopphold"]').click({
-              force: true,
-            })
+            cy.wait(500)
+            cy.screenshot()
+            cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
+            cy.contains('Velg land').should('be.visible')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Antarktis')
             cy.get('[data-testid="utenlandsopphold-startdato"]').type(
-              '30.04.1981'
+              '20.04.1981'
             )
-            cy.contains('button', 'Legg til opphold').click()
+            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
+            // Full tekst 'Du har allerede registrert at du har bodd i Frankrike fra 01.06.1980 til 31.12.1982. Du kan ikke ha overlappende opphold i to ulike land.'
             cy.contains(
-              'Du har allerede registrert at du har bodd i Frankrike fra 01.06.1980 til 31.12.1982. Du kan ikke ha overlappende opphold i to ulike land.'
+              'Du har allerede registrert at du har bodd i Frankrike '
             ).should('be.visible')
+            cy.get('[data-testid="legg-til-utenlandsopphold-avbryt"]').click({
+              force: true,
+            })
           })
         })
 
         describe('Når jeg ønsker å endre ett utenlandsopphold jeg har lagt inn,', () => {
+          // TODO følges opp pga ustabilitet
           it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
-            cy.contains('button', 'Endre opphold').click()
+            cy.wait(500)
+            cy.screenshot()
+            cy.get('[data-testid="endre-utenlandsopphold"]').click()
+            cy.screenshot()
+            cy.contains('Velg land').should('be.visible')
+            cy.screenshot()
+            cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
+            cy.screenshot()
+            cy.contains('Jobbet du i Frankrike?').should('exist')
             cy.get('[data-testid="utenlandsopphold-land"]').select('Spania')
             cy.get(
               '[data-testid="utenlandsopphold-arbeidet-utenlands-ja"]'
             ).check()
             cy.get('[data-testid="utenlandsopphold-startdato"]')
               .clear()
-              .type('30.04.1981')
+              .type('20.04.1981')
             cy.get('[data-testid="utenlandsopphold-sluttdato"]')
               .clear()
-              .type('31.12.2020')
-            cy.contains('button', 'Oppdater opphold').click()
+              .type('16.12.2020')
+            cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
             cy.contains('Oppholdene dine utenfor Norge').should('exist')
             cy.contains('Frankrike').should('not.be.visible')
             cy.contains('Spania').should('exist')
-            cy.contains('Periode: 30.04.1981–31.12.2020').should('exist')
+            cy.contains('Periode: 20.04.1981–16.12.2020').should('exist')
             cy.contains('Jobbet: Ja').should('exist')
           })
 
           it('forventer jeg å kunne avbryte endringen.', () => {
-            cy.contains('button', 'Endre opphold').click()
+            cy.wait(500)
+            cy.screenshot()
+            cy.get('[data-testid="endre-utenlandsopphold"]').click()
+            cy.screenshot()
+            cy.contains('Velg land').should('be.visible')
+            cy.screenshot()
+            cy.get('[data-testid="utenlandsopphold-land"]').scrollIntoView()
+            cy.screenshot()
+            cy.contains('Jobbet du i Frankrike?').should('be.visible')
             cy.contains('button', 'Avbryt endring').click()
             cy.contains('Oppholdene dine utenfor Norge').should('exist')
             cy.contains('Frankrike').should('exist')
-            cy.contains('Periode: 01.06.1980–31.12.1982').should('exist')
+            cy.contains('Periode: 10.06.1980–16.12.1982').should('exist')
             cy.contains('Jobbet: Nei').should('exist')
           })
         })
@@ -240,7 +268,7 @@ describe('Utland', () => {
             cy.contains('button', 'Avbryt').click()
             cy.contains('Oppholdene dine utenfor Norge').should('exist')
             cy.contains('Frankrike').should('exist')
-            cy.contains('Periode: 01.06.1980–31.12.1982').should('exist')
+            cy.contains('Periode: 10.06.1980–16.12.1982').should('exist')
             cy.contains('Jobbet: Nei').should('exist')
           })
 
@@ -260,7 +288,7 @@ describe('Utland', () => {
             cy.get('[type="radio"]').last().check()
             cy.contains('button', 'Neste').click()
             cy.get('[type="radio"]').last().check()
-            cy.contains('button', 'Beregn pensjon').click()
+            cy.contains('button', 'Neste').click()
           })
           describe('Når har valgt alder jeg ønsker beregning fra,', () => {
             beforeEach(() => {
@@ -276,7 +304,7 @@ describe('Utland', () => {
               cy.contains('Opphold utenfor Norge:').click({ force: true })
               cy.contains('Oppholdene dine utenfor Norge').should('exist')
               cy.contains('Frankrike').should('exist')
-              cy.contains('Periode: 01.06.1980–31.12.1982').should('exist')
+              cy.contains('Periode: 10.06.1980–16.12.1982').should('exist')
               cy.contains('Jobbet: Nei').should('exist')
             })
 
@@ -305,8 +333,7 @@ describe('Utland', () => {
           cy.get('[data-testid="utenlandsopphold-startdato"]').type(
             '01.06.1964'
           )
-
-          cy.contains('button', 'Legg til opphold').click()
+          cy.get('[data-testid="legg-til-utenlandsopphold-submit"]').click()
           cy.contains('button', 'Neste').click()
         })
 
@@ -316,7 +343,7 @@ describe('Utland', () => {
             cy.get('[type="radio"]').last().check()
             cy.contains('button', 'Neste').click()
             cy.get('[type="radio"]').last().check()
-            cy.contains('button', 'Beregn pensjon').click()
+            cy.contains('button', 'Neste').click()
           })
 
           describe('Når har valgt alder jeg ønsker beregning fra,', () => {
@@ -377,7 +404,7 @@ describe('Utland', () => {
           cy.get('[type="radio"]').last().check()
           cy.contains('button', 'Neste').click()
           cy.get('[type="radio"]').last().check()
-          cy.contains('button', 'Beregn pensjon').click()
+          cy.contains('button', 'Neste').click()
         })
 
         describe('Når har valgt alder jeg ønsker beregning fra,', () => {

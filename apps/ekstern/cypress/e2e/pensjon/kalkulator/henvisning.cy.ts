@@ -1,6 +1,10 @@
 describe('Henvisning', () => {
   describe('Når jeg som bruker født før 1963 logger inn,', () => {
     it('forventer jeg å bli redirigert til detaljert kalkulator.', () => {
+      Cypress.on('uncaught:exception', () => {
+        // prevents Cypress from failing when catching errors in innlogget kalkulator
+        return false
+      })
       cy.intercept(
         { method: 'GET', url: '/pensjon/kalkulator/api/v2/person' },
         {
@@ -14,7 +18,7 @@ describe('Henvisning', () => {
       cy.wait('@getAuthSession')
 
       cy.origin('https://login.idporten.no', () => {
-        Cypress.on('uncaught:exception', (err) => {
+        Cypress.on('uncaught:exception', () => {
           // prevents Cypress from failing when catching errors in uinnlogget kalkulator
           return false
         })

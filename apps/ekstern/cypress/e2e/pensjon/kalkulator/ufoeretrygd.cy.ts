@@ -35,7 +35,7 @@ describe('Med ufoeretrygd', () => {
         cy.get('[type="radio"]').eq(2).check()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
         cy.contains('button', '67 år').click()
         cy.contains('AFP: Nei').click()
         cy.contains(
@@ -64,7 +64,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
         cy.contains('button', '67 år').click()
         cy.contains('AFP: Vet ikke').click()
         cy.contains(
@@ -93,7 +93,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
         cy.contains('button', '67 år').click()
         cy.contains('AFP: Offentlig (ikke beregnet)').click()
         cy.contains(
@@ -125,7 +125,7 @@ describe('Med ufoeretrygd', () => {
         cy.contains('button', 'Neste').click()
         cy.contains('button', 'Neste').click()
         cy.get('[type="radio"]').eq(1).check()
-        cy.contains('button', 'Beregn pensjon').click()
+        cy.contains('button', 'Neste').click()
         cy.contains('button', '67 år').click()
         cy.contains('AFP: Privat (ikke beregnet)').click()
         cy.contains(

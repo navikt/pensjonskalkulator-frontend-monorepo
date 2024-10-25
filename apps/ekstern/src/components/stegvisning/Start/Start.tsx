@@ -31,7 +31,6 @@ export function Start({
 }: Props) {
   const intl = useIntl()
   const navigate = useNavigate()
-  const navnString = navn !== '' ? ` ${navn}!` : '!'
 
   const { data: endringFeatureToggle } = useGetEndringFeatureToggleQuery()
 
@@ -62,7 +61,7 @@ export function Start({
             <Heading level="2" size="medium" spacing>
               {`${intl.formatMessage({
                 id: 'stegvisning.start.title',
-              })}${navnString}`}
+              })} ${navn}!`}
             </Heading>
 
             {loependeVedtak?.alderspensjon ? (

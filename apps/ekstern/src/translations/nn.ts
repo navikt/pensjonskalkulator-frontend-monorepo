@@ -13,8 +13,6 @@ const translations = {
   'application.title.beregning': 'Utrekning - Pensjonskalkulator',
   'application.title.forbehold': 'Atterhald - Pensjonskalkulator',
   'application.title.henvisning.apotekerne': 'MANGLER_TEKST',
-  'application.title.henvisning.utland':
-    'Tilvising utland - Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysningar i enkel kalkulator Pensjonskalkulator',
   'application.global.external_link': 'opnar i ei ny fane',
@@ -58,8 +56,6 @@ const translations = {
     'Personopplysningar som vert brukt i enkel kalkulator',
   'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
   'henvisning.apotekerne.body': 'MANGLER_TEKST',
-  'henvisning.utland.body':
-    'Sidan du har budd eller jobba utanfor Noreg i meir enn fem år, må du bruke detaljert kalkulator.',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
@@ -69,7 +65,6 @@ const translations = {
   'stegvisning.tilbake_start.modal.title': 'MANGLER_TEKST',
   'stegvisning.tilbake_start.modal.bekreft': 'MANGLER_TEKST',
   'stegvisning.tilbake_start.modal.avbryt': 'MANGLER_TEKST',
-  'stegvisning.beregn': 'Rekne ut pensjon',
   'stegvisning.endring.alert': 'MANGLER_TEKST',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.endring.ingress': 'MANGLER_TEKST',
@@ -85,9 +80,6 @@ const translations = {
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysningar som vert brukt i enkel kalkulator',
-  'stegvisning.utenlandsopphold_med_henvisning.title': 'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold_med_henvisning.ingress': 'MANGLER_TEKST',
-  'stegvisning.utenlandsopphold_med_henvisning.radio_label': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.title': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.ingress': 'MANGLER_TEKST',
   'stegvisning.utenlandsopphold.readmore_1.title': 'MANGLER_TEKST',
@@ -430,16 +422,12 @@ const translations = {
   'grunnlag.sivilstand.title.error': 'Kunne ikkje hentast',
   'grunnlag.sivilstand.ingress':
     'Viss du har låg opptening kan storleiken på alderspensjonen din avhenge av om du bur åleine eller samen med andre.{br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
-  'grunnlag.opphold.title': 'Opphald i Noreg',
   'grunnlag.opphold.title.mindre_enn_5_aar': 'MANGLER_TEKST',
   'grunnlag.opphold.title.mer_enn_5_aar': 'MANGLER_TEKST',
   'grunnlag.opphold.title.for_lite_trygdetid': 'MANGLER_TEKST',
-  'grunnlag.opphold.value': 'Minst 40 år',
   'grunnlag.opphold.value.mindre_enn_5_aar': 'MANGLER_TEKST',
   'grunnlag.opphold.value.mer_enn_5_aar': 'MANGLER_TEKST',
   'grunnlag.opphold.value.for_lite_trygdetid': 'MANGLER_TEKST',
-  'grunnlag.opphold.ingress':
-    'Utrekninga føreset at du har budd eller jobba i Noreg i minst 40 år frå du fylte 16 år og fram til du tek ut pensjon. Ved utlandsopphald over fem år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'grunnlag.opphold.ingress.endre_opphold': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress.endre_opphold.link': 'MANGLER_TEKST',
   'grunnlag.opphold.ingress.mindre_enn_5_aar': 'MANGLER_TEKST',

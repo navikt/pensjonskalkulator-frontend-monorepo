@@ -77,7 +77,7 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
     )
     const radioButtons = screen.getAllByRole('radio')
 
-    await user.click(screen.getByText('stegvisning.beregn'))
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(
@@ -96,7 +96,7 @@ describe('stegvisning - SamtykkePensjonsavtaler', () => {
       )
     ).not.toBeInTheDocument()
 
-    await user.click(screen.getByText('stegvisning.beregn'))
+    await user.click(screen.getByText('stegvisning.neste'))
 
     waitFor(() => {
       expect(onNextMock).toHaveBeenCalled()
