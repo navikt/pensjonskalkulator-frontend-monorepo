@@ -16,8 +16,6 @@ const translations = {
   'application.title.forbehold': 'Forbehold – Pensjonskalkulator',
   'application.title.henvisning.apotekerne':
     'Henvisning apotekerne – Pensjonskalkulator',
-  'application.title.henvisning.utland':
-    'Henvisning utland – Pensjonskalkulator',
   'application.title.personopplysninger':
     'Personopplysninger i enkel kalkulator – Pensjonskalkulator',
   'application.global.external_link': 'åpner i en ny fane',
@@ -64,8 +62,6 @@ const translations = {
   'henvisning.detaljert_kalkulator': 'Detaljert pensjonskalkulator',
   'henvisning.apotekerne.body':
     'Siden du har apotekordningen, må du bruke detaljert pensjonskalkulator.',
-  'henvisning.utland.body':
-    'Siden du har bodd eller jobbet utenfor Norge i mer enn 5 år, må du bruke detaljert pensjonskalkulator.',
   'stegvisning.radio_ja': 'Ja',
   'stegvisning.radio_nei': 'Nei',
   'stegvisning.neste': 'Neste',
@@ -99,11 +95,6 @@ const translations = {
   'stegvisning.start.button': 'Kom i gang',
   'stegvisning.start.link':
     'Personopplysninger som brukes i pensjonskalkulator',
-  'stegvisning.utenlandsopphold_med_henvisning.title': 'Utenlandsopphold',
-  'stegvisning.utenlandsopphold_med_henvisning.ingress':
-    'Enkel kalkulator er under utvikling og støtter ikke beregning med lengre utenlandsopphold.',
-  'stegvisning.utenlandsopphold_med_henvisning.radio_label':
-    'Har du bodd eller jobbet utenfor Norge i mer enn 5 år etter fylte 16 år?',
   'stegvisning.utenlandsopphold.title': 'Opphold utenfor Norge',
   'stegvisning.utenlandsopphold.ingress':
     'Hvis du har bodd eller jobbet mer enn 5 år utenfor Norge mellom fylte 16 år og uttak av pensjon, kan det påvirke størrelsen på alderspensjonen din.',
@@ -491,16 +482,12 @@ const translations = {
   'grunnlag.sivilstand.title.error': 'Kunne ikke hentes',
   'grunnlag.sivilstand.ingress':
     'Hvis du har lav opptjening kan størrelsen på alderspensjonen din avhenge av om du bor alene eller sammen med noen. {br}{br}<garantiPensjonLink>Om garantipensjon og satser</garantiPensjonLink>',
-  'grunnlag.opphold.title': 'Opphold i Norge',
   'grunnlag.opphold.title.mindre_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.mer_enn_5_aar': 'Opphold utenfor Norge',
   'grunnlag.opphold.title.for_lite_trygdetid': 'Opphold i Norge',
-  'grunnlag.opphold.value': 'Minst 40 år',
   'grunnlag.opphold.value.mindre_enn_5_aar': '5 år eller mindre',
   'grunnlag.opphold.value.mer_enn_5_aar': 'Mer enn 5 år',
   'grunnlag.opphold.value.for_lite_trygdetid': 'Mindre enn 5 år',
-  'grunnlag.opphold.ingress':
-    'Beregningen forutsetter at du har bodd eller jobbet i Norge i minst 40 år fra fylte 16 år frem til du tar ut pensjon. Ved utlandsopphold over 5 år, må du bruke <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>',
   'grunnlag.opphold.ingress.endre_opphold':
     'Du kan endre oppholdene dine ved å gå tilbake til {link}.',
   'grunnlag.opphold.ingress.endre_opphold.link': 'Opphold utenfor Norge',
