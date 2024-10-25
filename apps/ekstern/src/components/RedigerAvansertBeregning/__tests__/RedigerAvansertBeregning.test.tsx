@@ -1347,25 +1347,13 @@ describe('RedigerAvansertBeregning', () => {
   describe('Gitt at en bruker mottar 100 % uføretrygd', () => {
     it('vises informasjon om pensjonsalder og uføretrygd, og aldersvelgere begrenses fra ubetinget uttaksalderen', async () => {
       const user = userEvent.setup()
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 100,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(
@@ -1453,25 +1441,13 @@ describe('RedigerAvansertBeregning', () => {
 
   describe('Gitt at en bruker mottar gradert uføretrygd', () => {
     it('vises informasjon om pensjonsalder og uføretrygd, og kun aldersvelgeren for 100 % uttak begrenses fra ubetinget uttaksalderen', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 50,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(
@@ -1559,25 +1535,13 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('vises ekstra informasjon om inntekt vsa pensjon og gradertuføretrygd når brukeren velger en alder før ubetinget uttaksalderen', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 50,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(
@@ -1634,25 +1598,13 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('når brukeren velger en alder før ubetinget uttaksalderen, begrenses valgene for uttaksgrad basert på uføregraden', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 50,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(
@@ -1705,25 +1657,13 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('når brukeren velger uttaksgraden først og etterpå en alder før ubetinget uttaksalderen som gjør at uttaksgraden er ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 50,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const user = userEvent.setup()
@@ -1813,25 +1753,13 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('når brukeren velger en alder etter ubetinget uttaksalderen med en uttaksgrad og endrer til en alder før ubetinget uttaksalderen som gjør at uttaksgraden blir ugyldig, begrenses ikke valgene for uttaksgrad og brukeren er informert gjennom valideringen', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 50,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const user = userEvent.setup()
@@ -1939,25 +1867,13 @@ describe('RedigerAvansertBeregning', () => {
     })
 
     it('når brukeren velger en alder før ubetinget uttaksalderen så en avgrenset uttaksgrad så velger en uttaksalder etter ubetinget uttaksalderen, nullstilles uttaksgraden', async () => {
-      mockResponse('/v1/vedtak/loepende-vedtak', {
+      mockResponse('/v2/vedtak/loepende-vedtak', {
         status: 200,
         json: {
-          alderspensjon: {
-            loepende: false,
-            grad: 0,
-          },
           ufoeretrygd: {
-            loepende: true,
             grad: 50,
           },
-          afpPrivat: {
-            loepende: false,
-            grad: 0,
-          },
-          afpOffentlig: {
-            loepende: false,
-            grad: 0,
-          },
+          harFremtidigLoependeVedtak: false,
         },
       })
       const { store } = render(

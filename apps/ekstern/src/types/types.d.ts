@@ -45,7 +45,7 @@ declare global {
   type OmstillingsstoenadOgGjenlevende =
     components['schemas']['BrukerHarLoependeOmstillingsstoenadEllerGjenlevendeYtelse']
 
-  // /v1/vedtak/loepende-vedtak
+  // /v2/vedtak/loepende-vedtak
   export type GetLoependeVedtakQuery = TypedUseQueryStateResult<
     LoependeVedtak,
     void,
@@ -53,7 +53,7 @@ declare global {
   >
 
   // LoependeVedtakDto
-  type LoependeVedtak = components['schemas']['LoependeVedtakDto']
+  type LoependeVedtak = components['schemas']['LoependeVedtakV2']
 
   // /tpo-medlemskap
   export type TpoMedlemskapQuery = TypedUseQueryStateResult<

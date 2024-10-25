@@ -6,10 +6,10 @@ import { Alert, Button, Modal, ToggleGroup } from '@navikt/ds-react'
 
 import { LightBlueFooter } from '@/components/LightBlueFooter'
 import { paths } from '@/router/constants'
-import { useGetLoependeVedtakQuery } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { useAppSelector } from '@/state/hooks'
 import { selectCurrentSimulation } from '@/state/userInput/selectors'
+import { selectIsEndring } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
 import { logger } from '@/utils/logging'
@@ -38,7 +38,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
   const [harAvansertSkjemaUnsavedChanges, setHarAvansertSkjemaUnsavedChanges] =
     React.useState<boolean>(false)
 
-  const { data: loependeVedtak } = useGetLoependeVedtakQuery()
+  const isEndring = useAppSelector(selectIsEndring)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -173,8 +173,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         </Modal.Footer>
       </Modal>
       <div className={styles.beregning}>
-        {(loependeVedtak?.alderspensjon.loepende ||
-          loependeVedtak?.afpPrivat.loepende) && (
+        {isEndring && (
           <div className={styles.container}>
             <Alert
               className={styles.alert}

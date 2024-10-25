@@ -77,31 +77,33 @@ export function landingPageDeferredLoader<
 }
 
 export const landingPageAccessGuard = async () => {
-  let resolveRedirectUrl: (value: string | PromiseLike<string>) => void
-
-  const shouldRedirectTo: Promise<string> = new Promise((resolve) => {
-    resolveRedirectUrl = resolve
-  })
+  const getRedirect1963FeatureToggleQuery = store.dispatch(
+    apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
+  )
 
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  getPersonQuery
-    .then((res) => {
+  const shouldRedirectTo = Promise.all([
+    getRedirect1963FeatureToggleQuery,
+    getPersonQuery,
+  ])
+    .then(([getRedirect1963FeatureToggleRes, getPersonRes]) => {
       if (
-        res?.isSuccess &&
-        isFoedtFoer1963(res?.data?.foedselsdato as string)
+        getRedirect1963FeatureToggleRes.data?.enabled &&
+        getPersonRes?.isSuccess &&
+        isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
       ) {
-        resolveRedirectUrl('')
         window.open(externalUrls.detaljertKalkulator, '_self')
+        return ''
       } else {
         if (selectIsVeileder(store.getState())) {
-          resolveRedirectUrl(paths.start)
+          return paths.start
         } else {
-          resolveRedirectUrl('')
+          return ''
         }
       }
     })
     .catch(() => {
-      resolveRedirectUrl('')
+      return ''
     })
 
   return defer({
@@ -133,12 +135,15 @@ export function stepStartDeferredLoader<
 }
 
 export const stepStartAccessGuard = async () => {
+  const getRedirect1963FeatureToggleQuery = store.dispatch(
+    apiSlice.endpoints.getRedirect1963FeatureToggle.initiate()
+  )
+  // Sørger for at brukeren er redirigert til henvisningsside iht. fødselsdato
   const getPersonQuery = store.dispatch(apiSlice.endpoints.getPerson.initiate())
-  getPersonQuery.then((res) => {
-    if (res?.isSuccess && isFoedtFoer1963(res?.data?.foedselsdato as string)) {
-      window.open(externalUrls.detaljertKalkulator, '_self')
-    }
-  })
+  // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
+  const getEkskludertStatusQuery = store.dispatch(
+    apiSlice.endpoints.getEkskludertStatus.initiate()
+  )
   // Henter løpende vedtak for endring
   const getLoependeVedtakQuery = store.dispatch(
     apiSlice.endpoints.getLoependeVedtak.initiate()
@@ -151,29 +156,41 @@ export const stepStartAccessGuard = async () => {
     apiSlice.endpoints.getOmstillingsstoenadOgGjenlevende.initiate()
   )
 
-  // Sørger for at brukeren er redirigert til henvisningsside iht. ekskludertStatus
-  const getEkskludertStatusQuery = store.dispatch(
-    apiSlice.endpoints.getEkskludertStatus.initiate()
-  )
-
   const shouldRedirectTo = Promise.all([
+    getRedirect1963FeatureToggleQuery,
     getPersonQuery,
     getEkskludertStatusQuery,
-  ]).then(([getPersonRes, getEkskludertStatusRes]) => {
-    if (
-      getEkskludertStatusRes?.data?.ekskludert &&
-      getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
-    ) {
-      return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
-    } else if (
-      getPersonRes.status === 'rejected' &&
-      (getPersonRes.error as FetchBaseQueryError).status === 403
-    ) {
-      // Håndtere at bruker ikke har tilgang (inntreffer for fullmakt)
-      return paths.ingenTilgang
+  ]).then(
+    ([
+      getRedirect1963FeatureToggleRes,
+      getPersonRes,
+      getEkskludertStatusRes,
+    ]) => {
+      if (
+        getEkskludertStatusRes?.data?.ekskludert &&
+        getEkskludertStatusRes?.data?.aarsak === 'ER_APOTEKER'
+      ) {
+        return `${paths.henvisning}/${henvisningUrlParams.apotekerne}`
+      }
+
+      if (getPersonRes.isError) {
+        if ((getPersonRes.error as FetchBaseQueryError).status === 403) {
+          return paths.ingenTilgang
+        } else {
+          return paths.uventetFeil
+        }
+      }
+      if (getPersonRes.isSuccess) {
+        if (
+          getRedirect1963FeatureToggleRes?.data?.enabled &&
+          isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
+        ) {
+          window.open(externalUrls.detaljertKalkulator, '_self')
+        }
+        return ''
+      }
     }
-    return ''
-  })
+  )
 
   return defer({
     getPersonQuery,
@@ -211,7 +228,7 @@ export const stepSivilstandAccessGuard = async () => {
   let resolveRedirectUrl: (
     value: string | PromiseLike<string>
   ) => void = () => {}
-  let resolveGetPerson: (
+  const resolveGetPerson: (
     value: null | GetPersonQuery | PromiseLike<GetPersonQuery>
   ) => void = () => {}
 
@@ -219,62 +236,22 @@ export const stepSivilstandAccessGuard = async () => {
     resolveRedirectUrl = resolve
   })
 
-  const getPersonQuery: Promise<null | GetPersonQuery> = new Promise(
-    (resolve) => {
-      resolveGetPerson = resolve
-    }
+  const getPersonResponse = apiSlice.endpoints.getPerson.select(undefined)(
+    store.getState()
   )
-  const getPersonPreviousResponse = apiSlice.endpoints.getPerson.select(
-    undefined
-  )(store.getState())
-
-  // Hvis getPerson har blitt fetchet tidligere, gjenbruk responsen
-  if (getPersonPreviousResponse.isSuccess) {
-    if (
-      getPersonPreviousResponse?.data?.sivilstand &&
-      checkHarSamboer(getPersonPreviousResponse.data.sivilstand)
-    ) {
-      resolveRedirectUrl(paths.utenlandsopphold)
-      resolveGetPerson(getPersonPreviousResponse)
-    } else {
-      resolveRedirectUrl('')
-      resolveGetPerson(getPersonPreviousResponse)
-    }
+  if (
+    getPersonResponse?.data?.sivilstand &&
+    checkHarSamboer(getPersonResponse.data.sivilstand)
+  ) {
+    resolveRedirectUrl(paths.utenlandsopphold)
+    resolveGetPerson(getPersonResponse)
   } else {
-    // Hvis getPerson har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
-    const newGetPersonQuery = store.dispatch(
-      apiSlice.endpoints.getPerson.initiate()
-    )
-    newGetPersonQuery.then((res) => {
-      if (res.isError) {
-        if ((res.error as FetchBaseQueryError).status === 403) {
-          resolveRedirectUrl(paths.ingenTilgang)
-        } else {
-          resolveRedirectUrl(paths.uventetFeil)
-        }
-        resolveGetPerson(res)
-      }
-      if (res.isSuccess) {
-        if (isFoedtFoer1963(res?.data?.foedselsdato as string)) {
-          window.open(externalUrls.detaljertKalkulator, '_self')
-          resolveRedirectUrl('')
-          resolveGetPerson(res)
-        } else if (
-          res?.data?.sivilstand &&
-          checkHarSamboer(res.data.sivilstand)
-        ) {
-          resolveRedirectUrl(paths.utenlandsopphold)
-          resolveGetPerson(res)
-        } else {
-          resolveRedirectUrl('')
-          resolveGetPerson(res)
-        }
-      }
-    })
+    resolveRedirectUrl('')
+    resolveGetPerson(getPersonResponse)
   }
 
   return defer({
-    getPersonQuery,
+    getPersonQuery: getPersonResponse,
     shouldRedirectTo,
   })
 }
@@ -335,17 +312,14 @@ export const stepAFPAccessGuard = async () => {
       }
       if (res.isSuccess) {
         // Hvis brukeren skal simulere endring tømmer vi tidligere input i tilfelle noe det ble fylt ut da getLoepende vedtak kan ha feilet
-        if (
-          res.data.alderspensjon.loepende ||
-          res.data.afpPrivat.loepende ||
-          res.data.afpOffentlig.loepende
-        ) {
+        if (res.data.alderspensjon) {
           store.dispatch(userInputActions.flushSamboerOgUtenlandsperioder())
+          // Hvis brukeren mottar AFP skal hen direkte til avansert beregning
+          if (res.data.afpPrivat || res.data.afpOffentlig) {
+            resolveRedirectUrl(paths.beregningAvansert)
+          }
         }
-        // Hvis brukeren skal simulere endring og at hen mottar AFP skal hen direkte til avansert beregning
-        if (res.data.afpPrivat.loepende || res.data.afpOffentlig.loepende) {
-          resolveRedirectUrl(paths.beregningAvansert)
-        }
+
         // Hvis alle kallene er vellykket, resolve
         if (
           !hasInntektPreviouslyFailed &&
