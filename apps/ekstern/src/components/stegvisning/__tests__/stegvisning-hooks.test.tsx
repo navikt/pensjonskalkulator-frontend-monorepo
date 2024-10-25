@@ -68,13 +68,21 @@ describe('stegvisning - hooks', () => {
                 requestId: 't1wLPiRKrfe_vchftk8s8',
                 data: {
                   alderspensjon: {
+                    loepende: true,
                     grad: 50,
-                    fom: '2020-10-02',
                   },
                   ufoeretrygd: {
+                    loepende: false,
                     grad: 0,
                   },
-                  harFremtidigLoependeVedtak: false,
+                  afpPrivat: {
+                    loepende: false,
+                    grad: 0,
+                  },
+                  afpOffentlig: {
+                    loepende: false,
+                    grad: 0,
+                  },
                 },
                 startedTimeStamp: 1714725797072,
                 fulfilledTimeStamp: 1714725797669,

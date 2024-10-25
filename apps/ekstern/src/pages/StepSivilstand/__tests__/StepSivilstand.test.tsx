@@ -3,7 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
+import { rejectedGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -19,7 +19,7 @@ describe('StepSivilstand', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
-          ...fulfilledGetPerson,
+          ...rejectedGetPerson,
         },
       },
       userInput: {
@@ -45,10 +45,8 @@ describe('StepSivilstand', () => {
       hasRouter: false,
     })
     await waitFor(async () => {
-      expect(document.title).toBe('application.title.stegvisning.sivilstand')
-    })
-    await waitFor(async () => {
       expect(await screen.findByTestId('sivilstand-loader')).toBeVisible()
+      expect(document.title).toBe('application.title.stegvisning.sivilstand')
     })
   })
 
@@ -111,7 +109,7 @@ describe('StepSivilstand', () => {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           queries: {
-            ...fulfilledGetPerson,
+            ...rejectedGetPerson,
           },
         },
         userInput: {

@@ -30,6 +30,12 @@ export const Henvisning: React.FC = () => {
         })
         setIngress('henvisning.apotekerne.body')
         break
+      case henvisningUrlParams.utland:
+        document.title = intl.formatMessage({
+          id: 'application.title.henvisning.utland',
+        })
+        setIngress('henvisning.utland.body')
+        break
       default:
         setIngress('')
     }

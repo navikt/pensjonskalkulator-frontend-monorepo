@@ -1,75 +1,58 @@
-import React from 'react'
-import { FormEvent, useMemo, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { useNavigate } from 'react-router-dom'
 
 import { BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { logger, wrapLogger } from '@/utils/logging'
-import { formatSivilstand } from '@/utils/sivilstand'
 
-import styles from './Sivilstand.module.scss'
+import styles from './UtenlandsoppholdMedHenvisning.module.scss'
 
 interface Props {
-  shouldRedirectTo?: string
-  sivilstand?: Sivilstand
-  harSamboer: boolean | null
+  harUtenlandsopphold: boolean | null
   onCancel?: () => void
   onPrevious: () => void
-  onNext: (sivilstandData: BooleanRadio) => void
+  onNext: (utenlandsoppholdData: BooleanRadio) => void
 }
 
-export function Sivilstand({
-  shouldRedirectTo,
-  sivilstand,
-  harSamboer,
+export function UtenlandsoppholdMedHenvisning({
+  harUtenlandsopphold,
   onCancel,
   onPrevious,
   onNext,
 }: Props) {
   const intl = useIntl()
-  const navigate = useNavigate()
   const [validationError, setValidationError] = useState<string>('')
-
-  React.useEffect(() => {
-    if (shouldRedirectTo) {
-      navigate(shouldRedirectTo)
-    }
-  }, [shouldRedirectTo])
-
-  const formatertSivilstand = useMemo(
-    () => (sivilstand ? formatSivilstand(intl, sivilstand).toLowerCase() : ''),
-    [sivilstand]
-  )
 
   const onSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
 
     const data = new FormData(e.currentTarget)
-    const sivilstandData = data.get('sivilstand') as BooleanRadio | undefined
+    const utenlandsoppholdData = data.get('utenlandsopphold') as
+      | BooleanRadio
+      | undefined
 
-    if (!sivilstandData) {
+    if (!utenlandsoppholdData) {
       const tekst = intl.formatMessage({
-        id: 'stegvisning.sivilstand.validation_error',
+        id: 'stegvisning.utenlandsopphold.validation_error',
       })
       setValidationError(tekst)
       logger('valideringsfeil', {
         data: intl.formatMessage({
-          id: 'stegvisning.sivilstand.radio_label',
+          id: 'stegvisning.utenlandsopphold.radio_label',
         }),
         tekst,
       })
     } else {
       logger('radiogroup valgt', {
-        tekst: 'Samboer',
-        valg: sivilstandData,
+        tekst: 'Utenlandsopphold',
+        valg: utenlandsoppholdData,
       })
       logger('button klikk', {
-        tekst: `Neste fra ${paths.sivilstand}`,
+        tekst: `Neste fra ${paths.utenlandsopphold}`,
       })
-      onNext(sivilstandData)
+      onNext(utenlandsoppholdData)
     }
   }
 
@@ -77,38 +60,41 @@ export function Sivilstand({
     setValidationError('')
   }
 
-  if (shouldRedirectTo) {
-    return null
-  }
-
   return (
     <Card hasLargePadding hasMargin>
       <form onSubmit={onSubmit}>
         <Heading level="2" size="medium" spacing>
-          <FormattedMessage id="stegvisning.sivilstand.title" />
+          <FormattedMessage id="stegvisning.utenlandsopphold_med_henvisning.title" />
         </Heading>
-        <BodyLong size="large" className={styles.ingress}>
-          <FormattedMessage id="stegvisning.sivilstand.ingress_1" />
-          {formatertSivilstand}
-          <FormattedMessage id="stegvisning.sivilstand.ingress_2" />
+        <BodyLong size="large">
+          <FormattedMessage id="stegvisning.utenlandsopphold.ingress" />
         </BodyLong>
         <RadioGroup
-          legend={<FormattedMessage id="stegvisning.sivilstand.radio_label" />}
-          name="sivilstand"
           className={styles.radiogroup}
-          defaultValue={harSamboer ? 'ja' : harSamboer === false ? 'nei' : null}
+          legend={
+            <FormattedMessage id="stegvisning.utenlandsopphold_med_henvisning.radio_label" />
+          }
+          name="utenlandsopphold"
+          defaultValue={
+            harUtenlandsopphold
+              ? 'ja'
+              : harUtenlandsopphold === false
+                ? 'nei'
+                : null
+          }
           onChange={handleRadioChange}
           error={validationError}
           role="radiogroup"
           aria-required="true"
         >
           <Radio value="ja">
-            <FormattedMessage id="stegvisning.sivilstand.radio_ja" />
+            <FormattedMessage id="stegvisning.utenlandsopphold.radio_ja" />
           </Radio>
           <Radio value="nei">
-            <FormattedMessage id="stegvisning.sivilstand.radio_nei" />
+            <FormattedMessage id="stegvisning.utenlandsopphold.radio_nei" />
           </Radio>
         </RadioGroup>
+
         <Button type="submit" className={styles.button}>
           <FormattedMessage id="stegvisning.neste" />
         </Button>
@@ -117,7 +103,7 @@ export function Sivilstand({
           className={styles.button}
           variant="secondary"
           onClick={wrapLogger('button klikk', {
-            tekst: `Tilbake fra ${paths.sivilstand}`,
+            tekst: `Tilbake fra ${paths.utenlandsopphold}`,
           })(onPrevious)}
         >
           <FormattedMessage id="stegvisning.tilbake" />

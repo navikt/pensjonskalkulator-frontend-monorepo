@@ -12,7 +12,10 @@ import {
 
 import { AccordionItem } from '@/components/common/AccordionItem'
 import { paths } from '@/router/constants'
-import { useGetPersonQuery } from '@/state/api/apiSlice'
+import {
+  useGetPersonQuery,
+  useGetUtlandFeatureToggleQuery,
+} from '@/state/api/apiSlice'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectAfp,
@@ -61,6 +64,7 @@ export const Grunnlag: React.FC<Props> = ({
   const intl = useIntl()
 
   const { data: person, isSuccess } = useGetPersonQuery()
+  const { data: utlandFeatureToggle } = useGetUtlandFeatureToggleQuery()
   const afp = useAppSelector(selectAfp)
   const harSamtykketOffentligAFP = useAppSelector(selectSamtykkeOffentligAFP)
   const harSamboer = useAppSelector(selectSamboer)
@@ -148,7 +152,29 @@ export const Grunnlag: React.FC<Props> = ({
           </GrunnlagSection>
         </AccordionItem>
 
-        <GrunnlagUtenlandsopphold harForLiteTrygdetid={harForLiteTrygdetid} />
+        {utlandFeatureToggle?.enabled ? (
+          <GrunnlagUtenlandsopphold harForLiteTrygdetid={harForLiteTrygdetid} />
+        ) : (
+          <AccordionItem name="Grunnlag: Utenlandsopphold">
+            <GrunnlagSection
+              headerTitle={intl.formatMessage({
+                id: 'grunnlag.opphold.title',
+              })}
+              headerValue={intl.formatMessage({
+                id: 'grunnlag.opphold.value',
+              })}
+            >
+              <BodyLong>
+                <FormattedMessage
+                  id="grunnlag.opphold.ingress"
+                  values={{
+                    ...getFormatMessageValues(intl),
+                  }}
+                />
+              </BodyLong>
+            </GrunnlagSection>
+          </AccordionItem>
+        )}
 
         <AccordionItem name="Grunnlag: Alderspensjon (NAV)">
           <GrunnlagSection

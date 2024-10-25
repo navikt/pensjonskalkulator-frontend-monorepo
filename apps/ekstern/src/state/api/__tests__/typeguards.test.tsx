@@ -650,42 +650,26 @@ describe('Typeguards', () => {
   describe('isLoependeVedtak', () => {
     const correctResponse = {
       alderspensjon: {
+        loepende: false,
         grad: 0,
-        fom: '2020-10-02',
       },
       ufoeretrygd: {
+        loepende: true,
         grad: 75,
       },
       afpPrivat: {
-        fom: '2020-10-02',
+        loepende: false,
+        grad: 0,
       },
       afpOffentlig: {
-        fom: '2020-10-02',
+        loepende: false,
+        grad: 0,
       },
-      harFremtidigLoependeVedtak: false,
     }
     it('returnerer true når input er et LoependeVedtak-objekt', () => {
       expect(
         isLoependeVedtak({
           ...correctResponse,
-        })
-      ).toEqual(true)
-      expect(
-        isLoependeVedtak({
-          ...correctResponse,
-          alderspensjon: null,
-        })
-      ).toEqual(true)
-      expect(
-        isLoependeVedtak({
-          ...correctResponse,
-          afpPrivat: null,
-        })
-      ).toEqual(true)
-      expect(
-        isLoependeVedtak({
-          ...correctResponse,
-          afpOffentlig: null,
         })
       ).toEqual(true)
     })
@@ -695,24 +679,41 @@ describe('Typeguards', () => {
       expect(isLoependeVedtak(null)).toEqual(false)
       expect(isLoependeVedtak({})).toEqual(false)
       expect(isLoependeVedtak({ random: 75 })).toEqual(false)
-
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          alderspensjon: null,
+        })
+      ).toEqual(false)
       expect(
         isLoependeVedtak({
           ...correctResponse,
           ufoeretrygd: null,
         })
       ).toEqual(false)
-
       expect(
         isLoependeVedtak({
           ...correctResponse,
-          ufoeretrygd: {},
+          afpPrivat: null,
         })
       ).toEqual(false)
       expect(
         isLoependeVedtak({
           ...correctResponse,
+          afpOffentlig: null,
+        })
+      ).toEqual(false)
+
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
           alderspensjon: {},
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          ufoeretrygd: {},
         })
       ).toEqual(false)
       expect(
@@ -731,32 +732,50 @@ describe('Typeguards', () => {
       expect(
         isLoependeVedtak({
           ...correctResponse,
-          ufoeretrygd: { grad: '75' },
+          alderspensjon: { loepende: 'lorem', grad: 100 },
         })
       ).toEqual(false)
       expect(
         isLoependeVedtak({
           ...correctResponse,
-          alderspensjon: { grad: '75' },
+          ufoeretrygd: { loepende: 'lorem', grad: 100 },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpPrivat: { loepende: 'lorem', grad: 100 },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpOffentlig: { loepende: 'lorem', grad: 100 },
         })
       ).toEqual(false)
 
       expect(
         isLoependeVedtak({
           ...correctResponse,
-          alderspensjon: { grad: 75, fom: 123 },
+          alderspensjon: { grad: '75' },
         })
       ).toEqual(false)
       expect(
         isLoependeVedtak({
           ...correctResponse,
-          afpPrivat: { fom: 123 },
+          ufoeretrygd: { grad: '75' },
         })
       ).toEqual(false)
       expect(
         isLoependeVedtak({
           ...correctResponse,
-          afpOffentlig: { fom: 123 },
+          afpPrivat: { grad: '75' },
+        })
+      ).toEqual(false)
+      expect(
+        isLoependeVedtak({
+          ...correctResponse,
+          afpOffentlig: { grad: '75' },
         })
       ).toEqual(false)
     })
