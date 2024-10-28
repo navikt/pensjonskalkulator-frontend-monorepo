@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { fulfilledGetPerson } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -83,6 +84,15 @@ describe('StepSivilstand', () => {
       initialEntries: [`${BASE_PATH}${paths.sivilstand}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedState: {
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
       hasRouter: false,
     })
     const radioButtons = await screen.findAllByRole('radio')

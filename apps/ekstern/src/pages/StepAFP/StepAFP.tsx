@@ -29,7 +29,9 @@ export function StepAFP() {
 
   const onNext = (afpData: AfpRadio): void => {
     dispatch(userInputActions.setAfp(afpData))
-    onStegvisningNext()
+    if (onStegvisningNext) {
+      onStegvisningNext()
+    }
   }
 
   return (

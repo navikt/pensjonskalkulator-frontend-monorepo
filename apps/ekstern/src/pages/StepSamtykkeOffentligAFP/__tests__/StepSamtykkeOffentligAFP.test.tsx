@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepSamtykkeOffentligAFP } from '..'
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
@@ -22,7 +23,17 @@ describe('StepSamtykkeOffentligAFP', () => {
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
         () => navigateMock
       )
-      const { store } = render(<StepSamtykkeOffentligAFP />, {})
+      const { store } = render(<StepSamtykkeOffentligAFP />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+        },
+      })
       const radioButtons = screen.getAllByRole('radio')
 
       await user.click(radioButtons[0])
@@ -40,7 +51,17 @@ describe('StepSamtykkeOffentligAFP', () => {
       vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
         () => navigateMock
       )
-      const { store } = render(<StepSamtykkeOffentligAFP />, {})
+      const { store } = render(<StepSamtykkeOffentligAFP />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+        },
+      })
       const radioButtons = screen.getAllByRole('radio')
 
       await user.click(radioButtons[1])

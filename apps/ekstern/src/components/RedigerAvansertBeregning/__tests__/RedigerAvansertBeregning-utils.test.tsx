@@ -51,8 +51,14 @@ describe('RedigerAvansertBeregning-utils', () => {
         setValidationErrorsMock,
         gaaTilResultatMock,
         {
+          foedselsdato: '1963-04-30',
+          loependeVedtak: {
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
           localInntektFremTilUttak: null,
-          ufoeregrad: 0,
           hasVilkaarIkkeOppfylt: undefined,
           harAvansertSkjemaUnsavedChanges: false,
         }
@@ -105,8 +111,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
+            foedselsdato: '1963-04-30',
+            loependeVedtak: {
+              ufoeretrygd: {
+                grad: 0,
+              },
+              harFremtidigLoependeVedtak: false,
+            },
             localInntektFremTilUttak: null,
-            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -163,8 +175,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
+            foedselsdato: '1963-04-30',
+            loependeVedtak: {
+              ufoeretrygd: {
+                grad: 0,
+              },
+              harFremtidigLoependeVedtak: false,
+            },
             localInntektFremTilUttak: '500 000',
-            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -248,8 +266,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
+            foedselsdato: '1963-04-30',
+            loependeVedtak: {
+              ufoeretrygd: {
+                grad: 0,
+              },
+              harFremtidigLoependeVedtak: false,
+            },
             localInntektFremTilUttak: '500 000',
-            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: undefined,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -299,8 +323,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
+            foedselsdato: '1963-04-30',
+            loependeVedtak: {
+              ufoeretrygd: {
+                grad: 0,
+              },
+              harFremtidigLoependeVedtak: false,
+            },
             localInntektFremTilUttak: '500 000',
-            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: false,
           }
@@ -324,8 +354,14 @@ describe('RedigerAvansertBeregning-utils', () => {
           setValidationErrorsMock,
           gaaTilResultatMock,
           {
+            foedselsdato: '1963-04-30',
+            loependeVedtak: {
+              ufoeretrygd: {
+                grad: 0,
+              },
+              harFremtidigLoependeVedtak: false,
+            },
             localInntektFremTilUttak: '500 000',
-            ufoeregrad: 0,
             hasVilkaarIkkeOppfylt: true,
             harAvansertSkjemaUnsavedChanges: true,
           }
@@ -353,12 +389,33 @@ describe('RedigerAvansertBeregning-utils', () => {
       inntektVsaGradertUttakFormData: '99000',
     }
 
+    const mockedFoedselsdato = '1963-04-30'
+    const mockedLoependeVedtak = {
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: false,
+    }
+    const mockedLoependeVedtak100 = {
+      ufoeretrygd: {
+        grad: 100,
+      },
+      harFremtidigLoependeVedtak: false,
+    }
+    const mockedLoependeVedtak60 = {
+      ufoeretrygd: {
+        grad: 60,
+      },
+      harFremtidigLoependeVedtak: false,
+    }
+
     it('returnerer true uten å oppdatere feilmeldingsteksten når input er korrekt', () => {
       const updateErrorMessageMock = vi.fn()
       expect(
         validateAvansertBeregningSkjema(
           correctInputData,
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -374,14 +431,16 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, heltUttakAarFormData: 'abc' },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, heltUttakMaanederFormData: null },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -395,7 +454,8 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '' },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -403,24 +463,129 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: 'abc' },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '400' },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, uttaksgradFormData: '4000' },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, uttaksgradFormData: '0 %' },
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          { ...correctInputData, uttaksgradFormData: '100 %' },
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+    })
+
+    it('returnerer false når uttaksgrad er endret til en grad mellom 20-80 før 12 md fra datoen til vedtaket', () => {
+      const mockedLoependeVedtakEndring = {
+        alderspensjon: {
+          fom: '2025-10-01',
+          grad: 100,
+        },
+        ufoeretrygd: {
+          grad: 0,
+        },
+        harFremtidigLoependeVedtak: false,
+      }
+
+      const updateErrorMessageMock = vi.fn()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '62',
+            gradertUttakMaanederFormData: '0',
+          },
+          mockedFoedselsdato,
+          mockedLoependeVedtakEndring,
+          updateErrorMessageMock
+        )
+      ).toBeFalsy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '0 %',
+            gradertUttakAarFormData: '62',
+            gradertUttakMaanederFormData: '0',
+          },
+          mockedFoedselsdato,
+          mockedLoependeVedtakEndring,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            uttaksgradFormData: '100 %',
+            gradertUttakAarFormData: '62',
+            gradertUttakMaanederFormData: '0',
+          },
+          mockedFoedselsdato,
+          mockedLoependeVedtakEndring,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '63',
+            gradertUttakMaanederFormData: '5',
+          },
+          mockedFoedselsdato,
+          mockedLoependeVedtakEndring,
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
+      expect(
+        validateAvansertBeregningSkjema(
+          {
+            ...correctInputData,
+            gradertUttakAarFormData: '62',
+            gradertUttakMaanederFormData: '0',
+          },
+          mockedFoedselsdato,
+          {
+            alderspensjon: {
+              fom: '2025-10-01',
+              grad: 40,
+            },
+            ufoeretrygd: {
+              grad: 0,
+            },
+            harFremtidigLoependeVedtak: false,
+          },
+          updateErrorMessageMock
+        )
+      ).toBeTruthy()
     })
 
     it('returnerer false når gradertUttakAar eller gradertUttakMaaneder ikke er gyldig (alle cases allerede dekket i validateAlderFromForm)', () => {
@@ -432,14 +597,16 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, gradertUttakAarFormData: 'abc' },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, gradertUttakMaanederFormData: null },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -461,7 +628,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '67',
             gradertUttakMaanederFormData: '0',
           },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -473,7 +641,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '70',
             gradertUttakMaanederFormData: '0',
           },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -485,7 +654,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '66',
             gradertUttakMaanederFormData: '11',
           },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -507,7 +677,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             uttaksgradFormData: '100 %',
             gradertUttakAarFormData: 'abc',
           },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -518,7 +689,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             uttaksgradFormData: '100 %',
             gradertUttakMaanederFormData: null,
           },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -536,7 +708,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             heltUttakAarFormData: '63',
             heltUttakMaanederFormData: '0',
           },
-          100,
+          mockedFoedselsdato,
+          mockedLoependeVedtak100,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -548,7 +721,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: null,
             gradertUttakMaanederFormData: null,
           },
-          100,
+          mockedFoedselsdato,
+          mockedLoependeVedtak100,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -560,7 +734,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '68',
             gradertUttakMaanederFormData: '3',
           },
-          100,
+          mockedFoedselsdato,
+          mockedLoependeVedtak100,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -571,7 +746,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
-          100,
+          mockedFoedselsdato,
+          mockedLoependeVedtak100,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -591,7 +767,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: null,
             gradertUttakMaanederFormData: null,
           },
-          60,
+          mockedFoedselsdato,
+          mockedLoependeVedtak60,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -603,7 +780,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
-          60,
+          mockedFoedselsdato,
+          mockedLoependeVedtak60,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -615,7 +793,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             gradertUttakAarFormData: '63',
             gradertUttakMaanederFormData: '0',
           },
-          60,
+          mockedFoedselsdato,
+          mockedLoependeVedtak60,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -631,7 +810,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             heltUttakAarFormData: '67',
             heltUttakMaanederFormData: '6',
           },
-          60,
+          mockedFoedselsdato,
+          mockedLoependeVedtak60,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -644,7 +824,8 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakRadioFormData: null },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -656,7 +837,8 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakFormData: null },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -669,7 +851,8 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaHeltUttakFormData: 'abc' },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -689,7 +872,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             ...correctInputData,
             inntektVsaHeltUttakSluttAlderAarFormData: 'abc',
           },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -702,7 +886,8 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaGradertUttakRadioFormData: null },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()
@@ -718,7 +903,8 @@ describe('RedigerAvansertBeregning-utils', () => {
             uttaksgradFormData: '100 %',
             inntektVsaGradertUttakRadioFormData: null,
           },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeTruthy()
@@ -731,7 +917,8 @@ describe('RedigerAvansertBeregning-utils', () => {
       expect(
         validateAvansertBeregningSkjema(
           { ...correctInputData, inntektVsaGradertUttakFormData: 'abc' },
-          0,
+          mockedFoedselsdato,
+          mockedLoependeVedtak,
           updateErrorMessageMock
         )
       ).toBeFalsy()

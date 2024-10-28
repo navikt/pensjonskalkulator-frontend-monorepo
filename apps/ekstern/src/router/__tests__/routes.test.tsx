@@ -10,7 +10,8 @@ import {
 } from '../constants'
 import { routes } from '../routes'
 import {
-  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetPerson,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockErrorResponse, mockResponse } from '@/mocks/server'
@@ -331,7 +332,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
@@ -400,7 +401,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('viser utenlandsopphold når brukeren kommer til steget gjennom stegvisningen', async () => {
@@ -457,7 +458,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /inntekt  og /ekskludert ikke har feilet', async () => {
@@ -514,14 +515,14 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('Gitt at brukeren mottar uføretrygd og har valgt afp, når hen kommer fra stegvisningen, vises steget', async () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             queries: {
-              ...fulfilledGetLoependeVedtakUfoeregrad,
+              ...fulfilledGetLoependeVedtak75Ufoeregrad,
             },
           },
           userInput: { ...userInputInitialState },
@@ -577,7 +578,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -645,7 +646,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -703,7 +704,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('viser uventet feil når brukeren kommer til steget gjennom stegvisningen', async () => {
@@ -760,7 +761,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -824,7 +825,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -832,6 +833,7 @@ describe('routes', () => {
         store.getState = vi.fn().mockImplementation(() => ({
           api: {
             ...fakeApiCalls,
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
           },
           userInput: { ...userInputInitialState },
         }))
@@ -841,6 +843,25 @@ describe('routes', () => {
         })
         render(<RouterProvider router={router} />, {
           hasRouter: false,
+          preloadedState: {
+            api: {
+              /* eslint-disable @typescript-eslint/ban-ts-comment */
+              // @ts-ignore
+              queries: {
+                ...fakeApiCalls,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
+              },
+            },
+            userInput: {
+              ...userInputInitialState,
+              samtykke: true,
+              samboer: false,
+              afp: 'ja_privat',
+              currentSimulation: {
+                ...userInputInitialState.currentSimulation,
+              },
+            },
+          },
         })
 
         await waitFor(async () => {

@@ -3,7 +3,8 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { describe, it, vi } from 'vitest'
 
-import { mockErrorResponse, mockResponse } from '@/mocks/server'
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
+import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
 import * as apiSliceUtils from '@/state/api/apiSlice'
@@ -45,6 +46,15 @@ describe('StepStart', () => {
         initialEntries: [`${BASE_PATH}${paths.start}`],
       })
       render(<RouterProvider router={router} />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+        },
         hasRouter: false,
       })
       expect(await screen.findByText('stegvisning.start.ingress')).toBeVisible()
@@ -127,6 +137,15 @@ describe('StepStart', () => {
       initialEntries: [`${BASE_PATH}${paths.start}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedState: {
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
       hasRouter: false,
     })
     await waitFor(async () => {
@@ -152,7 +171,7 @@ describe('StepStart', () => {
         hasRouter: false,
       })
 
-      expect(await screen.findAllByRole('button')).toHaveLength(1)
+      expect(screen.queryAllByRole('button')).toHaveLength(0)
     })
   })
 })

@@ -18,6 +18,7 @@ import {
   selectIsVeileder,
   selectVeilederBorgerFnr,
   selectVeilederBorgerEncryptedFnr,
+  selectLoependeVedtak,
   selectUfoeregrad,
   selectIsEndring,
 } from '../selectors'
@@ -25,7 +26,7 @@ import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
   fulfilledGetTpoMedlemskap,
-  fulfilledGetLoependeVedtakUfoeregrad,
+  fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
@@ -433,8 +434,34 @@ describe('userInput selectors', () => {
     })
   })
 
+  describe('selectLoependeVedtak', () => {
+    it('er undefined når loepende vedtak ikke er kalt enda', () => {
+      const state: RootState = initialState
+      expect(selectLoependeVedtak(state)).toBeUndefined()
+    })
+
+    it('returnerer vedtaket når kallet er vellykket', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+        },
+      }
+      expect(selectLoependeVedtak(state)).toMatchInlineSnapshot(`
+        {
+          "harFremtidigLoependeVedtak": false,
+          "ufoeretrygd": {
+            "grad": 75,
+          },
+        }
+      `)
+    })
+  })
+
   describe('selectUfoeregrad', () => {
-    it('er undefined når ufoeregrad ikke er kalt enda', () => {
+    it('er undefined når loepende vedtak ikke er kalt enda', () => {
       const state: RootState = initialState
       expect(selectUfoeregrad(state)).toBeUndefined()
     })
@@ -445,7 +472,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
       }
       expect(selectUfoeregrad(state)).toBe(75)
@@ -477,7 +504,7 @@ describe('userInput selectors', () => {
         api: {
           /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtakUfoeregrad },
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
         },
       }
       expect(selectIsEndring(state)).toBeFalsy()

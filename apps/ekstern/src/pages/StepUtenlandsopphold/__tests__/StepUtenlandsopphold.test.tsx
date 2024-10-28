@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepUtenlandsopphold } from '..'
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -23,7 +24,17 @@ describe('StepUtenlandsopphold', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    const { store } = render(<StepUtenlandsopphold />, {})
+    const { store } = render(<StepUtenlandsopphold />, {
+      preloadedState: {
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
+    })
     expect(
       screen.getByText('stegvisning.utenlandsopphold.ingress')
     ).toBeVisible()
@@ -42,6 +53,13 @@ describe('StepUtenlandsopphold', () => {
     )
     const { store } = render(<StepUtenlandsopphold />, {
       preloadedState: {
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
         userInput: {
           ...userInputInitialState,
           currentSimulation: {

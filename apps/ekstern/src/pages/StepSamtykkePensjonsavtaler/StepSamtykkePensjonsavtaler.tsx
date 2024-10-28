@@ -35,7 +35,9 @@ export function StepSamtykkePensjonsavtaler() {
     if (shouldFlush && !samtykke) {
       apiSlice.util.invalidateTags(['TpoMedlemskap', 'Pensjonsavtaler'])
     }
-    onStegvisningNext()
+    if (onStegvisningNext) {
+      onStegvisningNext()
+    }
   }
 
   return (

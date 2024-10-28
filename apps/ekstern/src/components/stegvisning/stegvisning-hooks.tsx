@@ -6,18 +6,20 @@ import {
   stegvisningOrder,
   stegvisningOrderEndring,
 } from '@/router/constants'
-import { useAppDispatch, useAppSelector } from '@/state/hooks'
-import { selectIsEndring } from '@/state/userInput/selectors'
+import { useGetLoependeVedtakQuery } from '@/state/api/apiSlice'
+import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 
 export const useStegvisningNavigation = (currentPath: Path) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const isEndring = useAppSelector(selectIsEndring)
+  const { isFetching, data: loependeVedtak } = useGetLoependeVedtakQuery()
 
   const onStegvisningNext = () => {
-    const stepArrays = isEndring ? stegvisningOrderEndring : stegvisningOrder
+    const stepArrays = loependeVedtak?.alderspensjon
+      ? stegvisningOrderEndring
+      : stegvisningOrder
     navigate(stepArrays[stepArrays.indexOf(currentPath) + 1])
   }
   const onStegvisningPrevious = () => {
@@ -31,11 +33,11 @@ export const useStegvisningNavigation = (currentPath: Path) => {
 
   const handlers = React.useMemo(
     () => ({
-      onStegvisningNext,
+      onStegvisningNext: isFetching ? undefined : onStegvisningNext,
       onStegvisningPrevious,
       onStegvisningCancel,
     }),
-    []
+    [isFetching]
   )
 
   return [handlers] as const

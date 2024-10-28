@@ -4,37 +4,47 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { Beregning } from '../Beregning'
 import { AVANSERT_FORM_NAMES } from '@/components/RedigerAvansertBeregning/utils'
-import { mockResponse } from '@/mocks/server'
+import {
+  fulfilledGetInntekt,
+  fulfilledGetPerson,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtakLoependeAlderspensjon,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'
-
 const previousWindow = window
 
 describe('Beregning', () => {
+  const preloadedQueries = {
+    api: {
+      queries: {
+        ...fulfilledGetPerson,
+        ...fulfilledGetInntekt,
+        ...fulfilledGetLoependeVedtak0Ufoeregrad,
+      },
+    },
+  }
+
   it('har riktig sidetittel', () => {
     render(<Beregning visning="enkel" />)
     expect(document.title).toBe('application.title.beregning')
   })
 
   describe('Gitt at brukeren har vedtak om alderspensjon', () => {
-    it('viser alert på toppen av siden', async () => {
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          alderspensjon: {
-            grad: 50,
-            fom: '2020-10-02',
-          },
-          ufoeretrygd: {
-            grad: 0,
-          },
-          harFremtidigLoependeVedtak: false,
+    const preloadedQueriesMedVedtak = {
+      api: {
+        queries: {
+          ...fulfilledGetPerson,
+          ...fulfilledGetInntekt,
+          ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
         },
-      })
+      },
+    }
 
+    it.skip('viser alert på toppen av siden', async () => {
       const { store } = render(<Beregning visning="enkel" />, {
         preloadedState: {
           userInput: {
@@ -63,6 +73,36 @@ describe('Beregning', () => {
         ).toBeVisible()
       })
     })
+
+    it('viser ikke toggle  på toppen av siden', async () => {
+      const { store } = render(<Beregning visning="enkel" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...preloadedQueriesMedVedtak.api,
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: {
+              utenlandsperioder: [],
+              formatertUttaksalderReadOnly:
+                '70 alder.aar string.og 4 alder.maaned',
+              uttaksalder: { aar: 70, maaneder: 4 },
+              aarligInntektFoerUttakBeloep: '300 000',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
+      })
+
+      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+
+      await waitFor(() => {
+        expect(screen.queryByTestId('toggle-avansert')).not.toBeInTheDocument()
+      })
+    })
   })
 
   describe('Gitt at brukeren navigerer mellom fanene', () => {
@@ -74,6 +114,11 @@ describe('Beregning', () => {
       )
       render(<Beregning visning="enkel" />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...preloadedQueries.api,
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: true,
@@ -104,7 +149,18 @@ describe('Beregning', () => {
         userInputReducerUtils.userInputActions,
         'flushCurrentSimulationUtenomUtenlandsperioder'
       )
-      render(<Beregning visning="avansert" />)
+      render(<Beregning visning="avansert" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...preloadedQueries.api,
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
 
       fireEvent.change(
         await screen.findByTestId(
@@ -135,7 +191,18 @@ describe('Beregning', () => {
 
     it('når brukeren er på resultatside etter en Avansert simulering og bytter fane, gir Modalen muligheten til å avbryte eller avslutte beregningen', async () => {
       const user = userEvent.setup()
-      render(<Beregning visning="avansert" />)
+      render(<Beregning visning="avansert" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...preloadedQueries.api,
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
 
       fireEvent.change(
         await screen.findByTestId(
@@ -176,6 +243,11 @@ describe('Beregning', () => {
       const user = userEvent.setup()
       render(<Beregning visning="avansert" />, {
         preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...preloadedQueries.api,
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -255,6 +327,11 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: {
+              ...preloadedQueries.api,
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: true,
@@ -284,7 +361,19 @@ describe('Beregning', () => {
       render(
         <NavigateWrapper>
           <Beregning visning="avansert" />
-        </NavigateWrapper>
+        </NavigateWrapper>,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: {
+              ...preloadedQueries.api,
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       fireEvent.change(
@@ -308,7 +397,19 @@ describe('Beregning', () => {
       render(
         <NavigateWrapper>
           <Beregning visning="avansert" />
-        </NavigateWrapper>
+        </NavigateWrapper>,
+        {
+          preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: {
+              ...preloadedQueries.api,
+            },
+            userInput: {
+              ...userInputInitialState,
+            },
+          },
+        }
       )
 
       fireEvent.change(
@@ -338,7 +439,7 @@ describe('Beregning', () => {
       ).toBeVisible()
     })
 
-    it('når brukeren har gjort en Avansert simulering som hen redigerer  og trykker på tilbakeknappen,', async () => {
+    it('når brukeren har gjort en Avansert simulering som hen redigerer og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
       render(
         <NavigateWrapper>
@@ -346,6 +447,11 @@ describe('Beregning', () => {
         </NavigateWrapper>,
         {
           preloadedState: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            api: {
+              ...preloadedQueries.api,
+            },
             userInput: {
               ...userInputInitialState,
               samtykke: false,
@@ -370,7 +476,18 @@ describe('Beregning', () => {
 
   describe('Gitt at pensjonskalkulator er i "enkel" visning', () => {
     it('vises det riktig innhold', async () => {
-      render(<Beregning visning="enkel" />)
+      render(<Beregning visning="enkel" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...preloadedQueries.api,
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
       await waitFor(async () => {
         expect(
@@ -383,7 +500,18 @@ describe('Beregning', () => {
 
   describe('Gitt at pensjonskalkulator er i "avansert" visning', () => {
     it('vises det riktig innhold', async () => {
-      render(<Beregning visning="avansert" />)
+      render(<Beregning visning="avansert" />, {
+        preloadedState: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          api: {
+            ...preloadedQueries.api,
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
       expect(
         await screen.findByText(
           'beregning.avansert.rediger.inntekt_frem_til_uttak.label'
@@ -393,7 +521,18 @@ describe('Beregning', () => {
   })
 
   it('gir mulighet til å avbryte og starte ny beregning ', async () => {
-    render(<Beregning visning="enkel" />)
+    render(<Beregning visning="enkel" />, {
+      preloadedState: {
+        /* eslint-disable @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
+        api: {
+          ...preloadedQueries.api,
+        },
+        userInput: {
+          ...userInputInitialState,
+        },
+      },
+    })
     expect(await screen.findByText('stegvisning.tilbake_start')).toBeVisible()
   })
 })

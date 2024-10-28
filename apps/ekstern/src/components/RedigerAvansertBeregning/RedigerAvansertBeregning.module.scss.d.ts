@@ -10,9 +10,9 @@ declare const classNames: typeof globalClassNames & {
   readonly spacer: "spacer";
   readonly spacer__small: "spacer__small";
   readonly label: "label";
+  readonly label__margin: "label__margin";
   readonly description: "description";
   readonly descriptionText: "descriptionText";
-  readonly alert: "alert";
   readonly ingress: "ingress";
 };
 export = classNames;

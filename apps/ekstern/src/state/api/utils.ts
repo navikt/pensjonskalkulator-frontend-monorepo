@@ -87,7 +87,7 @@ export const generateTidligstMuligHeltUttakRequestBody = (args: {
 }
 
 export const generateAlderspensjonRequestBody = (args: {
-  ufoeregrad: number
+  loependeVedtak: LoependeVedtak
   afp: AfpRadio | null
   sivilstand?: Sivilstand | null | undefined
   harSamboer: boolean | null
@@ -98,7 +98,7 @@ export const generateAlderspensjonRequestBody = (args: {
   utenlandsperioder: Utenlandsperiode[]
 }): AlderspensjonRequestBody | undefined => {
   const {
-    ufoeregrad,
+    loependeVedtak,
     afp,
     sivilstand,
     harSamboer,
@@ -114,7 +114,7 @@ export const generateAlderspensjonRequestBody = (args: {
   }
 
   return {
-    simuleringstype: ufoeregrad
+    simuleringstype: loependeVedtak.ufoeretrygd.grad
       ? 'ALDERSPENSJON'
       : getAfpSimuleringstypeFromRadio(afp),
     foedselsdato: format(parseISO(foedselsdato), DATE_BACKEND_FORMAT),
