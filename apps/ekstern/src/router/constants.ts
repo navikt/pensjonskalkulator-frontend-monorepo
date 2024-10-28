@@ -64,5 +64,7 @@ export const stegvisningOrderEndring = [
   paths.login,
   paths.start,
   paths.afp,
+  paths.ufoeretrygdAFP,
+  paths.samtykkeOffentligAFP,
   paths.beregningAvansert,
 ] as const
