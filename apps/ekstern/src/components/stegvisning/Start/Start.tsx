@@ -19,7 +19,7 @@ interface Props {
   navn: string
   loependeVedtak?: LoependeVedtak
   onCancel?: () => void
-  onNext: () => void
+  onNext?: () => void
 }
 
 export function Start({
@@ -145,17 +145,18 @@ export function Start({
 
             {(!loependeVedtak?.alderspensjon ||
               (loependeVedtak?.alderspensjon &&
-                endringFeatureToggle?.enabled)) && (
-              <Button
-                type="submit"
-                className={styles.button}
-                onClick={wrapLogger('button klikk', {
-                  tekst: 'Kom i gang',
-                })(onNext)}
-              >
-                <FormattedMessage id="stegvisning.start.button" />
-              </Button>
-            )}
+                endringFeatureToggle?.enabled)) &&
+              onNext && (
+                <Button
+                  type="submit"
+                  className={styles.button}
+                  onClick={wrapLogger('button klikk', {
+                    tekst: 'Kom i gang',
+                  })(onNext)}
+                >
+                  <FormattedMessage id="stegvisning.start.button" />
+                </Button>
+              )}
             {onCancel && (
               <Button
                 type="button"

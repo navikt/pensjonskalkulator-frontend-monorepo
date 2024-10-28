@@ -33,7 +33,9 @@ export function StepSivilstand() {
 
   const onNext = (sivilstandData: BooleanRadio): void => {
     dispatch(userInputActions.setSamboer(sivilstandData === 'ja'))
-    onStegvisningNext()
+    if (onStegvisningNext) {
+      onStegvisningNext()
+    }
   }
 
   return (

@@ -332,7 +332,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('Gitt at brukeren ikke har noe samboer, når hen kommer fra stegvisningen, viser sivilstand steg', async () => {
@@ -401,7 +401,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('viser utenlandsopphold når brukeren kommer til steget gjennom stegvisningen', async () => {
@@ -458,7 +458,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('viser afp steget når brukeren kommer til steget gjennom stegvisningen og at /inntekt  og /ekskludert ikke har feilet', async () => {
@@ -515,7 +515,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('Gitt at brukeren mottar uføretrygd og har valgt afp, når hen kommer fra stegvisningen, vises steget', async () => {
@@ -578,7 +578,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -646,7 +646,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -704,7 +704,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
       it('viser uventet feil når brukeren kommer til steget gjennom stegvisningen', async () => {
@@ -761,7 +761,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 
@@ -825,7 +825,7 @@ describe('routes', () => {
           hasRouter: false,
         })
         expect(
-          await screen.findByText('stegvisning.start.button')
+          await screen.findByText('stegvisning.start.ingress')
         ).toBeInTheDocument()
       })
 

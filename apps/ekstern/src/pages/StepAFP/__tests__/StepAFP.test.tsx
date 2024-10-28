@@ -6,6 +6,7 @@ import { describe, it, vi } from 'vitest'
 import {
   fulfilledGetPerson,
   rejectedGetInntekt,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -98,6 +99,15 @@ describe('StepAFP', () => {
       initialEntries: [`${BASE_PATH}${paths.afp}`],
     })
     render(<RouterProvider router={router} />, {
+      preloadedState: {
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
       hasRouter: false,
     })
 

@@ -3,6 +3,10 @@ import * as ReactRouterUtils from 'react-router'
 
 import { RootState, setupStore } from '../../../state/store'
 import { useStegvisningNavigation } from '../stegvisning-hooks'
+import {
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtakLoepende50Alderspensjon,
+} from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
@@ -21,8 +25,19 @@ describe('stegvisning - hooks', () => {
           () => navigateMock
         )
 
+        const mockedState = {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: { ...userInputInitialState },
+        }
+
         const wrapper = ({ children }: { children: React.ReactNode }) => {
-          const storeRef = setupStore(undefined, true)
+          const storeRef = setupStore(mockedState as unknown as RootState, true)
           return <Provider store={storeRef}>{children}</Provider>
         }
 
@@ -32,7 +47,9 @@ describe('stegvisning - hooks', () => {
         })
 
         // onStegvisningNext
-        result.current[0].onStegvisningNext()
+        if (result.current[0].onStegvisningNext) {
+          result.current[0].onStegvisningNext()
+        }
         expect(navigateMock).toHaveBeenCalledWith(paths.sivilstand)
 
         // onStegvisningPrevious
@@ -62,23 +79,7 @@ describe('stegvisning - hooks', () => {
             /* eslint-disable @typescript-eslint/ban-ts-comment */
             // @ts-ignore
             queries: {
-              ['getLoependeVedtak(undefined)']: {
-                status: 'fulfilled',
-                endpointName: 'getLoependeVedtak',
-                requestId: 't1wLPiRKrfe_vchftk8s8',
-                data: {
-                  alderspensjon: {
-                    grad: 50,
-                    fom: '2020-10-02',
-                  },
-                  ufoeretrygd: {
-                    grad: 0,
-                  },
-                  harFremtidigLoependeVedtak: false,
-                },
-                startedTimeStamp: 1714725797072,
-                fulfilledTimeStamp: 1714725797669,
-              },
+              ...fulfilledGetLoependeVedtakLoepende50Alderspensjon,
             },
           },
           userInput: { ...userInputInitialState },
@@ -95,7 +96,9 @@ describe('stegvisning - hooks', () => {
         })
 
         // onStegvisningNext
-        result.current[0].onStegvisningNext()
+        if (result.current[0].onStegvisningNext) {
+          result.current[0].onStegvisningNext()
+        }
         expect(navigateMock).toHaveBeenCalledWith(paths.afp)
 
         // onStegvisningPrevious

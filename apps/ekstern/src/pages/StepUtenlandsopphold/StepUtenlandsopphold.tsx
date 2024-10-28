@@ -39,7 +39,9 @@ export function StepUtenlandsopphold() {
     if (utenlandsoppholdData === 'nei') {
       dispatch(userInputActions.deleteCurrentSimulationAlleUtenlandsperioder())
     }
-    onStegvisningNext()
+    if (onStegvisningNext) {
+      onStegvisningNext()
+    }
   }
 
   const onPrevious = (): void => {

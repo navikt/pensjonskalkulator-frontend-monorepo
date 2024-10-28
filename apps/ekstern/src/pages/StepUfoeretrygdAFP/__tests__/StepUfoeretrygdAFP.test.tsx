@@ -3,6 +3,7 @@ import * as ReactRouterUtils from 'react-router'
 import { describe, it, vi } from 'vitest'
 
 import { StepUfoeretrygdAFP } from '..'
+import { fulfilledGetLoependeVedtak0Ufoeregrad } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import { screen, render, userEvent } from '@/test-utils'
@@ -19,7 +20,17 @@ describe('StepUfoeretrygdAFP', () => {
     vi.spyOn(ReactRouterUtils, 'useNavigate').mockImplementation(
       () => navigateMock
     )
-    render(<StepUfoeretrygdAFP />)
+    render(<StepUfoeretrygdAFP />, {
+      preloadedState: {
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtak0Ufoeregrad,
+          },
+        },
+      },
+    })
     await user.click(await screen.findByText('stegvisning.neste'))
     expect(navigateMock).toHaveBeenCalledWith(paths.samtykkeOffentligAFP)
   })

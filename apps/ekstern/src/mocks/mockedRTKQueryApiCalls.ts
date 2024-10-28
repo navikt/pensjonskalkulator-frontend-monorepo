@@ -132,6 +132,26 @@ export const fulfilledGetLoependeVedtakLoependeAlderspensjon = {
   },
 }
 
+export const fulfilledGetLoependeVedtakLoepende50Alderspensjon = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        grad: 50,
+        fom: '2020-10-02',
+      },
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
 export const fulfilledGetLoependeVedtakLoependeAlderspensjonOg40Ufoeretrygd = {
   ['getLoependeVedtak(undefined)']: {
     status: 'fulfilled',

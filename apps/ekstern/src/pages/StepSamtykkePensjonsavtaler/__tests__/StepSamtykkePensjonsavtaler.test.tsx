@@ -5,6 +5,7 @@ import { describe, it, vi } from 'vitest'
 import { StepSamtykkePensjonsavtaler } from '..'
 import {
   fulfilledGetTpoMedlemskap,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtak75Ufoeregrad,
   fulfilledPensjonsavtaler,
 } from '@/mocks/mockedRTKQueryApiCalls'
@@ -29,7 +30,17 @@ describe('StepSamtykkePensjonsavtaler', () => {
         () => navigateMock
       )
 
-      const { store } = render(<StepSamtykkePensjonsavtaler />)
+      const { store } = render(<StepSamtykkePensjonsavtaler />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+        },
+      })
       const radioButtons = screen.getAllByRole('radio')
 
       await user.click(radioButtons[0])

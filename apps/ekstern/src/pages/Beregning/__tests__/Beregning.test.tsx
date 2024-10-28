@@ -33,7 +33,7 @@ describe('Beregning', () => {
     expect(document.title).toBe('application.title.beregning')
   })
 
-  describe.skip('Gitt at brukeren har vedtak om alderspensjon', () => {
+  describe('Gitt at brukeren har vedtak om alderspensjon', () => {
     const preloadedQueriesMedVedtak = {
       api: {
         queries: {
@@ -105,7 +105,7 @@ describe('Beregning', () => {
     })
   })
 
-  describe.skip('Gitt at brukeren navigerer mellom fanene', () => {
+  describe('Gitt at brukeren navigerer mellom fanene', () => {
     it('når brukeren har gjort en Enkel simulering og bytter fane, nullstiller det pågående simulering', async () => {
       const user = userEvent.setup()
       const flushCurrentSimulationMock = vi.spyOn(
@@ -312,7 +312,7 @@ describe('Beregning', () => {
       )
     }
 
-    it.skip('når brukeren har gjort en Enkel simulering og trykker på tilbakeknappen, vises ikke Avbryt-Modalen', async () => {
+    it('når brukeren har gjort en Enkel simulering og trykker på tilbakeknappen, vises ikke Avbryt-Modalen', async () => {
       global.window = Object.create(window)
       Object.defineProperty(window, 'location', {
         value: {
@@ -439,7 +439,7 @@ describe('Beregning', () => {
       ).toBeVisible()
     })
 
-    it.skip('når brukeren har gjort en Avansert simulering som hen redigerer og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
+    it('når brukeren har gjort en Avansert simulering som hen redigerer og trykker på tilbakeknappen, vises Avbryt-Modalen', async () => {
       const user = userEvent.setup()
       render(
         <NavigateWrapper>
@@ -474,7 +474,7 @@ describe('Beregning', () => {
     })
   })
 
-  describe.skip('Gitt at pensjonskalkulator er i "enkel" visning', () => {
+  describe('Gitt at pensjonskalkulator er i "enkel" visning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="enkel" />, {
         preloadedState: {
@@ -498,7 +498,7 @@ describe('Beregning', () => {
     })
   })
 
-  describe.skip('Gitt at pensjonskalkulator er i "avansert" visning', () => {
+  describe('Gitt at pensjonskalkulator er i "avansert" visning', () => {
     it('vises det riktig innhold', async () => {
       render(<Beregning visning="avansert" />, {
         preloadedState: {
@@ -520,7 +520,7 @@ describe('Beregning', () => {
     })
   })
 
-  it.skip('gir mulighet til å avbryte og starte ny beregning ', async () => {
+  it('gir mulighet til å avbryte og starte ny beregning ', async () => {
     render(<Beregning visning="enkel" />, {
       preloadedState: {
         /* eslint-disable @typescript-eslint/ban-ts-comment */
