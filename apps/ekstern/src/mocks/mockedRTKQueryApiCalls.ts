@@ -224,6 +224,26 @@ export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
   },
 }
 
+export const fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        grad: 0,
+        fom: '2020-10-02',
+      },
+      ufoeretrygd: {
+        grad: 100,
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
 export const fulfilledGetTpoMedlemskap = {
   ['getTpoMedlemskap(undefined)']: {
     status: 'fulfilled',

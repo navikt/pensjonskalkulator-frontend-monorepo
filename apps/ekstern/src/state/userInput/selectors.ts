@@ -4,6 +4,7 @@ import { apiSlice } from '@/state/api/apiSlice'
 import { RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
 import { formatInntekt } from '@/utils/inntekt'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
 export const selectHarUtenlandsopphold = (state: RootState): boolean | null =>
@@ -133,10 +134,16 @@ export const selectUfoeregrad = createSelector(
   }
 )
 
+// TODO PEK-693 skrive tester
 export const selectIsEndring = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {
-    return !!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data
-      ?.alderspensjon
+    if (!apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)?.data) {
+      return false
+    }
+    return isLoependeVedtakEndring(
+      apiSlice.endpoints.getLoependeVedtak.select(undefined)(state)
+        ?.data as LoependeVedtak
+    )
   }
 )

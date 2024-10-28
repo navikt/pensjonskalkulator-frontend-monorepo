@@ -9,6 +9,7 @@ import {
 import { useGetLoependeVedtakQuery } from '@/state/api/apiSlice'
 import { useAppDispatch } from '@/state/hooks'
 import { userInputActions } from '@/state/userInput/userInputReducer'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 
 export const useStegvisningNavigation = (currentPath: Path) => {
   const navigate = useNavigate()
@@ -17,9 +18,10 @@ export const useStegvisningNavigation = (currentPath: Path) => {
   const { isFetching, data: loependeVedtak } = useGetLoependeVedtakQuery()
 
   const onStegvisningNext = () => {
-    const stepArrays = loependeVedtak?.alderspensjon
-      ? stegvisningOrderEndring
-      : stegvisningOrder
+    const stepArrays =
+      loependeVedtak && isLoependeVedtakEndring(loependeVedtak)
+        ? stegvisningOrderEndring
+        : stegvisningOrder
     navigate(stepArrays[stepArrays.indexOf(currentPath) + 1])
   }
   const onStegvisningPrevious = () => {

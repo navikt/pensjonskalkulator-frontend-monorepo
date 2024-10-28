@@ -1,4 +1,3 @@
-// TODO PEK-693 skrive tester
 export const isLoependeVedtakEndring = (loependeVedtak: LoependeVedtak) => {
   const { alderspensjon, ufoeretrygd } = loependeVedtak
   const har0AlderspensjonOg100Ufoeretrygd =

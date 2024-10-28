@@ -9,6 +9,7 @@ import FridaPortrett from '../../../assets/frida.svg'
 import { Card } from '@/components/common/Card'
 import { paths } from '@/router/constants'
 import { useGetEndringFeatureToggleQuery } from '@/state/api/apiSlice'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logOpenLink, wrapLogger } from '@/utils/logging'
 import { getFormatMessageValues } from '@/utils/translations'
 
@@ -46,7 +47,7 @@ export function Start({
 
   return (
     <>
-      {loependeVedtak?.alderspensjon && (
+      {loependeVedtak && isLoependeVedtakEndring(loependeVedtak) && (
         <Alert className={styles.alert} variant="warning" aria-live="polite">
           <FormattedMessage
             id="stegvisning.endring.alert"
@@ -64,7 +65,7 @@ export function Start({
               })} ${navn}!`}
             </Heading>
 
-            {loependeVedtak?.alderspensjon ? (
+            {loependeVedtak && isLoependeVedtakEndring(loependeVedtak) ? (
               <>
                 <BodyLong size="large">
                   <FormattedMessage

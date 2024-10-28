@@ -11,6 +11,7 @@ import {
 } from '@/utils/alder'
 import { DATE_BACKEND_FORMAT, DATE_ENDUSER_FORMAT } from '@/utils/dates'
 import { validateInntekt } from '@/utils/inntekt'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 
@@ -242,9 +243,10 @@ export const validateAvansertBeregningSkjema = (
 
   // Ved endring, sjekker at uttaksalder for gradert pensjon ikke er tidligere enn 12 md. siden sist endring
   if (
-    loependeVedtak.alderspensjon &&
+    isLoependeVedtakEndring(loependeVedtak) &&
     uttaksgradFormData !== '0 %' &&
     uttaksgradFormData !== '100 %' &&
+    loependeVedtak.alderspensjon &&
     !validateEndringGradertUttak(
       loependeVedtak.alderspensjon.grad,
       loependeVedtak.alderspensjon.fom,
