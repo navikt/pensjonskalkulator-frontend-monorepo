@@ -8,7 +8,6 @@ import {
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetPerson,
   rejectedGetInntekt,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'

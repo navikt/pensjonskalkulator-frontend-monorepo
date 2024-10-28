@@ -22,6 +22,7 @@ import {
   isFoedselsdatoOverEllerLikMinUttaksalder,
   isFoedtFoer1963,
 } from '@/utils/alder'
+import { isLoependeVedtakEndring } from '@/utils/loependeVedtak'
 import { logger } from '@/utils/logging'
 import { checkHarSamboer } from '@/utils/sivilstand'
 
@@ -329,9 +330,13 @@ export const stepAFPAccessGuard = async () => {
     undefined
   )(store.getState())
 
-  const { alderspensjon, ufoeretrygd, afpPrivat, afpOffentlig } =
+  const { ufoeretrygd, afpPrivat, afpOffentlig } =
     getLoependeVedtakResponse.data as LoependeVedtak
-  const stepArrays = alderspensjon ? stegvisningOrderEndring : stegvisningOrder
+  const stepArrays = isLoependeVedtakEndring(
+    getLoependeVedtakResponse.data as LoependeVedtak
+  )
+    ? stegvisningOrderEndring
+    : stegvisningOrder
 
   // Hvis brukeren mottar AFP skal hen ikke se AFP steget
   // Hvis brukeren har uføretrygd og er eldre enn min uttaksalder skal hen ikke se AFP steget
@@ -446,13 +451,16 @@ export const stepUfoeretrygdAFPAccessGuard = async () => {
   const getLoependeVedtakResponse = apiSlice.endpoints.getLoependeVedtak.select(
     undefined
   )(store.getState())
-  const { alderspensjon, ufoeretrygd } =
+
+  const stepArrays = isLoependeVedtakEndring(
     getLoependeVedtakResponse.data as LoependeVedtak
-  const stepArrays = alderspensjon ? stegvisningOrderEndring : stegvisningOrder
+  )
+    ? stegvisningOrderEndring
+    : stegvisningOrder
 
   // Bruker med uføretrygd, som svarer ja til afp, og som er under 62 kan se steget
   if (
-    ufoeretrygd.grad &&
+    (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad &&
     afp !== 'nei' &&
     !isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato as string)
   ) {
@@ -472,10 +480,16 @@ export const stepSamtykkeOffentligAFPAccessGuard = async () => {
   const getLoependeVedtakResponse = apiSlice.endpoints.getLoependeVedtak.select(
     undefined
   )(store.getState())
-  const { alderspensjon, ufoeretrygd } =
+
+  const stepArrays = isLoependeVedtakEndring(
     getLoependeVedtakResponse.data as LoependeVedtak
-  const stepArrays = alderspensjon ? stegvisningOrderEndring : stegvisningOrder
-  if (ufoeretrygd.grad === 0 && afp === 'ja_offentlig') {
+  )
+    ? stegvisningOrderEndring
+    : stegvisningOrder
+  if (
+    (getLoependeVedtakResponse.data as LoependeVedtak).ufoeretrygd.grad === 0 &&
+    afp === 'ja_offentlig'
+  ) {
     return null
   }
   return redirect(
