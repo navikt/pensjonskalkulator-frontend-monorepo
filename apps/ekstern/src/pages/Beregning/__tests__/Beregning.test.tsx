@@ -9,6 +9,8 @@ import {
   fulfilledGetPerson,
   fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
+  fulfilledGetLoependeVedtakFremtidig,
+  fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
 import { apiSlice } from '@/state/api/apiSlice'
@@ -34,19 +36,18 @@ describe('Beregning', () => {
   })
 
   describe('Gitt at brukeren har vedtak om alderspensjon', () => {
-    const preloadedQueriesMedVedtak = {
-      api: {
-        queries: {
-          ...fulfilledGetPerson,
-          ...fulfilledGetInntekt,
-          ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
-        },
-      },
-    }
-
-    it.skip('viser alert på toppen av siden', async () => {
-      const { store } = render(<Beregning visning="enkel" />, {
+    it('viser ikke toggle på toppen av siden', async () => {
+      render(<Beregning visning="enkel" />, {
         preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtakLoependeAlderspensjon,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -62,25 +63,20 @@ describe('Beregning', () => {
         },
       })
 
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
-
-      await waitFor(() => {
-        expect(
-          screen.getByText(
-            'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
+      expect(screen.queryByTestId('toggle-avansert')).not.toBeInTheDocument()
     })
 
-    it('viser ikke toggle  på toppen av siden', async () => {
-      const { store } = render(<Beregning visning="enkel" />, {
+    it('når vedtaket gjelder frem i tid vises info om det på toppen av siden', async () => {
+      render(<Beregning visning="enkel" />, {
         preloadedState: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
           api: {
-            ...preloadedQueriesMedVedtak.api,
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtakFremtidig,
+            },
           },
           userInput: {
             ...userInputInitialState,
@@ -97,11 +93,41 @@ describe('Beregning', () => {
         },
       })
 
-      await store.dispatch(apiSlice.endpoints.getLoependeVedtak.initiate())
+      expect(
+        screen.getByText('stegvisning.fremtidigvedtak.alert')
+      ).toBeVisible()
+    })
 
-      await waitFor(() => {
-        expect(screen.queryByTestId('toggle-avansert')).not.toBeInTheDocument()
+    it('når vedtaket gjelder både nå og frem i tid vises info om det på toppen av siden', async () => {
+      render(<Beregning visning="enkel" />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+            samtykke: false,
+            currentSimulation: {
+              utenlandsperioder: [],
+              formatertUttaksalderReadOnly:
+                '70 alder.aar string.og 4 alder.maaned',
+              uttaksalder: { aar: 70, maaneder: 4 },
+              aarligInntektFoerUttakBeloep: '300 000',
+              gradertUttaksperiode: null,
+            },
+          },
+        },
       })
+
+      expect(
+        screen.getByText('stegvisning.fremtidigvedtak.endring.alert')
+      ).toBeVisible()
     })
   })
 
