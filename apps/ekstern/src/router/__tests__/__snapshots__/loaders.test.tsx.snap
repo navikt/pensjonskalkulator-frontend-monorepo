@@ -255,7 +255,7 @@ DeferredData {
 }
 `;
 
-exports[`Loaders > stepUfoeretrygdAFPAccessGuard > Når brukeren har uføretrygd og har valgt nei til spørsmål om afp, er hen redirigert 1`] = `
+exports[`Loaders > stepUfoeretrygdAFPAccessGuard > Gitt at brukeren har uføretrygd,  > Når hen er fylt minimum uttaksalder, er hen redirigert 1`] = `
 _Response {
   Symbol(realm): {
     "settingsObject": {},

@@ -30,6 +30,7 @@ import {
   fulfilledGetLoependeVedtakLoependeAlderspensjon,
   fulfilledGetLoependeVedtakLoependeAFPprivat,
   fulfilledGetLoependeVedtakLoependeAFPoffentlig,
+  fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { store, RootState } from '@/state/store'
 import { Simulation } from '@/state/userInput/userInputReducer'
@@ -485,6 +486,32 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
+    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
+        },
+      }
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
+    it('er false når kallet er vellykket og brukeren har 0 % løpende alderspensjon og 100 % uføretrygd', () => {
+      const state: RootState = {
+        ...initialState,
+        api: {
+          /* eslint-disable @typescript-eslint/ban-ts-comment */
+          // @ts-ignore
+          queries: {
+            ...fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd,
+          },
+        },
+      }
+      expect(selectIsEndring(state)).toBeFalsy()
+    })
+
     it('er true når kallet er vellykket og brukeren har vedtak om løpende alderspensjon', () => {
       const state: RootState = {
         ...initialState,
@@ -496,18 +523,6 @@ describe('userInput selectors', () => {
       }
 
       expect(selectIsEndring(state)).toBeTruthy()
-    })
-
-    it('er false når kallet er vellykket og brukeren ikke har noe løpende alderspensjon', () => {
-      const state: RootState = {
-        ...initialState,
-        api: {
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
-          // @ts-ignore
-          queries: { ...fulfilledGetLoependeVedtak75Ufoeregrad },
-        },
-      }
-      expect(selectIsEndring(state)).toBeFalsy()
     })
 
     it('er false når kallet er vellykket og brukeren har løpende AFP-offentlig uten alderspensjon', () => {
@@ -522,7 +537,7 @@ describe('userInput selectors', () => {
       expect(selectIsEndring(state)).toBeFalsy()
     })
 
-    it('er true når kallet er vellykket og brukeren har løpende AFP-privat', () => {
+    it('er true når kallet er vellykket og brukeren har 0 % alderspensjon og løpende AFP-privat', () => {
       const state: RootState = {
         ...initialState,
         api: {

@@ -53,6 +53,16 @@ export const fulfilledGetEkskludertStatus = {
   },
 }
 
+export const fulfilledGetOmstillingsstoenadOgGjenlevendeUtenSak = {
+  ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getOmstillingsstoenadOgGjenlevende',
+    requestId: 't1wLPiRKrfe_vchftk8s8',
+    data: { harLoependeSak: false },
+    startedTimeStamp: 1714725797072,
+    fulfilledTimeStamp: 1714725797669,
+  },
+}
 export const fulfilledGetOmstillingsstoenadOgGjenlevende = {
   ['getOmstillingsstoenadOgGjenlevende(undefined)']: {
     status: 'fulfilled',
@@ -207,6 +217,26 @@ export const fulfilledGetLoependeVedtakLoependeAFPoffentlig = {
       },
       afpOffentlig: {
         fom: '2020-10-02',
+      },
+      harFremtidigLoependeVedtak: false,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        grad: 0,
+        fom: '2020-10-02',
+      },
+      ufoeretrygd: {
+        grad: 100,
       },
       harFremtidigLoependeVedtak: false,
     },

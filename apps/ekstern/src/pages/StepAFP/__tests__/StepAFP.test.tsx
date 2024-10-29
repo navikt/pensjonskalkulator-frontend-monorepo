@@ -4,9 +4,10 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { describe, it, vi } from 'vitest'
 
 import {
+  fulfilledGetInntekt,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
   fulfilledGetPerson,
   rejectedGetInntekt,
-  fulfilledGetLoependeVedtak0Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { BASE_PATH, paths } from '@/router/constants'
 import { routes } from '@/router/routes'
@@ -23,7 +24,9 @@ describe('StepAFP', () => {
     store.getState = vi.fn().mockImplementation(() => ({
       api: {
         queries: {
+          ...fulfilledGetInntekt,
           ...fulfilledGetPerson,
+          ...fulfilledGetLoependeVedtak0Ufoeregrad,
         },
       },
       userInput: {
@@ -46,6 +49,7 @@ describe('StepAFP', () => {
         queries: {
           ...rejectedGetInntekt,
           ...fulfilledGetPerson,
+          ...fulfilledGetLoependeVedtak0Ufoeregrad,
         },
       },
       userInput: {
