@@ -189,10 +189,9 @@ describe('Utland', () => {
           cy.contains('Jobbet: Nei').should('exist')
         })
 
-        // TODO følges opp pga ustabilitet
         describe('Når jeg legger til et overlappende utenlandsopphold i et annet land,', () => {
           it('forventer jeg feilmelding om at jeg ikke kan ha overlappende opphold med to ulike land.', () => {
-            cy.wait(500)
+            cy.wait(250)
             cy.screenshot()
             cy.get('[data-testid="legg-til-utenlandsopphold"]').click()
             cy.contains('Velg land').should('be.visible')
@@ -212,9 +211,8 @@ describe('Utland', () => {
         })
 
         describe('Når jeg ønsker å endre ett utenlandsopphold jeg har lagt inn,', () => {
-          // TODO følges opp pga ustabilitet
           it('forventer jeg å kunne endre land, jobb status, tidspunkt for oppholdet og oppdatere oppholdet.', () => {
-            cy.wait(500)
+            cy.wait(250)
             cy.screenshot()
             cy.get('[data-testid="endre-utenlandsopphold"]').click()
             cy.screenshot()
@@ -242,7 +240,7 @@ describe('Utland', () => {
           })
 
           it('forventer jeg å kunne avbryte endringen.', () => {
-            cy.wait(500)
+            cy.wait(250)
             cy.screenshot()
             cy.get('[data-testid="endre-utenlandsopphold"]').click()
             cy.screenshot()
