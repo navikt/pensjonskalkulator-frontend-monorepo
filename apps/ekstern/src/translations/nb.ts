@@ -72,8 +72,10 @@ const translations = {
     'Hvis du går tilbake til start, mister du alle valgene dine.',
   'stegvisning.tilbake_start.modal.bekreft': 'Gå tilbake til start',
   'stegvisning.tilbake_start.modal.avbryt': 'Avbryt',
-  'stegvisning.endring.alert':
-    'Du har pensjon. Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
+  'stegvisning.fremtidigvedtak.alert':
+    'Du har vedtak om alderspensjon, men ikke startet uttak enda. Du kan beregne ny alderspensjon her frem til uttak.',
+  'stegvisning.fremtidigvedtak.endring.alert':
+    'Du har endret alderspensjon din, men ikke startet nytt uttak enda. Du kan beregne ny endring her frem til uttak.',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.endring.ingress':
     'Du har nå <strong>{grad} % alderspensjon</strong>{ufoeretrygd}{afpPrivat}{afpOffentlig}. Her kan du sjekke hva du kan få hvis du vil endre alderspensjonen din.{br}{br}',

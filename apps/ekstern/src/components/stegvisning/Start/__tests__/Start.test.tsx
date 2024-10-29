@@ -54,7 +54,7 @@ describe('stegvisning - Start', () => {
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon', async () => {
-    const result = render(
+    render(
       <Start
         navn="Ola"
         loependeVedtak={{
@@ -73,12 +73,6 @@ describe('stegvisning - Start', () => {
     )
 
     await waitFor(() => {
-      expect(
-        screen.getByText(
-          'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
-          { exact: false }
-        )
-      ).toBeVisible()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.start.title Ola!'
       )
@@ -86,12 +80,11 @@ describe('stegvisning - Start', () => {
       expect(
         screen.getByText('50 % alderspensjon', { exact: false })
       ).toBeVisible()
-      expect(result.asFragment()).toMatchSnapshot()
     })
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon og uføregrad', async () => {
-    const result = render(
+    render(
       <Start
         navn="Ola"
         loependeVedtak={{
@@ -110,12 +103,6 @@ describe('stegvisning - Start', () => {
     )
 
     await waitFor(() => {
-      expect(
-        screen.getByText(
-          'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
-          { exact: false }
-        )
-      ).toBeVisible()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.start.title Ola!'
       )
@@ -126,12 +113,11 @@ describe('stegvisning - Start', () => {
       expect(
         screen.getByText('80 % uføretrygd', { exact: false })
       ).toBeVisible()
-      expect(result.asFragment()).toMatchSnapshot()
     })
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon og AFP privat', async () => {
-    const result = render(
+    render(
       <Start
         navn="Ola"
         loependeVedtak={{
@@ -153,12 +139,6 @@ describe('stegvisning - Start', () => {
     )
 
     await waitFor(() => {
-      expect(
-        screen.getByText(
-          'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
-          { exact: false }
-        )
-      ).toBeVisible()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.start.title Ola!'
       )
@@ -169,12 +149,11 @@ describe('stegvisning - Start', () => {
       expect(
         screen.getByText('AFP i privat sektor', { exact: false })
       ).toBeVisible()
-      expect(result.asFragment()).toMatchSnapshot()
     })
   })
 
   it('rendrer slik den skal med vedtak om alderspensjon og AFP offentlig', async () => {
-    const result = render(
+    render(
       <Start
         navn="Ola"
         loependeVedtak={{
@@ -196,12 +175,6 @@ describe('stegvisning - Start', () => {
     )
 
     await waitFor(() => {
-      expect(
-        screen.getByText(
-          'Vil du sjekke hva du kan få hvis du endrer uttaket av alderspensjon, må du gå til',
-          { exact: false }
-        )
-      ).toBeVisible()
       expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
         'stegvisning.start.title Ola!'
       )
@@ -212,8 +185,61 @@ describe('stegvisning - Start', () => {
       expect(
         screen.getByText('AFP i offentlig sektor', { exact: false })
       ).toBeVisible()
+    })
+  })
 
-      expect(result.asFragment()).toMatchSnapshot()
+  it('rendrer slik den skal med fremtidig vedtak', async () => {
+    render(
+      <Start
+        navn="Ola"
+        loependeVedtak={{
+          ufoeretrygd: {
+            grad: 0,
+          },
+
+          harFremtidigLoependeVedtak: true,
+        }}
+        onCancel={onCancelMock}
+        onNext={onNextMock}
+      />
+    )
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('stegvisning.fremtidigvedtak.alert')
+      ).toBeVisible()
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'stegvisning.start.title Ola!'
+      )
+    })
+  })
+
+  it('rendrer slik den skal med vedtak om alderspensjon og fremtidig vedtak', async () => {
+    render(
+      <Start
+        navn="Ola"
+        loependeVedtak={{
+          alderspensjon: {
+            grad: 50,
+            fom: '2020-10-02',
+          },
+          ufoeretrygd: {
+            grad: 0,
+          },
+          harFremtidigLoependeVedtak: true,
+        }}
+        onCancel={onCancelMock}
+        onNext={onNextMock}
+      />
+    )
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('stegvisning.fremtidigvedtak.endring.alert')
+      ).toBeVisible()
+      expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
+        'stegvisning.start.title Ola!'
+      )
     })
   })
 

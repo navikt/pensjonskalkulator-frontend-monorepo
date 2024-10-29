@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Modal, ToggleGroup } from '@navikt/ds-react'
 
 import { LightBlueFooter } from '@/components/LightBlueFooter'
+import { LoependeVedtakInfo } from '@/components/LoependeVedtakInfo'
 import { paths } from '@/router/constants'
 import { useAppDispatch, useAppSelector } from '@/state/hooks'
 import {
   selectCurrentSimulation,
   selectIsEndring,
+  selectLoependeVedtak,
 } from '@/state/userInput/selectors'
 import { userInputActions } from '@/state/userInput/userInputReducer'
 import { BeregningVisning } from '@/types/common-types'
@@ -39,6 +41,7 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
     React.useState<boolean>(false)
 
   const isEndring = useAppSelector(selectIsEndring)
+  const loependeVedtak = useAppSelector(selectLoependeVedtak)
 
   React.useEffect(() => {
     document.title = intl.formatMessage({
@@ -173,20 +176,9 @@ export const Beregning: React.FC<Props> = ({ visning }) => {
         </Modal.Footer>
       </Modal>
       <div className={styles.beregning}>
-        {/* {isEndring && (
-          <div className={styles.container}>
-            <Alert
-              className={styles.alert}
-              variant="warning"
-              aria-live="polite"
-            >
-              <FormattedMessage
-                id="stegvisning.endring.alert"
-                values={{ ...getFormatMessageValues(intl) }}
-              />
-            </Alert>
-          </div>
-        )} */}
+        <div className={styles.container}>
+          <LoependeVedtakInfo loependeVedtak={loependeVedtak} />
+        </div>
         {!isEndring && (
           <div
             className={`${styles.toggle} ${visning === 'enkel' ? styles.toggle__paddingBottom : ''}`}
