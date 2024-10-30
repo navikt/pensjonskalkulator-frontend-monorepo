@@ -450,7 +450,8 @@ export const RedigerAvansertBeregning: React.FC<{
             />
           )}
         <div>
-          {localGradertUttak?.grad && localGradertUttak?.grad !== 100 ? (
+          {localGradertUttak?.grad !== undefined &&
+          localGradertUttak?.grad !== 100 ? (
             <AgePicker
               form={AVANSERT_FORM_NAMES.form}
               name={AVANSERT_FORM_NAMES.uttaksalderGradertUttak}
@@ -515,7 +516,11 @@ export const RedigerAvansertBeregning: React.FC<{
                 ? 'beregning.avansert.rediger.uttaksgrad.endring.description'
                 : 'beregning.avansert.rediger.uttaksgrad.description',
             })}
-            value={localGradertUttak?.grad ? `${localGradertUttak.grad} %` : ''}
+            value={
+              localGradertUttak?.grad !== undefined
+                ? `${localGradertUttak.grad} %`
+                : ''
+            }
             onChange={handleUttaksgradChange}
             error={
               validationErrors[AVANSERT_FORM_NAMES.uttaksgrad]
@@ -573,7 +578,7 @@ export const RedigerAvansertBeregning: React.FC<{
         </div>
         {localGradertUttak?.uttaksalder?.aar &&
           localGradertUttak?.uttaksalder?.maaneder !== undefined &&
-          localGradertUttak?.grad &&
+          localGradertUttak?.grad !== undefined &&
           localGradertUttak.grad !== 100 && (
             <>
               <div>
@@ -743,7 +748,7 @@ export const RedigerAvansertBeregning: React.FC<{
 
         {localHeltUttak?.uttaksalder?.aar &&
           localHeltUttak?.uttaksalder?.maaneder !== undefined &&
-          localGradertUttak?.grad && (
+          localGradertUttak?.grad !== undefined && (
             <div>
               <RadioGroup
                 legend={

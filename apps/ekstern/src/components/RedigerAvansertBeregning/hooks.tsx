@@ -67,11 +67,12 @@ export const useFormLocalState = (initialValues: {
   const [localGradertUttak, setGradertUttak] = React.useState<
     RecursivePartial<GradertUttak> | undefined
   >({
-    grad: gradertUttaksperiode?.grad
-      ? gradertUttaksperiode.grad
-      : uttaksalder
-        ? 100
-        : undefined,
+    grad:
+      gradertUttaksperiode?.grad !== undefined
+        ? gradertUttaksperiode.grad
+        : uttaksalder
+          ? 100
+          : undefined,
     uttaksalder: gradertUttaksperiode?.uttaksalder
       ? {
           ...gradertUttaksperiode.uttaksalder,
@@ -126,8 +127,8 @@ export const useFormLocalState = (initialValues: {
       )
       // hvis ingen grad var valgt, eller at en grad var valgt og at den er gyldig, return avgrenset grad
       if (
-        !localGradertUttak?.grad ||
-        (localGradertUttak?.grad &&
+        localGradertUttak?.grad === undefined ||
+        (localGradertUttak?.grad !== undefined &&
           avgrensetUttaksgrad.includes(localGradertUttak?.grad))
       ) {
         return avgrensetUttaksgrad.map((grad) => `${grad} %`)
