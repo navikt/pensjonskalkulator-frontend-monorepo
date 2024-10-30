@@ -99,10 +99,11 @@ describe('PageFramework', () => {
     )
     await Promise.resolve()
 
-    expect(await screen.findByTestId('redirect-element')).toBeVisible()
-    expect(windowSpy).toHaveBeenCalledWith(
-      'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-      '_self'
+    await waitFor(() =>
+      expect(windowSpy).toHaveBeenCalledWith(
+        'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+        '_self'
+      )
     )
   })
 })

@@ -11,14 +11,6 @@ import { CheckLoginOnFocus } from './CheckLoginOnFocus'
 import { FrameComponent } from './FrameComponent'
 
 function RedirectElement() {
-  React.useEffect(() => {
-    window.open(
-      `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
-        window.location.pathname
-      )}`,
-      '_self'
-    )
-  }, [])
   return <span data-testid="redirect-element"></span>
 }
 
@@ -39,6 +31,17 @@ export const PageFramework: React.FC<{
     window.scrollTo(0, 0)
   }, [pathname])
 
+  React.useEffect(() => {
+    if (shouldRedirectNonAuthenticated && !loaderData.oauth2Query.ok) {
+      window.open(
+        `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
+          window.location.pathname
+        )}`,
+        '_self'
+      )
+    }
+  }, [loaderData.oauth2Query, shouldRedirectNonAuthenticated])
+
   return (
     <>
       <React.Suspense
@@ -50,10 +53,7 @@ export const PageFramework: React.FC<{
           />
         }
       >
-        <Await
-          resolve={loaderData.oauth2Query}
-          errorElement={<RedirectElement />}
-        >
+        <Await resolve={loaderData.oauth2Query}>
           {(oauth2Query: Response) => {
             return shouldRedirectNonAuthenticated && !oauth2Query.ok ? (
               <RedirectElement />
