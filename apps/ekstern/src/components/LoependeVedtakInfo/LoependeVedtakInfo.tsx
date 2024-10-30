@@ -16,7 +16,12 @@ interface Props {
 export function LoependeVedtakInfo({ loependeVedtak, isCentered }: Props) {
   const intl = useIntl()
 
-  if (!loependeVedtak || !loependeVedtak?.harFremtidigLoependeVedtak) {
+  if (
+    !loependeVedtak ||
+    !loependeVedtak?.harFremtidigLoependeVedtak ||
+    (loependeVedtak.alderspensjon?.grad === 0 &&
+      loependeVedtak.ufoeretrygd.grad === 100)
+  ) {
     return null
   }
 
@@ -29,11 +34,7 @@ export function LoependeVedtakInfo({ loependeVedtak, isCentered }: Props) {
       >
         <FormattedMessage
           id={
-            loependeVedtak.alderspensjon &&
-            !(
-              loependeVedtak.alderspensjon?.grad === 0 &&
-              loependeVedtak.ufoeretrygd.grad === 100
-            )
+            loependeVedtak.alderspensjon
               ? 'stegvisning.fremtidigvedtak.endring.alert'
               : 'stegvisning.fremtidigvedtak.alert'
           }
