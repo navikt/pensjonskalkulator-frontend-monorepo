@@ -17,6 +17,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       setAvansertSkjemaModus: vi.fn(),
     }
     const initialProps = {
+      isEndring: false,
       ufoeregrad: 0,
       aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: '250 000',
       aarligInntektFoerUttakBeloepFraBrukerInput: '300 000',
@@ -59,6 +60,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       const { result } = renderHook(useFormLocalState, {
         wrapper,
         initialProps: {
+          isEndring: false,
           ufoeregrad: 0,
           aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: undefined,
           aarligInntektFoerUttakBeloepFraBrukerInput: null,
@@ -175,6 +177,35 @@ describe('RedigerAvansertBeregning-hooks', () => {
       })
       // muligeUttaksgrad
       expect(result.current[6]).toHaveLength(6)
+    })
+
+    describe('Når brukeren haer vedtak om alderspensjon,', () => {
+      it('er muligeUttaksgrad riktig, med mulighet for 0 % periode', async () => {
+        const { result } = renderHook(useFormLocalState, {
+          wrapper,
+          initialProps: {
+            ...initialProps,
+            isEndring: true,
+          },
+        })
+
+        // harAvansertSkjemaUnsavedChanges
+        expect(
+          await screen.findByTestId('harAvansertSkjemaUnsavedChanges')
+        ).toHaveTextContent(`FALSE`)
+
+        // muligeUttaksgrad
+        expect(result.current[6]).toHaveLength(7)
+        expect(result.current[6]).toStrictEqual([
+          '0 %',
+          '20 %',
+          '40 %',
+          '50 %',
+          '60 %',
+          '80 %',
+          '100 %',
+        ])
+      })
     })
 
     describe('Når inntekt frem til uttak endrer seg,', () => {
@@ -670,55 +701,84 @@ describe('RedigerAvansertBeregning-hooks', () => {
         ).toHaveTextContent(`FALSE`)
       })
 
-      it('Gitt at brukeren har gradert uføretrygd, når uttaksalder endres til en alder før ubetinget uttaksalder, avgrenses muligeUttaksgrad', async () => {
-        const { result } = renderHook(useFormLocalState, {
-          wrapper,
-          initialProps: {
-            ...initialProps,
-            gradertUttaksperiode: null,
-            ufoeregrad: 60,
-          },
-        })
-
-        const { setLocalGradertUttak } = result.current[7]
-
-        act(() => {
-          setLocalGradertUttak({
-            grad: undefined,
-            uttaksalder: { aar: 66, maaneder: 1 },
-            aarligInntektVsaPensjonBeloep:
-              initialProps.gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString(),
+      describe('Gitt at brukeren har gradert uføretrygd,', () => {
+        it('Når uttaksalder endres til en alder før ubetinget uttaksalder, avgrenses muligeUttaksgrad', async () => {
+          const { result } = renderHook(useFormLocalState, {
+            wrapper,
+            initialProps: {
+              ...initialProps,
+              gradertUttaksperiode: null,
+              ufoeregrad: 60,
+            },
           })
-        })
 
-        // muligeUttaksgrad
-        expect(result.current[6]).toHaveLength(2)
-        expect(result.current[6]).toStrictEqual(['20 %', '40 %'])
-      })
+          const { setLocalGradertUttak } = result.current[7]
 
-      it('Gitt at brukeren har gradert uføretrygd, når uttaksgrad er allerede valgt og uttaksalder endres til en alder før ubetinget uttaksalder som gjøre denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
-        const { result } = renderHook(useFormLocalState, {
-          wrapper,
-          initialProps: {
-            ...initialProps,
-            gradertUttaksperiode: null,
-            ufoeregrad: 75,
-          },
-        })
-
-        const { setLocalGradertUttak } = result.current[7]
-
-        act(() => {
-          setLocalGradertUttak({
-            grad: 40,
-            uttaksalder: { aar: 66, maaneder: 1 },
-            aarligInntektVsaPensjonBeloep:
-              initialProps.gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString(),
+          act(() => {
+            setLocalGradertUttak({
+              grad: undefined,
+              uttaksalder: { aar: 66, maaneder: 1 },
+              aarligInntektVsaPensjonBeloep:
+                initialProps.gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString(),
+            })
           })
+
+          // muligeUttaksgrad
+          expect(result.current[6]).toHaveLength(2)
+          expect(result.current[6]).toStrictEqual(['20 %', '40 %'])
         })
 
-        // muligeUttaksgrad
-        expect(result.current[6]).toHaveLength(6)
+        it('og gitt at brukeren har vedtak om alderspensjon, Når brukereuttaksalder endres til en alder før ubetinget uttaksalder, avgrenses muligeUttaksgrad med mulighet for 0 % periode', async () => {
+          const { result } = renderHook(useFormLocalState, {
+            wrapper,
+            initialProps: {
+              ...initialProps,
+              isEndring: true,
+              gradertUttaksperiode: null,
+              ufoeregrad: 60,
+            },
+          })
+
+          const { setLocalGradertUttak } = result.current[7]
+
+          act(() => {
+            setLocalGradertUttak({
+              grad: undefined,
+              uttaksalder: { aar: 66, maaneder: 1 },
+              aarligInntektVsaPensjonBeloep:
+                initialProps.gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString(),
+            })
+          })
+
+          // muligeUttaksgrad
+          expect(result.current[6]).toHaveLength(3)
+          expect(result.current[6]).toStrictEqual(['0 %', '20 %', '40 %'])
+        })
+
+        it('Når uttaksgrad er allerede valgt og uttaksalder endres til en alder før ubetinget uttaksalder som gjøre denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
+          const { result } = renderHook(useFormLocalState, {
+            wrapper,
+            initialProps: {
+              ...initialProps,
+              gradertUttaksperiode: null,
+              ufoeregrad: 75,
+            },
+          })
+
+          const { setLocalGradertUttak } = result.current[7]
+
+          act(() => {
+            setLocalGradertUttak({
+              grad: 40,
+              uttaksalder: { aar: 66, maaneder: 1 },
+              aarligInntektVsaPensjonBeloep:
+                initialProps.gradertUttaksperiode.aarligInntektVsaPensjonBeloep.toString(),
+            })
+          })
+
+          // muligeUttaksgrad
+          expect(result.current[6]).toHaveLength(6)
+        })
       })
     })
   })

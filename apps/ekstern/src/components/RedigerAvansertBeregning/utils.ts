@@ -316,9 +316,11 @@ export const validateAvansertBeregningSkjema = (
           DEFAULT_UBETINGET_UTTAKSALDER.aar
       ) {
         const maksGrad = 100 - loependeVedtak.ufoeretrygd.grad
-        const filtrerteUttaksgrad = ALLE_UTTAKSGRAD_AS_NUMBER.filter(
-          (grad) => grad <= maksGrad
-        )
+        const filtrerteUttaksgrad = isLoependeVedtakEndring(loependeVedtak)
+          ? [...ALLE_UTTAKSGRAD_AS_NUMBER].filter((grad) => grad <= maksGrad)
+          : [...ALLE_UTTAKSGRAD_AS_NUMBER]
+              .filter((grad) => grad <= maksGrad)
+              .slice(1)
         const valgtUttaksgradAsNumber = parseFloat(
           (uttaksgradFormData as string).replace(/\D/g, '')
         )

@@ -95,6 +95,7 @@ export const RedigerAvansertBeregning: React.FC<{
       setLocalHarInntektVsaGradertUttakRadio,
     },
   ] = useFormLocalState({
+    isEndring,
     ufoeregrad: loependeVedtak.ufoeretrygd.grad,
     aarligInntektFoerUttakBeloepFraBrukerSkattBeloep:
       aarligInntektFoerUttakBeloepFraBrukerSkatt?.beloep,
