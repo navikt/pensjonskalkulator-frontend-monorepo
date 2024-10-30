@@ -11,6 +11,27 @@ import { CheckLoginOnFocus } from './CheckLoginOnFocus'
 import { FrameComponent } from './FrameComponent'
 
 function RedirectElement() {
+  React.useEffect(() => {
+    console.log('Redirecting to login')
+    window.open(
+      `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(window.location.pathname)}`,
+      '_self'
+    )
+  }, [])
+
+  React.useEffect(() => {
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        window.location.reload()
+      }
+    }
+    window.addEventListener('pageshow', handlePageShow)
+
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow)
+    }
+  }, [])
+
   return <span data-testid="redirect-element"></span>
 }
 
@@ -30,17 +51,6 @@ export const PageFramework: React.FC<{
   React.useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
-
-  React.useEffect(() => {
-    if (shouldRedirectNonAuthenticated && !loaderData.oauth2Query.ok) {
-      window.open(
-        `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
-          window.location.pathname
-        )}`,
-        '_self'
-      )
-    }
-  }, [loaderData.oauth2Query, shouldRedirectNonAuthenticated])
 
   return (
     <>
