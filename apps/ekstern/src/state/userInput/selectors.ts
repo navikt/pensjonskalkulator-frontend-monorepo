@@ -134,7 +134,6 @@ export const selectUfoeregrad = createSelector(
   }
 )
 
-// TODO PEK-693 skrive tester
 export const selectIsEndring = createSelector(
   [(state) => state, (_, params = undefined) => params],
   (state) => {

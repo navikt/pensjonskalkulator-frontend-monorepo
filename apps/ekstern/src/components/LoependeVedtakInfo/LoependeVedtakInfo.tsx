@@ -29,7 +29,11 @@ export function LoependeVedtakInfo({ loependeVedtak, isCentered }: Props) {
       >
         <FormattedMessage
           id={
-            loependeVedtak.alderspensjon
+            loependeVedtak.alderspensjon &&
+            !(
+              loependeVedtak.alderspensjon?.grad === 0 &&
+              loependeVedtak.ufoeretrygd.grad === 100
+            )
               ? 'stegvisning.fremtidigvedtak.endring.alert'
               : 'stegvisning.fremtidigvedtak.alert'
           }

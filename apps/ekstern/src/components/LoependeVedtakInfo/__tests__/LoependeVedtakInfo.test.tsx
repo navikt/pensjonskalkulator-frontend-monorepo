@@ -14,7 +14,7 @@ describe('LoependeVedtakInfo', () => {
     expect(asFragment()).toMatchInlineSnapshot(`<DocumentFragment />`)
   })
 
-  it('Når vedtaket ikke gjelder frem i tid , returnerer null', () => {
+  it('Når vedtaket ikke gjelder frem i tid, returnerer null', () => {
     const { asFragment } = render(
       <LoependeVedtakInfo
         loependeVedtak={
@@ -54,6 +54,24 @@ describe('LoependeVedtakInfo', () => {
     ).toBeVisible()
   })
 
+  it('Når brukeren har 100 % uføretrygd og vedtaket viser 0 % alderspensjon nå og har vedtak frem i tid, returnerer riktig tekst', () => {
+    render(
+      <LoependeVedtakInfo
+        loependeVedtak={{
+          alderspensjon: {
+            grad: 0,
+            fom: '2020-10-02',
+          },
+          ufoeretrygd: {
+            grad: 100,
+          },
+          harFremtidigLoependeVedtak: true,
+        }}
+      />
+    )
+    expect(screen.getByText('stegvisning.fremtidigvedtak.alert')).toBeVisible()
+  })
+
   it('Når vedtaket ikke er sentrert, returnerer riktig styling', () => {
     const { asFragment } = render(
       <LoependeVedtakInfo
@@ -70,7 +88,7 @@ describe('LoependeVedtakInfo', () => {
           class="_alert_e5b001 navds-alert navds-alert--info navds-alert--medium"
         >
           <svg
-            aria-labelledby="title-r2"
+            aria-labelledby="title-r3"
             class="navds-alert__icon"
             fill="none"
             focusable="false"
@@ -81,7 +99,7 @@ describe('LoependeVedtakInfo', () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r2"
+              id="title-r3"
             >
               Informasjon
             </title>
@@ -119,7 +137,7 @@ describe('LoependeVedtakInfo', () => {
           class="_alert_e5b001 _alert__centered_e5b001 navds-alert navds-alert--info navds-alert--medium"
         >
           <svg
-            aria-labelledby="title-r3"
+            aria-labelledby="title-r4"
             class="navds-alert__icon"
             fill="none"
             focusable="false"
@@ -130,7 +148,7 @@ describe('LoependeVedtakInfo', () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <title
-              id="title-r3"
+              id="title-r4"
             >
               Informasjon
             </title>
