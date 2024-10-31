@@ -85,9 +85,12 @@ describe('PageFramework', () => {
   })
 
   it('redirigerer til id-porten hvis shouldRedirectNonAuthenticated prop er satt og at brukeren ikke er authenticated', async () => {
+    const addEventListener = vi.fn()
     mockErrorResponse('/oauth2/session', {
       baseUrl: `${HOST_BASEURL}`,
     })
+
+    vi.stubGlobal('addEventListener', addEventListener)
 
     const windowSpy = vi.spyOn(window, 'open')
 
@@ -105,5 +108,11 @@ describe('PageFramework', () => {
         '_self'
       )
     )
+    await waitFor(async () => {
+      expect(addEventListener).toHaveBeenCalledWith(
+        'pageshow',
+        expect.any(Function)
+      )
+    })
   })
 })
