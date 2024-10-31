@@ -105,6 +105,12 @@ export const landingPageAccessGuard = async () => {
         getPersonRes?.isSuccess &&
         isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
       ) {
+        // Håndterer når bruker kommer tilbake på siden etter redirect - bfcache - https://web.dev/articles/bfcache
+        window.addEventListener('pageshow', (event: PageTransitionEvent) => {
+          if (event.persisted) {
+            window.open(externalUrls.detaljertKalkulator, '_self')
+          }
+        })
         window.open(externalUrls.detaljertKalkulator, '_self')
         return ''
       } else {
@@ -204,6 +210,11 @@ export const stepStartAccessGuard = async () => {
           getRedirect1963FeatureToggleRes?.data?.enabled &&
           isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
         ) {
+          window.addEventListener('pageshow', (event: PageTransitionEvent) => {
+            if (event.persisted) {
+              window.open(externalUrls.detaljertKalkulator, '_self')
+            }
+          })
           window.open(externalUrls.detaljertKalkulator, '_self')
         }
         return ''
