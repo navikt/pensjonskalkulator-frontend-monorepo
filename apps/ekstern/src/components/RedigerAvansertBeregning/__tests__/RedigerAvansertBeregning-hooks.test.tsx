@@ -179,7 +179,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
       expect(result.current[6]).toHaveLength(6)
     })
 
-    describe('Når brukeren haer vedtak om alderspensjon,', () => {
+    describe('Når brukeren har vedtak om alderspensjon,', () => {
       it('er muligeUttaksgrad riktig, med mulighet for 0 % periode', async () => {
         const { result } = renderHook(useFormLocalState, {
           wrapper,
@@ -728,7 +728,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           expect(result.current[6]).toStrictEqual(['20 %', '40 %'])
         })
 
-        it('og gitt at brukeren har vedtak om alderspensjon, Når brukereuttaksalder endres til en alder før ubetinget uttaksalder, avgrenses muligeUttaksgrad med mulighet for 0 % periode', async () => {
+        it('og gitt at brukeren har vedtak om alderspensjon, Når brukers uttaksalder endres til en alder før ubetinget uttaksalder, avgrenses muligeUttaksgrad med mulighet for 0 % periode', async () => {
           const { result } = renderHook(useFormLocalState, {
             wrapper,
             initialProps: {
@@ -755,7 +755,7 @@ describe('RedigerAvansertBeregning-hooks', () => {
           expect(result.current[6]).toStrictEqual(['0 %', '20 %', '40 %'])
         })
 
-        it('Når uttaksgrad er allerede valgt og uttaksalder endres til en alder før ubetinget uttaksalder som gjøre denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
+        it('Når uttaksgrad er allerede valgt og uttaksalder endres til en alder før ubetinget uttaksalder som gjør denne uttaksgraden ugyldig, oppdateres ikke muligeUttaksgrad', async () => {
           const { result } = renderHook(useFormLocalState, {
             wrapper,
             initialProps: {
