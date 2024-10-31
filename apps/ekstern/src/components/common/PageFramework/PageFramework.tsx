@@ -20,6 +20,7 @@ function RedirectElement() {
   }, [])
 
   React.useEffect(() => {
+    // Håndter tilbakeknapp i browser, bfcache - https://web.dev/articles/bfcache
     const handlePageShow = (event: PageTransitionEvent) => {
       if (event.persisted) {
         window.location.reload()
