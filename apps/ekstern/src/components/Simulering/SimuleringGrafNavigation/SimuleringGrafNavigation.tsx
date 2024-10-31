@@ -11,14 +11,14 @@ import clsx from 'clsx'
 import { onVisFaerreAarClick, onVisFlereAarClick } from '../utils'
 import { wrapLogger } from '@/utils/logging'
 
-import styles from './GrafNavigation.module.scss'
+import styles from './SimuleringGrafNavigation.module.scss'
 
 interface Props {
   showVisFaerreAarButton: boolean
   showVisFlereAarButton: boolean
 }
 
-export const GrafNavigation: React.FC<Props> = ({
+export const SimuleringGrafNavigation: React.FC<Props> = ({
   showVisFaerreAarButton,
   showVisFlereAarButton,
 }) => {

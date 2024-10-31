@@ -10,7 +10,7 @@ import {
   userInputInitialState,
   Simulation,
 } from '@/state/userInput/userInputReducer'
-import { act, render, screen, userEvent, waitFor } from '@/test-utils'
+import { act, render, screen, waitFor } from '@/test-utils'
 
 describe('Simulering', () => {
   const currentSimulation: Simulation = {
@@ -671,13 +671,6 @@ describe('Simulering', () => {
     })
 
     it('Når brukeren har en pensjonsavtale som begynner før uttaksalderen, viser infomelding om pensjonsavtaler', async () => {
-      const scrollToMock = vi.fn()
-      Object.defineProperty(global.window, 'scrollTo', {
-        value: scrollToMock,
-        writable: true,
-      })
-
-      const user = userEvent.setup()
       mockResponse('/v2/pensjonsavtaler', {
         status: 200,
         json: {
@@ -724,10 +717,6 @@ describe('Simulering', () => {
         }
       )
 
-      const elemDiv = document.createElement('div')
-      elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
-      document.body.appendChild(elemDiv)
-
       await waitFor(async () => {
         expect(
           await screen.findByTestId('highcharts-done-drawing')
@@ -735,17 +724,7 @@ describe('Simulering', () => {
       })
 
       await waitFor(async () => {
-        expect(
-          await screen.findByText(
-            'Du har pensjonsavtaler som starter før valgt alder.',
-            { exact: false }
-          )
-        ).toBeVisible()
-      })
-      await user.click(await screen.findByTestId('pensjonsavtaler-info-link'))
-      expect(scrollToMock).toHaveBeenCalledWith({
-        behavior: 'smooth',
-        top: -15,
+        expect(screen.getByTestId('pensjonsavtaler-info')).toBeVisible()
       })
     })
 

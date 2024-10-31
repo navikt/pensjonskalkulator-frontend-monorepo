@@ -1,8 +1,7 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import { InformationSquareFillIcon } from '@navikt/aksel-icons'
-import { Alert, Heading, HeadingProps, Link } from '@navikt/ds-react'
+import { Heading, HeadingProps } from '@navikt/ds-react'
 import Highcharts, {
   SeriesColumnOptions,
   SeriesOptionsType,
@@ -10,7 +9,6 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-import { Simuleringsdetaljer } from '@/components/Simulering/Simuleringsdetaljer/Simuleringsdetaljer'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
   usePensjonsavtalerQuery,
@@ -30,7 +28,9 @@ import { formatInntektToNumber } from '@/utils/inntekt'
 import { logger } from '@/utils/logging'
 
 import { SERIES_DEFAULT } from './constants'
-import { GrafNavigation } from './GrafNavigation/GrafNavigation'
+import { SimuleringGrafNavigation } from './SimuleringGrafNavigation/SimuleringGrafNavigation'
+import { SimuleringPensjonsavtalerAlert } from './SimuleringPensjonsavtalerAlert/SimuleringPensjonsavtalerAlert'
+import { Simuleringsdetaljer } from './Simuleringsdetaljer/Simuleringsdetaljer'
 import {
   getChartDefaults,
   generateXAxis,
@@ -363,21 +363,6 @@ export function Simulering(props: {
     }
   }, [XAxis])
 
-  const handlePensjonsavtalerLinkClick: React.MouseEventHandler<
-    HTMLAnchorElement
-  > = (e): void => {
-    e.preventDefault()
-    const pensjonsavtalerHeader = document.getElementById(
-      'pensjonsavtaler-heading'
-    )
-    if (pensjonsavtalerHeader) {
-      window.scrollTo({
-        top: pensjonsavtalerHeader.offsetTop - 15,
-        behavior: 'smooth',
-      })
-    }
-  }
-
   return (
     <section className={styles.section}>
       <Heading level={headingLevel} size="medium" visuallyHidden>
@@ -391,58 +376,16 @@ export function Simulering(props: {
         />
       </div>
       {showButtonsAndTable && (
-        <GrafNavigation
+        <SimuleringGrafNavigation
           showVisFaerreAarButton={showVisFaerreAarButton}
           showVisFlereAarButton={showVisFlereAarButton}
         />
       )}
-      {pensjonsavtalerAlert && (
-        <Alert
-          variant={pensjonsavtalerAlert?.variant}
-          data-testid="pensjonsavtaler-alert"
-          className={styles.alert}
-        >
-          <FormattedMessage
-            id={pensjonsavtalerAlert.text}
-            values={{
-              scrollTo: (chunk) => (
-                <Link
-                  href="#"
-                  data-testid="pensjonsavtaler-alert-link"
-                  onClick={handlePensjonsavtalerLinkClick}
-                >
-                  {chunk}
-                </Link>
-              ),
-            }}
-          />
-        </Alert>
-      )}
-      {!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible && (
-        <div className={styles.info} aria-live="assertive">
-          <InformationSquareFillIcon
-            className={styles.infoIcon}
-            fontSize="1.5rem"
-            aria-hidden
-          />
-          <p className={styles.infoText}>
-            <FormattedMessage
-              id="beregning.pensjonsavtaler.info"
-              values={{
-                scrollTo: (chunk) => (
-                  <Link
-                    href="#"
-                    data-testid="pensjonsavtaler-info-link"
-                    onClick={handlePensjonsavtalerLinkClick}
-                  >
-                    {chunk}
-                  </Link>
-                ),
-              }}
-            />
-          </p>
-        </div>
-      )}
+      <SimuleringPensjonsavtalerAlert
+        variant={pensjonsavtalerAlert?.variant}
+        text={pensjonsavtalerAlert?.text}
+        showInfo={!isPensjonsavtalerLoading && isPensjonsavtaleFlagVisible}
+      />
       {showButtonsAndTable && (
         <TabellVisning
           series={chartOptions.series as SeriesColumnOptions[]}

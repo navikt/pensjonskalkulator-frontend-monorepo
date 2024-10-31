@@ -1,12 +1,12 @@
 import * as grafNavigationUtils from '../../utils'
-import { GrafNavigation } from '../GrafNavigation'
+import { SimuleringGrafNavigation } from '../SimuleringGrafNavigation'
 import { render, screen, fireEvent } from '@/test-utils'
 import * as loggerUtils from '@/utils/logging'
 
-describe('GrafNavigation', () => {
+describe('SimuleringGrafNavigation', () => {
   it('Når showVisFaerreAarButton og showVisFlereAarButton er false, rendrer ikke knappene.', () => {
     render(
-      <GrafNavigation
+      <SimuleringGrafNavigation
         showVisFaerreAarButton={false}
         showVisFlereAarButton={false}
       />
@@ -16,7 +16,7 @@ describe('GrafNavigation', () => {
 
   it('Når showVisFaerreAarButton er true, rendrer Vis færre år knapp.', () => {
     render(
-      <GrafNavigation
+      <SimuleringGrafNavigation
         showVisFaerreAarButton={true}
         showVisFlereAarButton={false}
       />
@@ -27,7 +27,7 @@ describe('GrafNavigation', () => {
 
   it('Når showVisFlereAarButton er true, rendrer Vis flere år knapp.', () => {
     render(
-      <GrafNavigation
+      <SimuleringGrafNavigation
         showVisFaerreAarButton={false}
         showVisFlereAarButton={true}
       />
@@ -43,7 +43,7 @@ describe('GrafNavigation', () => {
       'onVisFaerreAarClick'
     )
     render(
-      <GrafNavigation
+      <SimuleringGrafNavigation
         showVisFaerreAarButton={true}
         showVisFlereAarButton={false}
       />
@@ -58,7 +58,7 @@ describe('GrafNavigation', () => {
   it('Når brukeren klikker på Vis flere år knapp, kalles det wrapLogger med riktig arguments.', () => {
     const wrapLoggerMock = vi.spyOn(loggerUtils, 'wrapLogger')
     render(
-      <GrafNavigation
+      <SimuleringGrafNavigation
         showVisFaerreAarButton={false}
         showVisFlereAarButton={true}
       />
