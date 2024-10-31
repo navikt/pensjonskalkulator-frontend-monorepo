@@ -12,7 +12,6 @@ import { FrameComponent } from './FrameComponent'
 
 function RedirectElement() {
   React.useEffect(() => {
-    console.log('Redirecting to login')
     window.open(
       `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(window.location.pathname)}`,
       '_self'
