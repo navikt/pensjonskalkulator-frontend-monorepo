@@ -300,6 +300,7 @@ const translations = {
   'beregning.tabell.lukk': 'MANGLER_TEKST',
   'beregning.tabell.vis': 'MANGLER_TEKST',
   'beregning.tabell.sum': 'MANGLER_TEKST',
+  'beregning.avansert.button.endre_valgene_dine': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.tittel': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.description': 'MANGLER_TEKST',
   'beregning.avansert.resultatkort.button': 'MANGLER_TEKST',

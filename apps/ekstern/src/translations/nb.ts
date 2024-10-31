@@ -392,10 +392,11 @@ const translations = {
   'beregning.tabell.lukk': 'Lukk tabell av beregningen',
   'beregning.tabell.vis': 'Vis tabell av beregningen',
   'beregning.tabell.sum': 'Sum',
-  'beregning.avansert.resultatkort.tittel': 'Se og endre dine valg',
+  'beregning.avansert.button.endre_valgene_dine': 'Endre valgene dine',
+  'beregning.avansert.resultatkort.tittel': 'Valgene dine',
   'beregning.avansert.resultatkort.description':
     'Inntekt, uttaksgrad og pensjonsalder',
-  'beregning.avansert.resultatkort.button': 'Endre valg',
+  'beregning.avansert.resultatkort.button': 'Endre valgene dine',
   'beregning.avansert.resultatkort.frem_til_uttak': 'Frem til uttak av pensjon',
   'beregning.avansert.resultatkort.inntekt_1': 'Pensjonsgivende årsinntekt',
   'beregning.avansert.resultatkort.inntekt_2': ' kr før skatt',

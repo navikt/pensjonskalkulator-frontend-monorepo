@@ -727,6 +727,13 @@ describe('Simulering', () => {
       const elemDiv = document.createElement('div')
       elemDiv.setAttribute('id', 'pensjonsavtaler-heading')
       document.body.appendChild(elemDiv)
+
+      await waitFor(async () => {
+        expect(
+          await screen.findByTestId('highcharts-done-drawing')
+        ).toBeVisible()
+      })
+
       await waitFor(async () => {
         expect(
           await screen.findByText(

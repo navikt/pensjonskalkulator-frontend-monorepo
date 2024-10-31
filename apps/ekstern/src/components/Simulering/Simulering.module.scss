@@ -4,22 +4,6 @@
   margin-bottom: var(--a-spacing-6);
 }
 
-.buttonRow {
-  display: flex;
-
-  &__visible {
-    height: 2rem;
-  }
-
-  &Element {
-    flex-grow: 1;
-
-    &__Right {
-      text-align: right;
-    }
-  }
-}
-
 .loader {
   display: inline-block;
   position: relative;

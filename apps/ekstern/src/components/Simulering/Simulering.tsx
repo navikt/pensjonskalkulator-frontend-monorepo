@@ -1,13 +1,8 @@
 import React from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 
-import {
-  ChevronLeftCircleIcon,
-  ChevronRightCircleIcon,
-  InformationSquareFillIcon,
-} from '@navikt/aksel-icons'
-import { Alert, Button, Heading, HeadingProps, Link } from '@navikt/ds-react'
-import clsx from 'clsx'
+import { InformationSquareFillIcon } from '@navikt/aksel-icons'
+import { Alert, Heading, HeadingProps, Link } from '@navikt/ds-react'
 import Highcharts, {
   SeriesColumnOptions,
   SeriesOptionsType,
@@ -15,7 +10,7 @@ import Highcharts, {
 } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
-import { Simuleringsdetaljer } from '@/components/Simulering/Simuleringsdetaljer'
+import { Simuleringsdetaljer } from '@/components/Simulering/Simuleringsdetaljer/Simuleringsdetaljer'
 import { TabellVisning } from '@/components/TabellVisning'
 import {
   usePensjonsavtalerQuery,
@@ -32,14 +27,13 @@ import {
   selectAfp,
 } from '@/state/userInput/selectors'
 import { formatInntektToNumber } from '@/utils/inntekt'
-import { logger, wrapLogger } from '@/utils/logging'
+import { logger } from '@/utils/logging'
 
 import { SERIES_DEFAULT } from './constants'
+import { GrafNavigation } from './GrafNavigation/GrafNavigation'
 import {
   getChartDefaults,
   generateXAxis,
-  onVisFaerreAarClick,
-  onVisFlereAarClick,
   processInntektArray,
   processPensjonsberegningArray,
   processPensjonsavtalerArray,
@@ -397,47 +391,10 @@ export function Simulering(props: {
         />
       </div>
       {showButtonsAndTable && (
-        <div
-          className={clsx(styles.buttonRow, {
-            [styles.buttonRow__visible]:
-              showVisFaerreAarButton || showVisFlereAarButton,
-          })}
-        >
-          <div className={styles.buttonRowElement}>
-            {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
-            {showVisFaerreAarButton && (
-              <Button
-                icon={<ChevronLeftCircleIcon aria-hidden />}
-                iconPosition="left"
-                size="xsmall"
-                variant="tertiary"
-                onClick={wrapLogger('button klikk', { tekst: 'Vis færre år' })(
-                  onVisFaerreAarClick
-                )}
-              >
-                <FormattedMessage id="beregning.button.faerre_aar" />
-              </Button>
-            )}
-          </div>
-          <div
-            className={`${styles.buttonRowElement} ${styles.buttonRowElement__Right}`}
-          >
-            {/* c8 ignore next 10 - Dette dekkes av cypress scenario graffHorizontalScroll.cy */}
-            {showVisFlereAarButton && (
-              <Button
-                icon={<ChevronRightCircleIcon aria-hidden />}
-                iconPosition="right"
-                size="xsmall"
-                variant="tertiary"
-                onClick={wrapLogger('button klikk', { tekst: 'Vis flere år' })(
-                  onVisFlereAarClick
-                )}
-              >
-                <FormattedMessage id="beregning.button.flere_aar" />
-              </Button>
-            )}
-          </div>
-        </div>
+        <GrafNavigation
+          showVisFaerreAarButton={showVisFaerreAarButton}
+          showVisFlereAarButton={showVisFlereAarButton}
+        />
       )}
       {pensjonsavtalerAlert && (
         <Alert
