@@ -489,6 +489,8 @@ const translations = {
   'forbehold.afp.ingress': 'MANGLER_TEKST',
   'forbehold.uforetrygd.title': 'MANGLER_TEKST',
   'forbehold.uforetrygd.ingress': 'MANGLER_TEKST',
+  'forbehold.uforetrygd_afp.title': 'MANGLER_TEKST',
+  'forbehold.uforetrygd_afp.ingress': 'MANGLER_TEKST',
   'forbehold.gjenlevende.title': 'MANGLER_TEKST',
   'forbehold.gjenlevende.ingress': 'MANGLER_TEKST',
   'forbehold.pensjonsavtaler.title': 'MANGLER_TEKST',
