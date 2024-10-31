@@ -671,7 +671,7 @@ const translations = {
     'Mottar du uføretrygd, 100 % eller gradert, har vi forutsatt at du beholder lik uføregrad frem til den avsluttes ved 67 år. Hvis du endrer uføregraden din, kan både beregning og valgene dine i kalkulatoren endres.{br}{br}Kalkulatoren legger den antatte inntekten din til grunn. Høyere inntekt blir ikke tatt høyde for i kalkulatoren.{br}{br}Kalkulatoren beregner etter dagens opptjeningsregler for uføretrygd. Kommende lovendringer vil gi deg et annet resultat.',
   'forbehold.uforetrygd_afp.title': 'Uføretrygd og AFP',
   'forbehold.uforetrygd_afp.ingress':
-    'Har du mottatt uføretrygd etter fylte 62 år har du ikke rett til AFP.{br}{br}Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP.{br}{br}Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP.{br}{br}Kalkulatoren tar ikke høyde for nevnte unntak.',
+    'Har du mottatt uføretrygd etter fylte 62 år, har du normalt ikke rett til AFP.{br}{br}Hvis du har mottatt uføretrygd etter fylte 62 år, men hele beløpet senere blir tilbakebetalt i forbindelse med etteroppgjøret for uføretrygd, kan du likevel ha rett til AFP.{br}{br}Har du hvilende rett til uføretrygd, og det ikke er utbetalt noe uføretrygd etter fylte 62 år kan du også ha rett til AFP.{br}{br}Kalkulatoren tar ikke høyde for nevnte unntak.',
   'forbehold.gjenlevende.title': 'Gjenlevendepensjon og omstillingsstønad',
   'forbehold.gjenlevende.ingress':
     'Tidlig uttak av alderspensjon forutsetter at du har sagt fra deg gjenlevendepensjonen eller omstillingsstønaden på uttakstidspunktet.',
