@@ -552,6 +552,8 @@ const translations = {
   'forbehold.uforetrygd.title': 'Uføretrygd',
   'forbehold.uforetrygd.ingress':
     'Har du full eller delvis uføretrygd kan utrekninga gje feil resultat. Du må nytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
+  'forbehold.uforetrygd_afp.title': 'MANGLER_TEKST',
+  'forbehold.uforetrygd_afp.ingress': 'MANGLER_TEKST',
   'forbehold.gjenlevende.title': 'Attlevandepensjon',
   'forbehold.gjenlevende.ingress':
     'Har du vedtak om attlevandepensjon kan utrekninga gje feil resultat. Du må nytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>. Dette gjeld og om du er i jobb og ikkje får utbetalt attlevandepensjon.',
