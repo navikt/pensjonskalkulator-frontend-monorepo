@@ -623,6 +623,11 @@ exports[`RedigerAvansertBeregning > Gitt at en bruker har vedtak om alderspensjo
                  
               </option>
               <option
+                value="0 %"
+              >
+                0 %
+              </option>
+              <option
                 value="20 %"
               >
                 20 %

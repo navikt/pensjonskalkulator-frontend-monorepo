@@ -9,6 +9,7 @@ import { ALLE_UTTAKSGRAD_AS_NUMBER } from '@/utils/uttaksgrad'
 import { AvansertFormNames, AVANSERT_FORM_NAMES } from './utils'
 
 export const useFormLocalState = (initialValues: {
+  isEndring: boolean
   ufoeregrad: number
   aarligInntektFoerUttakBeloepFraBrukerSkattBeloep: string | undefined
   aarligInntektFoerUttakBeloepFraBrukerInput: string | null
@@ -17,6 +18,7 @@ export const useFormLocalState = (initialValues: {
   gradertUttaksperiode: GradertUttak | null
 }) => {
   const {
+    isEndring,
     ufoeregrad,
     aarligInntektFoerUttakBeloepFraBrukerSkattBeloep,
     aarligInntektFoerUttakBeloepFraBrukerInput,
@@ -65,11 +67,12 @@ export const useFormLocalState = (initialValues: {
   const [localGradertUttak, setGradertUttak] = React.useState<
     RecursivePartial<GradertUttak> | undefined
   >({
-    grad: gradertUttaksperiode?.grad
-      ? gradertUttaksperiode.grad
-      : uttaksalder
-        ? 100
-        : undefined,
+    grad:
+      gradertUttaksperiode?.grad !== undefined
+        ? gradertUttaksperiode.grad
+        : uttaksalder
+          ? 100
+          : undefined,
     uttaksalder: gradertUttaksperiode?.uttaksalder
       ? {
           ...gradertUttaksperiode.uttaksalder,
@@ -107,6 +110,9 @@ export const useFormLocalState = (initialValues: {
       localGradertUttak?.uttaksalder?.maaneder !== undefined
         ? { ...localGradertUttak?.uttaksalder }
         : { ...localHeltUttak?.uttaksalder }
+    const filtrerteUttaksgrad = isEndring
+      ? [...ALLE_UTTAKSGRAD_AS_NUMBER]
+      : [...ALLE_UTTAKSGRAD_AS_NUMBER].slice(1)
 
     if (
       valgtAlder?.aar &&
@@ -116,19 +122,19 @@ export const useFormLocalState = (initialValues: {
       valgtAlder?.aar < DEFAULT_UBETINGET_UTTAKSALDER.aar
     ) {
       const maksGrad = 100 - ufoeregrad
-      const filtrerteUttaksgrad = ALLE_UTTAKSGRAD_AS_NUMBER.filter(
+      const avgrensetUttaksgrad = [...filtrerteUttaksgrad].filter(
         (grad) => grad <= maksGrad
       )
       // hvis ingen grad var valgt, eller at en grad var valgt og at den er gyldig, return avgrenset grad
       if (
-        !localGradertUttak?.grad ||
-        (localGradertUttak?.grad &&
-          filtrerteUttaksgrad.includes(localGradertUttak?.grad))
+        localGradertUttak?.grad === undefined ||
+        (localGradertUttak?.grad !== undefined &&
+          avgrensetUttaksgrad.includes(localGradertUttak?.grad))
       ) {
-        return filtrerteUttaksgrad.map((grad) => `${grad} %`)
+        return avgrensetUttaksgrad.map((grad) => `${grad} %`)
       }
     }
-    return ALLE_UTTAKSGRAD_AS_NUMBER.map((grad) => `${grad} %`)
+    return filtrerteUttaksgrad.map((grad) => `${grad} %`)
   }, [ufoeregrad, localGradertUttak, localHeltUttak])
 
   React.useEffect(() => {
