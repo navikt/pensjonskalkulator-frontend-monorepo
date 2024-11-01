@@ -434,7 +434,7 @@ describe('Med ufoeretrygd', () => {
           'Forventer du å ha inntekt samtidig som du tar ut 50 % pensjon?'
         ).should('exist')
         cy.contains(
-          'Du kan tjene så mye du vil, samtidig som du tar ut pensjon.'
+          'Du kan tjene så mye du vil samtidig som du tar ut pensjon.'
         ).should('exist')
       })
     })
