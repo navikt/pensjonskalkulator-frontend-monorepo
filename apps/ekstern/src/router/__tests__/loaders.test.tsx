@@ -99,7 +99,10 @@ describe('Loaders', () => {
 
     it('redirigerer til detaljert kalkulator dersom brukeren er født før 1963', async () => {
       const open = vi.fn()
+      const addEventListener = vi.fn()
+
       vi.stubGlobal('open', open)
+      vi.stubGlobal('addEventListener', addEventListener)
 
       mockResponse('/v2/person', {
         status: 200,
@@ -123,6 +126,13 @@ describe('Loaders', () => {
 
       await waitFor(async () => {
         expect(shouldRedirectToResponse).toEqual('')
+      })
+
+      await waitFor(async () => {
+        expect(addEventListener).toHaveBeenCalledWith(
+          'pageshow',
+          expect.any(Function)
+        )
       })
 
       await waitFor(async () => {

@@ -105,6 +105,12 @@ export const landingPageAccessGuard = async () => {
         getPersonRes?.isSuccess &&
         isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
       ) {
+        // Håndterer når bruker kommer tilbake på siden etter redirect - bfcache - https://web.dev/articles/bfcache
+        window.addEventListener('pageshow', (event: PageTransitionEvent) => {
+          if (event.persisted) {
+            window.open(externalUrls.detaljertKalkulator, '_self')
+          }
+        })
         window.open(externalUrls.detaljertKalkulator, '_self')
         return ''
       } else {
@@ -204,6 +210,11 @@ export const stepStartAccessGuard = async () => {
           getRedirect1963FeatureToggleRes?.data?.enabled &&
           isFoedtFoer1963(getPersonRes?.data?.foedselsdato as string)
         ) {
+          window.addEventListener('pageshow', (event: PageTransitionEvent) => {
+            if (event.persisted) {
+              window.open(externalUrls.detaljertKalkulator, '_self')
+            }
+          })
           window.open(externalUrls.detaljertKalkulator, '_self')
         }
         return ''
@@ -340,14 +351,18 @@ export const stepAFPAccessGuard = async () => {
 
   // Hvis brukeren mottar AFP skal hen ikke se AFP steget
   // Hvis brukeren har uføretrygd og er eldre enn min uttaksalder skal hen ikke se AFP steget
-  if (
-    afpPrivat ||
-    afpOffentlig ||
-    (ufoeretrygd.grad &&
-      foedselsdato &&
-      isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato))
-  ) {
-    resolveRedirectUrl(stepArrays[stepArrays.indexOf(paths.afp) + 1])
+  const redirectFromAFPSteg = (): string => {
+    if (
+      afpPrivat ||
+      afpOffentlig ||
+      (ufoeretrygd.grad &&
+        foedselsdato &&
+        isFoedselsdatoOverEllerLikMinUttaksalder(foedselsdato))
+    ) {
+      return stepArrays[stepArrays.indexOf(paths.afp) + 1]
+    } else {
+      return ''
+    }
   }
 
   // Hvis alle kallene er vellykket, resolve
@@ -356,7 +371,7 @@ export const stepAFPAccessGuard = async () => {
     !hasOmstillingsstoenadOgGjenlevendePreviouslyFailed &&
     !hasEkskludertStatusPreviouslyFailed
   ) {
-    resolveRedirectUrl('')
+    resolveRedirectUrl(redirectFromAFPSteg())
   }
   // Hvis inntekt har feilet tidligere, prøv igjen og redirect til uventet feil ved ny feil
   if (hasInntektPreviouslyFailed) {
@@ -373,7 +388,7 @@ export const stepAFPAccessGuard = async () => {
             store.getState()
           ).isSuccess
         ) {
-          resolveRedirectUrl('')
+          resolveRedirectUrl(redirectFromAFPSteg())
         }
       })
   }
@@ -397,7 +412,7 @@ export const stepAFPAccessGuard = async () => {
             store.getState()
           ).isSuccess
         ) {
-          resolveRedirectUrl('')
+          resolveRedirectUrl(redirectFromAFPSteg())
         }
       })
   }
@@ -428,7 +443,7 @@ export const stepAFPAccessGuard = async () => {
               undefined
             )(store.getState()).isSuccess
           ) {
-            resolveRedirectUrl('')
+            resolveRedirectUrl(redirectFromAFPSteg())
           }
         }
       })
