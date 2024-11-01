@@ -13,15 +13,6 @@
   }
 }
 
-.alert {
-  max-width: $container-max-width;
-  margin: 0 var(--a-spacing-6) var(--a-spacing-6) var(--a-spacing-6);
-
-  @media (min-width: $a-breakpoint-lg) {
-    margin: 0 0 var(--a-spacing-6) 0;
-  }
-}
-
 .image {
   display: block;
   width: 9rem;

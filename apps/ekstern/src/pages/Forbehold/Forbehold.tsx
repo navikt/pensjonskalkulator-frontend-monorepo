@@ -95,6 +95,19 @@ export function Forbehold() {
       </section>
       <section>
         <Heading level="3" size="small" spacing>
+          <FormattedMessage id="forbehold.uforetrygd_afp.title" />
+        </Heading>
+        <BodyLong spacing>
+          <FormattedMessage
+            id="forbehold.uforetrygd_afp.ingress"
+            values={{
+              ...getFormatMessageValues(intl),
+            }}
+          />
+        </BodyLong>
+      </section>
+      <section>
+        <Heading level="3" size="small" spacing>
           <FormattedMessage id="forbehold.gjenlevende.title" />
         </Heading>
         <BodyLong spacing>

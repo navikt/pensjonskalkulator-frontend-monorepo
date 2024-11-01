@@ -65,7 +65,8 @@ const translations = {
   'stegvisning.tilbake_start.modal.title': 'MANGLER_TEKST',
   'stegvisning.tilbake_start.modal.bekreft': 'MANGLER_TEKST',
   'stegvisning.tilbake_start.modal.avbryt': 'MANGLER_TEKST',
-  'stegvisning.endring.alert': 'MANGLER_TEKST',
+  'stegvisning.fremtidigvedtak.alert': 'MANGLER_TEKST',
+  'stegvisning.fremtidigvedtak.endring.alert': 'MANGLER_TEKST',
   'stegvisning.start.title': 'Hei',
   'stegvisning.start.endring.ingress': 'MANGLER_TEKST',
   'stegvisning.start.endring.ufoeretrygd': 'MANGLER_TEKST',
@@ -551,6 +552,8 @@ const translations = {
   'forbehold.uforetrygd.title': 'Uføretrygd',
   'forbehold.uforetrygd.ingress':
     'Har du full eller delvis uføretrygd kan utrekninga gje feil resultat. Du må nytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>.',
+  'forbehold.uforetrygd_afp.title': 'MANGLER_TEKST',
+  'forbehold.uforetrygd_afp.ingress': 'MANGLER_TEKST',
   'forbehold.gjenlevende.title': 'Attlevandepensjon',
   'forbehold.gjenlevende.ingress':
     'Har du vedtak om attlevandepensjon kan utrekninga gje feil resultat. Du må nytte <detaljertKalkulatorLink>detaljert pensjonskalkulator</detaljertKalkulatorLink>. Dette gjeld og om du er i jobb og ikkje får utbetalt attlevandepensjon.',
