@@ -85,9 +85,12 @@ describe('PageFramework', () => {
   })
 
   it('redirigerer til id-porten hvis shouldRedirectNonAuthenticated prop er satt og at brukeren ikke er authenticated', async () => {
+    const addEventListener = vi.fn()
     mockErrorResponse('/oauth2/session', {
       baseUrl: `${HOST_BASEURL}`,
     })
+
+    vi.stubGlobal('addEventListener', addEventListener)
 
     const windowSpy = vi.spyOn(window, 'open')
 
@@ -99,10 +102,17 @@ describe('PageFramework', () => {
     )
     await Promise.resolve()
 
-    expect(await screen.findByTestId('redirect-element')).toBeVisible()
-    expect(windowSpy).toHaveBeenCalledWith(
-      'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
-      '_self'
+    await waitFor(() =>
+      expect(windowSpy).toHaveBeenCalledWith(
+        'http://localhost:8088/pensjon/kalkulator/oauth2/login?redirect=%2F',
+        '_self'
+      )
     )
+    await waitFor(async () => {
+      expect(addEventListener).toHaveBeenCalledWith(
+        'pageshow',
+        expect.any(Function)
+      )
+    })
   })
 })

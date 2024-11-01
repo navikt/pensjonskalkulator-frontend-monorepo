@@ -13,12 +13,25 @@ import { FrameComponent } from './FrameComponent'
 function RedirectElement() {
   React.useEffect(() => {
     window.open(
-      `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(
-        window.location.pathname
-      )}`,
+      `${HOST_BASEURL}/oauth2/login?redirect=${encodeURIComponent(window.location.pathname)}`,
       '_self'
     )
   }, [])
+
+  React.useEffect(() => {
+    // Håndter tilbakeknapp i browser, bfcache - https://web.dev/articles/bfcache
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        window.location.reload()
+      }
+    }
+    window.addEventListener('pageshow', handlePageShow)
+
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow)
+    }
+  }, [])
+
   return <span data-testid="redirect-element"></span>
 }
 
@@ -50,10 +63,7 @@ export const PageFramework: React.FC<{
           />
         }
       >
-        <Await
-          resolve={loaderData.oauth2Query}
-          errorElement={<RedirectElement />}
-        >
+        <Await resolve={loaderData.oauth2Query}>
           {(oauth2Query: Response) => {
             return shouldRedirectNonAuthenticated && !oauth2Query.ok ? (
               <RedirectElement />
