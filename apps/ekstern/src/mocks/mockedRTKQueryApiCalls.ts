@@ -244,6 +244,42 @@ export const fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd = {
   },
 }
 
+export const fulfilledGetLoependeVedtakFremtidig = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: true,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
+export const fulfilledGetLoependeVedtakFremtidigMedAlderspensjon = {
+  ['getLoependeVedtak(undefined)']: {
+    status: 'fulfilled',
+    endpointName: 'getLoependeVedtak',
+    requestId: 'xTaE6mOydr5ZI75UXq4Wi',
+    startedTimeStamp: 1688046411971,
+    data: {
+      alderspensjon: {
+        grad: 100,
+        fom: '2020-10-02',
+      },
+      ufoeretrygd: {
+        grad: 0,
+      },
+      harFremtidigLoependeVedtak: true,
+    },
+    fulfilledTimeStamp: 1688046412103,
+  },
+}
+
 export const fulfilledGetTpoMedlemskap = {
   ['getTpoMedlemskap(undefined)']: {
     status: 'fulfilled',

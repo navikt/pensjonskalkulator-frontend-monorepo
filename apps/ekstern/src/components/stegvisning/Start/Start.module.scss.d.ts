@@ -2,7 +2,6 @@ import globalClassNames from "../../../style.d";
 declare const classNames: typeof globalClassNames & {
   readonly wrapper: "wrapper";
   readonly wrapperText: "wrapperText";
-  readonly alert: "alert";
   readonly image: "image";
   readonly list: "list";
   readonly ellipse: "ellipse";
