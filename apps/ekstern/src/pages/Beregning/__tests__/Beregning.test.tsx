@@ -13,7 +13,6 @@ import {
   fulfilledGetLoependeVedtakFremtidigMedAlderspensjon,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { paths } from '@/router/constants'
-import { apiSlice } from '@/state/api/apiSlice'
 import { userInputInitialState } from '@/state/userInput/userInputReducer'
 import * as userInputReducerUtils from '@/state/userInput/userInputReducer'
 import { fireEvent, render, screen, userEvent, waitFor } from '@/test-utils'

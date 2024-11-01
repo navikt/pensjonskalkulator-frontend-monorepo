@@ -45,14 +45,14 @@ describe('loependeVedtak-utils', () => {
         )
       ).toBeFalsy()
     })
-    it('returnerer false når det er vedtak om alderspensjon 0 % og uføretrygd 100 %', () => {
+    it('returnerer true når det er vedtak om alderspensjon 0 % og uføretrygd 100 %', () => {
       expect(
         isLoependeVedtakEndring(
           fulfilledGetLoependeVedtakLoepende0Alderspensjon100Ufoeretrygd[
             'getLoependeVedtak(undefined)'
           ].data
         )
-      ).toBeFalsy()
+      ).toBeTruthy()
     })
     it('returnerer true når det er vedtak om alderspensjon', () => {
       expect(
