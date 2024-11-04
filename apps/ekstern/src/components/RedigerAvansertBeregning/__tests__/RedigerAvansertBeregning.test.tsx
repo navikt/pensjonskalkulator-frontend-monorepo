@@ -2322,7 +2322,7 @@ describe('RedigerAvansertBeregning', () => {
   })
 
   describe('Gitt at en bruker har vedtak om alderspensjon', () => {
-    it('Når brukeren klikker på beregn mens datoen på vedtaket er mindre enn 12 md. til ønskesuttak, vises det alert og siden scrolles opp til toppen', async () => {
+    it('Når brukeren har fylt alle feltene riktig og klikker på beregn mens datoen på vedtaket er mindre enn 12 md. til ønsket uttak, vises det alert og siden scrolles opp til toppen', async () => {
       const user = userEvent.setup()
 
       render(
@@ -2366,10 +2366,6 @@ describe('RedigerAvansertBeregning', () => {
         }
       )
 
-      // expect((document.activeElement as HTMLElement).getAttribute('name')).toBe(
-      //   `${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
-      // )
-
       // Fyller inn uttaksalder slik at RadioGroup vises
       fireEvent.change(
         screen.getByTestId(
@@ -2394,6 +2390,35 @@ describe('RedigerAvansertBeregning', () => {
         {
           target: { value: '40 %' },
         }
+      )
+
+      await user.click(
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaGradertUttakRadio}-nei`
+        )
+      )
+
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-aar`
+        ),
+        {
+          target: { value: '65' },
+        }
+      )
+      fireEvent.change(
+        screen.getByTestId(
+          `age-picker-${AVANSERT_FORM_NAMES.uttaksalderHeltUttak}-maaneder`
+        ),
+        {
+          target: { value: '0' },
+        }
+      )
+
+      await user.click(
+        screen.getByTestId(
+          `${AVANSERT_FORM_NAMES.inntektVsaHeltUttakRadio}-nei`
+        )
       )
 
       await user.click(
