@@ -105,12 +105,6 @@ app.use(
   }
 )
 
-const apiProxy = createProxyMiddleware({
-  target: `${PENSJONSKALKULATOR_BACKEND}/api`,
-  changeOrigin: true,
-  logger: logger,
-})
-
 // Proxy til backend med token exchange
 app.use(
   '/pensjon/kalkulator/api',
