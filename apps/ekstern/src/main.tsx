@@ -29,9 +29,6 @@ if (process.env.NODE_ENV === 'development') {
     },
     onUnhandledRequest: 'bypass',
   })
-  msw.worker.listHandlers().forEach((handler) => {
-    console.log(handler.info.header)
-  })
 }
 
 const router = createBrowserRouter(routes, {
