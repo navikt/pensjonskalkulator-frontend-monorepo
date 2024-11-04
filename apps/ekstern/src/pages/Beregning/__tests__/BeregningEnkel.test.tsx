@@ -9,6 +9,8 @@ import {
   fulfilledGetInntekt,
   fulfilledGetPerson,
   fulfilledGetLoependeVedtak75Ufoeregrad,
+  fulfilledGetLoependeVedtak0Ufoeregrad,
+  fulfilledGetLoependeVedtak100Ufoeregrad,
 } from '@/mocks/mockedRTKQueryApiCalls'
 import { mockResponse, mockErrorResponse } from '@/mocks/server'
 import { paths } from '@/router/constants'
@@ -32,6 +34,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
           userInput: {
@@ -77,6 +80,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
           userInput: {
@@ -111,7 +115,22 @@ describe('BeregningEnkel', () => {
     })
 
     it('viser loading og deretter riktig header, TMU og Velg uttaksalder områder', async () => {
-      render(<BeregningEnkel />)
+      render(<BeregningEnkel />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
       expect(screen.getByTestId('uttaksalder-loader')).toBeVisible()
       await waitFor(async () => {
         expect(
@@ -146,6 +165,7 @@ describe('BeregningEnkel', () => {
               queries: {
                 ...fulfilledGetPerson,
                 ...fulfilledGetInntekt,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
             },
             userInput: {
@@ -177,6 +197,7 @@ describe('BeregningEnkel', () => {
               queries: {
                 ...fulfilledGetPerson,
                 ...fulfilledGetInntekt,
+                ...fulfilledGetLoependeVedtak0Ufoeregrad,
               },
             },
             userInput: {
@@ -266,7 +287,22 @@ describe('BeregningEnkel', () => {
   describe('Når brukeren velger uttaksalder', () => {
     it('viser en loader mens beregning av alderspensjon pågår, oppdaterer valgt knapp og tegner graph og viser tabell, Grunnlag og Forbehold, gitt at beregning av alderspensjon var vellykket', async () => {
       const user = userEvent.setup()
-      const { container } = render(<BeregningEnkel />)
+      const { container } = render(<BeregningEnkel />, {
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
+      })
       await user.click(await screen.findByText('68 alder.aar'))
       const buttons = await screen.findAllByRole('button', { pressed: true })
       expect(buttons[0]).toHaveTextContent('68 alder.aar')
@@ -299,6 +335,15 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -383,6 +428,15 @@ describe('BeregningEnkel', () => {
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -459,25 +513,24 @@ describe('BeregningEnkel', () => {
       ).not.toBeInTheDocument()
     })
 
-    it.skip('beregnes ikke med AFP privat, når brukeren mottar uføretrygd', async () => {
+    it('beregnes ikke med AFP privat, når brukeren mottar uføretrygd', async () => {
       const simuleringsMock = vi.spyOn(
         apiSliceUtils.apiSlice.endpoints.alderspensjon,
         'initiate'
       )
 
-      mockResponse('/v2/vedtak/loepende-vedtak', {
-        status: 200,
-        json: {
-          ufoeretrygd: {
-            grad: 100,
-          },
-          harFremtidigLoependeVedtak: false,
-        },
-      })
-
       const user = userEvent.setup()
       const { store } = render(<BeregningEnkel />, {
         preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak100Ufoeregrad,
+            },
+          },
           userInput: {
             ...userInputInitialState,
             samtykke: false,
@@ -570,6 +623,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
           userInput: {
@@ -618,6 +672,20 @@ describe('BeregningEnkel', () => {
       ])
       render(<RouterProvider router={router} />, {
         hasRouter: false,
+        preloadedState: {
+          api: {
+            /* eslint-disable @typescript-eslint/ban-ts-comment */
+            // @ts-ignore
+            queries: {
+              ...fulfilledGetPerson,
+              ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
+            },
+          },
+          userInput: {
+            ...userInputInitialState,
+          },
+        },
       })
 
       await user.click(await screen.findByText('68 alder.aar'))
@@ -654,6 +722,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
           userInput: {
@@ -701,6 +770,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
           userInput: {
@@ -735,6 +805,7 @@ describe('BeregningEnkel', () => {
             queries: {
               ...fulfilledGetPerson,
               ...fulfilledGetInntekt,
+              ...fulfilledGetLoependeVedtak0Ufoeregrad,
             },
           },
           userInput: {
